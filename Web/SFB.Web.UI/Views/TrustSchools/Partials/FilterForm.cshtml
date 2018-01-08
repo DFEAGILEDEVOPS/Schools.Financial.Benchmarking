@@ -1,0 +1,65 @@
+﻿@using SFB.Web.Domain.Helpers.Constants
+@model SFB.Web.UI.Models.SchoolListViewModel
+
+<div id="EditSearchCollapse" aria-expanded="true">
+
+    <form id="SearchFacetsForm" method="get" action="/TrustSchoolSearch/Search" class="js-live-search-form">
+
+        <div class="grid-row mvs pvl filter-header">
+            <div class="column-full">
+                <h2>Filter by:</h2>
+            </div>
+        </div>
+
+        @if (Model.Filters != null)
+        {
+            foreach (var filter in Model.Filters)
+            {
+                @Html.Partial("Partials/OptionSelect", filter)
+                <div class="filter-divider"></div>
+            }
+        }
+
+
+        @if (Request.QueryString["nameId"] != null)
+        {
+            <input type="hidden" name="nameId" value="@(Request.QueryString["nameId"])"/>
+        }
+
+        @if (Request.QueryString["searchtype"] != null)
+        {
+            <input type="hidden" name="searchtype" value="@(Request.QueryString["searchtype"])"/>
+        }
+
+        @if (Request.QueryString["LocationCoordinates"] != null)
+        {
+            <input type="hidden" name="LocationCoordinates" value="@(Request.QueryString["LocationCoordinates"])"/>
+        }
+
+        @if (Request.QueryString["locationorpostcode"] != null)
+        {
+            <input type="hidden" name="locationorpostcode" value="@(Request.QueryString["locationorpostcode"])"/>
+        }
+
+        @if (Request.QueryString["lacodename"] != null)
+        {
+            <input type="hidden" name="lacodename" value="@(Request.QueryString["lacodename"])"/>
+        }
+        
+        @if (Request.QueryString["matno"] != null)
+        {
+            <input type="hidden" name="matno" value="@(Request.QueryString["matno"])"/>
+        }
+        
+        @if (Request.QueryString["matname"] != null)
+        {
+            <input type="hidden" name="matname" value="@(Request.QueryString["matname"])"/>
+        }
+        
+
+
+        <input type="hidden" name="orderby" id="OrderBy" value="@(Request.QueryString["orderby"])">
+
+        <input type="hidden" name="selectionState" value="@(Model.FilterSelectionState)"/>
+    </form>
+</div>

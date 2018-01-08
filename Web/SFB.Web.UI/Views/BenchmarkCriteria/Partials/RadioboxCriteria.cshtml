@@ -1,0 +1,39 @@
+﻿@model SFB.Web.UI.Models.BenchmarkCriteriaMultipleChoiceVM
+
+@{
+    var activated = Model.Options.Any(o => o.Selected);
+}
+
+<div class="question">
+    <div class="multiple-choice question">
+        <input id="checkbox-@Model.ElementName" type="checkbox" @Html.Raw(activated ? "checked" : "")>
+        <label for="checkbox-@Model.ElementName">@Model.Question</label>
+    </div>
+    <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
+        <div class="column-full">
+            <div class="benchmark-school-value">
+                @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
+                {
+                    <span>Your default school's value was not supplied</span>
+                }
+                else
+                {
+                    <span>Your default school's value is <span class="bold-small">@Model.HomeSchoolValue</span></span>
+                }
+            </div>
+        </div>
+        <div>
+            <span class="error-message"></span>
+        </div>
+        <div class="form-group">
+            @for (var i = 0; i < Model.Options.Count; i++)
+            {
+                <div class="multiple-choice">
+                    <input type="radio" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName@i" value="@Model.Options[i].Value" class="criteria-radio"
+                           required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "")>
+                    <label class="selection-button-radio" for="@Model.ElementName@i">@Model.Options[i].Name</label>
+                </div>
+            }
+        </div>
+    </div>
+</div>

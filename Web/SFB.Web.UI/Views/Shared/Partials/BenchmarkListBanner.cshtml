@@ -1,0 +1,17 @@
+﻿<div class="sticky-div hide-in-print" id="benchmarkBasket">
+    <div class="grid-row">
+        <div class="column-full">
+            <div class="comparisonListInfoPanel">
+                Your benchmark basket contains <span class="count">@Model.ComparisonListCount schools</span>
+                @if (Model.ComparisonListCount >= 1)
+                {
+                    <a class="edit-basket" href="/benchmarklist">Edit basket</a>
+                } 
+                @if (!((RazorView) ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2) 
+                {
+                    <a class="button view-benchmark-charts" href="/BenchmarkCharts">View benchmark charts</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

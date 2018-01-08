@@ -1,0 +1,44 @@
+﻿@using System.Linq
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.Domain.Helpers.Enums
+
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+<input type="hidden" id="tabSelection" value="@ViewBag.Tab"/>
+
+@Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
+
+<div class="chartsSection">
+    <div class="grid-row">
+        <form autocomplete="off">
+            @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
+            @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
+            @if (Model.EstablishmentType == EstablishmentType.Academy && ViewBag.Tab != RevenueGroupType.Workforce)
+            {
+                Html.RenderPartial("~/Views/BenchmarkCharts/Partials/CentralFinancing.cshtml");
+            }
+            @if (Model.EstablishmentType == EstablishmentType.MAT)
+            {
+                <div class="column-one-third chart-filter">
+                    @Html.Partial("~/Views/BenchmarkCharts/Partials/TrustCentralFinancing.cshtml")
+                </div>
+            }
+
+        </form>
+    </div>
+
+    <div class="font-xsmall latest-year-message">
+        @if (Model.EstablishmentType == EstablishmentType.MAT)
+        {
+            <span>The data below is from the latest year available. For trusts this is <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+        }
+        else
+        {
+            <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+        }
+    </div>
+    <div id="benchmarkChartsList">
+        @Html.Partial("~/Views/BenchmarkCharts/Partials/Chart.cshtml", Model.ModelList)
+    </div>
+</div>

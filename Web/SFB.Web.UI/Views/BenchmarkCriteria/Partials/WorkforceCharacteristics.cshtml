@@ -1,0 +1,73 @@
+﻿@using SFB.Web.Domain.Helpers.Constants
+@using SFB.Web.UI.Models
+
+
+<details>
+
+<summary>Workforce Characteristics</summary>
+    <div class="content">
+
+        @Html.Partial("Partials/RangeCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE],
+        elementName: "TotalSchoolWorkforceFullTimeEquivalent",
+        minValue: Model.BenchmarkCriteria.MinTotalSchoolWorkforceFullTimeEquivalent,
+        maxValue: Model.BenchmarkCriteria.MaxTotalSchoolWorkforceFullTimeEquivalent
+        ))
+
+        @Html.Partial("Partials/RangeCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE],
+        elementName: "TotalNumberOfTeachersFullTimeEquivalent",
+        minValue: Model.BenchmarkCriteria.MinTotalNumberOfTeachersFullTimeEquivalent,
+        maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachersFullTimeEquivalent
+        ))
+
+        @Html.Partial("Partials/PercentageCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS],
+        elementName: "TeachersWithQualifiedTeacherStatus",
+        minValue: Model.BenchmarkCriteria.MinTeachersWithQualifiedTeacherStatus,
+        maxValue: Model.BenchmarkCriteria.MaxTeachersWithQualifiedTeacherStatus
+        ))
+
+        @Html.Partial("Partials/RangeCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE],
+        elementName: "TotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent",
+        minValue: Model.BenchmarkCriteria.MinTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent,
+        maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent
+        ))
+
+        @Html.Partial("Partials/RangeCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: SchoolCharacteristicsQuestions.FULL_TIME_TA,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_TA],
+        elementName: "TotalNumberOfTeachingAssistantsFullTimeEquivalent",
+        minValue: Model.BenchmarkCriteria.MinTotalNumberOfTeachingAssistantsFullTimeEquivalent,
+        maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachingAssistantsFullTimeEquivalent
+        ))
+
+        @Html.Partial("Partials/RangeCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: SchoolCharacteristicsQuestions.FULL_TIME_OTHER,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_OTHER],
+        elementName: "FullTimeOther",
+        minValue: Model.BenchmarkCriteria.MinFullTimeOther,
+        maxValue: Model.BenchmarkCriteria.MaxFullTimeOther
+        ))
+
+        @Html.Partial("Partials/PercentageCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: SchoolCharacteristicsQuestions.FULL_TIME_ADMIN,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_ADMIN],
+        elementName: "FullTimeAdmin",
+        minValue: Model.BenchmarkCriteria.MinFullTimeAdmin,
+        maxValue: Model.BenchmarkCriteria.MaxFullTimeAdmin
+        ))
+    </div>    
+</details>

@@ -1,0 +1,19 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+<div class="grid-row benchmarkControlPanel">
+    <div class="column-two-thirds">
+        <strong class="bold-small">@Model.BenchmarkSchools.Count</strong> schools in this list
+        <div class="basket-control-buttons">
+            <a class="benchmarkControls" href="/">Add schools</a>
+            @if (Model.BenchmarkSchools.Count > 0)
+            {
+                <a class="benchmarkControls" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket(null,'{CompareActions.CLEAR_BENCHMARK_LIST}')")">Clear basket</a>
+            }
+        </div>
+    </div>
+    @if (Model.BenchmarkSchools.Count > 1)
+    {
+        <div class="column-one-third">
+            <a class="button view-benchmark" href="/BenchmarkCharts">View benchmarking charts</a>
+        </div>
+    }
+</div>

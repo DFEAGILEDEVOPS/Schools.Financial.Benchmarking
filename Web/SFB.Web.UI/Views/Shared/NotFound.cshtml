@@ -1,0 +1,46 @@
+﻿@model SFB.Web.UI.Models.SchoolNotFoundViewModel
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "search-results";
+}
+
+@Html.Partial("Partials/BenchmarkListBanner")
+
+@Html.Partial("Partials/SearchForSchoolsPanel")
+
+<h1 class="heading-xlarge page-heading">Schools</h1>
+<div class="grid-row">
+    <div class="column-full">
+        <div>
+            <p class="result-info">
+                We found no matches for the school name you provided. Did you mean one of the options below?
+            </p>
+        </div>
+        <div>
+
+            <ul class="disambiguation-list">
+                @foreach (var sugg in Model.Suggestions.Matches)
+                {
+                    <li>
+                        <a href="/school/detail?urn=@sugg.Id">@sugg.Text</a>
+                    </li>
+                }
+
+            </ul>
+
+            <p>
+                <span>Alternatively, </span>
+                <a href="/">try searching again</a>
+                <span>using different spelling or words</span>
+            </p>
+            <p>
+                Please note: you may only search for schools in England using this service
+            </p>
+        </div>
+    </div>
+</div>
+<p>
+    <a href="/">Try searching again</a>
+
+    <span>using different spelling or words</span>
+</p>

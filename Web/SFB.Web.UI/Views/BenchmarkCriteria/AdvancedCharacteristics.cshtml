@@ -1,0 +1,230 @@
+﻿@model SFB.Web.UI.Models.SchoolCharacteristicsViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "advanced-school-characteristics";
+}
+
+<div id="liveCountBar" class="sticky-div">
+    <div class="grid-row">
+        <div class="column-full">
+            <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResults">
+                <span class="bold-small" id="schoolCount"></span> schools found
+                <a class="clear-criteria" href="#" onclick="Clear()">Clear all characteristics</a>
+                <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
+            </div>
+            <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
+                <span>No schools found, select some more characteristics</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1 class="heading-xlarge page-heading">Advanced comparison</h1>
+
+@if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
+{
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="steps">
+    <span>3 of 3</span>
+</div>
+
+<div class="criteria-section">
+<div class="grid-row">
+    <div class="column-three-quarters">
+        <div class="bold-small" id="mainQuestion">Which characteristics would you like to use for your comparison?</div>
+        <p>
+            A meaningful benchmark group has around 15 schools, and the largest group we can display charts for is 30.
+            Keep this range in mind when selecting characteristics. If there are too many matches, revise the values entered for your characteristics.
+        </p>
+    </div>
+</div>
+
+@if (Model.HasError())
+{
+    <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+            There is a problem
+        </h1>
+        @Html.ValidationSummary()
+    </div>
+}
+<div class="grid-row">
+<div class="column-three-quarters">
+<form action="OverwriteStrategy" method="post" id="criteriaForm" autocomplete="off">
+<div class="criteria-questions">
+
+@Html.Partial("Partials/GeneralCharacteristics")
+@Html.Partial("Partials/SenCharacteristics")
+@Html.Partial("Partials/PerformanceCharacteristics")
+@Html.Partial("Partials/WorkforceCharacteristics")
+
+</div>
+
+<div class="grid-row">
+    <div class="button-set column-full font-xsmall">
+        <div class="grid-row">
+            <div class="column-one-third">
+                <button class="button js-modal submit">View benchmarking charts</button>
+            </div>
+            <div class="column-one-third link">
+                <a href="#" onclick="Clear()">Clear all characteristics</a>
+            </div>
+            <div class="column-one-third link">
+                <a href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" name="Urn" value="@ViewBag.URN">
+<input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
+<input type="hidden" name="EstType" value="@ViewBag.EstType">
+<input type="hidden" name="AreaType" value="@ViewBag.AreaType">
+<input type="hidden" name="LaCode" value="@ViewBag.LaCode">
+
+</form>
+</div>
+</div>
+</div>
+@section ViewScripts {
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        var jqxhr;
+
+        GOVUK.Modal.Load();
+
+        var questionCheckBoxSelector = ".multiple-choice.question > input";
+
+        $('#criteriaForm').validate({
+            errorPlacement: function(error, element) {
+                error.appendTo(element.closest(".question").find(".error-message"));
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass);
+                $(element).closest(".panel").addClass("error");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass(errorClass).addClass(validClass);
+                if ($(element).closest(".panel").find("input.error").length === 0) {
+                    $(element).closest(".panel").removeClass("error");
+                }
+            }
+        });
+
+        $(document).ready(function() {
+            UpdateResultCount();
+
+            $(questionCheckBoxSelector).change(function() {
+                var $panel = $(this).parent().next();
+                $panel.toggle();
+                $panel.find("input").prop('disabled', function(i, v) { return !v; });
+                $panel.find("input[type='number']:disabled").val(null);
+                $panel.find("input[type='checkbox']:disabled").prop('checked', false);
+                $panel.find("input[type='radio']:disabled").prop('checked', false);
+                if ($(questionCheckBoxSelector + ":checked").length > 0) {
+                    $("#liveCountBar").show();
+                    $("#comparisonListInfoPanelResults").show();
+                    $("#comparisonListInfoPanelResultsEmpty").hide();
+                } else {
+                    $("#liveCountBar").show();
+                    $("#comparisonListInfoPanelResultsEmpty").show();
+                    $("#comparisonListInfoPanelResults").hide();
+                }
+                UpdateResultCount();
+            });
+
+            $("input.criteria-input").keyup(function() {
+                if ($(this).valid()) {
+                    UpdateResultCount();
+                }
+            });
+
+            $("input.criteria-checkbox").change(function() {
+                if ($(this).valid()) {
+                    UpdateResultCount();
+                }
+            });
+
+            $("input.criteria-radio").change(function() {
+                if ($(this).valid()) {
+                    UpdateResultCount();
+                }
+            });
+
+            $("button.submit").click(function(event) {
+                event.preventDefault();
+                CheckResultCount();
+            });
+        });
+
+        function UpdateResultCount() {
+            if (jqxhr) {
+                jqxhr.abort();
+            }
+            jqxhr = $.post("GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
+                .done(function(count) {
+                    $("#schoolCount").text(count);
+                    $("#liveCountBar").show();
+                    if (count > 0) {
+                        $("button.submit").show();
+                    } else {
+                        $("button.submit").hide();
+                    }
+                    $('.sticky-div').Stickyfill();
+                });
+        };
+
+        function CheckResultCount() {
+            var count = $("#schoolCount").text();
+            if (count <= 30) {
+                $("#criteriaForm").submit();
+            } else {
+                RenderWarningModal(count);
+            }
+        };
+
+        function Clear() {
+            $(questionCheckBoxSelector + ":checked").click();
+        }
+
+        function RenderWarningModal(resultCount) {
+            var $body = $('body');
+            var $page = $('#js-modal-page');
+
+            // insert code at the end
+            var $modal_code =
+                '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title"><div role="document">' +
+                    '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
+                    '<h1 id="modal-title" class="modal-title">' +
+                    resultCount +
+                    ' matches found</h1><p id="modal-content"><br/>' +
+                    'Please refine the characteristics entered until there are 30 or fewer matched schools.</p>';
+
+            $($modal_code).insertAfter($page);
+            $body.addClass('no-scroll');
+
+            $page.attr('aria-hidden', 'true');
+
+            // add overlay
+            var $modal_overlay =
+                '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+            $($modal_overlay).insertAfter($('#js-modal'));
+
+            $('#js-modal-close').focus();
+
+        }
+
+    </script>
+}

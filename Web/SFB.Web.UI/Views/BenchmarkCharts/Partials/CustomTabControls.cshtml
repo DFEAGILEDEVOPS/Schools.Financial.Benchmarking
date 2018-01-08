@@ -1,0 +1,28 @@
+﻿@using SFB.Web.Domain.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+<nav class="tabs" role="navigation">
+    <ol role="tablist">
+        <li class="hide-in-print" role="tab">
+            <a href="javascript: ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+        </li>
+        <li class="hide-in-print" role="tab">
+            <a href="javascript: ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+        </li>
+        <li class="hide-in-print" role="tab">
+            <a href="javascript: ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+        </li>
+        @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
+        {
+            <li class="hide-in-print" role="tab">
+                <a href="javascript: ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            </li>
+        }
+        <li class="active hide-in-print" role="tab">
+            <a href="javascript: ChangeTab('@RevenueGroupType.Custom')">@RevenueGroupNames.CUSTOM <span class="font-xsmall show-in-desktop">({{ctrl.totalSelectCount()}} selected)</span></a>
+        </li>
+    </ol>
+</nav>

@@ -1,0 +1,94 @@
+﻿@using SFB.Web.Domain.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+
+<div>
+
+    <div>
+        <div class="selection-filters column-full no-padding">
+            <div class="column-half no-padding">
+                <div class="form-group">
+                    <label class="form-label" for="Filter">Filter by name</label>
+                    <input id="Filter" class="form-control" ng-model="ctrl.query" ng-change="ctrl.openDetails()"/>
+                </div>
+            </div>
+            <div class="column-half no-padding">
+                <div class="form-group">
+                    <label class="form-label" for="CentralFinancing">Academy values</label>
+                    <select name="CentralFinancing" id="CentralFinancing" class="form-control" ng-model="selectionList.CentralFinance">
+                        <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
+                        <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="selection-controls" ng-show="ctrl.anySelected()">
+            <div class="column-quarter no-padding">
+                <a class="button" ng-click="ctrl.displayCustomReport()">View selected charts</a>
+            </div>
+            <div class="column-quarter clear-link">
+                <a class="font-xsmall" ng-click="ctrl.clear()">Clear chart selections</a>
+            </div>
+        </div>
+        <form class="selections">
+            <fieldset>
+                <details class="selection-details" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
+                    <summary class="chart-accordion-summary" ng-class="{'hide-summary': ctrl.query}">
+                        <h3 class="heading-medium chart-accordion-header">
+                            {{group.GroupName}} <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">({{ctrl.groupSelectCount(group)}} selected)</span>
+                        </h3>
+                    </summary>
+                    <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="chart-selection" ng-class="{'show-details': ctrl.query}">
+                        <div class="multiple-choice-header column-quarter">
+                            <label class="bold-xsmall">{{chart.Name}}</label>
+                        </div>
+                        <div class="multiple-choices column-three-quarters">
+                            <div class="multiple-choice" ng-show="chart.PerPupilAvailable">
+                                <input id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PerPupilSelected">
+                                <label for="sel_{{$parent.$index}}_{{$index}}_1">Per pupil</label>
+                            </div>
+                            <div class="multiple-choice" ng-show="chart.PerTeacherAvailable">
+                                <input id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PerTeacherSelected">
+                                <label for="sel_{{$parent.$index}}_{{$index}}_2">Per teacher</label>
+                            </div>
+                            <div class="multiple-choice" ng-show="chart.PercentageAvailable">
+                                <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PercentageSelected">
+                                <label for="sel_{{$parent.$index}}_{{$index}}_3">Percentage of total</label>
+                            </div>
+                            <div class="multiple-choice" ng-show="chart.AbsoluteMoneyAvailable">
+                                <input id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.AbsoluteMoneySelected">
+                                <label for="sel_{{$parent.$index}}_{{$index}}_4">Absolute total</label>
+                            </div>
+                            <div class="multiple-choice" ng-show="chart.AbsoluteCountAvailable">
+                                <input id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.AbsoluteCountSelected">
+                                <label for="sel_{{$parent.$index}}_{{$index}}_5">Total</label>
+                            </div>
+                            <div class="multiple-choice" ng-show="chart.HeadCountPerFTEAvailable">
+                                <input id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.HeadCountPerFTESelected">
+                                <label for="sel_{{$parent.$index}}_{{$index}}_6">Headcount per FTE</label>
+                            </div>
+                            <div class="multiple-choice" ng-show="chart.PercentageOfWorkforceAvailable">
+                                <input id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PercentageOfWorkforceSelected">
+                                <label for="sel_{{$parent.$index}}_{{$index}}_7">Percentage of workforce</label>
+                            </div>
+                            <div class="multiple-choice" ng-show="chart.NumberOfPupilsPerMeasureAvailable">
+                                <input id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
+                                <label for="sel_{{$parent.$index}}_{{$index}}_8">Pupils per measure</label>
+                            </div>
+                        </div>
+                        <hr class="tablet-divider"/>
+                    </div>
+                </details>
+            </fieldset>
+        </form>
+        <div class="selection-controls" ng-show="ctrl.anySelected() && !ctrl.query">
+            <div class="column-quarter no-padding">
+                <a class="button" ng-click="ctrl.displayCustomReport()">View selected charts</a>
+            </div>
+            <div class="column-quarter clear-link">
+                <a class="font-xsmall" ng-click="ctrl.clear()">Clear chart selections</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/Assets/Scripts/AngularJS/reportApp.js"></script>

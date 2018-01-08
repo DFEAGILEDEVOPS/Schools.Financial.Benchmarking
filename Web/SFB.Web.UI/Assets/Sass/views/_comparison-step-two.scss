@@ -1,0 +1,93 @@
+﻿.comparison-step-two {
+
+    @include highlighting;
+
+    .section {
+        margin-top: 30px;
+    }
+
+    .twitter-typeahead {
+        width: 50%;
+
+        @include media(mobile) {
+            width: 100%;
+        }
+
+        .form-control {
+            width: 100%;
+        }
+    }
+
+   .tt-menu {
+        background-color: white;
+        z-index: 99 !important; // accessibility requirement
+        .tt-suggestion {
+            a {
+                display: block;
+                padding: $gutter-one-quarter;
+                text-decoration: none;
+            }
+
+            a strong {
+                text-decoration: underline;
+            }
+
+            &:hover, a:hover {
+                background-color: $link-hover-colour;
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        .tt-cursor {
+            background-color: #f9f9f9;
+        }
+    }
+
+    .search-types {
+        .optional-section {
+            label {
+                @include bold-19;
+                float: left;
+                width: 100%;
+                margin-bottom: 1em;
+
+                &.paragraph {
+                    font-weight: normal;
+                }
+            }
+
+            .academy-search {
+                margin-bottom: 13px;
+
+                label {
+                    margin-bottom: 0;
+                }
+
+                details {
+                    div.panel-indent {
+                        margin-bottom: 14px;
+
+                        p {
+                            font-size: 16px;
+                        }
+                    }
+
+                    summary {
+                        font-size: 15.2px;
+
+                        .details-marker {
+                            font-size: 9.6px;
+                            font-weight: normal;
+                        }
+
+                        span.summary {
+                            font-size: 15.2px;
+                            font-weight: normal;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

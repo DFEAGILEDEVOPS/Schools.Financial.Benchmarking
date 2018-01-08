@@ -1,0 +1,754 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F32E2A2E-6782-4293-B533-284FF1B17FF6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SFB.Web.UI</RootNamespace>
+    <AssemblyName>SFB.Web.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <WebProject_DirectoryAccessLevelKey>1</WebProject_DirectoryAccessLevelKey>
+    <ApplicationInsightsResourceId>/subscriptions/f2d9ceb4-1c46-44c9-911c-a0115d97e252/resourcegroups/rg-t1pp-sfb/providers/microsoft.insights/components/sfb-ent-preprod</ApplicationInsightsResourceId>
+    <ApplicationInsightsAnnotationResourceId>/subscriptions/f2d9ceb4-1c46-44c9-911c-a0115d97e252/resourcegroups/rg-t1pp-sfb/providers/microsoft.insights/components/sfb-ent-preprod</ApplicationInsightsAnnotationResourceId>
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.2.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.2.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.0\lib\net451\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah.AzureTableStorage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elmah.AzureTableStorage.1.0.0.0\lib\net40\Elmah.AzureTableStorage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.12.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.12.0\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.1.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=5.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.5.0.2\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RedDog.Search, Version=0.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RedDog.Search.0.5.3-pre\lib\net45\RedDog.Search.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IocConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BenchmarkChartsController.cs" />
+    <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
+    <Compile Include="Controllers\BenchmarkListController.cs" />
+    <Compile Include="Controllers\CookiesController.cs" />
+    <Compile Include="Controllers\ErrorsController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TrustComparisonController.cs" />
+    <Compile Include="Controllers\TrustSchoolsController.cs" />
+    <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
+    <Compile Include="Helpers\DownloadCSVBuilder.cs" />
+    <Compile Include="Helpers\HierarchicalCustomChartBuilder.cs" />
+    <Compile Include="Helpers\HistoricalChartBuilder.cs" />
+    <Compile Include="Models\BenchmarkCriteriaMultipleChoiceVM.cs" />
+    <Compile Include="Models\BenchmarkCriteriaRangeVM.cs" />
+    <Compile Include="Models\CompareEntityBase.cs" />
+    <Compile Include="Models\CustomChartSelectionViewModel.cs" />
+    <Compile Include="Models\CustomSelectionListViewModel.cs" />
+    <Compile Include="Models\HierarchicalChartViewModel.cs" />
+    <Compile Include="Models\LaListViewModel.cs" />
+    <Compile Include="Models\LaViewModel.cs" />
+    <Compile Include="Controllers\LaController.cs" />
+    <Compile Include="Controllers\SchoolController.cs" />
+    <Compile Include="Controllers\SchoolSearchController.cs" />
+    <Compile Include="Controllers\TrustController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Constants\Constants.cs" />
+    <Compile Include="Helpers\DateTimeFormatHelper.cs" />
+    <Compile Include="Helpers\Enums\Enums.cs" />
+    <Compile Include="Helpers\FilterBuilder.cs" />
+    <Compile Include="Helpers\FormatHelpers.cs" />
+    <Compile Include="Helpers\BenchmarkChartBuilder.cs" />
+    <Compile Include="Helpers\IFilterBuilder.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
+    <Compile Include="Models\DataTableColumnViewModel.cs" />
+    <Compile Include="Models\JourneyStepOutOfBoundsAction.cs" />
+    <Compile Include="Models\JourneySteps\SelectCharxJourneyStepViewModel.cs" />
+    <Compile Include="Models\JourneySteps\SelectAreaOfInterestJourneyStepViewModel.cs" />
+    <Compile Include="Models\BenchmarkChartListViewModel.cs" />
+    <Compile Include="Models\BenchmarkCriteriaVM.cs" />
+    <Compile Include="Models\BenchmarkSchoolViewModel.cs" />
+    <Compile Include="Models\ComparisonListModel.cs" />
+    <Compile Include="Models\ChartViewModel.cs" />
+    <Compile Include="Models\EndJourneyViewModel.cs" />
+    <Compile Include="Models\EstablishmentViewModelBase.cs" />
+    <Compile Include="Models\Filter.cs" />
+    <Compile Include="Models\SchoolDataModel.cs" />
+    <Compile Include="Models\OptionSelect.cs" />
+    <Compile Include="Models\Pagination.cs" />
+    <Compile Include="Models\SchoolCharacteristics.cs" />
+    <Compile Include="Models\SchoolCharacteristicsViewModel.cs" />
+    <Compile Include="Models\SchoolListViewModel.cs" />
+    <Compile Include="Models\SchoolNotFoundViewModel.cs" />
+    <Compile Include="Models\SchoolSearchViewModel.cs" />
+    <Compile Include="Models\SchoolSummaryViewModel.cs" />
+    <Compile Include="Models\SchoolViewModel.cs" />
+    <Compile Include="Models\JourneySteps\SelectBasketSizeJourneyStepViewModel.cs" />
+    <Compile Include="Models\JourneySteps\SelectSchoolTypeJourneyStepViewModel.cs" />
+    <Compile Include="Models\SeriesData.cs" />
+    <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
+    <Compile Include="Models\SponsorListViewModel.cs" />
+    <Compile Include="Models\SponsorViewModel.cs" />
+    <Compile Include="Models\DynamicViewModelBase.cs" />
+    <Compile Include="Models\Journey.cs" />
+    <Compile Include="Models\JourneySteps\JourneyStepViewModel.cs" />
+    <Compile Include="Models\TrustComparisonViewModel.cs" />
+    <Compile Include="Models\ViewModelBase.cs" />
+    <Compile Include="Models\ViewModelListBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\FinancialCalculationsService.cs" />
+    <Compile Include="Services\IFinancialCalculationsService.cs" />
+    <Compile Include="Services\IStatisticalCriteriaBuilderService.cs" />
+    <Compile Include="Services\JourneyService.cs" />
+    <Compile Include="Services\StatisticalCriteriaBuilderService.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Utils\BasicAuthenticationModule.cs" />
+    <Compile Include="Utils\IRequestContext.cs" />
+    <Compile Include="Utils\RequestContextWrapper.cs" />
+    <Compile Include="Services\IJourneyService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppSettings.config" />
+    <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
+    <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
+    <Content Include="Assets\Scripts\app.js" />
+    <Content Include="Assets\Scripts\Behaviours\Accordion\accordion.js" />
+    <Content Include="Assets\Scripts\Behaviours\Collapsible\collapsible.js" />
+    <Content Include="Assets\Scripts\Behaviours\PartialRequest\partial-request.js" />
+    <Content Include="Assets\Scripts\Elements\elements.js" />
+    <Content Include="Assets\Scripts\Elements\Forms\form-block-labels.js" />
+    <Content Include="Assets\Scripts\Elements\Forms\live-search.js" />
+    <Content Include="Assets\Scripts\Elements\Forms\option-select.js" />
+    <Content Include="Assets\Scripts\Elements\Modal\modal.js" />
+    <Content Include="Assets\Scripts\Elements\SchoolMap\school-map.js" />
+    <Content Include="Assets\Scripts\Views\benchmark-list.js" />
+    <Content Include="Assets\Scripts\Views\criteria-by-area.js" />
+    <Content Include="Assets\Scripts\Views\google-location.js" />
+    <Content Include="Assets\Scripts\Views\historical-charts.js" />
+    <Content Include="Assets\Scripts\Views\school-results.js" />
+    <Content Include="Assets\Scripts\Views\schools-search.js" />
+    <Content Include="Assets\Scripts\Views\trust-compare.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="public\assets\images\asc.gif" />
+    <Content Include="public\assets\images\bg.gif" />
+    <Content Include="public\assets\images\desc.gif" />
+    <Content Include="public\assets\images\dfe-small.png" />
+    <Content Include="public\assets\images\dfe-xsmall.png" />
+    <Content Include="public\assets\images\dfe.png" />
+    <Content Include="public\assets\images\grid-rating.png" />
+    <Content Include="public\assets\images\icon-ages.png" />
+    <Content Include="public\assets\images\icon-denom.png" />
+    <Content Include="public\assets\images\icon-gender-mixed.png" />
+    <Content Include="public\assets\images\icon-pupils.png" />
+    <Content Include="public\assets\images\icons\icon-bookmark-x2.png" />
+    <Content Include="public\assets\images\icons\icon-bookmark.png" />
+    <Content Include="public\assets\images\icons\icon-list.png" />
+    <Content Include="public\assets\images\icons\icon-location-pink.png" />
+    <Content Include="public\assets\images\icons\icon-location.png" />
+    <Content Include="public\assets\images\icons\icon-map.png" />
+    <Content Include="public\assets\images\icons\icon-print-2x.png" />
+    <Content Include="public\assets\images\icons\icon-calendar-2x.png" />
+    <Content Include="public\assets\images\icons\icon-calendar.png" />
+    <Content Include="public\assets\images\icons\icon-file-download-2x.png" />
+    <Content Include="public\assets\images\icons\icon-file-download.png" />
+    <Content Include="public\assets\images\icons\icon-important-2x.png" />
+    <Content Include="public\assets\images\icons\icon-important.png" />
+    <Content Include="public\assets\images\icons\icon-information-2x.png" />
+    <Content Include="public\assets\images\icons\icon-information.png" />
+    <Content Include="public\assets\images\icons\icon-locator-2x.png" />
+    <Content Include="public\assets\images\icons\icon-locator.png" />
+    <Content Include="public\assets\images\icons\icon-pointer-2x.png" />
+    <Content Include="public\assets\images\icons\icon-pointer-black-2x.png" />
+    <Content Include="public\assets\images\icons\icon-pointer-black.png" />
+    <Content Include="public\assets\images\icons\icon-pointer-indexed.png" />
+    <Content Include="public\assets\images\icons\icon-pointer.png" />
+    <Content Include="public\assets\images\icons\icon-print.png" />
+    <Content Include="public\assets\images\icons\icon-saveimage-2x.png" />
+    <Content Include="public\assets\images\icons\icon-saveimage.png" />
+    <Content Include="public\assets\images\icons\icon-search-2x.png" />
+    <Content Include="public\assets\images\icons\icon-search.png" />
+    <Content Include="public\assets\images\magnifier.png" />
+    <Content Include="public\assets\images\ofsted-logo-sm.jpeg" />
+    <Content Include="public\assets\images\ofsted-logo-x-small.jpeg" />
+    <Content Include="public\assets\images\ofsted-logo.jpg" />
+    <Content Include="public\assets\images\option-select-toggle-sprite.png" />
+    <Content Include="public\assets\print\bmc-print.css" />
+    <Content Include="public\govuk_template\assets\images\apple-touch-icon-120x120.png" />
+    <Content Include="public\govuk_template\assets\images\apple-touch-icon-152x152.png" />
+    <Content Include="public\govuk_template\assets\images\apple-touch-icon-60x60.png" />
+    <Content Include="public\govuk_template\assets\images\apple-touch-icon-76x76.png" />
+    <Content Include="public\govuk_template\assets\images\favicon.ico" />
+    <Content Include="public\govuk_template\assets\images\gov.uk_logotype_crown_invert.png" />
+    <Content Include="public\govuk_template\assets\images\gov.uk_logotype_crown_invert_trans.png" />
+    <Content Include="public\govuk_template\assets\images\opengraph-image.png" />
+    <Content Include="public\govuk_template\assets\javascripts\govuk-template.js" />
+    <Content Include="public\govuk_template\assets\javascripts\ie.js" />
+    <Content Include="public\govuk_template\assets\javascripts\vendor\goog\webfont-debug.js" />
+    <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-24x24.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-black-12x12.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-black-24x24.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\fonts-ie8.css" />
+    <Content Include="public\govuk_template\assets\stylesheets\fonts.css" />
+    <Content Include="public\govuk_template\assets\stylesheets\govuk-template-ie6.css" />
+    <Content Include="public\govuk_template\assets\stylesheets\govuk-template-ie7.css" />
+    <Content Include="public\govuk_template\assets\stylesheets\govuk-template-ie8.css" />
+    <Content Include="public\govuk_template\assets\stylesheets\govuk-template-print.css" />
+    <Content Include="public\govuk_template\assets\stylesheets\govuk-template.css" />
+    <Content Include="public\govuk_template\assets\stylesheets\images\close.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\images\govuk-crest-2x.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\images\govuk-crest-ie.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\images\govuk-crest.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\images\open-government-licence.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\images\open-government-licence_2x.png" />
+    <Content Include="public\govuk_template\views\layouts\govuk_template.html" />
+    <Content Include="public\js-marker-clusterer\docs\examples.html" />
+    <Content Include="public\js-marker-clusterer\docs\reference.html" />
+    <Content Include="public\js-marker-clusterer\examples\advanced_example.html" />
+    <Content Include="public\js-marker-clusterer\examples\simple_example.html" />
+    <Content Include="public\js-marker-clusterer\examples\speed_test.js" />
+    <Content Include="public\js-marker-clusterer\examples\speed_test_example.html" />
+    <Content Include="public\js-marker-clusterer\images\conv30.png" />
+    <Content Include="public\js-marker-clusterer\images\conv40.png" />
+    <Content Include="public\js-marker-clusterer\images\conv50.png" />
+    <Content Include="public\js-marker-clusterer\images\heart30.png" />
+    <Content Include="public\js-marker-clusterer\images\heart40.png" />
+    <Content Include="public\js-marker-clusterer\images\heart50.png" />
+    <Content Include="public\js-marker-clusterer\images\m1.png" />
+    <Content Include="public\js-marker-clusterer\images\m2.png" />
+    <Content Include="public\js-marker-clusterer\images\m3.png" />
+    <Content Include="public\js-marker-clusterer\images\m4.png" />
+    <Content Include="public\js-marker-clusterer\images\m5.png" />
+    <Content Include="public\js-marker-clusterer\images\people35.png" />
+    <Content Include="public\js-marker-clusterer\images\people45.png" />
+    <Content Include="public\js-marker-clusterer\images\people55.png" />
+    <Content Include="public\js-marker-clusterer\screenshot.png" />
+    <Content Include="public\js-marker-clusterer\src\markerclusterer.js" />
+    <Content Include="public\js-marker-clusterer\src\markerclusterer_compiled.js" />
+    <Content Include="public\scripts\jquery-tablesorter\jquery.tablesorter.uk.currency.js" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\canvg.js" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\rgbcolor.js" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPng.js" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\StackBlur.js" />
+    <Content Include="public\scripts\termi\Element.details.ajax.js" />
+    <Content Include="public\scripts\termi\Element.details.ie8.js" />
+    <Content Include="public\scripts\termi\Element.details.ielt8.htc" />
+    <Content Include="public\scripts\termi\Element.details.ielt8.js" />
+    <Content Include="public\scripts\termi\Element.details.js" />
+    <Content Include="Config\beta\log4net.Release.config" />
+    <Content Include="Config\dev\log4net.Release.config" />
+    <Content Include="Config\stage\log4net.Release.config" />
+    <Content Include="ci\compile.cmd" />
+    <Content Include="ci\unit-tests.cmd" />
+    <Content Include="Assets\Sass\docs\resources.md" />
+    <Content Include="Assets\Sass\elements\box\_box.scss" />
+    <Content Include="Assets\Sass\elements\collapsible\_collapsible.scss" />
+    <Content Include="Assets\Sass\elements\forms\feedback\_feedback.scss" />
+    <Content Include="Assets\Sass\elements\forms\filter-form\_option-select.scss" />
+    <Content Include="Assets\Sass\elements\forms\filter-form\_text-filter.scss" />
+    <Content Include="Assets\Sass\elements\forms\_form-block-labels.scss" />
+    <Content Include="Assets\Sass\elements\forms\_form-date.scss" />
+    <Content Include="Assets\Sass\elements\forms\_form-questions.scss" />
+    <Content Include="Assets\Sass\elements\forms\_form-validation.scss" />
+    <Content Include="Assets\Sass\elements\rating\_rating.scss" />
+    <Content Include="Assets\Sass\elements\_breadcrumbs.scss" />
+    <Content Include="Assets\Sass\elements\_browse.scss" />
+    <Content Include="Assets\Sass\elements\_buttons.scss" />
+    <Content Include="Assets\Sass\elements\_details.scss" />
+    <Content Include="Assets\Sass\elements\_elements-typography.scss" />
+    <Content Include="Assets\Sass\elements\_footer.scss" />
+    <Content Include="Assets\Sass\elements\_forms.scss" />
+    <Content Include="Assets\Sass\elements\_helpers.scss" />
+    <Content Include="Assets\Sass\elements\_helpicon.scss" />
+    <Content Include="Assets\Sass\elements\_icons.scss" />
+    <Content Include="Assets\Sass\elements\_layout.scss" />
+    <Content Include="Assets\Sass\elements\_links.scss" />
+    <Content Include="Assets\Sass\elements\_lists.scss" />
+    <Content Include="Assets\Sass\elements\_pagination.scss" />
+    <Content Include="Assets\Sass\elements\_panels.scss" />
+    <Content Include="Assets\Sass\elements\_related-box.scss" />
+    <Content Include="Assets\Sass\elements\_reset.scss" />
+    <Content Include="Assets\Sass\elements\_tables.scss" />
+    <Content Include="Assets\Sass\elements\_tabs.scss" />
+    <Content Include="Assets\Sass\main-ie6.scss" />
+    <Content Include="Assets\Sass\main-ie7.scss" />
+    <Content Include="Assets\Sass\main-ie8.scss" />
+    <Content Include="Assets\Sass\main.scss" />
+    <Content Include="Assets\Sass\prism.scss" />
+    <Content Include="Assets\Sass\styleguide\_colours.scss" />
+    <Content Include="Assets\Sass\utils\_border-radius.scss" />
+    <Content Include="Assets\Sass\utils\_buttons.scss" />
+    <Content Include="Assets\Sass\utils\_clearfix-me.scss" />
+    <Content Include="Assets\Sass\utils\_conditionals.scss" />
+    <Content Include="Assets\Sass\utils\_grid_layout.scss" />
+    <Content Include="Assets\Sass\utils\_toggles.scss" />
+    <Content Include="Assets\Sass\utils\_vendor-prefixes.scss" />
+    <Content Include="Assets\Sass\utils\_whitespace.scss" />
+    <Content Include="Assets\Sass\views\_base.scss" />
+    <Content Include="Assets\Sass\_variables.scss" />
+    <Content Include="public\govuk_template\.bower.json" />
+    <Content Include="public\govuk_template\assets\stylesheets\fonts\GDSTransportTabular-Bold.eot" />
+    <Content Include="public\govuk_template\assets\stylesheets\fonts\GDSTransportTabular-Light.eot" />
+    <Content Include="public\govuk_template\assets\stylesheets\fonts\GDSTransportWebsite-Bold.eot" />
+    <Content Include="public\govuk_template\assets\stylesheets\fonts\GDSTransportWebsite.eot" />
+    <Content Include="public\govuk_template\VERSION" />
+    <Content Include="Assets\Sass\views\_employee-details.scss" />
+    <Content Include="Assets\Sass\views\_search-results.scss" />
+    <Content Include="Assets\Sass\views\_user-access.scss" />
+    <Content Include="Assets\Sass\views\_dashboard.scss" />
+    <Content Include="Assets\Sass\views\_detailed-report.scss" />
+    <Content Include="Assets\Sass\views\_summary-report.scss" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Assets\Sass\views\_schools-search-page.scss" />
+    <Content Include="Assets\Sass\elements-page-ie6.scss" />
+    <Content Include="Assets\Sass\elements-page-ie7.scss" />
+    <Content Include="Assets\Sass\elements-page-ie8.scss" />
+    <Content Include="Assets\Sass\elements-page.scss" />
+    <Content Include="Assets\Sass\views\_school-details.scss" />
+    <Content Include="Assets\Sass\views\_sponsor-detail.scss" />
+    <Content Include="Assets\Sass\views\_benchmark-list.scss" />
+    <Content Include="Assets\Sass\views\_benchmark-charts.scss" />
+    <Content Include="Assets\Sass\_govuk-elements.scss" />
+    <Content Include="Assets\Sass\views\_school-characteristics.scss" />
+    <Content Include="Assets\Sass\views\_comparison-strategy.scss" />
+    <Content Include="Assets\Sass\views\_comparison-step-one.scss" />
+    <Content Include="Assets\Sass\views\_overwrite-strategy.scss" />
+    <Content Include="Assets\Sass\views\_guidance.scss" />
+    <Content Include="Assets\Sass\views\_comparison-step-two.scss" />
+    <Content Include="Assets\Sass\_mixins.scss" />
+    <Content Include="Assets\Sass\views\_comparison-basket-size.scss" />
+    <Content Include="Assets\Sass\views\_simple-characteristics.scss" />
+    <Content Include="Assets\Sass\elements\forms\_form-multiple-choice.scss" />
+    <Content Include="Assets\Sass\views\_advanced-school-characteristics.scss" />
+    <Content Include="Assets\Sass\views\_cookies_page.scss" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public\assets\print\school-print.css" />
+    <Content Include="public\scripts\modernizr\modernizr-custom.js" />
+    <Content Include="public\scripts\stickyfill\stickyfill.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\DfE\Layouts\template.cshtml" />
+    <Content Include="Views\GOVUK\Layouts\template.cshtml" />
+    <Content Include="Views\GOVUK\Partials\footer-support-links.cshtml" />
+    <Content Include="Views\GOVUK\Partials\footer-top.cshtml" />
+    <Content Include="Views\GOVUK\Partials\phase\alpha.cshtml" />
+    <Content Include="Views\GOVUK\Partials\phase\beta.cshtml" />
+    <Content Include="Views\GOVUK\Views\ga\google-analytics.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\School\Detail.cshtml" />
+    <Content Include="Views\SchoolSearch\SearchResults.cshtml" />
+    <Content Include="Views\Shared\EmptyResult.cshtml" />
+    <Content Include="Views\Shared\Partials\Pagination.cshtml" />
+    <Content Include="Views\School\Partials\ValueSelect.cshtml" />
+    <Content Include="Views\BenchmarkList\Index.cshtml" />
+    <Content Include="Views\Shared\Partials\BenchmarkListBanner.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Index.cshtml" />
+    <Content Include="Views\School\Partials\ChartGroups.cshtml" />
+    <Content Include="Views\SchoolSearch\Partials\FilterForm.cshtml" />
+    <Content Include="Views\SchoolSearch\Partials\OptionSelect.cshtml" />
+    <Content Include="Views\SchoolSearch\Partials\ResultBlock.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\ValueSelect.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\Chart.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\ChartGroups.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\ComparisonStrategy.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\OverwriteStrategy.cshtml" />
+    <Content Include="Views\School\Partials\Terms.cshtml" />
+    <Content Include="Views\Shared\Partials\SearchForSchoolsPanel.cshtml" />
+    <Content Include="Views\Help\Guidance.cshtml" />
+    <Content Include="Views\Errors\NotFound.cshtml" />
+    <Content Include="Views\Errors\InternalServerError.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\SelectSchoolType.cshtml" />
+    <Content Include="Views\Shared\Partials\FinancialSummaryFields.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\ChooseRegion.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\SelectBasketSize.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\SimpleCharacteristics.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\DataTable.cshtml" />
+    <Content Include="Views\La\Search.cshtml" />
+    <Content Include="Views\La\Partials\ResultBlock.cshtml" />
+    <Content Include="Views\Shared\Partials\Chart.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\AdvancedCharacteristics.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\Partials\RangeCriteria.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\Partials\PercentageCriteria.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\Partials\MultipleChoiceCriteria.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\Partials\RadioboxCriteria.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\AdvancedHiddenFields.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\BasicHiddenFields.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\TabContent.cshtml" />
+    <Content Include="Views\Cookies\Index.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\UsedBasicCriteria.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\UsedAdvancedCriteria.cshtml" />
+    <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\School\Partials\CentralFinancing.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\CentralFinancing.cshtml" />
+    <Content Include="Views\School\Partials\BenchmarkControlButtons.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\BenchmarkList\Partials\BenchmarkBasketControls.cshtml" />
+    <Content Include="Views\SchoolSearch\Partials\SchoolResults.cshtml" />
+    <Content Include="Views\Shared\Partials\AdvancedCriteriaHiddenFields.cshtml" />
+    <Content Include="Assets\Sass\views\_trust-comparison.scss" />
+    <Content Include="Views\BenchmarkCharts\Partials\TrustCentralFinancing.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\CustomTab.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\TabControls.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\CustomTabControls.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\CustomCharts.cshtml" />
+    <Content Include="public\js-marker-clusterer\.bower.json" />
+    <Content Include="public\js-marker-clusterer\AUTHORS" />
+    <Content Include="public\js-marker-clusterer\bower.json" />
+    <Content Include="public\js-marker-clusterer\CONTRIBUTING.md" />
+    <Content Include="public\js-marker-clusterer\CONTRIBUTORS" />
+    <Content Include="public\js-marker-clusterer\examples\data.json" />
+    <Content Include="public\js-marker-clusterer\LICENSE" />
+    <Content Include="public\js-marker-clusterer\README.md" />
+    <Content Include="Views\Shared\Partials\HistoricalChart.cshtml" />
+    <Content Include="Views\Help\InterpretingCharts.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\Partials\GeneralCharacteristics.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\Partials\PerformanceCharacteristics.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\Partials\WorkforceCharacteristics.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\Partials\SenCharacteristics.cshtml" />
+    <None Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Trust\Index.cshtml" />
+    <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
+    <Content Include="Views\Trust\Partials\ValueSelect.cshtml" />
+    <Content Include="Views\Trust\Partials\Terms.cshtml" />
+    <Content Include="Views\Trust\TrustResults.cshtml" />
+    <Content Include="Views\Trust\Partials\ResultBlock.cshtml" />
+    <Content Include="Views\Trust\Partials\TrustCentralFinancing.cshtml" />
+    <Content Include="Views\TrustComparison\Index.cshtml" />
+    <Content Include="Views\TrustComparison\Partials\TrustsToCompare.cshtml" />
+    <Content Include="Views\TrustSchools\SearchResults.cshtml" />
+    <Content Include="Views\TrustSchools\Partials\FilterForm.cshtml" />
+    <Content Include="Views\TrustSchools\Partials\OptionSelect.cshtml" />
+    <Content Include="Views\TrustSchools\Partials\ResultBlock.cshtml" />
+    <Content Include="Views\TrustSchools\Partials\SchoolResults.cshtml" />
+    <None Include="Web.Base.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\GOVUK\Views\errors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SFB.Web.Domain\SFB.Web.Domain.csproj">
+      <Project>{c7d71b89-d508-43fa-8130-1266baa6dda9}</Project>
+      <Name>SFB.Web.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>51350</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:44300/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,31 @@
+﻿@using SFB.Web.Domain.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+<nav class="tabs" role="navigation">
+    <ol role="tablist">
+        <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript: ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+        </li>
+        <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript: ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+        </li>
+        <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript: ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+        </li>
+        @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
+        {
+            <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
+                <a href="javascript: ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            </li>
+        }
+        @if (Model.EstablishmentType != EstablishmentType.MAT)
+        {
+            <li class="@(ViewBag.Tab == RevenueGroupType.Custom ? "active" : "") hide-in-print" role="tab">
+                <a href="javascript: ChangeTab('@RevenueGroupType.Custom')">@RevenueGroupNames.CUSTOM</a>
+            </li>
+        }
+    </ol>
+</nav>

@@ -1,0 +1,19 @@
+﻿@mixin highlighting {
+    .highlight {
+        background-color: $pink;
+        display: inline;
+
+        span {
+            color: white;
+            padding: 8px;
+            line-height: 1.8em;
+        }
+    }
+}
+
+@mixin grey-button {
+    background-color: $grey-2;
+    color: $black;
+    -webkit-box-shadow: 0 2px 0 #7d8185;
+    box-shadow: 0 2px 0 #7d8185;
+}

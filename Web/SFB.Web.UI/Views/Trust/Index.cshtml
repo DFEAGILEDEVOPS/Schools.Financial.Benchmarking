@@ -1,0 +1,187 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.SponsorViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "sponsor-detail";
+}
+
+@section InsideHead{
+    <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+}
+
+@Html.Partial("Partials/BenchmarkListBanner")
+@Html.Partial("Partials/SearchForSchoolsPanel")
+
+<h1 class="heading-xlarge page-heading">@Model.Name</h1>
+<div class="grid-row">
+    <div class="column-third">
+        <a class="button" href="/TrustComparison?matno=@Model.MatNo&matName=@Model.Name">Compare with other trusts</a>
+    </div>
+</div>
+
+<div class="grid-row">
+    <div class="column-full">
+        <div class="result-list-summary">
+        This trust is made up of <span class="bold">@Model.SchoolList.ModelList.Count</span> academies.
+        <a href="/TrustSchools?matno=@Model.MatNo&matname=@Model.Name">Select schools to compare</a>
+        </div>
+    </div>
+    <div class="column-full resultListPanel">
+        @if (Model.SchoolList.ModelList.Count > 10)
+        {
+            <details>
+                <summary class="hide-in-print">
+                    <span class="summary">View all academies</span>
+                </summary>
+                <div>
+                    <ul class="list two-columns">
+                        @foreach (var school in Model.SchoolList.ModelList)
+                        {
+                            if (school.HasIncompleteFinancialData)
+                            {
+                                <li>
+                                    <a href="/school/detail?urn=@school.Id" class="highlight-warning">@school.Name</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/school/detail?urn=@school.Id">@school.Name</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </details>
+        }
+        else
+        {
+            <ul class="list list-bullet">
+                @foreach (var school in Model.SchoolList.ModelList)
+                {
+                    if (school.HasIncompleteFinancialData)
+                    {
+                        <li>
+                            <a href="/school/detail?urn=@school.Id" class="highlight-warning">@school.Name</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="/school/detail?urn=@school.Id">@school.Name</a>
+                        </li>
+                    }
+                }
+            </ul>
+        }
+    </div>
+</div>
+@if (Model.HistoricalSchoolDataModels.Last().IsDNS)
+{
+    <div class="panel panel-border-wide orange-warning">
+        <p>
+            This trust has not submitted any data
+        </p>
+    </div>
+}
+else
+{
+    <div class="grid-row">
+        @if (!Model.IsReturnsComplete)
+        {
+            <div class="panel panel-border-wide orange-warning">
+                <p>
+                    This trust's data is from a period less than 12 months
+                </p>
+            </div>
+        }
+    </div>
+    <div class="grid-row">
+        @if (Model.SchoolList.ModelList.Any(m => m.HasIncompleteFinancialData))
+        {
+            <div class="panel panel-border-wide orange-warning">
+                <p>
+                    Some of this trust's schools have data from a period less than 12 months
+                </p>
+            </div>
+        }
+    </div>
+}
+<div class="grid-row download-links hide-in-print">
+    <div class="column-full">
+        <div class="column-one-third no-padding">
+            <div class="download">
+                <a class="no-underline bold-xsmall" href="/trust/download?matNo=@Model.MatNo&name=@Model.Name"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png"/> Download data for this trust (CSV)</a>
+            </div>
+        </div>
+        <div class="column-one-third no-padding">
+            <div class="print">
+                <a class="no-underline bold-xsmall" href="javascript:PrintPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png"/> Print page</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Partials/FinancialSummaryFields")
+
+
+<a name="charts"></a>
+<nav class="tabs" role="navigation">
+    <ol role="tablist">
+        <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript:TabChange('@Model.Code','@Model.MatNo','@Model.Name','@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+        </li>
+        <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript:TabChange('@Model.Code','@Model.MatNo','@Model.Name','@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+        </li>
+        <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript:TabChange('@Model.Code','@Model.MatNo','@Model.Name','@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+        </li>
+    </ol>
+</nav>
+
+<div class="chartsSection">
+    <div class="grid-row">
+        <form autocomplete="off">
+            @Html.Partial("Partials/Terms", Model.Terms)
+            @Html.Partial("Partials/ValueSelect")
+            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+            <div class="column-half chart-filter">
+                @Html.Partial("Partials/TrustCentralFinancing")
+            </div>
+        </form>
+    </div>
+    <div id="historicalChartsList">
+        @Html.Partial("Partials/Chart", Model)
+    </div>
+</div>
+
+@section ViewScripts {
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+
+    <script>
+
+        function PrintPage() {
+            $('details').attr('open', 'true');
+            var detailses = document.getElementsByTagName("details"),
+                details,
+                i = -1;
+            while (details = detailses[++i]) {
+                //DOM API
+                details["open"] = true;
+            }
+            window.print();
+        }
+
+        function TabChange(code, matno, name, tab) {
+            var queryString = "?code=" + code +"&matno=" + matno + "&name=" + name + "&tab=" + tab + "&unit=" + $("select#ShowValue option:selected")[0].value + "#charts";
+            window.location = queryString;
+        }
+
+        DfE.Views.HistoricalCharts.GenerateCharts();
+    </script>
+}

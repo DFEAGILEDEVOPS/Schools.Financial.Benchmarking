@@ -1,0 +1,43 @@
+﻿@model SFB.Web.UI.Models.BenchmarkCriteriaRangeVM
+
+@{
+    var activated = Model.MinValue.HasValue || Model.MaxValue.HasValue;
+}
+
+<div class="question">
+    <div class="multiple-choice question">
+        <input id="checkbox-@Model.MinElementName" type="checkbox" @Html.Raw(activated ? "checked": "")>
+        <label for="checkbox-@Model.MinElementName">@Model.Question</label>
+    </div>
+    <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
+        <div class="column-full">
+            <div class="benchmark-school-value">
+            @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
+            {
+                <span>Your default school's value was not supplied</span>
+            }
+            else
+            {
+                <span>Your default school's value is <span class="bold-small">@Model.HomeSchoolValue%</span></span>
+            }
+            </div>
+        </div>
+        <div>
+            <span class="error-message"></span>
+        </div>
+        <div class="column-one-third">
+            <div class="form-group">
+                <div class="column-half">
+                    <label class="form-label" for="@Model.MinElementName">From</label>
+                    <input value="@Model.MinValue" type="number" name="AdvancedCriteria.@Model.MinElementName" id="@Model.MinElementName" class="form-control criteria-input" 
+                        min="0" max="100" required @Html.Raw(activated ? "": "disabled")>
+                </div>
+                <div class="column-half">
+                    <label class="form-label" for="@Model.MaxElementName">To</label>
+                    <input value="@Model.MaxValue" type="number" name="AdvancedCriteria.@Model.MaxElementName" id="@Model.MaxElementName" class="form-control criteria-input" 
+                        min="0" max="100" required @Html.Raw(activated ? "": "disabled")>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

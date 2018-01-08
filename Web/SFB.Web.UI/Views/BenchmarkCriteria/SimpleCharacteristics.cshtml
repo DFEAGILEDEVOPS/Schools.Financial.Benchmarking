@@ -1,0 +1,76 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.SimpleCharacteristicsViewModel
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "simple-characteristics";
+}
+
+<h1 class="heading-xlarge page-heading">Quick comparison</h1>
+
+@if (!string.IsNullOrEmpty(Model.BenchmarkSchool.Name))
+{
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-xsmall">@Model.BenchmarkSchool.Name</span>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="steps">
+    <span>3 of 3</span>
+</div>
+
+<p class="bold-small">This type of comparison generates a group of statistically similar schools using commonly chosen characteristics. This always includes:</p>
+<ul class="list list-bullet">
+    <li>number of pupils</li>
+    <li>school phase</li>
+    <li>urban/rural schools</li>
+</ul>
+<p>The following characteristics can also be used. Select or deselect them using the boxes below.</p>
+
+<form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="post" id="criteriaForm">
+    <div class="form-group">
+        <div class="multiple-choice">
+            <input id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true" 
+                    @Html.Raw(Model.SimpleCriteria.IncludeFsm.HasValue && !Model.SimpleCriteria.IncludeFsm.Value ? "": "checked")>
+            <label for="fsm">Pupils eligible for free school meals</label>
+        </div>
+        <div class="multiple-choice">
+            <input id="sen" name="SimpleCriteria.IncludeSen" type="checkbox" value="true" 
+                   @Html.Raw(Model.SimpleCriteria.IncludeSen.HasValue && !Model.SimpleCriteria.IncludeSen.Value ? "": "checked")>
+            <label for="sen">Pupils with special educational needs who have statements or education and health care plans</label>
+        </div>
+        <div class="multiple-choice">
+            <input id="eal" name="SimpleCriteria.IncludeEal" type="checkbox" value="true" 
+                   @Html.Raw(Model.SimpleCriteria.IncludeEal.HasValue && !Model.SimpleCriteria.IncludeEal.Value ? "": "checked")>
+            <label for="eal">Pupils with English as an additional language</label>
+        </div>
+        <div class="multiple-choice">
+            <input id="la" name="SimpleCriteria.IncludeLa" type="checkbox" value="true" 
+                   @Html.Raw(Model.SimpleCriteria.IncludeLa.HasValue && Model.SimpleCriteria.IncludeLa.Value ? "checked": "")>
+            <label for="la">Within your local authority</label>
+        </div>
+    </div>
+
+        <div class="grid-row font-xsmall">
+            <div class="column-one-third">
+                <div class="column-one-third next-button">
+                    <button type="submit" class="button">Next</button>
+                </div>
+                <div class="column-one-third back-button">
+                    <a href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType&basketsize=@ViewBag.BasketSize">Back</a>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="Urn" value="@ViewBag.URN">
+        <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
+        <input type="hidden" name="BasketSize" value="@ViewBag.BasketSize">
+        <input type="hidden" name="EstType" value="@ViewBag.EstType">
+
+</form>

@@ -1,0 +1,229 @@
+﻿using SFB.Web.UI.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Services;
+using System.Text;
+using System.Web;
+using System.Web.UI;
+using Microsoft.Ajax.Utilities;
+using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.UI.Helpers.Constants;
+using SFB.Web.UI.Helpers.Enums;
+using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Domain.Services.DataAccess;
+
+namespace SFB.Web.UI.Controllers
+{
+    public class SchoolController : BaseController
+    {
+        private readonly IEdubaseDataService _edubaseDataService;
+        private readonly IFinancialDataService _financialDataService;
+        private readonly IHistoricalChartBuilder _historicalChartBuilder;
+        private readonly IFinancialCalculationsService _fcService;
+        private readonly IDownloadCSVBuilder _csvBuilder;
+
+        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IEdubaseDataService edubaseDataService, IDownloadCSVBuilder csvBuilder)
+        {
+            _historicalChartBuilder = historicalChartBuilder;
+            _financialDataService = financialDataService;
+            _fcService = fcService;
+            _edubaseDataService = edubaseDataService;
+            _csvBuilder = csvBuilder;
+        }
+
+        #if !DEBUG
+        [OutputCache (Duration=14400, VaryByParam="urn;unit;tab", Location = OutputCacheLocation.Server, NoStore=true)]
+        #endif
+        public ActionResult Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure)
+        {
+            ChartGroupType chartGroup;
+            switch (tab)
+            {
+                case RevenueGroupType.Expenditure:
+                    chartGroup = ChartGroupType.TotalExpenditure;
+                    break;
+                case RevenueGroupType.Income:
+                    chartGroup = ChartGroupType.TotalIncome;
+                    break;
+                case RevenueGroupType.Balance:
+                    chartGroup = ChartGroupType.InYearBalance;
+                    break;
+                case RevenueGroupType.Workforce:
+                    chartGroup = ChartGroupType.Workforce;
+                    break;
+                default:
+                    chartGroup = ChartGroupType.All;
+                    break;
+            }
+ 
+            var schoolDetailsFromEdubase = _edubaseDataService.GetSchoolByUrn(urn.ToString());
+            
+            if (schoolDetailsFromEdubase == null)
+            {
+                return View("EmptyResult", new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
+            }
+
+            var centralFinancingType = tab == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : CentralFinancingType.Include;
+            SchoolViewModel schoolVM = BuildSchoolVM(tab, chartGroup, centralFinancingType, schoolDetailsFromEdubase);
+
+            UnitType unitType;
+            switch (tab)
+            {
+                case RevenueGroupType.Workforce:
+                    unitType = UnitType.AbsoluteCount;
+                    break;
+                case RevenueGroupType.Balance:
+                    unitType = unit == UnitType.AbsoluteMoney || unit == UnitType.PerPupil || unit == UnitType.PerTeacher ? unit : UnitType.AbsoluteMoney;
+                    break;
+                default:
+                    unitType = unit;
+                    break;
+            }
+
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolDataModels, (BuildTermsList(schoolVM.FinancialType)).First(), tab, unitType, schoolVM.FinancialType);
+
+            ViewBag.Tab = tab;
+            ViewBag.ChartGroup = chartGroup;
+            ViewBag.UnitType = unitType;
+
+            return View("Detail", schoolVM);
+        }
+
+        public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
+        {
+            var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn.ToString()), null);
+
+            var cookie = base.UpdateSchoolComparisonListCookie(withAction,
+                new BenchmarkSchoolViewModel()
+                {
+                    Name = benchmarkSchool.Name,
+                    Urn = benchmarkSchool.Id,
+                    Type = benchmarkSchool.Type,
+                    FinancialType = benchmarkSchool.FinancialType.ToString()
+                });
+
+            if (cookie != null)
+            {
+                Response.Cookies.Add(cookie);
+            }
+
+            return PartialView("Partials/BenchmarkListBanner",
+                new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+        }
+        
+        public PartialViewResult UpdateBenchmarkBasketAddMultiple(string[] urns)
+        {
+            HttpCookie cookie = null;
+
+            foreach (var urn in urns)
+            {
+                var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn), null);
+
+                cookie = base.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST,
+                    new BenchmarkSchoolViewModel()
+                    {
+                        Name = benchmarkSchool.Name,
+                        Urn = benchmarkSchool.Id,
+                        Type = benchmarkSchool.Type,
+                        FinancialType = benchmarkSchool.FinancialType.ToString()
+                    });
+            }
+
+            if (cookie != null)
+            {
+                Response.Cookies.Add(cookie);
+            }
+
+            return PartialView("Partials/BenchmarkListBanner",
+                new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+        }
+
+        public PartialViewResult GetBenchmarkBasket()
+        {
+            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+        }
+
+        public PartialViewResult GetBenchmarkControls(int urn)
+        {
+            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie()));
+        }
+
+        public PartialViewResult GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include)
+        {
+            financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
+
+            var schoolDetailsFromEdubase = _edubaseDataService.GetSchoolByUrn(urn.ToString());
+
+            SchoolViewModel schoolVM = BuildSchoolVM(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
+
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolDataModels, term, revGroup, unit, schoolVM.FinancialType);
+
+            return PartialView("Partials/Chart", schoolVM);
+        }
+
+        public ActionResult Download(int urn)
+        {
+            var schoolDetailsFromEdubase = _edubaseDataService.GetSchoolByUrn(urn.ToString());
+
+            SchoolViewModel schoolVM = BuildSchoolVM(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
+
+            var termsList = BuildTermsList(schoolVM.FinancialType);
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, schoolVM.FinancialType);
+
+            var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(schoolVM.FinancialType);
+
+            var csv = _csvBuilder.BuildCSVContentHistorically(schoolVM, latestYear);
+
+            return File(Encoding.UTF8.GetBytes(csv),
+                         "text/plain",
+                         $"HistoricalData-{urn}.csv");
+        }
+
+        private SchoolViewModel BuildSchoolVM(RevenueGroupType revenueGroup, ChartGroupType chartGroup, CentralFinancingType cFinance, dynamic schoolDetailsData, UnitType unit = UnitType.AbsoluteCount)
+        {
+            var schoolVM = new SchoolViewModel(schoolDetailsData, base.ExtractSchoolComparisonListFromCookie());
+
+            schoolVM.HistoricalCharts = _historicalChartBuilder.Build(revenueGroup, chartGroup, schoolVM.FinancialType, unit);
+            schoolVM.ChartGroups = _historicalChartBuilder.Build(revenueGroup, schoolVM.FinancialType).DistinctBy(c => c.ChartGroup).ToList();
+            schoolVM.Terms = BuildTermsList(schoolVM.FinancialType);
+            schoolVM.Tab = revenueGroup;
+
+            schoolVM.HistoricalSchoolDataModels = this.GetFinancialDataHistorically(schoolVM.Id, schoolVM.FinancialType, cFinance);
+
+            schoolVM.TotalRevenueIncome = schoolVM.HistoricalSchoolDataModels.Last().TotalIncome;
+            schoolVM.TotalRevenueExpenditure = schoolVM.HistoricalSchoolDataModels.Last().TotalExpenditure;
+            schoolVM.InYearBalance = schoolVM.HistoricalSchoolDataModels.Last().InYearBalance;
+
+            return schoolVM;
+        }
+
+        private List<string> BuildTermsList(SchoolFinancialType type)
+        {
+            var years = new List<string>();
+            var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(type);
+            for (int i = 0; i < ChartHistory.YEARS_OF_HISTORY; i++)
+            {                
+                years.Add(FormatHelpers.FinancialTermFormatAcademies(latestYear - i));
+            }
+
+            return years;
+        }
+
+        private List<SchoolDataModel> GetFinancialDataHistorically(string urn, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        {
+            var models = new List<SchoolDataModel>();
+            var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(schoolFinancialType);
+            for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
+            {
+                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
+                var dataModel = _financialDataService.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);                
+
+                models.Add(new SchoolDataModel(urn.ToString(), term, dataModel, schoolFinancialType));
+            }
+
+            return models;
+        }
+    }
+}

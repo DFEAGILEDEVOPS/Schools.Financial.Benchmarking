@@ -1,0 +1,100 @@
+﻿.school-characteristics {
+
+    .selection-button-radio {
+        margin: 0;
+        padding-right: 15px;
+        background: white;
+        border: none;
+        display: inline;
+        float: none;
+        top: 34px;
+    }
+
+    .highlight {
+        @include bold-16();
+        background-color: $pink;
+        color: $white;
+        text-align: center;
+        padding: 5px;
+        margin: 10px;
+    }
+
+    .center-text {
+        text-align: center;
+    }
+
+    #mainQuestion {
+        padding-top: 4%;
+    }
+
+    .benchmark-value {
+        padding-top: 17%;
+    }
+
+    .remove-button {
+        padding-top: 6%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .char-list {
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+
+    .input-html .column-half {
+        padding-left: 0;
+    }
+
+    .validation-summary-errors {
+        @include bold-19();
+        color: $red;
+    }
+
+    .form-control.error {
+        -moz-box-shadow: none;
+        border: 4px solid $red;
+    }
+
+    .error-message label {
+        display: block;
+    }
+
+    .chkbox {
+        position: relative;
+        top: 31px;
+        cursor: pointer;
+        margin: 0;
+        width: 29px;
+        height: 29px;
+
+        @include ie(8) {
+            top: 12px;
+        }
+    }
+
+    .criteria-section {
+        margin: 0 -15px;
+    }
+
+    form button {
+        width: 65%;
+    }
+
+    .link {
+        margin-top: 9px;
+    }
+
+    .input-html {
+        .form-group {
+            margin-bottom: 0;
+        }
+    }
+
+    form .column-full {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}

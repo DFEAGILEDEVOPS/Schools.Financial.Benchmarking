@@ -1,0 +1,42 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.SchoolViewModel
+
+<div class="column-half chart-filter">
+    <div class="form-group">
+        <label class="form-label" for="ShowValue">Show value</label>
+        <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('school')">
+            @if (Model.Tab == RevenueGroupType.Workforce)
+            {
+                <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>
+                <option value="@UnitType.HeadcountPerFTE">@ChartShowValues.PERCENTAGE_FTE</option>
+                <option value="@UnitType.FTERatioToTotalFTE">@ChartShowValues.PERCENTAGE_WORKFORCE</option>
+                <option value="@UnitType.NoOfPupilsPerMeasure">@ChartShowValues.NO_PUPILS_PER_MEASURE</option>
+            }
+            else
+            {
+                <option value="@UnitType.AbsoluteMoney" @IsSelected(UnitType.AbsoluteMoney)>@ChartShowValues.ABSOLUTE</option>
+                if (!Model.HasNoPupilData)
+                {
+                    <option value="@UnitType.PerPupil" @IsSelected(UnitType.PerPupil)>@ChartShowValues.PER_PUPIL</option>
+                }
+                if (!Model.HasNoTeacherData)
+                {
+                    <option value="@UnitType.PerTeacher" @IsSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
+                }
+                if (Model.Tab != RevenueGroupType.Balance)
+                {
+                    <option value="@UnitType.PercentageOfTotal" @IsSelected(UnitType.PercentageOfTotal)>@ChartShowValues.PERCENTAGE_TOTAL</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+
+@helper IsSelected(UnitType option)
+{
+    if (option == Enum.Parse(typeof(UnitType), ViewBag.UnitType.ToString()))
+    {
+        <text>selected</text>
+    }
+}

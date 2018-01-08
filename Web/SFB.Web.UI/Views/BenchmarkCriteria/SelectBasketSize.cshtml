@@ -1,0 +1,103 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.Domain.Helpers.Enums
+@model SFB.Web.UI.Models.SchoolViewModel
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "comparison-step-two";
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+    <div class="error-summary" role="group" aria-labelledby="ErrorSummaryHeading">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There is a problem
+        </h1>
+        <ul class="error-summary-list">
+            <li><a href="#finderSection">@Model.ErrorMessage</a></li>
+        </ul>
+    </div>
+}
+
+<h1 class="heading-xlarge page-heading">Quick comparison</h1>
+
+@if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
+{
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="steps">
+    <span>1 of 3</span>
+</div>
+
+<div id="BasketSizeAccordion" class="search-types" aria-live="polite">
+    <form action="/BenchmarkCriteria/SelectSchoolType">
+        <div class="form-group">
+            <fieldset>
+                <legend>How many schools would you like in your benchmark basket?</legend>
+                <p>A useful benchmark set should contain between <span class="bold-small">10</span> and <span class="bold-small">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.</p>
+
+                <label id="DefaultSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize == ComparisonListLimit.DEFAULT ? "selected" : "")" for="DefaultBasketSize" aria-controls="DefaultBasketSizeFieldset">
+                    <input onclick="SetDefaultSize();" id="DefaultBasketSize" type="radio" value="@ComparisonListLimit.DEFAULT" @Html.Raw(ViewBag.BasketSize == ComparisonListLimit.DEFAULT ? "checked" : "")>
+                    <label id="DefaultAccordion" for="DefaultBasketSize">Use default (@ComparisonListLimit.DEFAULT)</label>
+                </label>
+                                                                                                                                                        
+                <div id="DefaultBasketSizeFieldset"></div>
+
+                <label id="CustomSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize != ComparisonListLimit.DEFAULT ? "selected" : "")" for="CustomBasketSize" aria-controls="CustomBasketSizeFieldset">
+                    <input id="CustomBasketSize" type="radio" @Html.Raw(ViewBag.BasketSize != ComparisonListLimit.DEFAULT ? "checked" : "")/>
+                    <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Choose your own basket size</label>
+                </label>
+                                                                                                                                                          
+                <div id="CustomBasketSizeFieldset" class="form-group optional-section">
+                    <p>Enter a number between 5 and 30</p>
+                    <label for="BasketSizeInput">Basket size</label>
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <span class="error-message">@Model.ErrorMessage</span>
+                    }
+                    <input id="BasketSizeInput"
+                           class="form-control mbl"
+                           name="BasketSize"
+                           type="number" 
+                           value="@ViewBag.BasketSize"
+                           />
+                </div>
+            </fieldset>
+        </div>
+        <div class="grid-row font-xsmall">
+            <div class="column-one-third">
+                <div class="column-one-third next-button">
+                    <button type="submit" class="button">Next</button>
+                </div>
+                <div class="column-one-third back-button">
+                    <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="Urn" value="@ViewBag.URN">
+        <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
+    </form>
+</div>
+
+@section ViewScripts {
+
+    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script>
+        function SetDefaultSize()
+        {
+            $("#BasketSizeInput").val(15);
+        }
+
+        GOVUK.Accordion.bindElements("BasketSizeAccordion");
+
+    </script>
+
+}

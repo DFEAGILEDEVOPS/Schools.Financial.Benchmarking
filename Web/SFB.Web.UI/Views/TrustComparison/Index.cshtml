@@ -1,0 +1,53 @@
+﻿@model SFB.Web.UI.Models.TrustComparisonViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "trust-comparison";
+}
+
+<div id="ErrorSummaryPlaceHolder"></div>
+
+<h1 class="heading-xlarge page-heading">Compare trusts</h1>
+
+<div class="grid-row">
+    <div class="column-full">
+        <span class="font-xsmall">Comparing to</span>
+        <div class="highlight">
+            <span class="bold-xsmall">@Model.DefaultTrustName</span>
+        </div>
+    </div>
+</div>
+
+<p>
+    <h3 class="bold-small">Choose one or more trusts for this comparison</h3>
+</p>
+
+<div id="TrustsToCompare">
+    @Html.Partial("Partials/TrustsToCompare", Model.Trusts.Where(t=>t.MatNo != Model.DefaultTrustMatNo).ToList())
+</div>
+<div class="control-buttons">
+    <div class="grid-row font-xsmall">
+        <div class="column-half">
+            <div class="column-half next-button">
+                <a type="submit" class="button" href="BenchmarkCharts/Mats">View benchmarking charts</a>
+            </div>
+            <div class="column-half no-padding">
+                <div class="column-one-third back-button">
+                    <a href="/trust/index?matno=@Model.DefaultTrustMatNo&name=@Model.DefaultTrustName">Back</a>
+                </div>
+                <div class="column-two-thirds back-button">
+                    <a href="javascript: DfE.Views.TrustCompareViewModel.RemoveAllTrusts()">Remove all trusts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ViewScripts {
+
+    <script src="~/public/dfeagiledevops-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script>
+        DfE.Views.TrustCompareViewModel.Load();
+        GOVUK.Modal.Load();
+    </script>
+}

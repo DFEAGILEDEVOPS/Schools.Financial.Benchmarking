@@ -1,0 +1,253 @@
+﻿@using SFB.Web.Domain.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.SchoolViewModel
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "school-detail";
+}
+
+@section InsideHead{
+    <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+}
+
+<div id="benchmarkBasket"></div>
+
+@Html.Partial("Partials/SearchForSchoolsPanel")
+
+<h1 class="heading-xlarge page-heading">@Model.Name</h1>
+
+@if (Model.IsReturnsComplete)
+{
+    <div class="grid-row hide-in-print" id="benchmarkControlsPlaceHolder"></div>
+}
+
+<div class="grid-row">
+    <div class="column-half">
+        <div class="metadata-school-detail font-xsmall">
+            <dl>
+                @SchoolDetailField("Address:", Model.Address)
+                @SchoolDetailField("Telephone number:", $"0{Model.PhoneNumber}")
+                @SchoolDetailField("School type:", Model.Type)
+                @if (Model.OverallPhase != Model.Phase)
+                {
+                    @SchoolDetailField("School overall phase:", Model.OverallPhase)
+                }
+                @SchoolDetailField("School phase:", Model.Phase)
+                @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
+                @SchoolDetailField("URN:", Model.Id)
+                @SchoolDetailFieldFormatted("Ofsted rating:", "<span class=\"rating rating-{0}\"><span class=\"rating-text\">{0}</span></span>{1}", Model.OfstedRating, Model.OfstedRatingText)
+                @SchoolDetailField("LAESTAB:", Model.LaEstab)
+                @SchoolDetailField("Age range of pupils:", Model.AgeRange)
+                @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
+                @SchoolDetailField("Has sixth form:", Model.IsPost16)
+                @SchoolDetailField("Has nursery:", Model.HasNursery)
+                @SchoolDetailFieldFormatted("School website:", "<a target=\"_blank\" href=\"{0}\">{0}</a>", Model.SchoolWebSite)
+                @SchoolDetailFieldFormatted("Performance data:", "<a target=\"_blank\" href=\"{0}\">{0}</a>", $"https://www.compare-school-performance.service.gov.uk/school/{Model.Id}")
+                @SchoolDetailField("Date of opening:", Model.OpenDate)
+                @if (!Model.HistoricalSchoolDataModels.Last().IsSAT)
+                {
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{1}</a>", Model.HistoricalSchoolDataModels.Last().MatNo, Model.TrustName)
+                }
+
+            </dl>
+            <input type="hidden" id="la" value="@Model.La"/>
+            <input type="hidden" id="estab" value="@Model.Estab"/>
+        </div>
+    </div>
+    <div class="column-half">
+        <details open>
+            <summary class="map hide-in-print">
+                <span class="summary font-xsmall">Show map</span>
+            </summary>
+            <div class="panel panel-border-narrow map">
+                <div id="SchoolLocationMap" class="mtl"></div>
+            </div>
+        </details>
+    </div>
+    <div class="column-full hide-in-print">
+        <div class="column-one-third no-padding">
+            <div class="download">
+                <a class="no-underline bold-xsmall" href="/school/download?urn=@Model.Id"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" /> Download data for this school (CSV)</a>
+            </div>
+        </div>
+        <div class="column-one-third no-padding">
+            <div class="print">
+                <a class="no-underline bold-xsmall" href="javascript:PrintPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png" /> Print page</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!Model.IsReturnsComplete)
+{
+    <div class="panel panel-border-wide orange-warning">
+        <p>
+            This school doesn't have a complete set of data for this period
+        </p>
+    </div>
+}
+
+@if (Model.HasNoTeacherData)
+{
+    <div class="panel panel-border-wide orange-warning">
+        <p>
+            We can’t show charts with per teacher values because they weren't supplied within these finance returns
+        </p>
+    </div>
+}
+
+@if (Model.HasNoPupilData)
+{
+    <div class="panel panel-border-wide orange-warning">
+        <p>
+            We can’t show charts with per pupil values because they weren't supplied within these finance returns
+        </p>
+    </div>
+}
+
+@Html.Partial("Partials/FinancialSummaryFields")
+
+<a name="charts"></a>
+<nav class="tabs" role="navigation">
+    <ol role="tablist">
+        <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript:TabChange(@Model.GetString("URN"),'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+        </li>
+        <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript:TabChange(@Model.GetString("URN"),'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+        </li>
+        <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript:TabChange(@Model.GetString("URN"),'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+        </li>
+        <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
+            <a href="javascript:TabChange(@Model.GetString("URN"),'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+        </li>
+    </ol>
+</nav>
+<div class="chartsSection">
+    <div class="grid-row">
+        <form autocomplete="off">
+            @Html.Partial("Partials/Terms", Model)
+            @Html.Partial("Partials/ValueSelect", Model)
+            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+            @if (ViewBag.Tab != RevenueGroupType.Workforce && 
+                (Model.FinancialType == SchoolFinancialType.Academies && !Model.HistoricalSchoolDataModels.Last().IsSAT))
+            {
+                Html.RenderPartial("Partials/CentralFinancing");
+            }
+        </form>
+    </div>
+    <div id="historicalChartsList">
+        @Html.Partial("Partials/Chart", Model)
+    </div>
+</div>
+
+@helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
+{
+    if (args != null)
+    {
+        if (args.Any(string.IsNullOrEmpty))
+        {
+            return;
+        }
+
+        var formatted = string.Format(formatString, args);
+        @SchoolDetailField(name, formatted)
+    }
+}
+
+@helper SchoolDetailField(string name, string value)
+{
+    if (!string.IsNullOrEmpty(value))
+    {
+        var htmlValue = new MvcHtmlString(value);
+
+        <dt class="names">@name</dt>
+        <dd class="values bold">@htmlValue</dd>
+    }
+}
+
+@section ViewScripts {
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])"></script>
+
+    <script>
+
+        $.get("/school/GetBenchmarkBasket",
+            function(data) {
+                $("#benchmarkBasket").replaceWith(data);
+            });
+
+        if ($("#benchmarkControlsPlaceHolder").length > 0) {
+            $.get("/school/GetBenchmarkControls?urn=" + @Model.Id,
+                function(data) {
+                    $("#benchmarkControlsPlaceHolder").html(data);
+                    GOVUK.Modal.Load();
+                });
+        }
+
+        DfE.Views.HistoricalCharts.GenerateCharts('@ViewBag.UnitType');
+
+        var school = {
+            id: "@(Model.Id)",
+            lat: "@(Model.Lat)",
+            lng: "@(Model.Lng)",
+            hasMap: @(Model.HasCoordinates ? "true" : "false")
+        };
+
+        var options = {
+            elementId: "SchoolLocationMap",
+            hasMap: school.hasMap,
+            primaryMarker: {
+                geometry: {
+                    location: {
+                        lat: school.lat,
+                        lng: school.lng
+                    }
+                }
+            },
+            scrollWheel: false
+        };
+
+        setTimeout(function() {
+                if ($(window).width() <= 640) {
+                    $('details').removeAttr('open');
+                }
+
+                if (!this.mapLoaded) {
+                    this.map = new GOVUK.LocationMap(options);
+                    this.mapLoaded = true;
+                }
+            },
+            500);
+
+
+        function TabChange(urn, tab) {
+            var queryString = "?urn=" +
+                urn +
+                "&tab=" +
+                tab +
+                "&unit=" +
+                $("select#ShowValue option:selected")[0].value +
+                "#charts";
+            window.location = queryString;
+        }
+
+        function PrintPage() {
+            $('details').attr('open', 'true');
+            var detailses = document.getElementsByTagName("details"),
+                details,
+                i = -1;
+            while (details = detailses[++i]) {
+                //DOM API
+                details["open"] = true;
+            }
+
+            window.print();
+        }
+
+    </script>
+}

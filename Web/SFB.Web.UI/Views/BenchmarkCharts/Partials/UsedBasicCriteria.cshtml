@@ -1,0 +1,69 @@
+﻿@using SFB.Web.Domain.Helpers.Enums
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+<table>
+    <thead>
+    <tr>
+        <th scope="col">Characteristic</th>
+        <th scope="col">Default school value</th>
+        <th scope="col">Comparison criteria</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>School type</td>
+        @if (Model.BenchmarkSchoolData.FinancialType == SchoolFinancialType.Academies)
+        {
+            <td>Academy</td>
+        }
+        else
+        {
+            <td>Maintained</td>
+        }
+        <td>@Model.SearchedEstablishmentType</td>
+    </tr>
+    <tr>
+        <td>Number of pupils</td>
+        <td>@Model.BenchmarkSchoolData.PupilCount</td>
+        <td>@Math.Ceiling((decimal) Model.AdvancedCriteria.MinNoPupil) to @Math.Floor((decimal) Model.AdvancedCriteria.MaxNoPupil)</td>
+    </tr>
+    <tr>
+        <td>School phase</td>
+        <td>@Model.BenchmarkSchoolData.SchoolOverallPhase</td>
+        <td>@Model.AdvancedCriteria.SchoolOverallPhase.FirstOrDefault()</td>
+    </tr>
+    <tr>
+        <td>Urban / rural location</td>
+        <td>@Model.BenchmarkSchoolData.UrbanRural</td>
+        <td>@string.Join(", ", Model.AdvancedCriteria.UrbanRural.ToArray())</td>
+    </tr>
+    @if (Model.AdvancedCriteria.MinPerFSM.HasValue)
+    {
+        <tr>
+            <td>Percentage of pupils eligible for free school meals</td>
+            <td>@Model.BenchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals%</td>
+            <td>@Model.AdvancedCriteria.MinPerFSM% to @Model.AdvancedCriteria.MaxPerFSM%</td>
+        </tr>
+    }
+    @if (Model.AdvancedCriteria.MinPerSEN.HasValue)
+    {
+        <tr>
+            <td>Pupils with special educational needs who have statements or education and health care plans</td>
+            <td>@Model.BenchmarkSchoolData.PercentageOfPupilsWithSen%</td>
+            <td>@Model.AdvancedCriteria.MinPerSEN% to @Model.AdvancedCriteria.MaxPerSEN%</td>
+        </tr>
+    }
+    @if (Model.AdvancedCriteria.MinPerEAL.HasValue)
+    {
+        <tr>
+            <td>Pupils with English as an additional language</td>
+            <td>@Model.BenchmarkSchoolData.PercentageOfPupilsWithEal%</td>
+            <td>@Model.AdvancedCriteria.MinPerEAL% to @Model.AdvancedCriteria.MaxPerEAL%</td>
+        </tr>
+    }
+    <tr>
+        <td>Within your local authority</td>
+        <td>-</td>
+        <td>@Html.Raw(Model.SimpleCriteria.IncludeLa.GetValueOrDefault() ? "Yes" : "No")</td>
+    </tr>
+    </tbody>
+</table>

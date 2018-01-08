@@ -1,0 +1,59 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.SchoolViewModel
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "comparison-strategy";
+}
+
+<h1 class="heading-xlarge page-heading">Select comparison type</h1>
+
+@if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
+{
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span>
+            </div>
+        </div>
+    </div>
+}
+
+<section class="section">
+    <form action="/BenchmarkCriteria/StepOne">
+        <div class="form-group">
+            <fieldset>
+                <legend>How do you want to compare this school with others?</legend>
+                
+                <p>We have some guidance on <a target="_blank" href="/help/guidance#question-five">choosing characteristics</a> if you are unsure which method suits you.</p>
+
+                <div class="multiple-choice">
+                    <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Basic" checked="checked">
+                    <label class="selection-button-radio" for="radio-1">
+                        Quick comparison using pre-selected characteristics (including number of pupils, school phase, urban/rural)
+                    </label>
+                </div>
+
+                <div class="multiple-choice">
+                    <input id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
+                    <label class="selection-button-radio" for="radio-2">
+                        Advanced comparison using characteristics you choose
+                    </label>
+                </div>
+
+            </fieldset>
+        </div>
+        <div class="grid-row font-xsmall">
+            <div class="column-one-third">
+                <div class="column-one-third next-button">
+                    <button type="submit" class="button">Next</button>
+                </div>
+                <div class="column-one-third back-button">
+                    <a href="../../school/detail?urn=@Model.Id">Back</a>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="Urn" value="@ViewBag.URN">
+    </form>
+</section>

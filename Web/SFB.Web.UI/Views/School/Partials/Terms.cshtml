@@ -1,0 +1,21 @@
+﻿@using SFB.Web.Domain.Helpers
+@using SFB.Web.Domain.Helpers.Enums
+@model SFB.Web.UI.Models.SchoolViewModel
+
+<div class="column-half chart-filter">
+    <div class="form-group">
+        <label class="form-label" for="Year">Year</label>
+        <select name="Year" id="Year" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('school')">
+            @foreach (var year in Model.Terms)
+            {
+                <option value="@year">@FormatFinancialYear(year, Model.FinancialType)</option>
+            }
+        </select>
+    </div>
+</div>
+
+@helper FormatFinancialYear(string year, SchoolFinancialType schoolType)
+{
+    @( schoolType == SchoolFinancialType.Academies ? year : year.Replace('/', '-'))
+}
+

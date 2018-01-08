@@ -1,0 +1,77 @@
+﻿@using SFB.Web.Domain.Helpers;
+@using SFB.Web.Domain.Helpers.Enums
+@model SFB.Web.UI.Models.EstablishmentViewModelBase
+
+<div class="grid-row">
+    <div class="column-third">
+        <div class="revenueDiv">
+            <h3 class="heading-medium">Expenditure</h3>
+            <span class="heading-medium">
+                @if (Model.TotalRevenueExpenditure >= 10000 || Model.TotalRevenueExpenditure <= -10000)
+                {
+                    <abbr title="@Model.TotalRevenueExpenditure.ToString("C0")" class="exp-total">@Model.TotalRevenueExpenditure.FormatMoney()</abbr>
+                }
+                else
+                {
+                    <span class="heading-medium">
+                        <span class="money exp-total">@Model.TotalRevenueExpenditure.FormatMoney()</span>
+                    </span>
+                }
+            </span>
+            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.FinancialType)</div>
+        </div>
+    </div>
+    <div class="column-third">
+        <div class="revenueDiv">
+            <h3 class="heading-medium">Income</h3>
+            <span class="heading-medium">
+                @if (Model.TotalRevenueIncome >= 10000 || Model.TotalRevenueIncome <= -10000)
+                {
+                    <abbr title="@Model.TotalRevenueIncome.ToString("C0")" class="inc-total">@Model.TotalRevenueIncome.FormatMoney()</abbr>
+                }else {
+                    <span class="heading-medium">
+                        <span class="money inc-total">@Model.TotalRevenueIncome.FormatMoney()</span>
+                    </span>
+                }
+            </span>
+            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.FinancialType)</div>
+        </div>
+    </div>
+    <div class="column-third">
+        <div class="revenueDiv">
+            <h3 class="heading-medium">In-year balance</h3>
+            <span class="heading-medium">
+                @if (Model.InYearBalance < 0)
+                {
+                    if (Model.InYearBalance <= -10000)
+                    {
+                        <abbr class="negative-balance bal-total" title="@Model.InYearBalance.ToString("C0")">@Model.InYearBalance.FormatMoney()</abbr>
+                    }else {
+                        <span class="negative-balance">
+                            <span class="money bal-total">@Model.InYearBalance.FormatMoney()</span>
+                        </span>
+                    }
+
+                }
+                else
+                {
+                    if (Model.TotalRevenueIncome >= 10000)
+                    {
+                        <abbr class="bal-total" title="@Model.InYearBalance.ToString("C0")">@Model.InYearBalance.FormatMoney()</abbr>
+                    }else {
+                        <span class="heading-medium">
+                            <span class="money bal-total">@Model.InYearBalance.FormatMoney()</span>
+                        </span>
+                    }
+                }
+            </span>
+            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.FinancialType)</div>
+        </div>
+    </div>
+</div>
+
+@helper FormatFinancialYear(string year, SchoolFinancialType schoolType)
+{
+    @(schoolType == SchoolFinancialType.Academies ? year : year.Replace('/', '-'))
+}
+

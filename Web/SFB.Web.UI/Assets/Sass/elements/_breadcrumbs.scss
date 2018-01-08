@@ -1,0 +1,9 @@
+// Breadcrumbs
+// ==========================================================================
+
+// GOV.UK front end toolkit dependencies
+@import "design-patterns/breadcrumbs";
+
+.breadcrumbs {
+  @include breadcrumbs;
+}

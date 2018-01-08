@@ -1,0 +1,84 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Models
+@model ComparisonListModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "benchmark-list";
+}
+
+@Html.Partial("Partials/SearchForSchoolsPanel")
+
+<h1 class="heading-xlarge page-heading">Benchmark basket</h1>
+
+<div id="benchmarkBasketControlsPlaceHolder">
+    @Html.Partial("Partials/BenchmarkBasketControls")
+</div>
+
+<ul>
+    @foreach (var school in Model.BenchmarkSchools)
+    {
+        <li class="document" id="doc_@school.Urn">
+            <div class="grid-row">
+                <div class="column-half">
+                    @if (school.Urn != Model.HomeSchoolUrn)
+                    {
+                        <div class="name">
+                            <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="name highlight">
+                            <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name</a>
+                        </div>
+                    }
+                    <dl class="metadata">
+                        <dd>@school.Address</dd>
+                        <dd>@school.Phase</dd>
+                        <dd>@school.Type</dd>
+                    </dl>
+                </div>
+                <div class="column-half make-benchmark">
+                    <div class="default-benchmark column-three-quarters right-padding">
+                        @DefaultButton(school)
+                    </div>
+                    <div class="remove-benchmark column-quarter no-padding">
+                        <a class="button removefrom" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'{CompareActions.REMOVE_FROM_COMPARISON_LIST}')")">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
+@if (Model.BenchmarkSchools.Count > 1)
+{
+    <div class="view-button-bottom">
+        <a class="button view-benchmark" href="/BenchmarkCharts"> View benchmarking charts</a>
+    </div>
+}
+
+@helper DefaultButton(BenchmarkSchoolViewModel school)
+{
+    <a @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_@school.Urn" class="add-remove add defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'{CompareActions.MAKE_DEFAULT_BENCHMARK}')")">Use as default school</a>
+    <a @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_@school.Urn" class="add-remove remove defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'{CompareActions.REMOVE_DEFAULT_BENCHMARK}')")">Remove as default school</a>
+}
+
+@helper DisplayStyle(bool display)
+{
+    if (display)
+    {
+        @Html.Raw("style=\"display: inline-block\"")
+    }
+    else
+    {
+        @Html.Raw("style=\"display: none\"")
+    }
+}
+
+@section ViewScripts {
+    <script>
+        DfE.Views.BenchmarkListViewModel.Load();
+    </script>
+}

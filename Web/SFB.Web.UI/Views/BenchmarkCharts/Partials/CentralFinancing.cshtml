@@ -1,0 +1,14 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.Domain.Helpers.Enums
+
+<div class="column-third chart-filter">
+    <div class="form-group">
+        <label class="form-label" for="CentralFinancing">Academy values</label>
+        <select name="CentralFinancing" id="CentralFinancing" class="form-control" onchange="RebuildCharts()">
+            <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
+            <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
+        </select>
+    </div>
+</div>
+
+

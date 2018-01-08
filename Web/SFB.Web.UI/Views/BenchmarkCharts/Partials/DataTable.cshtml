@@ -1,0 +1,67 @@
+﻿@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.ChartViewModel
+
+<h3 class="heading-medium">What does this include?</h3>
+
+<table class="tablesorter">
+    <thead>
+    <tr>
+        <th class="school-column">School</th>
+        @foreach (var column in Model.TableColumns)
+        {
+            <th>
+                @column.Name<div class="sort-icon"></div>
+            </th>
+        }
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var school in Model.TableColumns[0].BenchmarkData)
+    {
+        <tr>
+            <td class="school-column">
+                @{
+                    var style = school.Urn == ViewBag.HomeSchoolId ? "highlight-field" : "";
+
+                    if (school.Urn.StartsWith("MAT"))
+                    {
+                        var name = school.School.Substring(0, school.School.LastIndexOf("#"));
+                        <a target="_self" href="/trust/index?matno=@school.Urn&name=@name" class="@style">@name</a>
+                    }
+                    else
+                    {
+                        <a target="_self" href="/school/detail?urn=@school.Urn" class="@style">@school.School.Substring(0, school.School.LastIndexOf("#"))</a>
+                    }
+                }
+
+            </td>
+            @foreach (var column in Model.TableColumns)
+            {
+                var amount = column.BenchmarkData.FirstOrDefault(b => b.School == school.School).Amount;
+                if (Model.ShowValue == UnitType.PercentageOfTotal)
+                {
+                    if (amount.HasValue)
+                    {
+                        <td class="numeric">@amount.GetValueOrDefault().ToString("F1")%</td>
+                    }
+                    else
+                    {
+                        <td class="numeric">Not applicable</td>
+                    }
+                }
+                else
+                {
+                    if (amount.HasValue)
+                    {
+                        <td class="numeric">@amount.GetValueOrDefault().ToString("C0")</td>
+                    }
+                    else
+                    {
+                        <td class="numeric">Not applicable</td>
+                    }
+                }
+            }
+        </tr>
+    }
+    </tbody>
+</table>

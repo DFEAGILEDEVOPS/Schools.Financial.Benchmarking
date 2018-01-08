@@ -1,0 +1,190 @@
+﻿@using Newtonsoft.Json
+@using SFB.Web.Domain.Helpers.Constants
+
+@model SFB.Web.UI.Models.SchoolSearchViewModel
+
+@{
+    ViewBag.Title = "Schools financial benchmarking";
+    ViewBag.pageClass = "schools-search-page";
+}
+
+@Html.Partial("Partials/BenchmarkListBanner")
+
+<div class="grid-row">
+    <div class="column-three-quarters">
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="error-summary" role="group" aria-labelledby="ErrorSummaryHeading">
+                <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                    There is a problem
+                </h1>
+                <ul class="error-summary-list">
+                    <li>
+                        <a href="#finderSection">@Model.ErrorMessage</a>
+                    </li>
+                </ul>
+            </div>
+        }
+
+        <h1 class="heading-xlarge page-heading">
+            @ViewBag.Title
+        </h1>
+
+        <p class="lede">Compare your school's income and expenditure with other schools in England.</p>
+        <p class="homep">You can:</p>
+        <ul>
+            <li>view your school's financial data</li>
+            <li> see how similar schools manage their finances</li>
+            <li>use the information gathered to establish relationships with other schools</li>
+        </ul>
+
+
+        @if (Model.ComparisonList.HomeSchoolUrn != null)
+        {
+            <div class="home-school section">
+                <p>
+                    <span class="heading-small bold-small">
+                        Your default school:
+                    </span>
+                    <a class="bold-small" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
+                </p>
+                <div>
+                    <a class="button" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.ComparisonList.HomeSchoolUrn">Compare with other schools</a>
+                </div>
+            </div>
+            <hr class="home-school-divider"/>
+        }
+
+        <div class="section">
+            <div class="finder-section" id="finderSection">
+                <fieldset>
+                    <legend class="visuallyhidden">Select a search type option</legend>
+                    <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
+                        <form method="get" action="/SchoolSearch/Search" autocomplete="off">
+                            <div class="form-group">
+                                <fieldset>
+                                    <div class="form-group heading-small bold-small">
+                                        Begin by finding a school or trust
+                                    </div>
+
+                                    <label id="SchoolOrCollegeNameIdAccordion" for="SchoolOrCollegeNameId" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_NAME_ID))" aria-controls="SearchByNameIdFieldset">
+                                        <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID))/>
+                                        <label for="SchoolOrCollegeNameId">School</label>
+                                    </label>
+                                    <div id="SearchByNameIdFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
+                                        <label class="form-label" for="FindByNameId">Enter a school name, URN or LAESTAB code</label>
+                                        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_NAME_ID))
+                                        {
+                                            <span class="error-message">@Model.ErrorMessage</span>
+                                        }
+                                        <input id="FindByNameId"
+                                               class="form-control mbl"
+                                               name="nameId"
+                                               type="text"
+                                               data-suggestion-url="@(Model.SchoolSuggestionUrl)"/>
+                                        <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn"/>
+                                        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_NAME_ID">Search</button>
+                                    </div>
+
+                                    <label id="TrustNameAccordion" for="TrustName" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_NAME))" aria-controls="SearchByTrustNameFieldset">
+                                        <input id="TrustName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_NAME))/>
+                                        <label for="TrustName">Trust</label>
+                                    </label>
+                                    <div id="SearchByTrustNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME))">
+                                        <label class="form-label" for="FindByTrustName">Enter the trust name</label>
+                                        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_NAME))
+                                        {
+                                            <span class="error-message">@Model.ErrorMessage</span>
+                                        }
+                                        <input id="FindByTrustName"
+                                               class="form-control mbl"
+                                               name="trustname"
+                                               type="text"
+                                               data-suggestion-url="@(Model.TrustSuggestionUrl)"/>
+                                        <input type="hidden" id="FindByTrustNameSuggestionId" name="trustsuggestionUrn"/>
+                                        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_NAME">Search</button>
+                                    </div>
+
+                                    <div class="form-group heading-small bold-small">
+                                        Alternatively, search by area
+                                    </div>
+                                    <label id="TownOrCityAccordion" for="TownOrCity" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LOCATION))" aria-controls="SearchByTownFieldset">
+                                        <input id="TownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LOCATION))/>
+                                        <label for="TownOrCity">Location</label>
+                                    </label>
+                                    <div id="SearchByTownFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
+                                        <label for="FindSchoolByTown">
+                                            Enter a postcode, town or street. Or
+                                            <a href="#" id="FindCurrentPosition">use your current location</a>
+                                        </label>
+                                        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
+                                        {
+                                            <span class="error-message">@Model.ErrorMessage</span>
+                                        }
+                                        <input id="FindSchoolByTown"
+                                               class="form-control mbl search-input"
+                                               name="locationorpostcode"
+                                               placeholder=""
+                                               type="text"/>
+                                        <input type="hidden" id="LocationCoordinates" name="LocationCoordinates"/>
+                                        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LOCATION">Search</button>
+                                    </div>
+
+                                    <label id="LaCodeNameAccordion" for="LaCodeName" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))" aria-controls="SearchByLaCodeNameFieldset">
+                                        <input id="LaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))/>
+                                        <label for="LaCodeName">Local authority</label>
+                                    </label>
+                                    <div id="SearchByLaCodeNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
+                                        <label for="FindSchoolByLaCodeName">
+                                            <span>Enter a local authority name or a three-digit LA code</span>
+                                        </label>
+                                        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
+                                        {
+                                            <span class="error-message">@Model.ErrorMessage</span>
+                                        }
+                                        <input id="FindSchoolByLaCodeName"
+                                               class="form-control mbl"
+                                               name="lacodename"
+                                               type="text"/>
+                                        <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId"/>
+                                        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                </fieldset>
+            </div>
+
+        </div>
+    </div>
+    <div class="column-quarter">
+        <aside class="contents guidance">
+            <h2 class="heading-medium">Guidance</h2>
+            <ul class="font-small">
+                <li>
+                    <a href="Help/Guidance">Help using this site</a>
+                </li>
+                <li>
+                    <a href="Help/InterpretingCharts">Interpreting the charts</a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</div>
+
+@section ViewScripts {
+
+    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script>
+        var localAuthorities = @Html.Raw(JsonConvert.SerializeObject(Model.Authorities));
+        DfE.Views.SchoolsSearchViewModel.Load(localAuthorities);
+
+        function loadViewModel() {
+            DfE.Views.GoogleLocationViewModel.Load();
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])&libraries=places&callback=loadViewModel"></script>
+
+}

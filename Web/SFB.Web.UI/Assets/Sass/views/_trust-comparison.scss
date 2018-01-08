@@ -1,0 +1,51 @@
+﻿.trust-comparison {
+
+    @include highlighting;
+
+    .trust-element{
+        margin: 20px 0;
+    }
+
+    .twitter-typeahead {
+        width: 50%;
+        float: left;
+
+        @include media(mobile) {
+            width: 80%;
+        }
+
+        .form-control {
+            width: 100%;
+        }
+    }
+
+    .tt-menu {
+        background-color: white;
+        z-index: 99 !important; // accessibility requirement
+        .tt-suggestion {
+            a {
+                display: block;
+                padding: $gutter-one-quarter;
+                text-decoration: none;
+            }
+
+            a strong {
+                text-decoration: underline;
+            }
+
+            &:hover, a:hover {
+                background-color: $link-hover-colour;
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        .tt-cursor {
+            background-color: #f9f9f9;
+        }
+    }
+
+    .control-buttons{
+        margin-top: 35px;
+    }
+}

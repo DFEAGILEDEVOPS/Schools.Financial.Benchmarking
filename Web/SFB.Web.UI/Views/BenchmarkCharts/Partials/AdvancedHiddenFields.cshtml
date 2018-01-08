@@ -1,0 +1,18 @@
+﻿@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+@if (Model.AdvancedCriteria != null)
+{
+    <form id="advancedCriteria" method="post" action="~/BenchmarkCriteria/AdvancedCharacteristics">
+        
+        @Html.Partial("Partials/AdvancedCriteriaHiddenFields", Model.AdvancedCriteria)
+        
+        <input type="hidden" name="Urn" value="@Model.URN">
+        <input type="hidden" name="ComparisonType" value="@Model.ComparisonType">
+        <input type="hidden" name="EstType" value="@Model.SearchedEstablishmentType">
+        <input type="hidden" name="AreaType" value="@Model.AreaType">
+        <input type="hidden" name="LaCode" value="@Model.LaCode">
+        
+        <span>This benchmark was created using the following criteria.</span>
+        <span class="hide-in-print"> You can <button type="submit" class="link-button font-small no-padding">change these</button></span>
+    </form>
+}

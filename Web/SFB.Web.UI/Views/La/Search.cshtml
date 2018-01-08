@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "search-results";
+}
+
+@Html.Partial("Partials/BenchmarkListBanner")
+
+@Html.Partial("Partials/SearchForSchoolsPanel")
+
+<h1 class="heading-xlarge page-heading">Local authorities</h1>
+
+<div class="grid-row js-live-search-results-block">
+    @Html.Partial("Partials/ResultBlock")
+</div>
+
+

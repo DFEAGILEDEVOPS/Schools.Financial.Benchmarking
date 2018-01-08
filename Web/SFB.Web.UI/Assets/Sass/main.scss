@@ -1,0 +1,101 @@
+// Path to assets for use with the file-url function
+// in the govuk frontend toolkit's url-helpers partial
+$path: "/public/images/";
+
+@import "govuk-elements";
+
+
+// Colours
+@import "styleguide/colours";
+
+// vars
+@import "variables";
+
+// mixins
+@import "mixins";
+
+// utils
+@import "utils/conditionals";
+@import "utils/vendor-prefixes";
+@import "utils/clearfix-me";
+@import "utils/whitespace";
+@import "utils/border-radius";
+@import "utils/toggles";
+@import "utils/buttons";
+
+// prototype spacers
+@include whitespace((5px,10px,15px,20px), 4);
+
+// Helpers
+@import "elements/helpers";
+
+// Base
+// ==========================================================================
+
+
+// Layout
+@import "elements/footer";
+
+// Links
+@import "elements/links";
+
+// Boxes
+@import "elements/related-box";
+@import "elements/box/box";
+
+// Tabs
+@import "elements/_tabs";
+
+// Help icon
+@import "elements/_helpicon";
+
+// Components
+// ==========================================================================
+
+// Forms
+@import "elements/forms/form-questions";
+
+@import "elements/forms/filter-form/text-filter";
+@import "elements/forms/filter-form/option-select";
+
+@import "elements/forms/feedback/feedback";
+
+// Collapsibles
+@import "elements/collapsible/collapsible";
+
+// Browse
+@import "elements/browse";
+
+// Rating
+@import "elements/rating/rating";
+
+// Pagination
+@import "elements/pagination";
+
+@import "elements/phase-banner";                  // Alpha and beta banners and tags
+
+// Views
+// ==========================================================================
+@import "views/base";
+@import "views/employee-details";
+@import "views/search-results";
+@import "views/user-access";
+@import "views/dashboard";
+@import "views/detailed-report.scss";
+@import "views/summary-report.scss";
+@import "views/benchmark-list.scss";
+@import "views/schools-search-page";
+@import "views/school-details";
+@import "views/sponsor-detail";
+@import "views/benchmark-charts";
+@import "views/school-characteristics.scss";
+@import "views/advanced-school-characteristics.scss";
+@import "views/comparison-strategy.scss";
+@import "views/comparison-step-one.scss";
+@import "views/comparison-step-two.scss";
+@import "views/comparison-basket-size.scss";
+@import "views/simple-characteristics.scss";
+@import "views/_overwrite-strategy.scss";
+@import "views/_guidance.scss";
+@import "views/_cookies_page.scss";
+@import "views/_trust-comparison.scss";

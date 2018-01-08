@@ -1,0 +1,8 @@
+﻿.simple-characteristics {
+    @include highlighting;
+
+    ul{
+        list-style-type:inherit;
+    }
+}
+

@@ -1,0 +1,38 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.SponsorListViewModel
+
+<div class="column-two-thirds">
+
+    <div aria-live="assertive" id="js-search-results-info">
+        <div class="result-info">
+            <p class="summary" aria-live="assertive">
+                <span class="bold">@(Model.Pagination.Total)</span> trusts found
+            </p>
+        </div>
+    </div>
+    @if (Model.ModelList.Count > 0)
+    {
+        @Html.Partial("Partials/Pagination", Model.Pagination)
+
+        <ul>
+            @foreach (var sponsor in Model.ModelList)
+            {
+                <li class="document">
+                    <a href="/trust/index?matno=@sponsor.MatNo&name=@sponsor.Name" class="bold-small">@sponsor.Name</a>
+                </li>
+            }
+        </ul>
+
+        @Html.Partial("Partials/Pagination", Model.Pagination)
+    }
+    else
+    {
+        <p class="bold-small" style="margin-top:22px;">Please try:</p>
+                                    <p class="indent">
+                                        •	<a href="/">searching again</a> using different spelling or words
+                                    </p>
+                                    <p class="indent">
+                                        •	removing your filters
+                                    </p>
+    }
+</div>

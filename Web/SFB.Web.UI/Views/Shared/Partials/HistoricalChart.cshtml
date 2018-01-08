@@ -1,0 +1,81 @@
+﻿@using SFB.Web.Domain.Helpers
+@using SFB.Web.Domain.Helpers.Enums
+@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.ChartViewModel
+
+@if (!string.IsNullOrEmpty(Model.MoreInfo))
+{
+    <details>
+        <summary class="hide-in-print">
+            <span class="summary font-xsmall">More info</span>
+        </summary>
+        <div class="panel panel-border-narrow">
+            @Html.Raw(Model.MoreInfo)
+        </div>
+    </details>
+}
+<div class="grid-row">
+    <div class="column-full no-padding">
+        <div class="column-quarter mobile">
+            <div>
+                <span class="bold">@ViewBag.FinancialYear</span>
+            </div>
+            <div class="lastYearBalance">
+                @if (Model.ShowValue == UnitType.PercentageOfTotal ||
+                     Model.ShowValue == UnitType.FTERatioToTotalFTE)
+                {
+                    @Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("0.#") + "%")
+                }
+                else if (Model.ShowValue == UnitType.AbsoluteCount ||
+                         Model.ShowValue == UnitType.NoOfPupilsPerMeasure ||
+                         Model.ShowValue == UnitType.HeadcountPerFTE)
+                {
+                    @Html.Raw(Model.LastYearBalance.GetValueOrDefault())
+                }
+                else
+                {
+                    if (Model.LastYearBalance >= 10000 || Model.LastYearBalance <= -10000)
+                    {
+                        <abbr title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                    }
+                    else
+                    {
+                        @Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("C0"))
+                    }
+                }
+            </div>
+        </div>
+        <div class="column-three-quarters">
+            <div id="chart_@Model.Id" class="chart" data-chart='@Model.DataJson'></div>
+        </div>
+        <div class="column-quarter desktop">
+            <div>
+                <span class="bold">@ViewBag.FinancialYear</span>
+            </div>
+            <div class="lastYearBalance">
+                @if (Model.ShowValue == UnitType.PercentageOfTotal ||
+                     Model.ShowValue == UnitType.FTERatioToTotalFTE)
+                {
+                    @Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("0.#") + "%")
+                }
+                else if (Model.ShowValue == UnitType.AbsoluteCount ||
+                         Model.ShowValue == UnitType.NoOfPupilsPerMeasure ||
+                         Model.ShowValue == UnitType.HeadcountPerFTE)
+                {
+                    @Html.Raw(Model.LastYearBalance.GetValueOrDefault())
+                }
+                else
+                {
+                    if (Model.LastYearBalance >= 10000 || Model.LastYearBalance <= -10000)
+                    {
+                        <abbr title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                    }
+                    else
+                    {
+                        @Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("C0"))
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

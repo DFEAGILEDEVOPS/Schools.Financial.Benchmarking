@@ -1,0 +1,310 @@
+﻿.benchmarking-charts {
+    .c3-text {
+        fill: $black !important;
+    }
+
+    .england-average-bar {
+        fill: $grey-2 !important;
+    }
+
+    .england-average-tick {
+        font-weight: bold;
+    }
+
+    .highlight {
+        background-color: $pink;
+        display: inline;
+
+        span {
+            color: white;
+            padding: 8px;
+            line-height: 1.8em;
+        }
+    }
+
+    .highlight-field {
+        background-color: $pink;
+        color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-weight: bold;
+    }
+
+    .chartsSection {
+        .chartContainer {
+            margin-top: 20px;
+            /*border-top: 1px solid $border-colour;*/
+            h3 {
+                margin-top: 1em;
+            }
+
+            &.column-full {
+                @include media(mobile) {
+                    padding: 0;
+                }
+            }
+        }
+
+        .chart {
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+            .c3-axis-x g.tick text tspan {
+                fill: #005ea5;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .chart-accordion-header {
+        display: inline;
+    }
+
+    .chart-border {
+        border-top: solid 5px;
+        border-color: $govuk-blue;
+        padding-top: 15px;
+    }
+
+    table.tablesorter {
+        .school-column {
+            text-align: left;
+        }
+
+        thead tr th {
+            @include core-16;
+            text-align: right;
+            color: $govuk-blue;
+        }
+
+        tbody tr td {
+            @include core-16;
+            text-align: right;
+
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .criteria-details {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        table {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+    /* table sorter */
+    table.tablesorter thead tr .header {
+        //background-image: url(/public/assets/images/bg.gif);
+        background-repeat: no-repeat;
+        background-position: center right;
+        cursor: pointer;
+    }
+
+    table.tablesorter thead tr .header:hover {
+        text-decoration: underline;
+    }
+
+    table.tablesorter thead tr .headerSortUp {
+        background-image: url(/public/assets/images/asc.gif);
+        font-weight: bold;
+    }
+
+    table.tablesorter thead tr .headerSortDown {
+        background-image: url(/public/assets/images/desc.gif);
+        font-weight: bold;
+    }
+    /* table sorter */
+    .panel.criteria-detail {
+        @include media(mobile) {
+            border: none;
+            padding: 0;
+        }
+    }
+
+    .page-top {
+        margin-top: 20px;
+    }
+
+    .download {
+        img {
+            vertical-align: middle;
+        }
+
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .not-bold {
+        font-weight: normal;
+    }
+
+    .selection-filters {
+        padding-top: 20px;
+
+        .form-control {
+            @include media(tablet) {
+                width: 65%;
+            }
+        }
+    }
+
+    .selection-controls {
+        padding-top: 30px;
+
+        @include media(desktop) {
+            padding-bottom: 120px;
+        }
+
+        .clear-link {
+            padding-top: 8px;
+
+            @include media(desktop) {
+                padding-left: 0;
+            }
+
+            cursor: pointer;
+            color: $link-colour;
+        }
+    }
+
+    .selections {
+        padding-top: 60px;
+    }
+
+    details.selection-details {
+        padding-top: 10px;
+
+        @include media(desktop) {
+            border-bottom: 2px solid $grey-2;
+        }
+
+        &.hide-borders {
+            padding-top: 0;
+            border-bottom: none;
+        }
+    }
+
+    .search-results {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .chart-selection {
+        padding-top: 5px;
+        padding-bottom: 50px;
+        clear: left;
+
+        @include media(desktop) {
+            border-bottom: 2px solid $grey-2;
+        }
+
+        @include media(desktop) {
+
+            .multiple-choice-header {
+                display: inline;
+                float: left;
+            }
+
+            .multiple-choices {
+                display: inline;
+                float: left;
+            }
+
+            .multiple-choice {
+                display: inline;
+                float: none;
+                padding: 0;
+                left: 6px;
+                top: -1px;
+
+                [type=checkbox] + label::before {
+                    content: "";
+                    border: 2px solid;
+                    background: transparent;
+                    width: 25px;
+                    height: 25px;
+                    position: relative;
+                    top: -4px;
+                    left: 15px;
+                    float: left;
+                }
+
+                [type=checkbox] + label::after {
+                    float: left;
+                    position: relative;
+                    left: -10px;
+                    top: 2px;
+                }
+
+                label {
+                    font-size: 16px;
+                    padding: 0;
+                    padding-top: 10px;
+                }
+            }
+        }
+
+        hr.tablet-divider {
+            clear: left;
+
+            @include media(desktop) {
+                display: none;
+            }
+        }
+
+        .add-remove-links {
+            margin-top: 1.5em;
+
+            a {
+                @include core-16;
+                float: right
+            }
+
+            &.table {
+                margin-top: 0;
+            }
+        }
+    }
+
+    summary.hide-summary {
+        display: none;
+    }
+
+    div.show-details {
+        display: block;
+    }
+
+    .customAdd, .customRemove {
+        @include media(tablet) {
+            float: right;
+        }
+    }
+
+    .save-as-image {
+        @include media(tablet) {
+            float: right;
+        }
+    }
+
+    .customActions {
+        a {
+            text-decoration: none;
+        }
+
+        @include media(tablet) {
+            margin-top: 1.5em;
+
+            a {
+                padding-left: 10px;
+            }
+
+            div {
+                float: right;
+            }
+        }
+    }
+}

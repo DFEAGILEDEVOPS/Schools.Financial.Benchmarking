@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "search-results";
+}
+
+
+@Html.Partial("Partials/BenchmarkListBanner")
+
+
+<div id="searchSchoolsLink" class="grid-row hide-in-print">
+    <div class="column-full">
+        <span class="back-chevron">&#706;</span>
+        <a class="home-link" href="/Trust?matNo=@ViewBag.MatNo&name=@ViewBag.MatName">Back to @ViewBag.MatName</a>
+    </div>
+</div>
+
+<h1 class="heading-xlarge page-heading">Trust's Schools</h1>
+
+<div class="grid-row js-live-search-results-block">
+    @Html.Partial("Partials/ResultBlock")
+</div>
+
+@section ViewScripts{
+    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])"></script>
+    <script src="~/node_modules/js-marker-clusterer/src/markerclusterer_compiled.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+    <script>
+        GOVUK.Modal.Load();
+
+        @if (string.IsNullOrWhiteSpace(ViewBag.QueryLat))
+        {
+            <text>var loc = null;</text>
+        }
+        else
+        {
+            <text>var loc = { lat: @(ViewBag.QueryLat ?? "null"), lng: @(ViewBag.QueryLong ?? "null") };</text>
+        }
+
+        DfE.Views.SchoolsResultsViewModel.Load(loc, "@(ViewBag.tab)");
+
+        $(function() {
+            if ($(window).width() <= 640) {
+                $('details').removeAttr('open');
+            }
+
+            GOVUK.LiveSearch.displaceSchoolCount();
+            
+        });
+    </script>
+}

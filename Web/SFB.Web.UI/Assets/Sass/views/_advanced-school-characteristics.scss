@@ -1,0 +1,107 @@
+﻿.advanced-school-characteristics {
+
+    .highlight {
+        @include bold-16();
+        background-color: $pink;
+        color: $white;
+        text-align: center;
+        padding: 5px;
+        display: inline;
+    }
+
+    .center-text {
+        text-align: center;
+    }
+
+    #mainQuestion {
+        padding-top: 4%;
+    }
+
+    .benchmark-school-value {
+        margin-left: 15px;
+        margin-bottom: 10px;
+        color: $grey-1;
+    }
+
+    .remove-button {
+        padding-top: 6%;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .char-list {
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+
+    .input-html .column-half {
+        padding-left: 0;
+    }
+
+    .validation-summary-errors {
+        @include bold-19();
+        color: $red;
+    }
+
+    .form-control.error {
+        -moz-box-shadow: none;
+        border: 4px solid $red;
+    }
+
+    .error-message label {
+        display: block;
+    }
+
+    .chkbox {
+        position: relative;
+        top: 31px;
+        cursor: pointer;
+        margin: 0;
+        width: 29px;
+        height: 29px;
+
+        @include ie(8) {
+            top: 12px;
+        }
+    }
+
+    .link {
+        margin-top: 9px;
+    }
+
+    .input-html {
+        .form-group {
+            margin-bottom: 0;
+        }
+    }
+
+    form .criteria-questions {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .error-message label {
+        border: none;
+        margin-left: 15px;
+    }
+
+    .button-set {
+        margin-top: 30px;
+    }
+
+    details {
+        padding-top: 15px;
+        padding-bottom: 5px;
+        border-top: 2px solid $grey-2;
+
+        summary {
+            font-weight: bold;
+        }
+
+        .content{
+            padding-top:15px;
+        }
+    }
+}

@@ -1,0 +1,107 @@
+﻿.benchmark-list {
+
+    .button {
+        @include core-16;
+    }
+
+    .button.view-benchmark {
+        margin-bottom: 0;
+        float: right;
+    }
+
+    .edit-basket {
+    }
+
+    .benchmarkControlPanel {
+        @include core-16;
+        padding-bottom: 15px;
+    }
+
+    .benchmarkControls {
+        margin-left: 20px;
+        margin-right: 20px;
+        text-decoration: none;
+    }
+
+    li.document {
+        border-top: solid 1px $border-colour;
+        padding: $gutter-half 0;
+    }
+
+    .metadata {
+        margin: 0;
+
+        dt, dd {
+            @include core-14;
+            margin-left: 0;
+            padding: 0;
+        }
+    }
+
+    .document a {
+        text-decoration: none;
+    }
+
+    .document .remove-benchmark {
+        .button {
+            float: right;
+        }
+
+        .button.removefrom {
+            @include grey-button;
+
+            margin-right: 0;
+        }
+    }
+
+    .document .make-benchmark {
+        height: 75px;
+
+        @include media(mobile) {
+            height: 25px;
+        }
+
+        a {
+            @include media(mobile) {
+                float: left;
+            }
+        }
+    }
+
+    .document .default-benchmark a {
+        float: right;
+
+        @include media(mobile) {
+            float: left;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    }
+
+    .document .highlight {
+        background-color: $pink;
+        display: inline;
+
+        a {
+            color: white;
+            padding: 8px;
+            line-height: 1.8em;
+        }
+    }
+
+    .basket-control-buttons {
+        display: inline-block;
+
+        @include media(mobile) {
+            display: block;
+            margin-left: -20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .view-button-bottom {
+        border-top: solid 1px #bfc1c3;
+        padding: 15px 0;
+    }
+}

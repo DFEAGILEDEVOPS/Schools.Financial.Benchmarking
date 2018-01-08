@@ -1,0 +1,22 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+<div class="column-half chart-filter">
+    <div class="form-group">
+        <label class="form-label" for="ShowValue">Show value</label>
+        <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('trust')">
+            <option value="@UnitType.AbsoluteMoney" @IsSelected(UnitType.AbsoluteMoney)="selected">@ChartShowValues.ABSOLUTE</option>
+            <option value="@UnitType.PerPupil" @IsSelected(UnitType.PerPupil)>@ChartShowValues.PER_PUPIL</option>
+            <option value="@UnitType.PerTeacher" @IsSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
+            <option value="@UnitType.PercentageOfTotal" @IsSelected(UnitType.PercentageOfTotal)>@ChartShowValues.PERCENTAGE_TOTAL</option>
+        </select>
+    </div>
+</div>
+
+@helper IsSelected(UnitType option)
+{
+if (option == Enum.Parse(typeof(UnitType), ViewBag.UnitType.ToString()))
+{
+        <text>selected</text>
+}
+}

@@ -1,0 +1,11 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.Domain.Helpers.Enums
+
+
+<div class="form-group">
+    <label class="form-label" for="Financing">Central financing</label>
+    <select name="TrustCentralFinancing" id="TrustCentralFinancing" class="form-control" onchange="RebuildCharts()">
+        <option value="@MatFinancingType.TrustAndAcademies">@MATFinancing.TRUST_ACADEMIES</option>
+        <option value="@MatFinancingType.TrustOnly">@MATFinancing.TRUST_ONLY</option>
+    </select>
+</div>
