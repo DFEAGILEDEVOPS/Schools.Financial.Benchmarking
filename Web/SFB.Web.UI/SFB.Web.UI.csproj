@@ -239,7 +239,6 @@
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="Helpers\DownloadCSVBuilder.cs" />
-    <Compile Include="Helpers\Filters\DynamicHeaderMessageAttribute.cs" />
     <Compile Include="Helpers\HierarchicalCustomChartBuilder.cs" />
     <Compile Include="Helpers\HistoricalChartBuilder.cs" />
     <Compile Include="Models\BenchmarkCriteriaMultipleChoiceVM.cs" />
