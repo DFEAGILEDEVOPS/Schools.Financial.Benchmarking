@@ -268,7 +268,7 @@
         }
         $(".js-dismiss-dynamic-header").click(function () {
             $(".dynamic-header").hide();
-            GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 90 });
+            GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
         });
         $(".print-link a").click(function () { window.print(); });
         $(document).on("click", "a.button-view-comparison.zero", function ($e) {
