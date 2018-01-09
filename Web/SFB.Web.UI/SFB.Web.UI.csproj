@@ -308,13 +308,11 @@
     <Compile Include="Services\FinancialCalculationsService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
     <Compile Include="Services\IStatisticalCriteriaBuilderService.cs" />
-    <Compile Include="Services\JourneyService.cs" />
     <Compile Include="Services\StatisticalCriteriaBuilderService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\BasicAuthenticationModule.cs" />
     <Compile Include="Utils\IRequestContext.cs" />
     <Compile Include="Utils\RequestContextWrapper.cs" />
-    <Compile Include="Services\IJourneyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppSettings.config" />
