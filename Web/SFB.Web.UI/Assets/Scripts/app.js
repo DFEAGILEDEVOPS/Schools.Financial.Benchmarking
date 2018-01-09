@@ -260,10 +260,15 @@
             }
 
         });
+        var suppressCookie = GOVUK.cookie("suppress-dynamic-header");
+        if (suppressCookie === "yes") {
+            $(".dynamic-header").hide();
+        } else {
+            $(".dynamic-header").show();
+        }
         $(".js-dismiss-dynamic-header").click(function () {
             $(".dynamic-header").hide();
-            var etagtoken = $(this).data("etagtoken");
-            GOVUK.cookie("suppress-dynamic-header", etagtoken, { days: 90 });
+            GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 90 });
         });
         $(".print-link a").click(function () { window.print(); });
         $(document).on("click", "a.button-view-comparison.zero", function ($e) {

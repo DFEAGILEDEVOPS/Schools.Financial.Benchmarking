@@ -12,7 +12,9 @@ namespace SFB.Web.UI.Helpers.Filters
         {
             if (filterContext.Result is ViewResult)
             {
-                (filterContext.Result as ViewResult).ViewBag.DynamicHeaderContent = "bla bla bla";
+                (filterContext.Result as ViewResult).ViewBag.DynamicHeaderContent = 
+                    "This is a message to users about the new release of the latest data for schools and trusts. " +
+                    "It might contain a <a href=\"http://www.gov.uk\">link</a> to some information but doesn't have to.";
             }
 
         }
