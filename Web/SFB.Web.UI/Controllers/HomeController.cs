@@ -2,6 +2,7 @@
 using SFB.Web.UI.Models;
 using System.Web.Mvc;
 using SFB.Web.Domain.Services;
+using SFB.Web.UI.Helpers.Filters;
 
 namespace SFB.Web.UI.Controllers
 {

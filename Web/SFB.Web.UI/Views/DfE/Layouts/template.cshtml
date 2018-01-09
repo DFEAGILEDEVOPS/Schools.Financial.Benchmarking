@@ -52,18 +52,17 @@
 }
 
 <main id="content" class="page @(ViewBag.pageClass)" role="main" tabindex="-1">
-    @if (ViewBag.suppressHomeLink != true)
+    @if (ViewBag.DynamicHeaderContent != null)
     {
-        @*<div class="grid-row">
-            <div class="column-full">
-                <a class="home-link" href="/">Home</a>
+        <div class="dynamic-header">
+            <div>
+                @Html.Raw(ViewBag.DynamicHeaderContent)
             </div>
-        </div>*@
+            <a class="js-dismiss-dynamic-header" href="javascript:">Hide message</a>
+        </div>
     }
-    else
-    {
-        <div class="pre-content"></div>
-    }
+
+    <div class="pre-content"></div>
 
     @RenderBody()
 </main>

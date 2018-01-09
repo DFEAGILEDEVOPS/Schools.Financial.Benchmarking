@@ -35,7 +35,7 @@ a.home-link
 
 .pre-content
 {
-    padding-bottom:20px;
+    padding-bottom:10px;
     @include media(mobile)
     {
         padding-bottom:4px;
@@ -470,4 +470,40 @@ abbr[title]{
     width: 30px;
     height: 22px;
     background-image: url(/public/assets/images/icons/icon-saveimage.png);
+}
+
+.dynamic-header
+{
+    display: none;
+    position:relative;
+    background-color:#d5e8f3;
+    padding:10px;
+    margin:10px 0;
+    > div
+    {
+        margin-right:115px;
+        font-size:16px;
+        b, strong { font-weight:bold; }
+        p { margin-bottom:5px; }
+        @include media(mobile){
+            margin-right:0;
+        }
+    }
+    > a
+    {
+        display:block;
+        position:absolute;
+        right:10px;
+        top:15px;
+        width:105px;
+        font-size:15.2px;
+        text-align:right;
+        @include media(mobile){
+            position:static;
+            text-align:left;
+            top:auto;
+            right:auto;
+            margin-top:10px;
+        }
+    }
 }
