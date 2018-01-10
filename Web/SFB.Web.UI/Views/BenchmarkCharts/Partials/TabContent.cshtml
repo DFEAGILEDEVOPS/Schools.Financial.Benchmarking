@@ -5,12 +5,9 @@
 
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-<input type="hidden" id="tabSelection" value="@ViewBag.Tab"/>
-
-@Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-
 <div class="chartsSection">
     <div class="grid-row">
+        <input type="hidden" id="tabSelection" value="@ViewBag.Tab" />
         <form autocomplete="off">
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)

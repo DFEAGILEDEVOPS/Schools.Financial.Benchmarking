@@ -138,22 +138,22 @@ else
                     Some schools don't have a complete set of data for this period
                 </p>
             </div>
-        }        
+        }
     }
 
-    <div id="CustomReportContentPlaceHolder">
-        <div id="tabsSection">
-            @Html.Partial("Partials/TabContent")
-        </div>
-        @if (Model.EstablishmentType != EstablishmentType.MAT)
-        {
-            <div id="customTabSection" style="display: none" ng-app="reportApp">
-                <div id="listCtrl" ng-controller="ChartListController as ctrl">
-                    @Html.Partial("Partials/CustomTabControls")
-                    @Html.Partial("Partials/CustomTab")
-                </div>
+    <div id="CustomReportContentPlaceHolder" ng-app="reportApp">
+        <div id="listCtrl" ng-controller="ChartListController as ctrl">
+            @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
+            <div id="tabsSection">
+                @Html.Partial("Partials/TabContent")
             </div>
-        }
+            @if (Model.EstablishmentType != EstablishmentType.MAT)
+            {
+                <div id="customTabSection" style="display: none">
+                    @Html.Partial("Partials/CustomTabContent")
+                </div>
+            }
+        </div>
     </div>
 
     <a href="#pagetop" class="page-top mobile-only hide-in-print">Back to top</a>
@@ -170,7 +170,8 @@ else
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/rgbcolor.js"></script> 
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/StackBlur.js"></script>
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/canvg.js"></script> 
-
+    <script src="/Assets/Scripts/AngularJS/reportApp.js"></script>
+    
     <script>
 
         $(document).ready(function() {
@@ -183,6 +184,30 @@ else
         function saveAsImage(name, id) {
             var svg = $('#'+id).find('svg')[0];
             saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white'});
+        }
+
+        function ChangeTab(tab) {
+            if (tab === "Custom") {
+                $(".tabs li").removeClass("active");
+                $(".tabs li#" + tab).addClass("active");
+                $("#tabsSection").empty('');
+                $("#customTabSection").show();
+            } else {
+                var unitParameter = $("#ShowValue").val();
+                unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
+                $.get("/benchmarkcharts/tabchange?tab=" + tab + "&type=@Model.EstablishmentType.ToString()&showValue=" + unitParameter,
+                    function (data) {
+                        $(".tabs li").removeClass("active");
+                        $(".tabs li#" + tab).addClass("active");
+                        $("#customTabSection").hide();
+                        $("#tabsSection").html(data);
+                        $("table").tablesorter();
+                        var unitParameter = $("#ShowValue").val();
+                        RefreshAddRemoveLinks();
+                        $('.save-as-image').show();
+                        GenerateCharts(unitParameter);
+                    });
+            }
         }
 
         //This function is accessing to the scope of the AngularJS controller in the 'Your Charts' tab to sync the chart selections in other tabs.
@@ -588,26 +613,6 @@ else
                     GenerateCharts(unitParameter);
                     $("table").tablesorter();
                 });
-        }
-
-        function ChangeTab(tab) {
-            if (tab === "Custom") {
-                $("#tabsSection").empty('');
-                $("#customTabSection").show();
-            } else {
-                var unitParameter = $("#ShowValue").val();
-                unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
-                $.get("/benchmarkcharts/tabchange?tab=" + tab + "&type=@Model.EstablishmentType.ToString()&showValue=" + unitParameter,
-                    function(data) {
-                        $("#customTabSection").hide();
-                        $("#tabsSection").html(data);
-                        $("table").tablesorter();
-                        var unitParameter = $("#ShowValue").val();
-                        RefreshAddRemoveLinks();
-                        $('.save-as-image').show();
-                        GenerateCharts(unitParameter);
-                    });
-            }
         }
     </script>
 

@@ -1,24 +1,22 @@
 
 $tabheight:40px;
 
-nav.tabs 
-{
+nav.tabs {
     background-color: white;
     z-index: 1000;
-    ol 
-    {
+
+    ol {
         margin-top: 14px;
         padding-left: 0;
-        @include media(desktop) 
-        {
+
+        @include media(desktop) {
             border-bottom: 1px solid $grey-2;
         }
 
-        li 
-        {
+        li {
             font-family: "nta",Arial,sans-serif;
             font-size: 16px;
-            line-height: 1.25;            
+            line-height: 1.25;
             text-transform: none;
             border: 3px solid $white;
             list-style: none;
@@ -28,50 +26,47 @@ nav.tabs
             //min-width: 114px;
             height: $tabheight;
             text-align: center;
-            @include media(mobile)
-            {
+
+            @include media(mobile) {
                 line-height: 1.1428571429;
                 min-width: 0;
                 width: 47%;
             }
 
-            &:hover
-            {
+            &:hover {
                 text-decoration: underline;
                 background-color: $grey-3;
             }
 
-            &.active
-            {
+            &.active {
                 background-color: $white;
                 cursor: default;
-                @include media(mobile)
-                {
+
+                @include media(mobile) {
                     background-color: $grey-3;
                 }
-                @include media(desktop)
-                {
+
+                @include media(desktop) {
                     margin: -1px 3px 0 -2px;
                 }
-                &:hover
-                {
+
+                &:hover {
                     text-decoration: none;
                 }
 
-                a
-                {
+                a {
                     color: $black;
                     border: 1px solid $grey-2;
                     margin: 0 0 -2px -1px;
                     display: block;
                     text-decoration: none;
-                    @include media(mobile)
-                    {
+
+                    @include media(mobile) {
                         border-color: $grey-1;
                     }
-                    @include media(desktop)
-                    {
-                        background-color:$white;
+
+                    @include media(desktop) {
+                        background-color: $white;
                         border-bottom-width: 0;
                         margin-right: -4px;
                         margin-bottom: -2px;
@@ -80,8 +75,7 @@ nav.tabs
                 }
             }
 
-            a
-            {
+            a {
                 border: 1px solid transparent;
                 text-decoration: underline;
                 display: block;
@@ -89,23 +83,24 @@ nav.tabs
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-                padding:10px 25px 0 25px;
-                white-space:nowrap;
-                @include media(mobile)
-                {
-                    padding:10px 10px 0 10px;
+                padding: 10px 25px 0 25px;
+                white-space: nowrap;
+
+                @include media(mobile) {
+                    padding: 10px 10px 0 10px;
+                }
+
+                &:focus {                    
+                    outline: none;
                 }
             }
 
-            &.one-line a
-            {
-                padding-top:20px;
+            &.one-line a {
+                padding-top: 20px;
             }
-
         }
-        
-        &:after
-        {
+
+        &:after {
             display: block;
             clear: left;
             content: ' ';

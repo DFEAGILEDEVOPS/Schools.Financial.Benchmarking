@@ -615,9 +615,8 @@
     <Content Include="Views\Shared\Partials\AdvancedCriteriaHiddenFields.cshtml" />
     <Content Include="Assets\Sass\views\_trust-comparison.scss" />
     <Content Include="Views\BenchmarkCharts\Partials\TrustCentralFinancing.cshtml" />
-    <Content Include="Views\BenchmarkCharts\Partials\CustomTab.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\CustomTabContent.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\TabControls.cshtml" />
-    <Content Include="Views\BenchmarkCharts\Partials\CustomTabControls.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\CustomCharts.cshtml" />
     <Content Include="public\js-marker-clusterer\.bower.json" />
     <Content Include="public\js-marker-clusterer\AUTHORS" />
