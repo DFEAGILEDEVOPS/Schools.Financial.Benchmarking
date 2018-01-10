@@ -24,7 +24,7 @@
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
-                <a href="javascript: ChangeTab('@RevenueGroupType.Custom')">@RevenueGroupNames.CUSTOM<span ng-cloak class="font-xsmall show-in-desktop"> ({{ctrl.totalSelectCount()}} selected)</span></a>
+                <a href="javascript: ChangeTab('@RevenueGroupType.Custom')">@RevenueGroupNames.CUSTOM<span ng-cloak class="font-xsmall"> ({{ctrl.totalSelectCount()}} selected)</span></a>
             </li>
         }
     </ol>
