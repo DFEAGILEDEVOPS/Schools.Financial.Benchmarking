@@ -2,7 +2,7 @@
     .controller('ChartListController',
         [
             '$scope', '$location', '$http', '$q',
-            function($scope, $location, $http, $q) {
+            function ($scope, $location, $http, $q) {
                 var self = this;
                 self.location = $location;
 

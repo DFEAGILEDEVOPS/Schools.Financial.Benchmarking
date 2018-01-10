@@ -181,11 +181,6 @@ else
             $('.save-as-image').show();
         });
 
-        function saveAsImage(name, id) {
-            var svg = $('#'+id).find('svg')[0];
-            saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white'});
-        }
-
         function ChangeTab(tab) {
             if (tab === "Custom") {
                 $(".tabs li").removeClass("active");
@@ -210,9 +205,7 @@ else
             }
         }
 
-        //This function is accessing to the scope of the AngularJS controller in the 'Your Charts' tab to sync the chart selections in other tabs.
-        //An AngularJS module is only instantiated and lives within "Your Charts" tab. As the other tab views are partially loaded, it was not possible to use 
-        //that AngularJS module within these tabs.
+        //This function is accessing to the scope of the AngularJS controller to retrieve the chart selections model and update the buttons accordingly in other tabs.
         function RefreshAddRemoveLinks() {
             var showRemoveLink = function(element) {
                 $(element).find("a.customRemove").show();
@@ -280,7 +273,7 @@ else
             }
         }
 
-        //This function is accessing to the scope of the AngularJS controller in the 'Your Charts' tab to sync the chart selections in other tabs.
+        //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
         function AddRemoveYourCharts(fieldName, showValue, checked) {
             var scope = angular.element($("#listCtrl")).scope();
             scope.$apply(function() {
@@ -326,8 +319,17 @@ else
             RefreshAddRemoveLinks();
         }
 
-
         function GenerateCharts(unitParameter) {
+            var RoundedTickRange = function(min, max) {
+                var range = max - min;
+                var tickCount = 3;
+                var unroundedTickSize = range / (tickCount - 1);
+                var x = Math.ceil(Math.log10(unroundedTickSize) - 1);
+                var pow10x = Math.pow(10, x);
+                var roundedTickRange = Math.ceil(unroundedTickSize / pow10x) * pow10x;
+                return roundedTickRange;
+            };
+
             $(".chart").each(function() {
                 var yValues = JSON.parse($('#' + this.id).attr('data-chart'));
                 var unit = unitParameter ? unitParameter : yValues[0].unit;
@@ -353,22 +355,61 @@ else
             });
         }
 
-        function PrintPage() {
-            $('details').attr('open', 'true');
-            window.print();
-        }
-
-        function RoundedTickRange(min, max) {
-            var range = max - min;
-            var tickCount = 3;
-            var unroundedTickSize = range / (tickCount - 1);
-            var x = Math.ceil(Math.log10(unroundedTickSize) - 1);
-            var pow10x = Math.pow(10, x);
-            var roundedTickRange = Math.ceil(unroundedTickSize / pow10x) * pow10x;
-            return roundedTickRange;
-        }
-
         function GenerateChart(el, showValue, min, mid, max, barCount) {
+            var ApplyChartStyles = function(el) {
+                var benchmarkSchoolIndex = $("#benchmarkSchoolIndex", el.parentElement.parentElement.parentElement)[0]
+                    .value;
+                if (benchmarkSchoolIndex > -1) {
+                    $("#" +
+                        el.id +
+                        " .c3-shape.c3-shape-" +
+                        benchmarkSchoolIndex +
+                        ".c3-bar.c3-bar-" +
+                        benchmarkSchoolIndex).css("fill", "#D53880");
+                }
+
+                var incompleteDataIndex = $("#incompleteDataIndex", el.parentElement.parentElement.parentElement)[0].value;
+                var incompleteDataIndexArray = incompleteDataIndex.split(",");
+                if (incompleteDataIndexArray.length > 0) {
+                    incompleteDataIndexArray.forEach(function(index) {
+                        $("#" +
+                            el.id +
+                            " .c3-shape.c3-shape-" +
+                            index +
+                            ".c3-bar.c3-bar-" +
+                            index).css("fill", "#F47738");
+                    });
+                }
+            };
+
+            var AddSchoolLinks = function(id) {
+                var texts = $("#" + id + " .c3-axis-x g.tick text tspan");
+
+                texts.each(function() {
+                    var textParts = $(this).text().split("#");
+
+                    var type = $("#Type").val();
+
+                    if (type === "MAT") {
+                        $(this).on('click',
+                            function(e, i) {
+                                window.open("/trust/index?matno=" + textParts[1] + "&name=" + textParts[0], '_self');
+                            });
+                    } else {
+                        $(this).on('click',
+                            function(e, i) {
+                                window.open("/school/detail?urn=" + textParts[1], '_self');
+                            });
+                    }
+                    var limit = 36;
+                    var text = textParts[0].length < limit
+                        ? textParts[0]
+                        : textParts[0].substring(0, limit - 3) + "...";
+                    $(this).text(text);
+
+                });
+            };
+
             showValue = showValue || "AbsoluteMoney";
             var paddingBottom = 0;
             var yAxis, yFormat;
@@ -526,58 +567,6 @@ else
             });
         };
 
-        function ApplyChartStyles(el) {
-            var benchmarkSchoolIndex = $("#benchmarkSchoolIndex", el.parentElement.parentElement.parentElement)[0]
-                .value;
-            if (benchmarkSchoolIndex > -1) {
-                $("#" +
-                    el.id +
-                    " .c3-shape.c3-shape-" +
-                    benchmarkSchoolIndex +
-                    ".c3-bar.c3-bar-" +
-                    benchmarkSchoolIndex).css("fill", "#D53880");
-            }
-
-            var incompleteDataIndex = $("#incompleteDataIndex", el.parentElement.parentElement.parentElement)[0].value;
-            var incompleteDataIndexArray = incompleteDataIndex.split(",");
-            if (incompleteDataIndexArray.length > 0) {
-                incompleteDataIndexArray.forEach(function(index) {
-                    $("#" +
-                        el.id +
-                        " .c3-shape.c3-shape-" +
-                        index +
-                        ".c3-bar.c3-bar-" +
-                        index).css("fill", "#F47738");
-                });
-            }
-        }
-
-        function AddSchoolLinks(id) {
-            var texts = $("#" + id + " .c3-axis-x g.tick text tspan");
-
-            texts.each(function() {
-                var textParts = $(this).text().split("#");
-
-                var type = $("#Type").val();
-
-                if (type === "MAT") {
-                    $(this).on('click',
-                        function(e, i) {
-                            window.open("/trust/index?matno=" + textParts[1] + "&name=" + textParts[0], '_self');
-                        });
-                } else {
-                    $(this).on('click',
-                        function(e, i) {
-                            window.open("/school/detail?urn=" + textParts[1], '_self');
-                        });
-                }
-                var limit = 36;
-                var text = textParts[0].length < limit ? textParts[0] : textParts[0].substring(0, limit - 3) + "...";
-                $(this).text(text);
-
-            });
-        }
-
         function RebuildCharts() {
             var tabParameter = $("#tabSelection").val();
             var chartGroupParameter = $("#ChartGroup").val();
@@ -614,6 +603,17 @@ else
                     $("table").tablesorter();
                 });
         }
+
+        function saveAsImage(name, id) {
+            var svg = $('#'+id).find('svg')[0];
+            saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white'});
+        }
+
+        function PrintPage() {
+            $('details').attr('open', 'true');
+            window.print();
+        }
+
     </script>
 
 }
