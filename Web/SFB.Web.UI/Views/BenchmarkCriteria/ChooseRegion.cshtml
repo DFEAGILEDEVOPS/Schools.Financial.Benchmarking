@@ -124,12 +124,5 @@ else
     <script>
         var localAuthorities = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Authorities));
         DfE.Views.CriteriaByAreaViewModel.Load(localAuthorities);
-
-        //$("#All").click();
-        //function loadViewModel() {
-        //    DfE.Views.GoogleLocationViewModel.Load();
-        //}
     </script>
-    @*<script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])&libraries=places&callback=loadViewModel"></script>*@
-
 }

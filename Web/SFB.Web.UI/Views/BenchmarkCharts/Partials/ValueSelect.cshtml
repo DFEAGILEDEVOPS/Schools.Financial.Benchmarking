@@ -5,7 +5,7 @@
 <div class="column-third chart-filter">
     <div class="form-group">
         <label class="form-label" for="ShowValue">Show value</label>
-        <select name="ShowValue" id="ShowValue" class="form-control" onchange="RebuildCharts()">
+        <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.RebuildCharts()">
             @if (ViewBag.Tab == RevenueGroupType.Workforce)
             {
                 <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>

@@ -52,7 +52,7 @@
                             $("#searchSchoolsLink").hide();
                             $("#downloadLinkContainer").hide();
                             $("#BackToBMCharts").show();
-                            GenerateCharts();
+                            DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
                             $("table").tablesorter();
 
                         });
