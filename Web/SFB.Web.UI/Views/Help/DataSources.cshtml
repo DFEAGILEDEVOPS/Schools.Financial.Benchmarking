@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "datasources";
+}
+
+@Html.Partial("Partials/SearchForSchoolsPanel")
+
+<h1 class="heading-xlarge page-heading">Data sources</h1>
+<div class="grid-row">
+    <div class="column-one-third contents">
+        <h3 class="heading-small">Contents</h3>
+        <ul class="font-small">
+            <li><a href="#question-one">Financial returns</a></li>
+            @*<li><a href="#question-two"></a></li>*@
+            <li><a href="#question-three">Performance tables</a></li>
+            <li><a href="#question-four">Workforce census</a></li>
+            @*<li><a href="#question-five">Special educational needs statistics</a></li>*@
+            @*<li><a href="#question-six">Ofsted score</a></li>*@
+        </ul>
+    </div>
+    <div class="column-two-thirds text">
+
+        <a id="question-one"></a>
+        <h2 class="heading-large">Financial returns</h2>
+        <p>
+            This is based on schools’ Consistent Financial Reporting (CFR) returns and academies’ accounting returns. Both <a target="_blank" href="https://www.gov.uk/government/collections/statistics-local-authority-school-finance-data">sets of data</a> can be viewed online.
+        </p>
+        
+        <a id="question-three"></a>
+        <h2 class="heading-large">Performance tables</h2>
+        <p>
+            This comes from <a target="_blank" href="https://www.gov.uk/school-performance-tables">school performance tables</a>. The period covered matches the submissions for financial returns. Ofsted ratings reflect those received at the time the data was uploaded.
+        </p>
+        
+        <a id="question-four"></a>
+        <h2 class="heading-large">Workforce census</h2>
+        <p>
+            This comes from the <a target="_blank" href="https://www.gov.uk/government/collections/statistics-school-workforce">school workforce census</a>. The period covered matches the submissions for financial returns.
+        </p>
+    </div>
+</div>

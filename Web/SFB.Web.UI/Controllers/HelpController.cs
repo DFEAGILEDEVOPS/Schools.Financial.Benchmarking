@@ -17,5 +17,10 @@ namespace SFB.Web.UI.Controllers
         {
             return View();
         }
+
+        public ActionResult DataSources()
+        {
+            return View();
+        }
     }
 }

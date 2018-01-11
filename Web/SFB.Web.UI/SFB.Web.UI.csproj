@@ -633,6 +633,7 @@
     <Content Include="Views\BenchmarkCriteria\Partials\PerformanceCharacteristics.cshtml" />
     <Content Include="Views\BenchmarkCriteria\Partials\WorkforceCharacteristics.cshtml" />
     <Content Include="Views\BenchmarkCriteria\Partials\SenCharacteristics.cshtml" />
+    <Content Include="Views\Help\DataSources.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
