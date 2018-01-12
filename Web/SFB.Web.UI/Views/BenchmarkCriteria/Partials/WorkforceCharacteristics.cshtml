@@ -2,10 +2,14 @@
 @using SFB.Web.UI.Models
 
 
-<details>
+<div class="accordion-section">
 
-<summary>Workforce Characteristics</summary>
-    <div class="content">
+
+    <div class="accordion-section-header">
+        <h2 class="heading-medium">Workforce Characteristics</h2>
+    </div>
+
+    <div class="accordion-section-body">
 
         @Html.Partial("Partials/RangeCriteria",
     new BenchmarkCriteriaRangeVM(
@@ -70,4 +74,4 @@
         maxValue: Model.BenchmarkCriteria.MaxFullTimeAdmin
         ))
     </div>    
-</details>
+</div>

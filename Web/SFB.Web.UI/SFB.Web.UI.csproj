@@ -316,6 +316,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppSettings.config" />
+    <Content Include="Assets\Sass\utils\_accordion.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -360,6 +361,8 @@
     <Content Include="public\assets\images\icons\icon-location-pink.png" />
     <Content Include="public\assets\images\icons\icon-location.png" />
     <Content Include="public\assets\images\icons\icon-map.png" />
+    <Content Include="public\assets\images\icons\icon-plus-minus.png" />
+    <Content Include="public\assets\images\icons\icon-plus-minus.svg" />
     <Content Include="public\assets\images\icons\icon-print-2x.png" />
     <Content Include="public\assets\images\icons\icon-calendar-2x.png" />
     <Content Include="public\assets\images\icons\icon-calendar.png" />

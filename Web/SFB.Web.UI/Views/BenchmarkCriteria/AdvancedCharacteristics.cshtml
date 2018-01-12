@@ -63,12 +63,12 @@
 <div class="column-three-quarters">
 <form action="OverwriteStrategy" method="post" id="criteriaForm" autocomplete="off">
 <div class="criteria-questions">
-
-@Html.Partial("Partials/GeneralCharacteristics")
-@Html.Partial("Partials/SenCharacteristics")
-@Html.Partial("Partials/PerformanceCharacteristics")
-@Html.Partial("Partials/WorkforceCharacteristics")
-
+    <div id="characteristics-accordion" class="accordion">
+        @Html.Partial("Partials/GeneralCharacteristics")
+        @Html.Partial("Partials/SenCharacteristics")
+        @Html.Partial("Partials/PerformanceCharacteristics")
+        @Html.Partial("Partials/WorkforceCharacteristics")
+    </div>
 </div>
 
 <div class="grid-row">
@@ -122,7 +122,10 @@
             }
         });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
+
+            new Accordion(document.getElementById('characteristics-accordion'));
+
             UpdateResultCount();
 
             $(questionCheckBoxSelector).change(function() {

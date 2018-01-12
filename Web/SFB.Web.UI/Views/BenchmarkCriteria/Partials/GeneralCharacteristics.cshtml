@@ -2,13 +2,15 @@
 @using SFB.Web.Domain.Helpers.Enums
 @using SFB.Web.UI.Models
 
-<details>
+<div class="accordion-section">
 
-<summary>General Characteristics</summary>
+    <div class="accordion-section-header">
+        <h2 class="heading-medium">General Characteristics</h2>
+    </div>
 
-    <div class="content"> 
+    <div class="accordion-section-body">
 
-@Html.Partial("Partials/RangeCriteria",
+        @Html.Partial("Partials/RangeCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS],
@@ -17,7 +19,7 @@
         maxValue: Model.BenchmarkCriteria.MaxNoPupil
         ))
 
-@Html.Partial("Partials/MultipleChoiceCriteria",
+        @Html.Partial("Partials/MultipleChoiceCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE],
@@ -34,10 +36,10 @@
         )
     )
 
-@switch ((EstablishmentType) ViewBag.EstType)
-{
-    case EstablishmentType.Maintained:
-        @Html.Partial("Partials/MultipleChoiceCriteria",
+        @switch ((EstablishmentType)ViewBag.EstType)
+        {
+            case EstablishmentType.Maintained:
+                @Html.Partial("Partials/MultipleChoiceCriteria",
             new BenchmarkCriteriaMultipleChoiceVM(
                 question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
                 homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
@@ -57,9 +59,9 @@
                 }
                 )
             )
-        break;
-    case EstablishmentType.Academy:
-        @Html.Partial("Partials/MultipleChoiceCriteria",
+                break;
+            case EstablishmentType.Academy:
+                @Html.Partial("Partials/MultipleChoiceCriteria",
             new BenchmarkCriteriaMultipleChoiceVM(
                 question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
                 homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
@@ -79,9 +81,9 @@
                 }
                 )
             )
-        break;
-    case EstablishmentType.All:
-        @Html.Partial("Partials/MultipleChoiceCriteria",
+                break;
+            case EstablishmentType.All:
+                @Html.Partial("Partials/MultipleChoiceCriteria",
             new BenchmarkCriteriaMultipleChoiceVM(
                 question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
                 homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
@@ -102,13 +104,13 @@
                 }
                 )
             )
-        break;
-}
+                break;
+        }
 
-@switch ((EstablishmentType) ViewBag.EstType)
-{
-    case EstablishmentType.Maintained:
-        @Html.Partial("Partials/MultipleChoiceCriteria",
+        @switch ((EstablishmentType)ViewBag.EstType)
+        {
+            case EstablishmentType.Maintained:
+                @Html.Partial("Partials/MultipleChoiceCriteria",
             new BenchmarkCriteriaMultipleChoiceVM(
                 question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
                 homeSchoolValue: Model[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
@@ -125,9 +127,9 @@
                 }
                 )
             )
-        break;
-    case EstablishmentType.Academy:
-        @Html.Partial("Partials/MultipleChoiceCriteria",
+                break;
+            case EstablishmentType.Academy:
+                @Html.Partial("Partials/MultipleChoiceCriteria",
             new BenchmarkCriteriaMultipleChoiceVM(
                 question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
                 homeSchoolValue: Model[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
@@ -148,9 +150,9 @@
                 }
                 )
             )
-        break;
-    case EstablishmentType.All:
-        @Html.Partial("Partials/MultipleChoiceCriteria",
+                break;
+            case EstablishmentType.All:
+                @Html.Partial("Partials/MultipleChoiceCriteria",
             new BenchmarkCriteriaMultipleChoiceVM(
                 question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
                 homeSchoolValue: Model[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
@@ -177,10 +179,10 @@
                 }
                 )
             )
-        break;
-}
+                break;
+        }
 
-@Html.Partial("Partials/PercentageCriteria",
+        @Html.Partial("Partials/PercentageCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS],
@@ -189,7 +191,7 @@
         maxValue: Model.BenchmarkCriteria.MaxPerFSM
         ))
 
-@Html.Partial("Partials/PercentageCriteria",
+        @Html.Partial("Partials/PercentageCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER],
@@ -198,7 +200,7 @@
         maxValue: Model.BenchmarkCriteria.MaxPerSENReg
         ))
 
-@Html.Partial("Partials/PercentageCriteria",
+        @Html.Partial("Partials/PercentageCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN],
@@ -207,7 +209,7 @@
         maxValue: Model.BenchmarkCriteria.MaxPerSEN
         ))
 
-@Html.Partial("Partials/MultipleChoiceCriteria",
+        @Html.Partial("Partials/MultipleChoiceCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.URBAN_RURAL,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.URBAN_RURAL],
@@ -223,7 +225,7 @@
         )
     )
 
-@Html.Partial("Partials/PercentageCriteria",
+        @Html.Partial("Partials/PercentageCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL],
@@ -232,7 +234,7 @@
         maxValue: Model.BenchmarkCriteria.MaxPerEAL
         ))
 
-@Html.Partial("Partials/RadioboxCriteria",
+        @Html.Partial("Partials/RadioboxCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.PFI,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.PFI],
@@ -245,7 +247,7 @@
         )
     )
 
-@Html.Partial("Partials/RangeCriteria",
+        @Html.Partial("Partials/RangeCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.NUMBER_IN6_FORM,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.NUMBER_IN6_FORM],
@@ -254,7 +256,7 @@
         maxValue: Model.BenchmarkCriteria.MaxNoSixthForm
         ))
 
-@Html.Partial("Partials/MultipleChoiceCriteria",
+        @Html.Partial("Partials/MultipleChoiceCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.GENDER_OF_PUPILS,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.GENDER_OF_PUPILS],
@@ -268,7 +270,7 @@
         )
     )
 
-@Html.Partial("Partials/MultipleChoiceCriteria",
+        @Html.Partial("Partials/MultipleChoiceCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.LONDON_BOROUGH,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.LONDON_BOROUGH],
@@ -282,7 +284,7 @@
         )
     )
 
-@Html.Partial("Partials/RangeCriteria",
+        @Html.Partial("Partials/RangeCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS],
@@ -291,7 +293,7 @@
         maxValue: Model.BenchmarkCriteria.MaxLowestAgePupils
         ))
 
-@Html.Partial("Partials/RangeCriteria",
+        @Html.Partial("Partials/RangeCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS],
@@ -300,7 +302,7 @@
         maxValue: Model.BenchmarkCriteria.MaxHighestAgePupils
         ))
 
-@Html.Partial("Partials/MultipleChoiceCriteria",
+        @Html.Partial("Partials/MultipleChoiceCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE],
@@ -320,7 +322,7 @@
         )
     )
 
-@Html.Partial("Partials/MultipleChoiceCriteria",
+        @Html.Partial("Partials/MultipleChoiceCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.LONDON_WEIGHTING,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.LONDON_WEIGHTING],
@@ -334,7 +336,7 @@
         )
     )
 
-@Html.Partial("Partials/PercentageCriteria",
+        @Html.Partial("Partials/PercentageCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.PERCENTAGE_BOARDERS,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_BOARDERS],
@@ -343,7 +345,7 @@
         maxValue: Model.BenchmarkCriteria.MaxPerBoarders
         ))
 
-@Html.Partial("Partials/MultipleChoiceCriteria",
+        @Html.Partial("Partials/MultipleChoiceCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.ADMISSIONS_POLICY,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.ADMISSIONS_POLICY],
@@ -358,5 +360,5 @@
         }
         )
     )
-    </div>    
-</details>
+    </div>
+</div>
