@@ -277,6 +277,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = defaultUnitType;
             ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
+            ViewBag.EstablishmentType = vm.EstablishmentType;
 
             return View("Index", vm);
         }
@@ -313,6 +314,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = defaultUnitType;
             ViewBag.HomeSchoolId = vm.TrustComparisonList.DefaultTrustMatNo;
+            ViewBag.EstablishmentType = vm.EstablishmentType;
 
             return View("Index",vm);
         }
