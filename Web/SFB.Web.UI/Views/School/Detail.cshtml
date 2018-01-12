@@ -201,6 +201,8 @@
 
         DfE.Views.HistoricalCharts.GenerateCharts('@ViewBag.UnitType');
 
+        new Accordion(document.getElementById('historical-charts-accordion'));
+
         var school = {
             id: "@(Model.Id)",
             lat: "@(Model.Lat)",
