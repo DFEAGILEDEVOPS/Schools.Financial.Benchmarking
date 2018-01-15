@@ -32,14 +32,13 @@
                         $scope.selectionList = response.data;
                         self.persist();
                         self.query = "";
-                        $.getScript("/public/scripts/termi/element.details.ajax.js");//required for accordions in IE
+                        setTimeout(function () { new Accordion(document.getElementById('custom-report-accordion')); }, 500);
                     });
                 };
 
                 self.openDetails = function () {
-                    if (self.query) {
-                        $("details").attr("open", "open");
-                    }
+                    $("#customTabSection button.accordion-expand-all").click();
+
                 }
 
                 self.displayCustomReport = function() {
@@ -91,6 +90,10 @@
 
                 $scope.dataLoaded = $q(function(resolve) {
                     self.loadData(resolve);
+                });
+
+                angular.element(document).ready(function () {
+                    new Accordion(document.getElementById('custom-report-accordion'));
                 });
             }
         ]);
