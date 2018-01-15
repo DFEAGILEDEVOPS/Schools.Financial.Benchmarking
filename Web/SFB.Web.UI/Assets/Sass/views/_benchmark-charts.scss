@@ -201,10 +201,6 @@
         clear: left;
 
         @include media(desktop) {
-            border-bottom: 2px solid $grey-2;
-        }
-
-        @include media(desktop) {
 
             .multiple-choice-header {
                 display: inline;

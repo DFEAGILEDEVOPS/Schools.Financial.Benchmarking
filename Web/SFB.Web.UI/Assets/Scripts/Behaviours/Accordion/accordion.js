@@ -113,28 +113,31 @@ function AccordionSection(element, accordion) {
 
 Accordion.prototype.setup = function() {
 
-  var accordion_sections = this.element.querySelectorAll('.accordion-section')
+    var accordion_sections = this.element.querySelectorAll('.accordion-section')
 
-  var accordion = this
+    var accordion = this
 
-  for (var i = accordion_sections.length - 1; i >= 0; i--) {
-     accordion.sections.push(new AccordionSection(accordion_sections[i], accordion))
-  };
+    for (var i = accordion_sections.length - 1; i >= 0; i--) {
+        accordion.sections.push(new AccordionSection(accordion_sections[i], accordion))
+    };
 
-  var accordion_controls = document.createElement('div')
-  accordion_controls.setAttribute('class', 'accordion-controls')
+    if (this.element.querySelectorAll('.accordion-controls').length > 0) {
+        this.element.removeChild(this.element.firstChild);
+    }
+    var accordion_controls = document.createElement('div')
+    accordion_controls.setAttribute('class', 'accordion-controls')
 
-  var open_or_close_all_button = document.createElement('button')
-  open_or_close_all_button.textContent = 'Open all'
-  open_or_close_all_button.setAttribute('class', 'accordion-expand-all')
-  open_or_close_all_button.setAttribute('aria-expanded', 'false')
-  open_or_close_all_button.setAttribute('type', 'button')
+    var open_or_close_all_button = document.createElement('button')
+    open_or_close_all_button.textContent = 'Open all'
+    open_or_close_all_button.setAttribute('class', 'accordion-expand-all')
+    open_or_close_all_button.setAttribute('aria-expanded', 'false')
+    open_or_close_all_button.setAttribute('type', 'button')
 
-  open_or_close_all_button.addEventListener('click', this.openOrCloseAll.bind(this))
+    open_or_close_all_button.addEventListener('click', this.openOrCloseAll.bind(this))
 
-  accordion_controls.appendChild(open_or_close_all_button)
+    accordion_controls.appendChild(open_or_close_all_button)
+    this.element.insertBefore(accordion_controls, this.element.firstChild)
 
-  this.element.insertBefore(accordion_controls, this.element.firstChild)
   this.element.classList.add('with-js')
 }
 

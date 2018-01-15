@@ -100,8 +100,22 @@
             font-weight: bold;
         }
 
-        .content{
-            padding-top:15px;
+        .content {
+            padding-top: 15px;
+        }
+    }
+
+    .accordion {
+        .multiple-choice {
+            float: none;
+
+            input {
+                float: none;
+            }
+
+            label {
+                float: none;
+            }
         }
     }
 }
