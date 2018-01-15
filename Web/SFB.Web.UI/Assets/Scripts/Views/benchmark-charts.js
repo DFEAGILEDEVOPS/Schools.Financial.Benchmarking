@@ -372,6 +372,8 @@
                 self.GenerateChart(this, unit, newMin, newMin + range, newMax, yValues.length);
             }
         });
+
+        new Accordion(document.getElementById('bm-charts-accordion'));
     };
 
     BenchmarkChartsViewModel.RebuildCharts = function () {

@@ -32,8 +32,6 @@
 
     .chartsSection {
         .chartContainer {
-            margin-top: 20px;
-            /*border-top: 1px solid $border-colour;*/
             h3 {
                 margin-top: 1em;
             }
@@ -53,6 +51,10 @@
                 fill: #005ea5;
                 cursor: pointer;
             }
+        }
+
+        .accordion-controls {
+            display: none;
         }
     }
 

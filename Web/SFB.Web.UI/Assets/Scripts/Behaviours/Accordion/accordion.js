@@ -189,7 +189,7 @@ AccordionSection.prototype.setup = function() {
   header.addEventListener('click', this.toggleExpanded.bind(this))
 
   var icon = document.createElement('span')
-  icon.setAttribute('class', 'icon')
+  icon.setAttribute('class', 'icon accordion-icon')
 
   header.appendChild(icon)
 }

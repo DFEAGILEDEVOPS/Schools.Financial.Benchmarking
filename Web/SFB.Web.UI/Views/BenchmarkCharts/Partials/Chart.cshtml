@@ -3,120 +3,58 @@
 @using SFB.Web.UI.Helpers.Enums
 @model List<SFB.Web.UI.Models.ChartViewModel>
 
+<div id="bm-charts-accordion" class="accordion">
 @for (int i = 0; i < Model.Count; i++)
 {
-    <div class="chartContainer column-full" data-group="@Model[i].ChartGroup">
-        @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport)
-        {
-            if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
+        <div class="chartContainer column-full" data-group="@Model[i].ChartGroup">
+            @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport)
             {
-                <div>
-                    <div class="column-half no-padding">
-                        <h3 class="heading-medium">
-                            @Model[i].Name
-                            @if (Model[i].ChartType == ChartType.CustomReport)
+                if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
+                {
+                    <div>
+                        <div class="column-half no-padding">
+                            <h3 class="heading-medium">
+                                @Model[i].Name
+                                @if (Model[i].ChartType == ChartType.CustomReport)
+                                {
+                                    <span class="not-bold">
+                                        @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
+                                    </span>
+                                }
+                            </h3>
+                        </div>
+                        @if (Model[i].ChartType != ChartType.CustomReport)
+                        {
+                            <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].FieldName" data-sv="@Model[i].ShowValue">
+                                @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                             {
-                                <span class="not-bold">
-                                    @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
-                                </span>
-                            }
-                        </h3>
-                    </div>
-                    @if (Model[i].ChartType != ChartType.CustomReport)
-                    {
-                        <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].FieldName" data-sv="@Model[i].ShowValue">
-                            @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
-                            {
+                                    <div class="column-half font-xsmall no-padding">
+                                        <a style="display: none" class="customAdd" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
+                                            <i class="icon icon-bookmark">
+                                                <span class="visually-hidden">Bookmark</span>
+                                            </i>
+                                            <span>Add to your charts</span>
+                                        </a>
+                                        <a style="display: none" class="customRemove" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', false);">
+                                            <i class="icon icon-bookmark">
+                                                <span class="visually-hidden">Bookmark</span>
+                                            </i>
+                                            <span>Remove from your charts</span>
+                                        </a>
+                                    </div>
+                                }
                                 <div class="column-half font-xsmall no-padding">
-                                    <a style="display: none" class="customAdd" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
-                                        <i class="icon icon-bookmark">
-                                            <span class="visually-hidden">Bookmark</span>
+                                    <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')">
+                                        <i class="icon icon-save-image">
+                                            <span class="visually-hidden">Save as image</span>
                                         </i>
-                                        <span>Add to your charts</span>
-                                    </a>
-                                    <a style="display: none" class="customRemove" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', false);">
-                                        <i class="icon icon-bookmark">
-                                            <span class="visually-hidden">Bookmark</span>
-                                        </i>
-                                        <span>Remove from your charts</span>
+                                        <span>Save as image</span>
                                     </a>
                                 </div>
-                            }
-                            <div class="column-half font-xsmall no-padding">
-                                <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')">
-                                    <i class="icon icon-save-image">
-                                        <span class="visually-hidden">Save as image</span>
-                                    </i>
-                                    <span>Save as image</span>
-                                </a>
                             </div>
-                        </div>
-                    }
+                        }
 
-                    @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
-                    {
-                        <details>
-                            <summary class="hide-in-print">
-                                <span class="summary font-xsmall">More info</span>
-                            </summary>
-                            <div class="panel panel-border-narrow">
-                                @Html.Raw(Model[i].MoreInfo)
-                            </div>
-                        </details>
-                    }
-                    <div class="grid-row">
-                        <div class="column-full">
-                            <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
-                        </div>
-                    </div>
-                    <input id="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
-                    <input id="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)"/>
-
-                    @if (Model[i].TableColumns != null && Model[i].TableColumns.Count > 0)
-                    {
-                        @Html.Partial("Partials/DataTable", Model[i])
-                    }
-
-                </div>
-                if (Model[i].ChartType == ChartType.CustomReport)
-                {
-                    <hr/>
-                }
-            }
-        }
-        else
-        {
-            <div class="chart-border">
-                <details>
-                    <summary class="column-half no-padding chart-accordion-summary">
-                        <h3 class="heading-medium chart-accordion-header">@Model[i].Name</h3>
-                    </summary>
-
-                    @if (Model[i].ChartType != ChartType.CustomReport)
-                    {
-                        <div class="customActions column-half add-remove-links table hide-in-print" data-fn="@Model[i].FieldName" data-sv="@Model[i].ShowValue">
-                            <div class="column-half font-xsmall no-padding">
-                                <a style="display: none" class="customAdd" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
-                                    <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
-                                    <span>Add to your charts</span>
-                                </a>
-                                <a style="display: none" class="customRemove" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', false);">
-                                    <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
-                                    <span>Remove from your charts</span>
-                                </a>
-                            </div>
-                            <div class="column-half font-xsmall no-padding">
-                                <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')">
-                                    <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
-                                    <span>Save as image</span>
-                                </a>
-                            </div>
-                        </div>
-                    }
-
-                    @if (Model[i].DataJson != null)
-                    {
-                        if (!string.IsNullOrEmpty(Model[i].MoreInfo))
+                        @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
                         {
                             <details>
                                 <summary class="hide-in-print">
@@ -132,18 +70,82 @@
                                 <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
                             </div>
                         </div>
-                        <input id="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
-                        <input id="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)"/>
-                    }
-                    @if (Model[i].TableColumns != null)
+                        <input id="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                        <input id="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)" />
+
+                        @if (Model[i].TableColumns != null && Model[i].TableColumns.Count > 0)
+                        {
+                            @Html.Partial("Partials/DataTable", Model[i])
+                        }
+
+                    </div>
+                    if (Model[i].ChartType == ChartType.CustomReport)
                     {
-                        @Html.Partial("Partials/DataTable", Model[i])
+                        <hr />
                     }
-                </details>
-            </div>
-        }
-    </div>
+                }
+            }
+            else
+            {
+                <div class="accordion-section">
+                    <div class="accordion-section-header">
+                        <h2 class="heading-medium">@Model[i].Name</h2>
+                    </div>
+
+                    <div class="accordion-section-body">
+                        @if (Model[i].ChartType != ChartType.CustomReport)
+                        {
+                            <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].FieldName" data-sv="@Model[i].ShowValue">
+                                <div class="column-half font-xsmall no-padding">
+                                    <a style="display: none" class="customAdd" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
+                                        <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                        <span>Add to your charts</span>
+                                    </a>
+                                    <a style="display: none" class="customRemove" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', false);">
+                                        <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                        <span>Remove from your charts</span>
+                                    </a>
+                                </div>
+                                <div class="column-half font-xsmall no-padding">
+                                    <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')">
+                                        <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
+                                        <span>Save as image</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+
+                        @if (Model[i].DataJson != null)
+                        {
+                            if (!string.IsNullOrEmpty(Model[i].MoreInfo))
+                            {
+                                <details>
+                                    <summary class="hide-in-print">
+                                        <span class="summary font-xsmall">More info</span>
+                                    </summary>
+                                    <div class="panel panel-border-narrow">
+                                        @Html.Raw(Model[i].MoreInfo)
+                                    </div>
+                                </details>
+                            }
+                            <div class="grid-row">
+                                <div class="column-full">
+                                    <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                </div>
+                            </div>
+                                <input id="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                                <input id="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)" />
+                        }
+                        @if (Model[i].TableColumns != null)
+                        {
+                            @Html.Partial("Partials/DataTable", Model[i])
+                        }
+                    </div>
+                </div>
+            }
+        </div>
 }
+</div>
 
 @*//TODO: Call this in client side*@
 @if (Request.IsAjaxRequest())
