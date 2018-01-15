@@ -4,41 +4,44 @@
 @using SFB.Web.UI.Models
 @model EstablishmentViewModelBase
 
-@for (var index = 0; index < Model.HistoricalCharts.Count; index++)
-{
-    var historicalChart = Model.HistoricalCharts[index];
-    historicalChart.Id = index.ToString();
-    ViewBag.FinancialYear = Model.FinancialType == SchoolFinancialType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
+<div id="historical-charts-accordion" class="accordion">
+    @for (var index = 0; index < Model.HistoricalCharts.Count; index++)
+    {
+        var historicalChart = Model.HistoricalCharts[index];
+        historicalChart.Id = index.ToString();
+        ViewBag.FinancialYear = Model.FinancialType == SchoolFinancialType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
 
-    <div class="chartContainer column-full" data-group="@historicalChart.ChartGroup">
-        @if (historicalChart.ChartType == ChartType.Total)
-        {
-            <h3 class="heading-medium">@historicalChart.Name</h3>
-            @Html.Partial("Partials/HistoricalChart", historicalChart)
-        }
-        else
-        {
-            <div class="chart-border">
-                <details open>
-                    <summary class="no-padding chart-accordion-summary">
-                        <h3 class="heading-medium chart-accordion-header">@historicalChart.Name</h3>
-                    </summary>
-                    @Html.Partial("Partials/HistoricalChart", historicalChart)
-                    @if (historicalChart.SubCharts != null)
-                    {
-                        for (var i = 0; i < historicalChart.SubCharts.Count; i++)
+        <div class="chartContainer column-full" data-group="@historicalChart.ChartGroup">
+            @if (historicalChart.ChartType == ChartType.Total)
+            {
+                <h3 class="heading-medium">@historicalChart.Name</h3>
+                @Html.Partial("Partials/HistoricalChart", historicalChart)
+            }
+            else
+            {
+                <div class="accordion-section">
+                    <div class="accordion-section-header">
+                        <h2 class="heading-medium">@historicalChart.Name</h2>
+                    </div>
+
+                    <div class="accordion-section-body">
+                        @Html.Partial("Partials/HistoricalChart", historicalChart)
+                        @if (historicalChart.SubCharts != null)
                         {
-                            ChartViewModel subChart = historicalChart.SubCharts[i];
-                            subChart.Id = $"{index}_{i}";
-                            <h3 class="heading-medium">@subChart.Name</h3>
-                            @Html.Partial("Partials/HistoricalChart", subChart)
+                            for (var i = 0; i < historicalChart.SubCharts.Count; i++)
+                            {
+                                ChartViewModel subChart = historicalChart.SubCharts[i];
+                                subChart.Id = $"{index}_{i}";
+                                <h3 class="heading-medium">@subChart.Name</h3>
+                                    @Html.Partial("Partials/HistoricalChart", subChart)
+                            }
                         }
-                    }
-                </details>
-            </div>
-        }
-    </div>
-}
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
 
 <input type="hidden" id="expTotal" value="@Model.TotalRevenueExpenditure.FormatMoney()" />
 <input type="hidden" id="expTotalAbbr" value="@Model.TotalRevenueExpenditure.ToString("C0")" />

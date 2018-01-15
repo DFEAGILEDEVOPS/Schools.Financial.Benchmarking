@@ -187,6 +187,7 @@
                     $("#historicalChartsList").html(data);
                     self.GenerateCharts(unitParameter);
                     self.UpdateTotals();
+                    new Accordion(document.getElementById('historical-charts-accordion'));
                 });
         },
 
