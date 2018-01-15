@@ -37,7 +37,7 @@
                 };
 
                 self.openDetails = function () {
-                    $("#customTabSection button.accordion-expand-all").click();
+                    $("#customTabSection button.accordion-expand-all:contains('Open')").click();
 
                 }
 
