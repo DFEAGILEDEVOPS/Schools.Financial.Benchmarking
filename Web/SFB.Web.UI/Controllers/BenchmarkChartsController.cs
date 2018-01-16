@@ -394,6 +394,7 @@ namespace SFB.Web.UI.Controllers
                 ViewBag.HomeSchoolId = this.ExtractSchoolComparisonListFromCookie().HomeSchoolUrn;
             }
 
+            ViewBag.EstablishmentType = type;
             return PartialView("Partials/Chart", benchmarkCharts);
         }
 

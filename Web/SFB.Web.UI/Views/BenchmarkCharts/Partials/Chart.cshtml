@@ -4,8 +4,8 @@
 @model List<SFB.Web.UI.Models.ChartViewModel>
 
 <div id="bm-charts-accordion" class="accordion">
-@for (int i = 0; i < Model.Count; i++)
-{
+    @for (int i = 0; i < Model.Count; i++)
+    {
         <div class="chartContainer column-full" data-group="@Model[i].ChartGroup">
             @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport)
             {
@@ -96,16 +96,19 @@
                         @if (Model[i].ChartType != ChartType.CustomReport)
                         {
                             <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].FieldName" data-sv="@Model[i].ShowValue">
-                                <div class="column-half font-xsmall no-padding">
-                                    <a style="display: none" class="customAdd" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
-                                        <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
-                                        <span>Add to your charts</span>
-                                    </a>
-                                    <a style="display: none" class="customRemove" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', false);">
-                                        <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
-                                        <span>Remove from your charts</span>
-                                    </a>
-                                </div>
+                                @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                {
+                                    <div class="column-half font-xsmall no-padding">
+                                        <a style="display: none" class="customAdd" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
+                                            <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                            <span>Add to your charts</span>
+                                        </a>
+                                        <a style="display: none" class="customRemove" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', false);">
+                                            <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                            <span>Remove from your charts</span>
+                                        </a>
+                                    </div>
+                                }
                                 <div class="column-half font-xsmall no-padding">
                                     <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')">
                                         <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
@@ -133,7 +136,7 @@
                                     <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
                                 </div>
                             </div>
-                                <input id="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                            <input id="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
                                 <input id="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)" />
                         }
                         @if (Model[i].TableColumns != null)
@@ -144,7 +147,7 @@
                 </div>
             }
         </div>
-}
+    }
 </div>
 
 @*//TODO: Call this in client side*@
