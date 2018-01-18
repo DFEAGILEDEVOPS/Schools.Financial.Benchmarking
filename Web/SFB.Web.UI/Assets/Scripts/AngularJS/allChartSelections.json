@@ -918,6 +918,26 @@
           "PercentageOfWorkforceSelected": false,
           "NumberOfPupilsPerMeasureAvailable": false,
           "NumberOfPupilsPerMeasureSelected": false
+        },
+        {
+          "Name": "Revenue reserve",
+          "FieldName": "Revenue Reserve",
+          "PerPupilAvailable": true,
+          "PerPupilSelected": false,
+          "PerTeacherAvailable": true,
+          "PerTeacherSelected": false,
+          "PercentageAvailable": false,
+          "PercentageSelected": false,
+          "AbsoluteMoneyAvailable": true,
+          "AbsoluteMoneySelected": false,
+          "AbsoluteCountAvailable": false,
+          "AbsoluteCountSelected": false,
+          "HeadCountPerFTEAvailable": false,
+          "HeadCountPerFTESelected": false,
+          "PercentageOfWorkforceAvailable": false,
+          "PercentageOfWorkforceSelected": false,
+          "NumberOfPupilsPerMeasureAvailable": false,
+          "NumberOfPupilsPerMeasureSelected": false
         }
       ]
     },
