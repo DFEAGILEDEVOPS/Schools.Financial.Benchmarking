@@ -102,7 +102,7 @@
         public const string SPECIFIC_LEARNING_DIFFICULTY = "Specific learning difficulty";
         public const string MODERATE_LEARNING_DIFFICULTY = "Moderate learning difficulty";
         public const string SEVERE_LEARNING_DIFFICULTY = "Severe learning difficulty";
-        public const string PROF_LEARNING_DIFFICULTY = "Profound & multiple learning difficulty";
+        public const string PROF_LEARNING_DIFFICULTY = "Profound and multiple learning difficulty";
         public const string SOCIAL_HEALTH = "Social, emotional and mental health";
         public const string SPEECH_NEEDS = "Speech, language and communications needs";
         public const string HEARING_IMPAIRMENT = "Hearing impairment";
