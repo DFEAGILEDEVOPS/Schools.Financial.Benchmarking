@@ -12,9 +12,8 @@ namespace SFB.Web.UI.Helpers.Filters
         {
             if (filterContext.Result is ViewResult)
             {
-                (filterContext.Result as ViewResult).ViewBag.DynamicHeaderContent = 
-                    "This is a message to users about the new release of the latest data for schools and trusts. " +
-                    "It might contain a <a href=\"http://www.gov.uk\">link</a> to some information but doesn't have to.";
+                (filterContext.Result as ViewResult).ViewBag.DynamicHeaderContent =
+                    "The schools financial benchmarking tool will be updated later this month (January 2018) with 2016 - 17 local authority maintained school financial data. Academy financial data for 2016 / 17 will be uploaded in the summer term.";
             }
 
         }
