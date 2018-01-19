@@ -36,7 +36,12 @@
                 @SchoolDetailField("School phase:", Model.Phase)
                 @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
                 @SchoolDetailField("URN:", Model.Id)
-                @SchoolDetailFieldFormatted("Ofsted rating:", "<span class=\"rating rating-{0}\"><span class=\"rating-text\">{0}</span></span>{1}", Model.OfstedRating, Model.OfstedRatingText)
+                @SchoolDetailFieldFormatted("Ofsted rating:",
+                    "<span class=\"rating rating-{0}\"> {0} </span><span class=\"rating-text\"> {1} </span>" +
+                    "<span class=\"ofsted-divider\">| </span>"+
+                    "<a target=\"_blank\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report</a>" +
+                    "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>", 
+                    Model.OfstedRating, Model.OfstedRatingText, Model.Id, Model.OfstedInspectionDate.ToLongDateString())
                 @SchoolDetailField("LAESTAB:", Model.LaEstab)
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
@@ -170,11 +175,11 @@
 
 @helper DataSourcesField()
 {
-    <dt class="names">Data from other services</dt>
+    <dt class="names">Data from other <br>services:</dt>
     <dd class="values bold">
         <a target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Performance</a>
-        &nbsp;|&nbsp;
-        <a target="_blank" href="https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/@Model.Id">Ofsted</a>
+        @*&nbsp;|&nbsp;*@
+        
     </dd>
 }
 
