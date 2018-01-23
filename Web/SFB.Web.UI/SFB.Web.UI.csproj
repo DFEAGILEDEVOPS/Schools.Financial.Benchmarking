@@ -266,9 +266,6 @@
     <Compile Include="Helpers\IFilterBuilder.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Models\DataTableColumnViewModel.cs" />
-    <Compile Include="Models\JourneyStepOutOfBoundsAction.cs" />
-    <Compile Include="Models\JourneySteps\SelectCharxJourneyStepViewModel.cs" />
-    <Compile Include="Models\JourneySteps\SelectAreaOfInterestJourneyStepViewModel.cs" />
     <Compile Include="Models\BenchmarkChartListViewModel.cs" />
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
     <Compile Include="Models\BenchmarkSchoolViewModel.cs" />
@@ -287,15 +284,11 @@
     <Compile Include="Models\SchoolSearchViewModel.cs" />
     <Compile Include="Models\SchoolSummaryViewModel.cs" />
     <Compile Include="Models\SchoolViewModel.cs" />
-    <Compile Include="Models\JourneySteps\SelectBasketSizeJourneyStepViewModel.cs" />
-    <Compile Include="Models\JourneySteps\SelectSchoolTypeJourneyStepViewModel.cs" />
     <Compile Include="Models\SeriesData.cs" />
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
     <Compile Include="Models\SponsorListViewModel.cs" />
     <Compile Include="Models\SponsorViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
-    <Compile Include="Models\Journey.cs" />
-    <Compile Include="Models\JourneySteps\JourneyStepViewModel.cs" />
     <Compile Include="Models\TrustComparisonViewModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Models\ViewModelListBase.cs" />
