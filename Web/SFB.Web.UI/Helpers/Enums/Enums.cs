@@ -2,12 +2,6 @@
 
 namespace SFB.Web.UI.Helpers.Enums
 {
-    public enum UserJourney
-    {
-        None,
-        CompareWithOtherSchoolsSubset,
-        CompareWithOtherSchoolsCustom
-    }
     public enum BenchmarkListOverwriteStrategy
     {
         Overwrite,

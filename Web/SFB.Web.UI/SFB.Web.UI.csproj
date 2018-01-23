@@ -271,7 +271,6 @@
     <Compile Include="Models\BenchmarkSchoolViewModel.cs" />
     <Compile Include="Models\ComparisonListModel.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
-    <Compile Include="Models\EndJourneyViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\SchoolDataModel.cs" />
