@@ -317,6 +317,7 @@
   <ItemGroup>
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Sass\utils\_accordion.scss" />
+    <Content Include="App_Data\la.json" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -655,7 +656,6 @@
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
   <ItemGroup>

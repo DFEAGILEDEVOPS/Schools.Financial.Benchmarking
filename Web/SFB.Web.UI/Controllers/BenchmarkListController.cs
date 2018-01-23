@@ -12,7 +12,7 @@ namespace SFB.Web.UI.Controllers
     {
         private readonly IEdubaseDataService _edubaseDataService;
 
-        public BenchmarkListController(ISchoolApiService schoolApiService, IEdubaseDataService edubaseDataService)
+        public BenchmarkListController(IEdubaseDataService edubaseDataService)
         {
             _edubaseDataService = edubaseDataService;
         }

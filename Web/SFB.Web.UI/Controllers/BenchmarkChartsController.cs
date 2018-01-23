@@ -25,18 +25,18 @@ namespace SFB.Web.UI.Controllers
         private readonly IBenchmarkChartBuilder _benchmarkChartBuilder;
         private readonly IFinancialDataService _financialDataService;
         private readonly IFinancialCalculationsService _fcService;
-        private readonly ISchoolApiService _schoolApiService;
+        private readonly ILocalAuthoritiesService _laService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly IEdubaseDataService _edubaseDataService;
         private readonly IStatisticalCriteriaBuilderService _statisticalCriteriaBuilderService;
 
-        public BenchmarkChartsController(IBenchmarkChartBuilder benchmarkChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ISchoolApiService schoolApiService, IDownloadCSVBuilder csvBuilder,
+        public BenchmarkChartsController(IBenchmarkChartBuilder benchmarkChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ILocalAuthoritiesService laService, IDownloadCSVBuilder csvBuilder,
             IEdubaseDataService edubaseDataService, IStatisticalCriteriaBuilderService statisticalCriteriaBuilderService)
         {
             _benchmarkChartBuilder = benchmarkChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
-            _schoolApiService = schoolApiService;
+            _laService = laService;
             _csvBuilder = csvBuilder;
             _edubaseDataService = edubaseDataService;
             _statisticalCriteriaBuilderService = statisticalCriteriaBuilderService;
@@ -249,7 +249,7 @@ namespace SFB.Web.UI.Controllers
 
             var chartGroups = _benchmarkChartBuilder.Build(tab, establishmentType).DistinctBy(c => c.ChartGroup).ToList();
             
-            var localAuthorities = (List<dynamic>)_schoolApiService.GetLocalAuthorities();
+            var localAuthorities = (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
             string  selectedArea = "";
             switch (areaType)
             {

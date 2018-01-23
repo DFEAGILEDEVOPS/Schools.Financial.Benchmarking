@@ -74,7 +74,7 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService  = new Mock<ISchoolApiService>();
+            var mockSchoolApiService  = new Mock<ILocalAuthoritiesService>();
             dynamic mockLaRecord = new ExpandoObject();
             mockLaRecord.id = "0";
             mockLaRecord.LANAME = "County Durham";
@@ -130,7 +130,7 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService = new Mock<ISchoolApiService>();
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
             dynamic mockLaRecord = new ExpandoObject();
             mockLaRecord.id = "0";
             mockLaRecord.LANAME = "County Durham";
@@ -140,9 +140,9 @@ namespace SFB.Web.UI.UnitTests
             {
                 mockLaRecord
             };
-            mockSchoolApiService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
+            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockSchoolApiService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -203,7 +203,7 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService = new Mock<ISchoolApiService>();
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
             dynamic mockLaRecord = new ExpandoObject();
             mockLaRecord.id = "0";
             mockLaRecord.LANAME = "County Durham";
@@ -213,9 +213,9 @@ namespace SFB.Web.UI.UnitTests
             {
                 mockLaRecord
             };
-            mockSchoolApiService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
+            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockSchoolApiService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
@@ -258,7 +258,7 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService = new Mock<ISchoolApiService>();
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
             dynamic mockLaRecord = new ExpandoObject();
             mockLaRecord.id = "0";
             mockLaRecord.LANAME = "County Durham";
@@ -268,9 +268,9 @@ namespace SFB.Web.UI.UnitTests
             {
                 mockLaRecord
             };
-            mockSchoolApiService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
+            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockSchoolApiService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -299,9 +299,9 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService = new Mock<ISchoolApiService>();
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockSchoolApiService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -330,9 +330,9 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService = new Mock<ISchoolApiService>();
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockSchoolApiService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -366,9 +366,9 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService = new Mock<ISchoolApiService>();
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockSchoolApiService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -402,9 +402,9 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService = new Mock<ISchoolApiService>();
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockSchoolApiService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 

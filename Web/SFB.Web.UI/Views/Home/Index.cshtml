@@ -181,7 +181,7 @@
 
     <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
     <script>
-        var localAuthorities = @Html.Raw(JsonConvert.SerializeObject(Model.Authorities));
+        var localAuthorities = @Html.Raw(Model.Authorities);
         DfE.Views.SchoolsSearchViewModel.Load(localAuthorities);
 
         function loadViewModel() {

@@ -11,16 +11,16 @@ namespace SFB.Web.UI.Controllers
 {
     public class LaController : BaseController
     {
-        private readonly ISchoolApiService _schoolApiService;
+        private readonly ILocalAuthoritiesService _laService;
 
-        public LaController(ISchoolApiService schoolApiService)
+        public LaController(ILocalAuthoritiesService laService)
         {
-            _schoolApiService = schoolApiService;
+            _laService = laService;
         }
 
         public ActionResult Search(string name, string orderby = "", int page = 1)
         {
-            var localAuthorities = (List<dynamic>)_schoolApiService.GetLocalAuthorities();
+            var localAuthorities = (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
 
             var filteredResults = localAuthorities
                 .Where(la => la.LANAME.ToLowerInvariant().Contains(name.ToLowerInvariant()))
