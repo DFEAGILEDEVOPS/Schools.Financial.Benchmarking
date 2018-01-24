@@ -74,20 +74,10 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockSchoolApiService  = new Mock<ILocalAuthoritiesService>();
-            dynamic mockLaRecord = new ExpandoObject();
-            mockLaRecord.id = "0";
-            mockLaRecord.LANAME = "County Durham";
-            mockLaRecord.REGION = "1";
-            mockLaRecord.REGIONNAME = "North East A";
-            dynamic laSearchResponse = new List<dynamic>
-            {
-                mockLaRecord
-            };
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
+            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            mockSchoolApiService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
-
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockSchoolApiService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -131,17 +121,8 @@ namespace SFB.Web.UI.UnitTests
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
-            dynamic mockLaRecord = new ExpandoObject();
-            mockLaRecord.id = "0";
-            mockLaRecord.LANAME = "County Durham";
-            mockLaRecord.REGION = "1";
-            mockLaRecord.REGIONNAME = "North East A";
-            dynamic laSearchResponse = new List<dynamic>
-            {
-                mockLaRecord
-            };
-            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
-
+            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
+            
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
@@ -204,16 +185,7 @@ namespace SFB.Web.UI.UnitTests
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
-            dynamic mockLaRecord = new ExpandoObject();
-            mockLaRecord.id = "0";
-            mockLaRecord.LANAME = "County Durham";
-            mockLaRecord.REGION = "1";
-            mockLaRecord.REGIONNAME = "North East A";
-            dynamic laSearchResponse = new List<dynamic>
-            {
-                mockLaRecord
-            };
-            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
+            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
@@ -259,16 +231,7 @@ namespace SFB.Web.UI.UnitTests
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
-            dynamic mockLaRecord = new ExpandoObject();
-            mockLaRecord.id = "0";
-            mockLaRecord.LANAME = "County Durham";
-            mockLaRecord.REGION = "1";
-            mockLaRecord.REGIONNAME = "North East A";
-            dynamic laSearchResponse = new List<dynamic>
-            {
-                mockLaRecord
-            };
-            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
+            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
 
