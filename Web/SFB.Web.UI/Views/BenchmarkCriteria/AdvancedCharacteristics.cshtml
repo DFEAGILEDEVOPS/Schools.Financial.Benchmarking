@@ -122,30 +122,33 @@
             }
         });
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             new Accordion(document.getElementById('characteristics-accordion'));
 
             UpdateResultCount();
+            UpdateAllCounters();
 
-            $(questionCheckBoxSelector).change(function() {
-                var $panel = $(this).parent().next();
-                $panel.toggle();
-                $panel.find("input").prop('disabled', function(i, v) { return !v; });
-                $panel.find("input[type='number']:disabled").val(null);
-                $panel.find("input[type='checkbox']:disabled").prop('checked', false);
-                $panel.find("input[type='radio']:disabled").prop('checked', false);
-                if ($(questionCheckBoxSelector + ":checked").length > 0) {
-                    $("#liveCountBar").show();
-                    $("#comparisonListInfoPanelResults").show();
-                    $("#comparisonListInfoPanelResultsEmpty").hide();
-                } else {
-                    $("#liveCountBar").show();
-                    $("#comparisonListInfoPanelResultsEmpty").show();
-                    $("#comparisonListInfoPanelResults").hide();
-                }
-                UpdateResultCount();
-            });
+            $(questionCheckBoxSelector).change(event,
+                function() {
+                    var $panel = $(this).parent().next();
+                    $panel.toggle();
+                    $panel.find("input").prop('disabled', function(i, v) { return !v; });
+                    $panel.find("input[type='number']:disabled").val(null);
+                    $panel.find("input[type='checkbox']:disabled").prop('checked', false);
+                    $panel.find("input[type='radio']:disabled").prop('checked', false);
+                    if ($(questionCheckBoxSelector + ":checked").length > 0) {
+                        $("#liveCountBar").show();
+                        $("#comparisonListInfoPanelResults").show();
+                        $("#comparisonListInfoPanelResultsEmpty").hide();
+                    } else {
+                        $("#liveCountBar").show();
+                        $("#comparisonListInfoPanelResultsEmpty").show();
+                        $("#comparisonListInfoPanelResults").hide();
+                    }
+                    UpdateCounter(this);
+                    UpdateResultCount();
+                });
 
             $("input.criteria-input").keyup(function() {
                 if ($(this).valid()) {
@@ -187,6 +190,25 @@
                     $('.sticky-div').Stickyfill();
                 });
         };
+
+        function UpdateCounter(element) {
+            var $counterElement = $(element).parents(".accordion-section").find(".selection-counter");
+            var count = $counterElement.text();
+            if ($(element).is(":checked")) {
+                $counterElement.text(++count);
+            } else {
+                $counterElement.text(--count);
+            }
+        }
+
+        function UpdateAllCounters() {
+            var $counterElements = $(".accordion-section-header .selection-counter");
+            $counterElements.each(function() {
+                    var count = $(this).parents(".accordion-section").find("div.multiple-choice.question input:checked").length;
+                    $(this).text(count);
+                }
+            );
+        }
 
         function CheckResultCount() {
             var count = $("#schoolCount").text();
