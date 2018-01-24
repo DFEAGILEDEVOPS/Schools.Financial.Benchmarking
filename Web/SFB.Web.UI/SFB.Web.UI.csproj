@@ -322,6 +322,7 @@
     <Content Include="Assets\Scripts\Elements\Forms\option-select.js" />
     <Content Include="Assets\Scripts\Elements\Modal\modal.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\school-map.js" />
+    <Content Include="Assets\Scripts\Views\advanced-characteristics.js" />
     <Content Include="Assets\Scripts\Views\benchmark-charts.js" />
     <Content Include="Assets\Scripts\Views\benchmark-list.js" />
     <Content Include="Assets\Scripts\Views\criteria-by-area.js" />
