@@ -1,5 +1,7 @@
 # Rule 1
 User-agent: *
-Disallow: /
-Allow: /Help/Guidance
-Allow: /Help/InterpretingCharts
+Disallow: /school/
+Disallow: /BenchmarkCharts/
+Disallow: /Help/DataSources
+Disallow: /benchmarklist
+Disallow: /BenchmarkCriteria/
