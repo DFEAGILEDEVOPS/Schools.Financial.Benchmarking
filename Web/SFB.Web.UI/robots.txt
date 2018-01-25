@@ -1,0 +1,5 @@
+# Rule 1
+User-agent: *
+Disallow: /
+Allow: /Help/Guidance
+Allow: /Help/InterpretingCharts
