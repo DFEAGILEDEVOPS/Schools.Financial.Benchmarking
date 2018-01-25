@@ -10,12 +10,12 @@ namespace SFB.Web.UI
         {
             filters.Add(new DynamicHeaderMessageAttribute());
 
-            //var enableAITelemetry = ConfigurationManager.AppSettings["EnableAITelemetry"];
-            
-            //if (enableAITelemetry != null && bool.Parse(enableAITelemetry))
-            //{
-            //    filters.Add(new ErrorHandler.AiHandleErrorAttribute());
-            //}
+            var enableAITelemetry = ConfigurationManager.AppSettings["EnableAITelemetry"];
+
+            if (enableAITelemetry != null && bool.Parse(enableAITelemetry))
+            {
+                filters.Add(new ErrorHandler.AiHandleErrorAttribute());
+            }
         }
     }
 }
