@@ -1268,12 +1268,13 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Balance,
                     ChartGroup = ChartGroupType.InYearBalance,
                     ChartSchoolType = ChartSchoolType.Both,
-                    MoreInfo = @"<h3 class=""heading-small"">Local Authority Maintained Schools </h3>
-                    <p>Equated to the school’s committed and uncommitted revenue balance plus the community focused extended school revenue balance.  
-                    Income, expenditure and balances for all maintained schools are published in the <a target=""_blank"" href=""https://www.gov.uk/government/collections/statistics-local-authority-school-finance-data"">official statistical first releases</a> which are available published here. </p>
-                    <h3 class=""heading-small"">Academies</h3>
-                    <p>Equates to the Closing Balance (Restricted and unrestricted funds) carried forward from the previous year plus Total Income in the current year (Revenue, Funds inherited on conversion/transfer and contributions from academies to trust) minus Total Expenditure in the current year (Revenue). </p>
-                    <p>For Multi-Academy Trusts- because data is usually provided at MAT level, we have estimated a value per academy by apportioning it on a pro-rata basis using the FTE number of pupils in each academy within that MAT</p>",
+                    MoreInfo = @"<h3 class=""heading-small"">For local authority maintained schools, this includes:</h3>
+                    <ul><li>the school’s committed and uncommitted revenue balance, plus the community-focused extended school revenue balance.</li></ul>
+                    
+                    <h3 class=""heading-small"">For academies, this includes:</h3>
+                    <ul><li>the closing balance (restricted and unrestricted funds) carried forward from the previous year, plus total income in the current year (revenue, funds inherited on conversion/transfer and contributions from academies to trust) minus total expenditure in the current year.</li></ul>
+                    
+                    <p>For multi-academy trusts (MATs), we've estimated a value per academy by apportioning it on a pro-rata basis using the FTE number of pupils in each academy within that MAT.</p>",
                     ChartType = ChartType.Total,
                     Downloadable = true
                 },
