@@ -1261,17 +1261,17 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     Downloadable = true
                 },
-                new ChartViewModel()
-                {
-                    Name = "Revenue reserve",
-                    FieldName = "Revenue Reserve",
-                    RevenueGroup = RevenueGroupType.Balance,
-                    ChartGroup = ChartGroupType.InYearBalance,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    MoreInfo = @"",
-                    ChartType = ChartType.Total,
-                    Downloadable = true
-                },
+                //new ChartViewModel()
+                //{
+                //    Name = "Revenue reserve",
+                //    FieldName = "Revenue Reserve",
+                //    RevenueGroup = RevenueGroupType.Balance,
+                //    ChartGroup = ChartGroupType.InYearBalance,
+                //    ChartSchoolType = ChartSchoolType.Both,
+                //    MoreInfo = @"",
+                //    ChartType = ChartType.Total,
+                //    Downloadable = true
+                //},
 
                 //Grant Funding
                 new ChartViewModel()
