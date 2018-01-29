@@ -13,7 +13,7 @@ namespace SFB.Web.UI.Helpers.Filters
             if (filterContext.Result is ViewResult)
             {
                 (filterContext.Result as ViewResult).ViewBag.DynamicHeaderContent =
-                    "The schools financial benchmarking tool will be updated later this month (January 2018) with 2016 - 17 local authority maintained school financial data. Academy financial data for 2016 / 17 will be uploaded in the summer term.";
+                    "The schools financial benchmarking tool will be updated in the summer term with academy financial data for 2016/17. Local authority maintained school financial data will be updated in early 2019.";
             }
 
         }
