@@ -8,16 +8,16 @@ namespace SFB.Web.UI.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly ISchoolApiService _schoolApiService;
-        public HomeController(ISchoolApiService schoolApiService)
+        private readonly ILocalAuthoritiesService _laService;
+        public HomeController(ILocalAuthoritiesService laService)
         {
-            _schoolApiService = schoolApiService;
+            _laService = laService;
         }
 
         public ActionResult Index()
         {
             var vm = new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), null);
-            vm.Authorities = _schoolApiService.GetLocalAuthorities();
+            vm.Authorities = _laService.GetLocalAuthorities();
             return View(vm);
         }
     }

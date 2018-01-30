@@ -35,7 +35,7 @@ namespace SFB.Web.Domain.Services.DataAccess
             var collectionName = _financialDataService.GetActiveCollectionByDataGroup(DataGroups.Edubase);
             var query = "SELECT c['URN'], c['EstablishmentName'], c['OverallPhase'], c['PhaseOfEducation'], c['TypeOfEstablishment'], c['Street'], c['Town'], c['Location'], c['Postcode'], c['Trusts'], " +
                         " c['LAName'], c['LACode'], c['EstablishmentNumber'], c['TelephoneNum'], c['NumberOfPupils'], c['StatutoryLowAge'], c['StatutoryHighAge'], c['HeadFirstName'], " +
-                        "c['HeadLastName'], c['OfficialSixthForm'], c['SchoolWebsite'], c['OfstedRating'], c['FinanceType']" +
+                        "c['HeadLastName'], c['OfficialSixthForm'], c['SchoolWebsite'], c['OfstedRating'], c['OfstedLastInsp'], c['FinanceType']" +
                         $" FROM c WHERE c.URN={urn}";
             var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), query, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
             return result;

@@ -1333,9 +1333,17 @@ namespace SFB.Web.UI.Helpers
                 //    RevenueGroup = RevenueGroupType.Balance,
                 //    ChartGroup = ChartGroupType.InYearBalance,
                 //    ChartSchoolType = ChartSchoolType.Both,
-                //    MoreInfo = @"",
+                //    MoreInfo = @"<h3 class=""heading-small"">For local authority maintained schools, this includes:</h3>
+                //    <ul><li>the school’s committed and uncommitted revenue balance, plus the community-focused extended school revenue balance.</li></ul>
+                //    
+                //    <h3 class=""heading-small"">For academies, this includes:</h3>
+                //    <ul><li>the closing balance (restricted and unrestricted funds) carried forward from the previous year, plus total income in the current year (revenue, funds inherited on conversion/transfer and contributions from academies to trust) minus total expenditure in the current year.</li></ul>
+                //    
+                //    <p>For multi-academy trusts (MATs), we've estimated a value per academy by apportioning it on a pro-rata basis using the FTE number of pupils in each academy within that MAT.</p>",
+		//
                 //    ChartType = ChartType.Total
                 //},
+
 
                 //Grant Funding
                 new ChartViewModel()

@@ -266,15 +266,11 @@
     <Compile Include="Helpers\IFilterBuilder.cs" />
     <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Models\DataTableColumnViewModel.cs" />
-    <Compile Include="Models\JourneyStepOutOfBoundsAction.cs" />
-    <Compile Include="Models\JourneySteps\SelectCharxJourneyStepViewModel.cs" />
-    <Compile Include="Models\JourneySteps\SelectAreaOfInterestJourneyStepViewModel.cs" />
     <Compile Include="Models\BenchmarkChartListViewModel.cs" />
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
     <Compile Include="Models\BenchmarkSchoolViewModel.cs" />
     <Compile Include="Models\ComparisonListModel.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
-    <Compile Include="Models\EndJourneyViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
     <Compile Include="Models\Filter.cs" />
     <Compile Include="Models\SchoolDataModel.cs" />
@@ -287,15 +283,11 @@
     <Compile Include="Models\SchoolSearchViewModel.cs" />
     <Compile Include="Models\SchoolSummaryViewModel.cs" />
     <Compile Include="Models\SchoolViewModel.cs" />
-    <Compile Include="Models\JourneySteps\SelectBasketSizeJourneyStepViewModel.cs" />
-    <Compile Include="Models\JourneySteps\SelectSchoolTypeJourneyStepViewModel.cs" />
     <Compile Include="Models\SeriesData.cs" />
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
     <Compile Include="Models\SponsorListViewModel.cs" />
     <Compile Include="Models\SponsorViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
-    <Compile Include="Models\Journey.cs" />
-    <Compile Include="Models\JourneySteps\JourneyStepViewModel.cs" />
     <Compile Include="Models\TrustComparisonViewModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Models\ViewModelListBase.cs" />
@@ -317,6 +309,7 @@
   <ItemGroup>
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Sass\utils\_accordion.scss" />
+    <Content Include="App_Data\la.json" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -329,6 +322,7 @@
     <Content Include="Assets\Scripts\Elements\Forms\option-select.js" />
     <Content Include="Assets\Scripts\Elements\Modal\modal.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\school-map.js" />
+    <Content Include="Assets\Scripts\Views\advanced-characteristics.js" />
     <Content Include="Assets\Scripts\Views\benchmark-charts.js" />
     <Content Include="Assets\Scripts\Views\benchmark-list.js" />
     <Content Include="Assets\Scripts\Views\criteria-by-area.js" />
@@ -655,7 +649,6 @@
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
   <ItemGroup>

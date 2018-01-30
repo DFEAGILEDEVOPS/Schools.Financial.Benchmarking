@@ -16,18 +16,18 @@ namespace SFB.Web.UI.Controllers
 {
     public class SchoolSearchController : BaseController
     {
-        private readonly ISchoolApiService _schoolApiService;
+        private readonly ILocalAuthoritiesService _laService;
         private readonly IFilterBuilder _filterBuilder;
         private readonly IValidationService _valService;
         private readonly IEdubaseDataService _edubaseDataService;
         private readonly ISchoolSearchService _schoolSearchService;
         private readonly ITrustSearchService _trustSearchService;
 
-        public SchoolSearchController(ISchoolApiService schoolApiService, IFilterBuilder filterBuilder,
+        public SchoolSearchController(ILocalAuthoritiesService laService, IFilterBuilder filterBuilder,
             IValidationService valService, IEdubaseDataService edubaseDataService,
             ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService)
         {
-            _schoolApiService = schoolApiService;
+            _laService = laService;
             _filterBuilder = filterBuilder;
             _valService = valService;
             _edubaseDataService = edubaseDataService;
@@ -82,7 +82,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
-                                Authorities = _schoolApiService.GetLocalAuthorities()
+                                Authorities = _laService.GetLocalAuthorities()
                             };
 
                             return View("../Home/Index", searchVM);
@@ -113,7 +113,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
-                                Authorities = _schoolApiService.GetLocalAuthorities()
+                                Authorities = _laService.GetLocalAuthorities()
                             };
 
                             return View("../Home/Index", searchVM);
@@ -134,7 +134,7 @@ namespace SFB.Web.UI.Controllers
                         {
                             SearchType = searchType,
                             ErrorMessage = errorMessage,
-                            Authorities = _schoolApiService.GetLocalAuthorities()
+                            Authorities = _laService.GetLocalAuthorities()
                         };
 
                         return View("../Home/Index", searchVM);
@@ -154,7 +154,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
-                                Authorities = _schoolApiService.GetLocalAuthorities()
+                                Authorities = _laService.GetLocalAuthorities()
                             };
 
                             return View("../Home/Index", searchVM);
@@ -188,7 +188,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
-                                Authorities = _schoolApiService.GetLocalAuthorities()
+                                Authorities = _laService.GetLocalAuthorities()
                             };
 
                             return View("../Home/Index", searchVM);
@@ -221,7 +221,7 @@ namespace SFB.Web.UI.Controllers
                         {
                             SearchType = searchType,
                             ErrorMessage = errorMessage,
-                            Authorities = _schoolApiService.GetLocalAuthorities()
+                            Authorities = _laService.GetLocalAuthorities()
                         };
 
                         return View("../Home/Index", searchVM);

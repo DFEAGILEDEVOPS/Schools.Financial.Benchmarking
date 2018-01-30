@@ -456,18 +456,16 @@ abbr[title]{
 
 .icon-bookmark {
     position: relative;
-    top: 5px;
-    left: 5px;
-    width: 30px;
+    top: 5px;    
+    width: 25px;
     height: 22px;
     background-image: url(/public/assets/images/icons/icon-bookmark.png);
 }
 
 .icon-save-image {
     position: relative;
-    top: 5px;
-    left: 5px;
-    width: 30px;
+    top: 5px;    
+    width: 25px;
     height: 22px;
     background-image: url(/public/assets/images/icons/icon-saveimage.png);
 }
@@ -510,4 +508,8 @@ abbr[title]{
 
 .float-to-right{
     float: right;
+}
+
+.not-bold{
+    font-weight:normal;
 }

@@ -80,6 +80,8 @@ namespace SFB.Web.UI.Models
 
         public string OfstedRating => GetString("OfstedRating");
 
+        public DateTime OfstedInspectionDate => GetDate("OfstedLastInsp").GetValueOrDefault();
+
         public string OfstedRatingText
         {
             get

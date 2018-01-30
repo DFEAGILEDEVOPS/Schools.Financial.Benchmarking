@@ -32,7 +32,6 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var mockApiService = new Mock<ISchoolApiService>();
             dynamic apiResponse = new System.Dynamic.ExpandoObject();
             apiResponse.Results = new object[0];
             apiResponse.NumberOfResults = 0;
@@ -44,7 +43,7 @@ namespace SFB.Web.UI.UnitTests
             serviceResponse.NumberOfResults = 0;
             serviceResponse.Facets = string.Empty;
 
-            var controller = new BenchmarkListController(mockApiService.Object, mockEdubaseDataService.Object);
+            var controller = new BenchmarkListController(mockEdubaseDataService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 

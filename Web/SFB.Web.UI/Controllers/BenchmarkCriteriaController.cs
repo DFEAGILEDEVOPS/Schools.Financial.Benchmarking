@@ -21,12 +21,12 @@ namespace SFB.Web.UI.Controllers
     {
         private readonly IFinancialDataService _financialDataService;
         private readonly IEdubaseDataService _edubaseDataService;
-        private readonly ISchoolApiService _schoolApiService;
+        private readonly ILocalAuthoritiesService _laService;
 
-        public BenchmarkCriteriaController(ISchoolApiService schoolApiService, IFinancialDataService financialDataService, IEdubaseDataService edubaseDataService)
+        public BenchmarkCriteriaController(ILocalAuthoritiesService laService, IFinancialDataService financialDataService, IEdubaseDataService edubaseDataService)
         {
             _financialDataService = financialDataService;
-            _schoolApiService = schoolApiService;
+            _laService = laService;
             _edubaseDataService = edubaseDataService;
         }
 
@@ -122,7 +122,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
             ViewBag.AreaType = ComparisonArea.All;
-            ViewBag.Authorities = _schoolApiService.GetLocalAuthorities();
+            ViewBag.Authorities = _laService.GetLocalAuthorities();
 
             var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie());
             return View("ChooseRegion", benchmarkSchool);
@@ -154,7 +154,7 @@ namespace SFB.Web.UI.Controllers
             
             if (!IsAreaFieldsValid(areaType, lacode, benchmarkSchool))
             {
-                ViewBag.Authorities = _schoolApiService.GetLocalAuthorities();
+                ViewBag.Authorities = _laService.GetLocalAuthorities();
                 return View("ChooseRegion", benchmarkSchool);
             }
 

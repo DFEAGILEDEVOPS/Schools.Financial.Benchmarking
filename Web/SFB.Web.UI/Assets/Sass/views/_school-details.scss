@@ -199,7 +199,16 @@
         display: inline;
     }
 
-    .accordion-controls{
+    .accordion-controls {
         display: none;
+    }
+
+    .ofsted-divider {
+        display: none;
+
+        @include media(desktop) {
+            display: inline;
+            padding: 4px;
+        }
     }
 }

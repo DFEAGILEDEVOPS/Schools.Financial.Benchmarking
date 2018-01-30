@@ -52,7 +52,7 @@ namespace SFB.Web.UI
 
         private static void RegisterServices(ContainerBuilder builder)
         {
-            builder.RegisterType<SchoolApiService>().As<ISchoolApiService>();
+            builder.RegisterType<LocalAuthoritiesService>().As<ILocalAuthoritiesService>();
             builder.RegisterType<BenchmarkChartBuilder>().As<IBenchmarkChartBuilder>();
             builder.RegisterType<HistoricalChartBuilder>().As<IHistoricalChartBuilder>();
             builder.RegisterType<FilterBuilder>().As<IFilterBuilder>();

@@ -716,7 +716,7 @@
         },
         {
           "Name": "Community focused school facilities income",
-          "FieldName": null,
+          "FieldName": "Community focused school facilities income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
