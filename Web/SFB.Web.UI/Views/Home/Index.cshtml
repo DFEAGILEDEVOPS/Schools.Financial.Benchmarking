@@ -67,7 +67,8 @@
                         <form method="get" action="/SchoolSearch/Search" autocomplete="off">
                             <div class="form-group">
                                 <fieldset>
-                                    <div class="form-group heading-small bold-small">
+                                    <legend class="hidden">Begin by finding a school or trust</legend>
+                                    <div id="form-head" class="form-group heading-small bold-small">
                                         Begin by finding a school or trust
                                     </div>
 
@@ -119,7 +120,7 @@
                                     <div id="SearchByTownFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
                                         <label for="FindSchoolByTown">
                                             Enter a postcode, town or street. Or
-                                            <a href="#" id="FindCurrentPosition">use your current location</a>
+                                            <a href="javascript:void(0)" id="FindCurrentPosition">use your current location</a>
                                         </label>
                                         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
                                         {
