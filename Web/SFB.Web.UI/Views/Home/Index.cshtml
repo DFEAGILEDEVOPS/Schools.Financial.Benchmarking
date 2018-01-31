@@ -67,14 +67,15 @@
                         <form method="get" action="/SchoolSearch/Search" autocomplete="off">
                             <div class="form-group">
                                 <fieldset>
-                                    <div class="form-group heading-small bold-small">
+                                    <legend class="hidden">Begin by finding a school or trust</legend>
+                                    <div id="form-head" class="form-group heading-small bold-small">
                                         Begin by finding a school or trust
                                     </div>
 
-                                    <label id="SchoolOrCollegeNameIdAccordion" for="SchoolOrCollegeNameId" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_NAME_ID))" aria-controls="SearchByNameIdFieldset">
+                                    <div id="SchoolOrCollegeNameIdAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_NAME_ID))" aria-controls="SearchByNameIdFieldset">
                                         <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID))/>
                                         <label for="SchoolOrCollegeNameId">School</label>
-                                    </label>
+                                    </div>
                                     <div id="SearchByNameIdFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
                                         <label class="form-label" for="FindByNameId">Enter a school name, URN or LAESTAB code</label>
                                         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_NAME_ID))
@@ -90,10 +91,10 @@
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_NAME_ID">Search</button>
                                     </div>
 
-                                    <label id="TrustNameAccordion" for="TrustName" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_NAME))" aria-controls="SearchByTrustNameFieldset">
+                                    <div id="TrustNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_NAME))" aria-controls="SearchByTrustNameFieldset">
                                         <input id="TrustName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_NAME))/>
                                         <label for="TrustName">Trust</label>
-                                    </label>
+                                    </div>
                                     <div id="SearchByTrustNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME))">
                                         <label class="form-label" for="FindByTrustName">Enter the trust name</label>
                                         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_NAME))
@@ -112,14 +113,14 @@
                                     <div class="form-group heading-small bold-small">
                                         Alternatively, search by area
                                     </div>
-                                    <label id="TownOrCityAccordion" for="TownOrCity" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LOCATION))" aria-controls="SearchByTownFieldset">
+                                    <div id="TownOrCityAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LOCATION))" aria-controls="SearchByTownFieldset">
                                         <input id="TownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LOCATION))/>
                                         <label for="TownOrCity">Location</label>
-                                    </label>
+                                    </div>
                                     <div id="SearchByTownFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
                                         <label for="FindSchoolByTown">
                                             Enter a postcode, town or street. Or
-                                            <a href="#" id="FindCurrentPosition">use your current location</a>
+                                            <a href="javascript:void(0)" id="FindCurrentPosition">use your current location</a>
                                         </label>
                                         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
                                         {
@@ -134,10 +135,10 @@
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LOCATION">Search</button>
                                     </div>
 
-                                    <label id="LaCodeNameAccordion" for="LaCodeName" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))" aria-controls="SearchByLaCodeNameFieldset">
+                                    <div id="LaCodeNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))" aria-controls="SearchByLaCodeNameFieldset">
                                         <input id="LaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))/>
                                         <label for="LaCodeName">Local authority</label>
-                                    </label>
+                                    </div>
                                     <div id="SearchByLaCodeNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
                                         <label for="FindSchoolByLaCodeName">
                                             <span>Enter a local authority name or a three-digit LA code</span>
