@@ -11,8 +11,8 @@
                 <legend class="visuallyhidden">Select an option below to filter the results</legend>
                 @foreach (var item in Model.Metadata)
                 {
-                    <label for="@(item.Id)" @(item.Disabled ? "disabled" : string.Empty)>
-                        <input name="@(Model.Group)" @(item.Disabled ? "disabled" : string.Empty) value="@(item.Value)" id="@(item.Id)" type="checkbox"
+                    <label for="@(Model.Group)_@item.Id" @(item.Disabled ? "disabled" : string.Empty)>
+                        <input name="@(Model.Group)" @(item.Disabled ? "disabled" : string.Empty) value="@(item.Value)" id="@(Model.Group)_@item.Id" type="checkbox"
                                aria-controls="js-search-results-info" @(item.Checked ? "checked" : "")>
                         @(item.Label)
                         <span class="visuallyhidden">- changing the selection will refresh the results</span>
