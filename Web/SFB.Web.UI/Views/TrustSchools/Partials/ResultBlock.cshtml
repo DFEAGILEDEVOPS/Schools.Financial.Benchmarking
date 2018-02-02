@@ -36,13 +36,14 @@
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding">
                 <div class="filter">
                     <div class="filter-box">
-                        <label class="legend" for="OrderBy">Sorted by</label>
+                        <label class="legend" for="OrderByControl">Sorted by</label>
                         <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                             <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                             <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
                         </select>
                     </div>
                 </div>
+                <button type="submit" class="hidden"></button>
             </form>
         </div>
     </div>

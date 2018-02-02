@@ -32,7 +32,7 @@
                     @if (Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_NAME_ID || Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_LA_CODE_NAME)
                     {
                         <div class="filter-box">
-                            <label class="legend" for="OrderBy">Sorted by</label>
+                            <label class="legend" for="OrderByControl">Sorted by</label>
                             <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                                 <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                                 <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
@@ -42,7 +42,7 @@
                     else if (Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_LOCATION)
                     {
                         <div class="filter-box">
-                            <label class="legend" for="OrderBy">Sorted by</label>
+                            <label class="legend" for="OrderByControl">Sorted by</label>
                             <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                                 <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                                 <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
@@ -51,6 +51,7 @@
                         </div>
                     }
                 </div>
+                <button type="submit" class="hidden"></button>
             </form>
         </div>
     </div>
