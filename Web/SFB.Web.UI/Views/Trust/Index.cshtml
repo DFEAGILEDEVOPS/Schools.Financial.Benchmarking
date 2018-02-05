@@ -178,10 +178,26 @@ else
         }
 
         function TabChange(code, matno, name, tab) {
-            var queryString = "?code=" + code +"&matno=" + matno + "&name=" + name + "&tab=" + tab + "&unit=" + $("select#ShowValue option:selected")[0].value + "#charts";
+            var queryString = "?code=" +
+                code +
+                "&matno=" +
+                matno +
+                "&name=" +
+                name +
+                "&tab=" +
+                tab +
+                "&unit=" +
+                $("select#ShowValue option:selected")[0].value;
             window.location = queryString;
         }
 
         DfE.Views.HistoricalCharts.GenerateCharts();
+
+        $(document).ready(function() {
+            var tab = DfE.Util.QueryString.get('tab');
+            if (tab) {
+                $("a:contains('" + tab + "')").focus();
+            }
+        });
     </script>
 }

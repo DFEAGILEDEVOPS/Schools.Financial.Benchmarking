@@ -14,7 +14,7 @@
         <div class="chartContainer column-full" data-group="@historicalChart.ChartGroup">
             @if (historicalChart.ChartType == ChartType.Total)
             {
-                <h3 class="heading-medium">@historicalChart.Name</h3>
+                <h2 class="heading-medium">@historicalChart.Name</h2>
                 @Html.Partial("Partials/HistoricalChart", historicalChart)
             }
             else
@@ -32,7 +32,7 @@
                             {
                                 ChartViewModel subChart = historicalChart.SubCharts[i];
                                 subChart.Id = $"{index}_{i}";
-                                <h3 class="heading-medium">@subChart.Name</h3>
+                                <h2 class="heading-medium">@subChart.Name</h2>
                                     @Html.Partial("Partials/HistoricalChart", subChart)
                             }
                         }
