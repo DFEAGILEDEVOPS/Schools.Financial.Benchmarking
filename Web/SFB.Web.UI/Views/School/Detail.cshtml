@@ -238,6 +238,11 @@
                     this.map = new GOVUK.LocationMap(options);
                     this.mapLoaded = true;
                 }
+
+                var tab = DfE.Util.QueryString.get('tab');
+                if (tab) {
+                    $("a:contains('" + tab + "')").focus();
+                }
             },
             500);
 
@@ -248,8 +253,7 @@
                 "&tab=" +
                 tab +
                 "&unit=" +
-                $("select#ShowValue option:selected")[0].value +
-                "#charts";
+                $("select#ShowValue option:selected")[0].value;
             window.location = queryString;
         }
 
