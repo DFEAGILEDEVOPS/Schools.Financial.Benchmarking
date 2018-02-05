@@ -374,7 +374,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
-            
+            ViewBag.EstablishmentType = type;
+
             ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustMatNo : vm.SchoolComparisonList.HomeSchoolUrn;
 
             return PartialView("Partials/TabContent", vm);
