@@ -13,7 +13,7 @@
                 {
                     <div>
                         <div class="column-half no-padding">
-                            <h3 class="heading-medium">
+                            <h2 class="heading-medium">
                                 @Model[i].Name
                                 @if (Model[i].ChartType == ChartType.CustomReport)
                                 {
@@ -21,7 +21,7 @@
                                         @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
                                     </span>
                                 }
-                            </h3>
+                            </h2>
                         </div>
                         @if (Model[i].ChartType != ChartType.CustomReport)
                         {
