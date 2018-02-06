@@ -33,11 +33,11 @@
                             <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name</a>
                         </div>
                     }
-                    <dl class="metadata">
-                        <dd>@school.Address</dd>
-                        <dd>@school.Phase</dd>
-                        <dd>@school.Type</dd>
-                    </dl>
+                    <ul class="metadata">
+                        <li>@school.Address</li>
+                        <li>@school.Phase</li>
+                        <li>@school.Type</li>
+                    </ul>
                 </div>
                 <div class="column-half make-benchmark">
                     <div class="default-benchmark column-three-quarters right-padding">
@@ -61,8 +61,8 @@
 
 @helper DefaultButton(BenchmarkSchoolViewModel school)
 {
-    <a @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_@school.Urn" class="add-remove add defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'{CompareActions.MAKE_DEFAULT_BENCHMARK}')")">Use as default school</a>
-    <a @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_@school.Urn" class="add-remove remove defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'{CompareActions.REMOVE_DEFAULT_BENCHMARK}')")">Remove as default school</a>
+    <a @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'{CompareActions.MAKE_DEFAULT_BENCHMARK}')")">Use as default school</a>
+    <a @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'{CompareActions.REMOVE_DEFAULT_BENCHMARK}')")">Remove as default school</a>
 }
 
 @helper DisplayStyle(bool display)
