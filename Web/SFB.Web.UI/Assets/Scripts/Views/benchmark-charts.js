@@ -127,7 +127,7 @@
 
     BenchmarkChartsViewModel.GenerateChart = function (el, showValue, min, mid, max, barCount) {
         var applyChartStyles = function (el) {
-            var benchmarkSchoolIndex = $("#benchmarkSchoolIndex", el.parentElement.parentElement.parentElement)[0]
+            var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", el.parentElement.parentElement.parentElement)[0]
                 .value;
             if (benchmarkSchoolIndex > -1) {
                 $("#" +
@@ -138,7 +138,7 @@
                     benchmarkSchoolIndex).css("fill", "#D53880");
             }
 
-            var incompleteDataIndex = $("#incompleteDataIndex", el.parentElement.parentElement.parentElement)[0].value;
+            var incompleteDataIndex = $("input[name='incompleteDataIndex']", el.parentElement.parentElement.parentElement)[0].value;
             var incompleteDataIndexArray = incompleteDataIndex.split(",");
             if (incompleteDataIndexArray.length > 0) {
                 incompleteDataIndexArray.forEach(function (index) {
