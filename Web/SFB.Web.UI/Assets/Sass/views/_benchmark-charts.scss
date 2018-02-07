@@ -36,6 +36,10 @@
                 margin-top: 1em;
             }
 
+            .accordion-section-header h2{
+                margin-top: 0;
+            }
+
             &.column-full {
                 @include media(mobile) {
                     padding: 0;
