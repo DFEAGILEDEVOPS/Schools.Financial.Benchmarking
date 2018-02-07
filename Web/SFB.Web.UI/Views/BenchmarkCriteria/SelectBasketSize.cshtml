@@ -43,17 +43,17 @@
                 <legend>How many schools would you like in your benchmark basket?</legend>
                 <p>A useful benchmark set should contain between <span class="bold-small">10</span> and <span class="bold-small">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.</p>
 
-                <label id="DefaultSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize == ComparisonListLimit.DEFAULT ? "selected" : "")" for="DefaultBasketSize" aria-controls="DefaultBasketSizeFieldset">
+                <div id="DefaultSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize == ComparisonListLimit.DEFAULT ? "selected" : "")" aria-controls="DefaultBasketSizeFieldset">
                     <input onclick="SetDefaultSize();" id="DefaultBasketSize" type="radio" value="@ComparisonListLimit.DEFAULT" @Html.Raw(ViewBag.BasketSize == ComparisonListLimit.DEFAULT ? "checked" : "")>
                     <label id="DefaultAccordion" for="DefaultBasketSize">Use default (@ComparisonListLimit.DEFAULT)</label>
-                </label>
+                </div>
                                                                                                                                                         
                 <div id="DefaultBasketSizeFieldset"></div>
 
-                <label id="CustomSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize != ComparisonListLimit.DEFAULT ? "selected" : "")" for="CustomBasketSize" aria-controls="CustomBasketSizeFieldset">
+                <div id="CustomSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize != ComparisonListLimit.DEFAULT ? "selected" : "")" aria-controls="CustomBasketSizeFieldset">
                     <input id="CustomBasketSize" type="radio" @Html.Raw(ViewBag.BasketSize != ComparisonListLimit.DEFAULT ? "checked" : "")/>
                     <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Choose your own basket size</label>
-                </label>
+                </div>
                                                                                                                                                           
                 <div id="CustomBasketSizeFieldset" class="form-group optional-section">
                     <p>Enter a number between 5 and 30</p>
