@@ -47,6 +47,9 @@
                     $("#liveCountBar").show();
                     if (count > 0) {
                         $("button.submit").show();
+                        if (count <= 30) {
+                            $('button.submit.view-benchmark-charts').focus();
+                        }
                     } else {
                         $("button.submit").hide();
                     }

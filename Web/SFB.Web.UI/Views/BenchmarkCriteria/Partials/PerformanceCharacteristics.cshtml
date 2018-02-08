@@ -3,73 +3,76 @@
 
 
 <div class="accordion-section">
+    <fieldset role="group" aria-labelledby="PerformanceHeader">
+        <legend class="hidden">Performance characteristics</legend>
 
-    <div class="accordion-section-header">
-        <h2 class="heading-medium">Performance characteristics <span class="font-small">(<span class="selection-counter">0</span> selected)</span></h2>
-    </div>
+        <div class="accordion-section-header">
+            <h2 id="PerformanceHeader" class="heading-medium">Performance characteristics <span class="font-small">(<span class="selection-counter">0</span> selected)</span></h2>
+        </div>
 
-    <div class="accordion-section-body">
-        <p>
-            To compare schools across more performance characteristics visit the <a target="_blank" href="https://www.gov.uk/school-performance-tables">school performance tables</a> site.
-        </p>
+        <div class="accordion-section-body">
+            <p>
+                To compare schools across more performance characteristics visit the <a target="_blank" href="https://www.gov.uk/school-performance-tables">school performance tables</a> site.
+            </p>
 
-        @Html.Partial("Partials/PercentageCriteria",
-            new BenchmarkCriteriaRangeVM(
-                question: SchoolCharacteristicsQuestions.KS2_ACTUAL,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.KS2_ACTUAL],
-                elementName: "Ks2Actual",
-                minValue: Model.BenchmarkCriteria.MinKs2Actual,
-                maxValue: Model.BenchmarkCriteria.MaxKs2Actual
-                ))
+            @Html.Partial("Partials/PercentageCriteria",
+                new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.KS2_ACTUAL,
+                    homeSchoolValue: Model[SchoolCharacteristicsQuestions.KS2_ACTUAL],
+                    elementName: "Ks2Actual",
+                    minValue: Model.BenchmarkCriteria.MinKs2Actual,
+                    maxValue: Model.BenchmarkCriteria.MaxKs2Actual
+                    ))
 
-        @Html.Partial("Partials/RangeCriteria",
-            new BenchmarkCriteriaRangeVM(
-                question: SchoolCharacteristicsQuestions.KS2_PROGRESS,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.KS2_PROGRESS],
-                elementName: "Ks2Progress",
-                minValue: Model.BenchmarkCriteria.MinKs2Progress,
-                maxValue: Model.BenchmarkCriteria.MaxKs2Progress,
-                minLimit: -20,
-                maxLimit: 20,
-                format: "F2"
-                ))
+            @Html.Partial("Partials/RangeCriteria",
+                new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.KS2_PROGRESS,
+                    homeSchoolValue: Model[SchoolCharacteristicsQuestions.KS2_PROGRESS],
+                    elementName: "Ks2Progress",
+                    minValue: Model.BenchmarkCriteria.MinKs2Progress,
+                    maxValue: Model.BenchmarkCriteria.MaxKs2Progress,
+                    minLimit: -20,
+                    maxLimit: 20,
+                    format: "F2"
+                    ))
 
-        @Html.Partial("Partials/RangeCriteria",
-            new BenchmarkCriteriaRangeVM(
-                question: SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8],
-                elementName: "AvAtt8",
-                minValue: Model.BenchmarkCriteria.MinAvAtt8,
-                maxValue: Model.BenchmarkCriteria.MaxAvAtt8,
-                minLimit: -0,
-                maxLimit: 100,
-                format: "F1"
-                ))
+            @Html.Partial("Partials/RangeCriteria",
+                new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8,
+                    homeSchoolValue: Model[SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8],
+                    elementName: "AvAtt8",
+                    minValue: Model.BenchmarkCriteria.MinAvAtt8,
+                    maxValue: Model.BenchmarkCriteria.MaxAvAtt8,
+                    minLimit: -0,
+                    maxLimit: 100,
+                    format: "F1"
+                    ))
 
-        @Html.Partial("Partials/RangeCriteria",
-            new BenchmarkCriteriaRangeVM(
-                question: SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE],
-                elementName: "P8Mea",
-                minValue: Model.BenchmarkCriteria.MinP8Mea,
-                maxValue: Model.BenchmarkCriteria.MaxP8Mea,
-                minLimit: -5,
-                maxLimit: 5
-                ))
+            @Html.Partial("Partials/RangeCriteria",
+                new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE,
+                    homeSchoolValue: Model[SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE],
+                    elementName: "P8Mea",
+                    minValue: Model.BenchmarkCriteria.MinP8Mea,
+                    maxValue: Model.BenchmarkCriteria.MaxP8Mea,
+                    minLimit: -5,
+                    maxLimit: 5
+                    ))
 
-        @Html.Partial("Partials/MultipleChoiceCriteria",
-            new BenchmarkCriteriaMultipleChoiceVM(
-                question: SchoolCharacteristicsQuestions.OFSTED_RATING,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.OFSTED_RATING],
-                elementName: "OfstedRating",
-                options: new List<OptionVM>
-                {
-                    new OptionVM("Outstanding", "Outstanding", Model.BenchmarkCriteria.OfstedRating),
-                    new OptionVM("Good", "Good", Model.BenchmarkCriteria.OfstedRating),
-                    new OptionVM("Requires improvement", "Requires improvement", Model.BenchmarkCriteria.OfstedRating),
-                    new OptionVM("Inadequate", "Inadequate", Model.BenchmarkCriteria.OfstedRating)
-                }
+            @Html.Partial("Partials/MultipleChoiceCriteria",
+                new BenchmarkCriteriaMultipleChoiceVM(
+                    question: SchoolCharacteristicsQuestions.OFSTED_RATING,
+                    homeSchoolValue: Model[SchoolCharacteristicsQuestions.OFSTED_RATING],
+                    elementName: "OfstedRating",
+                    options: new List<OptionVM>
+                    {
+                        new OptionVM("Outstanding", "Outstanding", Model.BenchmarkCriteria.OfstedRating),
+                        new OptionVM("Good", "Good", Model.BenchmarkCriteria.OfstedRating),
+                        new OptionVM("Requires improvement", "Requires improvement", Model.BenchmarkCriteria.OfstedRating),
+                        new OptionVM("Inadequate", "Inadequate", Model.BenchmarkCriteria.OfstedRating)
+                    }
+                    )
                 )
-            )
-    </div> 
+        </div>
+    </fieldset>
 </div>

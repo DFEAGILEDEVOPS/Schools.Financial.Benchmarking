@@ -191,8 +191,10 @@ AccordionSection.prototype.setup = function() {
   var header = this.element.querySelector('.accordion-section-header')
   header.addEventListener('click', this.toggleExpanded.bind(this))
 
-  var icon = document.createElement('span')
+  var icon = document.createElement('a')
   icon.setAttribute('class', 'icon accordion-icon')
+  icon.setAttribute('aria-label', 'Open')
+  icon.setAttribute('href', 'javascript:void(0)')
 
   header.appendChild(icon)
 }
@@ -209,9 +211,15 @@ AccordionSection.prototype.expanded = function() {
 }
 
 AccordionSection.prototype.setExpanded = function(expanded) {
-  this.element.setAttribute('aria-expanded', expanded)
+    this.element.setAttribute('aria-expanded', expanded)
+    var icon = this.element.querySelector('.accordion-icon')
+    if (expanded) {
+        icon.setAttribute('aria-label', 'Close')
+    } else {
+        icon.setAttribute('aria-label', 'Open')
+    }
 
-  // This is set to trigger reflow for IE8, which doesn't
+    // This is set to trigger reflow for IE8, which doesn't
   // always reflow after a setAttribute call.
   this.element.className = this.element.className
 
