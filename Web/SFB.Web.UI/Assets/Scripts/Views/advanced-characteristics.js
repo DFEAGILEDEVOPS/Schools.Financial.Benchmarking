@@ -48,9 +48,9 @@
                     if (count > 0) {
                         $("button.submit").show();
                         $("button.submit").removeAttr("disabled");
-                        if (count <= 30) {
-                            $('button.submit.view-benchmark-charts').focus();
-                        }
+                        //if (count <= 30) {
+                        //    $('button.submit.view-benchmark-charts').focus();
+                        //}
                     } else {
                         $("button.submit").hide();
                         $("button.submit").attr("disabled", "disabled");
