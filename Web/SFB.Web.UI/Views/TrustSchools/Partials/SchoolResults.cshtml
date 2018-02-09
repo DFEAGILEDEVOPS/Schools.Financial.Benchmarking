@@ -30,20 +30,20 @@
                         }
                         </a>
                         <div class="addtocompare add-remove-mobile">
-                            @AddRemoveButton(school)
+                            @AddRemoveButton(school, "mobile")
                         </div>
-                        <dl class="metadata">
-                            <dd>@school.Address</dd>
-                            <dd>@school.OverallPhase<span> (@school.TotalPupils pupils)</span></dd>
-                            <dd>@school.Type</dd>
+                        <ul class="metadata">
+                            <li>@school.Address</li>
+                            <li>@school.OverallPhase<span> (@school.TotalPupils pupils)</span></li>
+                            <li>@school.Type</li>
                             @if (!string.IsNullOrEmpty(school.OfstedRatingText))
                             {
-                                <dd>Ofsted rating: <span class="rating rating-@school.OfstedRating"><span class="rating-text">@school.OfstedRating</span></span>@school.OfstedRatingText</dd>
+                                <li>Ofsted rating: <span class="rating rating-@school.OfstedRating"><span class="rating-text">@school.OfstedRating</span></span> @school.OfstedRatingText</li>
                             }
-                        </dl>
+                        </ul>
                     </div>
                     <div class="column-half addtocompare add-remove-desktop">
-                        @AddRemoveButton(school)
+                        @AddRemoveButton(school, "desktop")
                     </div>
                 </div>
             </li>
@@ -63,11 +63,11 @@ else
         </p>
 }
 
-@helper AddRemoveButton(SchoolViewModel school)
+@helper AddRemoveButton(SchoolViewModel school, string device)
 {
-    <div id="@school.Id">
-        <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='add-remove button removefrom' href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'removefromcompare')">Remove</a>
-        <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto js-modal' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'addtocompare')">Add</a>
+    <div id="@school.Id@device" data-urn="@school.Id">
+        <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='add-remove button removefrom' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'removefromcompare')" aria-label="Remove @school.Status @school.Name in @device">Remove</a>
+        <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto js-modal' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'addtocompare')" aria-label="Add @school.Status @school.Name in @device">Add</a>
     </div>
 }
 
