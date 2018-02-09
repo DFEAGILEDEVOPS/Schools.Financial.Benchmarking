@@ -93,6 +93,8 @@
                         function (data) {
                             $("#TrustsToCompare").html(data);
                             DfE.Views.TrustCompareViewModel.Load();
+                            $("#AddButton a").focus();
+                            $(".error-summary-list a").focus();
                         });
 
                 });
@@ -120,8 +122,9 @@
             });
     }
 
-    TrustCompareViewModel.DisplayNewTrustElements = function() {
+    TrustCompareViewModel.DisplayNewTrustElements = function () {
         $("#NewTrust").show();
+        $("#NewTrustName").focus();
         $("#AddButton").hide();
     }
 

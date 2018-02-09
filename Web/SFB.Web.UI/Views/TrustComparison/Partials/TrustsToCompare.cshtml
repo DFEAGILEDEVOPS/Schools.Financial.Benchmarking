@@ -1,7 +1,8 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @model List<SFB.Web.UI.Models.TrustToCompareViewModel>
 
-<form>
+<form autocomplete="off">
+    <button type="submit" style="visibility: hidden" disabled=""></button>
     <fieldset>
         @{
             if (ViewBag.Error != null)
@@ -30,7 +31,7 @@
                         <div class="grid-row trust-element">
                             <label class="form-label" for="mat_@i">Trust @Html.Raw(i + 1)</label>
                             <input class="form-control" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
-                            <a href="javascript: DfE.Views.TrustCompareViewModel.RemoveTrust('@Model[i].MatNo')">Remove</a>
+                            <a href="javascript: DfE.Views.TrustCompareViewModel.RemoveTrust('@Model[i].MatNo')" aria-label="Remove @Model[i].MatName">Remove</a>
                         </div>
                     }
                 </div>
