@@ -513,3 +513,8 @@ abbr[title]{
 .not-bold{
     font-weight:normal;
 }
+
+a.chevron-button {
+    text-decoration: none;
+    color: $text-colour;
+}

@@ -93,7 +93,7 @@
     } else {
       this.close();
     }
-    e.preventDefault();
+    //e.preventDefault();
   };
 
   OptionSelect.prototype.open = function open(){
