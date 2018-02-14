@@ -44,7 +44,7 @@
                 @SchoolDetailFieldFormatted("Ofsted rating:",
                     "<span class=\"rating rating-{0}\"> {0} </span><span class=\"rating-text\"> {1} </span>" +
                     "<span class=\"ofsted-divider\">| </span>"+
-                    "<a target=\"_blank\" rel=\"external\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report</a>" +
+                    "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report</a>" +
                     "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
                     Model.OfstedRating, Model.OfstedRatingText, Model.Id, Model.OfstedInspectionDate.ToLongDateString())
                 @SchoolDetailField("LAESTAB:", Model.LaEstab)
@@ -52,7 +52,7 @@
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
                 @SchoolDetailField("Has sixth form:", Model.IsPost16)
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
-                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0}</a>", Model.SchoolWebSite)
+                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0}</a>", Model.SchoolWebSite)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @if (!Model.HistoricalSchoolDataModels.Last().IsSAT)
                 {
@@ -182,7 +182,7 @@
 {
     <dt class="names">Data from other <br>services:</dt>
     <dd class="values bold">
-        <a rel="external" class="font16-ext-link" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Compare performance</a>
+        <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Compare performance</a>
     </dd>
 }
 
