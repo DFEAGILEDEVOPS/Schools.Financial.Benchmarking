@@ -3,9 +3,10 @@
     ViewBag.pageClass = "search-results";
 }
 
-
-@Html.Partial("Partials/BenchmarkListBanner")
-
+@section StickyContent
+{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
 
 <div id="searchSchoolsLink" class="grid-row hide-in-print">
     <div class="column-full">

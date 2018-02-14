@@ -13,13 +13,18 @@
     <script src="~/node_modules/angular/angular.min.js"></script>
 }
 
-
-@if (Model.EstablishmentType != EstablishmentType.MAT)
+@section StickyContent
 {
-    @Html.Partial("Partials/BenchmarkListBanner")
+    @if (Model.EstablishmentType != EstablishmentType.MAT)
+    {
+        @Html.Partial("Partials/BenchmarkListBanner")
+    }
 }
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
 
 <div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
     <div class="column-full">

@@ -5,7 +5,9 @@
         "Read our guidance on interpreting the site’s data.";
 }
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">Interpreting the charts</h1>
 <div class="grid-row">

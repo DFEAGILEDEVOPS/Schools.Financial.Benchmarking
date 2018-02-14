@@ -1,5 +1,4 @@
-﻿@using Newtonsoft.Json
-@using SFB.Web.Domain.Helpers.Constants
+﻿@using SFB.Web.Domain.Helpers.Constants
 
 @model SFB.Web.UI.Models.SchoolSearchViewModel
 
@@ -11,7 +10,10 @@
 
 }
 
-@Html.Partial("Partials/BenchmarkListBanner")
+@section StickyContent
+{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
 
 <div class="grid-row">
     <div class="column-three-quarters">

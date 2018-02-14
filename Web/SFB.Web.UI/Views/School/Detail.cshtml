@@ -11,9 +11,14 @@
     <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
 }
 
-<div id="benchmarkBasket"></div>
+@section StickyContent
+{
+    <div id="benchmarkBasket"></div>
+}
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 

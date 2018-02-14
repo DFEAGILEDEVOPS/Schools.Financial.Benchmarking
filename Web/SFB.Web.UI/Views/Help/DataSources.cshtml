@@ -3,7 +3,9 @@
     ViewBag.pageClass = "datasources";
 }
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">Data sources</h1>
 <div class="grid-row">

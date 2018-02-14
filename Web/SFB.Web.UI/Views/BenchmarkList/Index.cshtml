@@ -7,7 +7,9 @@
     ViewBag.pageClass = "benchmark-list";
 }
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">Benchmark basket</h1>
 
