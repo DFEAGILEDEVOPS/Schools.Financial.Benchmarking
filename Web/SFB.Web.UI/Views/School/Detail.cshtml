@@ -148,10 +148,13 @@
             }
         </div>
     </div>
-    <div id="historicalChartsList">
+    <div id="historicalChartsList" class="grid-row">
         @Html.Partial("Partials/Chart", Model)
     </div>
 </div>
+
+<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
 
 @helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
 {
