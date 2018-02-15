@@ -24,10 +24,10 @@
             <nav class="navigation-links" role="navigation" aria-hidden="true">
                 <ol role="tablist">
                     <li class="navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
-                        <a><img src="~/public/assets/images/icons/icon-map.png" alt="view on map" aria-hidden="true"/>View on map<span class="visuallyhidden"> click to expand.</span></a>
+                        <a href="javascript: void(0)"><img src="~/public/assets/images/icons/icon-map.png" alt="view on map" aria-hidden="true"/>View on map<span class="visuallyhidden"> click to expand.</span></a>
                     </li>
                     <li class="navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
-                        <a><img src="~/public/assets/images/icons/icon-list.png" alt="view as list" aria-hidden="true"/>View as list<span class="visuallyhidden"> click to expand.</span></a>
+                        <a href="javascript:void(0)"><img src="~/public/assets/images/icons/icon-list.png" alt="view as list" aria-hidden="true"/>View as list<span class="visuallyhidden"> click to expand.</span></a>
                     </li>
                 </ol>
             </nav>
@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="map @(ViewBag.tab == "map" ? "active" : string.Empty)">
-            <div id="gmap" class="results-map"></div>
+            <div id="gmap" class="results-map" title="Map of trust's schools"></div>
         </div>
     </div>
 </div>
