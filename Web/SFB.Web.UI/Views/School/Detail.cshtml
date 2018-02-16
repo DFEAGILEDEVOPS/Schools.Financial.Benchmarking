@@ -11,9 +11,14 @@
     <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
 }
 
-<div id="benchmarkBasket"></div>
+@section StickyContent
+{
+    <div id="benchmarkBasket"></div>
+}
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
@@ -39,15 +44,15 @@
                 @SchoolDetailFieldFormatted("Ofsted rating:",
                     "<span class=\"rating rating-{0}\"> {0} </span><span class=\"rating-text\"> {1} </span>" +
                     "<span class=\"ofsted-divider\">| </span>"+
-                    "<a target=\"_blank\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report</a>" +
-                    "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>", 
+                    "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report</a>" +
+                    "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
                     Model.OfstedRating, Model.OfstedRatingText, Model.Id, Model.OfstedInspectionDate.ToLongDateString())
                 @SchoolDetailField("LAESTAB:", Model.LaEstab)
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
                 @SchoolDetailField("Has sixth form:", Model.IsPost16)
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
-                @SchoolDetailFieldFormatted("School website:", "<a target=\"_blank\" href=\"{0}\">{0}</a>", Model.SchoolWebSite)
+                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0}</a>", Model.SchoolWebSite)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @if (!Model.HistoricalSchoolDataModels.Last().IsSAT)
                 {
@@ -66,19 +71,19 @@
                 <span class="summary font-xsmall">Show map</span>
             </summary>
             <div class="panel panel-border-narrow map">
-                <div id="SchoolLocationMap" class="mtl"></div>
+                <div id="SchoolLocationMap" class="mtl" title="School location map"></div>
             </div>
         </details>
     </div>
     <div class="column-full hide-in-print">
         <div class="column-one-third no-padding">
             <div class="download">
-                <a class="no-underline bold-xsmall" href="/school/download?urn=@Model.Id"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" /> Download data for this school (CSV)</a>
+                <a class="no-underline bold-xsmall" href="/school/download?urn=@Model.Id"><img class="icon" alt="" src="~/public/assets/images/icons/icon-file-download.png" /> Download data for this school (CSV)</a>
             </div>
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:PrintPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png" /> Print page</a>
+                <a class="no-underline bold-xsmall" href="javascript:PrintPage()"><img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png" /> Print page</a>
             </div>
         </div>
     </div>
@@ -132,7 +137,7 @@
 </nav>
 <div class="chartsSection">
     <div class="grid-row">
-        <form autocomplete="off">
+        <div>
             @Html.Partial("Partials/Terms", Model)
             @Html.Partial("Partials/ValueSelect", Model)
             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
@@ -141,12 +146,15 @@
             {
                 Html.RenderPartial("Partials/CentralFinancing");
             }
-        </form>
+        </div>
     </div>
-    <div id="historicalChartsList">
+    <div id="historicalChartsList" class="grid-row">
         @Html.Partial("Partials/Chart", Model)
     </div>
 </div>
+
+<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
 
 @helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
 {
@@ -177,9 +185,9 @@
 {
     <dt class="names">Data from other <br>services:</dt>
     <dd class="values bold">
-        <a target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Performance</a>
-        @*&nbsp;|&nbsp;*@
-        
+        <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Compare performance</a>
+        <span class="seperator">&nbsp; | &nbsp;</span>
+        <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get more information</a>
     </dd>
 }
 
@@ -238,6 +246,11 @@
                     this.map = new GOVUK.LocationMap(options);
                     this.mapLoaded = true;
                 }
+
+                var tab = DfE.Util.QueryString.get('tab');
+                if (tab) {
+                    $("a:contains('" + tab + "')").focus();
+                }
             },
             500);
 
@@ -248,8 +261,7 @@
                 "&tab=" +
                 tab +
                 "&unit=" +
-                $("select#ShowValue option:selected")[0].value +
-                "#charts";
+                $("select#ShowValue option:selected")[0].value;
             window.location = queryString;
         }
 

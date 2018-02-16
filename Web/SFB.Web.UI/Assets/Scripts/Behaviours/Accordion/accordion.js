@@ -190,12 +190,25 @@ AccordionSection.prototype.setup = function() {
 
   var header = this.element.querySelector('.accordion-section-header')
   header.addEventListener('click', this.toggleExpanded.bind(this))
+  header.addEventListener('keypress', this.keyPressed.bind(this))
+  header.setAttribute('tabindex', '0')
+  header.setAttribute('role', 'button')
+  header.setAttribute('aria-label', 'Open accordion')
+
 
   var icon = document.createElement('span')
   icon.setAttribute('class', 'icon accordion-icon')
 
   header.appendChild(icon)
 }
+
+AccordionSection.prototype.keyPressed = function(event) {
+        
+        if (event.key === " " || event.key === "Enter") {
+        event.preventDefault();
+        this.toggleExpanded();
+        }
+    }
 
 AccordionSection.prototype.toggleExpanded = function(){
   var expanded = (this.element.getAttribute('aria-expanded') == 'true')
@@ -209,7 +222,14 @@ AccordionSection.prototype.expanded = function() {
 }
 
 AccordionSection.prototype.setExpanded = function(expanded) {
-  this.element.setAttribute('aria-expanded', expanded)
+    this.element.setAttribute('aria-expanded', expanded)
+    
+    var button = this.element.querySelector('.accordion-section-header')
+    if (expanded) {
+        button.setAttribute('aria-label', 'Close accordion')
+    } else {
+        button.setAttribute('aria-label', 'Open accordion')
+    }
 
   // This is set to trigger reflow for IE8, which doesn't
   // always reflow after a setAttribute call.

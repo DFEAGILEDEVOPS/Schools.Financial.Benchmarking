@@ -5,6 +5,11 @@
     ViewBag.pageClass = "trust-comparison";
 }
 
+@section HomeButtonContent{
+
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
 <div id="ErrorSummaryPlaceHolder"></div>
 
 <h1 class="heading-xlarge page-heading">Compare trusts</h1>
@@ -19,7 +24,7 @@
 </div>
 
 <p>
-    <h3 class="bold-small">Choose one or more trusts for this comparison</h3>
+    <h2 class="bold-small">Choose one or more trusts for this comparison</h2>
 </p>
 
 <div id="TrustsToCompare">

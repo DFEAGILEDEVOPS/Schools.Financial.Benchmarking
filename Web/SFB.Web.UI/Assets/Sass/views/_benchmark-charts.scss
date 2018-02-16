@@ -32,8 +32,12 @@
 
     .chartsSection {
         .chartContainer {
-            h3 {
+            h2 {
                 margin-top: 1em;
+            }
+
+            .accordion-section-header h2{
+                margin-top: 0;
             }
 
             &.column-full {
@@ -125,10 +129,6 @@
             border: none;
             padding: 0;
         }
-    }
-
-    .page-top {
-        margin-top: 20px;
     }
 
     .download {

@@ -13,13 +13,18 @@
     <script src="~/node_modules/angular/angular.min.js"></script>
 }
 
-
-@if (Model.EstablishmentType != EstablishmentType.MAT)
+@section StickyContent
 {
-    @Html.Partial("Partials/BenchmarkListBanner")
+    @if (Model.EstablishmentType != EstablishmentType.MAT)
+    {
+        @Html.Partial("Partials/BenchmarkListBanner")
+    }
 }
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
 
 <div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
     <div class="column-full">
@@ -107,12 +112,12 @@ else
     <div class="grid-row download-links hide-in-print">
         <div id="downloadLinkContainer" class="column-one-third">
             <div class="download">
-                <a class="no-underline bold-xsmall" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" /> Download benchmark data (CSV)</a>
+                <a id="DownloadLink" class="no-underline bold-xsmall" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download benchmark data (CSV)</span></a>
             </div>
         </div>
         <div class="column-one-third">
             <div class="print">
-                <a id="PrintLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PrintPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png" /><span id="PrintLinkText"> Print page</span></a>
+                <a id="PrintLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PrintPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span></a>
             </div>
         </div>
     </div>
@@ -156,7 +161,8 @@ else
         </div>
     </div>
 
-    <a href="#pagetop" class="page-top mobile-only hide-in-print">Back to top</a>
+    <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
     <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType"/>
 }
 

@@ -61,5 +61,7 @@
         <input type="hidden" name="orderby" id="OrderBy" value="@(Request.QueryString["orderby"])">
 
         <input type="hidden" name="selectionState" value="@(Model.FilterSelectionState)"/>
+
+        <button type="submit" class="hidden" disabled="disabled"></button>
     </form>
 </div>

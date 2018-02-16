@@ -3,11 +3,15 @@
     ViewBag.pageClass = "search-results";
 }
 
+@section StickyContent
+{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
 
-@Html.Partial("Partials/BenchmarkListBanner")
-
-
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">Schools</h1>
 

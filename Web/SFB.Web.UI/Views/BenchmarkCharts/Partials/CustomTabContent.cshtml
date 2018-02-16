@@ -13,8 +13,8 @@
             </div>
             <div class="column-half no-padding">
                 <div class="form-group">
-                    <label class="form-label" for="CentralFinancing">Academy values</label>
-                    <select name="CentralFinancing" id="CentralFinancing" class="form-control" ng-model="selectionList.CentralFinance">
+                    <label class="form-label" for="CFinancing">Academy values</label>
+                    <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance">
                         <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
                         <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
                     </select>
@@ -23,14 +23,15 @@
         </div>
         <div class="selection-controls" ng-show="ctrl.anySelected()">
             <div class="column-quarter no-padding">
-                <a class="button" ng-click="ctrl.displayCustomReport()">View selected charts</a>
+                <a href="javascript:void(0)" class="button" ng-click="ctrl.displayCustomReport()">View selected charts</a>
             </div>
             <div class="column-quarter clear-link">
-                <a class="font-xsmall" ng-click="ctrl.clear()">Clear chart selections</a>
+                <a href="javascript:void(0)" class="font-xsmall" ng-click="ctrl.clear()">Clear chart selections</a>
             </div>
         </div>
-        <form class="selections">
+        <div class="selections">
             <fieldset>
+                <legend class="hidden">Selections</legend>
                 <div id="custom-report-accordion" class="accordion">
                     <div class="accordion-section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
                         <div class="accordion-section-header" ng-class="{'hide-summary': ctrl.query}">
@@ -78,14 +79,14 @@
                                         <label for="sel_{{$parent.$index}}_{{$index}}_8">Pupils per measure</label>
                                     </div>
                                 </div>
-                                <hr class="tablet-divider" />
+                                <hr class="tablet-divider"/>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </fieldset>
-        </form>
+        </div>
         <div class="selection-controls" ng-show="ctrl.anySelected() && !ctrl.query">
             <div class="column-quarter no-padding">
                 <a class="button" ng-click="ctrl.displayCustomReport()">View selected charts</a>

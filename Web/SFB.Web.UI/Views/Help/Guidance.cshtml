@@ -5,7 +5,9 @@
         "Find out how to use the schools financial benchmarking site.";
 }
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">Help using this site</h1>
 <div class="grid-row">
@@ -121,7 +123,7 @@
             To find out more about <a href="~/Help/InterpretingCharts">understanding the data, see our guidance on interpreting the charts</a>.
         </p>
         
-        <p>You might also like to look at the <a href="https://www.gov.uk/school-performance-tables" target="_blank">school performance tables</a> site.</p>
+        <p>You might also like to look at the <a href="https://www.gov.uk/school-performance-tables" target="_blank" rel="external noopener noreferrer" class="font16-ext-link">school performance tables</a> site.</p>
         
         <a id="question-eight"></a>
         <h2 class="heading-large">Which types of schools can I get data for?</h2>

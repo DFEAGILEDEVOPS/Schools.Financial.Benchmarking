@@ -4,19 +4,30 @@
     ViewBag.pageClass = "search-results";
 }
 
-@Html.Partial("Partials/BenchmarkListBanner")
+@section StickyContent{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">Schools</h1>
 <div class="grid-row">
     <div class="column-full">
-        <div>
+        <section>
+            <p>We’re sorry</p>
             <p class="result-info">
-                We found no matches for the school name you provided. Did you mean one of the options below?
+                We found no matches for the school name you searched for.
+                @if (System.Linq.Enumerable.FirstOrDefault(Model.Suggestions.Matches) != null)
+                {
+                    <span>
+                        Did you mean one of the options below?
+                    </span>
+                }
             </p>
-        </div>
-        <div>
+        </section>
+        <section>
 
             <ul class="disambiguation-list">
                 @foreach (var sugg in Model.Suggestions.Matches)
@@ -27,20 +38,16 @@
                 }
 
             </ul>
-
-            <p>
-                <span>Alternatively, </span>
+        </section>
+        <section>
+            <p class="result-info">
+                <span>You can </span>
                 <a href="/">try searching again</a>
-                <span>using different spelling or words</span>
+                <span>using a different spelling.</span>
             </p>
-            <p>
-                Please note: you may only search for schools in England using this service
+            <p class="result-info">
+                Please note that this site only lets you search for schools in England.
             </p>
-        </div>
+        </section>
     </div>
 </div>
-<p>
-    <a href="/">Try searching again</a>
-
-    <span>using different spelling or words</span>
-</p>

@@ -11,8 +11,15 @@
     <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
 }
 
-@Html.Partial("Partials/BenchmarkListBanner")
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section StickyContent
+{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
+
+@section HomeButtonContent{
+
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 <div class="grid-row">
@@ -24,7 +31,7 @@
 <div class="grid-row">
     <div class="column-full">
         <div class="result-list-summary">
-        This trust is made up of <span class="bold">@Model.SchoolList.ModelList.Count</span> academies.
+            This trust is made up of <span class="bold">@Model.SchoolList.ModelList.Count</span> academies that were in scope for financial benchmarking at the time of the last financial submissions, excluding sixth-form colleges. 
         <a href="/TrustSchools?matno=@Model.MatNo&matname=@Model.Name">Select schools to compare</a>
         </div>
     </div>
@@ -113,12 +120,12 @@ else
     <div class="column-full">
         <div class="column-one-third no-padding">
             <div class="download">
-                <a class="no-underline bold-xsmall" href="/trust/download?matNo=@Model.MatNo&name=@Model.Name"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png"/> Download data for this trust (CSV)</a>
+                <a class="no-underline bold-xsmall" href="/trust/download?matNo=@Model.MatNo&name=@Model.Name"><img class="icon" alt="" src="~/public/assets/images/icons/icon-file-download.png"/> Download data for this trust (CSV)</a>
             </div>
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:PrintPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png"/> Print page</a>
+                <a class="no-underline bold-xsmall" href="javascript:PrintPage()"><img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png"/> Print page</a>
             </div>
         </div>
     </div>
@@ -131,32 +138,34 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:TabChange('@Model.Code','@Model.MatNo','@Model.Name','@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <a href='javascript:TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:TabChange('@Model.Code','@Model.MatNo','@Model.Name','@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href='javascript:TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:TabChange('@Model.Code','@Model.MatNo','@Model.Name','@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href='javascript:TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
         </li>
     </ol>
 </nav>
 
 <div class="chartsSection">
     <div class="grid-row">
-        <form autocomplete="off">
+        <div autocomplete="off">
             @Html.Partial("Partials/Terms", Model.Terms)
             @Html.Partial("Partials/ValueSelect")
             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
             <div class="column-half chart-filter">
                 @Html.Partial("Partials/TrustCentralFinancing")
             </div>
-        </form>
+        </div>
     </div>
-    <div id="historicalChartsList">
+    <div id="historicalChartsList" class="grid-row">
         @Html.Partial("Partials/Chart", Model)
     </div>
 </div>
+
+<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
 @section ViewScripts {
     <script src="~/node_modules/d3/d3.min.js"></script>
@@ -178,10 +187,26 @@ else
         }
 
         function TabChange(code, matno, name, tab) {
-            var queryString = "?code=" + code +"&matno=" + matno + "&name=" + name + "&tab=" + tab + "&unit=" + $("select#ShowValue option:selected")[0].value + "#charts";
+            var queryString = "?code=" +
+                code +
+                "&matno=" +
+                matno +
+                "&name=" +
+                name +
+                "&tab=" +
+                tab +
+                "&unit=" +
+                $("select#ShowValue option:selected")[0].value;
             window.location = queryString;
         }
 
         DfE.Views.HistoricalCharts.GenerateCharts();
+
+        $(document).ready(function() {
+            var tab = DfE.Util.QueryString.get('tab');
+            if (tab) {
+                $("a:contains('" + tab + "')").focus();
+            }
+        });
     </script>
 }

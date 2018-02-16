@@ -206,7 +206,7 @@
                         html += "<p>" + info.Address + "</p>";
                         html += "<p>" + info.EducationPhases + "</p>";
                         html += "<p>" + info.NFType + "</p>";
-                        html += "<div id=\"" + info.Id + "\">";
+                        html += "<div id=\"" + info.Id + "\" data-urn=\"" + info.Id + "\">";
                         if (DfE.Util.ComparisonList.isInList(info.Id)) {
                             html += "<div class=\"button add add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'addtocompare')\">Add</div>";
                             html += "<div class=\"button remove add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'removefromcompare')\">Remove</div>";
@@ -263,7 +263,7 @@
         $.get("/school/UpdateBenchmarkBasket?urn=" + urn + "&withAction=" + withAction,
             function (data) {
                 $("#benchmarkBasket").replaceWith(data);
-                $("div#" + urn + ">.add-remove").toggle();
+                $("div[data-urn='" + urn + "']>.add-remove").toggle();
                 SchoolsResultsViewModel.AddAllVisibility();
             });
     };
@@ -308,7 +308,7 @@
         self.$addRemoveButtons = $(".add-remove:visible");
 
         self.$addRemoveButtons.each(function () {
-            var urn = $(this).parent().attr("id");
+            var urn = $(this).parent().attr("data-urn");
             var inList = DfE.Util.ComparisonList.isInList(urn);
             if (inList) {
                 $(this).parent().find('.addto').hide();

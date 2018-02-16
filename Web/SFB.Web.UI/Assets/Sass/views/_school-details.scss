@@ -44,8 +44,14 @@
         }
 
 
-        bold {
-            font-weight: bold;
+
+        a {
+            font-weight: initial;
+        }
+
+        .seperator {
+            top: 1px;
+            position: relative;
         }
     }
 
@@ -82,14 +88,12 @@
 
         .chartContainer {
 
-            h3 {
+            h2 {
                 margin-top: 1em;
             }
 
-            &.column-full {
-                @include media(mobile) {
-                    padding: 0;
-                }
+            .accordion-section-header h2 {
+                margin-top: 0;
             }
 
             .column-three-quarters {
@@ -180,7 +184,7 @@
     }
 
     .revenueDiv {
-        h3 {
+        h2 {
             margin-bottom: 5px;
         }
     }

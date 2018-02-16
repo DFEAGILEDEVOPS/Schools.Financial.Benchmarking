@@ -579,7 +579,7 @@
     <Content Include="Views\BenchmarkCriteria\ComparisonStrategy.cshtml" />
     <Content Include="Views\BenchmarkCriteria\OverwriteStrategy.cshtml" />
     <Content Include="Views\School\Partials\Terms.cshtml" />
-    <Content Include="Views\Shared\Partials\SearchForSchoolsPanel.cshtml" />
+    <Content Include="Views\Shared\Partials\BackToHomeLink.cshtml" />
     <Content Include="Views\Help\Guidance.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\InternalServerError.cshtml" />

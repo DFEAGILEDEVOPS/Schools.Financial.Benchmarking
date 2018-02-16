@@ -5,7 +5,7 @@
 <div class="grid-row">
     <div class="column-third">
         <div class="revenueDiv">
-            <h3 class="heading-medium">Expenditure</h3>
+            <h2 class="heading-medium">Expenditure</h2>
             <span class="heading-medium">
                 @if (Model.TotalRevenueExpenditure >= 10000 || Model.TotalRevenueExpenditure <= -10000)
                 {
@@ -23,7 +23,7 @@
     </div>
     <div class="column-third">
         <div class="revenueDiv">
-            <h3 class="heading-medium">Income</h3>
+            <h2 class="heading-medium">Income</h2>
             <span class="heading-medium">
                 @if (Model.TotalRevenueIncome >= 10000 || Model.TotalRevenueIncome <= -10000)
                 {
@@ -39,7 +39,7 @@
     </div>
     <div class="column-third">
         <div class="revenueDiv">
-            <h3 class="heading-medium">In-year balance</h3>
+            <h2 class="heading-medium">In-year balance</h2>
             <span class="heading-medium">
                 @if (Model.InYearBalance < 0)
                 {

@@ -50,22 +50,22 @@ else
 <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
     <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
         <div class="form-group">
-            <fieldset>
+            <fieldset role="radiogroup" id="RadioFieldSet">
 
-                <legend>Which area are you interested in?</legend>
+                <legend id="legend">Which area are you interested in?</legend>
 
-                <label id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" for="All" aria-controls="AllFieldset">
-                    <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") />
+                <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
+                    <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") aria-labelledby="legend"/>
                     <label id="AllAccordion" for="All">All of England</label>
-                </label>
+                </div>
                 <div id="AllFieldset"></div>
 
-                <label id="LaAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCode ? "selected" : "")" for="LaCode" aria-controls="SearchByLaCodeFieldset">
-                    <input id="LaCode" type="radio" name="areaType" value="LACode" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCode ? "checked" : "") />
-                    <label id="LaCodeAccordion" for="LaCode">
+                <div id="LaAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCode ? "selected" : "")" aria-controls="SearchByLaCodeFieldset">
+                    <input id="LaCodeRadio" type="radio" name="areaType" value="LACode" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCode ? "checked" : "")  aria-labelledby="legend"/>
+                    <label id="LaCodeAccordion" for="LaCodeRadio">
                         Local authority code
                     </label>
-                </label>
+                </div>
                 <div id="SearchByLaCodeFieldset" class="form-group optional-section">
                     <label for="FindSchoolByLaCode">
                         <span class="visuallyhidden">Enter a local authority code, </span>eg 306, 319 or 372
@@ -80,12 +80,12 @@ else
                            type="text" />
                 </div>
 
-                <label id="LaNameAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaName ? "selected" : "")" for="LaName" aria-controls="SearchByLaNameFieldset">
-                    <input id="LaName" type="radio" name="areaType" value="LAName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaName ? "checked" : "") />
+                <div id="LaNameAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaName ? "selected" : "")" aria-controls="SearchByLaNameFieldset">
+                    <input id="LaName" type="radio" name="areaType" value="LAName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaName ? "checked" : "") aria-labelledby="legend"/>
                     <label id="LaNameAccordion" for="LaName">
                         Local authority name
                     </label>
-                </label>
+                </div>
                 <div id="SearchByLaNameFieldset" class="form-group optional-section">
                     <label for="FindSchoolByLaName">
                         <span class="visuallyhidden">Enter the name of a local authority, </span>such as Hampshire or West Sussex
@@ -96,6 +96,7 @@ else
                     }
                     <input id="FindSchoolByLaName"
                            class="form-control mbl"
+                           name="lanametext"
                            type="text" />
                 </div>
             </fieldset>

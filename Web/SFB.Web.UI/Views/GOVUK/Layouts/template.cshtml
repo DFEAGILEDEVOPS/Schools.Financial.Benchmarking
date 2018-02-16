@@ -131,13 +131,12 @@
                         GOV.UK
                     </a>
                 </div>
-                @RenderSection("InsideHeader", required: false)
             </div>
             <div class="header-proposition">
                 <div class="content">
                     @*<a href="#proposition-links" class="js-header-toggle menu">Menu</a>*@
                     <nav id="proposition-menu">
-                        <a href="/" id="proposition-name">@appTitle</a>
+                        <a href="/" id="proposition-name" title="@appTitle">@appTitle</a>
                     </nav>
                 </div>
             </div>
@@ -179,8 +178,9 @@
                 <div class="footer-meta-inner">
                     <h2 class="visuallyhidden">Support links</h2>
                     <ul>
-                        <li><a href="https://form.education.gov.uk/fillform.php?self=1&form_id=cCCNJ1xSfBE&noLoginPrompt=1">Contact</a></li>
                         <li><a href="/help/guidance">Help</a></li>
+                        <li><a href="/cookies">Cookies</a></li>
+                        <li><a target="_blank" rel="noopener noreferrer" href="https://form.education.gov.uk/fillform.php?self=1&form_id=cCCNJ1xSfBE&noLoginPrompt=1">Contact</a></li>
                     </ul>
 
                     <div class="open-government-licence">

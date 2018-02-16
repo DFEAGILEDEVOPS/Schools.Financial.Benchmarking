@@ -3,9 +3,15 @@
     ViewBag.pageClass = "search-results";
 }
 
-@Html.Partial("Partials/BenchmarkListBanner")
+@section StickyContent
+{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
 
-@Html.Partial("Partials/SearchForSchoolsPanel")
+@section HomeButtonContent{
+    
+    @Html.Partial("Partials/BackToHomeLink")
+}
 
 <h1 class="heading-xlarge page-heading">Local authorities</h1>
 

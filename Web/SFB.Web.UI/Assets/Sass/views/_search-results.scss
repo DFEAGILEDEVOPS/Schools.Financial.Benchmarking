@@ -17,27 +17,10 @@
     .metadata {
         margin: 0;
 
-        dt, dd {
+        li {
             @include core-14;
             margin-left: 0;
             padding: 0;
-        }
-
-        dd.associated-school {
-            color: #777;
-        }
-
-        dt {
-            @include inline-block;
-        }
-
-        dd {
-            display: inline;
-
-            &:after {
-                display: block;
-                content: '';
-            }
         }
 
         .rating-date {

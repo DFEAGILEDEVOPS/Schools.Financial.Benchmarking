@@ -75,3 +75,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+div.accordion-section-header:focus {
+    outline: 3px solid #ffbf47;
+}

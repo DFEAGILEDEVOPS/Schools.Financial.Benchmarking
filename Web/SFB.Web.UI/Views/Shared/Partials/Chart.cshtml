@@ -14,29 +14,32 @@
         <div class="chartContainer column-full" data-group="@historicalChart.ChartGroup">
             @if (historicalChart.ChartType == ChartType.Total)
             {
-                <h3 class="heading-medium">@historicalChart.Name</h3>
+                <h2 class="heading-medium">@historicalChart.Name</h2>
                 @Html.Partial("Partials/HistoricalChart", historicalChart)
             }
             else
             {
                 <div class="accordion-section">
-                    <div class="accordion-section-header">
-                        <h2 class="heading-medium">@historicalChart.Name</h2>
-                    </div>
+                    <fieldset role="group" aria-label="@historicalChart.Name">
+                        <legend class="hidden">@historicalChart.Name</legend>
+                        <div class="accordion-section-header">
+                            <h2 class="heading-medium">@historicalChart.Name</h2>
+                        </div>
 
-                    <div class="accordion-section-body">
-                        @Html.Partial("Partials/HistoricalChart", historicalChart)
-                        @if (historicalChart.SubCharts != null)
-                        {
-                            for (var i = 0; i < historicalChart.SubCharts.Count; i++)
+                        <div class="accordion-section-body">
+                            @Html.Partial("Partials/HistoricalChart", historicalChart)
+                            @if (historicalChart.SubCharts != null)
                             {
-                                ChartViewModel subChart = historicalChart.SubCharts[i];
-                                subChart.Id = $"{index}_{i}";
-                                <h3 class="heading-medium">@subChart.Name</h3>
+                                for (var i = 0; i < historicalChart.SubCharts.Count; i++)
+                                {
+                                    ChartViewModel subChart = historicalChart.SubCharts[i];
+                                    subChart.Id = $"{index}_{i}";
+                                    <h2 class="heading-medium">@subChart.Name</h2>
                                     @Html.Partial("Partials/HistoricalChart", subChart)
+                                }
                             }
-                        }
-                    </div>
+                        </div>
+                    </fieldset>
                 </div>
             }
         </div>

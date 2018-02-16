@@ -51,18 +51,27 @@
  
 }
 
-<main id="content" class="page @(ViewBag.pageClass)" role="main" tabindex="-1">
+<div class="header-content">
     @if (ViewBag.DynamicHeaderContent != null)
     {
         <div class="dynamic-header">
             <div>
                 @Html.Raw(ViewBag.DynamicHeaderContent)
             </div>
-            <a class="js-dismiss-dynamic-header" href="javascript:">Hide message</a>
+            <a class="js-dismiss-dynamic-header" href="javascript:void(0)">Hide message</a>
         </div>
     }
+</div>
 
-    <div class="pre-content"></div>
+@RenderSection("StickyContent", required: false)
+
+<div class="header-content">
+    @RenderSection("HomeButtonContent", required: false)
+</div>
+
+<main id="content" class="page @(ViewBag.pageClass)" role="main" tabindex="-1">
+
+    @*<div class="pre-content"></div>*@
 
     @RenderBody()
 </main>
@@ -84,7 +93,7 @@
         @(RenderSection("ViewScripts", required: false))
 
         <script>
-            $('.sticky-div').Stickyfill();
+             $('.sticky-div').Stickyfill();
         </script>
     }
  

@@ -9,7 +9,7 @@
     <div class="grid-row">
         <div class="column-full">
             <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResults">
-                <span class="bold-small" id="schoolCount"></span> schools found
+                <span id="schoolCount" class="bold-small" aria-live="assertive">0 schools found</span>
                 <a class="clear-criteria" href="#">Clear all characteristics</a>
                 <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
             </div>
@@ -75,7 +75,7 @@
     <div class="button-set column-full font-xsmall">
         <div class="grid-row">
             <div class="column-one-third">
-                <button class="button js-modal submit">View benchmarking charts</button>
+                <button class="button js-modal submit" disabled="disabled">View benchmarking charts</button>
             </div>
             <div class="column-one-third link">
                 <a href="#" class="clear-criteria">Clear all characteristics</a>
