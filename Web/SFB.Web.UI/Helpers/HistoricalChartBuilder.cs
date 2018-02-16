@@ -1944,7 +1944,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = DBFieldNames.TEACHERS_TOTAL,
+                    Name = "Total number of teachers (FTE)",
                     FieldName = DBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
