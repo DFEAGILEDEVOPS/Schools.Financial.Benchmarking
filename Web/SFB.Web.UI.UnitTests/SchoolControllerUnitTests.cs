@@ -76,7 +76,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, RevenueGroupType.Income);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Income);
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
@@ -115,7 +115,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, RevenueGroupType.Balance);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Balance);
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
@@ -154,7 +154,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PercentageOfTotal, RevenueGroupType.Balance);
+            controller.Detail(123, UnitType.PercentageOfTotal, CentralFinancingType.Exclude, RevenueGroupType.Balance);
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
@@ -193,7 +193,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, RevenueGroupType.Workforce);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Workforce);
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),

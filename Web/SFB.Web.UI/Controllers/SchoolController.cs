@@ -36,7 +36,7 @@ namespace SFB.Web.UI.Controllers
         #if !DEBUG
         [OutputCache (Duration=14400, VaryByParam="urn;unit;tab", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
-        public ActionResult Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public ActionResult Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -65,8 +65,7 @@ namespace SFB.Web.UI.Controllers
                 return View("EmptyResult", new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
             }
 
-            var centralFinancingType = tab == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : CentralFinancingType.Include;
-            SchoolViewModel schoolVM = BuildSchoolVM(tab, chartGroup, centralFinancingType, schoolDetailsFromEdubase);
+            SchoolViewModel schoolVM = BuildSchoolVM(tab, chartGroup, financing, schoolDetailsFromEdubase);
 
             UnitType unitType;
             switch (tab)
@@ -87,6 +86,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
+            ViewBag.Financing = financing;
 
             return View("Detail", schoolVM);
         }

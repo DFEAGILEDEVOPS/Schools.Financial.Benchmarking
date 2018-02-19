@@ -141,8 +141,7 @@
             @Html.Partial("Partials/Terms", Model)
             @Html.Partial("Partials/ValueSelect", Model)
             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-            @if (ViewBag.Tab != RevenueGroupType.Workforce && 
-                (Model.FinancialType == SchoolFinancialType.Academies && !Model.HistoricalSchoolDataModels.Last().IsSAT))
+            @if (Model.FinancialType == SchoolFinancialType.Academies && !Model.HistoricalSchoolDataModels.Last().IsSAT)
             {
                 Html.RenderPartial("Partials/CentralFinancing");
             }
@@ -261,7 +260,9 @@
                 "&tab=" +
                 tab +
                 "&unit=" +
-                $("select#ShowValue option:selected")[0].value;
+                $("select#ShowValue option:selected")[0].value +
+                "&financing=" +
+                $("select#Financing option:selected")[0].value;
             window.location = queryString;
         }
 
