@@ -1,5 +1,5 @@
 ﻿@using SFB.Web.Domain.Helpers.Constants
-@model SFB.Web.UI.Models.SchoolListViewModel
+@model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
 <div class="column-one-third">
     <div class="filter-form">
@@ -39,7 +39,7 @@
         <div class="column-half no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding">
                 <div class="filter">
-                    @if (Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_NAME_ID || Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_LA_CODE_NAME)
+                    @if (Model.SearchType == SearchTypes.SEARCH_BY_NAME_ID || Model.SearchType == SearchTypes.SEARCH_BY_LA_CODE_NAME)
                     {
                         <div class="filter-box">
                             <label class="legend" for="OrderByControl">Sorted by</label>

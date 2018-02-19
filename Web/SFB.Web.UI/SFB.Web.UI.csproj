@@ -283,6 +283,7 @@
     <Compile Include="Models\SchoolSearchViewModel.cs" />
     <Compile Include="Models\SchoolSummaryViewModel.cs" />
     <Compile Include="Models\SchoolViewModel.cs" />
+    <Compile Include="Models\SearchedSchoolListViewModel.cs" />
     <Compile Include="Models\SeriesData.cs" />
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
     <Compile Include="Models\SponsorListViewModel.cs" />

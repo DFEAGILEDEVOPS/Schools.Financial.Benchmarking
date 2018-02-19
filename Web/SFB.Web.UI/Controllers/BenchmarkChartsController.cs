@@ -249,7 +249,6 @@ namespace SFB.Web.UI.Controllers
 
             var chartGroups = _benchmarkChartBuilder.Build(tab, establishmentType).DistinctBy(c => c.ChartGroup).ToList();
             
-            var localAuthorities = (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
             string  selectedArea = "";
             switch (areaType)
             {
@@ -258,14 +257,14 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case ComparisonArea.LaCode:
                 case ComparisonArea.LaName:
-                    selectedArea = localAuthorities.FirstOrDefault(la => la.id == laCode).LANAME;
+                    selectedArea = _laService.GetLaName(laCode);
                     break;
             }
 
             string schoolArea = "";
             if (benchmarkSchoolData != null)
             {
-                schoolArea = localAuthorities.FirstOrDefault(la => la.id == benchmarkSchoolData.LaNumber.ToString()).LANAME;
+                schoolArea = _laService.GetLaName(benchmarkSchoolData.LaNumber.ToString());
             }
 
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerSchoolType(SchoolFinancialType.Academies));

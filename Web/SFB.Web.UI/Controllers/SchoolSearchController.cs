@@ -229,7 +229,8 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            return View("SearchResults", GetSchoolViewModelList(searchResp, orderby, page));
+            var laName = _laService.GetLaName(laCodeName);
+            return View("SearchResults", GetSchoolViewModelList(searchResp, orderby, page, searchType, nameId, locationorpostcode, laName));
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
@@ -292,7 +293,7 @@ namespace SFB.Web.UI.Controllers
         {
             var searchResponse = await GetSearchResults(nameId, searchType, null, locationorpostcode,
                 locationCoordinates, laCodeName, radius, orderby, page);
-            var vm = GetSchoolViewModelList(searchResponse, orderby, page);
+            var vm = GetSchoolViewModelList(searchResponse, orderby,page, searchType, nameId, locationorpostcode, laCodeName);
 
             return PartialView("Partials/SchoolResults", vm);
         }
@@ -399,10 +400,10 @@ namespace SFB.Web.UI.Controllers
                 $"{(ofstedExpanded ? "1" : "0")},{(schoolTypeExpanded ? "1" : "0")},{(religiousCharacterExpanded ? "1" : "0")}";
         }
 
-        private SchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page)
+        private SearchedSchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             var schoolListVm = new List<SchoolViewModel>();
-            var vm = new SchoolListViewModel(schoolListVm, null, orderBy);
+            var vm = new SearchedSchoolListViewModel(schoolListVm, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);
             if (response != null)
             {
                 foreach (var result in response.Results)
