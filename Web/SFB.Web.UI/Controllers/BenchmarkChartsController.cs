@@ -221,7 +221,8 @@ namespace SFB.Web.UI.Controllers
             ComparisonType comparisonType = ComparisonType.Manual,
             ComparisonArea areaType = ComparisonArea.All,
             string laCode = null,
-            RevenueGroupType tab = RevenueGroupType.Expenditure)
+            RevenueGroupType tab = RevenueGroupType.Expenditure,
+            CentralFinancingType financing = CentralFinancingType.Exclude)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -277,6 +278,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.UnitType = defaultUnitType;
             ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.EstablishmentType = vm.EstablishmentType;
+            ViewBag.Financing = financing;
 
             return View("Index", vm);
         }
@@ -318,7 +320,7 @@ namespace SFB.Web.UI.Controllers
             return View("Index",vm);
         }
 
-        public PartialViewResult TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public PartialViewResult TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Exclude)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -361,7 +363,7 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                benchmarkCharts = BuildSchoolBenchmarkCharts(tab, chartGroup, unitType, CentralFinancingType.Exclude);
+                benchmarkCharts = BuildSchoolBenchmarkCharts(tab, chartGroup, unitType, financing);
             }
             var chartGroups = _benchmarkChartBuilder.Build(tab, EstablishmentType.All).DistinctBy(c => c.ChartGroup).ToList();
             
@@ -374,7 +376,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
             ViewBag.EstablishmentType = type;
-
+            ViewBag.Financing = financing;
             ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustMatNo : vm.SchoolComparisonList.HomeSchoolUrn;
 
             return PartialView("Partials/TabContent", vm);

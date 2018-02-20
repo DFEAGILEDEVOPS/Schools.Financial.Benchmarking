@@ -433,11 +433,13 @@
             $("#customTabSection").show();
         } else {
             var unitParameter = $("#ShowValue").val();
+            var financingParameter = $("#CentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             var typeParameter = $("#Type").val();
             $.get("/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
-                "&showValue=" + unitParameter,
+                "&showValue=" + unitParameter +
+                "&financing=" + financingParameter,
                 function (data) {
                     $(".tabs li").removeClass("active");
                     $(".tabs li#" + tab).addClass("active");

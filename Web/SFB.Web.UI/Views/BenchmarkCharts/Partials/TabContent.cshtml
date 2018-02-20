@@ -11,7 +11,7 @@
         <form autocomplete="off">
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
-            @if (Model.EstablishmentType == EstablishmentType.Academy && ViewBag.Tab != RevenueGroupType.Workforce)
+            @if (Model.EstablishmentType == EstablishmentType.Academy)
             {
                 Html.RenderPartial("~/Views/BenchmarkCharts/Partials/CentralFinancing.cshtml");
             }
