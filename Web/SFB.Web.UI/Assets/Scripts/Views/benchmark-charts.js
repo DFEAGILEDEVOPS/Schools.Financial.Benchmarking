@@ -434,12 +434,19 @@
         } else {
             var unitParameter = $("#ShowValue").val();
             var financingParameter = $("#CentralFinancing").val();
+            var trustFinancingParameter = $("#TrustCentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             var typeParameter = $("#Type").val();
-            $.get("/benchmarkcharts/tabchange?tab=" + tab +
+            var url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
-                "&showValue=" + unitParameter +
-                "&financing=" + financingParameter,
+                "&showValue=" + unitParameter;
+            if (financingParameter) {
+                url += "&financing=" + financingParameter;
+            }
+            if (trustFinancingParameter) {
+                url += "&trustFinancing=" + trustFinancingParameter;
+            }
+            $.get(url,
                 function (data) {
                     $(".tabs li").removeClass("active");
                     $(".tabs li#" + tab).addClass("active");

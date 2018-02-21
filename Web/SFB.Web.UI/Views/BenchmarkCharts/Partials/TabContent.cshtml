@@ -15,7 +15,7 @@
             {
                 Html.RenderPartial("~/Views/BenchmarkCharts/Partials/CentralFinancing.cshtml");
             }
-            @if (Model.EstablishmentType == EstablishmentType.MAT)
+            else if (Model.EstablishmentType == EstablishmentType.MAT)
             {
                 <div class="column-one-third chart-filter">
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TrustCentralFinancing.cshtml")

@@ -283,7 +283,7 @@ namespace SFB.Web.UI.Controllers
             return View("Index", vm);
         }
 
-        public ActionResult Mats(RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public ActionResult Mats(RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -303,7 +303,7 @@ namespace SFB.Web.UI.Controllers
             }
 
             var defaultUnitType = tab == RevenueGroupType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
-            var benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, UnitType.AbsoluteMoney, MatFinancingType.TrustAndAcademies);
+            var benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, UnitType.AbsoluteMoney, financing);
             var chartGroups = _benchmarkChartBuilder.Build(tab, EstablishmentType.MAT).DistinctBy(c => c.ChartGroup).ToList();
 
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerSchoolType(SchoolFinancialType.Academies));
@@ -316,11 +316,12 @@ namespace SFB.Web.UI.Controllers
             ViewBag.UnitType = defaultUnitType;
             ViewBag.HomeSchoolId = vm.TrustComparisonList.DefaultTrustMatNo;
             ViewBag.EstablishmentType = vm.EstablishmentType;
+            ViewBag.TrustFinancing = financing;
 
             return View("Index",vm);
         }
 
-        public PartialViewResult TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Exclude)
+        public PartialViewResult TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Exclude, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -359,7 +360,7 @@ namespace SFB.Web.UI.Controllers
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
             {
-                benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, unitType, MatFinancingType.TrustAndAcademies);
+                benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, unitType, trustFinancing);
             }
             else
             {
@@ -377,6 +378,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.UnitType = unitType;
             ViewBag.EstablishmentType = type;
             ViewBag.Financing = financing;
+            ViewBag.TrustFinancing = trustFinancing;
             ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustMatNo : vm.SchoolComparisonList.HomeSchoolUrn;
 
             return PartialView("Partials/TabContent", vm);
