@@ -58,7 +58,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustController(mockHistoricalChartBuilder.Object, 
                 mockDocumentDbService.Object,
                 mockFCService.Object,
-                mockEdubaseDataService.Object, mockTrustSearchService.Object, null);
+                mockTrustSearchService.Object, null);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 

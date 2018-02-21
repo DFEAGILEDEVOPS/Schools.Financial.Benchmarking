@@ -19,20 +19,17 @@ namespace SFB.Web.UI.Controllers
 {
     public class TrustController : BaseController
     {
-        private readonly IEdubaseDataService _edubaseDataService;
         private readonly ITrustSearchService _trustSearchService;
         private readonly IFinancialDataService _financialDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
 
-        public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IEdubaseDataService edubaseDataService
-            , ITrustSearchService trustSearchService, IDownloadCSVBuilder csvBuilder)
+        public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ITrustSearchService trustSearchService, IDownloadCSVBuilder csvBuilder)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
-            _edubaseDataService = edubaseDataService;
             _trustSearchService = trustSearchService;
             _csvBuilder = csvBuilder;
         }
@@ -72,7 +69,7 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        public ActionResult Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public ActionResult Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -96,7 +93,7 @@ namespace SFB.Web.UI.Controllers
           
             var dataResponse = _financialDataService.GetAcademiesByMatNumber(term, matNo);
 
-            var sponsorVM = BuildSponsorVM(matNo, name, dataResponse, tab, chartGroup, MatFinancingType.TrustAndAcademies);
+            var sponsorVM = BuildSponsorVM(matNo, name, dataResponse, tab, chartGroup, financing);
 
             List<string> terms = BuildTermsList(DataGroups.MATCentral);
             var latestTerm = terms.First();
@@ -120,6 +117,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
+            ViewBag.Financing = financing;
 
             return View(sponsorVM);
         }

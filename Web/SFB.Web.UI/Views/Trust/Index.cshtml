@@ -196,7 +196,9 @@ else
                 "&tab=" +
                 tab +
                 "&unit=" +
-                $("select#ShowValue option:selected")[0].value;
+                $("select#ShowValue option:selected")[0].value +
+                "&financing=" +
+                $("select#Financing option:selected")[0].value;
             window.location = queryString;
         }
 
