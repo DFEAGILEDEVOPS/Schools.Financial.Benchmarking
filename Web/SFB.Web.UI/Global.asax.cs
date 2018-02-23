@@ -12,7 +12,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Filters;
 using SFB.Web.UI.Models;
 
-namespace SFB.Web.UI
+namespace SFB.Web.UI 
 {
     public class MvcApplication : System.Web.HttpApplication
     {
