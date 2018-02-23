@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SFB.Web.Domain.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
 {

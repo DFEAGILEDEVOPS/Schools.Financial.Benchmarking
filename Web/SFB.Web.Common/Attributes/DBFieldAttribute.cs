@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFB.Web.Domain.Helpers
+namespace SFB.Web.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class DBFieldAttribute : Attribute

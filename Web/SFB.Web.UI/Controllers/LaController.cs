@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Common;
 using SFB.Web.Domain.Services;
+using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Controllers

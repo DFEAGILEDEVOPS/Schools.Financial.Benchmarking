@@ -1,18 +1,13 @@
-﻿using Microsoft.Azure.Documents;
-using SFB.Web.Domain.Services;
+﻿using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Models;
-using SFB.Web.UI.Services;
-using System;
-using Elmah;
 using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.Controllers
@@ -22,7 +17,7 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialDataService _financialDataService;
         private readonly IEdubaseDataService _edubaseDataService;
         private readonly ILocalAuthoritiesService _laService;
-
+        
         public BenchmarkCriteriaController(ILocalAuthoritiesService laService, IFinancialDataService financialDataService, IEdubaseDataService edubaseDataService)
         {
             _financialDataService = financialDataService;

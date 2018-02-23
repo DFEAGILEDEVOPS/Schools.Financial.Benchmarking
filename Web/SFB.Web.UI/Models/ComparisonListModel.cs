@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Helpers.Enums;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models

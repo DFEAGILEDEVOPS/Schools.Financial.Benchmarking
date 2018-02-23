@@ -1,7 +1,6 @@
 ﻿using Microsoft.Azure.Documents;
 using System;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 
 namespace SFB.Web.UI.Models
 {

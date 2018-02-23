@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models

@@ -85,14 +85,10 @@
     <Compile Include="ApiWrappers\ApiResponse.cs" />
     <Compile Include="ApiWrappers\IApiRequest.cs" />
     <Compile Include="Helpers\Constants\Constants.cs" />
-    <Compile Include="Helpers\Enums\Enums.cs" />
-    <Compile Include="Helpers\DBFieldAttribute.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
-    <Compile Include="Helpers\PrettyNameAttribute.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\BenchmarkChartData.cs" />
     <Compile Include="Models\BenchmarkChartModel.cs" />
-    <Compile Include="Models\BenchmarkCriteria.cs" />
     <Compile Include="Models\GeoCodeCalc.cs" />
     <Compile Include="Models\HistoricalChartData.cs" />
     <Compile Include="Models\Location.cs" />
@@ -121,6 +117,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SFB.Web.Common\SFB.Web.Common.csproj">
+      <Project>{D1DDD6B9-2AC9-4261-B4EF-F67AE3213164}</Project>
+      <Name>SFB.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFB.Web.DAL\SFB.Web.DAL.csproj">
+      <Project>{933AECEE-A499-482D-B09B-A8864140B332}</Project>
+      <Name>SFB.Web.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Azure.DocumentDB.1.12.0\build\Microsoft.Azure.DocumentDB.targets" Condition="Exists('..\packages\Microsoft.Azure.DocumentDB.1.12.0\build\Microsoft.Azure.DocumentDB.targets')" />

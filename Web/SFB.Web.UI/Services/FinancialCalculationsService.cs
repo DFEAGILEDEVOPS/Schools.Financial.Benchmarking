@@ -4,9 +4,7 @@ using SFB.Web.Domain.Models;
 using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Azure.Documents.SystemFunctions;
-using SFB.Web.Domain.Helpers;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Services

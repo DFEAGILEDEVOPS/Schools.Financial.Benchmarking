@@ -668,6 +668,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SFB.Web.Common\SFB.Web.Common.csproj">
+      <Project>{D1DDD6B9-2AC9-4261-B4EF-F67AE3213164}</Project>
+      <Name>SFB.Web.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFB.Web.Domain\SFB.Web.Domain.csproj">
       <Project>{c7d71b89-d508-43fa-8130-1266baa6dda9}</Project>
       <Name>SFB.Web.Domain</Name>

@@ -1,5 +1,4 @@
-﻿using System.Web.UI.WebControls;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace SFB.Web.Domain.Models
 {

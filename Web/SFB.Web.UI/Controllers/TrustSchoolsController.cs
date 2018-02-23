@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Services;
+using SFB.Web.Common;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Controllers

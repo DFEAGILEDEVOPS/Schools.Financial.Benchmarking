@@ -9,13 +9,12 @@ using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Helpers.Enums;
 using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
+using SFB.Web.Common;
 using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.Controllers
@@ -565,7 +564,7 @@ namespace SFB.Web.UI.Controllers
         private List<SchoolDataModel> GetFinancialDataForTrusts(List<TrustToCompareViewModel> trusts, MatFinancingType matFinancing = MatFinancingType.TrustAndAcademies)
         {
             var models = new List<SchoolDataModel>();
-
+            
             var terms = _financialDataService.GetActiveTermsByDataGroup(DataGroups.MATCentral, "{0} / {1}");
 
             foreach (var trust in trusts){

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 
 namespace SFB.Web.UI.Models

@@ -1,5 +1,4 @@
-﻿using SFB.Web.Domain.Services;
-using SFB.Web.UI.Models;
+﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,10 +7,9 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 
@@ -95,6 +93,7 @@ namespace SFB.Web.UI.Controllers
 
             var sponsorVM = BuildSponsorVM(matNo, name, dataResponse, tab, chartGroup, financing);
 
+            //TODO: remove this reference to DAL
             List<string> terms = BuildTermsList(DataGroups.MATCentral);
             var latestTerm = terms.First();
 

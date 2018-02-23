@@ -1,11 +1,10 @@
 ﻿using NUnit.Framework;
 using SFB.Web.UI.Models;
 using System.Collections.Generic;
-using System.Web.Helpers;
 using SFB.Web.UI.Services;
 using Microsoft.Azure.Documents;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 
 namespace SFB.Web.UI.UnitTests

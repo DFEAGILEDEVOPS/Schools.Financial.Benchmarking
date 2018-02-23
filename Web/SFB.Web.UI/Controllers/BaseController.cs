@@ -5,10 +5,8 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Linq;
-using SFB.Web.Domain.Helpers;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
-using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {

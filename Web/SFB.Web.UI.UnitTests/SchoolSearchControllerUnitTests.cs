@@ -15,7 +15,6 @@ using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
-using SearchTypes = SFB.Web.Domain.Helpers.Constants.SearchTypes;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -24,7 +23,6 @@ namespace SFB.Web.UI.UnitTests
         private Mock<HttpRequestBase> _request;
         private Mock<HttpContextBase> _context;
         private RequestContext _rc;
-
         private IValidationService _valService;
         private Mock<IFilterBuilder> _mockFilterBuilder;
         private Mock<ILocalAuthoritiesService> _mockLaService;
