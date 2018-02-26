@@ -14,6 +14,7 @@ using SFB.Web.UI.Helpers.Enums;
 using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.DAL;
+using SFB.Web.DAL.Helpers;
 using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.UnitTests

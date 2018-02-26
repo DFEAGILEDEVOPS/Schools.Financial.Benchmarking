@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using SFB.Web.DAL;
 using SFB.Web.DAL.Repositories;
 
 namespace SFB.Web.Domain.Services.DataAccess

@@ -7,9 +7,9 @@ using System.Text;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
-using SFB.Web.DAL.Repositories;
+using SFB.Web.DAL.Helpers;
 
-namespace SFB.Web.DAL
+namespace SFB.Web.DAL.Repositories
 {
     public class DocumentDbEdubaseRepository : IEdubaseRepository
     {

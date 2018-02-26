@@ -8,9 +8,9 @@ using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json.Linq;
 using SFB.Web.Common;
 
-namespace SFB.Web.DAL
+namespace SFB.Web.DAL.Helpers
 {
-    internal class DataCollectionManager : IDataCollectionManager
+    public class DataCollectionManager : IDataCollectionManager
     {
         private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
         private static DocumentClient _client;
@@ -35,24 +35,20 @@ namespace SFB.Web.DAL
             return result;
         }
 
+        public List<string> GetActiveTermsForMatCentral()
+        {
+            return GetActiveTermsByDataGroup(DataGroups.MATCentral, "{0} / {1}");
+        }
+
+        public List<string> GetActiveTermsForAcademies()
+        {
+            return GetActiveTermsByDataGroup(DataGroups.Academies, "{0} / {1}");
+        }
+
         public string GetActiveCollectionByDataGroup(string dataGroup)
         {
             return
                 GetActiveCollectionsByDataGroup(dataGroup).OrderByDescending(o => o.Split('-').First()).FirstOrDefault();
-        }
-
-        public List<string> GetActiveTermsByDataGroup(string dataGroup, string format = "{0} - {1}")
-        {
-            var colls = GetActiveCollections();
-            return
-                colls.Where(w => w.GetProperty("data-group", "") == dataGroup)
-                    .OrderByDescending(o => o.GetProperty("term", 0))
-                    .Select(s =>
-                    {
-                        var term = s.GetProperty("term", 0);
-                        return string.Format(format, term - 1, term);
-                    })
-                    .ToList();
         }
 
         public int GetLatestFinancialDataYear()
@@ -118,6 +114,20 @@ namespace SFB.Web.DAL
             }
 
             return docs;
+        }
+
+        private List<string> GetActiveTermsByDataGroup(string dataGroup, string format = "{0} - {1}")
+        {
+            var colls = GetActiveCollections();
+            return
+                colls.Where(w => w.GetProperty("data-group", "") == dataGroup)
+                    .OrderByDescending(o => o.GetProperty("term", 0))
+                    .Select(s =>
+                    {
+                        var term = s.GetProperty("term", 0);
+                        return string.Format(format, term - 1, term);
+                    })
+                    .ToList();
         }
     }
 }

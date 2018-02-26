@@ -93,8 +93,7 @@ namespace SFB.Web.UI.Controllers
 
             var sponsorVM = BuildSponsorVM(matNo, name, dataResponse, tab, chartGroup, financing);
 
-            //TODO: remove this reference to DAL
-            List<string> terms = BuildTermsList(DataGroups.MATCentral);
+            List<string> terms = _financialDataService.GetActiveTermsForMatCentral();
             var latestTerm = terms.First();
 
             UnitType unitType;
@@ -141,7 +140,7 @@ namespace SFB.Web.UI.Controllers
 
             var sponsorVM = BuildSponsorVM(matNo, name, response, RevenueGroupType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
 
-            var termsList = BuildTermsList("MAT-Central");
+            var termsList = _financialDataService.GetActiveTermsForMatCentral();
             _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, SchoolFinancialType.Academies);
             
             string csv = _csvBuilder.BuildCSVContentHistorically(sponsorVM, latestYear);
@@ -165,7 +164,7 @@ namespace SFB.Web.UI.Controllers
             
             sponsorVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, sponsorVM.FinancialType);
             sponsorVM.ChartGroups = _historicalChartBuilder.Build(tab, sponsorVM.FinancialType).DistinctBy(c => c.ChartGroup).ToList();
-            sponsorVM.Terms = BuildTermsList(DataGroups.Academies);
+            sponsorVM.Terms = _financialDataService.GetActiveTermsForAcademies();
             
             sponsorVM.HistoricalSchoolDataModels = this.GetFinancialDataHistorically(sponsorVM.MatNo, matFinancing);
 
@@ -176,11 +175,6 @@ namespace SFB.Web.UI.Controllers
                 sponsorVM.InYearBalance = sponsorVM.HistoricalSchoolDataModels.Last().InYearBalance;
             }
             return sponsorVM;
-        }
-
-        private List<string> BuildTermsList(string type)
-        {
-            return _financialDataService.GetActiveTermsByDataGroup(type, "{0} / {1}");
         }
 
         private List<SchoolDataModel> GetFinancialDataHistorically(string matCode, MatFinancingType matFinancing)

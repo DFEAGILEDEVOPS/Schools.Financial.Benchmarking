@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using SFB.Web.Common;
 using SFB.Web.DAL;
+using SFB.Web.DAL.Helpers;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Controllers;
@@ -41,10 +42,16 @@ namespace SFB.Web.UI.UnitTests
             mockFinancialDataService.Setup(m => m.GetAcademiesByMatNumber(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(result);
 
+            mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentral())
+                .Returns(new List<string> { "2015" });
+
+            mockFinancialDataService.Setup(m => m.GetLatestDataYearForTrusts())
+                .Returns(2015);
+
             mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearForTrusts())
                 .Returns(2015);
 
-            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroup(It.IsAny<string>(), It.IsAny<string>()))
+            mockDataCollectionManager.Setup(m => m.GetActiveTermsForMatCentral())
                 .Returns(new List<string> {"2015"});
 
             mockHistoricalChartBuilder
@@ -59,7 +66,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            controller.Index("123", "test", UnitType.AbsoluteMoney);
+            controller.Index("123", "test");
 
             mockFinancialDataService.Verify(m => m.GetMATDataDocument("123", "2014 / 2015", MatFinancingType.TrustAndAcademies));
         }

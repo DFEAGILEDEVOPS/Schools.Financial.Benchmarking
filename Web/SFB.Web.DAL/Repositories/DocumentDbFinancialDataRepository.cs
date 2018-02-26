@@ -10,6 +10,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
 using SFB.Web.Common.Attributes;
+using SFB.Web.DAL.Helpers;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -144,9 +145,20 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
+        public async Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
         {
-            throw new System.NotImplementedException();
+            if (estType == EstablishmentType.All)
+            {
+                var maintainedSchoolsCountTask = QueryDBCollectionForCountAsync(criteria, "Maintained");
+                var academiesCountTask = QueryDBCollectionForCountAsync(criteria, "Academies");
+                return (await maintainedSchoolsCountTask).First() + (await academiesCountTask).First();
+            }
+            else
+            {
+                var type = estType == EstablishmentType.Academy ? "Academies" : "Maintained";
+                var result = (await QueryDBCollectionForCountAsync(criteria, type)).First();
+                return result;
+            }
         }
 
         private async Task<IEnumerable<Document>> QueryDBCollectionAsync(BenchmarkCriteria criteria, string type)

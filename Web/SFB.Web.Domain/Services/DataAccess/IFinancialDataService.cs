@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using SFB.Web.Common;
-using SFB.Web.Domain.Models;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -14,7 +13,8 @@ namespace SFB.Web.Domain.Services.DataAccess
         Task<List<Document>> SearchSchoolsByCriteria(BenchmarkCriteria criteria, EstablishmentType estType);
         Task<int> SearchSchoolsCountByCriteria(BenchmarkCriteria criteria, EstablishmentType estType);
         int GetLatestDataYearPerSchoolType(SchoolFinancialType type);
-        List<string> GetActiveTermsByDataGroup(string dataGroup, string format);
+        List<string> GetActiveTermsForMatCentral();
+        List<string> GetActiveTermsForAcademies();
         int GetLatestDataYearForTrusts();
     }
 }

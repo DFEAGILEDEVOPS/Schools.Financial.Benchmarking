@@ -11,7 +11,6 @@ namespace SFB.Web.DAL
 {
     public static class ExtensionMethods
     {
-
         public static async Task<IEnumerable<T>> QueryAsync<T>(this IQueryable<T> query)
         {
             var docQuery = query.AsDocumentQuery();

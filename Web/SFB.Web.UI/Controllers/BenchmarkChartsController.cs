@@ -565,7 +565,7 @@ namespace SFB.Web.UI.Controllers
         {
             var models = new List<SchoolDataModel>();
             
-            var terms = _financialDataService.GetActiveTermsByDataGroup(DataGroups.MATCentral, "{0} / {1}");
+            var terms = _financialDataService.GetActiveTermsForMatCentral();
 
             foreach (var trust in trusts){
                 var financialDataModel = _financialDataService.GetMATDataDocument(trust.MatNo, terms.First(), matFinancing);
