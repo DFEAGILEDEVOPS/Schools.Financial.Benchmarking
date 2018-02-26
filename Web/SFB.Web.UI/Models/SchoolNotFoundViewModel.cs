@@ -7,5 +7,7 @@
         }
 
         public dynamic Suggestions { get; set; }
+
+        public string SearchKey { get; set; }
     }
 }

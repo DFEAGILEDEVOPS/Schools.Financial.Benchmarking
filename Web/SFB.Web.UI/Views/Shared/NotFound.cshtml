@@ -16,14 +16,21 @@
 <div class="grid-row">
     <div class="column-full">
         <section>
-            <p>We’re sorry</p>
             <p class="result-info">
-                We found no matches for the school name you searched for.
                 @if (System.Linq.Enumerable.FirstOrDefault(Model.Suggestions.Matches) != null)
                 {
-                    <span>
+                    <p>
+                        We found no exact matches for "@Model.SearchKey".
+                    </p>
+                    <p>
                         Did you mean one of the options below?
-                    </span>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        We found no matches for "@Model.SearchKey".
+                    </p>
                 }
             </p>
         </section>
