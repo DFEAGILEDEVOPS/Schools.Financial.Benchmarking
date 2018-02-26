@@ -12,25 +12,24 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
-<h1 class="heading-xlarge page-heading">Schools</h1>
 <div class="grid-row">
     <div class="column-full">
         <section>
             <p class="result-info">
                 @if (System.Linq.Enumerable.FirstOrDefault(Model.Suggestions.Matches) != null)
                 {
-                    <p>
-                        We found no exact matches for "@Model.SearchKey".
-                    </p>
+                    <h1 class="heading-xlarge">
+                        We found no exact matches for "@Model.SearchKey"
+                    </h1>
                     <p>
                         Did you mean one of the options below?
                     </p>
                 }
                 else
                 {
-                    <p>
-                        We found no matches for "@Model.SearchKey".
-                    </p>
+                    <h1 class="heading-xlarge">
+                        We found no matches for "@Model.SearchKey"
+                    </h1>
                 }
             </p>
         </section>
