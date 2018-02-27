@@ -46,7 +46,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void DetailShouldKeepUnitTypeBetweenExpenditureAndIncomeTabs()
         {
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
@@ -85,7 +85,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void DetailCallShouldKeepUnitTypeBetweenExpenditureAndBalanceTabsIfPossible()
         {
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
@@ -124,7 +124,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
         {
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
@@ -163,7 +163,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndWorkforceTabs()
         {
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);

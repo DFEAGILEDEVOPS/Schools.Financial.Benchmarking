@@ -60,7 +60,7 @@ namespace SFB.Web.UI
             builder.RegisterType<FilterBuilder>().As<IFilterBuilder>();
             builder.RegisterType<ValidationService>().As<IValidationService>();
             builder.RegisterType<FinancialDataService>().As<IFinancialDataService>().SingleInstance();
-            builder.RegisterType<EdubaseDataService>().As<IEdubaseDataService>().SingleInstance();
+            builder.RegisterType<ContextDataService>().As<IContextDataService>().SingleInstance();
             builder.RegisterType<DataCollectionManager>().As<IDataCollectionManager>().SingleInstance();
             builder.RegisterType<DocumentDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
             builder.RegisterType<DocumentDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();

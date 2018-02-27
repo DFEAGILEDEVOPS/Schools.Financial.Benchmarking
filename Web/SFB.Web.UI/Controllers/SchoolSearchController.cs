@@ -21,18 +21,18 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocalAuthoritiesService _laService;
         private readonly IFilterBuilder _filterBuilder;
         private readonly IValidationService _valService;
-        private readonly IEdubaseDataService _edubaseDataService;
+        private readonly IContextDataService _contextDataService;
         private readonly ISchoolSearchService _schoolSearchService;
         private readonly ITrustSearchService _trustSearchService;
 
         public SchoolSearchController(ILocalAuthoritiesService laService, IFilterBuilder filterBuilder,
-            IValidationService valService, IEdubaseDataService edubaseDataService,
+            IValidationService valService, IContextDataService contextDataService,
             ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService)
         {
             _laService = laService;
             _filterBuilder = filterBuilder;
             _valService = valService;
-            _edubaseDataService = edubaseDataService;
+            _contextDataService = contextDataService;
             _schoolSearchService = schoolSearchService;
             _trustSearchService = trustSearchService;
         }
@@ -64,8 +64,8 @@ namespace SFB.Web.UI.Controllers
                         {
                             var isLaEstab = nameId.Length == SearchParameterValidLengths.LAESTAB_LENGTH;
                             searchResp = isLaEstab
-                                ? _edubaseDataService.GetSchoolByLaEstab(nameId)
-                                : _edubaseDataService.GetSchoolByUrn(nameId);
+                                ? _contextDataService.GetSchoolByLaEstab(nameId)
+                                : _contextDataService.GetSchoolByUrn(nameId);
 
                             if (searchResp == null)
                             {
@@ -237,7 +237,7 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn.ToString()), null);
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
 
             var cookie = base.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolViewModel()
@@ -374,7 +374,7 @@ namespace SFB.Web.UI.Controllers
                         Request.QueryString);
                     break;
                 default:
-                    response = _edubaseDataService.GetMultipleSchoolsByUrns(urnList);
+                    response = _contextDataService.GetMultipleSchoolsByUrns(urnList);
                     break;
             }
             return response;

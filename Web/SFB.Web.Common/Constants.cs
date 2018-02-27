@@ -9,6 +9,10 @@
 
     public class DBFieldNames
     {
+        public const string TRUSTS = "Trusts";
+        public const string ESTAB_NO = "EstablishmentNumber";
+        public const string LA_CODE = "LACode";
+        public const string URN = "URN";
         public const string KS2_PROGRESS = "KS2 progress";
         public const string PROGRESS_8_MEASURE = "P8MEA";
         public const string AVERAGE_ATTAINMENT = "ATT8SCR";
@@ -44,7 +48,6 @@
         public const string GENDER = "Gender";
         public const string HAS_6_FORM = "Has a 6th form";
         public const string PFI = "PFI";
-        public const string LA_CODE = "LA";
         public const string SPECIFIC_LEARNING_DIFFICULTY = "Primary_need_spld_percent";
         public const string MODERATE_LEARNING_DIFFICULTY = "Primary_need_mld_percent";
         public const string SEVERE_LEARNING_DIFFICULTY = "Primary_need_sld_percent";

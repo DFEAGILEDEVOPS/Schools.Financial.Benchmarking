@@ -32,26 +32,26 @@ namespace SFB.Web.DAL.Repositories
 
         public dynamic GetSchoolByUrn(string urn)
         {
-            return GetSchoolById(new Dictionary<string, string> { { "urn", urn } });
+            return GetSchoolById(new Dictionary<string, string> { { DBFieldNames.URN, urn } });
         }
 
         public dynamic GetMultipleSchoolsByUrns(List<string> urns)
         {
-            return GetMultipleSchoolsByIds("URN", urns);
+            return GetMultipleSchoolsByIds(DBFieldNames.URN, urns);
         }
 
         public dynamic GetSchoolByLaEstab(string laEstab)
         {
             return GetSchoolById(new Dictionary<string, string>
             {
-                {"LACode", laEstab.Substring(0, 3)},
-                {"EstablishmentNumber", laEstab.Substring(3)}
+                {DBFieldNames.LA_CODE, laEstab.Substring(0, 3)},
+                {DBFieldNames.ESTAB_NO, laEstab.Substring(3)}
             });
         }
 
         public dynamic GetSponsorByName(string name)
         {
-            return GetSponsorById("Trusts", name);
+            return GetSponsorById(DBFieldNames.TRUSTS, name);
         }
 
         #region Private methods

@@ -97,12 +97,12 @@
     <Compile Include="Models\SimpleCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DataAccess\FinancialDataService.cs" />
-    <Compile Include="Services\DataAccess\EdubaseDataService.cs" />
+    <Compile Include="Services\DataAccess\ContextDataService.cs" />
     <Compile Include="Services\ILocalAuthoritiesService.cs" />
     <Compile Include="Services\LocalAuthoritiesService.cs" />
     <Compile Include="Services\Search\SchoolSearchService.cs" />
     <Compile Include="Services\DataAccess\IFinancialDataService.cs" />
-    <Compile Include="Services\DataAccess\IEdubaseDataService.cs" />
+    <Compile Include="Services\DataAccess\IContextDataService.cs" />
     <Compile Include="Services\Search\ISchoolSearchService.cs" />
     <Compile Include="Services\Search\ITrustSearchService.cs" />
     <Compile Include="Services\Search\TrustSearchService.cs" />

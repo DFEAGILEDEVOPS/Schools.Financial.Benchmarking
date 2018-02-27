@@ -26,18 +26,18 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly ILocalAuthoritiesService _laService;
         private readonly IDownloadCSVBuilder _csvBuilder;
-        private readonly IEdubaseDataService _edubaseDataService;
+        private readonly IContextDataService _contextDataService;
         private readonly IStatisticalCriteriaBuilderService _statisticalCriteriaBuilderService;
 
         public BenchmarkChartsController(IBenchmarkChartBuilder benchmarkChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ILocalAuthoritiesService laService, IDownloadCSVBuilder csvBuilder,
-            IEdubaseDataService edubaseDataService, IStatisticalCriteriaBuilderService statisticalCriteriaBuilderService)
+            IContextDataService contextDataService, IStatisticalCriteriaBuilderService statisticalCriteriaBuilderService)
         {
             _benchmarkChartBuilder = benchmarkChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
             _laService = laService;
             _csvBuilder = csvBuilder;
-            _edubaseDataService = edubaseDataService;
+            _contextDataService = contextDataService;
             _statisticalCriteriaBuilderService = statisticalCriteriaBuilderService;
         }
 
@@ -593,7 +593,7 @@ namespace SFB.Web.UI.Controllers
 
         private SchoolViewModel InstantiateBenchmarkSchool(string urn)
         {
-            var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn), base.ExtractSchoolComparisonListFromCookie());
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), base.ExtractSchoolComparisonListFromCookie());
             var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(benchmarkSchool.FinancialType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
             var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.FinancialType);

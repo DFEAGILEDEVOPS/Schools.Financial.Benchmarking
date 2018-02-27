@@ -63,7 +63,7 @@ namespace SFB.Web.UI.UnitTests
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "321";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("321")).Returns((string urn) => testEduResult);
@@ -111,7 +111,7 @@ namespace SFB.Web.UI.UnitTests
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
@@ -173,7 +173,7 @@ namespace SFB.Web.UI.UnitTests
                 return new List<Document> { testResult };
             });
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "321";
             testEduResult.EstablishmentName = "test";
@@ -224,7 +224,7 @@ namespace SFB.Web.UI.UnitTests
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             testEduResult.EstablishmentName = "test";
@@ -262,7 +262,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockDocumentDbService = new Mock<IFinancialDataService>();
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -295,7 +295,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockDocumentDbService = new Mock<IFinancialDataService>();
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -330,7 +330,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockDocumentDbService = new Mock<IFinancialDataService>();
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
 
@@ -368,7 +368,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockDocumentDbService = new Mock<IFinancialDataService>();
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
 

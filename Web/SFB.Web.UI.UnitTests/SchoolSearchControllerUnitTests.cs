@@ -26,7 +26,7 @@ namespace SFB.Web.UI.UnitTests
         private IValidationService _valService;
         private Mock<IFilterBuilder> _mockFilterBuilder;
         private Mock<ILocalAuthoritiesService> _mockLaService;
-        private Mock<IEdubaseDataService> _mockEdubaseDataService;
+        private Mock<IContextDataService> _mockEdubaseDataService;
         private Mock<ISchoolSearchService> _mockEdubaseSearchService;
         private Mock<ITrustSearchService> _mockTrustSearchService;
 
@@ -43,7 +43,7 @@ namespace SFB.Web.UI.UnitTests
             _valService = new ValidationService();//Real validation service is tested in this scope
             _mockFilterBuilder = new Mock<IFilterBuilder>();
             _mockLaService = new Mock<ILocalAuthoritiesService>();            
-            _mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            _mockEdubaseDataService = new Mock<IContextDataService>();
             _mockEdubaseSearchService = new Mock<ISchoolSearchService>();
             _mockTrustSearchService = new Mock<ITrustSearchService>();
         }

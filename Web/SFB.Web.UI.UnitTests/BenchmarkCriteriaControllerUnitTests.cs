@@ -79,7 +79,7 @@ namespace SFB.Web.UI.UnitTests
             _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerSchoolType(It.IsAny<SchoolFinancialType>()))
                 .Returns(2015);
 
-            var _mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var _mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "100";
             testEduResult.EstablishmentName = "test";
@@ -109,7 +109,7 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testResult = new Document();
             testResult.URN = "123";
             testResult.EstablishmentName = "test";

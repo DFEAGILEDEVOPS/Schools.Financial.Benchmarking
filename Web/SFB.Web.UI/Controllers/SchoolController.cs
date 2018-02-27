@@ -16,18 +16,18 @@ namespace SFB.Web.UI.Controllers
 {
     public class SchoolController : BaseController
     {
-        private readonly IEdubaseDataService _edubaseDataService;
+        private readonly IContextDataService _contextDataService;
         private readonly IFinancialDataService _financialDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
 
-        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IEdubaseDataService edubaseDataService, IDownloadCSVBuilder csvBuilder)
+        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
-            _edubaseDataService = edubaseDataService;
+            _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
         }
 
@@ -56,7 +56,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
  
-            var schoolDetailsFromEdubase = _edubaseDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
             
             if (schoolDetailsFromEdubase == null)
             {
@@ -91,7 +91,7 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn.ToString()), null);
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
 
             var cookie = base.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolViewModel()
@@ -117,7 +117,7 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var urn in urns)
             {
-                var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn), null);
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
 
                 cookie = base.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST,
                     new BenchmarkSchoolViewModel()
@@ -145,14 +145,14 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult GetBenchmarkControls(int urn)
         {
-            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include)
         {
             financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
 
-            var schoolDetailsFromEdubase = _edubaseDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
 
             SchoolViewModel schoolVM = BuildSchoolVM(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
 
@@ -163,7 +163,7 @@ namespace SFB.Web.UI.Controllers
 
         public ActionResult Download(int urn)
         {
-            var schoolDetailsFromEdubase = _edubaseDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
 
             SchoolViewModel schoolVM = BuildSchoolVM(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
 

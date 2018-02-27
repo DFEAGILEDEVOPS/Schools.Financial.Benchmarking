@@ -3,11 +3,11 @@ using SFB.Web.DAL.Repositories;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
-    public class EdubaseDataService : IEdubaseDataService
+    public class ContextDataService : IContextDataService
     {
         private readonly IEdubaseRepository _edubaseRepository;
 
-        public EdubaseDataService(IEdubaseRepository edubaseRepository)
+        public ContextDataService(IEdubaseRepository edubaseRepository)
         {
             _edubaseRepository = edubaseRepository;
         }
