@@ -6,7 +6,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.ApplicationInsights.Extensibility;
 
-namespace SFB.Web.UI
+namespace SFB.Web.UI 
 {
     public class MvcApplication : System.Web.HttpApplication
     {

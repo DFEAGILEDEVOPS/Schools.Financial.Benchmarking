@@ -22,8 +22,8 @@ namespace SFB.Web.UI.Helpers
             var csv = new StringBuilder();
             var header = new StringBuilder();
 
-            header.Append(estabVM.Type == "MAT" ? "Trust Name" : "School Name");
-            header.Append("School Name,Period,Number of Pupils,Number of Teachers,");
+            header.Append(estabVM.Type == "MAT" ? "Trust Name," : "School Name,");
+            header.Append("Period,Number of Pupils,Number of Teachers,");
             foreach (var chart in estabVM.HistoricalCharts)
             {
                 header.Append(chart.Name);

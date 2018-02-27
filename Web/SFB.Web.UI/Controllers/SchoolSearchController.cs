@@ -261,6 +261,7 @@ namespace SFB.Web.UI.Controllers
         {
             var vm = new SchoolNotFoundViewModel
             {
+                SearchKey = nameId,
                 Suggestions = await _schoolSearchService.SuggestSchoolByName(nameId)
             };
             return View("NotFound", vm);
