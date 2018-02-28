@@ -95,7 +95,7 @@
         public const string OFSTED_RATING = "Ofsted rating";
         public const string KS2_ACTUAL = "KS2 attainment";
         public const string KS2_PROGRESS = "KS2 progress";
-        public const string AVERAGE_ATTAINMENT_8 = "Average attainment 8";
+        public const string AVERAGE_ATTAINMENT_8 = "Average Attainment 8";
         public const string PROGRESS_8_MEASURE = "Progress 8 measure";
         public const string SPECIFIC_LEARNING_DIFFICULTY = "Specific learning difficulty";
         public const string MODERATE_LEARNING_DIFFICULTY = "Moderate learning difficulty";
