@@ -221,7 +221,7 @@ namespace SFB.Web.UI.Controllers
             ComparisonArea areaType = ComparisonArea.All,
             string laCode = null,
             RevenueGroupType tab = RevenueGroupType.Expenditure,
-            CentralFinancingType financing = CentralFinancingType.Exclude)
+            CentralFinancingType financing = CentralFinancingType.Include)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -244,7 +244,7 @@ namespace SFB.Web.UI.Controllers
             }
 
             var defaultUnitType = tab == RevenueGroupType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
-            var benchmarkCharts = BuildSchoolBenchmarkCharts(tab, chartGroup, defaultUnitType, CentralFinancingType.Exclude);
+            var benchmarkCharts = BuildSchoolBenchmarkCharts(tab, chartGroup, defaultUnitType, financing);
             var establishmentType = DetectEstablishmentType(base.ExtractSchoolComparisonListFromCookie());
 
             var chartGroups = _benchmarkChartBuilder.Build(tab, establishmentType).DistinctBy(c => c.ChartGroup).ToList();
@@ -320,7 +320,7 @@ namespace SFB.Web.UI.Controllers
             return View("Index",vm);
         }
 
-        public PartialViewResult TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Exclude, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies)
+        public PartialViewResult TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -383,7 +383,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/TabContent", vm);
         }
 
-        public PartialViewResult GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, CentralFinancingType centralFinancing = CentralFinancingType.Exclude, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,EstablishmentType type = EstablishmentType.All)
+        public PartialViewResult GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,EstablishmentType type = EstablishmentType.All)
         {
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
@@ -575,7 +575,7 @@ namespace SFB.Web.UI.Controllers
             return models;
         }
 
-        private List<SchoolDataModel> GetFinancialDataForSchools(List<BenchmarkSchoolViewModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Exclude)
+        private List<SchoolDataModel> GetFinancialDataForSchools(List<BenchmarkSchoolViewModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Include)
         {
             var models = new List<SchoolDataModel>();
 

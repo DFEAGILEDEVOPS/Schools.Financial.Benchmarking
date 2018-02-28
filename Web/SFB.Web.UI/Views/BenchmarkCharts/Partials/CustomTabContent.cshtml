@@ -14,7 +14,7 @@
             <div class="column-half no-padding">
                 <div class="form-group">
                     <label class="form-label" for="CFinancing">Academy values</label>
-                    <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance">
+                    <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.persist()">
                         <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
                         <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
                     </select>
