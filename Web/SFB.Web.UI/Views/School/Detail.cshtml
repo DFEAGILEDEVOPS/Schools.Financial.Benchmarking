@@ -258,11 +258,13 @@
             var queryString = "?urn=" +
                 urn +
                 "&tab=" +
-                tab +
-                "&unit=" +
-                $("select#ShowValue option:selected")[0].value;
+                tab;
 
-            if ($("select#Financing option:selected").length > 0 ) {
+            if (DfE.Util.QueryString.get('tab') !== "Workforce") {
+               queryString += "&unit=" + $("select#ShowValue option:selected")[0].value;
+            }
+
+            if ($("select#Financing option:selected").length > 0) {
                 queryString += "&financing=" + $("select#Financing option:selected")[0].value;
             }
 
