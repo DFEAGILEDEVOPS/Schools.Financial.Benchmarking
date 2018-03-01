@@ -945,7 +945,7 @@
       "GroupName": "Workforce",
       "Charts": [
         {
-          "Name": "School workforce (FTE)",
+          "Name": "School workforce (Full Time Equivalent)",
           "FieldName": "TotalSchoolWorkforceFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -965,7 +965,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
-          "Name": "Teachers (FTE)",
+          "Name": "Teachers (Full Time Equivalent)",
           "FieldName": "TotalNumberOfTeachersFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -985,7 +985,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
-          "Name": "Teachers with QTS (%)",
+          "Name": "Teachers with Qualified Teacher Status (%)",
           "FieldName": "TeachersWithQualifiedTeacherStatus",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1005,7 +1005,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
-          "Name": "Senior leadership (FTE)",
+          "Name": "Senior leadership (Full Time Equivalent)",
           "FieldName": "TotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1025,7 +1025,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
-          "Name": "Teaching assistants (FTE)",
+          "Name": "Teaching assistants (Full Time Equivalent)",
           "FieldName": "TotalNumberOfTeachingAssistantsFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1045,7 +1045,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
-          "Name": "Non-classroom support staff (FTE)",
+          "Name": "Non-classroom support staff (Full Time Equivalent)",
           "FieldName": "TotalNumberOfNonClassroomBasedSchoolSupportStaffExcludingAuxiliaryStaffFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1065,7 +1065,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
-          "Name": "Auxiliary staff (FTE)",
+          "Name": "Auxiliary staff (Full Time Equivalent)",
           "FieldName": "TotalNumberOfAuxiliaryStaffFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,

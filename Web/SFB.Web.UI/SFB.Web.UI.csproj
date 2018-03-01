@@ -414,12 +414,6 @@
     <Content Include="public\govuk_template\assets\stylesheets\images\open-government-licence.png" />
     <Content Include="public\govuk_template\assets\stylesheets\images\open-government-licence_2x.png" />
     <Content Include="public\govuk_template\views\layouts\govuk_template.html" />
-    <Content Include="public\js-marker-clusterer\docs\examples.html" />
-    <Content Include="public\js-marker-clusterer\docs\reference.html" />
-    <Content Include="public\js-marker-clusterer\examples\advanced_example.html" />
-    <Content Include="public\js-marker-clusterer\examples\simple_example.html" />
-    <Content Include="public\js-marker-clusterer\examples\speed_test.js" />
-    <Content Include="public\js-marker-clusterer\examples\speed_test_example.html" />
     <Content Include="public\js-marker-clusterer\images\conv30.png" />
     <Content Include="public\js-marker-clusterer\images\conv40.png" />
     <Content Include="public\js-marker-clusterer\images\conv50.png" />
@@ -622,7 +616,6 @@
     <Content Include="public\js-marker-clusterer\bower.json" />
     <Content Include="public\js-marker-clusterer\CONTRIBUTING.md" />
     <Content Include="public\js-marker-clusterer\CONTRIBUTORS" />
-    <Content Include="public\js-marker-clusterer\examples\data.json" />
     <Content Include="public\js-marker-clusterer\LICENSE" />
     <Content Include="public\js-marker-clusterer\README.md" />
     <Content Include="Views\Shared\Partials\HistoricalChart.cshtml" />

@@ -55,7 +55,7 @@ namespace SFB.Web.UI.UnitTests
 
             var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.FTERatioToTotalFTE);
 
-            Assert.False(chartVMs.Any(c => c.Name == "School workforce (FTE)"));
+            Assert.False(chartVMs.Any(c => c.Name == "School workforce (Full Time Equivalent)"));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace SFB.Web.UI.UnitTests
 
             var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.HeadcountPerFTE);
 
-            Assert.False(chartVMs.Any(c => c.Name == "Teachers with QTS (%)"));
+            Assert.False(chartVMs.Any(c => c.Name == "Teachers with Qualified Teacher Status (%)"));
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace SFB.Web.UI.UnitTests
 
             var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.FTERatioToTotalFTE);
 
-            Assert.False(chartVMs.Any(c => c.Name == "Teachers with QTS (%)"));
+            Assert.False(chartVMs.Any(c => c.Name == "Teachers with Qualified Teacher Status (%)"));
         }
 
         [Test]
@@ -85,7 +85,7 @@ namespace SFB.Web.UI.UnitTests
 
             var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.NoOfPupilsPerMeasure);
 
-            Assert.False(chartVMs.Any(c => c.Name == "Teachers with QTS (%)"));
+            Assert.False(chartVMs.Any(c => c.Name == "Teachers with Qualified Teacher Status (%)"));
         }
     }
 }

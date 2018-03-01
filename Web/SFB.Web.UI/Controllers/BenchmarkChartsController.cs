@@ -548,15 +548,15 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case UnitType.HeadcountPerFTE:
                     chartList.RemoveAll(c => c.Name == "School workforce (headcount)");
-                    chartList.RemoveAll(c => c.Name == "Teachers with QTS (%)");
+                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
                     break;
                 case UnitType.FTERatioToTotalFTE:
-                    chartList.RemoveAll(c => c.Name == "Teachers with QTS (%)");
-                    chartList.RemoveAll(c => c.Name == "School workforce (FTE)");
+                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
+                    chartList.RemoveAll(c => c.Name == "School workforce (Full Time Equivalent)");
                     chartList.RemoveAll(c => c.Name == "School workforce (headcount)");
                     break;
                 case UnitType.NoOfPupilsPerMeasure:
-                    chartList.RemoveAll(c => c.Name == "Teachers with QTS (%)");
+                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
                     break;
             }
         }

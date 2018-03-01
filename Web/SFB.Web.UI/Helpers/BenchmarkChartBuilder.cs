@@ -196,11 +196,11 @@ namespace SFB.Web.UI.Helpers
                                 <li>boarding provision</li>
                                 <li>rural studies and farm units</li>
                                 <li>payments by your school to another school for the benefit of pupils at the other school</li>
-                                <li>pupil inter-site travel, eg moving between sites</li>
+                                <li>pupil inter-site travel, <span aria-label=""example"">eg</span> moving between sites</li>
                                 <li>expenses relating to before and after school clubs</li>
                                 <li>delegated home to school transport</li>
                                 <li>indirect employee expenses and agency staff expenses relating to a special facility</li>
-                                <li>purchase of trading items for re-sale, eg school uniforms, books, stationery</li>
+                                <li>purchase of trading items for re-sale, <span aria-label=""example"">eg</span> school uniforms, books, stationery</li>
                                 <li>donations paid by the school to a charity</li>
                                 <li>community education with a benefit to the pupils at the school </li>
                                 </ul>
@@ -245,8 +245,8 @@ namespace SFB.Web.UI.Helpers
                                 </ul>
                                 <p>It excludes:</p>
                                 <ul>
-                                <li>any teachers employed casually and directly, eg supply teachers</li>
-                                <li>any teachers not employed directly by the school, eg agency staff</li>
+                                <li>any teachers employed casually and directly, <span aria-label=""example"">eg</span> supply teachers</li>
+                                <li>any teachers not employed directly by the school, <span aria-label=""example"">eg</span> agency staff</li>
                                 </ul>",
                     Downloadable = true
                 },
@@ -620,7 +620,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>charges by contractors for repairs, maintenance and improvements</li>
                                 <li>related professional and technical services, including labour costs where supplied as part of the contract</li>
                                 <li>costs of materials and equipment used by directly employed staff for internal and external repair, maintenance and improvement to buildings </li>
-                                <li>fixtures and fittings, eg carpets and curtains </li>
+                                <li>fixtures and fittings, <span aria-label=""example"">eg</span> carpets and curtains </li>
 
                                 </ul>
 
@@ -879,7 +879,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>purchase, hire or maintenance contracts of ICT or other equipment not to be used for teaching</li>
                                 <li>purchase, hire, lease and maintenance of furniture and equipment not used for teaching</li>
                                 <li>subscriptions, publications, periodicals and copyright fees not related to the curriculum</li>
-                                <li>school publications eg parents' report and school brochure</li>
+                                <li>school publications <span aria-label=""example"">eg</span> parents' report and school brochure</li>
                                 <li>any governors’ expenses </li>
                                 <li>marketing costs for school prospectuses </li>
                                 </ul>
@@ -920,7 +920,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>purchase, lease, hire or maintenance contracts of ICT used for teaching</li>
                                 <li>costs of broadband, ISDN, ASDL or other dedicated phone lines </li>
                                 <li>the costs of test and examination entry fees and any accreditation costs related to pupils. This includes GCSEs, A/AS levels and the European Baccalaureate</li>
-                                <li>administrative costs, eg external marking </li>
+                                <li>administrative costs, <span aria-label=""example"">eg</span> external marking </li>
                                 </ul>
 
                                 <p>This excludes:</p>
@@ -974,7 +974,7 @@ namespace SFB.Web.UI.Helpers
 
                                 <ul>
                                 <li>the costs of test and examination entry fees and any accreditation costs related to pupils. This includes GCSEs, A/AS levels and the European Baccalaureate</li>
-                                <li>administrative costs, eg external marking </li>
+                                <li>administrative costs, <span aria-label=""example"">eg</span> external marking </li>
                                 </ul>
 
                                 <p>This excludes:</p>
@@ -1088,11 +1088,11 @@ namespace SFB.Web.UI.Helpers
                                 <li>boarding provision</li>
                                 <li>rural studies and farm units</li>
                                 <li>payments by your school to another school for the benefit of pupils at the other school</li>
-                                <li>pupil inter-site travel, eg moving between sites</li>
+                                <li>pupil inter-site travel, <span aria-label=""example"">eg</span> moving between sites</li>
                                 <li>expenses relating to before and after school clubs</li>
                                 <li>delegated home to school transport</li>
                                 <li>indirect employee expenses and agency staff expenses relating to a special facility</li>
-                                <li>purchase of trading items for re-sale, eg school uniforms, books, stationery</li>
+                                <li>purchase of trading items for re-sale, <span aria-label=""example"">eg</span> school uniforms, books, stationery</li>
                                 <li>donations paid by the school to a charity</li>
                                 <li>community education with a benefit to the pupils at the school </li>
                                 </ul>
@@ -1764,18 +1764,18 @@ namespace SFB.Web.UI.Helpers
                 //Workforce
                 new ChartViewModel()
                 {
-                    Name = "School workforce (FTE)",
+                    Name = "School workforce (Full Time Equivalent)",
                     FieldName = DBFieldNames.WORKFORCE_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
-                    MoreInfo = @"<p>This is the full-time equivalent (FTE) of the total school workforce.</p>
+                    MoreInfo = @"<p>This is the full-time equivalent (Full Time Equivalent) of the total school workforce.</p>
 
                     <p>It includes:</p>
                     <ul>
-                    <li>classroom teachers (FTE)</li>
-                    <li>senior leadership (FTE)</li>
-                    <li>teaching assistants (FTE)</li>
+                    <li>classroom teachers (Full Time Equivalent)</li>
+                    <li>senior leadership (Full Time Equivalent)</li>
+                    <li>teaching assistants (Full Time Equivalent)</li>
                     <li>non-classroom-based support staff</li>
                     </ul>",
                     ChartType = ChartType.Total,
@@ -1784,7 +1784,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Teachers (FTE)",
+                    Name = "Teachers (Full Time Equivalent)",
                     FieldName = DBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -1796,7 +1796,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Teachers with QTS (%)",
+                    Name = "Teachers with Qualified Teacher Status (%)",
                     FieldName = DBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -1809,7 +1809,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Senior leadership (FTE)",
+                    Name = "Senior leadership (Full Time Equivalent)",
                     FieldName = DBFieldNames.TEACHERS_LEADER,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -1828,7 +1828,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Teaching assistants (FTE)",
+                    Name = "Teaching assistants (Full Time Equivalent)",
                     FieldName = DBFieldNames.FULL_TIME_TA,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -1847,7 +1847,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Non-classroom support staff – excluding auxiliary staff  (FTE)",
+                    Name = "Non-classroom support staff – excluding auxiliary staff  (Full Time Equivalent)",
                     FieldName = DBFieldNames.FULL_TIME_OTHER,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -1865,7 +1865,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Auxiliary staff (FTE)",
+                    Name = "Auxiliary staff (Full Time Equivalent)",
                     FieldName = DBFieldNames.AUX_STAFF,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -1904,7 +1904,7 @@ namespace SFB.Web.UI.Helpers
                 //School performance (for download only)
                 new ChartViewModel()
                 {
-                    Name = "KS2 attainment",
+                    Name = "Key Stage 2 attainment",
                     FieldName = DBFieldNames.KS2_ACTUAL,
                     RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
@@ -1914,7 +1914,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
-                    Name = "KS2 progress",
+                    Name = "Key Stage 2 progress",
                     FieldName = DBFieldNames.KS2_PROGRESS,
                     RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,

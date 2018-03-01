@@ -13,7 +13,7 @@
         public const string ESTAB_NO = "EstablishmentNumber";
         public const string LA_CODE = "LACode";
         public const string URN = "URN";
-        public const string KS2_PROGRESS = "KS2 progress";
+        public const string KS2_PROGRESS = "KS2 Progress";
         public const string PROGRESS_8_MEASURE = "P8MEA";
         public const string AVERAGE_ATTAINMENT = "ATT8SCR";
         public const string OFSTED_RATING = "OfstedRating";
@@ -93,8 +93,8 @@
         public const string NUMBER_OF_TEACHERS_FTE = "Number of teachers (full time equivalent)";
         public const string SENIOR_LEADERSHIP_FTE = "Number in the senior leadership team (full time equivalent)";
         public const string OFSTED_RATING = "Ofsted rating";
-        public const string KS2_ACTUAL = "KS2 attainment";
-        public const string KS2_PROGRESS = "KS2 progress";
+        public const string KS2_ACTUAL = "Key Stage 2 attainment";
+        public const string KS2_PROGRESS = "Key Stage 2 progress";
         public const string AVERAGE_ATTAINMENT_8 = "Average Attainment 8";
         public const string PROGRESS_8_MEASURE = "Progress 8 measure";
         public const string SPECIFIC_LEARNING_DIFFICULTY = "Specific learning difficulty";

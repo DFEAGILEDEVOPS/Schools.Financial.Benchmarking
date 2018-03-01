@@ -12,22 +12,30 @@
                 if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
                 {
                     <div>
-                        <div class="column-half no-padding">
-                            <h2 class="heading-medium">
-                                @Model[i].Name
-                                @if (Model[i].ChartType == ChartType.CustomReport)
-                                {
+                        @if (Model[i].ChartType == ChartType.CustomReport)
+                        {
+                            <div class="column-full no-padding">
+                                <h2 class="heading-medium">
+                                    @Model[i].Name
                                     <span class="not-bold">
                                         @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
                                     </span>
-                                }
-                            </h2>
-                        </div>
+                                </h2>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="column-half no-padding">
+                                <h2 class="heading-medium">
+                                    @Model[i].Name
+                                </h2>
+                            </div>
+                        }
                         @if (Model[i].ChartType != ChartType.CustomReport)
                         {
                             <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].FieldName" data-sv="@Model[i].ShowValue">
                                 @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
-                            {
+                                {
                                     <div class="column-half font-xsmall no-padding">
                                         <a style="display: none" class="customAdd" aria-label="Add @Model[i].FieldName to Your Charts" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
                                             <i class="icon icon-bookmark">
@@ -70,8 +78,8 @@
                                 <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
                             </div>
                         </div>
-                        <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
-                        <input name="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)" />
+                        <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
+                        <input name="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)"/>
 
                         @if (Model[i].TableColumns != null && Model[i].TableColumns.Count > 0)
                         {
