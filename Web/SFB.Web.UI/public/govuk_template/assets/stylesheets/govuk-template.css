@@ -310,7 +310,9 @@ textarea:focus,
 select:focus,
 button:focus,
 #global-header input:focus {
-  outline: 3px solid #ffbf47; }
+  outline: 3px solid #ffbf47; 
+  outline-offset: 0;
+}
 
 #global-header h1 a:focus {
   background-color: transparent;
