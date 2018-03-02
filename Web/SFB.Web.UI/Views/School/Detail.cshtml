@@ -71,11 +71,12 @@
                 <span class="summary font-xsmall">Show map</span>
             </summary>
             <div class="panel panel-border-narrow map">
-                <div id="SchoolLocationMap" class="mtl" title="School location map"></div>
+                <a href="#post-map-content" class="skip-map">Skip the map</a>
+                <div id="SchoolLocationMap" class="mtl" title="A google map of the school's location" aria-label="A google map of the school's location"></div>
             </div>
         </details>
     </div>
-    <div class="column-full hide-in-print">
+    <div id="post-map-content" class="column-full hide-in-print">
         <div class="column-one-third no-padding">
             <div class="download">
                 <a class="no-underline bold-xsmall" href="/school/download?urn=@Model.Id"><img class="icon" alt="" src="~/public/assets/images/icons/icon-file-download.png" /> Download data for this school (CSV)</a>

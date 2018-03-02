@@ -543,3 +543,15 @@ abbr.summary{
     text-decoration: underline;
     text-decoration-style: dotted;
 }
+
+a.skip-map{
+    color: white;
+    font-size: 16px;
+    &:focus{
+        height:auto;
+        color: $link-colour;
+    }
+    &:hover{
+               cursor:default;
+           }
+}
