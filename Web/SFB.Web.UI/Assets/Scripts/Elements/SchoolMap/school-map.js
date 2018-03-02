@@ -16,11 +16,12 @@
         this.hasMap = options.hasMap;
         this.defaultZoom = 15;
         this.initialize();
-        //setTimeout(function () {
-        //        $("a:contains('Terms of Use')").attr("tabindex", "-1");
-        //        $("a:contains('Report a map error')").attr("tabindex", "-1");
-        //    },
-        //    1500);
+        setTimeout(function () {
+                //$("a:contains('Terms of Use')").attr("tabindex", "-1");
+                //$("a:contains('Report a map error')").attr("tabindex", "-1");
+            $(".gm-style").children().first().attr("aria-label", "A google map of the school's location");
+            },
+            1500);
     }
 
     // static constants
