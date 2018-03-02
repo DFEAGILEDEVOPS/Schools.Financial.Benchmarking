@@ -9,7 +9,7 @@
             <span class="heading-medium">
                 @if (Model.TotalRevenueExpenditure >= 10000 || Model.TotalRevenueExpenditure <= -10000)
                 {
-                    <abbr title="@Model.TotalRevenueExpenditure.ToString("C0")" class="exp-total">@Model.TotalRevenueExpenditure.FormatMoney()</abbr>
+                    <abbr title="@Model.TotalRevenueExpenditure.ToString("C0")" aria-label="@Model.TotalRevenueExpenditure.ToString("N0") pounds" class="exp-total summary">@Model.TotalRevenueExpenditure.FormatMoney()</abbr>
                 }
                 else
                 {
@@ -27,7 +27,7 @@
             <span class="heading-medium">
                 @if (Model.TotalRevenueIncome >= 10000 || Model.TotalRevenueIncome <= -10000)
                 {
-                    <abbr title="@Model.TotalRevenueIncome.ToString("C0")" class="inc-total">@Model.TotalRevenueIncome.FormatMoney()</abbr>
+                    <abbr title="@Model.TotalRevenueIncome.ToString("C0")" aria-label="@Model.TotalRevenueIncome.ToString("N0") pounds" class="inc-total summary">@Model.TotalRevenueIncome.FormatMoney()</abbr>
                 }else {
                     <span class="heading-medium">
                         <span class="money inc-total">@Model.TotalRevenueIncome.FormatMoney()</span>
@@ -45,7 +45,7 @@
                 {
                     if (Model.InYearBalance <= -10000)
                     {
-                        <abbr class="negative-balance bal-total" title="@Model.InYearBalance.ToString("C0")">@Model.InYearBalance.FormatMoney()</abbr>
+                        <abbr class="negative-balance bal-total summary" title="@Model.InYearBalance.ToString("C0")" aria-label="@Model.InYearBalance.ToString("N0") pounds">@Model.InYearBalance.FormatMoney()</abbr>
                     }else {
                         <span class="negative-balance">
                             <span class="money bal-total">@Model.InYearBalance.FormatMoney()</span>
@@ -57,7 +57,7 @@
                 {
                     if (Model.TotalRevenueIncome >= 10000)
                     {
-                        <abbr class="bal-total" title="@Model.InYearBalance.ToString("C0")">@Model.InYearBalance.FormatMoney()</abbr>
+                        <abbr class="bal-total summary" title="@Model.InYearBalance.ToString("C0")" aria-label="@Model.InYearBalance.ToString("N0") pounds">@Model.InYearBalance.FormatMoney()</abbr>
                     }else {
                         <span class="heading-medium">
                             <span class="money bal-total">@Model.InYearBalance.FormatMoney()</span>

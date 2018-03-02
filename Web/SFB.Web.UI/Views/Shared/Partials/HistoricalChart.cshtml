@@ -35,7 +35,7 @@
                 {
                     if (Model.LastYearBalance >= 10000 || Model.LastYearBalance <= -10000)
                     {
-                        <abbr title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                        <abbr class="summary" title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")" aria-label="@Model.LastYearBalance.GetValueOrDefault().ToString("N0") pounds">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
                     }
                     else
                     {
@@ -67,7 +67,7 @@
                 {
                     if (Model.LastYearBalance >= 10000 || Model.LastYearBalance <= -10000)
                     {
-                        <abbr title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                        <abbr class="summary" title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")" aria-label="@Model.LastYearBalance.GetValueOrDefault().ToString("N0") pounds">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
                     }
                     else
                     {

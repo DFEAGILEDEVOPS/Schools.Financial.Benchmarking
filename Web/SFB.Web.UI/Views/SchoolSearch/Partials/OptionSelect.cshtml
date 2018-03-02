@@ -15,7 +15,7 @@
                         <input name="@(Model.Group)" @(item.Disabled ? "disabled" : string.Empty) value="@(item.Value)" id="@(Model.Group)_@item.Id" type="checkbox"
                                aria-controls="js-search-results-info" @(item.Checked ? "checked" : "")>
                         @(item.Label)
-                        <span class="visuallyhidden">- changing the selection will refresh the results</span>
+                        @*<span class="visuallyhidden">- changing the selection will refresh the results</span>*@
                     </label>
                 }
             </fieldset>
