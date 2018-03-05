@@ -157,7 +157,7 @@ a[rel="external"]:hover:after, a[rel="external noopener noreferrer"]:after {
 }
 @media (min-width: 641px) {
     a[rel="external"]:after, a[rel="external noopener noreferrer"]:after {
-        content: "\A0\A0\A0\A0";
+        content: "\A0\A0\A0\A0\A0";
         background-position: right 6px;
     }
     a[rel="external"]:hover:after, a[rel="external noopener noreferrer"]:after {
