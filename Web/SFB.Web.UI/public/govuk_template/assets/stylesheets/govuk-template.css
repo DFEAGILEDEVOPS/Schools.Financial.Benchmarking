@@ -150,7 +150,7 @@ a[rel="external"]:after, a[rel="external noopener noreferrer"]:after {
       background-size: 12px 400px; } }
 a[rel="external"]:after, a[rel="external noopener noreferrer"]:after {
     content: "\A0\A0\A0\A0\A0";
-    background-position: right 3px;
+    background-position: 1px 3px;
 }
 a[rel="external"]:hover:after, a[rel="external noopener noreferrer"]:after {
     background-position: right -385px;
@@ -161,7 +161,7 @@ a[rel="external"]:hover:after, a[rel="external noopener noreferrer"]:after {
         background-position: right 6px;
     }
     a[rel="external"]:hover:after, a[rel="external noopener noreferrer"]:after {
-        background-position: right -382px;
+        background-position: right 3px;
     } }
 
 .external-link:after {

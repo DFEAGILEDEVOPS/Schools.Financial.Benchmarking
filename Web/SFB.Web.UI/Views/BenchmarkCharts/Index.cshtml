@@ -166,6 +166,17 @@ else
     <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType"/>
 }
 
+@section AfterMain{
+    <div class="full-page-width-wrapper">
+        <div class="improve-this-page" data-module="improve-this-page">
+            <div class="improve-this-page__prompt js-prompt clearfix" tabindex="-1">
+                <span class="improve-this-page__is-useful-question bold">Are you satisfied with your visit today?</span>
+                <a rel="external noopener noreferrer" target="_blank" title="Feedback form will open in a new page" href="http://www.smartsurvey.co.uk/s/schoolsfinancialbenchmarkingsite/">Please rate this site</a>
+            </div>
+        </div>
+    </div>
+}
+
 @section ViewScripts {
 
     <script src="~/node_modules/d3/d3.min.js"></script>

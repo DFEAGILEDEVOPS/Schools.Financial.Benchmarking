@@ -76,6 +76,8 @@
     @RenderBody()
 </main>
 
+@RenderSection("AfterMain", required: false)
+
 @section BodyEnd {
 
     @if (!Request.Browser.Browser.Contains("MSIE 8"))//TODO: why do we have this?

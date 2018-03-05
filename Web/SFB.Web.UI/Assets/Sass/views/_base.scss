@@ -43,11 +43,11 @@ a.home-link
 
 a.font16-ext-link[rel="external"], a.font16-ext-link[rel="external noopener noreferrer"] {
     &:after {
-        background-position: right 4px;
+        background-position: right 3px;
     }
 
     &:hover:after {
-        background-position: right -384px;
+        background-position: right 3px;
     }
 
     @include media(mobile) {
@@ -61,6 +61,25 @@ a.font16-ext-link[rel="external"], a.font16-ext-link[rel="external noopener nore
     }
 }
 
+a.font19-ext-link[rel="external"], a.font19-ext-link[rel="external noopener noreferrer"] {
+    &:after {
+        background-position: right 5px;
+    }
+
+    &:hover:after {
+        background-position: right 5px;
+    }
+
+    @include media(mobile) {
+        &:after {
+            background-position: right 2px;
+        }
+
+        &:hover:after {
+            background-position: right -386px;
+        }
+    }
+}
 a.font14-ext-link[rel="external"], a.font14-ext-link[rel="external noopener noreferrer"]{
     &:after {
         background-position: right 2px;
@@ -559,3 +578,4 @@ a.skip-map{
 .tt-menu.form-control.mtm{
     margin-top: 0!important;
 }
+
