@@ -23,7 +23,7 @@ namespace SFB.Web.UI.Controllers
             var localAuthorities = (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
 
             var filteredResults = localAuthorities
-                .Where(la => la.LANAME.ToLowerInvariant().Contains(name.ToLowerInvariant()))
+                .Where(la => la.LANAME.ToString().ToLowerInvariant().Contains(name.ToLowerInvariant()))
                 .Select(la => new LaViewModel(){id = la.id, LaName = la.LANAME}).ToList();
             
             var vm = new LaListViewModel(filteredResults, base.ExtractSchoolComparisonListFromCookie(), orderby);
