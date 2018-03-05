@@ -140,6 +140,10 @@
                             position: google.maps.ControlPosition.TOP_LEFT
                         }
                     });
+                setTimeout(function () {
+                        $(".gm-style").children().first().attr("aria-label", "A google map of the school locations");
+                    },
+                    1500);
                 this.mapLoaded = true;
                 this.map.addListener("click", function () {
                     if (this.infoWindow) this.infoWindow.close();
