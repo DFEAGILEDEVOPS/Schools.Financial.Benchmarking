@@ -97,11 +97,11 @@
             }
         ]);
 
-app.run(function($rootScope, $location) {
-    $rootScope.$on('$locationChangeStart',
-        function() {
-            if ($location.$$urlUpdatedByLocation) {
-                window.location.reload();
-            }
-        });
-});
+//app.run(function($rootScope, $location) {
+//    $rootScope.$on('$locationChangeStart',
+//        function() {
+//            if ($location.$$urlUpdatedByLocation) {
+//                window.location.reload();
+//            }
+//        });
+//});
