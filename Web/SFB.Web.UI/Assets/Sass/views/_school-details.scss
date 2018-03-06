@@ -87,9 +87,27 @@
     .chartsSection {
 
         .chartContainer {
+            .chart-header {
+                margin-top: 1.5em;
+            }
 
             h2 {
                 margin-top: 1em;
+            }
+
+            h2.inline {
+                display: inline;
+            }
+
+            a.inline {
+                display: inline;
+                margin-left: 25px;
+
+                @include media(mobile) {
+                    display: block;
+                    margin-left: 0;
+                    margin-bottom: 5px;
+                }
             }
 
             .accordion-section-header h2 {

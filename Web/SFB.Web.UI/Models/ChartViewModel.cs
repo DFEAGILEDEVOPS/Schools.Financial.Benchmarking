@@ -13,8 +13,8 @@ namespace SFB.Web.UI.Models
         public string FieldName { get; set; }
         public ChartSchoolType ChartSchoolType { get; set;}
         public ChartType ChartType { get; set;}
-
         public ChartGroupType ChartGroup { get; set; }
+        public ChartGroupType? DrillInto { get; set; }
 
         public string ChartGroupName {
             get
