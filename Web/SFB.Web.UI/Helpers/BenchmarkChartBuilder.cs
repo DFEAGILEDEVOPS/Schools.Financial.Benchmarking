@@ -113,6 +113,7 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
+                    DrillInto = ChartGroupType.Staff,
                     MoreInfo = @""
                 },
 
@@ -124,6 +125,7 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
+                    DrillInto = ChartGroupType.Premises,
                     ChartType = ChartType.Total
                 },
 
@@ -134,6 +136,7 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
+                    DrillInto = ChartGroupType.Occupation,
                     MoreInfo = @"",
                     ChartType = ChartType.Total
                 },
@@ -144,6 +147,7 @@ namespace SFB.Web.UI.Helpers
                     FieldName = "Supplies and Services",
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
+                    DrillInto = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total
                 },
@@ -155,6 +159,7 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
+                    DrillInto = ChartGroupType.CostOfFinance,
                     MoreInfo = @"",
                     ChartType = ChartType.Total
                 },
@@ -166,6 +171,7 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Maintained,
+                    DrillInto = ChartGroupType.Community,
                     MoreInfo = @"",
                     ChartType = ChartType.Total
                 },
@@ -189,6 +195,7 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
+                    DrillInto = ChartGroupType.SpecialFacilities,
                     MoreInfo = @"<p>This includes: </p>
 
                                 <ul>
@@ -1234,6 +1241,7 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.TotalIncome,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
+                    DrillInto = ChartGroupType.GrantFunding,
                     MoreInfo = @""
                 },
 
@@ -1244,6 +1252,7 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Income,
                     ChartGroup = ChartGroupType.TotalIncome,
                     ChartSchoolType = ChartSchoolType.Both,
+                    DrillInto = ChartGroupType.SelfGenerated,
                     ChartType = ChartType.Total,
                     MoreInfo = @""
                 },

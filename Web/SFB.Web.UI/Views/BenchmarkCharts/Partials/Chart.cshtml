@@ -26,9 +26,19 @@
                         else
                         {
                             <div class="column-half no-padding">
-                                <h2 class="heading-medium">
-                                    @Model[i].Name
-                                </h2>
+                                @if (Model[i].DrillInto != null)
+                                {
+                                    <div class="chart-header">
+                                        <h2 class="heading-medium inline">@Model[i].Name</h2>
+                                        <a class="inline" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">View more charts<span class="visuallyhidden"> for @Model[i].Name</span> </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <h2 class="heading-medium">
+                                        @Model[i].Name
+                                    </h2>
+                                }
                             </div>
                         }
                         @if (Model[i].ChartType != ChartType.CustomReport)
