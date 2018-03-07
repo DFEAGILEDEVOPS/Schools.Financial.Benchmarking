@@ -192,6 +192,18 @@ namespace SFB.Web.UI.Models
             }
         }
 
+        public bool WorkforceDataPresent
+        {
+            get
+            {
+                if (FinancialDataDocumentModel != null)
+                {
+                    return FinancialDataDocumentModel.GetPropertyValue<bool>("WorkforcePresent");
+                }
+                return false;
+            }
+        }
+
         #endregion
 
         #region Criteria Data

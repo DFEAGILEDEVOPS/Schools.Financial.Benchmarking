@@ -7,7 +7,7 @@ namespace SFB.Web.Common
     public class BenchmarkCriteria
     {
         [PrettyName(SchoolCharacteristicsQuestions.LA_CODE)]
-        [DBField(name: DBFieldNames.LA_CODE, type: CriteriaFieldComparisonTypes.EQUALTO)]
+        [DBField(name: DBFieldNames.LA, type: CriteriaFieldComparisonTypes.EQUALTO)]
         public int? LaCode { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PFI)]

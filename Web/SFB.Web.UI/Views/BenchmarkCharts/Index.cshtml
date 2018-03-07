@@ -121,29 +121,34 @@ else
             </div>
         </div>
     </div>
-
-
-    if (Model.EstablishmentType == EstablishmentType.MAT)
+    
+    if (Model.HasIncompleteFinancialData)
     {
-        if (Model.HasIncompleteFinancialData)
+        if (Model.EstablishmentType == EstablishmentType.MAT)
         {
             <div class="panel panel-border-wide orange-warning">
                 <p>
-                    Some trusts don't have a complete set of data for this period
-                </p>
-            </div>
-        }  
-    }
-    else
-    {
-        if (Model.HasIncompleteFinancialData)
-        {
-            <div class="panel panel-border-wide orange-warning">
-                <p>
-                    Some schools don't have a complete set of data for this period
+                    Some trusts don't have a complete set of financial data for this period
                 </p>
             </div>
         }
+        else
+        {
+            <div class="panel panel-border-wide orange-warning">
+                <p>
+                    Some schools don't have a complete set of financial data for this period
+                </p>
+            </div>
+        }
+    }
+
+    if (Model.HasIncompleteWorkforceData)
+    {
+        <div class="panel panel-border-wide orange-warning">
+            <p>
+                Some schools don't have a complete set of workforce data for this period
+            </p>
+        </div>
     }
 
     <div id="CustomReportContentPlaceHolder" ng-app="reportApp">

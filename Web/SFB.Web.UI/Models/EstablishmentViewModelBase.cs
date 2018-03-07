@@ -31,6 +31,8 @@ namespace SFB.Web.UI.Models
 
         public bool IsReturnsComplete => HistoricalSchoolDataModels.Last().PeriodCoveredByReturn == 12;
 
+        public bool WorkforceDataPresent => HistoricalSchoolDataModels.Last().WorkforceDataPresent;
+
         public bool HasNoTeacherData => HistoricalSchoolDataModels.Last().TeacherCount == 0d;
 
         public bool HasNoPupilData => HistoricalSchoolDataModels.Last().PupilCount == 0d;

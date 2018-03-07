@@ -94,7 +94,16 @@
 {
     <div class="panel panel-border-wide orange-warning">
         <p>
-            This school doesn't have a complete set of data for this period
+            This school doesn't have a complete set of financial data for this period
+        </p>
+    </div>
+}
+
+@if (!Model.WorkforceDataPresent)
+{
+    <div class="panel panel-border-wide orange-warning">
+        <p>
+            This school doesn't have a complete set of workforce data for this period
         </p>
     </div>
 }

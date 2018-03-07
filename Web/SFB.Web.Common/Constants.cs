@@ -11,6 +11,7 @@
     {
         public const string TRUSTS = "Trusts";
         public const string ESTAB_NO = "EstablishmentNumber";
+        public const string LA = "LA";
         public const string LA_CODE = "LACode";
         public const string URN = "URN";
         public const string KS2_PROGRESS = "KS2 Progress";

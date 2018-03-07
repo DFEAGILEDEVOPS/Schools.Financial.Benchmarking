@@ -259,6 +259,7 @@ namespace SFB.Web.UI.Services
                     Term = dataModel.Term,
                     Type = school.Type,
                     IsCompleteYear = dataModel.PeriodCoveredByReturn >= 12,
+                    IsWFDataPresent = dataModel.WorkforceDataPresent,
                     PartialYearsPresentInSubSchools = dataModel.PartialYearsPresentInSubSchools,
                     Unit = unit.ToString()
                 });

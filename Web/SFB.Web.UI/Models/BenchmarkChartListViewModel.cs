@@ -37,6 +37,21 @@ namespace SFB.Web.UI.Models
             }
         }
 
+        public bool HasIncompleteWorkforceData
+        {
+            get
+            {
+                if (this.EstablishmentType == EstablishmentType.MAT)
+                {
+                    return false;
+                }
+                else
+                {
+                    return ModelList.SelectMany(m => m.BenchmarkData).Any(d => !d.IsWFDataPresent);
+                }
+            }
+        }
+
         public bool HasNoTeacherData => ModelList.SelectMany(m => m.BenchmarkData).Any(d => d.TeacherCount == 0d);
 
         public bool NoResultsForSimpleSearch => (ComparisonType == ComparisonType.Basic && ComparisonListCount < 2);
