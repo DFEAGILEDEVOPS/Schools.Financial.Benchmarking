@@ -233,4 +233,10 @@
             padding: 4px;
         }
     }
+
+    .returns-incomplete {
+        .addto, .set-unset, .compare{
+            display: none!important;
+        }
+    }
 }

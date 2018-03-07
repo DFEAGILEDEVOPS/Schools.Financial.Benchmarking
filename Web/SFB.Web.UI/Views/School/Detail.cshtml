@@ -24,7 +24,11 @@
 
 @if (Model.IsReturnsComplete)
 {
-    <div class="grid-row hide-in-print" id="benchmarkControlsPlaceHolder"></div>
+    <div class="grid-row hide-in-print returns-complete" id="benchmarkControlsPlaceHolder"></div>
+}
+else
+{
+    <div class="grid-row hide-in-print returns-incomplete" id="benchmarkControlsPlaceHolder"></div>
 }
 
 <div class="grid-row">
