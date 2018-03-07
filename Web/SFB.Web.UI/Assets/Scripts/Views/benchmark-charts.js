@@ -376,6 +376,11 @@
         new Accordion(document.getElementById('bm-charts-accordion'));
     };
 
+    BenchmarkChartsViewModel.SelectGrouping = function (grouping) {
+        $("#ChartGroup").val(grouping);
+        $("#ChartGroup").change();
+    };
+
     BenchmarkChartsViewModel.RebuildCharts = function () {
         var self = this;
         var tabParameter = $("#tabSelection").val();
