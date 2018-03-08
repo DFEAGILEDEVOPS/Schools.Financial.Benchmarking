@@ -89,7 +89,8 @@
                             </div>
                         </div>
                         <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
-                        <input name="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)"/>
+                        <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)"/>
+                        <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)"/>
 
                         @if (Model[i].TableColumns != null && Model[i].TableColumns.Count > 0)
                         {
@@ -158,7 +159,8 @@
                                     </div>
                                 </div>
                                 <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
-                                <input name="incompleteDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteDataIndex)"/>
+                                <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)"/>
+                                <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)"/>
                             }
                             @if (Model[i].TableColumns != null)
                             {

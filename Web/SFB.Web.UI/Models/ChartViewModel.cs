@@ -101,14 +101,11 @@ namespace SFB.Web.UI.Models
 
         public int BenchmarkSchoolIndex { get; set; }
 
-        private List<int> _incompleteDataIndex;
         private string _moreInfo;
 
-        public List<int> IncompleteDataIndex
-        {
-            get { return _incompleteDataIndex; }
-            set { _incompleteDataIndex = value; }
-        }
+        public List<int> IncompleteFinanceDataIndex { get; set; }
+
+        public List<int> IncompleteWorkforceDataIndex { get; set; }
 
         public bool Downloadable { get; set; }
         public object Clone()

@@ -198,7 +198,8 @@ namespace SFB.Web.UI.Services
                     chart.BenchmarkData = benchmarkChart.ChartData;
                     chart.DataJson = JsonConvert.SerializeObject(benchmarkChart.ChartData);
                     chart.BenchmarkSchoolIndex = benchmarkChart.BenchmarkSchoolIndex;
-                    chart.IncompleteDataIndex = benchmarkChart.IncompleteDataIndex;
+                    chart.IncompleteFinanceDataIndex = benchmarkChart.IncompleteFinanceDataIndex;
+                    chart.IncompleteWorkforceDataIndex = benchmarkChart.IncompleteWorkforceDataIndex;
                     chart.ShowValue = unit.HasValue ? unit.GetValueOrDefault() : chart.ShowValue;
                 }
                 if (chart.TableColumns != null)
@@ -269,15 +270,28 @@ namespace SFB.Web.UI.Services
             var benchmarkSchoolIndex = !string.IsNullOrEmpty(homeSchoolId)
                 ? sortedChartData.IndexOf(sortedChartData.Find(s => s.Urn.ToString() == homeSchoolId))
                 : -1;
-            var incompletes = sortedChartData.FindAll(s => !s.IsCompleteYear || s.PartialYearsPresentInSubSchools);
-            var incompleteDataIndex = new List<int>();
-            incompletes.ForEach(i => incompleteDataIndex.Add(sortedChartData.IndexOf(i)));
 
+
+            var incompleteFinanceDataIndex = new List<int>();
+            var incompleteWorkforceDataIndex = new List<int>();
+
+            if (revGroup == RevenueGroupType.Workforce)
+            {
+                var incompleteWorkForce = sortedChartData.FindAll(s => !s.IsWFDataPresent);
+                incompleteWorkForce.ForEach(i => incompleteWorkforceDataIndex.Add(sortedChartData.IndexOf(i)));
+            }
+            else
+            {
+                var incompleteFinances = sortedChartData.FindAll(s => !s.IsCompleteYear || s.PartialYearsPresentInSubSchools);
+                incompleteFinances.ForEach(i => incompleteFinanceDataIndex.Add(sortedChartData.IndexOf(i)));
+            }
+            
             return new BenchmarkChartModel
             {
                 ChartData = sortedChartData,
                 BenchmarkSchoolIndex = benchmarkSchoolIndex,
-                IncompleteDataIndex = incompleteDataIndex
+                IncompleteFinanceDataIndex = incompleteFinanceDataIndex,
+                IncompleteWorkforceDataIndex = incompleteWorkforceDataIndex,
             };
         }
 
