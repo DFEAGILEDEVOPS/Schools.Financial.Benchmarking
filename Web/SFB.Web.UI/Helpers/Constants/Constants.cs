@@ -65,6 +65,7 @@
             public const string GOOD = "Good";
             public const string REQUIRES_IMPROVEMENT = "Requires improvement";
             public const string INADEQUATE = "Inadequate";
+            public const string NOT_RATED = "Not rated";
         }
     }
 
