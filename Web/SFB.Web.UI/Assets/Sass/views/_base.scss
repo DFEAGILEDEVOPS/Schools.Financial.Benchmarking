@@ -41,68 +41,6 @@ a.home-link
     }
 }
 
-a.font16-ext-link[rel="external"], a.font16-ext-link[rel="external noopener noreferrer"] {
-    &:after {
-        background-position: right 3px;
-    }
-
-    &:hover:after {
-        background-position: right 3px;
-    }
-
-    @include media(mobile) {
-        &:after {
-            background-position: right 2px;
-        }
-
-        &:hover:after {
-            background-position: right -386px;
-        }
-    }
-}
-
-a.font19-ext-link[rel="external"], a.font19-ext-link[rel="external noopener noreferrer"] {
-    &:after {
-        background-position: right 5px;
-    }
-
-    &:hover:after {
-        background-position: right 5px;
-    }
-
-    @include media(mobile) {
-        &:after {
-            background-position: right 2px;
-        }
-
-        &:hover:after {
-            background-position: right -386px;
-        }
-    }
-}
-a.font14-ext-link[rel="external"], a.font14-ext-link[rel="external noopener noreferrer"]{
-    &:after {
-        background-position: right 2px;
-        content: "\A0\A0\A0\A0\A0";
-    }
-    &:hover:after {
-        background-position: right -386px;
-        content: "\A0\A0\A0\A0\A0";
-    }
-
-    @include media(mobile)
-    {
-        &:after {
-            background-position: right 0;
-            content: "\A0\A0\A0\A0\A0";
-        }
-        &:hover:after {
-            background-position: right -388px;
-            content: "\A0\A0\A0\A0\A0";
-        }
-    }
-}
-
 .side-width-wrapper {
     @extend %site-width-container;
 }
