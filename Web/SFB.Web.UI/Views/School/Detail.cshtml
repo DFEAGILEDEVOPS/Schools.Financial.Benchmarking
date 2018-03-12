@@ -36,7 +36,7 @@ else
         <div class="metadata-school-detail font-xsmall">
             <dl>
                 @SchoolDetailField("Address:", Model.Address)
-                @SchoolDetailField("Telephone number:", $"0{Model.PhoneNumber}")
+                @SchoolDetailField("Telephone number:", $"<a href=\"tel: 0{Model.PhoneNumber}\" aria-label=\"Call telephone number 0{Model.PhoneNumber}\">0{Model.PhoneNumber}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
