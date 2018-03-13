@@ -9,13 +9,12 @@ using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Helpers.Enums;
 using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
+using SFB.Web.Common;
 using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.Controllers
@@ -27,18 +26,18 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly ILocalAuthoritiesService _laService;
         private readonly IDownloadCSVBuilder _csvBuilder;
-        private readonly IEdubaseDataService _edubaseDataService;
+        private readonly IContextDataService _contextDataService;
         private readonly IStatisticalCriteriaBuilderService _statisticalCriteriaBuilderService;
 
         public BenchmarkChartsController(IBenchmarkChartBuilder benchmarkChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ILocalAuthoritiesService laService, IDownloadCSVBuilder csvBuilder,
-            IEdubaseDataService edubaseDataService, IStatisticalCriteriaBuilderService statisticalCriteriaBuilderService)
+            IContextDataService contextDataService, IStatisticalCriteriaBuilderService statisticalCriteriaBuilderService)
         {
             _benchmarkChartBuilder = benchmarkChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
             _laService = laService;
             _csvBuilder = csvBuilder;
-            _edubaseDataService = edubaseDataService;
+            _contextDataService = contextDataService;
             _statisticalCriteriaBuilderService = statisticalCriteriaBuilderService;
         }
 
@@ -221,7 +220,8 @@ namespace SFB.Web.UI.Controllers
             ComparisonType comparisonType = ComparisonType.Manual,
             ComparisonArea areaType = ComparisonArea.All,
             string laCode = null,
-            RevenueGroupType tab = RevenueGroupType.Expenditure)
+            RevenueGroupType tab = RevenueGroupType.Expenditure,
+            CentralFinancingType financing = CentralFinancingType.Include)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -244,12 +244,11 @@ namespace SFB.Web.UI.Controllers
             }
 
             var defaultUnitType = tab == RevenueGroupType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
-            var benchmarkCharts = BuildSchoolBenchmarkCharts(tab, chartGroup, defaultUnitType, CentralFinancingType.Exclude);
+            var benchmarkCharts = BuildSchoolBenchmarkCharts(tab, chartGroup, defaultUnitType, financing);
             var establishmentType = DetectEstablishmentType(base.ExtractSchoolComparisonListFromCookie());
 
             var chartGroups = _benchmarkChartBuilder.Build(tab, establishmentType).DistinctBy(c => c.ChartGroup).ToList();
             
-            var localAuthorities = (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
             string  selectedArea = "";
             switch (areaType)
             {
@@ -258,14 +257,14 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case ComparisonArea.LaCode:
                 case ComparisonArea.LaName:
-                    selectedArea = localAuthorities.FirstOrDefault(la => la.id == laCode).LANAME;
+                    selectedArea = _laService.GetLaName(laCode);
                     break;
             }
 
             string schoolArea = "";
             if (benchmarkSchoolData != null)
             {
-                schoolArea = localAuthorities.FirstOrDefault(la => la.id == benchmarkSchoolData.LaNumber.ToString()).LANAME;
+                schoolArea = _laService.GetLaName(benchmarkSchoolData.LaNumber.ToString());
             }
 
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerSchoolType(SchoolFinancialType.Academies));
@@ -278,11 +277,12 @@ namespace SFB.Web.UI.Controllers
             ViewBag.UnitType = defaultUnitType;
             ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.EstablishmentType = vm.EstablishmentType;
+            ViewBag.Financing = financing;
 
             return View("Index", vm);
         }
 
-        public ActionResult Mats(RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public ActionResult Mats(RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -302,7 +302,7 @@ namespace SFB.Web.UI.Controllers
             }
 
             var defaultUnitType = tab == RevenueGroupType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
-            var benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, UnitType.AbsoluteMoney, MatFinancingType.TrustAndAcademies);
+            var benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, UnitType.AbsoluteMoney, financing);
             var chartGroups = _benchmarkChartBuilder.Build(tab, EstablishmentType.MAT).DistinctBy(c => c.ChartGroup).ToList();
 
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerSchoolType(SchoolFinancialType.Academies));
@@ -315,11 +315,12 @@ namespace SFB.Web.UI.Controllers
             ViewBag.UnitType = defaultUnitType;
             ViewBag.HomeSchoolId = vm.TrustComparisonList.DefaultTrustMatNo;
             ViewBag.EstablishmentType = vm.EstablishmentType;
+            ViewBag.TrustFinancing = financing;
 
             return View("Index",vm);
         }
 
-        public PartialViewResult TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public PartialViewResult TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -358,11 +359,11 @@ namespace SFB.Web.UI.Controllers
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
             {
-                benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, unitType, MatFinancingType.TrustAndAcademies);
+                benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, unitType, trustFinancing);
             }
             else
             {
-                benchmarkCharts = BuildSchoolBenchmarkCharts(tab, chartGroup, unitType, CentralFinancingType.Exclude);
+                benchmarkCharts = BuildSchoolBenchmarkCharts(tab, chartGroup, unitType, financing);
             }
             var chartGroups = _benchmarkChartBuilder.Build(tab, EstablishmentType.All).DistinctBy(c => c.ChartGroup).ToList();
             
@@ -375,13 +376,14 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
             ViewBag.EstablishmentType = type;
-
+            ViewBag.Financing = financing;
+            ViewBag.TrustFinancing = trustFinancing;
             ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustMatNo : vm.SchoolComparisonList.HomeSchoolUrn;
 
             return PartialView("Partials/TabContent", vm);
         }
 
-        public PartialViewResult GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, CentralFinancingType centralFinancing = CentralFinancingType.Exclude, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,EstablishmentType type = EstablishmentType.All)
+        public PartialViewResult GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,EstablishmentType type = EstablishmentType.All)
         {
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
@@ -546,15 +548,15 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case UnitType.HeadcountPerFTE:
                     chartList.RemoveAll(c => c.Name == "School workforce (headcount)");
-                    chartList.RemoveAll(c => c.Name == "Teachers with QTS (%)");
+                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
                     break;
                 case UnitType.FTERatioToTotalFTE:
-                    chartList.RemoveAll(c => c.Name == "Teachers with QTS (%)");
-                    chartList.RemoveAll(c => c.Name == "School workforce (FTE)");
+                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
+                    chartList.RemoveAll(c => c.Name == "School workforce (Full Time Equivalent)");
                     chartList.RemoveAll(c => c.Name == "School workforce (headcount)");
                     break;
                 case UnitType.NoOfPupilsPerMeasure:
-                    chartList.RemoveAll(c => c.Name == "Teachers with QTS (%)");
+                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
                     break;
             }
         }
@@ -562,8 +564,8 @@ namespace SFB.Web.UI.Controllers
         private List<SchoolDataModel> GetFinancialDataForTrusts(List<TrustToCompareViewModel> trusts, MatFinancingType matFinancing = MatFinancingType.TrustAndAcademies)
         {
             var models = new List<SchoolDataModel>();
-
-            var terms = _financialDataService.GetActiveTermsByDataGroup(DataGroups.MATCentral, "{0} / {1}");
+            
+            var terms = _financialDataService.GetActiveTermsForMatCentral();
 
             foreach (var trust in trusts){
                 var financialDataModel = _financialDataService.GetMATDataDocument(trust.MatNo, terms.First(), matFinancing);
@@ -573,7 +575,7 @@ namespace SFB.Web.UI.Controllers
             return models;
         }
 
-        private List<SchoolDataModel> GetFinancialDataForSchools(List<BenchmarkSchoolViewModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Exclude)
+        private List<SchoolDataModel> GetFinancialDataForSchools(List<BenchmarkSchoolViewModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Include)
         {
             var models = new List<SchoolDataModel>();
 
@@ -591,7 +593,7 @@ namespace SFB.Web.UI.Controllers
 
         private SchoolViewModel InstantiateBenchmarkSchool(string urn)
         {
-            var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn), base.ExtractSchoolComparisonListFromCookie());
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), base.ExtractSchoolComparisonListFromCookie());
             var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(benchmarkSchool.FinancialType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
             var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.FinancialType);

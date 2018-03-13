@@ -22,7 +22,7 @@ namespace SFB.Web.UI.Helpers
                 Label = labelWithFacet,
                 Value = label,
                 Disabled = !isEnabled,
-                Checked = currentlySelected.IndexOf(label, StringComparison.Ordinal) != -1
+                Checked = !string.IsNullOrEmpty(label) && currentlySelected.IndexOf(label, StringComparison.Ordinal) != -1
             };
         }
 
@@ -267,6 +267,9 @@ namespace SFB.Web.UI.Helpers
                     break;
                 case "4":
                     result = OfstedRatings.Description.INADEQUATE;
+                    break;
+                default:
+                    result = OfstedRatings.Description.NOT_RATED;
                     break;
             }
 

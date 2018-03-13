@@ -12,6 +12,8 @@ using SFB.Web.Domain.ApiWrappers;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Services;
+using SFB.Web.DAL.Helpers;
+using SFB.Web.DAL.Repositories;
 
 namespace SFB.Web.UI
 {
@@ -58,7 +60,10 @@ namespace SFB.Web.UI
             builder.RegisterType<FilterBuilder>().As<IFilterBuilder>();
             builder.RegisterType<ValidationService>().As<IValidationService>();
             builder.RegisterType<FinancialDataService>().As<IFinancialDataService>().SingleInstance();
-            builder.RegisterType<EdubaseDataService>().As<IEdubaseDataService>().SingleInstance();
+            builder.RegisterType<ContextDataService>().As<IContextDataService>().SingleInstance();
+            builder.RegisterType<DataCollectionManager>().As<IDataCollectionManager>().SingleInstance();
+            builder.RegisterType<DocumentDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
+            builder.RegisterType<DocumentDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
             builder.RegisterType<StatisticalCriteriaBuilderService>().As<IStatisticalCriteriaBuilderService>();
             builder.RegisterType<DownloadCSVBuilder>().As<IDownloadCSVBuilder>();

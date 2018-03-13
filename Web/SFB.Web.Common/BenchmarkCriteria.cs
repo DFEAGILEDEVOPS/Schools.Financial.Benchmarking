@@ -1,14 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using SFB.Web.Domain.Helpers;
-using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Common.Attributes;
 
-namespace SFB.Web.Domain.Models
+namespace SFB.Web.Common
 {
     public class BenchmarkCriteria
     {
         [PrettyName(SchoolCharacteristicsQuestions.LA_CODE)]
-        [DBField(name: DBFieldNames.LA_CODE, type: CriteriaFieldComparisonTypes.EQUALTO)]
+        [DBField(name: DBFieldNames.LA, type: CriteriaFieldComparisonTypes.EQUALTO)]
         public int? LaCode { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PFI)]

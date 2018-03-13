@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
+using Newtonsoft.Json;
 
 namespace SFB.Web.Domain.Services
 {
@@ -21,6 +23,13 @@ namespace SFB.Web.Domain.Services
             }
 
             return list;
+        }
+
+        public string GetLaName(string laCode)
+        {
+            var localAuthorities = (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(GetLocalAuthorities());
+            var localAuthourity = localAuthorities.FirstOrDefault(la => la.id == laCode);
+            return localAuthourity == null ? string.Empty : localAuthourity.LANAME;
         }
     }
 }

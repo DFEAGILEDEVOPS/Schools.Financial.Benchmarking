@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Web;
-using System.Web.DynamicData;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.ApplicationInsights.Extensibility;
-using Newtonsoft.Json;
-using SFB.Web.UI.Helpers.Constants;
-using SFB.Web.UI.Helpers.Filters;
-using SFB.Web.UI.Models;
 
-namespace SFB.Web.UI
+namespace SFB.Web.UI 
 {
     public class MvcApplication : System.Web.HttpApplication
     {

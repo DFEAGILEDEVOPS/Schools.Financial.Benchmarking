@@ -1,4 +1,4 @@
-﻿@using SFB.Web.Domain.Helpers.Enums
+﻿@using SFB.Web.Common
 @using SFB.Web.UI.Helpers.Enums
 
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
@@ -121,29 +121,34 @@ else
             </div>
         </div>
     </div>
-
-
-    if (Model.EstablishmentType == EstablishmentType.MAT)
+    
+    if (Model.HasIncompleteFinancialData)
     {
-        if (Model.HasIncompleteFinancialData)
+        if (Model.EstablishmentType == EstablishmentType.MAT)
         {
             <div class="panel panel-border-wide orange-warning">
                 <p>
-                    Some trusts don't have a complete set of data for this period
-                </p>
-            </div>
-        }  
-    }
-    else
-    {
-        if (Model.HasIncompleteFinancialData)
-        {
-            <div class="panel panel-border-wide orange-warning">
-                <p>
-                    Some schools don't have a complete set of data for this period
+                    Some trusts don't have a complete set of financial data for this period
                 </p>
             </div>
         }
+        else
+        {
+            <div class="panel panel-border-wide orange-warning">
+                <p>
+                    Some schools don't have a complete set of financial data for this period
+                </p>
+            </div>
+        }
+    }
+
+    if (Model.HasIncompleteWorkforceData)
+    {
+        <div class="panel panel-border-wide orange-warning">
+            <p>
+                Some schools don't have a complete set of workforce data for this period
+            </p>
+        </div>
     }
 
     <div id="CustomReportContentPlaceHolder" ng-app="reportApp">
@@ -164,6 +169,17 @@ else
     <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
     <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType"/>
+}
+
+@section AfterMain{
+    <div class="full-page-width-wrapper">
+        <div class="improve-this-page" data-module="improve-this-page">
+            <div class="improve-this-page__prompt js-prompt clearfix" tabindex="-1">
+                <span class="improve-this-page__is-useful-question bold">Are you satisfied with your visit today?</span>
+                <a rel="external noopener noreferrer" target="_blank" title="Feedback form will open in a new page" href="http://www.smartsurvey.co.uk/s/schoolsfinancialbenchmarkingsite/">Please rate this site</a>
+            </div>
+        </div>
+    </div>
 }
 
 @section ViewScripts {

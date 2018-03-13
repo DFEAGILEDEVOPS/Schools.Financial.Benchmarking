@@ -13,8 +13,8 @@ namespace SFB.Web.UI.Models
         public string FieldName { get; set; }
         public ChartSchoolType ChartSchoolType { get; set;}
         public ChartType ChartType { get; set;}
-
         public ChartGroupType ChartGroup { get; set; }
+        public ChartGroupType? DrillInto { get; set; }
 
         public string ChartGroupName {
             get
@@ -101,14 +101,11 @@ namespace SFB.Web.UI.Models
 
         public int BenchmarkSchoolIndex { get; set; }
 
-        private List<int> _incompleteDataIndex;
         private string _moreInfo;
 
-        public List<int> IncompleteDataIndex
-        {
-            get { return _incompleteDataIndex; }
-            set { _incompleteDataIndex = value; }
-        }
+        public List<int> IncompleteFinanceDataIndex { get; set; }
+
+        public List<int> IncompleteWorkforceDataIndex { get; set; }
 
         public bool Downloadable { get; set; }
         public object Clone()

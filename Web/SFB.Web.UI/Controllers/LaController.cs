@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Common;
 using SFB.Web.Domain.Services;
+using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Controllers
@@ -23,7 +23,7 @@ namespace SFB.Web.UI.Controllers
             var localAuthorities = (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
 
             var filteredResults = localAuthorities
-                .Where(la => la.LANAME.ToLowerInvariant().Contains(name.ToLowerInvariant()))
+                .Where(la => la.LANAME.ToString().ToLowerInvariant().Contains(name.ToLowerInvariant()))
                 .Select(la => new LaViewModel(){id = la.id, LaName = la.LANAME}).ToList();
             
             var vm = new LaListViewModel(filteredResults, base.ExtractSchoolComparisonListFromCookie(), orderby);

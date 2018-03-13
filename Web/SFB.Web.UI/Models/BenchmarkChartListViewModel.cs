@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 using SFB.Web.Domain.Models;
-using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
@@ -35,6 +34,21 @@ namespace SFB.Web.UI.Models
                            || ModelList.SelectMany(m => m.BenchmarkData).Any(d => d.PartialYearsPresentInSubSchools);
                 }
                 return ModelList.SelectMany(m => m.BenchmarkData).Any(d => !d.IsCompleteYear);
+            }
+        }
+
+        public bool HasIncompleteWorkforceData
+        {
+            get
+            {
+                if (this.EstablishmentType == EstablishmentType.MAT)
+                {
+                    return false;
+                }
+                else
+                {
+                    return ModelList.SelectMany(m => m.BenchmarkData).Any(d => !d.IsWFDataPresent);
+                }
             }
         }
 

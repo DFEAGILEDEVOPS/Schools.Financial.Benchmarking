@@ -1,5 +1,5 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
-<div class="compare-buttons-panel">
+<div class="compare-buttons-panel set-unset">
     <div class="column-full">
             
         <a @DisplayStyle(Model.IsDefaultBenchmark) class="set-unset-default" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.REMOVE_DEFAULT_BENCHMARK}')")">Unset as default school</a>
@@ -11,7 +11,7 @@
 <div class="compare-buttons-panel">
     <div class="column-full">
 
-        <a class="button" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>
+        <a class="button compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>
 
         <a @DisplayStyle(Model.IsInComparisonList) class="add-remove button removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.REMOVE_FROM_COMPARISON_LIST}')")">Remove from benchmark basket</a>
 

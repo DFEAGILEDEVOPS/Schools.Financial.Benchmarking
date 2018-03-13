@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using SFB.Web.Domain.Helpers.Enums;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Domain.Services;
 using Microsoft.Azure.Documents;
+using SFB.Web.Common;
+using SFB.Web.DAL;
+using SFB.Web.DAL.Helpers;
 using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.UnitTests
@@ -73,10 +74,12 @@ namespace SFB.Web.UI.UnitTests
             });
             _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
-            _mockDocumentDbService.Setup(m => m.GetLatestDataYearPerSchoolType(It.IsAny<SchoolFinancialType>()))
+
+            var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerSchoolType(It.IsAny<SchoolFinancialType>()))
                 .Returns(2015);
 
-            var _mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var _mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "100";
             testEduResult.EstablishmentName = "test";
@@ -106,13 +109,15 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var _mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testResult = new Document();
             testResult.URN = "123";
             testResult.EstablishmentName = "test";
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testResult);
 
-            var controller = new BenchmarkCriteriaController(null, null, _mockEdubaseDataService.Object);
+            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+
+            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 

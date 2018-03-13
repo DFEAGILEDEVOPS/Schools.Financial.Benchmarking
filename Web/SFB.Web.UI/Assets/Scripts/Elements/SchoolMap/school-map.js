@@ -16,6 +16,12 @@
         this.hasMap = options.hasMap;
         this.defaultZoom = 15;
         this.initialize();
+        setTimeout(function () {
+                //$("a:contains('Terms of Use')").attr("tabindex", "-1");
+                //$("a:contains('Report a map error')").attr("tabindex", "-1");
+            $(".gm-style").children().first().attr("aria-label", "A google map of the school's location");
+            },
+            1500);
     }
 
     // static constants
@@ -43,7 +49,20 @@
                 center: this.centreLatLng,
                 zoom: this.defaultZoom,
                 streetViewControl: false,
-                scrollwheel: false
+                scrollwheel: false,
+                disableDefaultUI: true,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    position: google.maps.ControlPosition.TOP_RIGHT
+                },
+                fullscreenControl: true,
+                fullscreenControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_BOTTOM
+                },
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.TOP_LEFT
+                }
             };
             this.map = new google.maps.Map(
               this.mapElement,

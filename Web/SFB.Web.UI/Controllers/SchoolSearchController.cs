@@ -8,9 +8,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
+using SFB.Web.Common;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
+using SFB.Web.UI.Helpers.Constants;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -19,18 +21,18 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocalAuthoritiesService _laService;
         private readonly IFilterBuilder _filterBuilder;
         private readonly IValidationService _valService;
-        private readonly IEdubaseDataService _edubaseDataService;
+        private readonly IContextDataService _contextDataService;
         private readonly ISchoolSearchService _schoolSearchService;
         private readonly ITrustSearchService _trustSearchService;
 
         public SchoolSearchController(ILocalAuthoritiesService laService, IFilterBuilder filterBuilder,
-            IValidationService valService, IEdubaseDataService edubaseDataService,
+            IValidationService valService, IContextDataService contextDataService,
             ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService)
         {
             _laService = laService;
             _filterBuilder = filterBuilder;
             _valService = valService;
-            _edubaseDataService = edubaseDataService;
+            _contextDataService = contextDataService;
             _schoolSearchService = schoolSearchService;
             _trustSearchService = trustSearchService;
         }
@@ -62,8 +64,8 @@ namespace SFB.Web.UI.Controllers
                         {
                             var isLaEstab = nameId.Length == SearchParameterValidLengths.LAESTAB_LENGTH;
                             searchResp = isLaEstab
-                                ? _edubaseDataService.GetSchoolByLaEstab(nameId)
-                                : _edubaseDataService.GetSchoolByUrn(nameId);
+                                ? _contextDataService.GetSchoolByLaEstab(nameId)
+                                : _contextDataService.GetSchoolByUrn(nameId);
 
                             if (searchResp == null)
                             {
@@ -229,12 +231,13 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            return View("SearchResults", GetSchoolViewModelList(searchResp, orderby, page));
+            var laName = _laService.GetLaName(laCodeName);
+            return View("SearchResults", GetSchoolViewModelList(searchResp, orderby, page, searchType, nameId, locationorpostcode, laName));
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn.ToString()), null);
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
 
             var cookie = base.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolViewModel()
@@ -258,6 +261,7 @@ namespace SFB.Web.UI.Controllers
         {
             var vm = new SchoolNotFoundViewModel
             {
+                SearchKey = nameId,
                 Suggestions = await _schoolSearchService.SuggestSchoolByName(nameId)
             };
             return View("NotFound", vm);
@@ -292,7 +296,7 @@ namespace SFB.Web.UI.Controllers
         {
             var searchResponse = await GetSearchResults(nameId, searchType, null, locationorpostcode,
                 locationCoordinates, laCodeName, radius, orderby, page);
-            var vm = GetSchoolViewModelList(searchResponse, orderby, page);
+            var vm = GetSchoolViewModelList(searchResponse, orderby,page, searchType, nameId, locationorpostcode, laCodeName);
 
             return PartialView("Partials/SchoolResults", vm);
         }
@@ -370,7 +374,7 @@ namespace SFB.Web.UI.Controllers
                         Request.QueryString);
                     break;
                 default:
-                    response = _edubaseDataService.GetMultipleSchoolsByUrns(urnList);
+                    response = _contextDataService.GetMultipleSchoolsByUrns(urnList);
                     break;
             }
             return response;
@@ -399,10 +403,10 @@ namespace SFB.Web.UI.Controllers
                 $"{(ofstedExpanded ? "1" : "0")},{(schoolTypeExpanded ? "1" : "0")},{(religiousCharacterExpanded ? "1" : "0")}";
         }
 
-        private SchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page)
+        private SearchedSchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             var schoolListVm = new List<SchoolViewModel>();
-            var vm = new SchoolListViewModel(schoolListVm, null, orderBy);
+            var vm = new SearchedSchoolListViewModel(schoolListVm, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);
             if (response != null)
             {
                 foreach (var result in response.Results)

@@ -1,4 +1,5 @@
-﻿using SFB.Web.Domain.Models;
+﻿using SFB.Web.Common;
+using SFB.Web.Domain.Models;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Services

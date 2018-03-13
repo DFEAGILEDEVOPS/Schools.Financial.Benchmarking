@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
-using SFB.Web.Domain.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
 {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SFB.Web.UI.Models
+﻿namespace SFB.Web.UI.Models
 {
     public class BenchmarkCriteriaRangeVM
     {

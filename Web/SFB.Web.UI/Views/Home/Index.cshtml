@@ -1,5 +1,5 @@
-﻿@using SFB.Web.Domain.Helpers.Constants
-
+﻿@using SFB.Web.Common
+@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SchoolSearchViewModel
 
 @{
@@ -79,7 +79,7 @@
                                         <label for="SchoolOrCollegeNameId">School</label>
                                     </div>
                                     <div id="SearchByNameIdFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
-                                        <label class="form-label" for="FindByNameId">Enter a school name, URN or LAESTAB code</label>
+                                        <label class="form-label" for="FindByNameId">Enter a school name, <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr> or <abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB code</abbr></label>
                                         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_NAME_ID))
                                         {
                                             <span class="error-message">@Model.ErrorMessage</span>
@@ -143,7 +143,7 @@
                                     </div>
                                     <div id="SearchByLaCodeNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
                                         <label for="FindSchoolByLaCodeName">
-                                            <span>Enter a local authority name or a three-digit LA code</span>
+                                            <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
                                         </label>
                                         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
                                         {

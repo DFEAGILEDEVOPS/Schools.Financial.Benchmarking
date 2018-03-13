@@ -1,5 +1,4 @@
-﻿using SFB.Web.Domain.Services;
-using SFB.Web.UI.Models;
+﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,10 +7,9 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 
@@ -19,20 +17,17 @@ namespace SFB.Web.UI.Controllers
 {
     public class TrustController : BaseController
     {
-        private readonly IEdubaseDataService _edubaseDataService;
         private readonly ITrustSearchService _trustSearchService;
         private readonly IFinancialDataService _financialDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
 
-        public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IEdubaseDataService edubaseDataService
-            , ITrustSearchService trustSearchService, IDownloadCSVBuilder csvBuilder)
+        public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ITrustSearchService trustSearchService, IDownloadCSVBuilder csvBuilder)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
-            _edubaseDataService = edubaseDataService;
             _trustSearchService = trustSearchService;
             _csvBuilder = csvBuilder;
         }
@@ -72,7 +67,7 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        public ActionResult Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public ActionResult Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -96,9 +91,9 @@ namespace SFB.Web.UI.Controllers
           
             var dataResponse = _financialDataService.GetAcademiesByMatNumber(term, matNo);
 
-            var sponsorVM = BuildSponsorVM(matNo, name, dataResponse, tab, chartGroup, MatFinancingType.TrustAndAcademies);
+            var sponsorVM = BuildSponsorVM(matNo, name, dataResponse, tab, chartGroup, financing);
 
-            List<string> terms = BuildTermsList(DataGroups.MATCentral);
+            List<string> terms = _financialDataService.GetActiveTermsForMatCentral();
             var latestTerm = terms.First();
 
             UnitType unitType;
@@ -120,6 +115,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
+            ViewBag.Financing = financing;
 
             return View(sponsorVM);
         }
@@ -144,7 +140,7 @@ namespace SFB.Web.UI.Controllers
 
             var sponsorVM = BuildSponsorVM(matNo, name, response, RevenueGroupType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
 
-            var termsList = BuildTermsList("MAT-Central");
+            var termsList = _financialDataService.GetActiveTermsForMatCentral();
             _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, SchoolFinancialType.Academies);
             
             string csv = _csvBuilder.BuildCSVContentHistorically(sponsorVM, latestYear);
@@ -168,7 +164,7 @@ namespace SFB.Web.UI.Controllers
             
             sponsorVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, sponsorVM.FinancialType);
             sponsorVM.ChartGroups = _historicalChartBuilder.Build(tab, sponsorVM.FinancialType).DistinctBy(c => c.ChartGroup).ToList();
-            sponsorVM.Terms = BuildTermsList(DataGroups.Academies);
+            sponsorVM.Terms = _financialDataService.GetActiveTermsForAcademies();
             
             sponsorVM.HistoricalSchoolDataModels = this.GetFinancialDataHistorically(sponsorVM.MatNo, matFinancing);
 
@@ -179,11 +175,6 @@ namespace SFB.Web.UI.Controllers
                 sponsorVM.InYearBalance = sponsorVM.HistoricalSchoolDataModels.Last().InYearBalance;
             }
             return sponsorVM;
-        }
-
-        private List<string> BuildTermsList(string type)
-        {
-            return _financialDataService.GetActiveTermsByDataGroup(type, "{0} / {1}");
         }
 
         private List<SchoolDataModel> GetFinancialDataHistorically(string matCode, MatFinancingType matFinancing)

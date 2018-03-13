@@ -1,5 +1,4 @@
-﻿using SFB.Web.Domain.Services;
-using SFB.Web.UI.Models;
+﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,11 +9,11 @@ namespace SFB.Web.UI.Controllers
 {
     public class BenchmarkListController : BaseController
     {
-        private readonly IEdubaseDataService _edubaseDataService;
+        private readonly IContextDataService _contextDataService;
 
-        public BenchmarkListController(IEdubaseDataService edubaseDataService)
+        public BenchmarkListController(IContextDataService contextDataService)
         {
-            _edubaseDataService = edubaseDataService;
+            _contextDataService = contextDataService;
         }
 
         public ActionResult Index()
@@ -23,7 +22,7 @@ namespace SFB.Web.UI.Controllers
 
             if (comparisonList.BenchmarkSchools.Count > 1)
             {
-                dynamic dynamicBenchmarkSchools = _edubaseDataService.GetMultipleSchoolsByUrns(comparisonList.BenchmarkSchools.Select(b => b.Urn.ToString()).ToList());
+                dynamic dynamicBenchmarkSchools = _contextDataService.GetMultipleSchoolsByUrns(comparisonList.BenchmarkSchools.Select(b => b.Urn.ToString()).ToList());
 
                 comparisonList.BenchmarkSchools = new List<BenchmarkSchoolViewModel>();
 
@@ -44,7 +43,7 @@ namespace SFB.Web.UI.Controllers
                 }
             }else if (comparisonList.BenchmarkSchools.Count == 1)
             {
-                var dynamicBenchmarkSchool = _edubaseDataService.GetSchoolByUrn(comparisonList.BenchmarkSchools[0].Urn);
+                var dynamicBenchmarkSchool = _contextDataService.GetSchoolByUrn(comparisonList.BenchmarkSchools[0].Urn);
 
                 comparisonList.BenchmarkSchools = new List<BenchmarkSchoolViewModel>();
 
@@ -71,7 +70,7 @@ namespace SFB.Web.UI.Controllers
 
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(_edubaseDataService.GetSchoolByUrn(urn.ToString()), null);
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
 
                 cookie = base.UpdateSchoolComparisonListCookie(withAction,
                     new BenchmarkSchoolViewModel()

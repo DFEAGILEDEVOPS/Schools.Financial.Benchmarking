@@ -18,8 +18,7 @@
                     }                    
                 }
 
-                self.persist = function ()
-                {
+                self.persist = function () {
                     localStorage.CustomCharts = JSON.stringify($scope.selectionList);
                 }
 
@@ -41,7 +40,7 @@
 
                 }
 
-                self.displayCustomReport = function() {
+                self.displayCustomReport = function () {
                       $.post("/benchmarkcharts/CustomReport", { "json": localStorage.CustomCharts })
                         .done(function(data) {
                             $('#CustomReportContentPlaceHolder').html(data);
@@ -98,11 +97,11 @@
             }
         ]);
 
-app.run(function($rootScope, $location) {
-    $rootScope.$on('$locationChangeStart',
-        function() {
-            if ($location.$$urlUpdatedByLocation) {
-                window.location.reload();
-            }
-        });
-});
+//app.run(function($rootScope, $location) {
+//    $rootScope.$on('$locationChangeStart',
+//        function() {
+//            if ($location.$$urlUpdatedByLocation) {
+//                window.location.reload();
+//            }
+//        });
+//});

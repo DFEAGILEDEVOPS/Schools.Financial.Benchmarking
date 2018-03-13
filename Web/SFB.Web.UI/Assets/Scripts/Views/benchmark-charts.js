@@ -138,10 +138,23 @@
                     benchmarkSchoolIndex).css("fill", "#D53880");
             }
 
-            var incompleteDataIndex = $("input[name='incompleteDataIndex']", el.parentElement.parentElement.parentElement)[0].value;
-            var incompleteDataIndexArray = incompleteDataIndex.split(",");
-            if (incompleteDataIndexArray.length > 0) {
-                incompleteDataIndexArray.forEach(function (index) {
+            var incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", el.parentElement.parentElement.parentElement)[0].value;
+            var incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
+            if (incompleteFinanceDataIndexArray.length > 0) {
+                incompleteFinanceDataIndexArray.forEach(function (index) {
+                    $("#" +
+                        el.id +
+                        " .c3-shape.c3-shape-" +
+                        index +
+                        ".c3-bar.c3-bar-" +
+                        index).css("fill", "#F47738");
+                });
+            }
+
+            var incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", el.parentElement.parentElement.parentElement)[0].value;
+            var incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
+            if (incompleteWorkforceDataIndexArray.length > 0) {
+                incompleteWorkforceDataIndexArray.forEach(function (index) {
                     $("#" +
                         el.id +
                         " .c3-shape.c3-shape-" +
@@ -376,6 +389,11 @@
         new Accordion(document.getElementById('bm-charts-accordion'));
     };
 
+    BenchmarkChartsViewModel.SelectGrouping = function (grouping) {
+        $("#ChartGroup").val(grouping);
+        $("#ChartGroup").change();
+    };
+
     BenchmarkChartsViewModel.RebuildCharts = function () {
         var self = this;
         var tabParameter = $("#tabSelection").val();
@@ -433,11 +451,20 @@
             $("#customTabSection").show();
         } else {
             var unitParameter = $("#ShowValue").val();
+            var financingParameter = $("#CentralFinancing").val();
+            var trustFinancingParameter = $("#TrustCentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             var typeParameter = $("#Type").val();
-            $.get("/benchmarkcharts/tabchange?tab=" + tab +
+            var url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
-                "&showValue=" + unitParameter,
+                "&showValue=" + unitParameter;
+            if (financingParameter) {
+                url += "&financing=" + financingParameter;
+            }
+            if (trustFinancingParameter) {
+                url += "&trustFinancing=" + trustFinancingParameter;
+            }
+            $.get(url,
                 function (data) {
                     $(".tabs li").removeClass("active");
                     $(".tabs li#" + tab).addClass("active");

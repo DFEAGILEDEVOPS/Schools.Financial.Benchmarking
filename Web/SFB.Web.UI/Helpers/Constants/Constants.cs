@@ -1,5 +1,21 @@
 ﻿namespace SFB.Web.UI.Helpers.Constants
 {
+    public class SearchDefaults
+    {
+        public const int RESULTS_PER_PAGE = 50;
+        public const int TRUST_SCHOOLS_PER_PAGE = 200;
+        public const int LINKS_PER_PAGE = 5;
+        public const decimal LOCATION_SEARCH_DISTANCE = 3;
+    }
+
+    public class SearchTypes
+    {
+        public const string SEARCH_BY_NAME_ID = "search-by-name-id";
+        public const string SEARCH_BY_TRUST_NAME = "search-by-trust-name";
+        public const string SEARCH_BY_LOCATION = "search-by-location";
+        public const string SEARCH_BY_LA_CODE_NAME = "search-by-la-code-name";
+    }
+
     public class CriteriaSearchConfig
     {
         public const int DEFAULT_MARGIN = 10;
@@ -49,6 +65,7 @@
             public const string GOOD = "Good";
             public const string REQUIRES_IMPROVEMENT = "Requires improvement";
             public const string INADEQUATE = "Inadequate";
+            public const string NOT_RATED = "Not rated";
         }
     }
 

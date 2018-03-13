@@ -120,7 +120,30 @@
                 }
 
                 this.centrePoint = new google.maps.LatLng(this.location.lat, this.location.lng);
-                this.map = new google.maps.Map(document.getElementById("gmap"), { center: this.centrePoint, zoom: zoomLevel, streetViewControl: false });
+                this.map = new google.maps.Map(document.getElementById("gmap"),
+                    {
+                        center: this.centrePoint,
+                        zoom: zoomLevel,
+                        streetViewControl: false,
+                        scrollwheel: false,
+                        disableDefaultUI: true,
+                        mapTypeControl: true,
+                        mapTypeControlOptions: {
+                            position: google.maps.ControlPosition.TOP_RIGHT
+                        },
+                        fullscreenControl: true,
+                        fullscreenControlOptions: {
+                            position: google.maps.ControlPosition.RIGHT_BOTTOM
+                        },
+                        zoomControl: true,
+                        zoomControlOptions: {
+                            position: google.maps.ControlPosition.TOP_LEFT
+                        }
+                    });
+                setTimeout(function () {
+                        $(".gm-style").children().first().attr("aria-label", "A google map of the school locations");
+                    },
+                    1500);
                 this.mapLoaded = true;
                 this.map.addListener("click", function () {
                     if (this.infoWindow) this.infoWindow.close();

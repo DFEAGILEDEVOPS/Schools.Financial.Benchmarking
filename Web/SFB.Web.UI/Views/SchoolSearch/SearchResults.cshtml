@@ -13,7 +13,25 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
-<h1 class="heading-xlarge page-heading">Schools</h1>
+@using SFB.Web.Common
+@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.SearchedSchoolListViewModel
+
+@switch (Model.SearchType)
+{
+    case SearchTypes.SEARCH_BY_NAME_ID:
+        <h1 class="heading-xlarge page-heading">Search results for "@Model.NameKeyword"</h1>
+        break;
+    case SearchTypes.SEARCH_BY_LOCATION:
+        <h1 class="heading-xlarge page-heading">Schools in and near @Model.LocationKeyword</h1>
+        break;
+    case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+        <h1 class="heading-xlarge page-heading">Schools in @Model.LaKeyword</h1>
+        break;
+    default:
+        <h1 class="heading-xlarge page-heading">School</h1>
+        break;
+}
 
 <div class="grid-row js-live-search-results-block">
     @Html.Partial("Partials/ResultBlock")
@@ -27,7 +45,7 @@
         GOVUK.Modal.Load();
 
         @if (string.IsNullOrWhiteSpace(ViewBag.QueryLat))
-                {
+{
                     <text>var loc = null;</text>
                 }
                 else

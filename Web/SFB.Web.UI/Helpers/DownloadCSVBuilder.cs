@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 
@@ -22,7 +22,8 @@ namespace SFB.Web.UI.Helpers
             var csv = new StringBuilder();
             var header = new StringBuilder();
 
-            header.Append("School Name,Period,Number of Pupils,Number of Teachers,");
+            header.Append(estabVM.Type == "MAT" ? "Trust Name," : "School Name,");
+            header.Append("Period,Number of Pupils,Number of Teachers,");
             foreach (var chart in estabVM.HistoricalCharts)
             {
                 header.Append(chart.Name);
@@ -57,7 +58,7 @@ namespace SFB.Web.UI.Helpers
         {
             var csv = new StringBuilder();
 
-            BuildHeaderLine(benchmarkCharts, csv);
+            BuildHeaderLine(benchmarkCharts, csv, EstablishmentType.Maintained);
 
             BuildHomeSchoolLine(comparisonList, benchmarkCharts, csv);
 
@@ -70,7 +71,7 @@ namespace SFB.Web.UI.Helpers
         {
             var csv = new StringBuilder();
 
-            BuildHeaderLine(benchmarkCharts, csv);
+            BuildHeaderLine(benchmarkCharts, csv, EstablishmentType.MAT);
 
             BuildDefaultTrustLine(comparisonList, benchmarkCharts, csv);
 
@@ -79,10 +80,11 @@ namespace SFB.Web.UI.Helpers
             return csv.ToString();
         }
 
-        private void BuildHeaderLine(List<ChartViewModel> benchmarkCharts, StringBuilder csv)
+        private void BuildHeaderLine(List<ChartViewModel> benchmarkCharts, StringBuilder csv, EstablishmentType establishmentType)
         {
             var header = new StringBuilder();
-            header.Append("School,URN,Analysis Period,Number of Pupils,Number of Teachers,");
+            header.Append(establishmentType == EstablishmentType.MAT ? "Trust Name" : "School Name");
+            header.Append(",URN,Analysis Period,Number of Pupils,Number of Teachers,");
             foreach (var chart in benchmarkCharts.Where(bc => bc.Downloadable))
             {
                 header.Append(chart.Name);

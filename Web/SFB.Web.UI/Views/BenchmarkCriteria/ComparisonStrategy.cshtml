@@ -1,5 +1,4 @@
-﻿@using SFB.Web.UI.Helpers.Constants
-@using SFB.Web.UI.Helpers.Enums
+﻿@using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
@@ -26,7 +25,7 @@
             <fieldset>
                 <legend>How do you want to compare this school with others?</legend>
                 
-                <p>We have some guidance on <a target="_blank" href="/help/guidance#question-five">choosing characteristics</a> if you are unsure which method suits you.</p>
+                <p>We have some guidance on <a target="_blank" href="/help/guidance#question-five">choosing characteristics<span class="visuallyhidden"> Opens in a new window</span></a> if you are unsure which method suits you.</p>
 
                 <div class="multiple-choice">
                     <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Basic" checked="checked">

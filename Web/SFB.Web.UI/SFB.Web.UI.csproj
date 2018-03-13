@@ -283,6 +283,7 @@
     <Compile Include="Models\SchoolSearchViewModel.cs" />
     <Compile Include="Models\SchoolSummaryViewModel.cs" />
     <Compile Include="Models\SchoolViewModel.cs" />
+    <Compile Include="Models\SearchedSchoolListViewModel.cs" />
     <Compile Include="Models\SeriesData.cs" />
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
     <Compile Include="Models\SponsorListViewModel.cs" />
@@ -395,6 +396,7 @@
     <Content Include="public\govuk_template\assets\javascripts\govuk-template.js" />
     <Content Include="public\govuk_template\assets\javascripts\ie.js" />
     <Content Include="public\govuk_template\assets\javascripts\vendor\goog\webfont-debug.js" />
+    <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-white.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-24x24.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-black-12x12.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-black-24x24.png" />
@@ -413,12 +415,6 @@
     <Content Include="public\govuk_template\assets\stylesheets\images\open-government-licence.png" />
     <Content Include="public\govuk_template\assets\stylesheets\images\open-government-licence_2x.png" />
     <Content Include="public\govuk_template\views\layouts\govuk_template.html" />
-    <Content Include="public\js-marker-clusterer\docs\examples.html" />
-    <Content Include="public\js-marker-clusterer\docs\reference.html" />
-    <Content Include="public\js-marker-clusterer\examples\advanced_example.html" />
-    <Content Include="public\js-marker-clusterer\examples\simple_example.html" />
-    <Content Include="public\js-marker-clusterer\examples\speed_test.js" />
-    <Content Include="public\js-marker-clusterer\examples\speed_test_example.html" />
     <Content Include="public\js-marker-clusterer\images\conv30.png" />
     <Content Include="public\js-marker-clusterer\images\conv40.png" />
     <Content Include="public\js-marker-clusterer\images\conv50.png" />
@@ -621,7 +617,6 @@
     <Content Include="public\js-marker-clusterer\bower.json" />
     <Content Include="public\js-marker-clusterer\CONTRIBUTING.md" />
     <Content Include="public\js-marker-clusterer\CONTRIBUTORS" />
-    <Content Include="public\js-marker-clusterer\examples\data.json" />
     <Content Include="public\js-marker-clusterer\LICENSE" />
     <Content Include="public\js-marker-clusterer\README.md" />
     <Content Include="Views\Shared\Partials\HistoricalChart.cshtml" />
@@ -667,6 +662,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SFB.Web.Common\SFB.Web.Common.csproj">
+      <Project>{D1DDD6B9-2AC9-4261-B4EF-F67AE3213164}</Project>
+      <Name>SFB.Web.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFB.Web.DAL\SFB.Web.DAL.csproj">
+      <Project>{933AECEE-A499-482D-B09B-A8864140B332}</Project>
+      <Name>SFB.Web.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFB.Web.Domain\SFB.Web.Domain.csproj">
       <Project>{c7d71b89-d508-43fa-8130-1266baa6dda9}</Project>
       <Name>SFB.Web.Domain</Name>

@@ -1,5 +1,4 @@
-﻿using System.Web.UI.WebControls;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace SFB.Web.Domain.Models
 {
@@ -22,6 +21,9 @@ namespace SFB.Web.Domain.Models
 
         [JsonProperty(PropertyName = "iscompleteyear")]
         public bool IsCompleteYear { get; set; }
+
+        [JsonProperty(PropertyName = "isworkforcepresent")]
+        public bool IsWFDataPresent { get; set; }
 
         [JsonProperty(PropertyName = "partialyearspresent")]
         public bool PartialYearsPresentInSubSchools { get; set; }

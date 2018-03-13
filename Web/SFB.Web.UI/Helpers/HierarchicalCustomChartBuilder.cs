@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using SFB.Web.UI.Helpers.Enums;
+﻿using System.Collections.Generic;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Helpers
@@ -363,7 +359,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "School workforce (FTE)",
+                            Name = "School workforce (Full Time Equivalent)",
                             FieldName = "TotalSchoolWorkforceFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
@@ -375,7 +371,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Teachers (FTE)",
+                            Name = "Teachers (Full Time Equivalent)",
                             FieldName = "TotalNumberOfTeachersFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
@@ -388,7 +384,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Teachers with QTS (%)",
+                            Name = "Teachers with Qualified Teacher Status (%)",
                             FieldName = "TeachersWithQualifiedTeacherStatus",
                             AbsoluteCountAvailable = true,
                             PerPupilAvailable = false,
@@ -398,7 +394,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Senior leadership (FTE)",
+                            Name = "Senior leadership (Full Time Equivalent)",
                             FieldName = "TotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
@@ -411,7 +407,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Teaching assistants (FTE)",
+                            Name = "Teaching assistants (Full Time Equivalent)",
                             FieldName = "TotalNumberOfTeachingAssistantsFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
@@ -424,7 +420,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Non-classroom support staff (FTE)",
+                            Name = "Non-classroom support staff (Full Time Equivalent)",
                             FieldName = "TotalNumberOfNonClassroomBasedSchoolSupportStaffExcludingAuxiliaryStaffFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
@@ -437,7 +433,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Auxiliary staff (FTE)",
+                            Name = "Auxiliary staff (Full Time Equivalent)",
                             FieldName = "TotalNumberOfAuxiliaryStaffFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,

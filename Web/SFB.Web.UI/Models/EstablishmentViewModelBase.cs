@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
@@ -30,6 +30,8 @@ namespace SFB.Web.UI.Models
         public decimal InYearBalance { get; set; }
 
         public bool IsReturnsComplete => HistoricalSchoolDataModels.Last().PeriodCoveredByReturn == 12;
+
+        public bool WorkforceDataPresent => HistoricalSchoolDataModels.Last().WorkforceDataPresent;
 
         public bool HasNoTeacherData => HistoricalSchoolDataModels.Last().TeacherCount == 0d;
 

@@ -1,13 +1,9 @@
 ﻿using NUnit.Framework;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
-using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 
 namespace SFB.Web.UI.UnitTests
 {

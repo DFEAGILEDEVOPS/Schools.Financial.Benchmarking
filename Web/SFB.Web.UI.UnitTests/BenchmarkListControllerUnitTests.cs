@@ -1,7 +1,6 @@
 ﻿using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using SFB.Web.Domain.Services;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Models;
 using System.Collections.Generic;
@@ -37,7 +36,7 @@ namespace SFB.Web.UI.UnitTests
             apiResponse.NumberOfResults = 0;
             apiResponse.Facets = string.Empty;
 
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic serviceResponse = new System.Dynamic.ExpandoObject();
             serviceResponse.Results = new object[0];
             serviceResponse.NumberOfResults = 0;

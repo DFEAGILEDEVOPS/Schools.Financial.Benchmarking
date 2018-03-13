@@ -1,7 +1,6 @@
 ﻿using Microsoft.Azure.Documents;
 using System;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Helpers.Enums;
+using SFB.Web.Common;
 
 namespace SFB.Web.UI.Models
 {
@@ -188,6 +187,18 @@ namespace SFB.Web.UI.Models
                 if (FinancialDataDocumentModel != null)
                 {
                     return FinancialDataDocumentModel.GetPropertyValue<bool>("PartialYearsPresent");
+                }
+                return false;
+            }
+        }
+
+        public bool WorkforceDataPresent
+        {
+            get
+            {
+                if (FinancialDataDocumentModel != null)
+                {
+                    return FinancialDataDocumentModel.GetPropertyValue<bool>("WorkforcePresent");
                 }
                 return false;
             }

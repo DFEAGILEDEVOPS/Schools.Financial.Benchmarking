@@ -2,7 +2,7 @@
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
-    public interface IEdubaseDataService
+    public interface IContextDataService
     {
         dynamic GetSchoolByUrn(string urn);
         dynamic GetSchoolByLaEstab(string laEstab);

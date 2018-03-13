@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFB.Web.Domain.Helpers.Enums
+namespace SFB.Web.Common
 {
     /// <summary>
     /// This should match to SFB.Web.Domain.Helpers.Constants.DataGroups
@@ -27,6 +27,7 @@ namespace SFB.Web.Domain.Helpers.Enums
         LaName,
         Location
     }
+
     [Flags]
     public enum ValidationIndicators
     {
@@ -67,4 +68,6 @@ namespace SFB.Web.Domain.Helpers.Enums
         TrustOnly,
         TrustAndAcademies
     }
+
+
 }

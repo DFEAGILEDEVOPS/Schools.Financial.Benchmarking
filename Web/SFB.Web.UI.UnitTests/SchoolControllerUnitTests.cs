@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -10,8 +6,7 @@ using Microsoft.Azure.Documents;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using SFB.Web.Domain.Helpers.Enums;
-using SFB.Web.Domain.Services;
+using SFB.Web.Common;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
@@ -51,7 +46,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void DetailShouldKeepUnitTypeBetweenExpenditureAndIncomeTabs()
         {
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
@@ -76,7 +71,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, RevenueGroupType.Income);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Income);
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
@@ -90,7 +85,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void DetailCallShouldKeepUnitTypeBetweenExpenditureAndBalanceTabsIfPossible()
         {
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
@@ -115,7 +110,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, RevenueGroupType.Balance);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Balance);
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
@@ -129,7 +124,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
         {
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
@@ -154,7 +149,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PercentageOfTotal, RevenueGroupType.Balance);
+            controller.Detail(123, UnitType.PercentageOfTotal, CentralFinancingType.Exclude, RevenueGroupType.Balance);
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
@@ -168,7 +163,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndWorkforceTabs()
         {
-            var mockEdubaseDataService = new Mock<IEdubaseDataService>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
@@ -193,7 +188,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, RevenueGroupType.Workforce);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Workforce);
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),

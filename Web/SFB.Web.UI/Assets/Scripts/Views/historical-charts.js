@@ -147,6 +147,11 @@
             });
         },
 
+        SelectGrouping: function (grouping) {
+            $("#ChartGroup").val(grouping);
+            $("#ChartGroup").change();
+        },
+
         RebuildCharts: function(establishment) {
             var self = this;
             var codeParameter = DfE.Util.QueryString.get('code');

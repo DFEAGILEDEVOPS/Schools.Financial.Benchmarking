@@ -158,16 +158,12 @@
                 }
             });
 
-            $("input.criteria-checkbox").change(function () {
-                if ($(this).valid()) {
-                    self.updateResultCount();
-                }
+            $("input.criteria-checkbox").change(function() {
+                self.updateResultCount();
             });
 
-            $("input.criteria-radio").change(function () {
-                if ($(this).valid()) {
-                    self.updateResultCount();
-                }
+            $("input.criteria-radio").change(function() {
+                self.updateResultCount();
             });
 
             $("button.submit").click(function (event) {
