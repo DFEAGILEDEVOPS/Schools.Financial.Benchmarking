@@ -414,7 +414,6 @@
     <Content Include="public\govuk_template\assets\stylesheets\images\govuk-crest.png" />
     <Content Include="public\govuk_template\assets\stylesheets\images\open-government-licence.png" />
     <Content Include="public\govuk_template\assets\stylesheets\images\open-government-licence_2x.png" />
-    <Content Include="public\govuk_template\views\layouts\govuk_template.html" />
     <Content Include="public\js-marker-clusterer\images\conv30.png" />
     <Content Include="public\js-marker-clusterer\images\conv40.png" />
     <Content Include="public\js-marker-clusterer\images\conv50.png" />

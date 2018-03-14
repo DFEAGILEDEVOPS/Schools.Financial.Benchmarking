@@ -70,9 +70,9 @@
                             <div class="form-group">
                                 <fieldset>
                                     <legend class="hidden">Begin by finding a school or trust</legend>
-                                    <div id="form-head" class="form-group heading-small bold-small">
+                                    <h2 id="form-head" class="form-group heading-small bold-small">
                                         Begin by finding a school or trust
-                                    </div>
+                                    </h2>
 
                                     <div id="SchoolOrCollegeNameIdAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_NAME_ID))" aria-controls="SearchByNameIdFieldset">
                                         <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID))/>
@@ -112,9 +112,9 @@
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_NAME">Search</button>
                                     </div>
 
-                                    <div class="form-group heading-small bold-small">
+                                    <h2 class="form-group heading-small bold-small">
                                         Alternatively, search by area
-                                    </div>
+                                    </h2>
                                     <div id="TownOrCityAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LOCATION))" aria-controls="SearchByTownFieldset">
                                         <input id="TownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LOCATION))/>
                                         <label for="TownOrCity">Location</label>
@@ -167,7 +167,7 @@
     </div>
     <div class="column-quarter">
         <aside class="contents guidance">
-            <h2 class="heading-medium">Guidance</h2>
+            <h3 class="heading-medium">Guidance</h3>
             <ul class="font-small">
                 <li>
                     <a href="Help/Guidance">Help using this site</a>
