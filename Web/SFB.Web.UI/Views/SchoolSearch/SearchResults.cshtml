@@ -33,6 +33,10 @@
         break;
 }
 
+<div id="screen-reader-result-list" class="visuallyhidden">
+    <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
+</div>
+
 <div class="grid-row js-live-search-results-block">
     @Html.Partial("Partials/ResultBlock")
 </div>

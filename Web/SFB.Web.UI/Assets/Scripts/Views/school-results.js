@@ -193,6 +193,11 @@
             });
 
             $("span.result-count").html(count);
+            $("span.screen-reader-result-count").html("Filtering results");
+            setTimeout(function() {
+                $("span.screen-reader-result-count").html(count + " schools found");
+            },1000);
+            
             this.liveSearch.getSummaryBlock().css("visibility", "visible");
             this.liveSearch.getSummaryContainerBlock().find("p.msg").remove();
 
