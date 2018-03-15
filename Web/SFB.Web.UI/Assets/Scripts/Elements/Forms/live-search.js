@@ -41,8 +41,10 @@
         $('#result-list > #js-search-results-info').detach().appendTo('#schoolCountPlaceHolder');
 
         $("span.screen-reader-result-count").html("Filtering results");
+        $("span.trust-screen-reader-result-count").html("Filtering results");
         setTimeout(function () {
             $("span.screen-reader-result-count").html($('#schoolCountPlaceHolder .summary').html());
+            $("span.trust-screen-reader-result-count").html($('#schoolCountPlaceHolder .summary span').html() + " schools found");
         }, 1000);
 
     };
