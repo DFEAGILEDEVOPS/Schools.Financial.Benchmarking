@@ -129,30 +129,28 @@
         float: left;
         padding-top: 5px;
 
-        ol {
+        .olist {
             list-style-type: none;
 
-            li {
+            .litem {
                 display: none;
             }
 
-            li.active {
+            .litem.active {
                 list-style-type: none;
                 display: block;
             }
 
-            li a {
+            .litem a {
                 text-decoration: none;
             }
 
-            li img {
+            .litem img {
                 vertical-align: middle;
                 padding-bottom: 5px;
                 padding-right: 10px;
             }
 
-            li.list {
-            }
         }
     }
 
