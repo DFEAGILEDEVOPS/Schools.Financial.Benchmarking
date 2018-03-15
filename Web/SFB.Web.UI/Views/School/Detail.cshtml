@@ -22,7 +22,7 @@
 
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
-@if (Model.IsReturnsComplete)
+@if (Model.IsReturnsComplete && Model.Phase != "16 plus")
 {
     <div class="grid-row hide-in-print returns-complete" id="benchmarkControlsPlaceHolder"></div>
 }
