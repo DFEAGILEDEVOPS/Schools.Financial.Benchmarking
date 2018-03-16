@@ -55,6 +55,8 @@ namespace SFB.Web.UI.Models
 
         public string Phase => GetString("PhaseOfEducation");
 
+        public bool IsSixthForm => this.Phase == "16 plus";
+
         public string Status => GetString("EstablishmentStatus");
 
         public string SchoolWebSite
