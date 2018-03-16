@@ -167,6 +167,8 @@ namespace SFB.Web.DAL.Repositories
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
+            query = Exclude6Forms(query);
+
             if (string.IsNullOrEmpty(query))
             {
                 return new List<Document>();
@@ -190,11 +192,18 @@ namespace SFB.Web.DAL.Repositories
             return await result.QueryAsync();
         }
 
+        private string Exclude6Forms(string query)
+        {
+            return $"{query} AND c['Type'] != 'Free 16-19'";
+        }
+
         private async Task<IEnumerable<int>> QueryDBCollectionForCountAsync(BenchmarkCriteria criteria, string type)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
+
+            query = Exclude6Forms(query);
 
             if (string.IsNullOrEmpty(query))
             {
