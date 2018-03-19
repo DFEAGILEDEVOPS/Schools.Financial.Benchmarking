@@ -214,12 +214,13 @@ namespace SFB.Web.UI.Controllers
         {
             var models = new List<SchoolDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(schoolFinancialType);
+            //TODO: Can this be done in parallel threads asynchronously?
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var dataModel = _financialDataService.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);                
 
-                models.Add(new SchoolDataModel(urn.ToString(), term, dataModel, schoolFinancialType));
+                models.Add(new SchoolDataModel(urn, term, dataModel, schoolFinancialType));
             }
 
             return models;

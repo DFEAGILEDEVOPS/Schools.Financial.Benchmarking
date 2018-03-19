@@ -579,6 +579,7 @@ namespace SFB.Web.UI.Controllers
         {
             var models = new List<SchoolDataModel>();
 
+            //TODO: Can this be done in parallel threads asynchronously?
             foreach (var school in schools)
             {
                 var latestYear = _financialDataService.GetLatestDataYearPerSchoolType((SchoolFinancialType)Enum.Parse(typeof(SchoolFinancialType), school.FinancialType));

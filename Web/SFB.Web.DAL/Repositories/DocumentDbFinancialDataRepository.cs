@@ -43,6 +43,11 @@ namespace SFB.Web.DAL.Repositories
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
+            if (collectionName == null)
+            {
+                return null;
+            }
+
             try
             {
                 var query =
