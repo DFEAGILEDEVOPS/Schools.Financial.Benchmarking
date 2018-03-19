@@ -392,6 +392,8 @@
     BenchmarkChartsViewModel.SelectGrouping = function (grouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
+        $("#BCHeader")[0].scrollIntoView();
+        $("#ChartGroup").focus();
     };
 
     BenchmarkChartsViewModel.RebuildCharts = function () {

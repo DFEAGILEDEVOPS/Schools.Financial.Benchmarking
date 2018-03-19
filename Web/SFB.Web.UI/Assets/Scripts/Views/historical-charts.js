@@ -150,6 +150,8 @@
         SelectGrouping: function (grouping) {
             $("#ChartGroup").val(grouping);
             $("#ChartGroup").change();
+            $("#financialSummary")[0].scrollIntoView();
+            $("#ChartGroup").focus();
         },
 
         RebuildCharts: function(establishment) {
