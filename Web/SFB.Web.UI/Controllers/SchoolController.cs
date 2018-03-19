@@ -12,6 +12,7 @@ using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
+using System.Threading.Tasks;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -35,7 +36,7 @@ namespace SFB.Web.UI.Controllers
         #if !DEBUG
         [OutputCache (Duration=14400, VaryByParam="urn;unit;tab", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
-        public ActionResult Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -64,7 +65,7 @@ namespace SFB.Web.UI.Controllers
                 return View("EmptyResult", new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
             }
 
-            SchoolViewModel schoolVM = BuildSchoolVM(tab, chartGroup, financing, schoolDetailsFromEdubase);
+            SchoolViewModel schoolVM = await BuildSchoolVM(tab, chartGroup, financing, schoolDetailsFromEdubase);
 
             UnitType unitType;
             switch (tab)
@@ -149,24 +150,24 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie()));
         }
 
-        public PartialViewResult GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include)
+        public async Task<PartialViewResult> GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include)
         {
             financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
 
             var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
 
-            SchoolViewModel schoolVM = BuildSchoolVM(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
+            SchoolViewModel schoolVM = await BuildSchoolVM(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
 
             _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolDataModels, term, revGroup, unit, schoolVM.FinancialType);
 
             return PartialView("Partials/Chart", schoolVM);
         }
 
-        public ActionResult Download(int urn)
+        public async Task<ActionResult> Download(int urn)
         {
             var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
 
-            SchoolViewModel schoolVM = BuildSchoolVM(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
+            SchoolViewModel schoolVM = await BuildSchoolVM(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
 
             var termsList = BuildTermsList(schoolVM.FinancialType);
             _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, schoolVM.FinancialType);
@@ -180,7 +181,7 @@ namespace SFB.Web.UI.Controllers
                          $"HistoricalData-{urn}.csv");
         }
 
-        private SchoolViewModel BuildSchoolVM(RevenueGroupType revenueGroup, ChartGroupType chartGroup, CentralFinancingType cFinance, dynamic schoolDetailsData, UnitType unit = UnitType.AbsoluteCount)
+        private async Task<SchoolViewModel> BuildSchoolVM(RevenueGroupType revenueGroup, ChartGroupType chartGroup, CentralFinancingType cFinance, dynamic schoolDetailsData, UnitType unit = UnitType.AbsoluteCount)
         {
             var schoolVM = new SchoolViewModel(schoolDetailsData, base.ExtractSchoolComparisonListFromCookie());
 
@@ -189,7 +190,7 @@ namespace SFB.Web.UI.Controllers
             schoolVM.Terms = BuildTermsList(schoolVM.FinancialType);
             schoolVM.Tab = revenueGroup;
 
-            schoolVM.HistoricalSchoolDataModels = this.GetFinancialDataHistorically(schoolVM.Id, schoolVM.FinancialType, cFinance);
+            schoolVM.HistoricalSchoolDataModels = await this.GetFinancialDataHistorically(schoolVM.Id, schoolVM.FinancialType, cFinance);
 
             schoolVM.TotalRevenueIncome = schoolVM.HistoricalSchoolDataModels.Last().TotalIncome;
             schoolVM.TotalRevenueExpenditure = schoolVM.HistoricalSchoolDataModels.Last().TotalExpenditure;
@@ -210,7 +211,7 @@ namespace SFB.Web.UI.Controllers
             return years;
         }
 
-        private List<SchoolDataModel> GetFinancialDataHistorically(string urn, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        private async Task<List<SchoolDataModel>> GetFinancialDataHistorically(string urn, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
         {
             var models = new List<SchoolDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(schoolFinancialType);
@@ -218,9 +219,10 @@ namespace SFB.Web.UI.Controllers
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var dataModel = _financialDataService.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);                
-
-                models.Add(new SchoolDataModel(urn, term, dataModel, schoolFinancialType));
+                //var dataModel = _financialDataService.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);                
+                var task = _financialDataService.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
+                var result = await task;
+                models.Add(new SchoolDataModel(urn, term, result?.First(), schoolFinancialType));
             }
 
             return models;

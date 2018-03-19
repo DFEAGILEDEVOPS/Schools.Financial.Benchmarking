@@ -76,6 +76,44 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        {
+            var dataGroup = schoolFinancialType.ToString();
+            if (schoolFinancialType == SchoolFinancialType.Academies)
+            {
+                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
+
+            try
+            {
+                var query =
+                    _client.CreateDocumentQuery<Document>(
+                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                        $"SELECT * FROM c WHERE c.URN={urn}");
+
+                //var result = query.ToList().FirstOrDefault();
+
+                //if (dataGroup == DataGroups.MATDistributed && result == null)//if nothing found in -Distributed collection try to source it from Academies data
+                //{
+                //    return GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, CentralFinancingType.Exclude);
+                //}
+
+                //if (result != null && result.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display none in the charts
+                //{
+                //    return null;
+                //}
+
+                return await query.QueryAsync();
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public dynamic GetAcademiesByMatNumber(string term, string matNo)
         {
             var collectionName =
