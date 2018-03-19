@@ -483,8 +483,16 @@ a.chevron-button {
 
 .header-content {
     outline: none;
-    margin: 0 auto;
     max-width: 960px;
+    margin: 0 $gutter-half;
+
+    @include media(tablet) {
+        margin: 0 $gutter;
+    }
+
+    @include media(desktop) {
+        margin: 0 auto;
+    }
 }
 
 .result-info{
