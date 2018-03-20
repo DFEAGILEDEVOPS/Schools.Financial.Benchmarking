@@ -93,18 +93,6 @@ namespace SFB.Web.DAL.Repositories
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
                         $"SELECT * FROM c WHERE c.URN={urn}");
 
-                //var result = query.ToList().FirstOrDefault();
-
-                //if (dataGroup == DataGroups.MATDistributed && result == null)//if nothing found in -Distributed collection try to source it from Academies data
-                //{
-                //    return GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, CentralFinancingType.Exclude);
-                //}
-
-                //if (result != null && result.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display none in the charts
-                //{
-                //    return null;
-                //}
-
                 return await query.QueryAsync();
 
             }
@@ -167,6 +155,25 @@ namespace SFB.Web.DAL.Repositories
             catch (Exception)
             {
                 return new Document();
+            }
+        }
+
+        public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
+        {
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinance == MatFinancingType.TrustOnly ? DataGroups.MATCentral : DataGroups.MATOverview);
+
+            try
+            {
+                var query =
+                    _client.CreateDocumentQuery<Document>(
+                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                        $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'");
+
+                return await query.QueryAsync();
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
 
