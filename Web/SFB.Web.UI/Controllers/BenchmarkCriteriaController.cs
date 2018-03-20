@@ -240,7 +240,7 @@ namespace SFB.Web.UI.Controllers
             if (criteria.AdvancedCriteria != null)
             {
                 criteria.AdvancedCriteria.LaCode = lacode;
-                var result = await _financialDataService.SearchSchoolsCountByCriteria(criteria.AdvancedCriteria, estType);
+                var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType);
                 return result;
             }
             return 0;

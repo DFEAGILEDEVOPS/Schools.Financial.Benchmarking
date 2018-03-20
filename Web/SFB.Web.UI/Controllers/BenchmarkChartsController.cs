@@ -55,7 +55,7 @@ namespace SFB.Web.UI.Controllers
                 simpleCriteria.IncludeLa.GetValueOrDefault(),
                 tryCount);
 
-            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteria(benchmarkCriteria, estType);
+            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
             if (benchmarkSchools.Count > basketSize)//Original query returns more than required. Cut from top by proximity.
             {
@@ -77,7 +77,7 @@ namespace SFB.Web.UI.Controllers
                     simpleCriteria.IncludeEal.GetValueOrDefault(),
                     simpleCriteria.IncludeLa.GetValueOrDefault(),
                     tryCount);
-                benchmarkSchools = await _financialDataService.SearchSchoolsByCriteria(benchmarkCriteria, estType);
+                benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
                 if (benchmarkSchools.Count > basketSize)//Number jumping to more than ideal. Cut from top by proximity.
                 {
@@ -145,7 +145,7 @@ namespace SFB.Web.UI.Controllers
             switch (overwriteStrategy)
             {
                 case BenchmarkListOverwriteStrategy.Overwrite:
-                    benchmarkSchools = await _financialDataService.SearchSchoolsByCriteria(criteria, estType);
+                    benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);
                     limitedList = benchmarkSchools.Take(ComparisonListLimit.LIMIT).ToList();
 
                     var cookie = base.UpdateSchoolComparisonListCookie(CompareActions.CLEAR_BENCHMARK_LIST, null);
@@ -165,7 +165,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     break;
                 case BenchmarkListOverwriteStrategy.Add:
-                    benchmarkSchools = await _financialDataService.SearchSchoolsByCriteria(criteria, estType);
+                    benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);
                     var comparisonList = base.ExtractSchoolComparisonListFromCookie();
                     limitedList = benchmarkSchools.Take(ComparisonListLimit.LIMIT - comparisonList.BenchmarkSchools.Count()).ToList();
 

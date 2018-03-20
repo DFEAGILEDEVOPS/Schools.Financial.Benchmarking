@@ -72,7 +72,7 @@ namespace SFB.Web.UI.UnitTests
             {
                 return new List<Document> { testResult};
             });
-            _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var _mockDataCollectionManager = new Mock<IDataCollectionManager>();

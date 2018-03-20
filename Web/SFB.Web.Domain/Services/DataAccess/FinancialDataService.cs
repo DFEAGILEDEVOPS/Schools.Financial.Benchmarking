@@ -18,9 +18,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             _financialDataRepository = financialDataRepository;
         }
         
-        public Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
         {
-            return _financialDataRepository.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
+            return await _financialDataRepository.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
         }
 
         public Document GetSchoolDataDocument(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
@@ -58,14 +58,14 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _dataCollectionManager.GetLatestFinancialDataYearForTrusts();
         }
 
-        public Task<List<Document>> SearchSchoolsByCriteria(BenchmarkCriteria criteria, EstablishmentType estType)
+        public async Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
         {
-            return _financialDataRepository.SearchSchoolsByCriteriaAsync(criteria, estType);
+            return await _financialDataRepository.SearchSchoolsByCriteriaAsync(criteria, estType);
         }
 
-        public Task<int> SearchSchoolsCountByCriteria(BenchmarkCriteria criteria, EstablishmentType estType)
+        public async Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
         {
-            return _financialDataRepository.SearchSchoolsCountByCriteriaAsync(criteria, estType);
+            return await _financialDataRepository.SearchSchoolsCountByCriteriaAsync(criteria, estType);
         }
      
         public dynamic GetAcademiesByMatNumber(string term, string matNo)

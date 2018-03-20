@@ -60,7 +60,7 @@ namespace SFB.Web.UI.UnitTests
             {
                 return new List<Document> { testResult };
             });
-            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
@@ -108,7 +108,7 @@ namespace SFB.Web.UI.UnitTests
                 return new List<Document> { testResult };
             });
 
-            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
@@ -179,7 +179,7 @@ namespace SFB.Web.UI.UnitTests
             testEduResult.EstablishmentName = "test";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("321")).Returns((string urn) => testEduResult);
 
-            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
@@ -221,7 +221,7 @@ namespace SFB.Web.UI.UnitTests
             {
                 return new List<Document> { testResult };
             });
-            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteria(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
