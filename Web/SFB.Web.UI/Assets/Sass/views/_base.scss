@@ -481,7 +481,7 @@ a.chevron-button {
     color: $text-colour;
 }
 
-.header-content {
+.header-content, .sticky-div {
     outline: none;
     max-width: 960px;
     margin: 0 $gutter-half;
@@ -490,7 +490,7 @@ a.chevron-button {
         margin: 0 $gutter;
     }
 
-    @include media(desktop) {
+    @include media($min-width: ($site-width + $gutter * 2)) {
         margin: 0 auto;
     }
 }
