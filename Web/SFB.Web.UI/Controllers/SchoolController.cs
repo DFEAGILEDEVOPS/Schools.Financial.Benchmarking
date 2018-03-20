@@ -231,6 +231,7 @@ namespace SFB.Web.UI.Controllers
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
+                var resultDocument = taskResult?.FirstOrDefault();
                 var dataGroup = schoolFinancialType.ToString();
 
                 if (schoolFinancialType == SchoolFinancialType.Academies)
@@ -238,16 +239,17 @@ namespace SFB.Web.UI.Controllers
                     dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
                 }
 
-                if (dataGroup == DataGroups.MATDistributed && taskResult == null)//if nothing found in -Distributed collection try to source it from (non-distributed) Academies data
+                if (dataGroup == DataGroups.MATDistributed && resultDocument == null)//if nothing found in -Distributed collection try to source it from (non-distributed) Academies data
                 {
-                    taskResult = await _financialDataService.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, CentralFinancingType.Exclude);
+                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, CentralFinancingType.Exclude))
+                        ?.FirstOrDefault();
                 }
-
-                var resultDocument = taskResult?.FirstOrDefault();
+                
                 if (resultDocument != null && resultDocument.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display "no data" in the charts
                 {
                     resultDocument = null;
                 }
+
                 models.Add(new SchoolDataModel(urn, term, resultDocument, schoolFinancialType));
             }
             
