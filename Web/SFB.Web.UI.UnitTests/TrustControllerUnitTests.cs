@@ -68,7 +68,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.Index("123", "test");
 
-            mockFinancialDataService.Verify(m => m.GetMATDataDocument("123", "2014 / 2015", MatFinancingType.TrustAndAcademies));
+            mockFinancialDataService.Verify(m => m.GetMATDataDocumentAsync("123", "2014 / 2015", MatFinancingType.TrustAndAcademies));
         }
     }
 }
