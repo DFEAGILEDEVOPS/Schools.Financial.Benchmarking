@@ -124,8 +124,8 @@
 
             var self = this;
 
-            $(questionCheckBoxSelector).change(event,
-                function () {
+            $(questionCheckBoxSelector).change(
+                function (event) {
                     var $panel = $(this).parent().next();
                     $panel.toggle();
                     $panel.find("input").prop('disabled', function (i, v) { return !v; });
