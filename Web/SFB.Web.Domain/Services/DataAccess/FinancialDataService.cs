@@ -53,6 +53,11 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _dataCollectionManager.GetActiveTermsForMatCentral();
         }
 
+        public List<string> GetActiveTermsForMaintained()
+        {
+            return _dataCollectionManager.GetActiveTermsForMaintained();
+        }
+
         public List<string> GetActiveTermsForAcademies()
         {
             return _dataCollectionManager.GetActiveTermsForAcademies();
@@ -72,7 +77,12 @@ namespace SFB.Web.Domain.Services.DataAccess
         {
             return await _financialDataRepository.SearchSchoolsCountByCriteriaAsync(criteria, estType);
         }
-     
+
+        public async Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType)
+        {
+            return await _financialDataRepository.GetEstablishmentRecordCountAsync(term, estType);
+        }
+
         public dynamic GetAcademiesByMatNumber(string term, string matNo)
         {
             return _financialDataRepository.GetAcademiesByMatNumber(term, matNo);

@@ -14,13 +14,16 @@ namespace SFB.Web.Domain.Services.DataAccess
         Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance);
         Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);
         Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);
+        Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType);
     }
 
     public interface ITermYearDataService
     {
-        int GetLatestDataYearPerSchoolType(SchoolFinancialType type);
         List<string> GetActiveTermsForMatCentral();
         List<string> GetActiveTermsForAcademies();
+        List<string> GetActiveTermsForMaintained();
+        int GetLatestFinancialDataYear();
         int GetLatestDataYearForTrusts();
+        int GetLatestDataYearPerSchoolType(SchoolFinancialType type);
     }
 }

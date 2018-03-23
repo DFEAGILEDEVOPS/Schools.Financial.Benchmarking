@@ -211,6 +211,28 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
+        public async Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType)
+        {
+            var collectionName = string.Empty;
+            switch (estType)
+            {
+                case EstablishmentType.Academy:
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "MAT-Distributed");
+                    break;
+                case EstablishmentType.Maintained:
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "Maintained");
+                    break;
+                case EstablishmentType.MAT:
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "MAT-Overview");
+                    break;
+            }
+
+            var result =
+                _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), $"SELECT VALUE COUNT(c) FROM c");
+
+            return (await result.QueryAsync()).First();
+        }
+
         private async Task<IEnumerable<Document>> QueryDBCollectionAsync(BenchmarkCriteria criteria, string type)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
@@ -262,7 +284,7 @@ namespace SFB.Web.DAL.Repositories
 
             var result =
                 _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT VALUE COUNT(c.id) FROM c WHERE {query}");
+                    $"SELECT VALUE COUNT(c) FROM c WHERE {query}");
 
             return await result.QueryAsync();
         }

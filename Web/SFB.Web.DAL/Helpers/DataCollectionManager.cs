@@ -45,6 +45,11 @@ namespace SFB.Web.DAL.Helpers
             return GetActiveTermsByDataGroup(DataGroups.Academies, "{0} / {1}");
         }
 
+        public List<string> GetActiveTermsForMaintained()
+        {
+            return GetActiveTermsByDataGroup(DataGroups.Maintained);
+        }
+
         public string GetActiveCollectionByDataGroup(string dataGroup)
         {
             return
