@@ -10,12 +10,12 @@
                     case "makedefaultbenchmark":
                         $(".add:hidden").show();
                         $(".remove:visible").hide();
-                        $("#btn_" + urn + ".add-remove").toggle();
+                        $("div[data-urn='" + urn + "']>.add-remove").toggle();
                         $(".name").removeClass("highlight");
                         $("#doc_" + urn + " .name").addClass("highlight");
                         break;
                     case "removedefaultbenchmark":
-                        $("#btn_" + urn + ".add-remove").toggle();
+                        $("div[data-urn='" + urn + "']>.add-remove").toggle();
                         $("#doc_" + urn + " .name").removeClass("highlight");
                         break;
                     case "removefromcompare":
