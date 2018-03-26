@@ -129,6 +129,7 @@ Accordion.prototype.setup = function() {
 
     var open_or_close_all_button = document.createElement('button')
     open_or_close_all_button.textContent = 'Open all'
+    open_or_close_all_button.setAttribute('aria-label', 'Open all sections')
     open_or_close_all_button.setAttribute('class', 'accordion-expand-all')
     open_or_close_all_button.setAttribute('aria-expanded', 'false')
     open_or_close_all_button.setAttribute('type', 'button')
@@ -160,7 +161,9 @@ Accordion.prototype.setOpenCloseButtonExpanded = function(expanded) {
   var open_or_close_all_button = this.element.querySelector('.accordion-expand-all')
 
   var new_button_text = expanded ? "Close all" : "Open all"
+  var new_button_aria_label = expanded ? "Close all sections" : "Open all sections"
   open_or_close_all_button.setAttribute('aria-expanded', expanded)
+  open_or_close_all_button.setAttribute('aria-label', new_button_aria_label)
   open_or_close_all_button.textContent = new_button_text
 
 }
@@ -193,7 +196,9 @@ AccordionSection.prototype.setup = function() {
   header.addEventListener('keypress', this.keyPressed.bind(this))
   header.setAttribute('tabindex', '0')
   header.setAttribute('role', 'button')
-  //header.setAttribute('aria-label', 'Open accordion')
+
+  //var button = this.element.querySelector('.chart-accordion-header')
+  //button.setAttribute('aria-label', button.getAttribute('aria-label') + ' Show section')
 
 
   var icon = document.createElement('span')
@@ -224,12 +229,12 @@ AccordionSection.prototype.expanded = function() {
 AccordionSection.prototype.setExpanded = function(expanded) {
     this.element.setAttribute('aria-expanded', expanded)
     
-    var button = this.element.querySelector('.accordion-section-header')
-    //if (expanded) {
-    //    button.setAttribute('aria-label', 'Close accordion')
-    //} else {
-    //    button.setAttribute('aria-label', 'Open accordion')
-    //}
+    var button = this.element.querySelector('.chart-accordion-header')
+    if (expanded) {
+        button.setAttribute('aria-label', button.getAttribute('aria-label').replace("Show", "Hide"))
+    } else {
+        button.setAttribute('aria-label', button.getAttribute('aria-label').replace("Hide", "Show"))
+    }
 
   // This is set to trigger reflow for IE8, which doesn't
   // always reflow after a setAttribute call.
