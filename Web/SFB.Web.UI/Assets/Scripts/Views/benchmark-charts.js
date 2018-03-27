@@ -194,7 +194,7 @@
         };
 
         showValue = showValue || "AbsoluteMoney";
-        var paddingBottom = 0;
+        var paddingBottom = min < 0 ? 100 :0;
         var yAxis, yFormat;
         switch (showValue) {
             case "AbsoluteCount":
