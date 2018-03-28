@@ -95,7 +95,7 @@ namespace SFB.Web.UI.Controllers
 
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie());
 
-            if ((basketSize.HasValue) && (basketSize.Value < 5 || basketSize.Value > 30))
+            if ((ViewBag.ComparisonType == ComparisonType.Basic) && ((!basketSize.HasValue) || (basketSize.Value < 5 || basketSize.Value > 30)))
             {
                 benchmarkSchool.ErrorMessage = "Please enter a number between 5 and 30";
                 return View("SelectBasketSize", benchmarkSchool);
@@ -240,7 +240,7 @@ namespace SFB.Web.UI.Controllers
             if (criteria.AdvancedCriteria != null)
             {
                 criteria.AdvancedCriteria.LaCode = lacode;
-                var result = await _financialDataService.SearchSchoolsCountByCriteria(criteria.AdvancedCriteria, estType);
+                var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType);
                 return result;
             }
             return 0;

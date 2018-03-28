@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
@@ -57,15 +58,15 @@ namespace SFB.Web.UI.Controllers
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_NAME_ID:
-                    if (IsNumeric(nameId))
+                    var nameIdSanitized = Regex.Replace(nameId, @"(-|/)", "");
+                    if (IsNumeric(nameIdSanitized))
                     {
-                        errorMessage = _valService.ValidateSchoolIdParameter(nameId);
+                        errorMessage = _valService.ValidateSchoolIdParameter(nameIdSanitized);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            var isLaEstab = nameId.Length == SearchParameterValidLengths.LAESTAB_LENGTH;
-                            searchResp = isLaEstab
-                                ? _contextDataService.GetSchoolByLaEstab(nameId)
-                                : _contextDataService.GetSchoolByUrn(nameId);
+                            searchResp = IsLaEstab(nameId)
+                                ? _contextDataService.GetSchoolByLaEstab(nameIdSanitized)
+                                : _contextDataService.GetSchoolByUrn(nameIdSanitized);
 
                             if (searchResp == null)
                             {
@@ -434,5 +435,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         private bool IsNumeric(string field) => Regex.IsMatch(field, @"^\d+$");
+        private bool IsLaEstab(string field) => Regex.IsMatch(field, "^[0-9]{3}(-|/)?[0-9]{4}$");
+        private bool IsURN(string field) => Regex.IsMatch(field, "^[0-9]{5}$");
     }
 }

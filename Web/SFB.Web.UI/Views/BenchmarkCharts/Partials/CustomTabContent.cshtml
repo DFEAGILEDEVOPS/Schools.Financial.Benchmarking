@@ -35,8 +35,12 @@
                 <div id="custom-report-accordion" class="accordion">
                     <div class="accordion-section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
                         <div class="accordion-section-header" ng-class="{'hide-summary': ctrl.query}">
-                            <h2 class="heading-medium chart-accordion-header">
-                                {{group.GroupName}} <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">({{ctrl.groupSelectCount(group)}} selected)</span>
+                            <h2 class="heading-medium chart-accordion-header" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Show Section">
+                                {{group.GroupName}} 
+                                <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">
+                                    ({{ctrl.groupSelectCount(group)}} selected)
+                                </span>
+                                <span class="visuallyhidden" role="alert">{{ctrl.groupSelectCount(group)}} selected</span>
                             </h2>
                         </div>
 

@@ -194,7 +194,7 @@
         };
 
         showValue = showValue || "AbsoluteMoney";
-        var paddingBottom = 0;
+        var paddingBottom = min < 0 ? 100 :0;
         var yAxis, yFormat;
         switch (showValue) {
             case "AbsoluteCount":
@@ -392,6 +392,8 @@
     BenchmarkChartsViewModel.SelectGrouping = function (grouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
+        $("#BCHeader")[0].scrollIntoView();
+        $("#ChartGroup").focus();
     };
 
     BenchmarkChartsViewModel.RebuildCharts = function () {

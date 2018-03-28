@@ -13,6 +13,7 @@ namespace SFB.Web.DAL.Helpers
         List<string> GetActiveCollectionsByDataGroup(string dataGroup);
         List<string> GetActiveTermsForMatCentral();
         List<string> GetActiveTermsForAcademies();
-        string GetLatestActiveTermByDataGroup(string dataGroup);       
+        List<string> GetActiveTermsForMaintained();
+        string GetLatestActiveTermByDataGroup(string dataGroup);
     }
 }

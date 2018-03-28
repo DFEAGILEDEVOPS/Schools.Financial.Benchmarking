@@ -21,28 +21,31 @@
     <div class="result-controllers">
         <div class="column-half no-padding view-map">
             <nav class="navigation-links" role="navigation" aria-hidden="true">
-                <ol role="tablist">
-                    <li class="navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
+                <div class="olist" role="tablist">
+                    <div class="litem navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
                         <a href="javascript: void(0)"><img src="~/public/assets/images/icons/icon-map.png" alt="view on map" aria-hidden="true"/>View on map<span class="visuallyhidden"> click to expand.</span></a>
-                    </li>
-                    <li class="navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
+                    </div>
+                    <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
                         <a href="javascript:void(0)"><img src="~/public/assets/images/icons/icon-list.png" alt="view as list" aria-hidden="true"/>View as list<span class="visuallyhidden"> click to expand.</span></a>
-                    </li>
-                </ol>
+                    </div>
+                </div>
             </nav>
         </div>
         <div class="column-half no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding">
                 <div class="filter">
-                    <div class="filter-box">
-                        <label class="legend" for="OrderByControl">Sorted by</label>
-                        <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
-                            <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
-                            <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
-                        </select>
-                    </div>
+                    @if (Model.ModelList.Count > 1)
+                    {
+                        <div class="filter-box">
+                            <label class="legend" for="OrderByControl">Sorted by</label>
+                            <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
+                                <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
+                            </select>
+                        </div>
+                    }
                 </div>
-                <button type="submit" class="hidden"></button>
+                <button type="submit" class="hidden" value="hidden">hidden</button>
             </form>
         </div>
     </div>

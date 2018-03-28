@@ -2,8 +2,11 @@
 @model List<SFB.Web.UI.Models.TrustToCompareViewModel>
 
 <form autocomplete="off">
-    <button type="submit" style="visibility: hidden" disabled=""></button>
+    <span id="trustCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count trusts in comparison list</span>
+    <input id="trustCount" type="hidden" value="@Model.Count"/>
+    <button type="submit" style="visibility: hidden" disabled="disabled">hidden</button>
     <fieldset>
+        <legend class="visuallyhidden">Choose a trust from auto completion list</legend>
         @{
             if (ViewBag.Error != null)
             {
@@ -91,5 +94,11 @@
     <script>
         $('#ErrorSummaryPlaceHolder').empty();
         $('#error-summary').detach().appendTo('#ErrorSummaryPlaceHolder');
+        $('#trustCountMessage').text("Updating trust comparison list");
+        setTimeout(function () {
+            $('#trustCountMessage').text($("#trustCount").val() + " trusts in list");
+        },2000);
+        
+
     </script>
 }

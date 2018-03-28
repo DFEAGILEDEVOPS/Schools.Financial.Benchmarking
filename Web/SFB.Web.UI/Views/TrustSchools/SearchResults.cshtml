@@ -17,9 +17,15 @@
 
 <h1 class="heading-xlarge page-heading">Trust's Schools</h1>
 
+<div id="trust-screen-reader-result-list" class="visuallyhidden">
+    <span class="bold trust-screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
+</div>
+
 <div class="grid-row js-live-search-results-block">
     @Html.Partial("Partials/ResultBlock")
 </div>
+
+<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
 @section ViewScripts{
     <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])"></script>

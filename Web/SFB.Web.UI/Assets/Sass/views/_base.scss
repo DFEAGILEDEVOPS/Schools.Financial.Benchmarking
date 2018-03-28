@@ -174,7 +174,7 @@ tspan.england-average-tick{
 
 .steps{
     margin-top:25px;
-    margin-bottom:5px;
+    margin-bottom:15px;
 }
 
 .next-button{
@@ -481,10 +481,18 @@ a.chevron-button {
     color: $text-colour;
 }
 
-.header-content {
+.header-content, .sticky-div {
     outline: none;
-    margin: 0 auto;
     max-width: 960px;
+    margin: 0 $gutter-half;
+
+    @include media(tablet) {
+        margin: 0 $gutter;
+    }
+
+    @include media($min-width: ($site-width + $gutter * 2)) {
+        margin: 0 auto;
+    }
 }
 
 .result-info{
@@ -493,7 +501,7 @@ a.chevron-button {
 
 .page-top {
     padding-top: 20px;
-    display: block;
+    display: inline-block;
 }
 
 abbr.summary{
@@ -517,3 +525,7 @@ a.skip-map{
     margin-top: 0!important;
 }
 
+.bold-form-label{
+    font-weight: bold;
+    margin-bottom: 10px;
+}

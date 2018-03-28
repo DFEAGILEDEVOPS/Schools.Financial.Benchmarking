@@ -46,7 +46,7 @@
             this.getMapData(serialisedState);
         },
         initTabs: function () {
-            this.currentTabName = this.initialTabName = $("nav.navigation-links ol li.active").data("tab") === "map" ? "list" : "map";
+            this.currentTabName = this.initialTabName = $("nav.navigation-links .olist .litem.active").data("tab") === "map" ? "list" : "map";
             var self = this;
             $(".navigation-link").click(function (e) {
                 self.changeTab($(this).data("tab"));
@@ -84,11 +84,11 @@
             });
         },
         changeTab: function (tabName, suppressAddHistory) {
-            if ($(".navigation-links li.active").data("tab") === tabName) {
+            if ($(".navigation-links .litem.active").data("tab") === tabName) {
 
-                $("nav.navigation-links ol li,  div.tabs>div").removeClass("active");
-                $("nav.navigation-links ol li." + tabName + ", div.tabs>div." + tabName).addClass("active");
-                $("nav.navigation-links ol li.active a").focus();
+                $("nav.navigation-links .olist .litem,  div.tabs>div").removeClass("active");
+                $("nav.navigation-links .olist .litem." + tabName + ", div.tabs>div." + tabName).addClass("active");
+                $("nav.navigation-links .olist .litem.active a").focus();
                 this.currentTabName = tabName;
                 this.bindMap();
                 this.liveSearch.disabled = (tabName == "map");
@@ -112,7 +112,7 @@
             this.initTabs();
         },
         bindMap: function () {
-            if (!this.mapLoaded && this.currentTabName == "map") {
+            if (!this.mapLoaded && this.currentTabName === "map") {
                 var zoomLevel = 12;
                 if (this.location == null) {
                     this.location = { lat: 52.636, lng: -1.139 }; // no location specified, so use central England.
@@ -193,6 +193,11 @@
             });
 
             $("span.result-count").html(count);
+            $("span.screen-reader-result-count").html("Filtering results");
+            setTimeout(function() {
+                $("span.screen-reader-result-count").html(count + " schools found");
+            },1000);
+            
             this.liveSearch.getSummaryBlock().css("visibility", "visible");
             this.liveSearch.getSummaryContainerBlock().find("p.msg").remove();
 

@@ -178,6 +178,46 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
+        public async Task SearchActionRedirectsToSchoolViewIfLaEstabWithDashIsUsedAsId()
+        {
+            dynamic testResult = new Microsoft.Azure.Documents.Document();
+            testResult.URN = "1234567";
+
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
+
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = await controller.Search("123-4567", null, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, null, 0);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
+            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("1234567", (result as RedirectToRouteResult).RouteValues["urn"].ToString());
+        }
+
+        [Test]
+        public async Task SearchActionRedirectsToSchoolViewIfLaEstabWithSlashIsUsedAsId()
+        {
+            dynamic testResult = new Microsoft.Azure.Documents.Document();
+            testResult.URN = "1234567";
+
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
+
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = await controller.Search("123/4567", null, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, null, 0);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
+            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("1234567", (result as RedirectToRouteResult).RouteValues["urn"].ToString());
+        }
+
+        [Test]
         public void SearchActionCallsServiceWithPagingParams()
         {
             var testDictionary = new Dictionary<string, object>();

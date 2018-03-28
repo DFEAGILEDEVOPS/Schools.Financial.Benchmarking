@@ -2,9 +2,9 @@
 @model SFB.Web.UI.Models.SchoolListViewModel
 
 <div id="result-list">
-    <div aria-live="assertive" id="js-search-results-info">
+    <div id="js-search-results-info">
         <div class="result-info">
-            <p class="summary" aria-live="assertive">
+            <p class="summary">
                 <span class="bold result-count">@(Model.Pagination.Total)</span> schools in <a href="/Trust?matNo=@ViewBag.MatNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
             </p>
         </div>
@@ -64,10 +64,15 @@ else
 
 @helper AddRemoveButton(SchoolViewModel school, string device)
 {
-    <div id="@school.Id@device" data-urn="@school.Id">
-        <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='add-remove button removefrom' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'removefromcompare')" aria-label="Remove @school.Status @school.Name in @device">Remove</a>
-        <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto js-modal' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'addtocompare')" aria-label="Add @school.Status @school.Name in @device">Add</a>
-    </div>
+    if (!school.IsSixthForm)
+    {
+        string status = school.Status == "Open" ? "" : "Closed";
+        string deviceLabel = device == "desktop" ? "" : "mobile";
+        <div id="@school.Id@device" data-urn="@school.Id">
+            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='add-remove button removefrom' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'removefromcompare')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</a>
+            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto js-modal' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'addtocompare')" aria-label="Add @status @school.Name from basket @deviceLabel">Add</a>
+        </div>
+    }
 }
 
 @helper DisplayStyle(bool display)

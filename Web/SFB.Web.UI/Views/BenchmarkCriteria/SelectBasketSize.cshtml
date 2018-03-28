@@ -7,12 +7,12 @@
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
             {
-    <div class="error-summary" role="group" aria-labelledby="ErrorSummaryHeading">
+    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
         <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
             There is a problem
         </h1>
         <ul class="error-summary-list">
-            <li><a href="#finderSection">@Model.ErrorMessage</a></li>
+            <li><a href="#BasketSizeInput">@Model.ErrorMessage</a></li>
         </ul>
     </div>
 }

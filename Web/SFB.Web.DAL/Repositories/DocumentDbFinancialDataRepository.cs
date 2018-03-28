@@ -43,6 +43,11 @@ namespace SFB.Web.DAL.Repositories
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
+            if (collectionName == null)
+            {
+                return null;
+            }
+
             try
             {
                 var query =
@@ -63,6 +68,32 @@ namespace SFB.Web.DAL.Repositories
                 }
 
                 return result;
+
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        {
+            var dataGroup = schoolFinancialType.ToString();
+            if (schoolFinancialType == SchoolFinancialType.Academies)
+            {
+                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
+
+            try
+            {
+                var query =
+                    _client.CreateDocumentQuery<Document>(
+                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                        $"SELECT * FROM c WHERE c.URN={urn}");
+
+                return await query.QueryAsync();
 
             }
             catch (Exception)
@@ -127,6 +158,25 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
+        public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
+        {
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinance == MatFinancingType.TrustOnly ? DataGroups.MATCentral : DataGroups.MATOverview);
+
+            try
+            {
+                var query =
+                    _client.CreateDocumentQuery<Document>(
+                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                        $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'");
+
+                return await query.QueryAsync();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public async Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
         {
             if (estType == EstablishmentType.All)
@@ -161,11 +211,35 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
+        public async Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType)
+        {
+            var collectionName = string.Empty;
+            switch (estType)
+            {
+                case EstablishmentType.Academy:
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "MAT-Distributed");
+                    break;
+                case EstablishmentType.Maintained:
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "Maintained");
+                    break;
+                case EstablishmentType.MAT:
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "MAT-Overview");
+                    break;
+            }
+
+            var result =
+                _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), $"SELECT VALUE COUNT(c) FROM c");
+
+            return (await result.QueryAsync()).First();
+        }
+
         private async Task<IEnumerable<Document>> QueryDBCollectionAsync(BenchmarkCriteria criteria, string type)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
+
+            query = Exclude6Forms(query);
 
             if (string.IsNullOrEmpty(query))
             {
@@ -190,11 +264,18 @@ namespace SFB.Web.DAL.Repositories
             return await result.QueryAsync();
         }
 
+        private string Exclude6Forms(string query)
+        {
+            return $"{query} AND c['Type'] != 'Free 16-19'";
+        }
+
         private async Task<IEnumerable<int>> QueryDBCollectionForCountAsync(BenchmarkCriteria criteria, string type)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
+
+            query = Exclude6Forms(query);
 
             if (string.IsNullOrEmpty(query))
             {
@@ -203,7 +284,7 @@ namespace SFB.Web.DAL.Repositories
 
             var result =
                 _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT VALUE COUNT(c.id) FROM c WHERE {query}");
+                    $"SELECT VALUE COUNT(c) FROM c WHERE {query}");
 
             return await result.QueryAsync();
         }
