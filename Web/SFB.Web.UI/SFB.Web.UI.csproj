@@ -351,6 +351,14 @@
     <Content Include="public\assets\images\icon-denom.png" />
     <Content Include="public\assets\images\icon-gender-mixed.png" />
     <Content Include="public\assets\images\icon-pupils.png" />
+    <Content Include="public\assets\images\icons\apple-touch-icon-152x152.png" />
+    <Content Include="public\assets\images\icons\apple-touch-icon-167x167.png" />
+    <Content Include="public\assets\images\icons\apple-touch-icon-180x180.png" />
+    <Content Include="public\assets\images\icons\apple-touch-icon.png" />
+    <Content Include="public\assets\images\icons\favicon.ico" />
+    <Content Include="public\assets\images\icons\gov.uk_logotype_crown.svg" />
+    <Content Include="public\assets\images\icons\gov.uk_logotype_crown_invert.png" />
+    <Content Include="public\assets\images\icons\gov.uk_logotype_crown_invert_trans.png" />
     <Content Include="public\assets\images\icons\icon-bookmark-x2.png" />
     <Content Include="public\assets\images\icons\icon-bookmark.png" />
     <Content Include="public\assets\images\icons\icon-list.png" />
@@ -380,6 +388,7 @@
     <Content Include="public\assets\images\icons\icon-saveimage.png" />
     <Content Include="public\assets\images\icons\icon-search-2x.png" />
     <Content Include="public\assets\images\icons\icon-search.png" />
+    <Content Include="public\assets\images\icons\opengraph-image.png" />
     <Content Include="public\assets\images\magnifier.png" />
     <Content Include="public\assets\images\ofsted-logo-sm.jpeg" />
     <Content Include="public\assets\images\ofsted-logo-x-small.jpeg" />
