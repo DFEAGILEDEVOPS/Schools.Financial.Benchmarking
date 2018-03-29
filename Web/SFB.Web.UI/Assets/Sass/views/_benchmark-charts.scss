@@ -315,15 +315,15 @@
         }
 
         @include media(tablet) {
-            margin-top: 1.5em;
+            margin-top: 1em;
 
             a {
                 padding-left: 10px;
             }
 
-            div {
+            /*div {
                 float: right;
-            }
+            }*/
         }
 
         @media (max-width: 769px) {

@@ -47,6 +47,15 @@
                                 @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                 {
                                     <div class="column-half font-xsmall no-padding">
+                                        <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                           aria-label="Save image of @Model[i].FieldName">
+                                            <i class="icon icon-save-image">
+                                                <span class="visually-hidden">Save as image</span>
+                                            </i>
+                                            <span>Save as image</span>
+                                        </a>
+                                    </div>
+                                    <div class="column-half font-xsmall no-padding">
                                         <a style="display: none" class="customAdd" aria-label="Add @Model[i].FieldName to Your Charts" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
                                             <i class="icon icon-bookmark">
                                                 <span class="visually-hidden">Bookmark</span>
@@ -61,14 +70,18 @@
                                         </a>
                                     </div>
                                 }
-                                <div class="column-half font-xsmall no-padding">
-                                    <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')">
-                                        <i class="icon icon-save-image">
-                                            <span class="visually-hidden">Save as image</span>
-                                        </i>
-                                        <span>Save as image</span>
-                                    </a>
-                                </div>
+                                else
+                                {
+                                    <div class="column-full font-xsmall no-padding">
+                                        <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                           aria-label="Save image of @Model[i].FieldName">
+                                            <i class="icon icon-save-image">
+                                                <span class="visually-hidden">Save as image</span>
+                                            </i>
+                                            <span>Save as image</span>
+                                        </a>
+                                    </div>
+                                }
                             </div>
                         }
 
@@ -121,6 +134,13 @@
                                     @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                     {
                                         <div class="column-half font-xsmall no-padding">
+                                            <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                               aria-label="Save image of @Model[i].FieldName">
+                                                <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
+                                                <span>Save as image</span>
+                                            </a>
+                                        </div>
+                                        <div class="column-half font-xsmall no-padding">
                                             <a style="display: none" class="customAdd" aria-label="Add @Model[i].FieldName to Your Charts" href="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
                                                 <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
                                                 <span>Add to your charts</span>
@@ -130,13 +150,16 @@
                                                 <span>Remove from your charts</span>
                                             </a>
                                         </div>
+                                    }else
+                                    { 
+                                        <div class="column-full font-xsmall no-padding">
+                                            <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                               aria-label="Save image of @Model[i].FieldName">
+                                                <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
+                                                <span>Save as image</span>
+                                            </a>
+                                        </div>
                                     }
-                                    <div class="column-half font-xsmall no-padding">
-                                        <a class="save-as-image" style="display: none" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')">
-                                            <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
-                                            <span>Save as image</span>
-                                        </a>
-                                    </div>
                                 </div>
                             }
 
