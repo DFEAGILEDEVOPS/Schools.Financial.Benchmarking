@@ -24,7 +24,7 @@
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
-                <a href="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">@RevenueGroupNames.CUSTOM<span role="status" ng-cloak class="font-xsmall"> ({{ctrl.totalSelectCount()}} selected)</span></a>
+                <a href="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">@RevenueGroupNames.CUSTOM (<span role="status" ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</a>
             </li>
         }
     </ol>
