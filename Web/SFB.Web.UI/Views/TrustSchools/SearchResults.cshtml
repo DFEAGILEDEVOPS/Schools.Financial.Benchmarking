@@ -10,8 +10,12 @@
 
 <div id="searchSchoolsLink" class="grid-row hide-in-print">
     <div class="column-full">
-        <span class="back-chevron">&#706;</span>
-        <a class="home-link" href="/Trust?matNo=@ViewBag.MatNo&name=@ViewBag.MatName">Back to @ViewBag.MatName</a>
+        <a class="home-link" href="/Trust?matNo=@ViewBag.MatNo&name=@ViewBag.MatName" aria-label="Back to @ViewBag.MatName">
+            <i class="icon icon-back">
+                <span class="visually-hidden">Back</span>
+            </i>
+            <span class="back-link">Back to @ViewBag.MatName</span> 
+        </a>
     </div>
 </div>
 

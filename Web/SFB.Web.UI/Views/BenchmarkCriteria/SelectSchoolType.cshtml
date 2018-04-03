@@ -6,6 +6,10 @@
     ViewBag.pageClass = "comparison-step-one";
 }
 
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToSchoolLink", Model)
+}
+
 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
 {
     <h1 class="heading-xlarge page-heading">Advanced comparison</h1>

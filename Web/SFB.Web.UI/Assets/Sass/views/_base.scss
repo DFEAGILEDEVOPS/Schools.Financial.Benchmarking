@@ -416,6 +416,19 @@ abbr[title]{
     color: $grey-2
 }
 
+span.back-link {
+    position: relative;
+    left: -3px;
+}
+
+.icon-back {
+    position: relative;
+    top: 5px;
+    width: 10px;
+    height: 15px;
+    background-image: url(/public/assets/images/icon-arrow-left.png);
+}
+
 .icon-bookmark {
     position: relative;
     top: 5px;    

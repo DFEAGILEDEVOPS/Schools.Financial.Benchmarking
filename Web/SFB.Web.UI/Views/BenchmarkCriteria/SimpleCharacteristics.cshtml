@@ -4,6 +4,10 @@
     ViewBag.pageClass = "simple-characteristics";
 }
 
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToSchoolLink", Model.BenchmarkSchool)
+}
+
 <h1 class="heading-xlarge page-heading">Quick comparison</h1>
 
 @if (!string.IsNullOrEmpty(Model.BenchmarkSchool.Name))

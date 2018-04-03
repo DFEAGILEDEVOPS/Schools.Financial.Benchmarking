@@ -5,6 +5,10 @@
     ViewBag.pageClass = "comparison-step-two";
 }
 
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToSchoolLink", Model)
+}
+
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
             {
     <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">

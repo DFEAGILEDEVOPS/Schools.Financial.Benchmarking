@@ -20,6 +20,17 @@
     </div>
 </div>
 
+<div id="backLink" class="hide-in-print">
+    <div>
+        <a class="home-link" href="../../school/detail?urn=@ViewBag.URN" aria-label="Back to @Model.ComparisonList.HomeSchoolName">
+            <i class="icon icon-back">
+                <span class="visually-hidden">Back</span>
+            </i>
+            <span class="back-link">Back to @Model.ComparisonList.HomeSchoolName</span>
+        </a>
+    </div>
+</div>
+
 <h1 class="heading-xlarge page-heading">Advanced comparison</h1>
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))

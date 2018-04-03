@@ -5,6 +5,10 @@
     ViewBag.pageClass = "comparison-strategy";
 }
 
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToSchoolLink", Model)
+}
+
 <h1 class="heading-xlarge page-heading">Select comparison type</h1>
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
