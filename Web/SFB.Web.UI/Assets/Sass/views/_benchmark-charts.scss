@@ -1,4 +1,7 @@
 ﻿.benchmarking-charts {
+
+    @include highlighting;
+
     .c3-text {
         fill: $black !important;
     }
@@ -9,17 +12,6 @@
 
     .england-average-tick {
         font-weight: bold;
-    }
-
-    .highlight {
-        background-color: $pink;
-        display: inline;
-
-        span {
-            color: white;
-            padding: 8px;
-            line-height: 1.8em;
-        }
     }
 
     .highlight-field {
@@ -54,7 +46,7 @@
                     margin-bottom: 5px;
                 }
             }
-            
+
             .accordion-section-header h2 {
                 margin-top: 0;
             }
@@ -320,7 +312,6 @@
             a {
                 padding-left: 10px;
             }
-
             /*div {
                 float: right;
             }*/

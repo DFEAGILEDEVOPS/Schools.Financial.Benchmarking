@@ -2,10 +2,10 @@
     .highlight {
         background-color: $pink;
         display: inline;
+        padding: 5px;
 
         span {
             color: white;
-            padding: 8px;
             line-height: 1.8em;
         }
     }
