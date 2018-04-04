@@ -44,6 +44,7 @@
             jqxhr = $.post("GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
                 .done(function (count) {
                     $("#schoolCount").text(count + " schools found");
+                    $("button.view-benchmark-charts").attr("aria-label", "View " + count + " schools in a benchmark chart");
                     $("#liveCountBar").show();
                     if (count > 0) {
                         $("button.submit").show();
