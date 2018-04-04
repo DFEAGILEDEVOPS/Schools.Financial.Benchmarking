@@ -7,7 +7,7 @@
 <div class="question">
     <div class="multiple-choice question">
         <input id="checkbox-@Model.MinElementName" type="checkbox" @Html.Raw(activated ? "checked": "")>
-        <label for="checkbox-@Model.MinElementName">@Model.Question</label>
+        <label for="checkbox-@Model.MinElementName">@Model.Question <span class="visuallyhidden">Your default school's value is @Model.HomeSchoolValue</span></label>
     </div>
     <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
         <div class="column-full">
