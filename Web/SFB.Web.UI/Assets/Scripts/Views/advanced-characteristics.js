@@ -43,7 +43,8 @@
             }
             jqxhr = $.post("GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
                 .done(function (count) {
-                    $("#schoolCount").text(count + " schools found");
+                    $("#schoolCount").text("Searching");
+                    setTimeout(function () { $("#schoolCount").text(count + " schools found"); }, 500);
                     $("button.view-benchmark-charts").attr("aria-label", "View " + count + " schools in a benchmark chart");
                     $("#liveCountBar").show();
                     if (count > 0) {
