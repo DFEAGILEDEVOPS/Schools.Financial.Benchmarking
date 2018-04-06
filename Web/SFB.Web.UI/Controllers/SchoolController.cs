@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
@@ -92,6 +93,13 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
 
             return View("Detail", schoolVM);
+        }
+
+        [HttpHead]
+        public ActionResult Detail(int urn)
+        {
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
+            return schoolDetailsFromEdubase == null ? new HttpStatusCodeResult(HttpStatusCode.NotFound) : new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
