@@ -43,6 +43,7 @@ namespace SFB.Web.UI.Controllers
             _statisticalCriteriaBuilderService = statisticalCriteriaBuilderService;
         }
 
+        [HttpPost]
         public async Task<ActionResult> GenerateFromSimpleCriteria(string urn, int basketSize, EstablishmentType estType, SimpleCriteria simpleCriteria)
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
@@ -137,6 +138,7 @@ namespace SFB.Web.UI.Controllers
             return await GenerateFromAdvancedCriteria(usedCriteria, searchedEstabType, laCode, urn, areaType);
         }
 
+        [HttpPost]
         public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, string urn, ComparisonArea areaType, BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite)
         {
             List<Document> benchmarkSchools, limitedList;
@@ -192,7 +194,7 @@ namespace SFB.Web.UI.Controllers
             return await Index(urn, null,
                 criteria, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalSchoolDataModels.Last(), estType, ComparisonType.Advanced, areaType, lacode.ToString());
         }
-        
+
         public async Task<PartialViewResult> CustomReport(string json)
         {
             var customSelection = (CustomSelectionListViewModel)JsonConvert.DeserializeObject(json, typeof(CustomSelectionListViewModel));
