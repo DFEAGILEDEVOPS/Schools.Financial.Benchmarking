@@ -77,7 +77,7 @@
         public const string LONDON_WEIGHTING = "London weighting";
         public const string PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS = "Eligibility for free school meals";
         public const string PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN = "Pupils with SEN who have statements or EHC plans";
-        //public const string PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER = "Pupils with special educational needs (SEN) who don't have statements or education and health care (EHC) plans";
+        public const string PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER = "Pupils with special educational needs (SEN) who don't have statements or education and health care (EHC) plans";
         public const string PERCENTAGE_OF_PUPILS_WITH_EAL = "Pupils with English as an additional language";
         public const string PERCENTAGE_BOARDERS = "Boarders";
         public const string ADMISSIONS_POLICY = "Admissions policy";

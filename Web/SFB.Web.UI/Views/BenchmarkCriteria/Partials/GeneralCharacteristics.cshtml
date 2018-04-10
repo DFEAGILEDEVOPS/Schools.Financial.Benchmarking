@@ -191,14 +191,14 @@
         maxValue: Model.BenchmarkCriteria.MaxPerFSM
         ))
 
-            @*@Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/PercentageCriteria",
     new BenchmarkCriteriaRangeVM(
         question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER,
         homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER],
         elementName: "PerSENReg",
         minValue: Model.BenchmarkCriteria.MinPerSENReg,
         maxValue: Model.BenchmarkCriteria.MaxPerSENReg
-        ))*@
+        ))
 
             @Html.Partial("Partials/PercentageCriteria",
     new BenchmarkCriteriaRangeVM(

@@ -80,15 +80,15 @@ namespace SFB.Web.Common
         [DBField(name: DBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN, type: CriteriaFieldComparisonTypes.MAX)]
         public double? MaxPerSEN { get; set; }
 
-        //[PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER)]
-        //[Range(0, 100)]
-        //[DBField(name: DBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN, type: CriteriaFieldComparisonTypes.MIN)]
-        //public double? MinPerSENReg { get; set; }
+        [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER)]
+        [Range(0, 100)]
+        [DBField(name: DBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN, type: CriteriaFieldComparisonTypes.MIN)]
+        public double? MinPerSENReg { get; set; }
 
-        //[PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER)]
-        //[Range(0, 100)]
-        //[DBField(name: DBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN, type: CriteriaFieldComparisonTypes.MAX)]
-        //public double? MaxPerSENReg { get; set; }
+        [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER)]
+        [Range(0, 100)]
+        [DBField(name: DBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN, type: CriteriaFieldComparisonTypes.MAX)]
+        public double? MaxPerSENReg { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL)]
         [Range(0, 100)]
