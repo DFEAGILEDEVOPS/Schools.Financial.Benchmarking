@@ -1,5 +1,5 @@
 ﻿.hide-in-print {
-    display: none;
+    display: none!important;
 }
 
 .column-half, .column-full {
