@@ -444,6 +444,38 @@
         window.print();
     };
 
+    BenchmarkChartsViewModel.PdfPage = function () {
+        debugger;
+        $('head').append('<link rel="stylesheet" type="text/css" href="/public/govuk_template/assets/stylesheets/govuk-template-print.css?0.12.0">');
+        $('head').append('<link rel="stylesheet" type="text/css" href="/public/assets/print/bmc-print.css">');
+        $('body').scrollTop(0);
+        var
+            form = $('body'),
+            cache_width = form.width(),
+            a4 = [595.28, 841.89];  // for a4 size paper width and height
+
+        function getCanvas() {
+            form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
+            return html2canvas(form, {
+                imageTimeout: 2000,
+                removeContainer: true
+            });
+        }
+
+        getCanvas().then(function (canvas) {
+            var
+                img = canvas.toDataURL("image/png"),
+                doc = new jsPDF({
+                    unit: 'px',
+                    format: 'a4'
+                });
+            doc.addImage(img, 'JPEG', 20, 20);
+            doc.save('techumber-html-to-pdf.pdf');
+            form.width(cache_width);
+        });
+
+    };
+
     BenchmarkChartsViewModel.ChangeTab = function (tab) {
         var self = this;
         if (tab === "Custom") {

@@ -11,6 +11,8 @@
 @section InsideHead{
     <link href="~/public/assets/print/bmc-print.css" media="print" rel="stylesheet" type="text/css">
     <script src="~/node_modules/angular/angular.min.js"></script>
+    <script src="~/node_modules/jspdf/dist/jspdf.debug.js"></script>
+
 }
 
 @section StickyContent
@@ -118,6 +120,11 @@ else
         <div class="column-one-third">
             <div class="print">
                 <a id="PrintLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PrintPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span></a>
+            </div>
+        </div>
+        <div class="column-one-third">
+            <div class="pdf">
+                <a id="PdfLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Download page as PDF</span></a>
             </div>
         </div>
     </div>
