@@ -1,11 +1,10 @@
 ﻿@model SFB.Web.UI.Models.SchoolViewModel
 <div id="backLink" class="hide-in-print">
     <div>
+        <a class="home-link" href="/">Home</a> 
+        <span class="forward-chevron font-medium">&#155;</span>
         <a class="home-link" href="../../school/detail?urn=@Model.Id" aria-label="Back to @Model.Name">
-            <i class="icon icon-back">
-                <span class="visually-hidden">Back</span>
-            </i>
-            <span class="back-link">Back to @Model.Name</span>
+            <span class="back-link">@Model.Name</span>
         </a>
     </div>
 </div>

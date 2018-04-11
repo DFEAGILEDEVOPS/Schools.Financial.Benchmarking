@@ -25,6 +25,7 @@ namespace SFB.Web.UI.Models
 
         [JsonIgnore]
         public string HomeSchoolType { get; set; }
+
     }
 
     public class ComparisonListModelOld

@@ -188,10 +188,12 @@ namespace SFB.Web.UI.Controllers
         /// <param name="criteria"></param>
         /// <param name="areaType"></param>
         /// <param name="lacode"></param>
+        /// <param name="schoolName"></param>
         /// <returns></returns>
-        public ActionResult OverwriteStrategy(string urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, ComparisonArea areaType, int? lacode)
+        public ActionResult OverwriteStrategy(string urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, ComparisonArea areaType, int? lacode, string schoolName)
         {
             ViewBag.URN = urn;
+            ViewBag.HomeSchoolName = schoolName;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
             ViewBag.AreaType = areaType;

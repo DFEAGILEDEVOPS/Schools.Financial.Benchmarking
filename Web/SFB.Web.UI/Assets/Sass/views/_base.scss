@@ -416,6 +416,15 @@ abbr[title]{
     color: $grey-2
 }
 
+.forward-chevron {
+    color: $grey-2;
+    padding-left:8px;
+    padding-right: 8px;
+    position:relative;
+    top:2px;
+    
+}
+
 span.back-link {
     position: relative;
     left: -3px;

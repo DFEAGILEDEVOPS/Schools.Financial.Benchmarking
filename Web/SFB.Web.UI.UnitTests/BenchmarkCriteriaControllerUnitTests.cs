@@ -37,7 +37,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new BenchmarkCriteriaController(null, null, null);
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var response = controller.OverwriteStrategy("10000", ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys"} }), ComparisonArea.All, 306);
+            var response = controller.OverwriteStrategy("10000", ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys"} }), ComparisonArea.All, 306, "test");
             
 
             Assert.IsNotNull(response);
@@ -88,7 +88,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object);
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = controller.OverwriteStrategy("10000", ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys" } }), ComparisonArea.All, 306);
+            var result = controller.OverwriteStrategy("10000", ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys" } }), ComparisonArea.All, 306, "test");
 
             Assert.IsNotNull(response);
             Assert.AreEqual("BenchmarkCharts", (result as RedirectToRouteResult).RouteValues["Controller"]);
