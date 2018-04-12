@@ -6,7 +6,11 @@
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BackToSchoolLink", Model)
+    @{
+        ViewBag.HomeSchoolId = Model.Id;
+        ViewBag.HomeSchoolName = Model.Name;
+    }
+    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink", Model)
 }
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))

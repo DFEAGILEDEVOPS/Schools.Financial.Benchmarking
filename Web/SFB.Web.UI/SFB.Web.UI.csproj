@@ -666,8 +666,10 @@
     <Content Include="Views\Help\DataSources.cshtml" />
     <Content Include="Views\Download\AcademicYear.cshtml" />
     <Content Include="Views\Download\DataSet.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\BackToSchoolLink.cshtml" />
+    <Content Include="Views\Shared\Partials\Breadcrumbs\BackToSchoolLink.cshtml" />
     <Content Include="Views\Errors\InvalidRequest.cshtml" />
+    <Content Include="Views\Shared\Partials\Breadcrumbs\BackLink.cshtml" />
+    <Content Include="Views\Shared\Partials\Breadcrumbs\BackToSelectCompareTypeLink.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
