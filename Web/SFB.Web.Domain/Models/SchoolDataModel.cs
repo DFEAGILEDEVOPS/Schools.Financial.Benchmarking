@@ -1,8 +1,8 @@
-﻿using Microsoft.Azure.Documents;
-using System;
+﻿using System;
+using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 
-namespace SFB.Web.UI.Models
+namespace SFB.Web.Domain.Models
 {
     public class SchoolDataModel : IEquatable<SchoolDataModel>
     {

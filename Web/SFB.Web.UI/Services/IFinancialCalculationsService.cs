@@ -1,6 +1,7 @@
 ﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using SFB.Web.Common;
+using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Services

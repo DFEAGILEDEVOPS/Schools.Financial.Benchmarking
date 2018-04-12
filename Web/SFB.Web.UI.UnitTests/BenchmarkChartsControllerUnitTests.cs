@@ -12,6 +12,7 @@ using SFB.Web.DAL;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
+using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
@@ -68,7 +69,7 @@ namespace SFB.Web.UI.UnitTests
             testEduResult.URN = "321";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("321")).Returns((string urn) => testEduResult);
 
-            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockComparisonService = new Mock<IComparisonService>();
             
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -80,7 +81,7 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -116,7 +117,7 @@ namespace SFB.Web.UI.UnitTests
             testEduResult.URN = "123";
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
 
-            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockComparisonService = new Mock<IComparisonService>();
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -128,7 +129,7 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
             
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -189,12 +190,12 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockComparisonService = new Mock<IComparisonService>();
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
@@ -237,12 +238,12 @@ namespace SFB.Web.UI.UnitTests
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockComparisonService = new Mock<IComparisonService>();
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -273,9 +274,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockComparisonService = new Mock<IComparisonService>();
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -306,11 +307,11 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockComparisonService = new Mock<IComparisonService>();
 
-            IStatisticalCriteriaBuilderService statisticalCriteriaBuilderService = null;
+            IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService = null;
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, statisticalCriteriaBuilderService);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, benchmarkCriteriaBuilderService, mockComparisonService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -346,9 +347,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockComparisonService = new Mock<IComparisonService>();
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -384,9 +385,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockComparisonService = new Mock<IComparisonService>();
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null);
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 

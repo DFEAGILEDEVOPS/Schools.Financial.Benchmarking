@@ -17,6 +17,7 @@ using SFB.Web.Domain.Services.DataAccess;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
+using SFB.Web.Domain.Models;
 
 namespace SFB.Web.UI.Controllers
 {

@@ -7,6 +7,7 @@ using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SFB.Web.Common;
+using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;

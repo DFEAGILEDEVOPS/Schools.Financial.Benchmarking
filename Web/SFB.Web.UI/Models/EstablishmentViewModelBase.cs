@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SFB.Web.Common;
+using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
@@ -29,12 +30,15 @@ namespace SFB.Web.UI.Models
 
         public decimal InYearBalance { get; set; }
 
-        public bool IsReturnsComplete => HistoricalSchoolDataModels.Last().PeriodCoveredByReturn == 12;
+        public SchoolDataModel LatestYearData => HistoricalSchoolDataModels.Last();
 
-        public bool WorkforceDataPresent => HistoricalSchoolDataModels.Last().WorkforceDataPresent;
+        public bool IsReturnsComplete => LatestYearData.PeriodCoveredByReturn == 12;
 
-        public bool HasNoTeacherData => HistoricalSchoolDataModels.Last().TeacherCount == 0d;
+        public bool WorkforceDataPresent => LatestYearData.WorkforceDataPresent;
 
-        public bool HasNoPupilData => HistoricalSchoolDataModels.Last().PupilCount == 0d;
+        public bool HasNoTeacherData => LatestYearData.TeacherCount == 0d;
+
+        public bool HasNoPupilData => LatestYearData.PupilCount == 0d;
+
     }
 }

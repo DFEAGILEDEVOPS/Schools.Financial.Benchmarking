@@ -274,7 +274,6 @@
     <Compile Include="Models\ChartViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
     <Compile Include="Models\Filter.cs" />
-    <Compile Include="Models\SchoolDataModel.cs" />
     <Compile Include="Models\OptionSelect.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\SchoolCharacteristics.cs" />
@@ -301,8 +300,6 @@
     </Compile>
     <Compile Include="Services\FinancialCalculationsService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
-    <Compile Include="Services\IStatisticalCriteriaBuilderService.cs" />
-    <Compile Include="Services\StatisticalCriteriaBuilderService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\BasicAuthenticationModule.cs" />
     <Compile Include="Utils\IRequestContext.cs" />
