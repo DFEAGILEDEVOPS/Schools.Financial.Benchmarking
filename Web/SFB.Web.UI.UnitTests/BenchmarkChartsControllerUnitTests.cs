@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,7 @@ using NUnit.Framework;
 using SFB.Web.Common;
 using SFB.Web.DAL;
 using SFB.Web.DAL.Helpers;
+using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.Comparison;
@@ -70,7 +72,16 @@ namespace SFB.Web.UI.UnitTests
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("321")).Returns((string urn) => testEduResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
-            
+            Task<ComparisonResult> cTask = Task.Run(() =>
+            {
+                return new ComparisonResult() { BenchmarkSchools = new List<Document>() { testResult } };
+            });
+
+            mockComparisonService.Setup(m =>
+                    m.GenerateBenchmarkListWithAdvancedComparisonAsync(It.IsAny<BenchmarkCriteria>(),
+                        It.IsAny<EstablishmentType>(), It.IsAny<Int32>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, int basketSize) => cTask);
+
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
                 .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
@@ -118,6 +129,15 @@ namespace SFB.Web.UI.UnitTests
             mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
+            Task<ComparisonResult> cTask = Task.Run(() =>
+            {
+                return new ComparisonResult() { BenchmarkSchools = new List<Document>() { testResult } };
+            });
+
+            mockComparisonService.Setup(m =>
+                    m.GenerateBenchmarkListWithAdvancedComparisonAsync(It.IsAny<BenchmarkCriteria>(),
+                        It.IsAny<EstablishmentType>(), It.IsAny<Int32>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, int basketSize) => cTask);
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -164,6 +184,7 @@ namespace SFB.Web.UI.UnitTests
             var responseCookies = new HttpCookieCollection();
             context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
             var rc = new RequestContext(context.Object, new RouteData());
+
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new Document();
             testResult.SetPropertyValue("URN", "321");
@@ -191,6 +212,15 @@ namespace SFB.Web.UI.UnitTests
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
             var mockComparisonService = new Mock<IComparisonService>();
+            Task<ComparisonResult> cTask = Task.Run(() =>
+                {
+                    return new ComparisonResult() {BenchmarkSchools = new List<Document>() {testResult}};
+                });
+
+            mockComparisonService.Setup(m =>
+                    m.GenerateBenchmarkListWithAdvancedComparisonAsync(It.IsAny<BenchmarkCriteria>(),
+                        It.IsAny<EstablishmentType>(), It.IsAny<Int32>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, int basketSize) => cTask);
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
@@ -239,6 +269,15 @@ namespace SFB.Web.UI.UnitTests
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
             var mockComparisonService = new Mock<IComparisonService>();
+            Task<ComparisonResult> cTask = Task.Run(() =>
+            {
+                return new ComparisonResult() { BenchmarkSchools = new List<Document>() { testResult } };
+            });
+
+            mockComparisonService.Setup(m =>
+                    m.GenerateBenchmarkListWithAdvancedComparisonAsync(It.IsAny<BenchmarkCriteria>(),
+                        It.IsAny<EstablishmentType>(), It.IsAny<Int32>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, int basketSize) => cTask);
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
