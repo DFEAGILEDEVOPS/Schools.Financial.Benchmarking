@@ -85,6 +85,7 @@
     <Compile Include="ApiWrappers\ApiResponse.cs" />
     <Compile Include="ApiWrappers\IApiRequest.cs" />
     <Compile Include="Helpers\Constants\Constants.cs" />
+    <Compile Include="Helpers\Constants\Dictionaries.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\BenchmarkChartData.cs" />

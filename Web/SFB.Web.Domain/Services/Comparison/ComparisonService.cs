@@ -65,6 +65,35 @@ namespace SFB.Web.Domain.Services.Comparison
                 }
             }
 
+            tryCount = 0;
+            while (benchmarkSchools.Count < basketSize) //Query return is still less than required
+            {
+                var urbanRuralDefault = defaultSchoolFinancialDataModel.UrbanRural;
+                var urbanRuralKey = Dictionaries.UrbanRuralDictionary.First(d => d.Value == urbanRuralDefault).Key;
+
+                var urbanRuralQuery = Dictionaries.UrbanRuralDictionary.Where(d =>
+                    d.Key >= urbanRuralKey - tryCount && d.Key <= urbanRuralKey + tryCount).Select(d => d.Value).ToArray();
+
+                benchmarkCriteria.UrbanRural = urbanRuralQuery;
+
+                benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
+
+                if (benchmarkSchools.Count > basketSize) //Number jumping to more than ideal. Cut from top by proximity.
+                {
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount)).Take(basketSize).ToList();
+                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<int>("No Pupils"));
+                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<int>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
+                    break;
+                }
+
+                if (urbanRuralQuery.Length == 5)
+                {
+                    break;
+                }
+
+                tryCount++;
+            }
+
             return new ComparisonResult()
             {
                 BenchmarkSchools = benchmarkSchools,
