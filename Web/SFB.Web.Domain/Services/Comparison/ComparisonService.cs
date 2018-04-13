@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
@@ -35,13 +33,13 @@ namespace SFB.Web.Domain.Services.Comparison
         public async Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(
             BenchmarkCriteria benchmarkCriteria, EstablishmentType estType,
             int basketSize,
-            SimpleCriteria simpleCriteria, SchoolDataModel defaultSchoolDataModel)
+            SimpleCriteria simpleCriteria, SchoolFinancialDataModel defaultSchoolFinancialDataModel)
         {
             var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
             if (benchmarkSchools.Count > basketSize) //Original query returns more than required. Cut from top by proximity.
             {
-                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - defaultSchoolDataModel.PupilCount)).Take(basketSize).ToList();
+                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount)).Take(basketSize).ToList();
                 benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<int>("No Pupils"));
                 benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<int>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
             }
@@ -54,13 +52,13 @@ namespace SFB.Web.Domain.Services.Comparison
                     break;
                 }
 
-                benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(defaultSchoolDataModel, simpleCriteria, tryCount);
+                benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(defaultSchoolFinancialDataModel, simpleCriteria, tryCount);
 
                 benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
                 if (benchmarkSchools.Count > basketSize) //Number jumping to more than ideal. Cut from top by proximity.
                 {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - defaultSchoolDataModel.PupilCount)).Take(basketSize).ToList();
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount)).Take(basketSize).ToList();
                     benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<int>("No Pupils"));
                     benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<int>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
                     break;

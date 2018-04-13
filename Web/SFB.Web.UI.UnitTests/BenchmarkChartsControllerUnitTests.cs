@@ -284,7 +284,7 @@ namespace SFB.Web.UI.UnitTests
             
             financialCalculationsService.Verify(f=> f.PopulateBenchmarkChartsWithFinancialData(
                 null,
-                It.IsAny<List<SchoolDataModel>>(),
+                It.IsAny<List<SchoolFinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
                 UnitType.PerPupil,
@@ -319,7 +319,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 null,
-                It.IsAny<List<SchoolDataModel>>(),
+                It.IsAny<List<SchoolFinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
                 UnitType.PerPupil,
@@ -357,7 +357,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<SchoolDataModel>>(),
+                It.IsAny<List<SchoolFinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
                 UnitType.AbsoluteMoney,
@@ -395,7 +395,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<SchoolDataModel>>(),
+                It.IsAny<List<SchoolFinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
                 UnitType.AbsoluteCount,

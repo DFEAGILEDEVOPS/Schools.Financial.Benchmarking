@@ -8,7 +8,7 @@ namespace SFB.Web.UI.Services
 {
     public interface IFinancialCalculationsService
     {
-        void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts, List<SchoolDataModel> financialDataModels, string term, RevenueGroupType revgroup, UnitType unit, SchoolFinancialType schoolFinancialType);
-        void PopulateBenchmarkChartsWithFinancialData(List<ChartViewModel> benchmarkCharts, List<SchoolDataModel> financialDataModels, IEnumerable<CompareEntityBase> bmEntities, string homeSchoolId, UnitType? unit, bool trimSchoolNames = false);        
+        void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts, List<SchoolFinancialDataModel> financialDataModels, string term, RevenueGroupType revgroup, UnitType unit, SchoolFinancialType schoolFinancialType);
+        void PopulateBenchmarkChartsWithFinancialData(List<ChartViewModel> benchmarkCharts, List<SchoolFinancialDataModel> financialDataModels, IEnumerable<CompareEntityBase> bmEntities, string homeSchoolId, UnitType? unit, bool trimSchoolNames = false);        
     }
 }

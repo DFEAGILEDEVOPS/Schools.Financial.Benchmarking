@@ -29,12 +29,12 @@ namespace SFB.Web.UI.UnitTests
             financeDoc.SetPropertyValue("LA", 831);
 
             var benchmarkSchool = new SchoolViewModel(model);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel>();
-            benchmarkSchool.HistoricalSchoolDataModels.Add(new SchoolDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel>();
+            benchmarkSchool.HistoricalSchoolFinancialDataModels.Add(new SchoolFinancialDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
-            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolDataModels.Last(), true, true, true, true, 0);
+            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), true, true, true, true, 0);
 
             Assert.AreEqual(financeDoc.GetPropertyValue<string>("Overall Phase"), criteria.SchoolOverallPhase[0]);
         }
@@ -55,12 +55,12 @@ namespace SFB.Web.UI.UnitTests
             financeDoc.SetPropertyValue("LA", 831);
 
             var benchmarkSchool = new SchoolViewModel(model);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel>();
-            benchmarkSchool.HistoricalSchoolDataModels.Add(new SchoolDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel>();
+            benchmarkSchool.HistoricalSchoolFinancialDataModels.Add(new SchoolFinancialDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
-            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolDataModels.Last(), true, true, true, true, 0);
+            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), true, true, true, true, 0);
 
             Assert.AreEqual(financeDoc.GetPropertyValue<string>("UrbanRuralInner"), criteria.UrbanRural[0]);
         }
@@ -81,12 +81,12 @@ namespace SFB.Web.UI.UnitTests
             financeDoc.SetPropertyValue("LA", 831);
 
             var benchmarkSchool = new SchoolViewModel(model);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel>();
-            benchmarkSchool.HistoricalSchoolDataModels.Add(new SchoolDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel>();
+            benchmarkSchool.HistoricalSchoolFinancialDataModels.Add(new SchoolFinancialDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
-            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolDataModels.Last(), true, true, true, true, 5);
+            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), true, true, true, true, 5);
 
             Assert.AreEqual(financeDoc.GetPropertyValue<double>("No Pupils") * 0.85, criteria.MinNoPupil);
             Assert.AreEqual(financeDoc.GetPropertyValue<double>("No Pupils") * 1.15, criteria.MaxNoPupil);
@@ -108,12 +108,12 @@ namespace SFB.Web.UI.UnitTests
             financeDoc.SetPropertyValue("LA", 831);
 
             var benchmarkSchool = new SchoolViewModel(model);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel>();
-            benchmarkSchool.HistoricalSchoolDataModels.Add(new SchoolDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel>();
+            benchmarkSchool.HistoricalSchoolFinancialDataModels.Add(new SchoolFinancialDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
-            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolDataModels.Last(), true, true, true, true, 3);
+            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), true, true, true, true, 3);
 
             Assert.AreEqual(7, criteria.MinPerFSM);
             Assert.AreEqual(13, criteria.MaxPerFSM);
@@ -135,12 +135,12 @@ namespace SFB.Web.UI.UnitTests
             financeDoc.SetPropertyValue("LA", 831);
 
             var benchmarkSchool = new SchoolViewModel(model);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel>();
-            benchmarkSchool.HistoricalSchoolDataModels.Add(new SchoolDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel>();
+            benchmarkSchool.HistoricalSchoolFinancialDataModels.Add(new SchoolFinancialDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
-            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolDataModels.Last(), true, true, true, true, 4);
+            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), true, true, true, true, 4);
 
             Assert.AreEqual(6, criteria.MinPerSEN);
             Assert.AreEqual(14, criteria.MaxPerSEN);
@@ -162,12 +162,12 @@ namespace SFB.Web.UI.UnitTests
             financeDoc.SetPropertyValue("LA", 831);
 
             var benchmarkSchool = new SchoolViewModel(model);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel>();
-            benchmarkSchool.HistoricalSchoolDataModels.Add(new SchoolDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel>();
+            benchmarkSchool.HistoricalSchoolFinancialDataModels.Add(new SchoolFinancialDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
-            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolDataModels.Last(), true, true, true, true, 5);
+            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), true, true, true, true, 5);
 
             Assert.AreEqual(0, criteria.MinPerEAL);
             Assert.AreEqual(7, criteria.MaxPerEAL);
@@ -189,12 +189,12 @@ namespace SFB.Web.UI.UnitTests
             financeDoc.SetPropertyValue("LA", 831);
 
             var benchmarkSchool = new SchoolViewModel(model);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel>();
-            benchmarkSchool.HistoricalSchoolDataModels.Add(new SchoolDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel>();
+            benchmarkSchool.HistoricalSchoolFinancialDataModels.Add(new SchoolFinancialDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
-            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolDataModels.Last(), true, true, true, true, 10);
+            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), true, true, true, true, 10);
 
             Assert.AreEqual(financeDoc.GetPropertyValue<int>("LA"), criteria.LaCode);
         }
@@ -215,12 +215,12 @@ namespace SFB.Web.UI.UnitTests
             financeDoc.SetPropertyValue("LA", 831);
 
             var benchmarkSchool = new SchoolViewModel(model);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel>();
-            benchmarkSchool.HistoricalSchoolDataModels.Add(new SchoolDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel>();
+            benchmarkSchool.HistoricalSchoolFinancialDataModels.Add(new SchoolFinancialDataModel("123", "2014-2015", financeDoc, SchoolFinancialType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
-            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolDataModels.Last(), false, false, false, false, 10);
+            var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), false, false, false, false, 10);
 
             Assert.AreEqual(null, criteria.MinPerFSM);
             Assert.AreEqual(null, criteria.MaxPerFSM);

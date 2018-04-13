@@ -146,7 +146,7 @@ namespace SFB.Web.UI.Controllers
             var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(benchmarkSchool.FinancialType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
             var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.FinancialType);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel> { new SchoolDataModel(urn, term, document, benchmarkSchool.FinancialType) };
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel> { new SchoolFinancialDataModel(urn, term, document, benchmarkSchool.FinancialType) };
             
             if (!IsAreaFieldsValid(areaType, lacode, benchmarkSchool))
             {
@@ -206,7 +206,7 @@ namespace SFB.Web.UI.Controllers
                 var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(benchmarkSchool.FinancialType);
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
                 var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.FinancialType);
-                benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel> { new SchoolDataModel(urn, term, document, benchmarkSchool.FinancialType) };
+                benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel> { new SchoolFinancialDataModel(urn, term, document, benchmarkSchool.FinancialType) };
                 var schoolCharsVM = new SchoolCharacteristicsViewModel(benchmarkSchool, benchmarkList, new BenchmarkCriteria());
                 schoolCharsVM.ErrorMessage = "Validation Error";
                 return View("AdvancedCharacteristics", schoolCharsVM);

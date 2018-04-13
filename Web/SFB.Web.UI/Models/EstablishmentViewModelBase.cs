@@ -22,7 +22,7 @@ namespace SFB.Web.UI.Models
 
         public List<string> Terms { get; set; }
 
-        public List<SchoolDataModel> HistoricalSchoolDataModels { get; set; }
+        public List<SchoolFinancialDataModel> HistoricalSchoolFinancialDataModels { get; set; }
 
         public decimal TotalRevenueIncome { get; set; }
 
@@ -30,15 +30,15 @@ namespace SFB.Web.UI.Models
 
         public decimal InYearBalance { get; set; }
 
-        public SchoolDataModel LatestYearData => HistoricalSchoolDataModels.Last();
+        public SchoolFinancialDataModel LatestYearFinancialData => HistoricalSchoolFinancialDataModels.Last();
 
-        public bool IsReturnsComplete => LatestYearData.PeriodCoveredByReturn == 12;
+        public bool IsReturnsComplete => LatestYearFinancialData.PeriodCoveredByReturn == 12;
 
-        public bool WorkforceDataPresent => LatestYearData.WorkforceDataPresent;
+        public bool WorkforceDataPresent => LatestYearFinancialData.WorkforceDataPresent;
 
-        public bool HasNoTeacherData => LatestYearData.TeacherCount == 0d;
+        public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0d;
 
-        public bool HasNoPupilData => LatestYearData.PupilCount == 0d;
+        public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0d;
 
     }
 }

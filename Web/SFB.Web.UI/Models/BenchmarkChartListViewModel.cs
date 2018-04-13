@@ -14,7 +14,7 @@ namespace SFB.Web.UI.Models
         public ComparisonType ComparisonType { get; set; }
         public BenchmarkCriteria AdvancedCriteria { get; set; }
         public SimpleCriteria SimpleCriteria { get; set; }
-        public SchoolDataModel BenchmarkSchoolData { get; set; }    
+        public SchoolFinancialDataModel BenchmarkSchoolData { get; set; }    
         public EstablishmentType EstablishmentType { get; set; }
         public EstablishmentType SearchedEstablishmentType { get; set; }
         public TrustComparisonViewModel TrustComparisonList { get; set; }
@@ -57,7 +57,7 @@ namespace SFB.Web.UI.Models
         public bool NoResultsForSimpleSearch => (ComparisonType == ComparisonType.Basic && ComparisonListCount < 2);
         public int BasketSize { get; set; }
 
-        public BenchmarkChartListViewModel(List<ChartViewModel> modelList, ComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, SchoolDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, string urn, int basketSize, TrustComparisonViewModel trustComparisonList = null)
+        public BenchmarkChartListViewModel(List<ChartViewModel> modelList, ComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, SchoolFinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, string urn, int basketSize, TrustComparisonViewModel trustComparisonList = null)
         {
             base.SchoolComparisonList = comparisonList;
             base.ModelList = modelList;

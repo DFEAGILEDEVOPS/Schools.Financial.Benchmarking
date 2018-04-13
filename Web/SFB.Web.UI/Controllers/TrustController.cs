@@ -113,7 +113,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolDataModels, latestTerm, tab, unitType, SchoolFinancialType.Academies);
+            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, latestTerm, tab, unitType, SchoolFinancialType.Academies);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -129,7 +129,7 @@ namespace SFB.Web.UI.Controllers
 
             var sponsorVM = await BuildSponsorVMAsync(matNo, name, dataResponse, revGroup, chartGroup, financing);
 
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolDataModels, term, revGroup, unit, SchoolFinancialType.Academies);
+            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, term, revGroup, unit, SchoolFinancialType.Academies);
 
             return PartialView("Partials/Chart", sponsorVM);
         }
@@ -144,7 +144,7 @@ namespace SFB.Web.UI.Controllers
             var sponsorVM = await BuildSponsorVMAsync(matNo, name, response, RevenueGroupType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
 
             var termsList = _financialDataService.GetActiveTermsForMatCentral();
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, SchoolFinancialType.Academies);
+            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, SchoolFinancialType.Academies);
             
             string csv = _csvBuilder.BuildCSVContentHistorically(sponsorVM, latestYear);
 
@@ -169,20 +169,20 @@ namespace SFB.Web.UI.Controllers
             sponsorVM.ChartGroups = _historicalChartBuilder.Build(tab, sponsorVM.FinancialType).DistinctBy(c => c.ChartGroup).ToList();
             sponsorVM.Terms = _financialDataService.GetActiveTermsForAcademies();
 
-            sponsorVM.HistoricalSchoolDataModels = await this.GetFinancialDataHistoricallyAsync(sponsorVM.MatNo, matFinancing);
+            sponsorVM.HistoricalSchoolFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(sponsorVM.MatNo, matFinancing);
 
-            if (sponsorVM.HistoricalSchoolDataModels.Count > 0)
+            if (sponsorVM.HistoricalSchoolFinancialDataModels.Count > 0)
             {
-                sponsorVM.TotalRevenueIncome = sponsorVM.HistoricalSchoolDataModels.Last().TotalIncome;
-                sponsorVM.TotalRevenueExpenditure = sponsorVM.HistoricalSchoolDataModels.Last().TotalExpenditure;
-                sponsorVM.InYearBalance = sponsorVM.HistoricalSchoolDataModels.Last().InYearBalance;
+                sponsorVM.TotalRevenueIncome = sponsorVM.HistoricalSchoolFinancialDataModels.Last().TotalIncome;
+                sponsorVM.TotalRevenueExpenditure = sponsorVM.HistoricalSchoolFinancialDataModels.Last().TotalExpenditure;
+                sponsorVM.InYearBalance = sponsorVM.HistoricalSchoolFinancialDataModels.Last().InYearBalance;
             }
             return sponsorVM;
         }
 
-        private async Task<List<SchoolDataModel>> GetFinancialDataHistoricallyAsync(string matCode, MatFinancingType matFinancing)
+        private async Task<List<SchoolFinancialDataModel>> GetFinancialDataHistoricallyAsync(string matCode, MatFinancingType matFinancing)
         {
-            var models = new List<SchoolDataModel>();
+            var models = new List<SchoolFinancialDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearForTrusts();
             
             var taskList = new List<Task<IEnumerable<Document>>>();
@@ -206,7 +206,7 @@ namespace SFB.Web.UI.Controllers
                     resultDocument = emptyDoc;
                 }
 
-                models.Add(new SchoolDataModel(matCode, term, resultDocument, SchoolFinancialType.Academies));
+                models.Add(new SchoolFinancialDataModel(matCode, term, resultDocument, SchoolFinancialType.Academies));
             }
 
             return models;
