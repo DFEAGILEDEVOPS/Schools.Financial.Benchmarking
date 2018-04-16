@@ -65,7 +65,7 @@ namespace SFB.Web.Domain.Services.Comparison
                 }
             }
 
-            tryCount = 0;
+            tryCount = 1;
             while (benchmarkSchools.Count < basketSize) //Query return is still less than required
             {
                 var urbanRuralDefault = defaultSchoolFinancialDataModel.UrbanRural;
@@ -86,7 +86,7 @@ namespace SFB.Web.Domain.Services.Comparison
                     break;
                 }
 
-                if (urbanRuralQuery.Length == 5)
+                if (urbanRuralQuery.Length == Dictionaries.UrbanRuralDictionary.Count)
                 {
                     break;
                 }
