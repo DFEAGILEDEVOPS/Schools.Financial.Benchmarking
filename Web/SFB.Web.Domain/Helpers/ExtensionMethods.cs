@@ -101,18 +101,15 @@ namespace SFB.Web.Domain.Helpers
             }
         }
 
-        public static bool IsAllPropertiesNullOrEmpty(this object myObject)
+        public static bool IsAllPropertiesNull(this object myObject)
         {
             foreach (PropertyInfo pi in myObject.GetType().GetProperties())
             {
-                if (pi.PropertyType == typeof(string))
-                {
-                    string value = (string) pi.GetValue(myObject);
-                    if (!string.IsNullOrEmpty(value))
+                    var value = pi.GetValue(myObject);
+                    if (value != null)
                     {
                         return false;
                     }
-                }
             }
 
             return true;

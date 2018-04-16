@@ -240,7 +240,7 @@ namespace SFB.Web.UI.Controllers
                 return 0;
             }
 
-            if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNullOrEmpty())
+            if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
             {
                 criteria.AdvancedCriteria.LaCode = lacode;
                 var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType);
