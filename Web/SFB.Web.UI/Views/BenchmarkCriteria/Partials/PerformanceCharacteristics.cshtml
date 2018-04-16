@@ -1,6 +1,6 @@
 ﻿@using SFB.Web.Common
 @using SFB.Web.UI.Models
-
+@model SchoolCharacteristicsViewModel
 
 <div class="accordion-section">
     <fieldset role="group">
@@ -19,6 +19,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.KS2_ACTUAL,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.KS2_ACTUAL],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "Ks2Actual",
                     minValue: Model.BenchmarkCriteria.MinKs2Actual,
                     maxValue: Model.BenchmarkCriteria.MaxKs2Actual
@@ -28,6 +29,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.KS2_PROGRESS,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.KS2_PROGRESS],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "Ks2Progress",
                     minValue: Model.BenchmarkCriteria.MinKs2Progress,
                     maxValue: Model.BenchmarkCriteria.MaxKs2Progress,
@@ -40,6 +42,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "AvAtt8",
                     minValue: Model.BenchmarkCriteria.MinAvAtt8,
                     maxValue: Model.BenchmarkCriteria.MaxAvAtt8,
@@ -52,6 +55,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "P8Mea",
                     minValue: Model.BenchmarkCriteria.MinP8Mea,
                     maxValue: Model.BenchmarkCriteria.MaxP8Mea,
@@ -63,6 +67,7 @@
                 new BenchmarkCriteriaMultipleChoiceVM(
                     question: SchoolCharacteristicsQuestions.OFSTED_RATING,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.OFSTED_RATING],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "OfstedRating",
                     options: new List<OptionVM>
                     {
