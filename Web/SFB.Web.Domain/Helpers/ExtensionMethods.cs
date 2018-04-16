@@ -27,6 +27,7 @@ namespace SFB.Web.Domain.Helpers
                     }
                 }
             }
+
             return null;
         }
 
@@ -37,66 +38,84 @@ namespace SFB.Web.Domain.Helpers
             {
                 return $"£{(amount / 1000000).ToString("0.##")}m";
             }
+
             if (amount >= 10000 || amount <= -10000)
             {
                 return $"£{(amount / 1000).ToString("0.#")}k";
             }
+
             return amount.ToString("C0");
         }
 
 
-            public static KeyValuePair<string, object> WithValue(this string key, object value)
-            {
-                return new KeyValuePair<string, object>(key, value);
-            }
+        public static KeyValuePair<string, object> WithValue(this string key, object value)
+        {
+            return new KeyValuePair<string, object>(key, value);
+        }
 
-            public static List<string> Tokens(this string s, params string[] knownTokens)
+        public static List<string> Tokens(this string s, params string[] knownTokens)
+        {
+            try
             {
-                try
+                var tokens = new List<string>();
+                var rx = new Regex(@"(\$\([a-zA-Z0-9]+\))+");
+                var rxTokenName = new Regex("[0-9a-zA-Z]+");
+                foreach (var m in rx.Matches(s))
                 {
-                    var tokens = new List<string>();
-                    var rx = new Regex(@"(\$\([a-zA-Z0-9]+\))+");
-                    var rxTokenName = new Regex("[0-9a-zA-Z]+");
-                    foreach (var m in rx.Matches(s))
+                    var tokenValue = rxTokenName.Match(m.ToString()).Value;
+                    if (knownTokens.Length == 0)
                     {
-                        var tokenValue = rxTokenName.Match(m.ToString()).Value;
-                        if (knownTokens.Length == 0)
-                        {
-                            tokens.Add(tokenValue);
-                            continue;
-                        }
-
-                        if (knownTokens.Contains(tokenValue))
-                        {
-                            tokens.Add(tokenValue);
-                            continue;
-                        }
-
-                        throw new Exception($"Unknown token '{tokenValue}'");
+                        tokens.Add(tokenValue);
+                        continue;
                     }
-                    return tokens;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    return null;
+
+                    if (knownTokens.Contains(tokenValue))
+                    {
+                        tokens.Add(tokenValue);
+                        continue;
+                    }
+
+                    throw new Exception($"Unknown token '{tokenValue}'");
                 }
 
+                return tokens;
             }
-
-            public static string ReplaceToken(this string s, string token, string replacementValue)
+            catch (Exception e)
             {
-                try
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        public static string ReplaceToken(this string s, string token, string replacementValue)
+        {
+            try
+            {
+                var rxSub = new Regex($"(\\$\\({token}\\))+");
+                return rxSub.Replace(s, replacementValue);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+        }
+
+        public static bool IsAllPropertiesNullOrEmpty(this object myObject)
+        {
+            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
+            {
+                if (pi.PropertyType == typeof(string))
                 {
-                    var rxSub = new Regex($"(\\$\\({token}\\))+");
-                    return rxSub.Replace(s, replacementValue);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    return null;
+                    string value = (string) pi.GetValue(myObject);
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        return false;
+                    }
                 }
             }
-        
+
+            return true;
+        }
     }
 }

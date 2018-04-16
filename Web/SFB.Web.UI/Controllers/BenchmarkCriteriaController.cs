@@ -1,4 +1,5 @@
 ﻿using SFB.Web.Domain.Services;
+using SFB.Web.Domain.Helpers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
 using System.Collections.Generic;
@@ -239,7 +240,7 @@ namespace SFB.Web.UI.Controllers
                 return 0;
             }
 
-            if (criteria.AdvancedCriteria != null)
+            if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNullOrEmpty())
             {
                 criteria.AdvancedCriteria.LaCode = lacode;
                 var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType);
