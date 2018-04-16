@@ -41,6 +41,7 @@
             if (jqxhr) {
                 jqxhr.abort();
             }
+            console.log($('#criteriaForm'));
             jqxhr = $.post("GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
                 .done(function (count) {
                     $("#schoolCount").text("Searching");
