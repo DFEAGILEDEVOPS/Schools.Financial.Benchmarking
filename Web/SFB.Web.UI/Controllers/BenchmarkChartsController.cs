@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.DAL;
+using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.Controllers
@@ -29,10 +31,11 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocalAuthoritiesService _laService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly IContextDataService _contextDataService;
-        private readonly IStatisticalCriteriaBuilderService _statisticalCriteriaBuilderService;
+        private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
+        private readonly IComparisonService _comparisonService;
 
         public BenchmarkChartsController(IBenchmarkChartBuilder benchmarkChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ILocalAuthoritiesService laService, IDownloadCSVBuilder csvBuilder,
-            IContextDataService contextDataService, IStatisticalCriteriaBuilderService statisticalCriteriaBuilderService)
+            IContextDataService contextDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService, IComparisonService comparisonService)
         {
             _benchmarkChartBuilder = benchmarkChartBuilder;
             _financialDataService = financialDataService;
@@ -40,56 +43,21 @@ namespace SFB.Web.UI.Controllers
             _laService = laService;
             _csvBuilder = csvBuilder;
             _contextDataService = contextDataService;
-            _statisticalCriteriaBuilderService = statisticalCriteriaBuilderService;
+            _benchmarkCriteriaBuilderService = benchmarkCriteriaBuilderService;
+            _comparisonService = comparisonService;
         }
 
         [HttpPost]
         public async Task<ActionResult> GenerateFromSimpleCriteria(string urn, int basketSize, EstablishmentType estType, SimpleCriteria simpleCriteria)
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
+            
+            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
 
-            var tryCount = 0;
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
 
-            var benchmarkCriteria = _statisticalCriteriaBuilderService.Build(
-                benchmarkSchool,
-                simpleCriteria.IncludeFsm.GetValueOrDefault(),
-                simpleCriteria.IncludeSen.GetValueOrDefault(),
-                simpleCriteria.IncludeEal.GetValueOrDefault(),
-                simpleCriteria.IncludeLa.GetValueOrDefault(),
-                tryCount);
-
-            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
-
-            if (benchmarkSchools.Count > basketSize)//Original query returns more than required. Cut from top by proximity.
-            {
-                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - benchmarkSchool.HistoricalSchoolDataModels.Last().PupilCount)).Take(basketSize).ToList();
-                benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<int>("No Pupils"));
-                benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<int>("No Pupils"));//Update the criteria to reflect the max and min pupil count of the found schools
-            }
-
-            while (benchmarkSchools.Count < basketSize)//Original query returns less than required
-            {
-                if (++tryCount > CriteriaSearchConfig.MAX_TRY_LIMIT)//Max query try reached. Return whatever is found.
-                {
-                    break;
-                }
-                benchmarkCriteria = _statisticalCriteriaBuilderService.Build(
-                    benchmarkSchool,
-                    simpleCriteria.IncludeFsm.GetValueOrDefault(),
-                    simpleCriteria.IncludeSen.GetValueOrDefault(),
-                    simpleCriteria.IncludeEal.GetValueOrDefault(),
-                    simpleCriteria.IncludeLa.GetValueOrDefault(),
-                    tryCount);
-                benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
-
-                if (benchmarkSchools.Count > basketSize)//Number jumping to more than ideal. Cut from top by proximity.
-                {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - benchmarkSchool.HistoricalSchoolDataModels.Last().PupilCount)).Take(basketSize).ToList();
-                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<int>("No Pupils"));
-                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<int>("No Pupils"));//Update the criteria to reflect the max and min pupil count of the found schools
-                    break;
-                }
-            }
+            var benchmarkSchools = comparisonResult.BenchmarkSchools;
+            benchmarkCriteria = comparisonResult.BenchmarkCriteria;
 
             var cookie = base.UpdateSchoolComparisonListCookie(CompareActions.CLEAR_BENCHMARK_LIST, null);
             Response.Cookies.Add(cookie);
@@ -109,8 +77,9 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList();
 
-            return await Index(urn, simpleCriteria, benchmarkCriteria, basketSize, benchmarkSchool.HistoricalSchoolDataModels.Last(), estType, ComparisonType.Basic);
+            return await Index(urn, simpleCriteria, benchmarkCriteria, basketSize, benchmarkSchool.LatestYearFinancialData, estType, ComparisonType.Basic);
         }
+
 
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
@@ -141,21 +110,18 @@ namespace SFB.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, string urn, ComparisonArea areaType, BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite)
         {
-            List<Document> benchmarkSchools, limitedList;
-
             criteria.LaCode = lacode;
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
 
             switch (overwriteStrategy)
             {
                 case BenchmarkListOverwriteStrategy.Overwrite:
-                    benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);
-                    limitedList = benchmarkSchools.Take(ComparisonListLimit.LIMIT).ToList();
+                    var result = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType);
 
                     var cookie = base.UpdateSchoolComparisonListCookie(CompareActions.CLEAR_BENCHMARK_LIST, null);
                     Response.Cookies.Add(cookie);
 
-                    foreach (var schoolDoc in limitedList)
+                    foreach (var schoolDoc in result.BenchmarkSchools)
                     {
                         var benchmarkSchoolToAdd = new BenchmarkSchoolViewModel()
                         {
@@ -169,11 +135,10 @@ namespace SFB.Web.UI.Controllers
                     }
                     break;
                 case BenchmarkListOverwriteStrategy.Add:
-                    benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);
                     var comparisonList = base.ExtractSchoolComparisonListFromCookie();
-                    limitedList = benchmarkSchools.Take(ComparisonListLimit.LIMIT - comparisonList.BenchmarkSchools.Count()).ToList();
+                    var comparisonResult = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, ComparisonListLimit.LIMIT - comparisonList.BenchmarkSchools.Count);
 
-                    foreach (var schoolDoc in limitedList)
+                    foreach (var schoolDoc in comparisonResult.BenchmarkSchools)
                     {
                         var benchmarkSchoolToAdd = new BenchmarkSchoolViewModel()
                         {
@@ -192,7 +157,7 @@ namespace SFB.Web.UI.Controllers
             AddDefaultBenchmarkSchoolToList();
 
             return await Index(urn, null,
-                criteria, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalSchoolDataModels.Last(), estType, ComparisonType.Advanced, areaType, lacode.ToString());
+                criteria, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), estType, ComparisonType.Advanced, areaType, lacode.ToString());
         }
 
         public async Task<PartialViewResult> CustomReport(string json)
@@ -219,7 +184,7 @@ namespace SFB.Web.UI.Controllers
             SimpleCriteria simpleCriteria,
             BenchmarkCriteria benchmarkCriteria,
             int basketSize = ComparisonListLimit.DEFAULT,
-            SchoolDataModel benchmarkSchoolData = null,
+            SchoolFinancialDataModel benchmarkSchoolData = null,
             EstablishmentType searchedEstabType = EstablishmentType.All,
             ComparisonType comparisonType = ComparisonType.Manual,
             ComparisonArea areaType = ComparisonArea.All,
@@ -567,23 +532,23 @@ namespace SFB.Web.UI.Controllers
             }
         }
         
-        private List<SchoolDataModel> GetFinancialDataForTrusts(List<TrustToCompareViewModel> trusts, MatFinancingType matFinancing = MatFinancingType.TrustAndAcademies)
+        private List<SchoolFinancialDataModel> GetFinancialDataForTrusts(List<TrustToCompareViewModel> trusts, MatFinancingType matFinancing = MatFinancingType.TrustAndAcademies)
         {
-            var models = new List<SchoolDataModel>();
+            var models = new List<SchoolFinancialDataModel>();
             
             var terms = _financialDataService.GetActiveTermsForMatCentral();
 
             foreach (var trust in trusts){
                 var financialDataModel = _financialDataService.GetMATDataDocument(trust.MatNo, terms.First(), matFinancing);
-                models.Add(new SchoolDataModel(trust.MatNo, terms.First(), financialDataModel, SchoolFinancialType.Academies));
+                models.Add(new SchoolFinancialDataModel(trust.MatNo, terms.First(), financialDataModel, SchoolFinancialType.Academies));
             }
 
             return models;
         }
 
-        private async Task<List<SchoolDataModel>> GetFinancialDataForSchoolsAsync(List<BenchmarkSchoolViewModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Include)
+        private async Task<List<SchoolFinancialDataModel>> GetFinancialDataForSchoolsAsync(List<BenchmarkSchoolViewModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Include)
         {
-            var models = new List<SchoolDataModel>();
+            var models = new List<SchoolFinancialDataModel>();
 
             var taskList = new List<Task<IEnumerable<Document>>>();
             foreach (var school in schools)
@@ -621,7 +586,7 @@ namespace SFB.Web.UI.Controllers
                     resultDocument = null;
                 }
 
-                models.Add(new SchoolDataModel(schools[i].Urn, term, resultDocument, (SchoolFinancialType)Enum.Parse(typeof(SchoolFinancialType), schools[i].FinancialType)));
+                models.Add(new SchoolFinancialDataModel(schools[i].Urn, term, resultDocument, (SchoolFinancialType)Enum.Parse(typeof(SchoolFinancialType), schools[i].FinancialType)));
             }
 
             return models;
@@ -633,7 +598,7 @@ namespace SFB.Web.UI.Controllers
             var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(benchmarkSchool.FinancialType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
             var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.FinancialType);
-            benchmarkSchool.HistoricalSchoolDataModels = new List<SchoolDataModel> { new SchoolDataModel(urn, term, document, benchmarkSchool.FinancialType) };
+            benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel> { new SchoolFinancialDataModel(urn, term, document, benchmarkSchool.FinancialType) };
             return benchmarkSchool;
         }
 

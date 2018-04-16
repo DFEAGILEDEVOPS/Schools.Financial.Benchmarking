@@ -35,10 +35,9 @@ namespace SFB.Web.UI.UnitTests
             doc.SetPropertyValue("Education support staff", "2000");
             doc.SetPropertyValue("No Pupils", "100");
             doc.SetPropertyValue("No Teachers", "10");            
-
-            var dataModels = new List<SchoolDataModel>()
+            var dataModels = new List<SchoolFinancialDataModel>()
             {
-                new SchoolDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
+                new SchoolFinancialDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
             };
 
             var service = new FinancialCalculationsService();
@@ -74,9 +73,9 @@ namespace SFB.Web.UI.UnitTests
             doc.SetPropertyValue("No Pupils", "100");
             doc.SetPropertyValue("No Teachers", "10");
 
-            var dataModels = new List<SchoolDataModel>()
+            var dataModels = new List<SchoolFinancialDataModel>()
             {
-                new SchoolDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
+                new SchoolFinancialDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
             };
 
             var service = new FinancialCalculationsService();
@@ -112,9 +111,9 @@ namespace SFB.Web.UI.UnitTests
             doc.SetPropertyValue("No Pupils", "100");
             doc.SetPropertyValue("No Teachers", "10");
 
-            var dataModels = new List<SchoolDataModel>()
+            var dataModels = new List<SchoolFinancialDataModel>()
             {
-                new SchoolDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
+                new SchoolFinancialDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
             };
 
             var service = new FinancialCalculationsService();
@@ -152,9 +151,9 @@ namespace SFB.Web.UI.UnitTests
             doc.SetPropertyValue("No Teachers", "10");
             doc.SetPropertyValue("Total Expenditure", "5000");
 
-            var dataModels = new List<SchoolDataModel>()
+            var dataModels = new List<SchoolFinancialDataModel>()
             {
-                new SchoolDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
+                new SchoolFinancialDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
             };
 
             var service = new FinancialCalculationsService();
@@ -190,9 +189,9 @@ namespace SFB.Web.UI.UnitTests
             doc.SetPropertyValue("No Pupils", "100");
             doc.SetPropertyValue("No Teachers", "10");            
 
-            var dataModels = new List<SchoolDataModel>()
+            var dataModels = new List<SchoolFinancialDataModel>()
             {
-                new SchoolDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
+                new SchoolFinancialDataModel("123", "2014 / 2015", doc, SchoolFinancialType.Maintained)
             };
 
             var service = new FinancialCalculationsService();

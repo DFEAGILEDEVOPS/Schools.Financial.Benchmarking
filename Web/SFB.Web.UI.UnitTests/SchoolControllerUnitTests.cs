@@ -7,6 +7,7 @@ using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using SFB.Web.Common;
+using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
@@ -75,7 +76,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<SchoolDataModel>>(),
+                It.IsAny<List<SchoolFinancialDataModel>>(),
                 It.IsAny<string>(),
                 It.IsAny<RevenueGroupType>(),
                 UnitType.PerPupil,
@@ -114,7 +115,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<SchoolDataModel>>(),
+                It.IsAny<List<SchoolFinancialDataModel>>(),
                 It.IsAny<string>(),
                 It.IsAny<RevenueGroupType>(),
                 UnitType.PerPupil,
@@ -153,7 +154,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<SchoolDataModel>>(),
+                It.IsAny<List<SchoolFinancialDataModel>>(),
                 It.IsAny<string>(),
                 It.IsAny<RevenueGroupType>(),
                 UnitType.AbsoluteMoney,
@@ -192,7 +193,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
                 It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<SchoolDataModel>>(),
+                It.IsAny<List<SchoolFinancialDataModel>>(),
                 It.IsAny<string>(),
                 It.IsAny<RevenueGroupType>(),
                 UnitType.AbsoluteCount,

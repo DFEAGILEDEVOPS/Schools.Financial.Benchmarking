@@ -35,4 +35,17 @@ namespace SFB.Web.Domain.Helpers.Constants
         public const int URN_LENGTH = 6;
         public const int LAESTAB_LENGTH = 7;
     }
+
+    public class ComparisonListLimit
+    {
+        public const int LIMIT = 30;
+        public const int MAT_LIMIT = 10;
+        public const int DEFAULT = 15;
+    }
+
+    public class CriteriaSearchConfig
+    {
+        public const int DEFAULT_MARGIN = 10;
+        public const int MAX_TRY_LIMIT = 10;
+    }
 }

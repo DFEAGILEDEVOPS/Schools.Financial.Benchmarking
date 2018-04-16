@@ -58,9 +58,9 @@ else
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
-                @if (!Model.HistoricalSchoolDataModels.Last().IsSAT)
+                @if (!Model.HistoricalSchoolFinancialDataModels.Last().IsSAT)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{1}</a>", Model.HistoricalSchoolDataModels.Last().MatNo, Model.TrustName)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{1}</a>", Model.HistoricalSchoolFinancialDataModels.Last().MatNo, Model.TrustName)
                 }
                 @DataSourcesField()
 
@@ -161,7 +161,7 @@ else
             @Html.Partial("Partials/Terms", Model)
             @Html.Partial("Partials/ValueSelect", Model)
             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-            @if (Model.FinancialType == SchoolFinancialType.Academies && !Model.HistoricalSchoolDataModels.Last().IsSAT)
+            @if (Model.FinancialType == SchoolFinancialType.Academies && !Model.HistoricalSchoolFinancialDataModels.Last().IsSAT)
             {
                 Html.RenderPartial("Partials/CentralFinancing");
             }
