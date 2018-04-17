@@ -360,3 +360,27 @@
         }
     }
 }
+
+table.bmc-rollover-table {
+    background-color: $page-colour;
+
+    td, th {
+        @include core-16;
+        border: 1px solid $grey-2;
+        padding: 8px;
+
+        &.bold {
+            font-weight: bold;
+        }
+    }
+
+    th {
+        background-color: $grey-3;
+
+        &.highlighted {
+            background-color: $pink;
+            font-weight: bold;
+            color: white;
+        }
+    }
+}

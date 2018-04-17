@@ -5,12 +5,20 @@ using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using SFB.Web.Common;
+using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Services
 {
     public class FinancialCalculationsService : IFinancialCalculationsService
     {
+        private readonly ILocalAuthoritiesService _localAuthoritiesService;
+
+        public FinancialCalculationsService(ILocalAuthoritiesService localAuthoritiesService)
+        {
+            _localAuthoritiesService = localAuthoritiesService;
+        }
+
         public void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts,
             List<SchoolFinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
             SchoolFinancialType schoolFinancialType)
@@ -259,6 +267,7 @@ namespace SFB.Web.UI.Services
                     PupilCount = dataModel.PupilCount,
                     Term = dataModel.Term,
                     Type = school.Type,
+                    La = _localAuthoritiesService.GetLaName(dataModel.LaNumber.ToString()),
                     IsCompleteYear = dataModel.PeriodCoveredByReturn >= 12,
                     IsWFDataPresent = dataModel.WorkforceDataPresent,
                     PartialYearsPresentInSubSchools = dataModel.PartialYearsPresentInSubSchools,

@@ -341,7 +341,22 @@
                 pattern: ['#097F96']
             },
             tooltip: {
-                show: false
+                contents: function (d, defaultTitleFormat) {
+                    var nameAndUrn = defaultTitleFormat(d[0].index).split('#');
+                    var name = nameAndUrn[0];
+                    var chartData = JSON.parse($('#' + el.id).attr('data-chart'));
+                    var schoolData = chartData[d[0].index];
+                    var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
+                        el.parentElement.parentElement.parentElement)[0].value;
+                    var highlight = benchmarkSchoolIndex == d[0].index ? "highlighted" : "";
+                    return "<table class='bmc-rollover-table'>" +
+                        "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +
+                        "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
+                        "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
+                        "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>" +
+                        "</table>";
+                },
+                show: $("#Type").val() !== "MAT"
             },
             onrendered: function () {
                 applyChartStyles(el);

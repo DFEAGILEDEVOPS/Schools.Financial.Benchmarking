@@ -20,8 +20,8 @@ namespace SFB.Web.UI.Models
 
         [JsonIgnore]
         public override string ShortName => !string.IsNullOrEmpty(Name) && Name.Length >= 20 ? $"{Name.Substring(0, 17)}..." : Name;
-
-        [JsonIgnore]
+    
+        [JsonProperty(PropertyName = "T")]
         public override string Type { get; set; }
 
         [JsonIgnore]
