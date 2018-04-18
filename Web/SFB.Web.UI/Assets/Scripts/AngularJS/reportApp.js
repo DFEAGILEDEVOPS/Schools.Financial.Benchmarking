@@ -5,6 +5,8 @@
             function ($scope, $location, $http, $q) {
                 var self = this;
                 self.location = $location;
+                self.showContextTable = true;
+                self.inReportView = false;
 
                 self.loadData = function(resolve) {
                     if (localStorage.CustomCharts) {
@@ -15,7 +17,7 @@
                             $scope.selectionList = response.data;
                             resolve();
                         });
-                    }                    
+                    }     
                 }
 
                 self.persist = function () {
@@ -52,9 +54,9 @@
                             $("#BackToBMCharts").show();
                             DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
                             $("table").tablesorter();
-
-                        });
-                    self.location.url("report");;
+                          });
+                      self.location.url("report");
+                      self.inReportView = true;
                 };
 
                 self.groupSelectCount = function(group) {
@@ -93,6 +95,10 @@
 
                 angular.element(document).ready(function () {
                     new Accordion(document.getElementById('custom-report-accordion'));
+                });
+
+                $(document).ready(function() {
+                    $scope.schoolChartData = JSON.parse(($('.chart.c3').first()).attr('data-chart'));
                 });
             }
         ]);

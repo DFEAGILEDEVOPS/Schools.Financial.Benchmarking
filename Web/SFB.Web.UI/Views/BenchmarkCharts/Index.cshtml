@@ -161,21 +161,43 @@ else
         </div>
     }
 
-    <div id="CustomReportContentPlaceHolder" ng-app="reportApp">
+    <div ng-app="reportApp">
         <div id="listCtrl" ng-controller="ChartListController as ctrl">
-            @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-            <div id="tabsSection">
-                @Html.Partial("Partials/TabContent")
+            <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>School name</th>
+                        <th>Local authority</th>
+                        <th>School type</th>
+                        <th>Number of pupils</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="school in schoolChartData">
+                            <td>{{school.school.split('#')[0]}}</td>
+                            <td>{{school.la}}</td>
+                            <td>{{school.type}}</td>
+                            <td>{{school.pupilCount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            @if (Model.EstablishmentType != EstablishmentType.MAT)
-            {
-                <div id="customTabSection" style="display: none">
-                    @Html.Partial("Partials/CustomTabContent")
+            <div id="CustomReportContentPlaceHolder">
+
+                @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
+                <div id="tabsSection">
+                    @Html.Partial("Partials/TabContent")
                 </div>
-            }
+                @if (Model.EstablishmentType != EstablishmentType.MAT)
+                {
+                    <div id="customTabSection" style="display: none">
+                        @Html.Partial("Partials/CustomTabContent")
+                    </div>
+                }
+            </div>
         </div>
     </div>
-
     <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
     <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType"/>
