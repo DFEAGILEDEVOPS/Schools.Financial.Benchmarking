@@ -348,7 +348,7 @@
                     var schoolData = chartData[d[0].index];
                     var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
                         el.parentElement.parentElement.parentElement)[0].value;
-                    var highlight = benchmarkSchoolIndex == d[0].index ? "highlighted" : "";
+                    var highlight = benchmarkSchoolIndex === d[0].index ? "highlighted" : "";
                     return "<table class='bmc-rollover-table'>" +
                         "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +
                         "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
