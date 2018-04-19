@@ -97,7 +97,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpHead]
-        public ActionResult Detail(int urn)
+        public ActionResult Status(int urn)
         {
             var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
             return schoolDetailsFromEdubase == null ? new HttpStatusCodeResult(HttpStatusCode.NotFound) : new HttpStatusCodeResult(HttpStatusCode.OK);
