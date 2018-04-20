@@ -149,12 +149,10 @@
                     }
                 });
 
-            $("input.criteria-input").keyup(function (e) {
-                if ($(this).valid()) {
-                    var code = e.keyCode || e.which;
-                    if (code !== 9) {
-                        self.updateResultCount();
-                    }
+            $("input.criteria-input").keyup(function(e) {
+                var code = e.keyCode || e.which;
+                if (code !== 9) {
+                    self.updateResultCount();
                 }
             });
 
