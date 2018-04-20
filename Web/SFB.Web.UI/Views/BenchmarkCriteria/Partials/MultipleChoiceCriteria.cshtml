@@ -13,7 +13,7 @@
             <div class="benchmark-school-value">
             @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
             {
-                <span>Your default school's value was not supplied</span>
+                <span>No value was supplied for @Model.HomeSchoolName</span>
             }
             else
             {
