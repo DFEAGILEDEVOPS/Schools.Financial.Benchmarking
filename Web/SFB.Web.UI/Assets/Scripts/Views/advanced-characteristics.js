@@ -129,6 +129,11 @@
                     var $panel = $(this).parent().next();
                     $panel.toggle();
                     $panel.find("input").prop('disabled', function (i, v) { return !v; });
+                    if (!this.checked) {
+                        $panel.removeClass("error");
+                        $panel.find("input.error").removeClass("error");
+                        $panel.find("label.error").css("display", "none");
+                    }
                     $panel.find("input[type='number']:disabled").val(null);
                     $panel.find("input[type='checkbox']:disabled").prop('checked', false);
                     $panel.find("input[type='radio']:disabled").prop('checked', false);
