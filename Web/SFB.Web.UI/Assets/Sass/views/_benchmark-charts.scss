@@ -160,7 +160,7 @@
 
         .form-control {
             @include media(tablet) {
-                width: 65%;
+                width: 80%;
             }
         }
     }
@@ -383,4 +383,8 @@ table.bmc-rollover-table {
             color: white;
         }
     }
+}
+
+.include-context-table{
+    padding-top:25px;
 }

@@ -3,7 +3,7 @@
 
     function BenchmarkChartsViewModel() {
         $(document).ready(function () {
-            $("table").tablesorter();
+            $("table.dataTable").tablesorter();
             DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
             DfE.Views.BenchmarkChartsViewModel.RefreshAddRemoveLinks();
             $('.save-as-image').show();
@@ -445,7 +445,7 @@
                 self.RefreshAddRemoveLinks();
                 $('.save-as-image').show();
                 self.GenerateCharts(unitParameter);
-                $("table").tablesorter();
+                $("table.dataTable").tablesorter();
             });
     };
 
@@ -487,7 +487,7 @@
                     $(".tabs li#" + tab).addClass("active");
                     $("#customTabSection").hide();
                     $("#tabsSection").html(data);
-                    $("table").tablesorter();
+                    $("table.dataTable").tablesorter();
                     var unitParameter = $("#ShowValue").val();
                     self.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
