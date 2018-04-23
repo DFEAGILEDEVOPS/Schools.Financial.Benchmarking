@@ -36,6 +36,16 @@
         }
     };
 
+    window.DfE.Util.LoadingMessage = {
+        display : function(location, message) {
+            $(location).html('<div class="column-full">' +
+                '<img style="vertical-align:bottom" src="../public/assets/images/spinner.gif"></img>' +
+                '<span role="alert" aria-live="assertive" aria-label="'+ message +'"></span>' +
+                '<span class="font-medium" style="margin-left: 10px">Loading...</span>'+
+                '</div>');
+        }
+    };
+
     window.DfE.Util.Charting = {
         ChartMoneyFormat: function(amount) {
             if (amount === null)

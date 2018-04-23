@@ -420,6 +420,7 @@
     <Content Include="public\assets\images\player-icon-volume.png" />
     <Content Include="public\assets\images\separator-2x.png" />
     <Content Include="public\assets\images\separator.png" />
+    <Content Include="public\assets\images\spinner.gif" />
     <Content Include="public\assets\print\bmc-print.css" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-120x120.png" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-152x152.png" />

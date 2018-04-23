@@ -189,13 +189,19 @@
                 url += "&financing=" + financingParameter;
             }
 
-            $.get(url,
-                function(data) {
+            $.ajax({
+                url: url,
+                datatype: 'json',
+                beforeSend: function () {
+                    DfE.Util.LoadingMessage.display("#historicalChartsList", "Updating charts");
+                },
+                success: function(data) {
                     $("#historicalChartsList").html(data);
                     self.GenerateCharts(unitParameter);
                     self.UpdateTotals();
                     new Accordion(document.getElementById('historical-charts-accordion'));
-                });
+                }
+            });
         },
 
         UpdateTotals: function() {
