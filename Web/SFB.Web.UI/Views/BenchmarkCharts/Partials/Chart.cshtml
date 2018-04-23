@@ -6,7 +6,7 @@
 <div id="bm-charts-accordion" class="accordion">
     @for (int i = 0; i < Model.Count; i++)
     {
-        <div class="chartContainer column-full" data-group="@Model[i].ChartGroup">
+        <div class="chartContainer column-full no-padding" data-group="@Model[i].ChartGroup">
             @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport)
             {
                 if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))

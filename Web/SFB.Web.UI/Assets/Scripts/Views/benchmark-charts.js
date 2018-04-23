@@ -439,14 +439,20 @@
             url += "&type=" + type;
         }
 
-        $.get(url,
-            function(data) {
+        $.ajax({
+            url: url,
+            datatype: 'json',
+            beforeSend: function() {
+                DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Updating charts");
+            },
+            success: function(data) {
                 $("#benchmarkChartsList").html(data);
                 self.RefreshAddRemoveLinks();
                 $('.save-as-image').show();
                 self.GenerateCharts(unitParameter);
                 $("table.dataTable").tablesorter();
-            });
+            }
+        });
     };
 
     BenchmarkChartsViewModel.saveAsImage = function(name, id) {
