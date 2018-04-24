@@ -461,7 +461,15 @@
     };
 
     BenchmarkChartsViewModel.PrintPage = function() {
-        $('details').attr('open', 'true');
+
+        var accordion_sections = $("#benchmarkChartsList .accordion-section");
+        accordion_sections.attr('aria-expanded', true)
+
+        var buttons = $("#benchmarkChartsList .chart-accordion-header")
+        buttons.each(function() {
+            $(this).attr('aria-label', $(this).attr('aria-label').replace("Show", "Hide"))
+        });
+
         window.print();
     };
 
