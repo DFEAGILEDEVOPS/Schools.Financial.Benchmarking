@@ -1,4 +1,5 @@
-﻿@using SFB.Web.Common
+﻿@using Microsoft.Ajax.Utilities
+@using SFB.Web.Common
 @using SFB.Web.Domain.Helpers
 @using SFB.Web.UI.Helpers.Enums
 @model List<SFB.Web.UI.Models.ChartViewModel>
@@ -99,6 +100,7 @@
                         <div class="grid-row">
                             <div class="column-full">
                                 <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
                             </div>
                         </div>
                         <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
@@ -179,6 +181,7 @@
                                 <div class="grid-row">
                                     <div class="column-full">
                                         <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                        @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
                                     </div>
                                 </div>
                                 <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>

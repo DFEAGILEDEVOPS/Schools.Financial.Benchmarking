@@ -1,0 +1,35 @@
+﻿@using Microsoft.Ajax.Utilities
+@model List<SFB.Web.Domain.Models.BenchmarkChartData>
+
+<table class="tablesorter chart-table">
+    <thead>
+        <tr>
+            <th class="school-column">School name</th>
+            <th>Local authority</th>
+            <th>School type</th>
+            <th>Number of pupils</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schoolBenchmarkData in Model)
+        {
+            <tr>
+                <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                <td>@schoolBenchmarkData.La</td>
+                <td>@schoolBenchmarkData.Type</td>
+                <td>@schoolBenchmarkData.PupilCount</td>
+                <td>
+                    @if (schoolBenchmarkData.Amount.HasValue)
+                    {
+                        @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                    }
+                    else
+                    {
+                        <text>Not applicable</text>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

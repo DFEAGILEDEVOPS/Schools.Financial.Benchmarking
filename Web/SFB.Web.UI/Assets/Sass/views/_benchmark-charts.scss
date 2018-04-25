@@ -113,6 +113,12 @@
             margin-bottom: 10px;
         }
     }
+
+    table.tablesorter.chart-table th {
+        color: $text-colour;
+        @include bold-16();
+    }
+
     /* table sorter */
     table.tablesorter thead tr .header {
         //background-image: url(/public/assets/images/bg.gif);
