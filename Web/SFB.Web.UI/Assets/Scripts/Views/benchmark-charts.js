@@ -510,6 +510,11 @@
         }
     };
 
+    BenchmarkChartsViewModel.HideShowDetails = function(element) {
+        var $table = $(element).closest('table');
+        $table.find('.detail').toggle(200);
+    }
+
     BenchmarkChartsViewModel.Load = function () {
         new DfE.Views.BenchmarkChartsViewModel();
     };

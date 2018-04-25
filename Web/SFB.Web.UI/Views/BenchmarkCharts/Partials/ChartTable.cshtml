@@ -1,14 +1,21 @@
 ﻿@using Microsoft.Ajax.Utilities
+@using SFB.Web.UI.Helpers.Enums
 @model List<SFB.Web.Domain.Models.BenchmarkChartData>
 
 <table class="tablesorter chart-table">
     <thead>
         <tr>
-            <th class="school-column">School name</th>
-            <th>Local authority</th>
-            <th>School type</th>
-            <th>Number of pupils</th>
-            <th>Amount</th>
+            <th class="school-column">
+                School name
+                <a class="hide-show-button hide detail" href="javascript: void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&#9654;</a>
+            </th>
+            <th class="detail">Local authority</th>
+            <th class="detail">School type</th>
+            <th class="detail">Number of pupils</th>
+            <th>
+                <a class="hide-show-button show detail" href="javascript: void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</a>
+                Amount
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -16,13 +23,20 @@
         {
             <tr>
                 <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
-                <td>@schoolBenchmarkData.La</td>
-                <td>@schoolBenchmarkData.Type</td>
-                <td>@schoolBenchmarkData.PupilCount</td>
+                <td class="detail">@schoolBenchmarkData.La</td>
+                <td class="detail">@schoolBenchmarkData.Type</td>
+                <td class="detail">@schoolBenchmarkData.PupilCount</td>
                 <td>
                     @if (schoolBenchmarkData.Amount.HasValue)
                     {
-                        @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                        if (schoolBenchmarkData.Unit == UnitType.PercentageOfTotal.ToString())
+                        {
+                            @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                        }
+                        else
+                        {
+                            @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                        }
                     }
                     else
                     {

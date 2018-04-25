@@ -116,7 +116,20 @@
 
     table.tablesorter.chart-table th {
         color: $text-colour;
+        //white-space: nowrap;
         @include bold-16();
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    table a.hide-show-button.hide {
+        float: right;
+    }
+
+    table a.hide-show-button.show {
+        margin-right: 30px;
     }
 
     /* table sorter */
