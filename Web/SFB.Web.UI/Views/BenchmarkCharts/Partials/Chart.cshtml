@@ -99,8 +99,15 @@
                         }
                         <div class="grid-row">
                             <div class="column-full">
-                                <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
-                                @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                <div class="chart-wrapper">
+                                    <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                </div>
+                                @if (Model[i].ChartType != ChartType.CustomReport)
+                                {
+                                    <div class="chart-table-wrapper" style="display: none">
+                                        @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                    </div>
+                                }
                             </div>
                         </div>
                         <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
@@ -180,8 +187,15 @@
                                 }
                                 <div class="grid-row">
                                     <div class="column-full">
-                                        <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
-                                        @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                        <div class="chart-wrapper">
+                                            <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                        </div>
+                                        @if (Model[i].ChartType != ChartType.CustomReport)
+                                        {
+                                            <div class="chart-table-wrapper" style="display: none">
+                                                @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                                 <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>

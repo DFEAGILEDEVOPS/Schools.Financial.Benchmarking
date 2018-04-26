@@ -127,7 +127,7 @@
 
     BenchmarkChartsViewModel.GenerateChart = function (el, showValue, min, mid, max, barCount) {
         var applyChartStyles = function (el) {
-            var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", el.parentElement.parentElement.parentElement)[0]
+            var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", el.closest('.chartContainer'))[0]
                 .value;
             if (benchmarkSchoolIndex > -1) {
                 $("#" +
@@ -138,7 +138,7 @@
                     benchmarkSchoolIndex).css("fill", "#D53880");
             }
 
-            var incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", el.parentElement.parentElement.parentElement)[0].value;
+            var incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", el.closest('.chartContainer'))[0].value;
             var incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
             if (incompleteFinanceDataIndexArray.length > 0) {
                 incompleteFinanceDataIndexArray.forEach(function (index) {
@@ -151,7 +151,7 @@
                 });
             }
 
-            var incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", el.parentElement.parentElement.parentElement)[0].value;
+            var incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", el.closest('.chartContainer'))[0].value;
             var incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
             if (incompleteWorkforceDataIndexArray.length > 0) {
                 incompleteWorkforceDataIndexArray.forEach(function (index) {
@@ -347,7 +347,7 @@
                     var chartData = JSON.parse($('#' + el.id).attr('data-chart'));
                     var schoolData = chartData[d[0].index];
                     var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
-                        el.parentElement.parentElement.parentElement)[0].value;
+                        el.closest('.chartContainer'))[0].value;
                     var highlight = benchmarkSchoolIndex === d[0].index ? "highlighted" : "";
                     return "<table class='bmc-rollover-table'>" +
                         "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +
@@ -453,6 +453,8 @@
                 $("table.dataTable").tablesorter();
             }
         });
+
+        BenchmarkChartsViewModel.ToggleChartsTables('charts');
     };
 
     BenchmarkChartsViewModel.saveAsImage = function(name, id) {
@@ -513,6 +515,22 @@
     BenchmarkChartsViewModel.HideShowDetails = function(element) {
         var $table = $(element).closest('table');
         $table.find('.detail').toggle(200);
+    }
+
+    BenchmarkChartsViewModel.ToggleChartsTables = function(mode) {
+        var $charts = $('.chart-wrapper');
+        var $tables = $('.chart-table-wrapper');
+        if (mode === 'charts') {
+            $('a.view-charts-tables.charts').hide();
+            $('a.view-charts-tables.tables').show();
+            $tables.hide();
+            $charts.show();
+        } else if (mode === 'tables') {
+            $('a.view-charts-tables.tables').hide();
+            $('a.view-charts-tables.charts').show();
+            $charts.hide();
+            $tables.show();
+        }
     }
 
     BenchmarkChartsViewModel.Load = function () {

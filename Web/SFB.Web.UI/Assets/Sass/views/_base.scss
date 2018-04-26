@@ -404,6 +404,16 @@ abbr[title]{
     }
 }
 
+
+.chartTable {
+    img.icon {
+        vertical-align: middle;
+        position: relative;
+        bottom: 1px;
+        right: 3px;
+    }
+}
+
 .download{
     img.icon{
         @include media(mobile) {

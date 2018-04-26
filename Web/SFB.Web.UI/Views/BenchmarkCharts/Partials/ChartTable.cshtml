@@ -2,8 +2,9 @@
 @using SFB.Web.UI.Helpers.Enums
 @model List<SFB.Web.Domain.Models.BenchmarkChartData>
 
-<table class="tablesorter chart-table">
-    <thead>
+
+    <table class="tablesorter chart-table">
+        <thead>
         <tr>
             <th class="school-column" scope="col">
                 School name
@@ -17,14 +18,16 @@
                 Amount
             </th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach (var schoolBenchmarkData in Model)
         {
             <tr>
                 @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                 {
-                    <td class="school-column"><span class="bold-xsmall">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span></td>
+                    <td class="school-column">
+                        <span class="bold-xsmall">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span>
+                    </td>
                 }
                 else
                 {
@@ -36,13 +39,20 @@
                 <td>
                     @if (schoolBenchmarkData.Amount.HasValue)
                     {
-                        if (schoolBenchmarkData.Unit == UnitType.PercentageOfTotal.ToString())
+                        switch ((UnitType)Enum.Parse(typeof(UnitType),schoolBenchmarkData.Unit))
                         {
-                            @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
-                        }
-                        else
-                        {
-                            @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                            case UnitType.PercentageOfTotal:
+                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                break;
+                            case UnitType.HeadcountPerFTE:
+                            case UnitType.AbsoluteCount:
+                            case UnitType.FTERatioToTotalFTE:
+                            case UnitType.NoOfPupilsPerMeasure:
+                                @schoolBenchmarkData.Amount.GetValueOrDefault()
+                                break;
+                            default:
+                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                                break;
                         }
                     }
                     else
@@ -52,5 +62,5 @@
                 </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>

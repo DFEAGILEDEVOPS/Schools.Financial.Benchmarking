@@ -114,6 +114,11 @@
         }
     }
 
+    table.tablesorter.chart-table{
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
     table.tablesorter.chart-table th {
         color: $text-colour;
         //white-space: nowrap;
@@ -129,7 +134,14 @@
     }
 
     table a.hide-show-button.show {
-        margin-right: 30px;
+        @include media(tablet) {
+            margin-right: 30px;
+        }
+    }
+
+    a.view-charts-tables{
+        float: right;
+        margin-bottom: 20px;
     }
 
     /* table sorter */
@@ -326,7 +338,7 @@
         }
 
         @include media(tablet) {
-            margin-top: 1em;
+            margin-top: 1.5em;
 
             a {
                 padding-left: 10px;
