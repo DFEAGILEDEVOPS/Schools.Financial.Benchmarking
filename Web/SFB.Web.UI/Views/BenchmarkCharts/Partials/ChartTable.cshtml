@@ -5,15 +5,15 @@
 <table class="tablesorter chart-table">
     <thead>
         <tr>
-            <th class="school-column">
+            <th class="school-column" scope="col">
                 School name
-                <a class="hide-show-button hide detail" href="javascript: void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&#9654;</a>
+                <a aria-hidden="True" class="hide-show-button hide detail" href="javascript: void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&#9654;</a>
             </th>
-            <th class="detail">Local authority</th>
-            <th class="detail">School type</th>
-            <th class="detail">Number of pupils</th>
-            <th>
-                <a class="hide-show-button show detail" href="javascript: void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</a>
+            <th class="detail" scope="col">Local authority</th>
+            <th class="detail" scope="col">School type</th>
+            <th class="detail" scope="col">Number of pupils</th>
+            <th scope="col">
+                <a aria-hidden="True" class="hide-show-button show detail" href="javascript: void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</a>
                 Amount
             </th>
         </tr>
