@@ -165,10 +165,10 @@ else
         <div id="listCtrl" ng-controller="ChartListController as ctrl">
             <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
                 <h2 class="heading-medium">School context data</h2>
-                <table>
+                <table class="tablesorter context-table">
                     <thead>
                     <tr>
-                        <th>School name</th>
+                        <th class="school-column">School name</th>
                         <th>Local authority</th>
                         <th>School type</th>
                         <th>Number of pupils</th>
@@ -176,7 +176,7 @@ else
                     </thead>
                     <tbody>
                     <tr ng-repeat="school in schoolChartData">
-                        <td>{{school.school.split('#')[0]}}</td>
+                        <td class="school-column">{{school.school.split('#')[0]}}</td>
                         <td>{{school.la}}</td>
                         <td>{{school.type}}</td>
                         <td>{{school.pupilCount}}</td>

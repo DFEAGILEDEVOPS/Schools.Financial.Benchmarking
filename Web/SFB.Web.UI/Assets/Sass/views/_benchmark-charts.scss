@@ -114,12 +114,12 @@
         }
     }
 
-    table.tablesorter.chart-table{
+    table.tablesorter.chart-table {
         margin-top: 20px;
         margin-bottom: 30px;
     }
 
-    table.tablesorter.chart-table th {
+    table.tablesorter.chart-table, table.tablesorter.context-table th {
         color: $text-colour;
         //white-space: nowrap;
         @include bold-16();
@@ -139,11 +139,10 @@
         }
     }
 
-    a.view-charts-tables{
+    a.view-charts-tables {
         float: right;
         margin-bottom: 20px;
     }
-
     /* table sorter */
     table.tablesorter thead tr .header {
         //background-image: url(/public/assets/images/bg.gif);
