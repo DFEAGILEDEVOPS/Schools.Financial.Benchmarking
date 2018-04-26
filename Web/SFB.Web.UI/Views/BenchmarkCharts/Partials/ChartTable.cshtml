@@ -22,7 +22,14 @@
         @foreach (var schoolBenchmarkData in Model)
         {
             <tr>
-                <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
+                {
+                    <td class="school-column"><span class="bold-xsmall">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span></td>
+                }
+                else
+                {
+                    <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                }
                 <td class="detail">@schoolBenchmarkData.La</td>
                 <td class="detail">@schoolBenchmarkData.Type</td>
                 <td class="detail">@schoolBenchmarkData.PupilCount</td>
