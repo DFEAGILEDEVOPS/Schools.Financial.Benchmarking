@@ -119,7 +119,7 @@
         margin-bottom: 30px;
     }
 
-    table.tablesorter.chart-table, table.tablesorter.context-table th {
+    table.tablesorter.chart-table th, table.tablesorter.context-table th {
         color: $text-colour;
         //white-space: nowrap;
         @include bold-16();
