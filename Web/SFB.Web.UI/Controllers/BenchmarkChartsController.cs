@@ -160,7 +160,7 @@ namespace SFB.Web.UI.Controllers
                 criteria, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), estType, ComparisonType.Advanced, areaType, lacode.ToString());
         }
 
-        public async Task<PartialViewResult> CustomReport(string json)
+        public async Task<PartialViewResult> CustomReport(string json, ChartFormat format)
         {
             var customSelection = (CustomSelectionListViewModel)JsonConvert.DeserializeObject(json, typeof(CustomSelectionListViewModel));
             var customCharts = ConvertSelectionListToChartList(customSelection.HierarchicalCharts);
@@ -175,6 +175,8 @@ namespace SFB.Web.UI.Controllers
 
             var vm = new BenchmarkChartListViewModel(customCharts, base.ExtractSchoolComparisonListFromCookie(), null,
                 ComparisonType.Manual, null, null, null, EstablishmentType.All, EstablishmentType.All, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, null, ComparisonListLimit.DEFAULT);
+
+            ViewBag.ChartFormat = format;
 
             return PartialView("Partials/CustomCharts", vm);
         }
@@ -247,6 +249,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.Financing = financing;
+            ViewBag.ChartFormat = ChartFormat.Charts;
 
             return View("Index", vm);
         }
@@ -289,7 +292,7 @@ namespace SFB.Web.UI.Controllers
             return View("Index",vm);
         }
 
-        public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies)
+        public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -348,11 +351,12 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
             ViewBag.TrustFinancing = trustFinancing;
             ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustMatNo : vm.SchoolComparisonList.HomeSchoolUrn;
+            ViewBag.ChartFormat = format;
 
             return PartialView("Partials/TabContent", vm);
         }
 
-        public async Task<PartialViewResult> GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,EstablishmentType type = EstablishmentType.All)
+        public async Task<PartialViewResult> GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,EstablishmentType type = EstablishmentType.All, ChartFormat format = ChartFormat.Charts)
         {
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
@@ -367,6 +371,8 @@ namespace SFB.Web.UI.Controllers
             }
 
             ViewBag.EstablishmentType = type;
+            ViewBag.ChartFormat = format;
+
             return PartialView("Partials/Chart", benchmarkCharts);
         }
 

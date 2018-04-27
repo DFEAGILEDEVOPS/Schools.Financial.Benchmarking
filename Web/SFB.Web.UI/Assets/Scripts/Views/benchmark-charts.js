@@ -2,6 +2,7 @@
     'use strict';
 
     function BenchmarkChartsViewModel() {
+        sessionStorage.chartFormat = 'charts';
         $(document).ready(function () {
             $("table.dataTable").tablesorter();
             DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
@@ -418,6 +419,7 @@
         var unitParameter = $("#ShowValue").val();
         var centralFinancing = $("#CentralFinancing").val();
         var trustCentralFinancing = $("#TrustCentralFinancing").val();
+        var formatParameter = sessionStorage.chartFormat;
         var type = $("#Type").val();
 
         var url = "/benchmarkcharts/getcharts?revgroup=" +
@@ -439,6 +441,10 @@
             url += "&type=" + type;
         }
 
+        if (formatParameter) {
+            url += "&format=" + formatParameter;
+        }
+
         $.ajax({
             url: url,
             datatype: 'json',
@@ -453,8 +459,6 @@
                 $("table.dataTable").tablesorter();
             }
         });
-
-        BenchmarkChartsViewModel.ToggleChartsTables('charts');
     };
 
     BenchmarkChartsViewModel.saveAsImage = function(name, id) {
@@ -488,6 +492,7 @@
             var trustFinancingParameter = $("#TrustCentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             var typeParameter = $("#Type").val();
+            var formatParameter = sessionStorage.chartFormat;
             var url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
                 "&showValue=" + unitParameter;
@@ -496,6 +501,9 @@
             }
             if (trustFinancingParameter) {
                 url += "&trustFinancing=" + trustFinancingParameter;
+            }
+            if (formatParameter) {
+                url += "&format=" + formatParameter;
             }
             $.get(url,
                 function (data) {
@@ -520,16 +528,20 @@
     BenchmarkChartsViewModel.ToggleChartsTables = function(mode) {
         var $charts = $('.chart-wrapper');
         var $tables = $('.chart-table-wrapper');
+        var $showChartsButton = $('a.view-charts-tables.charts');
+        var $showTablesButton = $('a.view-charts-tables.tables');
         if (mode === 'charts') {
-            $('a.view-charts-tables.charts').hide();
-            $('a.view-charts-tables.tables').show();
+            $showChartsButton.hide();
+            $showTablesButton.show();
             $tables.hide();
             $charts.show();
+            sessionStorage.chartFormat = 'charts';
         } else if (mode === 'tables') {
-            $('a.view-charts-tables.tables').hide();
-            $('a.view-charts-tables.charts').show();
+            $showTablesButton.hide();
+            $showChartsButton.show();
             $charts.hide();
             $tables.show();
+            sessionStorage.chartFormat = 'tables';
         }
     }
 

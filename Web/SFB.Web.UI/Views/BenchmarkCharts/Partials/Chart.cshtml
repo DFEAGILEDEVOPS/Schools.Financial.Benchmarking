@@ -101,22 +101,21 @@
                         }
                         <div class="grid-row">
                             <div class="column-full">
-                                <div class="chart-wrapper">
+                                <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
                                     <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
                                 </div>
-                                @if (Model[i].ChartType != ChartType.CustomReport)
-                                {
-                                    <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: none">
-                                        @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
-                                        {
-                                            @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
-                                        }
-                                        else
-                                        {
-                                            @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
-                                        }
-                                    </div>
-                                }
+
+                                <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
+                                    @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                    {
+                                        @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                    }
+                                    else
+                                    {
+                                        @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
+                                    }
+                                </div>
+
                             </div>
                         </div>
                         <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
@@ -196,22 +195,21 @@
                                 }
                                 <div class="grid-row">
                                     <div class="column-full">
-                                        <div class="chart-wrapper">
+                                        <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
                                             <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
                                         </div>
-                                        @if (Model[i].ChartType != ChartType.CustomReport)
-                                        {
-                                            <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: none">
-                                                @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
-                                                {
-                                                    @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
-                                                }
-                                                else
-                                                {
-                                                    @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
-                                                }
-                                            </div>
-                                        }
+
+                                        <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
+                                            @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                            {
+                                                @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                            }
+                                            else
+                                            {
+                                                @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
+                                            }
+                                        </div>
+
                                     </div>
                                 </div>
                                 <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>

@@ -48,7 +48,7 @@
                         type: "POST",
                         url: "/benchmarkcharts/CustomReport",
                         datatype: "json",
-                        data: { "json": localStorage.CustomCharts },
+                        data: { "json": localStorage.CustomCharts, "format": sessionStorage.chartFormat },
                         beforeSend: function() {
                             DfE.Util.LoadingMessage.display("#CustomReportContentPlaceHolder", "Generating custom benchmarking report");
                         },
