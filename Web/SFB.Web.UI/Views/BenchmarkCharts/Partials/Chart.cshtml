@@ -107,7 +107,14 @@
                                 @if (Model[i].ChartType != ChartType.CustomReport)
                                 {
                                     <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: none">
-                                        @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                        @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                        {
+                                            @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                        }
+                                        else
+                                        {
+                                            @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
+                                        }
                                     </div>
                                 }
                             </div>
@@ -195,7 +202,14 @@
                                         @if (Model[i].ChartType != ChartType.CustomReport)
                                         {
                                             <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: none">
-                                                @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                                @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                                {
+                                                    @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                                }
+                                                else
+                                                {
+                                                    @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
+                                                }
                                             </div>
                                         }
                                     </div>

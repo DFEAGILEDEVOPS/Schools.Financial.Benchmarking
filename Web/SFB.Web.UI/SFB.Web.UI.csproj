@@ -669,6 +669,7 @@
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackLink.cshtml" />
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToSelectCompareTypeLink.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\ChartTable.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\ChartTableTrust.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
