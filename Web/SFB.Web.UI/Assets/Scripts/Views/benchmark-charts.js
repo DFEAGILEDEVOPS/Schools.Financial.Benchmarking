@@ -127,7 +127,7 @@
 
     BenchmarkChartsViewModel.GenerateChart = function (el, showValue, min, mid, max, barCount) {
         var applyChartStyles = function (el) {
-            var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", el.closest('.chartContainer'))[0]
+            var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chartContainer'))[0]
                 .value;
             if (benchmarkSchoolIndex > -1) {
                 $("#" +
@@ -138,7 +138,7 @@
                     benchmarkSchoolIndex).css("fill", "#D53880");
             }
 
-            var incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", el.closest('.chartContainer'))[0].value;
+            var incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chartContainer'))[0].value;
             var incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
             if (incompleteFinanceDataIndexArray.length > 0) {
                 incompleteFinanceDataIndexArray.forEach(function (index) {
@@ -151,7 +151,7 @@
                 });
             }
 
-            var incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", el.closest('.chartContainer'))[0].value;
+            var incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chartContainer'))[0].value;
             var incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
             if (incompleteWorkforceDataIndexArray.length > 0) {
                 incompleteWorkforceDataIndexArray.forEach(function (index) {
@@ -347,7 +347,7 @@
                     var chartData = JSON.parse($('#' + el.id).attr('data-chart'));
                     var schoolData = chartData[d[0].index];
                     var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
-                        el.closest('.chartContainer'))[0].value;
+                        $(el).closest('.chartContainer'))[0].value;
                     var highlight = benchmarkSchoolIndex === d[0].index ? "highlighted" : "";
                     return "<table class='bmc-rollover-table'>" +
                         "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +

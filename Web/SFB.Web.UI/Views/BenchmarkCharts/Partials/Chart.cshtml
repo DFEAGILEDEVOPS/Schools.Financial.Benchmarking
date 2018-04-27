@@ -106,7 +106,7 @@
                                 </div>
                                 @if (Model[i].ChartType != ChartType.CustomReport)
                                 {
-                                    <div class="chart-table-wrapper" style="display: none">
+                                    <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: none">
                                         @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
                                     </div>
                                 }
@@ -194,7 +194,7 @@
                                         </div>
                                         @if (Model[i].ChartType != ChartType.CustomReport)
                                         {
-                                            <div class="chart-table-wrapper" style="display: none">
+                                            <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: none">
                                                 @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
                                             </div>
                                         }
