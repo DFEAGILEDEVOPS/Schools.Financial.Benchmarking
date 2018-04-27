@@ -80,7 +80,7 @@ namespace SFB.Web.UI.Controllers
             return await Index(urn, simpleCriteria, benchmarkCriteria, basketSize, benchmarkSchool.LatestYearFinancialData, estType, ComparisonType.Basic);
         }
 
-
+        [HttpPost]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
             var urn = TempData["URN"].ToString();

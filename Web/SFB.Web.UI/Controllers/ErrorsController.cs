@@ -9,7 +9,8 @@ namespace SFB.Web.UI.Controllers
         {
             if (this.Request.HttpMethod == "GET"
                 && (this.Request.QueryString["aspxerrorpath"] == "/BenchmarkCharts/GenerateFromSimpleCriteria"
-                    || this.Request.QueryString["aspxerrorpath"] == "/BenchmarkCharts/GenerateFromAdvancedCriteria"))
+                    || this.Request.QueryString["aspxerrorpath"] == "/BenchmarkCharts/GenerateFromAdvancedCriteria"
+                    || this.Request.QueryString["aspxerrorpath"] == "/BenchmarkCharts/GenerateNewFromAdvancedCriteria"))
             {
                 return View("InvalidRequest");
             }
