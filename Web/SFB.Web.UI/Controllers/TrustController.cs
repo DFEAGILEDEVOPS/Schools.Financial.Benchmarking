@@ -70,7 +70,7 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        public async Task<ActionResult> Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
+        public async Task<ActionResult> Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -119,17 +119,20 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
             ViewBag.Financing = financing;
+            ViewBag.ChartFormat = format;
 
             return View(sponsorVM);
         }
 
-        public async Task<PartialViewResult> GetCharts(string matNo, string name, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
+        public async Task<PartialViewResult> GetCharts(string matNo, string name, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
             var dataResponse = _financialDataService.GetAcademiesByMatNumber(term, matNo);
 
             var sponsorVM = await BuildSponsorVMAsync(matNo, name, dataResponse, revGroup, chartGroup, financing);
 
             _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, term, revGroup, unit, SchoolFinancialType.Academies);
+
+            ViewBag.ChartFormat = format;
 
             return PartialView("Partials/Chart", sponsorVM);
         }

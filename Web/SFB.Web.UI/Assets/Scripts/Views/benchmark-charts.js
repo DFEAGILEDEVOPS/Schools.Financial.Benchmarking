@@ -2,7 +2,7 @@
     'use strict';
 
     function BenchmarkChartsViewModel() {
-        sessionStorage.chartFormat = 'charts';
+        sessionStorage.chartFormat = 'Charts';
         $(document).ready(function () {
             $("table.dataTable").tablesorter();
             DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
