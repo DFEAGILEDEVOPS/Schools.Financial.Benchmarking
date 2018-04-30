@@ -165,6 +165,7 @@
             var termParameter = $("#Year").val();
             var chartGroupParameter = $("#ChartGroup").val();
             var financingParameter = $("#Financing").val();
+            var formatParameter = sessionStorage.chartFormat;
 
             var url = "/" +
                 establishment +
@@ -183,7 +184,9 @@
                 "&term=" +
                 termParameter +
                 "&name=" +
-                nameParameter;
+                nameParameter +
+                "&format=" +
+                formatParameter;;
 
             if (financingParameter) {
                 url += "&financing=" + financingParameter;

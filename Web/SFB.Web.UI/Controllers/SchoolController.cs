@@ -41,7 +41,7 @@ namespace SFB.Web.UI.Controllers
         #if !DEBUG
         [OutputCache (Duration=14400, VaryByParam="urn;unit;tab", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
-        public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure)
+        public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -92,6 +92,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
             ViewBag.Financing = financing;
+            ViewBag.ChartFormat = format;
 
             return View("Detail", schoolVM);
         }
@@ -162,7 +163,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie()));
         }
 
-        public async Task<PartialViewResult> GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include)
+        public async Task<PartialViewResult> GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include, ChartFormat format = ChartFormat.Charts)
         {
             financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
 
@@ -171,6 +172,8 @@ namespace SFB.Web.UI.Controllers
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
 
             _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolFinancialDataModels, term, revGroup, unit, schoolVM.FinancialType);
+
+            ViewBag.ChartFormat = format;
 
             return PartialView("Partials/Chart", schoolVM);
         }

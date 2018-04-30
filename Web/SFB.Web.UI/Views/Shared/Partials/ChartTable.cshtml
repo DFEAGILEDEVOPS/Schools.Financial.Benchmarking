@@ -1,0 +1,49 @@
+﻿@using Microsoft.Ajax.Utilities
+@using SFB.Web.UI.Helpers.Enums
+@model List<SFB.Web.Domain.Models.HistoricalChartData>
+
+
+    <table class="tablesorter chart-table">
+        <thead>
+        <tr>
+            <th class="school-column" scope="col">
+                Year
+            </th>
+            <th scope="col">
+                Amount
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var schoolHistoricalData in Model)
+        {
+            <tr>
+                <td class="school-column">@schoolHistoricalData.Year</td>
+                <td>
+                    @if (schoolHistoricalData.Amount.HasValue)
+                    {
+                        switch ((UnitType) Enum.Parse(typeof(UnitType), schoolHistoricalData.Unit))
+                        {
+                            case UnitType.PercentageOfTotal:
+                                @schoolHistoricalData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                break;
+                            case UnitType.HeadcountPerFTE:
+                            case UnitType.AbsoluteCount:
+                            case UnitType.FTERatioToTotalFTE:
+                            case UnitType.NoOfPupilsPerMeasure:
+                                @schoolHistoricalData.Amount.GetValueOrDefault()
+                                break;
+                            default:
+                                @schoolHistoricalData.Amount.GetValueOrDefault().ToString("C0")
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        <text>No data</text>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>

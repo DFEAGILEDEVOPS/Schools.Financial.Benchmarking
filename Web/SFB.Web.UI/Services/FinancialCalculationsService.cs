@@ -164,7 +164,8 @@ namespace SFB.Web.UI.Services
                     Year = schoolData.Term,
                     Amount = amount,
                     TeacherCount = schoolData.TeacherCount,
-                    PupilCount = schoolData.PupilCount
+                    PupilCount = schoolData.PupilCount,
+                    Unit = unit.ToString()
                 });
             }
 

@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Web.UI.WebControls;
+
 
 namespace SFB.Web.Domain.Models
 {
@@ -27,6 +29,9 @@ namespace SFB.Web.Domain.Models
 
         [JsonProperty(PropertyName = "pupilCount")]
         public double PupilCount { get; set; }
+
+        [JsonProperty(PropertyName = "unit")]
+        public string Unit { get; set; }
 
         public object Clone()
         {

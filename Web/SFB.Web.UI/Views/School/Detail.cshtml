@@ -165,6 +165,11 @@ else
             {
                 Html.RenderPartial("Partials/CentralFinancing");
             }
+            <div class="column-full font-xsmall chartTable hide-in-print">
+                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline" href="javascript: void(0)" onclick="DfE.Util.Charting.ToggleChartsTables('charts')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as charts</span></a>
+                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline" href="javascript: void(0)" onclick="DfE.Util.Charting.ToggleChartsTables('tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></a>
+                <input id="chartsOrTablesMode" type="hidden" value="charts"/>
+            </div>
         </div>
     </div>
     <div id="historicalChartsList">
@@ -231,6 +236,7 @@ else
                 });
         }
 
+        sessionStorage.chartFormat = '@ViewBag.ChartFormat';
         DfE.Views.HistoricalCharts.GenerateCharts('@ViewBag.UnitType');
 
         new Accordion(document.getElementById('historical-charts-accordion'));
@@ -286,6 +292,10 @@ else
 
             if ($("select#Financing option:selected").length > 0) {
                 queryString += "&financing=" + $("select#Financing option:selected")[0].value;
+            }
+
+            if (sessionStorage.chartFormat) {
+                queryString += "&format=" + sessionStorage.chartFormat;
             }
 
             window.location = queryString;

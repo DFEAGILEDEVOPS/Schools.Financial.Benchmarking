@@ -525,26 +525,6 @@
         $table.find('.detail').toggle(200);
     }
 
-    BenchmarkChartsViewModel.ToggleChartsTables = function(mode) {
-        var $charts = $('.chart-wrapper');
-        var $tables = $('.chart-table-wrapper');
-        var $showChartsButton = $('a.view-charts-tables.charts');
-        var $showTablesButton = $('a.view-charts-tables.tables');
-        if (mode === 'charts') {
-            $showChartsButton.hide();
-            $showTablesButton.show();
-            $tables.hide();
-            $charts.show();
-            sessionStorage.chartFormat = 'charts';
-        } else if (mode === 'tables') {
-            $showTablesButton.hide();
-            $showChartsButton.show();
-            $charts.hide();
-            $tables.show();
-            sessionStorage.chartFormat = 'tables';
-        }
-    }
-
     BenchmarkChartsViewModel.Load = function () {
         new DfE.Views.BenchmarkChartsViewModel();
     };

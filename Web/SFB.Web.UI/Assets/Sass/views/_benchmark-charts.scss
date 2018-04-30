@@ -83,27 +83,6 @@
         padding-top: 15px;
     }
 
-    table.tablesorter {
-        .school-column {
-            text-align: left;
-        }
-
-        thead tr th {
-            @include core-16;
-            text-align: right;
-            color: $govuk-blue;
-        }
-
-        tbody tr td {
-            @include core-16;
-            text-align: right;
-
-            a {
-                text-decoration: none;
-            }
-        }
-    }
-
     .criteria-details {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -114,57 +93,6 @@
         }
     }
 
-    table.tablesorter.chart-table {
-        margin-top: 20px;
-        margin-bottom: 30px;
-    }
-
-    table.tablesorter.chart-table th, table.tablesorter.context-table th {
-        color: $text-colour;
-        //white-space: nowrap;
-        @include bold-16();
-
-        a {
-            text-decoration: none;
-        }
-    }
-
-    table a.hide-show-button.hide {
-        float: right;
-    }
-
-    table a.hide-show-button.show {
-        @include media(tablet) {
-            margin-right: 30px;
-        }
-    }
-
-    a.view-charts-tables {
-        float: right;
-        margin-bottom: 20px;
-    }
-    /* table sorter */
-    table.tablesorter thead tr .header {
-        //background-image: url(/public/assets/images/bg.gif);
-        background-repeat: no-repeat;
-        background-position: center right;
-        cursor: pointer;
-    }
-
-    table.tablesorter thead tr .header:hover {
-        text-decoration: underline;
-    }
-
-    table.tablesorter thead tr .headerSortUp {
-        background-image: url(/public/assets/images/asc.gif);
-        font-weight: bold;
-    }
-
-    table.tablesorter thead tr .headerSortDown {
-        background-image: url(/public/assets/images/desc.gif);
-        font-weight: bold;
-    }
-    /* table sorter */
     .panel.criteria-detail {
         @include media(mobile) {
             border: none;
