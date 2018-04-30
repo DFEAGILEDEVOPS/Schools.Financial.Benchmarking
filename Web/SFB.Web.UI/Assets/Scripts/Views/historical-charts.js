@@ -109,7 +109,8 @@
             c3.generate({
                 bindto: '#' + el.id,
                 size: {
-                    height: 175
+                    height: 175,
+                    width: (window.innerWidth > 768) ? 710 : (window.innerWidth > 640)  ?  523 : null
                 },
                 data: {
                     json: JSON.parse($('#' + el.id).attr('data-chart')),
