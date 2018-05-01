@@ -104,18 +104,27 @@ namespace SFB.Web.UI.Controllers
             return schoolDetailsFromEdubase == null ? new HttpStatusCodeResult(HttpStatusCode.NotFound) : new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
+        public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
+            HttpCookie cookie;
 
-            var cookie = base.UpdateSchoolComparisonListCookie(withAction,
-                new BenchmarkSchoolViewModel()
-                {
-                    Name = benchmarkSchool.Name,
-                    Urn = benchmarkSchool.Id,
-                    Type = benchmarkSchool.Type,
-                    FinancialType = benchmarkSchool.FinancialType.ToString()
-                });
+            if (urn.HasValue)
+            {
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
+
+                cookie = base.UpdateSchoolComparisonListCookie(withAction,
+                    new BenchmarkSchoolViewModel()
+                    {
+                        Name = benchmarkSchool.Name,
+                        Urn = benchmarkSchool.Id,
+                        Type = benchmarkSchool.Type,
+                        FinancialType = benchmarkSchool.FinancialType.ToString()
+                    });
+            }
+            else
+            {
+                cookie = base.UpdateSchoolComparisonListCookie(withAction, null);
+            }
 
             if (cookie != null)
             {

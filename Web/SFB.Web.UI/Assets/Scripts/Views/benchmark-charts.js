@@ -350,8 +350,8 @@
                     var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
                         $(el).closest('.chartContainer'))[0].value;
                     var highlight = benchmarkSchoolIndex === d[0].index ? "highlighted" : "";
-                    return "<table class='bmc-rollover-table'>" +
-                        "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +
+                    return "<table class='bmc-rollover-table' style='white-space: nowrap'>" +
+                        "<tr><th colspan='2'" + highlight +"'>" + name + "</th></tr>" +
                         "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
                         "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>" +
@@ -359,7 +359,7 @@
                 },
                 show: $("#Type").val() !== "MAT",
                 position: function (data, width, height, element) {
-                    return { top: 0, left: window.innerWidth > 1024 ? $(element).closest('svg').width() - 50 : $(element).closest('svg').width() - width };
+                    return { top: 0, left: window.innerWidth > 1280 ? $(element).closest('svg').width() - 50 : $(element).closest('svg').width() - width };
                 }
             },
             onrendered: function () {

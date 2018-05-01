@@ -18,7 +18,8 @@
         window.DfE = {
             Views: {},
             Elements: {},
-            Util: { Analytics: {} }
+            Util: { Analytics: {} },
+            Sfb: { BenchmarkBasket: {} }
         };
     }
 
@@ -43,6 +44,15 @@
                 '<span role="alert" aria-live="assertive" aria-label="'+ message +'"></span>' +
                 '<span class="font-medium" style="margin-left: 10px">Loading...</span>'+
                 '</div>');
+        }
+    };
+
+    window.DfE.Sfb.BenchmarkBasket = {
+        ClearBenchmarkBasket : function () {
+            $.get("/school/UpdateBenchmarkBasket?withAction=clear",
+                function (data) {
+                    $("#benchmarkBasket").replaceWith(data);
+                });
         }
     };
 
