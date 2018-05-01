@@ -273,7 +273,7 @@ namespace SFB.Web.UI.Controllers
                 case ComparisonArea.LaName:
                     if (lacode == null)
                     {
-                        benchmarkSchool.ErrorMessage = "Please select a Local authority from the auto-completed list";
+                        benchmarkSchool.ErrorMessage = "Please select a local authority from the auto-completed list";
                     }
                     break;
             }
