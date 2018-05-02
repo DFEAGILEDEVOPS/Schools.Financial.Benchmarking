@@ -1,5 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
@@ -9,28 +8,30 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
-using SFB.Web.Common;
-using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.Controllers
 {
     public class SchoolSearchController : BaseController
     {
         private readonly ILocalAuthoritiesService _laService;
+        private readonly ILaSearchService _laSearchService;
         private readonly IFilterBuilder _filterBuilder;
         private readonly IValidationService _valService;
         private readonly IContextDataService _contextDataService;
         private readonly ISchoolSearchService _schoolSearchService;
         private readonly ITrustSearchService _trustSearchService;
 
-        public SchoolSearchController(ILocalAuthoritiesService laService, IFilterBuilder filterBuilder,
+        public SchoolSearchController(ILocalAuthoritiesService laService, 
+            ILaSearchService laSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
             ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService)
         {
             _laService = laService;
+            _laSearchService = laSearchService;
             _filterBuilder = filterBuilder;
             _valService = valService;
             _contextDataService = contextDataService;
@@ -149,6 +150,13 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaNameParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
+                            var exactMatch = _laSearchService.SearchExactMatch(laCodeName);
+                            if (exactMatch != null)
+                            {
+                                laCodeName = exactMatch.id;
+                                return await Search(nameId, trustName, searchType, suggestionUrn, locationorpostcode,
+                                    locationCoordinates, laCodeName, radius, orderby, page, tab);
+                            }
                             return RedirectToAction("Search", "La", new {name = laCodeName});
                         }
                         else

@@ -29,7 +29,7 @@ namespace SFB.Web.UI.Models
 
         private List<SchoolCharacteristic> BuildSchoolCharacteristics(SchoolViewModel schoolVM)
         {
-            var latestSchoolData = schoolVM.HistoricalSchoolDataModels.Last();
+            var latestSchoolData = schoolVM.HistoricalSchoolFinancialDataModels.Last();
             var list = new List<SchoolCharacteristic>();
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS, Value = latestSchoolData.PupilCount + " pupils" });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.GENDER_OF_PUPILS, Value = latestSchoolData.Gender });

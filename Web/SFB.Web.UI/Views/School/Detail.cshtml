@@ -58,9 +58,9 @@ else
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
-                @if (!Model.HistoricalSchoolDataModels.Last().IsSAT)
+                @if (!Model.HistoricalSchoolFinancialDataModels.Last().IsSAT)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{1}</a>", Model.HistoricalSchoolDataModels.Last().MatNo, Model.TrustName)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{1}</a>", Model.HistoricalSchoolFinancialDataModels.Last().MatNo, Model.TrustName)
                 }
                 @DataSourcesField()
 
@@ -161,13 +161,17 @@ else
             @Html.Partial("Partials/Terms", Model)
             @Html.Partial("Partials/ValueSelect", Model)
             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-            @if (Model.FinancialType == SchoolFinancialType.Academies && !Model.HistoricalSchoolDataModels.Last().IsSAT)
+            @if (Model.FinancialType == SchoolFinancialType.Academies && !Model.HistoricalSchoolFinancialDataModels.Last().IsSAT)
             {
                 Html.RenderPartial("Partials/CentralFinancing");
             }
+            <div class="column-full font-xsmall chartTable hide-in-print">
+                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline" href="javascript: void(0)" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as charts</span></a>
+                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline" href="javascript: void(0)" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></a>
+            </div>
         </div>
     </div>
-    <div id="historicalChartsList" class="grid-row">
+    <div id="historicalChartsList">
         @Html.Partial("Partials/Chart", Model)
     </div>
 </div>
@@ -231,6 +235,7 @@ else
                 });
         }
 
+        sessionStorage.chartFormat = '@ViewBag.ChartFormat';
         DfE.Views.HistoricalCharts.GenerateCharts('@ViewBag.UnitType');
 
         new Accordion(document.getElementById('historical-charts-accordion'));
@@ -286,6 +291,10 @@ else
 
             if ($("select#Financing option:selected").length > 0) {
                 queryString += "&financing=" + $("select#Financing option:selected")[0].value;
+            }
+
+            if (sessionStorage.chartFormat) {
+                queryString += "&format=" + sessionStorage.chartFormat;
             }
 
             window.location = queryString;

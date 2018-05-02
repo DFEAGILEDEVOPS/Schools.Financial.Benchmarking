@@ -11,15 +11,15 @@
         historicalChart.Id = index.ToString();
         ViewBag.FinancialYear = Model.FinancialType == SchoolFinancialType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
 
-        <div class="chartContainer column-full" data-group="@historicalChart.ChartGroup">
+        <div class="chartContainer column-full no-padding" data-group="@historicalChart.ChartGroup">
             @if (historicalChart.ChartType == ChartType.Total)
             {
 
                 if (historicalChart.DrillInto != null)
                 {
-                    <div class="chart-header hide-in-print">
+                    <div class="chart-header">
                         <h2 class="heading-medium inline">@historicalChart.Name</h2>
-                        <a class="inline" href="javascript:void(0)" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto')">View more charts<span class="visuallyhidden"> for @historicalChart.Name</span> </a>
+                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto')">View more charts<span class="visuallyhidden"> for @historicalChart.Name</span> </a>
                     </div>
                 }
                 else

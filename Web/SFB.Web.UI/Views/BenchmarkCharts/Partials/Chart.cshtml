@@ -1,4 +1,5 @@
-﻿@using SFB.Web.Common
+﻿@using Microsoft.Ajax.Utilities
+@using SFB.Web.Common
 @using SFB.Web.Domain.Helpers
 @using SFB.Web.UI.Helpers.Enums
 @model List<SFB.Web.UI.Models.ChartViewModel>
@@ -6,7 +7,7 @@
 <div id="bm-charts-accordion" class="accordion">
     @for (int i = 0; i < Model.Count; i++)
     {
-        <div class="chartContainer column-full" data-group="@Model[i].ChartGroup">
+        <div class="chartContainer column-full no-padding" data-group="@Model[i].ChartGroup">
             @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport)
             {
                 if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
@@ -28,16 +29,18 @@
                             <div class="column-half no-padding">
                                 @if (Model[i].DrillInto != null)
                                 {
-                                    <div class="chart-header hide-in-print">
+                                    <div class="chart-header">
                                         <h2 class="heading-medium inline">@Model[i].Name</h2>
-                                        <a class="inline" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">View more charts<span class="visuallyhidden"> for @Model[i].Name</span> </a>
+                                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">View more charts<span class="visuallyhidden"> for @Model[i].Name</span> </a>
                                     </div>
                                 }
                                 else
                                 {
-                                    <h2 class="heading-medium">
-                                        @Model[i].Name
-                                    </h2>
+                                    <div class="chart-header">
+                                        <h2 class="heading-medium">
+                                            @Model[i].Name
+                                        </h2>
+                                    </div>
                                 }
                             </div>
                         }
@@ -98,7 +101,21 @@
                         }
                         <div class="grid-row">
                             <div class="column-full">
-                                <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
+                                    <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                </div>
+
+                                <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
+                                    @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                    {
+                                        @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                    }
+                                    else
+                                    {
+                                        @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
+                                    }
+                                </div>
+
                             </div>
                         </div>
                         <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
@@ -178,7 +195,21 @@
                                 }
                                 <div class="grid-row">
                                     <div class="column-full">
-                                        <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                        <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
+                                            <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                        </div>
+
+                                        <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
+                                            @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                            {
+                                                @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                            }
+                                            else
+                                            {
+                                                @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
+                                            }
+                                        </div>
+
                                     </div>
                                 </div>
                                 <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>

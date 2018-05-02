@@ -7,14 +7,18 @@
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BackToSchoolLink", Model)
+    @{
+        ViewBag.HomeSchoolId = Model.Id;
+        ViewBag.HomeSchoolName = Model.Name;
+    }
+    @Html.Partial("Partials/Breadcrumbs/BackToSelectCompareTypeLink")
 }
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
     <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
         <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
-            There is a problem
+            There are errors on this page that require attention.
         </h1>
         <ul class="error-summary-list">
             <li>

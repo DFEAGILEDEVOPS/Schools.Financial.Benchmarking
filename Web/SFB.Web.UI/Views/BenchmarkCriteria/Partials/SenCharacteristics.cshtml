@@ -1,7 +1,7 @@
 ﻿@using SFB.Web.Common
 @using SFB.Web.UI.Models
 
-@model SFB.Web.UI.Models.SchoolCharacteristicsViewModel
+@model SchoolCharacteristicsViewModel
 
 <div class="accordion-section">
     <fieldset role="group">
@@ -21,6 +21,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "SpecLearnDiff",
                     minValue: Model.BenchmarkCriteria.MinSpecLearnDiff,
                     maxValue: Model.BenchmarkCriteria.MaxSpecLearnDiff
@@ -30,6 +31,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "ModLearnDiff",
                     minValue: Model.BenchmarkCriteria.MinModLearnDiff,
                     maxValue: Model.BenchmarkCriteria.MaxModLearnDiff
@@ -39,6 +41,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "SevLearnDiff",
                     minValue: Model.BenchmarkCriteria.MinSevLearnDiff,
                     maxValue: Model.BenchmarkCriteria.MaxSevLearnDiff
@@ -48,6 +51,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "ProfLearnDiff",
                     minValue: Model.BenchmarkCriteria.MinProfLearnDiff,
                     maxValue: Model.BenchmarkCriteria.MaxProfLearnDiff
@@ -57,6 +61,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SOCIAL_HEALTH,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SOCIAL_HEALTH],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "SocialHealth",
                     minValue: Model.BenchmarkCriteria.MinSocialHealth,
                     maxValue: Model.BenchmarkCriteria.MaxSocialHealth
@@ -66,6 +71,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SPEECH_NEEDS,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SPEECH_NEEDS],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "SpeechNeeds",
                     minValue: Model.BenchmarkCriteria.MinSpeechNeeds,
                     maxValue: Model.BenchmarkCriteria.MaxSpeechNeeds
@@ -75,6 +81,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "HearingImpairment",
                     minValue: Model.BenchmarkCriteria.MinHearingImpairment,
                     maxValue: Model.BenchmarkCriteria.MaxHearingImpairment
@@ -84,6 +91,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "VisualImpairment",
                     minValue: Model.BenchmarkCriteria.MinVisualImpairment,
                     maxValue: Model.BenchmarkCriteria.MaxVisualImpairment
@@ -93,6 +101,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "MSImpairment",
                     minValue: Model.BenchmarkCriteria.MinMSImpairment,
                     maxValue: Model.BenchmarkCriteria.MaxMSImpairment
@@ -102,6 +111,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "PhysicalDisability",
                     minValue: Model.BenchmarkCriteria.MinPhysicalDisability,
                     maxValue: Model.BenchmarkCriteria.MaxPhysicalDisability
@@ -111,6 +121,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.AUTISTIC_DISORDER,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.AUTISTIC_DISORDER],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "AutisticDisorder",
                     minValue: Model.BenchmarkCriteria.MinAutisticDisorder,
                     maxValue: Model.BenchmarkCriteria.MaxAutisticDisorder
@@ -120,6 +131,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "OtherLearningDiff",
                     minValue: Model.BenchmarkCriteria.MinOtherLearningDiff,
                     maxValue: Model.BenchmarkCriteria.MaxOtherLearningDiff

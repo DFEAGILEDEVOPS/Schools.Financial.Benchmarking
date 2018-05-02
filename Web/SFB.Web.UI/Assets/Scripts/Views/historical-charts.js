@@ -109,7 +109,8 @@
             c3.generate({
                 bindto: '#' + el.id,
                 size: {
-                    height: 175
+                    height: 175,
+                    width: (window.innerWidth > 768) ? 710 : (window.innerWidth > 640)  ?  523 : null
                 },
                 data: {
                     json: JSON.parse($('#' + el.id).attr('data-chart')),
@@ -165,6 +166,7 @@
             var termParameter = $("#Year").val();
             var chartGroupParameter = $("#ChartGroup").val();
             var financingParameter = $("#Financing").val();
+            var formatParameter = sessionStorage.chartFormat;
 
             var url = "/" +
                 establishment +
@@ -183,19 +185,27 @@
                 "&term=" +
                 termParameter +
                 "&name=" +
-                nameParameter;
+                nameParameter +
+                "&format=" +
+                formatParameter;;
 
             if (financingParameter) {
                 url += "&financing=" + financingParameter;
             }
 
-            $.get(url,
-                function(data) {
+            $.ajax({
+                url: url,
+                datatype: 'json',
+                beforeSend: function () {
+                    DfE.Util.LoadingMessage.display("#historicalChartsList", "Updating charts");
+                },
+                success: function(data) {
                     $("#historicalChartsList").html(data);
                     self.GenerateCharts(unitParameter);
                     self.UpdateTotals();
                     new Accordion(document.getElementById('historical-charts-accordion'));
-                });
+                }
+            });
         },
 
         UpdateTotals: function() {

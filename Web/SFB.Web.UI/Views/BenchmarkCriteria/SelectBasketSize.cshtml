@@ -1,4 +1,5 @@
-﻿@using SFB.Web.UI.Helpers.Constants
+﻿@using SFB.Web.Domain.Helpers.Constants
+@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
@@ -6,14 +7,18 @@
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BackToSchoolLink", Model)
+    @{
+        ViewBag.HomeSchoolId = Model.Id;
+        ViewBag.HomeSchoolName = Model.Name;
+    }
+    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink", Model)
 }
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
             {
     <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
         <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
-            There is a problem
+            There are errors on this page that require attention.
         </h1>
         <ul class="error-summary-list">
             <li><a href="#BasketSizeInput">@Model.ErrorMessage</a></li>

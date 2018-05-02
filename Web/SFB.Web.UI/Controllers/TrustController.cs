@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Azure.Documents;
 using SFB.Web.Common;
+using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
@@ -69,7 +70,7 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        public async Task<ActionResult> Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
+        public async Task<ActionResult> Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -112,23 +113,26 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolDataModels, latestTerm, tab, unitType, SchoolFinancialType.Academies);
+            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, latestTerm, tab, unitType, SchoolFinancialType.Academies);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
             ViewBag.Financing = financing;
+            ViewBag.ChartFormat = format;
 
             return View(sponsorVM);
         }
 
-        public async Task<PartialViewResult> GetCharts(string matNo, string name, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
+        public async Task<PartialViewResult> GetCharts(string matNo, string name, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
             var dataResponse = _financialDataService.GetAcademiesByMatNumber(term, matNo);
 
             var sponsorVM = await BuildSponsorVMAsync(matNo, name, dataResponse, revGroup, chartGroup, financing);
 
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolDataModels, term, revGroup, unit, SchoolFinancialType.Academies);
+            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, term, revGroup, unit, SchoolFinancialType.Academies);
+
+            ViewBag.ChartFormat = format;
 
             return PartialView("Partials/Chart", sponsorVM);
         }
@@ -143,7 +147,7 @@ namespace SFB.Web.UI.Controllers
             var sponsorVM = await BuildSponsorVMAsync(matNo, name, response, RevenueGroupType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
 
             var termsList = _financialDataService.GetActiveTermsForMatCentral();
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, SchoolFinancialType.Academies);
+            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, SchoolFinancialType.Academies);
             
             string csv = _csvBuilder.BuildCSVContentHistorically(sponsorVM, latestYear);
 
@@ -168,20 +172,20 @@ namespace SFB.Web.UI.Controllers
             sponsorVM.ChartGroups = _historicalChartBuilder.Build(tab, sponsorVM.FinancialType).DistinctBy(c => c.ChartGroup).ToList();
             sponsorVM.Terms = _financialDataService.GetActiveTermsForAcademies();
 
-            sponsorVM.HistoricalSchoolDataModels = await this.GetFinancialDataHistoricallyAsync(sponsorVM.MatNo, matFinancing);
+            sponsorVM.HistoricalSchoolFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(sponsorVM.MatNo, matFinancing);
 
-            if (sponsorVM.HistoricalSchoolDataModels.Count > 0)
+            if (sponsorVM.HistoricalSchoolFinancialDataModels.Count > 0)
             {
-                sponsorVM.TotalRevenueIncome = sponsorVM.HistoricalSchoolDataModels.Last().TotalIncome;
-                sponsorVM.TotalRevenueExpenditure = sponsorVM.HistoricalSchoolDataModels.Last().TotalExpenditure;
-                sponsorVM.InYearBalance = sponsorVM.HistoricalSchoolDataModels.Last().InYearBalance;
+                sponsorVM.TotalRevenueIncome = sponsorVM.HistoricalSchoolFinancialDataModels.Last().TotalIncome;
+                sponsorVM.TotalRevenueExpenditure = sponsorVM.HistoricalSchoolFinancialDataModels.Last().TotalExpenditure;
+                sponsorVM.InYearBalance = sponsorVM.HistoricalSchoolFinancialDataModels.Last().InYearBalance;
             }
             return sponsorVM;
         }
 
-        private async Task<List<SchoolDataModel>> GetFinancialDataHistoricallyAsync(string matCode, MatFinancingType matFinancing)
+        private async Task<List<SchoolFinancialDataModel>> GetFinancialDataHistoricallyAsync(string matCode, MatFinancingType matFinancing)
         {
-            var models = new List<SchoolDataModel>();
+            var models = new List<SchoolFinancialDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearForTrusts();
             
             var taskList = new List<Task<IEnumerable<Document>>>();
@@ -205,7 +209,7 @@ namespace SFB.Web.UI.Controllers
                     resultDocument = emptyDoc;
                 }
 
-                models.Add(new SchoolDataModel(matCode, term, resultDocument, SchoolFinancialType.Academies));
+                models.Add(new SchoolFinancialDataModel(matCode, term, resultDocument, SchoolFinancialType.Academies));
             }
 
             return models;

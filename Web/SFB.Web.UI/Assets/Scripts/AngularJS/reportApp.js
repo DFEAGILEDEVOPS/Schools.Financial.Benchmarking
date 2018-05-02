@@ -2,23 +2,25 @@
     .controller('ChartListController',
         [
             '$scope', '$location', '$http', '$q',
-            function ($scope, $location, $http, $q) {
+            function($scope, $location, $http, $q) {
                 var self = this;
                 self.location = $location;
+                self.showContextTable = true;
+                self.inReportView = false;
 
                 self.loadData = function(resolve) {
                     if (localStorage.CustomCharts) {
                         $scope.selectionList = JSON.parse(localStorage.CustomCharts);
                         resolve();
                     } else {
-                        $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function (response) {
+                        $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function(response) {
                             $scope.selectionList = response.data;
                             resolve();
                         });
-                    }                    
+                    }
                 }
 
-                self.persist = function () {
+                self.persist = function() {
                     localStorage.CustomCharts = JSON.stringify($scope.selectionList);
                 }
 
@@ -31,30 +33,41 @@
                         $scope.selectionList = response.data;
                         self.persist();
                         self.query = "";
-                        setTimeout(function () { new Accordion(document.getElementById('custom-report-accordion')); }, 500);
+                        setTimeout(function() { new Accordion(document.getElementById('custom-report-accordion')); },
+                            500);
                     });
                 };
 
-                self.openDetails = function () {
+                self.openDetails = function() {
                     $("#customTabSection button.accordion-expand-all:contains('Open')").click();
 
                 }
 
-                self.displayCustomReport = function () {
-                      $.post("/benchmarkcharts/CustomReport", { "json": localStorage.CustomCharts })
-                        .done(function(data) {
-                            $('#CustomReportContentPlaceHolder').html(data);
-                            $("#BCHeader").text("Custom benchmarking report");
-                            $("#PrintLinkText").text(" Print report");
-                            $("#benchmarkBasket").hide();
-                            $("#searchSchoolsLink").hide();
-                            $("#downloadLinkContainer").hide();
-                            $("#BackToBMCharts").show();
-                            DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
-                            $("table").tablesorter();
-
-                        });
-                    self.location.url("report");;
+                self.displayCustomReport = function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "/benchmarkcharts/CustomReport",
+                        datatype: "json",
+                        data: { "json": localStorage.CustomCharts, "format": sessionStorage.chartFormat },
+                        beforeSend: function() {
+                            DfE.Util.LoadingMessage.display("#CustomReportContentPlaceHolder", "Generating custom benchmarking report");
+                        },
+                        success: function (data) {
+                            setTimeout(function() {
+                                $('#CustomReportContentPlaceHolder').html(data);
+                                $("#BCHeader").text("Custom benchmarking report");
+                                $("#PrintLinkText").text(" Print report");
+                                $("#benchmarkBasket").hide();
+                                $("#searchSchoolsLink").hide();
+                                $("#downloadLinkContainer").hide();
+                                $("#BackToBMCharts").show();
+                                DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
+                                $("table.dataTable").tablesorter();
+                            }, 500);
+                        }
+                    });
+                    self.location.url("report");
+                    self.inReportView = true;
                 };
 
                 self.groupSelectCount = function(group) {
@@ -93,6 +106,10 @@
 
                 angular.element(document).ready(function () {
                     new Accordion(document.getElementById('custom-report-accordion'));
+                });
+
+                $(document).ready(function() {
+                    $scope.schoolChartData = JSON.parse(($('.chart.c3').first()).attr('data-chart'));
                 });
             }
         ]);

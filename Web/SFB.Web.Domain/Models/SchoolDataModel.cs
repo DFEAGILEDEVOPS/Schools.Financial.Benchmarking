@@ -1,10 +1,10 @@
-﻿using Microsoft.Azure.Documents;
-using System;
+﻿using System;
+using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 
-namespace SFB.Web.UI.Models
+namespace SFB.Web.Domain.Models
 {
-    public class SchoolDataModel : IEquatable<SchoolDataModel>
+    public class SchoolFinancialDataModel : IEquatable<SchoolFinancialDataModel>
     {
         public string Term { get; }
         public Document FinancialDataDocumentModel { get; }
@@ -12,9 +12,9 @@ namespace SFB.Web.UI.Models
         public SchoolFinancialType FinancialType{ get; private set;}
 
 
-        public SchoolDataModel(){}
+        public SchoolFinancialDataModel(){}
 
-        public SchoolDataModel(string id, string term, Document financialDataDocumentModel, SchoolFinancialType financialType)
+        public SchoolFinancialDataModel(string id, string term, Document financialDataDocumentModel, SchoolFinancialType financialType)
         {
             Id = id;
             Term = term;
@@ -311,7 +311,7 @@ namespace SFB.Web.UI.Models
             return result;
         }
 
-        public bool Equals(SchoolDataModel other)
+        public bool Equals(SchoolFinancialDataModel other)
         {
             return (this.Id == other.Id);
         }

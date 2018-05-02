@@ -14,6 +14,7 @@ using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Services;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.DAL.Repositories;
+using SFB.Web.Domain.Services.Comparison;
 
 namespace SFB.Web.UI
 {
@@ -55,6 +56,7 @@ namespace SFB.Web.UI
         private static void RegisterServices(ContainerBuilder builder)
         {
             builder.RegisterType<LocalAuthoritiesService>().As<ILocalAuthoritiesService>();
+            builder.RegisterType<LaSearchService>().As<ILaSearchService>();
             builder.RegisterType<BenchmarkChartBuilder>().As<IBenchmarkChartBuilder>();
             builder.RegisterType<HistoricalChartBuilder>().As<IHistoricalChartBuilder>();
             builder.RegisterType<FilterBuilder>().As<IFilterBuilder>();
@@ -66,7 +68,8 @@ namespace SFB.Web.UI
             builder.RegisterType<DocumentDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
             builder.RegisterType<DocumentDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
-            builder.RegisterType<StatisticalCriteriaBuilderService>().As<IStatisticalCriteriaBuilderService>();
+            builder.RegisterType<ComparisonService>().As<IComparisonService>();
+            builder.RegisterType<BenchmarkCriteriaBuilderService>().As<IBenchmarkCriteriaBuilderService>();
             builder.RegisterType<DownloadCSVBuilder>().As<IDownloadCSVBuilder>();
             builder.RegisterInstance(new SchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"], ConfigurationManager.AppSettings["GoogleAPIKey"])).As<ISchoolSearchService>();
             builder.RegisterInstance(new TrustSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();

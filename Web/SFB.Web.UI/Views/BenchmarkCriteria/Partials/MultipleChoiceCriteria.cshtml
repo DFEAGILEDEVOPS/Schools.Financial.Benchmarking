@@ -13,7 +13,7 @@
             <div class="benchmark-school-value">
             @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
             {
-                <span>Your default school's value was not supplied</span>
+                <span>No value was supplied for @Model.HomeSchoolName</span>
             }
             else
             {
@@ -33,7 +33,7 @@
                         {
                             <div class="multiple-choice">
                                 <input type="checkbox" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName.@option.Name" value="@option.Value" class="criteria-checkbox"
-                                       required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") />
+                                       required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option."/>
                                 <label for="@Model.ElementName.@option.Name">@option.Name</label>
                             </div>
                         }

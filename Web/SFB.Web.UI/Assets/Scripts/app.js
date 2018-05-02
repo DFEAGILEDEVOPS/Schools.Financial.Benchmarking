@@ -18,7 +18,8 @@
         window.DfE = {
             Views: {},
             Elements: {},
-            Util: { Analytics: {} }
+            Util: { Analytics: {} },
+            Sfb: { BenchmarkBasket: {} }
         };
     }
 
@@ -33,6 +34,25 @@
             if (!results) return null;
             if (!results[2]) return '';
             return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+    };
+
+    window.DfE.Util.LoadingMessage = {
+        display : function(location, message) {
+            $(location).html('<div style="min-height:300px; margin-top:20px;">' +
+                '<img style="vertical-align:bottom" src="../public/assets/images/spinner.gif"></img>' +
+                '<span role="alert" aria-live="assertive" aria-label="'+ message +'"></span>' +
+                '<span class="font-medium" style="margin-left: 10px">Loading...</span>'+
+                '</div>');
+        }
+    };
+
+    window.DfE.Sfb.BenchmarkBasket = {
+        ClearBenchmarkBasket : function () {
+            $.get("/school/UpdateBenchmarkBasket?withAction=clear",
+                function (data) {
+                    $("#benchmarkBasket").replaceWith(data);
+                });
         }
     };
 
@@ -71,7 +91,28 @@
 
         NumberWithCommas: function(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        },
+
+        ToggleChartsTables: function (mode) {
+            var $charts = $('.chart-wrapper');
+            var $tables = $('.chart-table-wrapper');
+            var $showChartsButton = $('a.view-charts-tables.charts');
+            var $showTablesButton = $('a.view-charts-tables.tables');
+            if (mode === 'Charts') {
+                $showChartsButton.hide();
+                $showTablesButton.show();
+                $tables.hide();
+                $charts.show();
+                sessionStorage.chartFormat = 'Charts';
+            } else if (mode === 'Tables') {
+                $showTablesButton.hide();
+                $showChartsButton.show();
+                $charts.hide();
+                $tables.show();
+                sessionStorage.chartFormat = 'Tables';
+            }
         }
+
     };
 
     window.DfE.Util.ComparisonList = {

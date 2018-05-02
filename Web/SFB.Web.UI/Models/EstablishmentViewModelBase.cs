@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SFB.Web.Common;
+using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
@@ -21,7 +22,7 @@ namespace SFB.Web.UI.Models
 
         public List<string> Terms { get; set; }
 
-        public List<SchoolDataModel> HistoricalSchoolDataModels { get; set; }
+        public List<SchoolFinancialDataModel> HistoricalSchoolFinancialDataModels { get; set; }
 
         public decimal TotalRevenueIncome { get; set; }
 
@@ -29,12 +30,15 @@ namespace SFB.Web.UI.Models
 
         public decimal InYearBalance { get; set; }
 
-        public bool IsReturnsComplete => HistoricalSchoolDataModels.Last().PeriodCoveredByReturn == 12;
+        public SchoolFinancialDataModel LatestYearFinancialData => HistoricalSchoolFinancialDataModels.Last();
 
-        public bool WorkforceDataPresent => HistoricalSchoolDataModels.Last().WorkforceDataPresent;
+        public bool IsReturnsComplete => LatestYearFinancialData.PeriodCoveredByReturn == 12;
 
-        public bool HasNoTeacherData => HistoricalSchoolDataModels.Last().TeacherCount == 0d;
+        public bool WorkforceDataPresent => LatestYearFinancialData.WorkforceDataPresent;
 
-        public bool HasNoPupilData => HistoricalSchoolDataModels.Last().PupilCount == 0d;
+        public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0d;
+
+        public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0d;
+
     }
 }

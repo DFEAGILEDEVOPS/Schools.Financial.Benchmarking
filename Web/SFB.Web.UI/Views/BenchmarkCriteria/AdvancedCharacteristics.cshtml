@@ -5,31 +5,31 @@
     ViewBag.pageClass = "advanced-school-characteristics";
 }
 
-<div id="liveCountBar" class="sticky-div">
-    <div class="grid-row">
-        <div class="column-full">
-            <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResults">
-                <span id="schoolCount" class="bold-small" aria-live="assertive">0 schools found</span>
-                <a class="clear-criteria" href="#">Clear all characteristics</a>
-                <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
-            </div>
-            <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
-                <span role="alert" aria-live="assertive">No schools found, select some more characteristics</span>
+@section StickyContent
+{
+    <div id="liveCountBar" class="sticky-div">
+        <div class="grid-row">
+            <div class="column-full">
+                <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResults">
+                    <span id="schoolCount" class="bold-small" aria-live="assertive">0 schools found</span>
+                    <a class="clear-criteria" href="#">Clear all characteristics</a>
+                    <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
+                </div>
+                <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
+                    <span role="alert" aria-live="assertive">No schools found, select some more characteristics</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
 
-<div id="backLink" class="hide-in-print">
-    <div>
-        <a class="home-link" href="../../school/detail?urn=@ViewBag.URN" aria-label="Back to @Model.ComparisonList.HomeSchoolName">
-            <i class="icon icon-back">
-                <span class="visually-hidden">Back</span>
-            </i>
-            <span class="back-link">Back to @Model.ComparisonList.HomeSchoolName</span>
-        </a>
-    </div>
-</div>
+@section BackButtonContent{
+    @{
+        ViewBag.HomeSchoolId = Model.ComparisonList.HomeSchoolUrn;
+        ViewBag.HomeSchoolName = Model.ComparisonList.HomeSchoolName;
+    }
+    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
+}
 
 <h1 class="heading-xlarge page-heading">Advanced comparison</h1>
 
@@ -65,7 +65,7 @@
     <div class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
 
         <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
-            There is a problem
+            There are errors on this page that require attention.
         </h1>
         @Html.ValidationSummary()
     </div>
@@ -99,6 +99,7 @@
 </div>
 
 <input type="hidden" name="Urn" value="@ViewBag.URN">
+<input type="hidden" name="SchoolName" value="@Model.ComparisonList.HomeSchoolName">
 <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
 <input type="hidden" name="EstType" value="@ViewBag.EstType">
 <input type="hidden" name="AreaType" value="@ViewBag.AreaType">

@@ -28,11 +28,16 @@ namespace SFB.Web.Domain.Models
         [JsonProperty(PropertyName = "partialyearspresent")]
         public bool PartialYearsPresentInSubSchools { get; set; }
 
+        [JsonProperty(PropertyName = "term")]
         public string Term { get; set; }
 
+        [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
 
         [JsonProperty(PropertyName = "unit")]
         public string Unit { get; set; }
+
+        [JsonProperty(PropertyName = "la")]
+        public string La { get; set; }
     }
 }

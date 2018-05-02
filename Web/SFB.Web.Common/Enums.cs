@@ -69,5 +69,9 @@ namespace SFB.Web.Common
         TrustAndAcademies
     }
 
-
+    public enum ChartFormat
+    {
+        Charts,
+        Tables
+    }
 }

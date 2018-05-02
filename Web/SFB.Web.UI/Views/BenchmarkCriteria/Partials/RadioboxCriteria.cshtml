@@ -14,7 +14,7 @@
             <div class="benchmark-school-value">
                 @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
                 {
-                    <span>Your default school's value was not supplied</span>
+                    <span>No value was supplied for @Model.HomeSchoolName</span>
                 }
                 else
                 {
@@ -30,7 +30,7 @@
             {
                 <div class="multiple-choice">
                     <input type="radio" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName@i" value="@Model.Options[i].Value" class="criteria-radio"
-                           required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "")>
+                           required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "")  data-msg-required="Please deselect characteristic or check an option.">
                     <label class="selection-button-radio" for="@Model.ElementName@i">@Model.Options[i].Name</label>
                 </div>
             }

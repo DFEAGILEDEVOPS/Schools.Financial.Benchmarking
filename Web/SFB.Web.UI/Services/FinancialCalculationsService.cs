@@ -5,34 +5,42 @@ using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using SFB.Web.Common;
+using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Services
 {
     public class FinancialCalculationsService : IFinancialCalculationsService
     {
+        private readonly ILocalAuthoritiesService _localAuthoritiesService;
+
+        public FinancialCalculationsService(ILocalAuthoritiesService localAuthoritiesService)
+        {
+            _localAuthoritiesService = localAuthoritiesService;
+        }
+
         public void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts,
-            List<SchoolDataModel> schoolDataModels, string term, RevenueGroupType revgroup, UnitType unit,
+            List<SchoolFinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
             SchoolFinancialType schoolFinancialType)
         {
             foreach (var chart in historicalCharts)
             {
-                BuildChart(schoolDataModels, term, revgroup, unit, schoolFinancialType, chart);
+                BuildChart(SchoolFinancialDataModels, term, revgroup, unit, schoolFinancialType, chart);
                 if (chart.SubCharts != null)
                 {
                     foreach (var subChart in chart.SubCharts)
                     {
-                        BuildChart(schoolDataModels, term, revgroup, unit, schoolFinancialType, subChart);
+                        BuildChart(SchoolFinancialDataModels, term, revgroup, unit, schoolFinancialType, subChart);
                     }
                 }
             }
         }
 
-        private void BuildChart(List<SchoolDataModel> schoolDataModels, string term, RevenueGroupType revgroup, UnitType unit,
+        private void BuildChart(List<SchoolFinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
             SchoolFinancialType schoolFinancialType, ChartViewModel chart)
         {
             var historicalChartData = new List<HistoricalChartData>();
-            foreach (var schoolData in schoolDataModels)
+            foreach (var schoolData in SchoolFinancialDataModels)
             {
                 decimal? amount = null;
                 decimal? rawAmount = null;
@@ -156,7 +164,8 @@ namespace SFB.Web.UI.Services
                     Year = schoolData.Term,
                     Amount = amount,
                     TeacherCount = schoolData.TeacherCount,
-                    PupilCount = schoolData.PupilCount
+                    PupilCount = schoolData.PupilCount,
+                    Unit = unit.ToString()
                 });
             }
 
@@ -185,7 +194,7 @@ namespace SFB.Web.UI.Services
         }
 
         public void PopulateBenchmarkChartsWithFinancialData(List<ChartViewModel> benchmarkCharts,
-            List<SchoolDataModel> financialDataModels, IEnumerable<CompareEntityBase> bmEntities, string homeSchoolId,
+            List<SchoolFinancialDataModel> financialDataModels, IEnumerable<CompareEntityBase> bmEntities, string homeSchoolId,
             UnitType? unit, bool trimSchoolNames = false)
         {
             foreach (var chart in benchmarkCharts)
@@ -219,7 +228,7 @@ namespace SFB.Web.UI.Services
         }
         
         private BenchmarkChartModel BuildBenchmarkChartModel(string fieldName, IEnumerable<CompareEntityBase> bmSchools,
-            List<SchoolDataModel> financialDataModels, UnitType unit, RevenueGroupType revGroup, string homeSchoolId,
+            List<SchoolFinancialDataModel> financialDataModels, UnitType unit, RevenueGroupType revGroup, string homeSchoolId,
             bool trimSchoolNames = false)
         {
             var chartDataList = new List<BenchmarkChartData>();
@@ -259,6 +268,7 @@ namespace SFB.Web.UI.Services
                     PupilCount = dataModel.PupilCount,
                     Term = dataModel.Term,
                     Type = school.Type,
+                    La = _localAuthoritiesService.GetLaName(dataModel.LaNumber.ToString()),
                     IsCompleteYear = dataModel.PeriodCoveredByReturn >= 12,
                     IsWFDataPresent = dataModel.WorkforceDataPresent,
                     PartialYearsPresentInSubSchools = dataModel.PartialYearsPresentInSubSchools,
@@ -295,7 +305,7 @@ namespace SFB.Web.UI.Services
             };
         }
 
-        private decimal? CalculateWFAmount(SchoolDataModel schoolData, string fieldName, UnitType unit)
+        private decimal? CalculateWFAmount(SchoolFinancialDataModel schoolData, string fieldName, UnitType unit)
         {
             decimal? amount = null;
             decimal? rawAmount = null;
@@ -359,7 +369,7 @@ namespace SFB.Web.UI.Services
             return amount;
         }
 
-        private decimal? CalculateAmountPerUnit(SchoolDataModel dataModel, string fieldName, UnitType unit,
+        private decimal? CalculateAmountPerUnit(SchoolFinancialDataModel dataModel, string fieldName, UnitType unit,
             decimal total)
         {
             var rawAmount = dataModel.GetDecimal(fieldName);

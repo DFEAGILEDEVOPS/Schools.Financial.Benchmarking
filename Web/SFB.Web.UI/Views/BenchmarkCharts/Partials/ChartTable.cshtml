@@ -1,0 +1,66 @@
+﻿@using Microsoft.Ajax.Utilities
+@using SFB.Web.UI.Helpers.Enums
+@model List<SFB.Web.Domain.Models.BenchmarkChartData>
+
+
+    <table class="tablesorter chart-table">
+        <thead>
+        <tr>
+            <th class="school-column" scope="col">
+                School name
+                <a aria-hidden="True" class="hide-show-button hide detail hide-in-print" href="javascript: void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&#9654;</a>
+            </th>
+            <th class="detail" scope="col">Local authority</th>
+            <th class="detail" scope="col">School type</th>
+            <th class="detail" scope="col">Number of pupils</th>
+            <th scope="col">
+                <a aria-hidden="True" class="hide-show-button show detail hide-in-print" href="javascript: void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</a>
+                Amount
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var schoolBenchmarkData in Model)
+        {
+            <tr>
+                @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
+                {
+                    <td class="school-column">
+                        <span class="bold-xsmall">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span>
+                    </td>
+                }
+                else
+                {
+                    <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                }
+                <td class="detail">@schoolBenchmarkData.La</td>
+                <td class="detail">@schoolBenchmarkData.Type</td>
+                <td class="detail">@schoolBenchmarkData.PupilCount</td>
+                <td>
+                    @if (schoolBenchmarkData.Amount.HasValue)
+                    {
+                        switch ((UnitType)Enum.Parse(typeof(UnitType),schoolBenchmarkData.Unit))
+                        {
+                            case UnitType.PercentageOfTotal:
+                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                break;
+                            case UnitType.HeadcountPerFTE:
+                            case UnitType.AbsoluteCount:
+                            case UnitType.FTERatioToTotalFTE:
+                            case UnitType.NoOfPupilsPerMeasure:
+                                @schoolBenchmarkData.Amount.GetValueOrDefault()
+                                break;
+                            default:
+                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        <text>Not applicable</text>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>

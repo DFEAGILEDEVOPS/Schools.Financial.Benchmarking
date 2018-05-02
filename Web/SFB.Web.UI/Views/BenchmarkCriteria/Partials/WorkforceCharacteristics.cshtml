@@ -1,6 +1,6 @@
 ﻿@using SFB.Web.Common
 @using SFB.Web.UI.Models
-
+@model SchoolCharacteristicsViewModel
 
 <div class="accordion-section">
     <fieldset role="group">
@@ -16,6 +16,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "TotalSchoolWorkforceFullTimeEquivalent",
                     minValue: Model.BenchmarkCriteria.MinTotalSchoolWorkforceFullTimeEquivalent,
                     maxValue: Model.BenchmarkCriteria.MaxTotalSchoolWorkforceFullTimeEquivalent
@@ -25,6 +26,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "TotalNumberOfTeachersFullTimeEquivalent",
                     minValue: Model.BenchmarkCriteria.MinTotalNumberOfTeachersFullTimeEquivalent,
                     maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachersFullTimeEquivalent
@@ -34,6 +36,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "TeachersWithQualifiedTeacherStatus",
                     minValue: Model.BenchmarkCriteria.MinTeachersWithQualifiedTeacherStatus,
                     maxValue: Model.BenchmarkCriteria.MaxTeachersWithQualifiedTeacherStatus
@@ -43,6 +46,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "TotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent",
                     minValue: Model.BenchmarkCriteria.MinTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent,
                     maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent
@@ -52,6 +56,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.FULL_TIME_TA,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_TA],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "TotalNumberOfTeachingAssistantsFullTimeEquivalent",
                     minValue: Model.BenchmarkCriteria.MinTotalNumberOfTeachingAssistantsFullTimeEquivalent,
                     maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachingAssistantsFullTimeEquivalent
@@ -61,6 +66,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.FULL_TIME_OTHER,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_OTHER],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "FullTimeOther",
                     minValue: Model.BenchmarkCriteria.MinFullTimeOther,
                     maxValue: Model.BenchmarkCriteria.MaxFullTimeOther
@@ -70,6 +76,7 @@
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.FULL_TIME_ADMIN,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_ADMIN],
+                    homeSchoolName: Model.BenchmarkSchool.Name,
                     elementName: "FullTimeAdmin",
                     minValue: Model.BenchmarkCriteria.MinFullTimeAdmin,
                     maxValue: Model.BenchmarkCriteria.MaxFullTimeAdmin

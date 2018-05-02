@@ -5,6 +5,15 @@
     ViewBag.pageClass = "overwrite-strategy";
 }
 
+@section BackButtonContent{
+    @{
+        ViewBag.HomeSchoolId = ViewBag.URN;
+        ViewBag.HomeSchoolName = ViewBag.HomeSchoolName;
+    }
+    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
+}
+
+
 <h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
 
 <p>

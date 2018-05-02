@@ -24,7 +24,13 @@
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BackToHomeLink")
+    @if (Model.ComparisonType != ComparisonType.Manual)
+    {
+        ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
+        ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
+
+        @Html.Partial("Partials/Breadcrumbs/BackToSelectCompareTypeLink")
+    }
 }
 
 
@@ -114,12 +120,16 @@ else
     <div class="grid-row download-links hide-in-print">
         <div id="downloadLinkContainer" class="column-one-third">
             <div class="download">
-                <a id="DownloadLink" class="no-underline bold-xsmall" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download benchmark data (CSV)</span></a>
+                <a id="DownloadLink" class="no-underline bold-xsmall" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
+                    <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt=""/><span id="DownloadLinkText"> Download benchmark data (CSV)</span>
+                </a>
             </div>
         </div>
         <div class="column-one-third">
             <div class="print">
-                <a id="PrintLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PrintPage()"><img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span></a>
+                <a id="PrintLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PrintPage()">
+                    <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt=""/><span id="PrintLinkText"> Print page</span>
+                </a>
             </div>
         </div>
         <div class="column-one-third">
@@ -128,7 +138,7 @@ else
             </div>
         </div>
     </div>
-    
+
     if (Model.HasIncompleteFinancialData)
     {
         if (Model.EstablishmentType == EstablishmentType.MAT)
@@ -158,21 +168,44 @@ else
         </div>
     }
 
-    <div id="CustomReportContentPlaceHolder" ng-app="reportApp">
+    <div ng-app="reportApp">
         <div id="listCtrl" ng-controller="ChartListController as ctrl">
-            @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-            <div id="tabsSection">
-                @Html.Partial("Partials/TabContent")
+            <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
+                <h2 class="heading-medium">School context data</h2>
+                <table class="tablesorter context-table">
+                    <thead>
+                    <tr>
+                        <th class="school-column">School name</th>
+                        <th>Local authority</th>
+                        <th>School type</th>
+                        <th>Number of pupils</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="school in schoolChartData">
+                        <td class="school-column">{{school.school.split('#')[0]}}</td>
+                        <td>{{school.la}}</td>
+                        <td>{{school.type}}</td>
+                        <td>{{school.pupilCount}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            @if (Model.EstablishmentType != EstablishmentType.MAT)
-            {
-                <div id="customTabSection" style="display: none">
-                    @Html.Partial("Partials/CustomTabContent")
+            <div id="CustomReportContentPlaceHolder">
+
+                @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
+                <div id="tabsSection">
+                    @Html.Partial("Partials/TabContent")
                 </div>
-            }
+                @if (Model.EstablishmentType != EstablishmentType.MAT)
+                {
+                    <div id="customTabSection" style="display: none">
+                        @Html.Partial("Partials/CustomTabContent")
+                    </div>
+                }
+            </div>
         </div>
     </div>
-
     <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
     <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType"/>
@@ -196,11 +229,11 @@ else
     <script src="~/node_modules/lodash/lodash.min.js"></script>
     <script src="~/public/scripts/jquery-tablesorter/jquery.tablesorter.uk.currency.js"></script>
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/saveSvgAsPng.js"></script>
-    <script src="~/public/scripts/saveSvgAsPng-gh-pages/rgbcolor.js"></script> 
+    <script src="~/public/scripts/saveSvgAsPng-gh-pages/rgbcolor.js"></script>
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/StackBlur.js"></script>
-    <script src="~/public/scripts/saveSvgAsPng-gh-pages/canvg.js"></script> 
+    <script src="~/public/scripts/saveSvgAsPng-gh-pages/canvg.js"></script>
     <script src="/Assets/Scripts/AngularJS/reportApp.js"></script>
-    
+
     <script>
         DfE.Views.BenchmarkChartsViewModel.Load();
     </script>

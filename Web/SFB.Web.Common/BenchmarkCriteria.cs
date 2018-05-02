@@ -8,7 +8,7 @@ namespace SFB.Web.Common
     {
         [PrettyName(SchoolCharacteristicsQuestions.LA_CODE)]
         [DBField(name: DBFieldNames.LA, type: CriteriaFieldComparisonTypes.EQUALTO)]
-        public int? LaCode { get; set; }
+        public int? LocalAuthorityCode { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PFI)]
         [DBField(name: DBFieldNames.PFI, type: CriteriaFieldComparisonTypes.EQUALTO)]

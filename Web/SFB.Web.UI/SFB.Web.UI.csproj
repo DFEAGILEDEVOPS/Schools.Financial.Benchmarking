@@ -274,7 +274,6 @@
     <Compile Include="Models\ChartViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
     <Compile Include="Models\Filter.cs" />
-    <Compile Include="Models\SchoolDataModel.cs" />
     <Compile Include="Models\OptionSelect.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\SchoolCharacteristics.cs" />
@@ -301,8 +300,8 @@
     </Compile>
     <Compile Include="Services\FinancialCalculationsService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
-    <Compile Include="Services\IStatisticalCriteriaBuilderService.cs" />
-    <Compile Include="Services\StatisticalCriteriaBuilderService.cs" />
+    <Compile Include="Services\ILaSearchService.cs" />
+    <Compile Include="Services\LaSearchService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\BasicAuthenticationModule.cs" />
     <Compile Include="Utils\IRequestContext.cs" />
@@ -423,6 +422,7 @@
     <Content Include="public\assets\images\player-icon-volume.png" />
     <Content Include="public\assets\images\separator-2x.png" />
     <Content Include="public\assets\images\separator.png" />
+    <Content Include="public\assets\images\spinner.gif" />
     <Content Include="public\assets\print\bmc-print.css" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-120x120.png" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-152x152.png" />
@@ -666,8 +666,13 @@
     <Content Include="Views\Help\DataSources.cshtml" />
     <Content Include="Views\Download\AcademicYear.cshtml" />
     <Content Include="Views\Download\DataSet.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\BackToSchoolLink.cshtml" />
+    <Content Include="Views\Shared\Partials\Breadcrumbs\BackToSchoolLink.cshtml" />
     <Content Include="Views\Errors\InvalidRequest.cshtml" />
+    <Content Include="Views\Shared\Partials\Breadcrumbs\BackLink.cshtml" />
+    <Content Include="Views\Shared\Partials\Breadcrumbs\BackToSelectCompareTypeLink.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\ChartTable.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\ChartTableTrust.cshtml" />
+    <Content Include="Views\Shared\Partials\ChartTable.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

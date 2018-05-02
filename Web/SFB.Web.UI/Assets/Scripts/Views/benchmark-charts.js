@@ -2,8 +2,9 @@
     'use strict';
 
     function BenchmarkChartsViewModel() {
+        sessionStorage.chartFormat = 'Charts';
         $(document).ready(function () {
-            $("table").tablesorter();
+            $("table.dataTable").tablesorter();
             DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
             DfE.Views.BenchmarkChartsViewModel.RefreshAddRemoveLinks();
             $('.save-as-image').show();
@@ -127,7 +128,7 @@
 
     BenchmarkChartsViewModel.GenerateChart = function (el, showValue, min, mid, max, barCount) {
         var applyChartStyles = function (el) {
-            var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", el.parentElement.parentElement.parentElement)[0]
+            var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chartContainer'))[0]
                 .value;
             if (benchmarkSchoolIndex > -1) {
                 $("#" +
@@ -138,7 +139,7 @@
                     benchmarkSchoolIndex).css("fill", "#D53880");
             }
 
-            var incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", el.parentElement.parentElement.parentElement)[0].value;
+            var incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chartContainer'))[0].value;
             var incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
             if (incompleteFinanceDataIndexArray.length > 0) {
                 incompleteFinanceDataIndexArray.forEach(function (index) {
@@ -151,7 +152,7 @@
                 });
             }
 
-            var incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", el.parentElement.parentElement.parentElement)[0].value;
+            var incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chartContainer'))[0].value;
             var incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
             if (incompleteWorkforceDataIndexArray.length > 0) {
                 incompleteWorkforceDataIndexArray.forEach(function (index) {
@@ -341,7 +342,25 @@
                 pattern: ['#097F96']
             },
             tooltip: {
-                show: false
+                contents: function (d, defaultTitleFormat) {
+                    var nameAndUrn = defaultTitleFormat(d[0].index).split('#');
+                    var name = nameAndUrn[0];
+                    var chartData = JSON.parse($('#' + el.id).attr('data-chart'));
+                    var schoolData = chartData[d[0].index];
+                    var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
+                        $(el).closest('.chartContainer'))[0].value;
+                    var highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
+                    return "<table class='bmc-rollover-table' style='white-space: nowrap'>" +
+                        "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +
+                        "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
+                        "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
+                        "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>" +
+                        "</table>";
+                },
+                show: $("#Type").val() !== "MAT",
+                position: function (data, width, height, element) {
+                    return { top: 0, left: window.innerWidth > 1280 ? $(element).closest('svg').width() - 50 : $(element).closest('svg').width() - width };
+                }
             },
             onrendered: function () {
                 applyChartStyles(el);
@@ -403,6 +422,7 @@
         var unitParameter = $("#ShowValue").val();
         var centralFinancing = $("#CentralFinancing").val();
         var trustCentralFinancing = $("#TrustCentralFinancing").val();
+        var formatParameter = sessionStorage.chartFormat;
         var type = $("#Type").val();
 
         var url = "/benchmarkcharts/getcharts?revgroup=" +
@@ -424,14 +444,24 @@
             url += "&type=" + type;
         }
 
-        $.get(url,
-            function(data) {
+        if (formatParameter) {
+            url += "&format=" + formatParameter;
+        }
+
+        $.ajax({
+            url: url,
+            datatype: 'json',
+            beforeSend: function() {
+                DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Updating charts");
+            },
+            success: function(data) {
                 $("#benchmarkChartsList").html(data);
                 self.RefreshAddRemoveLinks();
                 $('.save-as-image').show();
                 self.GenerateCharts(unitParameter);
-                $("table").tablesorter();
-            });
+                $("table.dataTable").tablesorter();
+            }
+        });
     };
 
     BenchmarkChartsViewModel.saveAsImage = function(name, id) {
@@ -440,7 +470,15 @@
     };
 
     BenchmarkChartsViewModel.PrintPage = function() {
-        $('details').attr('open', 'true');
+
+        var accordion_sections = $("#benchmarkChartsList .accordion-section");
+        accordion_sections.attr('aria-expanded', true)
+
+        var buttons = $("#benchmarkChartsList .chart-accordion-header")
+        buttons.each(function() {
+            $(this).attr('aria-label', $(this).attr('aria-label').replace("Show", "Hide"))
+        });
+
         window.print();
     };
 
@@ -489,6 +527,7 @@
             var trustFinancingParameter = $("#TrustCentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             var typeParameter = $("#Type").val();
+            var formatParameter = sessionStorage.chartFormat;
             var url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
                 "&showValue=" + unitParameter;
@@ -498,13 +537,16 @@
             if (trustFinancingParameter) {
                 url += "&trustFinancing=" + trustFinancingParameter;
             }
+            if (formatParameter) {
+                url += "&format=" + formatParameter;
+            }
             $.get(url,
                 function (data) {
                     $(".tabs li").removeClass("active");
                     $(".tabs li#" + tab).addClass("active");
                     $("#customTabSection").hide();
                     $("#tabsSection").html(data);
-                    $("table").tablesorter();
+                    $("table.dataTable").tablesorter();
                     var unitParameter = $("#ShowValue").val();
                     self.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
@@ -512,6 +554,11 @@
                 });
         }
     };
+
+    BenchmarkChartsViewModel.HideShowDetails = function(element) {
+        var $table = $(element).closest('table');
+        $table.find('.detail').toggle(200);
+    }
 
     BenchmarkChartsViewModel.Load = function () {
         new DfE.Views.BenchmarkChartsViewModel();

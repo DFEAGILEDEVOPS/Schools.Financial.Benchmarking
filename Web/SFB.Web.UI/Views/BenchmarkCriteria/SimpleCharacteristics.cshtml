@@ -5,7 +5,11 @@
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BackToSchoolLink", Model.BenchmarkSchool)
+    @{
+        ViewBag.HomeSchoolId = Model.BenchmarkSchool.Id;
+        ViewBag.HomeSchoolName = Model.BenchmarkSchool.Name;
+    }
+    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
 <h1 class="heading-xlarge page-heading">Quick comparison</h1>
@@ -37,41 +41,41 @@
 <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="post" id="criteriaForm">
     <div class="form-group">
         <div class="multiple-choice">
-            <input id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true" 
-                    @Html.Raw(Model.SimpleCriteria.IncludeFsm.HasValue && !Model.SimpleCriteria.IncludeFsm.Value ? "": "checked")>
+            <input id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true"
+                   @Html.Raw(Model.SimpleCriteria.IncludeFsm.HasValue && !Model.SimpleCriteria.IncludeFsm.Value ? "" : "checked")>
             <label for="fsm">Pupils eligible for free school meals</label>
         </div>
         <div class="multiple-choice">
-            <input id="sen" name="SimpleCriteria.IncludeSen" type="checkbox" value="true" 
-                   @Html.Raw(Model.SimpleCriteria.IncludeSen.HasValue && !Model.SimpleCriteria.IncludeSen.Value ? "": "checked")>
+            <input id="sen" name="SimpleCriteria.IncludeSen" type="checkbox" value="true"
+                   @Html.Raw(Model.SimpleCriteria.IncludeSen.HasValue && !Model.SimpleCriteria.IncludeSen.Value ? "" : "checked")>
             <label for="sen">Pupils with special educational needs who have statements or education and health care plans</label>
         </div>
         <div class="multiple-choice">
-            <input id="eal" name="SimpleCriteria.IncludeEal" type="checkbox" value="true" 
-                   @Html.Raw(Model.SimpleCriteria.IncludeEal.HasValue && !Model.SimpleCriteria.IncludeEal.Value ? "": "checked")>
+            <input id="eal" name="SimpleCriteria.IncludeEal" type="checkbox" value="true"
+                   @Html.Raw(Model.SimpleCriteria.IncludeEal.HasValue && !Model.SimpleCriteria.IncludeEal.Value ? "" : "checked")>
             <label for="eal">Pupils with English as an additional language</label>
         </div>
         <div class="multiple-choice">
-            <input id="la" name="SimpleCriteria.IncludeLa" type="checkbox" value="true" 
-                   @Html.Raw(Model.SimpleCriteria.IncludeLa.HasValue && Model.SimpleCriteria.IncludeLa.Value ? "checked": "")>
+            <input id="la" name="SimpleCriteria.IncludeLa" type="checkbox" value="true"
+                   @Html.Raw(Model.SimpleCriteria.IncludeLa.HasValue && Model.SimpleCriteria.IncludeLa.Value ? "checked" : "")>
             <label for="la">Within your local authority</label>
         </div>
     </div>
 
-        <div class="grid-row font-xsmall">
-            <div class="column-one-third">
-                <div class="column-one-third next-button">
-                    <button type="submit" class="button">Next</button>
-                </div>
-                <div class="column-one-third back-button">
-                    <a href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType&basketsize=@ViewBag.BasketSize">Back</a>
-                </div>
+    <div class="grid-row font-xsmall">
+        <div class="column-one-third">
+            <div class="column-one-third next-button">
+                <button type="submit" class="button">Next</button>
+            </div>
+            <div class="column-one-third back-button">
+                <a href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType&basketsize=@ViewBag.BasketSize">Back</a>
             </div>
         </div>
+    </div>
 
-        <input type="hidden" name="Urn" value="@ViewBag.URN">
-        <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
-        <input type="hidden" name="BasketSize" value="@ViewBag.BasketSize">
-        <input type="hidden" name="EstType" value="@ViewBag.EstType">
+    <input type="hidden" name="Urn" value="@ViewBag.URN">
+    <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
+    <input type="hidden" name="BasketSize" value="@ViewBag.BasketSize">
+    <input type="hidden" name="EstType" value="@ViewBag.EstType">
 
 </form>
