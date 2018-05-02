@@ -1,31 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using Newtonsoft.Json;
-using SFB.Web.Common;
-using SFB.Web.Domain.Services;
+﻿using System.Web.Mvc;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.Controllers
 {
     public class LaController : BaseController
     {
-        private readonly ILocalAuthoritiesService _laService;
+        private readonly ILaSearchService _laService;
 
-        public LaController(ILocalAuthoritiesService laService)
+        public LaController(ILaSearchService laService)
         {
             _laService = laService;
         }
 
         public ActionResult Search(string name, string orderby = "", int page = 1)
         {
-            var localAuthorities = (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
+            var filteredResults = _laService.SearchContains(name);
 
-            var filteredResults = localAuthorities
-                .Where(la => la.LANAME.ToString().ToLowerInvariant().Contains(name.ToLowerInvariant()))
-                .Select(la => new LaViewModel(){id = la.id, LaName = la.LANAME}).ToList();
-            
             var vm = new LaListViewModel(filteredResults, base.ExtractSchoolComparisonListFromCookie(), orderby);
             
             vm.Pagination = new Pagination
@@ -38,5 +30,6 @@ namespace SFB.Web.UI.Controllers
 
             return View(vm);
         }
+
     }
 }

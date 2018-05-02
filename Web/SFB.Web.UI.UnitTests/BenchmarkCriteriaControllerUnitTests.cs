@@ -34,7 +34,7 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var controller = new BenchmarkCriteriaController(null, null, null);
+            var controller = new BenchmarkCriteriaController(null, null, null, null);
             controller.ControllerContext = new ControllerContext(rc, controller);
 
             var response = controller.OverwriteStrategy("10000", ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys"} }), ComparisonArea.All, 306, "test");
@@ -85,7 +85,7 @@ namespace SFB.Web.UI.UnitTests
             testEduResult.EstablishmentName = "test";
             _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("100")).Returns((string urn) => testEduResult);
 
-            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object);
+            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null);
             controller.ControllerContext = new ControllerContext(rc, controller);
 
             var result = controller.OverwriteStrategy("10000", ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys" } }), ComparisonArea.All, 306, "test");
@@ -117,7 +117,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
 
-            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object);
+            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 

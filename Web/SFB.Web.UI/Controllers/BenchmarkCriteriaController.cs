@@ -1,4 +1,5 @@
-﻿using SFB.Web.Domain.Services;
+﻿using System;
+using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Helpers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
@@ -11,6 +12,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -19,12 +21,14 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialDataService _financialDataService;
         private readonly IContextDataService _contextDataService;
         private readonly ILocalAuthoritiesService _laService;
+        private readonly ILaSearchService _laSearchService;
         
-        public BenchmarkCriteriaController(ILocalAuthoritiesService laService, IFinancialDataService financialDataService, IContextDataService contextDataService)
+        public BenchmarkCriteriaController(ILocalAuthoritiesService laService, IFinancialDataService financialDataService, IContextDataService contextDataService, ILaSearchService laSearchService)
         {
             _financialDataService = financialDataService;
             _laService = laService;
             _contextDataService = contextDataService;
+            _laSearchService = laSearchService;
         }
 
         /// <summary>
@@ -135,8 +139,17 @@ namespace SFB.Web.UI.Controllers
         /// <param name="lacode"></param>
         /// <returns></returns>
         public ActionResult AdvancedCharacteristics(string urn, ComparisonType comparisonType, EstablishmentType estType, ComparisonArea? areaType, int? lacode,
-            BenchmarkCriteria AdvancedCriteria)
+            string laNameText, BenchmarkCriteria AdvancedCriteria)
         {
+            if (areaType == ComparisonArea.LaName && !string.IsNullOrEmpty(laNameText) && lacode == null)
+            {
+                var exactLaMatch = _laSearchService.SearchExactMatch(laNameText);
+                if (exactLaMatch != null)
+                {
+                    lacode = Int32.Parse(exactLaMatch.id);
+                }
+            }
+
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
@@ -148,7 +161,7 @@ namespace SFB.Web.UI.Controllers
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
             var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.FinancialType);
             benchmarkSchool.HistoricalSchoolFinancialDataModels = new List<SchoolFinancialDataModel> { new SchoolFinancialDataModel(urn, term, document, benchmarkSchool.FinancialType) };
-            
+
             if (!IsAreaFieldsValid(areaType, lacode, benchmarkSchool))
             {
                 ViewBag.Authorities = _laService.GetLocalAuthorities();
@@ -243,7 +256,7 @@ namespace SFB.Web.UI.Controllers
 
             if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
             {
-                criteria.AdvancedCriteria.LaCode = lacode;
+                criteria.AdvancedCriteria.LocalAuthorityCode = lacode;
                 var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType);
                 return result;
             }
@@ -252,16 +265,6 @@ namespace SFB.Web.UI.Controllers
 
         private bool IsAreaFieldsValid(ComparisonArea? areaType, int? lacode, SchoolViewModel benchmarkSchool)
         {
-            if (areaType == ComparisonArea.All)
-            {
-                lacode = null;
-            }
-
-            if (areaType == null)
-            {
-                benchmarkSchool.ErrorMessage = "Please select an area";
-            }
-
             switch (areaType)
             {
                 case ComparisonArea.LaCode:
@@ -275,6 +278,9 @@ namespace SFB.Web.UI.Controllers
                     {
                         benchmarkSchool.ErrorMessage = "Please select a local authority from the auto-completed list";
                     }
+                    break;
+                case null:
+                    benchmarkSchool.ErrorMessage = "Please select an area";
                     break;
             }
 

@@ -49,7 +49,7 @@ namespace SFB.Web.Domain.Services.Comparison
 
             if(includeLa)
             {
-                criteria.LaCode = benchmarkSchoolData.LaNumber;
+                criteria.LocalAuthorityCode = benchmarkSchoolData.LaNumber;
             }
 
             return criteria;

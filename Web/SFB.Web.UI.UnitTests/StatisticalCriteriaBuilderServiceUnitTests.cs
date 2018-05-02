@@ -196,7 +196,7 @@ namespace SFB.Web.UI.UnitTests
 
             var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalSchoolFinancialDataModels.Last(), true, true, true, true, 10);
 
-            Assert.AreEqual(financeDoc.GetPropertyValue<int>("LA"), criteria.LaCode);
+            Assert.AreEqual(financeDoc.GetPropertyValue<int>("LA"), criteria.LocalAuthorityCode);
         }
 
         [Test]
@@ -228,7 +228,7 @@ namespace SFB.Web.UI.UnitTests
             Assert.AreEqual(null, criteria.MaxPerSEN);
             Assert.AreEqual(null, criteria.MinPerEAL);
             Assert.AreEqual(null, criteria.MaxPerEAL);
-            Assert.AreEqual(null, criteria.LaCode);
+            Assert.AreEqual(null, criteria.LocalAuthorityCode);
         }
     }
 }

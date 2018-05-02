@@ -80,7 +80,7 @@ namespace SFB.Web.UI.Controllers
             return await Index(urn, simpleCriteria, benchmarkCriteria, basketSize, benchmarkSchool.LatestYearFinancialData, estType, ComparisonType.Basic);
         }
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
             var urn = TempData["URN"].ToString();
@@ -110,7 +110,7 @@ namespace SFB.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, string urn, ComparisonArea areaType, BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite)
         {
-            criteria.LaCode = lacode;
+            criteria.LocalAuthorityCode = lacode;
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
 
             switch (overwriteStrategy)
