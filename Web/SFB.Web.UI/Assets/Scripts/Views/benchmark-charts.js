@@ -417,6 +417,7 @@
 
     BenchmarkChartsViewModel.RebuildCharts = function () {
         var self = this;
+        var dfd = jQuery.Deferred();
         var tabParameter = $("#tabSelection").val();
         var chartGroupParameter = $("#ChartGroup").val();
         var unitParameter = $("#ShowValue").val();
@@ -460,8 +461,11 @@
                 $('.save-as-image').show();
                 self.GenerateCharts(unitParameter);
                 $("table.dataTable").tablesorter();
+                dfd.resolve();
             }
         });
+
+        return dfd.promise();
     };
 
     BenchmarkChartsViewModel.saveAsImage = function(name, id) {
@@ -482,36 +486,47 @@
         window.print();
     };
 
-    BenchmarkChartsViewModel.PdfPage = function () {
-        debugger;
-        $('head').append('<link rel="stylesheet" type="text/css" href="/public/govuk_template/assets/stylesheets/govuk-template-print.css?0.12.0">');
-        $('head').append('<link rel="stylesheet" type="text/css" href="/public/assets/print/bmc-print.css">');
-        $('body').scrollTop(0);
-        var
-            form = $('body'),
-            cache_width = form.width(),
-            a4 = [595.28, 841.89];  // for a4 size paper width and height
 
-        function getCanvas() {
-            form.width((a4[0] * 1.33333) - 80).css('max-width', 'none');
-            return html2canvas(form, {
+    BenchmarkChartsViewModel.PdfPage = function () {
+        var self = this;
+        self.originalScreenWidth = null;
+
+        var PrePdfConvert = function () {
+            self.originalScreenWidth = $('body').width();
+            $('head').append('<link rel="stylesheet" media="screen" type="text/css" href="/public/govuk_template/assets/stylesheets/govuk-template-print.css?0.12.0">');
+            $('head').append('<link rel="stylesheet" media="screen" type="text/css" href="/public/assets/print/bmc-print.css">');
+            $('link[href="/public/govuk_template/assets/stylesheets/govuk-template.css?0.12.0"]').remove();
+            $('body').scrollTop(0);
+            $('body').width(700);
+        }
+
+        var PostPdfConvert = function() {
+            $('link[href="/public/govuk_template/assets/stylesheets/govuk-template-print.css?0.12.0"][media="screen"]').remove();
+            $('link[href="/public/assets/print/bmc-print.css"][media="screen"]').remove();
+            $('head').append('<link rel="stylesheet" media="screen" type="text/css" href="/public/govuk_template/assets/stylesheets/govuk-template.css?0.12.0">');
+            $('body').width(self.originalScreenWidth);
+        }
+
+        var GetCanvas = function () {
+            return html2canvas($('body'), {
                 imageTimeout: 2000,
                 removeContainer: true
             });
         }
 
-        getCanvas().then(function (canvas) {
-            var
-                img = canvas.toDataURL("image/png"),
-                doc = new jsPDF({
-                    unit: 'px',
-                    format: 'a4'
-                });
-            doc.addImage(img, 'JPEG', 20, 20);
-            doc.save('techumber-html-to-pdf.pdf');
-            form.width(cache_width);
-        });
+        PrePdfConvert();
 
+        $.when(BenchmarkChartsViewModel.RebuildCharts())
+            .then(function () {
+                GetCanvas().then(function (canvas) {
+                    PostPdfConvert();
+                    var img = canvas.toDataURL("image/png");
+                    var doc = new jsPDF({unit: 'px', format: 'a4'});
+                    doc.addImage(img, 'JPEG', 20, 20);
+                    doc.save('sfb-benchmark-charts.pdf');
+                });
+            }
+        );
     };
 
     BenchmarkChartsViewModel.ChangeTab = function (tab) {
