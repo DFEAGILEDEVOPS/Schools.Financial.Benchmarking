@@ -417,7 +417,6 @@
 
     BenchmarkChartsViewModel.RebuildCharts = function () {
         var self = this;
-        var dfd = jQuery.Deferred();
         var tabParameter = $("#tabSelection").val();
         var chartGroupParameter = $("#ChartGroup").val();
         var unitParameter = $("#ShowValue").val();
@@ -461,11 +460,8 @@
                 $('.save-as-image').show();
                 self.GenerateCharts(unitParameter);
                 $("table.dataTable").tablesorter();
-                dfd.resolve();
             }
         });
-
-        return dfd.promise();
     };
 
     BenchmarkChartsViewModel.saveAsImage = function(name, id) {
@@ -515,18 +511,17 @@
         }
 
         PrePdfConvert();
+        
+        BenchmarkChartsViewModel.GenerateCharts();
 
-        $.when(BenchmarkChartsViewModel.RebuildCharts())
-            .then(function () {
-                GetCanvas().then(function (canvas) {
-                    PostPdfConvert();
-                    var img = canvas.toDataURL("image/png");
-                    var doc = new jsPDF({unit: 'px', format: 'a4'});
-                    doc.addImage(img, 'JPEG', 20, 20);
-                    doc.save('sfb-benchmark-charts.pdf');
-                });
-            }
-        );
+        GetCanvas().then(function (canvas) {
+            PostPdfConvert();
+            var img = canvas.toDataURL("image/png");
+            var doc = new jsPDF({ unit: 'px', format: 'a4' });
+            doc.addImage(img, 'JPEG', 20, 20);
+            doc.save('sfb-benchmark-charts.pdf');
+        });
+
     };
 
     BenchmarkChartsViewModel.ChangeTab = function (tab) {
