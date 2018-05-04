@@ -45,7 +45,7 @@
 
 <h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
 
-@if (Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
+@if (Model.SchoolComparisonList !=null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
 {
     <div class="panel panel-border-wide orange-warning">
         <p>
