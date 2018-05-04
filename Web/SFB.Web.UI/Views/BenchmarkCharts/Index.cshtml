@@ -49,7 +49,7 @@
             <div class="column-full">
                 <span>Comparing</span>
                 <div class="highlight">
-                    <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span>
+                    <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                 </div>
                 @if (Model.ComparisonType == ComparisonType.Advanced)
                 {
