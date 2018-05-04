@@ -52,6 +52,12 @@
             $.get("/school/UpdateBenchmarkBasket?withAction=clear",
                 function (data) {
                     $("#benchmarkBasket").replaceWith(data);
+                    if ($(".search-results").length > 0) {
+                        location.reload();
+                    }
+                    if ($(".benchmarking-charts").length > 0) {
+                        location.replace("/BenchmarkCharts");
+                    }
                 });
         }
     };
