@@ -357,7 +357,8 @@
                         "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>" +
                         "</table>";
                 },
-                show: $("#Type").val() !== "MAT",
+                //show: $("#Type").val() !== "MAT",
+                show: false,
                 position: function (data, width, height, element) {
                     return { top: 0, left: window.innerWidth > 1280 ? $(element).closest('svg').width() - 50 : $(element).closest('svg').width() - width };
                 }
