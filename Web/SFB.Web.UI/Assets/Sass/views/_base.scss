@@ -68,6 +68,7 @@ a.home-link
 
     a {
         text-decoration: none;
+        font-weight: bold;
 
         &.edit-basket, &.clear-criteria {
             margin-left: 20px;
@@ -427,7 +428,7 @@ abbr[title]{
 }
 
 .forward-chevron {
-    color: $grey-2;
+    color: $grey-1;
     padding-left:8px;
     padding-right: 8px;
     position:relative;
