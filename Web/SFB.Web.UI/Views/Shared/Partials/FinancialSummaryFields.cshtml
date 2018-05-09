@@ -48,7 +48,7 @@
                         <abbr class="negative-balance bal-total summary" title="@Model.InYearBalance.ToString("C0")" aria-label="@Model.InYearBalance.ToString("N0") pounds">@Model.InYearBalance.FormatMoney()</abbr>
                     }else {
                         <span class="negative-balance">
-                            <span class="money bal-total">@Model.InYearBalance.FormatMoney()</span>
+                            <span class="money bal-total" aria-label="@Model.InYearBalance.ToString("N0") pounds" >@Model.InYearBalance.FormatMoney()</span>
                         </span>
                     }
 
