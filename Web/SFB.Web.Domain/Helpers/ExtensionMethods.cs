@@ -34,14 +34,24 @@ namespace SFB.Web.Domain.Helpers
 
         public static string FormatMoney(this decimal amount)
         {
-            if (amount >= 1000000 || amount <= -1000000)
+            if (amount >= 1000000)
             {
                 return $"£{(amount / 1000000).ToString("0.##")}m";
             }
 
-            if (amount >= 10000 || amount <= -10000)
+            if (amount <= -1000000)
+            {
+                return $"-£{Math.Abs(amount / 1000000).ToString("0.##")}m";
+            }
+
+            if (amount >= 10000)
             {
                 return $"£{(amount / 1000).ToString("0.#")}k";
+            }
+
+            if (amount <= -10000)
+            {
+                return $"-£{Math.Abs(amount / 1000).ToString("0.#")}k";
             }
 
             return amount.ToString("C0");

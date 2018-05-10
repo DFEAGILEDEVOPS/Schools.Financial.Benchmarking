@@ -66,10 +66,16 @@
         ChartMoneyFormat: function(amount) {
             if (amount === null)
                 return "Not applicable";
-            else if (amount >= 1000000 || amount <= -1000000)
+            else if (amount >= 1000000)
                 return "£" + parseFloat((amount / 1000000).toFixed(2)).toString() + 'm';
-            else if (amount >= 10000 || amount <= -10000)
+            else if (amount <= -1000000)
+                return "-£" + parseFloat(Math.abs(amount / 1000000).toFixed(2)).toString() + 'm';
+            else if (amount >= 10000)
                 return "£" + parseFloat((amount / 1000).toFixed(1)).toString() + 'k';
+            else if (amount <= -10000)
+                return "-£" + parseFloat(Math.abs(amount / 1000).toFixed(1)).toString() + 'k';
+            else if (amount < 0)
+                return "-£" + window.DfE.Util.Charting.NumberWithCommas(parseFloat(Math.abs(amount).toFixed(0)).toString());
             else
                 return "£" + window.DfE.Util.Charting.NumberWithCommas(parseFloat(amount.toFixed(0)).toString());
         },

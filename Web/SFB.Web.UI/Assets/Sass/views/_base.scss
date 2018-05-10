@@ -68,9 +68,9 @@ a.home-link
 
     a {
         text-decoration: none;
-        font-weight: bold;
 
         &.edit-basket, &.clear-criteria {
+            font-weight: bold;
             margin-left: 20px;
 
             @include media(mobile) {
