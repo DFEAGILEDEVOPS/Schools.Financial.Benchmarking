@@ -51,7 +51,7 @@
  
 }
 
-<div class="header-content">
+<div class="header-content" role="region" aria-label="Announcement">
     @if (ViewBag.DynamicHeaderContent != null)
     {
         <div class="dynamic-header hide-in-print">
@@ -63,9 +63,11 @@
     }
 </div>
 
-@RenderSection("StickyContent", required: false)
+<div role="region" aria-label="Benchmark Basket">
+    @RenderSection("StickyContent", required: false)
+</div>
 
-<div class="header-content">
+<div class="header-content" role="navigation">
     @RenderSection("BackButtonContent", required: false)
 </div>
 

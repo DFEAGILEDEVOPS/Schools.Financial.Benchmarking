@@ -135,7 +135,7 @@ else
 </div>
 <!--end global-cookie-message-->
 
-<header role="banner" id="global-header" class="with-proposition">
+<header role="region" id="global-header" class="with-proposition" aria-labelledby="proposition-name">
     <div class="header-wrapper">
         <div class="header-global">
             <div class="header-logo">
@@ -148,7 +148,7 @@ else
             <div class="content">
                 @*<a href="#proposition-links" class="js-header-toggle menu">Menu</a>*@
                 <nav id="proposition-menu">
-                    <a href="/" id="proposition-name" title="@appTitle">@appTitle</a>
+                    <a href="/" id="proposition-name">@appTitle</a>
                 </nav>
             </div>
         </div>
@@ -167,7 +167,7 @@ else
 <div class="side-width-wrapper hide-in-print">
     <div class="grid-row">
         <div class="column-full">
-            <div class="phase-banner">
+            <div class="phase-banner" role="banner">
                 @(Html.Partial("../govuk/partials/phase/beta"))
             </div>
         </div>
