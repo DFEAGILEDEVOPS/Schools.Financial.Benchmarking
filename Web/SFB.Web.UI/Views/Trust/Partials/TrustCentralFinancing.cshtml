@@ -7,6 +7,7 @@
     <select name="Financing" id="Financing" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('trust')">
         <option value="@MatFinancingType.TrustAndAcademies" @IsFinancingSelected(MatFinancingType.TrustAndAcademies)>@MATFinancing.TRUST_ACADEMIES</option>
         <option value="@MatFinancingType.TrustOnly" @IsFinancingSelected(MatFinancingType.TrustOnly)>@MATFinancing.TRUST_ONLY</option>
+        <option value="@MatFinancingType.AcademiesOnly" @IsFinancingSelected(MatFinancingType.AcademiesOnly)>@MATFinancing.ACADEMIES_ONLY</option>
     </select>
 </div>
 

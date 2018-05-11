@@ -160,7 +160,21 @@ namespace SFB.Web.DAL.Repositories
 
         public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
         {
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinance == MatFinancingType.TrustOnly ? DataGroups.MATCentral : DataGroups.MATOverview);
+            string matFinanceType = null;
+            switch (matFinance)
+            {
+                case MatFinancingType.TrustOnly:
+                    matFinanceType = DataGroups.MATCentral;
+                    break;
+                case MatFinancingType.TrustAndAcademies:
+                    matFinanceType = DataGroups.MATOverview;
+                    break;
+                case MatFinancingType.AcademiesOnly:
+                    matFinanceType = DataGroups.MATTotals;
+                    break;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinanceType);
 
             try
             {

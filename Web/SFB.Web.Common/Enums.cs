@@ -66,7 +66,8 @@ namespace SFB.Web.Common
     public enum MatFinancingType
     {
         TrustOnly,
-        TrustAndAcademies
+        TrustAndAcademies,
+        AcademiesOnly
     }
 
     public enum ChartFormat
