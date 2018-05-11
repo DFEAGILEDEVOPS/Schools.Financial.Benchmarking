@@ -128,7 +128,22 @@ namespace SFB.Web.DAL.Repositories
 
         public Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance)
         {
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinance == MatFinancingType.TrustOnly ? DataGroups.MATCentral : DataGroups.MATOverview);
+            string dataGroupType = null;
+
+            switch (matFinance)
+            {
+                case MatFinancingType.TrustOnly:
+                    dataGroupType = DataGroups.MATCentral;
+                    break;
+                case MatFinancingType.TrustAndAcademies:
+                    dataGroupType = DataGroups.MATOverview;
+                    break;
+                case MatFinancingType.AcademiesOnly:
+                    dataGroupType = DataGroups.MATTotals;
+                    break;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroupType);
 
             if (collectionName == null)
             {
