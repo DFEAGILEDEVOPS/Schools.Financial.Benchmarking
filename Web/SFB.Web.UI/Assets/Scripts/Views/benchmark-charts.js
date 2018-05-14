@@ -484,44 +484,17 @@
 
 
     BenchmarkChartsViewModel.PdfPage = function () {
-        var self = this;
-        self.originalScreenWidth = null;
-
-        var PrePdfConvert = function () {
-            self.originalScreenWidth = $('body').width();
-            $('head').append('<link rel="stylesheet" media="screen" type="text/css" href="/public/govuk_template/assets/stylesheets/govuk-template-print.css?0.12.0">');
-            $('head').append('<link rel="stylesheet" media="screen" type="text/css" href="/public/assets/print/bmc-print.css">');
-            $('link[href="/public/govuk_template/assets/stylesheets/govuk-template.css?0.12.0"]').remove();
-            $('body').scrollTop(0);
-            $('body').width(700);
-        }
-
-        var PostPdfConvert = function() {
-            $('link[href="/public/govuk_template/assets/stylesheets/govuk-template-print.css?0.12.0"][media="screen"]').remove();
-            $('link[href="/public/assets/print/bmc-print.css"][media="screen"]').remove();
-            $('head').append('<link rel="stylesheet" media="screen" type="text/css" href="/public/govuk_template/assets/stylesheets/govuk-template.css?0.12.0">');
-            $('body').width(self.originalScreenWidth);
-        }
-
-        var GetCanvas = function () {
-            return html2canvas($('body'), {
-                imageTimeout: 2000,
-                removeContainer: true
+        debugger;
+        var doc = new jsPDF({ unit: 'px', format: 'a4' });
+        doc.setFont("helvetica");
+        doc.setFontType("bold");        
+        doc.text(20, 50, 'Chart 1');
+        var svg = $('#chart_0').find('svg')[0];
+        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+            function (img) {
+                doc.addImage(img, 'JPEG', -100, 100);
             });
-        }
-
-        PrePdfConvert();
-        
-        BenchmarkChartsViewModel.GenerateCharts();
-
-        GetCanvas().then(function (canvas) {
-            PostPdfConvert();
-            var img = canvas.toDataURL("image/png");
-            var doc = new jsPDF({ unit: 'px', format: 'a4' });
-            doc.addImage(img, 'JPEG', 20, 20);
-            doc.save('sfb-benchmark-charts.pdf');
-        });
-
+        doc.save('sfb-benchmark-charts.pdf');
     };
 
     BenchmarkChartsViewModel.ChangeTab = function (tab) {

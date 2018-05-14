@@ -481,12 +481,17 @@
     });
   }
 
-  out$.saveSvgAsPng = function (el, name, options) {
+  out$.saveSvgAsPng = function (el, name, options, cb) {
     requireDomNode(el);
 
     options = options || {};
-    out$.svgAsPngUri(el, options, function(uri) {
-      out$.download(name, uri);
+    out$.svgAsPngUri(el, options, function (uri) {
+        debugger;
+        if (cb) {
+            cb(uri);
+        } else {
+            out$.download(name, uri);
+        }      
     });
   }
 
