@@ -46,7 +46,7 @@ namespace SFB.Web.DAL
                 return DataGroups.MATOverview;
 
             if (json.Properties().Any(a => a.Name == "AcademyAllocation"))
-                return DataGroups.MATDistributed;
+                return DataGroups.MATAllocs;
 
             return DataGroups.Unidentified;
         }

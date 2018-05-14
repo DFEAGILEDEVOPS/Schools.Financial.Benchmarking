@@ -96,11 +96,6 @@ namespace SFB.Web.DAL.Helpers
 
         public string GetCollectionIdByTermByDataGroup(string term, string dataGroup)
         {
-            if (dataGroup == DataGroups.MATDistributed)
-            {
-                return GetActiveCollectionsByDataGroup(dataGroup)
-                    .SingleOrDefault(sod => sod.Split('-')[3] == term.Split(' ').Last());
-            }
             return GetActiveCollectionsByDataGroup(dataGroup)
                 .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
         }

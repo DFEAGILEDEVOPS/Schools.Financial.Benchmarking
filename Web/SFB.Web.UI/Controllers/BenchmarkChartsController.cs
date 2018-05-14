@@ -578,10 +578,10 @@ namespace SFB.Web.UI.Controllers
 
                 if (schoolFinancialType == SchoolFinancialType.Academies)
                 {
-                    dataGroup = (centralFinancing == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
+                    dataGroup = (centralFinancing == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
                 }
 
-                if (dataGroup == DataGroups.MATDistributed && resultDocument == null)//if nothing found in -Distributed collection try to source it from (non-distributed) Academies data
+                if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in -Distributed collection try to source it from (non-distributed) Academies data
                 {
                     resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(schools[i].Urn, term, schoolFinancialType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
