@@ -110,6 +110,7 @@
     {
         public const string TRUST_ONLY = "Trust only";
         public const string TRUST_ACADEMIES = "Trust and academies";
+        public const string ACADEMIES_ONLY = "Academies only";
     }
 
     public class ErrorMessages

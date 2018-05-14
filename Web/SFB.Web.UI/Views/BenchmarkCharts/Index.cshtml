@@ -31,6 +31,10 @@
 
         @Html.Partial("Partials/Breadcrumbs/BackToSelectCompareTypeLink")
     }
+    else
+    {
+        @Html.Partial("Partials/BackToHomeLink")
+    }
 }
 
 
@@ -43,39 +47,49 @@
 
 <h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
 
-@if (Model.SchoolComparisonList != null && !string.IsNullOrEmpty(Model.SchoolComparisonList.HomeSchoolName))
+@if (Model.SchoolComparisonList !=null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
 {
-    if (Model.BmSchoolInList())
+    <div class="panel panel-border-wide orange-warning">
+        <p>
+            There are no schools in your benchmark basket, so no charts can be displayed.
+        </p>
+    </div>
+}
+else
+{
+    if (Model.SchoolComparisonList != null && !string.IsNullOrEmpty(Model.SchoolComparisonList.HomeSchoolName))
     {
-        <div class="grid-row">
-            <div class="column-full">
-                <span>Comparing</span>
-                <div class="highlight">
-                    <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span>
+        if (Model.BmSchoolInList())
+        {
+            <div class="grid-row">
+                <div class="column-full">
+                    <span>Comparing</span>
+                    <div class="highlight">
+                        <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                    </div>
+                    @if (Model.ComparisonType == ComparisonType.Advanced)
+                    {
+                        <span>&nbsp;to schools</span>
+                        <span class="bold-small"> with characteristics you've chosen</span>
+                    }
+                    else if (Model.ComparisonType == ComparisonType.Basic)
+                    {
+                        <span>&nbsp;to schools</span>
+                        <span class="bold-small"> matching your chosen characteristics</span>
+                    }
                 </div>
-                @if (Model.ComparisonType == ComparisonType.Advanced)
-                {
-                    <span>&nbsp;to schools</span>
-                    <span class="bold-small"> with characteristics you've chosen</span>
-                }
-                else if (Model.ComparisonType == ComparisonType.Basic)
-                {
-                    <span>&nbsp;to schools</span>
-                    <span class="bold-small"> matching your chosen characteristics</span>
-                }
             </div>
-        </div>
-    }
-    if (Model.ComparisonType != ComparisonType.Manual)
-    {
-        <div class="grid-row">
-            <div class="column-full">
-                <details class="criteria-details">
-                    <summary class="hide-in-print">
-                        <span class="summary">View or change characteristics used</span>
-                    </summary>
-                    <div class="panel panel-border-narrow criteria-detail">
-                        @if (Model.ComparisonType == ComparisonType.Advanced)
+        }
+        if (Model.ComparisonType != ComparisonType.Manual)
+        {
+            <div class="grid-row">
+                <div class="column-full">
+                    <details class="criteria-details">
+                        <summary class="hide-in-print">
+                            <span class="summary">View or change characteristics used</span>
+                        </summary>
+                        <div class="panel panel-border-narrow criteria-detail">
+                            @if (Model.ComparisonType == ComparisonType.Advanced)
                         {
                             Html.RenderPartial("Partials/AdvancedHiddenFields");
                             Html.RenderPartial("Partials/UsedAdvancedCriteria");
@@ -85,134 +99,136 @@
                             Html.RenderPartial("Partials/BasicHiddenFields");
                             Html.RenderPartial("Partials/UsedBasicCriteria");
                         }
-                    </div>
-                </details>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        }
+    }
+
+    if (Model.EstablishmentType == EstablishmentType.MAT)
+    {
+        <div class="grid-row">
+            <div class="column-full">
+                <span>Comparing</span>
+                <div class="highlight">
+                    <span class="bold-small">@Model.TrustComparisonList.DefaultTrustName</span>
+                </div>
+                <span>&nbsp;to selected trusts. You can </span>
+                <a href="/TrustComparison?matno=@Model.TrustComparisonList.DefaultTrustMatNo&matName=@Model.TrustComparisonList.DefaultTrustName">view or edit these.</a>
             </div>
         </div>
     }
-}
 
-@if (Model.EstablishmentType == EstablishmentType.MAT)
-{
-    <div class="grid-row">
-        <div class="column-full">
-            <span>Comparing</span>
-            <div class="highlight">
-                <span class="bold-small">@Model.TrustComparisonList.DefaultTrustName</span>
-            </div>
-            <span>&nbsp;to selected trusts. You can </span>
-            <a href="/TrustComparison?matno=@Model.TrustComparisonList.DefaultTrustMatNo&matName=@Model.TrustComparisonList.DefaultTrustName">view or edit these.</a>
+    if (Model.NoResultsForSimpleSearch)
+    {
+        <div class="panel panel-border-wide orange-warning">
+            <p>
+                No similar schools were found. Change the characteristics used or try the
+                <a href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Advanced search</a>.
+            </p>
         </div>
-    </div>
-}
-
-@if (Model.NoResultsForSimpleSearch)
-{
-    <div class="panel panel-border-wide orange-warning">
-        <p>
-            No similar schools were found. Change the characteristics used or try the
-            <a href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Advanced search</a>.
-        </p>
-    </div>
-}
-else
-{
-    <div class="grid-row download-links hide-in-print">
-        <div id="downloadLinkContainer" class="column-one-third">
-            <div class="download">
-                <a id="DownloadLink" class="no-underline bold-xsmall" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
-                    <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt=""/><span id="DownloadLinkText"> Download benchmark data (CSV)</span>
-                </a>
+    }
+    else
+    {
+        <div class="grid-row download-links hide-in-print">
+            <div id="downloadLinkContainer" class="column-one-third">
+                <div class="download">
+                    <a id="DownloadLink" class="no-underline bold-xsmall" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
+                        <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download benchmark data (CSV)</span>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="column-one-third">
-            <div class="print">
-                <a id="PrintLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PrintPage()">
-                    <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt=""/><span id="PrintLinkText"> Print page</span>
-                </a>
+            <div class="column-one-third">
+                <div class="print">
+                    <a id="PrintLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PrintPage()">
+                        <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
+                    </a>
             </div>
         </div>
         <div class="column-one-third">
             <div class="pdf">
                 <a id="PdfLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></a>
-            </div>
-        </div>
-    </div>
-
-    if (Model.HasIncompleteFinancialData)
-    {
-        if (Model.EstablishmentType == EstablishmentType.MAT)
-        {
-            <div class="panel panel-border-wide orange-warning">
-                <p>
-                    Some trusts don't have a complete set of financial data for this period
-                </p>
-            </div>
-        }
-        else
-        {
-            <div class="panel panel-border-wide orange-warning">
-                <p>
-                    Some schools don't have a complete set of financial data for this period
-                </p>
-            </div>
-        }
-    }
-
-    if (Model.HasIncompleteWorkforceData)
-    {
-        <div class="panel panel-border-wide orange-warning">
-            <p>
-                Some schools don't have a complete set of workforce data for this period
-            </p>
-        </div>
-    }
-
-    <div ng-app="reportApp">
-        <div id="listCtrl" ng-controller="ChartListController as ctrl">
-            <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
-                <h2 class="heading-medium">School context data</h2>
-                <table class="tablesorter context-table">
-                    <thead>
-                    <tr>
-                        <th class="school-column">School name</th>
-                        <th>Local authority</th>
-                        <th>School type</th>
-                        <th>Number of pupils</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="school in schoolChartData">
-                        <td class="school-column">{{school.school.split('#')[0]}}</td>
-                        <td>{{school.la}}</td>
-                        <td>{{school.type}}</td>
-                        <td>{{school.pupilCount}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div id="CustomReportContentPlaceHolder">
-
-                @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-                <div id="tabsSection">
-                    @Html.Partial("Partials/TabContent")
                 </div>
-                @if (Model.EstablishmentType != EstablishmentType.MAT)
-                {
-                    <div id="customTabSection" style="display: none">
-                        @Html.Partial("Partials/CustomTabContent")
-                    </div>
-                }
             </div>
         </div>
-    </div>
-    <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
-    <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType"/>
+        if (Model.HasIncompleteFinancialData)
+        {
+            if (Model.EstablishmentType == EstablishmentType.MAT)
+            {
+                <div class="panel panel-border-wide orange-warning">
+                    <p>
+                        Some trusts don't have a complete set of financial data for this period
+                    </p>
+                </div>
+            }
+            else
+            {
+                <div class="panel panel-border-wide orange-warning">
+                    <p>
+                        Some schools don't have a complete set of financial data for this period
+                    </p>
+                </div>
+            }
+        }
+
+        if (Model.HasIncompleteWorkforceData)
+        {
+            <div class="panel panel-border-wide orange-warning">
+                <p>
+                    Some schools don't have a complete set of workforce data for this period
+                </p>
+            </div>
+        }
+
+        <div ng-app="reportApp">
+            <div id="listCtrl" ng-controller="ChartListController as ctrl">
+                <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
+                    <h2 class="heading-medium">School context data</h2>
+                    <table class="tablesorter context-table">
+                        <thead>
+                            <tr>
+                                <th class="school-column">School name</th>
+                                <th>Local authority</th>
+                                <th>School type</th>
+                                <th>Number of pupils</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="school in schoolChartData">
+                                <td class="school-column">{{school.school.split('#')[0]}}</td>
+                                <td>{{school.la}}</td>
+                                <td>{{school.type}}</td>
+                                <td>{{school.pupilCount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="CustomReportContentPlaceHolder">
+
+                    @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
+                    <div id="tabsSection">
+                        @Html.Partial("Partials/TabContent")
+                    </div>
+                    @if (Model.EstablishmentType != EstablishmentType.MAT)
+                    {
+                        <div id="customTabSection" style="display: none">
+                            @Html.Partial("Partials/CustomTabContent")
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
+        <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
+    }
 }
 
+
 @section AfterMain{
-    <div class="full-page-width-wrapper hide-in-print">
+    <div class="full-page-width-wrapper hide-in-print" role="region" aria-label="Feedback Question">
         <div class="improve-this-page" data-module="improve-this-page">
             <div class="improve-this-page__prompt js-prompt clearfix" tabindex="-1">
                 <span class="improve-this-page__is-useful-question bold">Are you satisfied with your visit today?</span>

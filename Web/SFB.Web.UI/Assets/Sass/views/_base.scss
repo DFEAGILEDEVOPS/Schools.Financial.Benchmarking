@@ -70,6 +70,7 @@ a.home-link
         text-decoration: none;
 
         &.edit-basket, &.clear-criteria {
+            font-weight: bold;
             margin-left: 20px;
 
             @include media(mobile) {
@@ -427,7 +428,7 @@ abbr[title]{
 }
 
 .forward-chevron {
-    color: $grey-2;
+    color: $grey-1;
     padding-left:8px;
     padding-right: 8px;
     position:relative;

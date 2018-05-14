@@ -38,7 +38,7 @@ namespace SFB.Web.DAL.Repositories
             var dataGroup = schoolFinancialType.ToString();
             if (schoolFinancialType == SchoolFinancialType.Academies)
             {
-                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
+                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
             }
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
@@ -57,7 +57,7 @@ namespace SFB.Web.DAL.Repositories
 
                 var result = query.ToList().FirstOrDefault();
 
-                if (dataGroup == DataGroups.MATDistributed && result == null)//if nothing found in -Distributed collection try to source it from Academies data
+                if (dataGroup == DataGroups.MATAllocs && result == null)//if nothing found in MAT-Allocs collection try to source it from Academies data
                 {
                     return GetSchoolDataDocument(urn, term, schoolFinancialType, CentralFinancingType.Exclude);
                 }
@@ -81,7 +81,7 @@ namespace SFB.Web.DAL.Repositories
             var dataGroup = schoolFinancialType.ToString();
             if (schoolFinancialType == SchoolFinancialType.Academies)
             {
-                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
+                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
             }
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
@@ -128,7 +128,22 @@ namespace SFB.Web.DAL.Repositories
 
         public Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance)
         {
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinance == MatFinancingType.TrustOnly ? DataGroups.MATCentral : DataGroups.MATOverview);
+            string dataGroupType = null;
+
+            switch (matFinance)
+            {
+                case MatFinancingType.TrustOnly:
+                    dataGroupType = DataGroups.MATCentral;
+                    break;
+                case MatFinancingType.TrustAndAcademies:
+                    dataGroupType = DataGroups.MATOverview;
+                    break;
+                case MatFinancingType.AcademiesOnly:
+                    dataGroupType = DataGroups.MATTotals;
+                    break;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroupType);
 
             if (collectionName == null)
             {
@@ -160,7 +175,21 @@ namespace SFB.Web.DAL.Repositories
 
         public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
         {
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinance == MatFinancingType.TrustOnly ? DataGroups.MATCentral : DataGroups.MATOverview);
+            string matFinanceType = null;
+            switch (matFinance)
+            {
+                case MatFinancingType.TrustOnly:
+                    matFinanceType = DataGroups.MATCentral;
+                    break;
+                case MatFinancingType.TrustAndAcademies:
+                    matFinanceType = DataGroups.MATOverview;
+                    break;
+                case MatFinancingType.AcademiesOnly:
+                    matFinanceType = DataGroups.MATTotals;
+                    break;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinanceType);
 
             try
             {
@@ -217,13 +246,13 @@ namespace SFB.Web.DAL.Repositories
             switch (estType)
             {
                 case EstablishmentType.Academy:
-                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "MAT-Distributed");
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, DataGroups.MATAllocs);
                     break;
                 case EstablishmentType.Maintained:
-                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "Maintained");
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, DataGroups.Maintained);
                     break;
                 case EstablishmentType.MAT:
-                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "MAT-Overview");
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, DataGroups.MATOverview);
                     break;
             }
 

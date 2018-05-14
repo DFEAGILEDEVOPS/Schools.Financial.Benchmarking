@@ -12,14 +12,17 @@
     <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
         <div class="column-full">
             <div class="benchmark-school-value">
-            @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
-            {
-                <span>No value was supplied for @Model.HomeSchoolName</span>
-            }
-            else
-            {
-                <span>Please enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is <span class="bold-small">@Model.HomeSchoolValue%</span></span>
-            }
+                @{
+                    double homeSchoolValue;
+                    if (Double.TryParse(Model.HomeSchoolValue, out homeSchoolValue))
+                    {
+                        <span>Please enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is <span class="bold-small">@homeSchoolValue.ToString("F")%</span></span>
+                    }
+                    else
+                    {
+                        <span>No value was supplied for @Model.HomeSchoolName</span>
+                    }
+                }
             </div>
         </div>
         <div>

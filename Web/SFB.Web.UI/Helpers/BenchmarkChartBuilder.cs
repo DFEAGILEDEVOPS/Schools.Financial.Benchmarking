@@ -203,11 +203,11 @@ namespace SFB.Web.UI.Helpers
                                 <li>boarding provision</li>
                                 <li>rural studies and farm units</li>
                                 <li>payments by your school to another school for the benefit of pupils at the other school</li>
-                                <li>pupil inter-site travel, <span aria-label=""example"">eg</span> moving between sites</li>
+                                <li>pupil inter-site travel, <span aria-label=""for example"">eg</span> moving between sites</li>
                                 <li>expenses relating to before and after school clubs</li>
                                 <li>delegated home to school transport</li>
                                 <li>indirect employee expenses and agency staff expenses relating to a special facility</li>
-                                <li>purchase of trading items for re-sale, <span aria-label=""example"">eg</span> school uniforms, books, stationery</li>
+                                <li>purchase of trading items for re-sale, <span aria-label=""for example"">eg</span> school uniforms, books, stationery</li>
                                 <li>donations paid by the school to a charity</li>
                                 <li>community education with a benefit to the pupils at the school </li>
                                 </ul>
@@ -252,8 +252,8 @@ namespace SFB.Web.UI.Helpers
                                 </ul>
                                 <p>It excludes:</p>
                                 <ul>
-                                <li>any teachers employed casually and directly, <span aria-label=""example"">eg</span> supply teachers</li>
-                                <li>any teachers not employed directly by the school, <span aria-label=""example"">eg</span> agency staff</li>
+                                <li>any teachers employed casually and directly, <span aria-label=""for example"">eg</span> supply teachers</li>
+                                <li>any teachers not employed directly by the school, <span aria-label=""for example"">eg</span> agency staff</li>
                                 </ul>",
                     Downloadable = true
                 },
@@ -627,7 +627,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>charges by contractors for repairs, maintenance and improvements</li>
                                 <li>related professional and technical services, including labour costs where supplied as part of the contract</li>
                                 <li>costs of materials and equipment used by directly employed staff for internal and external repair, maintenance and improvement to buildings </li>
-                                <li>fixtures and fittings, <span aria-label=""example"">eg</span> carpets and curtains </li>
+                                <li>fixtures and fittings, <span aria-label=""for example"">eg</span> carpets and curtains </li>
 
                                 </ul>
 
@@ -886,7 +886,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>purchase, hire or maintenance contracts of ICT or other equipment not to be used for teaching</li>
                                 <li>purchase, hire, lease and maintenance of furniture and equipment not used for teaching</li>
                                 <li>subscriptions, publications, periodicals and copyright fees not related to the curriculum</li>
-                                <li>school publications <span aria-label=""example"">eg</span> parents' report and school brochure</li>
+                                <li>school publications <span aria-label=""for example"">eg</span> parents' report and school brochure</li>
                                 <li>any governors’ expenses </li>
                                 <li>marketing costs for school prospectuses </li>
                                 </ul>
@@ -927,7 +927,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>purchase, lease, hire or maintenance contracts of ICT used for teaching</li>
                                 <li>costs of broadband, ISDN, ASDL or other dedicated phone lines </li>
                                 <li>the costs of test and examination entry fees and any accreditation costs related to pupils. This includes GCSEs, A/AS levels and the European Baccalaureate</li>
-                                <li>administrative costs, <span aria-label=""example"">eg</span> external marking </li>
+                                <li>administrative costs, <span aria-label=""for example"">eg</span> external marking </li>
                                 </ul>
 
                                 <p>This excludes:</p>
@@ -981,7 +981,7 @@ namespace SFB.Web.UI.Helpers
 
                                 <ul>
                                 <li>the costs of test and examination entry fees and any accreditation costs related to pupils. This includes GCSEs, A/AS levels and the European Baccalaureate</li>
-                                <li>administrative costs, <span aria-label=""example"">eg</span> external marking </li>
+                                <li>administrative costs, <span aria-label=""for example"">eg</span> external marking </li>
                                 </ul>
 
                                 <p>This excludes:</p>
@@ -1095,11 +1095,11 @@ namespace SFB.Web.UI.Helpers
                                 <li>boarding provision</li>
                                 <li>rural studies and farm units</li>
                                 <li>payments by your school to another school for the benefit of pupils at the other school</li>
-                                <li>pupil inter-site travel, <span aria-label=""example"">eg</span> moving between sites</li>
+                                <li>pupil inter-site travel, <span aria-label=""for example"">eg</span> moving between sites</li>
                                 <li>expenses relating to before and after school clubs</li>
                                 <li>delegated home to school transport</li>
                                 <li>indirect employee expenses and agency staff expenses relating to a special facility</li>
-                                <li>purchase of trading items for re-sale, <span aria-label=""example"">eg</span> school uniforms, books, stationery</li>
+                                <li>purchase of trading items for re-sale, <span aria-label=""for example"">eg</span> school uniforms, books, stationery</li>
                                 <li>donations paid by the school to a charity</li>
                                 <li>community education with a benefit to the pupils at the school </li>
                                 </ul>

@@ -68,7 +68,7 @@ else
         string deviceLabel = device == "desktop" ? "" : "mobile";
         <div id="@school.Id@device" data-urn="@school.Id">
             <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='add-remove button removefrom' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'removefromcompare')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</a>
-            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto js-modal' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'addtocompare')" aria-label="Add @status @school.Name from basket @deviceLabel">Add</a>
+            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto js-modal' data-urn="@school.Id" href="javascript:DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'addtocompare')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</a>
         </div>
     }
 }
