@@ -540,7 +540,9 @@
 
             pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
 
-            pdfWriteLine('H3', $('#comparing').get(0).innerText);
+            if ($('#comparing').length > 0) {
+                pdfWriteLine('H3', $('#comparing').get(0).innerText);
+            }
 
         }
 
@@ -558,7 +560,9 @@
 
             offset += 20;
 
-            pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
+            if ($('.tabs li.active').length > 0) {
+                pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
+            }
 
             var filters = $('.chart-filter');
             if (filters.length > 0) {
@@ -570,8 +574,9 @@
 
         function writeLastYearMessage() {
             pdfAddHorizontalLine();
-            
-            pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
+            if ($('.latest-year-message').length > 0) {
+                pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
+            }
 
         }
 
@@ -589,7 +594,7 @@
             var charts = $('.chartContainer');
             charts.each(function (index, element) {
                 pdfAddNewPage();
-                pdfWriteLine('H3', $(element).find('.chart-header h2').get(0).innerText);
+                pdfWriteLine('H3', $(element).find('h2').get(0).innerText);
                 writeChart('#chart_' + index);
             });
         }
