@@ -483,17 +483,117 @@
     };
 
 
-    BenchmarkChartsViewModel.PdfPage = function () {
-        debugger;
+    BenchmarkChartsViewModel.PdfPage = function () {        
+
+        const MARGIN_LEFT = 15;
+
+        function pdfWriteLine(type, text) {
+            doc.setFont("helvetica");
+            doc.setTextColor(0, 0, 0);
+            var fontSize;
+            switch (type) {
+                case 'H1':
+                    doc.setFontType("bold");
+                    fontSize = 30;                    
+                    break;
+                case 'H2':
+                    doc.setFontType("bold");
+                    fontSize = 20;
+                    break;
+                case 'H3':
+                    doc.setFontType("bold");
+                    fontSize = 15;
+                    break;
+                case 'Warning':
+                    doc.setFontType("italic");
+                    doc.setTextColor(244, 119, 56);
+                    fontSize = 12;
+                    break;
+                case 'Info':
+                    doc.setFontType("italic");
+                    fontSize = 10;
+                    break;
+                default:
+                    doc.setFontType("normal");
+                    fontSize = 10;
+                    break;
+            }
+
+            doc.setFontSize(fontSize);
+            doc.text(MARGIN_LEFT, offset, text);
+            return offset += fontSize + 5;
+        }
+
+        function pdfAddLine() {
+               doc.line(MARGIN_LEFT, offset, 440, offset); 
+        }
+
+        //function pdfAddImage(element, offset) {
+
+        //    function getCanvas(element, offset) {
+        //        return html2canvas($(element), {
+        //            imageTimeout: 2000,
+        //            removeContainer: true
+        //        });
+        //    }
+
+        //    function addImage(canvas, offset) {
+        //        var img = canvas.toDataURL("image/png");
+        //        doc.addImage(img, 'JPEG', MARGIN_LEFT, offset);
+        //    }
+
+        //    getCanvas(element, offset).then(function (canvas) {
+        //        addImage(canvas, offset);
+        //        doc.save('sfb-benchmark-charts.pdf');
+        //    });
+        //}
+
+        //doc.fromHTML($('#proposition-name').get(0), 15, 15);
+        //doc.fromHTML($('#BCHeader').get(0), 15, 50);
+
         var doc = new jsPDF({ unit: 'px', format: 'a4' });
-        doc.setFont("helvetica");
-        doc.setFontType("bold");        
-        doc.text(20, 50, 'Chart 1');
-        var svg = $('#chart_0').find('svg')[0];
-        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
-            function (img) {
-                doc.addImage(img, 'JPEG', -100, 100);
+
+        var offset = 40;
+        
+        pdfWriteLine('H1', 'Schools Financial Benchmarking');
+
+        pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
+
+        pdfWriteLine('H3', $('#comparing').get(0).innerText);
+        
+        var warnings = $('.panel.orange-warning');
+        if (warnings.length > 0)
+        {
+            warnings.each(function (index, element) {
+                pdfWriteLine('Warning', element.innerText);
             });
+        }
+
+        pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
+
+        var filters = $('.chart-filter');
+        if (filters.length > 0) {
+            filters.each(function (index, element) {
+                pdfWriteLine('Normal', $(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText);
+            });
+        }
+
+        pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
+
+        pdfAddLine();
+        
+        //var yearMessageArr = $('.latest-year-message').get(0).innerText.split('.');
+        //pdfWriteLine('Info', yearMessageArr[0] + '.');
+        //pdfWriteLine('Info', yearMessageArr[1].substr(1));
+        
+        //pdfAddImage('#CustomReportContentPlaceHolder', offset);
+        
+        //var svg = $('#chart_0').find('svg')[0];
+        //saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+        //    function (img) {
+        //        doc.addImage(img, 'JPEG', -100, 100);
+        //    });
+
         doc.save('sfb-benchmark-charts.pdf');
     };
 
