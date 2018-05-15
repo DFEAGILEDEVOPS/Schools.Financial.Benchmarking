@@ -486,7 +486,6 @@
 
     options = options || {};
     out$.svgAsPngUri(el, options, function (uri) {
-        debugger;
         if (cb) {
             cb(uri);
         } else {

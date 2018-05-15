@@ -521,11 +521,77 @@
 
             doc.setFontSize(fontSize);
             doc.text(MARGIN_LEFT, offset, text);
-            return offset += fontSize + 5;
+            offset += fontSize + 5;
         }
 
-        function pdfAddLine() {
-               doc.line(MARGIN_LEFT, offset, 440, offset); 
+        function pdfAddHorizontalLine() {
+            doc.line(MARGIN_LEFT, offset, 420, offset); 
+            offset += 15;
+        }
+
+        function pdfAddNewPage() {
+            doc.addPage('a4');
+            offset = 40;
+        }
+
+        function writeHeadings() {
+
+            pdfWriteLine('H1', 'Schools Financial Benchmarking');
+
+            pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
+
+            pdfWriteLine('H3', $('#comparing').get(0).innerText);
+
+        }
+
+        function writeWarnings() {
+
+            var warnings = $('.panel.orange-warning');
+            if (warnings.length > 0) {
+                warnings.each(function (index, element) {
+                    pdfWriteLine('Warning', element.innerText);
+                });
+            }
+        }
+
+        function writeTabs() {
+
+            offset += 20;
+
+            pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
+
+            var filters = $('.chart-filter');
+            if (filters.length > 0) {
+                filters.each(function (index, element) {
+                    pdfWriteLine('Normal', $(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText);
+                });
+            }
+        }
+
+        function writeLastYearMessage() {
+            pdfAddHorizontalLine();
+            
+            pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
+
+        }
+
+        function writeChart(id) {
+
+            var svg = $(id).find('svg')[0];
+            saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+                function (img) {                    
+                    doc.addImage(img, 'JPEG', -100, offset);                    
+                });
+        }
+
+        function writeCharts() {
+
+            var charts = $('.chartContainer');
+            charts.each(function (index, element) {
+                pdfAddNewPage();
+                pdfWriteLine('H3', $(element).find('.chart-header h2').get(0).innerText);
+                writeChart('#chart_' + index);
+            });
         }
 
         //function pdfAddImage(element, offset) {
@@ -554,45 +620,22 @@
         var doc = new jsPDF({ unit: 'px', format: 'a4' });
 
         var offset = 40;
+
+        writeHeadings();
+
+        writeWarnings();
+
+        writeTabs();
         
-        pdfWriteLine('H1', 'Schools Financial Benchmarking');
-
-        pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
-
-        pdfWriteLine('H3', $('#comparing').get(0).innerText);
-        
-        var warnings = $('.panel.orange-warning');
-        if (warnings.length > 0)
-        {
-            warnings.each(function (index, element) {
-                pdfWriteLine('Warning', element.innerText);
-            });
-        }
-
-        pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
-
-        var filters = $('.chart-filter');
-        if (filters.length > 0) {
-            filters.each(function (index, element) {
-                pdfWriteLine('Normal', $(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText);
-            });
-        }
-
-        pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
-
-        pdfAddLine();
+        writeLastYearMessage();
         
         //var yearMessageArr = $('.latest-year-message').get(0).innerText.split('.');
         //pdfWriteLine('Info', yearMessageArr[0] + '.');
         //pdfWriteLine('Info', yearMessageArr[1].substr(1));
         
         //pdfAddImage('#CustomReportContentPlaceHolder', offset);
-        
-        //var svg = $('#chart_0').find('svg')[0];
-        //saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
-        //    function (img) {
-        //        doc.addImage(img, 'JPEG', -100, 100);
-        //    });
+
+        writeCharts();
 
         doc.save('sfb-benchmark-charts.pdf');
     };
