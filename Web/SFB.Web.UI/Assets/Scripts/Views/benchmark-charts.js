@@ -591,28 +591,28 @@ function PdfGenerator() {
         switch (type) {
             case 'H1':
                 doc.setFontType("bold");
-                fontSize = 30;
+                fontSize = 35;
                 break;
             case 'H2':
                 doc.setFontType("bold");
-                fontSize = 20;
+                fontSize = 25;
                 break;
             case 'H3':
                 doc.setFontType("bold");
-                fontSize = 15;
+                fontSize = 20;
                 break;
             case 'Warning':
                 doc.setFontType("italic");
                 doc.setTextColor(244, 119, 56);
-                fontSize = 12;
+                fontSize = 15;
                 break;
             case 'Info':
                 doc.setFontType("italic");
-                fontSize = 10;
+                fontSize = 12;
                 break;
             default:
                 doc.setFontType("normal");
-                fontSize = 10;
+                fontSize = 12;
         }
 
         doc.setFontSize(fontSize);
@@ -621,13 +621,13 @@ function PdfGenerator() {
     }
 
     function pdfAddHorizontalLine() {
-        doc.line(MARGIN_LEFT, offset, 420, offset);
+        doc.line(MARGIN_LEFT, offset, 520, offset);
         offset += 15;
     }
 
     function pdfAddNewPage() {
-        doc.addPage('a4');
-        offset = 40;
+        doc.addPage('b4');
+        offset = 60;
     }
 
     function writeChart(id) {
@@ -635,15 +635,15 @@ function PdfGenerator() {
         var svg = $(id).find('svg')[0];
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
             function (img) {
-                doc.addImage(img, 'JPEG', -100, offset);
+                doc.addImage(img, 'JPEG', -50, offset);
             });
     }
 
     return {
 
         init: function () {
-            doc = new jsPDF({ unit: 'px', format: 'a4' });
-            offset = 40;
+            doc = new jsPDF({ unit: 'px', format: 'b4' });
+            offset = 60;
         },
 
         writeHeadings: function () {
@@ -669,7 +669,7 @@ function PdfGenerator() {
 
         writeTabs: function () {
 
-            offset += 20;
+            offset += 30;
 
             if ($('.tabs li.active').length > 0) {
                 pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
