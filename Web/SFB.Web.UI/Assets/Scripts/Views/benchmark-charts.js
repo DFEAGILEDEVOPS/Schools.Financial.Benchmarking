@@ -481,51 +481,7 @@
 
         window.print();
     };
-
-    BenchmarkChartsViewModel.PdfGenerator = PdfGenerator();
-
-    BenchmarkChartsViewModel.PdfPage = function () {        
-
-        BenchmarkChartsViewModel.PdfGenerator.init();
-
-        BenchmarkChartsViewModel.PdfGenerator.writeHeadings();
-
-        BenchmarkChartsViewModel.PdfGenerator.writeWarnings();
-
-        BenchmarkChartsViewModel.PdfGenerator.writeTabs();
-
-        BenchmarkChartsViewModel.PdfGenerator.writeLastYearMessage();
-        
-        BenchmarkChartsViewModel.PdfGenerator.writeCharts();
-
-        BenchmarkChartsViewModel.PdfGenerator.savePdf();        
-
-        //pdfAddImage('#CustomReportContentPlaceHolder', offset);
-
-        //function pdfAddImage(element, offset) {
-
-        //    function getCanvas(element, offset) {
-        //        return html2canvas($(element), {
-        //            imageTimeout: 2000,
-        //            removeContainer: true
-        //        });
-        //    }
-
-        //    function addImage(canvas, offset) {
-        //        var img = canvas.toDataURL("image/png");
-        //        doc.addImage(img, 'JPEG', MARGIN_LEFT, offset);
-        //    }
-
-        //    getCanvas(element, offset).then(function (canvas) {
-        //        addImage(canvas, offset);
-        //        doc.save('sfb-benchmark-charts.pdf');
-        //    });
-        //}
-
-        //doc.fromHTML($('#proposition-name').get(0), 15, 15);
-        //doc.fromHTML($('#BCHeader').get(0), 15, 50);
-    };
-
+    
     BenchmarkChartsViewModel.ChangeTab = function (tab) {
         var self = this;
         if (tab === "Custom") {
@@ -567,7 +523,7 @@
         }
     };
 
-    BenchmarkChartsViewModel.HideShowDetails = function(element) {
+    BenchmarkChartsViewModel.HideShowDetails = function (element) {
         var $table = $(element).closest('table');
         $table.find('.detail').toggle(200);
     }
@@ -576,6 +532,33 @@
         new DfE.Views.BenchmarkChartsViewModel();
     };
 
+    BenchmarkChartsViewModel.PdfGenerator = PdfGenerator();
+
+    BenchmarkChartsViewModel.PdfPage = function () {        
+
+        BenchmarkChartsViewModel.PdfGenerator.init();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeHeadings();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeWarnings();
+
+        //BenchmarkChartsViewModel.PdfGenerator.writeCriteria();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeTabs();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeLastYearMessage();
+        
+        BenchmarkChartsViewModel.PdfGenerator.writeCharts();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeCriteria();
+
+        //BenchmarkChartsViewModel.PdfGenerator.savePdf();        
+
+        //doc.fromHTML($('#proposition-name').get(0), 15, 15);
+        //doc.fromHTML($('#BCHeader').get(0), 15, 50);
+    };
+
+
     Views.BenchmarkChartsViewModel = BenchmarkChartsViewModel;
 }(GOVUK, DfE.Views));
 
@@ -583,6 +566,27 @@ function PdfGenerator() {
 
     const MARGIN_LEFT = 15;
     var doc, offset;
+
+
+    function pdfAddImage(element) {
+
+        function getCanvas(element) {
+            return html2canvas($(element), {
+                imageTimeout: 2000,
+                removeContainer: true
+            });
+        }
+
+        function addImage(canvas) {
+            var img = canvas.toDataURL("image/png");
+            doc.addImage(img, 'JPEG', MARGIN_LEFT, offset);
+        }
+
+        getCanvas(element).then(function (canvas) {
+            addImage(canvas);
+            doc.save('sfb-benchmark-charts.pdf');
+        });
+    }
         
     function pdfWriteLine(type, text) {
         doc.setFont("helvetica");
@@ -599,7 +603,7 @@ function PdfGenerator() {
                 break;
             case 'H3':
                 doc.setFontType("bold");
-                fontSize = 20;
+                fontSize = 15;
                 break;
             case 'Warning':
                 doc.setFontType("italic");
@@ -631,7 +635,6 @@ function PdfGenerator() {
     }
 
     function writeChart(id) {
-
         var svg = $(id).find('svg')[0];
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
             function (img) {
@@ -639,11 +642,16 @@ function PdfGenerator() {
             });
     }
 
+    function writeTable(id) {
+        doc.setFontSize(10);
+        doc.fromHTML($(id).get(0), MARGIN_LEFT, offset, {'width':500});
+    }
+
     return {
 
         init: function () {
             doc = new jsPDF({ unit: 'px', format: 'b4' });
-            offset = 60;
+            offset = 60;           
         },
 
         writeHeadings: function () {
@@ -692,17 +700,31 @@ function PdfGenerator() {
         },
 
         writeCharts: function () {
-
             var charts = $('.chartContainer');
             charts.each(function (index, element) {
                 pdfAddNewPage();
                 pdfWriteLine('H3', $(element).find('h2').get(0).innerText);
-                writeChart('#chart_' + index);
+                if (sessionStorage.chartFormat === 'Charts') {
+                    writeChart('#chart_' + index);
+                } else {
+                    writeTable('#table_for_chart_' + index);
+                }
             });
         },
 
+        writeCriteria: function () {            
+            if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible"))
+            {
+                pdfAddNewPage();
+                pdfWriteLine('Normal', $('#criteriaExp').get(0).innerText)
+                pdfAddImage('#criteriaTable');
+            } else {
+                this.savePdf();
+            }
+        },
+
         savePdf: function () {
-            doc.save('sfb-benchmark-charts.pdf');
+            doc.save('sfb-benchmark-charts.pdf');            
         }
     };
 }
