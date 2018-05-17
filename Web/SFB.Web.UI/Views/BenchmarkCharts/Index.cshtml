@@ -185,8 +185,8 @@ else
         <div ng-app="reportApp">
             <div id="listCtrl" ng-controller="ChartListController as ctrl">
                 <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
-                    <h2 class="heading-medium">School context data</h2>
-                    <table class="tablesorter context-table">
+                    <h2 class="heading-medium" id="contextExp">School context data</h2>
+                    <table id="contextDataTable" class="tablesorter context-table">
                         <thead>
                             <tr>
                                 <th class="school-column">School name</th>

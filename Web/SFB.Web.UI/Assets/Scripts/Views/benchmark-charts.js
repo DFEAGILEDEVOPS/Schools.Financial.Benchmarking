@@ -542,20 +542,17 @@
 
         BenchmarkChartsViewModel.PdfGenerator.writeWarnings();
 
-        //BenchmarkChartsViewModel.PdfGenerator.writeCriteria();
-
         BenchmarkChartsViewModel.PdfGenerator.writeTabs();
 
         BenchmarkChartsViewModel.PdfGenerator.writeLastYearMessage();
         
         BenchmarkChartsViewModel.PdfGenerator.writeCharts();
 
-        BenchmarkChartsViewModel.PdfGenerator.writeCriteria();
-
-        //BenchmarkChartsViewModel.PdfGenerator.savePdf();        
-
-        //doc.fromHTML($('#proposition-name').get(0), 15, 15);
-        //doc.fromHTML($('#BCHeader').get(0), 15, 50);
+        BenchmarkChartsViewModel.PdfGenerator.writeCriteria().then(function () {
+            BenchmarkChartsViewModel.PdfGenerator.writeContextData().then(function () {
+                BenchmarkChartsViewModel.PdfGenerator.save();
+            });
+        });
     };
 
 
@@ -564,11 +561,10 @@
 
 function PdfGenerator() {
 
-    const MARGIN_LEFT = 15;
+    const MARGIN_LEFT = 20;
     var doc, offset;
-
-
-    function pdfAddImage(element) {
+    
+    function pdfGenerateImage(element) {
 
         function getCanvas(element) {
             return html2canvas($(element), {
@@ -577,17 +573,14 @@ function PdfGenerator() {
             });
         }
 
-        function addImage(canvas) {
-            var img = canvas.toDataURL("image/png");
-            doc.addImage(img, 'JPEG', MARGIN_LEFT, offset);
-        }
-
-        getCanvas(element).then(function (canvas) {
-            addImage(canvas);
-            doc.save('sfb-benchmark-charts.pdf');
-        });
+        return getCanvas(element);
     }
-        
+
+    function pdfAddImage(canvas) {
+        var img = canvas.toDataURL("image/png");
+        doc.addImage(img, 'JPEG', MARGIN_LEFT, offset);
+    }
+    
     function pdfWriteLine(type, text) {
         doc.setFont("helvetica");
         doc.setTextColor(0, 0, 0);
@@ -595,46 +588,46 @@ function PdfGenerator() {
         switch (type) {
             case 'H1':
                 doc.setFontType("bold");
-                fontSize = 35;
+                fontSize = 40;
                 break;
             case 'H2':
                 doc.setFontType("bold");
-                fontSize = 25;
+                fontSize = 30;
                 break;
             case 'H3':
                 doc.setFontType("bold");
-                fontSize = 15;
+                fontSize = 20;
                 break;
             case 'Warning':
                 doc.setFontType("italic");
                 doc.setTextColor(244, 119, 56);
-                fontSize = 15;
+                fontSize = 20;
                 break;
             case 'Info':
                 doc.setFontType("italic");
-                fontSize = 12;
+                fontSize = 15;
                 break;
             default:
                 doc.setFontType("normal");
-                fontSize = 12;
+                fontSize = 15;
         }
 
         doc.setFontSize(fontSize);
         doc.text(MARGIN_LEFT, offset, text);
-        offset += fontSize + 5;
+        offset += fontSize + 8;
     }
 
     function pdfAddHorizontalLine() {
-        doc.line(MARGIN_LEFT, offset, 520, offset);
-        offset += 15;
+        doc.line(MARGIN_LEFT, offset, 620, offset);
+        offset += 18;
     }
 
     function pdfAddNewPage() {
-        doc.addPage('b4');
-        offset = 60;
+        doc.addPage('a3');
+        offset = 70;
     }
 
-    function writeChart(id) {
+    function pdfWriteChart(id) {
         var svg = $(id).find('svg')[0];
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
             function (img) {
@@ -642,15 +635,19 @@ function PdfGenerator() {
             });
     }
 
-    function writeTable(id) {
+    function pdfWriteTable(id) {
         doc.setFontSize(10);
         doc.fromHTML($(id).get(0), MARGIN_LEFT, offset, {'width':500});
+    }
+
+    function pdfSave() {
+        doc.save('sfb-benchmark-charts.pdf');
     }
 
     return {
 
         init: function () {
-            doc = new jsPDF({ unit: 'px', format: 'b4' });
+            doc = new jsPDF({ unit: 'px', format: 'a3' });
             offset = 60;           
         },
 
@@ -705,26 +702,46 @@ function PdfGenerator() {
                 pdfAddNewPage();
                 pdfWriteLine('H3', $(element).find('h2').get(0).innerText);
                 if (sessionStorage.chartFormat === 'Charts') {
-                    writeChart('#chart_' + index);
+                    pdfWriteChart('#chart_' + index);
                 } else {
-                    writeTable('#table_for_chart_' + index);
+                    //writeTable('#table_for_chart_' + index);
                 }
             });
         },
 
-        writeCriteria: function () {            
-            if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible"))
-            {
-                pdfAddNewPage();
-                pdfWriteLine('Normal', $('#criteriaExp').get(0).innerText)
-                pdfAddImage('#criteriaTable');
-            } else {
-                this.savePdf();
-            }
+        writeCriteria: function () {
+            return new Promise(function(resolve, reject) {
+                if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible")) {
+                    pdfAddNewPage();
+                    pdfWriteLine('Normal', $('#criteriaExp').get(0).innerText)
+                    pdfGenerateImage('#criteriaTable').then(function (canvas) {
+                        pdfAddImage(canvas);
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
         },
 
-        savePdf: function () {
-            doc.save('sfb-benchmark-charts.pdf');            
+        writeContextData: function () {
+            return new Promise(function (resolve, reject) {
+                if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
+                    pdfAddNewPage();
+                    pdfWriteLine('H2', $('#contextExp').get(0).innerText)
+                    pdfGenerateImage('#contextDataTable').then(function (canvas) {
+                        pdfAddImage(canvas);
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
+        },
+
+        save: function () {
+            pdfSave();
         }
+
     };
 }
