@@ -110,17 +110,20 @@
             var $tables = $('.chart-table-wrapper');
             var $showChartsButton = $('a.view-charts-tables.charts');
             var $showTablesButton = $('a.view-charts-tables.tables');
+            var $saveAsImagesButtons = $('.save-as-image');
             if (mode === 'Charts') {
                 $showChartsButton.hide();
                 $showTablesButton.show();
                 $tables.hide();
                 $charts.show();
+                $saveAsImagesButtons.show();
                 sessionStorage.chartFormat = 'Charts';
             } else if (mode === 'Tables') {
                 $showTablesButton.hide();
                 $showChartsButton.show();
                 $charts.hide();
                 $tables.show();
+                $saveAsImagesButtons.hide();
                 sessionStorage.chartFormat = 'Tables';
             }
         }
