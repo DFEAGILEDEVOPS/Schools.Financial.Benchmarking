@@ -60,11 +60,11 @@
                     <div class="column-full">
                         @if (Model.Count < ComparisonListLimit.MAT_LIMIT)
                         {
-                            <a class="js-modal" href="javascript: DfE.Views.TrustCompareViewModel.DisplayNewTrustElements()">Add another trust</a>
+                            <a href="javascript: DfE.Views.TrustCompareViewModel.DisplayNewTrustElements()">Add another trust</a>
                         }
                         else
                         {
-                            <a class="js-modal" href="javascript: DfE.Util.ComparisonList.RenderFullListWarningModalMat()">Add another trust</a>
+                            <a href="javascript: DfE.Util.ComparisonList.RenderFullListWarningModalMat()">Add another trust</a>
                         }
                     </div>
                 </div>

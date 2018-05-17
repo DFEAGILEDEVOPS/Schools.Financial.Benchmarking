@@ -15,7 +15,7 @@
 
         <a @DisplayStyle(Model.IsInComparisonList) class="add-remove button removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.REMOVE_FROM_COMPARISON_LIST}')")">Remove from benchmark basket</a>
 
-        <a @DisplayStyle(!Model.IsInComparisonList) class="add-remove button addto js-modal" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.ADD_TO_COMPARISON_LIST}')")">Add to benchmark basket</a>
+        <a @DisplayStyle(!Model.IsInComparisonList) class="add-remove button addto"  href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.ADD_TO_COMPARISON_LIST}')")">Add to benchmark basket</a>
 
     </div>
 </div>

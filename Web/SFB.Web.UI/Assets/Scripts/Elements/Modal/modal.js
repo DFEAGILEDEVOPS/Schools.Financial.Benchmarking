@@ -1,7 +1,6 @@
 ﻿(function ($) {
     "use strict";
     window.GOVUK = window.GOVUK || {};
-
     // class Modal
     function Modal() {
         this.init();
@@ -11,7 +10,7 @@
     // class instance methods
     Modal.prototype = {
         bindEvents: function () {
-            //$("body").on("click", ".js-modal", this.renderAccessibleModal.bind(this));
+            $("body").on("click", ".js-modal", this.renderAccessibleModal.bind(this));
             $("body").on("click", "#js-modal-close", this.closeAccessibleModal.bind(this));
             $("body").on("click", "#js-modal-overlay", this.updateClickFocus.bind(this));
             $("body").on("keydown", "#js-modal-overlay", this.updateKeydownFocus.bind(this));
@@ -102,6 +101,7 @@
         },
         renderAccessibleModal: function (event) {
             // Re-initialise as we may have AJAXed in a new page
+            debugger;
             this.init();
             var $this = $(this);
             var options = $this.data();
@@ -109,12 +109,12 @@
             var $modal_prefix_classes = typeof options.modalPrefixClass !== 'undefined'
                 ? options.modalPrefixClass + '-'
                 : '';
-            var $modal_text = $(event.target).parent().data('modal-text');
+            var $modal_text = $(event.target).data('modal-text');
             var $modal_content_id = typeof options.modalContentId !== 'undefined' ? '#' + options.modalContentId : '';
-            var $modal_title = $(event.target).parent().data('modal-title');
-            var $modal_close_text = $(event.target).parent().data('modal-close-text');
-            var $modal_close_title = $(event.target).parent().data('modal-close-title');
-            var $help_text_key = $(event.target).parent().data('help-text-key');
+            var $modal_title = $(event.target).data('modal-title');
+            var $modal_close_text = $(event.target).data('modal-close-text');
+            var $modal_close_title = $(event.target).data('modal-close-title');
+            var $help_text_key = $(event.target).data('help-text-key');
             var $modal_background_click = options.modalBackgroundClick || '';
             var $modal_code;
             var $modal_overlay;
