@@ -489,6 +489,7 @@
             $(".tabs li#" + tab).addClass("active");
             $("#tabsSection").empty('');
             $("#customTabSection").show();
+            $(".download-links").hide();
         } else {
             var unitParameter = $("#ShowValue").val();
             var financingParameter = $("#CentralFinancing").val();
@@ -513,6 +514,7 @@
                     $(".tabs li").removeClass("active");
                     $(".tabs li#" + tab).addClass("active");
                     $("#customTabSection").hide();
+                    $(".download-links").show();
                     $("#tabsSection").html(data);
                     $("table.dataTable").tablesorter();
                     var unitParameter = $("#ShowValue").val();

@@ -58,6 +58,7 @@
                                 $("#BCHeader").text("Custom benchmarking report");
                                 $("#PrintLinkText").text(" Print report");
                                 $("#benchmarkBasket").hide();
+                                $(".download-links").show();
                                 $("#searchSchoolsLink").hide();
                                 $("#downloadLinkContainer").hide();
                                 $("#BackToBMCharts").show();
