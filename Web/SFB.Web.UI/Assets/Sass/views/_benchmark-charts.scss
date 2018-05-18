@@ -358,17 +358,13 @@ nav.tabs ol li a.helpLink {
     white-space: unset;
     display: inline;
     position: relative;
-    right: 15px;
+    right: 25px;
     top: 10px;
     float: right;
 
     @include media(mobile) {
         top: -30px;
     }
-}
-
-nav.tabs ol li.active a.helpLink {
-    right: 25px;
 }
 
 nav.tabs ol li a.custom {    
