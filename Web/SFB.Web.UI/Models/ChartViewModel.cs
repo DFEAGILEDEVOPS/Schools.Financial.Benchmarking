@@ -108,6 +108,9 @@ namespace SFB.Web.UI.Models
         public List<int> IncompleteWorkforceDataIndex { get; set; }
 
         public bool Downloadable { get; set; }
+
+        public string HelpTooltip { get; set; }
+
         public object Clone()
         {
             var copy = new ChartViewModel
@@ -122,7 +125,8 @@ namespace SFB.Web.UI.Models
                 MoreInfo = this.MoreInfo,
                 LastYear = this.LastYear,
                 Downloadable = this.Downloadable,
-                TableColumns = new List<DataTableColumnViewModel>()
+                HelpTooltip = this.HelpTooltip,
+                TableColumns = new List<DataTableColumnViewModel>(),                
             };
 
             if (TableColumns != null)

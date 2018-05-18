@@ -649,3 +649,11 @@ body.print-mode .hide-in-print {
         float:none;
     }
 }
+
+.help-icon.help-chart {
+    top: -5px;
+
+    @include media(mobile) {
+        top: 0;
+    }
+}

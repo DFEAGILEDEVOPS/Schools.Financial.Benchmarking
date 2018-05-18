@@ -138,7 +138,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     DrillInto = ChartGroupType.Occupation,
                     MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    ChartType = ChartType.Total,
+                    HelpTooltip = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering."
                 },
 
                 new ChartViewModel()
@@ -668,7 +669,8 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    ChartType = ChartType.Total,
+                    HelpTooltip = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering."
                 },
                 new ChartViewModel()
                 {
