@@ -123,4 +123,9 @@
         public const string INTERPRET_CHARTS =
             "For more information about this chart, read our guidance on <a href=\"../Help/InterpretingCharts\">Interpreting the charts</a>.";
     }
+
+    public class HelpTooltipText
+    {
+        public const string OccupationChartHelp = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering.";
+    }
 }

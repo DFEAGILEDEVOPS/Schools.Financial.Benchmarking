@@ -139,7 +139,7 @@ namespace SFB.Web.UI.Helpers
                     DrillInto = ChartGroupType.Occupation,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    HelpTooltip = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering."
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
                 },
 
                 new ChartViewModel()
@@ -670,7 +670,7 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    HelpTooltip = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering."
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
                 },
                 new ChartViewModel()
                 {

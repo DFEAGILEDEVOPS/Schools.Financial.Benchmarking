@@ -159,7 +159,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DrillInto = ChartGroupType.Occupation
+                    DrillInto = ChartGroupType.Occupation,
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
                 },
 
                 new ChartViewModel()
@@ -704,7 +705,8 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    ChartType = ChartType.Total,
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
                 },
                 new ChartViewModel()
                 {
