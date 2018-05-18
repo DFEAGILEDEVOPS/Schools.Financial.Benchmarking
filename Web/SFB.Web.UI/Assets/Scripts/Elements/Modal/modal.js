@@ -101,7 +101,6 @@
         },
         renderAccessibleModal: function (event) {
             // Re-initialise as we may have AJAXed in a new page
-            debugger;
             this.init();
             var $this = $(this);
             var options = $this.data();

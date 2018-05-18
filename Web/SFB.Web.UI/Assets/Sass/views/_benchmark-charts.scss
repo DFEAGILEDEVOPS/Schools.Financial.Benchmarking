@@ -246,9 +246,9 @@
     }
 
     .customAdd, .customRemove {
-        @include media(tablet) {
+        /*@include media(tablet) {
             float: right;
-        }
+        }*/
     }
 
     .save-as-image {

@@ -452,7 +452,7 @@ span.back-link {
 .icon-bookmark {
     position: relative;
     top: 5px;    
-    width: 25px;
+    width: 20px;
     height: 22px;
     background-image: url(/public/assets/images/icons/icon-bookmark.png);
 }
@@ -460,7 +460,7 @@ span.back-link {
 .icon-save-image {
     position: relative;
     top: 5px;    
-    width: 25px;
+    width: 23px;
     height: 22px;
     background-image: url(/public/assets/images/icons/icon-saveimage.png);
 }
@@ -644,8 +644,8 @@ body.print-mode .hide-in-print {
 }
 
 .help-icon.help-addremove{
-    display: block;
-    top:4px;
-    left: 5px;
-    float:right;
+    display: inline;
+    .icon{
+        float:none;
+    }
 }
