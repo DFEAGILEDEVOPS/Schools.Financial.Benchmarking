@@ -127,5 +127,6 @@
     public class HelpTooltipText
     {
         public const string OccupationChartHelp = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering.";
+        public const string ShowValueHelp = "This controls the chart value. To change it to per pupil, for example, select the relevant option from the dropdown.";
     }
 }
