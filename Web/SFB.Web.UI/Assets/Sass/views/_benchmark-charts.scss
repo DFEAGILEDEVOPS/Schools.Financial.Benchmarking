@@ -346,3 +346,39 @@ table.bmc-rollover-table {
 .include-context-table{
     padding-top:25px;
 }
+
+nav.tabs ol li a.helpLink {
+    border: unset;
+    text-decoration: unset;
+    height: unset;
+    -moz-box-sizing: unset;
+    -webkit-box-sizing: unset;
+    box-sizing: unset;
+    padding: unset;
+    white-space: unset;
+    display: inline;
+    position: relative;
+    right: 15px;
+    top: 10px;
+    float: right;
+
+    @include media(mobile) {
+        top: -30px;
+    }
+}
+
+nav.tabs ol li.active a.helpLink {
+    right: 25px;
+}
+
+nav.tabs ol li a.custom {    
+    display: inline-block;
+    padding-right: 30px
+}
+nav.tabs ol li.active a.custom {
+    padding-right: 45px;
+
+    @include media(tablet) {
+        padding-right: 40px;
+    }
+}
