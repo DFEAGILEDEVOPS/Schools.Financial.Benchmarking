@@ -567,7 +567,7 @@
 
 function PdfGenerator() {
 
-    const MARGIN_LEFT = 20;
+    var MARGIN_LEFT = 20;
     var doc, offset;
     
     function pdfGenerateImage(element) {
