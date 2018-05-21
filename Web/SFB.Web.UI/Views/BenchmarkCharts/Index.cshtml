@@ -223,6 +223,7 @@ else
         <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
+        <input type = "hidden" id = "HomeSchoolName" name = "HomeSchoolName" value = "@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
     }
 }
 

@@ -166,7 +166,7 @@
             }
         };
 
-        var addSchoolLinks = function (id) {
+        var restructureSchoolNames = function (id) {
             var texts = $("#" + id + " .c3-axis-x g.tick text tspan");
 
             texts.each(function () {
@@ -191,6 +191,10 @@
                     : textParts[0].substring(0, limit - 3) + "...";
                 $(this).text(text);
 
+                if (textParts[0] === $("#HomeSchoolName").val())
+                {
+                    $(this).css("font-weight", "bold");
+                }
             });
         };
 
@@ -364,7 +368,7 @@
             },
             onrendered: function () {
                 applyChartStyles(el);
-                addSchoolLinks(el.id);
+                restructureSchoolNames(el.id);
             }
         });
     };
