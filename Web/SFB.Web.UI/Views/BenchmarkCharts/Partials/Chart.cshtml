@@ -53,7 +53,17 @@
                                                 </span>
                                             </span>
                                         }
-                                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">View more charts<span class="visuallyhidden"> for @Model[i].Name</span> </a>
+                                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">
+                                        @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                                        {
+                                            <span class="view-more">View more charts</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="view-more">View more tables</span>
+                                        }
+                                        <span class="visuallyhidden"> for @Model[i].Name</span>
+                                        </a>
                                     </div>
                                 }
                                 else

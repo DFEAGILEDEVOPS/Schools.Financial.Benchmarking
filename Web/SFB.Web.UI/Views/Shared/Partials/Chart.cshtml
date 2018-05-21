@@ -29,13 +29,24 @@
                                 </span>
                             </span>
                         }
-                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto')">View more charts<span class="visuallyhidden"> for @historicalChart.Name</span> </a>
+                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto')">
+                        @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                        {
+                            <span class="view-more">View more charts</span>
+                        }
+                        else
+                        {
+                            <span class="view-more">View more tables</span>
+                        }
+                            <span class="visuallyhidden"> for @historicalChart.Name</span>
+                        </a>
                     </div>
                 }
                 else
                 {
-                    <h2 class="heading-medium inline">@historicalChart.Name</h2>
-                    if (historicalChart.HelpTooltip != null)
+                    <div class="chart-header">
+                        <h2 class="heading-medium inline">@historicalChart.Name</h2>
+                        @if (historicalChart.HelpTooltip != null)
                         {
                         <span class="help-icon help-chart hide-in-print">
                             <span class="icon dark-blue">
@@ -44,7 +55,8 @@
                                 </a>
                             </span>
                         </span>
-                    }
+                        }
+                    </div>
                 }
 
                 @Html.Partial("Partials/HistoricalChart", historicalChart)
