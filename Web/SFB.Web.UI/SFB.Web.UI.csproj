@@ -674,6 +674,7 @@
     <Content Include="Views\BenchmarkCharts\Partials\ChartTable.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\ChartTableTrust.cshtml" />
     <Content Include="Views\Shared\Partials\ChartTable.cshtml" />
+    <Content Include="Views\Shared\EmptyLocationResult.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

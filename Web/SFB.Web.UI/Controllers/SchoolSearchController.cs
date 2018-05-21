@@ -219,7 +219,7 @@ namespace SFB.Web.UI.Controllers
                         switch (resultCnt)
                         {
                             case 0:
-                                return View("EmptyResult",
+                                return View("EmptyLocationResult",
                                     new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType));
                             case 1:
                                 return RedirectToAction("Detail", "School",
