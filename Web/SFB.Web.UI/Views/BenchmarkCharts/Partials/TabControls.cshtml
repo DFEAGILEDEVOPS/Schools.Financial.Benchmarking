@@ -25,10 +25,10 @@
         {
             <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
                 <span class="visually-hidden">@RevenueGroupNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>
-                <a class="custom" href="javascript:void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">
+                <a class="custom" href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">
                     <span aria-hidden="true">@RevenueGroupNames.CUSTOM (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span>
                 </a> 
-                <a class="helpLink" href="javascript:DfE.Util.ComparisonList.RenderYourChartsInfoModal()">
+                <a class="helpLink" href="javascript:void(0);" onclick="javascript:DfE.Util.ComparisonList.RenderYourChartsInfoModal()">
                     <img src="/public/assets/images/help-icon.png" />
                 </a>
             </li>
