@@ -60,7 +60,7 @@ namespace SFB.Web.UI.Models
             }
             catch(Exception)
             {
-                return DateTime.MinValue;
+                return null;
             }
         }
 

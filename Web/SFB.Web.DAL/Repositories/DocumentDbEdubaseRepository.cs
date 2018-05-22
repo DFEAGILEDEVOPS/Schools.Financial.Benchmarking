@@ -69,7 +69,7 @@ namespace SFB.Web.DAL.Repositories
             var query =
                 "SELECT c['URN'], c['EstablishmentName'], c['OverallPhase'], c['PhaseOfEducation'], c['TypeOfEstablishment'], c['Street'], c['Town'], c['Location'], c['Postcode'], c['Trusts'], " +
                 " c['LAName'], c['LACode'], c['EstablishmentNumber'], c['TelephoneNum'], c['NumberOfPupils'], c['StatutoryLowAge'], c['StatutoryHighAge'], c['HeadFirstName'], " +
-                $"c['HeadLastName'], c['OfficialSixthForm'], c['SchoolWebsite'], c['OfstedRating'], c['OfstedLastInsp'], c['FinanceType'] FROM c WHERE {where}";
+                $"c['HeadLastName'], c['OfficialSixthForm'], c['SchoolWebsite'], c['OfstedRating'], c['OfstedLastInsp'], c['FinanceType'], c['OpenDate'], c['CloseDate'] FROM c WHERE {where}";
 
             var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
             return result;

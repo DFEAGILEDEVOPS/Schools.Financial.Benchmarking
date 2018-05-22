@@ -115,9 +115,25 @@ namespace SFB.Web.UI.Models
             get
             {
                 var openDate = GetDate("OpenDate");
-                if (openDate.HasValue)
+                if (openDate.HasValue && openDate >= new DateTime(2011,1,1))
                 {
-                    return openDate.Value.ToString("dd/MM/yyyy");
+                    return openDate.Value.ToLongDateString();
+                }
+                else
+                {
+                    return String.Empty;
+                }
+            }
+        }
+
+        public string CloseDate
+        {
+            get
+            {
+                var closeDate = GetDate("CloseDate");
+                if (closeDate.HasValue && closeDate >= new DateTime(2011, 1, 1))
+                {
+                    return closeDate.Value.ToLongDateString();
                 }
                 else
                 {
