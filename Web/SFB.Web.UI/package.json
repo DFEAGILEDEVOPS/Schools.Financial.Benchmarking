@@ -28,7 +28,8 @@
     "js-marker-clusterer": "^1.0.0",
     "load-grunt-config": "^0.19.2",
     "load-grunt-tasks": "^3.5.2",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "promise-polyfill": "^7.1.2"
   },
   "dependencies": {
     "grunt": "1.0.1",
