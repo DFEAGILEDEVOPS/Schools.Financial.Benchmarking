@@ -126,15 +126,16 @@
     .selection-controls {
         padding-top: 30px;
 
-        @include media(desktop) {
-            padding-bottom: 120px;
-        }
-
         .clear-link {
             padding-top: 8px;
 
             @include media(desktop) {
                 padding-left: 0;
+            }
+
+            @include media(mobile){
+                padding-left: 0;
+                padding-top: 10px;
             }
 
             cursor: pointer;
@@ -376,5 +377,14 @@ nav.tabs ol li.active a.custom {
 
     @include media(tablet) {
         padding-right: 40px;
+    }
+}
+
+.custom-report .chartContainer{
+    padding-top: 20px; 
+
+    hr{
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
 }

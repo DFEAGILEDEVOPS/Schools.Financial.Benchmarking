@@ -94,6 +94,12 @@
         public const string NO_PUPILS_PER_MEASURE = "Pupils per measure";
     }
 
+    public class CMSelection
+    {
+        public const string CHART = "Chart view";
+        public const string TABLE = "Table view";
+    }
+
     public class BMFinancing
     {
         public const string INCLUDE = "Include MAT central finance";

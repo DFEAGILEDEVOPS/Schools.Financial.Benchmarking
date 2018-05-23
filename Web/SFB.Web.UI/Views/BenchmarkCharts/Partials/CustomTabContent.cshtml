@@ -12,13 +12,16 @@
                         <input id="Filter" class="form-control" ng-model="ctrl.query" ng-change="ctrl.openDetails()"/>
                     </div>
                 </div>
-                <div class="column-half no-padding include-context-table">
-                    <div class="multiple-choice">
-                        <input type="checkbox" id="IncludeContextTable" class="form-control" ng-model="ctrl.showContextTable"/>
-                        <label class="form-label" for="IncludeContextTable">Include comparison and school context data</label>
+                <div class="column-half no-padding">
+                    <div class="form-group">
+                        <label class="form-label" for="CMSelection">Current view</label>
+                        <select name="CMSelection" id="CMSelection" class="form-control" ng-model="ctrl.format">
+                            <option value="@ChartFormat.Charts">@CMSelection.CHART</option>
+                            <option value="@ChartFormat.Tables">@CMSelection.TABLE</option>
+                        </select>
                     </div>
                 </div>
-                </div>
+            </div>
             <div class="column-full no-padding">
                 <div class="column-half no-padding">
                     <div class="form-group">
@@ -29,14 +32,22 @@
                         </select>
                     </div>
                 </div>
+                <div class="column-half no-padding include-context-table">
+                    <div class="multiple-choice">
+                        <input type="checkbox" id="IncludeContextTable" class="form-control" ng-model="ctrl.showContextTable" />
+                        <label class="form-label" for="IncludeContextTable">Include comparison and school context data</label>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="selection-controls" ng-show="ctrl.anySelected()">
-            <div class="column-quarter no-padding">
-                <a href="javascript:void(0)" class="button" ng-click="ctrl.displayCustomReport()">View selected charts</a>
-            </div>
-            <div class="column-quarter clear-link">
-                <a href="javascript:void(0)" class="font-xsmall" ng-click="ctrl.clear()">Clear chart selections</a>
+        <div class="column-full no-padding">
+            <div class="selection-controls column-one-third no-padding" ng-show="ctrl.anySelected()">
+                <div class="column-half no-padding">
+                    <a href="javascript:void(0)" class="button" ng-click="ctrl.displayCustomReport()">View report</a>
+                </div>
+                <div class="column-half clear-link">
+                    <a href="javascript:void(0)" class="font-xsmall" ng-click="ctrl.clear()">Clear selections</a>
+                </div>
             </div>
         </div>
         <div class="selections">
@@ -101,12 +112,14 @@
                 </div>
             </fieldset>
         </div>
-        <div class="selection-controls" ng-show="ctrl.anySelected() && !ctrl.query">
-            <div class="column-quarter no-padding">
-                <a class="button" ng-click="ctrl.displayCustomReport()">View selected charts</a>
-            </div>
-            <div class="column-quarter clear-link">
-                <a class="font-xsmall" ng-click="ctrl.clear()">Clear chart selections</a>
+        <div class="column-full no-padding">
+            <div class="selection-controls column-one-third no-padding" ng-show="ctrl.anySelected() && !ctrl.query">
+                <div class="column-half no-padding">
+                    <a class="button" ng-click="ctrl.displayCustomReport()">View report</a>
+                </div>
+                <div class="column-half clear-link">
+                    <a class="font-xsmall" ng-click="ctrl.clear()">Clear selections</a>
+                </div>
             </div>
         </div>
     </div>

@@ -7,6 +7,7 @@
                 self.location = $location;
                 self.showContextTable = true;
                 self.inReportView = false;
+                self.format = "Charts";
 
                 self.loadData = function(resolve) {
                     if (localStorage.CustomCharts) {
@@ -43,12 +44,12 @@
 
                 }
 
-                self.displayCustomReport = function() {
+                self.displayCustomReport = function () {
                     $.ajax({
                         type: "POST",
                         url: "/benchmarkcharts/CustomReport",
                         datatype: "json",
-                        data: { "json": localStorage.CustomCharts, "format": sessionStorage.chartFormat },
+                        data: { "json": localStorage.CustomCharts, "format": self.format },
                         beforeSend: function() {
                             DfE.Util.LoadingMessage.display("#CustomReportContentPlaceHolder", "Generating custom benchmarking report");
                         },
