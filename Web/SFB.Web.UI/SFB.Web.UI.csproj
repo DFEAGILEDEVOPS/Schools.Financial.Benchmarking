@@ -289,6 +289,7 @@
     <Compile Include="Models\SponsorListViewModel.cs" />
     <Compile Include="Models\SponsorViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
+    <Compile Include="Models\TrustCharacteristicsViewModel.cs" />
     <Compile Include="Models\TrustComparisonViewModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Models\ViewModelListBase.cs" />
@@ -628,10 +629,10 @@
     <Content Include="Views\La\Partials\ResultBlock.cshtml" />
     <Content Include="Views\Shared\Partials\Chart.cshtml" />
     <Content Include="Views\BenchmarkCriteria\AdvancedCharacteristics.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\RangeCriteria.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\PercentageCriteria.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\MultipleChoiceCriteria.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\RadioboxCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\Criteria\RangeCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\Criteria\PercentageCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\Criteria\MultipleChoiceCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\Criteria\RadioboxCriteria.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\AdvancedHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\BasicHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\TabContent.cshtml" />
@@ -690,6 +691,8 @@
     <Content Include="Views\TrustSchools\Partials\OptionSelect.cshtml" />
     <Content Include="Views\TrustSchools\Partials\ResultBlock.cshtml" />
     <Content Include="Views\TrustSchools\Partials\SchoolResults.cshtml" />
+    <Content Include="Views\Trust\Partials\GeneralCharacteristics.cshtml" />
+    <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>

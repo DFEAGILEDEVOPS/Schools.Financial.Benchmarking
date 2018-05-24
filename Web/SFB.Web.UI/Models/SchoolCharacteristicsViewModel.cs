@@ -5,7 +5,8 @@ using SFB.Web.Domain.Models;
 
 namespace SFB.Web.UI.Models
 {
-    public class SchoolCharacteristicsViewModel : ViewModelBase
+
+        public class SchoolCharacteristicsViewModel : ViewModelBase
     {
         public SchoolViewModel BenchmarkSchool { get; set; }
         public BenchmarkCriteria BenchmarkCriteria { get; set; }

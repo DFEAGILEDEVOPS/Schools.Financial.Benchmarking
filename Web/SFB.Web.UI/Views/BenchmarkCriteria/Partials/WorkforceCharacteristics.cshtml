@@ -12,7 +12,7 @@
 
         <div class="accordion-section-body">
 
-            @Html.Partial("Partials/RangeCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE],
@@ -22,7 +22,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxTotalSchoolWorkforceFullTimeEquivalent
                     ))
 
-            @Html.Partial("Partials/RangeCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE],
@@ -32,7 +32,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachersFullTimeEquivalent
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS],
@@ -42,7 +42,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxTeachersWithQualifiedTeacherStatus
                     ))
 
-            @Html.Partial("Partials/RangeCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE],
@@ -52,7 +52,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent
                     ))
 
-            @Html.Partial("Partials/RangeCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.FULL_TIME_TA,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_TA],
@@ -62,7 +62,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxTotalNumberOfTeachingAssistantsFullTimeEquivalent
                     ))
 
-            @Html.Partial("Partials/RangeCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.FULL_TIME_OTHER,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_OTHER],
@@ -72,7 +72,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxFullTimeOther
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.FULL_TIME_ADMIN,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_ADMIN],

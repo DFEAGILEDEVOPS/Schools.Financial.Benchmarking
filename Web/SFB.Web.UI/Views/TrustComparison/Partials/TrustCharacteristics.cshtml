@@ -1,0 +1,34 @@
+﻿
+@using SFB.Web.Common
+@using SFB.Web.UI.Models
+@model TrustCharacteristicsViewModel
+
+@Html.Partial("Partials/Criteria/RangeCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: TrustCharacteristicsQuestions.NUMBER_OF_PUPILS,
+        homeSchoolValue: Model[TrustCharacteristicsQuestions.NUMBER_OF_PUPILS],
+        homeSchoolName: Model.BenchmarkTrust.Name,
+        elementName: "NoPupil",
+        minValue: Model.BenchmarkCriteria.MinNoPupil,
+        maxValue: Model.BenchmarkCriteria.MaxNoPupil
+        ))
+
+@Html.Partial("Partials/Criteria/RangeCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS,
+        homeSchoolValue: Model[TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS],
+        homeSchoolName: Model.BenchmarkTrust.Name,
+        elementName: "NoSchools",
+        minValue: Model.BenchmarkCriteria.MinNoSchool,
+        maxValue: Model.BenchmarkCriteria.MaxNoSchool
+        ))
+
+@Html.Partial("Partials/Criteria/RangeCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: TrustCharacteristicsQuestions.TOTAL_EXPENDITURE,
+        homeSchoolValue: Model[TrustCharacteristicsQuestions.TOTAL_EXPENDITURE],
+        homeSchoolName: Model.BenchmarkTrust.Name,
+        elementName: "TotalExp",
+        minValue: Model.BenchmarkCriteria.MinTotalExp,
+        maxValue: Model.BenchmarkCriteria.MaxTotalExp
+        ))

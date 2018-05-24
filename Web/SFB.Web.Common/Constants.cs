@@ -39,6 +39,7 @@
         public const string PERCENTAGE_OF_PUPILS_WITH_SEN = "% of pupils with SEN Statement";
         public const string PERCENTAGE_FSM = "% of pupils eligible for FSM";
         public const string NO_PUPILS = "No Pupils";
+        public const string NO_SCHOOLS = "No Schools";
         public const string LONDON_WEIGHT = "London Weighting";
         public const string LONDON_BOROUGH = "London Borough";
         public const string REGION = "Region";
@@ -61,6 +62,14 @@
         public const string PHYSICAL_DISABILITY = "Primary_need_pd_percent";
         public const string AUTISTIC_DISORDER = "Primary_need_asd_percent";
         public const string OTHER_LEARNING_DIFF = "Primary_need_oth_percent";
+        public const string TOTAL_EXPENDITURE = "Total Expenditure";
+    }
+
+    public class TrustCharacteristicsQuestions
+    {
+        public const string NUMBER_OF_PUPILS = "Number of pupils";
+        public const string NUMBER_OF_SCHOOLS = "Number of schools";
+        public const string TOTAL_EXPENDITURE = "Total expenditure";
     }
 
     public class SchoolCharacteristicsQuestions

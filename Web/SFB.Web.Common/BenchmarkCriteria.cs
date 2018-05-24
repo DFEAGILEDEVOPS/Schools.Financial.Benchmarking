@@ -59,7 +59,7 @@ namespace SFB.Web.Common
         [Range(0, Int32.MaxValue)]
         [DBField(name: DBFieldNames.NO_PUPILS, type: CriteriaFieldComparisonTypes.MAX)]
         public double? MaxNoPupil { get; set; }
-        
+
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS)]
         [Range(0,100)]
         [DBField(name: DBFieldNames.PERCENTAGE_FSM, type: CriteriaFieldComparisonTypes.MIN)]
@@ -367,8 +367,7 @@ namespace SFB.Web.Common
         [Range(0, 100)]
         [DBField(name: DBFieldNames.AUTISTIC_DISORDER, type: CriteriaFieldComparisonTypes.MAX)]
         public double? MaxAutisticDisorder { get; set; }
-
-
+        
         [PrettyName(SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF)]
         [Range(0, 100)]
         [DBField(name: DBFieldNames.OTHER_LEARNING_DIFF, type: CriteriaFieldComparisonTypes.MIN)]
@@ -378,5 +377,25 @@ namespace SFB.Web.Common
         [Range(0, 100)]
         [DBField(name: DBFieldNames.OTHER_LEARNING_DIFF, type: CriteriaFieldComparisonTypes.MAX)]
         public double? MaxOtherLearningDiff { get; set; }
+
+        [PrettyName(TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS)]
+        [Range(0, Int32.MaxValue)]
+        [DBField(name: DBFieldNames.NO_SCHOOLS, type: CriteriaFieldComparisonTypes.MIN)]
+        public double? MinNoSchool { get; set; }
+
+        [PrettyName(TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS)]
+        [Range(0, Int32.MaxValue)]
+        [DBField(name: DBFieldNames.NO_SCHOOLS, type: CriteriaFieldComparisonTypes.MAX)]
+        public double? MaxNoSchool { get; set; }
+
+        [PrettyName(TrustCharacteristicsQuestions.TOTAL_EXPENDITURE)]
+        [Range(0, double.MaxValue)]
+        [DBField(name: DBFieldNames.TOTAL_EXPENDITURE, type: CriteriaFieldComparisonTypes.MIN)]
+        public double? MinTotalExp { get; set; }
+
+        [PrettyName(TrustCharacteristicsQuestions.TOTAL_EXPENDITURE)]
+        [Range(0, double.MaxValue)]
+        [DBField(name: DBFieldNames.TOTAL_EXPENDITURE, type: CriteriaFieldComparisonTypes.MAX)]
+        public double? MaxTotalExp { get; set; }
     }
 }

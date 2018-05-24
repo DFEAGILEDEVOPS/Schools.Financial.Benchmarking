@@ -45,6 +45,25 @@ namespace SFB.Web.Domain.Models
             }
         }
 
+        public double SchoolCount
+        {
+            get
+            {
+                try
+                {
+                    if (FinancialDataDocumentModel != null)
+                    {
+                        return FinancialDataDocumentModel.GetPropertyValue<double>(DBFieldNames.NO_SCHOOLS);
+                    }
+                    return 0;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+            }
+        }
+
         public double TeacherCount
         {
             get

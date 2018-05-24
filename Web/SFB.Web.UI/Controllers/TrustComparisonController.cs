@@ -6,14 +6,33 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
+using SFB.Web.UI.Helpers;
+using SFB.Web.Domain.Services.DataAccess;
+using Microsoft.Azure.Documents;
 
 namespace SFB.Web.UI.Controllers
 {
     public class TrustComparisonController : Controller
     {
-        public ActionResult Index(string matNo, string matName)
+        private readonly IFinancialDataService _financialDataService;
+        public TrustComparisonController(IFinancialDataService financialDataService)
         {
-            var vm = UpdateTrustCookie("SetDefault", matNo, matName);
+            _financialDataService = financialDataService;
+        }
+
+        public ActionResult Index(string matNo, string matName)
+        {            
+            var benchmarkTrust = new SponsorViewModel(matNo, matName, null, null);
+            var latestYear = _financialDataService.GetLatestDataYearForTrusts();
+            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var document = _financialDataService.GetMATDataDocument(matNo, term, Common.MatFinancingType.TrustAndAcademies);
+
+            benchmarkTrust.HistoricalSchoolFinancialDataModels = new List<Domain.Models.SchoolFinancialDataModel>
+            {
+                new Domain.Models.SchoolFinancialDataModel(matNo, term, document, Common.SchoolFinancialType.Academies)
+            };
+
+            var vm = new TrustCharacteristicsViewModel(benchmarkTrust, UpdateTrustCookie("SetDefault", matNo, matName));
             return View(vm);
         }
 
