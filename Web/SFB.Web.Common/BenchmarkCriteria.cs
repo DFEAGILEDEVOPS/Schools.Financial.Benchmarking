@@ -388,14 +388,14 @@ namespace SFB.Web.Common
         [DBField(name: DBFieldNames.NO_SCHOOLS, type: CriteriaFieldComparisonTypes.MAX)]
         public double? MaxNoSchool { get; set; }
 
-        [PrettyName(TrustCharacteristicsQuestions.TOTAL_EXPENDITURE)]
+        [PrettyName(TrustCharacteristicsQuestions.TOTAL_INCOME)]
         [Range(0, double.MaxValue)]
-        [DBField(name: DBFieldNames.TOTAL_EXPENDITURE, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinTotalExp { get; set; }
+        [DBField(name: DBFieldNames.TOTAL_INCOME, type: CriteriaFieldComparisonTypes.MIN)]
+        public double? MinTotalInc { get; set; }
 
-        [PrettyName(TrustCharacteristicsQuestions.TOTAL_EXPENDITURE)]
+        [PrettyName(TrustCharacteristicsQuestions.TOTAL_INCOME)]
         [Range(0, double.MaxValue)]
-        [DBField(name: DBFieldNames.TOTAL_EXPENDITURE, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxTotalExp { get; set; }
+        [DBField(name: DBFieldNames.TOTAL_INCOME, type: CriteriaFieldComparisonTypes.MAX)]
+        public double? MaxTotalInc { get; set; }
     }
 }

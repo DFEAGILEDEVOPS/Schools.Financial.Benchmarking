@@ -665,3 +665,11 @@ body.print-mode .hide-in-print {
 .inline-block {
     display: inline-block;
 }
+
+.panel-border-narrow:last-child {
+    margin-bottom: 25px;
+}
+
+.form-group .panel-border-narrow:last-child { 
+    margin-bottom: 25px;
+}

@@ -9,6 +9,8 @@ using SFB.Web.UI.Models;
 using SFB.Web.UI.Helpers;
 using SFB.Web.Domain.Services.DataAccess;
 using Microsoft.Azure.Documents;
+using System.Threading.Tasks;
+using SFB.Web.Domain.Helpers;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -34,6 +36,44 @@ namespace SFB.Web.UI.Controllers
 
             var vm = new TrustCharacteristicsViewModel(benchmarkTrust, UpdateTrustCookie("SetDefault", matNo, matName));
             return View(vm);
+        }
+
+        public async Task<int> GenerateCountFromManualCriteria(BenchmarkCriteriaVM criteria)
+        {
+            if (!ModelState.IsValid)
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new System.ApplicationException("Invalid criteria entered for advanced search!"));
+                return 0;
+            }
+
+            if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
+            {                
+                var result = await _financialDataService.SearchTrustCountByCriteriaAsync(criteria.AdvancedCriteria);
+                return result;
+            }
+            return 0;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GenerateListFromManualCriteria(BenchmarkCriteriaVM criteria)
+        {
+            if (!ModelState.IsValid)
+            {
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new System.ApplicationException("Invalid criteria entered for advanced search!"));
+                return null;
+            }
+
+            if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
+            {
+                UpdateTrustCookie("RemoveAll");
+                UpdateTrustCookie("AddDefaultToList");
+                var trustDocs = await _financialDataService.SearchTrustsByCriteriaAsync(criteria.AdvancedCriteria);
+                foreach (var doc in trustDocs)
+                {
+                    UpdateTrustCookie("Add", doc.GetPropertyValue<string>("MATNumber"), doc.GetPropertyValue<string>("TrustOrCompanyName"));
+                }
+            }
+            return Redirect("/BenchmarkCharts/Mats");
         }
 
         public PartialViewResult AddTrust(string matNo, string matName)
@@ -112,6 +152,13 @@ namespace SFB.Web.UI.Controllers
                 case "RemoveAll":
                     vm = JsonConvert.DeserializeObject<TrustComparisonViewModel>(cookie.Value);
                     vm.Trusts.Clear();
+                    break;
+                case "AddDefaultToList":
+                    vm = JsonConvert.DeserializeObject<TrustComparisonViewModel>(cookie.Value);
+                    if (vm.Trusts.All(s => vm.DefaultTrustMatNo != matNo))
+                    {
+                        vm.Trusts.Add(new TrustToCompareViewModel(vm.DefaultTrustMatNo, vm.DefaultTrustName));
+                    }
                     break;
             }
 

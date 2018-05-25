@@ -14,6 +14,8 @@ namespace SFB.Web.DAL.Repositories
         Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance);
         Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);
         Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);
+        Task<List<Document>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria);
+        Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria);        
         Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType);
     }
 }

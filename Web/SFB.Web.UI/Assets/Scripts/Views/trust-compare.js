@@ -1,15 +1,39 @@
 ﻿(function(GOVUK, Views) {
     'use strict';
 
+    var jqxhr;
+    var questionCheckBoxSelector = ".multiple-choice.question > input";
+
     function TrustCompareViewModel() {
         this.bindEvents();
+        this.validateForm();
     }
 
     TrustCompareViewModel.prototype = {
-        bindEvents: function() {
-            this.bindAutosuggest('#NewTrustName', this.getTrustSuggestionHandler);
+        validateForm: function () {
+            $('#criteriaForm').
+                validate({
+                    errorPlacement: function (error, element) {
+                        error.appendTo(element.closest(".question").find(".error-message"));
+                    },
+                    highlight: function (element, errorClass, validClass) {
+                        $(element).addClass(errorClass).removeClass(validClass);
+                        $(element).closest(".panel").addClass("error");
+                    },
+                    unhighlight: function (element, errorClass, validClass) {
+                        $(element).removeClass(errorClass).addClass(validClass);
+                        if ($(element).closest(".panel").find("input.error").length === 0) {
+                            $(element).closest(".panel").removeClass("error");
+                        }
+                    }
+                });
+        },
 
-            var questionCheckBoxSelector = ".multiple-choice.question > input";
+        bindEvents: function () {
+            var self = this;
+
+            self.bindAutosuggest('#NewTrustName', this.getTrustSuggestionHandler);
+                        
             $(questionCheckBoxSelector).change(
                 function (event) {
                     var $panel = $(this).parent().next();
@@ -33,7 +57,6 @@
                         $("#comparisonListInfoPanelResults").hide();
                     }
 
-                    self.updateCounter(this);
                     if (!event.target.checked) {
                         self.updateResultCount();
                     }
@@ -63,12 +86,24 @@
                 self.clear();
             });
 
+            $("#EnterManually").click(function (event) {
+                $("#liveCountBar").hide();
+                $("button.submit").hide();
+                $("#manualButton").show();
+            });
+
+            $("#EnterChars").click(function (event) {
+                $("#liveCountBar").show();
+                $("button.submit").show();
+                $("#manualButton").hide();
+            });
+
         },
 
         checkResultCount: function () {
             var self = this;
             var count = $("#schoolCount").text().substring(0, $("#schoolCount").text().indexOf(' '));
-            if (count <= 30) {
+            if (count <= 10) {
                 $("#criteriaForm").submit();
             } else {
                 self.renderWarningModal(count);
@@ -84,7 +119,7 @@
                 '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">' + resultCount + ' matches found</h1>' +
-                '<p id="modal-content"><br/>Please refine the characteristics entered until there are 30 or fewer matched schools.</p>';
+                '<p id="modal-content"><br/>Please refine the characteristics entered until there are 10 or fewer matched trusts.</p>';
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');
@@ -101,22 +136,23 @@
 
         },
 
+        clear: function () {
+            $(questionCheckBoxSelector + ":checked").click();
+        },
+
         updateResultCount: function () {
             if (jqxhr) {
                 jqxhr.abort();
             }
-            jqxhr = $.post("GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
+            jqxhr = $.post("TrustComparison/GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
                 .done(function (count) {
                     $("#schoolCount").text("Searching");
-                    setTimeout(function () { $("#schoolCount").text(count + " schools found"); }, 500);
-                    $("button.view-benchmark-charts").attr("aria-label", "View " + count + " schools in a benchmark chart");
+                    setTimeout(function () { $("#schoolCount").text(count + " trusts found"); }, 500);
+                    $("button.view-benchmark-charts").attr("aria-label", "View " + count + " trusts in a benchmark chart");
                     $("#liveCountBar").show();
                     if (count > 0) {
                         $("button.submit").show();
                         $("button.submit").removeAttr("disabled");
-                        //if (count <= 30) {
-                        //    $('button.submit.view-benchmark-charts').focus();
-                        //}
                     } else {
                         $("button.submit").hide();
                         $("button.submit").attr("disabled", "disabled");
@@ -217,6 +253,8 @@
 
     };
 
+
+    //TODO: refactor these functions below
     TrustCompareViewModel.Load = function() {
         new DfE.Views.TrustCompareViewModel();
     };

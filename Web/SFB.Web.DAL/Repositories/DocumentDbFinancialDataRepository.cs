@@ -105,7 +105,7 @@ namespace SFB.Web.DAL.Repositories
         public dynamic GetAcademiesByMatNumber(string term, string matNo)
         {
             var collectionName =
-                _dataCollectionManager.GetActiveCollectionsByDataGroup("Academies")
+                _dataCollectionManager.GetActiveCollectionsByDataGroup(DataGroups.Academies)
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
             try
             {
@@ -210,8 +210,8 @@ namespace SFB.Web.DAL.Repositories
         {
             if (estType == EstablishmentType.All)
             {
-                var maintainedSchoolsTask = QueryDBCollectionAsync(criteria, "Maintained");
-                var academiesTask = QueryDBCollectionAsync(criteria, "Academies");
+                var maintainedSchoolsTask = QueryDBSchoolCollectionAsync(criteria, DataGroups.Maintained);
+                var academiesTask = QueryDBSchoolCollectionAsync(criteria, DataGroups.Academies);
                 var maintainedSchools = (await maintainedSchoolsTask).ToList();
                 var academies = (await academiesTask).ToList();
                 maintainedSchools.AddRange(academies);
@@ -219,8 +219,8 @@ namespace SFB.Web.DAL.Repositories
             }
             else
             {
-                var type = estType == EstablishmentType.Academy ? "Academies" : "Maintained";
-                return (await QueryDBCollectionAsync(criteria, type)).ToList();
+                var type = estType == EstablishmentType.Academy ? DataGroups.Academies : DataGroups.Maintained;
+                return (await QueryDBSchoolCollectionAsync(criteria, type)).ToList();
             }
         }
 
@@ -228,16 +228,27 @@ namespace SFB.Web.DAL.Repositories
         {
             if (estType == EstablishmentType.All)
             {
-                var maintainedSchoolsCountTask = QueryDBCollectionForCountAsync(criteria, "Maintained");
-                var academiesCountTask = QueryDBCollectionForCountAsync(criteria, "Academies");
+                var maintainedSchoolsCountTask = QueryDBCollectionForCountAsync(criteria, DataGroups.Maintained);
+                var academiesCountTask = QueryDBCollectionForCountAsync(criteria, DataGroups.Academies);
                 return (await maintainedSchoolsCountTask).First() + (await academiesCountTask).First();
             }
             else
             {
-                var type = estType == EstablishmentType.Academy ? "Academies" : "Maintained";
+                var type = estType == EstablishmentType.Academy ? DataGroups.Academies : DataGroups.Maintained;
                 var result = (await QueryDBCollectionForCountAsync(criteria, type)).First();
                 return result;
             }
+        }
+
+        public async Task<List<Document>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
+        {            
+            return (await QueryDBTrustCollectionAsync(criteria, DataGroups.MATOverview)).ToList();
+        }
+
+        public async Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria)
+        {
+            var result = (await QueryDBCollectionForCountAsync(criteria, DataGroups.MATOverview)).First();
+            return result;
         }
 
         public async Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType)
@@ -262,9 +273,9 @@ namespace SFB.Web.DAL.Repositories
             return (await result.QueryAsync()).First();
         }
 
-        private async Task<IEnumerable<Document>> QueryDBCollectionAsync(BenchmarkCriteria criteria, string type)
+        private async Task<IEnumerable<Document>> QueryDBSchoolCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
+            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
@@ -277,7 +288,7 @@ namespace SFB.Web.DAL.Repositories
 
             IQueryable<Document> result;
 
-            if (type == "Academies")
+            if (dataGroup == "Academies")
             {
                 result = _client.CreateDocumentQuery<Document>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
@@ -290,6 +301,26 @@ namespace SFB.Web.DAL.Repositories
                     $"SELECT c['URN'], c['School Name'], c['Type'], 'M' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
             }
 
+            return await result.QueryAsync();
+        }
+
+        private async Task<IEnumerable<Document>> QueryDBTrustCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
+        {
+            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
+
+            var query = BuildQueryFromBenchmarkCriteria(criteria);
+            
+            if (string.IsNullOrEmpty(query))
+            {
+                return new List<Document>();
+            }
+
+            IQueryable<Document> result;
+            
+            result = _client.CreateDocumentQuery<Document>(
+                UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                $"SELECT c['MATNumber'], c['TrustOrCompanyName'] FROM c WHERE {query}");
+            
             return await result.QueryAsync();
         }
 

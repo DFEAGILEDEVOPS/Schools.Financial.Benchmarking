@@ -78,6 +78,16 @@ namespace SFB.Web.Domain.Services.DataAccess
             return await _financialDataRepository.SearchSchoolsCountByCriteriaAsync(criteria, estType);
         }
 
+        public async Task<List<Document>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
+        {
+            return await _financialDataRepository.SearchTrustsByCriteriaAsync(criteria);
+        }
+
+        public async Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria)
+        {
+            return await _financialDataRepository.SearchTrustCountByCriteriaAsync(criteria);
+        }
+
         public async Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType)
         {
             return await _financialDataRepository.GetEstablishmentRecordCountAsync(term, estType);

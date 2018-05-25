@@ -5,6 +5,24 @@
     ViewBag.pageClass = "trust-comparison";
 }
 
+@section StickyContent
+{
+    <div id="liveCountBar" class="sticky-div" role="region" aria-label="Trust results live counter" style="display: none">
+        <div class="grid-row">
+            <div class="column-full">
+                <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResults">
+                    <span id="schoolCount" class="bold-small" aria-live="assertive">0 trusts found</span>
+                    <a class="clear-criteria" href="#">Clear all characteristics</a>
+                    <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
+                </div>
+                <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
+                    <span role="alert" aria-live="assertive">No trusts found, select some more characteristics</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @section BackButtonContent{
 
     @Html.Partial("Partials/BackToHomeLink")
@@ -32,7 +50,7 @@
 </p>
 
 
-<div id="SelectTrustAccordion" class="search-types" aria-live="polite">
+<div id="SelectTrustAccordion" class="search-types column-three-quarters" aria-live="polite">
     
     <div id="EnterManuallyAccordion" class="multiple-choice js-accordion column-full selected" aria-controls="EnterManuallyFieldset">
         <input id="EnterManually" type="radio" checked/>
@@ -50,7 +68,7 @@
         <label id="EnterTrustCharsAccordion" for="EnterChars">Select characteristics</label>
     </div>
     <div id="EnterCharsFieldset" class="form-group optional-section">
-        <form method="post" id="MatCharsForm" action="BenchmarkCharts/Mats" autocomplete="off">
+        <form method="post" id="criteriaForm" action="TrustComparison/GenerateListFromManualCriteria" autocomplete="off">
             @Html.Partial("Partials/TrustCharacteristics", Model)
         </form>
     </div>
@@ -62,7 +80,8 @@
     <div class="grid-row font-xsmall">
         <div class="column-half">
             <div class="column-half next-button">
-                <a type="submit" class="button" href="BenchmarkCharts/Mats">View benchmarking charts</a>
+                <a id="manualButton" type="submit" class="button" href="BenchmarkCharts/Mats">View benchmarking charts</a>
+                <button type="submit" class="button view-benchmark-charts submit" style="display: none">View benchmark charts</button>
             </div>
             <div class="column-half no-padding">
                 <div class="column-one-third back-button">
@@ -79,6 +98,7 @@
 @section ViewScripts {
 
     <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
     <script>
         DfE.Views.TrustCompareViewModel.Load();
         GOVUK.Modal.Load();
