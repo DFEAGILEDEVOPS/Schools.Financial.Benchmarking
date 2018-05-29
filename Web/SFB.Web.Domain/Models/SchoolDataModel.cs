@@ -45,6 +45,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
+        //TODO: Refactor after field is added
         public double SchoolCount
         {
             get
@@ -53,7 +54,7 @@ namespace SFB.Web.Domain.Models
                 {
                     if (FinancialDataDocumentModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<double>(DBFieldNames.NO_SCHOOLS);
+                        return FinancialDataDocumentModel.GetPropertyValue<Newtonsoft.Json.Linq.JArray>("Members").Count;
                     }
                     return 0;
                 }

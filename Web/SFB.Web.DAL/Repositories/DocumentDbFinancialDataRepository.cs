@@ -228,14 +228,14 @@ namespace SFB.Web.DAL.Repositories
         {
             if (estType == EstablishmentType.All)
             {
-                var maintainedSchoolsCountTask = QueryDBCollectionForCountAsync(criteria, DataGroups.Maintained);
-                var academiesCountTask = QueryDBCollectionForCountAsync(criteria, DataGroups.Academies);
+                var maintainedSchoolsCountTask = QueryDBSchoolCollectionForCountAsync(criteria, DataGroups.Maintained);
+                var academiesCountTask = QueryDBSchoolCollectionForCountAsync(criteria, DataGroups.Academies);
                 return (await maintainedSchoolsCountTask).First() + (await academiesCountTask).First();
             }
             else
             {
                 var type = estType == EstablishmentType.Academy ? DataGroups.Academies : DataGroups.Maintained;
-                var result = (await QueryDBCollectionForCountAsync(criteria, type)).First();
+                var result = (await QueryDBSchoolCollectionForCountAsync(criteria, type)).First();
                 return result;
             }
         }
@@ -247,7 +247,7 @@ namespace SFB.Web.DAL.Repositories
 
         public async Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria)
         {
-            var result = (await QueryDBCollectionForCountAsync(criteria, DataGroups.MATOverview)).First();
+            var result = (await QueryDBTrustCollectionForCountAsync(criteria)).First();
             return result;
         }
 
@@ -309,7 +309,11 @@ namespace SFB.Web.DAL.Repositories
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
-            
+
+            query = AddMembersCriteria(query, criteria);
+
+            query = ExcludeSAMATs(query);
+
             if (string.IsNullOrEmpty(query))
             {
                 return new List<Document>();
@@ -324,12 +328,7 @@ namespace SFB.Web.DAL.Repositories
             return await result.QueryAsync();
         }
 
-        private string Exclude6Forms(string query)
-        {
-            return $"{query} AND c['Type'] != 'Free 16-19'";
-        }
-
-        private async Task<IEnumerable<int>> QueryDBCollectionForCountAsync(BenchmarkCriteria criteria, string type)
+        private async Task<IEnumerable<int>> QueryDBSchoolCollectionForCountAsync(BenchmarkCriteria criteria, string type)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
 
@@ -347,6 +346,50 @@ namespace SFB.Web.DAL.Repositories
                     $"SELECT VALUE COUNT(c) FROM c WHERE {query}");
 
             return await result.QueryAsync();
+        }
+
+        private async Task<IEnumerable<int>> QueryDBTrustCollectionForCountAsync(BenchmarkCriteria criteria)
+        {
+            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(DataGroups.MATOverview);
+
+            var query = BuildQueryFromBenchmarkCriteria(criteria);
+
+            query = AddMembersCriteria(query, criteria);
+
+            query = ExcludeSAMATs(query);
+
+            if (string.IsNullOrEmpty(query))
+            {
+                return new List<int> { 0 };
+            }
+
+            var result =
+                _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                    $"SELECT VALUE COUNT(c) FROM c WHERE {query}");
+
+            return await result.QueryAsync();
+        }
+
+        //TODO: Refactor this when new field is added
+        private string AddMembersCriteria(string query, BenchmarkCriteria criteria)
+        {
+            if(criteria.MinNoSchools != null || criteria.MaxNoSchools != null)
+            {
+                return query.Replace("c['No Schools']", "ARRAY_LENGTH(c.Members)");
+            }
+
+            return query;
+        }
+
+        //TODO: Refactor this when new field is added
+        private string ExcludeSAMATs(string query)
+        {
+            return $"{query} AND ARRAY_LENGTH(c.Members) > 1";
+        }
+
+        private string Exclude6Forms(string query)
+        {
+            return $"{query} AND c['Type'] != 'Free 16-19'";
         }
 
         private string BuildQueryFromBenchmarkCriteria(BenchmarkCriteria criteria)

@@ -12,15 +12,16 @@
         maxValue: Model.BenchmarkCriteria.MaxNoPupil
         ))
 
-@*@Html.Partial("Partials/Criteria/RangeCriteria",
+@Html.Partial("Partials/Criteria/RangeCriteria",
     new BenchmarkCriteriaRangeVM(
         question: TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS,
         homeSchoolValue: Model[TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS],
         homeSchoolName: Model.BenchmarkTrust.Name,
         elementName: "NoSchools",
-        minValue: Model.BenchmarkCriteria.MinNoSchool,
-        maxValue: Model.BenchmarkCriteria.MaxNoSchool
-        ))*@
+        minValue: Model.BenchmarkCriteria.MinNoSchools,
+        maxValue: Model.BenchmarkCriteria.MaxNoSchools,
+        minLimit: 2
+        ))
 
 @Html.Partial("Partials/Criteria/RangeCriteria",
     new BenchmarkCriteriaRangeVM(

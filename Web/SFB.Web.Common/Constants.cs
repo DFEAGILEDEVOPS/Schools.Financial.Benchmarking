@@ -62,7 +62,7 @@
         public const string PHYSICAL_DISABILITY = "Primary_need_pd_percent";
         public const string AUTISTIC_DISORDER = "Primary_need_asd_percent";
         public const string OTHER_LEARNING_DIFF = "Primary_need_oth_percent";
-        public const string TOTAL_INCOME = "Total Income";
+        public const string TOTAL_INCOME = "Total Income";        
     }
 
     public class TrustCharacteristicsQuestions

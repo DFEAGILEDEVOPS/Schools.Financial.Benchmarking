@@ -379,14 +379,14 @@ namespace SFB.Web.Common
         public double? MaxOtherLearningDiff { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS)]
-        [Range(0, Int32.MaxValue)]
+        [Range(2, Int32.MaxValue)]
         [DBField(name: DBFieldNames.NO_SCHOOLS, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinNoSchool { get; set; }
+        public int? MinNoSchools { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS)]
-        [Range(0, Int32.MaxValue)]
+        [Range(2, Int32.MaxValue)]
         [DBField(name: DBFieldNames.NO_SCHOOLS, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxNoSchool { get; set; }
+        public int? MaxNoSchools { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.TOTAL_INCOME)]
         [Range(0, double.MaxValue)]
