@@ -6,7 +6,7 @@ using SFB.Web.Common;
 namespace SFB.Web.UI.Models
 {
     [Serializable]
-    public class TrustComparisonViewModel
+    public class TrustComparisonListModel
     {
         [JsonProperty(PropertyName = "DTMN")]
         public string DefaultTrustMatNo { get; set; }
@@ -15,18 +15,18 @@ namespace SFB.Web.UI.Models
         public string DefaultTrustName { get; set; }
 
         [JsonProperty(PropertyName = "T")]
-        public List<TrustToCompareViewModel> Trusts { get; set; }
+        public List<BenchmarkTrustModel> Trusts { get; set; }
 
-        public TrustComparisonViewModel(string defaultTrustMatNo, string defaultTrustName)
+        public TrustComparisonListModel(string defaultTrustMatNo, string defaultTrustName)
         {
             this.DefaultTrustMatNo = defaultTrustMatNo;
             this.DefaultTrustName = defaultTrustName;
-            this.Trusts = new List<TrustToCompareViewModel>();
+            this.Trusts = new List<BenchmarkTrustModel>();
         }
     }
 
     [Serializable]
-    public class TrustToCompareViewModel : CompareEntityBase, IEquatable<TrustToCompareViewModel>
+    public class BenchmarkTrustModel : CompareEntityBase, IEquatable<BenchmarkTrustModel>
     {
         [JsonProperty(PropertyName = "N")]
         public string MatNo { get; }
@@ -50,14 +50,14 @@ namespace SFB.Web.UI.Models
         [JsonIgnore]
         public override string Type { get; set; }
 
-        public TrustToCompareViewModel(string matNo, string matName = null)
+        public BenchmarkTrustModel(string matNo, string matName = null)
         {
             this.MatNo = matNo;
             this.MatName = matName;
-            this.Type = SchoolFinancialType.Academies.ToString();
+            this.Type = EstabType.MAT.ToString();
         }
 
-        public bool Equals(TrustToCompareViewModel other)
+        public bool Equals(BenchmarkTrustModel other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -69,7 +69,7 @@ namespace SFB.Web.UI.Models
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((TrustToCompareViewModel) obj);
+            return Equals((BenchmarkTrustModel) obj);
         }
 
         public override int GetHashCode()

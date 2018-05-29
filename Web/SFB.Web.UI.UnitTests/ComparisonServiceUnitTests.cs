@@ -32,13 +32,13 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockBenchmarkCriteriaBuilderService = new Mock<IBenchmarkCriteriaBuilderService>();
-            mockBenchmarkCriteriaBuilderService.Setup(s => s.BuildFromSimpleComparisonCriteria(It.IsAny<SchoolFinancialDataModel>(), It.IsAny<SimpleCriteria>(), It.IsAny<int>()))
-                .Returns((SchoolFinancialDataModel dm, SimpleCriteria sc, int percentage) => new BenchmarkCriteria() { Gender = new[] { "Male" } });
+            mockBenchmarkCriteriaBuilderService.Setup(s => s.BuildFromSimpleComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<SimpleCriteria>(), It.IsAny<int>()))
+                .Returns((FinancialDataModel dm, SimpleCriteria sc, int percentage) => new BenchmarkCriteria() { Gender = new[] { "Male" } });
 
             var service = new ComparisonService(mockFinancialDataService.Object, mockBenchmarkCriteriaBuilderService.Object);
 
             var comparisonResult = await service.GenerateBenchmarkListWithSimpleComparisonAsync(new BenchmarkCriteria(){ Gender = new []{"Male"}},
-                EstablishmentType.Maintained, 15, new SimpleCriteria(), new SchoolFinancialDataModel("123","14-15",testResult,SchoolFinancialType.Maintained));
+                EstablishmentType.Maintained, 15, new SimpleCriteria(), new FinancialDataModel("123","14-15",testResult,EstabType.Maintained));
 
             mockFinancialDataService.Verify(s => s.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), EstablishmentType.Maintained), Times.AtLeast(11));
             Assert.AreEqual(5, comparisonResult.BenchmarkCriteria.UrbanRural.Length);

@@ -2,16 +2,15 @@
 
 namespace SFB.Web.Common
 {
-    /// <summary>
-    /// This should match to SFB.Web.Domain.Helpers.Constants.DataGroups
-    /// It might be better to merge these
-    /// </summary>
-    public enum SchoolFinancialType
+    //Used in conjunction with entity's Financial Type to determine the data groups
+    public enum EstabType
     {
         Academies,
-        Maintained
+        Maintained,
+        MAT
     }
 
+    //TODO: Can be merged with SchoolFinancialType
     public enum EstablishmentType
     {
         All,

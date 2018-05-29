@@ -73,15 +73,9 @@ namespace SFB.Web.DAL.Helpers
 
         }
 
-        public int GetLatestFinancialDataYearPerSchoolType(SchoolFinancialType type)
+        public int GetLatestFinancialDataYearPerEstabType(EstabType type)
         {
-            var latestCollectionId = GetLatestActiveTermByDataGroup(type.ToString());
-            return int.Parse(latestCollectionId.Split('-').Last());
-        }
-
-        public int GetLatestFinancialDataYearForTrusts()
-        {
-            var latestCollectionId = GetLatestActiveTermByDataGroup(DataGroups.MATCentral);
+            var latestCollectionId = GetLatestActiveTermByDataGroup(type.ToDataGroup());
             return int.Parse(latestCollectionId.Split('-').Last());
         }
 

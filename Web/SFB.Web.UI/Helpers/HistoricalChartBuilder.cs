@@ -8,18 +8,18 @@ namespace SFB.Web.UI.Helpers
 {
     public interface IHistoricalChartBuilder
     {
-        List<ChartViewModel> Build(RevenueGroupType revenueGroup, SchoolFinancialType schoolFinancialType);
+        List<ChartViewModel> Build(RevenueGroupType revenueGroup, EstabType estabType);
 
         List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup,
-            SchoolFinancialType schoolFinancialType, UnitType unit = UnitType.AbsoluteCount);
+            EstabType estabType, UnitType unit = UnitType.AbsoluteCount);
     }
 
     public class HistoricalChartBuilder : IHistoricalChartBuilder
     {
-        public List<ChartViewModel> Build(RevenueGroupType revenueGroup, SchoolFinancialType schoolFinancialType)
+        public List<ChartViewModel> Build(RevenueGroupType revenueGroup, EstabType estabType)
         {
             var chartList = Build(revenueGroup);
-            if (schoolFinancialType == SchoolFinancialType.Academies)
+            if (estabType == EstabType.Academies || estabType == EstabType.MAT)
             {
                 chartList =
                     chartList.Where(
@@ -41,13 +41,13 @@ namespace SFB.Web.UI.Helpers
         }
 
         public List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup,
-            SchoolFinancialType schoolFinancialType, UnitType unit)
+            EstabType estabType, UnitType unit)
         {
             var chartList = Build(revenueGroup, chartGroup);
 
             RemoveIrrelevantCharts(unit, chartList);
 
-            if (schoolFinancialType == SchoolFinancialType.Academies)
+            if (estabType == EstabType.Academies || estabType == EstabType.MAT)
             {
                 chartList =
                     chartList.Where(

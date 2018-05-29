@@ -7,14 +7,14 @@
         <select name="Year" id="Year" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('school')">
             @foreach (var year in Model.Terms)
             {
-                <option value="@year">@FormatFinancialYear(year, Model.FinancialType)</option>
+                <option value="@year">@FormatFinancialYear(year, Model.EstabType)</option>
             }
         </select>
     </div>
 </div>
 
-@helper FormatFinancialYear(string year, SchoolFinancialType schoolType)
+@helper FormatFinancialYear(string year, EstabType schoolType)
 {
-    @( schoolType == SchoolFinancialType.Academies ? year : year.Replace('/', '-'))
+    @( schoolType == EstabType.Academies ? year : year.Replace('/', '-'))
 }
 

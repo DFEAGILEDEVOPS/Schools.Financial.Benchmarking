@@ -5,7 +5,7 @@ namespace SFB.Web.UI.Models
     public class ViewModelBase
     {
         [JsonIgnore]
-        public ComparisonListModel ComparisonList;
+        public SchoolComparisonListModel ComparisonList;
 
         [JsonIgnore]
         public int ComparisonListCount => ComparisonList?.BenchmarkSchools?.Count ?? 0;

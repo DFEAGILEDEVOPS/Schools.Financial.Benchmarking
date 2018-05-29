@@ -7,8 +7,8 @@ using Newtonsoft.Json;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Helpers;
+using SFB.Web.Common;
 using SFB.Web.Domain.Services.DataAccess;
-using Microsoft.Azure.Documents;
 using System.Threading.Tasks;
 using SFB.Web.Domain.Helpers;
 
@@ -24,17 +24,18 @@ namespace SFB.Web.UI.Controllers
 
         public ActionResult Index(string matNo, string matName)
         {            
-            var benchmarkTrust = new SponsorViewModel(matNo, matName, null, null);
+            var benchmarkTrust = new TrustViewModel(matNo, matName);
             var latestYear = _financialDataService.GetLatestDataYearForTrusts();
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var document = _financialDataService.GetMATDataDocument(matNo, term, Common.MatFinancingType.TrustAndAcademies);
+            var dataDocument = _financialDataService.GetMATDataDocument(matNo, term, MatFinancingType.TrustAndAcademies);
 
-            benchmarkTrust.HistoricalSchoolFinancialDataModels = new List<Domain.Models.SchoolFinancialDataModel>
+            benchmarkTrust.HistoricalFinancialDataModels = new List<Domain.Models.FinancialDataModel>
             {
-                new Domain.Models.SchoolFinancialDataModel(matNo, term, document, Common.SchoolFinancialType.Academies)
+                new Domain.Models.FinancialDataModel(matNo, term, dataDocument, EstabType.MAT)
             };
 
-            var vm = new TrustCharacteristicsViewModel(benchmarkTrust, UpdateTrustCookie("SetDefault", matNo, matName));
+            var trustComparisonList = UpdateTrustCookie("SetDefault", matNo, matName);
+            var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
             return View(vm);
         }
 
@@ -96,9 +97,9 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.MatNo != vm.DefaultTrustMatNo).ToList());
         }
 
-        private TrustComparisonViewModel UpdateTrustCookie(string withAction, string matNo = null, string matName = null)
+        private TrustComparisonListModel UpdateTrustCookie(string withAction, string matNo = null, string matName = null)
         {
-            TrustComparisonViewModel vm = null;
+            TrustComparisonListModel vm = null;
             HttpCookie cookie = Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
             switch (withAction)
             {
@@ -106,19 +107,19 @@ namespace SFB.Web.UI.Controllers
                     if (cookie == null)
                     {
                         cookie = new HttpCookie(CookieNames.COMPARISON_LIST_MAT);
-                        vm = new TrustComparisonViewModel(matNo, matName)
+                        vm = new TrustComparisonListModel(matNo, matName)
                         {
-                            Trusts = new List<TrustToCompareViewModel> {new TrustToCompareViewModel(matNo, matName)}
+                            Trusts = new List<BenchmarkTrustModel> {new BenchmarkTrustModel(matNo, matName)}
                         };
                     }
                     else
                     {
-                        vm = JsonConvert.DeserializeObject<TrustComparisonViewModel>(cookie.Value);
+                        vm = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
                         vm.DefaultTrustMatNo = matNo;
                         vm.DefaultTrustName = matName;
                         if (vm.Trusts.All(s => s.MatNo != matNo))
                         {
-                            vm.Trusts.Add(new TrustToCompareViewModel(matNo, matName));
+                            vm.Trusts.Add(new BenchmarkTrustModel(matNo, matName));
                         }
                     }
                     break;
@@ -127,37 +128,37 @@ namespace SFB.Web.UI.Controllers
                     if (cookie == null)
                     {
                         cookie = new HttpCookie(CookieNames.COMPARISON_LIST_MAT);
-                        vm = new TrustComparisonViewModel(matNo, matName)
+                        vm = new TrustComparisonListModel(matNo, matName)
                         {
-                            Trusts = new List<TrustToCompareViewModel> { new TrustToCompareViewModel(matNo, matName) }
+                            Trusts = new List<BenchmarkTrustModel> { new BenchmarkTrustModel(matNo, matName) }
                         };
                     }
                     else
                     {
-                        vm = JsonConvert.DeserializeObject<TrustComparisonViewModel>(cookie.Value);
+                        vm = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
                         if (vm.DefaultTrustMatNo == matNo || vm.Trusts.Any(s => s.MatNo == matNo))
                         {
                             ViewBag.Error = ErrorMessages.DuplicateTrust;
                         }
                         else
                         {
-                            vm.Trusts.Add(new TrustToCompareViewModel(matNo, matName));
+                            vm.Trusts.Add(new BenchmarkTrustModel(matNo, matName));
                         }
                     }
                     break;
                 case "Remove":
-                    vm = JsonConvert.DeserializeObject<TrustComparisonViewModel>(cookie.Value);
-                    vm.Trusts.Remove(new TrustToCompareViewModel(matNo));
+                    vm = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                    vm.Trusts.Remove(new BenchmarkTrustModel(matNo));
                     break;
                 case "RemoveAll":
-                    vm = JsonConvert.DeserializeObject<TrustComparisonViewModel>(cookie.Value);
+                    vm = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
                     vm.Trusts.Clear();
                     break;
                 case "AddDefaultToList":
-                    vm = JsonConvert.DeserializeObject<TrustComparisonViewModel>(cookie.Value);
+                    vm = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
                     if (vm.Trusts.All(s => vm.DefaultTrustMatNo != matNo))
                     {
-                        vm.Trusts.Add(new TrustToCompareViewModel(vm.DefaultTrustMatNo, vm.DefaultTrustName));
+                        vm.Trusts.Add(new BenchmarkTrustModel(vm.DefaultTrustMatNo, vm.DefaultTrustName));
                     }
                     break;
             }

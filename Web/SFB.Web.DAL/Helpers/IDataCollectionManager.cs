@@ -6,8 +6,7 @@ namespace SFB.Web.DAL.Helpers
     public interface IDataCollectionManager
     {
         int GetLatestFinancialDataYear();
-        int GetLatestFinancialDataYearForTrusts();
-        int GetLatestFinancialDataYearPerSchoolType(SchoolFinancialType schoolType);
+        int GetLatestFinancialDataYearPerEstabType(EstabType estabType);
         string GetCollectionIdByTermByDataGroup(string term, string dataGroup);
         string GetActiveCollectionByDataGroup(string dataGroup);
         List<string> GetActiveCollectionsByDataGroup(string dataGroup);

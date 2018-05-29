@@ -23,8 +23,8 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request).Returns(request.Object);
             context.SetupGet(x => x.Response).Returns(response.Object);
             var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>() { new BenchmarkSchoolViewModel() { Urn = "123", Name = "test" } };
+            var listCookie = new SchoolComparisonListModel();
+            listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { new BenchmarkSchoolModel() { Urn = "123", Name = "test" } };
             requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var responseCookies = new HttpCookieCollection();
@@ -49,7 +49,7 @@ namespace SFB.Web.UI.UnitTests
             var result = controller.UpdateBenchmarkBasket(null, CompareActions.CLEAR_BENCHMARK_LIST);
 
             Assert.AreEqual(1, controller.Response.Cookies.Count);
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
+            var cookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
             Assert.AreEqual(0, cookie.BenchmarkSchools.Count);
         }
     }

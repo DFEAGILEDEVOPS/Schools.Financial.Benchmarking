@@ -6,7 +6,7 @@
         {
             
         }
-        public SchoolSearchViewModel(ComparisonListModel comparisonList, string queryKey)
+        public SchoolSearchViewModel(SchoolComparisonListModel comparisonList, string queryKey)
         {
             base.ComparisonList = comparisonList;
             this.QueryKey = queryKey;

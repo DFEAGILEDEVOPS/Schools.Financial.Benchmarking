@@ -13,7 +13,7 @@ namespace SFB.Web.UI.Models
             base.DataModel = model;
         }
 
-        public SchoolViewModel(dynamic SchoolFinancialDataModel, ComparisonListModel comparisonList)
+        public SchoolViewModel(dynamic SchoolFinancialDataModel, SchoolComparisonListModel comparisonList)
         {
             base.DataModel = SchoolFinancialDataModel;
             base.ComparisonList = comparisonList;
@@ -148,7 +148,7 @@ namespace SFB.Web.UI.Models
 
         public bool HasIncompleteFinancialData => GetInt("Period covered by return") != 12;
 
-        public override SchoolFinancialType FinancialType => GetString("FinanceType") == "A" ? SchoolFinancialType.Academies : SchoolFinancialType.Maintained;
+        public override EstabType EstabType => GetString("FinanceType") == "A" ? EstabType.Academies : EstabType.Maintained;
 
         public bool HasCoordinates
         {

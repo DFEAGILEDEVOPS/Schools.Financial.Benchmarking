@@ -7,13 +7,13 @@ namespace SFB.Web.UI.Models
 
     public class TrustCharacteristicsViewModel : ViewModelBase
     {
-        public SponsorViewModel BenchmarkTrust { get; set; }
-        public TrustComparisonViewModel TrustComparisonList { get; set; }
+        public TrustViewModel BenchmarkTrust { get; set; }
+        public TrustComparisonListModel TrustComparisonList { get; set; }
         public List<SchoolCharacteristic> TrustCharacteristics { get; set; }
         public BenchmarkCriteria BenchmarkCriteria { get; set; }
 
 
-        public TrustCharacteristicsViewModel(SponsorViewModel trust, TrustComparisonViewModel trustComparisonList)
+        public TrustCharacteristicsViewModel(TrustViewModel trust, TrustComparisonListModel trustComparisonList)
         {
             this.TrustComparisonList = trustComparisonList;
             this.BenchmarkTrust = trust;
@@ -29,9 +29,9 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        private List<SchoolCharacteristic> BuildTrustCharacteristics(SponsorViewModel schoolVM)
+        private List<SchoolCharacteristic> BuildTrustCharacteristics(TrustViewModel schoolVM)
         {
-            var latestTrustData = schoolVM.HistoricalSchoolFinancialDataModels.Last();
+            var latestTrustData = schoolVM.HistoricalFinancialDataModels.Last();
             var list = new List<SchoolCharacteristic>();
             list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.NUMBER_OF_PUPILS, Value = latestTrustData.PupilCount.ToString("N0") });
             list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS, Value = latestTrustData.SchoolCount.ToString("N0") });

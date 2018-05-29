@@ -2,7 +2,7 @@
 
 namespace SFB.Web.UI.Models
 {
-    public class SponsorViewModel : EstablishmentViewModelBase
+    public class TrustViewModel : EstablishmentViewModelBase
     {
         public int Code { get; set; }
 
@@ -14,12 +14,16 @@ namespace SFB.Web.UI.Models
 
         public override string Type => "MAT";
 
-        public override SchoolFinancialType FinancialType => SchoolFinancialType.Academies;
+        public override EstabType EstabType => EstabType.MAT;
 
-        public SponsorViewModel(string matNo, string name, SchoolListViewModel schoolList, ComparisonListModel comparisonList)
+        public TrustViewModel(string matNo, string name)
         {
             this.MatNo = matNo;
-            this.Name = name;
+            this.Name = name;            
+        }
+
+        public TrustViewModel(string matNo, string name, SchoolListViewModel schoolList, SchoolComparisonListModel comparisonList): this(matNo, name)
+        {            
             this.SchoolList = schoolList;
             base.ComparisonList = comparisonList;            
         }

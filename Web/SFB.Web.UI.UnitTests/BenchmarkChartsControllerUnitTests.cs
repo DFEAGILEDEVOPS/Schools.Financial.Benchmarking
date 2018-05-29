@@ -38,12 +38,12 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request).Returns(request.Object);
             context.SetupGet(x => x.Response).Returns(response.Object);
             var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
+            var listCookie = new SchoolComparisonListModel();
             listCookie.HomeSchoolUrn = "123";
             listCookie.HomeSchoolName = "test";
             listCookie.HomeSchoolType = "test";
             listCookie.HomeSchoolFinancialType = "Academies";
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>() { new BenchmarkSchoolViewModel() { Urn = "123", Name = "test", FinancialType = "Academies" } };
+            listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { new BenchmarkSchoolModel() { Urn = "123", Name = "test", EstabType = "Academies" } };
             requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var responseCookies = new HttpCookieCollection();
@@ -100,7 +100,7 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
+            var cookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
 
             Assert.AreEqual(2, cookie.BenchmarkSchools.Count);
 
@@ -157,7 +157,7 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
+            var cookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
 
             Assert.AreEqual(1, cookie.BenchmarkSchools.Count);
 
@@ -173,12 +173,12 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request).Returns(request.Object);
             context.SetupGet(x => x.Response).Returns(response.Object);
             var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
+            var listCookie = new SchoolComparisonListModel();
             listCookie.HomeSchoolUrn = "123";
             listCookie.HomeSchoolName = "test";
             listCookie.HomeSchoolType = "test";
             listCookie.HomeSchoolFinancialType = "Academies";
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>();
+            listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>();
             requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var responseCookies = new HttpCookieCollection();
@@ -233,7 +233,7 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
+            var cookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
 
             Assert.AreEqual(2, cookie.BenchmarkSchools.Count);
 
@@ -290,7 +290,7 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
+            var cookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
 
             Assert.AreEqual(1, cookie.BenchmarkSchools.Count);
 
@@ -323,7 +323,7 @@ namespace SFB.Web.UI.UnitTests
             
             financialCalculationsService.Verify(f=> f.PopulateBenchmarkChartsWithFinancialData(
                 null,
-                It.IsAny<List<SchoolFinancialDataModel>>(),
+                It.IsAny<List<FinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
                 UnitType.PerPupil,
@@ -358,7 +358,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 null,
-                It.IsAny<List<SchoolFinancialDataModel>>(),
+                It.IsAny<List<FinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
                 UnitType.PerPupil,
@@ -396,7 +396,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<SchoolFinancialDataModel>>(),
+                It.IsAny<List<FinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
                 UnitType.AbsoluteMoney,
@@ -434,7 +434,7 @@ namespace SFB.Web.UI.UnitTests
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<SchoolFinancialDataModel>>(),
+                It.IsAny<List<FinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
                 UnitType.AbsoluteCount,

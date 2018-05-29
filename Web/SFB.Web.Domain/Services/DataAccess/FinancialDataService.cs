@@ -18,12 +18,12 @@ namespace SFB.Web.Domain.Services.DataAccess
             _financialDataRepository = financialDataRepository;
         }
         
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstabType schoolFinancialType, CentralFinancingType cFinance)
         {
             return await _financialDataRepository.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
         }
 
-        public Document GetSchoolDataDocument(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        public Document GetSchoolDataDocument(string urn, string term, EstabType schoolFinancialType, CentralFinancingType cFinance)
         {
             return _financialDataRepository.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);
         }
@@ -43,9 +43,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _dataCollectionManager.GetLatestFinancialDataYear();
         }
 
-        public int GetLatestDataYearPerSchoolType(SchoolFinancialType type)
+        public int GetLatestDataYearPerEstabType(EstabType type)
         {
-            return _dataCollectionManager.GetLatestFinancialDataYearPerSchoolType(type);
+            return _dataCollectionManager.GetLatestFinancialDataYearPerEstabType(type);
         }
 
         public List<string> GetActiveTermsForMatCentral()
@@ -65,7 +65,7 @@ namespace SFB.Web.Domain.Services.DataAccess
 
         public int GetLatestDataYearForTrusts()
         {
-            return _dataCollectionManager.GetLatestFinancialDataYearForTrusts();
+            return _dataCollectionManager.GetLatestFinancialDataYearPerEstabType(EstabType.MAT);
         }
 
         public async Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)

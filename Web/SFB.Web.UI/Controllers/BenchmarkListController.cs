@@ -24,18 +24,18 @@ namespace SFB.Web.UI.Controllers
             {
                 dynamic dynamicBenchmarkSchools = _contextDataService.GetMultipleSchoolsByUrns(comparisonList.BenchmarkSchools.Select(b => b.Urn.ToString()).ToList());
 
-                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolViewModel>();
+                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
                 foreach (var dynamicBenchmarkSchool in dynamicBenchmarkSchools)
                 {
                     var school = new SchoolViewModel(dynamicBenchmarkSchool);
-                    var benchmarkSchool = new BenchmarkSchoolViewModel()
+                    var benchmarkSchool = new BenchmarkSchoolModel()
                     {
                         Address = school.Address,
                         Name = school.Name,
                         Phase = school.OverallPhase,
                         Type = school.Type,
-                        FinancialType = school.FinancialType.ToString(),
+                        EstabType = school.EstabType.ToString(),
                         Urn = school.Id
                     };
 
@@ -45,16 +45,16 @@ namespace SFB.Web.UI.Controllers
             {
                 var dynamicBenchmarkSchool = _contextDataService.GetSchoolByUrn(comparisonList.BenchmarkSchools[0].Urn);
 
-                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolViewModel>();
+                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
                 var school = new SchoolViewModel(dynamicBenchmarkSchool);
-                var benchmarkSchool = new BenchmarkSchoolViewModel()
+                var benchmarkSchool = new BenchmarkSchoolModel()
                 {
                     Address = school.Address,
                     Name = school.Name,
                     Phase = school.OverallPhase,
                     Type = school.Type,
-                    FinancialType = school.FinancialType.ToString(),
+                    EstabType = school.EstabType.ToString(),
                     Urn = school.Id
                 };
 
@@ -73,12 +73,12 @@ namespace SFB.Web.UI.Controllers
                 var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
 
                 cookie = base.UpdateSchoolComparisonListCookie(withAction,
-                    new BenchmarkSchoolViewModel()
+                    new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
                         Urn = benchmarkSchool.Id,
                         Type = benchmarkSchool.Type,
-                        FinancialType = benchmarkSchool.FinancialType.ToString()
+                        EstabType = benchmarkSchool.EstabType.ToString()
                     });
             }
             else

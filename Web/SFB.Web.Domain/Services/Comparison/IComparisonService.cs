@@ -14,6 +14,6 @@ namespace SFB.Web.Domain.Services.Comparison
 
         Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(BenchmarkCriteria benchmarkCriteria,
             EstablishmentType estType, int basketSize,
-            SimpleCriteria simpleCriteria, SchoolFinancialDataModel defaultSchoolFinancialDataModel);
+            SimpleCriteria simpleCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
     }
 }

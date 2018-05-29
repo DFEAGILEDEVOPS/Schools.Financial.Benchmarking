@@ -33,13 +33,9 @@ namespace SFB.Web.DAL.Repositories
                 });
         }
 
-        public Document GetSchoolDataDocument(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        public Document GetSchoolDataDocument(string urn, string term, EstabType estabType, CentralFinancingType cFinance)
         {
-            var dataGroup = schoolFinancialType.ToString();
-            if (schoolFinancialType == SchoolFinancialType.Academies)
-            {
-                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
-            }
+            var dataGroup = estabType.ToDataGroup(cFinance);
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
@@ -59,7 +55,7 @@ namespace SFB.Web.DAL.Repositories
 
                 if (dataGroup == DataGroups.MATAllocs && result == null)//if nothing found in MAT-Allocs collection try to source it from Academies data
                 {
-                    return GetSchoolDataDocument(urn, term, schoolFinancialType, CentralFinancingType.Exclude);
+                    return GetSchoolDataDocument(urn, term, estabType, CentralFinancingType.Exclude);
                 }
 
                 if (result != null && result.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display none in the charts
@@ -76,13 +72,9 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstabType estabType, CentralFinancingType cFinance)
         {
-            var dataGroup = schoolFinancialType.ToString();
-            if (schoolFinancialType == SchoolFinancialType.Academies)
-            {
-                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
-            }
+            var dataGroup = estabType.ToDataGroup(cFinance);
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 

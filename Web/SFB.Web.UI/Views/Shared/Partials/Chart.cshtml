@@ -9,7 +9,7 @@
     {
         var historicalChart = Model.HistoricalCharts[index];
         historicalChart.Id = index.ToString();
-        ViewBag.FinancialYear = Model.FinancialType == SchoolFinancialType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
+        ViewBag.FinancialYear = Model.EstabType == EstabType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
 
         <div class="chartContainer column-full no-padding" data-group="@historicalChart.ChartGroup">
             @if (historicalChart.ChartType == ChartType.Total)
@@ -112,5 +112,5 @@
     <script src="/public/scripts/termi/element.details.ajax.js"></script>
 }
 
-@helper FormatFinancialYear(string year, SchoolFinancialType schoolType)
-{ @( schoolType == SchoolFinancialType.Academies ? year : year.Replace('/', '-')) }
+@helper FormatFinancialYear(string year, EstabType schoolType)
+{ @( schoolType == EstabType.Academies ? year : year.Replace('/', '-')) }

@@ -249,12 +249,12 @@ namespace SFB.Web.UI.Controllers
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
 
             var cookie = base.UpdateSchoolComparisonListCookie(withAction,
-                new BenchmarkSchoolViewModel()
+                new BenchmarkSchoolModel()
                 {
                     Name = benchmarkSchool.Name,
                     Urn = benchmarkSchool.Id,
                     Type = benchmarkSchool.Type,
-                    FinancialType = benchmarkSchool.FinancialType.ToString()
+                    EstabType = benchmarkSchool.EstabType.ToString()
                 });
 
             if (cookie != null)

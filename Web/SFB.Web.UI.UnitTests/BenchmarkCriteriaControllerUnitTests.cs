@@ -28,8 +28,8 @@ namespace SFB.Web.UI.UnitTests
             var context = new Mock<HttpContextBase>(MockBehavior.Strict);
             context.SetupGet(x => x.Request).Returns(request.Object);
             var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>() { new BenchmarkSchoolViewModel() {Name = "test"}, new BenchmarkSchoolViewModel(){Name = "test"} };
+            var listCookie = new SchoolComparisonListModel();
+            listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { new BenchmarkSchoolModel() {Name = "test"}, new BenchmarkSchoolModel(){Name = "test"} };
             requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var rc = new RequestContext(context.Object, new RouteData());
@@ -55,10 +55,10 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Response).Returns(response.Object);
             var requestCookies = new HttpCookieCollection();
             var responseCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
+            var listCookie = new SchoolComparisonListModel();
             listCookie.HomeSchoolUrn = "100";
             listCookie.HomeSchoolName = "home school";
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>() { new BenchmarkSchoolViewModel() {Urn = "100", Name = "test"} };
+            listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { new BenchmarkSchoolModel() {Urn = "100", Name = "test"} };
             requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
@@ -76,7 +76,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
-            _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerSchoolType(It.IsAny<SchoolFinancialType>()))
+            _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(It.IsAny<EstabType>()))
                 .Returns(2015);
 
             var _mockEdubaseDataService = new Mock<IContextDataService>();
@@ -125,7 +125,7 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.AreEqual(1, controller.Response.Cookies.Count);
 
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
+            var cookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
 
             Assert.AreEqual(1, cookie.BenchmarkSchools.Count);
 

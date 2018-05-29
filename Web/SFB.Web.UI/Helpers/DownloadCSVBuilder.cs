@@ -10,8 +10,8 @@ namespace SFB.Web.UI.Helpers
 {
     public interface IDownloadCSVBuilder
     {
-        string BuildCSVContentForSchools(ComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts);
-        string BuildCSVContentForTrusts(TrustComparisonViewModel comparisonList, List<ChartViewModel> benchmarkCharts);
+        string BuildCSVContentForSchools(SchoolComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts);
+        string BuildCSVContentForTrusts(TrustComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts);
         string BuildCSVContentHistorically(EstablishmentViewModelBase estabVM, int latestYear);
     }
 
@@ -35,7 +35,7 @@ namespace SFB.Web.UI.Helpers
             for (int i = 0; i < ChartHistory.YEARS_OF_HISTORY; i++)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var termFormatted = FormatTerm(term, estabVM.FinancialType);
+                var termFormatted = FormatTerm(term, estabVM.EstabType);
                 var valuesLine = new StringBuilder();
                 var data = estabVM.HistoricalCharts.First().HistoricalData.Find(d => d.Year == term);
                 if (data?.Amount != null)
@@ -54,7 +54,7 @@ namespace SFB.Web.UI.Helpers
             return csv.ToString();
         }
 
-        public string BuildCSVContentForSchools(ComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts)
+        public string BuildCSVContentForSchools(SchoolComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts)
         {
             var csv = new StringBuilder();
 
@@ -67,7 +67,7 @@ namespace SFB.Web.UI.Helpers
             return csv.ToString();
         }
 
-        public string BuildCSVContentForTrusts(TrustComparisonViewModel comparisonList, List<ChartViewModel> benchmarkCharts)
+        public string BuildCSVContentForTrusts(TrustComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts)
         {
             var csv = new StringBuilder();
 
@@ -99,7 +99,7 @@ namespace SFB.Web.UI.Helpers
             csv.AppendLine(header.ToString().TrimEnd(','));
         }
 
-        private void BuildHomeSchoolLine(ComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
+        private void BuildHomeSchoolLine(SchoolComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
         {
             if (!string.IsNullOrEmpty(comparisonList.HomeSchoolUrn) && comparisonList.BenchmarkSchools.Any(s => s.Urn == comparisonList.HomeSchoolUrn))
             {
@@ -107,7 +107,7 @@ namespace SFB.Web.UI.Helpers
                 var data = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == comparisonList.HomeSchoolUrn);
                 var term = data.Term;
 
-                var formattedTerm = FormatTerm(term, (SchoolFinancialType)Enum.Parse(typeof(SchoolFinancialType), comparisonList.HomeSchoolFinancialType));
+                var formattedTerm = FormatTerm(term, (EstabType)Enum.Parse(typeof(EstabType), comparisonList.HomeSchoolFinancialType));
                 valuesLine.Append($"Your school,{data.Urn},{formattedTerm},{data.PupilCount},{data.TeacherCount},");
 
                 foreach (var chart in benchmarkCharts.Where(bc => bc.Downloadable))
@@ -128,7 +128,7 @@ namespace SFB.Web.UI.Helpers
             }
         }
 
-        private void BuildDefaultTrustLine(TrustComparisonViewModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
+        private void BuildDefaultTrustLine(TrustComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
         {
             if (!string.IsNullOrEmpty(comparisonList.DefaultTrustMatNo) && comparisonList.Trusts.Any(s => s.MatNo == comparisonList.DefaultTrustMatNo))
             {
@@ -156,7 +156,7 @@ namespace SFB.Web.UI.Helpers
             }
         }
 
-        private void BuildOtherSchoolsLines(ComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
+        private void BuildOtherSchoolsLines(SchoolComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
         {
             var otherSchools = comparisonList.BenchmarkSchools.Where(b => b.Urn != comparisonList.HomeSchoolUrn);
 
@@ -165,7 +165,7 @@ namespace SFB.Web.UI.Helpers
                 var valuesLine = new StringBuilder();
                 var data = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == school.Urn);
                 var term = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == school.Urn).Term;
-                var formattedTerm = FormatTerm(term, (SchoolFinancialType)Enum.Parse(typeof(SchoolFinancialType), school.FinancialType));
+                var formattedTerm = FormatTerm(term, (EstabType)Enum.Parse(typeof(EstabType), school.EstabType));
                 valuesLine.Append($"\"{school.Name}\",{data.Urn},{formattedTerm},{data.PupilCount},{data.TeacherCount},");
 
                 foreach (var chart in benchmarkCharts.Where(bc => bc.Downloadable))
@@ -186,7 +186,7 @@ namespace SFB.Web.UI.Helpers
             }
         }
 
-        private void BuildOtherTrustsLines(TrustComparisonViewModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
+        private void BuildOtherTrustsLines(TrustComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
         {
             var otherTrusts = comparisonList.Trusts.Where(b => b.MatNo != comparisonList.DefaultTrustMatNo);
 
@@ -215,9 +215,9 @@ namespace SFB.Web.UI.Helpers
             }
         }
 
-        private string FormatTerm(string term, SchoolFinancialType financialType)
+        private string FormatTerm(string term, EstabType estabType)
         {
-            return financialType == SchoolFinancialType.Academies ? term : term.Replace('/', '-');
+            return estabType == EstabType.Academies || estabType == EstabType.MAT ? term : term.Replace('/', '-');
         }
     }
 }

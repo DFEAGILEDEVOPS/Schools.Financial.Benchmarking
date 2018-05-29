@@ -269,8 +269,7 @@
     <Compile Include="Models\DataTableColumnViewModel.cs" />
     <Compile Include="Models\BenchmarkChartListViewModel.cs" />
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
-    <Compile Include="Models\BenchmarkSchoolViewModel.cs" />
-    <Compile Include="Models\ComparisonListModel.cs" />
+    <Compile Include="Models\SchoolComparisonListModel.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
     <Compile Include="Models\Filter.cs" />
@@ -286,11 +285,11 @@
     <Compile Include="Models\SearchedSchoolListViewModel.cs" />
     <Compile Include="Models\SeriesData.cs" />
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
-    <Compile Include="Models\SponsorListViewModel.cs" />
-    <Compile Include="Models\SponsorViewModel.cs" />
+    <Compile Include="Models\TrustListViewModel.cs" />
+    <Compile Include="Models\TrustViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
     <Compile Include="Models\TrustCharacteristicsViewModel.cs" />
-    <Compile Include="Models\TrustComparisonViewModel.cs" />
+    <Compile Include="Models\TrustComparisonListModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Models\ViewModelListBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

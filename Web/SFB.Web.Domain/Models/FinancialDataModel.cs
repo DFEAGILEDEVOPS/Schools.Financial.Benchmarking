@@ -4,22 +4,22 @@ using SFB.Web.Common;
 
 namespace SFB.Web.Domain.Models
 {
-    public class SchoolFinancialDataModel : IEquatable<SchoolFinancialDataModel>
+    public class FinancialDataModel : IEquatable<FinancialDataModel>
     {
         public string Term { get; }
         public Document FinancialDataDocumentModel { get; }
         public string Id { get; private set; }    
-        public SchoolFinancialType FinancialType{ get; private set;}
+        public EstabType EstabType{ get; private set;}
 
 
-        public SchoolFinancialDataModel(){}
+        public FinancialDataModel(){}
 
-        public SchoolFinancialDataModel(string id, string term, Document financialDataDocumentModel, SchoolFinancialType financialType)
+        public FinancialDataModel(string id, string term, Document financialDataDocumentModel, EstabType estabType)
         {
             Id = id;
             Term = term;
             FinancialDataDocumentModel = financialDataDocumentModel;
-            FinancialType = financialType;
+            EstabType = estabType;
         }
 
         public int LaNumber => GetInt("LA");
@@ -331,7 +331,7 @@ namespace SFB.Web.Domain.Models
             return result;
         }
 
-        public bool Equals(SchoolFinancialDataModel other)
+        public bool Equals(FinancialDataModel other)
         {
             return (this.Id == other.Id);
         }
