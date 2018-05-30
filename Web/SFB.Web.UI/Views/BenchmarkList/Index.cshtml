@@ -1,6 +1,6 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Models
-@model ComparisonListModel
+@model SchoolComparisonListModel
 
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
@@ -65,7 +65,7 @@
 <a href="#pagetop" class="page-top hide-in-print">Top of page</a>
 
 
-@helper DefaultButton(BenchmarkSchoolViewModel school)
+@helper DefaultButton(BenchmarkSchoolModel school)
 {
     <a @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'{CompareActions.MAKE_DEFAULT_BENCHMARK}')")"
                                                         aria-label="Use @school.Name as default school">Use as default school</a>

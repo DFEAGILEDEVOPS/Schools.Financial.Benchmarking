@@ -582,7 +582,7 @@ namespace SFB.Web.UI.Controllers
                     dataGroup = (centralFinancing == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
                 }
 
-                if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in -Distributed collection try to source it from (non-distributed) Academies data
+                if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
                 {
                     resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(schools[i].Urn, term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
