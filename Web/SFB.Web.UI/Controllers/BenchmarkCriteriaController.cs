@@ -48,7 +48,7 @@ namespace SFB.Web.UI.Controllers
                 Name = benchmarkSchool.Name,
                 Urn = benchmarkSchool.Id,
                 Type = benchmarkSchool.Type,
-                EstabType = benchmarkSchool.EstabType.ToString()
+                EstabType = benchmarkSchool.EstablishmentType.ToString()
             });
             Response.Cookies.Add(cookie);
 
@@ -157,10 +157,10 @@ namespace SFB.Web.UI.Controllers
             ViewBag.LaCode = lacode;
 
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), base.ExtractSchoolComparisonListFromCookie());
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstabType);
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstabType);
-            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn, term, document, benchmarkSchool.EstabType) };
+            var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstablishmentType);
+            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn, term, document, benchmarkSchool.EstablishmentType) };
 
             if (!IsAreaFieldsValid(areaType, lacode, benchmarkSchool))
             {
@@ -219,10 +219,10 @@ namespace SFB.Web.UI.Controllers
             if (!ModelState.IsValid)
             {
                 var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), benchmarkList);
-                var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstabType);
+                var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-                var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstabType);
-                benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn, term, document, benchmarkSchool.EstabType) };
+                var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstablishmentType);
+                benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn, term, document, benchmarkSchool.EstablishmentType) };
                 var schoolCharsVM = new SchoolCharacteristicsViewModel(benchmarkSchool, benchmarkList, new BenchmarkCriteria());
                 schoolCharsVM.ErrorMessage = "Validation Error";
                 return View("AdvancedCharacteristics", schoolCharsVM);

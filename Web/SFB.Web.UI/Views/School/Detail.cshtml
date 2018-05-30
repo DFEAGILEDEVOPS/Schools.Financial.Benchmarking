@@ -164,7 +164,7 @@ else
             @Html.Partial("Partials/Terms", Model)
             @Html.Partial("Partials/ValueSelect", Model)
             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-            @if (Model.EstabType == EstabType.Academies && !Model.HistoricalFinancialDataModels.Last().IsSAT)
+            @if (Model.EstablishmentType == EstablishmentType.Academies && !Model.HistoricalFinancialDataModels.Last().IsSAT)
             {
                 Html.RenderPartial("Partials/CentralFinancing");
             }

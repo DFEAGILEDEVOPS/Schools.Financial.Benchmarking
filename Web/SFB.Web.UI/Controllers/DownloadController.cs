@@ -26,7 +26,7 @@ namespace SFB.Web.UI.Controllers
 
             switch (estab)
             {
-                case EstablishmentType.Academy:
+                case EstablishmentType.Academies:
                 case EstablishmentType.MAT:
                     ViewBag.Terms = _dataService.GetActiveTermsForAcademies();
                     break;

@@ -21,7 +21,7 @@ namespace SFB.Web.UI.Services
 
         public void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts,
             List<FinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
-            EstabType estabType)
+            EstablishmentType estabType)
         {
             foreach (var chart in historicalCharts)
             {
@@ -37,7 +37,7 @@ namespace SFB.Web.UI.Services
         }
 
         private void BuildChart(List<FinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
-            EstabType estabType, ChartViewModel chart)
+            EstablishmentType estabType, ChartViewModel chart)
         {
             var historicalChartData = new List<HistoricalChartData>();
             foreach (var schoolData in SchoolFinancialDataModels)
@@ -177,13 +177,13 @@ namespace SFB.Web.UI.Services
         }
 
         private string GenerateJson(List<HistoricalChartData> historicalChartData,
-            EstabType estabType)
+            EstablishmentType estabType)
         {
             var clonedHistoricalChartDataList = new List<HistoricalChartData>();
             foreach (var chartData in historicalChartData)
             {
                 var clonedChartData = (HistoricalChartData) chartData.Clone();
-                clonedChartData.Year = (estabType == EstabType.Academies || estabType == EstabType.MAT)
+                clonedChartData.Year = (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT)
                     ? clonedChartData.Year.Replace(" / ", "/")
                     : clonedChartData.Year.Replace(" / ", "-");
                 clonedChartData.Year = clonedChartData.Year.Remove(5, 2);

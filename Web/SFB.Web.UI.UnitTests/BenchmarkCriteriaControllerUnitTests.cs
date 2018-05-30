@@ -76,7 +76,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
-            _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(It.IsAny<EstabType>()))
+            _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(It.IsAny<EstablishmentType>()))
                 .Returns(2015);
 
             var _mockEdubaseDataService = new Mock<IContextDataService>();

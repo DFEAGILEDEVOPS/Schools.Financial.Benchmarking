@@ -35,7 +35,7 @@ namespace SFB.Web.UI.Helpers
             for (int i = 0; i < ChartHistory.YEARS_OF_HISTORY; i++)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var termFormatted = FormatTerm(term, estabVM.EstabType);
+                var termFormatted = FormatTerm(term, estabVM.EstablishmentType);
                 var valuesLine = new StringBuilder();
                 var data = estabVM.HistoricalCharts.First().HistoricalData.Find(d => d.Year == term);
                 if (data?.Amount != null)
@@ -107,7 +107,7 @@ namespace SFB.Web.UI.Helpers
                 var data = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == comparisonList.HomeSchoolUrn);
                 var term = data.Term;
 
-                var formattedTerm = FormatTerm(term, (EstabType)Enum.Parse(typeof(EstabType), comparisonList.HomeSchoolFinancialType));
+                var formattedTerm = FormatTerm(term, (EstablishmentType)Enum.Parse(typeof(EstablishmentType), comparisonList.HomeSchoolFinancialType));
                 valuesLine.Append($"Your school,{data.Urn},{formattedTerm},{data.PupilCount},{data.TeacherCount},");
 
                 foreach (var chart in benchmarkCharts.Where(bc => bc.Downloadable))
@@ -165,7 +165,7 @@ namespace SFB.Web.UI.Helpers
                 var valuesLine = new StringBuilder();
                 var data = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == school.Urn);
                 var term = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == school.Urn).Term;
-                var formattedTerm = FormatTerm(term, (EstabType)Enum.Parse(typeof(EstabType), school.EstabType));
+                var formattedTerm = FormatTerm(term, (EstablishmentType)Enum.Parse(typeof(EstablishmentType), school.EstabType));
                 valuesLine.Append($"\"{school.Name}\",{data.Urn},{formattedTerm},{data.PupilCount},{data.TeacherCount},");
 
                 foreach (var chart in benchmarkCharts.Where(bc => bc.Downloadable))
@@ -215,9 +215,9 @@ namespace SFB.Web.UI.Helpers
             }
         }
 
-        private string FormatTerm(string term, EstabType estabType)
+        private string FormatTerm(string term, EstablishmentType estabType)
         {
-            return estabType == EstabType.Academies || estabType == EstabType.MAT ? term : term.Replace('/', '-');
+            return estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT ? term : term.Replace('/', '-');
         }
     }
 }

@@ -9,12 +9,12 @@ namespace SFB.Web.Domain.Models
         public string Term { get; }
         public Document FinancialDataDocumentModel { get; }
         public string Id { get; private set; }    
-        public EstabType EstabType{ get; private set;}
+        public EstablishmentType EstabType{ get; private set;}
 
 
         public FinancialDataModel(){}
 
-        public FinancialDataModel(string id, string term, Document financialDataDocumentModel, EstabType estabType)
+        public FinancialDataModel(string id, string term, Document financialDataDocumentModel, EstablishmentType estabType)
         {
             Id = id;
             Term = term;
@@ -353,5 +353,7 @@ namespace SFB.Web.Domain.Models
             }
             return 0;
         }
+
+
     }
 }

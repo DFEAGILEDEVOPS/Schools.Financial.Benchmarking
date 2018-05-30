@@ -35,7 +35,7 @@ namespace SFB.Web.UI.Controllers
                         Name = school.Name,
                         Phase = school.OverallPhase,
                         Type = school.Type,
-                        EstabType = school.EstabType.ToString(),
+                        EstabType = school.EstablishmentType.ToString(),
                         Urn = school.Id
                     };
 
@@ -54,7 +54,7 @@ namespace SFB.Web.UI.Controllers
                     Name = school.Name,
                     Phase = school.OverallPhase,
                     Type = school.Type,
-                    EstabType = school.EstabType.ToString(),
+                    EstabType = school.EstablishmentType.ToString(),
                     Urn = school.Id
                 };
 
@@ -78,7 +78,7 @@ namespace SFB.Web.UI.Controllers
                         Name = benchmarkSchool.Name,
                         Urn = benchmarkSchool.Id,
                         Type = benchmarkSchool.Type,
-                        EstabType = benchmarkSchool.EstabType.ToString()
+                        EstabType = benchmarkSchool.EstablishmentType.ToString()
                     });
             }
             else

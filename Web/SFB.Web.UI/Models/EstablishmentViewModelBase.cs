@@ -12,7 +12,7 @@ namespace SFB.Web.UI.Models
 
         public abstract string Type { get; }
 
-        public abstract EstabType EstabType { get; }
+        public abstract EstablishmentType EstablishmentType { get; }
 
         public List<ChartViewModel> HistoricalCharts { get; set; }
 

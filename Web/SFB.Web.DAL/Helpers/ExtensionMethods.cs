@@ -226,28 +226,28 @@ namespace SFB.Web.DAL
             return result;
         }
 
-        public static string ToDataGroup(this EstabType estabType)
+        public static string ToDataGroup(this EstablishmentType estabType)
         {
             switch (estabType)
             {
-                case EstabType.Academies:
+                case EstablishmentType.Academies:
                     return DataGroups.Academies;
-                case EstabType.Maintained:
+                case EstablishmentType.Maintained:
                     return DataGroups.Maintained;
-                case EstabType.MAT:
+                case EstablishmentType.MAT:
                     return DataGroups.MATCentral;
                 default:
                     return null;
             }
         }
 
-        public static string ToDataGroup(this EstabType estabType, CentralFinancingType cFinance)
+        public static string ToDataGroup(this EstablishmentType estabType, CentralFinancingType cFinance)
         {
             switch (estabType)
             {
-                case EstabType.Academies:
+                case EstablishmentType.Academies:
                     return (cFinance == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
-                case EstabType.Maintained:
+                case EstablishmentType.Maintained:
                     return DataGroups.Maintained;
                 default:
                     return null;

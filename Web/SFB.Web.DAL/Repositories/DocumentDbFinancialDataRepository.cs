@@ -33,7 +33,7 @@ namespace SFB.Web.DAL.Repositories
                 });
         }
 
-        public Document GetSchoolDataDocument(string urn, string term, EstabType estabType, CentralFinancingType cFinance)
+        public Document GetSchoolDataDocument(string urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var dataGroup = estabType.ToDataGroup(cFinance);
 
@@ -72,7 +72,7 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstabType estabType, CentralFinancingType cFinance)
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var dataGroup = estabType.ToDataGroup(cFinance);
 
@@ -210,9 +210,8 @@ namespace SFB.Web.DAL.Repositories
                 return maintainedSchools;
             }
             else
-            {
-                var type = estType == EstablishmentType.Academy ? DataGroups.Academies : DataGroups.Maintained;
-                return (await QueryDBSchoolCollectionAsync(criteria, type)).ToList();
+            {                
+                return (await QueryDBSchoolCollectionAsync(criteria, estType.ToDataGroup())).ToList();
             }
         }
 
@@ -226,7 +225,7 @@ namespace SFB.Web.DAL.Repositories
             }
             else
             {
-                var type = estType == EstablishmentType.Academy ? DataGroups.Academies : DataGroups.Maintained;
+                var type = estType == EstablishmentType.Academies ? DataGroups.Academies : DataGroups.Maintained;
                 var result = (await QueryDBSchoolCollectionForCountAsync(criteria, type)).First();
                 return result;
             }
@@ -239,8 +238,7 @@ namespace SFB.Web.DAL.Repositories
 
         public async Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria)
         {
-            var result = (await QueryDBTrustCollectionForCountAsync(criteria)).First();
-            return result;
+            return (await QueryDBTrustCollectionForCountAsync(criteria)).First();
         }
 
         public async Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType)
@@ -248,7 +246,7 @@ namespace SFB.Web.DAL.Repositories
             var collectionName = string.Empty;
             switch (estType)
             {
-                case EstablishmentType.Academy:
+                case EstablishmentType.Academies:
                     collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, DataGroups.MATAllocs);
                     break;
                 case EstablishmentType.Maintained:
@@ -280,7 +278,8 @@ namespace SFB.Web.DAL.Repositories
 
             IQueryable<Document> result;
 
-            if (dataGroup == "Academies")
+            //TODO: Is this still necessary?
+            if (dataGroup == DataGroups.Academies)
             {
                 result = _client.CreateDocumentQuery<Document>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),

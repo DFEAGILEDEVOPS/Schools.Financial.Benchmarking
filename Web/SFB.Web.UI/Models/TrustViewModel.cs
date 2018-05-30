@@ -1,4 +1,7 @@
 ﻿using SFB.Web.Common;
+using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.UI.Helpers;
+using System.Collections.Generic;
 
 namespace SFB.Web.UI.Models
 {
@@ -14,7 +17,7 @@ namespace SFB.Web.UI.Models
 
         public override string Type => "MAT";
 
-        public override EstabType EstabType => EstabType.MAT;
+        public override EstablishmentType EstablishmentType => EstablishmentType.MAT;
 
         public TrustViewModel(string matNo, string name)
         {
@@ -27,5 +30,6 @@ namespace SFB.Web.UI.Models
             this.SchoolList = schoolList;
             base.ComparisonList = comparisonList;            
         }
+
     }
 }

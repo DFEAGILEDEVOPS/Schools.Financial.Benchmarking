@@ -7,8 +7,8 @@ namespace SFB.Web.Domain.Services.DataAccess
 {
     public interface IFinancialDataService : ITermYearDataService
     {
-        Document GetSchoolDataDocument(string urn, string term, EstabType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
-        Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstabType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
+        Document GetSchoolDataDocument(string urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
+        Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
         dynamic GetAcademiesByMatNumber(string term, string matNo);
         Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance);
         Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance);
@@ -24,8 +24,7 @@ namespace SFB.Web.Domain.Services.DataAccess
         List<string> GetActiveTermsForMatCentral();
         List<string> GetActiveTermsForAcademies();
         List<string> GetActiveTermsForMaintained();
-        int GetLatestFinancialDataYear();
-        int GetLatestDataYearForTrusts();
-        int GetLatestDataYearPerEstabType(EstabType type);
+        int GetLatestFinancialDataYear();        
+        int GetLatestDataYearPerEstabType(EstablishmentType type);
     }
 }

@@ -6,7 +6,7 @@ namespace SFB.Web.Domain.Services.DataAccess
     {
         dynamic GetSchoolByUrn(string urn);
         dynamic GetSchoolByLaEstab(string laEstab);
-        dynamic GetSponsorByName(string name);
+        dynamic GetTrustByName(string name);
         dynamic GetMultipleSchoolsByUrns(List<string> urns);
     }
 }

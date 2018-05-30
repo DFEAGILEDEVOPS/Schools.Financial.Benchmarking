@@ -22,9 +22,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _edubaseRepository.GetSchoolByLaEstab(laEstab);
         }
 
-        public dynamic GetSponsorByName(string name)
+        public dynamic GetTrustByName(string name)
         {
-            return _edubaseRepository.GetSponsorByName(name);
+            return _edubaseRepository.GetTrustByName(name);
         }
 
         public dynamic GetMultipleSchoolsByUrns(List<string> urns)

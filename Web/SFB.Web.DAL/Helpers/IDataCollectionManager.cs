@@ -5,14 +5,12 @@ namespace SFB.Web.DAL.Helpers
 {
     public interface IDataCollectionManager
     {
-        int GetLatestFinancialDataYear();
-        int GetLatestFinancialDataYearPerEstabType(EstabType estabType);
+        int GetOverallLatestFinancialDataYear();
+        int GetLatestFinancialDataYearPerEstabType(EstablishmentType estabType);
         string GetCollectionIdByTermByDataGroup(string term, string dataGroup);
-        string GetActiveCollectionByDataGroup(string dataGroup);
         List<string> GetActiveCollectionsByDataGroup(string dataGroup);
-        List<string> GetActiveTermsForMatCentral();
-        List<string> GetActiveTermsForAcademies();
-        List<string> GetActiveTermsForMaintained();
+        string GetLatestActiveCollectionByDataGroup(string dataGroup);
+        List<string> GetActiveTermsByDataGroup(string dataGroup);
         string GetLatestActiveTermByDataGroup(string dataGroup);
     }
 }

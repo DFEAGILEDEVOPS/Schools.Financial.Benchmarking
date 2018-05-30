@@ -43,6 +43,92 @@ namespace SFB.Web.UI.Controllers
             return View("TrustResults", vm);
         }
 
+        public async Task<ActionResult> Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
+        {
+            ChartGroupType chartGroup;
+            switch (tab)
+            {
+                case RevenueGroupType.Expenditure:
+                    chartGroup = ChartGroupType.TotalExpenditure;
+                    break;
+                case RevenueGroupType.Income:
+                    chartGroup = ChartGroupType.TotalIncome;
+                    break;
+                case RevenueGroupType.Balance:
+                    chartGroup = ChartGroupType.InYearBalance;
+                    break;
+                default:
+                    chartGroup = ChartGroupType.All;
+                    break;
+            }
+            
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
+            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+          
+            var academies = _financialDataService.GetAcademiesByMatNumber(term, matNo);
+
+            var trustVM = await BuildTrustVMAsync(matNo, name, academies, tab, chartGroup, financing);
+
+            List<string> terms = _financialDataService.GetActiveTermsForMatCentral();
+            var latestTerm = terms.First();
+
+            UnitType unitType;
+            switch (tab)
+            {
+                case RevenueGroupType.Workforce:
+                    unitType = UnitType.AbsoluteCount;
+                    break;
+                case RevenueGroupType.Balance:
+                    unitType = unit == UnitType.AbsoluteMoney || unit == UnitType.PerPupil || unit == UnitType.PerTeacher ? unit : UnitType.AbsoluteMoney;
+                    break;
+                default:
+                    unitType = unit;
+                    break;
+            }
+
+            _fcService.PopulateHistoricalChartsWithSchoolData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, latestTerm, tab, unitType, EstablishmentType.Academies);
+
+            ViewBag.Tab = tab;
+            ViewBag.ChartGroup = chartGroup;
+            ViewBag.UnitType = unitType;
+            ViewBag.Financing = financing;
+            ViewBag.ChartFormat = format;
+
+            return View(trustVM);
+        }
+
+        public async Task<PartialViewResult> GetCharts(string matNo, string name, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
+        {
+            var dataResponse = _financialDataService.GetAcademiesByMatNumber(term, matNo);
+
+            var trustVM = await BuildTrustVMAsync(matNo, name, dataResponse, revGroup, chartGroup, financing);
+
+            _fcService.PopulateHistoricalChartsWithSchoolData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, term, revGroup, unit, EstablishmentType.MAT);
+
+            ViewBag.ChartFormat = format;
+
+            return PartialView("Partials/Chart", trustVM);
+        }
+
+        public async Task<ActionResult> Download(string matNo, string name)
+        {
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
+            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+
+            var response = _financialDataService.GetAcademiesByMatNumber(term, matNo);
+
+            var trustVM = await BuildTrustVMAsync(matNo, name, response, RevenueGroupType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
+
+            var termsList = _financialDataService.GetActiveTermsForMatCentral();
+            _fcService.PopulateHistoricalChartsWithSchoolData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, EstablishmentType.MAT);
+            
+            string csv = _csvBuilder.BuildCSVContentHistorically(trustVM, latestYear);
+
+            return File(Encoding.UTF8.GetBytes(csv),
+                         "text/plain",
+                         $"HistoricalData-{name}.csv");
+        }
+
         private TrustListViewModel GetTrustViewModelList(dynamic response, string orderBy, int page)
         {
             var trustListVm = new List<TrustViewModel>();
@@ -69,93 +155,7 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        public async Task<ActionResult> Index(string matNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
-        {
-            ChartGroupType chartGroup;
-            switch (tab)
-            {
-                case RevenueGroupType.Expenditure:
-                    chartGroup = ChartGroupType.TotalExpenditure;
-                    break;
-                case RevenueGroupType.Income:
-                    chartGroup = ChartGroupType.TotalIncome;
-                    break;
-                case RevenueGroupType.Balance:
-                    chartGroup = ChartGroupType.InYearBalance;
-                    break;
-                default:
-                    chartGroup = ChartGroupType.All;
-                    break;
-            }
-            
-            var latestYear = _financialDataService.GetLatestDataYearForTrusts();
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-          
-            var dataResponse = _financialDataService.GetAcademiesByMatNumber(term, matNo);
-
-            var sponsorVM = await BuildSponsorVMAsync(matNo, name, dataResponse, tab, chartGroup, financing);
-
-            List<string> terms = _financialDataService.GetActiveTermsForMatCentral();
-            var latestTerm = terms.First();
-
-            UnitType unitType;
-            switch (tab)
-            {
-                case RevenueGroupType.Workforce:
-                    unitType = UnitType.AbsoluteCount;
-                    break;
-                case RevenueGroupType.Balance:
-                    unitType = unit == UnitType.AbsoluteMoney || unit == UnitType.PerPupil || unit == UnitType.PerTeacher ? unit : UnitType.AbsoluteMoney;
-                    break;
-                default:
-                    unitType = unit;
-                    break;
-            }
-
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, latestTerm, tab, unitType, EstabType.Academies);
-
-            ViewBag.Tab = tab;
-            ViewBag.ChartGroup = chartGroup;
-            ViewBag.UnitType = unitType;
-            ViewBag.Financing = financing;
-            ViewBag.ChartFormat = format;
-
-            return View(sponsorVM);
-        }
-
-        public async Task<PartialViewResult> GetCharts(string matNo, string name, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
-        {
-            var dataResponse = _financialDataService.GetAcademiesByMatNumber(term, matNo);
-
-            var sponsorVM = await BuildSponsorVMAsync(matNo, name, dataResponse, revGroup, chartGroup, financing);
-
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, term, revGroup, unit, EstabType.MAT);
-
-            ViewBag.ChartFormat = format;
-
-            return PartialView("Partials/Chart", sponsorVM);
-        }
-
-        public async Task<ActionResult> Download(string matNo, string name)
-        {
-            var latestYear = _financialDataService.GetLatestDataYearForTrusts();
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-
-            var response = _financialDataService.GetAcademiesByMatNumber(term, matNo);
-
-            var sponsorVM = await BuildSponsorVMAsync(matNo, name, response, RevenueGroupType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
-
-            var termsList = _financialDataService.GetActiveTermsForMatCentral();
-            _fcService.PopulateHistoricalChartsWithSchoolData(sponsorVM.HistoricalCharts, sponsorVM.HistoricalSchoolFinancialDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, EstabType.MAT);
-            
-            string csv = _csvBuilder.BuildCSVContentHistorically(sponsorVM, latestYear);
-
-            return File(Encoding.UTF8.GetBytes(csv),
-                         "text/plain",
-                         $"HistoricalData-{name}.csv");
-        }
-
-        private async Task<TrustViewModel> BuildSponsorVMAsync(string matNo, string name, dynamic response, RevenueGroupType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
+        private async Task<TrustViewModel> BuildTrustVMAsync(string matNo, string name, dynamic response, RevenueGroupType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
         {
             var schoolListVM = new List<SchoolViewModel>();
 
@@ -165,28 +165,28 @@ namespace SFB.Web.UI.Controllers
             }
 
             var comparisonListVM = base.ExtractSchoolComparisonListFromCookie();
-            var sponsorVM = new TrustViewModel(matNo, name, new SchoolListViewModel(schoolListVM, comparisonListVM), comparisonListVM);
+            var trustVM = new TrustViewModel(matNo, name, new SchoolListViewModel(schoolListVM, comparisonListVM), comparisonListVM);
             
-            sponsorVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, sponsorVM.EstabType);
-            sponsorVM.ChartGroups = _historicalChartBuilder.Build(tab, sponsorVM.EstabType).DistinctBy(c => c.ChartGroup).ToList();
-            sponsorVM.Terms = _financialDataService.GetActiveTermsForAcademies();
+            trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);
+            trustVM.ChartGroups = _historicalChartBuilder.Build(tab, trustVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
+            trustVM.Terms = _financialDataService.GetActiveTermsForAcademies();
 
-            sponsorVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(sponsorVM.MatNo, matFinancing);
+            trustVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(trustVM.MatNo, matFinancing);
 
-            if (sponsorVM.HistoricalFinancialDataModels.Count > 0)
+            if (trustVM.HistoricalFinancialDataModels.Count > 0)
             {
-                sponsorVM.TotalRevenueIncome = sponsorVM.HistoricalFinancialDataModels.Last().TotalIncome;
-                sponsorVM.TotalRevenueExpenditure = sponsorVM.HistoricalFinancialDataModels.Last().TotalExpenditure;
-                sponsorVM.InYearBalance = sponsorVM.HistoricalFinancialDataModels.Last().InYearBalance;
+                trustVM.TotalRevenueIncome = trustVM.HistoricalFinancialDataModels.Last().TotalIncome;
+                trustVM.TotalRevenueExpenditure = trustVM.HistoricalFinancialDataModels.Last().TotalExpenditure;
+                trustVM.InYearBalance = trustVM.HistoricalFinancialDataModels.Last().InYearBalance;
             }
-            return sponsorVM;
+            return trustVM;
         }
 
         private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(string matCode, MatFinancingType matFinancing)
         {
             var models = new List<FinancialDataModel>();
-            var latestYear = _financialDataService.GetLatestDataYearForTrusts();
-            
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
+
             var taskList = new List<Task<IEnumerable<Document>>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
@@ -208,7 +208,7 @@ namespace SFB.Web.UI.Controllers
                     resultDocument = emptyDoc;
                 }
 
-                models.Add(new FinancialDataModel(matCode, term, resultDocument, EstabType.MAT));
+                models.Add(new FinancialDataModel(matCode, term, resultDocument, EstablishmentType.MAT));
             }
 
             return models;

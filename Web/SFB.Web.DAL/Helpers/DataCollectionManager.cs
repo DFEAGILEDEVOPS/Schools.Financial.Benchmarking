@@ -28,35 +28,36 @@ namespace SFB.Web.DAL.Helpers
 
         public List<string> GetActiveCollectionsByDataGroup(string dataGroup)
         {
-            var colls = GetActiveCollections();
+            var colls = GetCachedActiveCollections();
             var result = colls.Where(w => w.GetProperty("data-group", "") == dataGroup)
                 .Select(s => s.GetProperty("name", ""))
                 .ToList();
             return result;
         }
 
-        public List<string> GetActiveTermsForMatCentral()
+        public List<string> GetActiveTermsByDataGroup(string dataGroup)
         {
-            return GetActiveTermsByDataGroup(DataGroups.MATCentral, "{0} / {1}");
+            string format = dataGroup == DataGroups.Maintained ? "{0} - {1}" : "{0} / {1}";
+
+            var colls = GetCachedActiveCollections();
+            return
+                colls.Where(w => w.GetProperty("data-group", "") == dataGroup)
+                    .OrderByDescending(o => o.GetProperty("term", 0))
+                    .Select(s =>
+                    {
+                        var term = s.GetProperty("term", 0);
+                        return string.Format(format, term - 1, term);
+                    })
+                    .ToList();
         }
 
-        public List<string> GetActiveTermsForAcademies()
-        {
-            return GetActiveTermsByDataGroup(DataGroups.Academies, "{0} / {1}");
-        }
-
-        public List<string> GetActiveTermsForMaintained()
-        {
-            return GetActiveTermsByDataGroup(DataGroups.Maintained);
-        }
-
-        public string GetActiveCollectionByDataGroup(string dataGroup)
+        public string GetLatestActiveCollectionByDataGroup(string dataGroup)
         {
             return
                 GetActiveCollectionsByDataGroup(dataGroup).OrderByDescending(o => o.Split('-').First()).FirstOrDefault();
         }
 
-        public int GetLatestFinancialDataYear()
+        public int GetOverallLatestFinancialDataYear()
         {
             var maintainedLatestCollectionId = GetLatestActiveTermByDataGroup("Maintained");
             var maintanedLatestDataYear =
@@ -73,7 +74,7 @@ namespace SFB.Web.DAL.Helpers
 
         }
 
-        public int GetLatestFinancialDataYearPerEstabType(EstabType type)
+        public int GetLatestFinancialDataYearPerEstabType(EstablishmentType type)
         {
             var latestCollectionId = GetLatestActiveTermByDataGroup(type.ToDataGroup());
             return int.Parse(latestCollectionId.Split('-').Last());
@@ -81,7 +82,7 @@ namespace SFB.Web.DAL.Helpers
 
         public string GetLatestActiveTermByDataGroup(string dataGroup)
         {
-            var latestTerm = GetActiveCollections()
+            var latestTerm = GetCachedActiveCollections()
                 .Where(w => w.GetProperty("data-group", "") == dataGroup)
                 .OrderByDescending(o => o.GetProperty("term", ""))
                 .FirstOrDefault();
@@ -94,7 +95,7 @@ namespace SFB.Web.DAL.Helpers
                 .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
         }
 
-        private List<JObject> GetActiveCollections()
+        private List<JObject> GetCachedActiveCollections()
         {
             var docs = (List<JObject>)HttpContext.Current.Cache.Get("SFBActiveCollectionList");
 
@@ -108,20 +109,6 @@ namespace SFB.Web.DAL.Helpers
             }
 
             return docs;
-        }
-
-        private List<string> GetActiveTermsByDataGroup(string dataGroup, string format = "{0} - {1}")
-        {
-            var colls = GetActiveCollections();
-            return
-                colls.Where(w => w.GetProperty("data-group", "") == dataGroup)
-                    .OrderByDescending(o => o.GetProperty("term", 0))
-                    .Select(s =>
-                    {
-                        var term = s.GetProperty("term", 0);
-                        return string.Format(format, term - 1, term);
-                    })
-                    .ToList();
         }
     }
 }

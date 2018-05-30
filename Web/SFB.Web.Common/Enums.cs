@@ -2,22 +2,23 @@
 
 namespace SFB.Web.Common
 {
-    //Used in conjunction with entity's Financial Type to determine the data groups
-    public enum EstabType
+    //Used in conjunction with entity's Financial Type to determine the target data groups in fibre-directory(DB collection)
+    public enum EstablishmentType
     {
         Academies,
         Maintained,
-        MAT
+        MAT,
+        All
     }
 
-    //TODO: Can be merged with SchoolFinancialType
-    public enum EstablishmentType
-    {
-        All,
-        Academy,
-        Maintained,
-        MAT
-    }
+    ////TODO: Can be merged with SchoolFinancialType
+    //public enum EstablishmentType
+    //{
+    //    All,
+    //    Academy,
+    //    Maintained,
+    //    MAT
+    //}
 
     public enum ComparisonArea
     {

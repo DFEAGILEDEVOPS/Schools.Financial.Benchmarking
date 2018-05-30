@@ -254,7 +254,7 @@ namespace SFB.Web.UI.Controllers
                     Name = benchmarkSchool.Name,
                     Urn = benchmarkSchool.Id,
                     Type = benchmarkSchool.Type,
-                    EstabType = benchmarkSchool.EstabType.ToString()
+                    EstabType = benchmarkSchool.EstablishmentType.ToString()
                 });
 
             if (cookie != null)

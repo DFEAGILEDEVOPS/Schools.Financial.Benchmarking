@@ -92,4 +92,13 @@ namespace SFB.Web.UI.Helpers.Enums
         SupplyStaff,
         OtherStaffCosts,
     }
+
+    public enum TrustCookieActions
+    {
+        SetDefault,        
+        AddDefaultToList,
+        Add,
+        Remove,
+        RemoveAll
+    }
 }

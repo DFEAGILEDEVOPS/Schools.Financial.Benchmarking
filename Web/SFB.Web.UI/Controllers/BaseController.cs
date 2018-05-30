@@ -133,9 +133,9 @@ namespace SFB.Web.UI.Controllers
             return comparisonList;
         }
 
-        protected string FormatTerm(string term, EstabType estabType)
+        protected string FormatTerm(string term, EstablishmentType estabType)
         {
-            return estabType == EstabType.Academies || estabType == EstabType.MAT ? term : term.Replace('/', '-');
+            return estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT ? term : term.Replace('/', '-');
         }
     }
 }

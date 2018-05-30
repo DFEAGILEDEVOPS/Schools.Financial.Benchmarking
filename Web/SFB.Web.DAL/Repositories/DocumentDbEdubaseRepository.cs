@@ -27,7 +27,7 @@ namespace SFB.Web.DAL.Repositories
                     ConnectionProtocol = Protocol.Tcp
                 });
 
-            _collectionName = dataCollectionManager.GetActiveCollectionByDataGroup(DataGroups.Edubase);
+            _collectionName = dataCollectionManager.GetLatestActiveCollectionByDataGroup(DataGroups.Edubase);
         }
 
         public dynamic GetSchoolByUrn(string urn)
@@ -49,9 +49,9 @@ namespace SFB.Web.DAL.Repositories
             });
         }
 
-        public dynamic GetSponsorByName(string name)
+        public dynamic GetTrustByName(string name)
         {
-            return GetSponsorById(DBFieldNames.TRUSTS, name);
+            return GetTrustById(DBFieldNames.TRUSTS, name);
         }
 
         #region Private methods
@@ -86,7 +86,7 @@ namespace SFB.Web.DAL.Repositories
             return result;
         }
 
-        private dynamic GetSponsorById(string fieldName, string id)
+        private dynamic GetTrustById(string fieldName, string id)
         {
             var query = $"SELECT c.URN, c.EstablishmentName FROM c WHERE c['SchoolSponsorFlag']='Linked to a sponsor' AND c['{fieldName}']='{id}'";
             var matches = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();

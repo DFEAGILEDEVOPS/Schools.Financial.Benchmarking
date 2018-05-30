@@ -1,4 +1,4 @@
-﻿@model SFB.Web.UI.Models.SponsorListViewModel
+﻿@model SFB.Web.UI.Models.TrustListViewModel
 
 <div class="column-two-thirds">
 
@@ -14,10 +14,10 @@
         @Html.Partial("Partials/Pagination", Model.Pagination)
 
         <ul>
-            @foreach (var sponsor in Model.ModelList)
+            @foreach (var trust in Model.ModelList)
             {
                 <li class="document">
-                    <a href="/trust/index?matno=@sponsor.MatNo&name=@sponsor.Name" class="bold-small">@sponsor.Name</a>
+                    <a href="/trust/index?matno=@trust.MatNo&name=@trust.Name" class="bold-small">@trust.Name</a>
                 </li>
             }
         </ul>

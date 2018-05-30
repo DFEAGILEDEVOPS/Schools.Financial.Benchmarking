@@ -54,7 +54,7 @@ namespace SFB.Web.UI.Models
         {
             this.MatNo = matNo;
             this.MatName = matName;
-            this.Type = EstabType.MAT.ToString();
+            this.Type = EstablishmentType.MAT.ToString();
         }
 
         public bool Equals(BenchmarkTrustModel other)

@@ -30,7 +30,7 @@ namespace SFB.Web.UI.UnitTests
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstabType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -56,7 +56,7 @@ namespace SFB.Web.UI.UnitTests
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstabType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -82,7 +82,7 @@ namespace SFB.Web.UI.UnitTests
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstabType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -109,7 +109,7 @@ namespace SFB.Web.UI.UnitTests
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstabType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -136,7 +136,7 @@ namespace SFB.Web.UI.UnitTests
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstabType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -163,7 +163,7 @@ namespace SFB.Web.UI.UnitTests
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstabType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -190,7 +190,7 @@ namespace SFB.Web.UI.UnitTests
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstabType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -216,7 +216,7 @@ namespace SFB.Web.UI.UnitTests
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstabType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 

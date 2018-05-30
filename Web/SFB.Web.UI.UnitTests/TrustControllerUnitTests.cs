@@ -45,17 +45,17 @@ namespace SFB.Web.UI.UnitTests
             mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentral())
                 .Returns(new List<string> { "2015" });
 
-            mockFinancialDataService.Setup(m => m.GetLatestDataYearForTrusts())
+            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabType(EstablishmentType.MAT))
                 .Returns(2015);
 
-            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(EstabType.MAT))
+            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT))
                 .Returns(2015);
 
-            mockDataCollectionManager.Setup(m => m.GetActiveTermsForMatCentral())
+            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroup(DataGroups.MATCentral))
                 .Returns(new List<string> {"2015"});
 
             mockHistoricalChartBuilder
-                .Setup(m => m.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstabType>()))
+                .Setup(m => m.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
             var controller = new TrustController(mockHistoricalChartBuilder.Object, 
