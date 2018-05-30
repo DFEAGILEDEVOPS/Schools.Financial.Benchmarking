@@ -22,7 +22,7 @@ namespace SFB.Web.Domain.Models
             EstabType = estabType;
         }
 
-        public int LaNumber => GetInt("LA");
+        public int LaNumber => TryGetInt("LA");
 
         #region Financial Data
 
@@ -350,6 +350,22 @@ namespace SFB.Web.Domain.Models
             if (FinancialDataDocumentModel != null)
             {
                 return FinancialDataDocumentModel.GetPropertyValue<int>(fieldName);
+            }
+            return 0;
+        }
+
+        private int TryGetInt(string fieldName)
+        {
+            if (FinancialDataDocumentModel != null)
+            {
+                try
+                {
+                    return FinancialDataDocumentModel.GetPropertyValue<int>(fieldName);
+                }
+                catch
+                {
+                    return 0;
+                }
             }
             return 0;
         }
