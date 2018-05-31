@@ -148,7 +148,7 @@ namespace SFB.Web.UI.Models
 
         public bool HasIncompleteFinancialData => GetInt("Period covered by return") != 12;
 
-        public override EstablishmentType EstablishmentType => GetString("FinanceType") == "A" ? EstablishmentType.Academies : EstablishmentType.Maintained;
+        public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), GetString("FinanceType"));
 
         public bool HasCoordinates
         {
