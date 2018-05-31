@@ -11,15 +11,6 @@ namespace SFB.Web.Common
         All
     }
 
-    ////TODO: Can be merged with SchoolFinancialType
-    //public enum EstablishmentType
-    //{
-    //    All,
-    //    Academy,
-    //    Maintained,
-    //    MAT
-    //}
-
     public enum ComparisonArea
     {
         All,

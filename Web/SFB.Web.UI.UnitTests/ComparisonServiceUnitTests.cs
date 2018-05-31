@@ -21,7 +21,7 @@ namespace SFB.Web.UI.UnitTests
             var testResult = new Document();
             testResult.SetPropertyValue("URN", "321");
             testResult.SetPropertyValue("School Name", "test");
-            testResult.SetPropertyValue("FinanceType", "A");
+            testResult.SetPropertyValue("FinanceType", "Academies");
             testResult.SetPropertyValue("UrbanRuralInner", "Town and fringe");
             Task<List<Document>> task = Task.Run(() =>
             {

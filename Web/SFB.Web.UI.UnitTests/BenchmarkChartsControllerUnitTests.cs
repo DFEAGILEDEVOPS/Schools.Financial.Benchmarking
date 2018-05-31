@@ -58,7 +58,7 @@ namespace SFB.Web.UI.UnitTests
             var testResult = new Document();
             testResult.SetPropertyValue("URN", "321");
             testResult.SetPropertyValue("School Name", "test");
-            testResult.SetPropertyValue("FinanceType", "A");
+            testResult.SetPropertyValue("FinanceType", "Academies");
             Task<List<Document>> task = Task.Run(() =>
             {
                 return new List<Document> { testResult };
@@ -114,7 +114,7 @@ namespace SFB.Web.UI.UnitTests
             var testResult = new Document();
             testResult.SetPropertyValue("URN", "123");
             testResult.SetPropertyValue("School Name", "test");
-            testResult.SetPropertyValue("FinanceType", "A");
+            testResult.SetPropertyValue("FinanceType", "Academies");
             Task<List<Document>> task = Task.Run(() =>
             {
                 return new List<Document> { testResult };
@@ -189,7 +189,7 @@ namespace SFB.Web.UI.UnitTests
             var testResult = new Document();
             testResult.SetPropertyValue("URN", "321");
             testResult.SetPropertyValue("School Name", "test");
-            testResult.SetPropertyValue("FinanceType", "A");
+            testResult.SetPropertyValue("FinanceType", "Academies");
             Task<List<Document>> task = Task.Run(() =>
             {
                 return new List<Document> { testResult };
@@ -247,7 +247,7 @@ namespace SFB.Web.UI.UnitTests
             var testResult = new Document();
             testResult.SetPropertyValue("URN", "123");
             testResult.SetPropertyValue("School Name", "test");
-            testResult.SetPropertyValue("FinanceType", "A");
+            testResult.SetPropertyValue("FinanceType", "Academies");
             Task<List<Document>> task = Task.Run(() =>
             {
                 return new List<Document> { testResult };

@@ -278,18 +278,17 @@ namespace SFB.Web.DAL.Repositories
 
             IQueryable<Document> result;
 
-            //TODO: Is this still necessary?
-            if (dataGroup == DataGroups.Academies)
+            if (dataGroup == DataGroups.Academies || dataGroup == DataGroups.MATAllocs)
             {
                 result = _client.CreateDocumentQuery<Document>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT c['URN'], c['School Name'], c['Type'],  'A' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
+                    $"SELECT c['URN'], c['School Name'], c['Type'],  '{DataGroups.Academies}' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
             }
             else
             {
                 result = _client.CreateDocumentQuery<Document>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT c['URN'], c['School Name'], c['Type'], 'M' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
+                    $"SELECT c['URN'], c['School Name'], c['Type'], '{DataGroups.Maintained}' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
             }
 
             return await result.QueryAsync();

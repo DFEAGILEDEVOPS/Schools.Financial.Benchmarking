@@ -68,7 +68,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     Name = schoolDoc.GetPropertyValue<string>("School Name"),
                     Type = schoolDoc.GetPropertyValue<string>("Type"),
-                    EstabType = schoolDoc.GetPropertyValue<string>("FinanceType") == "A" ? EstablishmentType.Academies.ToString() : EstablishmentType.Maintained.ToString(),
+                    EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
                     Urn = schoolDoc.GetPropertyValue<string>("URN")
                 };
                 cookie = base.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST, benchmarkSchoolToAdd);
@@ -128,7 +128,7 @@ namespace SFB.Web.UI.Controllers
                         {
                             Name = schoolDoc.GetPropertyValue<string>("School Name"),
                             Type = schoolDoc.GetPropertyValue<string>("Type"),
-                            EstabType = schoolDoc.GetPropertyValue<string>("FinanceType") == "A" ? EstablishmentType.Academies.ToString() : EstablishmentType.Maintained.ToString(),
+                            EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
                             Urn = schoolDoc.GetPropertyValue<string>("URN")
                         };
                         cookie = base.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST, benchmarkSchoolToAdd);
@@ -145,7 +145,7 @@ namespace SFB.Web.UI.Controllers
                         {
                             Name = schoolDoc.GetPropertyValue<string>("School Name"),
                             Type = schoolDoc.GetPropertyValue<string>("Type"),
-                            EstabType = schoolDoc.GetPropertyValue<string>("FinanceType") == "A" ? EstablishmentType.Academies.ToString() : EstablishmentType.Maintained.ToString(),
+                            EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
                             Urn = schoolDoc.GetPropertyValue<string>("URN")
                         };
                         cookie = base.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST, benchmarkSchoolToAdd);
