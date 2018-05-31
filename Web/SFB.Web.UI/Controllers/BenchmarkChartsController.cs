@@ -373,6 +373,7 @@ namespace SFB.Web.UI.Controllers
 
             ViewBag.EstablishmentType = type;
             ViewBag.ChartFormat = format;
+            ViewBag.UnitType = showValue;
 
             return PartialView("Partials/Chart", benchmarkCharts);
         }
