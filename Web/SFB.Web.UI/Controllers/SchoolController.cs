@@ -98,9 +98,9 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpHead]
-        public ActionResult Status(int urn)
+        public ActionResult Status(string urn)
         {
-            var found = _contextDataService.QuerySchoolByUrn(urn.ToString());
+            var found = _contextDataService.QuerySchoolByUrn(urn);
             return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NotFound);
         }
 
