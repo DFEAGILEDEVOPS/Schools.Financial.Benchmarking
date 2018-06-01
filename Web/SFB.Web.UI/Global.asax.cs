@@ -5,6 +5,11 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.ApplicationInsights.Extensibility;
+using Autofac.Integration.Mvc;
+using Autofac;
+using SFB.Web.Domain.Services.DataAccess;
+using System.Web.Caching;
+using System.Diagnostics;
 
 namespace SFB.Web.UI 
 {
@@ -22,6 +27,10 @@ namespace SFB.Web.UI
 
             var enableAITelemetry = ConfigurationManager.AppSettings["EnableAITelemetry"];
             TelemetryConfiguration.Active.DisableTelemetry = enableAITelemetry == null || !bool.Parse(enableAITelemetry);
+
+            #if !DEBUG
+            CacheSchoolUrns();
+            #endif
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -40,6 +49,16 @@ namespace SFB.Web.UI
         protected void Application_PreSendRequestHeaders()
         {
             Response.Headers.Remove("Server");
+        }
+
+        private void CacheSchoolUrns()
+        {
+            using (var scope = AutofacDependencyResolver.Current.ApplicationContainer.BeginLifetimeScope())
+            {
+                var service = scope.Resolve<IContextDataService>();                
+                var urnList = service.GetAllSchoolUrns();
+                HttpContext.Current.Cache.Insert("SFBActiveURNList", urnList);               
+            }            
         }
     }
 }

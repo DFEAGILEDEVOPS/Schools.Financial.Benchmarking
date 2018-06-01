@@ -106,6 +106,15 @@ namespace SFB.Web.DAL.Repositories
             return result;
         }
 
+        public List<int> GetAllSchoolUrns()
+        {
+            var query = $"SELECT c.URN FROM c";
+
+            var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
+
+            return result.Select(r => r.GetPropertyValue<int>("URN")).ToList();
+        }
+
 
         #endregion
     }

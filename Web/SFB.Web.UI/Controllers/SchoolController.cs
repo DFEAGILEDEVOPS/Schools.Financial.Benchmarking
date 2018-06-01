@@ -1,6 +1,5 @@
 ﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -8,7 +7,6 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using System.Web;
-using System.Web.UI;
 using Microsoft.Ajax.Utilities;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
@@ -98,10 +96,11 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpHead]
-        public ActionResult Status(string urn)
-        {
-            var found = _contextDataService.QuerySchoolByUrn(urn);
-            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NotFound);
+        public ActionResult Status(int urn)
+        { 
+            var urns = (List<int>)HttpContext.Cache.Get("SFBActiveURNList");
+            var found = urns.Contains(urn);         
+            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NotFound);                               
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)

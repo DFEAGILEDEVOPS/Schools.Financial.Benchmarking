@@ -9,5 +9,6 @@ namespace SFB.Web.DAL.Repositories
         dynamic GetSchoolByLaEstab(string laEstab);
         dynamic GetSponsorByName(string name);
         dynamic GetMultipleSchoolsByUrns(List<string> urns);
+        List<int> GetAllSchoolUrns();
     }
 }
