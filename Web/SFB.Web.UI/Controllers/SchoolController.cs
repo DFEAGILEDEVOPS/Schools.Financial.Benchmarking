@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
+using System.Web.UI;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -36,9 +37,9 @@ namespace SFB.Web.UI.Controllers
             _csvBuilder = csvBuilder;
         }
 
-        #if !DEBUG
+#if !DEBUG
         [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
-        #endif
+#endif
         public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
