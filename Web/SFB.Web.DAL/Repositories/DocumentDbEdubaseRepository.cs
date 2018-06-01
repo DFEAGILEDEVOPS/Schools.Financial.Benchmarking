@@ -35,6 +35,15 @@ namespace SFB.Web.DAL.Repositories
             return GetSchoolById(new Dictionary<string, string> { { DBFieldNames.URN, urn } });
         }
 
+
+        public bool QuerySchoolByUrn(string urn)
+        {
+            var query = $"SELECT c.id FROM c WHERE c.URN={urn}";
+
+            var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+            return result != null ;
+        }
+
         public dynamic GetMultipleSchoolsByUrns(List<string> urns)
         {
             return GetMultipleSchoolsByIds(DBFieldNames.URN, urns);

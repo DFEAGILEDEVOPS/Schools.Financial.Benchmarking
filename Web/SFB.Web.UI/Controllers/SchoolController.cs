@@ -100,8 +100,8 @@ namespace SFB.Web.UI.Controllers
         [HttpHead]
         public ActionResult Status(int urn)
         {
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
-            return schoolDetailsFromEdubase == null ? new HttpStatusCodeResult(HttpStatusCode.NotFound) : new HttpStatusCodeResult(HttpStatusCode.OK);
+            var found = _contextDataService.QuerySchoolByUrn(urn.ToString());
+            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NotFound);
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)

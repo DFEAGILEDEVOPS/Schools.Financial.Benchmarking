@@ -16,7 +16,12 @@ namespace SFB.Web.Domain.Services.DataAccess
         {
             return _edubaseRepository.GetSchoolByUrn(urn);
         }
-        
+
+        public bool QuerySchoolByUrn(string urn)
+        {
+            return _edubaseRepository.QuerySchoolByUrn(urn);
+        }
+
         public dynamic GetSchoolByLaEstab(string laEstab)
         {
             return _edubaseRepository.GetSchoolByLaEstab(laEstab);
