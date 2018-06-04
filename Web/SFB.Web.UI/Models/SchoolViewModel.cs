@@ -13,9 +13,9 @@ namespace SFB.Web.UI.Models
             base.DataModel = model;
         }
 
-        public SchoolViewModel(dynamic SchoolFinancialDataModel, SchoolComparisonListModel comparisonList)
+        public SchoolViewModel(dynamic SchoolContextDataModel, SchoolComparisonListModel comparisonList)
         {
-            base.DataModel = SchoolFinancialDataModel;
+            base.DataModel = SchoolContextDataModel;
             base.ComparisonList = comparisonList;
         }
 
