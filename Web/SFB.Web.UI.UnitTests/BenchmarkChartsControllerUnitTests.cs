@@ -56,7 +56,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new Document();
-            testResult.SetPropertyValue("URN", "321");
+            testResult.SetPropertyValue("URN", 321);
             testResult.SetPropertyValue("School Name", "test");
             testResult.SetPropertyValue("FinanceType", "Academies");
             Task<List<Document>> task = Task.Run(() =>
@@ -68,8 +68,14 @@ namespace SFB.Web.UI.UnitTests
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
-            testEduResult.URN = "321";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("321")).Returns((string urn) => testEduResult);
+            testEduResult.URN = 321;
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(321)).Returns((int urn) => testEduResult);
+
+            dynamic testEduHomeResult = new Document();
+            testEduHomeResult.URN = 123;
+            testEduHomeResult.EstablishmentName = "test";
+            testEduHomeResult.FinanceType = "Academies";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduHomeResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
             Task<ComparisonResult> cTask = Task.Run(() =>
@@ -96,7 +102,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, "123", ComparisonArea.All);
+            var result = controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, 123, ComparisonArea.All);
 
             result.Wait();
 
@@ -112,7 +118,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new Document();
-            testResult.SetPropertyValue("URN", "123");
+            testResult.SetPropertyValue("URN", 123);
             testResult.SetPropertyValue("School Name", "test");
             testResult.SetPropertyValue("FinanceType", "Academies");
             Task<List<Document>> task = Task.Run(() =>
@@ -125,8 +131,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
-            testEduResult.URN = "123";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Academies";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
             Task<ComparisonResult> cTask = Task.Run(() =>
@@ -153,7 +160,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, "123", ComparisonArea.All);
+            var result = controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, 123, ComparisonArea.All);
 
             result.Wait();
 
@@ -187,7 +194,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new Document();
-            testResult.SetPropertyValue("URN", "321");
+            testResult.SetPropertyValue("URN", 321);
             testResult.SetPropertyValue("School Name", "test");
             testResult.SetPropertyValue("FinanceType", "Academies");
             Task<List<Document>> task = Task.Run(() =>
@@ -197,9 +204,15 @@ namespace SFB.Web.UI.UnitTests
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
-            testEduResult.URN = "321";
+            testEduResult.URN = 321;
             testEduResult.EstablishmentName = "test";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("321")).Returns((string urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(321)).Returns((int urn) => testEduResult);
+
+            dynamic testEduHomeResult = new Document();
+            testEduHomeResult.URN = 123;
+            testEduHomeResult.EstablishmentName = "test";
+            testEduHomeResult.FinanceType = "Academies";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduHomeResult);
 
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
@@ -229,7 +242,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, "123", ComparisonArea.All, BenchmarkListOverwriteStrategy.Add);
+            var result = controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, 123, ComparisonArea.All, BenchmarkListOverwriteStrategy.Add);
 
             result.Wait();
 
@@ -245,7 +258,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new Document();
-            testResult.SetPropertyValue("URN", "123");
+            testResult.SetPropertyValue("URN", 123);
             testResult.SetPropertyValue("School Name", "test");
             testResult.SetPropertyValue("FinanceType", "Academies");
             Task<List<Document>> task = Task.Run(() =>
@@ -259,7 +272,8 @@ namespace SFB.Web.UI.UnitTests
             dynamic testEduResult = new Document();
             testEduResult.URN = "123";
             testEduResult.EstablishmentName = "test";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
+            testEduResult.FinanceType = "Academies";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -286,7 +300,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, "123", ComparisonArea.All);
+            var result = controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, 123, ComparisonArea.All);
 
             result.Wait();
 

@@ -22,7 +22,7 @@ namespace SFB.Web.UI.Models
         public string LatestTermMaintained { get; set; }
         public ComparisonArea AreaType { get; }
         public string LaCode { get; }
-        public string URN { get; }
+        public int URN { get; }
 
         public bool HasIncompleteFinancialData
         {
@@ -57,7 +57,7 @@ namespace SFB.Web.UI.Models
         public bool NoResultsForSimpleSearch => (ComparisonType == ComparisonType.Basic && ComparisonListCount < 2);
         public int BasketSize { get; set; }
 
-        public BenchmarkChartListViewModel(List<ChartViewModel> modelList, SchoolComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, string urn, int basketSize, TrustComparisonListModel trustComparisonList = null)
+        public BenchmarkChartListViewModel(List<ChartViewModel> modelList, SchoolComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, int urn, int basketSize, TrustComparisonListModel trustComparisonList = null)
         {
             base.SchoolComparisonList = comparisonList;
             base.ModelList = modelList;

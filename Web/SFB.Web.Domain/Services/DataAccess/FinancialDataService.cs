@@ -24,7 +24,7 @@ namespace SFB.Web.Domain.Services.DataAccess
             return await _financialDataRepository.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
         }
 
-        public Document GetSchoolDataDocument(string urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+        public Document GetSchoolDataDocument(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
         {
             return _financialDataRepository.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);
         }

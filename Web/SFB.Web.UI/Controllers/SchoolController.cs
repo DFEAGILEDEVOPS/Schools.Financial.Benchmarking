@@ -62,7 +62,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
  
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
             
             if (schoolDetailsFromEdubase == null)
             {
@@ -110,7 +110,7 @@ namespace SFB.Web.UI.Controllers
 
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.GetValueOrDefault()), null);
 
                 cookie = base.UpdateSchoolComparisonListCookie(withAction,
                     new BenchmarkSchoolModel()
@@ -135,7 +135,7 @@ namespace SFB.Web.UI.Controllers
                 new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
         }
         
-        public PartialViewResult UpdateBenchmarkBasketAddMultiple(string[] urns)
+        public PartialViewResult UpdateBenchmarkBasketAddMultiple(int[] urns)
         {
             HttpCookie cookie = null;
 
@@ -169,14 +169,14 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult GetBenchmarkControls(int urn)
         {
-            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), base.ExtractSchoolComparisonListFromCookie()));
         }
 
         public async Task<PartialViewResult> GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include, ChartFormat format = ChartFormat.Charts)
         {
             financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
 
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
 
@@ -189,7 +189,7 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> Download(int urn)
         {
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
 

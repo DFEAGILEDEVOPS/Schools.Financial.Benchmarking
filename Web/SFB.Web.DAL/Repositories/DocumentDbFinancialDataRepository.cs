@@ -33,7 +33,7 @@ namespace SFB.Web.DAL.Repositories
                 });
         }
 
-        public Document GetSchoolDataDocument(string urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
+        public Document GetSchoolDataDocument(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var dataGroup = estabType.ToDataGroup(cFinance);
 
@@ -46,12 +46,16 @@ namespace SFB.Web.DAL.Repositories
 
             try
             {
-                var query =
+                var query = $"SELECT * FROM c WHERE c.URN=@URN";
+                SqlQuerySpec querySpec = new SqlQuerySpec(query);
+                querySpec.Parameters = new SqlParameterCollection();
+                querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
+                var documentQuery =
                     _client.CreateDocumentQuery<Document>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT * FROM c WHERE c.URN={urn}");
+                        querySpec);
 
-                var result = query.ToList().FirstOrDefault();
+                var result = documentQuery.ToList().FirstOrDefault();
 
                 if (dataGroup == DataGroups.MATAllocs && result == null)//if nothing found in MAT-Allocs collection try to source it from Academies data
                 {

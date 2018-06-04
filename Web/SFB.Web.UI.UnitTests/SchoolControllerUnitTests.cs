@@ -49,8 +49,9 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
-            testEduResult.URN = "123";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -88,8 +89,9 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
-            testEduResult.URN = "123";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -127,8 +129,9 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
-            testEduResult.URN = "123";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -166,8 +169,9 @@ namespace SFB.Web.UI.UnitTests
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
-            testEduResult.URN = "123";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testEduResult);
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder

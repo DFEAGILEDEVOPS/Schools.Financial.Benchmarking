@@ -12,6 +12,7 @@ using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Services;
+using System;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -67,7 +68,7 @@ namespace SFB.Web.UI.Controllers
                         {
                             searchResp = IsLaEstab(nameId)
                                 ? _contextDataService.GetSchoolByLaEstab(nameIdSanitized)
-                                : _contextDataService.GetSchoolByUrn(nameIdSanitized);
+                                : _contextDataService.GetSchoolByUrn(Int32.Parse(nameIdSanitized));
 
                             if (searchResp == null)
                             {
@@ -246,7 +247,7 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
 
             var cookie = base.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolModel()
@@ -341,7 +342,7 @@ namespace SFB.Web.UI.Controllers
         private async Task<dynamic> GetSearchResults(
             string nameId,
             string searchType,
-            List<string> urnList,
+            List<int> urnList,
             string locationorpostcode,
             string locationCoordinates,
             string laCode,

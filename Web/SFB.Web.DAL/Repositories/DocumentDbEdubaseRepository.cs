@@ -52,47 +52,34 @@ namespace SFB.Web.DAL.Repositories
             _client.CreateUserDefinedFunctionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), parseFtUdf);
         }
 
-        public dynamic GetSchoolByUrn(string urn)
+        public dynamic GetSchoolByUrn(int urn)
         {
-            return GetSchoolById(new Dictionary<string, string> { { DBFieldNames.URN, urn } });
+            return GetSchoolById(new Dictionary<string, int> { { DBFieldNames.URN, urn } });
         }
 
-
-        public bool QuerySchoolByUrn(string urn)
-        {
-            var query = $"SELECT c.id FROM c WHERE c.URN={urn}";
-
-            var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
-            return result != null ;
-        }
-
-        public dynamic GetMultipleSchoolsByUrns(List<string> urns)
+        public dynamic GetMultipleSchoolsByUrns(List<int> urns)
         {
             return GetMultipleSchoolsByIds(DBFieldNames.URN, urns);
         }
 
         public dynamic GetSchoolByLaEstab(string laEstab)
         {
-            return GetSchoolById(new Dictionary<string, string>
+            return GetSchoolById(new Dictionary<string, int>
             {
-                {DBFieldNames.LA_CODE, laEstab.Substring(0, 3)},
-                {DBFieldNames.ESTAB_NO, laEstab.Substring(3)}
+                {DBFieldNames.LA_CODE, Int32.Parse(laEstab.Substring(0, 3))},
+                {DBFieldNames.ESTAB_NO, Int32.Parse(laEstab.Substring(3))}
             });
-        }
-
-        public dynamic GetTrustByName(string name)
-        {
-            return GetTrustById(DBFieldNames.TRUSTS, name);
         }
 
         #region Private methods
        
-        private dynamic GetSchoolById(Dictionary<string, string> fields)
+        private dynamic GetSchoolById(Dictionary<string, int> fields)
         {
+
             var sb = new StringBuilder();
             foreach (var field in fields)
             {
-                sb.Append($"c.{field.Key}={field.Value} AND ");
+                sb.Append($"c.{field.Key}=@{field.Key} AND ");
             }
 
             var where = sb.ToString().Substring(0, sb.ToString().Length - 5);
@@ -102,29 +89,25 @@ namespace SFB.Web.DAL.Repositories
                 " c['LAName'], c['LACode'], c['EstablishmentNumber'], c['TelephoneNum'], c['NumberOfPupils'], c['StatutoryLowAge'], c['StatutoryHighAge'], c['HeadFirstName'], " +
                 $"c['HeadLastName'], c['OfficialSixthForm'], c['SchoolWebsite'], c['OfstedRating'], c['OfstedLastInsp'], udf.PARSE_FINANCIAL_TYPE_CODE(c['FinanceType']) AS FinanceType, c['OpenDate'], c['CloseDate'] FROM c WHERE {where}";
 
-            var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            foreach (var field in fields)
+            {
+                querySpec.Parameters.Add(new SqlParameter($"@{field.Key}", field.Value));                
+            }
+                        
+            var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
             return result;
         }
 
-        private dynamic GetMultipleSchoolsByIds(string fieldName, List<string> ids)
+        private dynamic GetMultipleSchoolsByIds(string fieldName, List<int> ids)
         {
             var sb = new StringBuilder();
             ids.ForEach(u => sb.Append(u + ","));
 
-            var query = "SELECT c['URN'], c['EstablishmentName'], c['OverallPhase'], c['TypeOfEstablishment'], c['Street'], c['Town'], c['Postcode'], c['FinanceType']" +
+            var query = "SELECT c['URN'], c['EstablishmentName'], c['OverallPhase'], c['TypeOfEstablishment'], c['Street'], c['Town'], c['Postcode'], udf.PARSE_FINANCIAL_TYPE_CODE(c['FinanceType']) AS FinanceType" +
                         $" FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd((','))})";
             var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
-            return result;
-        }
-
-        private dynamic GetTrustById(string fieldName, string id)
-        {
-            var query = $"SELECT c.URN, c.EstablishmentName FROM c WHERE c['SchoolSponsorFlag']='Linked to a sponsor' AND c['{fieldName}']='{id}'";
-            var matches = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
-
-            dynamic result = new ExpandoObject();
-            result.Results = matches;
-
             return result;
         }
 

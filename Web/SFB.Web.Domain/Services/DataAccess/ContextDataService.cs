@@ -12,7 +12,7 @@ namespace SFB.Web.Domain.Services.DataAccess
             _edubaseRepository = edubaseRepository;
         }
 
-        public dynamic GetSchoolByUrn(string urn)
+        public dynamic GetSchoolByUrn(int urn)
         {
             return _edubaseRepository.GetSchoolByUrn(urn);
         }
@@ -22,22 +22,12 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _edubaseRepository.GetAllSchoolUrns();
         }
 
-        public bool QuerySchoolByUrn(string urn)
-        {
-            return _edubaseRepository.QuerySchoolByUrn(urn);
-        }
-
         public dynamic GetSchoolByLaEstab(string laEstab)
         {
             return _edubaseRepository.GetSchoolByLaEstab(laEstab);
         }
 
-        public dynamic GetTrustByName(string name)
-        {
-            return _edubaseRepository.GetTrustByName(name);
-        }
-
-        public dynamic GetMultipleSchoolsByUrns(List<string> urns)
+        public dynamic GetMultipleSchoolsByUrns(List<int> urns)
         {
             return _edubaseRepository.GetMultipleSchoolsByUrns(urns);
         }

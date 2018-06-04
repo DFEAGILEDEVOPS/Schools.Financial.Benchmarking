@@ -189,9 +189,9 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchActionRedirectsToSchoolViewIfUrnIsUsedAsId()
         {            
             dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "123456";
+            testResult.URN = 123456;
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123456)).Returns((int urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
 
@@ -305,8 +305,9 @@ namespace SFB.Web.UI.UnitTests
 
             dynamic testResult = new Microsoft.Azure.Documents.Document();
             testResult.URN = "123456";
+            testResult.FinanceType = "Maintained";
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123456)).Returns((int urn) => testResult);
 
             var result = controller.UpdateBenchmarkBasket(123456, CompareActions.ADD_TO_COMPARISON_LIST);
 
@@ -336,8 +337,9 @@ namespace SFB.Web.UI.UnitTests
 
             dynamic testResult = new Microsoft.Azure.Documents.Document();
             testResult.URN = "123456";
+            testResult.FinanceType = "Maintained";
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123456)).Returns((int urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
 
@@ -375,8 +377,9 @@ namespace SFB.Web.UI.UnitTests
 
             dynamic testResult = new Microsoft.Azure.Documents.Document();
             testResult.URN = "123456";
+            testResult.FinanceType = "Maintained";
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123456)).Returns((int urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
 
@@ -409,8 +412,9 @@ namespace SFB.Web.UI.UnitTests
             
             dynamic testResult = new Microsoft.Azure.Documents.Document();
             testResult.URN = "123456";
+            testResult.FinanceType = "Maintained";
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123456)).Returns((int urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
 
@@ -445,9 +449,10 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
 
             dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "123";
+            testResult.URN = 123;
+            testResult.FinanceType = "Maintained";
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testResult);
 
             var rc = new RequestContext(context.Object, new RouteData());
 

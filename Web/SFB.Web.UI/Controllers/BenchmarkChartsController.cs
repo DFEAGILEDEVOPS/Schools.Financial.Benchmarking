@@ -48,7 +48,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> GenerateFromSimpleCriteria(string urn, int basketSize, EstablishmentType estType, SimpleCriteria simpleCriteria)
+        public async Task<ActionResult> GenerateFromSimpleCriteria(int urn, int basketSize, EstablishmentType estType, SimpleCriteria simpleCriteria)
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
             
@@ -83,7 +83,7 @@ namespace SFB.Web.UI.Controllers
         //[HttpPost]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
-            var urn = TempData["URN"].ToString();
+            var urn = (int)TempData["URN"];
             var usedCriteria = TempData["BenchmarkCriteria"] as BenchmarkCriteria;
             var searchedEstabType = EstablishmentType.All;
 
@@ -109,7 +109,7 @@ namespace SFB.Web.UI.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, string urn, ComparisonArea areaType, BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite)
+        public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int urn, ComparisonArea areaType, BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite)
         {
             criteria.LocalAuthorityCode = lacode;
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
@@ -175,7 +175,7 @@ namespace SFB.Web.UI.Controllers
             var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
             var vm = new BenchmarkChartListViewModel(customCharts, base.ExtractSchoolComparisonListFromCookie(), null,
-                ComparisonType.Manual, null, null, null, EstablishmentType.All, EstablishmentType.All, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, null, ComparisonListLimit.DEFAULT);
+                ComparisonType.Manual, null, null, null, EstablishmentType.All, EstablishmentType.All, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, ComparisonListLimit.DEFAULT);
 
             ViewBag.ChartFormat = format;
 
@@ -183,7 +183,7 @@ namespace SFB.Web.UI.Controllers
         }
        
         public async Task<ActionResult> Index( 
-            string urn, 
+            int urn, 
             SimpleCriteria simpleCriteria,
             BenchmarkCriteria benchmarkCriteria,
             int basketSize = ComparisonListLimit.DEFAULT,
@@ -281,7 +281,7 @@ namespace SFB.Web.UI.Controllers
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
             var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, null, chartGroups, ComparisonType.Manual, null, null, null, EstablishmentType.MAT, EstablishmentType.MAT, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, null, ComparisonListLimit.DEFAULT, base.ExtractTrustComparisonListFromCookie());
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, null, chartGroups, ComparisonType.Manual, null, null, null, EstablishmentType.MAT, EstablishmentType.MAT, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, ComparisonListLimit.DEFAULT, base.ExtractTrustComparisonListFromCookie());
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -343,7 +343,7 @@ namespace SFB.Web.UI.Controllers
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
             var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, base.ExtractSchoolComparisonListFromCookie(), chartGroups, ComparisonType.Manual, null, null, null, type, type, null, null, academiesTerm, maintainedTerm,ComparisonArea.All, null, null, ComparisonListLimit.DEFAULT, base.ExtractTrustComparisonListFromCookie());
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, base.ExtractSchoolComparisonListFromCookie(), chartGroups, ComparisonType.Manual, null, null, null, type, type, null, null, academiesTerm, maintainedTerm,ComparisonArea.All, null, 0, ComparisonListLimit.DEFAULT, base.ExtractTrustComparisonListFromCookie());
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -600,13 +600,13 @@ namespace SFB.Web.UI.Controllers
             return models;
         }
 
-        private SchoolViewModel InstantiateBenchmarkSchool(string urn)
+        private SchoolViewModel InstantiateBenchmarkSchool(int urn)
         {
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), base.ExtractSchoolComparisonListFromCookie());
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
             var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstablishmentType);
-            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn, term, document, benchmarkSchool.EstablishmentType) };
+            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn.ToString(), term, document, benchmarkSchool.EstablishmentType) };
             return benchmarkSchool;
         }
 

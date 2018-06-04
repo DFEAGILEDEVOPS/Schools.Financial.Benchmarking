@@ -37,7 +37,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new BenchmarkCriteriaController(null, null, null, null);
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var response = controller.OverwriteStrategy("10000", ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys"} }), ComparisonArea.All, 306, "test");
+            var response = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys"} }), ComparisonArea.All, 306, "test");
             
 
             Assert.IsNotNull(response);
@@ -83,12 +83,12 @@ namespace SFB.Web.UI.UnitTests
             dynamic testEduResult = new Document();
             testEduResult.URN = "100";
             testEduResult.EstablishmentName = "test";
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("100")).Returns((string urn) => testEduResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(100)).Returns((string urn) => testEduResult);
 
             var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null);
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = controller.OverwriteStrategy("10000", ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys" } }), ComparisonArea.All, 306, "test");
+            var result = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys" } }), ComparisonArea.All, 306, "test");
 
             Assert.IsNotNull(response);
             Assert.AreEqual("BenchmarkCharts", (result as RedirectToRouteResult).RouteValues["Controller"]);
@@ -111,9 +111,10 @@ namespace SFB.Web.UI.UnitTests
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testResult = new Document();
-            testResult.URN = "123";
+            testResult.URN = 123;
             testResult.EstablishmentName = "test";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testResult);
+            testResult.FinanceType = "Maintained";
+            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testResult);
 
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
 

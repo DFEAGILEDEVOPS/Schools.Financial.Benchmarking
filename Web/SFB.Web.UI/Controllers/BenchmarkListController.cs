@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SFB.Web.Domain.Services.DataAccess;
+using System;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -22,7 +23,7 @@ namespace SFB.Web.UI.Controllers
 
             if (comparisonList.BenchmarkSchools.Count > 1)
             {
-                dynamic dynamicBenchmarkSchools = _contextDataService.GetMultipleSchoolsByUrns(comparisonList.BenchmarkSchools.Select(b => b.Urn.ToString()).ToList());
+                dynamic dynamicBenchmarkSchools = _contextDataService.GetMultipleSchoolsByUrns(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
 
                 comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
@@ -43,7 +44,7 @@ namespace SFB.Web.UI.Controllers
                 }
             }else if (comparisonList.BenchmarkSchools.Count == 1)
             {
-                var dynamicBenchmarkSchool = _contextDataService.GetSchoolByUrn(comparisonList.BenchmarkSchools[0].Urn);
+                var dynamicBenchmarkSchool = _contextDataService.GetSchoolByUrn(Int32.Parse(comparisonList.BenchmarkSchools[0].Urn));
 
                 comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
@@ -70,7 +71,7 @@ namespace SFB.Web.UI.Controllers
 
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.GetValueOrDefault()), null);
 
                 cookie = base.UpdateSchoolComparisonListCookie(withAction,
                     new BenchmarkSchoolModel()
