@@ -1,6 +1,5 @@
 ﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -8,7 +7,6 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using System.Web;
-using System.Web.UI;
 using Microsoft.Ajax.Utilities;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
@@ -18,6 +16,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
+using System.Web.UI;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -38,9 +37,9 @@ namespace SFB.Web.UI.Controllers
             _csvBuilder = csvBuilder;
         }
 
-        #if !DEBUG
+#if !DEBUG
         [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
-        #endif
+#endif
         public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
@@ -99,9 +98,10 @@ namespace SFB.Web.UI.Controllers
 
         [HttpHead]
         public ActionResult Status(int urn)
-        {
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
-            return schoolDetailsFromEdubase == null ? new HttpStatusCodeResult(HttpStatusCode.NotFound) : new HttpStatusCodeResult(HttpStatusCode.OK);
+        { 
+            var urns = (List<int>)HttpContext.Cache.Get("SFBActiveURNList");
+            var found = urns.Contains(urn);         
+            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NotFound);                               
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)

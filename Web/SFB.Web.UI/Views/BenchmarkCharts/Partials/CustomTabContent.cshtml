@@ -73,35 +73,35 @@
                                 <div class="multiple-choices column-three-quarters">
                                     <div class="multiple-choice" ng-show="chart.PerPupilAvailable">
                                         <input id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PerPupilSelected">
-                                        <label for="sel_{{$parent.$index}}_{{$index}}_1">Per pupil</label>
+                                        <label for="sel_{{$parent.$index}}_{{$index}}_1" aria-label="{{chart.Name}} per pupil">Per pupil</label>
                                     </div>
                                     <div class="multiple-choice" ng-show="chart.PerTeacherAvailable">
                                         <input id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PerTeacherSelected">
-                                        <label for="sel_{{$parent.$index}}_{{$index}}_2">Per teacher</label>
+                                        <label for="sel_{{$parent.$index}}_{{$index}}_2" aria-label="{{chart.Name}} per teacher">Per teacher</label>
                                     </div>
                                     <div class="multiple-choice" ng-show="chart.PercentageAvailable">
                                         <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PercentageSelected">
-                                        <label for="sel_{{$parent.$index}}_{{$index}}_3">Percentage of total</label>
+                                        <label for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total</label>
                                     </div>
                                     <div class="multiple-choice" ng-show="chart.AbsoluteMoneyAvailable">
                                         <input id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.AbsoluteMoneySelected">
-                                        <label for="sel_{{$parent.$index}}_{{$index}}_4">Absolute total</label>
+                                        <label for="sel_{{$parent.$index}}_{{$index}}_4" aria-label="{{chart.Name}} absolute total">Absolute total</label>
                                     </div>
                                     <div class="multiple-choice" ng-show="chart.AbsoluteCountAvailable">
                                         <input id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.AbsoluteCountSelected">
-                                        <label for="sel_{{$parent.$index}}_{{$index}}_5">Total</label>
+                                        <label for="sel_{{$parent.$index}}_{{$index}}_5" aria-label="{{chart.Name}} total">Total</label>
                                     </div>
                                     <div class="multiple-choice" ng-show="chart.HeadCountPerFTEAvailable">
                                         <input id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.HeadCountPerFTESelected">
-                                        <label for="sel_{{$parent.$index}}_{{$index}}_6">Headcount per FTE</label>
+                                        <label for="sel_{{$parent.$index}}_{{$index}}_6" aria-label="{{chart.Name}} headcount per FTE">Headcount per FTE</label>
                                     </div>
                                     <div class="multiple-choice" ng-show="chart.PercentageOfWorkforceAvailable">
                                         <input id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PercentageOfWorkforceSelected">
-                                        <label for="sel_{{$parent.$index}}_{{$index}}_7">Percentage of workforce</label>
+                                        <label for="sel_{{$parent.$index}}_{{$index}}_7" aria-label="{{chart.Name}} percentage of workforce">Percentage of workforce</label>
                                     </div>
                                     <div class="multiple-choice" ng-show="chart.NumberOfPupilsPerMeasureAvailable">
                                         <input id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
-                                        <label for="sel_{{$parent.$index}}_{{$index}}_8">Pupils per measure</label>
+                                        <label for="sel_{{$parent.$index}}_{{$index}}_8" aria-label="{{chart.Name}} pupils per measure">Pupils per measure</label>
                                     </div>
                                 </div>
                                 <hr class="tablet-divider"/>
