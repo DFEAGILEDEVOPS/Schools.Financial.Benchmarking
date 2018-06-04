@@ -7,7 +7,7 @@ namespace SFB.Web.DAL.Repositories
 {
     public interface IFinancialDataRepository
     {
-        Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
+        Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
         Document GetSchoolDataDocument(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
         dynamic GetAcademiesByMatNumber(string term, string matNo);
         Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance);

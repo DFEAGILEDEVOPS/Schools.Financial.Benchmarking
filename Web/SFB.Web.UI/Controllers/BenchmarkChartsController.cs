@@ -183,7 +183,7 @@ namespace SFB.Web.UI.Controllers
         }
        
         public async Task<ActionResult> Index( 
-            int urn, 
+            int? urn, 
             SimpleCriteria simpleCriteria,
             BenchmarkCriteria benchmarkCriteria,
             int basketSize = ComparisonListLimit.DEFAULT,
@@ -242,7 +242,7 @@ namespace SFB.Web.UI.Controllers
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
             var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, base.ExtractSchoolComparisonListFromCookie(), chartGroups, comparisonType, benchmarkCriteria, simpleCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, laCode, urn, basketSize);
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, base.ExtractSchoolComparisonListFromCookie(), chartGroups, comparisonType, benchmarkCriteria, simpleCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, laCode, urn.GetValueOrDefault(), basketSize);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -565,7 +565,7 @@ namespace SFB.Web.UI.Controllers
                 var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
 
-                var task = _financialDataService.GetSchoolDataDocumentAsync(school.Urn, term, estabType, centralFinancing);
+                var task = _financialDataService.GetSchoolDataDocumentAsync(Int32.Parse(school.Urn), term, estabType, centralFinancing);
                 taskList.Add(task);
             }
 
@@ -585,7 +585,7 @@ namespace SFB.Web.UI.Controllers
 
                 if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(schools[i].Urn, term, estabType, CentralFinancingType.Exclude))
+                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
                 }
                 

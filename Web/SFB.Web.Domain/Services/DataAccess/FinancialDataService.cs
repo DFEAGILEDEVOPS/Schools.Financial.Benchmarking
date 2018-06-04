@@ -19,7 +19,7 @@ namespace SFB.Web.Domain.Services.DataAccess
             _financialDataRepository = financialDataRepository;
         }
         
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
         {
             return await _financialDataRepository.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
         }

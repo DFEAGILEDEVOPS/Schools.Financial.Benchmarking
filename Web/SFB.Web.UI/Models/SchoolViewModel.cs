@@ -33,7 +33,7 @@ namespace SFB.Web.UI.Models
 
         public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == GetString("URN");
 
-        public string Id => GetString("URN");
+        public string Id => GetInt("URN").ToString();
 
         public string LaEstab => $"{GetString("LACode")} {GetString("EstablishmentNumber")}";
 

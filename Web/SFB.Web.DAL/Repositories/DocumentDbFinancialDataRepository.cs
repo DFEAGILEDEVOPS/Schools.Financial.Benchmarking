@@ -76,7 +76,7 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var dataGroup = estabType.ToDataGroup(cFinance);
 
@@ -84,12 +84,16 @@ namespace SFB.Web.DAL.Repositories
 
             try
             {
-                var query =
+                var query = $"SELECT * FROM c WHERE c.URN=@URN";
+                SqlQuerySpec querySpec = new SqlQuerySpec(query);
+                querySpec.Parameters = new SqlParameterCollection();
+                querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
+                var documentQuery =
                     _client.CreateDocumentQuery<Document>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT * FROM c WHERE c.URN={urn}");
+                        querySpec);
 
-                return await query.QueryAsync();
+                return await documentQuery.QueryAsync();
 
             }
             catch (Exception)
@@ -105,11 +109,14 @@ namespace SFB.Web.DAL.Repositories
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
             try
             {
-                var query =
-                    $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MAT Number']='{matNo}'";
+                var query = $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MAT Number']=@MatNo";
+                SqlQuerySpec querySpec = new SqlQuerySpec(query);
+                querySpec.Parameters = new SqlParameterCollection();
+                querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
                 var matches =
                     _client.CreateDocumentQuery<Document>(
-                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), query).ToList();
+                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), querySpec).ToList();
 
                 dynamic result = new ExpandoObject();
                 result.Results = matches;
@@ -146,10 +153,15 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
 
+            var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
             var res =
                 _client.CreateDocumentQuery<Document>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'");
+                    querySpec);
 
             try
             {
@@ -189,12 +201,17 @@ namespace SFB.Web.DAL.Repositories
 
             try
             {
-                var query =
+                var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+                SqlQuerySpec querySpec = new SqlQuerySpec(query);
+                querySpec.Parameters = new SqlParameterCollection();
+                querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
+                var documentQuery =
                     _client.CreateDocumentQuery<Document>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'");
+                        querySpec);
 
-                return await query.QueryAsync();
+                return await documentQuery.QueryAsync();
             }
             catch (Exception)
             {

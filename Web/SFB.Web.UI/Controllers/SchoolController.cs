@@ -17,6 +17,7 @@ using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
 using System.Web.UI;
+using System;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -214,7 +215,7 @@ namespace SFB.Web.UI.Controllers
             schoolVM.Terms = BuildTermsList(schoolVM.EstablishmentType);
             schoolVM.Tab = revenueGroup;
 
-            schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(schoolVM.Id, schoolVM.EstablishmentType, cFinance);
+            schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(Int32.Parse(schoolVM.Id), schoolVM.EstablishmentType, cFinance);
 
             schoolVM.TotalRevenueIncome = schoolVM.HistoricalFinancialDataModels.Last().TotalIncome;
             schoolVM.TotalRevenueExpenditure = schoolVM.HistoricalFinancialDataModels.Last().TotalExpenditure;
@@ -235,7 +236,7 @@ namespace SFB.Web.UI.Controllers
             return years;
         }
 
-        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(string urn, EstablishmentType estabType, CentralFinancingType cFinance)
+        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var models = new List<FinancialDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
@@ -266,7 +267,7 @@ namespace SFB.Web.UI.Controllers
                     resultDocument = null;
                 }
 
-                models.Add(new FinancialDataModel(urn, term, resultDocument, estabType));
+                models.Add(new FinancialDataModel(urn.ToString(), term, resultDocument, estabType));
             }
             
             return models;
