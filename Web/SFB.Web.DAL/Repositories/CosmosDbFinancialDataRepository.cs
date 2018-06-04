@@ -14,13 +14,13 @@ using SFB.Web.DAL.Helpers;
 
 namespace SFB.Web.DAL.Repositories
 {
-    public class DocumentDbFinancialDataRepository : IFinancialDataRepository
+    public class CosmosDbFinancialDataRepository : IFinancialDataRepository
     {
         private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
         private static DocumentClient _client;
         private readonly IDataCollectionManager _dataCollectionManager;
 
-        public DocumentDbFinancialDataRepository(IDataCollectionManager dataCollectionManager)
+        public CosmosDbFinancialDataRepository(IDataCollectionManager dataCollectionManager)
         {
             _dataCollectionManager = dataCollectionManager;
 

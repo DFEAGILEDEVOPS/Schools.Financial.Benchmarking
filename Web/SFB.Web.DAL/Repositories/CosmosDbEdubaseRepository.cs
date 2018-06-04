@@ -11,13 +11,13 @@ using SFB.Web.DAL.Helpers;
 
 namespace SFB.Web.DAL.Repositories
 {
-    public class DocumentDbEdubaseRepository : IEdubaseRepository
+    public class CosmosDbEdubaseRepository : IEdubaseRepository
     {
         private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
         private static DocumentClient _client;
         private readonly string _collectionName;
 
-        public DocumentDbEdubaseRepository(IDataCollectionManager dataCollectionManager)
+        public CosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager)
         {
             _client = new DocumentClient(new Uri(ConfigurationManager.AppSettings["endpoint"]),
                 ConfigurationManager.AppSettings["authKey"],
