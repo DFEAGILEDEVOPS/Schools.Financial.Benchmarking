@@ -44,11 +44,11 @@ namespace SFB.Web.UI.Controllers
                 }
             }else if (comparisonList.BenchmarkSchools.Count == 1)
             {
-                var dynamicBenchmarkSchool = _contextDataService.GetSchoolByUrn(Int32.Parse(comparisonList.BenchmarkSchools[0].Urn));
+                var schoolContextData = _contextDataService.GetSchoolByUrn(Int32.Parse(comparisonList.BenchmarkSchools[0].Urn));
 
                 comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
-                var school = new SchoolViewModel(dynamicBenchmarkSchool);
+                var school = new SchoolViewModel(schoolContextData);
                 var benchmarkSchool = new BenchmarkSchoolModel()
                 {
                     Address = school.Address,

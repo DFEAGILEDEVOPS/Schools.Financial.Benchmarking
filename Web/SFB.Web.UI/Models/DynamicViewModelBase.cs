@@ -7,18 +7,18 @@ namespace SFB.Web.UI.Models
 {
     public class DynamicViewModelBase : ViewModelBase
     {
-        public dynamic DataModel { get; set; }
+        public dynamic ContextDataModel { get; set; }
 
         public string GetString(string property)
         {
             try
             {
-                var model = DataModel as Document;
+                var model = ContextDataModel as Document;
                 if (model != null)
                 {
                     return model.GetPropertyValue<string>(property);
                 }
-                    return DataModel[property].ToString();
+                    return ContextDataModel[property].ToString();
             }
             catch (Exception)
             {
@@ -30,8 +30,8 @@ namespace SFB.Web.UI.Models
         {
             try
             {
-                var model = DataModel as Document;
-                return model?.GetPropertyValue<int>(property) ?? int.Parse(DataModel[property]);
+                var model = ContextDataModel as Document;
+                return model?.GetPropertyValue<int>(property) ?? int.Parse(ContextDataModel[property]);
             }
             catch (Exception)
             {
@@ -43,7 +43,7 @@ namespace SFB.Web.UI.Models
         {
             try
             {
-                var document = DataModel as Document;
+                var document = ContextDataModel as Document;
                 if (document != null)
                 {
                     if (document.GetPropertyValue<string>(property) == null)
@@ -68,18 +68,18 @@ namespace SFB.Web.UI.Models
         {
             try
             {
-                if (DataModel is Document)
+                if (ContextDataModel is Document)
                 {
-                    return (DataModel as Document).GetPropertyValue<bool>(property);
+                    return (ContextDataModel as Document).GetPropertyValue<bool>(property);
                 }
                 else
                 {
                     bool result = false;
-                    if (DataModel[property] == "1")
+                    if (ContextDataModel[property] == "1")
                     {
                         return true;
                     }
-                    Boolean.TryParse(DataModel[property], out result);
+                    Boolean.TryParse(ContextDataModel[property], out result);
                     return result;
                 }
             }
@@ -91,13 +91,13 @@ namespace SFB.Web.UI.Models
 
         public Location GetLocation()
         {
-            if (DataModel is Document)
+            if (ContextDataModel is Document)
             {
-                return (DataModel as Document).GetPropertyValue<Location>("Location");
+                return (ContextDataModel as Document).GetPropertyValue<Location>("Location");
             }
             else
             {
-                return DataModel["Location"];
+                return ContextDataModel["Location"];
             }
         }
     }

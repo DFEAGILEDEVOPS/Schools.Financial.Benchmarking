@@ -8,14 +8,14 @@ namespace SFB.Web.UI.Models
     public class SchoolViewModel : EstablishmentViewModelBase
     {
 
-        public SchoolViewModel(dynamic model)
+        public SchoolViewModel(dynamic contextDataModel)
         {
-            base.DataModel = model;
+            base.ContextDataModel = contextDataModel;
         }
 
-        public SchoolViewModel(dynamic SchoolContextDataModel, SchoolComparisonListModel comparisonList)
+        public SchoolViewModel(dynamic schoolContextDataModel, SchoolComparisonListModel comparisonList)
         {
-            base.DataModel = SchoolContextDataModel;
+            base.ContextDataModel = schoolContextDataModel;
             base.ComparisonList = comparisonList;
         }
 
