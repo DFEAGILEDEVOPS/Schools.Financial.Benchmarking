@@ -28,6 +28,7 @@ namespace SFB.Web.UI.UnitTests
             var mockFinancialDataService = new Mock<IFinancialDataService>();
             var mockFCService = new Mock<IFinancialCalculationsService>();
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var context = new Mock<HttpContextBase>(MockBehavior.Strict);
@@ -62,7 +63,8 @@ namespace SFB.Web.UI.UnitTests
                 mockFinancialDataService.Object,
                 mockFCService.Object,
                 mockTrustSearchService.Object, 
-                null);
+                null,
+                mockCookieManager.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 

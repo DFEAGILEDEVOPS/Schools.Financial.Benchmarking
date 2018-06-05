@@ -5,21 +5,24 @@ using System.Web;
 using System.Web.Mvc;
 using SFB.Web.Domain.Services.DataAccess;
 using System;
+using SFB.Web.UI.Helpers;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class BenchmarkListController : BaseController
+    public class BenchmarkListController : Controller
     {
         private readonly IContextDataService _contextDataService;
+        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
-        public BenchmarkListController(IContextDataService contextDataService)
+        public BenchmarkListController(IContextDataService contextDataService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _contextDataService = contextDataService;
+            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
         public ActionResult Index()
         {
-            var comparisonList = base.ExtractSchoolComparisonListFromCookie();
+            var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
             if (comparisonList.BenchmarkSchools.Count > 1)
             {
@@ -67,13 +70,11 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)
         {
-            HttpCookie cookie;
-
             if (urn.HasValue)
             {
                 var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.GetValueOrDefault()), null);
 
-                cookie = base.UpdateSchoolComparisonListCookie(withAction,
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
@@ -84,15 +85,10 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                cookie = base.UpdateSchoolComparisonListCookie(withAction, null);
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction, null);
             }
 
-            if (cookie != null)
-            {
-                Response.Cookies.Add(cookie);
-            }
-
-            return PartialView("Partials/BenchmarkBasketControls", base.ExtractSchoolComparisonListFromCookie());
+            return PartialView("Partials/BenchmarkBasketControls", _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
         }
 
     }

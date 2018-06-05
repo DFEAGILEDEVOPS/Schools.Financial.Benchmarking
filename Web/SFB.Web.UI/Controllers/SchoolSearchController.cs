@@ -16,7 +16,7 @@ using System;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class SchoolSearchController : BaseController
+    public class SchoolSearchController : Controller
     {
         private readonly ILocalAuthoritiesService _laService;
         private readonly ILaSearchService _laSearchService;
@@ -25,11 +25,13 @@ namespace SFB.Web.UI.Controllers
         private readonly IContextDataService _contextDataService;
         private readonly ISchoolSearchService _schoolSearchService;
         private readonly ITrustSearchService _trustSearchService;
+        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
         public SchoolSearchController(ILocalAuthoritiesService laService, 
             ILaSearchService laSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
-            ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService)
+            ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService,
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _laService = laService;
             _laSearchService = laSearchService;
@@ -38,6 +40,7 @@ namespace SFB.Web.UI.Controllers
             _contextDataService = contextDataService;
             _schoolSearchService = schoolSearchService;
             _trustSearchService = trustSearchService;
+            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
         public async Task<ActionResult> Search(
@@ -73,7 +76,7 @@ namespace SFB.Web.UI.Controllers
                             if (searchResp == null)
                             {
                                 return View("EmptyResult",
-                                    new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(),
+                                    new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
                                         SearchTypes.SEARCH_BY_NAME_ID));
                             }
 
@@ -83,7 +86,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var searchVM = new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType)
+                            var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
@@ -114,7 +117,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var searchVM = new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType)
+                            var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
@@ -135,7 +138,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        var searchVM = new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType)
+                        var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
                         {
                             SearchType = searchType,
                             ErrorMessage = errorMessage,
@@ -162,7 +165,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var searchVM = new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType)
+                            var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
@@ -185,7 +188,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 case 0:
                                     return View("EmptyResult",
-                                        new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType));
+                                        new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 case 1:
                                     return RedirectToAction("Detail", "School",
                                         new
@@ -196,7 +199,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var searchVM = new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType)
+                            var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
@@ -221,7 +224,7 @@ namespace SFB.Web.UI.Controllers
                         {
                             case 0:
                                 return View("EmptyLocationResult",
-                                    new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType));
+                                    new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                             case 1:
                                 return RedirectToAction("Detail", "School",
                                     new {urn = ((Domain.Models.QueryResultsModel) searchResp).Results.First()["URN"]});
@@ -229,7 +232,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        var searchVM = new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), searchType)
+                        var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
                         {
                             SearchType = searchType,
                             ErrorMessage = errorMessage,
@@ -249,22 +252,17 @@ namespace SFB.Web.UI.Controllers
         {
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
 
-            var cookie = base.UpdateSchoolComparisonListCookie(withAction,
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolModel()
                 {
                     Name = benchmarkSchool.Name,
                     Urn = benchmarkSchool.Id,
                     Type = benchmarkSchool.Type,
                     EstabType = benchmarkSchool.EstablishmentType.ToString()
-                });
-
-            if (cookie != null)
-            {
-                Response.Cookies.Add(cookie);
-            }
+                });                      
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+                new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public async Task<ActionResult> SuggestSchool(string nameId)
@@ -425,7 +423,7 @@ namespace SFB.Web.UI.Controllers
                     schoolListVm.Add(schoolVm);
                 }
 
-                vm.SchoolComparisonList = base.ExtractSchoolComparisonListFromCookie();
+                vm.SchoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
                 var filters = _filterBuilder.ConstructSchoolSearchFilters(Request.QueryString, response.Facets);
                 vm.Filters = filters;

@@ -17,21 +17,25 @@ using SFB.Web.Domain.Services.Search;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class TrustController : BaseController
+    public class TrustController : Controller
     {
         private readonly ITrustSearchService _trustSearchService;
         private readonly IFinancialDataService _financialDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
+        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
-        public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ITrustSearchService trustSearchService, IDownloadCSVBuilder csvBuilder)
+        public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
+            IFinancialCalculationsService fcService, ITrustSearchService trustSearchService, IDownloadCSVBuilder csvBuilder,
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
             _trustSearchService = trustSearchService;
             _csvBuilder = csvBuilder;
+            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
         public async Task<ActionResult> Search(string name, string orderby = "", int page = 1)
@@ -137,11 +141,11 @@ namespace SFB.Web.UI.Controllers
             {
                 foreach (var result in response.Results)
                 {
-                    var trustVm = new TrustViewModel(result["MATNumber"], result["TrustOrCompanyName"], null, base.ExtractSchoolComparisonListFromCookie());
+                    var trustVm = new TrustViewModel(result["MATNumber"], result["TrustOrCompanyName"], null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
                     trustListVm.Add(trustVm);
                 }
 
-                vm.SchoolComparisonList = base.ExtractSchoolComparisonListFromCookie();
+                vm.SchoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
                 vm.Pagination = new Pagination
                 {
@@ -164,7 +168,7 @@ namespace SFB.Web.UI.Controllers
                 schoolListVM.Add(new SchoolViewModel(result, null));
             }
 
-            var comparisonListVM = base.ExtractSchoolComparisonListFromCookie();
+            var comparisonListVM = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
             var trustVM = new TrustViewModel(matNo, name, new SchoolListViewModel(schoolListVM, comparisonListVM), comparisonListVM);
             
             trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);

@@ -227,7 +227,6 @@
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BenchmarkChartsController.cs" />
     <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
     <Compile Include="Controllers\BenchmarkListController.cs" />
@@ -239,10 +238,12 @@
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
+    <Compile Include="Helpers\BenchmarkBasketCookieManager.cs" />
     <Compile Include="Helpers\DownloadCSVBuilder.cs" />
     <Compile Include="Helpers\Filters\DynamicHeaderMessageAttribute.cs" />
     <Compile Include="Helpers\HierarchicalCustomChartBuilder.cs" />
     <Compile Include="Helpers\HistoricalChartBuilder.cs" />
+    <Compile Include="Helpers\IBenchmarkBasketCookieManager.cs" />
     <Compile Include="Models\BenchmarkCriteriaMultipleChoiceVM.cs" />
     <Compile Include="Models\BenchmarkCriteriaRangeVM.cs" />
     <Compile Include="Models\CompareEntityBase.cs" />

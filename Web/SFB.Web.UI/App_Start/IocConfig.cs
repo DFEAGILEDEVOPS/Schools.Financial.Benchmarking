@@ -69,6 +69,7 @@ namespace SFB.Web.UI
             builder.RegisterType<CosmosDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();
+            builder.RegisterType<BenchmarkBasketCookieManager>().As<IBenchmarkBasketCookieManager>();
             builder.RegisterType<BenchmarkCriteriaBuilderService>().As<IBenchmarkCriteriaBuilderService>();
             builder.RegisterType<DownloadCSVBuilder>().As<IDownloadCSVBuilder>();
             builder.RegisterInstance(new SchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"], ConfigurationManager.AppSettings["GoogleAPIKey"])).As<ISchoolSearchService>();

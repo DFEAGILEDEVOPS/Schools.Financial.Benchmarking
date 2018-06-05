@@ -16,31 +16,32 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
-using System.Web.UI;
 using System;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class SchoolController : BaseController
+    public class SchoolController : Controller
     {
         private readonly IContextDataService _contextDataService;
         private readonly IFinancialDataService _financialDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
+        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
-        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder)
+        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
+            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
-#if !DEBUG
+        #if !DEBUG
         [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
-#endif
+        #endif
         public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
@@ -67,7 +68,7 @@ namespace SFB.Web.UI.Controllers
             
             if (schoolDetailsFromEdubase == null)
             {
-                return View("EmptyResult", new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
+                return View("EmptyResult", new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
             }
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(tab, chartGroup, financing, schoolDetailsFromEdubase);
@@ -106,14 +107,12 @@ namespace SFB.Web.UI.Controllers
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)
-        {
-            HttpCookie cookie;
-
+        {          
             if (urn.HasValue)
             {
                 var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.GetValueOrDefault()), null);
 
-                cookie = base.UpdateSchoolComparisonListCookie(withAction,
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
@@ -124,27 +123,20 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                cookie = base.UpdateSchoolComparisonListCookie(withAction, null);
-            }
-
-            if (cookie != null)
-            {
-                Response.Cookies.Add(cookie);
-            }
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction, null);
+            }                       
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+                new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
         
         public PartialViewResult UpdateBenchmarkBasketAddMultiple(int[] urns)
-        {
-            HttpCookie cookie = null;
-
+        {            
             foreach (var urn in urns)
             {
                 var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
 
-                cookie = base.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST,
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
@@ -154,23 +146,18 @@ namespace SFB.Web.UI.Controllers
                     });
             }
 
-            if (cookie != null)
-            {
-                Response.Cookies.Add(cookie);
-            }
-
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+                new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetBenchmarkBasket()
         {
-            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetBenchmarkControls(int urn)
         {
-            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), base.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public async Task<PartialViewResult> GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include, ChartFormat format = ChartFormat.Charts)
@@ -208,7 +195,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<SchoolViewModel> BuildSchoolVMAsync(RevenueGroupType revenueGroup, ChartGroupType chartGroup, CentralFinancingType cFinance, dynamic schoolDetailsData, UnitType unit = UnitType.AbsoluteCount)
         {
-            var schoolVM = new SchoolViewModel(schoolDetailsData, base.ExtractSchoolComparisonListFromCookie());
+            var schoolVM = new SchoolViewModel(schoolDetailsData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
             schoolVM.HistoricalCharts = _historicalChartBuilder.Build(revenueGroup, chartGroup, schoolVM.EstablishmentType, unit);
             schoolVM.ChartGroups = _historicalChartBuilder.Build(revenueGroup, schoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
