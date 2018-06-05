@@ -5,7 +5,8 @@
     var questionCheckBoxSelector = ".multiple-choice.question > input";
 
     function TrustCompareViewModel() {
-        this.bindEvents();
+        this.bindManualEvents();
+        this.bindCriteriaEvents();
         this.validateForm();
     }
 
@@ -29,11 +30,9 @@
                 });
         },
 
-        bindEvents: function () {
+        bindCriteriaEvents: function () {
             var self = this;
 
-            self.bindAutosuggest('#NewTrustName', this.getTrustSuggestionHandler);
-                        
             $(questionCheckBoxSelector).change(
                 function (event) {
                     var $panel = $(this).parent().next();
@@ -62,6 +61,18 @@
                     }
                 });
 
+
+            $("a#removeAllTrusts").click(function (event) {
+                event.preventDefault();
+                self.RemoveAllTrusts();
+            });
+        },
+
+        bindManualEvents: function () {
+            var self = this;
+
+            self.bindAutosuggest('#NewTrustName', this.getTrustSuggestionHandler);
+                        
             $("input.criteria-input").keyup(function (e) {
                 var code = e.keyCode || e.which;
                 if (code !== 9) {
@@ -80,6 +91,16 @@
             $("button.submit").click(function (event) {
                 event.preventDefault();
                 self.checkResultCount();
+            });
+
+            $("a.remove-trust").click(function (event) {
+                event.preventDefault();
+                self.RemoveTrust($(event.target).data('matno'));
+            });
+
+            $("a#displayNew").click(function (event) {
+                event.preventDefault();
+                self.DisplayNewTrustElements();
             });
 
             $(".clear-criteria").click(function (event) {
@@ -170,7 +191,7 @@
         },
 
         bindAutosuggest: function(targetInputElementName, suggestionSource) {
-
+            var self = this;
             var field = "Text";
             var value = "Id";
             var source = null;
@@ -243,43 +264,43 @@
                     $.get("trustcomparison/AddTrust?matNo=" + suggestion[value] + "&matName=" + suggestion[field],
                         function (data) {
                             $("#TrustsToCompare").html(data);
-                            DfE.Views.TrustCompareViewModel.Load();
+                            self.bindManualEvents();
                             $("#AddButton a").focus();
                             $(".error-summary-list a").focus();
                         });
 
                 });
+        },
+
+        RemoveTrust: function (matNo) {
+            var self = this;
+            $.get("trustcomparison/RemoveTrust?matNo=" + matNo,
+                function (data) {
+                    $("#TrustsToCompare").html(data);
+                    self.bindManualEvents();
+                });
+        },
+
+        RemoveAllTrusts: function () {
+            var self = this;
+            $.get("trustcomparison/RemoveAllTrusts",
+                function (data) {
+                    $("#TrustsToCompare").html(data);
+                    self.bindManualEvents();
+                });
+        },
+
+        DisplayNewTrustElements : function () {
+            $("#NewTrust").show();
+            $("#NewTrustName").focus();
+            $("#AddButton").hide();
         }
 
     };
 
-
-    //TODO: refactor these functions below
     TrustCompareViewModel.Load = function() {
         new DfE.Views.TrustCompareViewModel();
     };
-    
-    TrustCompareViewModel.RemoveTrust = function (matNo) {
-        $.get("trustcomparison/RemoveTrust?matNo=" + matNo,
-            function (data) {
-                $("#TrustsToCompare").html(data);
-                DfE.Views.TrustCompareViewModel.Load();
-            });
-    }
-
-    TrustCompareViewModel.RemoveAllTrusts = function () {
-        $.get("trustcomparison/RemoveAllTrusts",
-            function (data) {
-                $("#TrustsToCompare").html(data);
-                DfE.Views.TrustCompareViewModel.Load();
-            });
-    }
-
-    TrustCompareViewModel.DisplayNewTrustElements = function () {
-        $("#NewTrust").show();
-        $("#NewTrustName").focus();
-        $("#AddButton").hide();
-    }
 
     Views.TrustCompareViewModel = TrustCompareViewModel;
 
