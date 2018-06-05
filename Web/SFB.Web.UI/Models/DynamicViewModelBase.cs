@@ -51,14 +51,12 @@ namespace SFB.Web.UI.Models
                         return null;
                     }
 
-                    return DateTime.Parse(document.GetPropertyValue<string>(property),
-                        CultureInfo.CurrentCulture,
-                        DateTimeStyles.None);
+                    return DateTime.ParseExact(document.GetPropertyValue<string>(property), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 }
 
                 return null;
             }
-            catch(Exception)
+            catch(Exception e)
             {
                 return null;
             }
