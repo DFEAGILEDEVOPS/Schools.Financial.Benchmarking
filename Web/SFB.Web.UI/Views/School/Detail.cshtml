@@ -57,10 +57,9 @@ else
                 @SchoolDetailField("Has sixth form:", Model.IsPost16)
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
-                @SchoolDetailField("Date opened:", Model.OpenDate)
+                @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
-                @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @if (!Model.HistoricalFinancialDataModels.Last().IsSAT)
                 {
                     @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{1}</a>", Model.HistoricalFinancialDataModels.Last().MatNo, Model.TrustName)
