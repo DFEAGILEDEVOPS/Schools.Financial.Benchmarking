@@ -110,7 +110,7 @@ namespace SFB.Web.DAL.Repositories
             try
             {
                 var query =
-                    $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MAT Number']='{matNo}'";
+                    $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MATNumber']='{matNo}'";
                 var matches =
                     _client.CreateDocumentQuery<Document>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), query).ToList();
