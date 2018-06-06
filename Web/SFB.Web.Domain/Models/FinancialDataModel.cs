@@ -93,7 +93,7 @@ namespace SFB.Web.Domain.Models
                 {
                     if (FinancialDataDocumentModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<string>("MAT Number");
+                        return FinancialDataDocumentModel.GetPropertyValue<string>("MATNumber");
                     }
                     return string.Empty;
                 }

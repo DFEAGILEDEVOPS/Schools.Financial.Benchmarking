@@ -109,7 +109,7 @@ namespace SFB.Web.DAL.Repositories
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
             try
             {
-                var query = $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MAT Number']=@MatNo";
+                var query = $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MATNumber']=@MatNo";
                 SqlQuerySpec querySpec = new SqlQuerySpec(query);
                 querySpec.Parameters = new SqlParameterCollection();
                 querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
