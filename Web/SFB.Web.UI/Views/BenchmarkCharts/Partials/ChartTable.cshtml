@@ -15,7 +15,7 @@
             <th class="detail" scope="col">Number of pupils</th>
             <th scope="col">
                 <a aria-hidden="True" class="hide-show-button show detail hide-in-print" href="javascript:void(0)" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</a>
-                <span aria-label="@GetAmountAriaLabel()">Amount</span>
+                <span aria-label="@GetAmountAriaLabel(Model.First().Unit)">Amount</span>
             </th>
         </tr>
         </thead>
@@ -65,30 +65,30 @@
         </tbody>
     </table>
 
-@helper GetAmountAriaLabel()
+@helper GetAmountAriaLabel(string unit)
 {
-    switch ((UnitType)ViewBag.UnitType)
-    {
-        case UnitType.PercentageOfTotal:
-                <text>Percentage of total</text>;
-            break;
-        case UnitType.PerTeacher:
-                <text>Amount per teacher</text>
-            break;
-        case UnitType.PerPupil:
-                <text>Amount per pupil</text>
-            break;
-        case UnitType.HeadcountPerFTE:
-                <text>Headcount per full time equivalent</text>
-            break;
-        case UnitType.FTERatioToTotalFTE:
-                <text>Percentage of workforce</text>
-            break;
-        case UnitType.NoOfPupilsPerMeasure:
-                <text>Pupils per measure</text>
-            break;
-        default:
-                <text>Amount</text>
-            break;
-    }
+switch ((UnitType)Enum.Parse(typeof(UnitType), unit))
+{
+    case UnitType.PercentageOfTotal:
+            <text>Percentage of total</text>;
+        break;
+    case UnitType.PerTeacher:
+            <text>Amount per teacher</text>
+        break;
+    case UnitType.PerPupil:
+            <text>Amount per pupil</text>
+        break;
+    case UnitType.HeadcountPerFTE:
+            <text>Headcount per full time equivalent</text>
+        break;
+    case UnitType.FTERatioToTotalFTE:
+            <text>Percentage of workforce</text>
+        break;
+    case UnitType.NoOfPupilsPerMeasure:
+            <text>Pupils per measure</text>
+        break;
+    default:
+            <text>Amount</text>
+        break;
+}
 }
