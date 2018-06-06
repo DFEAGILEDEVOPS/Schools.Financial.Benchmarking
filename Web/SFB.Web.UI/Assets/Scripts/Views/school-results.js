@@ -236,11 +236,11 @@
                         html += "<p>" + info.NFType + "</p>";
                         html += "<div id=\"" + info.Id + "\" data-urn=\"" + info.Id + "\">";
                         if (DfE.Util.ComparisonList.isInList(info.Id)) {
-                            html += "<div class=\"button add add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'addtocompare')\">Add</div>";
-                            html += "<div class=\"button remove add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'removefromcompare')\">Remove</div>";
+                            html += "<div class=\"button add add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Add')\">Add</div>";
+                            html += "<div class=\"button remove add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Remove')\">Remove</div>";
                         } else {
-                            html += "<div class=\"button add add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'addtocompare')\">Add</div>";
-                            html += "<div class=\"button remove add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'removefromcompare')\">Remove</div>";
+                            html += "<div class=\"button add add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Add')\">Add</div>";
+                            html += "<div class=\"button remove add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Remove')\">Remove</div>";
                         }
                         html += "</div></div>";
                         infoWindow.setContent(html);
@@ -281,7 +281,7 @@
     };
     
     SchoolsResultsViewModel.UpdateBenchmarkBasket = function (urn, withAction) {
-        if (withAction === "addtocompare") {
+        if (withAction === "Add") {
             if (DfE.Util.ComparisonList.count() === 30) {
                 DfE.Util.ComparisonList.RenderFullListWarningModal();
                 return;

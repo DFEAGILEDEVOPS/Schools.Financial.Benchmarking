@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SFB.Web.Domain.Services.DataAccess;
 using System;
 using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -68,7 +69,7 @@ namespace SFB.Web.UI.Controllers
             return View(comparisonList);
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)
+        public PartialViewResult UpdateBenchmarkBasket(int? urn, CookieActions withAction)
         {
             if (urn.HasValue)
             {

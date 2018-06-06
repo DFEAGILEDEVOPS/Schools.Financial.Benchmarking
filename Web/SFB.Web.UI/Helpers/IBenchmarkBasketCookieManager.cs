@@ -1,13 +1,14 @@
 ﻿using System.Web;
 using SFB.Web.UI.Models;
+using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Helpers
 {
     public interface IBenchmarkBasketCookieManager
     {
         SchoolComparisonListModel ExtractSchoolComparisonListFromCookie();
-        void UpdateSchoolComparisonListCookie(string withAction, BenchmarkSchoolModel benchmarkSchool);
+        void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool);
         TrustComparisonListModel ExtractTrustComparisonListFromCookie();
-        //TODO: Add the update method for trusts
+        TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, string matNo = null, string matName = null);        
     }
 }

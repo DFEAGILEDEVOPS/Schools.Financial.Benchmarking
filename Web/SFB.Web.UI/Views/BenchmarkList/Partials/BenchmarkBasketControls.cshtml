@@ -6,7 +6,7 @@
             <a class="benchmarkControls" href="/">Add schools</a>
             @if (Model.BenchmarkSchools.Count > 0)
             {
-                <a class="benchmarkControls" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket(null,'{CompareActions.CLEAR_BENCHMARK_LIST}')")">Clear basket</a>
+                <a class="benchmarkControls" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket(null,'RemoveAll')")">Clear basket</a>
             }
         </div>
     </div>

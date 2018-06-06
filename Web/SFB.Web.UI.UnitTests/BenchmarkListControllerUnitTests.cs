@@ -10,6 +10,7 @@ using System.Web.Routing;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -56,9 +57,9 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = controller.UpdateBenchmarkBasket(null, CompareActions.CLEAR_BENCHMARK_LIST);
+            var result = controller.UpdateBenchmarkBasket(null, CookieActions.RemoveAll);
 
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CompareActions.CLEAR_BENCHMARK_LIST, It.IsAny<BenchmarkSchoolModel>()),Times.Once);
+            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, It.IsAny<BenchmarkSchoolModel>()),Times.Once);
 
 
         }

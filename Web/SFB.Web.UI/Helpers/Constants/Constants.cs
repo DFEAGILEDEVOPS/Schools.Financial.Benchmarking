@@ -27,14 +27,6 @@
         public const string COMPARISON_LIST_MAT = "sfb_comparison_list_mat";
     }
 
-    public class CompareActions
-    {
-        public const string ADD_TO_COMPARISON_LIST = "addtocompare";
-        public const string REMOVE_FROM_COMPARISON_LIST = "removefromcompare";
-        public const string MAKE_DEFAULT_BENCHMARK = "makedefaultbenchmark";
-        public const string REMOVE_DEFAULT_BENCHMARK = "removedefaultbenchmark";
-        public const string CLEAR_BENCHMARK_LIST = "clear";
-    }
 
     public class OfstedRatings
     {

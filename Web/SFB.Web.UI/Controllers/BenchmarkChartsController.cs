@@ -21,6 +21,7 @@ using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
 
+
 namespace SFB.Web.UI.Controllers
 {
     public class BenchmarkChartsController : Controller
@@ -62,7 +63,7 @@ namespace SFB.Web.UI.Controllers
             var benchmarkSchools = comparisonResult.BenchmarkSchools;
             benchmarkCriteria = comparisonResult.BenchmarkCriteria;
 
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CompareActions.CLEAR_BENCHMARK_LIST, null);
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
             foreach (var schoolDoc in benchmarkSchools)
             {
@@ -73,7 +74,7 @@ namespace SFB.Web.UI.Controllers
                     EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
                     Urn = schoolDoc.GetPropertyValue<string>("URN")
                 };
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST, benchmarkSchoolToAdd);                
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);                
             }
 
             AddDefaultBenchmarkSchoolToList();
@@ -121,7 +122,7 @@ namespace SFB.Web.UI.Controllers
                 case BenchmarkListOverwriteStrategy.Overwrite:
                     var result = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType);
 
-                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CompareActions.CLEAR_BENCHMARK_LIST, null);
+                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
                     
                     foreach (var schoolDoc in result.BenchmarkSchools)
                     {
@@ -132,7 +133,7 @@ namespace SFB.Web.UI.Controllers
                             EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
                             Urn = schoolDoc.GetPropertyValue<string>("URN")
                         };
-                        _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST, benchmarkSchoolToAdd);                        
+                        _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);                        
                     }
                     break;
                 case BenchmarkListOverwriteStrategy.Add:
@@ -148,7 +149,7 @@ namespace SFB.Web.UI.Controllers
                             EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
                             Urn = schoolDoc.GetPropertyValue<string>("URN")
                         };
-                        _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST, benchmarkSchoolToAdd);
+                        _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
                     }
 
                     break;
@@ -507,8 +508,7 @@ namespace SFB.Web.UI.Controllers
 
         private List<ChartViewModel> BuildTrustBenchmarkCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, MatFinancingType mFinancing)
         {
-            var cookie = Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
-            var comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+            var comparisonList = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie();
             var benchmarkCharts = _benchmarkChartBuilder.Build(revGroup, chartGroup, EstablishmentType.MAT);
             var financialDataModels = this.GetFinancialDataForTrusts(comparisonList.Trusts, mFinancing);
             var trimSchoolNames = Request.Browser.IsMobileDevice;
@@ -619,7 +619,7 @@ namespace SFB.Web.UI.Controllers
                 EstabType = cookieObject.HomeSchoolFinancialType,
                 Urn = cookieObject.HomeSchoolUrn
             };
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST, defaultBenchmarkSchool);            
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);            
         }
 
     }

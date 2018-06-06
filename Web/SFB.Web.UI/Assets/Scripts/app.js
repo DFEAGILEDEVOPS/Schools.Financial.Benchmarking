@@ -49,7 +49,7 @@
 
     window.DfE.Sfb.BenchmarkBasket = {
         ClearBenchmarkBasket : function () {
-            $.get("/school/UpdateBenchmarkBasket?withAction=clear",
+            $.get("/school/UpdateBenchmarkBasket?withAction=RemoveAll",
                 function (data) {
                     $("#benchmarkBasket").replaceWith(data);
                     if ($(".search-results").length > 0) {

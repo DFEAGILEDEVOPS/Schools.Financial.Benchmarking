@@ -106,7 +106,7 @@ namespace SFB.Web.UI.Controllers
             return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NotFound);                               
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)
+        public PartialViewResult UpdateBenchmarkBasket(int? urn, CookieActions withAction)
         {          
             if (urn.HasValue)
             {
@@ -136,7 +136,7 @@ namespace SFB.Web.UI.Controllers
             {
                 var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
 
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST,
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,

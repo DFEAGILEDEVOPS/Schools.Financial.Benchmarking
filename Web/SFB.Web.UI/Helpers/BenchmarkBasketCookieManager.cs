@@ -2,6 +2,7 @@
 using SFB.Web.Common;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.UI.Helpers.Constants;
+using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -27,13 +28,13 @@ namespace SFB.Web.UI.Helpers
             return comparisonList;
         }
 
-        public void UpdateSchoolComparisonListCookie(string withAction, BenchmarkSchoolModel benchmarkSchool)
+        public void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool)
         {
             HttpCookie cookie = null;
 
             switch (withAction)
             {
-                case CompareActions.ADD_TO_COMPARISON_LIST:
+                case CookieActions.Add:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie == null)
                     {
@@ -52,7 +53,7 @@ namespace SFB.Web.UI.Helpers
                         cookie.Value = JsonConvert.SerializeObject(listCookie);
                     }
                     break;
-                case CompareActions.REMOVE_FROM_COMPARISON_LIST:
+                case CookieActions.Remove:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie != null)
                     {
@@ -68,7 +69,7 @@ namespace SFB.Web.UI.Helpers
                         cookie.Value = JsonConvert.SerializeObject(listCookie);
                     }
                     break;
-                case CompareActions.MAKE_DEFAULT_BENCHMARK:
+                case CookieActions.SetDefault:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie == null)
                     {
@@ -95,7 +96,7 @@ namespace SFB.Web.UI.Helpers
                         cookie.Value = JsonConvert.SerializeObject(listCookie);
                     }
                     break;
-                case CompareActions.REMOVE_DEFAULT_BENCHMARK:
+                case CookieActions.UnsetDefault:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie != null)
                     {
@@ -107,7 +108,7 @@ namespace SFB.Web.UI.Helpers
                         cookie.Value = JsonConvert.SerializeObject(listCookie);
                     }
                     break;
-                case CompareActions.CLEAR_BENCHMARK_LIST:
+                case CookieActions.RemoveAll:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie != null)
                     {
@@ -134,6 +135,79 @@ namespace SFB.Web.UI.Helpers
             {
                 comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
             }
+            return comparisonList;
+        }
+
+        public TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, string matNo = null, string matName = null)
+        {
+            TrustComparisonListModel comparisonList = null;
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
+            switch (withAction)
+            {
+                case CookieActions.SetDefault:
+                    if (cookie == null)
+                    {
+                        cookie = new HttpCookie(CookieNames.COMPARISON_LIST_MAT);
+                        comparisonList = new TrustComparisonListModel(matNo, matName)
+                        {
+                            Trusts = new List<BenchmarkTrustModel> { new BenchmarkTrustModel(matNo, matName) }
+                        };
+                    }
+                    else
+                    {
+                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                        comparisonList.DefaultTrustMatNo = matNo;
+                        comparisonList.DefaultTrustName = matName;
+                        if (comparisonList.Trusts.All(s => s.MatNo != matNo))
+                        {
+                            comparisonList.Trusts.Add(new BenchmarkTrustModel(matNo, matName));
+                        }
+                    }
+                    break;
+
+                case CookieActions.Add:
+                    if (cookie == null)
+                    {
+                        cookie = new HttpCookie(CookieNames.COMPARISON_LIST_MAT);
+                        comparisonList = new TrustComparisonListModel(matNo, matName)
+                        {
+                            Trusts = new List<BenchmarkTrustModel> { new BenchmarkTrustModel(matNo, matName) }
+                        };
+                    }
+                    else
+                    {
+                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                        if (comparisonList.DefaultTrustMatNo == matNo || comparisonList.Trusts.Any(s => s.MatNo == matNo))
+                        {
+                            throw new ApplicationException(ErrorMessages.DuplicateTrust);                            
+                        }
+                        else
+                        {
+                            comparisonList.Trusts.Add(new BenchmarkTrustModel(matNo, matName));
+                        }
+                    }
+                    break;
+                case CookieActions.Remove:
+                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                    comparisonList.Trusts.Remove(new BenchmarkTrustModel(matNo));
+                    break;
+                case CookieActions.RemoveAll:
+                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                    comparisonList.Trusts.Clear();
+                    break;
+                case CookieActions.AddDefaultToList:
+                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                    if (comparisonList.Trusts.All(s => comparisonList.DefaultTrustMatNo != matNo))
+                    {
+                        comparisonList.Trusts.Add(new BenchmarkTrustModel(comparisonList.DefaultTrustMatNo, comparisonList.DefaultTrustName));
+                    }
+                    break;
+            }
+
+            cookie.Value = JsonConvert.SerializeObject(comparisonList);
+            cookie.Expires = DateTime.MaxValue;
+            HttpContext.Current.Response.Cookies.Add(cookie);
+
             return comparisonList;
         }
 

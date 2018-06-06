@@ -13,6 +13,7 @@ using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Services;
 using System;
+using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -248,7 +249,7 @@ namespace SFB.Web.UI.Controllers
             return View("SearchResults", GetSchoolViewModelList(searchResp, orderby, page, searchType, nameId, locationorpostcode, laName));
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int urn, string withAction)
+        public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
 
