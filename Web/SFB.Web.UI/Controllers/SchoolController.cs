@@ -1,4 +1,5 @@
-﻿using SFB.Web.UI.Models;
+﻿using System.Web.UI;//Do not remove. Needed for OutputCache
+using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,7 +7,6 @@ using System.Web.Mvc;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
-using System.Web;
 using Microsoft.Ajax.Utilities;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
@@ -40,7 +40,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         #if !DEBUG
-        [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
+            [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
         public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
         {
