@@ -33,3 +33,22 @@
         maxValue: Model.BenchmarkCriteria.MaxTotalInc,
         maxLimit: 1000000000
         ))
+
+@Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
+            new BenchmarkCriteriaMultipleChoiceVM(
+                question: TrustCharacteristicsQuestions.SCHOOL_PHASE,
+                homeSchoolValue: Model[TrustCharacteristicsQuestions.SCHOOL_PHASE],
+                homeSchoolName: Model.BenchmarkTrust.Name,
+                elementName: "SchoolOverallPhase",
+                options: new List<OptionVM>
+                {
+                    new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
+                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
+                    new OptionVM("Alternative provision", "Alternative provision", Model.BenchmarkCriteria.SchoolOverallPhase),
+                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
+                    new OptionVM("Cross phase", "Cross Overall Phase", Model.BenchmarkCriteria.SchoolOverallPhase)
+                }
+                )
+            )

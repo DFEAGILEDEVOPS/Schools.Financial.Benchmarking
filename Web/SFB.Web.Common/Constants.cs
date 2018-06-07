@@ -70,6 +70,7 @@
         public const string NUMBER_OF_PUPILS = "Number of pupils";
         public const string NUMBER_OF_SCHOOLS = "Number of schools";
         public const string TOTAL_INCOME = "Total income";
+        public const string SCHOOL_PHASE = "School phase";
     }
 
     public class SchoolCharacteristicsQuestions
