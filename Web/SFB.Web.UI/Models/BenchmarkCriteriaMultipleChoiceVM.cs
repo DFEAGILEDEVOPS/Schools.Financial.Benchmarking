@@ -26,6 +26,7 @@ namespace SFB.Web.UI.Models
         public string Name { get; set; }
         public string Value { get; set; }
         public bool Selected { get; }
+        public SubOptionsVM SubOptions { get; set; }
 
         public OptionVM(string name, string value, string[] selectedOptions)
         {
@@ -33,5 +34,16 @@ namespace SFB.Web.UI.Models
             Value = value;
             Selected = (selectedOptions != null) && selectedOptions.Contains(Value);
         }
+
+        public OptionVM(string name, string value, string[] selectedOptions, SubOptionsVM subOptions): this(name, value, selectedOptions)
+        {
+            SubOptions = subOptions;
+        }
+    }
+
+    public class SubOptionsVM
+    {
+        public string Name { get; set; }
+        public List<OptionVM> SubOptions { get; set; }
     }
 }

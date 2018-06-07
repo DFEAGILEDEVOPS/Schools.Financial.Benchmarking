@@ -36,8 +36,8 @@
 
 @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
             new BenchmarkCriteriaMultipleChoiceVM(
-                question: TrustCharacteristicsQuestions.SCHOOL_PHASE,
-                homeSchoolValue: Model[TrustCharacteristicsQuestions.SCHOOL_PHASE],
+                question: TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE,
+                homeSchoolValue: Model[TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE],
                 homeSchoolName: Model.BenchmarkTrust.Name,
                 elementName: "SchoolOverallPhase",
                 options: new List<OptionVM>
@@ -48,7 +48,17 @@
                     new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
                     new OptionVM("Alternative provision", "Alternative provision", Model.BenchmarkCriteria.SchoolOverallPhase),
                     new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Cross phase", "Cross Overall Phase", Model.BenchmarkCriteria.SchoolOverallPhase)
+                    new OptionVM("Cross phase", "Cross Overall Phase", Model.BenchmarkCriteria.SchoolOverallPhase,
+                    subOptions: new SubOptionsVM{
+                      Name = "SchoolOverallPhaseCrossPhase",
+                      SubOptions = new List<OptionVM>{
+                        new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
+                        new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
+                        new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
+                        new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
+                        new OptionVM("Alternative provision", "Alternative provision", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
+                        new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
+                    } } )
                 }
                 )
             )
