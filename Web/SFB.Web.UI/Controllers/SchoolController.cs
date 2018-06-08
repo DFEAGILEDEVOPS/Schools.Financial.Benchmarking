@@ -58,6 +58,7 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case RevenueGroupType.Workforce:
                     chartGroup = ChartGroupType.Workforce;
+                    financing = CentralFinancingType.Exclude; //TODO: Remove this when WF is distributed
                     break;
                 default:
                     chartGroup = ChartGroupType.All;
