@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "search-results";
+}
+
+@section StickyContent{
+    @Html.Partial("Partials/BenchmarkListBanner")    
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<h1 class="heading-xlarge page-heading">Schools</h1>
+
+<div>
+    <p class="result-info">
+        We found no matches for the location you provided.
+    </p>
+    <p>
+        <a href="/">Try searching again</a>
+        
+        <span>using different spelling or words</span>
+    </p>
+</div>

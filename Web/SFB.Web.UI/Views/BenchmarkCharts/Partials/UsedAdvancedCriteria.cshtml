@@ -6,7 +6,7 @@
 @using SFB.Web.Common.Attributes
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-<table>
+<table id="criteriaTable">
     <thead>
     <tr>
         <th scope="col">Characteristic</th>
@@ -17,7 +17,7 @@
     <tbody>
     <tr>
         <td>Finance type</td>
-        @if (Model.BenchmarkSchoolData.FinancialType == SchoolFinancialType.Academies)
+        @if (Model.BenchmarkSchoolData.EstabType == EstablishmentType.Academies)
         {
             <td>Academy</td>
         }

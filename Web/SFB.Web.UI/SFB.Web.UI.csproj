@@ -227,7 +227,6 @@
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BenchmarkChartsController.cs" />
     <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
     <Compile Include="Controllers\BenchmarkListController.cs" />
@@ -239,10 +238,12 @@
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
+    <Compile Include="Helpers\BenchmarkBasketCookieManager.cs" />
     <Compile Include="Helpers\DownloadCSVBuilder.cs" />
     <Compile Include="Helpers\Filters\DynamicHeaderMessageAttribute.cs" />
     <Compile Include="Helpers\HierarchicalCustomChartBuilder.cs" />
     <Compile Include="Helpers\HistoricalChartBuilder.cs" />
+    <Compile Include="Helpers\IBenchmarkBasketCookieManager.cs" />
     <Compile Include="Models\BenchmarkCriteriaMultipleChoiceVM.cs" />
     <Compile Include="Models\BenchmarkCriteriaRangeVM.cs" />
     <Compile Include="Models\CompareEntityBase.cs" />
@@ -269,8 +270,7 @@
     <Compile Include="Models\DataTableColumnViewModel.cs" />
     <Compile Include="Models\BenchmarkChartListViewModel.cs" />
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
-    <Compile Include="Models\BenchmarkSchoolViewModel.cs" />
-    <Compile Include="Models\ComparisonListModel.cs" />
+    <Compile Include="Models\SchoolComparisonListModel.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
     <Compile Include="Models\Filter.cs" />
@@ -286,10 +286,11 @@
     <Compile Include="Models\SearchedSchoolListViewModel.cs" />
     <Compile Include="Models\SeriesData.cs" />
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
-    <Compile Include="Models\SponsorListViewModel.cs" />
-    <Compile Include="Models\SponsorViewModel.cs" />
+    <Compile Include="Models\TrustListViewModel.cs" />
+    <Compile Include="Models\TrustViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
-    <Compile Include="Models\TrustComparisonViewModel.cs" />
+    <Compile Include="Models\TrustCharacteristicsViewModel.cs" />
+    <Compile Include="Models\TrustComparisonListModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Models\ViewModelListBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -308,7 +309,6 @@
     <Compile Include="Utils\RequestContextWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppSettings.config" />
     <Content Include="Assets\Sass\utils\_accordion.scss" />
     <Content Include="App_Data\la.json" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
@@ -349,6 +349,8 @@
     <Content Include="public\assets\images\dfe-xsmall.png" />
     <Content Include="public\assets\images\dfe.png" />
     <Content Include="public\assets\images\grid-rating.png" />
+    <Content Include="public\assets\images\help-icon-2x.png" />
+    <Content Include="public\assets\images\help-icon.png" />
     <Content Include="public\assets\images\icon-ages.png" />
     <Content Include="public\assets\images\icon-arrow-left.png" />
     <Content Include="public\assets\images\icon-calendar-2x.png" />
@@ -381,6 +383,7 @@
     <Content Include="public\assets\images\icons\gov.uk_logotype_crown_invert_trans.png" />
     <Content Include="public\assets\images\icons\icon-bookmark-x2.png" />
     <Content Include="public\assets\images\icons\icon-bookmark.png" />
+    <Content Include="public\assets\images\icons\icon-chart.png" />
     <Content Include="public\assets\images\icons\icon-list.png" />
     <Content Include="public\assets\images\icons\icon-location-pink.png" />
     <Content Include="public\assets\images\icons\icon-location.png" />
@@ -627,10 +630,10 @@
     <Content Include="Views\La\Partials\ResultBlock.cshtml" />
     <Content Include="Views\Shared\Partials\Chart.cshtml" />
     <Content Include="Views\BenchmarkCriteria\AdvancedCharacteristics.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\RangeCriteria.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\PercentageCriteria.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\MultipleChoiceCriteria.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\Partials\RadioboxCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\Criteria\RangeCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\Criteria\PercentageCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\Criteria\MultipleChoiceCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\Criteria\RadioboxCriteria.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\AdvancedHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\BasicHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\TabContent.cshtml" />
@@ -673,6 +676,7 @@
     <Content Include="Views\BenchmarkCharts\Partials\ChartTable.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\ChartTableTrust.cshtml" />
     <Content Include="Views\Shared\Partials\ChartTable.cshtml" />
+    <Content Include="Views\Shared\EmptyLocationResult.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
@@ -688,6 +692,8 @@
     <Content Include="Views\TrustSchools\Partials\OptionSelect.cshtml" />
     <Content Include="Views\TrustSchools\Partials\ResultBlock.cshtml" />
     <Content Include="Views\TrustSchools\Partials\SchoolResults.cshtml" />
+    <Content Include="Views\Trust\Partials\GeneralCharacteristics.cshtml" />
+    <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>

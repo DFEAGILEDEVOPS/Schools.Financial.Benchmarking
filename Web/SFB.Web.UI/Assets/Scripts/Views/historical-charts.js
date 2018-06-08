@@ -230,7 +230,7 @@
         },
 
         UpdateBenchmarkBasket: function(urn, withAction) {
-            if (withAction === "addtocompare") {
+            if (withAction === "Add") {
                 if (DfE.Util.ComparisonList.count() === 30) {
                     DfE.Util.ComparisonList.RenderFullListWarningModal();
                     return;
@@ -241,16 +241,16 @@
                 function(data) {
                     $("#benchmarkBasket").replaceWith(data);
                     switch (withAction) {
-                    case "removedefaultbenchmark":
+                        case "UnsetDefault":
                         $(".set-unset-default").toggle();
                         break;
-                    case "makedefaultbenchmark":
+                        case "SetDefault":
                         $(".set-unset-default").toggle();
                         $(".addto").hide();
                         $(".removefrom").show();
                         break;
-                    case "addtocompare":
-                    case "removefromcompare":
+                    case "Add":
+                    case "Remove":
                         $(".add-remove").toggle();
                         break;
                     }

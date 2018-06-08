@@ -2,9 +2,9 @@
 <div class="compare-buttons-panel set-unset">
     <div class="column-full">
             
-        <a @DisplayStyle(Model.IsDefaultBenchmark) class="set-unset-default" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.REMOVE_DEFAULT_BENCHMARK}')")">Unset as default school</a>
+        <a @DisplayStyle(Model.IsDefaultBenchmark) class="set-unset-default" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">Unset as default school</a>
 
-        <a @DisplayStyle(!Model.IsDefaultBenchmark) class="set-unset-default" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.MAKE_DEFAULT_BENCHMARK}')")">Set as default school</a>
+        <a @DisplayStyle(!Model.IsDefaultBenchmark) class="set-unset-default" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">Set as default school</a>
 
     </div>
 </div>
@@ -13,9 +13,9 @@
 
         <a class="button compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>
 
-        <a @DisplayStyle(Model.IsInComparisonList) class="add-remove button removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.REMOVE_FROM_COMPARISON_LIST}')")">Remove from benchmark basket</a>
+        <a @DisplayStyle(Model.IsInComparisonList) class="add-remove button removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Remove')")">Remove from benchmark basket</a>
 
-        <a @DisplayStyle(!Model.IsInComparisonList) class="add-remove button addto js-modal" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'{CompareActions.ADD_TO_COMPARISON_LIST}')")">Add to benchmark basket</a>
+        <a @DisplayStyle(!Model.IsInComparisonList) class="add-remove button addto"  href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Add')")">Add to benchmark basket</a>
 
     </div>
 </div>

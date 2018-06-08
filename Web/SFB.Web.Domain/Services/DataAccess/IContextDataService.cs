@@ -4,9 +4,9 @@ namespace SFB.Web.Domain.Services.DataAccess
 {
     public interface IContextDataService
     {
-        dynamic GetSchoolByUrn(string urn);
-        dynamic GetSchoolByLaEstab(string laEstab);
-        dynamic GetSponsorByName(string name);
-        dynamic GetMultipleSchoolsByUrns(List<string> urns);
+        dynamic GetSchoolByUrn(int urn);        
+        List<int> GetAllSchoolUrns();
+        dynamic GetSchoolByLaEstab(string laEstab);        
+        dynamic GetMultipleSchoolsByUrns(List<int> urns);        
     }
 }

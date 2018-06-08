@@ -126,15 +126,16 @@
     .selection-controls {
         padding-top: 30px;
 
-        @include media(desktop) {
-            padding-bottom: 120px;
-        }
-
         .clear-link {
             padding-top: 8px;
 
             @include media(desktop) {
                 padding-left: 0;
+            }
+
+            @include media(mobile){
+                padding-left: 0;
+                padding-top: 10px;
             }
 
             cursor: pointer;
@@ -246,9 +247,9 @@
     }
 
     .customAdd, .customRemove {
-        @include media(tablet) {
+        /*@include media(tablet) {
             float: right;
-        }
+        }*/
     }
 
     .save-as-image {
@@ -345,4 +346,45 @@ table.bmc-rollover-table {
 
 .include-context-table{
     padding-top:25px;
+}
+
+nav.tabs ol li a.helpLink {
+    border: unset;
+    text-decoration: unset;
+    height: unset;
+    -moz-box-sizing: unset;
+    -webkit-box-sizing: unset;
+    box-sizing: unset;
+    padding: unset;
+    white-space: unset;
+    display: inline;
+    position: relative;
+    right: 25px;
+    top: 10px;
+    float: right;
+
+    @include media(mobile) {
+        top: -30px;
+    }
+}
+
+nav.tabs ol li a.custom {    
+    display: inline-block;
+    padding-right: 30px
+}
+nav.tabs ol li.active a.custom {
+    padding-right: 45px;
+
+    @include media(tablet) {
+        padding-right: 40px;
+    }
+}
+
+.custom-report .chartContainer{
+    padding-top: 20px; 
+
+    hr{
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
 }

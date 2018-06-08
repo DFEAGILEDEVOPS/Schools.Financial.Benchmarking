@@ -59,7 +59,7 @@ namespace SFB.Web.Common
         [Range(0, Int32.MaxValue)]
         [DBField(name: DBFieldNames.NO_PUPILS, type: CriteriaFieldComparisonTypes.MAX)]
         public double? MaxNoPupil { get; set; }
-        
+
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS)]
         [Range(0,100)]
         [DBField(name: DBFieldNames.PERCENTAGE_FSM, type: CriteriaFieldComparisonTypes.MIN)]
@@ -367,8 +367,7 @@ namespace SFB.Web.Common
         [Range(0, 100)]
         [DBField(name: DBFieldNames.AUTISTIC_DISORDER, type: CriteriaFieldComparisonTypes.MAX)]
         public double? MaxAutisticDisorder { get; set; }
-
-
+        
         [PrettyName(SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF)]
         [Range(0, 100)]
         [DBField(name: DBFieldNames.OTHER_LEARNING_DIFF, type: CriteriaFieldComparisonTypes.MIN)]
@@ -378,5 +377,25 @@ namespace SFB.Web.Common
         [Range(0, 100)]
         [DBField(name: DBFieldNames.OTHER_LEARNING_DIFF, type: CriteriaFieldComparisonTypes.MAX)]
         public double? MaxOtherLearningDiff { get; set; }
+
+        [PrettyName(TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS)]
+        [Range(2, Int32.MaxValue)]
+        [DBField(name: DBFieldNames.NO_SCHOOLS, type: CriteriaFieldComparisonTypes.MIN)]
+        public int? MinNoSchools { get; set; }
+
+        [PrettyName(TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS)]
+        [Range(2, Int32.MaxValue)]
+        [DBField(name: DBFieldNames.NO_SCHOOLS, type: CriteriaFieldComparisonTypes.MAX)]
+        public int? MaxNoSchools { get; set; }
+
+        [PrettyName(TrustCharacteristicsQuestions.TOTAL_INCOME)]
+        [Range(0, double.MaxValue)]
+        [DBField(name: DBFieldNames.TOTAL_INCOME, type: CriteriaFieldComparisonTypes.MIN)]
+        public double? MinTotalInc { get; set; }
+
+        [PrettyName(TrustCharacteristicsQuestions.TOTAL_INCOME)]
+        [Range(0, double.MaxValue)]
+        [DBField(name: DBFieldNames.TOTAL_INCOME, type: CriteriaFieldComparisonTypes.MAX)]
+        public double? MaxTotalInc { get; set; }
     }
 }

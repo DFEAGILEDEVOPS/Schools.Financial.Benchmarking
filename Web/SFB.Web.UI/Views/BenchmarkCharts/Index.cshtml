@@ -11,6 +11,8 @@
 @section InsideHead{
     <link href="~/public/assets/print/bmc-print.css" media="print" rel="stylesheet" type="text/css">
     <script src="~/node_modules/angular/angular.min.js"></script>
+    <script src="~/node_modules/jspdf/dist/jspdf.debug.js"></script>
+
 }
 
 @section StickyContent
@@ -60,7 +62,7 @@ else
         if (Model.BmSchoolInList())
         {
             <div class="grid-row">
-                <div class="column-full">
+                <div class="column-full" id="comparing">
                     <span>Comparing</span>
                     <div class="highlight">
                         <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
@@ -142,6 +144,11 @@ else
                     <a id="PrintLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PrintPage()">
                         <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
                     </a>
+            </div>
+        </div>
+        <div class="column-one-third">
+            <div class="pdf">
+                <a id="PdfLink" class="no-underline bold-xsmall" href="javascript:DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></a>
                 </div>
             </div>
         </div>
@@ -178,8 +185,8 @@ else
         <div ng-app="reportApp">
             <div id="listCtrl" ng-controller="ChartListController as ctrl">
                 <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
-                    <h2 class="heading-medium">School context data</h2>
-                    <table class="tablesorter context-table">
+                    <h2 class="heading-medium" id="contextExp">School context data</h2>
+                    <table id="contextDataTable" class="tablesorter context-table">
                         <thead>
                             <tr>
                                 <th class="school-column">School name</th>
@@ -216,9 +223,9 @@ else
         <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
+        <input type = "hidden" id = "HomeSchoolName" name = "HomeSchoolName" value = "@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
     }
 }
-
 
 @section AfterMain{
     <div class="full-page-width-wrapper hide-in-print" role="region" aria-label="Feedback Question">
@@ -245,6 +252,7 @@ else
 
     <script>
         DfE.Views.BenchmarkChartsViewModel.Load();
+        GOVUK.Modal.Load();
     </script>
 
 }

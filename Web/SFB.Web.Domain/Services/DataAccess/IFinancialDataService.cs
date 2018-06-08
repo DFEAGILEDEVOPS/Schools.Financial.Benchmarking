@@ -7,13 +7,15 @@ namespace SFB.Web.Domain.Services.DataAccess
 {
     public interface IFinancialDataService : ITermYearDataService
     {
-        Document GetSchoolDataDocument(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
-        Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
+        Document GetSchoolDataDocument(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
+        Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
         dynamic GetAcademiesByMatNumber(string term, string matNo);
         Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance);
         Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance);
         Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);
         Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);
+        Task<List<Document>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria);
+        Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria);
         Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType);
     }
 
@@ -22,8 +24,7 @@ namespace SFB.Web.Domain.Services.DataAccess
         List<string> GetActiveTermsForMatCentral();
         List<string> GetActiveTermsForAcademies();
         List<string> GetActiveTermsForMaintained();
-        int GetLatestFinancialDataYear();
-        int GetLatestDataYearForTrusts();
-        int GetLatestDataYearPerSchoolType(SchoolFinancialType type);
+        int GetLatestFinancialDataYear();        
+        int GetLatestDataYearPerEstabType(EstablishmentType type);
     }
 }

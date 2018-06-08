@@ -49,7 +49,7 @@
 
     window.DfE.Sfb.BenchmarkBasket = {
         ClearBenchmarkBasket : function () {
-            $.get("/school/UpdateBenchmarkBasket?withAction=clear",
+            $.get("/school/UpdateBenchmarkBasket?withAction=RemoveAll",
                 function (data) {
                     $("#benchmarkBasket").replaceWith(data);
                     if ($(".search-results").length > 0) {
@@ -110,17 +110,23 @@
             var $tables = $('.chart-table-wrapper');
             var $showChartsButton = $('a.view-charts-tables.charts');
             var $showTablesButton = $('a.view-charts-tables.tables');
+            var $saveAsImagesButtons = $('.save-as-image');
+            var $viewMoreLabels = $("a span.view-more");
             if (mode === 'Charts') {
                 $showChartsButton.hide();
                 $showTablesButton.show();
                 $tables.hide();
                 $charts.show();
+                $saveAsImagesButtons.show();
+                $viewMoreLabels.text("View more charts");
                 sessionStorage.chartFormat = 'Charts';
             } else if (mode === 'Tables') {
                 $showTablesButton.hide();
                 $showChartsButton.show();
                 $charts.hide();
                 $tables.show();
+                $saveAsImagesButtons.hide();
+                $viewMoreLabels.text("View more tables");
                 sessionStorage.chartFormat = 'Tables';
             }
         }
@@ -182,6 +188,29 @@
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Trust basket is full</h1><p id="modal-content"><br/>' +
                 'You can only benchmark up to 10 trusts.</p>';
+
+            $($modal_code).insertAfter($page);
+            $body.addClass('no-scroll');
+
+            $page.attr('aria-hidden', 'true');
+
+            // add overlay
+            var $modal_overlay =
+                '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+            $($modal_overlay).insertAfter($('#js-modal'));
+
+            $('#js-modal-close').focus();
+
+        },
+        RenderYourChartsInfoModal: function () {
+            var $body = $('body');
+            var $page = $('#js-modal-page');
+
+            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='label_modal_1' title='Close'>Close</a>" +
+                "<h1 id='modal-title' class='modal-title'>Your charts tab</h1><p id='modal-content'><br/>" +
+                "This tab shows which charts you have chosen to include in your customised report. You can add charts to this area by selecting the ‘Add to your charts’ function beside each chart. You can also add charts within the tab by selecting the relevant checkboxes.</p>";
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');

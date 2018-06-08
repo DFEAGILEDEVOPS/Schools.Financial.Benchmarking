@@ -9,13 +9,15 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Helpers.Constants;
+using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.UnitTests
 {
     public class BenchmarkListControllerUnitTests
     {
         [Test]
-        public void UpdateActionReturnsCookieWhenComparisonListCleared()
+        public void UpdateActionCallsCookieManagerWhenComparisonListCleared()
         {
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var response = new Mock<HttpResponseBase>(MockBehavior.Strict);
@@ -23,8 +25,8 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request).Returns(request.Object);
             context.SetupGet(x => x.Response).Returns(response.Object);
             var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>() { new BenchmarkSchoolViewModel() { Urn = "123", Name = "test" } };
+            var listCookie = new SchoolComparisonListModel();
+            listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { new BenchmarkSchoolModel() { Urn = "123", Name = "test" } };
             requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var responseCookies = new HttpCookieCollection();
@@ -42,15 +44,24 @@ namespace SFB.Web.UI.UnitTests
             serviceResponse.NumberOfResults = 0;
             serviceResponse.Facets = string.Empty;
 
-            var controller = new BenchmarkListController(mockEdubaseDataService.Object);
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.HomeSchoolUrn = "123";
+            fakeSchoolComparisonList.HomeSchoolName = "test";
+            fakeSchoolComparisonList.HomeSchoolType = "test";
+            fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var controller = new BenchmarkListController(mockEdubaseDataService.Object, mockCookieManager.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = controller.UpdateBenchmarkBasket(null, CompareActions.CLEAR_BENCHMARK_LIST);
+            var result = controller.UpdateBenchmarkBasket(null, CookieActions.RemoveAll);
 
-            Assert.AreEqual(1, controller.Response.Cookies.Count);
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
-            Assert.AreEqual(0, cookie.BenchmarkSchools.Count);
+            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, It.IsAny<BenchmarkSchoolModel>()),Times.Once);
+
+
         }
     }
 }

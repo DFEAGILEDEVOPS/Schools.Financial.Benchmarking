@@ -13,7 +13,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Expenditure, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.PercentageOfTotal);
+            var chartVMs = builder.Build(RevenueGroupType.Expenditure, ChartGroupType.All, EstablishmentType.Academies, UnitType.PercentageOfTotal);
 
             Assert.False(chartVMs.Any(c => c.Name == "Total expenditure"));
         }
@@ -23,7 +23,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Income, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.PercentageOfTotal);
+            var chartVMs = builder.Build(RevenueGroupType.Income, ChartGroupType.All, EstablishmentType.Academies, UnitType.PercentageOfTotal);
 
             Assert.False(chartVMs.Any(c => c.Name == "Total income"));
         }
@@ -33,7 +33,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.HeadcountPerFTE);
+            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, EstablishmentType.Academies, UnitType.HeadcountPerFTE);
 
             Assert.False(chartVMs.Any(c => c.Name == "School workforce (headcount)"));
         }
@@ -43,7 +43,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.FTERatioToTotalFTE);
+            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, EstablishmentType.Academies, UnitType.FTERatioToTotalFTE);
 
             Assert.False(chartVMs.Any(c => c.Name == "School workforce (headcount)"));
         }
@@ -53,7 +53,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.FTERatioToTotalFTE);
+            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, EstablishmentType.Academies, UnitType.FTERatioToTotalFTE);
 
             Assert.False(chartVMs.Any(c => c.Name == "School workforce (Full Time Equivalent)"));
         }
@@ -63,7 +63,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.HeadcountPerFTE);
+            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, EstablishmentType.Academies, UnitType.HeadcountPerFTE);
 
             Assert.False(chartVMs.Any(c => c.Name == "Teachers with Qualified Teacher Status (%)"));
         }
@@ -73,7 +73,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.FTERatioToTotalFTE);
+            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, EstablishmentType.Academies, UnitType.FTERatioToTotalFTE);
 
             Assert.False(chartVMs.Any(c => c.Name == "Teachers with Qualified Teacher Status (%)"));
         }
@@ -83,7 +83,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, SchoolFinancialType.Academies, UnitType.NoOfPupilsPerMeasure);
+            var chartVMs = builder.Build(RevenueGroupType.Workforce, ChartGroupType.All, EstablishmentType.Academies, UnitType.NoOfPupilsPerMeasure);
 
             Assert.False(chartVMs.Any(c => c.Name == "Teachers with Qualified Teacher Status (%)"));
         }

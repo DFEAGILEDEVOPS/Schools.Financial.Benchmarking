@@ -1,11 +1,11 @@
 ﻿@using SFB.Web.Domain.Helpers.Constants
 @using SFB.Web.UI.Helpers.Constants
-@model List<SFB.Web.UI.Models.TrustToCompareViewModel>
+@model List<SFB.Web.UI.Models.BenchmarkTrustModel>
 
 <form autocomplete="off">
     <span id="trustCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count trusts in comparison list</span>
     <input id="trustCount" type="hidden" value="@Model.Count"/>
-    <button type="submit" style="visibility: hidden" disabled="disabled">hidden</button>
+    <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
     <fieldset>
         <legend class="visuallyhidden">Choose a trust from auto completion list</legend>
         @{
@@ -34,8 +34,8 @@
                     {
                         <div class="grid-row trust-element">
                             <label class="form-label" for="mat_@i">Trust @Html.Raw(i + 1)</label>
-                            <input class="form-control" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
-                            <a href="javascript: DfE.Views.TrustCompareViewModel.RemoveTrust('@Model[i].MatNo')" aria-label="Remove @Model[i].MatName">Remove</a>
+                            <input class="form-control" style="width: 50%" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
+                            <a class="remove-trust" href="javascript:void(0)" data-matNo="@Model[i].MatNo" aria-label="Remove @Model[i].MatName">Remove</a>
                         </div>
                     }
                 </div>
@@ -60,11 +60,11 @@
                     <div class="column-full">
                         @if (Model.Count < ComparisonListLimit.MAT_LIMIT)
                         {
-                            <a class="js-modal" href="javascript: DfE.Views.TrustCompareViewModel.DisplayNewTrustElements()">Add another trust</a>
+                            <a href="javascript:void(0)" id="displayNew">Add another trust</a>
                         }
                         else
                         {
-                            <a class="js-modal" href="javascript: DfE.Util.ComparisonList.RenderFullListWarningModalMat()">Add another trust</a>
+                            <a href="javascript:DfE.Util.ComparisonList.RenderFullListWarningModalMat()">Add another trust</a>
                         }
                     </div>
                 </div>

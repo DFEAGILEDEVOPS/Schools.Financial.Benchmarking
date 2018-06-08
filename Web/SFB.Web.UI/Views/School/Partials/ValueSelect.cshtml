@@ -4,7 +4,14 @@
 
 <div class="column-half chart-filter">
     <div class="form-group">
-        <label class="form-label" for="ShowValue">Show value</label>
+        <label class="form-label inline-block" for="ShowValue">Show value</label>
+        <span class="help-icon inline-block hide-in-print">
+            <span class="icon dark-blue">
+                <a href="#" class="js-modal" data-modal-title="Show value" data-modal-text="@HelpTooltipText.ShowValueHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                    <span class="visuallyhidden">Open help text for Show Value opens a popup</span>
+                </a>
+            </span>
+        </span>
         <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('school')">
             @if (Model.Tab == RevenueGroupType.Workforce)
             {

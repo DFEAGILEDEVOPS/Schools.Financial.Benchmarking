@@ -4,9 +4,9 @@ namespace SFB.Web.DAL.Repositories
 {
     public interface IEdubaseRepository
     {
-        dynamic GetSchoolByUrn(string urn);
-        dynamic GetSchoolByLaEstab(string laEstab);
-        dynamic GetSponsorByName(string name);
-        dynamic GetMultipleSchoolsByUrns(List<string> urns);
+        dynamic GetSchoolByUrn(int urn);        
+        dynamic GetSchoolByLaEstab(string laEstab);        
+        dynamic GetMultipleSchoolsByUrns(List<int> urns);
+        List<int> GetAllSchoolUrns();
     }
 }

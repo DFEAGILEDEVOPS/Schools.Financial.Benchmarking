@@ -4,7 +4,7 @@ namespace SFB.Web.UI.Models
 {
     public class SchoolListViewModel : ViewModelListBase<SchoolViewModel>
     {
-        public SchoolListViewModel(List<SchoolViewModel> modelList, ComparisonListModel comparisonList, string orderBy = "")
+        public SchoolListViewModel(List<SchoolViewModel> modelList, SchoolComparisonListModel comparisonList, string orderBy = "")
         {
             base.SchoolComparisonList = comparisonList;
             base.ModelList = modelList;

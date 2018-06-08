@@ -12,7 +12,7 @@ namespace SFB.Web.UI.Models
 
         public abstract string Type { get; }
 
-        public abstract SchoolFinancialType FinancialType { get; }
+        public abstract EstablishmentType EstablishmentType { get; }
 
         public List<ChartViewModel> HistoricalCharts { get; set; }
 
@@ -22,7 +22,7 @@ namespace SFB.Web.UI.Models
 
         public List<string> Terms { get; set; }
 
-        public List<SchoolFinancialDataModel> HistoricalSchoolFinancialDataModels { get; set; }
+        public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 
         public decimal TotalRevenueIncome { get; set; }
 
@@ -30,7 +30,7 @@ namespace SFB.Web.UI.Models
 
         public decimal InYearBalance { get; set; }
 
-        public SchoolFinancialDataModel LatestYearFinancialData => HistoricalSchoolFinancialDataModels.Last();
+        public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels.Last();
 
         public bool IsReturnsComplete => LatestYearFinancialData.PeriodCoveredByReturn == 12;
 

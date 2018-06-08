@@ -162,9 +162,14 @@ namespace SFB.Web.Domain.Services.Search
         {
             var locations = ExecuteSuggestLocationName(location);
 
-            var coord = locations.Matches.First();
+            if (locations.Matches.Count == 0)
+            {
+                dynamic obj = new ExpandoObject();
+                obj.NumberOfResults = 0;
+                return obj;
+            }
 
-            return await FindNearestSchools(coord.Lat, coord.Long, distance, skip, take, orderby, queryParams);
+            return await FindNearestSchools(locations.Matches.First().Lat, locations.Matches.First().Long, distance, skip, take, orderby, queryParams);
         }
 
         public async Task<dynamic> SearchSchoolByLocation(string lat, string lon, decimal distance, int skip, int take,

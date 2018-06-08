@@ -22,7 +22,7 @@ namespace SFB.Web.UI.Helpers
 
             if (schoolType != EstablishmentType.All)
             {
-                if (schoolType == EstablishmentType.Academy || schoolType == EstablishmentType.MAT)
+                if (schoolType == EstablishmentType.Academies || schoolType == EstablishmentType.MAT)
                 {
                     chartList = chartList.Where(c =>
                             c.ChartSchoolType == ChartSchoolType.Academy || c.ChartSchoolType == ChartSchoolType.Both)
@@ -47,7 +47,7 @@ namespace SFB.Web.UI.Helpers
 
             if (schoolType != EstablishmentType.All)
             {
-                if (schoolType == EstablishmentType.Academy || schoolType == EstablishmentType.MAT)
+                if (schoolType == EstablishmentType.Academies || schoolType == EstablishmentType.MAT)
                 {
                     chartList =
                         chartList.Where(
@@ -138,7 +138,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     DrillInto = ChartGroupType.Occupation,
                     MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    ChartType = ChartType.Total,
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
                 },
 
                 new ChartViewModel()
@@ -668,7 +669,8 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    ChartType = ChartType.Total,
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
                 },
                 new ChartViewModel()
                 {

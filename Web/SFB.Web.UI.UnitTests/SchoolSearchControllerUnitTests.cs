@@ -32,6 +32,7 @@ namespace SFB.Web.UI.UnitTests
         private Mock<IContextDataService> _mockEdubaseDataService;
         private Mock<ISchoolSearchService> _mockEdubaseSearchService;
         private Mock<ITrustSearchService> _mockTrustSearchService;
+        private Mock<IBenchmarkBasketCookieManager> _mockCookieManager;
 
         [SetUp]
         public void Setup()
@@ -50,6 +51,7 @@ namespace SFB.Web.UI.UnitTests
             _mockEdubaseDataService = new Mock<IContextDataService>();
             _mockEdubaseSearchService = new Mock<ISchoolSearchService>();
             _mockTrustSearchService = new Mock<ITrustSearchService>();
+            _mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
         }
 
         [Test]
@@ -64,7 +66,8 @@ namespace SFB.Web.UI.UnitTests
 
             _mockEdubaseSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
+                _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
             controller.ControllerContext = new ControllerContext(_rc, controller);
  
             var result = await controller.Search("Test", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, null);
@@ -96,7 +99,9 @@ namespace SFB.Web.UI.UnitTests
 
             _mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
+
             controller.ControllerContext = new ControllerContext(_rc, controller);
  
             var result = await controller.Search(null, "", SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, "Test", null, null, 0);
@@ -139,7 +144,9 @@ namespace SFB.Web.UI.UnitTests
 
             _mockEdubaseSearchService.Setup(m => m.SearchSchoolByLaCode("123", 0, 50, "EstablishmentName", null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, 
+                _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
+
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
             var result = await controller.Search(null, "", SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, "Test", null, null);
@@ -152,7 +159,10 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionReturnsHomeViewIfNotValid()
         {
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object,
+                _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object,
+                _mockCookieManager.Object);
+
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
             var result = await controller.Search("" , "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, null, 0);
@@ -164,7 +174,8 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfValidUrnProvided()
         {
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
+                _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
             var result = await controller.Search("", "", SearchTypes.SEARCH_BY_NAME_ID, "123456", null, null, null, null, null, 0);
 
@@ -176,7 +187,8 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToTrustSearchViewIfValidTrustNameProvided()
         {
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, 
+                _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
             var result = await controller.Search("", "TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME, null, null, null, null, null, null, 0);
 
@@ -189,11 +201,12 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchActionRedirectsToSchoolViewIfUrnIsUsedAsId()
         {            
             dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "123456";
+            testResult.URN = 123456;
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123456)).Returns((int urn) => testResult);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
+                _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
             var result = await controller.Search("123456", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, null, 0);
 
@@ -211,7 +224,8 @@ namespace SFB.Web.UI.UnitTests
 
             _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
                        
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, 
+                _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -231,7 +245,8 @@ namespace SFB.Web.UI.UnitTests
 
             _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, 
+                _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -251,7 +266,8 @@ namespace SFB.Web.UI.UnitTests
 
             _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
+                _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -277,192 +293,14 @@ namespace SFB.Web.UI.UnitTests
             _mockEdubaseSearchService.Setup(m => m.SearchSchoolByName("Test", 50, 50, string.Empty, null))
                 .Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);            
             
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
+                _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
             var result = await controller.Search("Test", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, "", 2);
 
             _mockEdubaseSearchService.Verify(req => req.SearchSchoolByName("Test", 50, 50, "", null), Times.Once());
         }
-
-        [Test]
-        public void UpdateActionReturnsCookieWhenAddToComparisonList()
-        {
-            var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
-            var response = new Mock<HttpResponseBase>(MockBehavior.Strict);
-            var context = new Mock<HttpContextBase>(MockBehavior.Strict);
-            context.SetupGet(x => x.Request).Returns(request.Object);
-            context.SetupGet(x => x.Response).Returns(response.Object);
-            var requestCookies = new HttpCookieCollection();
-            context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
-            var responseCookies = new HttpCookieCollection();
-            context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
-            var rc = new RequestContext(context.Object, new RouteData());
-            
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
-
-            controller.ControllerContext = new ControllerContext(rc, controller);
-
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "123456";
-
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
-
-            var result = controller.UpdateBenchmarkBasket(123456, CompareActions.ADD_TO_COMPARISON_LIST);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, controller.Response.Cookies.Count);
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
-            Assert.AreEqual(1, cookie.BenchmarkSchools.Count);
-            Assert.AreEqual("123456", cookie.BenchmarkSchools[0].Urn);
-        }
-
-        [Test]
-        public void UpdateActionReturnsCookieWhenMultipleAddToComparisonList()
-        {
-            var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
-            var response = new Mock<HttpResponseBase>(MockBehavior.Strict);
-            var context = new Mock<HttpContextBase>(MockBehavior.Strict);
-            context.SetupGet(x => x.Request).Returns(request.Object);
-            context.SetupGet(x => x.Response).Returns(response.Object);
-            var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>() { new BenchmarkSchoolViewModel() { Urn = "123", Name = "test" } };
-            requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
-            context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
-            var responseCookies = new HttpCookieCollection();
-            context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
-            var rc = new RequestContext(context.Object, new RouteData());
-
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "123456";
-
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
-
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
-
-            controller.ControllerContext = new ControllerContext(rc, controller);
-
-            var result = controller.UpdateBenchmarkBasket(123456, CompareActions.ADD_TO_COMPARISON_LIST);
-
-            Assert.AreEqual(1, controller.Response.Cookies.Count);
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
-            Assert.AreEqual(2, cookie.BenchmarkSchools.Count);
-            Assert.AreEqual("123", cookie.BenchmarkSchools[0].Urn);
-            Assert.AreEqual("123456", cookie.BenchmarkSchools[1].Urn);
-        }
-
-        [Test]
-        public void UpdateActionCannotAddMoreThanLimitToComparisonList()
-        {
-            var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
-            var response = new Mock<HttpResponseBase>(MockBehavior.Strict);
-            var context = new Mock<HttpContextBase>(MockBehavior.Strict);
-            context.SetupGet(x => x.Request).Returns(request.Object);
-            context.SetupGet(x => x.Response).Returns(response.Object);
-            var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>();
-            for (int i = 0; i < ComparisonListLimit.LIMIT; i++)
-            {
-                listCookie.BenchmarkSchools.Add(new BenchmarkSchoolViewModel() { Urn = i.ToString(), Name = "test"});
-            }
-            requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
-            context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
-            var responseCookies = new HttpCookieCollection();
-            context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
-            var rc = new RequestContext(context.Object, new RouteData());
-
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "123456";
-
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
-
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
-
-            controller.ControllerContext = new ControllerContext(rc, controller);
-
-            var result = controller.UpdateBenchmarkBasket(123456, CompareActions.ADD_TO_COMPARISON_LIST);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, controller.Response.Cookies.Count);
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
-            Assert.AreEqual(ComparisonListLimit.LIMIT, cookie.BenchmarkSchools.Count);
-        }
-
-        [Test]
-        public void UpdateActionReturnsCookieWhenDoubleAddToComparisonList()
-        {
-            var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
-            var response = new Mock<HttpResponseBase>(MockBehavior.Strict);
-            var context = new Mock<HttpContextBase>(MockBehavior.Strict);
-            context.SetupGet(x => x.Request).Returns(request.Object);
-            context.SetupGet(x => x.Response).Returns(response.Object);
-            var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>() { new BenchmarkSchoolViewModel() { Urn = "123", Name = "test"} };
-            requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
-            context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
-            var responseCookies = new HttpCookieCollection();
-            context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
-            var rc = new RequestContext(context.Object, new RouteData());
-            
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "123456";
-
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123456")).Returns((string urn) => testResult);
-
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
-
-            controller.ControllerContext = new ControllerContext(rc, controller);
-
-            controller.UpdateBenchmarkBasket(123456, CompareActions.ADD_TO_COMPARISON_LIST);
-            var result = controller.UpdateBenchmarkBasket(123456, CompareActions.ADD_TO_COMPARISON_LIST);
-
-            Assert.IsNotNull(result);
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
-            Assert.AreEqual(2, cookie.BenchmarkSchools.Count);
-            Assert.AreEqual("123456", cookie.BenchmarkSchools[1].Urn);
-        }
-
-        [Test]
-        public void UpdateActionReturnsCookieWhenRemovedFromComparisonList()
-        {
-            var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
-            var response = new Mock<HttpResponseBase>(MockBehavior.Strict);
-            var context = new Mock<HttpContextBase>(MockBehavior.Strict);
-            context.SetupGet(x => x.Request).Returns(request.Object);
-            context.SetupGet(x => x.Response).Returns(response.Object);
-            var requestCookies = new HttpCookieCollection();
-            var listCookie = new ComparisonListModel();
-            listCookie.BenchmarkSchools = new List<BenchmarkSchoolViewModel>()
-            {
-                new BenchmarkSchoolViewModel() {Urn = "123", Name = "test"}
-            };
-            requestCookies.Add(new HttpCookie(CookieNames.COMPARISON_LIST, JsonConvert.SerializeObject(listCookie)));
-            context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
-            var responseCookies = new HttpCookieCollection();
-            context.SetupGet(x => x.Response.Cookies).Returns(responseCookies);
-
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "123";
-
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn("123")).Returns((string urn) => testResult);
-
-            var rc = new RequestContext(context.Object, new RouteData());
-
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object);
-
-            controller.ControllerContext = new ControllerContext(rc, controller);
-
-            var result = controller.UpdateBenchmarkBasket(123, CompareActions.REMOVE_FROM_COMPARISON_LIST);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(1, controller.Response.Cookies.Count);
-            var cookie = JsonConvert.DeserializeObject<ComparisonListModel>(controller.Response.Cookies[CookieNames.COMPARISON_LIST].Value);
-            Assert.AreEqual(0, cookie.BenchmarkSchools.Count);
-        }
-
-        
+      
     }
 }

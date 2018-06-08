@@ -8,18 +8,18 @@ namespace SFB.Web.UI.Helpers
 {
     public interface IHistoricalChartBuilder
     {
-        List<ChartViewModel> Build(RevenueGroupType revenueGroup, SchoolFinancialType schoolFinancialType);
+        List<ChartViewModel> Build(RevenueGroupType revenueGroup, EstablishmentType estabType);
 
         List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup,
-            SchoolFinancialType schoolFinancialType, UnitType unit = UnitType.AbsoluteCount);
+            EstablishmentType estabType, UnitType unit = UnitType.AbsoluteCount);
     }
 
     public class HistoricalChartBuilder : IHistoricalChartBuilder
     {
-        public List<ChartViewModel> Build(RevenueGroupType revenueGroup, SchoolFinancialType schoolFinancialType)
+        public List<ChartViewModel> Build(RevenueGroupType revenueGroup, EstablishmentType estabType)
         {
             var chartList = Build(revenueGroup);
-            if (schoolFinancialType == SchoolFinancialType.Academies)
+            if (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT)
             {
                 chartList =
                     chartList.Where(
@@ -41,13 +41,13 @@ namespace SFB.Web.UI.Helpers
         }
 
         public List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup,
-            SchoolFinancialType schoolFinancialType, UnitType unit)
+            EstablishmentType estabType, UnitType unit)
         {
             var chartList = Build(revenueGroup, chartGroup);
 
             RemoveIrrelevantCharts(unit, chartList);
 
-            if (schoolFinancialType == SchoolFinancialType.Academies)
+            if (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT)
             {
                 chartList =
                     chartList.Where(
@@ -159,7 +159,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DrillInto = ChartGroupType.Occupation
+                    DrillInto = ChartGroupType.Occupation,
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
                 },
 
                 new ChartViewModel()
@@ -704,7 +705,8 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    ChartType = ChartType.Total,
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
                 },
                 new ChartViewModel()
                 {

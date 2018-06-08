@@ -99,7 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseControllerUnitTests.cs" />
+    <Compile Include="BenchmarkBasketCookieManagerUnitTests.cs" />
     <Compile Include="BenchmarkChartsControllerUnitTests.cs" />
     <Compile Include="BenchmarkCriteriaControllerUnitTests.cs" />
     <Compile Include="BenchmarkListControllerUnitTests.cs" />

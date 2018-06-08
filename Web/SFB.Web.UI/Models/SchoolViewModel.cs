@@ -8,14 +8,14 @@ namespace SFB.Web.UI.Models
     public class SchoolViewModel : EstablishmentViewModelBase
     {
 
-        public SchoolViewModel(dynamic model)
+        public SchoolViewModel(dynamic contextDataModel)
         {
-            base.DataModel = model;
+            base.ContextDataModel = contextDataModel;
         }
 
-        public SchoolViewModel(dynamic SchoolFinancialDataModel, ComparisonListModel comparisonList)
+        public SchoolViewModel(dynamic schoolContextDataModel, SchoolComparisonListModel comparisonList)
         {
-            base.DataModel = SchoolFinancialDataModel;
+            base.ContextDataModel = schoolContextDataModel;
             base.ComparisonList = comparisonList;
         }
 
@@ -33,7 +33,7 @@ namespace SFB.Web.UI.Models
 
         public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == GetString("URN");
 
-        public string Id => GetString("URN");
+        public string Id => GetInt("URN").ToString();
 
         public string LaEstab => $"{GetString("LACode")} {GetString("EstablishmentNumber")}";
 
@@ -114,10 +114,26 @@ namespace SFB.Web.UI.Models
         {
             get
             {
-                var openDate = GetDate("OpenDate");
-                if (openDate.HasValue)
+                var openDate = GetDateBinary("OpenDate");
+                if (openDate.HasValue && openDate >= new DateTime(2011,1,1))
                 {
-                    return openDate.Value.ToString("dd/MM/yyyy");
+                    return openDate.Value.ToLongDateString();
+                }
+                else
+                {
+                    return String.Empty;
+                }
+            }
+        }
+
+        public string CloseDate
+        {
+            get
+            {
+                var closeDate = GetDateBinary("CloseDate");
+                if (closeDate.HasValue && closeDate >= new DateTime(2011, 1, 1))
+                {
+                    return closeDate.Value.ToLongDateString();
                 }
                 else
                 {
@@ -132,7 +148,7 @@ namespace SFB.Web.UI.Models
 
         public bool HasIncompleteFinancialData => GetInt("Period covered by return") != 12;
 
-        public override SchoolFinancialType FinancialType => GetString("FinanceType") == "A" ? SchoolFinancialType.Academies : SchoolFinancialType.Maintained;
+        public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), GetString("FinanceType"));
 
         public bool HasCoordinates
         {

@@ -4,38 +4,43 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SFB.Web.Domain.Services.DataAccess;
+using System;
+using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class BenchmarkListController : BaseController
+    public class BenchmarkListController : Controller
     {
         private readonly IContextDataService _contextDataService;
+        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
-        public BenchmarkListController(IContextDataService contextDataService)
+        public BenchmarkListController(IContextDataService contextDataService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _contextDataService = contextDataService;
+            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
         public ActionResult Index()
         {
-            var comparisonList = base.ExtractSchoolComparisonListFromCookie();
+            var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
             if (comparisonList.BenchmarkSchools.Count > 1)
             {
-                dynamic dynamicBenchmarkSchools = _contextDataService.GetMultipleSchoolsByUrns(comparisonList.BenchmarkSchools.Select(b => b.Urn.ToString()).ToList());
+                dynamic dynamicBenchmarkSchools = _contextDataService.GetMultipleSchoolsByUrns(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
 
-                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolViewModel>();
+                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
                 foreach (var dynamicBenchmarkSchool in dynamicBenchmarkSchools)
                 {
                     var school = new SchoolViewModel(dynamicBenchmarkSchool);
-                    var benchmarkSchool = new BenchmarkSchoolViewModel()
+                    var benchmarkSchool = new BenchmarkSchoolModel()
                     {
                         Address = school.Address,
                         Name = school.Name,
                         Phase = school.OverallPhase,
                         Type = school.Type,
-                        FinancialType = school.FinancialType.ToString(),
+                        EstabType = school.EstablishmentType.ToString(),
                         Urn = school.Id
                     };
 
@@ -43,18 +48,18 @@ namespace SFB.Web.UI.Controllers
                 }
             }else if (comparisonList.BenchmarkSchools.Count == 1)
             {
-                var dynamicBenchmarkSchool = _contextDataService.GetSchoolByUrn(comparisonList.BenchmarkSchools[0].Urn);
+                var schoolContextData = _contextDataService.GetSchoolByUrn(Int32.Parse(comparisonList.BenchmarkSchools[0].Urn));
 
-                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolViewModel>();
+                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
-                var school = new SchoolViewModel(dynamicBenchmarkSchool);
-                var benchmarkSchool = new BenchmarkSchoolViewModel()
+                var school = new SchoolViewModel(schoolContextData);
+                var benchmarkSchool = new BenchmarkSchoolModel()
                 {
                     Address = school.Address,
                     Name = school.Name,
                     Phase = school.OverallPhase,
                     Type = school.Type,
-                    FinancialType = school.FinancialType.ToString(),
+                    EstabType = school.EstablishmentType.ToString(),
                     Urn = school.Id
                 };
 
@@ -64,34 +69,27 @@ namespace SFB.Web.UI.Controllers
             return View(comparisonList);
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)
+        public PartialViewResult UpdateBenchmarkBasket(int? urn, CookieActions withAction)
         {
-            HttpCookie cookie;
-
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.GetValueOrDefault()), null);
 
-                cookie = base.UpdateSchoolComparisonListCookie(withAction,
-                    new BenchmarkSchoolViewModel()
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
+                    new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
                         Urn = benchmarkSchool.Id,
                         Type = benchmarkSchool.Type,
-                        FinancialType = benchmarkSchool.FinancialType.ToString()
+                        EstabType = benchmarkSchool.EstablishmentType.ToString()
                     });
             }
             else
             {
-                cookie = base.UpdateSchoolComparisonListCookie(withAction, null);
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction, null);
             }
 
-            if (cookie != null)
-            {
-                Response.Cookies.Add(cookie);
-            }
-
-            return PartialView("Partials/BenchmarkBasketControls", base.ExtractSchoolComparisonListFromCookie());
+            return PartialView("Partials/BenchmarkBasketControls", _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
         }
 
     }

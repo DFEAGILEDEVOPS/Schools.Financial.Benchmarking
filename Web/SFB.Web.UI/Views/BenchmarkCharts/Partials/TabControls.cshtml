@@ -7,27 +7,30 @@
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li id="@RevenueGroupType.Expenditure" class="hide-in-print active" role="tab">
-            <a href="javascript: void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li id="@RevenueGroupType.Income" class="hide-in-print" role="tab">
-            <a href="javascript: void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
         </li>
         <li id="@RevenueGroupType.Balance" class="hide-in-print" role="tab">
-            <a href="javascript: void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
         </li>
         @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@RevenueGroupType.Workforce" class="hide-in-print" role="tab">
-                <a href="javascript: void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+                <a href="javascript:void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
             </li>
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
                 <span class="visually-hidden">@RevenueGroupNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>
-                <a href="javascript: void(0);" onclick="javascript: DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">
+                <a class="custom" href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">
                     <span aria-hidden="true">@RevenueGroupNames.CUSTOM (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span>
-                </a>                
+                </a> 
+                <a class="helpLink" href="javascript:void(0);" onclick="javascript:DfE.Util.ComparisonList.RenderYourChartsInfoModal()">
+                    <img src="/public/assets/images/help-icon.png" />
+                </a>
             </li>
         }
     </ol>

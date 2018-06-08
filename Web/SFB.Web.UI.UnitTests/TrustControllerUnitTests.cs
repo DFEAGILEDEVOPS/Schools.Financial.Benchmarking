@@ -28,6 +28,7 @@ namespace SFB.Web.UI.UnitTests
             var mockFinancialDataService = new Mock<IFinancialDataService>();
             var mockFCService = new Mock<IFinancialCalculationsService>();
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var context = new Mock<HttpContextBase>(MockBehavior.Strict);
@@ -45,24 +46,25 @@ namespace SFB.Web.UI.UnitTests
             mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentral())
                 .Returns(new List<string> { "2015" });
 
-            mockFinancialDataService.Setup(m => m.GetLatestDataYearForTrusts())
+            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabType(EstablishmentType.MAT))
                 .Returns(2015);
 
-            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearForTrusts())
+            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT))
                 .Returns(2015);
 
-            mockDataCollectionManager.Setup(m => m.GetActiveTermsForMatCentral())
+            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroup(DataGroups.MATCentral))
                 .Returns(new List<string> {"2015"});
 
             mockHistoricalChartBuilder
-                .Setup(m => m.Build(It.IsAny<RevenueGroupType>(), It.IsAny<SchoolFinancialType>()))
+                .Setup(m => m.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
             var controller = new TrustController(mockHistoricalChartBuilder.Object, 
                 mockFinancialDataService.Object,
                 mockFCService.Object,
                 mockTrustSearchService.Object, 
-                null);
+                null,
+                mockCookieManager.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 

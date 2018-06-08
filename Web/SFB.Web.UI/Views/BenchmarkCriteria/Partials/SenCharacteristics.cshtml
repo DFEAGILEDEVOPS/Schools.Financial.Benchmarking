@@ -17,7 +17,7 @@
                 The values here show the percentage of pupils in your default school who have these characteristics as a primary need.
             </p>
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY],
@@ -27,7 +27,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxSpecLearnDiff
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY],
@@ -37,7 +37,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxModLearnDiff
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY],
@@ -47,7 +47,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxSevLearnDiff
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY],
@@ -57,7 +57,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxProfLearnDiff
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SOCIAL_HEALTH,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SOCIAL_HEALTH],
@@ -67,7 +67,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxSocialHealth
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.SPEECH_NEEDS,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SPEECH_NEEDS],
@@ -77,7 +77,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxSpeechNeeds
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT],
@@ -87,7 +87,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxHearingImpairment
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT],
@@ -97,7 +97,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxVisualImpairment
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT],
@@ -107,7 +107,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxMSImpairment
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY],
@@ -117,7 +117,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxPhysicalDisability
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.AUTISTIC_DISORDER,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.AUTISTIC_DISORDER],
@@ -127,7 +127,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxAutisticDisorder
                     ))
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF],

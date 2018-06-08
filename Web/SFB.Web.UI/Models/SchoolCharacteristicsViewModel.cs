@@ -5,13 +5,14 @@ using SFB.Web.Domain.Models;
 
 namespace SFB.Web.UI.Models
 {
-    public class SchoolCharacteristicsViewModel : ViewModelBase
+
+        public class SchoolCharacteristicsViewModel : ViewModelBase
     {
         public SchoolViewModel BenchmarkSchool { get; set; }
         public BenchmarkCriteria BenchmarkCriteria { get; set; }
         public List<SchoolCharacteristic> SchoolCharacteristics { get; set; }
 
-        public SchoolCharacteristicsViewModel(SchoolViewModel school, ComparisonListModel comparisonList, BenchmarkCriteria benchmarkCriteria)
+        public SchoolCharacteristicsViewModel(SchoolViewModel school, SchoolComparisonListModel comparisonList, BenchmarkCriteria benchmarkCriteria)
         {
             base.ComparisonList = comparisonList;
             this.BenchmarkSchool = school;
@@ -29,7 +30,7 @@ namespace SFB.Web.UI.Models
 
         private List<SchoolCharacteristic> BuildSchoolCharacteristics(SchoolViewModel schoolVM)
         {
-            var latestSchoolData = schoolVM.HistoricalSchoolFinancialDataModels.Last();
+            var latestSchoolData = schoolVM.HistoricalFinancialDataModels.Last();
             var list = new List<SchoolCharacteristic>();
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS, Value = latestSchoolData.PupilCount + " pupils" });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.GENDER_OF_PUPILS, Value = latestSchoolData.Gender });

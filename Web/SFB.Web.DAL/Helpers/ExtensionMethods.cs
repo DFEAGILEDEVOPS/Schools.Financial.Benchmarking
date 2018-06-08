@@ -45,8 +45,8 @@ namespace SFB.Web.DAL
             if (json.Properties().Any(a => a.Name.StartsWith("Members")))
                 return DataGroups.MATOverview;
 
-            if (json.Properties().Any(a => a.Name == "AcademyAllocation"))
-                return DataGroups.MATDistributed;
+            if (json.Properties().Any(a => a.Name.EndsWith("_Per_Pupil")))
+                return DataGroups.MATAllocs;
 
             return DataGroups.Unidentified;
         }
@@ -224,6 +224,34 @@ namespace SFB.Web.DAL
             }
 
             return result;
+        }
+
+        public static string ToDataGroup(this EstablishmentType estabType)
+        {
+            switch (estabType)
+            {
+                case EstablishmentType.Academies:
+                    return DataGroups.Academies;
+                case EstablishmentType.Maintained:
+                    return DataGroups.Maintained;
+                case EstablishmentType.MAT:
+                    return DataGroups.MATCentral;
+                default:
+                    return null;
+            }
+        }
+
+        public static string ToDataGroup(this EstablishmentType estabType, CentralFinancingType cFinance)
+        {
+            switch (estabType)
+            {
+                case EstablishmentType.Academies:
+                    return (cFinance == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
+                case EstablishmentType.Maintained:
+                    return DataGroups.Maintained;
+                default:
+                    return null;
+            }
         }
     }
 }

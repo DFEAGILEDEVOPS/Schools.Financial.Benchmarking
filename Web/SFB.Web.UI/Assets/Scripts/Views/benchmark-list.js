@@ -7,22 +7,22 @@
         $.get("/benchmarklist/UpdateBenchmarkBasket?urn=" + urn + "&withAction=" + withAction,
             function (data) {
                 switch (withAction) {
-                    case "makedefaultbenchmark":
+                    case "SetDefault":
                         $(".add:hidden").show();
                         $(".remove:visible").hide();
                         $("div[data-urn='" + urn + "']>.add-remove").toggle();
                         $(".name").removeClass("highlight");
                         $("#doc_" + urn + " .name").addClass("highlight");
                         break;
-                    case "removedefaultbenchmark":
+                    case "UnsetDefault":
                         $("div[data-urn='" + urn + "']>.add-remove").toggle();
                         $("#doc_" + urn + " .name").removeClass("highlight");
                         break;
-                    case "removefromcompare":
+                    case "Remove":
                         $("#doc_" + urn).hide();
                         $("#benchmarkBasketControlsPlaceHolder").html(data);
                         break;
-                    case "clear":
+                    case "RemoveAll":
                         $(".document").hide();
                         $("#benchmarkBasketControlsPlaceHolder").html(data);
                         break;

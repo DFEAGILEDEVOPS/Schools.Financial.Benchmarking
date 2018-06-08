@@ -1,8 +1,26 @@
-﻿@model SFB.Web.UI.Models.TrustComparisonViewModel
+﻿@model SFB.Web.UI.Models.TrustCharacteristicsViewModel
 
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "trust-comparison";
+}
+
+@section StickyContent
+{
+    <div id="liveCountBar" class="sticky-div" role="region" aria-label="Trust results live counter" style="display: none">
+        <div class="grid-row">
+            <div class="column-full">
+                <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResults">
+                    <span id="schoolCount" class="bold-small" aria-live="assertive">0 trusts found</span>
+                    <a class="clear-criteria" href="#">Clear all characteristics</a>
+                    <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
+                </div>
+                <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
+                    <span role="alert" aria-live="assertive">No trusts found, select some more characteristics</span>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 @section BackButtonContent{
@@ -12,36 +30,65 @@
 
 <div id="ErrorSummaryPlaceHolder"></div>
 
-<h1 class="heading-xlarge page-heading">Compare trusts</h1>
+<h1 class="heading-xlarge page-heading">Select and compare trusts</h1>
 
 <div class="grid-row">
     <div class="column-full">
         <span class="font-xsmall">Comparing to</span>
         <div class="highlight">
-            <span class="bold-small">@Model.DefaultTrustName</span>
+            <span class="bold-small">@Model.BenchmarkTrust.Name</span>
         </div>
     </div>
 </div>
 
 <p>
-    <h2 class="bold-small">Choose one or more trusts for this comparison</h2>
+    <h2 class="bold-small">How would you like to do you comparison? Select characteristics to find similar trusts or enter trust(s) manually.</h2>
 </p>
 
-<div id="TrustsToCompare">
-    @Html.Partial("Partials/TrustsToCompare", Model.Trusts.Where(t=>t.MatNo != Model.DefaultTrustMatNo).ToList())
+<p>
+    A meaningful benchmark group has around 5 trusts, and the largest group we can display charts for is 10. Keep this range in mind when selecting characteristics. If there are too many matches, revise the values entered for your characteristics.
+</p>
+
+
+<div id="SelectTrustAccordion" class="search-types column-three-quarters" aria-live="polite">
+    
+    <div id="EnterManuallyAccordion" class="multiple-choice js-accordion column-full selected" aria-controls="EnterManuallyFieldset">
+        <input id="EnterManually" type="radio" checked/>
+        <label id="EnterTrustManuallyAccordion" for="EnterManually">Enter trusts manually</label>
+    </div>
+    <div id="EnterManuallyFieldset" class="form-group optional-section">
+        <p>Choose one or more trusts for this comparison</p>
+        <div id="TrustsToCompare">
+            @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.MatNo != Model.BenchmarkTrust.MatNo).ToList())
+        </div>
+    </div>
+
+    <div id="EnterCharsAccordion" class="multiple-choice js-accordion column-full" aria-controls="EnterCharsFieldset">
+        <input id="EnterChars" type="radio" />
+        <label id="EnterTrustCharsAccordion" for="EnterChars">Select characteristics</label>
+    </div>
+    <div id="EnterCharsFieldset" class="form-group optional-section">
+        <form method="post" id="criteriaForm" action="TrustComparison/GenerateListFromManualCriteria" autocomplete="off">
+            @Html.Partial("Partials/TrustCharacteristics", Model)
+        </form>
+    </div>
+
 </div>
+
+
 <div class="control-buttons">
     <div class="grid-row font-xsmall">
         <div class="column-half">
             <div class="column-half next-button">
-                <a type="submit" class="button" href="BenchmarkCharts/Mats">View benchmarking charts</a>
+                <a id="manualButton" type="submit" class="button" href="BenchmarkCharts/Mats">View benchmarking charts</a>
+                <button type="submit" class="button view-benchmark-charts submit" style="display: none">View benchmark charts</button>
             </div>
             <div class="column-half no-padding">
                 <div class="column-one-third back-button">
-                    <a href="/trust/index?matno=@Model.DefaultTrustMatNo&name=@Model.DefaultTrustName">Back</a>
+                    <a href="/trust/index?matno=@Model.BenchmarkTrust.MatNo&name=@Model.BenchmarkTrust.Name">Back</a>
                 </div>
                 <div class="column-two-thirds back-button">
-                    <a href="javascript: DfE.Views.TrustCompareViewModel.RemoveAllTrusts()">Remove all trusts</a>
+                    <a id="removeAllTrusts" href="javascript:void(0);">Remove all trusts</a>
                 </div>
             </div>
         </div>
@@ -51,8 +98,10 @@
 @section ViewScripts {
 
     <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
     <script>
         DfE.Views.TrustCompareViewModel.Load();
         GOVUK.Modal.Load();
+        GOVUK.Accordion.bindElements("SelectTrustAccordion");
     </script>
 }

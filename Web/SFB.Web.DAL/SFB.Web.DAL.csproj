@@ -54,8 +54,8 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Helpers\DataCollectionManager.cs" />
-    <Compile Include="Repositories\DocumentDbEdubaseRepository.cs" />
-    <Compile Include="Repositories\DocumentDbFinancialDataRepository.cs" />
+    <Compile Include="Repositories\CosmosDbEdubaseRepository.cs" />
+    <Compile Include="Repositories\CosmosDbFinancialDataRepository.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\IDataCollectionManager.cs" />
     <Compile Include="Repositories\IEdubaseRepository.cs" />

@@ -96,7 +96,7 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\QueryResultsModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
-    <Compile Include="Models\SchoolDataModel.cs" />
+    <Compile Include="Models\FinancialDataModel.cs" />
     <Compile Include="Models\SimpleCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Comparison\BenchmarkCriteriaBuilderService.cs" />

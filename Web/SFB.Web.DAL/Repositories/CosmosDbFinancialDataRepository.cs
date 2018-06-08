@@ -14,13 +14,13 @@ using SFB.Web.DAL.Helpers;
 
 namespace SFB.Web.DAL.Repositories
 {
-    public class DocumentDbFinancialDataRepository : IFinancialDataRepository
+    public class CosmosDbFinancialDataRepository : IFinancialDataRepository
     {
         private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
         private static DocumentClient _client;
         private readonly IDataCollectionManager _dataCollectionManager;
 
-        public DocumentDbFinancialDataRepository(IDataCollectionManager dataCollectionManager)
+        public CosmosDbFinancialDataRepository(IDataCollectionManager dataCollectionManager)
         {
             _dataCollectionManager = dataCollectionManager;
 
@@ -33,13 +33,9 @@ namespace SFB.Web.DAL.Repositories
                 });
         }
 
-        public Document GetSchoolDataDocument(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        public Document GetSchoolDataDocument(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
         {
-            var dataGroup = schoolFinancialType.ToString();
-            if (schoolFinancialType == SchoolFinancialType.Academies)
-            {
-                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
-            }
+            var dataGroup = estabType.ToDataGroup(cFinance);
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
@@ -50,16 +46,20 @@ namespace SFB.Web.DAL.Repositories
 
             try
             {
-                var query =
+                var query = $"SELECT * FROM c WHERE c.URN=@URN";
+                SqlQuerySpec querySpec = new SqlQuerySpec(query);
+                querySpec.Parameters = new SqlParameterCollection();
+                querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
+                var documentQuery =
                     _client.CreateDocumentQuery<Document>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT * FROM c WHERE c.URN={urn}");
+                        querySpec);
 
-                var result = query.ToList().FirstOrDefault();
+                var result = documentQuery.ToList().FirstOrDefault();
 
-                if (dataGroup == DataGroups.MATDistributed && result == null)//if nothing found in -Distributed collection try to source it from Academies data
+                if (dataGroup == DataGroups.MATAllocs && result == null)//if nothing found in MAT-Allocs collection try to source it from Academies data
                 {
-                    return GetSchoolDataDocument(urn, term, schoolFinancialType, CentralFinancingType.Exclude);
+                    return GetSchoolDataDocument(urn, term, estabType, CentralFinancingType.Exclude);
                 }
 
                 if (result != null && result.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display none in the charts
@@ -76,24 +76,24 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(string urn, string term, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
         {
-            var dataGroup = schoolFinancialType.ToString();
-            if (schoolFinancialType == SchoolFinancialType.Academies)
-            {
-                dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
-            }
+            var dataGroup = estabType.ToDataGroup(cFinance);
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
             try
             {
-                var query =
+                var query = $"SELECT * FROM c WHERE c.URN=@URN";
+                SqlQuerySpec querySpec = new SqlQuerySpec(query);
+                querySpec.Parameters = new SqlParameterCollection();
+                querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
+                var documentQuery =
                     _client.CreateDocumentQuery<Document>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT * FROM c WHERE c.URN={urn}");
+                        querySpec);
 
-                return await query.QueryAsync();
+                return await documentQuery.QueryAsync();
 
             }
             catch (Exception)
@@ -105,15 +105,18 @@ namespace SFB.Web.DAL.Repositories
         public dynamic GetAcademiesByMatNumber(string term, string matNo)
         {
             var collectionName =
-                _dataCollectionManager.GetActiveCollectionsByDataGroup("Academies")
+                _dataCollectionManager.GetActiveCollectionsByDataGroup(DataGroups.Academies)
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
             try
             {
-                var query =
-                    $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MAT Number']='{matNo}'";
+                var query = $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MATNumber']=@MatNo";
+                SqlQuerySpec querySpec = new SqlQuerySpec(query);
+                querySpec.Parameters = new SqlParameterCollection();
+                querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
                 var matches =
                     _client.CreateDocumentQuery<Document>(
-                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), query).ToList();
+                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), querySpec).ToList();
 
                 dynamic result = new ExpandoObject();
                 result.Results = matches;
@@ -128,17 +131,37 @@ namespace SFB.Web.DAL.Repositories
 
         public Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance)
         {
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinance == MatFinancingType.TrustOnly ? DataGroups.MATCentral : DataGroups.MATOverview);
+            string dataGroupType = null;
+
+            switch (matFinance)
+            {
+                case MatFinancingType.TrustOnly:
+                    dataGroupType = DataGroups.MATCentral;
+                    break;
+                case MatFinancingType.TrustAndAcademies:
+                    dataGroupType = DataGroups.MATOverview;
+                    break;
+                case MatFinancingType.AcademiesOnly:
+                    dataGroupType = DataGroups.MATTotals;
+                    break;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroupType);
 
             if (collectionName == null)
             {
                 return null;
             }
 
+            var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
             var res =
                 _client.CreateDocumentQuery<Document>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'");
+                    querySpec);
 
             try
             {
@@ -160,16 +183,35 @@ namespace SFB.Web.DAL.Repositories
 
         public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
         {
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinance == MatFinancingType.TrustOnly ? DataGroups.MATCentral : DataGroups.MATOverview);
+            string matFinanceType = null;
+            switch (matFinance)
+            {
+                case MatFinancingType.TrustOnly:
+                    matFinanceType = DataGroups.MATCentral;
+                    break;
+                case MatFinancingType.TrustAndAcademies:
+                    matFinanceType = DataGroups.MATOverview;
+                    break;
+                case MatFinancingType.AcademiesOnly:
+                    matFinanceType = DataGroups.MATTotals;
+                    break;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinanceType);
 
             try
             {
-                var query =
+                var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+                SqlQuerySpec querySpec = new SqlQuerySpec(query);
+                querySpec.Parameters = new SqlParameterCollection();
+                querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
+                var documentQuery =
                     _client.CreateDocumentQuery<Document>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'");
+                        querySpec);
 
-                return await query.QueryAsync();
+                return await documentQuery.QueryAsync();
             }
             catch (Exception)
             {
@@ -181,17 +223,16 @@ namespace SFB.Web.DAL.Repositories
         {
             if (estType == EstablishmentType.All)
             {
-                var maintainedSchoolsTask = QueryDBCollectionAsync(criteria, "Maintained");
-                var academiesTask = QueryDBCollectionAsync(criteria, "Academies");
+                var maintainedSchoolsTask = QueryDBSchoolCollectionAsync(criteria, DataGroups.Maintained);
+                var academiesTask = QueryDBSchoolCollectionAsync(criteria, DataGroups.Academies);
                 var maintainedSchools = (await maintainedSchoolsTask).ToList();
                 var academies = (await academiesTask).ToList();
                 maintainedSchools.AddRange(academies);
                 return maintainedSchools;
             }
             else
-            {
-                var type = estType == EstablishmentType.Academy ? "Academies" : "Maintained";
-                return (await QueryDBCollectionAsync(criteria, type)).ToList();
+            {                
+                return (await QueryDBSchoolCollectionAsync(criteria, estType.ToDataGroup())).ToList();
             }
         }
 
@@ -199,16 +240,26 @@ namespace SFB.Web.DAL.Repositories
         {
             if (estType == EstablishmentType.All)
             {
-                var maintainedSchoolsCountTask = QueryDBCollectionForCountAsync(criteria, "Maintained");
-                var academiesCountTask = QueryDBCollectionForCountAsync(criteria, "Academies");
+                var maintainedSchoolsCountTask = QueryDBSchoolCollectionForCountAsync(criteria, DataGroups.Maintained);
+                var academiesCountTask = QueryDBSchoolCollectionForCountAsync(criteria, DataGroups.Academies);
                 return (await maintainedSchoolsCountTask).First() + (await academiesCountTask).First();
             }
             else
             {
-                var type = estType == EstablishmentType.Academy ? "Academies" : "Maintained";
-                var result = (await QueryDBCollectionForCountAsync(criteria, type)).First();
+                var type = estType == EstablishmentType.Academies ? DataGroups.Academies : DataGroups.Maintained;
+                var result = (await QueryDBSchoolCollectionForCountAsync(criteria, type)).First();
                 return result;
             }
+        }
+
+        public async Task<List<Document>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
+        {            
+            return (await QueryDBTrustCollectionAsync(criteria, DataGroups.MATOverview)).ToList();
+        }
+
+        public async Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria)
+        {
+            return (await QueryDBTrustCollectionForCountAsync(criteria)).First();
         }
 
         public async Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType)
@@ -216,14 +267,14 @@ namespace SFB.Web.DAL.Repositories
             var collectionName = string.Empty;
             switch (estType)
             {
-                case EstablishmentType.Academy:
-                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "MAT-Distributed");
+                case EstablishmentType.Academies:
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, DataGroups.MATAllocs);
                     break;
                 case EstablishmentType.Maintained:
-                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "Maintained");
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, DataGroups.Maintained);
                     break;
                 case EstablishmentType.MAT:
-                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, "MAT-Overview");
+                    collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, DataGroups.MATOverview);
                     break;
             }
 
@@ -233,9 +284,9 @@ namespace SFB.Web.DAL.Repositories
             return (await result.QueryAsync()).First();
         }
 
-        private async Task<IEnumerable<Document>> QueryDBCollectionAsync(BenchmarkCriteria criteria, string type)
+        private async Task<IEnumerable<Document>> QueryDBSchoolCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
+            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
@@ -248,28 +299,47 @@ namespace SFB.Web.DAL.Repositories
 
             IQueryable<Document> result;
 
-            if (type == "Academies")
+            if (dataGroup == DataGroups.Academies || dataGroup == DataGroups.MATAllocs)
             {
                 result = _client.CreateDocumentQuery<Document>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT c['URN'], c['School Name'], c['Type'],  'A' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
+                    $"SELECT c['URN'], c['School Name'], c['Type'],  '{DataGroups.Academies}' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
             }
             else
             {
                 result = _client.CreateDocumentQuery<Document>(
                     UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT c['URN'], c['School Name'], c['Type'], 'M' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
+                    $"SELECT c['URN'], c['School Name'], c['Type'], '{DataGroups.Maintained}' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
             }
 
             return await result.QueryAsync();
         }
 
-        private string Exclude6Forms(string query)
+        private async Task<IEnumerable<Document>> QueryDBTrustCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
-            return $"{query} AND c['Type'] != 'Free 16-19'";
+            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
+
+            var query = BuildQueryFromBenchmarkCriteria(criteria);
+
+            query = AddMembersCriteria(query, criteria);
+
+            query = ExcludeSAMATs(query);
+
+            if (string.IsNullOrEmpty(query))
+            {
+                return new List<Document>();
+            }
+
+            IQueryable<Document> result;
+            
+            result = _client.CreateDocumentQuery<Document>(
+                UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                $"SELECT c['MATNumber'], c['TrustOrCompanyName'] FROM c WHERE {query}");
+            
+            return await result.QueryAsync();
         }
 
-        private async Task<IEnumerable<int>> QueryDBCollectionForCountAsync(BenchmarkCriteria criteria, string type)
+        private async Task<IEnumerable<int>> QueryDBSchoolCollectionForCountAsync(BenchmarkCriteria criteria, string type)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
 
@@ -287,6 +357,50 @@ namespace SFB.Web.DAL.Repositories
                     $"SELECT VALUE COUNT(c) FROM c WHERE {query}");
 
             return await result.QueryAsync();
+        }
+
+        private async Task<IEnumerable<int>> QueryDBTrustCollectionForCountAsync(BenchmarkCriteria criteria)
+        {
+            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(DataGroups.MATOverview);
+
+            var query = BuildQueryFromBenchmarkCriteria(criteria);
+
+            query = AddMembersCriteria(query, criteria);
+
+            query = ExcludeSAMATs(query);
+
+            if (string.IsNullOrEmpty(query))
+            {
+                return new List<int> { 0 };
+            }
+
+            var result =
+                _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                    $"SELECT VALUE COUNT(c) FROM c WHERE {query}");
+
+            return await result.QueryAsync();
+        }
+
+        //TODO: Refactor this when new field is added
+        private string AddMembersCriteria(string query, BenchmarkCriteria criteria)
+        {
+            if(criteria.MinNoSchools != null || criteria.MaxNoSchools != null)
+            {
+                return query.Replace("c['No Schools']", "ARRAY_LENGTH(c.Members)");
+            }
+
+            return query;
+        }
+
+        //TODO: Refactor this when new field is added
+        private string ExcludeSAMATs(string query)
+        {
+            return $"{query} AND ARRAY_LENGTH(c.Members) > 1";
+        }
+
+        private string Exclude6Forms(string query)
+        {
+            return $"{query} AND c['Type'] != 'Free 16-19'";
         }
 
         private string BuildQueryFromBenchmarkCriteria(BenchmarkCriteria criteria)

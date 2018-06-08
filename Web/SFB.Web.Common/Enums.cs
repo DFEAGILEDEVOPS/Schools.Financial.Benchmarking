@@ -2,22 +2,13 @@
 
 namespace SFB.Web.Common
 {
-    /// <summary>
-    /// This should match to SFB.Web.Domain.Helpers.Constants.DataGroups
-    /// It might be better to merge these
-    /// </summary>
-    public enum SchoolFinancialType
-    {
-        Academies,
-        Maintained
-    }
-
+    //Used in conjunction with entity's Financial Type to determine the target data groups in fibre-directory(DB collection)
     public enum EstablishmentType
     {
-        All,
-        Academy,
+        Academies,
         Maintained,
-        MAT
+        MAT,
+        All
     }
 
     public enum ComparisonArea
@@ -66,7 +57,8 @@ namespace SFB.Web.Common
     public enum MatFinancingType
     {
         TrustOnly,
-        TrustAndAcademies
+        TrustAndAcademies,
+        AcademiesOnly
     }
 
     public enum ChartFormat

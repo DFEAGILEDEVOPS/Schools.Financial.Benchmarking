@@ -20,24 +20,24 @@ namespace SFB.Web.UI.Services
         }
 
         public void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts,
-            List<SchoolFinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
-            SchoolFinancialType schoolFinancialType)
+            List<FinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
+            EstablishmentType estabType)
         {
             foreach (var chart in historicalCharts)
             {
-                BuildChart(SchoolFinancialDataModels, term, revgroup, unit, schoolFinancialType, chart);
+                BuildChart(SchoolFinancialDataModels, term, revgroup, unit, estabType, chart);
                 if (chart.SubCharts != null)
                 {
                     foreach (var subChart in chart.SubCharts)
                     {
-                        BuildChart(SchoolFinancialDataModels, term, revgroup, unit, schoolFinancialType, subChart);
+                        BuildChart(SchoolFinancialDataModels, term, revgroup, unit, estabType, subChart);
                     }
                 }
             }
         }
 
-        private void BuildChart(List<SchoolFinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
-            SchoolFinancialType schoolFinancialType, ChartViewModel chart)
+        private void BuildChart(List<FinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
+            EstablishmentType estabType, ChartViewModel chart)
         {
             var historicalChartData = new List<HistoricalChartData>();
             foreach (var schoolData in SchoolFinancialDataModels)
@@ -170,20 +170,20 @@ namespace SFB.Web.UI.Services
             }
 
             chart.HistoricalData = historicalChartData;
-            chart.DataJson = GenerateJson(historicalChartData, schoolFinancialType);
+            chart.DataJson = GenerateJson(historicalChartData, estabType);
             chart.LastYear = term;
             chart.LastYearBalance = historicalChartData.Find(d => d.Year == term).Amount;
             chart.ShowValue = unit;
         }
 
         private string GenerateJson(List<HistoricalChartData> historicalChartData,
-            SchoolFinancialType schoolFinancialType)
+            EstablishmentType estabType)
         {
             var clonedHistoricalChartDataList = new List<HistoricalChartData>();
             foreach (var chartData in historicalChartData)
             {
                 var clonedChartData = (HistoricalChartData) chartData.Clone();
-                clonedChartData.Year = (schoolFinancialType == SchoolFinancialType.Academies)
+                clonedChartData.Year = (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT)
                     ? clonedChartData.Year.Replace(" / ", "/")
                     : clonedChartData.Year.Replace(" / ", "-");
                 clonedChartData.Year = clonedChartData.Year.Remove(5, 2);
@@ -194,7 +194,7 @@ namespace SFB.Web.UI.Services
         }
 
         public void PopulateBenchmarkChartsWithFinancialData(List<ChartViewModel> benchmarkCharts,
-            List<SchoolFinancialDataModel> financialDataModels, IEnumerable<CompareEntityBase> bmEntities, string homeSchoolId,
+            List<FinancialDataModel> financialDataModels, IEnumerable<CompareEntityBase> bmEntities, string homeSchoolId,
             UnitType? unit, bool trimSchoolNames = false)
         {
             foreach (var chart in benchmarkCharts)
@@ -228,7 +228,7 @@ namespace SFB.Web.UI.Services
         }
         
         private BenchmarkChartModel BuildBenchmarkChartModel(string fieldName, IEnumerable<CompareEntityBase> bmSchools,
-            List<SchoolFinancialDataModel> financialDataModels, UnitType unit, RevenueGroupType revGroup, string homeSchoolId,
+            List<FinancialDataModel> financialDataModels, UnitType unit, RevenueGroupType revGroup, string homeSchoolId,
             bool trimSchoolNames = false)
         {
             var chartDataList = new List<BenchmarkChartData>();
@@ -305,7 +305,7 @@ namespace SFB.Web.UI.Services
             };
         }
 
-        private decimal? CalculateWFAmount(SchoolFinancialDataModel schoolData, string fieldName, UnitType unit)
+        private decimal? CalculateWFAmount(FinancialDataModel schoolData, string fieldName, UnitType unit)
         {
             decimal? amount = null;
             decimal? rawAmount = null;
@@ -369,7 +369,7 @@ namespace SFB.Web.UI.Services
             return amount;
         }
 
-        private decimal? CalculateAmountPerUnit(SchoolFinancialDataModel dataModel, string fieldName, UnitType unit,
+        private decimal? CalculateAmountPerUnit(FinancialDataModel dataModel, string fieldName, UnitType unit,
             decimal total)
         {
             var rawAmount = dataModel.GetDecimal(fieldName);

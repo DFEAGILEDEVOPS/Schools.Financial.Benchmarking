@@ -4,25 +4,25 @@ using SFB.Web.Common;
 
 namespace SFB.Web.Domain.Models
 {
-    public class SchoolFinancialDataModel : IEquatable<SchoolFinancialDataModel>
+    public class FinancialDataModel : IEquatable<FinancialDataModel>
     {
         public string Term { get; }
         public Document FinancialDataDocumentModel { get; }
         public string Id { get; private set; }    
-        public SchoolFinancialType FinancialType{ get; private set;}
+        public EstablishmentType EstabType{ get; private set;}
 
 
-        public SchoolFinancialDataModel(){}
+        public FinancialDataModel(){}
 
-        public SchoolFinancialDataModel(string id, string term, Document financialDataDocumentModel, SchoolFinancialType financialType)
+        public FinancialDataModel(string id, string term, Document financialDataDocumentModel, EstablishmentType estabType)
         {
             Id = id;
             Term = term;
             FinancialDataDocumentModel = financialDataDocumentModel;
-            FinancialType = financialType;
+            EstabType = estabType;
         }
 
-        public int LaNumber => GetInt("LA");
+        public int LaNumber => TryGetInt("LA");
 
         #region Financial Data
 
@@ -35,6 +35,26 @@ namespace SFB.Web.Domain.Models
                     if (FinancialDataDocumentModel != null)
                     {
                         return FinancialDataDocumentModel.GetPropertyValue<double>(DBFieldNames.NO_PUPILS);
+                    }
+                    return 0;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+            }
+        }
+
+        //TODO: Refactor after field is added
+        public double SchoolCount
+        {
+            get
+            {
+                try
+                {
+                    if (FinancialDataDocumentModel != null)
+                    {
+                        return FinancialDataDocumentModel.GetPropertyValue<Newtonsoft.Json.Linq.JArray>("Members").Count;
                     }
                     return 0;
                 }
@@ -73,7 +93,7 @@ namespace SFB.Web.Domain.Models
                 {
                     if (FinancialDataDocumentModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<string>("MAT Number");
+                        return FinancialDataDocumentModel.GetPropertyValue<string>("MATNumber");
                     }
                     return string.Empty;
                 }
@@ -311,7 +331,7 @@ namespace SFB.Web.Domain.Models
             return result;
         }
 
-        public bool Equals(SchoolFinancialDataModel other)
+        public bool Equals(FinancialDataModel other)
         {
             return (this.Id == other.Id);
         }
@@ -333,5 +353,23 @@ namespace SFB.Web.Domain.Models
             }
             return 0;
         }
+
+        private int TryGetInt(string fieldName)
+        {
+            if (FinancialDataDocumentModel != null)
+            {
+                try
+                {
+                    return FinancialDataDocumentModel.GetPropertyValue<int>(fieldName);
+                }
+                catch
+                {
+                    return 0;
+                }
+            }
+            return 0;
+        }
+
+
     }
 }

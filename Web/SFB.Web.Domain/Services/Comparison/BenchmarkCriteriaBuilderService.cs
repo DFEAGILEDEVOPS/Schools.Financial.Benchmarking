@@ -6,14 +6,14 @@ namespace SFB.Web.Domain.Services.Comparison
 {
     public class BenchmarkCriteriaBuilderService : IBenchmarkCriteriaBuilderService
     {
-        public BenchmarkCriteria BuildFromSimpleComparisonCriteria(SchoolFinancialDataModel benchmarkSchoolData, SimpleCriteria simpleCriteria, int percentageMargin = 0)
+        public BenchmarkCriteria BuildFromSimpleComparisonCriteria(FinancialDataModel benchmarkSchoolData, SimpleCriteria simpleCriteria, int percentageMargin = 0)
         {
             return BuildFromSimpleComparisonCriteria(benchmarkSchoolData, simpleCriteria.IncludeFsm.GetValueOrDefault(),
                 simpleCriteria.IncludeSen.GetValueOrDefault(), simpleCriteria.IncludeEal.GetValueOrDefault(),
                 simpleCriteria.IncludeLa.GetValueOrDefault(), percentageMargin);
         }
 
-        public BenchmarkCriteria BuildFromSimpleComparisonCriteria(SchoolFinancialDataModel benchmarkSchoolData, bool includeFsm, bool includeSen, bool includeEal, bool includeLa, int percentageMargin = 0) 
+        public BenchmarkCriteria BuildFromSimpleComparisonCriteria(FinancialDataModel benchmarkSchoolData, bool includeFsm, bool includeSen, bool includeEal, bool includeLa, int percentageMargin = 0) 
         {
             var criteria = new BenchmarkCriteria();
 

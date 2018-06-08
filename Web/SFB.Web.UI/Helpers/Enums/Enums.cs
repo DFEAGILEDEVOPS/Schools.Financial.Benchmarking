@@ -92,4 +92,23 @@ namespace SFB.Web.UI.Helpers.Enums
         SupplyStaff,
         OtherStaffCosts,
     }
+
+    public enum CookieActions
+    {
+        SetDefault,        
+        AddDefaultToList,
+        Add,
+        Remove,
+        RemoveAll,
+        UnsetDefault       
+    }
+
+    //public class CompareActions
+    //{
+    //    public const string ADD_TO_COMPARISON_LIST = "addtocompare";
+    //    public const string REMOVE_FROM_COMPARISON_LIST = "removefromcompare";
+    //    public const string MAKE_DEFAULT_BENCHMARK = "makedefaultbenchmark";
+    //    public const string REMOVE_DEFAULT_BENCHMARK = "removedefaultbenchmark";
+    //    public const string CLEAR_BENCHMARK_LIST = "clear";
+    //}
 }

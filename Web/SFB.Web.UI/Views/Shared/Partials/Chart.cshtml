@@ -9,7 +9,7 @@
     {
         var historicalChart = Model.HistoricalCharts[index];
         historicalChart.Id = index.ToString();
-        ViewBag.FinancialYear = Model.FinancialType == SchoolFinancialType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
+        ViewBag.FinancialYear = Model.EstablishmentType == EstablishmentType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
 
         <div class="chartContainer column-full no-padding" data-group="@historicalChart.ChartGroup">
             @if (historicalChart.ChartType == ChartType.Total)
@@ -19,12 +19,44 @@
                 {
                     <div class="chart-header">
                         <h2 class="heading-medium inline">@historicalChart.Name</h2>
-                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto')">View more charts<span class="visuallyhidden"> for @historicalChart.Name</span> </a>
+                        @if (historicalChart.HelpTooltip != null)
+                        {
+                            <span class="help-icon help-chart hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                        <span class="visuallyhidden">Open help text for @historicalChart.Name opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        }
+                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto')">
+                        @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                        {
+                            <span class="view-more">View more charts</span>
+                        }
+                        else
+                        {
+                            <span class="view-more">View more tables</span>
+                        }
+                            <span class="visuallyhidden"> for @historicalChart.Name</span>
+                        </a>
                     </div>
                 }
                 else
                 {
-                    <h2 class="heading-medium">@historicalChart.Name</h2>
+                    <div class="chart-header">
+                        <h2 class="heading-medium inline">@historicalChart.Name</h2>
+                        @if (historicalChart.HelpTooltip != null)
+                        {
+                        <span class="help-icon help-chart hide-in-print">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <span class="visuallyhidden">Open help text for @historicalChart.Name opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
+                        }
+                    </div>
                 }
 
                 @Html.Partial("Partials/HistoricalChart", historicalChart)
@@ -36,6 +68,16 @@
                         <legend class="hidden">@historicalChart.Name</legend>
                         <div class="accordion-section-header">
                             <h2 class="heading-medium chart-accordion-header" aria-label="@historicalChart.Name Show section">@historicalChart.Name</h2>
+                            @if (historicalChart.HelpTooltip != null)
+                            {
+                                <span class="help-icon help-chart hide-in-print">
+                                    <span class="icon dark-blue">
+                                        <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                            <span class="visuallyhidden">Open help text for @historicalChart.Name opens a popup</span>
+                                        </a>
+                                    </span>
+                                </span>
+                            }
                         </div>
 
                         <div class="accordion-section-body">
@@ -70,5 +112,5 @@
     <script src="/public/scripts/termi/element.details.ajax.js"></script>
 }
 
-@helper FormatFinancialYear(string year, SchoolFinancialType schoolType)
-{ @( schoolType == SchoolFinancialType.Academies ? year : year.Replace('/', '-')) }
+@helper FormatFinancialYear(string year, EstablishmentType schoolType)
+{ @( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-')) }

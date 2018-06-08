@@ -1,14 +1,12 @@
-﻿using SFB.Web.UI.Models;
+﻿using System.Web.UI;//Do not remove. Needed for OutputCache
+using SFB.Web.UI.Models;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
-using System.Web;
-using System.Web.UI;
 using Microsoft.Ajax.Utilities;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
@@ -18,28 +16,31 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
+using System;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class SchoolController : BaseController
+    public class SchoolController : Controller
     {
         private readonly IContextDataService _contextDataService;
         private readonly IFinancialDataService _financialDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
+        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
-        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder)
+        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
+            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
         #if !DEBUG
-        [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
+            [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
         public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
         {
@@ -63,11 +64,11 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
  
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
             
             if (schoolDetailsFromEdubase == null)
             {
-                return View("EmptyResult", new SchoolSearchViewModel(base.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
+                return View("EmptyResult", new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
             }
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(tab, chartGroup, financing, schoolDetailsFromEdubase);
@@ -86,7 +87,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolFinancialDataModels, (BuildTermsList(schoolVM.FinancialType)).First(), tab, unitType, schoolVM.FinancialType);
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, (BuildTermsList(schoolVM.EstablishmentType)).First(), tab, unitType, schoolVM.EstablishmentType);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -99,88 +100,75 @@ namespace SFB.Web.UI.Controllers
 
         [HttpHead]
         public ActionResult Status(int urn)
-        {
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
-            return schoolDetailsFromEdubase == null ? new HttpStatusCodeResult(HttpStatusCode.NotFound) : new HttpStatusCodeResult(HttpStatusCode.OK);
+        { 
+            var urns = (List<int>)HttpContext.Cache.Get("SFBActiveURNList");
+            var found = urns.Contains(urn);         
+            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NotFound);                               
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int? urn, string withAction)
-        {
-            HttpCookie cookie;
-
+        public PartialViewResult UpdateBenchmarkBasket(int? urn, CookieActions withAction)
+        {          
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), null);
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.GetValueOrDefault()), null);
 
-                cookie = base.UpdateSchoolComparisonListCookie(withAction,
-                    new BenchmarkSchoolViewModel()
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
+                    new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
                         Urn = benchmarkSchool.Id,
                         Type = benchmarkSchool.Type,
-                        FinancialType = benchmarkSchool.FinancialType.ToString()
+                        EstabType = benchmarkSchool.EstablishmentType.ToString()
                     });
             }
             else
             {
-                cookie = base.UpdateSchoolComparisonListCookie(withAction, null);
-            }
-
-            if (cookie != null)
-            {
-                Response.Cookies.Add(cookie);
-            }
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction, null);
+            }                       
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+                new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
         
-        public PartialViewResult UpdateBenchmarkBasketAddMultiple(string[] urns)
-        {
-            HttpCookie cookie = null;
-
+        public PartialViewResult UpdateBenchmarkBasketAddMultiple(int[] urns)
+        {            
             foreach (var urn in urns)
             {
                 var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
 
-                cookie = base.UpdateSchoolComparisonListCookie(CompareActions.ADD_TO_COMPARISON_LIST,
-                    new BenchmarkSchoolViewModel()
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add,
+                    new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
                         Urn = benchmarkSchool.Id,
                         Type = benchmarkSchool.Type,
-                        FinancialType = benchmarkSchool.FinancialType.ToString()
+                        EstabType = benchmarkSchool.EstablishmentType.ToString()
                     });
             }
 
-            if (cookie != null)
-            {
-                Response.Cookies.Add(cookie);
-            }
-
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+                new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetBenchmarkBasket()
         {
-            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, base.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetBenchmarkControls(int urn)
         {
-            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.ToString()), base.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public async Task<PartialViewResult> GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include, ChartFormat format = ChartFormat.Charts)
         {
             financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
 
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
 
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolFinancialDataModels, term, revGroup, unit, schoolVM.FinancialType);
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, term, revGroup, unit, schoolVM.EstablishmentType);
 
             ViewBag.ChartFormat = format;
 
@@ -189,14 +177,14 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> Download(int urn)
         {
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn.ToString());
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
 
-            var termsList = BuildTermsList(schoolVM.FinancialType);
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalSchoolFinancialDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, schoolVM.FinancialType);
+            var termsList = BuildTermsList(schoolVM.EstablishmentType);
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, schoolVM.EstablishmentType);
 
-            var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(schoolVM.FinancialType);
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(schoolVM.EstablishmentType);
 
             var csv = _csvBuilder.BuildCSVContentHistorically(schoolVM, latestYear);
 
@@ -207,26 +195,28 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<SchoolViewModel> BuildSchoolVMAsync(RevenueGroupType revenueGroup, ChartGroupType chartGroup, CentralFinancingType cFinance, dynamic schoolDetailsData, UnitType unit = UnitType.AbsoluteCount)
         {
-            var schoolVM = new SchoolViewModel(schoolDetailsData, base.ExtractSchoolComparisonListFromCookie());
+            var schoolVM = new SchoolViewModel(schoolDetailsData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
-            schoolVM.HistoricalCharts = _historicalChartBuilder.Build(revenueGroup, chartGroup, schoolVM.FinancialType, unit);
-            schoolVM.ChartGroups = _historicalChartBuilder.Build(revenueGroup, schoolVM.FinancialType).DistinctBy(c => c.ChartGroup).ToList();
-            schoolVM.Terms = BuildTermsList(schoolVM.FinancialType);
+            schoolVM.HistoricalCharts = _historicalChartBuilder.Build(revenueGroup, chartGroup, schoolVM.EstablishmentType, unit);
+            schoolVM.ChartGroups = _historicalChartBuilder.Build(revenueGroup, schoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
+            schoolVM.Terms = BuildTermsList(schoolVM.EstablishmentType);
             schoolVM.Tab = revenueGroup;
 
-            schoolVM.HistoricalSchoolFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(schoolVM.Id, schoolVM.FinancialType, cFinance);
+            cFinance = revenueGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : cFinance;//Remove this rule after WF data is distributed
 
-            schoolVM.TotalRevenueIncome = schoolVM.HistoricalSchoolFinancialDataModels.Last().TotalIncome;
-            schoolVM.TotalRevenueExpenditure = schoolVM.HistoricalSchoolFinancialDataModels.Last().TotalExpenditure;
-            schoolVM.InYearBalance = schoolVM.HistoricalSchoolFinancialDataModels.Last().InYearBalance;
+            schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(Int32.Parse(schoolVM.Id), schoolVM.EstablishmentType, cFinance);
+
+            schoolVM.TotalRevenueIncome = schoolVM.HistoricalFinancialDataModels.Last().TotalIncome;
+            schoolVM.TotalRevenueExpenditure = schoolVM.HistoricalFinancialDataModels.Last().TotalExpenditure;
+            schoolVM.InYearBalance = schoolVM.HistoricalFinancialDataModels.Last().InYearBalance;
 
             return schoolVM;
         }
 
-        private List<string> BuildTermsList(SchoolFinancialType type)
+        private List<string> BuildTermsList(EstablishmentType type)
         {
             var years = new List<string>();
-            var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(type);
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(type);
             for (int i = 0; i < ChartHistory.YEARS_OF_HISTORY; i++)
             {                
                 years.Add(FormatHelpers.FinancialTermFormatAcademies(latestYear - i));
@@ -235,16 +225,16 @@ namespace SFB.Web.UI.Controllers
             return years;
         }
 
-        private async Task<List<SchoolFinancialDataModel>> GetFinancialDataHistoricallyAsync(string urn, SchoolFinancialType schoolFinancialType, CentralFinancingType cFinance)
+        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
         {
-            var models = new List<SchoolFinancialDataModel>();
-            var latestYear = _financialDataService.GetLatestDataYearPerSchoolType(schoolFinancialType);
+            var models = new List<FinancialDataModel>();
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
             
             var taskList = new List<Task<IEnumerable<Document>>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
+                var task = _financialDataService.GetSchoolDataDocumentAsync(urn, term, estabType, cFinance);
                 taskList.Add(task);
             }
 
@@ -253,16 +243,11 @@ namespace SFB.Web.UI.Controllers
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
                 var resultDocument = taskResult?.FirstOrDefault();
-                var dataGroup = schoolFinancialType.ToString();
+                var dataGroup = estabType.ToDataGroup(cFinance);
 
-                if (schoolFinancialType == SchoolFinancialType.Academies)
+                if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    dataGroup = (cFinance == CentralFinancingType.Include) ? DataGroups.MATDistributed : DataGroups.Academies;
-                }
-
-                if (dataGroup == DataGroups.MATDistributed && resultDocument == null)//if nothing found in -Distributed collection try to source it from (non-distributed) Academies data
-                {
-                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, CentralFinancingType.Exclude))
+                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(urn, term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
                 }
                 
@@ -271,7 +256,7 @@ namespace SFB.Web.UI.Controllers
                     resultDocument = null;
                 }
 
-                models.Add(new SchoolFinancialDataModel(urn, term, resultDocument, schoolFinancialType));
+                models.Add(new FinancialDataModel(urn.ToString(), term, resultDocument, estabType));
             }
             
             return models;

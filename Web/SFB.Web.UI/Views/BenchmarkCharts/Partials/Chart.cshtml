@@ -16,12 +16,24 @@
                         @if (Model[i].ChartType == ChartType.CustomReport)
                         {
                             <div class="column-full no-padding">
-                                <h2 class="heading-medium">
-                                    @Model[i].Name
+                                <h2 class="heading-medium inline">
+                                    <span>
+                                        @Model[i].Name
+                                    </span>
                                     <span class="not-bold">
                                         @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
                                     </span>
                                 </h2>
+                                @if (Model[i].HelpTooltip != null)
+                                {
+                                    <span class="help-icon help-chart hide-in-print">
+                                        <span class="icon dark-blue">
+                                            <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                <span class="visuallyhidden">Open help text for @Model[i].Name opens a popup</span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                }
                             </div>
                         }
                         else
@@ -31,15 +43,45 @@
                                 {
                                     <div class="chart-header">
                                         <h2 class="heading-medium inline">@Model[i].Name</h2>
-                                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">View more charts<span class="visuallyhidden"> for @Model[i].Name</span> </a>
+                                        @if (Model[i].HelpTooltip != null)
+                                        {
+                                            <span class="help-icon help-chart hide-in-print">
+                                                <span class="icon dark-blue">
+                                                    <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                        <span class="visuallyhidden">Open help text for @Model[i].Name opens a popup</span>
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        }
+                                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">
+                                        @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                                        {
+                                            <span class="view-more">View more charts</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="view-more">View more tables</span>
+                                        }
+                                        <span class="visuallyhidden"> for @Model[i].Name</span>
+                                        </a>
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="chart-header">
-                                        <h2 class="heading-medium">
+                                        <h2 class="heading-medium inline">
                                             @Model[i].Name
                                         </h2>
+                                        @if (Model[i].HelpTooltip != null)
+                                        {
+                                            <span class="help-icon help-chart hide-in-print">
+                                                <span class="icon dark-blue">
+                                                    <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                        <span class="visuallyhidden">Open help text for @Model[i].Name opens a popup</span>
+                                                    </a>
+                                                </span>
+                                            </span>
+                                        }
                                     </div>
                                 }
                             </div>
@@ -58,19 +100,30 @@
                                             <span>Save as image</span>
                                         </a>
                                     </div>
-                                    <div class="column-half font-xsmall no-padding">
-                                        <a style="display: none" class="customAdd" aria-label="Add @Model[i].FieldName to Your Charts" href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
-                                            <i class="icon icon-bookmark">
-                                                <span class="visually-hidden">Bookmark</span>
-                                            </i>
-                                            <span>Add to your charts</span>
-                                        </a>
-                                        <a style="display: none" class="customRemove" aria-label="Remove @Model[i].FieldName from Your Charts" href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', false);">
-                                            <i class="icon icon-bookmark">
-                                                <span class="visually-hidden">Bookmark</span>
-                                            </i>
-                                            <span>Remove from your charts</span>
-                                        </a>
+                                    <div class="column-half font-xsmall no-padding float-to-right">
+                                        <div class="float-to-right">
+                                            <a style="display: none" class="customAdd" aria-label="Add @Model[i].FieldName to Your Charts" href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', true);">
+                                                <i class="icon icon-bookmark">
+                                                    <span class="visually-hidden">Bookmark</span>
+                                                </i>
+                                                <span>Add to your charts</span>
+                                            </a>
+                                            <a style="display: none" class="customRemove" aria-label="Remove @Model[i].FieldName from Your Charts" href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].FieldName','@Model[i].ShowValue', false);">
+                                                <i class="icon icon-bookmark">
+                                                    <span class="visually-hidden">Bookmark</span>
+                                                </i>
+                                                <span>Remove from your charts</span>
+                                            </a>
+                                            <div style="display:inline">
+                                                <span class="help-icon help-addremove hide-in-print">
+                                                    <span class="icon dark-blue">
+                                                        <a href="#" class="js-modal" data-modal-title="Add to your charts/remove from your charts" data-modal-text="If you want to download or print a customised report, you can save individual charts in the ‘Your charts’ tab. You can add or remove them by selecting ‘Add to your charts’ or ‘Remove from your charts’. Go to the 'Your charts' tab to see the ones you’ve chosen." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                            <span class="visuallyhidden">Open help text for Add this chart to 'Your charts' opens a popup</span>
+                                                        </a>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 }
                                 else

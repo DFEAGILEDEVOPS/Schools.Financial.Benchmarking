@@ -18,7 +18,7 @@
                     </span>
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.FinancialType)</div>
+            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.EstablishmentType)</div>
         </div>
     </div>
     <div class="column-third">
@@ -34,7 +34,7 @@
                     </span>
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.FinancialType)</div>
+            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.EstablishmentType)</div>
         </div>
     </div>
     <div class="column-third">
@@ -65,13 +65,13 @@
                     }
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.FinancialType)</div>
+            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.EstablishmentType)</div>
         </div>
     </div>
 </div>
 
-@helper FormatFinancialYear(string year, SchoolFinancialType schoolType)
+@helper FormatFinancialYear(string year, EstablishmentType schoolType)
 {
-    @(schoolType == SchoolFinancialType.Academies ? year : year.Replace('/', '-'))
+    @(schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))
 }
 

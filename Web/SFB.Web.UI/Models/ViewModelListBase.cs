@@ -5,7 +5,7 @@ namespace SFB.Web.UI.Models
 {
     public class ViewModelListBase<T> where T:DynamicViewModelBase
     {
-        public ComparisonListModel SchoolComparisonList;
+        public SchoolComparisonListModel SchoolComparisonList;
 
         public int ComparisonListCount
         {

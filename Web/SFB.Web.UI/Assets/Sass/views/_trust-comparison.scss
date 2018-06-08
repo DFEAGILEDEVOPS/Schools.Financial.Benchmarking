@@ -2,7 +2,7 @@
 
     @include highlighting;
 
-    .trust-element{
+    .trust-element {
         margin: 20px 0;
     }
 
@@ -45,7 +45,29 @@
         }
     }
 
-    .control-buttons{
+    .control-buttons {
         margin-top: 35px;
+    }
+
+    .optional-section {
+        border-left: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .search-types {
+        margin-bottom: 30px;
+    }
+
+    .error-message label {
+        border: none;
+        display: block;
+    }
+
+    .form-control.error {
+        -moz-box-shadow: none;
+        border: 4px solid #b10e1e;
     }
 }

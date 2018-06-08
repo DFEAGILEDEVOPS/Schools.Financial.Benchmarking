@@ -166,7 +166,7 @@
             }
         };
 
-        var addSchoolLinks = function (id) {
+        var restructureSchoolNames = function (id) {
             var texts = $("#" + id + " .c3-axis-x g.tick text tspan");
 
             texts.each(function () {
@@ -191,6 +191,10 @@
                     : textParts[0].substring(0, limit - 3) + "...";
                 $(this).text(text);
 
+                if (textParts[0] === $("#HomeSchoolName").val())
+                {
+                    $(this).css("font-weight", "bold");
+                }
             });
         };
 
@@ -350,7 +354,7 @@
                     var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
                         $(el).closest('.chartContainer'))[0].value;
                     var highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
-                    return "<table class='bmc-rollover-table' style='white-space: nowrap'>" +
+                    return "<table class='bmc-rollover-table' >" +
                         "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +
                         "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
@@ -360,12 +364,12 @@
                 //show: $("#Type").val() !== "MAT",
                 show: false,
                 position: function (data, width, height, element) {
-                    return { top: 0, left: window.innerWidth > 1280 ? $(element).closest('svg').width() - 50 : $(element).closest('svg').width() - width };
+                    return { top: 0, left: 0 };
                 }
             },
             onrendered: function () {
                 applyChartStyles(el);
-                addSchoolLinks(el.id);
+                restructureSchoolNames(el.id);
             }
         });
     };
@@ -482,7 +486,7 @@
 
         window.print();
     };
-
+    
     BenchmarkChartsViewModel.ChangeTab = function (tab) {
         var self = this;
         if (tab === "Custom") {
@@ -490,6 +494,7 @@
             $(".tabs li#" + tab).addClass("active");
             $("#tabsSection").empty('');
             $("#customTabSection").show();
+            $(".download-links").hide();
         } else {
             var unitParameter = $("#ShowValue").val();
             var financingParameter = $("#CentralFinancing").val();
@@ -514,6 +519,7 @@
                     $(".tabs li").removeClass("active");
                     $(".tabs li#" + tab).addClass("active");
                     $("#customTabSection").hide();
+                    $(".download-links").show();
                     $("#tabsSection").html(data);
                     $("table.dataTable").tablesorter();
                     var unitParameter = $("#ShowValue").val();
@@ -524,7 +530,7 @@
         }
     };
 
-    BenchmarkChartsViewModel.HideShowDetails = function(element) {
+    BenchmarkChartsViewModel.HideShowDetails = function (element) {
         var $table = $(element).closest('table');
         $table.find('.detail').toggle(200);
     }
@@ -533,5 +539,216 @@
         new DfE.Views.BenchmarkChartsViewModel();
     };
 
+    BenchmarkChartsViewModel.PdfGenerator = PdfGenerator();
+
+    BenchmarkChartsViewModel.PdfPage = function () {        
+
+        BenchmarkChartsViewModel.PdfGenerator.init();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeHeadings();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeWarnings();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeTabs();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeLastYearMessage();
+        
+        BenchmarkChartsViewModel.PdfGenerator.writeCharts();
+
+        BenchmarkChartsViewModel.PdfGenerator.writeCriteria().then(function () {
+            BenchmarkChartsViewModel.PdfGenerator.writeContextData().then(function () {
+                BenchmarkChartsViewModel.PdfGenerator.save();
+            });
+        });
+    };
+
+
     Views.BenchmarkChartsViewModel = BenchmarkChartsViewModel;
 }(GOVUK, DfE.Views));
+
+function PdfGenerator() {
+
+    var MARGIN_LEFT = 20;
+    var doc, offset;
+    
+    function pdfGenerateImage(element) {
+
+        function getCanvas(element) {
+            return html2canvas($(element), {
+                imageTimeout: 2000,
+                removeContainer: true
+            });
+        }
+
+        return getCanvas(element);
+    }
+
+    function pdfAddImage(canvas) {
+        var img = canvas.toDataURL("image/png");
+        doc.addImage(img, 'JPEG', MARGIN_LEFT, offset);
+    }
+    
+    function pdfWriteLine(type, text) {
+        doc.setFont("helvetica");
+        doc.setTextColor(0, 0, 0);
+        var fontSize;
+        switch (type) {
+            case 'H1':
+                doc.setFontType("bold");
+                fontSize = 40;
+                break;
+            case 'H2':
+                doc.setFontType("bold");
+                fontSize = 30;
+                break;
+            case 'H3':
+                doc.setFontType("bold");
+                fontSize = 20;
+                break;
+            case 'Warning':
+                doc.setFontType("italic");
+                doc.setTextColor(244, 119, 56);
+                fontSize = 20;
+                break;
+            case 'Info':
+                doc.setFontType("italic");
+                fontSize = 15;
+                break;
+            default:
+                doc.setFontType("normal");
+                fontSize = 15;
+        }
+
+        doc.setFontSize(fontSize);
+        doc.text(MARGIN_LEFT, offset, text);
+        offset += fontSize + 8;
+    }
+
+    function pdfAddHorizontalLine() {
+        doc.line(MARGIN_LEFT, offset, 620, offset);
+        offset += 18;
+    }
+
+    function pdfAddNewPage() {
+        doc.addPage('a3');
+        offset = 70;
+    }
+
+    function pdfWriteChart(id) {
+        var svg = $(id).find('svg')[0];
+        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+            function (img) {
+                doc.addImage(img, 'JPEG', -50, offset);
+            });
+    }
+
+    function pdfWriteTable(id) {
+        doc.setFontSize(10);
+        doc.fromHTML($(id).get(0), MARGIN_LEFT, offset, {'width':500});
+    }
+
+    function pdfSave() {
+        doc.save('sfb-benchmark-charts.pdf');
+    }
+
+    return {
+
+        init: function () {
+            doc = new jsPDF({ unit: 'px', format: 'a3' });
+            offset = 60;           
+        },
+
+        writeHeadings: function () {
+
+            pdfWriteLine('H1', 'Schools Financial Benchmarking');
+
+            pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
+
+            if ($('#comparing').length > 0) {
+                pdfWriteLine('H3', $('#comparing').get(0).innerText);
+            }
+        },
+
+        writeWarnings: function () {
+
+            var warnings = $('.panel.orange-warning');
+            if (warnings.length > 0) {
+                warnings.each(function (index, element) {
+                    pdfWriteLine('Warning', element.innerText);
+                });
+            }
+        },
+
+        writeTabs: function () {
+
+            offset += 30;
+
+            if ($('.tabs li.active').length > 0) {
+                pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
+            }
+
+            var filters = $('.chart-filter');
+            if (filters.length > 0) {
+                filters.each(function (index, element) {
+                    pdfWriteLine('Normal', $(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText);
+                });
+            }
+        },
+
+        writeLastYearMessage: function () {
+            pdfAddHorizontalLine();
+            if ($('.latest-year-message').length > 0) {
+                pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
+            }
+
+        },
+
+        writeCharts: function () {
+            var charts = $('.chartContainer');
+            charts.each(function (index, element) {
+                pdfAddNewPage();
+                pdfWriteLine('H3', $(element).find('h2').get(0).innerText);
+                if (sessionStorage.chartFormat === 'Charts') {
+                    pdfWriteChart('#chart_' + index);
+                } else {
+                    //writeTable('#table_for_chart_' + index);
+                }
+            });
+        },
+
+        writeCriteria: function () {
+            return new Promise(function(resolve, reject) {
+                if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible")) {
+                    pdfAddNewPage();
+                    pdfWriteLine('Normal', $('#criteriaExp').get(0).innerText)
+                    pdfGenerateImage('#criteriaTable').then(function (canvas) {
+                        pdfAddImage(canvas);
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
+        },
+
+        writeContextData: function () {
+            return new Promise(function (resolve, reject) {
+                if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
+                    pdfAddNewPage();
+                    pdfWriteLine('H2', $('#contextExp').get(0).innerText)
+                    pdfGenerateImage('#contextDataTable').then(function (canvas) {
+                        pdfAddImage(canvas);
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
+        },
+
+        save: function () {
+            pdfSave();
+        }
+
+    };
+}

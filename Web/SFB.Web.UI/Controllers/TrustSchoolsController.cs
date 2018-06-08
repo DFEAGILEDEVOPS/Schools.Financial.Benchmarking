@@ -10,15 +10,17 @@ using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class TrustSchoolsController : BaseController
+    public class TrustSchoolsController : Controller
     {
         private readonly ISchoolSearchService _schoolSearchService;
         private readonly IFilterBuilder _filterBuilder;
+        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
-        public TrustSchoolsController(IFilterBuilder filterBuilder, ISchoolSearchService schoolSearchService)
+        public TrustSchoolsController(IFilterBuilder filterBuilder, ISchoolSearchService schoolSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _filterBuilder = filterBuilder;
             _schoolSearchService = schoolSearchService;
+            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
         
         public async Task<ActionResult> Index(string matNo, string matName, string orderBy = "", int page = 1)
@@ -59,7 +61,7 @@ namespace SFB.Web.UI.Controllers
                     schoolListVm.Add(schoolVm);
                 }
 
-                vm.SchoolComparisonList = base.ExtractSchoolComparisonListFromCookie();
+                vm.SchoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
                 var filters = _filterBuilder.ConstructTrustSchoolSearchFilters(Request.QueryString, response.Facets);
                 vm.Filters = filters;

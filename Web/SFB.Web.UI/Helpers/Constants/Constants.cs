@@ -27,14 +27,6 @@
         public const string COMPARISON_LIST_MAT = "sfb_comparison_list_mat";
     }
 
-    public class CompareActions
-    {
-        public const string ADD_TO_COMPARISON_LIST = "addtocompare";
-        public const string REMOVE_FROM_COMPARISON_LIST = "removefromcompare";
-        public const string MAKE_DEFAULT_BENCHMARK = "makedefaultbenchmark";
-        public const string REMOVE_DEFAULT_BENCHMARK = "removedefaultbenchmark";
-        public const string CLEAR_BENCHMARK_LIST = "clear";
-    }
 
     public class OfstedRatings
     {
@@ -94,6 +86,12 @@
         public const string NO_PUPILS_PER_MEASURE = "Pupils per measure";
     }
 
+    public class CMSelection
+    {
+        public const string CHART = "Chart view";
+        public const string TABLE = "Table view";
+    }
+
     public class BMFinancing
     {
         public const string INCLUDE = "Include MAT central finance";
@@ -110,6 +108,7 @@
     {
         public const string TRUST_ONLY = "Trust only";
         public const string TRUST_ACADEMIES = "Trust and academies";
+        public const string ACADEMIES_ONLY = "Academies only";
     }
 
     public class ErrorMessages
@@ -121,5 +120,11 @@
     {
         public const string INTERPRET_CHARTS =
             "For more information about this chart, read our guidance on <a href=\"../Help/InterpretingCharts\">Interpreting the charts</a>.";
+    }
+
+    public class HelpTooltipText
+    {
+        public const string OccupationChartHelp = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering.";
+        public const string ShowValueHelp = "This controls the chart value. To change it to per pupil, for example, select the relevant option from the dropdown.";
     }
 }

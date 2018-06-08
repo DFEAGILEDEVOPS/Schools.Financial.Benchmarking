@@ -392,7 +392,7 @@ abbr[title]{
     }
 }
 
-.download, .print {
+.download, .print, .pdf {
     margin-top: 10px;
     padding-left: 5px;
 
@@ -452,7 +452,7 @@ span.back-link {
 .icon-bookmark {
     position: relative;
     top: 5px;    
-    width: 25px;
+    width: 20px;
     height: 22px;
     background-image: url(/public/assets/images/icons/icon-bookmark.png);
 }
@@ -460,7 +460,7 @@ span.back-link {
 .icon-save-image {
     position: relative;
     top: 5px;    
-    width: 25px;
+    width: 23px;
     height: 22px;
     background-image: url(/public/assets/images/icons/icon-saveimage.png);
 }
@@ -533,7 +533,7 @@ a.chevron-button {
 }
 
 .page-top {
-    padding-top: 20px;
+    margin-top: 60px;
     display: inline-block;
 }
 
@@ -638,3 +638,38 @@ table.tablesorter thead tr .headerSortDown {
 }
 /* table sorter */
 /*chart table*/
+
+body.print-mode .hide-in-print {
+    display: none !important;
+}
+
+.help-icon.help-addremove{
+    display: inline;
+    .icon{
+        float:none;
+    }
+}
+
+.help-icon.help-chart {
+    top: -5px;
+
+    @include media(mobile) {
+        top: 0;
+    }
+}
+
+.inline{
+    display: inline;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.panel-border-narrow:last-child {
+    margin-bottom: 25px;
+}
+
+.form-group .panel-border-narrow:last-child { 
+    margin-bottom: 25px;
+}

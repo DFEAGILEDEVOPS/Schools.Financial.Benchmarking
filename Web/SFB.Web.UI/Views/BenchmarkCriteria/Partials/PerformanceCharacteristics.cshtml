@@ -15,7 +15,7 @@
                 To compare schools across more performance characteristics visit the <a rel="external noopener noreferrer" class="font19-ext-link" target="_blank" href="https://www.gov.uk/school-performance-tables">school performance tables<span class="visuallyhidden"> Opens in a new window</span></a> site.
             </p>
 
-            @Html.Partial("Partials/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.KS2_ACTUAL,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.KS2_ACTUAL],
@@ -25,7 +25,7 @@
                     maxValue: Model.BenchmarkCriteria.MaxKs2Actual
                     ))
 
-            @Html.Partial("Partials/RangeCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.KS2_PROGRESS,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.KS2_PROGRESS],
@@ -38,7 +38,7 @@
                     format: "F2"
                     ))
 
-            @Html.Partial("Partials/RangeCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8],
@@ -51,7 +51,7 @@
                     format: "F1"
                     ))
 
-            @Html.Partial("Partials/RangeCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
                     question: SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE],
@@ -63,7 +63,7 @@
                     maxLimit: 5
                     ))
 
-            @Html.Partial("Partials/MultipleChoiceCriteria",
+            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
                 new BenchmarkCriteriaMultipleChoiceVM(
                     question: SchoolCharacteristicsQuestions.OFSTED_RATING,
                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.OFSTED_RATING],
