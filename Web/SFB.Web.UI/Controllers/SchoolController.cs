@@ -58,7 +58,6 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case RevenueGroupType.Workforce:
                     chartGroup = ChartGroupType.Workforce;
-                    financing = CentralFinancingType.Exclude; //TODO: Remove this when WF is distributed
                     break;
                 default:
                     chartGroup = ChartGroupType.All;
@@ -202,6 +201,8 @@ namespace SFB.Web.UI.Controllers
             schoolVM.ChartGroups = _historicalChartBuilder.Build(revenueGroup, schoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
             schoolVM.Terms = BuildTermsList(schoolVM.EstablishmentType);
             schoolVM.Tab = revenueGroup;
+
+            cFinance = revenueGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : cFinance;//Remove this rule after WF data is distributed
 
             schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(Int32.Parse(schoolVM.Id), schoolVM.EstablishmentType, cFinance);
 
