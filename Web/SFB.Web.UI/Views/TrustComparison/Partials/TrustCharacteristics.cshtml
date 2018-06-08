@@ -51,13 +51,61 @@
                     new OptionVM("Cross phase", "Cross Overall Phase", Model.BenchmarkCriteria.SchoolOverallPhase,
                     subOptions: new SubOptionsVM{
                       Name = "SchoolOverallPhaseCrossPhase",
-                      SubOptions = new List<OptionVM>{
-                        new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
-                        new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
-                        new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
-                        new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
-                        new OptionVM("Alternative provision", "Alternative provision", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
-                        new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhaseCrossPhase),
+                      SubOptions = new List<BenchmarkCriteriaRangeVM>{
+                            new BenchmarkCriteriaRangeVM(
+                            question: TrustCharacteristicsQuestions.CROSS_PRIMARY,
+                            homeSchoolValue: Model[TrustCharacteristicsQuestions.CROSS_PRIMARY],
+                            homeSchoolName: Model.BenchmarkTrust.Name,
+                            elementName: "CrossPhasePrimary",
+                            minValue: Model.BenchmarkCriteria.MinCrossPhasePrimary,
+                            maxValue: Model.BenchmarkCriteria.MaxCrossPhasePrimary,
+                            maxLimit: 1000000000
+                            ),
+                            new BenchmarkCriteriaRangeVM(
+                            question: TrustCharacteristicsQuestions.CROSS_SECONDARY,
+                            homeSchoolValue: Model[TrustCharacteristicsQuestions.CROSS_SECONDARY],
+                            homeSchoolName: Model.BenchmarkTrust.Name,
+                            elementName: "CrossPhaseSecondary",
+                            minValue: Model.BenchmarkCriteria.MinCrossPhaseSecondary,
+                            maxValue: Model.BenchmarkCriteria.MaxCrossPhaseSecondary,
+                            maxLimit: 1000000000
+                            ),
+                            new BenchmarkCriteriaRangeVM(
+                            question: TrustCharacteristicsQuestions.CROSS_SPECIAL,
+                            homeSchoolValue: Model[TrustCharacteristicsQuestions.CROSS_SPECIAL],
+                            homeSchoolName: Model.BenchmarkTrust.Name,
+                            elementName: "CrossPhaseSecondarySpecial",
+                            minValue: Model.BenchmarkCriteria.MinCrossPhaseSpecial,
+                            maxValue: Model.BenchmarkCriteria.MaxCrossPhaseSpecial,
+                            maxLimit: 1000000000
+                            ),
+                            new BenchmarkCriteriaRangeVM(
+                            question: TrustCharacteristicsQuestions.CROSS_PRU,
+                            homeSchoolValue: Model[TrustCharacteristicsQuestions.CROSS_PRU],
+                            homeSchoolName: Model.BenchmarkTrust.Name,
+                            elementName: "CrossPhasePru",
+                            minValue: Model.BenchmarkCriteria.MinCrossPhasePru,
+                            maxValue: Model.BenchmarkCriteria.MaxCrossPhasePru,
+                            maxLimit: 1000000000
+                            ),
+                            new BenchmarkCriteriaRangeVM(
+                            question: TrustCharacteristicsQuestions.CROSS_AP,
+                            homeSchoolValue: Model[TrustCharacteristicsQuestions.CROSS_AP],
+                            homeSchoolName: Model.BenchmarkTrust.Name,
+                            elementName: "CrossPhaseAP",
+                            minValue: Model.BenchmarkCriteria.MinCrossPhaseAP,
+                            maxValue: Model.BenchmarkCriteria.MaxCrossPhaseAP,
+                            maxLimit: 1000000000
+                            ),
+                            new BenchmarkCriteriaRangeVM(
+                            question: TrustCharacteristicsQuestions.CROSS_AT,
+                            homeSchoolValue: Model[TrustCharacteristicsQuestions.CROSS_AT],
+                            homeSchoolName: Model.BenchmarkTrust.Name,
+                            elementName: "CrossPhaseAT",
+                            minValue: Model.BenchmarkCriteria.MinCrossPhaseAT,
+                            maxValue: Model.BenchmarkCriteria.MaxCrossPhaseAT,
+                            maxLimit: 1000000000
+                            ),
                     } } )
                 }
                 )

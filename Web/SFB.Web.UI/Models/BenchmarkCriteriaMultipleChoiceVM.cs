@@ -44,6 +44,6 @@ namespace SFB.Web.UI.Models
     public class SubOptionsVM
     {
         public string Name { get; set; }
-        public List<OptionVM> SubOptions { get; set; }
+        public List<BenchmarkCriteriaRangeVM> SubOptions { get; set; }
     }
 }

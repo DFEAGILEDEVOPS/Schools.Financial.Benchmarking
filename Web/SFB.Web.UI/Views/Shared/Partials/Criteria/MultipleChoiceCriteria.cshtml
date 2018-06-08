@@ -38,14 +38,10 @@
                             </div>
                             if (option.SubOptions != null)
                             {
-                                <div class="panel panel-border-narrow" @*style="display: @Html.Raw(activated ? "block": "none")"*@>
+                                <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
                                     @foreach (var subOption in option.SubOptions.SubOptions)
                                     {
-                                    @*<div class="multiple-choice">
-                                        <input type="checkbox" name="AdvancedCriteria.@option.SubOptions.Name.@subOption.Name" id="@Model.ElementName.@option.SubOptions.Name.@subOption.Name" value="@subOption.Value" class="criteria-checkbox"
-                                               required @Html.Raw(activated ? "" : "disabled") @Html.Raw(subOption.Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
-                                        <label for="@Model.ElementName.@option.SubOptions.Name.@subOption.Name">@subOption.Name</label>
-                                    </div>*@
+                                        @Html.Partial("Partials/Criteria/RangeCriteria", subOption)
                                     }
                                 </div>
                             }

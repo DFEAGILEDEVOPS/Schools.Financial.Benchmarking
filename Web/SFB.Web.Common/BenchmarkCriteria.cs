@@ -400,62 +400,62 @@ namespace SFB.Web.Common
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY, type: CriteriaFieldComparisonTypes.MIN)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY, type: CriteriaFieldComparisonTypes.MIN)]
         public int? MinCrossPhasePrimary { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY, type: CriteriaFieldComparisonTypes.MAX)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY, type: CriteriaFieldComparisonTypes.MAX)]
         public int? MaxCrossPhasePrimary { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY, type: CriteriaFieldComparisonTypes.MIN)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY, type: CriteriaFieldComparisonTypes.MIN)]
         public int? MinCrossPhaseSecondary { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY, type: CriteriaFieldComparisonTypes.MAX)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY, type: CriteriaFieldComparisonTypes.MAX)]
         public int? MaxCrossPhaseSecondary { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL, type: CriteriaFieldComparisonTypes.MIN)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL, type: CriteriaFieldComparisonTypes.MIN)]
         public int? MinCrossPhaseSpecial { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL, type: CriteriaFieldComparisonTypes.MAX)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL, type: CriteriaFieldComparisonTypes.MAX)]
         public int? MaxCrossPhaseSpecial { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU, type: CriteriaFieldComparisonTypes.MIN)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU, type: CriteriaFieldComparisonTypes.MIN)]
         public int? MinCrossPhasePru { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU, type: CriteriaFieldComparisonTypes.MAX)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU, type: CriteriaFieldComparisonTypes.MAX)]
         public int? MaxCrossPhasePru { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP, type: CriteriaFieldComparisonTypes.MIN)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP, type: CriteriaFieldComparisonTypes.MIN)]
         public int? MinCrossPhaseAP { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP, type: CriteriaFieldComparisonTypes.MAX)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP, type: CriteriaFieldComparisonTypes.MAX)]
         public int? MaxCrossPhaseAP { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT, type: CriteriaFieldComparisonTypes.MIN)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT, type: CriteriaFieldComparisonTypes.MIN)]
         public int? MinCrossPhaseAT { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT, type: CriteriaFieldComparisonTypes.MAX)]
+        [DBField(docName: DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN, name: DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT, type: CriteriaFieldComparisonTypes.MAX)]
         public int? MaxCrossPhaseAT { get; set; }
     }
 }

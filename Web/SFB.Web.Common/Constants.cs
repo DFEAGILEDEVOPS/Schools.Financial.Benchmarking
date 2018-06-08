@@ -47,7 +47,7 @@
         public const string SCHOOL_TYPE = "Type";
         public const string SCHOOL_PHASE = "Phase";
         public const string SCHOOL_OVERALL_PHASE = "Overall Phase";
-        public const string SCHOOL_OVERALL_PHASE_CROSS_PHASE = "Overall PhaseBreakdown";
+        public const string SCHOOL_OVERALL_PHASE_BREAKDOWN = "Overall PhaseBreakdown";
         public const string SCHOOL_OVERALL_PHASE_CROSS_PRIMARY = "Primary";
         public const string SCHOOL_OVERALL_PHASE_CROSS_SECONDARY = "Secondary";
         public const string SCHOOL_OVERALL_PHASE_CROSS_SPECIAL = "Special";
@@ -78,6 +78,13 @@
         public const string NUMBER_OF_SCHOOLS = "Number of schools";
         public const string TOTAL_INCOME = "Total income";
         public const string SCHOOL_OVERALL_PHASE = "School phase";
+        public const string CROSS_PRIMARY = "Primary";
+        public const string CROSS_SECONDARY = "Secondary";
+        public const string CROSS_SPECIAL = "Special";
+        public const string CROSS_PRU = "Pupil referral unit";
+        public const string CROSS_AP = "Alternative provision";
+        public const string CROSS_AT = "All through";
+
     }
 
     public class SchoolCharacteristicsQuestions

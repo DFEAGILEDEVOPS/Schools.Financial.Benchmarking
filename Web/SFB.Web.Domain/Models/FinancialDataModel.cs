@@ -314,6 +314,13 @@ namespace SFB.Web.Domain.Models
 
         public string OtherLearningDifficulty => GetString(DBFieldNames.OTHER_LEARNING_DIFF);
 
+        public string CrossPhaseBreakdownPrimary => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY);
+        public string CrossPhaseBreakdownSecondary => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY);
+        public string CrossPhaseBreakdownSpecial => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL);
+        public string CrossPhaseBreakdownPru => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU);
+        public string CrossPhaseBreakdownAP => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP);
+        public string CrossPhaseBreakdownAT => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT);
+
         #endregion
 
         public decimal? GetDecimal(string fieldName)
