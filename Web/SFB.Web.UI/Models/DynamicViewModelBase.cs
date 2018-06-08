@@ -51,15 +51,38 @@ namespace SFB.Web.UI.Models
                         return null;
                     }
 
-                    return DateTime.ParseExact(document.GetPropertyValue<string>(property), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                    return DateTime.Parse(document.GetPropertyValue<string>(property), CultureInfo.CurrentCulture, DateTimeStyles.None);
                 }
 
                 return null;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return null;
             }
+        }
+        
+        public DateTime? GetDateBinary(string property)
+        {
+            try
+            {
+                var document = ContextDataModel as Document;
+                if (document != null)
+                {
+                    if (document.GetPropertyValue<string>(property) == null)
+                    {
+                        return null;
+                    }
+
+                    return DateTime.ParseExact(document.GetPropertyValue<string>(property), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);                    
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }            
         }
 
         public bool GetBoolean(string property)
