@@ -7,18 +7,18 @@
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li id="@RevenueGroupType.Expenditure" class="hide-in-print active" role="tab">
-            <a href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <a href="#" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li id="@RevenueGroupType.Income" class="hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href="#" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
         </li>
         <li id="@RevenueGroupType.Balance" class="hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href="#" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
         </li>
         @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@RevenueGroupType.Workforce" class="hide-in-print" role="tab">
-                <a href="javascript:void(0);" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+                <a href="#" onclick="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
             </li>
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
