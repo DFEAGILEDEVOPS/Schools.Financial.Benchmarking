@@ -21,8 +21,10 @@
                     }
                 }
 
-                self.persist = function() {
-                    localStorage.CustomCharts = JSON.stringify($scope.selectionList);
+                self.persist = function () {
+                    setTimeout(function () {
+                        localStorage.CustomCharts = JSON.stringify($scope.selectionList);
+                    }, 500);                    
                 }
 
                 self.anySelected = function() {
