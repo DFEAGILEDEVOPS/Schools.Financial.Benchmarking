@@ -32,7 +32,7 @@
 
         bindCriteriaEvents: function () {
             var self = this;
-
+            
             $(questionCheckBoxSelector).change(
                 function (event) {
                     var $panel = $(this).parent().next();
