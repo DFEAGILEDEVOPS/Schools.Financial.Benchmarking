@@ -93,7 +93,7 @@ else
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:PrintPage()" aria-label="Print page for @Model.Name">
+                <a class="no-underline bold-xsmall" href="javascript:void(0);" onclick="PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png"/> 
                     Print page
                 </a>
@@ -144,16 +144,16 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:TabChange(@Model.GetString("URN"),'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:TabChange(@Model.GetString("URN"),'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:TabChange(@Model.GetString("URN"),'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:TabChange(@Model.GetString("URN"),'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
         </li>
     </ol>
 </nav>

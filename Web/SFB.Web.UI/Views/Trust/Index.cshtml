@@ -145,13 +145,13 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href='javascript:TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href='javascript:TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href='javascript:TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
         </li>
     </ol>
 </nav>
