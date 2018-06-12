@@ -349,13 +349,13 @@ table.bmc-rollover-table {
 }
 
 nav.tabs ol li a.helpLink {
-    border: unset;
+    border: none;
     text-decoration: unset;
-    height: unset;
+    height: auto;
     -moz-box-sizing: unset;
     -webkit-box-sizing: unset;
     box-sizing: unset;
-    padding: unset;
+    padding: inherit;
     white-space: unset;
     display: inline;
     position: relative;

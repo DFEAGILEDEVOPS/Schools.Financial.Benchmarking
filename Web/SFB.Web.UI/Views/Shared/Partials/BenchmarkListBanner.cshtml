@@ -6,7 +6,7 @@
                 @if (Model.ComparisonListCount >= 1)
                 {
                     <a class="edit-basket" href="/benchmarklist">Edit basket</a>
-                    <a class="edit-basket" href="javascript: DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</a>
+                    <a class="edit-basket" href="javascript:void(0)" onclick="DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</a>
                 } 
                 @if (!((RazorView) ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2) 
                 {

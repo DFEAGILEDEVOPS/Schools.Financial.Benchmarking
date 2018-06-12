@@ -202,6 +202,8 @@ namespace SFB.Web.UI.Controllers
             schoolVM.Terms = BuildTermsList(schoolVM.EstablishmentType);
             schoolVM.Tab = revenueGroup;
 
+            cFinance = revenueGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : cFinance;//Remove this rule after WF data is distributed
+
             schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(Int32.Parse(schoolVM.Id), schoolVM.EstablishmentType, cFinance);
 
             schoolVM.TotalRevenueIncome = schoolVM.HistoricalFinancialDataModels.Last().TotalIncome;

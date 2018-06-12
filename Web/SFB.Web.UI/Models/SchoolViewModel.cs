@@ -114,7 +114,7 @@ namespace SFB.Web.UI.Models
         {
             get
             {
-                var openDate = GetDate("OpenDate");
+                var openDate = GetDateBinary("OpenDate");
                 if (openDate.HasValue && openDate >= new DateTime(2011,1,1))
                 {
                     return openDate.Value.ToLongDateString();
@@ -130,7 +130,7 @@ namespace SFB.Web.UI.Models
         {
             get
             {
-                var closeDate = GetDate("CloseDate");
+                var closeDate = GetDateBinary("CloseDate");
                 if (closeDate.HasValue && closeDate >= new DateTime(2011, 1, 1))
                 {
                     return closeDate.Value.ToLongDateString();

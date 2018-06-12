@@ -39,7 +39,7 @@ namespace SFB.Web.Domain.Helpers.Constants
     public class ComparisonListLimit
     {
         public const int LIMIT = 30;
-        public const int MAT_LIMIT = 10;
+        public const int MAT_LIMIT = 20;
         public const int DEFAULT = 15;
     }
 

@@ -70,7 +70,13 @@ namespace SFB.Web.UI.Controllers
                 var trustDocs = await _financialDataService.SearchTrustsByCriteriaAsync(criteria.AdvancedCriteria);
                 foreach (var doc in trustDocs)
                 {
-                    _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.GetPropertyValue<string>("MATNumber"), doc.GetPropertyValue<string>("TrustOrCompanyName"));
+                    try
+                    {
+                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.GetPropertyValue<string>("MATNumber"), doc.GetPropertyValue<string>("TrustOrCompanyName"));
+                    }catch (ApplicationException)
+                    {
+                        //Default trust cannot be added twice. Do nothing.
+                    }
                 }
             }
             return Redirect("/BenchmarkCharts/Mats");
