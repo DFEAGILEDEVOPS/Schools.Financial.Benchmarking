@@ -39,7 +39,7 @@
         public const string PERCENTAGE_OF_PUPILS_WITH_SEN = "% of pupils with SEN Statement";
         public const string PERCENTAGE_FSM = "% of pupils eligible for FSM";
         public const string NO_PUPILS = "No Pupils";
-        public const string NO_SCHOOLS = "No Schools";
+        public const string NO_SCHOOLS = "MemberCount";
         public const string LONDON_WEIGHT = "London Weighting";
         public const string LONDON_BOROUGH = "London Borough";
         public const string REGION = "Region";

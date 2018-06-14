@@ -321,8 +321,6 @@ namespace SFB.Web.DAL.Repositories
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
-            query = AddMembersCriteria(query, criteria);
-
             query = ExcludeSAMATs(query);
 
             if (string.IsNullOrEmpty(query))
@@ -365,7 +363,7 @@ namespace SFB.Web.DAL.Repositories
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
-            query = AddMembersCriteria(query, criteria);
+            //query = AddMembersCriteria(query, criteria);
 
             query = ExcludeSAMATs(query);
 
@@ -381,21 +379,9 @@ namespace SFB.Web.DAL.Repositories
             return await result.QueryAsync();
         }
 
-        //TODO: Refactor this when new field is added
-        private string AddMembersCriteria(string query, BenchmarkCriteria criteria)
-        {
-            if(criteria.MinNoSchools != null || criteria.MaxNoSchools != null)
-            {
-                return query.Replace("c['No Schools']", "ARRAY_LENGTH(c.Members)");
-            }
-
-            return query;
-        }
-
-        //TODO: Refactor this when new field is added
         private string ExcludeSAMATs(string query)
         {
-            return $"{query} AND ARRAY_LENGTH(c.Members) > 1";
+            return $"{query} AND c.MemberCount > 1";
         }
 
         private string Exclude6Forms(string query)
