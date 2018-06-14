@@ -66,6 +66,8 @@ namespace SFB.Web.UI.Controllers
                 comparisonList.BenchmarkSchools.Add(benchmarkSchool);
             }
 
+            comparisonList.BenchmarkSchools = comparisonList.BenchmarkSchools.OrderBy(s => SanitizeSchoolName(s.Name)).ToList();
+
             return View(comparisonList);
         }
 
@@ -90,6 +92,17 @@ namespace SFB.Web.UI.Controllers
             }
 
             return PartialView("Partials/BenchmarkBasketControls", _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+        }
+
+        private string SanitizeSchoolName(string name)
+        {
+            return name                
+                .Replace("St ", "Saint")                
+                .Replace("De ", "De")
+                .Replace("The ", "")
+                .Replace("O' ", "O")
+                .Replace("-", "")
+                .Replace("' ", "");
         }
 
     }
