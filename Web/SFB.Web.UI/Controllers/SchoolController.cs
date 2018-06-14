@@ -103,7 +103,7 @@ namespace SFB.Web.UI.Controllers
         { 
             var urns = (List<int>)HttpContext.Cache.Get("SFBActiveURNList");
             var found = urns.Contains(urn);         
-            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NotFound);                               
+            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);                               
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int? urn, CookieActions withAction)
