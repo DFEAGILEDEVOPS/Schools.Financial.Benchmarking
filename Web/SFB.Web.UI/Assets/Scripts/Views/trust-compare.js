@@ -3,11 +3,14 @@
 
     var jqxhr;
     var questionCheckBoxSelector = ".multiple-choice.question > input";
+    var questionCheckBoxSelectorRadio = ".multiple-choice.questionRadio > input";
 
     function TrustCompareViewModel() {
         this.bindManualEvents();
         this.bindCriteriaEvents();
         this.validateForm();
+        GOVUK.Accordion.bindElements("SelectTrustAccordion");
+        GOVUK.Modal.Load();
     }
 
     TrustCompareViewModel.prototype = {
@@ -32,16 +35,18 @@
 
         bindCriteriaEvents: function () {
             var self = this;
-
+            
             $(questionCheckBoxSelector).change(
                 function (event) {
-                    var $panel = $(this).parent().next();
-                    $panel.toggle();
-                    $panel.find("input").prop('disabled', function (i, v) { return !v; });
+                    var $panel = $(this).parent().next(".panel");
+                    $panel.toggle();                    
                     if (!this.checked) {
+                        $panel.find("input").prop('disabled', true);
                         $panel.removeClass("error");
                         $panel.find("input.error").removeClass("error");
                         $panel.find("label.error").css("display", "none");
+                    } else {
+                        $panel.find("input").prop('disabled', false);
                     }
                     $panel.find("input[type='number']:disabled").val(null);
                     $panel.find("input[type='checkbox']:disabled").prop('checked', false);
@@ -59,6 +64,32 @@
                     if (!event.target.checked) {
                         self.updateResultCount();
                     }
+                });
+
+            $(questionCheckBoxSelectorRadio).change(
+                function (event) {
+                    var $allpanels = $(this).parent().parent().children(".panel");
+                    if ($allpanels.length > 0) {
+                        $allpanels.hide();
+                        $allpanels.find("input").prop('disabled', true);
+                        $allpanels.find(".panel").hide();
+                        $allpanels.find("input[type='number']:disabled").val(null);
+                        $allpanels.find("input[type='checkbox']:disabled").prop('checked', false);
+                        $allpanels.find("input[type='radio']:disabled").prop('checked', false);
+                       } 
+
+                    var $mypanel = $(this).parent().next(".panel");
+                    if ($mypanel.length > 0) {
+                        $mypanel.show();
+                        $mypanel.find("input").prop('disabled', false);
+                    } 
+
+                    $("#liveCountBar").show();
+                    $("#comparisonListInfoPanelResults").show();
+                    $("#comparisonListInfoPanelResultsEmpty").hide();
+
+                    self.updateResultCount();
+
                 });
 
 

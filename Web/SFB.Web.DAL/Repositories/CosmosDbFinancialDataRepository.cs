@@ -415,24 +415,53 @@ namespace SFB.Web.DAL.Repositories
                     var fieldValue = criteria.GetType().GetProperty(property.Name).GetValue(criteria, null);
                     if (fieldValue != null)
                     {
+                        var docName = (attribute as DBFieldAttribute).DocName;
                         var fieldName = (attribute as DBFieldAttribute).Name;
                         var fieldType = (attribute as DBFieldAttribute).Type;
                         switch (fieldType)
                         {
                             case CriteriaFieldComparisonTypes.MIN:
-                                queryBuilder.Append($"c['{fieldName}'] >= {fieldValue}");
+                                if (string.IsNullOrEmpty(docName))
+                                {
+                                    queryBuilder.Append($"c['{fieldName}'] >= {fieldValue}");
+                                }
+                                else
+                                {
+                                    queryBuilder.Append($"c['{docName}']['{fieldName}'] >= {fieldValue}");
+                                }
                                 break;
                             case CriteriaFieldComparisonTypes.MAX:
-                                queryBuilder.Append($"c['{fieldName}'] <= {fieldValue}");
+                                if (string.IsNullOrEmpty(docName))
+                                {
+                                    queryBuilder.Append($"c['{fieldName}'] <= {fieldValue}");
+                                }
+                                else
+                                {
+                                    queryBuilder.Append($"c['{docName}']['{fieldName}'] <= {fieldValue}");
+                                }
                                 break;
                             case CriteriaFieldComparisonTypes.EQUALTO:
                                 if (fieldValue is int)
                                 {
-                                    queryBuilder.Append($"c['{fieldName}'] = {fieldValue}");
+                                    if (string.IsNullOrEmpty(docName))
+                                    {
+                                        queryBuilder.Append($"c['{fieldName}'] = {fieldValue}");
+                                    }
+                                    else
+                                    {
+                                        queryBuilder.Append($"c['{docName}']['{fieldName}'] = {fieldValue}");
+                                    }
                                 }
                                 else if (fieldValue is string)
                                 {
-                                    queryBuilder.Append($"c['{fieldName}'] = '{fieldValue}'");
+                                    if (string.IsNullOrEmpty(docName))
+                                    {
+                                        queryBuilder.Append($"c['{fieldName}'] = '{fieldValue}'");
+                                    }
+                                    else
+                                    {
+                                        queryBuilder.Append($"c['{docName}']['{fieldName}'] = '{fieldValue}'");
+                                    }
                                 }
                                 else if (fieldValue is Array)
                                 {
