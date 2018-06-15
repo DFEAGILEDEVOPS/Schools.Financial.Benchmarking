@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace SFB.Web.UI.Models
 {
-    public class ViewModelListBase<T> where T:DynamicViewModelBase
+    public class ViewModelListBase<T> where T:ViewModelBase
     {
         public SchoolComparisonListModel SchoolComparisonList;
 
