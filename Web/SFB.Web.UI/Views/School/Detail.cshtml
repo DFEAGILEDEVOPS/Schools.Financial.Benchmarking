@@ -144,16 +144,16 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
         </li>
     </ol>
 </nav>

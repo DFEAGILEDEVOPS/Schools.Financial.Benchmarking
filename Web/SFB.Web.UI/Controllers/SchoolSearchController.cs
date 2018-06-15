@@ -71,19 +71,17 @@ namespace SFB.Web.UI.Controllers
                         if (string.IsNullOrEmpty(errorMessage))
                         {
                             searchResp = IsLaEstab(nameId)
-                                ? _contextDataService.GetSchoolByLaEstab(nameIdSanitized)
-                                : _contextDataService.GetSchoolByUrn(Int32.Parse(nameIdSanitized));
+                                ? _contextDataService.GetSchoolDataObjectByLaEstab(nameIdSanitized)
+                                : _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(nameIdSanitized));
 
                             if (searchResp == null)
                             {
                                 return View("EmptyResult",
                                     new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
                                         SearchTypes.SEARCH_BY_NAME_ID));
-                            }
+                            }                                                       
 
-                            nameId = ((Microsoft.Azure.Documents.Document) searchResp).GetPropertyValue<string>("URN");
-
-                            return RedirectToAction("Detail", "School", new {urn = nameId});
+                            return RedirectToAction("Detail", "School", new {urn = searchResp.URN});
                         }
                         else
                         {
@@ -251,7 +249,7 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolModel()
@@ -383,7 +381,7 @@ namespace SFB.Web.UI.Controllers
                         Request.QueryString);
                     break;
                 default:
-                    response = _contextDataService.GetMultipleSchoolsByUrns(urnList);
+                    response = _contextDataService.GetMultipleSchoolDataObjectsByUrns(urnList);//TODO: Change search to use data objects
                     break;
             }
             return response;

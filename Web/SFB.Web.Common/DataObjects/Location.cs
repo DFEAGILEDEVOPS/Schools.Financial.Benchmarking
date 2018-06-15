@@ -1,4 +1,4 @@
-﻿namespace SFB.Web.Domain.Models
+﻿namespace SFB.Web.Common.DataObjects
 {
     public class Location
     {

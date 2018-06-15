@@ -71,7 +71,7 @@ namespace SFB.Web.UI.UnitTests
             dynamic testEduResult = new Document();
             testEduResult.URN = "100";
             testEduResult.EstablishmentName = "test";
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(100)).Returns((string urn) => testEduResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(100)).Returns((string urn) => testEduResult);
 
             var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object);
 

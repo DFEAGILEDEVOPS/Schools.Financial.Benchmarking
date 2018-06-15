@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using SFB.Web.Common.DataObjects;
+using System.Collections.Generic;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
     public interface IContextDataService
     {
-        dynamic GetSchoolByUrn(int urn);        
+        EdubaseDataObject GetSchoolDataObjectByUrn(int urn);
         List<int> GetAllSchoolUrns();
-        dynamic GetSchoolByLaEstab(string laEstab);        
-        dynamic GetMultipleSchoolsByUrns(List<int> urns);        
+        EdubaseDataObject GetSchoolDataObjectByLaEstab(string laEstab);        
+        List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns);
     }
 }

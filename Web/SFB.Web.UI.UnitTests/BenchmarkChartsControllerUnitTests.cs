@@ -66,13 +66,13 @@ namespace SFB.Web.UI.UnitTests
             var mockEdubaseDataService = new Mock<IContextDataService>();
             dynamic testEduResult = new Document();
             testEduResult.URN = 321;
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(321)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(321)).Returns((int urn) => testEduResult);
 
             dynamic testEduHomeResult = new Document();
             testEduHomeResult.URN = 123;
             testEduHomeResult.EstablishmentName = "test";
             testEduHomeResult.FinanceType = "Academies";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduHomeResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduHomeResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
             Task<ComparisonResult> cTask = Task.Run(() =>
@@ -139,13 +139,13 @@ namespace SFB.Web.UI.UnitTests
             dynamic testEduResult = new Document();
             testEduResult.URN = 321;
             testEduResult.EstablishmentName = "test";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(321)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(321)).Returns((int urn) => testEduResult);
 
             dynamic testEduHomeResult = new Document();
             testEduHomeResult.URN = 123;
             testEduHomeResult.EstablishmentName = "test";
             testEduHomeResult.FinanceType = "Academies";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduHomeResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduHomeResult);
 
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);

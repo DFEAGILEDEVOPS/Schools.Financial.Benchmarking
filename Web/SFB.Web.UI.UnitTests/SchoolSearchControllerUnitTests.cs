@@ -203,7 +203,7 @@ namespace SFB.Web.UI.UnitTests
             dynamic testResult = new Microsoft.Azure.Documents.Document();
             testResult.URN = 123456;
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123456)).Returns((int urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123456)).Returns((int urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
@@ -222,7 +222,7 @@ namespace SFB.Web.UI.UnitTests
             dynamic testResult = new Microsoft.Azure.Documents.Document();
             testResult.URN = "1234567";
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
                        
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
@@ -243,7 +243,7 @@ namespace SFB.Web.UI.UnitTests
             dynamic testResult = new Microsoft.Azure.Documents.Document();
             testResult.URN = "1234567";
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
@@ -264,7 +264,7 @@ namespace SFB.Web.UI.UnitTests
             dynamic testResult = new Microsoft.Azure.Documents.Document();
             testResult.URN = "1234567";
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);

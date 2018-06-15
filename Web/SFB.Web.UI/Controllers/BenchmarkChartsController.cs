@@ -601,7 +601,7 @@ namespace SFB.Web.UI.Controllers
 
         private SchoolViewModel InstantiateBenchmarkSchool(int urn)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
             var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstablishmentType);

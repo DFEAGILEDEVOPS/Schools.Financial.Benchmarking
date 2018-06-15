@@ -8,6 +8,7 @@ using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -52,19 +53,19 @@ namespace SFB.Web.DAL.Repositories
             _client.CreateUserDefinedFunctionAsync(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), parseFtUdf);
         }
 
-        public dynamic GetSchoolByUrn(int urn)
+        public EdubaseDataObject GetSchoolDataObjectByUrn(int urn)
         {
-            return GetSchoolById(new Dictionary<string, int> { { DBFieldNames.URN, urn } });
+            return GetSchoolDataObjectById(new Dictionary<string, int> { { DBFieldNames.URN, urn } });
         }
 
-        public dynamic GetMultipleSchoolsByUrns(List<int> urns)
+        public List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns)
         {
-            return GetMultipleSchoolsByIds(DBFieldNames.URN, urns);
+            return GetMultipleSchoolDataObjetsByIds(DBFieldNames.URN, urns);
         }
 
-        public dynamic GetSchoolByLaEstab(string laEstab)
+        public EdubaseDataObject GetSchoolByLaEstab(string laEstab)
         {
-            return GetSchoolById(new Dictionary<string, int>
+            return GetSchoolDataObjectById(new Dictionary<string, int>
             {
                 {DBFieldNames.LA_CODE, Int32.Parse(laEstab.Substring(0, 3))},
                 {DBFieldNames.ESTAB_NO, Int32.Parse(laEstab.Substring(3))}
@@ -73,7 +74,7 @@ namespace SFB.Web.DAL.Repositories
 
         #region Private methods
        
-        private dynamic GetSchoolById(Dictionary<string, int> fields)
+        private EdubaseDataObject GetSchoolDataObjectById(Dictionary<string, int> fields)
         {
 
             var sb = new StringBuilder();
@@ -93,21 +94,21 @@ namespace SFB.Web.DAL.Repositories
             querySpec.Parameters = new SqlParameterCollection();
             foreach (var field in fields)
             {
-                querySpec.Parameters.Add(new SqlParameter($"@{field.Key}", field.Value));                
+                querySpec.Parameters.Add(new SqlParameter($"@{field.Key}", field.Value));
             }
-                        
-            var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+
+            var result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
             return result;
         }
 
-        private dynamic GetMultipleSchoolsByIds(string fieldName, List<int> ids)
+        private List<EdubaseDataObject> GetMultipleSchoolDataObjetsByIds(string fieldName, List<int> ids)
         {
             var sb = new StringBuilder();
             ids.ForEach(u => sb.Append(u + ","));
 
             var query = "SELECT c['URN'], c['EstablishmentName'], c['OverallPhase'], c['TypeOfEstablishment'], c['Street'], c['Town'], c['Postcode'], udf.PARSE_FINANCIAL_TYPE_CODE(c['FinanceType']) AS FinanceType" +
                         $" FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd((','))})";
-            var result = _client.CreateDocumentQuery<Document>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
+            var result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
             return result;
         }
 
