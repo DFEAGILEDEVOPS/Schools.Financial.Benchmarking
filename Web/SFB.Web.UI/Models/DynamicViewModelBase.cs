@@ -111,11 +111,11 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public Location GetLocation()
+        public LocationDataObject GetLocation()
         {
             if (ContextDataModel is Document)
             {
-                return (ContextDataModel as Document).GetPropertyValue<Location>("Location");
+                return (ContextDataModel as Document).GetPropertyValue<LocationDataObject>("Location");
             }
             else
             {

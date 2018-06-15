@@ -11,6 +11,7 @@ using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
 using SFB.Web.Common.Attributes;
 using SFB.Web.DAL.Helpers;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -102,30 +103,54 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public dynamic GetAcademiesByMatNumber(string term, string matNo)
+        //public dynamic GetAcademiesByMatNumber(string term, string matNo)
+        //{
+        //    var collectionName =
+        //        _dataCollectionManager.GetActiveCollectionsByDataGroup(DataGroups.Academies)
+        //            .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
+        //    try
+        //    {
+        //        var query = $"SELECT c['{DBFieldNames.URN}'], c['{DBFieldNames.SCHOOL_NAME}'] as EstablishmentName, c['{DBFieldNames.PERIOD_COVERED_BY_RETURN}'] FROM c WHERE c['{DBFieldNames.MAT_NUMBER}']=@MatNo";
+        //        SqlQuerySpec querySpec = new SqlQuerySpec(query);
+        //        querySpec.Parameters = new SqlParameterCollection();
+        //        querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
+        //        var matches =
+        //            _client.CreateDocumentQuery<Document>(
+        //                UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), querySpec).ToList();
+
+        //        dynamic result = new ExpandoObject();
+        //        result.Results = matches;
+
+        //        return result;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return new List<Document>();
+        //    }
+        //}
+
+        public List<AcademiesContextualDataObject> GetAcademiesContextualDataObject(string term, string matNo)
         {
             var collectionName =
                 _dataCollectionManager.GetActiveCollectionsByDataGroup(DataGroups.Academies)
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
             try
             {
-                var query = $"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MATNumber']=@MatNo";
+                var query = $"SELECT c['{DBFieldNames.URN}'], c['{DBFieldNames.SCHOOL_NAME}'] as EstablishmentName, c['{DBFieldNames.PERIOD_COVERED_BY_RETURN}'] FROM c WHERE c['{DBFieldNames.MAT_NUMBER}']=@MatNo";
                 SqlQuerySpec querySpec = new SqlQuerySpec(query);
                 querySpec.Parameters = new SqlParameterCollection();
                 querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
 
-                var matches =
-                    _client.CreateDocumentQuery<Document>(
+                var results =
+                    _client.CreateDocumentQuery<AcademiesContextualDataObject>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), querySpec).ToList();
 
-                dynamic result = new ExpandoObject();
-                result.Results = matches;
-
-                return result;
+                return results;
             }
             catch (Exception)
             {
-                return new List<Document>();
+                return new List<AcademiesContextualDataObject>();
             }
         }
 

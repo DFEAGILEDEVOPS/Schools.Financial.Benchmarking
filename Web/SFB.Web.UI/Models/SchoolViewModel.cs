@@ -10,15 +10,22 @@ namespace SFB.Web.UI.Models
 {
     public class SchoolViewModel : EstablishmentViewModelBase
     {
+        private EdubaseDataObject ContextDataModel { get; set; }
+
         public SchoolViewModel(EdubaseDataObject contextDataModel)
         {
-            base.ContextDataModel = contextDataModel;
+            this.ContextDataModel = contextDataModel;
         }
 
         public SchoolViewModel(EdubaseDataObject schoolContextDataModel, SchoolComparisonListModel comparisonList)
         {
-            base.ContextDataModel = schoolContextDataModel;
+            this.ContextDataModel = schoolContextDataModel;
             base.ComparisonList = comparisonList;
+        }
+
+        public LocationDataObject GetLocation()
+        {
+            return ContextDataModel.Location;
         }
 
         public bool IsInComparisonList

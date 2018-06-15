@@ -2,7 +2,7 @@
 
 namespace SFB.Web.UI.Models
 {
-    public class ViewModelBase
+    public abstract class ViewModelBase
     {
         [JsonIgnore]
         public SchoolComparisonListModel ComparisonList;

@@ -5,6 +5,7 @@ using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.DAL.Repositories;
 using SFB.Web.DAL;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -89,9 +90,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             return await _financialDataRepository.GetEstablishmentRecordCountAsync(term, estType);
         }
 
-        public dynamic GetAcademiesByMatNumber(string term, string matNo)
+        public List<AcademiesContextualDataObject> GetAcademiesByMatNumber(string term, string matNo)
         {
-            return _financialDataRepository.GetAcademiesByMatNumber(term, matNo);
+            return _financialDataRepository.GetAcademiesContextualDataObject(term, matNo);
         }
     }
 }

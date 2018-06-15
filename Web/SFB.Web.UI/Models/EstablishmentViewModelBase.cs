@@ -6,7 +6,7 @@ using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
 {
-    public abstract class EstablishmentViewModelBase : DataObjectViewModelBase
+    public abstract class EstablishmentViewModelBase : ViewModelBase
     {
         public abstract string Name { get; set; }
 

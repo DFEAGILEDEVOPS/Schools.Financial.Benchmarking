@@ -47,8 +47,9 @@
     <Compile Include="BenchmarkCriteria.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Attributes\DBFieldAttribute.cs" />
+    <Compile Include="DataObjects\AcademiesContextualDataObject.cs" />
     <Compile Include="DataObjects\EdubaseDataObject.cs" />
-    <Compile Include="DataObjects\Location.cs" />
+    <Compile Include="DataObjects\LocationDataObject.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Attributes\PrettyNameAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

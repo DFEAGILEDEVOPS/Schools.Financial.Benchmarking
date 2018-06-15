@@ -2,7 +2,7 @@
 
 namespace SFB.Web.UI.Models
 {
-    public class SearchedSchoolListViewModel : SchoolSearchListViewModel
+    public class SearchedSchoolListViewModel : ViewModelListBase<SchoolSearchResultViewModel>
     {
         public string SearchType { get; }
         public string NameKeyword { get; }

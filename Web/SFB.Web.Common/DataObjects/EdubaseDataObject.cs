@@ -22,7 +22,7 @@ namespace SFB.Web.Common.DataObjects
         public string TypeOfEstablishment;
         public string Street;
         public string Town;
-        public Location Location;
+        public LocationDataObject Location;
         public string Postcode;
         public string Trusts;
         public int LACode;

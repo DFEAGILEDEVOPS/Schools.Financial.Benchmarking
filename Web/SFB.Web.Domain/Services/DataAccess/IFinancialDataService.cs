@@ -2,14 +2,16 @@
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using SFB.Web.Common;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
     public interface IFinancialDataService : ITermYearDataService
     {
+        List<AcademiesContextualDataObject> GetAcademiesByMatNumber(string term, string matNo);
+
         Document GetSchoolDataDocument(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
         Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
-        dynamic GetAcademiesByMatNumber(string term, string matNo);
         Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance);
         Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance);
         Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);

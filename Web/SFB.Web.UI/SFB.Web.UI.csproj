@@ -248,7 +248,6 @@
     <Compile Include="Models\CompareEntityBase.cs" />
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
-    <Compile Include="Models\DataObjectViewModelBase.cs" />
     <Compile Include="Models\HierarchicalChartViewModel.cs" />
     <Compile Include="Models\LaListViewModel.cs" />
     <Compile Include="Models\LaViewModel.cs" />
@@ -280,7 +279,6 @@
     <Compile Include="Models\SchoolCharacteristicsViewModel.cs" />
     <Compile Include="Models\SchoolListViewModel.cs" />
     <Compile Include="Models\SchoolNotFoundViewModel.cs" />
-    <Compile Include="Models\SchoolSearchListViewModel.cs" />
     <Compile Include="Models\SchoolSearchResultViewModel.cs" />
     <Compile Include="Models\SchoolSearchViewModel.cs" />
     <Compile Include="Models\SchoolSummaryViewModel.cs" />

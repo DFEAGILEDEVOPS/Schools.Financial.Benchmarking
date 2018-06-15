@@ -15,6 +15,7 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -37,8 +38,7 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var result = new ExpandoObject();
-            ((dynamic) result).Results = new List<ExpandoObject>();
+            var result = new List<AcademiesContextualDataObject>();
 
             mockFinancialDataService.Setup(m => m.GetAcademiesByMatNumber(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(result);

@@ -7,6 +7,7 @@
         public const string EQUALTO = "Eq";
     }
 
+    //TODO: Break down this per collection
     public class DBFieldNames
     {
         public const string TRUSTS = "Trusts";
@@ -72,6 +73,9 @@
         public const string TOTAL_INCOME = "Total Income";
         public const string ESTAB_NAME = "EstablishmentName";
         public const string OVERALL_PHASE = "OverallPhase";
+        public const string SCHOOL_NAME = "School Name";
+        public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
+        public const string MAT_NUMBER = "MATNumber";
     }
 
     public class TrustCharacteristicsQuestions

@@ -32,12 +32,12 @@
 <div class="grid-row">
     <div class="column-full">
         <div class="result-list-summary">
-            This trust is made up of <span class="bold">@Model.SchoolList.ModelList.Count</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
+            This trust is made up of <span class="bold">@Model.AcademiesList.Count</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
             <a href="/TrustSchools?matno=@Model.MatNo&matname=@Model.Name">Select schools to compare</a>
         </div>
     </div>
     <div class="column-full resultListPanel">
-        @if (Model.SchoolList.ModelList.Count > 10)
+        @if (Model.AcademiesList.Count > 10)
         {
             <details>
                 <summary class="hide-in-print">
@@ -45,18 +45,18 @@
                 </summary>
                 <div>
                     <ul class="list two-columns">
-                        @foreach (var school in Model.SchoolList.ModelList)
+                        @foreach (var academy in Model.AcademiesList)
                         {
-                            if (school.HasIncompleteFinancialData)
+                            if (academy.HasIncompleteFinancialData)
                             {
                                 <li>
-                                    <a href="/school/detail?urn=@school.Id" class="highlight-warning">@school.Name</a>
+                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">@academy.EstablishmentName</a>
                                 </li>
                             }
                             else
                             {
                                 <li>
-                                    <a href="/school/detail?urn=@school.Id">@school.Name</a>
+                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
                                 </li>
                             }
                         }
@@ -67,18 +67,18 @@
         else
         {
             <ul class="list list-bullet">
-                @foreach (var school in Model.SchoolList.ModelList)
+                @foreach (var school in Model.AcademiesList)
                 {
                     if (school.HasIncompleteFinancialData)
                     {
                         <li>
-                            <a href="/school/detail?urn=@school.Id" class="highlight-warning">@school.Name</a>
+                            <a href="/school/detail?urn=@school.URN" class="highlight-warning">@school.EstablishmentName</a>
                         </li>
                     }
                     else
                     {
                         <li>
-                            <a href="/school/detail?urn=@school.Id">@school.Name</a>
+                            <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
                         </li>
                     }
                 }
@@ -107,7 +107,7 @@ else
         }
     </div>
     <div class="grid-row">
-        @if (Model.SchoolList.ModelList.Any(m => m.HasIncompleteFinancialData))
+        @if (Model.AcademiesList.Any(m => m.HasIncompleteFinancialData))
         {
             <div class="panel panel-border-wide orange-warning">
                 <p>

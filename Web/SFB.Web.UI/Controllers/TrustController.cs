@@ -14,6 +14,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -159,17 +160,10 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        private async Task<TrustViewModel> BuildTrustVMAsync(string matNo, string name, dynamic response, RevenueGroupType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
+        private async Task<TrustViewModel> BuildTrustVMAsync(string matNo, string name, List<AcademiesContextualDataObject> academiesList, RevenueGroupType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
         {
-            var schoolListVM = new List<SchoolViewModel>();
-
-            foreach (var result in response.Results)
-            {
-                schoolListVM.Add(new SchoolViewModel(result, null));
-            }
-
             var comparisonListVM = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var trustVM = new TrustViewModel(matNo, name, new SchoolListViewModel(schoolListVM, comparisonListVM), comparisonListVM);
+            var trustVM = new TrustViewModel(matNo, name, academiesList, comparisonListVM);
             
             trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);
             trustVM.ChartGroups = _historicalChartBuilder.Build(tab, trustVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
