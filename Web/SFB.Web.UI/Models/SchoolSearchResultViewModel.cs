@@ -26,43 +26,43 @@ namespace SFB.Web.UI.Models
                 {
                     return false;
                 }
-                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == GetString("URN"));
+                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == GetString(EdubaseDBFieldNames.URN));
             }
         }
 
-        public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == GetString("URN");
+        public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == GetString(EdubaseDBFieldNames.URN);
 
-        public string Id => GetInt("URN").ToString();
+        public string Id => GetInt(EdubaseDBFieldNames.URN).ToString();
 
-        public string LaEstab => $"{GetString("LACode")} {GetString("EstablishmentNumber")}";
+        public string LaEstab => $"{GetString(EdubaseDBFieldNames.LA_CODE)} {GetString(EdubaseDBFieldNames.ESTAB_NO)}";
 
         public string Name
         {
             get
             {
-                return GetString("EstablishmentName");
+                return GetString(EdubaseDBFieldNames.ESTAB_NAME);
             }
 
             set { }
         }
 
-        public int La => GetInt("LACode");
+        public int La => GetInt(EdubaseDBFieldNames.LA_CODE);
 
-        public int Estab => GetInt("EstablishmentNumber");
+        public int Estab => GetInt(EdubaseDBFieldNames.ESTAB_NO);
 
-        public string OverallPhase => GetString("OverallPhase");
+        public string OverallPhase => GetString(EdubaseDBFieldNames.OVERALL_PHASE);
 
-        public string Phase => GetString("PhaseOfEducation");
+        public string Phase => GetString(EdubaseDBFieldNames.PHASE_OF_EDUCATION);
 
         public bool IsSixthForm => this.Phase == "16 plus";
 
-        public string Status => GetString("EstablishmentStatus");
+        public string Status => GetString(EdubaseDBFieldNames.ESTAB_STATUS);
 
         public string SchoolWebSite
         {
             get
             {
-                var url = GetString("SchoolWebsite");
+                var url = GetString(EdubaseDBFieldNames.SCHOOL_WEB_SITE);
                 if (url != null && url.ToLower().StartsWith("www"))
                 {
                     url = "http://" + url;
@@ -72,17 +72,17 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string AgeRange => $"{GetInt("StatutoryLowAge")} to {GetInt("StatutoryHighAge")}";
+        public string AgeRange => $"{GetInt(EdubaseDBFieldNames.STAT_LOW)} to {GetInt(EdubaseDBFieldNames.STAT_HIGH)}";
 
-        public string HeadTeachFullName => $"{GetString("HeadFirstName")} {GetString("HeadLastName")}";
+        public string HeadTeachFullName => $"{GetString(EdubaseDBFieldNames.HEAD_FIRST_NAME)} {GetString(EdubaseDBFieldNames.HEAD_LAST_NAME)}";
 
-        public string TrustName => GetString("Trusts");
+        public string TrustName => GetString(EdubaseDBFieldNames.TRUSTS);
 
-        public string PhoneNumber => GetString("TelephoneNum");
+        public string PhoneNumber => GetString(EdubaseDBFieldNames.TEL_NO);
 
-        public string OfstedRating => GetString("OfstedRating");
+        public string OfstedRating => GetString(EdubaseDBFieldNames.OFSTED_RATING);
 
-        public DateTime OfstedInspectionDate => GetDate("OfstedLastInsp").GetValueOrDefault();
+        public DateTime OfstedInspectionDate => GetDate(EdubaseDBFieldNames.OFSTE_LAST_INSP).GetValueOrDefault();
 
         public string OfstedRatingText
         {
@@ -104,17 +104,17 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public int TotalPupils => GetInt("NumberOfPupils");
+        public int TotalPupils => GetInt(EdubaseDBFieldNames.NO_PUPIL);
 
-        public string IsPost16 => GetString("OfficialSixthForm") == "Has a sixth form" ? "Yes" : "No";
+        public string IsPost16 => GetString(EdubaseDBFieldNames.OFFICIAL_6_FORM) == "Has a sixth form" ? "Yes" : "No";
 
-        public string HasNursery => GetInt("StatutoryLowAge") <= 3 ? "Yes" : "No";
+        public string HasNursery => GetInt(EdubaseDBFieldNames.STAT_LOW) <= 3 ? "Yes" : "No";
 
         public string OpenDate
         {
             get
             {
-                var openDate = GetDateBinary("OpenDate");
+                var openDate = GetDateBinary(EdubaseDBFieldNames.OPEN_DATE);
                 if (openDate.HasValue && openDate >= new DateTime(2011, 1, 1))
                 {
                     return openDate.Value.ToLongDateString();
@@ -130,7 +130,7 @@ namespace SFB.Web.UI.Models
         {
             get
             {
-                var closeDate = GetDateBinary("CloseDate");
+                var closeDate = GetDateBinary(EdubaseDBFieldNames.CLOSE_DATE);
                 if (closeDate.HasValue && closeDate >= new DateTime(2011, 1, 1))
                 {
                     return closeDate.Value.ToLongDateString();
@@ -142,13 +142,13 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string Address => $"{GetString("Street")}, {GetString("Town")}, {GetString("Postcode")}";
+        public string Address => $"{GetString(EdubaseDBFieldNames.STREET)}, {GetString(EdubaseDBFieldNames.TOWN)}, {GetString(EdubaseDBFieldNames.POSTCODE)}";
 
-        public string Type => GetString("TypeOfEstablishment");
+        public string Type => GetString(EdubaseDBFieldNames.TYPE_OF_ESTAB);
 
-        public bool HasIncompleteFinancialData => GetInt("Period covered by return") != 12;
+        public bool HasIncompleteFinancialData => GetInt(EdubaseDBFieldNames.PERIOD_COVERED_BY_RETURN) != 12;
 
-        public EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), GetString("FinanceType"));
+        public EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), GetString(EdubaseDBFieldNames.FINANCE_TYPE));
 
         public bool HasCoordinates
         {

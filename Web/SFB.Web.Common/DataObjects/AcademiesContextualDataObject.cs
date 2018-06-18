@@ -11,13 +11,13 @@ namespace SFB.Web.Common.DataObjects
     {
         //$"SELECT c['URN'], c['School Name'] as EstablishmentName, c['Period covered by return'] FROM c WHERE c['MATNumber']=@MatNo"
 
-        [JsonProperty(PropertyName = DBFieldNames.URN)]
+        [JsonProperty(PropertyName = SchoolFinanceDBFieldNames.URN)]
         public int URN;
 
-        [JsonProperty(PropertyName = DBFieldNames.ESTAB_NAME)]
+        [JsonProperty(PropertyName = SchoolFinanceDBFieldNames.ESTAB_NAME)]
         public string EstablishmentName;
 
-        [JsonProperty(PropertyName = DBFieldNames.PERIOD_COVERED_BY_RETURN)]
+        [JsonProperty(PropertyName = SchoolFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN)]
         public int PeriodCoveredByReturn;
         
         public bool HasIncompleteFinancialData => PeriodCoveredByReturn != 12;

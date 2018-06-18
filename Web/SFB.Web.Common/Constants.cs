@@ -7,18 +7,46 @@
         public const string EQUALTO = "Eq";
     }
 
-    //TODO: Break down this per collection
-    public class DBFieldNames
+    public class EdubaseDBFieldNames
     {
-        public const string TRUSTS = "Trusts";
-        public const string ESTAB_NO = "EstablishmentNumber";
-        public const string LA = "LA";
-        public const string LA_CODE = "LACode";
         public const string URN = "URN";
+        public const string ESTAB_NAME = "EstablishmentName";
+        public const string OVERALL_PHASE = "OverallPhase";
+        public const string PHASE_OF_EDUCATION = "PhaseOfEducation";
+        public const string TYPE_OF_ESTAB = "TypeOfEstablishment";
+        public const string STREET = "Street";
+        public const string TOWN = "Town";
+        public const string LOCATION = "Location";
+        public const string POSTCODE = "Postcode";
+        public const string TRUSTS = "Trusts";
+        public const string LA_CODE = "LACode";
+        public const string ESTAB_NO = "EstablishmentNumber";
+        public const string TEL_NO = "TelephoneNum";
+        public const string NO_PUPIL = "NumberOfPupils";
+        public const string STAT_LOW = "StatutoryLowAge";
+        public const string STAT_HIGH = "StatutoryHighAge";
+        public const string HEAD_FIRST_NAME = "HeadFirstName";
+        public const string HEAD_LAST_NAME = "HeadLastName";
+        public const string OFFICIAL_6_FORM = "OfficialSixthForm";
+        public const string SCHOOL_WEB_SITE = "SchoolWebsite";
+        public const string OFSTED_RATING = "OfstedRating";
+        public const string OFSTE_LAST_INSP = "OfstedLastInsp";
+        public const string FINANCE_TYPE = "FinanceType";
+        public const string OPEN_DATE = "OpenDate";
+        public const string CLOSE_DATE = "CloseDate";
+        public const string ESTAB_STATUS = "EstablishmentStatus";
+        public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
+    }
+
+    public class SchoolFinanceDBFieldNames
+    {
+        public const string LA = "LA";
+        public const string URN = "URN";
+        public const string ESTAB_NAME = "EstablishmentName";
+        public const string OFSTED_RATING = "OfstedRating";
         public const string KS2_PROGRESS = "KS2 Progress";
         public const string PROGRESS_8_MEASURE = "P8MEA";
         public const string AVERAGE_ATTAINMENT = "ATT8SCR";
-        public const string OFSTED_RATING = "OfstedRating";
         public const string OFSTED_RATING_NAME = "OfstedRatingName";
         public const string KS2_ACTUAL = "PTRWM_EXP";
         public const string TEACHERS_LEADER = "TotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent";
@@ -71,8 +99,6 @@
         public const string AUTISTIC_DISORDER = "Primary_need_asd_percent";
         public const string OTHER_LEARNING_DIFF = "Primary_need_oth_percent";
         public const string TOTAL_INCOME = "Total Income";
-        public const string ESTAB_NAME = "EstablishmentName";
-        public const string OVERALL_PHASE = "OverallPhase";
         public const string SCHOOL_NAME = "School Name";
         public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
         public const string MAT_NUMBER = "MATNumber";

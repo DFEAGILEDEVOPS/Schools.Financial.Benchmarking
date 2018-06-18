@@ -1778,7 +1778,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "School workforce (Full Time Equivalent)",
-                    FieldName = DBFieldNames.WORKFORCE_TOTAL,
+                    FieldName = SchoolFinanceDBFieldNames.WORKFORCE_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1798,7 +1798,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Teachers (Full Time Equivalent)",
-                    FieldName = DBFieldNames.TEACHERS_TOTAL,
+                    FieldName = SchoolFinanceDBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1810,7 +1810,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Teachers with Qualified Teacher Status (%)",
-                    FieldName = DBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS,
+                    FieldName = SchoolFinanceDBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1823,7 +1823,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Senior leadership (Full Time Equivalent)",
-                    FieldName = DBFieldNames.TEACHERS_LEADER,
+                    FieldName = SchoolFinanceDBFieldNames.TEACHERS_LEADER,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1842,7 +1842,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Teaching assistants (Full Time Equivalent)",
-                    FieldName = DBFieldNames.FULL_TIME_TA,
+                    FieldName = SchoolFinanceDBFieldNames.FULL_TIME_TA,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1861,7 +1861,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Non-classroom support staff – excluding auxiliary staff  (Full Time Equivalent)",
-                    FieldName = DBFieldNames.FULL_TIME_OTHER,
+                    FieldName = SchoolFinanceDBFieldNames.FULL_TIME_OTHER,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1879,7 +1879,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Auxiliary staff (Full Time Equivalent)",
-                    FieldName = DBFieldNames.AUX_STAFF,
+                    FieldName = SchoolFinanceDBFieldNames.AUX_STAFF,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1897,7 +1897,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "School workforce (headcount)",
-                    FieldName = DBFieldNames.WORKFORCE_HEADCOUNT,
+                    FieldName = SchoolFinanceDBFieldNames.WORKFORCE_HEADCOUNT,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1918,7 +1918,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Key Stage 2 attainment",
-                    FieldName = DBFieldNames.KS2_ACTUAL,
+                    FieldName = SchoolFinanceDBFieldNames.KS2_ACTUAL,
                     RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1928,7 +1928,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Key Stage 2 progress",
-                    FieldName = DBFieldNames.KS2_PROGRESS,
+                    FieldName = SchoolFinanceDBFieldNames.KS2_PROGRESS,
                     RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1938,7 +1938,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Average attainment",
-                    FieldName = DBFieldNames.AVERAGE_ATTAINMENT,
+                    FieldName = SchoolFinanceDBFieldNames.AVERAGE_ATTAINMENT,
                     RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1948,7 +1948,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Progress 8 measure",
-                    FieldName = DBFieldNames.PROGRESS_8_MEASURE,
+                    FieldName = SchoolFinanceDBFieldNames.PROGRESS_8_MEASURE,
                     RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1958,7 +1958,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Name = "Ofsted rating",
-                    FieldName = DBFieldNames.OFSTED_RATING,
+                    FieldName = SchoolFinanceDBFieldNames.OFSTED_RATING,
                     RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,

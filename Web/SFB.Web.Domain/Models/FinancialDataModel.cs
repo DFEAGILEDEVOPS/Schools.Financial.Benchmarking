@@ -34,7 +34,7 @@ namespace SFB.Web.Domain.Models
                 {
                     if (FinancialDataDocumentModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<double>(DBFieldNames.NO_PUPILS);
+                        return FinancialDataDocumentModel.GetPropertyValue<double>(SchoolFinanceDBFieldNames.NO_PUPILS);
                     }
                     return 0;
                 }
@@ -53,7 +53,7 @@ namespace SFB.Web.Domain.Models
                 {
                     if (FinancialDataDocumentModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<double>(DBFieldNames.NO_SCHOOLS);
+                        return FinancialDataDocumentModel.GetPropertyValue<double>(SchoolFinanceDBFieldNames.NO_SCHOOLS);
                     }
                     return 0;
                 }
@@ -227,98 +227,98 @@ namespace SFB.Web.Domain.Models
 
         #region Criteria Data
 
-        public string AdmissionPolicy => GetString(DBFieldNames.ADMISSION_POLICY);
+        public string AdmissionPolicy => GetString(SchoolFinanceDBFieldNames.ADMISSION_POLICY);
 
-        public string Gender => GetString(DBFieldNames.GENDER);
+        public string Gender => GetString(SchoolFinanceDBFieldNames.GENDER);
 
-        public string SchoolOverallPhase => GetString(DBFieldNames.SCHOOL_OVERALL_PHASE);
+        public string SchoolOverallPhase => GetString(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE);
 
-        public string SchoolPhase => GetString(DBFieldNames.SCHOOL_PHASE);
+        public string SchoolPhase => GetString(SchoolFinanceDBFieldNames.SCHOOL_PHASE);
 
-        public string SchoolType => GetString(DBFieldNames.SCHOOL_TYPE);
+        public string SchoolType => GetString(SchoolFinanceDBFieldNames.SCHOOL_TYPE);
 
-        public string UrbanRural => GetString(DBFieldNames.URBAN_RURAL);
+        public string UrbanRural => GetString(SchoolFinanceDBFieldNames.URBAN_RURAL);
 
-        public string GovernmentOfficeRegion => GetString(DBFieldNames.REGION);
+        public string GovernmentOfficeRegion => GetString(SchoolFinanceDBFieldNames.REGION);
 
-        public string LondonBorough => GetString(DBFieldNames.LONDON_BOROUGH);
+        public string LondonBorough => GetString(SchoolFinanceDBFieldNames.LONDON_BOROUGH);
 
-        public string LondonWeighting => GetString(DBFieldNames.LONDON_WEIGHT);
+        public string LondonWeighting => GetString(SchoolFinanceDBFieldNames.LONDON_WEIGHT);
 
-        public string PercentageOfEligibleFreeSchoolMeals => GetString(DBFieldNames.PERCENTAGE_FSM);
+        public string PercentageOfEligibleFreeSchoolMeals => GetString(SchoolFinanceDBFieldNames.PERCENTAGE_FSM);
 
-        public string PercentageOfPupilsWithSen => GetString(DBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN);
+        public string PercentageOfPupilsWithSen => GetString(SchoolFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN);
 
-        public string PercentageOfPupilsWithoutSen => GetString(DBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN);
+        public string PercentageOfPupilsWithoutSen => GetString(SchoolFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN);
 
-        public string PercentageOfPupilsWithEal => GetString(DBFieldNames.PERCENTAGE_OF_PUPILS_WITH_EAL);
+        public string PercentageOfPupilsWithEal => GetString(SchoolFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_EAL);
 
-        public string PercentageBoarders => GetString(DBFieldNames.PERCENTAGE_BOARDERS);
+        public string PercentageBoarders => GetString(SchoolFinanceDBFieldNames.PERCENTAGE_BOARDERS);
 
-        public string Pfi => GetString(DBFieldNames.PFI);
+        public string Pfi => GetString(SchoolFinanceDBFieldNames.PFI);
 
-        public string DoesTheSchoolHave6Form => GetString(DBFieldNames.HAS_6_FORM);
+        public string DoesTheSchoolHave6Form => GetString(SchoolFinanceDBFieldNames.HAS_6_FORM);
 
-        public string NumberIn6Form => GetString(DBFieldNames.NUMBER_IN_6_FORM);
+        public string NumberIn6Form => GetString(SchoolFinanceDBFieldNames.NUMBER_IN_6_FORM);
 
-        public string HighestAgePupils => GetString(DBFieldNames.HIGHEST_AGE_PUPILS);
+        public string HighestAgePupils => GetString(SchoolFinanceDBFieldNames.HIGHEST_AGE_PUPILS);
 
-        public string FullTimeAdmin => GetString(DBFieldNames.ADMIN_STAFF);
+        public string FullTimeAdmin => GetString(SchoolFinanceDBFieldNames.ADMIN_STAFF);
 
-        public string FullTimeOther => GetString(DBFieldNames.FULL_TIME_OTHER);
+        public string FullTimeOther => GetString(SchoolFinanceDBFieldNames.FULL_TIME_OTHER);
 
-        public string PercentageQualifiedTeachers => GetString(DBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS);
+        public string PercentageQualifiedTeachers => GetString(SchoolFinanceDBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS);
 
-        public string LowestAgePupils => GetString(DBFieldNames.LOWEST_AGE_PUPILS);
+        public string LowestAgePupils => GetString(SchoolFinanceDBFieldNames.LOWEST_AGE_PUPILS);
 
-        public string FullTimeTA => GetString(DBFieldNames.FULL_TIME_TA);
+        public string FullTimeTA => GetString(SchoolFinanceDBFieldNames.FULL_TIME_TA);
 
-        public string TotalSchoolWorkforceFTE => GetString(DBFieldNames.WORKFORCE_TOTAL);
+        public string TotalSchoolWorkforceFTE => GetString(SchoolFinanceDBFieldNames.WORKFORCE_TOTAL);
 
-        public string TotalNumberOfTeachersFTE => GetString(DBFieldNames.TEACHERS_TOTAL);
+        public string TotalNumberOfTeachersFTE => GetString(SchoolFinanceDBFieldNames.TEACHERS_TOTAL);
 
-        public string TotalSeniorTeachersFTE => GetString(DBFieldNames.TEACHERS_LEADER);
+        public string TotalSeniorTeachersFTE => GetString(SchoolFinanceDBFieldNames.TEACHERS_LEADER);
 
-        public string Ks2Actual => GetString(DBFieldNames.KS2_ACTUAL);
+        public string Ks2Actual => GetString(SchoolFinanceDBFieldNames.KS2_ACTUAL);
 
-        public string Ks2Progress => GetString(DBFieldNames.KS2_PROGRESS);
+        public string Ks2Progress => GetString(SchoolFinanceDBFieldNames.KS2_PROGRESS);
 
-        public string AvAtt8 => GetString(DBFieldNames.AVERAGE_ATTAINMENT);
+        public string AvAtt8 => GetString(SchoolFinanceDBFieldNames.AVERAGE_ATTAINMENT);
 
-        public string P8Mea => GetString(DBFieldNames.PROGRESS_8_MEASURE);
+        public string P8Mea => GetString(SchoolFinanceDBFieldNames.PROGRESS_8_MEASURE);
 
-        public string OfstedRating => GetString(DBFieldNames.OFSTED_RATING_NAME);
+        public string OfstedRating => GetString(SchoolFinanceDBFieldNames.OFSTED_RATING_NAME);
 
-        public string SpecificLearningDifficulty => GetString(DBFieldNames.SPECIFIC_LEARNING_DIFFICULTY);
+        public string SpecificLearningDifficulty => GetString(SchoolFinanceDBFieldNames.SPECIFIC_LEARNING_DIFFICULTY);
 
-        public string ModerateLearningDifficulty => GetString(DBFieldNames.MODERATE_LEARNING_DIFFICULTY);
+        public string ModerateLearningDifficulty => GetString(SchoolFinanceDBFieldNames.MODERATE_LEARNING_DIFFICULTY);
 
-        public string SevereLearningDifficulty => GetString(DBFieldNames.SEVERE_LEARNING_DIFFICULTY);
+        public string SevereLearningDifficulty => GetString(SchoolFinanceDBFieldNames.SEVERE_LEARNING_DIFFICULTY);
 
-        public string ProfLearningDifficulty => GetString(DBFieldNames.PROF_LEARNING_DIFFICULTY);
+        public string ProfLearningDifficulty => GetString(SchoolFinanceDBFieldNames.PROF_LEARNING_DIFFICULTY);
 
-        public string SocialHealth => GetString(DBFieldNames.SOCIAL_HEALTH);
+        public string SocialHealth => GetString(SchoolFinanceDBFieldNames.SOCIAL_HEALTH);
         
-        public string SpeechNeeds => GetString(DBFieldNames.SPEECH_NEEDS);
+        public string SpeechNeeds => GetString(SchoolFinanceDBFieldNames.SPEECH_NEEDS);
 
-        public string HearingImpairment => GetString(DBFieldNames.HEARING_IMPAIRMENT);
+        public string HearingImpairment => GetString(SchoolFinanceDBFieldNames.HEARING_IMPAIRMENT);
 
-        public string VisualImpairment => GetString(DBFieldNames.VISUAL_IMPAIRMENT);
+        public string VisualImpairment => GetString(SchoolFinanceDBFieldNames.VISUAL_IMPAIRMENT);
 
-        public string MultiSensoryImpairment => GetString(DBFieldNames.MULTI_SENSORY_IMPAIRMENT);
+        public string MultiSensoryImpairment => GetString(SchoolFinanceDBFieldNames.MULTI_SENSORY_IMPAIRMENT);
 
-        public string PhysicalDisability => GetString(DBFieldNames.PHYSICAL_DISABILITY);
+        public string PhysicalDisability => GetString(SchoolFinanceDBFieldNames.PHYSICAL_DISABILITY);
 
-        public string AutisticDisorder => GetString(DBFieldNames.AUTISTIC_DISORDER);
+        public string AutisticDisorder => GetString(SchoolFinanceDBFieldNames.AUTISTIC_DISORDER);
 
-        public string OtherLearningDifficulty => GetString(DBFieldNames.OTHER_LEARNING_DIFF);
+        public string OtherLearningDifficulty => GetString(SchoolFinanceDBFieldNames.OTHER_LEARNING_DIFF);
 
-        public string CrossPhaseBreakdownPrimary => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY);
-        public string CrossPhaseBreakdownSecondary => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY);
-        public string CrossPhaseBreakdownSpecial => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL);
-        public string CrossPhaseBreakdownPru => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU);
-        public string CrossPhaseBreakdownAP => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP);
-        public string CrossPhaseBreakdownAT => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT);
+        public string CrossPhaseBreakdownPrimary => FinancialDataDocumentModel.GetPropertyValue<Document>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY);
+        public string CrossPhaseBreakdownSecondary => FinancialDataDocumentModel.GetPropertyValue<Document>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY);
+        public string CrossPhaseBreakdownSpecial => FinancialDataDocumentModel.GetPropertyValue<Document>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL);
+        public string CrossPhaseBreakdownPru => FinancialDataDocumentModel.GetPropertyValue<Document>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU);
+        public string CrossPhaseBreakdownAP => FinancialDataDocumentModel.GetPropertyValue<Document>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP);
+        public string CrossPhaseBreakdownAT => FinancialDataDocumentModel.GetPropertyValue<Document>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(SchoolFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT);
 
         #endregion
 

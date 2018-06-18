@@ -55,20 +55,20 @@ namespace SFB.Web.DAL.Repositories
 
         public EdubaseDataObject GetSchoolDataObjectByUrn(int urn)
         {
-            return GetSchoolDataObjectById(new Dictionary<string, int> { { DBFieldNames.URN, urn } });
+            return GetSchoolDataObjectById(new Dictionary<string, int> { { SchoolFinanceDBFieldNames.URN, urn } });
         }
 
         public List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns)
         {
-            return GetMultipleSchoolDataObjetsByIds(DBFieldNames.URN, urns);
+            return GetMultipleSchoolDataObjetsByIds(SchoolFinanceDBFieldNames.URN, urns);
         }
 
         public EdubaseDataObject GetSchoolByLaEstab(string laEstab)
         {
             return GetSchoolDataObjectById(new Dictionary<string, int>
             {
-                {DBFieldNames.LA_CODE, Int32.Parse(laEstab.Substring(0, 3))},
-                {DBFieldNames.ESTAB_NO, Int32.Parse(laEstab.Substring(3))}
+                {EdubaseDBFieldNames.LA_CODE, Int32.Parse(laEstab.Substring(0, 3))},
+                {EdubaseDBFieldNames.ESTAB_NO, Int32.Parse(laEstab.Substring(3))}
             });
         }
 
