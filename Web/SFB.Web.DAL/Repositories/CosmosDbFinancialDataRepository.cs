@@ -137,7 +137,7 @@ namespace SFB.Web.DAL.Repositories
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
             try
             {
-                var query = $"SELECT c['{SchoolFinanceDBFieldNames.URN}'], c['{SchoolFinanceDBFieldNames.SCHOOL_NAME}'] as EstablishmentName, c['{SchoolFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] FROM c WHERE c['{SchoolFinanceDBFieldNames.MAT_NUMBER}']=@MatNo";
+                var query = $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'] as EstablishmentName, c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']=@MatNo";
                 SqlQuerySpec querySpec = new SqlQuerySpec(query);
                 querySpec.Parameters = new SqlParameterCollection();
                 querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
@@ -203,6 +203,58 @@ namespace SFB.Web.DAL.Repositories
             catch (Exception)
             {
                 return new Document();
+            }
+        }
+
+        public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance)
+        {
+            string dataGroupType = null;
+
+            switch (matFinance)
+            {
+                case MatFinancingType.TrustOnly:
+                    dataGroupType = DataGroups.MATCentral;
+                    break;
+                case MatFinancingType.TrustAndAcademies:
+                    dataGroupType = DataGroups.MATOverview;
+                    break;
+                case MatFinancingType.AcademiesOnly:
+                    dataGroupType = DataGroups.MATTotals;
+                    break;
+            }
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroupType);
+
+            if (collectionName == null)
+            {
+                return null;
+            }
+
+            var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
+            var res =
+                _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
+                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                    querySpec);
+
+            try
+            {
+                var result = res.ToList().FirstOrDefault();
+
+                if (result != null && result.DidNotSubmit)
+                {
+                    var emptyObj = new SchoolTrustFinancialDataObject();
+                    emptyObj.DidNotSubmit = true;
+                    return emptyObj;
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return new SchoolTrustFinancialDataObject();
             }
         }
 

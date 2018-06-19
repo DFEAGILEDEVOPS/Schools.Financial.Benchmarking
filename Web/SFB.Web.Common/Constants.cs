@@ -36,9 +36,11 @@
         public const string CLOSE_DATE = "CloseDate";
         public const string ESTAB_STATUS = "EstablishmentStatus";
         public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
+        public const string LOCATION_TYPE = "type";
+        public const string LOCATION_COORDINATES = "coordinates";
     }
 
-    public class SchoolFinanceDBFieldNames
+    public class SchoolTrustFinanceDBFieldNames
     {
         public const string LA = "LA";
         public const string URN = "URN";
@@ -68,15 +70,14 @@
         public const string PERCENTAGE_OF_PUPILS_WITH_SEN = "% of pupils with SEN Statement";
         public const string PERCENTAGE_FSM = "% of pupils eligible for FSM";
         public const string NO_PUPILS = "No Pupils";
-        public const string NO_SCHOOLS = "MemberCount";
         public const string LONDON_WEIGHT = "London Weighting";
         public const string LONDON_BOROUGH = "London Borough";
         public const string REGION = "Region";
         public const string URBAN_RURAL = "UrbanRuralInner";
         public const string SCHOOL_TYPE = "Type";
         public const string SCHOOL_PHASE = "Phase";
-        public const string SCHOOL_OVERALL_PHASE = "Overall Phase";
-        public const string SCHOOL_OVERALL_PHASE_BREAKDOWN = "Overall PhaseBreakdown";
+        public const string SCHOOL_OVERALL_PHASE = "OverallPhase";
+        public const string SCHOOL_OVERALL_PHASE_BREAKDOWN = "OverallPhaseBreakdown";
         public const string SCHOOL_OVERALL_PHASE_CROSS_PRIMARY = "Primary";
         public const string SCHOOL_OVERALL_PHASE_CROSS_SECONDARY = "Secondary";
         public const string SCHOOL_OVERALL_PHASE_CROSS_SPECIAL = "Special";
@@ -102,6 +103,77 @@
         public const string SCHOOL_NAME = "School Name";
         public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
         public const string MAT_NUMBER = "MATNumber";
+        public const string TRUST_COMPANY_NAME = "TrustOrCompanyName";
+        public const string OTHER_INCOME = "Other Income";
+        public const string SEN = "SEN";
+        public const string OTHER_DFE_GRANTS = "Other DfE/EFA Revenue Grants";
+        public const string OTHER_INCOME_GRANTS = "Other income (LA & other Government grants)";
+        public const string GOVERNMENT_SOURCE = "Government source (non-grant)";
+        public const string ACADEMIES = "Academies";
+        public const string NON_GOVERNMENT = "Non- Government";
+        public const string INCOME_FROM_FACILITIES = "Income from facilities and services";
+        public const string INCOME_FROM_CATERING = "Income from catering";
+        public const string RECEIPTS_FROM_SUPPLY = "Receipts from supply teacher insurance claims";
+        public const string DONATIONS = "Donations and/or voluntary funds";
+        public const string OTHER_SELF_GENERATED = "Other self-generated income";
+        public const string INVESTMENT_INCOME = "Investment income";
+        public const string TEACHING_STAFF = "Teaching staff";
+        public const string SUPPLY_TEACHING_STAFF = "Supply teaching staff";
+        public const string EDUCATION_SUPPORT_STAFF = "Education support staff";
+        public const string ADMIN_CLERIC_STAFF = "Administrative and clerical staff";
+        public const string PREMISES_STAFF = "Premises staff";
+        public const string CATERING_STAFF = "Catering staff";
+        public const string OTHER_STAFF = "Other staff";
+        public const string INDIRECT_EMPLOYEE_EXPENSES = "Indirect employee expenses";
+        public const string STAFF_DEV = "Staff development and training";
+        public const string STAFFF_INSURANCE = "Staff-related insurance";
+        public const string SUPPLY_TEACHER_INSURANCE = "Supply teacher insurance";
+        public const string BUILDING_GROUNDS = "Building and Grounds maintenance and improvement";
+        public const string CLEANING = "Cleaning and caretaking";
+        public const string WATER_SEWERAGE = "Water and sewerage";
+        public const string ENERGY = "Energy";
+        public const string RENT_RATES = "Rent and Rates";
+        public const string OTHER_OCCUPATION = "Other occupation costs";
+        public const string SPECIAL_FACILITIES = "Special facilities";
+        public const string LEARNING_RESOURCES = "Learning resources (not ICT equipment)";
+        public const string ICT_LEARNING_RESOURCES = "ICT learning resources";
+        public const string EXAM_FEES = "Examination fees";
+        public const string EDUCATIONAL_CONSULTANCY = "Educational Consultancy";
+        public const string ADMIN_SUPPLIES = "Administrative supplies - non educational";
+        public const string AGENCY_TEACH_STAFF = "Agency supply teaching staff";
+        public const string CATERING_SUPPLIES = "Catering supplies";
+        public const string OTHER_INSURANCE = "Other insurance premiums";
+        public const string LEGAL_PROFESSIONAL = "Legal & Professional";
+        public const string AUDITOR_COSTS = "Auditor costs";
+        public const string INTEREST_CHARGES = "Interest charges for Loan and Bank";
+        public const string DIRECT_REVENUE = "Direct revenue financing (Revenue contributions to capital)";
+        public const string PFI_CHARGES = "PFI Charges";
+        public const string IN_YEAR_BALANCE = "In Year Balance";
+        public const string GRANT_FUNDING = "Grant Funding";
+        public const string DIRECT_GRANT = "Direct Grant";
+        public const string COMMUNITY_GRANTS = "Community Grants";
+        public const string TARGETED_GRANTS = "Targeted Grants";
+        public const string SELF_GENERATED_FUNDING = "Self Generated Funding";
+        public const string SUPPLY_STAFF = "Supply Staff";
+        public const string OTHER_STAFF_COSTS = "Other Staff Costs";
+        public const string STAFF_TOTAL = "Staff Total";
+        public const string MAINTENANCE_IMPROVEMENT = "Maintenance & Improvement";
+        public const string PREMISES = "Premises";
+        public const string CATERING_EXP = "Catering Exp";
+        public const string OCCUPATION = "Occupation";
+        public const string SUPPLIES_SERVICES = "Supplies and Services";
+        public const string EDUCATIONAL_SUPPLIES = "Educational Supplies";
+        public const string BROUGHT_IN_SERVICES = "Brought in Professional Sevices";
+        public const string COST_OF_FINANCE = "Cost of Finance";
+        public const string TOTAL_EXP = "Total Expenditure";
+        public const string REVENUE_RESERVE = "Revenue Reserve";
+        public const string NO_TEACHERS = "No Teachers";
+        public const string MEMBER_COUNT = "MemberCount";
+        public const string PARTIAL_YEARS_PRESENT = "PartialYearsPresent";
+        public const string DNS = "DNS";
+        public const string MAT_SAT = "MAT SAT or Central Services";
+        public const string WORKFORCE_PRESENT = "WorkforcePresent";
+
     }
 
     public class TrustCharacteristicsQuestions

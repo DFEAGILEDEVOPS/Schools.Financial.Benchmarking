@@ -546,7 +546,7 @@ namespace SFB.Web.UI.Controllers
             var terms = _financialDataService.GetActiveTermsForMatCentral();
 
             foreach (var trust in trusts){
-                var financialDataModel = _financialDataService.GetMATDataDocument(trust.MatNo, terms.First(), matFinancing);
+                var financialDataModel = _financialDataService.GetTrustFinancialDataObject(trust.MatNo, terms.First(), matFinancing);
                 models.Add(new FinancialDataModel(trust.MatNo, terms.First(), financialDataModel, EstablishmentType.MAT));
             }
 

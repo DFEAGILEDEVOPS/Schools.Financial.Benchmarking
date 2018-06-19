@@ -50,6 +50,7 @@
     <Compile Include="DataObjects\AcademiesContextualDataObject.cs" />
     <Compile Include="DataObjects\EdubaseDataObject.cs" />
     <Compile Include="DataObjects\LocationDataObject.cs" />
+    <Compile Include="DataObjects\SchoolTrustFinancialDataObject.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Attributes\PrettyNameAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
