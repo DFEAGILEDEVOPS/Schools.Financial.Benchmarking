@@ -890,19 +890,6 @@ namespace SFB.Web.UI.Helpers
                                 </ul>
                                 "
                 },
-                new ChartViewModel()
-                {
-                    Name = "Catering costs",
-                    FieldName = SchoolTrustFinanceDBFieldNames.CATERING_COSTS,
-                    RevenueGroup = RevenueGroupType.Expenditure,
-                    ChartGroup = ChartGroupType.Occupation,
-                    ChartSchoolType = ChartSchoolType.Academy,
-                    MoreInfo = @"<p>This includes:</p>
-                                <ul>
-                                <li>catering staff</li>
-                                <li>catering supplies</li>
-                                </ul>"
-                },
 
                 //Supplies and Services
                 new ChartViewModel()

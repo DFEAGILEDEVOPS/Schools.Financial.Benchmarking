@@ -69,9 +69,6 @@ namespace SFB.Web.Common.DataObjects
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SUPPLY_TEACHING_STAFF)]
         public decimal SupplyTeachingStaff { get; set; }
 
-        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.CATERING_COSTS)]
-        public decimal CateringCosts { get; set; }
-
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.EDUCATION_SUPPORT_STAFF)]
         public decimal EducationSupportStaff { get; set; }
 
