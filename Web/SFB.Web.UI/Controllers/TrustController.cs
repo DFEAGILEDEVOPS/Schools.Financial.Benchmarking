@@ -185,11 +185,11 @@ namespace SFB.Web.UI.Controllers
             var models = new List<FinancialDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
 
-            var taskList = new List<Task<IEnumerable<Document>>>();
+            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetMATDataDocumentAsync(matCode, term, matFinancing);
+                var task = _financialDataService.GetTrustFinancialDataObjectAsync(matCode, term, matFinancing);
                 taskList.Add(task);
             }
 
@@ -197,16 +197,16 @@ namespace SFB.Web.UI.Controllers
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
-                var resultDocument = taskResult?.FirstOrDefault();
+                var resultObject = taskResult?.FirstOrDefault();
 
-                if (resultDocument != null && resultDocument.GetPropertyValue<bool>("DNS"))
+                if (resultObject != null && resultObject.DidNotSubmit)
                 {
-                    var emptyDoc = new Document();
-                    emptyDoc.SetPropertyValue("DNS", true);
-                    resultDocument = emptyDoc;
+                    var emptyObj = new SchoolTrustFinancialDataObject();
+                    emptyObj.DidNotSubmit = true;
+                    resultObject = emptyObj;
                 }
 
-                models.Add(new FinancialDataModel(matCode, term, resultDocument, EstablishmentType.MAT));
+                models.Add(new FinancialDataModel(matCode, term, resultObject, EstablishmentType.MAT));
             }
 
             return models;

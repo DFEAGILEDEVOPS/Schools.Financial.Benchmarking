@@ -28,21 +28,21 @@ namespace SFB.Web.Domain.Services.Comparison
 
             if(includeFsm)
             {
-                var fsm = double.Parse(benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals);
+                var fsm = benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals;
                 criteria.MinPerFSM =  (fsm - percentageMargin) < 0 ? 0 : (fsm - percentageMargin);
                 criteria.MaxPerFSM = fsm + percentageMargin;
             }
 
             if(includeSen)
             {
-                var sen = double.Parse(benchmarkSchoolData.PercentageOfPupilsWithSen);
+                var sen = benchmarkSchoolData.PercentageOfPupilsWithSen;
                 criteria.MinPerSEN =  (sen - percentageMargin < 0) ? 0  : (sen - percentageMargin);
                 criteria.MaxPerSEN = sen + percentageMargin;
             }
 
             if(includeEal)
             {
-                var eal = double.Parse(benchmarkSchoolData.PercentageOfPupilsWithEal);
+                var eal = benchmarkSchoolData.PercentageOfPupilsWithEal;
                 criteria.MinPerEAL = (eal - percentageMargin) < 0 ? 0 : (eal - percentageMargin) ;
                 criteria.MaxPerEAL = eal + percentageMargin;
             }

@@ -9,6 +9,7 @@ using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Services;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -18,14 +19,14 @@ namespace SFB.Web.UI.UnitTests
         public async Task GenerateBenchmarkListWithSimpleComparisonAsyncShouldExpandTheUrbanRuralIfNotEnoughSchoolsFound()
         {
             var mockFinancialDataService = new Mock<IFinancialDataService>();
-            var testResult = new Document();
-            testResult.SetPropertyValue("URN", "321");
-            testResult.SetPropertyValue("School Name", "test");
-            testResult.SetPropertyValue("FinanceType", "Academies");
-            testResult.SetPropertyValue("UrbanRuralInner", "Town and fringe");
-            Task<List<Document>> task = Task.Run(() =>
+            var testResult = new SchoolTrustFinancialDataObject();
+            testResult.URN = 321;
+            testResult.SchoolName = "test";
+            testResult.FinanceType = "Academies";
+            testResult.UrbanRural = "Town and fringe";
+            Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
             {
-                return new List<Document> { testResult };
+                return new List<SchoolTrustFinancialDataObject> { testResult };
             });
 
             mockFinancialDataService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))

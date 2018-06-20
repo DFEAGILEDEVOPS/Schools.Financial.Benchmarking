@@ -7,6 +7,7 @@ using System.Linq;
 using SFB.Web.Common;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers.Enums;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.Services
 {
@@ -36,6 +37,18 @@ namespace SFB.Web.UI.Services
             }
         }
 
+        private Decimal? GetFinancialDataValueForChartField(string chartFieldName, SchoolTrustFinancialDataObject dataObject)
+        {
+            if (dataObject == null)
+            {
+                return null;
+            }
+
+            return (Decimal?) typeof(SchoolTrustFinancialDataObject).GetProperties()
+                .First(p => (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).First() as JsonPropertyAttribute).PropertyName == chartFieldName)
+                .GetValue(dataObject);
+        }
+
         private void BuildChart(List<FinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
             EstablishmentType estabType, ChartViewModel chart)
         {
@@ -48,10 +61,10 @@ namespace SFB.Web.UI.Services
                 {
                     case UnitType.AbsoluteMoney:
                     case UnitType.AbsoluteCount:
-                        amount = schoolData.GetDecimal(chart.FieldName);
+                        amount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                         break;
                     case UnitType.PerTeacher:
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
+                        rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                         if (rawAmount == null)
                         {
                             break;
@@ -65,7 +78,7 @@ namespace SFB.Web.UI.Services
                         }
                         break;
                     case UnitType.PerPupil:
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
+                        rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                         if (rawAmount == null)
                         {
                             break;
@@ -79,8 +92,8 @@ namespace SFB.Web.UI.Services
                         }
                         break;
                     case UnitType.PercentageOfTotal:
-                        decimal total = 0;
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
+                        decimal? total = 0;
+                        rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                         if (rawAmount == null)
                         {
                             break;
@@ -109,7 +122,7 @@ namespace SFB.Web.UI.Services
                         }
                         break;
                     case UnitType.NoOfPupilsPerMeasure:
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
+                        rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                         if (rawAmount == null || rawAmount == 0)
                         {
                             break;
@@ -124,8 +137,10 @@ namespace SFB.Web.UI.Services
                         string fieldNameBase = chart.FieldName.Contains("FullTimeEquivalent")
                             ? chart.FieldName.Substring(0, chart.FieldName.Length - 18)
                             : chart.FieldName.Substring(0, chart.FieldName.Length - 9);
-                        total = schoolData.GetDecimal(fieldNameBase + "Headcount").GetValueOrDefault();
-                        rawAmount = schoolData.GetDecimal(fieldNameBase + "FullTimeEquivalent");
+                        //total = schoolData.GetDecimal(fieldNameBase + "Headcount").GetValueOrDefault();
+                        total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);                        
+                        //rawAmount = schoolData.GetDecimal(fieldNameBase + "FullTimeEquivalent");
+                        rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);                        
                         if (rawAmount == null)
                         {
                             break;
@@ -141,8 +156,10 @@ namespace SFB.Web.UI.Services
                         }
                         break;
                     case UnitType.FTERatioToTotalFTE:
-                        total = schoolData.GetDecimal("TotalSchoolWorkforceFullTimeEquivalent").GetValueOrDefault();
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
+                        //total = schoolData.GetDecimal("TotalSchoolWorkforceFullTimeEquivalent").GetValueOrDefault();
+                        total = GetFinancialDataValueForChartField("TotalSchoolWorkforceFullTimeEquivalent", schoolData.FinancialDataObjectModel);
+                        //rawAmount = schoolData.GetDecimal(chart.FieldName);
+                        rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                         if (rawAmount == null)
                         {
                             break;
@@ -312,10 +329,10 @@ namespace SFB.Web.UI.Services
             switch (unit)
             {
                 case UnitType.AbsoluteCount:
-                    amount = schoolData.GetDecimal(fieldName);
+                    amount = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldName).GetValue(schoolData, null);
                     break;
                 case UnitType.NoOfPupilsPerMeasure:
-                    rawAmount = schoolData.GetDecimal(fieldName);
+                    rawAmount = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldName).GetValue(schoolData, null);
                     if (rawAmount == null || rawAmount == 0)
                     {
                         break;
@@ -331,8 +348,8 @@ namespace SFB.Web.UI.Services
                     string fieldNameBase = fieldName.Contains("FullTimeEquivalent")
                         ? fieldName.Substring(0, fieldName.Length - 18)
                         : fieldName.Substring(0, fieldName.Length - 9);
-                    var total = schoolData.GetDecimal(fieldNameBase + "Headcount").GetValueOrDefault();
-                    rawAmount = schoolData.GetDecimal(fieldNameBase + "FullTimeEquivalent");
+                    var total = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldNameBase + "Headcount").GetValue(schoolData, null);
+                    rawAmount = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldNameBase + "FullTimeEquivalent").GetValue(schoolData, null);
                     if (rawAmount == null)
                     {
                         break;
@@ -348,8 +365,8 @@ namespace SFB.Web.UI.Services
                     }
                     break;
                 case UnitType.FTERatioToTotalFTE:
-                    total = schoolData.GetDecimal("TotalSchoolWorkforceFullTimeEquivalent").GetValueOrDefault();
-                    rawAmount = schoolData.GetDecimal(fieldName);
+                    total = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty("TotalSchoolWorkforceFullTimeEquivalent").GetValue(schoolData, null);
+                    rawAmount = (Decimal)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldName).GetValue(schoolData, null);
                     if (rawAmount == null)
                     {
                         break;
@@ -372,7 +389,7 @@ namespace SFB.Web.UI.Services
         private decimal? CalculateAmountPerUnit(FinancialDataModel dataModel, string fieldName, UnitType unit,
             decimal total)
         {
-            var rawAmount = dataModel.GetDecimal(fieldName);
+            var rawAmount = (Decimal?)dataModel.FinancialDataObjectModel.GetType().GetProperty(fieldName).GetValue(dataModel, null);
             var pupilCount = dataModel.PupilCount;
             var teacherCount = dataModel.TeacherCount;
 

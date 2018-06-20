@@ -20,7 +20,7 @@ using SFB.Web.DAL;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
-
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -557,14 +557,14 @@ namespace SFB.Web.UI.Controllers
         {
             var models = new List<FinancialDataModel>();
 
-            var taskList = new List<Task<IEnumerable<Document>>>();
+            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
             foreach (var school in schools)
             {
                 var estabType = (EstablishmentType) Enum.Parse(typeof(EstablishmentType), school.EstabType);
                 var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
 
-                var task = _financialDataService.GetSchoolDataDocumentAsync(Int32.Parse(school.Urn), term, estabType, centralFinancing);
+                var task = _financialDataService.GetSchoolFinancialDataObjectAsync(Int32.Parse(school.Urn), term, estabType, centralFinancing);
                 taskList.Add(task);
             }
 
@@ -584,11 +584,11 @@ namespace SFB.Web.UI.Controllers
 
                 if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
+                    resultDocument = (await _financialDataService.GetSchoolFinancialDataObjectAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
                 }
                 
-                if (resultDocument != null && resultDocument.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display "no data" in the charts
+                if (resultDocument != null && resultDocument.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
                 {
                     resultDocument = null;
                 }
@@ -604,8 +604,8 @@ namespace SFB.Web.UI.Controllers
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstablishmentType);
-            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn.ToString(), term, document, benchmarkSchool.EstablishmentType) };
+            var financeDataObject = _financialDataService.GetSchoolFinancialDataObject(urn, term, benchmarkSchool.EstablishmentType);
+            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn.ToString(), term, financeDataObject, benchmarkSchool.EstablishmentType) };
             return benchmarkSchool;
         }
 

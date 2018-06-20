@@ -63,52 +63,52 @@ namespace SFB.Web.Common
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS)]
         [Range(0,100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_FSM, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinPerFSM { get; set; }
+        public decimal? MinPerFSM { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_FSM, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxPerFSM { get; set; }
+        public decimal? MaxPerFSM { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinPerSEN { get; set; }
+        public decimal? MinPerSEN { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxPerSEN { get; set; }
+        public decimal? MaxPerSEN { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinPerSENReg { get; set; }
+        public decimal? MinPerSENReg { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxPerSENReg { get; set; }
+        public decimal? MaxPerSENReg { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_EAL, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinPerEAL { get; set; }
+        public decimal? MinPerEAL { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_EAL, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxPerEAL { get; set; }
+        public decimal? MaxPerEAL { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_BOARDERS)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_BOARDERS, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinPerBoarders { get; set; }
+        public decimal? MinPerBoarders { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_BOARDERS)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_BOARDERS, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxPerBoarders { get; set; }
+        public decimal? MaxPerBoarders { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.ADMISSIONS_POLICY)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.ADMISSION_POLICY, type: CriteriaFieldComparisonTypes.EQUALTO)]
@@ -117,142 +117,142 @@ namespace SFB.Web.Common
         [PrettyName(SchoolCharacteristicsQuestions.NUMBER_IN6_FORM)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.NUMBER_IN_6_FORM, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinNoSixthForm { get; set; }
+        public decimal? MinNoSixthForm { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.NUMBER_IN6_FORM)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.NUMBER_IN_6_FORM, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxNoSixthForm { get; set; }
+        public decimal? MaxNoSixthForm { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.LOWEST_AGE_PUPILS, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinLowestAgePupils { get; set; }
+        public decimal? MinLowestAgePupils { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.LOWEST_AGE_PUPILS, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxLowestAgePupils { get; set; }
+        public decimal? MaxLowestAgePupils { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.HIGHEST_AGE_PUPILS, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinHighestAgePupils { get; set; }
+        public decimal? MinHighestAgePupils { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.HIGHEST_AGE_PUPILS, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxHighestAgePupils { get; set; }
+        public decimal? MaxHighestAgePupils { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinTeachersWithQualifiedTeacherStatus { get; set; }
+        public decimal? MinTeachersWithQualifiedTeacherStatus { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxTeachersWithQualifiedTeacherStatus { get; set; }
+        public decimal? MaxTeachersWithQualifiedTeacherStatus { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_TA)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.FULL_TIME_TA, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinTotalNumberOfTeachingAssistantsFullTimeEquivalent { get; set; }
+        public decimal? MinTotalNumberOfTeachingAssistantsFullTimeEquivalent { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_TA)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.FULL_TIME_TA, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxTotalNumberOfTeachingAssistantsFullTimeEquivalent { get; set; }
+        public decimal? MaxTotalNumberOfTeachingAssistantsFullTimeEquivalent { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_OTHER)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.FULL_TIME_OTHER, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinFullTimeOther { get; set; }
+        public decimal? MinFullTimeOther { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_OTHER)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.FULL_TIME_OTHER, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxFullTimeOther { get; set; }
+        public decimal? MaxFullTimeOther { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_ADMIN)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.ADMIN_STAFF, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinFullTimeAdmin { get; set; }
+        public decimal? MinFullTimeAdmin { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_ADMIN)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.ADMIN_STAFF, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxFullTimeAdmin { get; set; }
+        public decimal? MaxFullTimeAdmin { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinTotalSchoolWorkforceFullTimeEquivalent { get; set; }
+        public decimal? MinTotalSchoolWorkforceFullTimeEquivalent { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxTotalSchoolWorkforceFullTimeEquivalent { get; set; }
+        public decimal? MaxTotalSchoolWorkforceFullTimeEquivalent { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinTotalNumberOfTeachersFullTimeEquivalent { get; set; }
+        public decimal? MinTotalNumberOfTeachersFullTimeEquivalent { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxTotalNumberOfTeachersFullTimeEquivalent { get; set; }
+        public decimal? MaxTotalNumberOfTeachersFullTimeEquivalent { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.TEACHERS_LEADER, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent { get; set; }
+        public decimal? MinTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.TEACHERS_LEADER, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent { get; set; }
+        public decimal? MaxTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.KS2_ACTUAL)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.KS2_ACTUAL, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinKs2Actual { get; set; }
+        public decimal? MinKs2Actual { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.KS2_ACTUAL)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.KS2_ACTUAL, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxKs2Actual { get; set; }
+        public decimal? MaxKs2Actual { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.KS2_PROGRESS)]
         [Range(-20, 20)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.KS2_PROGRESS, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinKs2Progress { get; set; }
+        public decimal? MinKs2Progress { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.KS2_PROGRESS)]
         [Range(-20, 20)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.KS2_PROGRESS, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxKs2Progress { get; set; }
+        public decimal? MaxKs2Progress { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.AVERAGE_ATTAINMENT, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinAvAtt8 { get; set; }
+        public decimal? MinAvAtt8 { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.AVERAGE_ATTAINMENT, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxAvAtt8 { get; set; }
+        public decimal? MaxAvAtt8 { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE)]
         [Range(-5, 5)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinP8Mea { get; set; }
+        public decimal? MinP8Mea { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE)]
         [Range(-5, 5)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxP8Mea { get; set; }
+        public decimal? MaxP8Mea { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.OFSTED_RATING)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.OFSTED_RATING_NAME, type: CriteriaFieldComparisonTypes.EQUALTO)]
@@ -261,122 +261,122 @@ namespace SFB.Web.Common
         [PrettyName(SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SPECIFIC_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinSpecLearnDiff { get; set; }
+        public decimal? MinSpecLearnDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SPECIFIC_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxSpecLearnDiff { get; set; }
+        public decimal? MaxSpecLearnDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.MODERATE_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinModLearnDiff { get; set; }
+        public decimal? MinModLearnDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.MODERATE_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxModLearnDiff { get; set; }
+        public decimal? MaxModLearnDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SEVERE_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinSevLearnDiff { get; set; }
+        public decimal? MinSevLearnDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SEVERE_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxSevLearnDiff { get; set; }
+        public decimal? MaxSevLearnDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PROF_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinProfLearnDiff { get; set; }
+        public decimal? MinProfLearnDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PROF_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxProfLearnDiff { get; set; }
+        public decimal? MaxProfLearnDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SOCIAL_HEALTH)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SOCIAL_HEALTH, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinSocialHealth { get; set; }
+        public decimal? MinSocialHealth { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SOCIAL_HEALTH)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SOCIAL_HEALTH, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxSocialHealth { get; set; }
+        public decimal? MaxSocialHealth { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SPEECH_NEEDS)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SPEECH_NEEDS, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinSpeechNeeds { get; set; }
+        public decimal? MinSpeechNeeds { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SPEECH_NEEDS)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SPEECH_NEEDS, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxSpeechNeeds { get; set; }
+        public decimal? MaxSpeechNeeds { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.HEARING_IMPAIRMENT, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinHearingImpairment { get; set; }
+        public decimal? MinHearingImpairment { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.HEARING_IMPAIRMENT, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxHearingImpairment { get; set; }
+        public decimal? MaxHearingImpairment { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.VISUAL_IMPAIRMENT, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinVisualImpairment { get; set; }
+        public decimal? MinVisualImpairment { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.VISUAL_IMPAIRMENT, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxVisualImpairment { get; set; }
+        public decimal? MaxVisualImpairment { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.MULTI_SENSORY_IMPAIRMENT, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinMSImpairment { get; set; }
+        public decimal? MinMSImpairment { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.MULTI_SENSORY_IMPAIRMENT, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxMSImpairment { get; set; }
+        public decimal? MaxMSImpairment { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PHYSICAL_DISABILITY, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinPhysicalDisability { get; set; }
+        public decimal? MinPhysicalDisability { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PHYSICAL_DISABILITY, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxPhysicalDisability { get; set; }
+        public decimal? MaxPhysicalDisability { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.AUTISTIC_DISORDER)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.AUTISTIC_DISORDER, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinAutisticDisorder { get; set; }
+        public decimal? MinAutisticDisorder { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.AUTISTIC_DISORDER)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.AUTISTIC_DISORDER, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxAutisticDisorder { get; set; }
+        public decimal? MaxAutisticDisorder { get; set; }
         
         [PrettyName(SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.OTHER_LEARNING_DIFF, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinOtherLearningDiff { get; set; }
+        public decimal? MinOtherLearningDiff { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.OTHER_LEARNING_DIFF, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxOtherLearningDiff { get; set; }
+        public decimal? MaxOtherLearningDiff { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS)]
         [Range(2, Int32.MaxValue)]
@@ -391,12 +391,12 @@ namespace SFB.Web.Common
         [PrettyName(TrustCharacteristicsQuestions.TOTAL_INCOME)]
         [Range(0, double.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.TOTAL_INCOME, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinTotalInc { get; set; }
+        public decimal? MinTotalInc { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.TOTAL_INCOME)]
         [Range(0, double.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.TOTAL_INCOME, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxTotalInc { get; set; }
+        public decimal? MaxTotalInc { get; set; }
 
         [PrettyName(TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [Range(0, Int32.MaxValue)]

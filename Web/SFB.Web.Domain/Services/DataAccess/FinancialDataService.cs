@@ -19,30 +19,45 @@ namespace SFB.Web.Domain.Services.DataAccess
             _dataCollectionManager = dataCollectionManager;
             _financialDataRepository = financialDataRepository;
         }
-        
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+
+        //public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+        //{
+        //    return await _financialDataRepository.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
+        //}
+
+        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetSchoolFinancialDataObjectAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
         {
-            return await _financialDataRepository.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
+            return await _financialDataRepository.GetSchoolFinanceDataObjectAsync(urn, term, schoolFinancialType, cFinance);
         }
 
-        public Document GetSchoolDataDocument(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+        public SchoolTrustFinancialDataObject GetSchoolFinancialDataObject(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude)
         {
-            return _financialDataRepository.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);
+            return _financialDataRepository.GetSchoolFinancialDataObject(urn, term, schoolFinancialType, cFinance);
         }
 
-        public Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance)
-        {
-            return _financialDataRepository.GetMATDataDocument(matNo, term, matFinance);
-        }
+        //public Document GetSchoolDataDocument(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+        //{
+        //    return _financialDataRepository.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);
+        //}
+
+        //public Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance)
+        //{
+        //    return _financialDataRepository.GetMATDataDocument(matNo, term, matFinance);
+        //}
 
         public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance)
         {
             return _financialDataRepository.GetTrustFinancialDataObject(matNo, term, matFinance);
         }
 
-        public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
+        //public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
+        //{
+        //    return await _financialDataRepository.GetMATDataDocumentAsync(matNo, term, matFinance);
+        //}
+
+        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(string matNo, string term, MatFinancingType matFinance)
         {
-            return await _financialDataRepository.GetMATDataDocumentAsync(matNo, term, matFinance);
+            return await _financialDataRepository.GetTrustFinancialDataObjectAsync(matNo, term, matFinance);
         }
 
         public int GetLatestFinancialDataYear()

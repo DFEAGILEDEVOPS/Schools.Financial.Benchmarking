@@ -246,16 +246,15 @@ namespace SFB.Web.Domain.Models
 
         public string LondonWeighting => FinancialDataObjectModel.LondonWeight;
 
-        //TODO: why are below in string?
-        public string PercentageOfEligibleFreeSchoolMeals => FinancialDataObjectModel.PercentageFSM;
+        public decimal PercentageOfEligibleFreeSchoolMeals => FinancialDataObjectModel.PercentageFSM;
 
-        public string PercentageOfPupilsWithSen => FinancialDataObjectModel.PercentagePupilsWSEN;
+        public decimal PercentageOfPupilsWithSen => FinancialDataObjectModel.PercentagePupilsWSEN;
 
-        public string PercentageOfPupilsWithoutSen => FinancialDataObjectModel.PercentagePupilsWOSEN;
+        public decimal PercentageOfPupilsWithoutSen => FinancialDataObjectModel.PercentagePupilsWOSEN;
 
-        public string PercentageOfPupilsWithEal => FinancialDataObjectModel.PercentagePupilsWEAL;
+        public decimal PercentageOfPupilsWithEal => FinancialDataObjectModel.PercentagePupilsWEAL;
 
-        public string PercentageBoarders => FinancialDataObjectModel.PercentageBoarders;
+        public decimal PercentageBoarders => FinancialDataObjectModel.PercentageBoarders;
 
         public string Pfi => FinancialDataObjectModel.PFI;
 
@@ -263,57 +262,57 @@ namespace SFB.Web.Domain.Models
 
         public string NumberIn6Form => FinancialDataObjectModel.NumberIn6Form;
 
-        public string HighestAgePupils => FinancialDataObjectModel.HighestAgePupils;
+        public decimal HighestAgePupils => FinancialDataObjectModel.HighestAgePupils;
 
-        public string FullTimeAdmin => FinancialDataObjectModel.AdminStaff;
+        public decimal FullTimeAdmin => FinancialDataObjectModel.AdminStaff;
 
-        public string FullTimeOther => FinancialDataObjectModel.FullTimeOther;
+        public decimal FullTimeOther => FinancialDataObjectModel.FullTimeOther;
 
-        public string PercentageQualifiedTeachers => FinancialDataObjectModel.PercentageQualifiedTeachers;
+        public decimal PercentageQualifiedTeachers => FinancialDataObjectModel.PercentageQualifiedTeachers;
 
-        public string LowestAgePupils => FinancialDataObjectModel.LowestAgePupils;
+        public decimal LowestAgePupils => FinancialDataObjectModel.LowestAgePupils;
 
-        public string FullTimeTA => FinancialDataObjectModel.FullTimeTA;
+        public decimal FullTimeTA => FinancialDataObjectModel.FullTimeTA;
 
-        public string TotalSchoolWorkforceFTE => FinancialDataObjectModel.WorkforceTotal;
+        public decimal TotalSchoolWorkforceFTE => FinancialDataObjectModel.WorkforceTotal;
 
-        public string TotalNumberOfTeachersFTE => FinancialDataObjectModel.TeachersTotal;
+        public decimal TotalNumberOfTeachersFTE => FinancialDataObjectModel.TeachersTotal;
 
-        public string TotalSeniorTeachersFTE => FinancialDataObjectModel.TeachersLeader;
+        public decimal TotalSeniorTeachersFTE => FinancialDataObjectModel.TeachersLeader;
 
-        public string Ks2Actual => FinancialDataObjectModel.Ks2Actual;
+        public decimal Ks2Actual => FinancialDataObjectModel.Ks2Actual;
 
-        public string Ks2Progress => FinancialDataObjectModel.Ks2Progress;
+        public decimal Ks2Progress => FinancialDataObjectModel.Ks2Progress;
 
-        public string AvAtt8 => FinancialDataObjectModel.AverageAttainment;
+        public decimal AvAtt8 => FinancialDataObjectModel.AverageAttainment;
 
-        public string P8Mea => FinancialDataObjectModel.Progress8Measure;
+        public decimal P8Mea => FinancialDataObjectModel.Progress8Measure;
 
         public string OfstedRating => FinancialDataObjectModel.OfstedRatingName;
 
-        public string SpecificLearningDifficulty => FinancialDataObjectModel.SpecificLearningDiff;
+        public decimal SpecificLearningDifficulty => FinancialDataObjectModel.SpecificLearningDiff;
 
-        public string ModerateLearningDifficulty => FinancialDataObjectModel.ModerateLearningDiff;
+        public decimal ModerateLearningDifficulty => FinancialDataObjectModel.ModerateLearningDiff;
 
-        public string SevereLearningDifficulty => FinancialDataObjectModel.SevereLearningDiff;
+        public decimal SevereLearningDifficulty => FinancialDataObjectModel.SevereLearningDiff;
 
-        public string ProfLearningDifficulty => FinancialDataObjectModel.ProfLearningDiff;
+        public decimal ProfLearningDifficulty => FinancialDataObjectModel.ProfLearningDiff;
 
-        public string SocialHealth => FinancialDataObjectModel.SocialHealth;
+        public decimal SocialHealth => FinancialDataObjectModel.SocialHealth;
         
-        public string SpeechNeeds => FinancialDataObjectModel.SpeechNeeds;
+        public decimal SpeechNeeds => FinancialDataObjectModel.SpeechNeeds;
 
-        public string HearingImpairment => FinancialDataObjectModel.HearingImpairment;
+        public decimal HearingImpairment => FinancialDataObjectModel.HearingImpairment;
 
-        public string VisualImpairment => FinancialDataObjectModel.VisualImpairment;
+        public decimal VisualImpairment => FinancialDataObjectModel.VisualImpairment;
 
-        public string MultiSensoryImpairment => FinancialDataObjectModel.MultiSensoryImpairment;
+        public decimal MultiSensoryImpairment => FinancialDataObjectModel.MultiSensoryImpairment;
 
-        public string PhysicalDisability => FinancialDataObjectModel.PhysicalDisability;
+        public decimal PhysicalDisability => FinancialDataObjectModel.PhysicalDisability;
 
-        public string AutisticDisorder => FinancialDataObjectModel.AutisticDisorder;
+        public decimal AutisticDisorder => FinancialDataObjectModel.AutisticDisorder;
 
-        public string OtherLearningDifficulty => FinancialDataObjectModel.OtherLearningDiff;
+        public decimal OtherLearningDifficulty => FinancialDataObjectModel.OtherLearningDiff;
 
         public int CrossPhaseBreakdownPrimary => FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY];
         public int CrossPhaseBreakdownSecondary => FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY];

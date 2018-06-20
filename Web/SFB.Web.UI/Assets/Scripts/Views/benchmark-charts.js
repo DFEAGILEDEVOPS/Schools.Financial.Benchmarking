@@ -12,6 +12,7 @@
     }
 
     //This function is accessing to the scope of the AngularJS controller to retrieve the chart selections model and update the buttons accordingly in other tabs.
+    //TODO: Can we eliminate need to use FieldName and instead use ChartName here?
     BenchmarkChartsViewModel.RefreshAddRemoveLinks = function() {
         var showRemoveLink = function (element) {
             $(element).find("a.customRemove").show();
@@ -80,6 +81,7 @@
     };
 
     //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
+    //TODO: Can we eliminate need to use FieldName and instead use ChartName here?
     BenchmarkChartsViewModel.AddRemoveYourCharts = function (fieldName, showValue, checked) {
         var self = this;
         var scope = angular.element($("#listCtrl")).scope();

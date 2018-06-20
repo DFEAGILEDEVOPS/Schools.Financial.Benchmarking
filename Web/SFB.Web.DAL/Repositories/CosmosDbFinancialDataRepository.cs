@@ -12,6 +12,7 @@ using SFB.Web.Common;
 using SFB.Web.Common.Attributes;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Common.DataObjects;
+using System.Diagnostics;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -34,7 +35,50 @@ namespace SFB.Web.DAL.Repositories
                 });
         }
 
-        public Document GetSchoolDataDocument(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
+        //public Document GetSchoolDataDocument(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
+        //{
+        //    var dataGroup = estabType.ToDataGroup(cFinance);
+
+        //    var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
+
+        //    if (collectionName == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    try
+        //    {
+        //        var query = $"SELECT * FROM c WHERE c.URN=@URN";
+        //        SqlQuerySpec querySpec = new SqlQuerySpec(query);
+        //        querySpec.Parameters = new SqlParameterCollection();
+        //        querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
+        //        var documentQuery =
+        //            _client.CreateDocumentQuery<Document>(
+        //                UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+        //                querySpec);
+
+        //        var result = documentQuery.ToList().FirstOrDefault();
+
+        //        if (dataGroup == DataGroups.MATAllocs && result == null)//if nothing found in MAT-Allocs collection try to source it from Academies data
+        //        {
+        //            return GetSchoolDataDocument(urn, term, estabType, CentralFinancingType.Exclude);
+        //        }
+
+        //        if (result != null && result.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display none in the charts
+        //        {
+        //            return null;
+        //        }
+
+        //        return result;
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        public SchoolTrustFinancialDataObject GetSchoolFinancialDataObject(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var dataGroup = estabType.ToDataGroup(cFinance);
 
@@ -52,7 +96,7 @@ namespace SFB.Web.DAL.Repositories
                 querySpec.Parameters = new SqlParameterCollection();
                 querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
                 var documentQuery =
-                    _client.CreateDocumentQuery<Document>(
+                    _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
                         querySpec);
 
@@ -60,10 +104,10 @@ namespace SFB.Web.DAL.Repositories
 
                 if (dataGroup == DataGroups.MATAllocs && result == null)//if nothing found in MAT-Allocs collection try to source it from Academies data
                 {
-                    return GetSchoolDataDocument(urn, term, estabType, CentralFinancingType.Exclude);
+                    return GetSchoolFinancialDataObject(urn, term, estabType, CentralFinancingType.Exclude);
                 }
 
-                if (result != null && result.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display none in the charts
+                if (result != null && result.DidNotSubmit)//School did not submit finance, return & display none in the charts
                 {
                     return null;
                 }
@@ -77,27 +121,59 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
+        //public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
+        //{
+        //    var dataGroup = estabType.ToDataGroup(cFinance);
+
+        //    var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
+
+        //    try
+        //    {
+        //        var query = $"SELECT * FROM c WHERE c.URN=@URN";
+        //        SqlQuerySpec querySpec = new SqlQuerySpec(query);
+        //        querySpec.Parameters = new SqlParameterCollection();
+        //        querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
+        //        var documentQuery =
+        //            _client.CreateDocumentQuery<Document>(
+        //                UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+        //                querySpec);
+
+        //        return await documentQuery.QueryAsync();
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetSchoolFinanceDataObjectAsync(int urn, string term, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var dataGroup = estabType.ToDataGroup(cFinance);
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
+            
+            var query = $"SELECT * FROM c WHERE c.URN=@URN";
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
 
             try
             {
-                var query = $"SELECT * FROM c WHERE c.URN=@URN";
-                SqlQuerySpec querySpec = new SqlQuerySpec(query);
-                querySpec.Parameters = new SqlParameterCollection();
-                querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
                 var documentQuery =
-                    _client.CreateDocumentQuery<Document>(
+                    _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
                         querySpec);
 
                 return await documentQuery.QueryAsync();
 
             }
-            catch (Exception)
+            catch(Newtonsoft.Json.JsonSerializationException exc)
+            {
+                Debug.WriteLine($"{collectionName} could not be loaded! : {exc.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}");
+                return null;
+            }
+            catch (Exception e)
             {
                 return null;
             }
@@ -154,57 +230,57 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance)
-        {
-            string dataGroupType = null;
+        //public Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance)
+        //{
+        //    string dataGroupType = null;
 
-            switch (matFinance)
-            {
-                case MatFinancingType.TrustOnly:
-                    dataGroupType = DataGroups.MATCentral;
-                    break;
-                case MatFinancingType.TrustAndAcademies:
-                    dataGroupType = DataGroups.MATOverview;
-                    break;
-                case MatFinancingType.AcademiesOnly:
-                    dataGroupType = DataGroups.MATTotals;
-                    break;
-            }
+        //    switch (matFinance)
+        //    {
+        //        case MatFinancingType.TrustOnly:
+        //            dataGroupType = DataGroups.MATCentral;
+        //            break;
+        //        case MatFinancingType.TrustAndAcademies:
+        //            dataGroupType = DataGroups.MATOverview;
+        //            break;
+        //        case MatFinancingType.AcademiesOnly:
+        //            dataGroupType = DataGroups.MATTotals;
+        //            break;
+        //    }
 
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroupType);
+        //    var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroupType);
 
-            if (collectionName == null)
-            {
-                return null;
-            }
+        //    if (collectionName == null)
+        //    {
+        //        return null;
+        //    }
 
-            var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
-            SqlQuerySpec querySpec = new SqlQuerySpec(query);
-            querySpec.Parameters = new SqlParameterCollection();
-            querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+        //    var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+        //    SqlQuerySpec querySpec = new SqlQuerySpec(query);
+        //    querySpec.Parameters = new SqlParameterCollection();
+        //    querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
 
-            var res =
-                _client.CreateDocumentQuery<Document>(
-                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    querySpec);
+        //    var res =
+        //        _client.CreateDocumentQuery<Document>(
+        //            UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+        //            querySpec);
 
-            try
-            {
-                var result = res.ToList().FirstOrDefault();
+        //    try
+        //    {
+        //        var result = res.ToList().FirstOrDefault();
 
-                if (result != null && result.GetPropertyValue<bool>("DNS"))
-                {
-                    var emptyDoc = new Document();
-                    emptyDoc.SetPropertyValue("DNS", true);
-                    return emptyDoc;
-                }
-                return result;
-            }
-            catch (Exception)
-            {
-                return new Document();
-            }
-        }
+        //        if (result != null && result.GetPropertyValue<bool>("DNS"))
+        //        {
+        //            var emptyDoc = new Document();
+        //            emptyDoc.SetPropertyValue("DNS", true);
+        //            return emptyDoc;
+        //        }
+        //        return result;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return new Document();
+        //    }
+        //}
 
         public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance)
         {
@@ -258,7 +334,45 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
+        //public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
+        //{
+        //    string matFinanceType = null;
+        //    switch (matFinance)
+        //    {
+        //        case MatFinancingType.TrustOnly:
+        //            matFinanceType = DataGroups.MATCentral;
+        //            break;
+        //        case MatFinancingType.TrustAndAcademies:
+        //            matFinanceType = DataGroups.MATOverview;
+        //            break;
+        //        case MatFinancingType.AcademiesOnly:
+        //            matFinanceType = DataGroups.MATTotals;
+        //            break;
+        //    }
+
+        //    var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinanceType);
+
+        //    try
+        //    {
+        //        var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+        //        SqlQuerySpec querySpec = new SqlQuerySpec(query);
+        //        querySpec.Parameters = new SqlParameterCollection();
+        //        querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+
+        //        var documentQuery =
+        //            _client.CreateDocumentQuery<Document>(
+        //                UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+        //                querySpec);
+
+        //        return await documentQuery.QueryAsync();
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(string matNo, string term, MatFinancingType matFinance)
         {
             string matFinanceType = null;
             switch (matFinance)
@@ -284,7 +398,7 @@ namespace SFB.Web.DAL.Repositories
                 querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
 
                 var documentQuery =
-                    _client.CreateDocumentQuery<Document>(
+                    _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
                         querySpec);
 

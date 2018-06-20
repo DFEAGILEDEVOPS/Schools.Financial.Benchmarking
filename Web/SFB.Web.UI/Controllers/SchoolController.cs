@@ -231,11 +231,11 @@ namespace SFB.Web.UI.Controllers
             var models = new List<FinancialDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
             
-            var taskList = new List<Task<IEnumerable<Document>>>();
+            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetSchoolDataDocumentAsync(urn, term, estabType, cFinance);
+                var task = _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, cFinance);
                 taskList.Add(task);
             }
 
@@ -248,11 +248,11 @@ namespace SFB.Web.UI.Controllers
 
                 if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(urn, term, estabType, CentralFinancingType.Exclude))
+                    resultDocument = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
                 }
                 
-                if (resultDocument != null && resultDocument.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display "no data" in the charts
+                if (resultDocument != null && resultDocument.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
                 {
                     resultDocument = null;
                 }

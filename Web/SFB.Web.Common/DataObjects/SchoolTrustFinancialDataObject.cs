@@ -3,364 +3,437 @@ using System.Collections.Generic;
 
 namespace SFB.Web.Common.DataObjects
 {
+    //TODO: some of these probably don't need to be decimal. Can be changed to double.
     public class SchoolTrustFinancialDataObject
     {
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.URN)]
+        public int URN{ get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SCHOOL_NAME)]
+        public string SchoolName { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.FINANCE_TYPE)]
+        public string FinanceType { get; set; }
+
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MAT_NUMBER)]
-        public string MATNumber;
+        public string MATNumber { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME)]
-        public string TrustOrCompanyName;
+        public string TrustOrCompanyName { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_INCOME)]
-        public decimal OtherIncome;
+        public decimal OtherIncome { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SEN)]
-        public decimal SEN;
+        public decimal SEN { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_DFE_GRANTS)]
-        public decimal OtherDfeGrants;
+        public decimal OtherDfeGrants { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_INCOME_GRANTS)]
-        public decimal OtherIncomeGrants;
+        public decimal OtherIncomeGrants { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.GOVERNMENT_SOURCE)]
-        public decimal GovernmentSource;
+        public decimal GovernmentSource { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ACADEMIES)]
-        public decimal Academies;
+        public decimal Academies { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.NON_GOVERNMENT)]
-        public decimal NonGoverntment;
+        public decimal NonGoverntment { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.INCOME_FROM_FACILITIES)]
-        public decimal IncomeFromFacilities;
+        public decimal IncomeFromFacilities { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.INCOME_FROM_CATERING)]
-        public decimal IncomeFromCatering;
+        public decimal IncomeFromCatering { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.RECEIPTS_FROM_SUPPLY)]
-        public decimal ReceiptsFromSupply;
+        public decimal ReceiptsFromSupply { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.RECEIPTS_FROM_OTHER)]
+        public decimal ReceiptsFromOther { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.DONATIONS)]
-        public decimal Donations;
+        public decimal Donations { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_SELF_GENERATED)]
-        public decimal OtherSelfGenerated;
+        public decimal OtherSelfGenerated { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.INVESTMENT_INCOME)]
-        public decimal Investmentincome;
+        public decimal Investmentincome { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TEACHING_STAFF)]
-        public decimal TeachingStaff;
+        public decimal TeachingStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SUPPLY_TEACHING_STAFF)]
-        public decimal SupplyTeachingStaff;
+        public decimal SupplyTeachingStaff { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.CATERING_COSTS)]
+        public decimal CateringCosts { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.EDUCATION_SUPPORT_STAFF)]
-        public decimal EducationSupportStaff;
+        public decimal EducationSupportStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ADMIN_CLERIC_STAFF)]
-        public decimal AdministrativeClericalStaff;
+        public decimal AdministrativeClericalStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PREMISES_STAFF)]
-        public decimal PremisesStaff;
+        public decimal PremisesStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.CATERING_STAFF)]
-        public decimal CateringStaff;
+        public decimal CateringStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_STAFF)]
-        public decimal OtherStaff;
+        public decimal OtherStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.INDIRECT_EMPLOYEE_EXPENSES)]
-        public decimal IndirectEmployeeExpenses;
+        public decimal IndirectEmployeeExpenses { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.STAFF_DEV)]
-        public decimal StaffDevelopment;
+        public decimal StaffDevelopment { get; set; }
 
-        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.STAFFF_INSURANCE)]
-        public decimal StaffInsurance;
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.STAFF_INSURANCE)]
+        public decimal StaffInsurance { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SUPPLY_TEACHER_INSURANCE)]
-        public decimal SupplyTeacherInsurance;
+        public decimal SupplyTeacherInsurance { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.BUILDING_GROUNDS)]
-        public decimal BuildingGroundsMaintenance;
+        public decimal BuildingGroundsMaintenance { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.CLEANING)]
-        public decimal CleaningCaretaking;
+        public decimal CleaningCaretaking { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.WATER_SEWERAGE)]
-        public decimal WaterSewerage;
+        public decimal WaterSewerage { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ENERGY)]
-        public decimal Energy;
+        public decimal Energy { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.RATES)]
+        public decimal Rates { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.RENT_RATES)]
-        public decimal RentRates;
+        public decimal RentRates { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_OCCUPATION)]
-        public decimal OtherOccupationCosts;
+        public decimal OtherOccupationCosts { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SPECIAL_FACILITIES)]
-        public decimal Specialfacilities;
+        public decimal Specialfacilities { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.LEARNING_RESOURCES)]
-        public decimal LearningResources;
+        public decimal LearningResources { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ICT_LEARNING_RESOURCES)]
-        public decimal ICTLearningResources;
+        public decimal ICTLearningResources { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.EXAM_FEES)]
-        public decimal ExaminationFees;
+        public decimal ExaminationFees { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.EDUCATIONAL_CONSULTANCY)]
-        public decimal EducationalConsultancy;
+        public decimal EducationalConsultancy { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ADMIN_SUPPLIES)]
-        public decimal AdministrativeSupplies;
+        public decimal AdministrativeSupplies { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.AGENCY_TEACH_STAFF)]
-        public decimal AgencyTeachingStaff;
+        public decimal AgencyTeachingStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.CATERING_SUPPLIES)]
-        public decimal CateringSupplies;
+        public decimal CateringSupplies { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_INSURANCE)]
-        public decimal OtherInsurancePremiums;
+        public decimal OtherInsurancePremiums { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.LEGAL_PROFESSIONAL)]
-        public decimal LegalProfessional;
+        public decimal LegalProfessional { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.AUDITOR_COSTS)]
-        public decimal AuditorCosts;
+        public decimal AuditorCosts { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.INTEREST_CHARGES)]
-        public decimal InterestCharges;
+        public decimal InterestCharges { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.DIRECT_REVENUE)]
-        public decimal DirectRevenue;
+        public decimal DirectRevenue { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PFI_CHARGES)]
-        public decimal PFICharges;
+        public decimal PFICharges { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.IN_YEAR_BALANCE)]
-        public decimal InYearBalance;
+        public decimal InYearBalance { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.GRANT_FUNDING)]
-        public decimal GrantFunding;
+        public decimal GrantFunding { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.DIRECT_GRANT)]
-        public decimal DirectGrant;
+        public decimal DirectGrant { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COMMUNITY_GRANTS)]
-        public decimal CommunityGrants;
+        public decimal CommunityGrants { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TARGETED_GRANTS)]
-        public decimal TargetedGrants;
+        public decimal TargetedGrants { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SELF_GENERATED_FUNDING)]
-        public decimal SelfGeneratedFunding;
+        public decimal SelfGeneratedFunding { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TOTAL_INCOME)]
-        public decimal TotalIncome;
+        public decimal TotalIncome { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SUPPLY_STAFF)]
-        public decimal SupplyStaff;
+        public decimal SupplyStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_STAFF_COSTS)]
-        public decimal OtherStaffCosts;
+        public decimal OtherStaffCosts { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.STAFF_TOTAL)]
-        public decimal StaffTotal;
+        public decimal StaffTotal { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MAINTENANCE_IMPROVEMENT)]
-        public decimal MaintenanceImprovement;
+        public decimal MaintenanceImprovement { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.GROUNDS_MAINTENANCE_IMPROVEMENT)]
+        public decimal GroundsMaintenanceImprovement { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.BUILDING_MAINTENANCE_IMPROVEMENT)]
+        public decimal BuildingMaintenanceImprovement { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PREMISES)]
-        public decimal Premises;
+        public decimal Premises { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.CATERING_EXP)]
-        public decimal CateringExp;
+        public decimal CateringExp { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OCCUPATION)]
-        public decimal Occupation;
+        public decimal Occupation { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SUPPLIES_SERVICES)]
-        public decimal SuppliesServices;
+        public decimal SuppliesServices { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.EDUCATIONAL_SUPPLIES)]
-        public decimal EducationalSupplies;
+        public decimal EducationalSupplies { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.BROUGHT_IN_SERVICES)]
-        public decimal BroughtProfessionalServices;
+        public decimal BroughtProfessionalServices { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.BOUGHT_IN_OTHER)]
+        public decimal BoughtInOther { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_STAFF)]
+        public decimal CommunityFocusedStaff { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_SCHOOL)]
+        public decimal CommunityFocusedSchoolCosts { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PRE_16_FUNDING)]
+        public decimal Pre16Funding { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.POST_16_FUNDING)]
+        public decimal Post16Funding { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COMMUNITY_FOCUSED)]
+        public decimal CommunityFocusedFunding { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ADDITIONAL_GRANT)]
+        public decimal AdditionalGrant { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PUPIL_FOCUSED_FUNDING)]
+        public decimal PupilFocusedFunding { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PUPIL_PREMIUM)]
+        public decimal PupilPremium { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ESG)]
+        public decimal ESG { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COST_OF_FINANCE)]
-        public decimal CostOfFinance;
+        public decimal CostOfFinance { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.FUNDING_MINORITY)]
+        public decimal FundingMinority { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COMMUNITY_EXP)]
+        public decimal CommunityExpenditure { get; set; }
+        
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_SCHOOL_FACILITIES)]
+        public decimal CommFocusedSchoolFacilities { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.CONTRIBUTIONS_TO_VISITS)]
+        public decimal ContributionsToVisits { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TOTAL_EXP)]
-        public decimal TotalExpenditure;
+        public decimal TotalExpenditure { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.REVENUE_RESERVE)]
-        public decimal RevenueReserve;
+        public decimal RevenueReserve { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.NO_PUPILS)]
-        public double NoPupils;
+        public double NoPupils { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.NO_TEACHERS)]
-        public double NoTeachers;
+        public double NoTeachers { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MEMBER_COUNT)]
-        public int SchoolCount;
+        public int SchoolCount { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN)]
-        public int PeriodCoveredByReturn;
+        public int PeriodCoveredByReturn { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PARTIAL_YEARS_PRESENT)]
-        public bool PartialYearsPresent;
+        public bool PartialYearsPresent { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE)]
-        public string OverallPhase;
+        public string OverallPhase { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SCHOOL_PHASE)]
-        public string Phase;
+        public string Phase { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN)]
-        public Dictionary<string, int> OverallPhaseBreakdown;
+        public Dictionary<string, int> OverallPhaseBreakdown { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.DNS)]
-        public bool DidNotSubmit;
+        public bool DidNotSubmit { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MAT_SAT)]
-        public string MATSATCentralServices;
+        public string MATSATCentralServices { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.WORKFORCE_PRESENT)]
-        public bool WorkforcePresent;
+        public bool WorkforcePresent { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ADMISSION_POLICY)]
-        public string AdmissionPolicy;
+        public string AdmissionPolicy { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.GENDER)]
-        public string Gender;
+        public string Gender { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE)]
-        public string Type;
+        public string Type { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.URBAN_RURAL)]
-        public string UrbanRural;
+        public string UrbanRural { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.REGION)]
-        public string Region;
+        public string Region { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.LONDON_BOROUGH)]
-        public string LondonBorough;
+        public string LondonBorough { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.LONDON_WEIGHT)]
-        public string LondonWeight;
+        public string LondonWeight { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_FSM)]
-        public string PercentageFSM;
+        public decimal PercentageFSM { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN)]
-        public string PercentagePupilsWSEN;
+        public decimal PercentagePupilsWSEN { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN)]
-        public string PercentagePupilsWOSEN;
+        public decimal PercentagePupilsWOSEN { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_EAL)]
-        public string PercentagePupilsWEAL;
+        public decimal PercentagePupilsWEAL { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_BOARDERS)]
-        public string PercentageBoarders;
+        public decimal PercentageBoarders { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PFI)]
-        public string PFI;
+        public string PFI { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.HAS_6_FORM)]
-        public string Has6Form;
+        public string Has6Form { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.NUMBER_IN_6_FORM)]
-        public string NumberIn6Form;
+        public string NumberIn6Form { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.HIGHEST_AGE_PUPILS)]
-        public string HighestAgePupils;
+        public int HighestAgePupils { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.ADMIN_STAFF)]
-        public string AdminStaff;
+        public decimal AdminStaff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.FULL_TIME_OTHER)]
-        public string FullTimeOther;
+        public decimal FullTimeOther { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS)]
-        public string PercentageQualifiedTeachers;
+        public decimal PercentageQualifiedTeachers { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.LOWEST_AGE_PUPILS)]
-        public string LowestAgePupils;
+        public int LowestAgePupils { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.FULL_TIME_TA)]
-        public string FullTimeTA;
+        public decimal FullTimeTA { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL)]
-        public string WorkforceTotal;
+        public decimal WorkforceTotal { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL)]
-        public string TeachersTotal;
+        public decimal TeachersTotal { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TEACHERS_LEADER)]
-        public string TeachersLeader;
+        public decimal TeachersLeader { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.AUX_STAFF)]
+        public decimal AuxStaff { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.WORKFORCE_HEADCOUNT)]
+        public decimal WorkforceHeadcount { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.KS2_ACTUAL)]
-        public string Ks2Actual;
+        public decimal Ks2Actual { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.KS2_PROGRESS)]
-        public string Ks2Progress;
+        public decimal Ks2Progress { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.AVERAGE_ATTAINMENT)]
-        public string AverageAttainment;
+        public decimal AverageAttainment { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE)]
-        public string Progress8Measure;
+        public decimal Progress8Measure { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OFSTED_RATING_NAME)]
-        public string OfstedRatingName;
+        public string OfstedRatingName { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SPECIFIC_LEARNING_DIFFICULTY)]
-        public string SpecificLearningDiff;
+        public decimal SpecificLearningDiff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MODERATE_LEARNING_DIFFICULTY)]
-        public string ModerateLearningDiff;
+        public decimal ModerateLearningDiff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SEVERE_LEARNING_DIFFICULTY)]
-        public string SevereLearningDiff;
+        public decimal SevereLearningDiff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PROF_LEARNING_DIFFICULTY)]
-        public string ProfLearningDiff;
+        public decimal ProfLearningDiff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SOCIAL_HEALTH)]
-        public string SocialHealth;
+        public decimal SocialHealth { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SPEECH_NEEDS)]
-        public string SpeechNeeds;
+        public decimal SpeechNeeds { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.HEARING_IMPAIRMENT)]
-        public string HearingImpairment;
+        public decimal HearingImpairment { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.VISUAL_IMPAIRMENT)]
-        public string VisualImpairment;
+        public decimal VisualImpairment { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MULTI_SENSORY_IMPAIRMENT)]
-        public string MultiSensoryImpairment;
+        public decimal MultiSensoryImpairment { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PHYSICAL_DISABILITY)]
-        public string PhysicalDisability;
+        public decimal PhysicalDisability { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.AUTISTIC_DISORDER)]
-        public string AutisticDisorder;
+        public decimal AutisticDisorder { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OTHER_LEARNING_DIFF)]
-        public string OtherLearningDiff;
+        public decimal OtherLearningDiff { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.LA)]
-        public int LA ;
+        public int LA  { get; set; }
 
 
     }

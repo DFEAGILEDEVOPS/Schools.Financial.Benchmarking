@@ -8,6 +8,7 @@ using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.Comparison;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -16,100 +17,100 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void BuildShouldApplySchoolPhaseToCriteria()
         {
-            dynamic model = new ExpandoObject();
+            dynamic model = new EdubaseDataObject();
             model.NumberOfPupils = 100;
 
-            var financeDoc = new Microsoft.Azure.Documents.Document();
-            financeDoc.SetPropertyValue("No Pupils", 100);
-            financeDoc.SetPropertyValue("Overall Phase", "Secondary");
-            financeDoc.SetPropertyValue("UrbanRuralInner", "Urban and city");
-            financeDoc.SetPropertyValue("% of pupils eligible for FSM", 100);
-            financeDoc.SetPropertyValue("% of pupils with SEN Statement", 100);
-            financeDoc.SetPropertyValue("% of pupils with EAL", 100);
-            financeDoc.SetPropertyValue("LA", 831);
+            var financeObj = new SchoolTrustFinancialDataObject();
+            financeObj.NoPupils = 100;
+            financeObj.OverallPhase = "Secondary";
+            financeObj.UrbanRural = "Urban and city";
+            financeObj.PercentageFSM = 100;
+            financeObj.PercentagePupilsWSEN = 100;
+            financeObj.PercentagePupilsWEAL = 100;
+            financeObj.LA = 831;
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeObj, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
             var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalFinancialDataModels.Last(), true, true, true, true, 0);
 
-            Assert.AreEqual(financeDoc.GetPropertyValue<string>("Overall Phase"), criteria.SchoolOverallPhase[0]);
+            Assert.AreEqual(financeObj.OverallPhase, criteria.SchoolOverallPhase[0]);
         }
 
         [Test]
         public void BuildShouldApplyUrbanRuralToCriteria()
         {
-            dynamic model = new ExpandoObject();
+            dynamic model = new EdubaseDataObject();
             model.NumberOfPupils = 100;
 
-            var financeDoc = new Microsoft.Azure.Documents.Document();
-            financeDoc.SetPropertyValue("No Pupils", 100);
-            financeDoc.SetPropertyValue("Overall Phase", "Secondary");
-            financeDoc.SetPropertyValue("UrbanRuralInner", "Urban and city");
-            financeDoc.SetPropertyValue("% of pupils eligible for FSM", 100);
-            financeDoc.SetPropertyValue("% of pupils with SEN Statement", 100);
-            financeDoc.SetPropertyValue("% of pupils with EAL", 100);
-            financeDoc.SetPropertyValue("LA", 831);
+            var financeObj = new SchoolTrustFinancialDataObject();
+            financeObj.NoPupils = 100;
+            financeObj.OverallPhase = "Secondary";
+            financeObj.UrbanRural = "Urban and city";
+            financeObj.PercentageFSM = 100;
+            financeObj.PercentagePupilsWSEN = 100;
+            financeObj.PercentagePupilsWEAL = 100;
+            financeObj.LA = 831;
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeObj, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
             var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalFinancialDataModels.Last(), true, true, true, true, 0);
 
-            Assert.AreEqual(financeDoc.GetPropertyValue<string>("UrbanRuralInner"), criteria.UrbanRural[0]);
+            Assert.AreEqual(financeObj.UrbanRural, criteria.UrbanRural[0]);
         }
 
         [Test]
         public void BuildShouldApplyPercentageMarginForNumberOfPupils()
         {
-            dynamic model = new ExpandoObject();
+            dynamic model = new EdubaseDataObject();
             model.NumberOfPupils = 100;
 
-            var financeDoc = new Microsoft.Azure.Documents.Document();
-            financeDoc.SetPropertyValue("No Pupils", 100d);
-            financeDoc.SetPropertyValue("Overall Phase", "Secondary");
-            financeDoc.SetPropertyValue("UrbanRuralInner", "Urban and city");
-            financeDoc.SetPropertyValue("% of pupils eligible for FSM", 100);
-            financeDoc.SetPropertyValue("% of pupils with SEN Statement", 100);
-            financeDoc.SetPropertyValue("% of pupils with EAL", 100);
-            financeDoc.SetPropertyValue("LA", 831);
+            var financeObj = new SchoolTrustFinancialDataObject();
+            financeObj.NoPupils = 100;
+            financeObj.OverallPhase = "Secondary";
+            financeObj.UrbanRural = "Urban and city";
+            financeObj.PercentageFSM = 100;
+            financeObj.PercentagePupilsWSEN = 100;
+            financeObj.PercentagePupilsWEAL = 100;
+            financeObj.LA = 831;
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeObj, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
             var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalFinancialDataModels.Last(), true, true, true, true, 5);
 
-            Assert.AreEqual(financeDoc.GetPropertyValue<double>("No Pupils") * 0.85, criteria.MinNoPupil);
-            Assert.AreEqual(financeDoc.GetPropertyValue<double>("No Pupils") * 1.15, criteria.MaxNoPupil);
+            Assert.AreEqual(financeObj.NoPupils * 0.85, criteria.MinNoPupil);
+            Assert.AreEqual(financeObj.NoPupils * 1.15, criteria.MaxNoPupil);
         }
 
         [Test]
         public void BuildShouldApplyPercentageMarginForFreeSchoolMeals()
         {
-            dynamic model = new ExpandoObject();
+            dynamic model = new EdubaseDataObject();
             model.NumberOfPupils = 100;
 
-            var financeDoc = new Microsoft.Azure.Documents.Document();
-            financeDoc.SetPropertyValue("No Pupils", 100d);
-            financeDoc.SetPropertyValue("Overall Phase", "Secondary");
-            financeDoc.SetPropertyValue("UrbanRuralInner", "Urban and city");
-            financeDoc.SetPropertyValue("% of pupils eligible for FSM", 10);
-            financeDoc.SetPropertyValue("% of pupils with SEN Statement", 10);
-            financeDoc.SetPropertyValue("% of pupils with EAL", 10);
-            financeDoc.SetPropertyValue("LA", 831);
+            var financeObj = new SchoolTrustFinancialDataObject();
+            financeObj.NoPupils = 100;
+            financeObj.OverallPhase = "Secondary";
+            financeObj.UrbanRural = "Urban and city";
+            financeObj.PercentageFSM = 10;
+            financeObj.PercentagePupilsWSEN = 10;
+            financeObj.PercentagePupilsWEAL = 10;
+            financeObj.LA = 831;
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeObj, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -122,21 +123,21 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void BuildShouldApplyPercentageMarginForSenRegister()
         {
-            dynamic model = new ExpandoObject();
+            dynamic model = new EdubaseDataObject();
             model.NumberOfPupils = 100;
 
-            var financeDoc = new Microsoft.Azure.Documents.Document();
-            financeDoc.SetPropertyValue("No Pupils", 100d);
-            financeDoc.SetPropertyValue("Overall Phase", "Secondary");
-            financeDoc.SetPropertyValue("UrbanRuralInner", "Urban and city");
-            financeDoc.SetPropertyValue("% of pupils eligible for FSM", 10);
-            financeDoc.SetPropertyValue("% of pupils with SEN Statement", 10);
-            financeDoc.SetPropertyValue("% of pupils with EAL", 10);
-            financeDoc.SetPropertyValue("LA", 831);
+            var financeObj = new SchoolTrustFinancialDataObject();
+            financeObj.NoPupils = 100;
+            financeObj.OverallPhase = "Secondary";
+            financeObj.UrbanRural = "Urban and city";
+            financeObj.PercentageFSM = 10;
+            financeObj.PercentagePupilsWSEN = 10;
+            financeObj.PercentagePupilsWEAL = 10;
+            financeObj.LA = 831;
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeObj, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -149,21 +150,21 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void BuildShouldApplyPercentageMarginForEal()
         {
-            dynamic model = new ExpandoObject();
+            dynamic model = new EdubaseDataObject();
             model.NumberOfPupils = 100;
 
-            var financeDoc = new Microsoft.Azure.Documents.Document();
-            financeDoc.SetPropertyValue("No Pupils", 100d);
-            financeDoc.SetPropertyValue("Overall Phase", "Secondary");
-            financeDoc.SetPropertyValue("UrbanRuralInner", "Urban and city");
-            financeDoc.SetPropertyValue("% of pupils eligible for FSM", 2);
-            financeDoc.SetPropertyValue("% of pupils with SEN Statement", 2);
-            financeDoc.SetPropertyValue("% of pupils with EAL", 2);
-            financeDoc.SetPropertyValue("LA", 831);
+            var financeObj = new SchoolTrustFinancialDataObject();
+            financeObj.NoPupils = 100;
+            financeObj.OverallPhase = "Secondary";
+            financeObj.UrbanRural = "Urban and city";
+            financeObj.PercentageFSM = 2;
+            financeObj.PercentagePupilsWSEN = 2;
+            financeObj.PercentagePupilsWEAL = 2;
+            financeObj.LA = 831;
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeObj, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
@@ -176,47 +177,47 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void BuildShouldApplyLACriteria()
         {
-            dynamic model = new ExpandoObject();
+            dynamic model = new EdubaseDataObject();
             model.NumberOfPupils = 100;
 
-            var financeDoc = new Microsoft.Azure.Documents.Document();
-            financeDoc.SetPropertyValue("No Pupils", 100d);
-            financeDoc.SetPropertyValue("Overall Phase", "Secondary");
-            financeDoc.SetPropertyValue("UrbanRuralInner", "Urban and city");
-            financeDoc.SetPropertyValue("% of pupils eligible for FSM", 100);
-            financeDoc.SetPropertyValue("% of pupils with SEN Statement", 100);
-            financeDoc.SetPropertyValue("% of pupils with EAL", 100);
-            financeDoc.SetPropertyValue("LA", 831);
+            var financeObj = new SchoolTrustFinancialDataObject();
+            financeObj.NoPupils = 100;
+            financeObj.OverallPhase = "Secondary";
+            financeObj.UrbanRural = "Urban and city";
+            financeObj.PercentageFSM = 100;
+            financeObj.PercentagePupilsWSEN = 100;
+            financeObj.PercentagePupilsWEAL = 100;
+            financeObj.LA = 831;
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeObj, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
             var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalFinancialDataModels.Last(), true, true, true, true, 10);
 
-            Assert.AreEqual(financeDoc.GetPropertyValue<int>("LA"), criteria.LocalAuthorityCode);
+            Assert.AreEqual(financeObj.LA, criteria.LocalAuthorityCode);
         }
 
         [Test]
         public void BuildShouldNotApplyOptionalCriteriaIfNotIncluded()
         {
-            dynamic model = new ExpandoObject();
+            dynamic model = new EdubaseDataObject();
             model.NumberOfPupils = 100;
 
-            var financeDoc = new Microsoft.Azure.Documents.Document();
-            financeDoc.SetPropertyValue("No Pupils", 100d);
-            financeDoc.SetPropertyValue("Overall Phase", "Secondary");
-            financeDoc.SetPropertyValue("UrbanRuralInner", "Urban and city");
-            financeDoc.SetPropertyValue("% of pupils eligible for FSM", 100);
-            financeDoc.SetPropertyValue("% of pupils with SEN Statement", 100);
-            financeDoc.SetPropertyValue("% of pupils with EAL", 100);
-            financeDoc.SetPropertyValue("LA", 831);
+            var financeObj = new SchoolTrustFinancialDataObject();
+            financeObj.NoPupils = 100;
+            financeObj.OverallPhase = "Secondary";
+            financeObj.UrbanRural = "Urban and city";
+            financeObj.PercentageFSM = 2;
+            financeObj.PercentagePupilsWSEN = 2;
+            financeObj.PercentagePupilsWEAL = 2;
+            financeObj.LA = 831;
 
             var benchmarkSchool = new SchoolViewModel(model);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel>();
-            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeDoc, EstablishmentType.Maintained));
+            benchmarkSchool.HistoricalFinancialDataModels.Add(new FinancialDataModel("123", "2014-2015", financeObj, EstablishmentType.Maintained));
 
             var builder = new BenchmarkCriteriaBuilderService();
 
