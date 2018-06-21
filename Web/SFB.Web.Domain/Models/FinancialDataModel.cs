@@ -23,11 +23,11 @@ namespace SFB.Web.Domain.Models
             EstabType = estabType;
         }
 
-        public int LaNumber => FinancialDataObjectModel.LA;
+        public int? LaNumber => FinancialDataObjectModel?.LA;
 
         #region Financial Data
 
-        public double PupilCount
+        public double? PupilCount
         {
             get
             {
@@ -46,7 +46,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public double SchoolCount
+        public double? SchoolCount
         {
             get
             {
@@ -65,7 +65,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public double TeacherCount
+        public double? TeacherCount
         {
             get
             {
@@ -143,7 +143,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public decimal TotalIncome
+        public decimal? TotalIncome
         {
             get
             {
@@ -155,7 +155,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public decimal TotalExpenditure
+        public decimal? TotalExpenditure
         {
             get
             {
@@ -167,7 +167,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public decimal InYearBalance
+        public decimal? InYearBalance
         {
             get
             {
@@ -180,7 +180,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public int PeriodCoveredByReturn
+        public int? PeriodCoveredByReturn
         {
             get
             {
@@ -246,137 +246,86 @@ namespace SFB.Web.Domain.Models
 
         public string LondonWeighting => FinancialDataObjectModel.LondonWeight;
 
-        public decimal PercentageOfEligibleFreeSchoolMeals => FinancialDataObjectModel.PercentageFSM;
+        public decimal? PercentageOfEligibleFreeSchoolMeals => FinancialDataObjectModel.PercentageFSM;
 
-        public decimal PercentageOfPupilsWithSen => FinancialDataObjectModel.PercentagePupilsWSEN;
+        public decimal? PercentageOfPupilsWithSen => FinancialDataObjectModel.PercentagePupilsWSEN;
 
-        public decimal PercentageOfPupilsWithoutSen => FinancialDataObjectModel.PercentagePupilsWOSEN;
+        public decimal? PercentageOfPupilsWithoutSen => FinancialDataObjectModel.PercentagePupilsWOSEN;
 
-        public decimal PercentageOfPupilsWithEal => FinancialDataObjectModel.PercentagePupilsWEAL;
+        public decimal? PercentageOfPupilsWithEal => FinancialDataObjectModel.PercentagePupilsWEAL;
 
-        public decimal PercentageBoarders => FinancialDataObjectModel.PercentageBoarders;
+        public decimal? PercentageBoarders => FinancialDataObjectModel.PercentageBoarders;
 
         public string Pfi => FinancialDataObjectModel.PFI;
 
         public string DoesTheSchoolHave6Form => FinancialDataObjectModel.Has6Form;
 
-        public string NumberIn6Form => FinancialDataObjectModel.NumberIn6Form;
+        public decimal? NumberIn6Form => FinancialDataObjectModel.NumberIn6Form;
 
-        public decimal HighestAgePupils => FinancialDataObjectModel.HighestAgePupils;
+        public decimal? HighestAgePupils => FinancialDataObjectModel.HighestAgePupils;
 
-        public decimal FullTimeAdmin => FinancialDataObjectModel.AdminStaff;
+        public decimal? FullTimeAdmin => FinancialDataObjectModel.AdminStaff;
 
-        public decimal FullTimeOther => FinancialDataObjectModel.FullTimeOther;
+        public decimal? FullTimeOther => FinancialDataObjectModel.FullTimeOther;
 
-        public decimal PercentageQualifiedTeachers => FinancialDataObjectModel.PercentageQualifiedTeachers;
+        public decimal? PercentageQualifiedTeachers => FinancialDataObjectModel.PercentageQualifiedTeachers;
 
-        public decimal LowestAgePupils => FinancialDataObjectModel.LowestAgePupils;
+        public decimal? LowestAgePupils => FinancialDataObjectModel.LowestAgePupils;
 
-        public decimal FullTimeTA => FinancialDataObjectModel.FullTimeTA;
+        public decimal? FullTimeTA => FinancialDataObjectModel.FullTimeTA;
 
-        public decimal TotalSchoolWorkforceFTE => FinancialDataObjectModel.WorkforceTotal;
+        public decimal? TotalSchoolWorkforceFTE => FinancialDataObjectModel.WorkforceTotal;
 
-        public decimal TotalNumberOfTeachersFTE => FinancialDataObjectModel.TeachersTotal;
+        public decimal? TotalNumberOfTeachersFTE => FinancialDataObjectModel.TeachersTotal;
 
-        public decimal TotalSeniorTeachersFTE => FinancialDataObjectModel.TeachersLeader;
+        public decimal? TotalSeniorTeachersFTE => FinancialDataObjectModel.TeachersLeader;
 
-        public decimal Ks2Actual => FinancialDataObjectModel.Ks2Actual;
+        public decimal? Ks2Actual => FinancialDataObjectModel.Ks2Actual;
 
-        public decimal Ks2Progress => FinancialDataObjectModel.Ks2Progress;
+        public decimal? Ks2Progress => FinancialDataObjectModel.Ks2Progress;
 
-        public decimal AvAtt8 => FinancialDataObjectModel.AverageAttainment;
+        public decimal? AvAtt8 => FinancialDataObjectModel.AverageAttainment;
 
-        public decimal P8Mea => FinancialDataObjectModel.Progress8Measure;
+        public decimal? P8Mea => FinancialDataObjectModel.Progress8Measure;
 
         public string OfstedRating => FinancialDataObjectModel.OfstedRatingName;
 
-        public decimal SpecificLearningDifficulty => FinancialDataObjectModel.SpecificLearningDiff;
+        public decimal? SpecificLearningDifficulty => FinancialDataObjectModel.SpecificLearningDiff;
 
-        public decimal ModerateLearningDifficulty => FinancialDataObjectModel.ModerateLearningDiff;
+        public decimal? ModerateLearningDifficulty => FinancialDataObjectModel.ModerateLearningDiff;
 
-        public decimal SevereLearningDifficulty => FinancialDataObjectModel.SevereLearningDiff;
+        public decimal? SevereLearningDifficulty => FinancialDataObjectModel.SevereLearningDiff;
 
-        public decimal ProfLearningDifficulty => FinancialDataObjectModel.ProfLearningDiff;
+        public decimal? ProfLearningDifficulty => FinancialDataObjectModel.ProfLearningDiff;
 
-        public decimal SocialHealth => FinancialDataObjectModel.SocialHealth;
-        
-        public decimal SpeechNeeds => FinancialDataObjectModel.SpeechNeeds;
+        public decimal? SocialHealth => FinancialDataObjectModel.SocialHealth;
+        public decimal? SpeechNeeds => FinancialDataObjectModel.SpeechNeeds;
 
-        public decimal HearingImpairment => FinancialDataObjectModel.HearingImpairment;
+        public decimal? HearingImpairment => FinancialDataObjectModel.HearingImpairment;
 
-        public decimal VisualImpairment => FinancialDataObjectModel.VisualImpairment;
+        public decimal? VisualImpairment => FinancialDataObjectModel.VisualImpairment;
 
-        public decimal MultiSensoryImpairment => FinancialDataObjectModel.MultiSensoryImpairment;
+        public decimal? MultiSensoryImpairment => FinancialDataObjectModel.MultiSensoryImpairment;
 
-        public decimal PhysicalDisability => FinancialDataObjectModel.PhysicalDisability;
+        public decimal? PhysicalDisability => FinancialDataObjectModel.PhysicalDisability;
 
-        public decimal AutisticDisorder => FinancialDataObjectModel.AutisticDisorder;
+        public decimal? AutisticDisorder => FinancialDataObjectModel.AutisticDisorder;
 
-        public decimal OtherLearningDifficulty => FinancialDataObjectModel.OtherLearningDiff;
+        public decimal? OtherLearningDifficulty => FinancialDataObjectModel.OtherLearningDiff;
 
-        public int CrossPhaseBreakdownPrimary => FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY];
-        public int CrossPhaseBreakdownSecondary => FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY];
-        public int CrossPhaseBreakdownSpecial => FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL];
-        public int CrossPhaseBreakdownPru => FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU];
-        public int CrossPhaseBreakdownAP => FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP];
-        public int CrossPhaseBreakdownAT => FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT];
+        public int? CrossPhaseBreakdownPrimary => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY];
+        public int? CrossPhaseBreakdownSecondary => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY];
+        public int? CrossPhaseBreakdownSpecial => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL];
+        public int? CrossPhaseBreakdownPru => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU];
+        public int? CrossPhaseBreakdownAP => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP];
+        public int? CrossPhaseBreakdownAT => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT];
 
         #endregion
 
         public bool Equals(FinancialDataModel other)
         {
             return (this.Id == other.Id);
-        }
-
-        //public decimal? GetDecimal(string fieldName)
-        //{
-        //    decimal? result;
-        //    try
-        //    {
-        //        result = FinancialDataObjectModel.GetPropertyValue<decimal?>(fieldName);
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-
-        //    return result;
-        //}
-
-        //public string GetString(string fieldName)
-        //{
-        //    if (FinancialDataObjectModel != null)
-        //    {
-        //        return FinancialDataObjectModel.GetPropertyValue<string>(fieldName);
-        //    }
-        //    return string.Empty;
-        //}
-
-        //public int GetInt(string fieldName)
-        //{
-        //    if (FinancialDataObjectModel != null)
-        //    {
-        //        return FinancialDataObjectModel.GetPropertyValue<int>(fieldName);
-        //    }
-        //    return 0;
-        //}
-
-        //private int TryGetInt(string fieldName)
-        //{
-        //    if (FinancialDataObjectModel != null)
-        //    {
-        //        try
-        //        {
-        //            return FinancialDataObjectModel.GetPropertyValue<int>(fieldName);
-        //        }
-        //        catch
-        //        {
-        //            return 0;
-        //        }
-        //    }
-        //    return 0;
-        //}
-
+        }       
 
     }
 }

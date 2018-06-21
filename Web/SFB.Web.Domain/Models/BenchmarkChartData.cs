@@ -14,10 +14,10 @@ namespace SFB.Web.Domain.Models
         public decimal? Amount { get; set; }
 
         [JsonProperty(PropertyName = "teacherCount")]
-        public double TeacherCount { get; set; }
+        public double? TeacherCount { get; set; }
 
         [JsonProperty(PropertyName = "pupilCount")]
-        public double PupilCount { get; set; }
+        public double? PupilCount { get; set; }
 
         [JsonProperty(PropertyName = "iscompleteyear")]
         public bool IsCompleteYear { get; set; }

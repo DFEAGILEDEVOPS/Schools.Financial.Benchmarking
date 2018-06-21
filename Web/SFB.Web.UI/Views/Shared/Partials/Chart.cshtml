@@ -100,12 +100,12 @@
     }
 </div>
 
-<input type="hidden" id="expTotal" value="@Model.TotalRevenueExpenditure.FormatMoney()" />
-<input type="hidden" id="expTotalAbbr" value="@Model.TotalRevenueExpenditure.ToString("C0")" />
-<input type="hidden" id="incTotal" value="@Model.TotalRevenueIncome.FormatMoney()" />
-<input type="hidden" id="incTotalAbbr" value="@Model.TotalRevenueIncome.ToString("C0")" />
-<input type="hidden" id="balTotal" value="@Model.InYearBalance.FormatMoney()" />
-<input type="hidden" id="balTotalAbbr" value="@Model.InYearBalance.ToString("C0")" />
+<input type="hidden" id="expTotal" value="@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()" />
+<input type="hidden" id="expTotalAbbr" value="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("C0")" />
+<input type="hidden" id="incTotal" value="@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()" />
+<input type="hidden" id="incTotalAbbr" value="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" />
+<input type="hidden" id="balTotal" value="@Model.InYearBalance.GetValueOrDefault().FormatMoney()" />
+<input type="hidden" id="balTotalAbbr" value="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" />
 
 @if (Request.IsAjaxRequest())
 {

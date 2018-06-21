@@ -24,11 +24,11 @@ namespace SFB.Web.UI.Models
 
         public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 
-        public decimal TotalRevenueIncome { get; set; }
+        public decimal? TotalRevenueIncome { get; set; }
 
-        public decimal TotalRevenueExpenditure { get; set; }
+        public decimal? TotalRevenueExpenditure { get; set; }
 
-        public decimal InYearBalance { get; set; }
+        public decimal? InYearBalance { get; set; }
 
         public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels.Last();
 

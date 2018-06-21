@@ -56,10 +56,15 @@
         public const string TEACHERS_TOTAL = "TotalNumberOfTeachersFullTimeEquivalent";
         public const string WORKFORCE_TOTAL = "TotalSchoolWorkforceFullTimeEquivalent";
         public const string WORKFORCE_HEADCOUNT = "TotalSchoolWorkforceHeadcount";
+        public const string NUMBER_TEACHERS_HEADCOUNT = "TotalNumberOfTeachersHeadcount";
+        public const string NUMBER_TEACHERS_IN_LEADERSHIP = "TotalNumberOfTeachersInTheLeadershipGroupHeadcount";
         public const string AUX_STAFF = "TotalNumberOfAuxiliaryStaffFullTimeEquivalent";
+        public const string AUX_STAFF_HC = "TotalNumberOfAuxiliaryStaffHeadcount";
         public const string ADMIN_STAFF = "FTE of Admin Staff";
         public const string FULL_TIME_OTHER = "TotalNumberOfNonClassroomBasedSchoolSupportStaffExcludingAuxiliaryStaffFullTimeEquivalent";
+        public const string FULL_TIME_OTHER_HC = "TotalNumberOfNonClassroomBasedSchoolSupportStaffExcludingAuxiliaryStaffHeadcount";
         public const string FULL_TIME_TA = "TotalNumberOfTeachingAssistantsFullTimeEquivalent";
+        public const string FULL_TIME_TA_HEADCOUNT = "TotalNumberOfTeachingAssistantsHeadcount";
         public const string PERCENTAGE_QUALIFIED_TEACHERS = "TeachersWithQualifiedTeacherStatus";
         public const string HIGHEST_AGE_PUPILS = "Highest age of pupils";
         public const string LOWEST_AGE_PUPILS = "Lowest age of pupils";

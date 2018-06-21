@@ -25,10 +25,10 @@ namespace SFB.Web.Domain.Models
         }
 
         [JsonProperty(PropertyName = "teacherCount")]
-        public double TeacherCount { get; set; }
+        public double? TeacherCount { get; set; }
 
         [JsonProperty(PropertyName = "pupilCount")]
-        public double PupilCount { get; set; }
+        public double? PupilCount { get; set; }
 
         [JsonProperty(PropertyName = "unit")]
         public string Unit { get; set; }
