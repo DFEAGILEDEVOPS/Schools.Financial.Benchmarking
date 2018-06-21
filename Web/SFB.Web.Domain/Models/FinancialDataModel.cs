@@ -27,7 +27,7 @@ namespace SFB.Web.Domain.Models
 
         #region Financial Data
 
-        public double? PupilCount
+        public decimal? PupilCount
         {
             get
             {
@@ -46,7 +46,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public double? SchoolCount
+        public decimal? SchoolCount
         {
             get
             {
@@ -65,7 +65,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public double? TeacherCount
+        public decimal? TeacherCount
         {
             get
             {
@@ -313,12 +313,83 @@ namespace SFB.Web.Domain.Models
 
         public decimal? OtherLearningDifficulty => FinancialDataObjectModel.OtherLearningDiff;
 
-        public int? CrossPhaseBreakdownPrimary => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY];
-        public int? CrossPhaseBreakdownSecondary => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY];
-        public int? CrossPhaseBreakdownSpecial => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL];
-        public int? CrossPhaseBreakdownPru => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU];
-        public int? CrossPhaseBreakdownAP => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP];
-        public int? CrossPhaseBreakdownAT => FinancialDataObjectModel?.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT];
+        public int? CrossPhaseBreakdownPrimary
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownSecondary
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownSpecial
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownPru
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownAP
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownAT
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT];
+                }
+
+                return 0;
+            }
+        }
 
         #endregion
 

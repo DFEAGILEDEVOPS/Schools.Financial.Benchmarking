@@ -53,12 +53,12 @@ namespace SFB.Web.Common
         [PrettyName(SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.NO_PUPILS, type: CriteriaFieldComparisonTypes.MIN)]
-        public double? MinNoPupil { get; set; }
+        public decimal? MinNoPupil { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS)]
         [Range(0, Int32.MaxValue)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.NO_PUPILS, type: CriteriaFieldComparisonTypes.MAX)]
-        public double? MaxNoPupil { get; set; }
+        public decimal? MaxNoPupil { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS)]
         [Range(0,100)]

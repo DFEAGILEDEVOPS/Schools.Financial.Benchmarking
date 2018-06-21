@@ -269,10 +269,10 @@ namespace SFB.Web.Common.DataObjects
         public decimal? RevenueReserve { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.NO_PUPILS)]
-        public double? NoPupils { get; set; }
+        public decimal? NoPupils { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.NO_TEACHERS)]
-        public double? NoTeachers { get; set; }
+        public decimal? NoTeachers { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MEMBER_COUNT)]
         public int? SchoolCount { get; set; }

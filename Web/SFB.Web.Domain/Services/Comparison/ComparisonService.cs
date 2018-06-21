@@ -39,9 +39,9 @@ namespace SFB.Web.Domain.Services.Comparison
 
             if (benchmarkSchools.Count > basketSize) //Original query returns more than required. Cut from top by proximity.
             {
-                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<double>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
-                benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<double>("No Pupils"));
-                benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<double>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
+                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<decimal>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
+                benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<decimal>("No Pupils"));
+                benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<decimal>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
             }
 
             var tryCount = 0;
@@ -58,9 +58,9 @@ namespace SFB.Web.Domain.Services.Comparison
 
                 if (benchmarkSchools.Count > basketSize) //Number jumping to more than ideal. Cut from top by proximity.
                 {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<double>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
-                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<double>("No Pupils"));
-                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<double>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<decimal>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
+                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<decimal>("No Pupils"));
+                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<decimal>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
                     break;
                 }
             }
@@ -80,9 +80,9 @@ namespace SFB.Web.Domain.Services.Comparison
 
                 if (benchmarkSchools.Count > basketSize) //Number jumping to more than ideal. Cut from top by proximity.
                 {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<double>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
-                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<double>("No Pupils"));
-                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<double>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<decimal>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
+                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<decimal>("No Pupils"));
+                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<decimal>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
                     break;
                 }
 

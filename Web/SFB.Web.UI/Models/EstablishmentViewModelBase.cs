@@ -36,9 +36,9 @@ namespace SFB.Web.UI.Models
 
         public bool WorkforceDataPresent => LatestYearFinancialData.WorkforceDataPresent;
 
-        public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0d;
+        public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0m;
 
-        public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0d;
+        public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0m;
 
     }
 }

@@ -52,7 +52,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public bool HasNoTeacherData => ModelList.SelectMany(m => m.BenchmarkData).Any(d => d.TeacherCount == 0d);
+        public bool HasNoTeacherData => ModelList.SelectMany(m => m.BenchmarkData).Any(d => d.TeacherCount == 0m);
 
         public bool NoResultsForSimpleSearch => (ComparisonType == ComparisonType.Basic && ComparisonListCount < 2);
         public int BasketSize { get; set; }
