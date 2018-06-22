@@ -1,5 +1,5 @@
-﻿@using SFB.Web.Domain.Models
-@using SFB.Web.Domain.Helpers
+﻿@using Newtonsoft.Json
+@using SFB.Web.Common.DataObjects
 @using System.Reflection;
 @using Microsoft.Ajax.Utilities
 @using SFB.Web.Common
@@ -46,6 +46,7 @@
                 
                 var fieldName = (dbAttribute as DBFieldAttribute).Name;
                 var fieldType = (dbAttribute as DBFieldAttribute).Type;
+                var criteriaValue = typeof(SchoolTrustFinancialDataObject).GetProperties().First(p => (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).First() as JsonPropertyAttribute).PropertyName == fieldName).GetValue(Model.BenchmarkSchoolData.FinancialDataObjectModel);
                 var uiName = (uiNameAttribute as PrettyNameAttribute).Name;
                 if (!uiName.IsNullOrWhiteSpace())
                 {
@@ -53,31 +54,31 @@
                     {
                         case CriteriaFieldComparisonTypes.MIN:
                             @Html.Raw($"<td>{uiName} (minimum)</td>")
-                            @Html.Raw($"<td>{Model.BenchmarkSchoolData.GetDecimal(fieldName)}</td>")
+                            @Html.Raw($"<td>{criteriaValue}</td>")
                             @Html.Raw($"<td>{fieldValue}</td>")
                             break;
                         case CriteriaFieldComparisonTypes.MAX:
                             @Html.Raw($"<td>{uiName} (maximum)</td>")
-                            @Html.Raw($"<td>{Model.BenchmarkSchoolData.GetDecimal(fieldName)}</td>")
+                            @Html.Raw($"<td>{criteriaValue}</td>")
                             @Html.Raw($"<td>{fieldValue}</td>")
                             break;
                         case CriteriaFieldComparisonTypes.EQUALTO:
                             if (fieldValue is string)
                             {
                                 @Html.Raw($"<td>{uiName}</td>")
-                                @Html.Raw($"<td>{Model.BenchmarkSchoolData.GetString(fieldName)}</td>")
+                                @Html.Raw($"<td>{criteriaValue}</td>")
                                 @Html.Raw($"<td>{fieldValue}</td>")
                             }
                             else if (fieldValue is int)
                             {
                                 @Html.Raw($"<td>{uiName}</td>")
-                                @Html.Raw($"<td>{Model.BenchmarkSchoolData.GetInt(fieldName)}</td>")
+                                @Html.Raw($"<td>{criteriaValue}</td>")
                                 @Html.Raw($"<td>{fieldValue}</td>")
                             }
                             else if (fieldValue is Array)
                             {
                                 @Html.Raw($"<td>{uiName}</td>")
-                                @Html.Raw($"<td>{Model.BenchmarkSchoolData.GetString(fieldName)}</td>")
+                                @Html.Raw($"<td>{criteriaValue}</td>")
                                 @Html.Raw("<td>")
                                 @Html.Raw(string.Join(", ", fieldValue as string[]))
                                 @Html.Raw("</td>")

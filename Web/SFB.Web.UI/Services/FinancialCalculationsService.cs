@@ -136,10 +136,8 @@ namespace SFB.Web.UI.Services
                     case UnitType.HeadcountPerFTE:
                         string fieldNameBase = chart.FieldName.Contains("FullTimeEquivalent")
                             ? chart.FieldName.Substring(0, chart.FieldName.Length - 18)
-                            : chart.FieldName.Substring(0, chart.FieldName.Length - 9);
-                        //total = schoolData.GetDecimal(fieldNameBase + "Headcount").GetValueOrDefault();
-                        total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);                        
-                        //rawAmount = schoolData.GetDecimal(fieldNameBase + "FullTimeEquivalent");
+                            : chart.FieldName.Substring(0, chart.FieldName.Length - 9);                        
+                        total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);                                                
                         rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);                        
                         if (rawAmount == null)
                         {
@@ -155,10 +153,8 @@ namespace SFB.Web.UI.Services
                             amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
                         }
                         break;
-                    case UnitType.FTERatioToTotalFTE:
-                        //total = schoolData.GetDecimal("TotalSchoolWorkforceFullTimeEquivalent").GetValueOrDefault();
-                        total = GetFinancialDataValueForChartField(SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);
-                        //rawAmount = schoolData.GetDecimal(chart.FieldName);
+                    case UnitType.FTERatioToTotalFTE:                        
+                        total = GetFinancialDataValueForChartField(SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);                        
                         rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                         if (rawAmount == null)
                         {
@@ -328,12 +324,10 @@ namespace SFB.Web.UI.Services
             decimal? rawAmount = null;
             switch (unit)
             {
-                case UnitType.AbsoluteCount:
-                    //amount = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldName).GetValue(schoolData, null);
+                case UnitType.AbsoluteCount:                    
                     amount = GetFinancialDataValueForChartField(fieldName, schoolData.FinancialDataObjectModel);
                     break;
-                case UnitType.NoOfPupilsPerMeasure:
-                    //rawAmount = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldName).GetValue(schoolData, null);
+                case UnitType.NoOfPupilsPerMeasure:                    
                     rawAmount = GetFinancialDataValueForChartField(fieldName, schoolData.FinancialDataObjectModel);
                     if (rawAmount == null || rawAmount == 0)
                     {
@@ -350,9 +344,7 @@ namespace SFB.Web.UI.Services
                     string fieldNameBase = fieldName.Contains("FullTimeEquivalent")
                         ? fieldName.Substring(0, fieldName.Length - 18)
                         : fieldName.Substring(0, fieldName.Length - 9);
-                    //var total = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldNameBase + "Headcount").GetValue(schoolData, null);
                     var total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);
-                    //rawAmount = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldNameBase + "FullTimeEquivalent").GetValue(schoolData, null);
                     rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);
                     if (rawAmount == null)
                     {
@@ -369,9 +361,7 @@ namespace SFB.Web.UI.Services
                     }
                     break;
                 case UnitType.FTERatioToTotalFTE:
-                    //total = (Decimal?)schoolData.FinancialDataObjectModel.GetType().GetProperty("TotalSchoolWorkforceFullTimeEquivalent").GetValue(schoolData, null);
                     total = GetFinancialDataValueForChartField(SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);
-                    //rawAmount = (Decimal)schoolData.FinancialDataObjectModel.GetType().GetProperty(fieldName).GetValue(schoolData, null);
                     rawAmount = GetFinancialDataValueForChartField(fieldName, schoolData.FinancialDataObjectModel);
                     if (rawAmount == null)
                     {
