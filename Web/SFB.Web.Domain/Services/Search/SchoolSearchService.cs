@@ -14,6 +14,7 @@ using SFB.Web.Domain.Models;
 
 namespace SFB.Web.Domain.Services.Search
 {
+    //TODO: Use constant DB field names here
     public class SchoolSearchService : ISchoolSearchService
     {
         private readonly string _key;

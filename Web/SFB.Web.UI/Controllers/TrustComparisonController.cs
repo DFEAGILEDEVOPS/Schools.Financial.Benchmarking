@@ -72,7 +72,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     try
                     {
-                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.GetPropertyValue<string>("MATNumber"), doc.GetPropertyValue<string>("TrustOrCompanyName"));
+                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.MATNumber, doc.TrustOrCompanyName);
                     }catch (ApplicationException)
                     {
                         //Default trust cannot be added twice. Do nothing.

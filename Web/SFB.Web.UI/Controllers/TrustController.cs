@@ -7,7 +7,6 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Constants;

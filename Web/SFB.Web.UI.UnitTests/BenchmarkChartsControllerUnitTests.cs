@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.Azure.Documents;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -19,6 +18,7 @@ using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -52,23 +52,23 @@ namespace SFB.Web.UI.UnitTests
         public void GenerateFromAdvancedCriteriaWithOverwriteAddsTheBenchmarkSchoolToTheBenchmarkListIfNotAlreadyReturned()
         {
             var mockDocumentDbService = new Mock<IFinancialDataService>();
-            var testResult = new Document();
-            testResult.SetPropertyValue("URN", 321);
-            testResult.SetPropertyValue("School Name", "test");
-            testResult.SetPropertyValue("FinanceType", "Academies");
-            Task<List<Document>> task = Task.Run(() =>
+            var testResult = new SchoolTrustFinancialDataObject();
+            testResult.URN = 321;
+            testResult.SchoolName = "test";
+            testResult.FinanceType = "Academies";
+            Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
             {
-                return new List<Document> { testResult };
+                return new List<SchoolTrustFinancialDataObject> { testResult };
             });
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            dynamic testEduResult = new SchoolTrustFinancialDataObject();
             testEduResult.URN = 321;
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(321)).Returns((int urn) => testEduResult);
 
-            dynamic testEduHomeResult = new Document();
+            dynamic testEduHomeResult = new SchoolTrustFinancialDataObject();
             testEduHomeResult.URN = 123;
             testEduHomeResult.EstablishmentName = "test";
             testEduHomeResult.FinanceType = "Academies";
@@ -77,7 +77,7 @@ namespace SFB.Web.UI.UnitTests
             var mockComparisonService = new Mock<IComparisonService>();
             Task<ComparisonResult> cTask = Task.Run(() =>
             {
-                return new ComparisonResult() { BenchmarkSchools = new List<Document>() { testResult } };
+                return new ComparisonResult() { BenchmarkSchools = new List<SchoolTrustFinancialDataObject>() { testResult } };
             });
 
             mockComparisonService.Setup(m =>
@@ -126,22 +126,22 @@ namespace SFB.Web.UI.UnitTests
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
             var mockDocumentDbService = new Mock<IFinancialDataService>();
-            var testResult = new Document();
-            testResult.SetPropertyValue("URN", 321);
-            testResult.SetPropertyValue("School Name", "test");
-            testResult.SetPropertyValue("FinanceType", "Academies");
-            Task<List<Document>> task = Task.Run(() =>
+            var testResult = new SchoolTrustFinancialDataObject();
+            testResult.URN = 321;
+            testResult.SchoolName = "test";
+            testResult.FinanceType = "academies";
+            Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
             {
-                return new List<Document> { testResult };
+                return new List<SchoolTrustFinancialDataObject> { testResult };
             });
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            dynamic testEduResult = new SchoolTrustFinancialDataObject();
             testEduResult.URN = 321;
             testEduResult.EstablishmentName = "test";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(321)).Returns((int urn) => testEduResult);
 
-            dynamic testEduHomeResult = new Document();
+            dynamic testEduHomeResult = new SchoolTrustFinancialDataObject();
             testEduHomeResult.URN = 123;
             testEduHomeResult.EstablishmentName = "test";
             testEduHomeResult.FinanceType = "Academies";
@@ -160,7 +160,7 @@ namespace SFB.Web.UI.UnitTests
             var mockComparisonService = new Mock<IComparisonService>();
             Task<ComparisonResult> cTask = Task.Run(() =>
                 {
-                    return new ComparisonResult() {BenchmarkSchools = new List<Document>() {testResult}};
+                    return new ComparisonResult() {BenchmarkSchools = new List<SchoolTrustFinancialDataObject>() {testResult}};
                 });
 
             mockComparisonService.Setup(m =>

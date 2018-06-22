@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.Azure.Documents;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -15,6 +14,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -48,7 +48,7 @@ namespace SFB.Web.UI.UnitTests
         public void DetailShouldKeepUnitTypeBetweenExpenditureAndIncomeTabs()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
@@ -90,7 +90,7 @@ namespace SFB.Web.UI.UnitTests
         public void DetailCallShouldKeepUnitTypeBetweenExpenditureAndBalanceTabsIfPossible()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
@@ -132,7 +132,7 @@ namespace SFB.Web.UI.UnitTests
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
@@ -174,7 +174,7 @@ namespace SFB.Web.UI.UnitTests
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndWorkforceTabs()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);

@@ -1,5 +1,4 @@
-﻿using System.Web.UI;//Do not remove. Needed for OutputCache
-using SFB.Web.UI.Models;
+﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,7 +12,6 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
 using System;

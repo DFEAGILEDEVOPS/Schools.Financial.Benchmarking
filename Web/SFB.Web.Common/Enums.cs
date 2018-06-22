@@ -2,13 +2,31 @@
 
 namespace SFB.Web.Common
 {
-    //Used in conjunction with entity's Financial Type to determine the target data groups in fibre-directory(DB collection)
     public enum EstablishmentType
     {
         Academies,
         Maintained,
         MAT,
         All
+    }
+
+    public enum CentralFinancingType
+    {
+        Include,
+        Exclude
+    }
+
+    public enum MatFinancingType
+    {
+        TrustOnly,
+        TrustAndAcademies,
+        AcademiesOnly
+    }
+
+    public enum ChartFormat
+    {
+        Charts,
+        Tables
     }
 
     public enum ComparisonArea
@@ -46,24 +64,5 @@ namespace SFB.Web.Common
         ReturnFalse,
         ReturnFirst,
         ReturnLast
-    }
-
-    public enum CentralFinancingType
-    {
-        Include,
-        Exclude
-    }
-
-    public enum MatFinancingType
-    {
-        TrustOnly,
-        TrustAndAcademies,
-        AcademiesOnly
-    }
-
-    public enum ChartFormat
-    {
-        Charts,
-        Tables
     }
 }

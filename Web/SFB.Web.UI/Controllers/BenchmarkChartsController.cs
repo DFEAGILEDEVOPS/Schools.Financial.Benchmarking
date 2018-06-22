@@ -4,17 +4,14 @@ using System.Linq;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers;
 using System.Collections.Generic;
-using System.Diagnostics;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using SFB.Web.Domain.Models;
-using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Helpers.Constants;
@@ -69,10 +66,10 @@ namespace SFB.Web.UI.Controllers
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
-                    Name = schoolDoc.GetPropertyValue<string>("School Name"),
-                    Type = schoolDoc.GetPropertyValue<string>("Type"),
-                    EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
-                    Urn = schoolDoc.GetPropertyValue<string>("URN")
+                    Name = schoolDoc.SchoolName,
+                    Type = schoolDoc.Type,
+                    EstabType = schoolDoc.FinanceType,
+                    Urn = schoolDoc.URN.ToString()
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);                
             }
@@ -128,10 +125,10 @@ namespace SFB.Web.UI.Controllers
                     {
                         var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                         {
-                            Name = schoolDoc.GetPropertyValue<string>("School Name"),
-                            Type = schoolDoc.GetPropertyValue<string>("Type"),
-                            EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
-                            Urn = schoolDoc.GetPropertyValue<string>("URN")
+                            Name = schoolDoc.SchoolName,
+                            Type = schoolDoc.Type,
+                            EstabType = schoolDoc.FinanceType,
+                            Urn = schoolDoc.URN.ToString()
                         };
                         _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);                        
                     }
@@ -144,10 +141,10 @@ namespace SFB.Web.UI.Controllers
                     {
                         var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                         {
-                            Name = schoolDoc.GetPropertyValue<string>("School Name"),
-                            Type = schoolDoc.GetPropertyValue<string>("Type"),
-                            EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
-                            Urn = schoolDoc.GetPropertyValue<string>("URN")
+                            Name = schoolDoc.SchoolName,
+                            Type = schoolDoc.Type,
+                            EstabType = schoolDoc.FinanceType,
+                            Urn = schoolDoc.URN.ToString()
                         };
                         _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
                     }

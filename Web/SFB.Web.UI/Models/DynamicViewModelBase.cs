@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Globalization;
-using Microsoft.Azure.Documents;
-using SFB.Web.Domain.Models;
 using SFB.Web.Common.DataObjects;
+using Microsoft.Azure.Documents;
 
 namespace SFB.Web.UI.Models
 {
+    //Can this class be used without Microsoft.Azure.Documents?
     public class DynamicViewModelBase : ViewModelBase
     {
         public dynamic ContextDataModel { get; set; }

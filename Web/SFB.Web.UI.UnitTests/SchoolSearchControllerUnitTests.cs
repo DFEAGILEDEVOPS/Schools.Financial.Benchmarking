@@ -1,5 +1,4 @@
 ﻿using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Controllers;
@@ -11,7 +10,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
@@ -20,6 +18,7 @@ using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.UnitTests
 {
+    //TODO: Check if these tests can be rewritten without referring to Microsoft.Azure.DocumentDb
     public class SchoolSearchControllerUnitTests
     {        
         private Mock<HttpRequestBase> _request;

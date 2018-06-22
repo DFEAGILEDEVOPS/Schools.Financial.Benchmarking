@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
+﻿using System.Threading.Tasks;
 using SFB.Web.Common;
-using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
 
 namespace SFB.Web.Domain.Services.Comparison

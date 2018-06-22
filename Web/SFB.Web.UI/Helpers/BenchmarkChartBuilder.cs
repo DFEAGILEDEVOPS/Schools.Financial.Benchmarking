@@ -14,7 +14,6 @@ namespace SFB.Web.UI.Helpers
             EstablishmentType schoolType);
     }
 
-    //TODO: Use the field names from constants class
     public class BenchmarkChartBuilder : IBenchmarkChartBuilder
     {
         public List<ChartViewModel> Build(RevenueGroupType revenueGroup, EstablishmentType schoolType)

@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.Common.DataObjects;
 
@@ -299,6 +298,7 @@ namespace SFB.Web.Domain.Models
         public decimal? ProfLearningDifficulty => FinancialDataObjectModel.ProfLearningDiff;
 
         public decimal? SocialHealth => FinancialDataObjectModel.SocialHealth;
+
         public decimal? SpeechNeeds => FinancialDataObjectModel.SpeechNeeds;
 
         public decimal? HearingImpairment => FinancialDataObjectModel.HearingImpairment;

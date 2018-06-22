@@ -117,7 +117,6 @@ namespace SFB.Web.UI.Models
 
         public string HasNursery => ContextDataModel.StatutoryLowAge <= 3  ?  "Yes" : "No";
 
-        //TODO: check conversion is correct
         public string OpenDate
         {
             get
@@ -154,7 +153,6 @@ namespace SFB.Web.UI.Models
 
         public override string Type => ContextDataModel.TypeOfEstablishment;
 
-        //TODO: check can convert to enum
         public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
 
         public bool HasCoordinates

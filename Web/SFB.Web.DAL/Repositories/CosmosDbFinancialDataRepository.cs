@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -46,7 +45,7 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
             
-            var query = $"SELECT * FROM c WHERE c.URN=@URN";
+            var query = $"SELECT * FROM c WHERE c.{SchoolTrustFinanceDBFieldNames.URN}=@URN";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
@@ -86,7 +85,7 @@ namespace SFB.Web.DAL.Repositories
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
             
-            var query = $"SELECT * FROM c WHERE c.URN=@URN";
+            var query = $"SELECT * FROM c WHERE c.{SchoolTrustFinanceDBFieldNames.URN}=@URN";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
@@ -164,7 +163,7 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
 
-            var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']='{matNo}'";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
@@ -214,7 +213,7 @@ namespace SFB.Web.DAL.Repositories
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinanceType);
 
-            var query = $"SELECT * FROM c WHERE c['MATNumber']='{matNo}'";
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']='{matNo}'";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
@@ -238,7 +237,7 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
+        public async Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
         {
             if (estType == EstablishmentType.All)
             {
@@ -271,7 +270,7 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<List<Document>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
+        public async Task<List<SchoolTrustFinancialDataObject>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
         {            
             return (await QueryDBTrustCollectionAsync(criteria, DataGroups.MATOverview)).ToList();
         }
@@ -303,7 +302,7 @@ namespace SFB.Web.DAL.Repositories
             return (await result.QueryAsync()).First();
         }
 
-        private async Task<IEnumerable<Document>> QueryDBSchoolCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
+        private async Task<IEnumerable<SchoolTrustFinancialDataObject>> QueryDBSchoolCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
 
@@ -313,28 +312,38 @@ namespace SFB.Web.DAL.Repositories
 
             if (string.IsNullOrEmpty(query))
             {
-                return new List<Document>();
+                return new List<SchoolTrustFinancialDataObject>();
             }
 
-            IQueryable<Document> result;
+            IQueryable<SchoolTrustFinancialDataObject> result;
 
-            if (dataGroup == DataGroups.Academies || dataGroup == DataGroups.MATAllocs)
+            try
             {
-                result = _client.CreateDocumentQuery<Document>(
-                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT c['URN'], c['School Name'], c['Type'],  '{DataGroups.Academies}' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
+                if (dataGroup == DataGroups.Academies || dataGroup == DataGroups.MATAllocs)
+                {
+                    result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
+                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                        $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'],  '{DataGroups.Academies}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'] FROM c WHERE {query}");
+                }
+                else
+                {
+                    result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
+                        UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                        $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], '{DataGroups.Maintained}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'] FROM c WHERE {query}");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                result = _client.CreateDocumentQuery<Document>(
-                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    $"SELECT c['URN'], c['School Name'], c['Type'], '{DataGroups.Maintained}' AS FinanceType, c['No Pupils'] FROM c WHERE {query}");
+                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
+                {
+                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {query}");
+                }
+                return null;
             }
-
             return await result.QueryAsync();
         }
 
-        private async Task<IEnumerable<Document>> QueryDBTrustCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
+        private async Task<IEnumerable<SchoolTrustFinancialDataObject>> QueryDBTrustCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
 
@@ -344,15 +353,26 @@ namespace SFB.Web.DAL.Repositories
 
             if (string.IsNullOrEmpty(query))
             {
-                return new List<Document>();
+                return new List<SchoolTrustFinancialDataObject>();
             }
 
-            IQueryable<Document> result;
-            
-            result = _client.CreateDocumentQuery<Document>(
-                UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                $"SELECT c['MATNumber'], c['TrustOrCompanyName'] FROM c WHERE {query}");
-            
+            IQueryable<SchoolTrustFinancialDataObject> result;
+
+            try
+            {
+                result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
+                   UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                   $"SELECT c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}'], c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}'] FROM c WHERE {query}");
+            }
+            catch (Exception ex)
+            {
+                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
+                {
+                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {query}");
+                }
+                return null;
+            }
+
             return await result.QueryAsync();
         }
 
@@ -398,12 +418,12 @@ namespace SFB.Web.DAL.Repositories
 
         private string ExcludeSAMATs(string query)
         {
-            return $"{query} AND c.MemberCount > 1";
+            return $"{query} AND c.{SchoolTrustFinanceDBFieldNames.MEMBER_COUNT} > 1";
         }
 
         private string Exclude6Forms(string query)
         {
-            return $"{query} AND c['Type'] != 'Free 16-19'";
+            return $"{query} AND c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'] != 'Free 16-19'";
         }
 
         private string BuildQueryFromBenchmarkCriteria(BenchmarkCriteria criteria)

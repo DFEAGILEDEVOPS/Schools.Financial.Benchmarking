@@ -1,12 +1,5 @@
 ﻿namespace SFB.Web.Common
 {
-    public class CriteriaFieldComparisonTypes
-    {
-        public const string MAX = "Max";
-        public const string MIN = "Min";
-        public const string EQUALTO = "Eq";
-    }
-
     public class EdubaseDBFieldNames
     {
         public const string URN = "URN";
@@ -262,5 +255,12 @@
         public const string PHYSICAL_DISABILITY = "Physical disability";
         public const string AUTISTIC_DISORDER = "Autistic spectrum disorder";
         public const string OTHER_LEARNING_DIFF = "Other learning difficulty";
+    }
+
+    public class CriteriaFieldComparisonTypes
+    {
+        public const string MAX = "Max";
+        public const string MIN = "Min";
+        public const string EQUALTO = "Eq";
     }
 }

@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
 using Moq;
 using NUnit.Framework;
 using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.UI.Services;
 using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
