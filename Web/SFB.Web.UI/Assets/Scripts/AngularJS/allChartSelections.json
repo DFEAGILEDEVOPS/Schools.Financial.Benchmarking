@@ -6,7 +6,6 @@
       "Charts": [
         {
           "Name": "Total expenditure",
-          "FieldName": "Total Expenditure",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -31,7 +30,6 @@
       "Charts": [
         {
           "Name": "Staff total",
-          "FieldName": "Staff Total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -51,7 +49,6 @@
         },
         {
           "Name": "Teaching staff",
-          "FieldName": "Teaching staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -71,7 +68,6 @@
         },
         {
           "Name": "Supply staff",
-          "FieldName": "Supply Staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -91,7 +87,6 @@
         },
         {
           "Name": "Education support staff",
-          "FieldName": "Education support staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -111,7 +106,6 @@
         },
         {
           "Name": "Administrative and clerical staff",
-          "FieldName": "Administrative and clerical staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -131,7 +125,6 @@
         },
         {
           "Name": "Other staff costs",
-          "FieldName": "Other Staff Costs",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -156,7 +149,6 @@
       "Charts": [
         {
           "Name": "Premises total",
-          "FieldName": "Premises",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -176,7 +168,6 @@
         },
         {
           "Name": "Premises staff",
-          "FieldName": "Premises staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -196,7 +187,6 @@
         },
         {
           "Name": "Cleaning and caretaking",
-          "FieldName": "Cleaning and caretaking",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -216,7 +206,6 @@
         },
         {
           "Name": "Maintenance and improvement",
-          "FieldName": "Maintenance & Improvement",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -236,7 +225,6 @@
         },
         {
           "Name": "PFI charges",
-          "FieldName": "PFI Charges",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -261,7 +249,6 @@
       "Charts": [
         {
           "Name": "Occupation total",
-          "FieldName": "Occupation",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -281,7 +268,6 @@
         },
         {
           "Name": "Energy",
-          "FieldName": "Energy",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -301,7 +287,6 @@
         },
         {
           "Name": "Water and sewerage",
-          "FieldName": "Water and sewerage",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -321,7 +306,6 @@
         },
         {
           "Name": "Rates",
-          "FieldName": "Rates",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -341,7 +325,6 @@
         },
         {
           "Name": "Other occupation costs",
-          "FieldName": "Other occupation costs",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -361,7 +344,6 @@
         },
         {
           "Name": "Other insurance premiums",
-          "FieldName": "Other insurance premiums",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -381,7 +363,6 @@
         },
         {
           "Name": "Catering expenditure",
-          "FieldName": "Catering Exp",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -401,7 +382,6 @@
         },
         {
           "Name": "Rent and rates",
-          "FieldName": "Rent and Rates",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -426,7 +406,6 @@
       "Charts": [
         {
           "Name": "Supplies and services total",
-          "FieldName": "Supplies and Services",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -446,7 +425,6 @@
         },
         {
           "Name": "Administrative supplies",
-          "FieldName": "Administrative supplies - non educational",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -466,7 +444,6 @@
         },
         {
           "Name": "Educational supplies",
-          "FieldName": "Educational Supplies",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -486,7 +463,6 @@
         },
         {
           "Name": "Bought-in professional services",
-          "FieldName": "Brought in Professional Sevices",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -511,7 +487,6 @@
       "Charts": [
         {
           "Name": "Special facilities",
-          "FieldName": "Special facilities",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -536,7 +511,6 @@
       "Charts": [
         {
           "Name": "Cost of finance total",
-          "FieldName": "Cost of Finance",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -561,7 +535,6 @@
       "Charts": [
         {
           "Name": "Community expenditure total",
-          "FieldName": "Community Exp",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -586,7 +559,6 @@
       "Charts": [
         {
           "Name": "Total income",
-          "FieldName": "Total Income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -611,7 +583,6 @@
       "Charts": [
         {
           "Name": "Grant funding total",
-          "FieldName": "Grant Funding",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -631,7 +602,6 @@
         },
         {
           "Name": "Direct grants",
-          "FieldName": "Direct Grant",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -651,7 +621,6 @@
         },
         {
           "Name": "Community grants",
-          "FieldName": "Community Grants",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -671,7 +640,6 @@
         },
         {
           "Name": "Targeted grants",
-          "FieldName": "Targeted Grants",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -696,7 +664,6 @@
       "Charts": [
         {
           "Name": "Self-generated funding total",
-          "FieldName": "Self Generated Funding",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -716,7 +683,6 @@
         },
         {
           "Name": "Community focused school facilities income",
-          "FieldName": "Community focused school facilities income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -736,7 +702,6 @@
         },
         {
           "Name": "Income from facilities and services",
-          "FieldName": "Income from facilities and services",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -756,7 +721,6 @@
         },
         {
           "Name": "Income from catering",
-          "FieldName": "Income from catering",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -776,7 +740,6 @@
         },
         {
           "Name": "Donations and/or voluntary funds",
-          "FieldName": "Donations and/or voluntary funds",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -796,7 +759,6 @@
         },
         {
           "Name": "Income from contributions to visits",
-          "FieldName": "Income from contributions to visits etc",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -816,7 +778,6 @@
         },
         {
           "Name": "Receipts from supply teacher insurance claims",
-          "FieldName": "Receipts from supply teacher insurance claims",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -836,7 +797,6 @@
         },
         {
           "Name": "Receipts from other insurance claims",
-          "FieldName": "Receipts from other insurance claims",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -856,7 +816,6 @@
         },
         {
           "Name": "Investment income",
-          "FieldName": "Investment income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -876,7 +835,6 @@
         },
         {
           "Name": "Other self-generated income",
-          "FieldName": "Other self-generated income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -901,7 +859,6 @@
       "Charts": [
         {
           "Name": "In-year balance",
-          "FieldName": "In Year Balance",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -921,7 +878,6 @@
         },
         {
           "Name": "Revenue reserve",
-          "FieldName": "Revenue Reserve",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -946,7 +902,6 @@
       "Charts": [
         {
           "Name": "School workforce (Full Time Equivalent)",
-          "FieldName": "TotalSchoolWorkforceFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -966,7 +921,6 @@
         },
         {
           "Name": "Teachers (Full Time Equivalent)",
-          "FieldName": "TotalNumberOfTeachersFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -986,7 +940,6 @@
         },
         {
           "Name": "Teachers with Qualified Teacher Status (%)",
-          "FieldName": "TeachersWithQualifiedTeacherStatus",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -1006,7 +959,6 @@
         },
         {
           "Name": "Senior leadership (Full Time Equivalent)",
-          "FieldName": "TotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -1026,7 +978,6 @@
         },
         {
           "Name": "Teaching assistants (Full Time Equivalent)",
-          "FieldName": "TotalNumberOfTeachingAssistantsFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -1046,7 +997,6 @@
         },
         {
           "Name": "Non-classroom support staff (Full Time Equivalent)",
-          "FieldName": "TotalNumberOfNonClassroomBasedSchoolSupportStaffExcludingAuxiliaryStaffFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -1066,7 +1016,6 @@
         },
         {
           "Name": "Auxiliary staff (Full Time Equivalent)",
-          "FieldName": "TotalNumberOfAuxiliaryStaffFullTimeEquivalent",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -1086,7 +1035,6 @@
         },
         {
           "Name": "School workforce (headcount)",
-          "FieldName": "TotalSchoolWorkforceHeadcount",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,

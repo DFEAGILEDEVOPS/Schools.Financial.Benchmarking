@@ -30,14 +30,14 @@
                 function () {
                     $(".customActions").each(function () {
                         var self = this;
-                        var fieldName = $(self).attr("data-fn");
+                        var chartName = $(self).attr("data-fn");
                         var showValue = $(self).attr("data-sv");
 
                         _.forEach(scope.selectionList.HierarchicalCharts,
                             function (group) {
                                 var selection = _.find(group.Charts,
                                     function (c) {
-                                        return c.FieldName === fieldName;
+                                        return c.Name === chartName;
                                     });
 
                                 if (selection) {
@@ -82,7 +82,7 @@
 
     //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
     //TODO: Can we eliminate need to use FieldName and instead use ChartName here?
-    BenchmarkChartsViewModel.AddRemoveYourCharts = function (fieldName, showValue, checked) {
+    BenchmarkChartsViewModel.AddRemoveYourCharts = function (chartName, showValue, checked) {
         var self = this;
         var scope = angular.element($("#listCtrl")).scope();
         scope.$apply(function () {
@@ -90,7 +90,7 @@
                 function (group) {
                     var selection = _.find(group.Charts,
                         function (c) {
-                            return c.FieldName === fieldName;
+                            return c.Name === chartName;
                         });
 
                     if (selection) {
