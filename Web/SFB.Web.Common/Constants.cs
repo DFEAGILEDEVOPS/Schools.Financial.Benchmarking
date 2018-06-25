@@ -4,6 +4,7 @@
     {
         public const string URN = "URN";
         public const string ESTAB_NAME = "EstablishmentName";
+        public const string ESTAB_NAME_UPPERCASE = "EstablishmentNameUpperCase";
         public const string OVERALL_PHASE = "OverallPhase";
         public const string PHASE_OF_EDUCATION = "PhaseOfEducation";
         public const string TYPE_OF_ESTAB = "TypeOfEstablishment";
@@ -31,6 +32,9 @@
         public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
         public const string LOCATION_TYPE = "type";
         public const string LOCATION_COORDINATES = "coordinates";
+        public const string RELIGIOUS_CHARACTER = "ReligiousCharacter";
+        public const string GENDER = "Gender";
+        public const string MAT_NUMBER = "MATNumber";
     }
 
     public class SchoolTrustFinanceDBFieldNames

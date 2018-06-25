@@ -8,10 +8,10 @@ using RedDog.Search;
 using RedDog.Search.Http;
 using RedDog.Search.Model;
 using SFB.Web.Domain.Models;
+using SFB.Web.Common;
 
 namespace SFB.Web.Domain.Services.Search
 {
-    //TODO: Use constant DB field names here
     public class TrustSearchService : ITrustSearchService
     {
         private readonly string _key;
@@ -33,17 +33,17 @@ namespace SFB.Web.Domain.Services.Search
             Func<SuggestionResultRecord, ExpandoObject> processResult = r =>
             {
                 dynamic retVal = new ExpandoObject();
-                retVal.Id = r.Properties["MATNumber"]?.ToString();
-                retVal.Text = r.Properties["TrustOrCompanyName"] as string;
+                retVal.Id = r.Properties[$"{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}"]?.ToString();
+                retVal.Text = r.Properties[$"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}"] as string;
                 return retVal;
             };
 
             var response = await client.SuggestAsync(_index, new SuggestionQuery(name)
                 .SuggesterName("namesuggest")
                 .Fuzzy(false)
-                .Select("MATNumber")
-                .Select("TrustOrCompanyName")
-                .SearchField("TrustOrCompanyName")
+                .Select($"{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}")
+                .Select($"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}")
+                .SearchField($"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}")
                 .Top(10));
 
             if (!response.IsSuccess)
@@ -65,7 +65,7 @@ namespace SFB.Web.Domain.Services.Search
         {
             if (name.Length > 2)
             {
-                var exactMatches = await ExecuteSearch(_index, $"{name}", "TrustOrCompanyName", null, orderby, skip, take);
+                var exactMatches = await ExecuteSearch(_index, $"{name}", $"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}", null, orderby, skip, take);
 
                 return exactMatches;
             }

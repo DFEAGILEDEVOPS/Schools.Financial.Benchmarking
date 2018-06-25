@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SFB.Web.Common.DataObjects
 {
     //TODO: some of these probably don't need to be decimal. Can be changed to double.
-    //Also we need to decide if these fields can be nullable
+    //Also we need to decide if these fields can be non-nullable
     public class SchoolTrustFinancialDataObject
     {
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.URN)]

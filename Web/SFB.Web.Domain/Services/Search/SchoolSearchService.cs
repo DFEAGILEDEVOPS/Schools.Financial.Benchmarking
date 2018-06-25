@@ -11,10 +11,10 @@ using RedDog.Search.Model;
 using RestSharp;
 using SFB.Web.Domain.Helpers;
 using SFB.Web.Domain.Models;
+using SFB.Web.Common;
 
 namespace SFB.Web.Domain.Services.Search
 {
-    //TODO: Use constant DB field names here
     public class SchoolSearchService : ISchoolSearchService
     {
         private readonly string _key;
@@ -53,10 +53,10 @@ namespace SFB.Web.Domain.Services.Search
             Func<SuggestionResultRecord, ExpandoObject> processResult = r =>
             {
                 dynamic retVal = new ExpandoObject();
-                var postCode = r.Properties["Postcode"] as string;
-                var town = r.Properties["Town"] as string;
-                var schoolName = r.Properties["EstablishmentName"] as string;
-                retVal.Id = r.Properties["URN"]?.ToString();
+                var postCode = r.Properties[$"{EdubaseDBFieldNames.POSTCODE}"] as string;
+                var town = r.Properties[$"{EdubaseDBFieldNames.TOWN}"] as string;
+                var schoolName = r.Properties[$"{EdubaseDBFieldNames.ESTAB_NAME}"] as string;
+                retVal.Id = r.Properties[$"{EdubaseDBFieldNames.URN}"]?.ToString();
 
                 if (!string.IsNullOrWhiteSpace(postCode) && !string.IsNullOrWhiteSpace(town)) // town and postcode
                 {
@@ -75,7 +75,7 @@ namespace SFB.Web.Domain.Services.Search
                 {
                     retVal.Text = schoolName;
                 }
-                if (r.Properties["EstablishmentStatus"].ToString() == "Closed")
+                if (r.Properties[$"{EdubaseDBFieldNames.ESTAB_STATUS}"].ToString() == "Closed")
                 {
                     retVal.Text += " (Closed)";
                 }
@@ -86,11 +86,11 @@ namespace SFB.Web.Domain.Services.Search
             var response = await client.SuggestAsync(_index, new SuggestionQuery(name)
                 .SuggesterName("nameSuggester")
                 .Fuzzy(false)
-                .Select("EstablishmentName")
-                .Select("URN")
-                .Select("Town")
-                .Select("Postcode")
-                .Select("EstablishmentStatus")
+                .Select($"{EdubaseDBFieldNames.ESTAB_NAME}")
+                .Select($"{EdubaseDBFieldNames.URN}")
+                .Select($"{EdubaseDBFieldNames.TOWN}")
+                .Select($"{EdubaseDBFieldNames.POSTCODE}")
+                .Select($"{EdubaseDBFieldNames.ESTAB_STATUS}")
                 //.Filter("EstablishmentStatus eq 'Open'" +
                 //        " and TypeOfEstablishment ne 'Higher Education Institutions'" +
                 //        " and TypeOfEstablishment ne 'LA Nursery School'" +
@@ -116,7 +116,7 @@ namespace SFB.Web.Domain.Services.Search
                 //        " and StatutoryHighAge ne '3'" +
                 //        " and StatutoryHighAge ne '4'" +
                 //        " and StatutoryHighAge ne '5'")//Todo: Remove .Do not filter out nurseries.
-                .SearchField("EstablishmentName")
+                .SearchField($"{EdubaseDBFieldNames.ESTAB_NAME}")
                 .Top(10));
 
             if (!response.IsSuccess)
@@ -139,8 +139,8 @@ namespace SFB.Web.Domain.Services.Search
         {
             if (name.Length > 2)
             {
-                var facets = new[] {"TypeOfEstablishment", "OverallPhase", "ReligiousCharacter", "OfstedRating"};
-                var exactMatches = await ExecuteSearch(_index, $"{name}", "EstablishmentName",
+                var facets = new[] {$"{EdubaseDBFieldNames.TYPE_OF_ESTAB}", $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDBFieldNames.OFSTED_RATING}"};
+                var exactMatches = await ExecuteSearch(_index, $"{name}", $"{EdubaseDBFieldNames.ESTAB_NAME}",
                     ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
                 return exactMatches;
             }
@@ -151,8 +151,8 @@ namespace SFB.Web.Domain.Services.Search
         public async Task<dynamic> SearchSchoolByLaCode(string laCode, int skip, int take, string orderby,
             NameValueCollection queryParams)
         {
-            var facets = new[] { "TypeOfEstablishment", "OverallPhase", "ReligiousCharacter", "OfstedRating" };
-            var exactMatches = await ExecuteSearch(_index, $"{laCode}", "LACode", ConstructApiFilterParams(queryParams),
+            var facets = new[] { $"{EdubaseDBFieldNames.TYPE_OF_ESTAB}", $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDBFieldNames.OFSTED_RATING}" };
+            var exactMatches = await ExecuteSearch(_index, $"{laCode}", $"{EdubaseDBFieldNames.LA_CODE}", ConstructApiFilterParams(queryParams),
                 orderby, skip, take, facets);
 
             return exactMatches;
@@ -182,8 +182,8 @@ namespace SFB.Web.Domain.Services.Search
 
         public async Task<dynamic> SearchSchoolByMatNo(string matNo, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
-            var facets = new[] { "OverallPhase", "OfstedRating", "Gender" };
-            var exactMatches = await ExecuteSearch(_index, $"{matNo}", "MATNumber",
+            var facets = new[] { $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.OFSTED_RATING}", $"{EdubaseDBFieldNames.GENDER}" };
+            var exactMatches = await ExecuteSearch(_index, $"{matNo}", $"{EdubaseDBFieldNames.MAT_NUMBER}",
                 ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
             return exactMatches;
         }
@@ -225,8 +225,8 @@ namespace SFB.Web.Domain.Services.Search
             var connection = ApiConnection.Create(_searchInstance, _key);
             var searchFieldsArray = searchFields.Split(',');
             var orderByField = string.IsNullOrEmpty(orderBy) && searchFieldsArray.Length > 0
-                ? searchFieldsArray[0].Replace("EstablishmentName", "EstablishmentNameUpperCase")
-                : orderBy.Replace("EstablishmentName", "EstablishmentNameUpperCase");
+                ? searchFieldsArray[0].Replace($"{EdubaseDBFieldNames.ESTAB_NAME}", $"{EdubaseDBFieldNames.ESTAB_NAME_UPPERCASE}")
+                : orderBy.Replace($"{EdubaseDBFieldNames.ESTAB_NAME}", $"{EdubaseDBFieldNames.ESTAB_NAME_UPPERCASE}");
 
             var client = new IndexQueryClient(connection);
             var searchQueryModel = new SearchQuery(query);
@@ -275,10 +275,10 @@ namespace SFB.Web.Domain.Services.Search
 
             var response = await client.SearchAsync(index, new SearchQuery(search)
                 .OrderBy(orderByField)
-                .Facet("TypeOfEstablishment")
-                .Facet("OverallPhase")
-                .Facet("ReligiousCharacter")
-                .Facet("OfstedRating")
+                .Facet($"{EdubaseDBFieldNames.TYPE_OF_ESTAB}")
+                .Facet($"{EdubaseDBFieldNames.OVERALL_PHASE}")
+                .Facet($"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}")
+                .Facet($"{EdubaseDBFieldNames.OFSTED_RATING}")
                 .Count(true)
                 .Filter(filterBuilder.ToString())
                 .Skip(skip)
@@ -304,9 +304,9 @@ namespace SFB.Web.Domain.Services.Search
             var calcDistance = results as IDictionary<string, object>[] ?? results.ToArray();
             foreach (var result in calcDistance)
             {
-                if (result.ContainsKey("Location"))
+                if (result.ContainsKey($"{EdubaseDBFieldNames.LOCATION}"))
                 {
-                    dynamic location = result["Location"];
+                    dynamic location = result[$"{EdubaseDBFieldNames.LOCATION}"];
                     if (location != null)
                     {
                         var coordinates = location.coordinates;
@@ -364,32 +364,32 @@ namespace SFB.Web.Domain.Services.Search
             if (parameters["schoollevel"] != null)
             {
                 string[] values = ExtractValues(parameters["schoollevel"]);
-                queryFilter.Add(string.Join(" or ", values.Select(x => "OverallPhase eq '" + x + "'")));
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.OVERALL_PHASE} eq '" + x + "'")));
             }
 
             if (parameters["schooltype"] != null)
             {
                 string[] values = ExtractValues(parameters["schooltype"]);
-                queryFilter.Add(string.Join(" or ", values.Select(x => "TypeOfEstablishment eq '" + x + "'")));
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.TYPE_OF_ESTAB} eq '" + x + "'")));
             }
 
             if (parameters["ofstedrating"] != null)
             {
                 string[] values = ExtractValues(parameters["ofstedrating"]);
                 values = values.Select(x => x == "6" ? "" : x).ToArray();
-                queryFilter.Add(string.Join(" or ", values.Select(x => "OfstedRating eq '" + x + "'")));
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.OFSTED_RATING} eq '" + x + "'")));
             }
 
             if (parameters["faith"] != null)
             {
                 string[] values = ExtractValues(parameters["faith"]);
-                queryFilter.Add(string.Join(" or ", values.Select(x => "ReligiousCharacter eq '" + x + "'")));
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER} eq '" + x + "'")));
             }
 
             if (parameters["gender"] != null)
             {
                 string[] values = ExtractValues(parameters["gender"]);
-                queryFilter.Add(string.Join(" or ", values.Select(x => "Gender eq '" + x + "'")));
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.GENDER} eq '" + x + "'")));
             }
 
             return string.Join(" and ", queryFilter.Select(x => "(" + x + ")"));
