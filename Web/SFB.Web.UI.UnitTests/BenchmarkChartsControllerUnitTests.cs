@@ -64,11 +64,11 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new SchoolTrustFinancialDataObject();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 321;
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(321)).Returns((int urn) => testEduResult);
 
-            dynamic testEduHomeResult = new SchoolTrustFinancialDataObject();
+            var testEduHomeResult = new EdubaseDataObject();
             testEduHomeResult.URN = 123;
             testEduHomeResult.EstablishmentName = "test";
             testEduHomeResult.FinanceType = "Academies";
@@ -136,12 +136,12 @@ namespace SFB.Web.UI.UnitTests
             });
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new SchoolTrustFinancialDataObject();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 321;
             testEduResult.EstablishmentName = "test";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(321)).Returns((int urn) => testEduResult);
 
-            dynamic testEduHomeResult = new SchoolTrustFinancialDataObject();
+            var testEduHomeResult = new EdubaseDataObject();
             testEduHomeResult.URN = 123;
             testEduHomeResult.EstablishmentName = "test";
             testEduHomeResult.FinanceType = "Academies";

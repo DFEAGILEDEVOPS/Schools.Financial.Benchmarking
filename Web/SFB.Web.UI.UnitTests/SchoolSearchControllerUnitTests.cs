@@ -15,10 +15,10 @@ using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Services;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
 {
-    //TODO: Check if these tests can be rewritten without referring to Microsoft.Azure.DocumentDb
     public class SchoolSearchControllerUnitTests
     {        
         private Mock<HttpRequestBase> _request;
@@ -199,7 +199,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfUrnIsUsedAsId()
         {            
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
+            var testResult = new EdubaseDataObject();
             testResult.URN = 123456;
 
             _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123456)).Returns((int urn) => testResult);
@@ -212,14 +212,14 @@ namespace SFB.Web.UI.UnitTests
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
-            Assert.AreEqual("123456", (result as RedirectToRouteResult).RouteValues["urn"]);
+            Assert.AreEqual(123456, (result as RedirectToRouteResult).RouteValues["urn"]);
         }
 
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfLaEstabIsUsedAsId()
         {
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "1234567";
+            var testResult = new EdubaseDataObject();
+            testResult.URN = 1234567;
 
             _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
                        
@@ -239,8 +239,8 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfLaEstabWithDashIsUsedAsId()
         {
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "1234567";
+            var testResult = new EdubaseDataObject();
+            testResult.URN = 1234567;
 
             _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
 
@@ -260,8 +260,8 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfLaEstabWithSlashIsUsedAsId()
         {
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "1234567";
+            var testResult = new EdubaseDataObject();
+            testResult.URN = 1234567;
 
             _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
 

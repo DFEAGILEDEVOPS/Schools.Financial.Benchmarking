@@ -62,8 +62,8 @@ namespace SFB.Web.UI.UnitTests
                 .Returns(2015);
 
             var _mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new SchoolTrustFinancialDataObject();
-            testEduResult.URN = "100";
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 100;
             testEduResult.EstablishmentName = "test";
             _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(100)).Returns((string urn) => testEduResult);
 
