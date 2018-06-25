@@ -44,9 +44,9 @@ namespace SFB.Web.UI.Services
                 return null;
             }
 
-            return (Decimal?) typeof(SchoolTrustFinancialDataObject).GetProperties()
-                .First(p => (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).First() as JsonPropertyAttribute).PropertyName == chartFieldName)
-                .GetValue(dataObject);
+            return (Decimal?)typeof(SchoolTrustFinancialDataObject).GetProperties()
+                    .First(p => (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).First() as JsonPropertyAttribute).PropertyName == chartFieldName)
+                    .GetValue(dataObject);
         }
 
         private void BuildChart(List<FinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,

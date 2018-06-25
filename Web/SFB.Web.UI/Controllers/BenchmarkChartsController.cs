@@ -375,7 +375,6 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Chart", benchmarkCharts);
         }
 
-        //TODO : Fix download
         public async Task<ActionResult> Download(EstablishmentType type)
         {
             List<ChartViewModel> benchmarkCharts;
