@@ -73,7 +73,9 @@ namespace SFB.Web.DAL.Repositories
             {
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
-                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}");
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
                 }
                 return null;
             }
@@ -104,7 +106,9 @@ namespace SFB.Web.DAL.Repositories
             {
                 if(ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
-                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}");
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
                 }
                 return null;
             }
@@ -133,7 +137,9 @@ namespace SFB.Web.DAL.Repositories
             {
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
-                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}");
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
                 }
                 return null;
             }
@@ -189,7 +195,9 @@ namespace SFB.Web.DAL.Repositories
             {
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
-                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}");
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
                 }
                 return null;
             }
@@ -231,7 +239,9 @@ namespace SFB.Web.DAL.Repositories
             {
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
-                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}");
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
                 }
                 return null;
             }
@@ -336,7 +346,9 @@ namespace SFB.Web.DAL.Repositories
             {
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
-                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {query}");
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {query}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
                 }
                 return null;
             }
@@ -368,7 +380,9 @@ namespace SFB.Web.DAL.Repositories
             {
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
-                    Debug.WriteLine($"{collectionName} could not be loaded! : {ex.Message} : {query}");
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {query}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
                 }
                 return null;
             }

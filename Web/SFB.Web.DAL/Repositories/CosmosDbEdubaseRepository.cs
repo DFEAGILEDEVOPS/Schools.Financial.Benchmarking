@@ -8,6 +8,7 @@ using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Common.DataObjects;
+using System.Diagnostics;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -96,7 +97,20 @@ namespace SFB.Web.DAL.Repositories
                 querySpec.Parameters.Add(new SqlParameter($"@{field.Key}", field.Value));
             }
 
-            var result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+            EdubaseDataObject result;
+            try
+            {
+                result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+            }catch(Exception ex)
+            {
+                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
+                {
+                    var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                }
+                return null;
+            }
             return result;
         }
 
@@ -108,7 +122,21 @@ namespace SFB.Web.DAL.Repositories
             var query = $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.TYPE_OF_ESTAB}'], " +
                 $"c['{EdubaseDBFieldNames.STREET}'], c['{EdubaseDBFieldNames.TOWN}'], c['{EdubaseDBFieldNames.POSTCODE}'], udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE}" +
                 $" FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd((','))})";
-            var result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
+
+            List<EdubaseDataObject> result = null;
+            try
+            {
+                result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
+            }catch(Exception ex)
+            {
+                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
+                {
+                    var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : URNs = {sb.ToString()}";
+                    Debug.WriteLine(errorMessage);
+                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                }
+                return null;
+            }
             return result;
         }
 

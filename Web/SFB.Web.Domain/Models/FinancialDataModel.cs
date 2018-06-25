@@ -32,7 +32,7 @@ namespace SFB.Web.Domain.Models
             {
                 try
                 {
-                    if (FinancialDataObjectModel != null)
+                    if (FinancialDataObjectModel != null && FinancialDataObjectModel.NoPupils != null)
                     {
                         return FinancialDataObjectModel.NoPupils;
                     }
@@ -70,9 +70,8 @@ namespace SFB.Web.Domain.Models
             {
                 try
                 {
-                    if (FinancialDataObjectModel != null)
+                    if (FinancialDataObjectModel != null && FinancialDataObjectModel.NoTeachers != null)
                     {
-
                         return FinancialDataObjectModel.NoTeachers;
                     }
                     return 0;
