@@ -62,7 +62,7 @@ else
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
                 @if (!Model.HistoricalFinancialDataModels.Last().IsSAT)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{1}</a>", Model.HistoricalFinancialDataModels.Last().MatNo, Model.TrustName)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{2}</a>", Model.HistoricalFinancialDataModels.Last().MatNo, Server.UrlEncode(Model.TrustName), Model.TrustName)
                 }
                 @DataSourcesField()
 
