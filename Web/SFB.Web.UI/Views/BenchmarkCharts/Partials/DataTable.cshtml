@@ -10,8 +10,24 @@
         @foreach (var column in Model.TableColumns)
         {
             <th>
-                @column.Name<div class="sort-icon"></div>
+                <span>@column.Name</span>
+                
+                <div class="sort-icon"></div>
             </th>
+
+            if (column.HelpTooltip != null)
+            {
+                <td>
+                    <span class="help-icon help-chart hide-in-print">
+                        <span class="icon dark-blue">
+                            <a href="#" class="js-modal" data-modal-title="@column.Name" data-modal-text="@column.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                <span class="visuallyhidden">Open help text for @column.Name opens a popup</span>
+                            </a>
+                        </span>
+                    </span>
+                </td>
+            }
+
         }
     </tr>
     </thead>
@@ -59,6 +75,10 @@
                     {
                         <td class="numeric">Not applicable</td>
                     }
+                }
+                if (column.HelpTooltip != null)
+                {
+                    <td></td>
                 }
             }
         </tr>
