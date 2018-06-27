@@ -48,6 +48,12 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
+        [HttpGet]
+        public ActionResult GenerateFromSimpleCriteria()
+        {
+            return new RedirectResult("/Errors/InvalidRequest");
+        }
+
         [HttpPost]
         public async Task<ActionResult> GenerateFromSimpleCriteria(int urn, int basketSize, EstablishmentType estType, SimpleCriteria simpleCriteria)
         {
@@ -107,6 +113,11 @@ namespace SFB.Web.UI.Controllers
             return await GenerateFromAdvancedCriteria(usedCriteria, searchedEstabType, laCode, urn, areaType);
         }
 
+        [HttpGet]
+        public ActionResult GenerateFromAdvancedCriteria()
+        {
+            return new RedirectResult("/Errors/InvalidRequest");
+        }
 
         [HttpPost]
         public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int urn, ComparisonArea areaType, BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite)

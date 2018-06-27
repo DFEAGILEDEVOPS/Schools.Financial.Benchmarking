@@ -18,6 +18,11 @@ namespace SFB.Web.UI.Controllers
             return View();
         }
 
+        public ActionResult InvalidRequest()
+        {
+            return View();
+        }
+
         public ActionResult InternalServerError()
         {
             return View();
