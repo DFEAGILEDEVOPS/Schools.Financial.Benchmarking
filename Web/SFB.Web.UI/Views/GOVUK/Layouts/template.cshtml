@@ -53,35 +53,6 @@
 
     <link href="@(ViewBag.assetsPath)/stylesheets/govuk-template-print.css?0.12.0" media="print" rel="stylesheet" type="text/css"/>
 
-    <!--[if IE 8]>
-        <script type="text/javascript">
-            (function() {
-                if (window.opera) {
-                    return;
-                }
-                setTimeout(function() {
-                    var a = document,
-                        g,
-                        b = {
-                            families: (g = ["nta"]),
-                            urls: ["@(ViewBag.assetsPath)/stylesheets/fonts-ie8.css?0.12.0"]
-                        },
-                        c = "@(ViewBag.assetsPath)/javascripts/vendor/goog/webfont-debug.js?0.12.0",
-                            d = "script",
-                            e = a.createElement(d),
-                            f = a.getElementsByTagName(d)[0],
-                            h = g.length;
-                        WebFontConfig = { custom: b }, e.src = c, f.parentNode.insertBefore(e, f);
-                        for (;
-                            h = h - 1;
-                            a.documentElement.className += ' wf-' +
-                                g[h].replace(/\s/g, '').toLowerCase() +
-                                '-n4-loading');
-                    },
-                    0);
-            })()
-        </script>
-    <![endif]-->
     <!--[if gte IE 9]><!-->
     <link href="@(ViewBag.assetsPath)/stylesheets/fonts.css?0.12.0" media="all" rel="stylesheet" type="text/css"/>
     <!--<![endif]-->
