@@ -1319,6 +1319,7 @@ namespace SFB.Web.UI.Helpers
                                     <li>other income (local authority and other government grants)</li>
                                     <li>government source (non-grant)</li>
                                 </ul>",
+                    HelpTooltip = HelpTooltipText.DirectGrantsHelp,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -1405,6 +1406,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>community-focused school funding and/or grants</li>
                                 <li>additional grant for schools</li>
                                 </ul>",
+                    HelpTooltip = HelpTooltipText.CommunityGrantsHelp,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -1481,6 +1483,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>SEN</li>
                                 <li>funding for minority ethnic pupils</li>
                                 </ul>",
+                    HelpTooltip = HelpTooltipText.TargetedGrantsHelp,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
