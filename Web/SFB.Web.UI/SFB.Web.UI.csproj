@@ -348,6 +348,7 @@
     <Content Include="public\assets\images\dfe-small.png" />
     <Content Include="public\assets\images\dfe-xsmall.png" />
     <Content Include="public\assets\images\dfe.png" />
+    <Content Include="public\assets\images\favicon.ico" />
     <Content Include="public\assets\images\grid-rating.png" />
     <Content Include="public\assets\images\help-icon-2x.png" />
     <Content Include="public\assets\images\help-icon.png" />
