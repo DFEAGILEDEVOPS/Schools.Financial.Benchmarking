@@ -87,11 +87,15 @@ namespace SFB.Web.UI.Controllers
 
             return await Index(urn, simpleCriteria, benchmarkCriteria, basketSize, benchmarkSchool.LatestYearFinancialData, estType, ComparisonType.Basic);
         }
-
-        //TODO: test this
-        //[HttpPost]
+        
+        [HttpGet]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
+            if(this.Request.UrlReferrer == null)
+            {
+                return new RedirectResult("/Errors/InvalidRequest");
+            }
+
             var urn = (int)TempData["URN"];
             var usedCriteria = TempData["BenchmarkCriteria"] as BenchmarkCriteria;
             var searchedEstabType = EstablishmentType.All;
