@@ -332,6 +332,7 @@
     <Content Include="Assets\Scripts\Views\school-results.js" />
     <Content Include="Assets\Scripts\Views\schools-search.js" />
     <Content Include="Assets\Scripts\Views\trust-compare.js" />
+    <Content Include="browserconfig.xml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
