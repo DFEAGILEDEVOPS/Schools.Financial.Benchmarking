@@ -6,6 +6,7 @@ end
 Then(/^I should be able to view a summary of the school$/) do
   expected = school_details_page.expected_summary_details_from(@urn).values.sort
   actual = school_details_page.details.map{|detail| detail.text}.reject(&:empty?).sort
+  binding.pry
   expected.map{|a| a.gsub(' ', '')}.each {|value| expect(actual.map{|a| a.gsub(' ', '')}).to include value}
 end
 

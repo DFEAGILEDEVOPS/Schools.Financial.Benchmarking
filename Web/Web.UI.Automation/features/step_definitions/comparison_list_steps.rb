@@ -23,7 +23,7 @@ And(/^I am on the school details page$/) do
 end
 
 Then(/^I should see a count of (\d+) schools that are in the comparison list$/) do |number|
-  expect(school_details_page.comparison_panel.count.text.scan(/\d+/).first).to eql number
+  expect(school_details_page.comparison_panel.count.text.scan(/\d+/).first).to eql number.to_s
 end
 
 Then(/^I should have the option to set the school as my home school$/) do
@@ -90,6 +90,7 @@ end
 
 And(/^I choose to remove my home school from the benchmark list$/) do
   benchmark_list_page.list.find{|school| school.has_home_school?(wait: 1)}.remove_from_benchmark_list.click
+  sleep 2
 end
 
 Then(/^I should not see my home school in the benchmark list$/) do
@@ -110,7 +111,7 @@ Then(/^I should not have a home school set on home page or charts page$/) do
 end
 
 Then(/^I should see that per pupil is selected by default$/) do
-  expect(benchmark_charts_page.charts.show_value.value).to eql 'PerPupil'
+  expect(benchmark_charts_page.charts.show_value.value).to eql 'AbsoluteMoney'
 end
 
 Then(/^I should see all the charts$/) do
@@ -140,7 +141,8 @@ Then(/^I should see a (.+) chart$/) do |title_text|
 end
 
 Then(/^I should all children charts grouped$/) do
-  actual = benchmark_charts_page.charts.container.map{|con| con.details.map{|a| a}}.map{|v| v.first.chart_title.first.text unless v.empty?}.compact.size
+  charts = benchmark_charts_page.charts.container.reject {|chart| chart.chart_title.first.text == 'Staff total'}
+  actual = charts.size
   expected = benchmark_charts_page.chart_groups[@tab.to_sym]['Staff'.downcase.to_sym] - 1 #minus 1 for Staff total chart
   expect(actual).to eql expected
 end

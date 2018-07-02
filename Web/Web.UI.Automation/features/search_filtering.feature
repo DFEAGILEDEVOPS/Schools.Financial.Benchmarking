@@ -3,7 +3,7 @@ Feature:
   So that I can add schools that my criteria to the comparison list
 
   Scenario Outline: Users can sort their results alphabetically when searching by name
-    Given I have searched for Bedford via name
+    Given I have searched for Bedford via location
     When I choose to sort my search results from <sort>
     Then I should see the results are sorted <sort>
 
@@ -14,7 +14,7 @@ Feature:
 
   @wip
   Scenario Outline: Users can filter results by School level
-    Given I have searched for London via name
+    Given I have searched for London via location
     When I choose to filter my results by the <level> school_level
     Then I should see filtered schools that are school level <level> only
 

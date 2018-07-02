@@ -31,7 +31,7 @@ class BenchmarkChartsPage < SitePrism::Page
          self_generated: 8
      },
      balance: {
-         in_year_balance: 1
+         in_year_balance: 2
      }
     }
   end
