@@ -147,22 +147,9 @@ namespace SFB.Web.DAL.Repositories
 
         public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance)
         {
-            string dataGroupType = null;
+            var dataGroup = EstablishmentType.MAT.ToDataGroup(matFinance);
 
-            switch (matFinance)
-            {
-                case MatFinancingType.TrustOnly:
-                    dataGroupType = DataGroups.MATCentral;
-                    break;
-                case MatFinancingType.TrustAndAcademies:
-                    dataGroupType = DataGroups.MATOverview;
-                    break;
-                case MatFinancingType.AcademiesOnly:
-                    dataGroupType = DataGroups.MATTotals;
-                    break;
-            }
-
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroupType);
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
             if (collectionName == null)
             {
@@ -205,21 +192,9 @@ namespace SFB.Web.DAL.Repositories
 
         public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(string matNo, string term, MatFinancingType matFinance)
         {
-            string matFinanceType = null;
-            switch (matFinance)
-            {
-                case MatFinancingType.TrustOnly:
-                    matFinanceType = DataGroups.MATCentral;
-                    break;
-                case MatFinancingType.TrustAndAcademies:
-                    matFinanceType = DataGroups.MATOverview;
-                    break;
-                case MatFinancingType.AcademiesOnly:
-                    matFinanceType = DataGroups.MATTotals;
-                    break;
-            }
+            var dataGroup = EstablishmentType.MAT.ToDataGroup(matFinance);
 
-            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, matFinanceType);
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
             var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']='{matNo}'";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
