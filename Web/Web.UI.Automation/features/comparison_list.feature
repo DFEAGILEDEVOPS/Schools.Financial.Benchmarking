@@ -63,7 +63,7 @@ Feature:
     Then I should see my home school change to my new choice of school
 
   Scenario: Home school can be removed from the benchmark list
-    Given I have set the school with the URN 102976 as my home school
+    Given I have set the school with the URN 102985 as my home school
     And I have added 1 schools to the comparison
     When I choose to edit my benchmark list
     And I choose to remove my home school from the benchmark list

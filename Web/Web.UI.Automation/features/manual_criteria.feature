@@ -46,17 +46,17 @@ Feature:
     Then I should be taken to step one of the criteria process
 
   Scenario: Users can choose to include schools in the comparison from step one
-    Given I am on step one of the criteria process using school 130597
+    Given I am on step one of the criteria process using school 102980
     When I choose maintained_schools for comparison
     Then I should be taken to step two of the criteria process
 
   Scenario: Users can choose to include academies in the comparison from step one
-    Given I am on step one of the criteria process using school 130597
+    Given I am on step one of the criteria process using school 102980
     When I choose academies for comparison
     Then I should be taken to step two of the criteria process
 
   Scenario: Users can choose to include all establishments in the comparison from step one
-    Given I am on step one of the criteria process using school 130597
+    Given I am on step one of the criteria process using school 102980
     When I choose all_schools for comparison
     Then I should be taken to step two of the criteria process
 
@@ -66,29 +66,29 @@ Feature:
     Then I should see school 131222 as my baseline comparison
 
   Scenario: User is displayed a list of characteristicss
-    Given I have chosen all_schools to be my comparison using school 130597
+    Given I have chosen all_schools to be my comparison using school 102980
     Then I should see a list of characteristics
 
   Scenario: Characteristics can be added
-    Given I have chosen all_schools to be my comparison using school 130597
+    Given I have chosen all_schools to be my comparison using school 104988
     Then I should be able to add Gender of pupils as my characteristic
 
   Scenario: Characteristics can be removed
-    Given I have added the Gender of school pupils characteristic
-    When I decide to remove the Gender of school pupils characteristic
-    Then I should not see Gender of school pupils selected on the page
+    Given I have added the Gender of pupils characteristic
+    When I decide to remove the Gender of pupils characteristic
+    Then I should not see Gender of pupils selected on the page
 
   Scenario: Characteristic values can be added
-    Given I have added the Gender of school pupils characteristic
+    Given I have added the Gender of pupils characteristic
     Then I should be able to select the gender as mixed
 
   Scenario: Baseline school has a value against the characterisitic
-    Given I have added the Gender of school pupils characteristic
+    Given I have added the Gender of pupils characteristic
     Then I should see a benchmark value for my baseline school
 
   @manual
   Scenario: Characteristic cannot be added twice
-    Given I have added the Gender of school pupils characteristic
+    Given I have added the Gender of pupils characteristic
     Then I should not be able to add Gender of pupils as another characteristic
 
   Scenario: Users can perform a search using the criteria selected using a new basket
@@ -125,7 +125,7 @@ Feature:
     Then I should see search is disabled
 
   Scenario: Live counter is displayed with number of schools matching criteria
-    Given I have added the Gender of school pupils characteristic for school 138384
+    Given I have added the Gender of school pupils characteristic for school 104991
     Then I should see a live counter
 
   Scenario: No count is displayed when no schools match the criteria
@@ -133,16 +133,16 @@ Feature:
     Then I should not see a live counter
 
   Scenario: Users can clear all characteristics using the info panel
-    Given I have added the Gender of school pupils characteristic
+    Given I have added the Gender of pupils characteristic
     When I want to clear all characteristics using the info panel
     Then all characteristics should be cleared
 
   Scenario: Users can view the benchmark charts from the info panel
-    Given I have added the Gender of school pupils characteristic
+    Given I have added the Gender of pupils characteristic
     Then I should be able to view the benchmark charts
 
   Scenario: Pop up is displayed when user wants to view charts and school count is over the limit
-    Given I have added the Gender of school pupils characteristic for school 138384
+    Given I have added the Gender of school pupils characteristic for school 104993
     But my school count is over the limit
     When I want to view the charts
     Then I should see a pop up with the school count

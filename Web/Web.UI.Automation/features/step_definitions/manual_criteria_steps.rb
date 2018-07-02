@@ -60,30 +60,34 @@ Then(/^I should see a list of characteristics$/) do
 end
 
 When(/^I should be able to add (.+) as my characteristic$/) do |value|
-  # @value = value
-  characteristics_page.characteristics.gender_of_pupils.last.checkbox.trigger('click')
-  characteristics_page.characteristics.gender_of_pupils.first.panel.boys.click
+  characteristics_page.open_all_characteristics.click
+  gender = characteristics_page.characteristics.find{|charactistic| charactistic.text == value}
+  gender.click
+  find('input[value="Boys"]').click
+  expect(characteristics_page).to have_view_comparison_charts
 end
 
-Given(/^I have added the Gender of school pupils characteristic$/) do
+Given(/^I have added the Gender of pupils characteristic$/) do
   step "I have chosen all_schools to be my comparison using school 102901"
   step "I should be able to add Gender of pupils as my characteristic"
 end
 
-When(/^I decide to remove the Gender of school pupils characteristic$/) do
-  characteristics_page.characteristics.gender_of_pupils.last.checkbox.click
+When(/^I decide to remove the (.+) characteristic$/) do |value|
+  gender = characteristics_page.characteristics.find{|charactistic| charactistic.text == value}
+  gender.click
 end
 
-Then(/^I should not see Gender of school pupils selected on the page$/) do
-  expect(characteristics_page.characteristics.gender_of_pupils.first.panel).to_not be_visible
+Then(/^I should not see Gender of pupils selected on the page$/) do
+  expect(find('input[value="Boys"]')).to_not be_visible
 end
 
 Then(/^I should be able to select the gender as mixed$/) do
-  characteristics_page.characteristics.gender_of_pupils.first.panel.mixed.click
+  find('input[value="Mixed"]').click
+  expect(characteristics_page).to have_view_comparison_charts
 end
 
 Then(/^I should see a benchmark value for my baseline school$/) do
-  expect(characteristics_page.characteristics.gender_of_pupils.first.panel.benchmark_school_value.text).to eql 'Your default school\'s value is Mixed'
+  find('.benchmark-school-value', text: 'The value for Trafalgar Infant School is Mixed')
 end
 
 Then(/^I should not be able to add (.+) as another characteristic$/) do |value|
@@ -134,18 +138,20 @@ When(/^I enter a custom basket size of more than (\d+)$/) do |number|
 end
 
 Then(/^I should see a live counter$/) do
-  wait_for_ajax
-  expect(characteristics_page.info_panel.live_count.text).to eql '209'
+  Timeout.timeout(3){sleep 0.5 until characteristics_page.info_panel.live_count.text.include? 'found'}
+  expect(characteristics_page.info_panel.live_count.text).to eql '211 schools found'
 end
 
 Given(/^I have added critera that does not match any schools$/) do
-  step "I have added the Gender of school pupils characteristic"
-  characteristics_page.characteristics.admission_policy.last.checkbox.click
-  characteristics_page.characteristics.admission_policy.first.panel.non_selective.click
+  step "I have added the Gender of pupils characteristic"
+  admission = characteristics_page.characteristics.find{|charactistic| charactistic.text == 'Admissions policy'}
+  admission.click
+  find('input[value="Non-selective"]').click
 end
 
 Then(/^I should not see a live counter$/) do
-  expect(characteristics_page.info_panel.live_count.text).to eql '0'
+  Timeout.timeout(3){sleep 0.5 until characteristics_page.info_panel.live_count.text.include? 'found'}
+  expect(characteristics_page.info_panel.live_count.text).to eql '0 schools found'
 end
 
 When(/^I want to clear all characteristics using the info panel$/) do
@@ -153,7 +159,7 @@ When(/^I want to clear all characteristics using the info panel$/) do
 end
 
 Then(/^all characteristics should be cleared$/) do
-  expect(characteristics_page.characteristics.gender_of_pupils.first.panel).to_not be_visible
+  expect(find('input[value="Boys"]')).to_not be_visible
 end
 
 Then(/^I should be able to view the benchmark charts$/) do
@@ -166,7 +172,7 @@ end
 
 Then(/^I should see a pop up with the school count$/) do
   characteristics_page.wait_for_pop_up
-  expect(characteristics_page.pop_up.title.text).to include '209 matches found'
+  expect(characteristics_page.pop_up.title.text).to include '211 matches found'
 end
 
 And(/^a message that states I should refine the search$/) do
@@ -180,8 +186,9 @@ When(/^I close the pop up$/) do
 end
 
 Given(/^the pop up is visible$/) do
-  step "I have added the Gender of school pupils characteristic"
+  step "I have added the Gender of pupils characteristic"
   wait_for_ajax
+  sleep 3
   characteristics_page.view_comparison_charts.click
 end
 
@@ -190,7 +197,7 @@ And(/^I should not see the pop up$/) do
 end
 
 But(/^my school count is over the limit$/) do
-  wait_for_ajax
+  Timeout.timeout(4){sleep 0.5 until characteristics_page.info_panel.live_count.text.include? 'found'}
   expect(characteristics_page.info_panel.live_count.text.to_i).to be > 30
 end
 
@@ -204,8 +211,9 @@ Given(/^I have selected my criteria$/) do
   criteria_step_two_page.all_of_england.click
   criteria_step_two_page.next.click
   step "I should be able to add Gender of pupils as my characteristic"
-  characteristics_page.characteristics.admission_policy.last.checkbox.click
-  characteristics_page.characteristics.admission_policy.first.panel.modern.click
+  admission = characteristics_page.characteristics.find{|charactistic| charactistic.text == 'Admissions policy'}
+  admission.click
+  find('input[value="Modern"]').click
 end
 
 And(/^I am within the limit of schools$/) do
@@ -222,7 +230,7 @@ When(/^I perform the search using a (.+)$/) do |basket_type|
 end
 
 Then(/^I should be taken to the charts page$/) do
-  expect(benchmark_charts_page).to be_displayed
+  expect(current_url).to include benchmark_charts_page.url
 end
 
 Given(/^I have added the Gender of school pupils characteristic for school (\d+)$/) do |urn|
@@ -238,9 +246,7 @@ end
 
 Then(/^I should be able to view my chosen characteristics$/) do
   expect(benchmark_charts_page.edit_characteristics.rows.
-      map { |row| row.values.map { |value| value.text } }.flatten).to eql ["School type", "Maintained",
-                                                                           "All", "Area", "Sutton", "All England", "Gender of pupils",
-                                                                           "Mixed", "Boys", "Admissions policy", "N/A", "Modern"]
+      map { |row| row.values.map { |value| value.text } }.flatten).to eql ["Finance type", "Maintained", "All", "Area", "Sutton", "All England", "Gender of pupils", "Mixed", "Boys", "Admissions policy", "", "Modern"]
 end
 
 Then(/^I should be able to edit characteristics$/) do
@@ -266,7 +272,8 @@ Given(/^I have to updated my characteristics$/) do
   step 'I perform the search'
   benchmark_charts_page.edit_characteristics.summary.click
   benchmark_charts_page.edit_characteristics.edit.click
-  characteristics_page.characteristics.admission_policy.first.panel.non_selective.click
+  characteristics_page.open_all_characteristics.click
+  find('input[value="Non-selective"]').click
   wait_for_ajax
   characteristics_page.view_comparison_charts.click
   basket_page.next.click
@@ -275,7 +282,5 @@ end
 
 Then(/^I should see my updated choices on the benchmark charts page$/) do
   expect(benchmark_charts_page.edit_characteristics.rows.
-      map { |row| row.values.map { |value| value.text } }.flatten).to eql ["School type", "Maintained",
-                                                                           "All", "Area", "Sutton", "All England", "Gender of pupils",
-                                                                           "Mixed", "Boys", "Admissions policy", "N/A", "Modern, Non-selective"]
+      map { |row| row.values.map { |value| value.text } }.flatten).to eql ["Finance type", "Maintained", "All", "Area", "Sutton", "All England", "Gender of pupils", "Mixed", "Boys", "Admissions policy", "", "Modern, Non-selective"]
 end

@@ -1,3 +1,4 @@
+@wip
 Feature:
   As a user,
   I would like to see a summary of a particular school
