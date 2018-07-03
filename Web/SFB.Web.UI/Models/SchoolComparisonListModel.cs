@@ -60,6 +60,12 @@ namespace SFB.Web.UI.Models
         [JsonIgnore]
         public string Phase;
 
+        [JsonIgnore]
+        public bool IsReturnsComplete;
+
+        [JsonIgnore]
+        public bool WorkforceDataPresent;
+
         public bool Equals(BenchmarkSchoolModel other)
         {
             return this.Urn == other.Urn;
