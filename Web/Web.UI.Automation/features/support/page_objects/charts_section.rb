@@ -5,11 +5,11 @@ class Charts < SitePrism::Section
   element :show_year, '#Year'
 
   sections :container, '.chartContainer' do
-    elements :chart_title, 'h3.heading-medium'
+    elements :chart_title, '.heading-medium'
     element :school, '.b-school-link'
     element :balance, '.desktop .lastYearBalance'
-    sections :details, 'details' do
-      elements :chart_title, 'h3.heading-medium.chart-accordion-header'
+    sections :details, '.column-full.no-padding' do
+      elements :chart_title, '.heading-medium.chart-accordion-header'
       elements :school, '.b-school-link'
     end
   end

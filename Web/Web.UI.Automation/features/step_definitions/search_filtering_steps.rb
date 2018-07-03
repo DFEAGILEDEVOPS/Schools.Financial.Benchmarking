@@ -1,29 +1,27 @@
-Given(/^I have searched for (.+) via name$/) do |search_term|
-  step "I want to search for a school via name"
-  home_page.search_by.name_field.set search_term
-  home_page.search_by.name_search.click
+Given(/^I have searched for (.+) via location$/) do |search_term|
+  step "I want to search for a school via location"
+  home_page.search_by.location_field.set search_term
+  home_page.search_by.location_search.click
   expect(search_results_page).to be_displayed
 end
 
 When(/^I choose to sort my search results from (.+)$/) do |sort|
   search_results_page.search_results.results.order_by.select "alphabetical #{sort}"
-  @first_school_before_sorting = search_results_page.search_results.results.result_set.schools.first.school_link.text
 end
 
 Then(/^I should see the results are sorted (.+)$/) do |sort|
-  wait_for_ajax
+  sleep 3
   school_after_sorting = search_results_page.search_results.results.result_set.schools.first.school_link.text
   if sort == 'a - z'
-    expect(school_after_sorting[0]).to eql @first_school_before_sorting[0]
+    expect(school_after_sorting[0]).to eql 'A'
   else
-    expect(school_after_sorting[0]).to eql 'T'
+    expect(school_after_sorting[0]).to eql 'W'
   end
 end
 
 When(/^I choose to filter my results by the (.+) (school_level|ofsted_rating|school_type|religious_character)$/) do |option,filter|
-  filter = search_results_page.search_results.results.filters.send(filter)
-  filter.click unless search_results_page.search_results.results.filters.send("has_#{option}?")
-  search_results_page.search_results.results.filters.send(option).trigger('click')
+  search_results_page.search_results.results.filters.send(filter + '_closed').click if search_results_page.search_results.results.filters.send("has_#{filter}_closed?")
+  search_results_page.search_results.results.filters.send(option).click
   search_results_page.search_results.results.filters.wait_for_selected_counter
 end
 

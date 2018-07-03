@@ -104,7 +104,7 @@ When(/^I search for a valid maintained school id code using laestab like (\d+)$/
 end
 
 Then(/^I should be taken to details page for the school with the laestab (\d+)$/) do |laestab|
-  expect(school_details_page.details.map { |detail| detail.text.gsub(' ', '')}).to include laestab
+  expect(school_details_page.details.map { |detail| detail.text.gsub(' ', '')}).to include laestab.to_s
 end
 
 Given(/^I want to search for a trust via name$/) do
