@@ -42,7 +42,7 @@ namespace SFB.Web.UI.Models
 
         public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == ContextDataModel.URN.ToString();
 
-        public string Id => ContextDataModel.URN.ToString();
+        public int Id => ContextDataModel.URN;
 
         public string LaEstab => $"{ContextDataModel.LACode} {ContextDataModel.EstablishmentNumber}";
 

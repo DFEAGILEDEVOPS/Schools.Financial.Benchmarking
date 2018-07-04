@@ -255,7 +255,7 @@ namespace SFB.Web.UI.Controllers
                 new BenchmarkSchoolModel()
                 {
                     Name = benchmarkSchool.Name,
-                    Urn = benchmarkSchool.Id,
+                    Urn = benchmarkSchool.Id.ToString(),
                     Type = benchmarkSchool.Type,
                     EstabType = benchmarkSchool.EstablishmentType.ToString()
                 });                      

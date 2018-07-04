@@ -48,7 +48,7 @@ namespace SFB.Web.UI.Controllers
             new BenchmarkSchoolModel()
             {
                 Name = benchmarkSchool.Name,
-                Urn = benchmarkSchool.Id,
+                Urn = benchmarkSchool.Id.ToString(),
                 Type = benchmarkSchool.Type,
                 EstabType = benchmarkSchool.EstablishmentType.ToString()
             });
@@ -160,7 +160,7 @@ namespace SFB.Web.UI.Controllers
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-            //var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstablishmentType);
+
             var schoolFinancialDataObject = _financialDataService.GetSchoolFinancialDataObject(urn, term, benchmarkSchool.EstablishmentType);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn.ToString(), term, schoolFinancialDataObject, benchmarkSchool.EstablishmentType) };
 

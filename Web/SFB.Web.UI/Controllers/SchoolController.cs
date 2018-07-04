@@ -115,7 +115,7 @@ namespace SFB.Web.UI.Controllers
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
-                        Urn = benchmarkSchool.Id,
+                        Urn = benchmarkSchool.Id.ToString(),
                         Type = benchmarkSchool.Type,
                         EstabType = benchmarkSchool.EstablishmentType.ToString()
                     });
@@ -139,7 +139,7 @@ namespace SFB.Web.UI.Controllers
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
-                        Urn = benchmarkSchool.Id,
+                        Urn = benchmarkSchool.Id.ToString(),
                         Type = benchmarkSchool.Type,
                         EstabType = benchmarkSchool.EstablishmentType.ToString()
                     });
@@ -203,7 +203,7 @@ namespace SFB.Web.UI.Controllers
 
             cFinance = revenueGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : cFinance;//Remove this rule after WF data is distributed
 
-            schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(Int32.Parse(schoolVM.Id), schoolVM.EstablishmentType, cFinance);
+            schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(schoolVM.Id, schoolVM.EstablishmentType, cFinance);
 
             schoolVM.TotalRevenueIncome = schoolVM.HistoricalFinancialDataModels.Last().TotalIncome;
             schoolVM.TotalRevenueExpenditure = schoolVM.HistoricalFinancialDataModels.Last().TotalExpenditure;
@@ -241,21 +241,21 @@ namespace SFB.Web.UI.Controllers
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
-                var resultDocument = taskResult?.FirstOrDefault();
+                var resultDataObject = taskResult?.FirstOrDefault();
                 var dataGroup = estabType.ToDataGroup(cFinance);
 
-                if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
+                if (dataGroup == DataGroups.MATAllocs && resultDataObject == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    resultDocument = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude))
+                    resultDataObject = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
                 }
                 
-                if (resultDocument != null && resultDocument.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
+                if (resultDataObject != null && resultDataObject.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
                 {
-                    resultDocument = null;
+                    resultDataObject = null;
                 }
 
-                models.Add(new FinancialDataModel(urn.ToString(), term, resultDocument, estabType));
+                models.Add(new FinancialDataModel(urn.ToString(), term, resultDataObject, estabType));
             }
             
             return models;
