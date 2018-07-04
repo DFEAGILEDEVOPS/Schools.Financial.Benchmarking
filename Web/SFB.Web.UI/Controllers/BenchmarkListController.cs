@@ -8,6 +8,7 @@ using System;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Common;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -15,11 +16,13 @@ namespace SFB.Web.UI.Controllers
     {
         private readonly IContextDataService _contextDataService;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IFinancialDataService _financialDataService;
 
-        public BenchmarkListController(IContextDataService contextDataService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+        public BenchmarkListController(IContextDataService contextDataService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFinancialDataService financialDataService)
         {
             _contextDataService = contextDataService;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _financialDataService = financialDataService;
         }
 
         public ActionResult Index()
@@ -35,6 +38,10 @@ namespace SFB.Web.UI.Controllers
                 foreach (var benchmarkSchoolDataObject in benchmarkSchoolDataObjects)
                 {
                     var school = new SchoolViewModel(benchmarkSchoolDataObject);
+                    var latestYear = _financialDataService.GetLatestDataYearPerEstabType((EstablishmentType)Enum.Parse(typeof(EstablishmentType), dynamicBenchmarkSchool.FinanceType));
+                    var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+                    var financialDataDocument = _financialDataService.GetSchoolDataDocument(dynamicBenchmarkSchool.GetPropertyValue<int>("URN"), term, (EstablishmentType)Enum.Parse(typeof(EstablishmentType), dynamicBenchmarkSchool.FinanceType));
+
                     var benchmarkSchool = new BenchmarkSchoolModel()
                     {
                         Address = school.Address,
@@ -42,7 +49,9 @@ namespace SFB.Web.UI.Controllers
                         Phase = school.OverallPhase,
                         Type = school.Type,
                         EstabType = school.EstablishmentType.ToString(),
-                        Urn = school.Id
+                        Urn = school.Id,
+                        IsReturnsComplete = financialDataDocument.GetPropertyValue<int>("Period covered by return") == 12,
+                        WorkforceDataPresent = financialDataDocument.GetPropertyValue<bool>("WorkforcePresent")
                     };
 
                     comparisonList.BenchmarkSchools.Add(benchmarkSchool);
@@ -50,6 +59,10 @@ namespace SFB.Web.UI.Controllers
             }else if (comparisonList.BenchmarkSchools.Count == 1)
             {
                 var schoolContextData = _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(comparisonList.BenchmarkSchools[0].Urn));
+
+                var latestYear = _financialDataService.GetLatestDataYearPerEstabType((EstablishmentType)Enum.Parse(typeof(EstablishmentType), schoolContextData.FinanceType));
+                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+                var financialDataDocument = _financialDataService.GetSchoolDataDocument(schoolContextData.GetPropertyValue<int>("URN"), term, (EstablishmentType)Enum.Parse(typeof(EstablishmentType), schoolContextData.FinanceType));
 
                 comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
@@ -61,7 +74,9 @@ namespace SFB.Web.UI.Controllers
                     Phase = school.OverallPhase,
                     Type = school.Type,
                     EstabType = school.EstablishmentType.ToString(),
-                    Urn = school.Id
+                    Urn = school.Id,
+                    IsReturnsComplete = financialDataDocument.GetPropertyValue<int>("Period covered by return") == 12,
+                    WorkforceDataPresent = financialDataDocument.GetPropertyValue<bool>("WorkforcePresent")
                 };
 
                 comparisonList.BenchmarkSchools.Add(benchmarkSchool);

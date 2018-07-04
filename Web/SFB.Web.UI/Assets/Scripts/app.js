@@ -133,6 +133,32 @@
 
     };
 
+    window.DfE.Util.ModalRenderer = {
+        RenderAdditionalGrantModal: function () {
+            var $body = $('body');
+            var $page = $('#js-modal-page');
+
+            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title"><div role="document">' +
+                '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
+                '<h1 id="modal-title" class="modal-title">Additional grant for schools</h1><p id="modal-content"><br/>' +
+                'This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.</p>';
+
+            $($modal_code).insertAfter($page);
+            $body.addClass('no-scroll');
+
+            $page.attr('aria-hidden', 'true');
+
+            // add overlay
+            var $modal_overlay =
+                '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+            $($modal_overlay).insertAfter($('#js-modal'));
+
+            $('#js-modal-close').focus();
+
+        }
+    }
+
     window.DfE.Util.ComparisonList = {
         getData: function () {
             var decodedCookieData = null;

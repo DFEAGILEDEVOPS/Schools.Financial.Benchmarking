@@ -10,7 +10,16 @@
         @foreach (var column in Model.TableColumns)
         {
             <th>
-                @column.Name<div class="sort-icon"></div>
+                <span>@column.Name</span>
+                
+                <div class="sort-icon"></div>
+
+            @if (column.HelpTooltip != null)
+            {
+                <a class="helpLink" href="#" onclick="DfE.Util.ModalRenderer.RenderAdditionalGrantModal()">
+                    <img src="/public/assets/images/help-icon.png">
+                </a>
+            }
             </th>
         }
     </tr>

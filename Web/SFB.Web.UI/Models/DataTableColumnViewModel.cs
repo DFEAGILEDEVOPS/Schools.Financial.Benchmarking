@@ -12,6 +12,7 @@ namespace SFB.Web.UI.Models
         public ChartSchoolType ChartSchoolType { get; set; }
         public string MoreInfo { get; set; }
         public List<BenchmarkChartData> BenchmarkData { get; set; }
+        public string HelpTooltip { get; set; }
 
         public object Clone()
         {
@@ -20,7 +21,8 @@ namespace SFB.Web.UI.Models
                 Name = this.Name,
                 FieldName = this.FieldName,
                 ChartSchoolType = this.ChartSchoolType,
-                MoreInfo = this.MoreInfo
+                MoreInfo = this.MoreInfo,
+                HelpTooltip = this.HelpTooltip
             };
         }
     }

@@ -124,6 +124,10 @@
 
     public class HelpTooltipText
     {
+        public const string TargetedGrantsHelp = "This includes: pupil premium, education services grants, SEN, funding for minority ethnic pupils, and pupil-focused extended school funding and/or grants.";
+        public const string CommunityGrantsHelp = "This includes: academies, non-government grants, community-focused school funding and/or grants, and additional grants for schools.";
+        public const string DirectGrantsHelp = "This includes: pre-16 funding, post-16 funding, DfE/EFA revenue grants, other DfE/EFA revenue grants, local authority and other government grants.";
+        public const string AdditionalGrantForSchoolsHelp = "This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.";
         public const string OccupationChartHelp = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering.";
         public const string ShowValueHelp = "This controls the chart value. To change it to per pupil, for example, select the relevant option from the dropdown.";
     }

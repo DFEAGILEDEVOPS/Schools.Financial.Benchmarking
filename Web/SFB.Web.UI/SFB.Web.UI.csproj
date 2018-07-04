@@ -328,6 +328,7 @@
     <Content Include="Assets\Scripts\Views\school-results.js" />
     <Content Include="Assets\Scripts\Views\schools-search.js" />
     <Content Include="Assets\Scripts\Views\trust-compare.js" />
+    <Content Include="browserconfig.xml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -344,6 +345,7 @@
     <Content Include="public\assets\images\dfe-small.png" />
     <Content Include="public\assets\images\dfe-xsmall.png" />
     <Content Include="public\assets\images\dfe.png" />
+    <Content Include="public\assets\images\favicon.ico" />
     <Content Include="public\assets\images\grid-rating.png" />
     <Content Include="public\assets\images\help-icon-2x.png" />
     <Content Include="public\assets\images\help-icon.png" />

@@ -44,6 +44,8 @@ namespace SFB.Web.UI.UnitTests
             serviceResponse.NumberOfResults = 0;
             serviceResponse.Facets = string.Empty;
 
+            var mockFinancialDataService = new Mock<IFinancialDataService>();
+
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
@@ -53,7 +55,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
-            var controller = new BenchmarkListController(mockEdubaseDataService.Object, mockCookieManager.Object);
+            var controller = new BenchmarkListController(mockEdubaseDataService.Object, mockCookieManager.Object, mockFinancialDataService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 

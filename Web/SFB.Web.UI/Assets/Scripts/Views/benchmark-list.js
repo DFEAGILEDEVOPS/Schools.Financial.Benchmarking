@@ -13,10 +13,15 @@
                         $("div[data-urn='" + urn + "']>.add-remove").toggle();
                         $(".name").removeClass("highlight");
                         $("#doc_" + urn + " .name").addClass("highlight");
+                        $(".name span.visually-hidden").each(function () {
+                            $(this).text($(this).text().replace(" (default school)", ""));
+                        });
+                        $("#doc_" + urn + " .name span.visually-hidden").append(" (default school)");
                         break;
                     case "UnsetDefault":
                         $("div[data-urn='" + urn + "']>.add-remove").toggle();
                         $("#doc_" + urn + " .name").removeClass("highlight");
+                        $("#doc_" + urn + " .name span.visually-hidden").text($("#doc_" + urn + " .name span.visually-hidden").text().replace(" (default school)", ""));
                         break;
                     case "Remove":
                         $("#doc_" + urn).hide();

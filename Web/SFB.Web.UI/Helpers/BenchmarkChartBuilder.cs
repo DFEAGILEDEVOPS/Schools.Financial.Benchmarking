@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Enums;
+using SFB.Web.UI.Helpers.Constants;
 
 namespace SFB.Web.UI.Helpers
 {
@@ -1318,6 +1319,7 @@ namespace SFB.Web.UI.Helpers
                                     <li>other income (local authority and other government grants)</li>
                                     <li>government source (non-grant)</li>
                                 </ul>",
+                    HelpTooltip = HelpTooltipText.DirectGrantsHelp,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -1404,6 +1406,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>community-focused school funding and/or grants</li>
                                 <li>additional grant for schools</li>
                                 </ul>",
+                    HelpTooltip = HelpTooltipText.CommunityGrantsHelp,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -1460,7 +1463,8 @@ namespace SFB.Web.UI.Helpers
 
                                 <ul>
                                 <li>any other source of funding or income for the above activities</li>
-                                </ul>"
+                                </ul>",
+                            HelpTooltip = HelpTooltipText.AdditionalGrantForSchoolsHelp
                         }
                     }
                 },
@@ -1479,6 +1483,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>SEN</li>
                                 <li>funding for minority ethnic pupils</li>
                                 </ul>",
+                    HelpTooltip = HelpTooltipText.TargetedGrantsHelp,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel

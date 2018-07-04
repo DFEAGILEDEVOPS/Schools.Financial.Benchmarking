@@ -210,3 +210,4 @@ Web/Web.UI.Automation/screenshots/*
 /Web/SFB.Web.UI/public/govuk-styleguide-theme
 /Web/SFB.Web.UI/public/jquery
 /Web/SFB.Web.UI/public/jquery-simulate
+/Web/SFB.Web.DAL.Tests/App.config

@@ -88,6 +88,7 @@
                                                class="form-control mbl"
                                                name="nameId"
                                                type="text"
+                                               maxlength="100"
                                                data-suggestion-url="@(Model.SchoolSuggestionUrl)"/>
                                         <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn"/>
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_NAME_ID">Search</button>
@@ -107,6 +108,7 @@
                                                class="form-control mbl"
                                                name="trustname"
                                                type="text"
+                                               maxlength="100"
                                                data-suggestion-url="@(Model.TrustSuggestionUrl)"/>
                                         <input type="hidden" id="FindByTrustNameSuggestionId" name="trustsuggestionUrn"/>
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_NAME">Search</button>
@@ -132,6 +134,7 @@
                                                class="form-control mbl search-input"
                                                name="locationorpostcode"
                                                placeholder=""
+                                               maxlength="100"
                                                type="text"/>
                                         <input type="hidden" id="LocationCoordinates" name="LocationCoordinates"/>
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LOCATION">Search</button>
@@ -152,6 +155,7 @@
                                         <input id="FindSchoolByLaCodeName"
                                                class="form-control mbl"
                                                name="lacodename"
+                                               maxlength="100"
                                                type="text"/>
                                         <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId"/>
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>

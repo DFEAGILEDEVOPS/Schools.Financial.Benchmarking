@@ -12,7 +12,7 @@ Feature:
     Given I want to search for a school via name
     When I enter the first 3 letters of Lutterworth College
     And select the first option
-    Then I should be taken to details page for the school with the urn 138150
+    Then I should be taken to details page for the school with the urn 120300
 
   Scenario: No Predictive results are returned if the school is not found
     Given I want to search for a school via name

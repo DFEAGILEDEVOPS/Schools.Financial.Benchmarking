@@ -29,6 +29,7 @@ class SchoolDetailsPage < SitePrism::Page
     total_pupils = calculate_total_number_of_pupils(response)
     website = calculate_website(response)
     ofsted_rating = calculate_ofsted_rating(response['OFSTED_INSPOUTCOME'])
+    binding.pry
     ht_name = response['HEADTEACHERFULLNAME'].split
     {
         address: "#{response['STREET']}, #{response["TOWN"]}, #{response['POSTCODE']}",
@@ -92,20 +93,20 @@ class SchoolDetailsPage < SitePrism::Page
     {expenditure: {
         total_expenditure: 8,
         special_facilities: 1,
-        staff: 13,
-        premises: 6,
-        occupation: 9,
-        supplies_and_services: 9,
-        cost_of_finance: 3,
+        staff: 6,
+        premises: 4,
+        occupation: 7,
+        supplies_and_services: 4,
+        cost_of_finance: 1,
         community: 1
     },
      income: {
          total_income: 3,
-         grant_funding: 14,
+         grant_funding: 4,
          self_generated: 8
      },
      balance: {
-         in_year_balance: 1
+         in_year_balance: 2
      }
     }
   end
