@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SFB.Web.Common;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Models;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -9,6 +10,7 @@ namespace SFB.Web.Domain.Services.DataAccess
     {
         List<AcademiesContextualDataObject> GetAcademiesByMatNumber(string term, string matNo);
         SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance);
+        FinancialDataModel GetSchoolsLatestFinancialDataModel(int urn, EstablishmentType schoolFinancialType);
         SchoolTrustFinancialDataObject GetSchoolFinancialDataObject(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
         Task<IEnumerable<SchoolTrustFinancialDataObject>> GetSchoolFinancialDataObjectAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
         Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(string matNo, string term, MatFinancingType matFinance);

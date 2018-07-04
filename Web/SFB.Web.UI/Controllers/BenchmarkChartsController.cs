@@ -613,11 +613,9 @@ namespace SFB.Web.UI.Controllers
 
         private SchoolViewModel InstantiateBenchmarkSchool(int urn)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var financeDataObject = _financialDataService.GetSchoolFinancialDataObject(urn, term, benchmarkSchool.EstablishmentType);
-            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn.ToString(), term, financeDataObject, benchmarkSchool.EstablishmentType) };
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());            
+            var schoolsLatestFinancialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
+            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
             return benchmarkSchool;
         }
 

@@ -158,11 +158,9 @@ namespace SFB.Web.UI.Controllers
             ViewBag.LaCode = lacode;
 
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
 
-            var schoolFinancialDataObject = _financialDataService.GetSchoolFinancialDataObject(urn, term, benchmarkSchool.EstablishmentType);
-            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn.ToString(), term, schoolFinancialDataObject, benchmarkSchool.EstablishmentType) };
+            var schoolsLatestFinancialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
+            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
 
             if (!IsAreaFieldsValid(areaType, lacode, benchmarkSchool))
             {
@@ -220,11 +218,9 @@ namespace SFB.Web.UI.Controllers
 
             if (!ModelState.IsValid)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), benchmarkList);
-                var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-                var financeObject = _financialDataService.GetSchoolFinancialDataObject(urn, term, benchmarkSchool.EstablishmentType);
-                benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn.ToString(), term, financeObject, benchmarkSchool.EstablishmentType) };
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), benchmarkList);                               
+                var schoolsLatestFinancialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
+                benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
                 var schoolCharsVM = new SchoolCharacteristicsViewModel(benchmarkSchool, benchmarkList, new BenchmarkCriteria());
                 schoolCharsVM.ErrorMessage = "Validation Error";
                 return View("AdvancedCharacteristics", schoolCharsVM);

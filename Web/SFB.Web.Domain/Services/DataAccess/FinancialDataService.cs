@@ -5,6 +5,8 @@ using SFB.Web.DAL.Helpers;
 using SFB.Web.DAL.Repositories;
 using SFB.Web.DAL;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Models;
+using SFB.Web.Domain.Helpers;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -27,6 +29,14 @@ namespace SFB.Web.Domain.Services.DataAccess
         public SchoolTrustFinancialDataObject GetSchoolFinancialDataObject(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude)
         {
             return _financialDataRepository.GetSchoolFinancialDataObject(urn, term, schoolFinancialType, cFinance);
+        }
+
+        public FinancialDataModel GetSchoolsLatestFinancialDataModel(int urn, EstablishmentType schoolFinancialType)
+        {
+            var latestYear = GetLatestDataYearPerEstabType(schoolFinancialType);
+            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var schoolFinancialDataObject = _financialDataRepository.GetSchoolFinancialDataObject(urn, term, schoolFinancialType);
+            return new FinancialDataModel(urn.ToString(), term, schoolFinancialDataObject, schoolFinancialType);
         }
 
         public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance)

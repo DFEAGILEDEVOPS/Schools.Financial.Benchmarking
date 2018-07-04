@@ -82,6 +82,7 @@
     <Compile Include="Helpers\Constants\Constants.cs" />
     <Compile Include="Helpers\Constants\Dictionaries.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Helpers\SchoolFormatHelpers.cs" />
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\BenchmarkChartData.cs" />
     <Compile Include="Models\BenchmarkChartModel.cs" />
