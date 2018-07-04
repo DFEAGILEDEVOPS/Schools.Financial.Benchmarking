@@ -59,6 +59,10 @@ namespace SFB.Web.UI.Controllers
             {
                 var schoolContextData = _contextDataService.GetSchoolByUrn(Int32.Parse(comparisonList.BenchmarkSchools[0].Urn));
 
+                var latestYear = _financialDataService.GetLatestDataYearPerEstabType((EstablishmentType)Enum.Parse(typeof(EstablishmentType), schoolContextData.FinanceType));
+                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+                var financialDataDocument = _financialDataService.GetSchoolDataDocument(schoolContextData.GetPropertyValue<int>("URN"), term, (EstablishmentType)Enum.Parse(typeof(EstablishmentType), schoolContextData.FinanceType));
+
                 comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
                 var school = new SchoolViewModel(schoolContextData);
@@ -69,7 +73,9 @@ namespace SFB.Web.UI.Controllers
                     Phase = school.OverallPhase,
                     Type = school.Type,
                     EstabType = school.EstablishmentType.ToString(),
-                    Urn = school.Id
+                    Urn = school.Id,
+                    IsReturnsComplete = financialDataDocument.GetPropertyValue<int>("Period covered by return") == 12,
+                    WorkforceDataPresent = financialDataDocument.GetPropertyValue<bool>("WorkforcePresent")
                 };
 
                 comparisonList.BenchmarkSchools.Add(benchmarkSchool);

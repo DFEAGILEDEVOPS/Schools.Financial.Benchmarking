@@ -49,7 +49,6 @@
 
         .button.removefrom {
             @include grey-button;
-
             margin-right: 0;
         }
     }
@@ -80,6 +79,17 @@
 
     .document .highlight {
         background-color: $pink;
+        display: inline;
+
+        a {
+            color: white;
+            padding: 8px;
+            line-height: 1.8em;
+        }
+    }
+
+    .document .highlight-warning {
+        background-color: $orange;
         display: inline;
 
         a {

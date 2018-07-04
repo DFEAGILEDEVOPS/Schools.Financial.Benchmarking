@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 
 namespace SFB.Web.UI.Models
 {
@@ -25,6 +26,22 @@ namespace SFB.Web.UI.Models
 
         [JsonIgnore]
         public string HomeSchoolType { get; set; }
+
+        [JsonIgnore]
+        public bool HasIncompleteFinancialData {
+            get {
+                return BenchmarkSchools.Any(s => !s.IsReturnsComplete);
+            }
+        }
+
+        [JsonIgnore]
+        public bool HasIncompleteWorkforceData
+        {
+            get
+            {
+                return BenchmarkSchools.Any(s => !s.WorkforceDataPresent);
+            }
+        }
     }
 
     [Serializable]

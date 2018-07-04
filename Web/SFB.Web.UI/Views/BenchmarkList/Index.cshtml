@@ -13,6 +13,28 @@
 
 <h1 class="heading-xlarge page-heading">Benchmark basket</h1>
 
+<p>
+    @if (Model.HasIncompleteFinancialData)
+    {
+
+        <div class="panel panel-border-wide orange-warning">
+            <p>
+                Some schools have data from a period less than 12 months
+            </p>
+        </div>
+
+    }
+
+    @if (Model.HasIncompleteWorkforceData)
+    {
+        <div class="panel panel-border-wide orange-warning">
+            <p>
+                Some schools don't have a complete set of workforce data
+            </p>
+        </div>
+    }
+</p>
+
 <div id="benchmarkBasketControlsPlaceHolder">
     @Html.Partial("Partials/BenchmarkBasketControls")
 </div>
@@ -23,17 +45,26 @@
         <li class="document" id="doc_@school.Urn">
             <div class="grid-row">
                 <div class="column-half">
-                    @if (school.Urn != Model.HomeSchoolUrn)
+                    @if (!school.IsReturnsComplete || !school.WorkforceDataPresent)
                     {
-                        <div class="name">
-                            <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name</a>
+                        <div class="name highlight-warning">
+                            <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"> (has incomplete data)</span></a>
                         </div>
                     }
                     else
                     {
-                        <div class="name highlight">
-                            <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name</a>
-                        </div>
+                        if (school.Urn != Model.HomeSchoolUrn)
+                        {
+                            <div class="name">
+                                <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"></span></a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="name highlight">
+                                <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"> (default school)</span></a>
+                            </div>
+                        }
                     }
                     <ul class="metadata">
                         <li>@school.Address</li>
