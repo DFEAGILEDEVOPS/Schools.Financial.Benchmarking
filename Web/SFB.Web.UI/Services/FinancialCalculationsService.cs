@@ -282,7 +282,7 @@ namespace SFB.Web.UI.Services
                     Term = dataModel.Term,
                     Type = school.Type,
                     La = _localAuthoritiesService.GetLaName(dataModel.LaNumber.ToString()),
-                    IsCompleteYear = dataModel.PeriodCoveredByReturn >= 12,
+                    IsCompleteYear = dataModel.IsReturnsComplete,
                     IsWFDataPresent = dataModel.WorkforceDataPresent,
                     PartialYearsPresentInSubSchools = dataModel.PartialYearsPresentInSubSchools,
                     Unit = unit.ToString()

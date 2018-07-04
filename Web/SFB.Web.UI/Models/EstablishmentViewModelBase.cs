@@ -32,7 +32,7 @@ namespace SFB.Web.UI.Models
 
         public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels.Last();
 
-        public bool IsReturnsComplete => LatestYearFinancialData.PeriodCoveredByReturn == 12;
+        public bool IsReturnsComplete => LatestYearFinancialData.IsReturnsComplete;
 
         public bool WorkforceDataPresent => LatestYearFinancialData.WorkforceDataPresent;
 

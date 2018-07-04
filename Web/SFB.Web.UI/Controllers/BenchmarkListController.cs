@@ -28,41 +28,15 @@ namespace SFB.Web.UI.Controllers
         public ActionResult Index()
         {
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            
+            var benchmarkSchoolDataObjects = _contextDataService.GetMultipleSchoolDataObjectsByUrns(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
 
-            if (comparisonList.BenchmarkSchools.Count > 1)
+            comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
+
+            foreach (var benchmarkSchoolDataObject in benchmarkSchoolDataObjects)
             {
-                var benchmarkSchoolDataObjects = _contextDataService.GetMultipleSchoolDataObjectsByUrns(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
-
-                comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
-
-                foreach (var benchmarkSchoolDataObject in benchmarkSchoolDataObjects)
-                {
-                    var school = new SchoolViewModel(benchmarkSchoolDataObject);
-                    var latestYear = _financialDataService.GetLatestDataYearPerEstabType(school.EstablishmentType);
-                    var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-                    var financialDataDocument = _financialDataService.GetSchoolFinancialDataObject(school.Id, term, school.EstablishmentType);
-
-                    var benchmarkSchool = new BenchmarkSchoolModel()
-                    {
-                        Address = school.Address,
-                        Name = school.Name,
-                        Phase = school.OverallPhase,
-                        Type = school.Type,
-                        EstabType = school.EstablishmentType.ToString(),
-                        Urn = school.Id.ToString(),
-                        IsReturnsComplete = financialDataDocument.PeriodCoveredByReturn == 12,
-                        WorkforceDataPresent = financialDataDocument.WorkforcePresent
-                    };
-
-                    comparisonList.BenchmarkSchools.Add(benchmarkSchool);
-                }
-            }else if (comparisonList.BenchmarkSchools.Count == 1)
-            {
-                var schoolContextData = _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(comparisonList.BenchmarkSchools[0].Urn));
-                var school = new SchoolViewModel(schoolContextData);
-                var latestYear = _financialDataService.GetLatestDataYearPerEstabType(school.EstablishmentType);
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-                var financialDataDocument = _financialDataService.GetSchoolFinancialDataObject(school.Id, term, school.EstablishmentType); comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
+                var school = new SchoolViewModel(benchmarkSchoolDataObject);
+                var financialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(school.Id, school.EstablishmentType);
 
                 var benchmarkSchool = new BenchmarkSchoolModel()
                 {
@@ -72,8 +46,8 @@ namespace SFB.Web.UI.Controllers
                     Type = school.Type,
                     EstabType = school.EstablishmentType.ToString(),
                     Urn = school.Id.ToString(),
-                    IsReturnsComplete = financialDataDocument.PeriodCoveredByReturn == 12,
-                    WorkforceDataPresent = financialDataDocument.WorkforcePresent
+                    IsReturnsComplete = financialDataModel.IsReturnsComplete,
+                    WorkforceDataPresent = financialDataModel.WorkforceDataPresent
                 };
 
                 comparisonList.BenchmarkSchools.Add(benchmarkSchool);

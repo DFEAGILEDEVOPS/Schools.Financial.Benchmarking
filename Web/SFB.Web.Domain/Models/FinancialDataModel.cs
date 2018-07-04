@@ -178,23 +178,11 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public int? PeriodCoveredByReturn
+        public bool IsReturnsComplete
         {
             get
             {
-                try
-                {
-                    if (FinancialDataObjectModel != null)
-                    {
-                        return FinancialDataObjectModel.PeriodCoveredByReturn;
-                    }
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-
-                return 0;
+                return FinancialDataObjectModel?.PeriodCoveredByReturn >= 12;
             }
         }
 
