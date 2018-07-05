@@ -267,9 +267,9 @@ namespace SFB.Web.UI.Controllers
             return models;
         }
 
-        private bool SptReportExists(string urn)
+        private bool SptReportExists(int urn)
         {
-            return _apiRequest.Head("/estab-details/", new List<string> { urn }).statusCode == HttpStatusCode.OK;
+            return _apiRequest.Head("/estab-details/", new List<string> { urn.ToString() }).statusCode == HttpStatusCode.OK;
         }
     }
 }
