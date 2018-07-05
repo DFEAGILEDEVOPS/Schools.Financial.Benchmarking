@@ -58,21 +58,57 @@ namespace SFB.Web.Domain
 
             SetBasicAuthHeader(request);
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response = null;
+            dynamic responseObject = null;
+            StreamReader reader = null;
+            Stream dataStream = null;
 
-            Stream dataStream = response.GetResponseStream();
-
-            StreamReader reader = new StreamReader(dataStream);
-
-            string responseFromServer = reader.ReadToEnd();
-
-            var responseObject = JsonConvert.DeserializeObject<dynamic>(responseFromServer);
-
-            reader.Close();
-            dataStream.Close();
-            response.Close();
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+                dataStream = response.GetResponseStream();
+                reader = new StreamReader(dataStream);
+                string responseFromServer = reader.ReadToEnd();
+                responseObject = JsonConvert.DeserializeObject<dynamic>(responseFromServer);
+            }
+            catch(WebException ex)
+            {
+                return new ApiResponse(((HttpWebResponse)ex.Response).StatusCode, null);
+            }
+            finally
+            {
+                reader?.Close();
+                dataStream?.Close();
+                response?.Close();
+            }
 
             return new ApiResponse(response.StatusCode, responseObject);
+        }
+
+        public ApiResponse Head(string endpoint, List<string> parameters)
+        {
+            var url = BuildEndpointUrl(endpoint, parameters);
+
+            WebRequest request = WebRequest.Create(url);
+
+            SetBasicAuthHeader(request);
+
+            HttpWebResponse response = null;
+            try
+            {
+                request.Method = "HEAD";
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                return new ApiResponse(((HttpWebResponse)ex.Response).StatusCode, null);
+            }
+            finally
+            {
+                response?.Close();
+            }
+
+            return new ApiResponse(response.StatusCode, null);
         }
 
         public async Task<ApiResponse> GetAsync(string endpoint, List<string> actions, Dictionary<string, string> parameters)
@@ -145,7 +181,7 @@ namespace SFB.Web.Domain
 
         private void SetBasicAuthHeader(WebRequest request)
         {
-            if (_username != string.Empty && _password != string.Empty)
+            if (!String.IsNullOrEmpty(_username) && !String.IsNullOrEmpty(_password))
             {
                 string authInfo = _username + ":" + _password;
                 authInfo = Convert.ToBase64String(Encoding.Default.GetBytes(authInfo));

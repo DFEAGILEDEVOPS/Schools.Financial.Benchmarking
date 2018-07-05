@@ -79,7 +79,7 @@ namespace SFB.Web.UI
         private static void RegisterWrappers(ContainerBuilder builder)
         {
            builder.RegisterType<RequestContextWrapper>().As<IRequestContext>();
-           builder.Register(c => new ApiRequest(WebConfigurationManager.AppSettings["DfeApiUrl"], WebConfigurationManager.AppSettings["DfEApiUserName"], WebConfigurationManager.AppSettings["DfEApiPassword"])).As<IApiRequest>();
+           builder.Register(c => new ApiRequest(WebConfigurationManager.AppSettings["SptApiUrl"], WebConfigurationManager.AppSettings["SptApiUserName"], WebConfigurationManager.AppSettings["SptApiPassword"])).As<IApiRequest>();
         }
     }
 }

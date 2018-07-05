@@ -7,6 +7,7 @@ namespace SFB.Web.Domain.ApiWrappers
     {
         ApiResponse Get(string endpoint, List<string> actions, Dictionary<string, string> parameters);
         ApiResponse Get(string endpoint, List<string> parameters);
+        ApiResponse Head(string endpoint, List<string> parameters);
         Task<ApiResponse> GetAsync (string endpoint, List<string> actions, Dictionary<string, string> parameters);
     }
 }
