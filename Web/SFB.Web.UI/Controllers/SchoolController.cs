@@ -17,6 +17,7 @@ using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
 using System;
+using SFB.Web.Domain.ApiWrappers;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -28,8 +29,11 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IApiRequest _apiRequest;
 
-        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
+            IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IApiRequest apiRequest)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
@@ -37,6 +41,7 @@ namespace SFB.Web.UI.Controllers
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _apiRequest = apiRequest;
         }
 
         #if !DEBUG
@@ -63,9 +68,9 @@ namespace SFB.Web.UI.Controllers
                     chartGroup = ChartGroupType.All;
                     break;
             }
- 
+
             var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
-            
+
             if (schoolDetailsFromEdubase == null)
             {
                 return View("EmptyResult", new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
@@ -94,6 +99,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.UnitType = unitType;
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = format;
+            ViewBag.SptReportExists = SptReportExists(schoolVM.Id);
 
             return View("Detail", schoolVM);
         }
@@ -260,6 +266,11 @@ namespace SFB.Web.UI.Controllers
             }
             
             return models;
+        }
+
+        private bool SptReportExists(string urn)
+        {
+            return _apiRequest.Head("/estab-details/", new List<string> { urn }).statusCode == HttpStatusCode.OK;
         }
     }
 }

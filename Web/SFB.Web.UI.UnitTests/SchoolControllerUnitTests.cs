@@ -15,6 +15,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
+using SFB.Web.Domain.ApiWrappers;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -71,7 +72,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object);
+            var mockApiRequest = new Mock<IApiRequest>();
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -113,7 +116,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object);
+            var mockApiRequest = new Mock<IApiRequest>();
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -155,7 +160,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object);
+            var mockApiRequest = new Mock<IApiRequest>();
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -197,7 +204,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object);
+            var mockApiRequest = new Mock<IApiRequest>();
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
