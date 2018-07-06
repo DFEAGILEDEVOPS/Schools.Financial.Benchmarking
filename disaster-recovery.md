@@ -30,3 +30,7 @@ If the app service had to be completely rebuilt, it may be required to re-add DN
 
 Once the search indexer has completed indexing the website should be operational.  This should be manually checked.
 
+## Restart the web application
+
+This is required to be done after data restored because the web application builds User Defined Functions in DB during its start.
+
