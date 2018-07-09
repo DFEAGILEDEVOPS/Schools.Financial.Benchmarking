@@ -221,6 +221,8 @@ else
         sessionStorage.chartFormat = '@ViewBag.ChartFormat';
         DfE.Views.HistoricalCharts.GenerateCharts();
 
+        new Accordion(document.getElementById('historical-charts-accordion'));
+
         $(document).ready(function() {
             var tab = DfE.Util.QueryString.get('tab');
             if (tab) {
