@@ -69,15 +69,15 @@ namespace SFB.Web.Common.DataObjects
         public string OfstedRating;
 
         [JsonProperty(PropertyName = EdubaseDBFieldNames.OFSTE_LAST_INSP)]
-        public string OfstedLastInsp;//TODO: change to date
+        public string OfstedLastInsp;
 
         [JsonProperty(PropertyName = EdubaseDBFieldNames.FINANCE_TYPE)]
         public string FinanceType;
 
         [JsonProperty(PropertyName = EdubaseDBFieldNames.OPEN_DATE)]
-        public DateTime? OpenDate;
+        public string OpenDate;
 
         [JsonProperty(PropertyName = EdubaseDBFieldNames.CLOSE_DATE)]
-        public DateTime? CloseDate;
+        public string CloseDate;
     }
 }

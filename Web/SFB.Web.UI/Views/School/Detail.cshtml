@@ -50,7 +50,7 @@ else
                                 "<span class=\"ofsted-divider\" aria-hidden=\"true\">| </span>" +
                                 "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"visually-hidden\">Opens in a new window</span></a>" +
                                 "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
-                                Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate.ToLongDateString())
+                                Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate)
                 <dt class="names"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt><dd class="values bold">@Model.LaEstab</dd>
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)

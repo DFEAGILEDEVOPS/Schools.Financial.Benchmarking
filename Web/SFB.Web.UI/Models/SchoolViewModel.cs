@@ -89,7 +89,50 @@ namespace SFB.Web.UI.Models
 
         public string OfstedRating => ContextDataModel.OfstedRating;
 
-        public DateTime OfstedInspectionDate => DateTime.Parse(ContextDataModel.OfstedLastInsp, CultureInfo.CurrentCulture, DateTimeStyles.None);
+        public string OfstedInspectionDate 
+        {
+            get
+            {
+                try
+                {
+                    return DateTime.Parse(ContextDataModel.OfstedLastInsp, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();                    
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string OpenDate
+        {
+            get
+            {
+                try
+                {
+                    return DateTime.Parse(ContextDataModel.OpenDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string CloseDate
+        {
+            get
+            {
+                try
+                {
+                    return DateTime.Parse(ContextDataModel.CloseDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
 
         public string OfstedRatingText
         {
@@ -116,38 +159,6 @@ namespace SFB.Web.UI.Models
         public string IsPost16 => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
         public string HasNursery => ContextDataModel.StatutoryLowAge <= 3  ?  "Yes" : "No";
-
-        public string OpenDate
-        {
-            get
-            {
-                var openDate = ContextDataModel.OpenDate;
-                if (openDate >= new DateTime(2011,1,1))
-                {
-                    return openDate?.ToLongDateString();
-                }
-                else
-                {
-                    return String.Empty;
-                }
-            }
-        }
-
-        public string CloseDate
-        {
-            get
-            {
-                var closeDate = ContextDataModel.CloseDate;
-                if (closeDate >= new DateTime(2011, 1, 1))
-                {
-                    return closeDate?.ToLongDateString();
-                }
-                else
-                {
-                    return String.Empty;
-                }
-            }
-        }
 
         public string Address => $"{ContextDataModel.Street}, {ContextDataModel.Town}, {ContextDataModel.Postcode}";
 
