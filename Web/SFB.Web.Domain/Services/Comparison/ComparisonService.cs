@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFB.Web.Common;
+using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
@@ -11,11 +13,15 @@ namespace SFB.Web.Domain.Services.Comparison
     public class ComparisonService : IComparisonService
     {
         private readonly IFinancialDataService _financialDataService;
+        private readonly IContextDataService _contextDataService;
+        private readonly IBestInBreedDataService _bestInBreedDataService;
         private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
 
-        public ComparisonService(IFinancialDataService financialDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
+        public ComparisonService(IFinancialDataService financialDataService,  IContextDataService _contextDataService, IBestInBreedDataService bestInBreedDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
         {
             _financialDataService = financialDataService;
+            this._contextDataService = _contextDataService;
+            _bestInBreedDataService = bestInBreedDataService;
             _benchmarkCriteriaBuilderService = benchmarkCriteriaBuilderService;
         }
 
@@ -28,6 +34,17 @@ namespace SFB.Web.Domain.Services.Comparison
                 BenchmarkSchools = limitedList,
                 BenchmarkCriteria = criteria
             };
+        }
+
+        public List<EdubaseDataObject> GenerateBenchmarkListWithBestInBreedComparison(int urn)
+        {
+            var bestInBreedDataObject = _bestInBreedDataService.GetBestInBreedDataObjectByUrn(urn);
+
+            var neighbourUrns = bestInBreedDataObject.Neighbours.Select(b => b.URN).ToList();
+
+            var edubaseDataObjectList = _contextDataService.GetMultipleSchoolDataObjectsByUrns(neighbourUrns);
+
+            return edubaseDataObjectList;
         }
 
         public async Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(

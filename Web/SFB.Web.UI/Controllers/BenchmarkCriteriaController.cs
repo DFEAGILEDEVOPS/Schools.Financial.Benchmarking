@@ -58,7 +58,7 @@ namespace SFB.Web.UI.Controllers
             return View(benchmarkSchool);
         }
 
-        public ViewResult StepOne(int urn, ComparisonType comparisonType)
+        public ActionResult StepOne(int urn, ComparisonType comparisonType)
         {
             switch (comparisonType)
             {

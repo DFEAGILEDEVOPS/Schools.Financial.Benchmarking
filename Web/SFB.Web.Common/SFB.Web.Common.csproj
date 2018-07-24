@@ -48,6 +48,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Attributes\DBFieldAttribute.cs" />
     <Compile Include="DataObjects\AcademiesContextualDataObject.cs" />
+    <Compile Include="DataObjects\BestInBreedDataObject.cs" />
     <Compile Include="DataObjects\EdubaseDataObject.cs" />
     <Compile Include="DataObjects\LocationDataObject.cs" />
     <Compile Include="DataObjects\SchoolTrustFinancialDataObject.cs" />

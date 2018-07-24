@@ -94,25 +94,20 @@ namespace SFB.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> GenerateForBestInBreed(int urn)
         {
-            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);                       
 
-            //var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
-
-            //var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
-
-            //var benchmarkSchools = comparisonResult.BenchmarkSchools;
-            //benchmarkCriteria = comparisonResult.BenchmarkCriteria;
+            var schoolsContextualData = _comparisonService.GenerateBenchmarkListWithBestInBreedComparison(urn);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
-            foreach (var schoolDoc in benchmarkSchools)
+            foreach (var schoolContextualData in schoolsContextualData)
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
-                    Name = schoolDoc.SchoolName,
-                    Type = schoolDoc.Type,
-                    EstabType = schoolDoc.FinanceType,
-                    Urn = schoolDoc.URN.ToString()
+                    Name = schoolContextualData.EstablishmentName,
+                    Type = schoolContextualData.TypeOfEstablishment,
+                    EstabType = schoolContextualData.FinanceType,
+                    Urn = schoolContextualData.URN.ToString()
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }

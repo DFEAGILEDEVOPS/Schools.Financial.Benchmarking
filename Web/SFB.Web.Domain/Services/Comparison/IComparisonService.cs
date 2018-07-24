@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using SFB.Web.Common;
 using SFB.Web.Domain.Models;
+using System.Collections.Generic;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.Domain.Services.Comparison
 {
@@ -12,5 +14,7 @@ namespace SFB.Web.Domain.Services.Comparison
         Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(BenchmarkCriteria benchmarkCriteria,
             EstablishmentType estType, int basketSize,
             SimpleCriteria simpleCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
+
+        List<EdubaseDataObject> GenerateBenchmarkListWithBestInBreedComparison(int urn);
     }
 }

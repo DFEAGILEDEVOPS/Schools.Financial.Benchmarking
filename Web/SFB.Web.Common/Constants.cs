@@ -197,6 +197,14 @@
 
     }
 
+    public class EfficiencyMetricDBFieldNames
+    {
+        public const string URN = "URN";
+        public const string RANK = "Rank";
+        public const string SCORE = "Score";
+        public const string NEIGHBOURS = "Neighbours";
+    }
+
     public class TrustCharacteristicsQuestions
     {
         public const string NUMBER_OF_PUPILS = "Number of pupils";
