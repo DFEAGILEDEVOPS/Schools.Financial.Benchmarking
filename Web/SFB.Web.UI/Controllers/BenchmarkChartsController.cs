@@ -84,7 +84,44 @@ namespace SFB.Web.UI.Controllers
 
             return await Index(urn, simpleCriteria, benchmarkCriteria, basketSize, benchmarkSchool.LatestYearFinancialData, estType, ComparisonType.Basic);
         }
-        
+
+        [HttpGet]
+        public ActionResult GenerateForBestInBreed()
+        {
+            return new RedirectResult("/Errors/InvalidRequest");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GenerateForBestInBreed(int urn)
+        {
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
+
+            //var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
+
+            //var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
+
+            //var benchmarkSchools = comparisonResult.BenchmarkSchools;
+            //benchmarkCriteria = comparisonResult.BenchmarkCriteria;
+
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+
+            foreach (var schoolDoc in benchmarkSchools)
+            {
+                var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
+                {
+                    Name = schoolDoc.SchoolName,
+                    Type = schoolDoc.Type,
+                    EstabType = schoolDoc.FinanceType,
+                    Urn = schoolDoc.URN.ToString()
+                };
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
+            }
+
+            AddDefaultBenchmarkSchoolToList();
+
+            return await Index(urn, null, null, 15, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType, ComparisonType.BestInBreed);
+        }
+
         [HttpGet]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {

@@ -62,6 +62,9 @@ namespace SFB.Web.UI.Controllers
         {
             switch (comparisonType)
             {
+                case ComparisonType.BestInBreed:
+                    TempData["URN"] = urn;
+                    return RedirectToAction("GenerateForBestInBreed", "BenchmarkCharts");
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn, comparisonType);
                 case ComparisonType.Advanced:
