@@ -44,119 +44,125 @@ namespace SFB.Web.UI.Services
             {
                 decimal? amount = null;
                 decimal? rawAmount = null;
-                switch (unit)
+                try
                 {
-                    case UnitType.AbsoluteMoney:
-                    case UnitType.AbsoluteCount:
-                        amount = schoolData.GetDecimal(chart.FieldName);
-                        break;
-                    case UnitType.PerTeacher:
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
-                        if (rawAmount == null)
-                        {
+                    switch (unit)
+                    {
+                        case UnitType.AbsoluteMoney:
+                        case UnitType.AbsoluteCount:
+                            amount = schoolData.GetDecimal(chart.FieldName);
                             break;
-                        }
-                        amount = (schoolData.TeacherCount == 0)
-                            ? null
-                            : (rawAmount / (decimal) schoolData.TeacherCount);
-                        if (amount.HasValue)
-                        {
-                            amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
-                        }
-                        break;
-                    case UnitType.PerPupil:
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
-                        if (rawAmount == null)
-                        {
+                        case UnitType.PerTeacher:
+                            rawAmount = schoolData.GetDecimal(chart.FieldName);
+                            if (rawAmount == null)
+                            {
+                                break;
+                            }
+                            amount = (schoolData.TeacherCount == 0)
+                                ? null
+                                : (rawAmount / (decimal)schoolData.TeacherCount);
+                            if (amount.HasValue)
+                            {
+                                amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                            }
                             break;
-                        }
-                        amount = (schoolData.PupilCount == 0)
-                            ? null
-                            : (rawAmount / (decimal) schoolData.PupilCount);
-                        if (amount.HasValue)
-                        {
-                            amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
-                        }
-                        break;
-                    case UnitType.PercentageOfTotal:
-                        decimal total = 0;
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
-                        if (rawAmount == null)
-                        {
+                        case UnitType.PerPupil:
+                            rawAmount = schoolData.GetDecimal(chart.FieldName);
+                            if (rawAmount == null)
+                            {
+                                break;
+                            }
+                            amount = (schoolData.PupilCount == 0)
+                                ? null
+                                : (rawAmount / (decimal)schoolData.PupilCount);
+                            if (amount.HasValue)
+                            {
+                                amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                            }
                             break;
-                        }
-                        switch (revgroup)
-                        {
-                            case RevenueGroupType.Expenditure:
-                                total = schoolData.TotalExpenditure;
+                        case UnitType.PercentageOfTotal:
+                            decimal total = 0;
+                            rawAmount = schoolData.GetDecimal(chart.FieldName);
+                            if (rawAmount == null)
+                            {
                                 break;
-                            case RevenueGroupType.Income:
-                                total = schoolData.TotalIncome;
-                                break;
-                            case RevenueGroupType.Balance:
-                                total = schoolData.InYearBalance;
-                                break;
-                        }
+                            }
+                            switch (revgroup)
+                            {
+                                case RevenueGroupType.Expenditure:
+                                    total = schoolData.TotalExpenditure;
+                                    break;
+                                case RevenueGroupType.Income:
+                                    total = schoolData.TotalIncome;
+                                    break;
+                                case RevenueGroupType.Balance:
+                                    total = schoolData.InYearBalance;
+                                    break;
+                            }
 
-                        if (total == 0)
-                        {
-                            amount = 0;
-                        }
-                        else
-                        {
-                            amount = (total == 0) ? 0 : (rawAmount / total) * 100;
-                            amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
-                        }
-                        break;
-                    case UnitType.NoOfPupilsPerMeasure:
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
-                        if (rawAmount == null || rawAmount == 0)
-                        {
+                            if (total == 0)
+                            {
+                                amount = 0;
+                            }
+                            else
+                            {
+                                amount = (total == 0) ? 0 : (rawAmount / total) * 100;
+                                amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                            }
                             break;
-                        }
-                        amount = (schoolData.PupilCount == 0)
-                            ? null
-                            : ((decimal) schoolData.PupilCount / rawAmount);
-                        amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
-                        break;
+                        case UnitType.NoOfPupilsPerMeasure:
+                            rawAmount = schoolData.GetDecimal(chart.FieldName);
+                            if (rawAmount == null || rawAmount == 0)
+                            {
+                                break;
+                            }
+                            amount = (schoolData.PupilCount == 0)
+                                ? null
+                                : ((decimal)schoolData.PupilCount / rawAmount);
+                            amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                            break;
 
-                    case UnitType.HeadcountPerFTE:
-                        string fieldNameBase = chart.FieldName.Contains("FullTimeEquivalent")
-                            ? chart.FieldName.Substring(0, chart.FieldName.Length - 18)
-                            : chart.FieldName.Substring(0, chart.FieldName.Length - 9);
-                        total = schoolData.GetDecimal(fieldNameBase + "Headcount").GetValueOrDefault();
-                        rawAmount = schoolData.GetDecimal(fieldNameBase + "FullTimeEquivalent");
-                        if (rawAmount == null)
-                        {
+                        case UnitType.HeadcountPerFTE:
+                            string fieldNameBase = chart.FieldName.Contains("FullTimeEquivalent")
+                                ? chart.FieldName.Substring(0, chart.FieldName.Length - 18)
+                                : chart.FieldName.Substring(0, chart.FieldName.Length - 9);
+                            total = schoolData.GetDecimal(fieldNameBase + "Headcount").GetValueOrDefault();
+                            rawAmount = schoolData.GetDecimal(fieldNameBase + "FullTimeEquivalent");
+                            if (rawAmount == null)
+                            {
+                                break;
+                            }
+                            if (total == 0)
+                            {
+                                amount = 0;
+                            }
+                            else
+                            {
+                                amount = (total == 0) ? 0 : (total / rawAmount);
+                                amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                            }
                             break;
-                        }
-                        if (total == 0)
-                        {
-                            amount = 0;
-                        }
-                        else
-                        {
-                            amount = (total == 0) ? 0 : (total / rawAmount);
-                            amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
-                        }
-                        break;
-                    case UnitType.FTERatioToTotalFTE:
-                        total = schoolData.GetDecimal("TotalSchoolWorkforceFullTimeEquivalent").GetValueOrDefault();
-                        rawAmount = schoolData.GetDecimal(chart.FieldName);
-                        if (rawAmount == null)
-                        {
+                        case UnitType.FTERatioToTotalFTE:
+                            total = schoolData.GetDecimal("TotalSchoolWorkforceFullTimeEquivalent").GetValueOrDefault();
+                            rawAmount = schoolData.GetDecimal(chart.FieldName);
+                            if (rawAmount == null)
+                            {
+                                break;
+                            }
+                            if (total == 0)
+                            {
+                                amount = 0;
+                            }
+                            else
+                            {
+                                amount = (total == 0) ? 0 : (rawAmount / total) * 100;
+                                amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                            }
                             break;
-                        }
-                        if (total == 0)
-                        {
-                            amount = 0;
-                        }
-                        else
-                        {
-                            amount = (total == 0) ? 0 : (rawAmount / total) * 100;
-                            amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
-                        }
-                        break;
+                    }
+                }catch(DivideByZeroException)
+                {
+                    amount = null;
                 }
 
                 historicalChartData.Add(new HistoricalChartData()
