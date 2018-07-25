@@ -371,13 +371,13 @@ namespace SFB.Web.Common.DataObjects
         public decimal? FullTimeTAHeadcount { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL)]
-        public decimal WorkforceTotal { get; set; }
+        public decimal? WorkforceTotal { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL)]
-        public decimal TeachersTotal { get; set; }
+        public decimal? TeachersTotal { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.NUMBER_TEACHERS_HEADCOUNT)]
-        public decimal NumberTeachersHeadcount { get; set; }
+        public decimal? NumberTeachersHeadcount { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.NUMBER_TEACHERS_IN_LEADERSHIP)]
         public decimal? NumberTeachersInLeadershipHeadcount { get; set; }

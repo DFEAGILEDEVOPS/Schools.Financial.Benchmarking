@@ -40,7 +40,9 @@ namespace SFB.Web.DAL.Repositories
             BestInBreedDataObject result;
             try
             {
-                result = _client.CreateDocumentQuery<BestInBreedDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+                result = _client.CreateDocumentQuery<BestInBreedDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, "20180710012750-EfficiencyMetrics-2016-2017"), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+                //TODO: correct
+                //result = _client.CreateDocumentQuery<BestInBreedDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
             }
             catch (Exception ex)
             {

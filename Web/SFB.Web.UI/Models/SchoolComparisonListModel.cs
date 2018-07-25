@@ -21,11 +21,11 @@ namespace SFB.Web.UI.Models
         [JsonProperty(PropertyName = "HSN")]
         public string HomeSchoolName { get; set; }
 
+        [JsonProperty(PropertyName = "HST")]
+        public string HomeSchoolType { get; set; }
+
         [JsonProperty(PropertyName = "BS")]
         public List<BenchmarkSchoolModel> BenchmarkSchools { get; set; }
-
-        [JsonIgnore]
-        public string HomeSchoolType { get; set; }
 
         [JsonIgnore]
         public bool HasIncompleteFinancialData {

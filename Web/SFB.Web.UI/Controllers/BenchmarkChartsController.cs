@@ -86,14 +86,15 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult GenerateForBestInBreed()
+        public async Task<ActionResult> GenerateForBestInBreed()
         {
-            return new RedirectResult("/Errors/InvalidRequest");
-        }
+            if (this.Request.UrlReferrer == null || TempData["URN"] == null)
+            {
+                return new RedirectResult("/Errors/InvalidRequest");
+            }
 
-        [HttpPost]
-        public async Task<ActionResult> GenerateForBestInBreed(int urn)
-        {
+            var urn = (int)TempData["URN"];
+
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);                       
 
             var schoolsContextualData = _comparisonService.GenerateBenchmarkListWithBestInBreedComparison(urn);
