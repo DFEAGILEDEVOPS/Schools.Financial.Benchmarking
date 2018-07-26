@@ -82,11 +82,11 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList();
 
-            return await Index(urn, simpleCriteria, benchmarkCriteria, basketSize, benchmarkSchool.LatestYearFinancialData, estType, ComparisonType.Basic);
+            return await Index(urn, simpleCriteria, benchmarkCriteria, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateForBestInBreed()
+        public async Task<ActionResult> GenerateForBestInClass()
         {
             if (this.Request.UrlReferrer == null || TempData["URN"] == null)
             {
@@ -94,8 +94,6 @@ namespace SFB.Web.UI.Controllers
             }
 
             var urn = (int)TempData["URN"];
-
-            var benchmarkSchool = InstantiateBenchmarkSchool(urn);                       
 
             var schoolsContextualData = _comparisonService.GenerateBenchmarkListWithBestInBreedComparison(urn);
 
@@ -115,7 +113,7 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList();
 
-            return await Index(urn, null, null, 15, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType, ComparisonType.BestInBreed);
+            return await Index(urn, null, null, ComparisonType.BestInBreed);
         }
 
         [HttpGet]
@@ -203,7 +201,7 @@ namespace SFB.Web.UI.Controllers
             AddDefaultBenchmarkSchoolToList();
 
             return await Index(urn, null,
-                criteria, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalFinancialDataModels.Last(), estType, ComparisonType.Advanced, areaType, lacode.ToString());
+                criteria, ComparisonType.Advanced, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalFinancialDataModels.Last(), estType, areaType, lacode.ToString());
         }
 
         public async Task<PartialViewResult> CustomReport(string json, ChartFormat format)
@@ -231,10 +229,10 @@ namespace SFB.Web.UI.Controllers
             int? urn, 
             SimpleCriteria simpleCriteria,
             BenchmarkCriteria benchmarkCriteria,
+            ComparisonType comparisonType = ComparisonType.Manual,
             int basketSize = ComparisonListLimit.DEFAULT,
             FinancialDataModel benchmarkSchoolData = null,
             EstablishmentType searchedEstabType = EstablishmentType.All,
-            ComparisonType comparisonType = ComparisonType.Manual,
             ComparisonArea areaType = ComparisonArea.All,
             string laCode = null,
             RevenueGroupType tab = RevenueGroupType.Expenditure,
