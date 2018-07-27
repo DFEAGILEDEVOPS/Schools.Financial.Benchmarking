@@ -36,15 +36,28 @@ namespace SFB.Web.Domain.Services.Comparison
             };
         }
 
-        public List<EdubaseDataObject> GenerateBenchmarkListWithBestInBreedComparison(int urn)
+        public List<BestInClassResult> GenerateBenchmarkListWithBestInBreedComparison(int urn)
         {
             var bestInBreedDataObject = _bestInBreedDataService.GetBestInBreedDataObjectByUrn(urn);
 
-            var neighbourUrns = bestInBreedDataObject.Neighbours.Select(b => b.URN).ToList();
+            var results = new List<BestInClassResult>();
 
-            var edubaseDataObjectList = _contextDataService.GetMultipleSchoolDataObjectsByUrns(neighbourUrns);
+            results.Add(new BestInClassResult()
+            {
+                ContextData = _contextDataService.GetSchoolDataObjectByUrn(bestInBreedDataObject.URN),
+                Rank = bestInBreedDataObject.Rank
+            });
 
-            return edubaseDataObjectList;
+            foreach (var neighbour in bestInBreedDataObject.Neighbours)
+            {
+                results.Add(new BestInClassResult()
+                {
+                    ContextData = _contextDataService.GetSchoolDataObjectByUrn(neighbour.URN),
+                    Rank = neighbour.Rank
+                });
+            }
+
+            return results;
         }
 
         public async Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(

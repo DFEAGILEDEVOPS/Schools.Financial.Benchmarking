@@ -2,7 +2,6 @@
 using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using System.Collections.Generic;
-using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.Domain.Services.Comparison
 {
@@ -15,6 +14,6 @@ namespace SFB.Web.Domain.Services.Comparison
             EstablishmentType estType, int basketSize,
             SimpleCriteria simpleCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
 
-        List<EdubaseDataObject> GenerateBenchmarkListWithBestInBreedComparison(int urn);
+        List<BestInClassResult> GenerateBenchmarkListWithBestInBreedComparison(int urn);
     }
 }

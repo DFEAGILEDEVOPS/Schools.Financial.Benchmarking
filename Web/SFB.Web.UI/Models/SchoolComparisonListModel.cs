@@ -59,11 +59,11 @@ namespace SFB.Web.UI.Models
         [JsonProperty(PropertyName = "FT")]
         public string EstabType;
 
-        [JsonIgnore]
-        public override string ShortName => !string.IsNullOrEmpty(Name) && Name.Length >= 20 ? $"{Name.Substring(0, 17)}..." : Name;
-
         [JsonProperty(PropertyName = "T")]
         public override string Type { get; set; }
+
+        [JsonProperty(PropertyName = "R")]
+        public int? EmRank { get; set; }
 
         [JsonIgnore]
         public int La;
@@ -82,6 +82,9 @@ namespace SFB.Web.UI.Models
 
         [JsonIgnore]
         public bool WorkforceDataPresent;
+
+        [JsonIgnore]
+        public override string ShortName => !string.IsNullOrEmpty(Name) && Name.Length >= 20 ? $"{Name.Substring(0, 17)}..." : Name;
 
         public bool Equals(BenchmarkSchoolModel other)
         {

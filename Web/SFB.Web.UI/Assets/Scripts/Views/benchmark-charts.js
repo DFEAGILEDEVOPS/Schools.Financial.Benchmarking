@@ -356,12 +356,20 @@
                     var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
                         $(el).closest('.chartContainer'))[0].value;
                     var highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
-                    return "<table class='bmc-rollover-table' >" +
-                        "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +
+                    var tableHtml =
+                        "<table class='bmc-rollover-table' >" +
+                        "<tr><th colspan='2' class='" + highlight + "'>" + name + "</th></tr>" +
                         "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
-                        "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>" +
-                        "</table>";
+                        "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
+
+                    if ($("#ComparisonType").val() == "BestInBreed"){
+                        tableHtml += "<tr><td class='bold'>Efficiency metric rank</td><td>" + schoolData.efficiencyRank + "</td></tr>";
+                    }
+
+                   tableHtml += "</table>";
+
+                    return tableHtml;
                 },
                 
                 show: $("#Type").val() !== "MAT",

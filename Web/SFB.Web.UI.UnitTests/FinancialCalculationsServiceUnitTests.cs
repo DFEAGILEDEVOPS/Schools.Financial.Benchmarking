@@ -8,6 +8,7 @@ using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -45,7 +46,9 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var service = new FinancialCalculationsService(mockLaService.Object);
+            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+            
+            var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
             service.PopulateHistoricalChartsWithSchoolData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.RevenueGroupType.Expenditure, Helpers.Enums.UnitType.AbsoluteMoney, EstablishmentType.Academies);
 
@@ -86,7 +89,9 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var service = new FinancialCalculationsService(mockLaService.Object);
+            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+
+            var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
             service.PopulateHistoricalChartsWithSchoolData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.RevenueGroupType.Expenditure, Helpers.Enums.UnitType.PerPupil, EstablishmentType.Academies);
 
@@ -127,7 +132,9 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var service = new FinancialCalculationsService(mockLaService.Object);
+            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+
+            var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
             service.PopulateHistoricalChartsWithSchoolData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.RevenueGroupType.Expenditure, Helpers.Enums.UnitType.PerTeacher, EstablishmentType.Academies);
 
@@ -170,7 +177,9 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var service = new FinancialCalculationsService(mockLaService.Object);
+            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+            
+            var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
             service.PopulateHistoricalChartsWithSchoolData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.RevenueGroupType.Expenditure, Helpers.Enums.UnitType.PercentageOfTotal, EstablishmentType.Academies);
 
@@ -211,7 +220,9 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var service = new FinancialCalculationsService(mockLaService.Object);
+            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+
+            var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
             service.PopulateHistoricalChartsWithSchoolData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.RevenueGroupType.Expenditure, Helpers.Enums.UnitType.AbsoluteMoney, EstablishmentType.Maintained);
             

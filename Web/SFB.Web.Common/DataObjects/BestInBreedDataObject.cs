@@ -11,8 +11,8 @@ namespace SFB.Web.Common.DataObjects
         [JsonProperty(PropertyName = EfficiencyMetricDBFieldNames.RANK)]
         public int Rank;
 
-        [JsonProperty(PropertyName = EfficiencyMetricDBFieldNames.SCORE)]
-        public int Score;
+        //[JsonProperty(PropertyName = EfficiencyMetricDBFieldNames.SCORE)]
+        //public int Score;
 
         [JsonProperty(PropertyName = EfficiencyMetricDBFieldNames.NEIGHBOURS)]
         public List<BestInBreedDataObject> Neighbours;

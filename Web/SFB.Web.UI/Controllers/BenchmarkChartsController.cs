@@ -95,23 +95,22 @@ namespace SFB.Web.UI.Controllers
 
             var urn = (int)TempData["URN"];
 
-            var schoolsContextualData = _comparisonService.GenerateBenchmarkListWithBestInBreedComparison(urn);
+            var bestInClassResults = _comparisonService.GenerateBenchmarkListWithBestInBreedComparison(urn);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
-            foreach (var schoolContextualData in schoolsContextualData)
+            foreach (var bestInClassResult in bestInClassResults)
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
-                    Name = schoolContextualData.EstablishmentName,
-                    Type = schoolContextualData.TypeOfEstablishment,
-                    EstabType = schoolContextualData.FinanceType,
-                    Urn = schoolContextualData.URN.ToString()
+                    Name = bestInClassResult.ContextData.EstablishmentName,
+                    Type = bestInClassResult.ContextData.TypeOfEstablishment,
+                    EstabType = bestInClassResult.ContextData.FinanceType,
+                    Urn = bestInClassResult.ContextData.URN.ToString(),
+                    EmRank = bestInClassResult.Rank
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }
-
-            AddDefaultBenchmarkSchoolToList();
 
             return await Index(urn, null, null, ComparisonType.BestInBreed);
         }
@@ -658,7 +657,8 @@ namespace SFB.Web.UI.Controllers
                 Name = cookieObject.HomeSchoolName,
                 Type = cookieObject.HomeSchoolType,
                 EstabType = cookieObject.HomeSchoolFinancialType,
-                Urn = cookieObject.HomeSchoolUrn
+                Urn = cookieObject.HomeSchoolUrn,
+                EmRank = cookieObject.HomeSchoolEmRank
             };
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);            
         }

@@ -8,16 +8,19 @@ using SFB.Web.Common;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.Services
 {
     public class FinancialCalculationsService : IFinancialCalculationsService
     {
         private readonly ILocalAuthoritiesService _localAuthoritiesService;
+        private readonly IBestInBreedDataService _bestInBreedDataService;
 
-        public FinancialCalculationsService(ILocalAuthoritiesService localAuthoritiesService)
+        public FinancialCalculationsService(ILocalAuthoritiesService localAuthoritiesService, IBestInBreedDataService bestInBreedDataService)
         {
             _localAuthoritiesService = localAuthoritiesService;
+            _bestInBreedDataService = bestInBreedDataService;
         }
 
         public void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts,
@@ -285,7 +288,8 @@ namespace SFB.Web.UI.Services
                     IsCompleteYear = dataModel.IsReturnsComplete,
                     IsWFDataPresent = dataModel.WorkforceDataPresent,
                     PartialYearsPresentInSubSchools = dataModel.PartialYearsPresentInSubSchools,
-                    Unit = unit.ToString()
+                    Unit = unit.ToString(),
+                    EfficiencyRank = school is BenchmarkSchoolModel ? (school as BenchmarkSchoolModel).EmRank : null
                 });
             }
 
