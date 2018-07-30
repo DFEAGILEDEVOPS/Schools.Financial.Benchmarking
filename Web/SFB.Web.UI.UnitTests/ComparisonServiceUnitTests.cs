@@ -30,8 +30,8 @@ namespace SFB.Web.UI.UnitTests
             mockFinancialDataService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
-            var mockContextDataService = new Mock<ContextDataService>();
-            var mockBestInBreedDataService = new Mock<BestInBreedDataService>();
+            var mockContextDataService = new Mock<IContextDataService>();
+            var mockBestInBreedDataService = new Mock<IBestInBreedDataService>();
 
             var mockBenchmarkCriteriaBuilderService = new Mock<IBenchmarkCriteriaBuilderService>();
             mockBenchmarkCriteriaBuilderService.Setup(s => s.BuildFromSimpleComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<SimpleCriteria>(), It.IsAny<int>()))
