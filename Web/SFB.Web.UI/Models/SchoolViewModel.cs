@@ -154,7 +154,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public int TotalPupils => ContextDataModel.NumberOfPupils;
+        public int TotalPupils => ContextDataModel.NumberOfPupils.GetValueOrDefault();
 
         public string IsPost16 => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
