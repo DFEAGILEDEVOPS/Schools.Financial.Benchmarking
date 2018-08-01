@@ -80,7 +80,7 @@
         public const string SCHOOL_TYPE = "Type";
         public const string SCHOOL_PHASE = "Phase";
         public const string SCHOOL_OVERALL_PHASE = "Overall Phase";
-        public const string SCHOOL_OVERALL_PHASE_BREAKDOWN = "OverallPhaseBreakdown";
+        public const string SCHOOL_OVERALL_PHASE_BREAKDOWN = "Overall PhaseBreakdown";
         public const string SCHOOL_OVERALL_PHASE_CROSS_PRIMARY = "Primary";
         public const string SCHOOL_OVERALL_PHASE_CROSS_SECONDARY = "Secondary";
         public const string SCHOOL_OVERALL_PHASE_CROSS_SPECIAL = "Special";
