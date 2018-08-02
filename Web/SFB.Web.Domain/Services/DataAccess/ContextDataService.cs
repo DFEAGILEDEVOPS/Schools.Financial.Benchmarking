@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using SFB.Web.DAL.Repositories;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -12,9 +13,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             _edubaseRepository = edubaseRepository;
         }
 
-        public dynamic GetSchoolByUrn(int urn)
+        public EdubaseDataObject GetSchoolDataObjectByUrn(int urn)
         {
-            return _edubaseRepository.GetSchoolByUrn(urn);
+            return _edubaseRepository.GetSchoolDataObjectByUrn(urn);
         }
 
         public List<int> GetAllSchoolUrns()
@@ -22,14 +23,14 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _edubaseRepository.GetAllSchoolUrns();
         }
 
-        public dynamic GetSchoolByLaEstab(string laEstab)
+        public EdubaseDataObject GetSchoolDataObjectByLaEstab(string laEstab)
         {
             return _edubaseRepository.GetSchoolByLaEstab(laEstab);
         }
 
-        public dynamic GetMultipleSchoolsByUrns(List<int> urns)
+        public List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns)
         {
-            return _edubaseRepository.GetMultipleSchoolsByUrns(urns);
+            return _edubaseRepository.GetMultipleSchoolDataObjectsByUrns(urns);
         }
     }
 }

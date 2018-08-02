@@ -1,6 +1,6 @@
 ﻿namespace SFB.Web.UI.Models
 {
-    public class LaViewModel : DynamicViewModelBase
+    public class LaViewModel : ViewModelBase
     {
         public string id { get; set; }
 

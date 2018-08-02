@@ -2,7 +2,6 @@
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.Azure.Documents;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -16,6 +15,8 @@ using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using SFB.Web.Domain.ApiWrappers;
+using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -49,10 +50,10 @@ namespace SFB.Web.UI.UnitTests
         public void DetailShouldKeepUnitTypeBetweenExpenditureAndIncomeTabs()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -93,10 +94,10 @@ namespace SFB.Web.UI.UnitTests
         public void DetailCallShouldKeepUnitTypeBetweenExpenditureAndBalanceTabsIfPossible()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -137,10 +138,10 @@ namespace SFB.Web.UI.UnitTests
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -181,10 +182,10 @@ namespace SFB.Web.UI.UnitTests
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndWorkforceTabs()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
+            var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -219,6 +220,92 @@ namespace SFB.Web.UI.UnitTests
                 It.IsAny<RevenueGroupType>(),
                 UnitType.AbsoluteCount,
                 It.IsAny<EstablishmentType>()));
+        }
+
+        [Test]
+        public void DetailCallShouldSetSptReportExistsPropertyTrue()
+        {
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+
+            var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
+            mockHistoricalChartBuilder
+                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+                .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+
+            mockHistoricalChartBuilder
+                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
+                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+
+
+            var financialCalculationsService = new Mock<IFinancialCalculationsService>();
+
+            var mockFinancialDataService = new Mock<IFinancialDataService>();
+
+            var mockDownloadCsvBuilder = new Mock<IDownloadCSVBuilder>();
+
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+
+            var mockApiRequest = new Mock<IApiRequest>();
+
+            mockApiRequest
+                .Setup(ar => ar.Head(It.IsAny<string>(), It.IsAny<List<string>>()))
+                .Returns((string endpoint, List<string> parameters) => new ApiResponse(System.Net.HttpStatusCode.OK, null));
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var view = controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Workforce);
+            view.Wait();
+            
+            Assert.AreEqual(((ViewResult)view.Result).ViewBag.SptReportExists, true);
+        }
+
+        [Test]
+        public void DetailCallShouldSetSptReportExistsPropertyFalse()
+        {
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+
+            var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
+            mockHistoricalChartBuilder
+                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+                .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+
+            mockHistoricalChartBuilder
+                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
+                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+
+
+            var financialCalculationsService = new Mock<IFinancialCalculationsService>();
+
+            var mockFinancialDataService = new Mock<IFinancialDataService>();
+
+            var mockDownloadCsvBuilder = new Mock<IDownloadCSVBuilder>();
+
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+
+            var mockApiRequest = new Mock<IApiRequest>();
+
+            mockApiRequest
+                .Setup(ar => ar.Head(It.IsAny<string>(), It.IsAny<List<string>>()))
+                .Returns((string endpoint, List<string> parameters) => new ApiResponse(System.Net.HttpStatusCode.NotFound, null));
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var view = controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Workforce);
+            view.Wait();
+
+            Assert.AreEqual(((ViewResult)view.Result).ViewBag.SptReportExists, false);
         }
     }
 }

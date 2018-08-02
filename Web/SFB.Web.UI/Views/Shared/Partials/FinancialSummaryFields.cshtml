@@ -9,12 +9,12 @@
             <span class="heading-medium">
                 @if (Model.TotalRevenueExpenditure >= 10000 || Model.TotalRevenueExpenditure <= -10000)
                 {
-                    <abbr title="@Model.TotalRevenueExpenditure.ToString("C0")" aria-label="@Model.TotalRevenueExpenditure.ToString("N0") pounds" class="exp-total summary">@Model.TotalRevenueExpenditure.FormatMoney()</abbr>
+                    <abbr title="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("N0") pounds" class="exp-total summary">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</abbr>
                 }
                 else
                 {
                     <span class="heading-medium">
-                        <span class="money exp-total">@Model.TotalRevenueExpenditure.FormatMoney()</span>
+                        <span class="money exp-total">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</span>
                     </span>
                 }
             </span>
@@ -27,10 +27,10 @@
             <span class="heading-medium">
                 @if (Model.TotalRevenueIncome >= 10000 || Model.TotalRevenueIncome <= -10000)
                 {
-                    <abbr title="@Model.TotalRevenueIncome.ToString("C0")" aria-label="@Model.TotalRevenueIncome.ToString("N0") pounds" class="inc-total summary">@Model.TotalRevenueIncome.FormatMoney()</abbr>
+                    <abbr title="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("N0") pounds" class="inc-total summary">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</abbr>
                 }else {
                     <span class="heading-medium">
-                        <span class="money inc-total">@Model.TotalRevenueIncome.FormatMoney()</span>
+                        <span class="money inc-total">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</span>
                     </span>
                 }
             </span>
@@ -45,10 +45,10 @@
                 {
                     if (Model.InYearBalance <= -10000)
                     {
-                        <abbr class="negative-balance bal-total summary" title="@Model.InYearBalance.ToString("C0")" aria-label="minus @Math.Abs(Model.InYearBalance).ToString("N0") pounds">@Model.InYearBalance.FormatMoney()</abbr>
+                        <abbr class="negative-balance bal-total summary" title="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" aria-label="minus @Math.Abs(Model.InYearBalance.GetValueOrDefault()).ToString("N0") pounds">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</abbr>
                     }else {
                         <span class="negative-balance">
-                            <span class="money bal-total" aria-label="minus @Math.Abs(Model.InYearBalance).ToString("N0") pounds">@Model.InYearBalance.FormatMoney()</span>
+                            <span class="money bal-total" aria-label="minus @Math.Abs(Model.InYearBalance.GetValueOrDefault()).ToString("N0") pounds">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</span>
                         </span>
                     }
 
@@ -57,10 +57,10 @@
                 {
                     if (Model.TotalRevenueIncome >= 10000)
                     {
-                        <abbr class="bal-total summary" title="@Model.InYearBalance.ToString("C0")" aria-label="@Model.InYearBalance.ToString("N0") pounds">@Model.InYearBalance.FormatMoney()</abbr>
+                        <abbr class="bal-total summary" title="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" aria-label="@Model.InYearBalance.GetValueOrDefault().ToString("N0") pounds">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</abbr>
                     }else {
                         <span class="heading-medium">
-                            <span class="money bal-total">@Model.InYearBalance.FormatMoney()</span>
+                            <span class="money bal-total">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</span>
                         </span>
                     }
                 }

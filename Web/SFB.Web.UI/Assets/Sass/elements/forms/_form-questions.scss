@@ -19,6 +19,9 @@ fieldset,
   & :last-child {    
     margin-bottom: 5px;
   }
+  .js-modal, .help-icon{
+      margin-bottom:0;
+  }
 }
 
 fieldset {

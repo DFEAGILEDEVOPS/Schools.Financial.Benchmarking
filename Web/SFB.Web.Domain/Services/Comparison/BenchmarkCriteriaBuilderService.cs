@@ -20,29 +20,29 @@ namespace SFB.Web.Domain.Services.Comparison
             criteria.SchoolOverallPhase = new []{ benchmarkSchoolData.SchoolOverallPhase};
             criteria.UrbanRural = new []{ benchmarkSchoolData.UrbanRural};
 
-            var minMarginFactor = 1 - ((percentageMargin + CriteriaSearchConfig.DEFAULT_MARGIN) / 100d);
-            var maxMarginFactor = 1 + ((percentageMargin + CriteriaSearchConfig.DEFAULT_MARGIN) / 100d);
+            var minMarginFactor = 1 - ((percentageMargin + CriteriaSearchConfig.DEFAULT_MARGIN) / 100m);
+            var maxMarginFactor = 1 + ((percentageMargin + CriteriaSearchConfig.DEFAULT_MARGIN) / 100m);
             
             criteria.MinNoPupil = benchmarkSchoolData.PupilCount * minMarginFactor;
             criteria.MaxNoPupil = benchmarkSchoolData.PupilCount * maxMarginFactor;
 
             if(includeFsm)
             {
-                var fsm = double.Parse(benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals);
+                var fsm = benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals;
                 criteria.MinPerFSM =  (fsm - percentageMargin) < 0 ? 0 : (fsm - percentageMargin);
                 criteria.MaxPerFSM = fsm + percentageMargin;
             }
 
             if(includeSen)
             {
-                var sen = double.Parse(benchmarkSchoolData.PercentageOfPupilsWithSen);
+                var sen = benchmarkSchoolData.PercentageOfPupilsWithSen;
                 criteria.MinPerSEN =  (sen - percentageMargin < 0) ? 0  : (sen - percentageMargin);
                 criteria.MaxPerSEN = sen + percentageMargin;
             }
 
             if(includeEal)
             {
-                var eal = double.Parse(benchmarkSchoolData.PercentageOfPupilsWithEal);
+                var eal = benchmarkSchoolData.PercentageOfPupilsWithEal;
                 criteria.MinPerEAL = (eal - percentageMargin) < 0 ? 0 : (eal - percentageMargin) ;
                 criteria.MaxPerEAL = eal + percentageMargin;
             }

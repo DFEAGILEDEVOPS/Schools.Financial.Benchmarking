@@ -1,5 +1,4 @@
 ﻿using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Controllers;
@@ -11,12 +10,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Services;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -200,10 +199,10 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfUrnIsUsedAsId()
         {            
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
+            var testResult = new EdubaseDataObject();
             testResult.URN = 123456;
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(123456)).Returns((int urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123456)).Returns((int urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
@@ -213,16 +212,16 @@ namespace SFB.Web.UI.UnitTests
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
-            Assert.AreEqual("123456", (result as RedirectToRouteResult).RouteValues["urn"]);
+            Assert.AreEqual(123456, (result as RedirectToRouteResult).RouteValues["urn"]);
         }
 
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfLaEstabIsUsedAsId()
         {
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "1234567";
+            var testResult = new EdubaseDataObject();
+            testResult.URN = 1234567;
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
                        
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
@@ -240,10 +239,10 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfLaEstabWithDashIsUsedAsId()
         {
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "1234567";
+            var testResult = new EdubaseDataObject();
+            testResult.URN = 1234567;
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
@@ -261,10 +260,10 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfLaEstabWithSlashIsUsedAsId()
         {
-            dynamic testResult = new Microsoft.Azure.Documents.Document();
-            testResult.URN = "1234567";
+            var testResult = new EdubaseDataObject();
+            testResult.URN = 1234567;
 
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByLaEstab("1234567")).Returns((string urn) => testResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);

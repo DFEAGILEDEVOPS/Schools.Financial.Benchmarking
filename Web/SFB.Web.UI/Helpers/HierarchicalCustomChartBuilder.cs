@@ -8,6 +8,9 @@ namespace SFB.Web.UI.Helpers
         List<HierarchicalChartViewModel> BuildList();
     }
 
+    /// <summary>
+    /// This class is used only for generating the JSON model of the custom charts
+    /// </summary>
     public class HierarchicalCustomChartBuilder : IHierarchicalCustomChartBuilder
     {
         public List<HierarchicalChartViewModel> BuildList()
@@ -22,8 +25,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Total expenditure",
-                            FieldName = "Total Expenditure",
+                            Name = "Total expenditure",                            
                             PercentageAvailable = false
                         }
                     }
@@ -38,32 +40,26 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Staff total",
-                            FieldName = "Staff Total",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Teaching staff",
-                            FieldName = "Teaching staff",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Supply staff",
-                            FieldName = "Supply Staff"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Education support staff",
-                            FieldName = "Education support staff"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Administrative and clerical staff",
-                            FieldName = "Administrative and clerical staff",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Other staff costs",
-                            FieldName = "Other Staff Costs",
                         }
                     }
                 },
@@ -77,27 +73,22 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Premises total",
-                            FieldName = "Premises",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Premises staff",
-                            FieldName = "Premises staff",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Cleaning and caretaking",
-                            FieldName = "Cleaning and caretaking",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Maintenance and improvement",
-                            FieldName = "Maintenance & Improvement",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "PFI charges",
-                            FieldName = "PFI Charges"
                         }
                     }
                 },
@@ -111,42 +102,34 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Occupation total",
-                            FieldName = "Occupation",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Energy",
-                            FieldName = "Energy",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Water and sewerage",
-                            FieldName = "Water and sewerage",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Rates",
-                            FieldName = "Rates",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Other occupation costs",
-                            FieldName = "Other occupation costs",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Other insurance premiums",
-                            FieldName = "Other insurance premiums",
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Catering expenditure",
-                            FieldName = "Catering Exp"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Rent and rates",
-                            FieldName = "Rent and Rates"
                         },
                     }
                 },
@@ -160,22 +143,18 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Supplies and services total",
-                            FieldName = "Supplies and Services"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Administrative supplies",
-                            FieldName = "Administrative supplies - non educational"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Educational supplies",
-                            FieldName = "Educational Supplies"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Bought-in professional services",
-                            FieldName = "Brought in Professional Sevices"
                         }
                     }
                 },
@@ -189,7 +168,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Special facilities",
-                            FieldName = "Special facilities"
                         },
                     }
                 },
@@ -203,7 +181,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Cost of finance total",
-                            FieldName = "Cost of Finance"
                         },
                     }
                 },
@@ -217,7 +194,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Community expenditure total",
-                            FieldName = "Community Exp"
                         },
                     }
                 },
@@ -231,20 +207,17 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Total income",
-                            FieldName = "Total Income",
                             PercentageAvailable = false
                         },
 
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Grant funding total",
-                            FieldName = "Grant Funding"
                         },
 
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Self-generated total",
-                            FieldName = "Self Generated Funding"
                         }
                     }
                 },
@@ -258,22 +231,18 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Grant funding total",
-                            FieldName = "Grant Funding"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Direct grants",
-                            FieldName = "Direct Grant"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Community grants",
-                            FieldName = "Community Grants"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Targeted grants",
-                            FieldName = "Targeted Grants"
                         },
                     }
                 },
@@ -287,7 +256,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Self-generated funding total",
-                            FieldName = "Self Generated Funding"
                         },
                         new CustomChartSelectionViewModel()
                         {
@@ -296,42 +264,34 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Income from facilities and services",
-                            FieldName = "Income from facilities and services"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Income from catering",
-                            FieldName = "Income from catering"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Donations and/or voluntary funds",
-                            FieldName = "Donations and/or voluntary funds"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Income from contributions to visits",
-                            FieldName = "Income from contributions to visits etc"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Receipts from supply teacher insurance claims",
-                            FieldName = "Receipts from supply teacher insurance claims"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Receipts from other insurance claims",
-                            FieldName = "Receipts from other insurance claims"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Investment income",
-                            FieldName = "Investment income"
                         },
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Other self-generated income",
-                            FieldName = "Other self-generated income"
                         },
                     }
                 },
@@ -345,7 +305,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "In-year balance",
-                            FieldName = "In Year Balance",
                             PercentageAvailable = false
                         },
                     }
@@ -360,7 +319,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "School workforce (Full Time Equivalent)",
-                            FieldName = "TotalSchoolWorkforceFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
                             NumberOfPupilsPerMeasureAvailable = true,
@@ -372,7 +330,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Teachers (Full Time Equivalent)",
-                            FieldName = "TotalNumberOfTeachersFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
                             PercentageOfWorkforceAvailable = true,
@@ -385,7 +342,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Teachers with Qualified Teacher Status (%)",
-                            FieldName = "TeachersWithQualifiedTeacherStatus",
                             AbsoluteCountAvailable = true,
                             PerPupilAvailable = false,
                             PerTeacherAvailable = false,
@@ -395,7 +351,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Senior leadership (Full Time Equivalent)",
-                            FieldName = "TotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
                             PercentageOfWorkforceAvailable = true,
@@ -408,7 +363,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Teaching assistants (Full Time Equivalent)",
-                            FieldName = "TotalNumberOfTeachingAssistantsFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
                             PercentageOfWorkforceAvailable = true,
@@ -421,7 +375,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Non-classroom support staff (Full Time Equivalent)",
-                            FieldName = "TotalNumberOfNonClassroomBasedSchoolSupportStaffExcludingAuxiliaryStaffFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
                             PercentageOfWorkforceAvailable = true,
@@ -434,7 +387,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "Auxiliary staff (Full Time Equivalent)",
-                            FieldName = "TotalNumberOfAuxiliaryStaffFullTimeEquivalent",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
                             PercentageOfWorkforceAvailable = true,
@@ -447,7 +399,6 @@ namespace SFB.Web.UI.Helpers
                         new CustomChartSelectionViewModel()
                         {
                             Name = "School workforce (headcount)",
-                            FieldName = "TotalSchoolWorkforceHeadcount",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
                             PercentageOfWorkforceAvailable = true,

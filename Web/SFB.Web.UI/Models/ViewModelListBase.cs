@@ -3,8 +3,15 @@ using System.Linq;
 
 namespace SFB.Web.UI.Models
 {
-    public class ViewModelListBase<T> where T:DynamicViewModelBase
+    public class ViewModelListBase<T> where T:ViewModelBase
     {
+        public ViewModelListBase(List<T> modelList, SchoolComparisonListModel comparisonList, string orderBy = "")
+        {
+            this.SchoolComparisonList = comparisonList;
+            this.ModelList = modelList;
+            this.OrderBy = orderBy;
+        }
+
         public SchoolComparisonListModel SchoolComparisonList;
 
         public int ComparisonListCount

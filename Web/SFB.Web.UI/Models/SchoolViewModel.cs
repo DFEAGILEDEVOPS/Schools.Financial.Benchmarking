@@ -2,21 +2,30 @@
 using System.Linq;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
+using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Models;
+using System.Globalization;
 
 namespace SFB.Web.UI.Models
 {
     public class SchoolViewModel : EstablishmentViewModelBase
     {
+        private EdubaseDataObject ContextDataModel { get; set; }
 
-        public SchoolViewModel(dynamic contextDataModel)
+        public SchoolViewModel(EdubaseDataObject contextDataModel)
         {
-            base.ContextDataModel = contextDataModel;
+            this.ContextDataModel = contextDataModel;
         }
 
-        public SchoolViewModel(dynamic schoolContextDataModel, SchoolComparisonListModel comparisonList)
+        public SchoolViewModel(EdubaseDataObject schoolContextDataModel, SchoolComparisonListModel comparisonList)
         {
-            base.ContextDataModel = schoolContextDataModel;
+            this.ContextDataModel = schoolContextDataModel;
             base.ComparisonList = comparisonList;
+        }
+
+        public LocationDataObject GetLocation()
+        {
+            return ContextDataModel.Location;
         }
 
         public bool IsInComparisonList
@@ -27,42 +36,40 @@ namespace SFB.Web.UI.Models
                 {
                     return false;
                 }
-                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == GetString("URN"));
+                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == ContextDataModel.URN.ToString());
             }
         }
 
-        public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == GetString("URN");
+        public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == ContextDataModel.URN.ToString();
 
-        public string Id => GetInt("URN").ToString();
+        public int Id => ContextDataModel.URN;
 
-        public string LaEstab => $"{GetString("LACode")} {GetString("EstablishmentNumber")}";
+        public string LaEstab => $"{ContextDataModel.LACode} {ContextDataModel.EstablishmentNumber}";
 
         public override string Name
         {
             get
             {
-                return GetString("EstablishmentName");
+                return ContextDataModel.EstablishmentName;
             }
 
             set { }
         }
 
-        public int La => GetInt("LACode");
+        public int La => ContextDataModel.LACode;
 
-        public int Estab => GetInt("EstablishmentNumber");
+        public int Estab => ContextDataModel.EstablishmentNumber;
 
-        public string OverallPhase => GetString("OverallPhase");
+        public string OverallPhase => ContextDataModel.OverallPhase;
 
-        public string Phase => GetString("PhaseOfEducation");
+        public string Phase => ContextDataModel.PhaseOfEducation;
 
         public bool IsSixthForm => this.Phase == "16 plus";
-
-        public string Status => GetString("EstablishmentStatus");
 
         public string SchoolWebSite
         {
             get {
-                var url = GetString("SchoolWebsite");
+                var url = ContextDataModel.SchoolWebsite;
                 if (url != null && url.ToLower().StartsWith("www"))
                 {
                     url = "http://" + url;
@@ -72,17 +79,60 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string AgeRange => $"{GetInt("StatutoryLowAge")} to {GetInt("StatutoryHighAge")}";
+        public string AgeRange => $"{ContextDataModel.StatutoryLowAge} to {ContextDataModel.StatutoryHighAge}";
 
-        public string HeadTeachFullName => $"{GetString("HeadFirstName")} {GetString("HeadLastName")}";
+        public string HeadTeachFullName => $"{ContextDataModel.HeadFirstName} {ContextDataModel.HeadLastName}";
 
-        public string TrustName => GetString("Trusts");
+        public string TrustName => ContextDataModel.Trusts;
         
-        public string PhoneNumber => GetString("TelephoneNum");
+        public string PhoneNumber => ContextDataModel.TelephoneNum;
 
-        public string OfstedRating => GetString("OfstedRating");
+        public string OfstedRating => ContextDataModel.OfstedRating;
 
-        public DateTime OfstedInspectionDate => GetDate("OfstedLastInsp").GetValueOrDefault();
+        public string OfstedInspectionDate 
+        {
+            get
+            {
+                try
+                {
+                    return DateTime.Parse(ContextDataModel.OfstedLastInsp, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();                    
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string OpenDate
+        {
+            get
+            {
+                try
+                {
+                    return DateTime.Parse(ContextDataModel.OpenDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string CloseDate
+        {
+            get
+            {
+                try
+                {
+                    return DateTime.Parse(ContextDataModel.CloseDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
 
         public string OfstedRatingText
         {
@@ -104,51 +154,17 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public int TotalPupils => GetInt("NumberOfPupils");
+        public int TotalPupils => ContextDataModel.NumberOfPupils.GetValueOrDefault();
 
-        public string IsPost16 => GetString("OfficialSixthForm") == "Has a sixth form" ? "Yes" : "No";
+        public string IsPost16 => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
-        public string HasNursery => GetInt("StatutoryLowAge") <= 3  ?  "Yes" : "No";
+        public string HasNursery => ContextDataModel.StatutoryLowAge <= 3  ?  "Yes" : "No";
 
-        public string OpenDate
-        {
-            get
-            {
-                var openDate = GetDateBinary("OpenDate");
-                if (openDate.HasValue && openDate >= new DateTime(2011,1,1))
-                {
-                    return openDate.Value.ToLongDateString();
-                }
-                else
-                {
-                    return String.Empty;
-                }
-            }
-        }
+        public string Address => $"{ContextDataModel.Street}, {ContextDataModel.Town}, {ContextDataModel.Postcode}";
 
-        public string CloseDate
-        {
-            get
-            {
-                var closeDate = GetDateBinary("CloseDate");
-                if (closeDate.HasValue && closeDate >= new DateTime(2011, 1, 1))
-                {
-                    return closeDate.Value.ToLongDateString();
-                }
-                else
-                {
-                    return String.Empty;
-                }
-            }
-        }
+        public override string Type => ContextDataModel.TypeOfEstablishment;
 
-        public string Address => $"{GetString("Street")}, {GetString("Town")}, {GetString("Postcode")}";
-
-        public override string Type => GetString("TypeOfEstablishment");
-
-        public bool HasIncompleteFinancialData => GetInt("Period covered by return") != 12;
-
-        public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), GetString("FinanceType"));
+        public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
 
         public bool HasCoordinates
         {
@@ -191,6 +207,5 @@ namespace SFB.Web.UI.Models
             }
             return string.Empty;
         }
-
     }
 }

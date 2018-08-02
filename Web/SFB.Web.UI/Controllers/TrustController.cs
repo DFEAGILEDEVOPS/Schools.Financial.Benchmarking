@@ -7,13 +7,13 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -159,17 +159,10 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        private async Task<TrustViewModel> BuildTrustVMAsync(string matNo, string name, dynamic response, RevenueGroupType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
+        private async Task<TrustViewModel> BuildTrustVMAsync(string matNo, string name, List<AcademiesContextualDataObject> academiesList, RevenueGroupType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
         {
-            var schoolListVM = new List<SchoolViewModel>();
-
-            foreach (var result in response.Results)
-            {
-                schoolListVM.Add(new SchoolViewModel(result, null));
-            }
-
             var comparisonListVM = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var trustVM = new TrustViewModel(matNo, name, new SchoolListViewModel(schoolListVM, comparisonListVM), comparisonListVM);
+            var trustVM = new TrustViewModel(matNo, name, academiesList, comparisonListVM);
             
             trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);
             trustVM.ChartGroups = _historicalChartBuilder.Build(tab, trustVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
@@ -191,11 +184,11 @@ namespace SFB.Web.UI.Controllers
             var models = new List<FinancialDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
 
-            var taskList = new List<Task<IEnumerable<Document>>>();
+            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetMATDataDocumentAsync(matCode, term, matFinancing);
+                var task = _financialDataService.GetTrustFinancialDataObjectAsync(matCode, term, matFinancing);
                 taskList.Add(task);
             }
 
@@ -203,16 +196,16 @@ namespace SFB.Web.UI.Controllers
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
-                var resultDocument = taskResult?.FirstOrDefault();
+                var resultObject = taskResult?.FirstOrDefault();
 
-                if (resultDocument != null && resultDocument.GetPropertyValue<bool>("DNS"))
+                if (resultObject != null && resultObject.DidNotSubmit)
                 {
-                    var emptyDoc = new Document();
-                    emptyDoc.SetPropertyValue("DNS", true);
-                    resultDocument = emptyDoc;
+                    var emptyObj = new SchoolTrustFinancialDataObject();
+                    emptyObj.DidNotSubmit = true;
+                    resultObject = emptyObj;
                 }
 
-                models.Add(new FinancialDataModel(matCode, term, resultDocument, EstablishmentType.MAT));
+                models.Add(new FinancialDataModel(matCode, term, resultObject, EstablishmentType.MAT));
             }
 
             return models;

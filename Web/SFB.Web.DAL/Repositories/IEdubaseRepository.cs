@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using SFB.Web.Common.DataObjects;
+using System.Collections.Generic;
 
 namespace SFB.Web.DAL.Repositories
 {
     public interface IEdubaseRepository
     {
-        dynamic GetSchoolByUrn(int urn);        
-        dynamic GetSchoolByLaEstab(string laEstab);        
-        dynamic GetMultipleSchoolsByUrns(List<int> urns);
+        EdubaseDataObject GetSchoolDataObjectByUrn(int urn);
+        EdubaseDataObject GetSchoolByLaEstab(string laEstab);        
+        List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns);
         List<int> GetAllSchoolUrns();
     }
 }

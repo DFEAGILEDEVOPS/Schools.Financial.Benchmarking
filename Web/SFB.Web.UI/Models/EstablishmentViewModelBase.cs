@@ -6,7 +6,7 @@ using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
 {
-    public abstract class EstablishmentViewModelBase : DynamicViewModelBase
+    public abstract class EstablishmentViewModelBase : ViewModelBase
     {
         public abstract string Name { get; set; }
 
@@ -24,21 +24,21 @@ namespace SFB.Web.UI.Models
 
         public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 
-        public decimal TotalRevenueIncome { get; set; }
+        public decimal? TotalRevenueIncome { get; set; }
 
-        public decimal TotalRevenueExpenditure { get; set; }
+        public decimal? TotalRevenueExpenditure { get; set; }
 
-        public decimal InYearBalance { get; set; }
+        public decimal? InYearBalance { get; set; }
 
         public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels.Last();
 
-        public bool IsReturnsComplete => LatestYearFinancialData.PeriodCoveredByReturn == 12;
+        public bool IsReturnsComplete => LatestYearFinancialData.IsReturnsComplete;
 
         public bool WorkforceDataPresent => LatestYearFinancialData.WorkforceDataPresent;
 
-        public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0d;
+        public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0m;
 
-        public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0d;
+        public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0m;
 
     }
 }

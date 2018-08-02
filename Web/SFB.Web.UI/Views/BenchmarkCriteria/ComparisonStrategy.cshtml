@@ -1,5 +1,8 @@
-﻿@using SFB.Web.UI.Helpers.Enums
+﻿@using SFB.Web.UI.Helpers.Constants;
+@using SFB.Web.UI.Helpers.Enums
+
 @model SFB.Web.UI.Models.SchoolViewModel
+
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "comparison-strategy";
@@ -45,6 +48,20 @@
                     </label>
                 </div>
 
+                <div class="multiple-choice">
+                    <input id="radio-3" type="radio" name="comparisonType" value="@ComparisonType.BestInBreed">
+                    <label class="selection-button-radio" for="radio-3">
+                        Best in class comparison
+                        <span class="help-icon inline-block hide-in-print">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" data-modal-title="Best in class comparison" data-modal-text="@HelpTooltipText.BestInClassHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <span class="visuallyhidden">Open help text for Best in class comparison opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
+                    </label>
+                </div>
+
             </fieldset>
         </div>
         <div class="grid-row font-xsmall">
@@ -60,3 +77,9 @@
         <input type="hidden" name="Urn" value="@ViewBag.URN">
     </form>
 </section>
+
+@section ViewScripts {
+    <script>
+        GOVUK.Modal.Load();
+    </script>
+}
