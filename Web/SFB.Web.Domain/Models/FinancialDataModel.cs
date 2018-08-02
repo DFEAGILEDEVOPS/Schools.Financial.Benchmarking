@@ -146,11 +146,18 @@ namespace SFB.Web.Domain.Models
         {
             get
             {
-                if (FinancialDataDocumentModel != null)
+                try
                 {
-                    return FinancialDataDocumentModel.GetPropertyValue<decimal>("Total Income");
+                    if (FinancialDataDocumentModel != null)
+                    {
+                        return FinancialDataDocumentModel.GetPropertyValue<decimal>("Total Income");
+                    }
+                    return 0;
                 }
-                return 0;
+                catch (Exception)
+                {
+                    return 0;
+                }
             }
         }
 
@@ -158,11 +165,18 @@ namespace SFB.Web.Domain.Models
         {
             get
             {
-                if (FinancialDataDocumentModel != null)
+                try
                 {
-                    return FinancialDataDocumentModel.GetPropertyValue<decimal>("Total Expenditure");
+                    if (FinancialDataDocumentModel != null)
+                    {
+                        return FinancialDataDocumentModel.GetPropertyValue<decimal>("Total Expenditure");                        
+                    }
+                    return 0;
                 }
-                return 0;
+                catch (Exception)
+                {
+                    return 0;
+                }
             }
         }
 
@@ -170,11 +184,18 @@ namespace SFB.Web.Domain.Models
         {
             get
             {
-                if (FinancialDataDocumentModel != null)
+                try
                 {
-                    return FinancialDataDocumentModel.GetPropertyValue<decimal>("In Year Balance");
+                    if (FinancialDataDocumentModel != null)
+                    {
+                        return FinancialDataDocumentModel.GetPropertyValue<decimal>("In Year Balance");
+                    }
+                    return 0;
                 }
-                return 0;
+                catch (Exception)
+                {
+                    return 0;
+                }
 
             }
         }
