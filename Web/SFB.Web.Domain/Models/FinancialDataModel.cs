@@ -141,61 +141,12 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public decimal? TotalIncome
-        {
-            get
-            {
-                if (FinancialDataObjectModel != null)
-                {
-                    {
-                    return FinancialDataObjectModel.TotalIncome;
-                    }
-                    return 0;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-            }
-        }
+        public decimal? TotalIncome => FinancialDataObjectModel.TotalIncome;
 
-        public decimal? TotalExpenditure
-        {
-            get
-            {
-                if (FinancialDataObjectModel != null)
-                {
-                    {
-                    return FinancialDataObjectModel.TotalExpenditure;
-                    }
-                    return 0;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-            }
-        }
+        public decimal? TotalExpenditure => FinancialDataObjectModel.TotalExpenditure;
 
-        public decimal? InYearBalance
-        {
-            get
-            {
-                if (FinancialDataObjectModel != null)
-                {
-                    {
-                    return FinancialDataObjectModel.InYearBalance;
-                    }
-                    return 0;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-
-            }
-        }
-
+        public decimal? InYearBalance => FinancialDataObjectModel.InYearBalance;
+        
         public bool IsReturnsComplete
         {
             get
