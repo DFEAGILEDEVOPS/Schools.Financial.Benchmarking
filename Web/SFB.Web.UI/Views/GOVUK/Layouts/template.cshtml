@@ -63,6 +63,12 @@
     @RenderSection("Head", required: false)
 </head>
 <body class="@(ViewBag.bodyClasses)">
+<!-- Google Tag Manager (noscript) -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=@System.Configuration.ConfigurationManager.AppSettings["GoogleTagManagerId"]"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<!-- End Google Tag Manager (noscript) -->
 <a name="pagetop"></a>
 @if (!Request.Browser.Browser.Contains("MSIE 8"))
 {
