@@ -141,11 +141,11 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public decimal? TotalIncome => FinancialDataObjectModel.TotalIncome;
+        public decimal? TotalIncome => FinancialDataObjectModel?.TotalIncome;
 
-        public decimal? TotalExpenditure => FinancialDataObjectModel.TotalExpenditure;
+        public decimal? TotalExpenditure => FinancialDataObjectModel?.TotalExpenditure;
 
-        public decimal? InYearBalance => FinancialDataObjectModel.InYearBalance;
+        public decimal? InYearBalance => FinancialDataObjectModel?.InYearBalance;
         
         public bool IsReturnsComplete
         {
