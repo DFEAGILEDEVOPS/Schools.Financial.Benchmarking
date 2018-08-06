@@ -59,7 +59,7 @@ else
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
-                @SchoolDetailFieldFormatted("School website:", "<a class=\"sfb_gtm_website\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
+                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
                 @if (!Model.HistoricalFinancialDataModels.Last().IsSAT)
                 {
                     @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{2}</a>", Model.HistoricalFinancialDataModels.Last().MatNo, Server.UrlEncode(Model.TrustName), Model.TrustName)
@@ -212,7 +212,7 @@ else
     <dd class="values bold">
         @if (ViewBag.SptReportExists)
         {
-            <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Compare performance<span class="visuallyhidden"> Opens in a new window</span></a>
+            <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_other_service" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Compare performance<span class="visuallyhidden"> Opens in a new window</span></a>
             <span class="seperator" aria-hidden="true">&nbsp; | &nbsp;</span>
         }
         <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
