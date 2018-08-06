@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.Domain.Models
 {
     public class ComparisonResult
     {
-        public List<Document> BenchmarkSchools { get; set; }
+        public List<SchoolTrustFinancialDataObject> BenchmarkSchools { get; set; }
         public BenchmarkCriteria BenchmarkCriteria { get; set; }
     }
 }

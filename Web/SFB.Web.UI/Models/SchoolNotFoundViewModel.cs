@@ -1,6 +1,6 @@
 ﻿namespace SFB.Web.UI.Models
 {
-    public class SchoolNotFoundViewModel : DynamicViewModelBase
+    public class SchoolNotFoundViewModel : ViewModelBase
     {
         public SchoolNotFoundViewModel()
         {

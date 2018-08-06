@@ -33,16 +33,16 @@ namespace SFB.Web.UI.Models
         {
             var latestTrustData = schoolVM.HistoricalFinancialDataModels.Last();
             var list = new List<SchoolCharacteristic>();
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.NUMBER_OF_PUPILS, Value = latestTrustData.PupilCount.ToString("N0") });
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS, Value = latestTrustData.SchoolCount.ToString("N0") });
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.TOTAL_INCOME, Value = latestTrustData.TotalIncome.ToString("C0") });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.NUMBER_OF_PUPILS, Value = latestTrustData.PupilCount.GetValueOrDefault().ToString("N0") });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.NUMBER_OF_SCHOOLS, Value = latestTrustData.SchoolCount.GetValueOrDefault().ToString("N0") });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.TOTAL_INCOME, Value = latestTrustData.TotalIncome.GetValueOrDefault().ToString("C0") });
             list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.SCHOOL_OVERALL_PHASE, Value = latestTrustData.SchoolOverallPhase });
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_PRIMARY, Value = latestTrustData.CrossPhaseBreakdownPrimary });
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_SECONDARY, Value = latestTrustData.CrossPhaseBreakdownSecondary });
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_SPECIAL, Value = latestTrustData.CrossPhaseBreakdownSpecial });
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_PRU, Value = latestTrustData.CrossPhaseBreakdownPru });
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_AP, Value = latestTrustData.CrossPhaseBreakdownAP });
-            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_AT, Value = latestTrustData.CrossPhaseBreakdownAT });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_PRIMARY, Value = latestTrustData.CrossPhaseBreakdownPrimary.ToString() });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_SECONDARY, Value = latestTrustData.CrossPhaseBreakdownSecondary.ToString() });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_SPECIAL, Value = latestTrustData.CrossPhaseBreakdownSpecial.ToString() });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_PRU, Value = latestTrustData.CrossPhaseBreakdownPru.ToString() });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_AP, Value = latestTrustData.CrossPhaseBreakdownAP.ToString() });
+            list.Add(new SchoolCharacteristic() { Question = TrustCharacteristicsQuestions.CROSS_AT, Value = latestTrustData.CrossPhaseBreakdownAT.ToString() });
 
             return list;
         }

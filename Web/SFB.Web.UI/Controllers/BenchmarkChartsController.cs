@@ -4,23 +4,20 @@ using System.Linq;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers;
 using System.Collections.Generic;
-using System.Diagnostics;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 using SFB.Web.Domain.Models;
-using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
-
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -75,19 +72,49 @@ namespace SFB.Web.UI.Controllers
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
-                    Name = schoolDoc.GetPropertyValue<string>("School Name"),
-                    Type = schoolDoc.GetPropertyValue<string>("Type"),
-                    EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
-                    Urn = schoolDoc.GetPropertyValue<string>("URN")
+                    Name = schoolDoc.SchoolName,
+                    Type = schoolDoc.Type,
+                    EstabType = schoolDoc.FinanceType,
+                    Urn = schoolDoc.URN.ToString()
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);                
             }
 
             AddDefaultBenchmarkSchoolToList();
 
-            return await Index(urn, simpleCriteria, benchmarkCriteria, basketSize, benchmarkSchool.LatestYearFinancialData, estType, ComparisonType.Basic);
+            return await Index(urn, simpleCriteria, benchmarkCriteria, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
-        
+
+        [HttpGet]
+        public async Task<ActionResult> GenerateForBestInClass()
+        {
+            if (this.Request.UrlReferrer == null || TempData["URN"] == null)
+            {
+                return new RedirectResult("/Errors/InvalidRequest");
+            }
+
+            var urn = (int)TempData["URN"];
+
+            var bestInClassResults = _comparisonService.GenerateBenchmarkListWithBestInBreedComparison(urn);
+
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+
+            foreach (var bestInClassResult in bestInClassResults)
+            {
+                var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
+                {
+                    Name = bestInClassResult.ContextData.EstablishmentName,
+                    Type = bestInClassResult.ContextData.TypeOfEstablishment,
+                    EstabType = bestInClassResult.ContextData.FinanceType,
+                    Urn = bestInClassResult.ContextData.URN.ToString(),
+                    EmRank = bestInClassResult.Rank
+                };
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
+            }
+
+            return await Index(urn, null, null, ComparisonType.BestInBreed);
+        }
+
         [HttpGet]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
@@ -143,10 +170,10 @@ namespace SFB.Web.UI.Controllers
                     {
                         var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                         {
-                            Name = schoolDoc.GetPropertyValue<string>("School Name"),
-                            Type = schoolDoc.GetPropertyValue<string>("Type"),
-                            EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
-                            Urn = schoolDoc.GetPropertyValue<string>("URN")
+                            Name = schoolDoc.SchoolName,
+                            Type = schoolDoc.Type,
+                            EstabType = schoolDoc.FinanceType,
+                            Urn = schoolDoc.URN.ToString()
                         };
                         _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);                        
                     }
@@ -159,10 +186,10 @@ namespace SFB.Web.UI.Controllers
                     {
                         var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                         {
-                            Name = schoolDoc.GetPropertyValue<string>("School Name"),
-                            Type = schoolDoc.GetPropertyValue<string>("Type"),
-                            EstabType = schoolDoc.GetPropertyValue<string>("FinanceType"),
-                            Urn = schoolDoc.GetPropertyValue<string>("URN")
+                            Name = schoolDoc.SchoolName,
+                            Type = schoolDoc.Type,
+                            EstabType = schoolDoc.FinanceType,
+                            Urn = schoolDoc.URN.ToString()
                         };
                         _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
                     }
@@ -173,7 +200,7 @@ namespace SFB.Web.UI.Controllers
             AddDefaultBenchmarkSchoolToList();
 
             return await Index(urn, null,
-                criteria, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalFinancialDataModels.Last(), estType, ComparisonType.Advanced, areaType, lacode.ToString());
+                criteria, ComparisonType.Advanced, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalFinancialDataModels.Last(), estType, areaType, lacode.ToString());
         }
 
         public async Task<PartialViewResult> CustomReport(string json, ChartFormat format)
@@ -201,10 +228,10 @@ namespace SFB.Web.UI.Controllers
             int? urn, 
             SimpleCriteria simpleCriteria,
             BenchmarkCriteria benchmarkCriteria,
+            ComparisonType comparisonType = ComparisonType.Manual,
             int basketSize = ComparisonListLimit.DEFAULT,
             FinancialDataModel benchmarkSchoolData = null,
             EstablishmentType searchedEstabType = EstablishmentType.All,
-            ComparisonType comparisonType = ComparisonType.Manual,
             ComparisonArea areaType = ComparisonArea.All,
             string laCode = null,
             RevenueGroupType tab = RevenueGroupType.Expenditure,
@@ -421,56 +448,56 @@ namespace SFB.Web.UI.Controllers
             {
                 if (selection.AbsoluteMoneySelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.FieldName == selection.FieldName).Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
                     customChart.ShowValue = UnitType.AbsoluteMoney;
                     customChart.ChartType = ChartType.CustomReport;
                     customChartList.Add(customChart);
                 }
                 if (selection.PerPupilSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.FieldName == selection.FieldName).Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
                     customChart.ShowValue = UnitType.PerPupil;
                     customChart.ChartType = ChartType.CustomReport;
                     customChartList.Add(customChart);
                 }
                 if (selection.PerTeacherSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.FieldName == selection.FieldName).Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
                     customChart.ShowValue = UnitType.PerTeacher;
                     customChart.ChartType = ChartType.CustomReport;
                     customChartList.Add(customChart);
                 }
                 if (selection.PercentageSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.FieldName == selection.FieldName).Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
                     customChart.ShowValue = UnitType.PercentageOfTotal;
                     customChart.ChartType = ChartType.CustomReport;
                     customChartList.Add(customChart);
                 }
                 if (selection.AbsoluteCountSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.FieldName == selection.FieldName).Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
                     customChart.ShowValue = UnitType.AbsoluteCount;
                     customChart.ChartType = ChartType.CustomReport;
                     customChartList.Add(customChart);
                 }
                 if (selection.HeadCountPerFTESelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.FieldName == selection.FieldName).Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
                     customChart.ShowValue = UnitType.HeadcountPerFTE;
                     customChart.ChartType = ChartType.CustomReport;
                     customChartList.Add(customChart);
                 }
                 if (selection.PercentageOfWorkforceSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.FieldName == selection.FieldName).Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
                     customChart.ShowValue = UnitType.FTERatioToTotalFTE;
                     customChart.ChartType = ChartType.CustomReport;
                     customChartList.Add(customChart);
                 }
                 if (selection.NumberOfPupilsPerMeasureSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.FieldName == selection.FieldName).Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
                     customChart.ShowValue = UnitType.NoOfPupilsPerMeasure;
                     customChart.ChartType = ChartType.CustomReport;
                     customChartList.Add(customChart);
@@ -561,7 +588,7 @@ namespace SFB.Web.UI.Controllers
             var terms = _financialDataService.GetActiveTermsForMatCentral();
 
             foreach (var trust in trusts){
-                var financialDataModel = _financialDataService.GetMATDataDocument(trust.MatNo, terms.First(), matFinancing);
+                var financialDataModel = _financialDataService.GetTrustFinancialDataObject(trust.MatNo, terms.First(), matFinancing);
                 models.Add(new FinancialDataModel(trust.MatNo, terms.First(), financialDataModel, EstablishmentType.MAT));
             }
 
@@ -572,14 +599,14 @@ namespace SFB.Web.UI.Controllers
         {
             var models = new List<FinancialDataModel>();
 
-            var taskList = new List<Task<IEnumerable<Document>>>();
+            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
             foreach (var school in schools)
             {
                 var estabType = (EstablishmentType) Enum.Parse(typeof(EstablishmentType), school.EstabType);
                 var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
 
-                var task = _financialDataService.GetSchoolDataDocumentAsync(Int32.Parse(school.Urn), term, estabType, centralFinancing);
+                var task = _financialDataService.GetSchoolFinancialDataObjectAsync(Int32.Parse(school.Urn), term, estabType, centralFinancing);
                 taskList.Add(task);
             }
 
@@ -599,11 +626,11 @@ namespace SFB.Web.UI.Controllers
 
                 if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
+                    resultDocument = (await _financialDataService.GetSchoolFinancialDataObjectAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
                 }
                 
-                if (resultDocument != null && resultDocument.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display "no data" in the charts
+                if (resultDocument != null && resultDocument.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
                 {
                     resultDocument = null;
                 }
@@ -616,11 +643,9 @@ namespace SFB.Web.UI.Controllers
 
         private SchoolViewModel InstantiateBenchmarkSchool(int urn)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(benchmarkSchool.EstablishmentType);
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var document = _financialDataService.GetSchoolDataDocument(urn, term, benchmarkSchool.EstablishmentType);
-            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { new FinancialDataModel(urn.ToString(), term, document, benchmarkSchool.EstablishmentType) };
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());            
+            var schoolsLatestFinancialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
+            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
             return benchmarkSchool;
         }
 
@@ -632,7 +657,7 @@ namespace SFB.Web.UI.Controllers
                 Name = cookieObject.HomeSchoolName,
                 Type = cookieObject.HomeSchoolType,
                 EstabType = cookieObject.HomeSchoolFinancialType,
-                Urn = cookieObject.HomeSchoolUrn
+                Urn = cookieObject.HomeSchoolUrn,
             };
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);            
         }

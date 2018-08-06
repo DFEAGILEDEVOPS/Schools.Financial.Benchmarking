@@ -1,5 +1,4 @@
-﻿using System.Web.UI;//Do not remove. Needed for OutputCache
-using SFB.Web.UI.Models;
+﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,10 +12,10 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
 using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
-using System;
+using System.Web.UI;//Do not remove. Required in release mode build
+using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.ApiWrappers;
 
 namespace SFB.Web.UI.Controllers
@@ -69,7 +68,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolDataObjectByUrn(urn);
 
             if (schoolDetailsFromEdubase == null)
             {
@@ -116,13 +115,13 @@ namespace SFB.Web.UI.Controllers
         {          
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn.GetValueOrDefault()), null);
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn.GetValueOrDefault()), null);
 
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
-                        Urn = benchmarkSchool.Id,
+                        Urn = benchmarkSchool.Id.ToString(),
                         Type = benchmarkSchool.Type,
                         EstabType = benchmarkSchool.EstablishmentType.ToString()
                     });
@@ -140,13 +139,13 @@ namespace SFB.Web.UI.Controllers
         {            
             foreach (var urn in urns)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
+                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
 
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
-                        Urn = benchmarkSchool.Id,
+                        Urn = benchmarkSchool.Id.ToString(),
                         Type = benchmarkSchool.Type,
                         EstabType = benchmarkSchool.EstablishmentType.ToString()
                     });
@@ -163,14 +162,14 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult GetBenchmarkControls(int urn)
         {
-            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public async Task<PartialViewResult> GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include, ChartFormat format = ChartFormat.Charts)
         {
             financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
 
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolDataObjectByUrn(urn);
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
 
@@ -183,7 +182,7 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> Download(int urn)
         {
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolByUrn(urn);
+            var schoolDetailsFromEdubase = _contextDataService.GetSchoolDataObjectByUrn(urn);
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
 
@@ -199,7 +198,7 @@ namespace SFB.Web.UI.Controllers
                          $"HistoricalData-{urn}.csv");
         }
 
-        private async Task<SchoolViewModel> BuildSchoolVMAsync(RevenueGroupType revenueGroup, ChartGroupType chartGroup, CentralFinancingType cFinance, dynamic schoolDetailsData, UnitType unit = UnitType.AbsoluteCount)
+        private async Task<SchoolViewModel> BuildSchoolVMAsync(RevenueGroupType revenueGroup, ChartGroupType chartGroup, CentralFinancingType cFinance, EdubaseDataObject schoolDetailsData, UnitType unit = UnitType.AbsoluteCount)
         {
             var schoolVM = new SchoolViewModel(schoolDetailsData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
@@ -210,7 +209,7 @@ namespace SFB.Web.UI.Controllers
 
             cFinance = revenueGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : cFinance;//Remove this rule after WF data is distributed
 
-            schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(Int32.Parse(schoolVM.Id), schoolVM.EstablishmentType, cFinance);
+            schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(schoolVM.Id, schoolVM.EstablishmentType, cFinance);
 
             schoolVM.TotalRevenueIncome = schoolVM.HistoricalFinancialDataModels.Last().TotalIncome;
             schoolVM.TotalRevenueExpenditure = schoolVM.HistoricalFinancialDataModels.Last().TotalExpenditure;
@@ -236,11 +235,11 @@ namespace SFB.Web.UI.Controllers
             var models = new List<FinancialDataModel>();
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
             
-            var taskList = new List<Task<IEnumerable<Document>>>();
+            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetSchoolDataDocumentAsync(urn, term, estabType, cFinance);
+                var task = _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, cFinance);
                 taskList.Add(task);
             }
 
@@ -248,29 +247,29 @@ namespace SFB.Web.UI.Controllers
             {
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
-                var resultDocument = taskResult?.FirstOrDefault();
+                var resultDataObject = taskResult?.FirstOrDefault();
                 var dataGroup = estabType.ToDataGroup(cFinance);
 
-                if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
+                if (dataGroup == DataGroups.MATAllocs && resultDataObject == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    resultDocument = (await _financialDataService.GetSchoolDataDocumentAsync(urn, term, estabType, CentralFinancingType.Exclude))
+                    resultDataObject = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();
                 }
                 
-                if (resultDocument != null && resultDocument.GetPropertyValue<bool>("DNS"))//School did not submit finance, return & display "no data" in the charts
+                if (resultDataObject != null && resultDataObject.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
                 {
-                    resultDocument = null;
+                    resultDataObject = null;
                 }
 
-                models.Add(new FinancialDataModel(urn.ToString(), term, resultDocument, estabType));
+                models.Add(new FinancialDataModel(urn.ToString(), term, resultDataObject, estabType));
             }
             
             return models;
         }
 
-        private bool SptReportExists(string urn)
+        private bool SptReportExists(int urn)
         {
-            return _apiRequest.Head("/estab-details/", new List<string> { urn }).statusCode == HttpStatusCode.OK;
+            return _apiRequest.Head("/estab-details/", new List<string> { urn.ToString() }).statusCode == HttpStatusCode.OK;
         }
     }
 }

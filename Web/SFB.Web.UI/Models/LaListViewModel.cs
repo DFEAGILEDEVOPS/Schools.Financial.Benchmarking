@@ -5,10 +5,7 @@ namespace SFB.Web.UI.Models
     public class LaListViewModel : ViewModelListBase<LaViewModel>
     {
         public LaListViewModel(List<LaViewModel> modelList, SchoolComparisonListModel comparisonList, string orderBy = "")
-        {
-            base.ModelList = modelList;
-            base.SchoolComparisonList = comparisonList;
-            base.OrderBy = orderBy;
-        }
+            : base(modelList, comparisonList, orderBy)
+        {}
     }
 }

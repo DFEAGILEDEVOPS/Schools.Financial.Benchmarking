@@ -12,6 +12,7 @@
     }
 
     //This function is accessing to the scope of the AngularJS controller to retrieve the chart selections model and update the buttons accordingly in other tabs.
+    //TODO: Can we eliminate need to use FieldName and instead use ChartName here?
     BenchmarkChartsViewModel.RefreshAddRemoveLinks = function() {
         var showRemoveLink = function (element) {
             $(element).find("a.customRemove").show();
@@ -29,14 +30,14 @@
                 function () {
                     $(".customActions").each(function () {
                         var self = this;
-                        var fieldName = $(self).attr("data-fn");
+                        var chartName = $(self).attr("data-fn");
                         var showValue = $(self).attr("data-sv");
 
                         _.forEach(scope.selectionList.HierarchicalCharts,
                             function (group) {
                                 var selection = _.find(group.Charts,
                                     function (c) {
-                                        return c.FieldName === fieldName;
+                                        return c.Name === chartName;
                                     });
 
                                 if (selection) {
@@ -80,7 +81,8 @@
     };
 
     //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
-    BenchmarkChartsViewModel.AddRemoveYourCharts = function (fieldName, showValue, checked) {
+    //TODO: Can we eliminate need to use FieldName and instead use ChartName here?
+    BenchmarkChartsViewModel.AddRemoveYourCharts = function (chartName, showValue, checked) {
         var self = this;
         var scope = angular.element($("#listCtrl")).scope();
         scope.$apply(function () {
@@ -88,7 +90,7 @@
                 function (group) {
                     var selection = _.find(group.Charts,
                         function (c) {
-                            return c.FieldName === fieldName;
+                            return c.Name === chartName;
                         });
 
                     if (selection) {
@@ -354,12 +356,20 @@
                     var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
                         $(el).closest('.chartContainer'))[0].value;
                     var highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
-                    return "<table class='bmc-rollover-table' >" +
-                        "<tr><th colspan='2' class='" + highlight +"'>" + name + "</th></tr>" +
+                    var tableHtml =
+                        "<table class='bmc-rollover-table' >" +
+                        "<tr><th colspan='2' class='" + highlight + "'>" + name + "</th></tr>" +
                         "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
-                        "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>" +
-                        "</table>";
+                        "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
+
+                    if ($("#ComparisonType").val() == "BestInBreed"){
+                        tableHtml += "<tr><td class='bold'>Efficiency metric rank</td><td>" + schoolData.efficiencyRank + "</td></tr>";
+                    }
+
+                   tableHtml += "</table>";
+
+                    return tableHtml;
                 },
                 
                 show: $("#Type").val() !== "MAT",

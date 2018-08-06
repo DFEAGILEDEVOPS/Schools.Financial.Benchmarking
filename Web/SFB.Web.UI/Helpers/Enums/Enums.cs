@@ -44,7 +44,8 @@ namespace SFB.Web.UI.Helpers.Enums
     {
         Basic,
         Advanced,
-        Manual
+        Manual,
+        BestInBreed
     }
 
     public enum UnitType

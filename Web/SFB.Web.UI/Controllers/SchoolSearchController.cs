@@ -71,19 +71,17 @@ namespace SFB.Web.UI.Controllers
                         if (string.IsNullOrEmpty(errorMessage))
                         {
                             searchResp = IsLaEstab(nameId)
-                                ? _contextDataService.GetSchoolByLaEstab(nameIdSanitized)
-                                : _contextDataService.GetSchoolByUrn(Int32.Parse(nameIdSanitized));
+                                ? _contextDataService.GetSchoolDataObjectByLaEstab(nameIdSanitized)
+                                : _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(nameIdSanitized));
 
                             if (searchResp == null)
                             {
                                 return View("EmptyResult",
                                     new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
                                         SearchTypes.SEARCH_BY_NAME_ID));
-                            }
+                            }                                                       
 
-                            nameId = ((Microsoft.Azure.Documents.Document) searchResp).GetPropertyValue<string>("URN");
-
-                            return RedirectToAction("Detail", "School", new {urn = nameId});
+                            return RedirectToAction("Detail", "School", new {urn = searchResp.URN});
                         }
                         else
                         {
@@ -108,7 +106,7 @@ namespace SFB.Web.UI.Controllers
                         if (string.IsNullOrEmpty(errorMessage))
                         {
                             // first see if we get a match on the word
-                            searchResp = await GetSearchResults(nameId, searchType, null, null, null, null, radius,
+                            searchResp = await GetSearchResults(nameId, searchType, null, null, null, radius,
                                 orderby, page);
                             if (searchResp.NumberOfResults == 0)
                             {
@@ -181,7 +179,7 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, null, locationorpostcode,
+                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode,
                                 locationCoordinates, laCodeName, radius, orderby, page);
 
                             int resultCount = searchResp.NumberOfResults;
@@ -217,7 +215,7 @@ namespace SFB.Web.UI.Controllers
                     errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
                     if (string.IsNullOrEmpty(errorMessage))
                     {
-                        searchResp = await GetSearchResults(nameId, searchType, null, locationorpostcode,
+                        searchResp = await GetSearchResults(nameId, searchType, locationorpostcode,
                             locationCoordinates, laCodeName, radius, orderby, page);
 
                         int resultCnt = searchResp.NumberOfResults;
@@ -251,13 +249,13 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolByUrn(urn), null);
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolModel()
                 {
                     Name = benchmarkSchool.Name,
-                    Urn = benchmarkSchool.Id,
+                    Urn = benchmarkSchool.Id.ToString(),
                     Type = benchmarkSchool.Type,
                     EstabType = benchmarkSchool.EstablishmentType.ToString()
                 });                      
@@ -303,7 +301,7 @@ namespace SFB.Web.UI.Controllers
             string orderby = "", int page = 1)
 
         {
-            var searchResponse = await GetSearchResults(nameId, searchType, null, locationorpostcode,
+            var searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
                 locationCoordinates, laCodeName, radius, orderby, page);
             var vm = GetSchoolViewModelList(searchResponse, orderby,page, searchType, nameId, locationorpostcode, laCodeName);
 
@@ -319,7 +317,7 @@ namespace SFB.Web.UI.Controllers
             dynamic searchResponse;
             if (string.IsNullOrEmpty(matNo))
             {
-                searchResponse = await GetSearchResults(nameId, searchType, null, locationorpostcode,
+                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
                     locationCoordinates, laCodeName, radius, orderby, page, 1000);
             }
             else
@@ -341,7 +339,6 @@ namespace SFB.Web.UI.Controllers
         private async Task<dynamic> GetSearchResults(
             string nameId,
             string searchType,
-            List<int> urnList,
             string locationorpostcode,
             string locationCoordinates,
             string laCode,
@@ -350,7 +347,7 @@ namespace SFB.Web.UI.Controllers
             int page, 
             int take = SearchDefaults.RESULTS_PER_PAGE)
         {
-            dynamic response;
+            dynamic response = null;
 
             switch (searchType)
             {
@@ -382,9 +379,6 @@ namespace SFB.Web.UI.Controllers
                         string.IsNullOrEmpty(orderby) ? "EstablishmentName" : orderby,
                         Request.QueryString);
                     break;
-                default:
-                    response = _contextDataService.GetMultipleSchoolsByUrns(urnList);
-                    break;
             }
             return response;
         }
@@ -414,13 +408,13 @@ namespace SFB.Web.UI.Controllers
 
         private SearchedSchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
-            var schoolListVm = new List<SchoolViewModel>();
+            var schoolListVm = new List<SchoolSearchResultViewModel>();
             var vm = new SearchedSchoolListViewModel(schoolListVm, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);
             if (response != null)
             {
                 foreach (var result in response.Results)
                 {
-                    var schoolVm = new SchoolViewModel(result);
+                    var schoolVm = new SchoolSearchResultViewModel(result);
                     schoolListVm.Add(schoolVm);
                 }
 

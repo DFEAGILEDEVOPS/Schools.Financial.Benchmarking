@@ -49,15 +49,15 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/SchoolResults", GetSchoolViewModelList(searchResults, orderBy, page));
         }
 
-        private SchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page)
+        private SearchedSchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page)
         {
-            var schoolListVm = new List<SchoolViewModel>();
-            var vm = new SchoolListViewModel(schoolListVm, null, orderBy);
+            var schoolListVm = new List<SchoolSearchResultViewModel>();
+            var vm = new SearchedSchoolListViewModel(schoolListVm, null, null,null, null,null, orderBy);
             if (response != null)
             {
                 foreach (var result in response.Results)
                 {
-                    var schoolVm = new SchoolViewModel(result);
+                    var schoolVm = new SchoolSearchResultViewModel(result);
                     schoolListVm.Add(schoolVm);
                 }
 

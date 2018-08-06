@@ -52,15 +52,14 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public bool HasNoTeacherData => ModelList.SelectMany(m => m.BenchmarkData).Any(d => d.TeacherCount == 0d);
+        public bool HasNoTeacherData => ModelList.SelectMany(m => m.BenchmarkData).Any(d => d.TeacherCount == 0m);
 
         public bool NoResultsForSimpleSearch => (ComparisonType == ComparisonType.Basic && ComparisonListCount < 2);
         public int BasketSize { get; set; }
 
         public BenchmarkChartListViewModel(List<ChartViewModel> modelList, SchoolComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, int urn, int basketSize, TrustComparisonListModel trustComparisonList = null)
+            :base(modelList, comparisonList)
         {
-            base.SchoolComparisonList = comparisonList;
-            base.ModelList = modelList;
             this.ChartGroups = chartGroups;
             this.AdvancedCriteria = advancedCriteria;
             this.SimpleCriteria = simpleCriteria;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFB.Web.Domain.Helpers;
+using System;
 using System.Linq;
 
 namespace SFB.Web.UI.Helpers
@@ -14,12 +15,12 @@ namespace SFB.Web.UI.Helpers
 
         public static string FinancialTermFormatAcademies(int endYear)
         {
-            return $"{endYear - 1} / {endYear}";
+            return SchoolFormatHelpers.FinancialTermFormatAcademies(endYear);
         }
 
         public static string FinancialTermFormatMaintained(int endYear)
         {
-            return $"{endYear - 1} - {endYear}";
+            return SchoolFormatHelpers.FinancialTermFormatMaintained(endYear);
         }
 
         public static string GrammarCase(string[] stringList)

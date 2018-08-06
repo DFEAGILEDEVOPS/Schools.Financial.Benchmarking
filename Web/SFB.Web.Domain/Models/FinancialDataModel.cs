@@ -1,40 +1,40 @@
 ﻿using System;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.Domain.Models
 {
     public class FinancialDataModel : IEquatable<FinancialDataModel>
     {
         public string Term { get; }
-        public Document FinancialDataDocumentModel { get; }
+        public SchoolTrustFinancialDataObject FinancialDataObjectModel { get; }
         public string Id { get; private set; }    
         public EstablishmentType EstabType{ get; private set;}
 
 
         public FinancialDataModel(){}
 
-        public FinancialDataModel(string id, string term, Document financialDataDocumentModel, EstablishmentType estabType)
+        public FinancialDataModel(string id, string term, SchoolTrustFinancialDataObject financialDataObject, EstablishmentType estabType)
         {
             Id = id;
             Term = term;
-            FinancialDataDocumentModel = financialDataDocumentModel;
+            FinancialDataObjectModel = financialDataObject;
             EstabType = estabType;
         }
 
-        public int LaNumber => TryGetInt("LA");
+        public int? LaNumber => FinancialDataObjectModel?.LA;
 
         #region Financial Data
 
-        public double PupilCount
+        public decimal? PupilCount
         {
             get
             {
                 try
                 {
-                    if (FinancialDataDocumentModel != null)
+                    if (FinancialDataObjectModel != null && FinancialDataObjectModel.NoPupils != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<double>(DBFieldNames.NO_PUPILS);
+                        return FinancialDataObjectModel.NoPupils;
                     }
                     return 0;
                 }
@@ -45,15 +45,15 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public double SchoolCount
+        public decimal? SchoolCount
         {
             get
             {
                 try
                 {
-                    if (FinancialDataDocumentModel != null)
+                    if (FinancialDataObjectModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<double>(DBFieldNames.NO_SCHOOLS);
+                        return FinancialDataObjectModel.SchoolCount;
                     }
                     return 0;
                 }
@@ -64,16 +64,15 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public double TeacherCount
+        public decimal? TeacherCount
         {
             get
             {
                 try
                 {
-                    if (FinancialDataDocumentModel != null)
+                    if (FinancialDataObjectModel != null && FinancialDataObjectModel.NoTeachers != null)
                     {
-
-                        return FinancialDataDocumentModel.GetPropertyValue<double>("No Teachers");
+                        return FinancialDataObjectModel.NoTeachers;
                     }
                     return 0;
                 }
@@ -90,9 +89,9 @@ namespace SFB.Web.Domain.Models
             {
                 try
                 {
-                    if (FinancialDataDocumentModel != null)
+                    if (FinancialDataObjectModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<string>("MATNumber");
+                        return FinancialDataObjectModel.MATNumber;
                     }
                     return string.Empty;
                 }
@@ -109,9 +108,9 @@ namespace SFB.Web.Domain.Models
             {
                 try
                 {
-                    if (FinancialDataDocumentModel != null)
+                    if (FinancialDataObjectModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<string>("MAT SAT or Central Services").Equals("SAT");
+                        return FinancialDataObjectModel.MATSATCentralServices.Equals("SAT");
                     }
                     return false;
                 }
@@ -129,9 +128,9 @@ namespace SFB.Web.Domain.Models
             {
                 try
                 {
-                    if (FinancialDataDocumentModel != null)
+                    if (FinancialDataObjectModel != null)
                     {
-                        return FinancialDataDocumentModel.GetPropertyValue<bool>("DNS");
+                        return FinancialDataObjectModel.DidNotSubmit;
                     }
                     return false;
                 }
@@ -142,81 +141,17 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public decimal TotalIncome
+        public decimal? TotalIncome => FinancialDataObjectModel?.TotalIncome;
+
+        public decimal? TotalExpenditure => FinancialDataObjectModel?.TotalExpenditure;
+
+        public decimal? InYearBalance => FinancialDataObjectModel?.InYearBalance;
+        
+        public bool IsReturnsComplete
         {
             get
             {
-                try
-                {
-                    if (FinancialDataDocumentModel != null)
-                    {
-                        return FinancialDataDocumentModel.GetPropertyValue<decimal>("Total Income");
-                    }
-                    return 0;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-            }
-        }
-
-        public decimal TotalExpenditure
-        {
-            get
-            {
-                try
-                {
-                    if (FinancialDataDocumentModel != null)
-                    {
-                        return FinancialDataDocumentModel.GetPropertyValue<decimal>("Total Expenditure");                        
-                    }
-                    return 0;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-            }
-        }
-
-        public decimal InYearBalance
-        {
-            get
-            {
-                try
-                {
-                    if (FinancialDataDocumentModel != null)
-                    {
-                        return FinancialDataDocumentModel.GetPropertyValue<decimal>("In Year Balance");
-                    }
-                    return 0;
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-
-            }
-        }
-
-        public int PeriodCoveredByReturn
-        {
-            get
-            {
-                try
-                {
-                    if (FinancialDataDocumentModel != null)
-                    {
-                        return FinancialDataDocumentModel.GetPropertyValue<int>("Period covered by return");
-                    }
-                }
-                catch (Exception)
-                {
-                    return 0;
-                }
-
-                return 0;
+                return FinancialDataObjectModel?.PeriodCoveredByReturn >= 12;
             }
         }
 
@@ -224,9 +159,9 @@ namespace SFB.Web.Domain.Models
         {
             get
             {
-                if (FinancialDataDocumentModel != null)
+                if (FinancialDataObjectModel != null)
                 {
-                    return FinancialDataDocumentModel.GetPropertyValue<bool>("PartialYearsPresent");
+                    return FinancialDataObjectModel.PartialYearsPresent;
                 }
                 return false;
             }
@@ -236,9 +171,9 @@ namespace SFB.Web.Domain.Models
         {
             get
             {
-                if (FinancialDataDocumentModel != null)
+                if (FinancialDataObjectModel != null)
                 {
-                    return FinancialDataDocumentModel.GetPropertyValue<bool>("WorkforcePresent");
+                    return FinancialDataObjectModel.WorkforcePresent;
                 }
                 return false;
             }
@@ -248,155 +183,176 @@ namespace SFB.Web.Domain.Models
 
         #region Criteria Data
 
-        public string AdmissionPolicy => GetString(DBFieldNames.ADMISSION_POLICY);
+        public string AdmissionPolicy => FinancialDataObjectModel.AdmissionPolicy;
 
-        public string Gender => GetString(DBFieldNames.GENDER);
+        public string Gender => FinancialDataObjectModel.Gender;
 
-        public string SchoolOverallPhase => GetString(DBFieldNames.SCHOOL_OVERALL_PHASE);
+        public string SchoolOverallPhase => FinancialDataObjectModel.OverallPhase;
 
-        public string SchoolPhase => GetString(DBFieldNames.SCHOOL_PHASE);
+        public string SchoolPhase => FinancialDataObjectModel.Phase;
 
-        public string SchoolType => GetString(DBFieldNames.SCHOOL_TYPE);
+        public string SchoolType => FinancialDataObjectModel.Type;
 
-        public string UrbanRural => GetString(DBFieldNames.URBAN_RURAL);
+        public string UrbanRural => FinancialDataObjectModel.UrbanRural;
 
-        public string GovernmentOfficeRegion => GetString(DBFieldNames.REGION);
+        public string GovernmentOfficeRegion => FinancialDataObjectModel.Region;
 
-        public string LondonBorough => GetString(DBFieldNames.LONDON_BOROUGH);
+        public string LondonBorough => FinancialDataObjectModel.LondonBorough;
 
-        public string LondonWeighting => GetString(DBFieldNames.LONDON_WEIGHT);
+        public string LondonWeighting => FinancialDataObjectModel.LondonWeight;
 
-        public string PercentageOfEligibleFreeSchoolMeals => GetString(DBFieldNames.PERCENTAGE_FSM);
+        public decimal? PercentageOfEligibleFreeSchoolMeals => FinancialDataObjectModel.PercentageFSM;
 
-        public string PercentageOfPupilsWithSen => GetString(DBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN);
+        public decimal? PercentageOfPupilsWithSen => FinancialDataObjectModel.PercentagePupilsWSEN;
 
-        public string PercentageOfPupilsWithoutSen => GetString(DBFieldNames.PERCENTAGE_OF_PUPILS_WITHOUT_SEN);
+        public decimal? PercentageOfPupilsWithoutSen => FinancialDataObjectModel.PercentagePupilsWOSEN;
 
-        public string PercentageOfPupilsWithEal => GetString(DBFieldNames.PERCENTAGE_OF_PUPILS_WITH_EAL);
+        public decimal? PercentageOfPupilsWithEal => FinancialDataObjectModel.PercentagePupilsWEAL;
 
-        public string PercentageBoarders => GetString(DBFieldNames.PERCENTAGE_BOARDERS);
+        public decimal? PercentageBoarders => FinancialDataObjectModel.PercentageBoarders;
 
-        public string Pfi => GetString(DBFieldNames.PFI);
+        public string Pfi => FinancialDataObjectModel.PFI;
 
-        public string DoesTheSchoolHave6Form => GetString(DBFieldNames.HAS_6_FORM);
+        public string DoesTheSchoolHave6Form => FinancialDataObjectModel.Has6Form;
 
-        public string NumberIn6Form => GetString(DBFieldNames.NUMBER_IN_6_FORM);
+        public decimal? NumberIn6Form => FinancialDataObjectModel.NumberIn6Form;
 
-        public string HighestAgePupils => GetString(DBFieldNames.HIGHEST_AGE_PUPILS);
+        public decimal? HighestAgePupils => FinancialDataObjectModel.HighestAgePupils;
 
-        public string FullTimeAdmin => GetString(DBFieldNames.ADMIN_STAFF);
+        public decimal? FullTimeAdmin => FinancialDataObjectModel.AdminStaff;
 
-        public string FullTimeOther => GetString(DBFieldNames.FULL_TIME_OTHER);
+        public decimal? FullTimeOther => FinancialDataObjectModel.FullTimeOther;
 
-        public string PercentageQualifiedTeachers => GetString(DBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS);
+        public decimal? PercentageQualifiedTeachers => FinancialDataObjectModel.PercentageQualifiedTeachers;
 
-        public string LowestAgePupils => GetString(DBFieldNames.LOWEST_AGE_PUPILS);
+        public decimal? LowestAgePupils => FinancialDataObjectModel.LowestAgePupils;
 
-        public string FullTimeTA => GetString(DBFieldNames.FULL_TIME_TA);
+        public decimal? FullTimeTA => FinancialDataObjectModel.FullTimeTA;
 
-        public string TotalSchoolWorkforceFTE => GetString(DBFieldNames.WORKFORCE_TOTAL);
+        public decimal? TotalSchoolWorkforceFTE => FinancialDataObjectModel.WorkforceTotal;
 
-        public string TotalNumberOfTeachersFTE => GetString(DBFieldNames.TEACHERS_TOTAL);
+        public decimal? TotalNumberOfTeachersFTE => FinancialDataObjectModel.TeachersTotal;
 
-        public string TotalSeniorTeachersFTE => GetString(DBFieldNames.TEACHERS_LEADER);
+        public decimal? TotalSeniorTeachersFTE => FinancialDataObjectModel.TeachersLeader;
 
-        public string Ks2Actual => GetString(DBFieldNames.KS2_ACTUAL);
+        public decimal? Ks2Actual => FinancialDataObjectModel.Ks2Actual;
 
-        public string Ks2Progress => GetString(DBFieldNames.KS2_PROGRESS);
+        public decimal? Ks2Progress => FinancialDataObjectModel.Ks2Progress;
 
-        public string AvAtt8 => GetString(DBFieldNames.AVERAGE_ATTAINMENT);
+        public decimal? AvAtt8 => FinancialDataObjectModel.AverageAttainment;
 
-        public string P8Mea => GetString(DBFieldNames.PROGRESS_8_MEASURE);
+        public decimal? P8Mea => FinancialDataObjectModel.Progress8Measure;
 
-        public string OfstedRating => GetString(DBFieldNames.OFSTED_RATING_NAME);
+        public string OfstedRating => FinancialDataObjectModel.OfstedRatingName;
 
-        public string SpecificLearningDifficulty => GetString(DBFieldNames.SPECIFIC_LEARNING_DIFFICULTY);
+        public decimal? SpecificLearningDifficulty => FinancialDataObjectModel.SpecificLearningDiff;
 
-        public string ModerateLearningDifficulty => GetString(DBFieldNames.MODERATE_LEARNING_DIFFICULTY);
+        public decimal? ModerateLearningDifficulty => FinancialDataObjectModel.ModerateLearningDiff;
 
-        public string SevereLearningDifficulty => GetString(DBFieldNames.SEVERE_LEARNING_DIFFICULTY);
+        public decimal? SevereLearningDifficulty => FinancialDataObjectModel.SevereLearningDiff;
 
-        public string ProfLearningDifficulty => GetString(DBFieldNames.PROF_LEARNING_DIFFICULTY);
+        public decimal? ProfLearningDifficulty => FinancialDataObjectModel.ProfLearningDiff;
 
-        public string SocialHealth => GetString(DBFieldNames.SOCIAL_HEALTH);
-        
-        public string SpeechNeeds => GetString(DBFieldNames.SPEECH_NEEDS);
+        public decimal? SocialHealth => FinancialDataObjectModel.SocialHealth;
 
-        public string HearingImpairment => GetString(DBFieldNames.HEARING_IMPAIRMENT);
+        public decimal? SpeechNeeds => FinancialDataObjectModel.SpeechNeeds;
 
-        public string VisualImpairment => GetString(DBFieldNames.VISUAL_IMPAIRMENT);
+        public decimal? HearingImpairment => FinancialDataObjectModel.HearingImpairment;
 
-        public string MultiSensoryImpairment => GetString(DBFieldNames.MULTI_SENSORY_IMPAIRMENT);
+        public decimal? VisualImpairment => FinancialDataObjectModel.VisualImpairment;
 
-        public string PhysicalDisability => GetString(DBFieldNames.PHYSICAL_DISABILITY);
+        public decimal? MultiSensoryImpairment => FinancialDataObjectModel.MultiSensoryImpairment;
 
-        public string AutisticDisorder => GetString(DBFieldNames.AUTISTIC_DISORDER);
+        public decimal? PhysicalDisability => FinancialDataObjectModel.PhysicalDisability;
 
-        public string OtherLearningDifficulty => GetString(DBFieldNames.OTHER_LEARNING_DIFF);
+        public decimal? AutisticDisorder => FinancialDataObjectModel.AutisticDisorder;
 
-        public string CrossPhaseBreakdownPrimary => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY);
-        public string CrossPhaseBreakdownSecondary => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY);
-        public string CrossPhaseBreakdownSpecial => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL);
-        public string CrossPhaseBreakdownPru => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU);
-        public string CrossPhaseBreakdownAP => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP);
-        public string CrossPhaseBreakdownAT => FinancialDataDocumentModel.GetPropertyValue<Document>(DBFieldNames.SCHOOL_OVERALL_PHASE_BREAKDOWN).GetPropertyValue<String>(DBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT);
+        public decimal? OtherLearningDifficulty => FinancialDataObjectModel.OtherLearningDiff;
+
+        public int? CrossPhaseBreakdownPrimary
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownSecondary
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownSpecial
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownPru
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownAP
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP];
+                }
+
+                return 0;
+            }
+        }
+
+        public int? CrossPhaseBreakdownAT
+        {
+            get
+            {
+                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT))
+                {
+                    return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT];
+                }
+
+                return 0;
+            }
+        }
 
         #endregion
-
-        public decimal? GetDecimal(string fieldName)
-        {
-            decimal? result;
-            try
-            {
-                result = FinancialDataDocumentModel.GetPropertyValue<decimal?>(fieldName);
-            }
-            catch
-            {
-                return null;
-            }
-            
-            return result;
-        }
 
         public bool Equals(FinancialDataModel other)
         {
             return (this.Id == other.Id);
-        }
-
-        public string GetString(string fieldName)
-        {
-            if (FinancialDataDocumentModel != null)
-            {
-                return FinancialDataDocumentModel.GetPropertyValue<string>(fieldName);
-            }
-            return string.Empty;
-        }
-
-        public int GetInt(string fieldName)
-        {
-            if (FinancialDataDocumentModel != null)
-            {
-                return FinancialDataDocumentModel.GetPropertyValue<int>(fieldName);
-            }
-            return 0;
-        }
-
-        private int TryGetInt(string fieldName)
-        {
-            if (FinancialDataDocumentModel != null)
-            {
-                try
-                {
-                    return FinancialDataDocumentModel.GetPropertyValue<int>(fieldName);
-                }
-                catch
-                {
-                    return 0;
-                }
-            }
-            return 0;
-        }
-
+        }       
 
     }
 }

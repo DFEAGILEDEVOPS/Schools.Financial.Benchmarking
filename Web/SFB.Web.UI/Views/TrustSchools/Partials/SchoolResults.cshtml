@@ -1,5 +1,5 @@
 ﻿@using SFB.Web.UI.Models
-@model SFB.Web.UI.Models.SchoolListViewModel
+@model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
 <div id="result-list">
     <div id="js-search-results-info">
@@ -62,7 +62,7 @@ else
         </p>
 }
 
-@helper AddRemoveButton(SchoolViewModel school, string device)
+@helper AddRemoveButton(SchoolSearchResultViewModel school, string device)
 {
     if (!school.IsSixthForm)
     {

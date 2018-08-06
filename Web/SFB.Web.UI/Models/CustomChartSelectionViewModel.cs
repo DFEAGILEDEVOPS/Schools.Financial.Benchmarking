@@ -9,8 +9,6 @@
 
         public string Name { get; set; }
 
-        public string FieldName { get; set; }
-
         public bool PerPupilAvailable
         {
             get { return _perPupilAvailable; }

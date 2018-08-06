@@ -1,22 +1,16 @@
 ﻿using Moq;
-using Newtonsoft.Json;
 using NUnit.Framework;
-using SFB.Web.Domain.Models;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
-using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
-using SFB.Web.DAL;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Helpers;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -52,12 +46,12 @@ namespace SFB.Web.UI.UnitTests
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
             var _mockDocumentDbService = new Mock<IFinancialDataService>();
-            var testResult = new Document();
-            testResult.SetPropertyValue("URN", "321");
-            testResult.SetPropertyValue("School Name", "test");
-            Task<List<Document>> task = Task.Run(() =>
+            var testResult = new SchoolTrustFinancialDataObject();
+            testResult.URN = 321;
+            testResult.SchoolName = "test";
+            Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
             {
-                return new List<Document> { testResult};
+                return new List<SchoolTrustFinancialDataObject> { testResult};
             });
 
             _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
@@ -68,10 +62,10 @@ namespace SFB.Web.UI.UnitTests
                 .Returns(2015);
 
             var _mockEdubaseDataService = new Mock<IContextDataService>();
-            dynamic testEduResult = new Document();
-            testEduResult.URN = "100";
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 100;
             testEduResult.EstablishmentName = "test";
-            _mockEdubaseDataService.Setup(m => m.GetSchoolByUrn(100)).Returns((string urn) => testEduResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(100)).Returns((string urn) => testEduResult);
 
             var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object);
 

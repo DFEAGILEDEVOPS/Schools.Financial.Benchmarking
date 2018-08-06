@@ -35,8 +35,8 @@ else
     <div class="column-half">
         <div class="metadata-school-detail font-xsmall">
             <dl>
-                @SchoolDetailField("Address:",$"<a rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
-                @SchoolDetailField("Telephone number:", $"<a href=\"tel: 0{Model.PhoneNumber}\" aria-label=\"Call telephone number 0{Model.PhoneNumber}\">0{Model.PhoneNumber}</a>")
+                @SchoolDetailField("Address:",$"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
+                @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: 0{Model.PhoneNumber}\" aria-label=\"Call telephone number 0{Model.PhoneNumber}\">0{Model.PhoneNumber}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
@@ -50,7 +50,7 @@ else
                                 "<span class=\"ofsted-divider\" aria-hidden=\"true\">| </span>" +
                                 "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"visually-hidden\">Opens in a new window</span></a>" +
                                 "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
-                                Model.OfstedRating, Model.OfstedRatingText, Model.Id, Model.OfstedInspectionDate.ToLongDateString())
+                                Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate)
                 <dt class="names"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt><dd class="values bold">@Model.LaEstab</dd>
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
@@ -59,7 +59,7 @@ else
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
-                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
+                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
                 @if (!Model.HistoricalFinancialDataModels.Last().IsSAT)
                 {
                     @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{2}</a>", Model.HistoricalFinancialDataModels.Last().MatNo, Server.UrlEncode(Model.TrustName), Model.TrustName)
@@ -144,16 +144,16 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.GetString("URN"),'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
         </li>
     </ol>
 </nav>
@@ -212,10 +212,10 @@ else
     <dd class="values bold">
         @if (ViewBag.SptReportExists)
         {
-            <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Compare performance<span class="visuallyhidden"> Opens in a new window</span></a>
+            <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_other_service" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Compare performance<span class="visuallyhidden"> Opens in a new window</span></a>
             <span class="seperator" aria-hidden="true">&nbsp; | &nbsp;</span>
         }
-        <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_other_service" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
     </dd>
 }
 

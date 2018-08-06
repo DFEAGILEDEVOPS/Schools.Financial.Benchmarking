@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFB.Web.Common;
+using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
@@ -11,11 +13,15 @@ namespace SFB.Web.Domain.Services.Comparison
     public class ComparisonService : IComparisonService
     {
         private readonly IFinancialDataService _financialDataService;
+        private readonly IContextDataService _contextDataService;
+        private readonly IBestInBreedDataService _bestInBreedDataService;
         private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
 
-        public ComparisonService(IFinancialDataService financialDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
+        public ComparisonService(IFinancialDataService financialDataService,  IContextDataService _contextDataService, IBestInBreedDataService bestInBreedDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
         {
             _financialDataService = financialDataService;
+            this._contextDataService = _contextDataService;
+            _bestInBreedDataService = bestInBreedDataService;
             _benchmarkCriteriaBuilderService = benchmarkCriteriaBuilderService;
         }
 
@@ -30,6 +36,30 @@ namespace SFB.Web.Domain.Services.Comparison
             };
         }
 
+        public List<BestInClassResult> GenerateBenchmarkListWithBestInBreedComparison(int urn)
+        {
+            var bestInBreedDataObject = _bestInBreedDataService.GetBestInBreedDataObjectByUrn(urn);
+
+            var results = new List<BestInClassResult>();
+
+            results.Add(new BestInClassResult()
+            {
+                ContextData = _contextDataService.GetSchoolDataObjectByUrn(bestInBreedDataObject.URN),
+                Rank = bestInBreedDataObject.Rank
+            });
+
+            foreach (var neighbour in bestInBreedDataObject.Neighbours)
+            {
+                results.Add(new BestInClassResult()
+                {
+                    ContextData = _contextDataService.GetSchoolDataObjectByUrn(neighbour.URN),
+                    Rank = neighbour.Rank
+                });
+            }
+
+            return results;
+        }
+
         public async Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(
             BenchmarkCriteria benchmarkCriteria, EstablishmentType estType,
             int basketSize,
@@ -39,9 +69,9 @@ namespace SFB.Web.Domain.Services.Comparison
 
             if (benchmarkSchools.Count > basketSize) //Original query returns more than required. Cut from top by proximity.
             {
-                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount)).Take(basketSize).ToList();
-                benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<int>("No Pupils"));
-                benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<int>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
+                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
+                benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
+                benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the criteria to reflect the max and min pupil count of the found schools
             }
 
             var tryCount = 0;
@@ -58,9 +88,9 @@ namespace SFB.Web.Domain.Services.Comparison
 
                 if (benchmarkSchools.Count > basketSize) //Number jumping to more than ideal. Cut from top by proximity.
                 {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount)).Take(basketSize).ToList();
-                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<int>("No Pupils"));
-                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<int>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
+                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
+                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the criteria to reflect the max and min pupil count of the found schools
                     break;
                 }
             }
@@ -80,9 +110,9 @@ namespace SFB.Web.Domain.Services.Comparison
 
                 if (benchmarkSchools.Count > basketSize) //Number jumping to more than ideal. Cut from top by proximity.
                 {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.GetPropertyValue<int>("No Pupils") - defaultSchoolFinancialDataModel.PupilCount)).Take(basketSize).ToList();
-                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.GetPropertyValue<int>("No Pupils"));
-                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.GetPropertyValue<int>("No Pupils")); //Update the criteria to reflect the max and min pupil count of the found schools
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
+                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
+                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the criteria to reflect the max and min pupil count of the found schools
                     break;
                 }
 

@@ -80,7 +80,7 @@ else
                 </div>
             </div>
         }
-        if (Model.ComparisonType != ComparisonType.Manual)
+        if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced)
         {
             <div class="grid-row">
                 <div class="column-full">
@@ -104,6 +104,32 @@ else
                 </div>
             </div>
         }
+        if (Model.ComparisonType == ComparisonType.BestInBreed)
+        {
+            <div class="grid-row">
+                <div class="column-full">
+                    <details class="criteria-details">
+                        <summary class="hide-in-print">
+                            <span class="summary">View characteristics used</span>
+                        </summary>
+                        <div class="panel panel-border-narrow criteria-detail">
+                            Comparing @Model.SchoolComparisonList.HomeSchoolName to similar schools that have a high 
+                            <a rel="external noopener noreferrer" target="_blank" 
+                               href="https://www.gov.uk/government/publications/schools-financial-efficiency-metric-tool">efficiency ranking<span class="visuallyhidden"> Opens in a new window</span></a>.
+
+                            These are statistically similar in terms of the proportion of pupils:
+                            <p>
+                                <ul>
+                                    <li>who have been eligible for free school meals in the last 6 years</li>
+                                    <li>with a statement of special educational needs, or involved with School Action Plus</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+        }
+
     }
 
     if (Model.EstablishmentType == EstablishmentType.MAT)
@@ -223,6 +249,7 @@ else
         <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
+        <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />
         <input type = "hidden" id = "HomeSchoolName" name = "HomeSchoolName" value = "@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.DAL.Repositories;
 using SFB.Web.DAL;
+using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Models;
+using SFB.Web.Domain.Helpers;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -18,25 +20,33 @@ namespace SFB.Web.Domain.Services.DataAccess
             _dataCollectionManager = dataCollectionManager;
             _financialDataRepository = financialDataRepository;
         }
-        
-        public async Task<IEnumerable<Document>> GetSchoolDataDocumentAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+
+        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetSchoolFinancialDataObjectAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
         {
-            return await _financialDataRepository.GetSchoolDataDocumentAsync(urn, term, schoolFinancialType, cFinance);
+            return await _financialDataRepository.GetSchoolFinanceDataObjectAsync(urn, term, schoolFinancialType, cFinance);
         }
 
-        public Document GetSchoolDataDocument(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+        public SchoolTrustFinancialDataObject GetSchoolFinancialDataObject(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude)
         {
-            return _financialDataRepository.GetSchoolDataDocument(urn, term, schoolFinancialType, cFinance);
+            return _financialDataRepository.GetSchoolFinancialDataObject(urn, term, schoolFinancialType, cFinance);
         }
 
-        public Document GetMATDataDocument(string matNo, string term, MatFinancingType matFinance)
+        public FinancialDataModel GetSchoolsLatestFinancialDataModel(int urn, EstablishmentType schoolFinancialType)
         {
-            return _financialDataRepository.GetMATDataDocument(matNo, term, matFinance);
+            var latestYear = GetLatestDataYearPerEstabType(schoolFinancialType);
+            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var schoolFinancialDataObject = _financialDataRepository.GetSchoolFinancialDataObject(urn, term, schoolFinancialType);
+            return new FinancialDataModel(urn.ToString(), term, schoolFinancialDataObject, schoolFinancialType);
         }
 
-        public async Task<IEnumerable<Document>> GetMATDataDocumentAsync(string matNo, string term, MatFinancingType matFinance)
+        public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance)
         {
-            return await _financialDataRepository.GetMATDataDocumentAsync(matNo, term, matFinance);
+            return _financialDataRepository.GetTrustFinancialDataObject(matNo, term, matFinance);
+        }
+
+        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(string matNo, string term, MatFinancingType matFinance)
+        {
+            return await _financialDataRepository.GetTrustFinancialDataObjectAsync(matNo, term, matFinance);
         }
 
         public int GetLatestFinancialDataYear()
@@ -64,12 +74,12 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _dataCollectionManager.GetActiveTermsByDataGroup(DataGroups.Academies);
         }
 
-        public async Task<List<Document>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
+        public async Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
         {
             return await _financialDataRepository.SearchSchoolsByCriteriaAsync(criteria, estType);
         }
 
-        public async Task<List<Document>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
+        public async Task<List<SchoolTrustFinancialDataObject>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
         {
             return await _financialDataRepository.SearchTrustsByCriteriaAsync(criteria);
         }
@@ -89,9 +99,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             return await _financialDataRepository.GetEstablishmentRecordCountAsync(term, estType);
         }
 
-        public dynamic GetAcademiesByMatNumber(string term, string matNo)
+        public List<AcademiesContextualDataObject> GetAcademiesByMatNumber(string term, string matNo)
         {
-            return _financialDataRepository.GetAcademiesByMatNumber(term, matNo);
+            return _financialDataRepository.GetAcademiesContextualDataObject(term, matNo);
         }
     }
 }

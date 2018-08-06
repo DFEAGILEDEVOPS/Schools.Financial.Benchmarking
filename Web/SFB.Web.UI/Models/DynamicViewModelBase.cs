@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Microsoft.Azure.Documents;
-using SFB.Web.Domain.Models;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.Models
 {
@@ -13,12 +12,7 @@ namespace SFB.Web.UI.Models
         {
             try
             {
-                var model = ContextDataModel as Document;
-                if (model != null)
-                {
-                    return model.GetPropertyValue<string>(property);
-                }
-                    return ContextDataModel[property].ToString();
+                return ContextDataModel[property].ToString();
             }
             catch (Exception)
             {
@@ -30,8 +24,7 @@ namespace SFB.Web.UI.Models
         {
             try
             {
-                var model = ContextDataModel as Document;
-                return model?.GetPropertyValue<int>(property) ?? int.Parse(ContextDataModel[property]);
+                return int.Parse(ContextDataModel[property]);
             }
             catch (Exception)
             {
@@ -43,15 +36,14 @@ namespace SFB.Web.UI.Models
         {
             try
             {
-                var document = ContextDataModel as Document;
-                if (document != null)
+                if (ContextDataModel != null)
                 {
-                    if (document.GetPropertyValue<string>(property) == null)
+                    if (ContextDataModel[property] == null)
                     {
                         return null;
                     }
 
-                    return DateTime.Parse(document.GetPropertyValue<string>(property), CultureInfo.CurrentCulture, DateTimeStyles.None);
+                    return DateTime.Parse(ContextDataModel[property], CultureInfo.CurrentCulture, DateTimeStyles.None);
                 }
 
                 return null;
@@ -61,20 +53,19 @@ namespace SFB.Web.UI.Models
                 return null;
             }
         }
-        
+
         public DateTime? GetDateBinary(string property)//TODO: Remove this when date formats are fixed in DB
         {
             try
             {
-                var document = ContextDataModel as Document;
-                if (document != null)
+                if (ContextDataModel != null)
                 {
-                    if (document.GetPropertyValue<string>(property) == null)
+                    if (ContextDataModel[property] == null)
                     {
                         return null;
                     }
 
-                    return DateTime.ParseExact(document.GetPropertyValue<string>(property), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);                    
+                    return DateTime.ParseExact(ContextDataModel[property], "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 }
 
                 return null;
@@ -82,27 +73,20 @@ namespace SFB.Web.UI.Models
             catch (Exception)
             {
                 return null;
-            }            
+            }
         }
 
         public bool GetBoolean(string property)
         {
             try
             {
-                if (ContextDataModel is Document)
+                var result = false;
+                if (ContextDataModel[property] == "1")
                 {
-                    return (ContextDataModel as Document).GetPropertyValue<bool>(property);
+                    return true;
                 }
-                else
-                {
-                    bool result = false;
-                    if (ContextDataModel[property] == "1")
-                    {
-                        return true;
-                    }
-                    Boolean.TryParse(ContextDataModel[property], out result);
-                    return result;
-                }
+                Boolean.TryParse(ContextDataModel[property], out result);
+                return result;
             }
             catch (Exception)
             {
@@ -110,16 +94,9 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public Location GetLocation()
+        public LocationDataObject GetLocation()
         {
-            if (ContextDataModel is Document)
-            {
-                return (ContextDataModel as Document).GetPropertyValue<Location>("Location");
-            }
-            else
-            {
-                return ContextDataModel["Location"];
-            }
+            return ContextDataModel["Location"];
         }
     }
 }

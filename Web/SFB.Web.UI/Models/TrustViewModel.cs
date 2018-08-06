@@ -1,4 +1,5 @@
 ﻿using SFB.Web.Common;
+using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace SFB.Web.UI.Models
 
         public override string Name { get; set; }
 
-        public SchoolListViewModel SchoolList {get; set;}
+        public List<AcademiesContextualDataObject> AcademiesList {get; set;}
 
         public override string Type => "MAT";
 
@@ -25,9 +26,10 @@ namespace SFB.Web.UI.Models
             this.Name = name;            
         }
 
-        public TrustViewModel(string matNo, string name, SchoolListViewModel schoolList, SchoolComparisonListModel comparisonList): this(matNo, name)
+        public TrustViewModel(string matNo, string name, List<AcademiesContextualDataObject> academiesList, SchoolComparisonListModel comparisonList)
+            : this(matNo, name)
         {            
-            this.SchoolList = schoolList;
+            this.AcademiesList = academiesList;
             base.ComparisonList = comparisonList;            
         }
 

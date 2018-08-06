@@ -6,7 +6,7 @@ using SFB.Web.UI.Helpers.Enums;
 
 namespace SFB.Web.UI.Models
 {
-    public class ChartViewModel : DynamicViewModelBase, ICloneable
+    public class ChartViewModel : ViewModelBase, ICloneable
     {
         public string Id { get; set; }
         public string Name { get; set; }

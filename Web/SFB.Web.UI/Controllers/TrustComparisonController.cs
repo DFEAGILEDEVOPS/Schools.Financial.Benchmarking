@@ -72,7 +72,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     try
                     {
-                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.GetPropertyValue<string>("MATNumber"), doc.GetPropertyValue<string>("TrustOrCompanyName"));
+                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.MATNumber, doc.TrustOrCompanyName);
                     }catch (ApplicationException)
                     {
                         //Default trust cannot be added twice. Do nothing.
@@ -115,11 +115,11 @@ namespace SFB.Web.UI.Controllers
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var dataDocument = _financialDataService.GetMATDataDocument(benchmarkTrust.MatNo, term, MatFinancingType.TrustAndAcademies);
+            var financialDataObject = _financialDataService.GetTrustFinancialDataObject(benchmarkTrust.MatNo, term, MatFinancingType.TrustAndAcademies);
 
             benchmarkTrust.HistoricalFinancialDataModels = new List<Domain.Models.FinancialDataModel>
             {
-                new Domain.Models.FinancialDataModel(benchmarkTrust.MatNo, term, dataDocument, EstablishmentType.MAT)
+                new Domain.Models.FinancialDataModel(benchmarkTrust.MatNo, term, financialDataObject, EstablishmentType.MAT)
             };
         }
     }
