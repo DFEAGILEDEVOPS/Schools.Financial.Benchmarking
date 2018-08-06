@@ -35,8 +35,8 @@ else
     <div class="column-half">
         <div class="metadata-school-detail font-xsmall">
             <dl>
-                @SchoolDetailField("Address:",$"<a \"sfb_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
-                @SchoolDetailField("Telephone number:", $"<a class=\"sfb_tel\" href=\"tel: 0{Model.PhoneNumber}\" aria-label=\"Call telephone number 0{Model.PhoneNumber}\">0{Model.PhoneNumber}</a>")
+                @SchoolDetailField("Address:",$"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
+                @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: 0{Model.PhoneNumber}\" aria-label=\"Call telephone number 0{Model.PhoneNumber}\">0{Model.PhoneNumber}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
@@ -59,7 +59,7 @@ else
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
-                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
+                @SchoolDetailFieldFormatted("School website:", "<a class=\"sfb_gtm_website\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
                 @if (!Model.HistoricalFinancialDataModels.Last().IsSAT)
                 {
                     @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{2}</a>", Model.HistoricalFinancialDataModels.Last().MatNo, Server.UrlEncode(Model.TrustName), Model.TrustName)
