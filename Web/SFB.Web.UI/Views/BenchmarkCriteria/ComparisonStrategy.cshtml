@@ -47,7 +47,8 @@
                         Advanced comparison using characteristics you choose
                     </label>
                 </div>
-
+            @if(ViewBag.BestInClassAvailable)
+            {
                 <div class="multiple-choice">
                     <input id="radio-3" type="radio" name="comparisonType" value="@ComparisonType.BestInBreed">
                     <label class="selection-button-radio" for="radio-3">
@@ -61,7 +62,7 @@
                         </span>
                     </label>
                 </div>
-
+            }
             </fieldset>
         </div>
         <div class="grid-row font-xsmall">

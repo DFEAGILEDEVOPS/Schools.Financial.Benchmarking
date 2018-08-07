@@ -15,5 +15,7 @@ namespace SFB.Web.Domain.Services.Comparison
             SimpleCriteria simpleCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
 
         List<BestInClassResult> GenerateBenchmarkListWithBestInBreedComparison(int urn);
+
+        bool IsBestInBreedComparisonAvailable(int urn);
     }
 }

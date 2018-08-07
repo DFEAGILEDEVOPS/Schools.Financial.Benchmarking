@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFB.Web.Common;
-using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
@@ -34,6 +33,13 @@ namespace SFB.Web.Domain.Services.Comparison
                 BenchmarkSchools = limitedList,
                 BenchmarkCriteria = criteria
             };
+        }
+
+        public bool IsBestInBreedComparisonAvailable(int urn)
+        {
+            var bestInBreedDataObject = _bestInBreedDataService.GetBestInBreedDataObjectByUrn(urn);
+
+            return bestInBreedDataObject != null;
         }
 
         public List<BestInClassResult> GenerateBenchmarkListWithBestInBreedComparison(int urn)
