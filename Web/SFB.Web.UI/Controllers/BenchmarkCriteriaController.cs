@@ -67,13 +67,28 @@ namespace SFB.Web.UI.Controllers
             switch (comparisonType)
             {
                 case ComparisonType.BestInBreed:
-                    TempData["URN"] = urn;
-                    return RedirectToAction("GenerateForBestInClass", "BenchmarkCharts");
+                    return SelectBestInClassNextStep(urn);
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn, comparisonType);
                 case ComparisonType.Advanced:
                 default:
                     return SelectSchoolType(urn, comparisonType, null, null);
+            }
+        }
+
+        private ActionResult SelectBestInClassNextStep(int urn)
+        {
+            var schoolData = _contextDataService.GetSchoolDataObjectByUrn(urn);
+
+            if (schoolData.PhaseOfEducation == "All-through" || true)
+            {
+                ViewBag.URN = urn;
+                var benchmarkSchool = new SchoolViewModel(schoolData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                return View("AllThroughPhase", benchmarkSchool);
+            }
+            else
+            {
+                return Redirect("/BenchmarkCharts/GenerateForBestInClass?urn=" + urn);
             }
         }
 

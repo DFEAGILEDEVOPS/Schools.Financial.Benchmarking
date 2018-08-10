@@ -131,5 +131,61 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.IsFalse((view as ViewResult).ViewBag.BestInClassAvailable);
         }
+
+        [Test]
+        public void StepOneShouldRedirectToBenchmarkPageIfNotAllthroughSchoolAndBestInBreedSelected()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            testEduResult.PhaseOfEducation = "Nursery";
+
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+
+            var mockComparisonService = new Mock<IComparisonService>();
+            mockComparisonService.Setup(m => m.IsBestInBreedComparisonAvailable(123)).Returns(false);
+
+            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var action = controller.StepOne(123, ComparisonType.BestInBreed);
+
+            Assert.IsTrue(action is RedirectToRouteResult);
+            Assert.AreEqual((action as RedirectToRouteResult).RouteValues["action"], "GenerateForBestInClass");
+        }
+
+        [Test]
+        public void StepOneShouldRedirectToAllthroughPhasePageIfAllthroughSchoolAndBestInBreedSelected()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            testEduResult.PhaseOfEducation = "All-through";
+
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+
+            var mockComparisonService = new Mock<IComparisonService>();
+            mockComparisonService.Setup(m => m.IsBestInBreedComparisonAvailable(123)).Returns(false);
+
+            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var action = controller.StepOne(123, ComparisonType.BestInBreed);
+
+            Assert.IsTrue(action is ViewResult);
+            Assert.AreEqual((action as ViewResult).ViewName,"AllThroughPhase") ;
+        }
     }
 }

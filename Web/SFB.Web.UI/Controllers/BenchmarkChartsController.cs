@@ -86,14 +86,12 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateForBestInClass()
+        public async Task<ActionResult> GenerateForBestInClass(int urn, string phase)
         {
-            if (this.Request.UrlReferrer == null || TempData["URN"] == null)
+            if (this.Request.UrlReferrer == null)
             {
                 return new RedirectResult("/Errors/InvalidRequest");
             }
-
-            var urn = (int)TempData["URN"];
 
             var bestInClassResults = _comparisonService.GenerateBenchmarkListWithBestInBreedComparison(urn);
 
