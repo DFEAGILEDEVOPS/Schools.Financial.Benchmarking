@@ -84,7 +84,9 @@ namespace SFB.Web.UI.Models
         public string HeadTeachFullName => $"{ContextDataModel.HeadFirstName} {ContextDataModel.HeadLastName}";
 
         public string TrustName => ContextDataModel.Trusts;
-        
+
+        public string TrustNo => ContextDataModel.MATNumber;
+
         public string PhoneNumber => ContextDataModel.TelephoneNum;
 
         public string OfstedRating => ContextDataModel.OfstedRating;
