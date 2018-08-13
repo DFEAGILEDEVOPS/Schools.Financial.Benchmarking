@@ -203,6 +203,7 @@
         public const string RANK = "Rank";
         public const string SCORE = "Score";
         public const string NEIGHBOURS = "Neighbours";
+        public const string DATA_GROUP = "EmcDataGroup";
     }
 
     public class TrustCharacteristicsQuestions

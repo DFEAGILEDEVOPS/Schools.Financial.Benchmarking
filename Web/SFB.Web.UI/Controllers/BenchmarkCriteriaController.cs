@@ -80,7 +80,7 @@ namespace SFB.Web.UI.Controllers
         {
             var schoolData = _contextDataService.GetSchoolDataObjectByUrn(urn);
 
-            if (schoolData.PhaseOfEducation == "All-through" || true)
+            if (schoolData.OverallPhase == "All-through")
             {
                 ViewBag.URN = urn;
                 var benchmarkSchool = new SchoolViewModel(schoolData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
@@ -88,7 +88,8 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                return Redirect("/BenchmarkCharts/GenerateForBestInClass?urn=" + urn);
+                TempData["URN"] = urn;
+                return RedirectToAction("GenerateForBestInClass", "BenchmarkCharts");
             }
         }
 

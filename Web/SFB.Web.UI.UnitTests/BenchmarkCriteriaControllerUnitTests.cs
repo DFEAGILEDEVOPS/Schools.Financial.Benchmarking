@@ -145,7 +145,7 @@ namespace SFB.Web.UI.UnitTests
             var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            testEduResult.PhaseOfEducation = "Nursery";
+            testEduResult.OverallPhase = "Primary";
 
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
@@ -173,7 +173,7 @@ namespace SFB.Web.UI.UnitTests
             var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            testEduResult.PhaseOfEducation = "All-through";
+            testEduResult.OverallPhase = "All-through";
 
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 

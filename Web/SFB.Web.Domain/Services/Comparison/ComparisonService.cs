@@ -37,14 +37,14 @@ namespace SFB.Web.Domain.Services.Comparison
 
         public bool IsBestInBreedComparisonAvailable(int urn)
         {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInBreedDataObjectByUrn(urn);
+            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectByUrnAndPhase(urn);
 
             return bestInBreedDataObject != null;
         }
 
-        public List<BestInClassResult> GenerateBenchmarkListWithBestInBreedComparison(int urn)
+        public List<BestInClassResult> GenerateBenchmarkListWithBestInClassComparison(int urn, string phase = null)
         {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInBreedDataObjectByUrn(urn);
+            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectByUrnAndPhase(urn, phase);
 
             var results = new List<BestInClassResult>();
 

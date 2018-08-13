@@ -12,9 +12,17 @@ namespace SFB.Web.Domain.Services.DataAccess
             _efficiencyMetricsRepository = efficiencyMetricsRepository;
         }
 
-        public BestInBreedDataObject GetBestInBreedDataObjectByUrn(int urn)
+        public BestInBreedDataObject GetBestInClassDataObjectByUrnAndPhase(int urn, string phase = null)
         {
-            return _efficiencyMetricsRepository.GetBestInBreedDataObjectByUrn(urn);
+            if (string.IsNullOrEmpty(phase))
+            {
+                return _efficiencyMetricsRepository.GetBestInClassDataObjectByUrn(urn);
+            }
+            else
+            {
+                var dataGroup = (phase == "Primary") ? "KS2" : "KS4";
+                return _efficiencyMetricsRepository.GetBestInClassDataObjectByURNAndDataGroup(urn, dataGroup);
+            }
         }
     }
 }

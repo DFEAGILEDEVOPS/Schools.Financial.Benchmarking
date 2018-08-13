@@ -86,14 +86,18 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateForBestInClass(int urn, string phase)
+        public async Task<ActionResult> GenerateForBestInClass(int? urn, string phase = null)
         {
-            if (this.Request.UrlReferrer == null)
+            try
+            {
+                urn = urn ?? (int)TempData["URN"];
+            }
+            catch(Exception)
             {
                 return new RedirectResult("/Errors/InvalidRequest");
             }
 
-            var bestInClassResults = _comparisonService.GenerateBenchmarkListWithBestInBreedComparison(urn);
+            var bestInClassResults = _comparisonService.GenerateBenchmarkListWithBestInClassComparison(urn.GetValueOrDefault(), phase);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
@@ -116,13 +120,17 @@ namespace SFB.Web.UI.Controllers
         [HttpGet]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
-            if(this.Request.UrlReferrer == null)
+            int urn;
+            BenchmarkCriteria usedCriteria;
+            try
+            {
+                urn = (int)TempData["URN"];
+                usedCriteria = TempData["BenchmarkCriteria"] as BenchmarkCriteria;
+            }catch(Exception)
             {
                 return new RedirectResult("/Errors/InvalidRequest");
             }
 
-            var urn = (int)TempData["URN"];
-            var usedCriteria = TempData["BenchmarkCriteria"] as BenchmarkCriteria;
             var searchedEstabType = EstablishmentType.All;
 
             if (TempData["EstType"] != null)

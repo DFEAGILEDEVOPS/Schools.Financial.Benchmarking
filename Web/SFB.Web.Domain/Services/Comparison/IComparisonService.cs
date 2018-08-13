@@ -14,7 +14,7 @@ namespace SFB.Web.Domain.Services.Comparison
             EstablishmentType estType, int basketSize,
             SimpleCriteria simpleCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
 
-        List<BestInClassResult> GenerateBenchmarkListWithBestInBreedComparison(int urn);
+        List<BestInClassResult> GenerateBenchmarkListWithBestInClassComparison(int urn, string phase = null);
 
         bool IsBestInBreedComparisonAvailable(int urn);
     }

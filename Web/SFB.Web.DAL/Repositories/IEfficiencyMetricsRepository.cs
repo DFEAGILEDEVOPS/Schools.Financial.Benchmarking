@@ -4,6 +4,7 @@ namespace SFB.Web.DAL.Repositories
 {
     public interface IEfficiencyMetricsRepository
     {
-        BestInBreedDataObject GetBestInBreedDataObjectByUrn(int urn);
+        BestInBreedDataObject GetBestInClassDataObjectByUrn(int urn);
+        BestInBreedDataObject GetBestInClassDataObjectByURNAndDataGroup(int urn, string dataGroup);
     }
 }
