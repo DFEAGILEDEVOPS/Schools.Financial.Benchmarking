@@ -271,7 +271,7 @@ namespace SFB.Web.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(new System.ApplicationException("Invalid criteria entered for advanced search!" + criteria.ToString()));
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Invalid criteria entered for advanced search!" + criteria.ToString()));
                 return 0;
             }
 

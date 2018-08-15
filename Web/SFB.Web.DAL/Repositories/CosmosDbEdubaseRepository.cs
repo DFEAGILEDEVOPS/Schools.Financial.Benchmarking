@@ -9,6 +9,7 @@ using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Common.DataObjects;
 using System.Diagnostics;
+using System.Web.Configuration;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -106,8 +107,14 @@ namespace SFB.Web.DAL.Repositories
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
                     var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    Debug.WriteLine(errorMessage);
-                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
+                    {
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(errorMessage);
+                    }
                 }
                 return null;
             }
@@ -132,8 +139,14 @@ namespace SFB.Web.DAL.Repositories
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
                     var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : URNs = {sb.ToString()}";
-                    Debug.WriteLine(errorMessage);
-                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
+                    {
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(errorMessage);
+                    }
                 }
                 return null;
             }
