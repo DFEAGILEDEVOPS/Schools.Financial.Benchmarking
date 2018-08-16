@@ -1,6 +1,7 @@
 ﻿using SFB.Web.Common.DataObjects;
 using SFB.Web.DAL.Repositories;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -20,8 +21,15 @@ namespace SFB.Web.Domain.Services.DataAccess
 
         public BestInClassDataObject GetBestInClassDataObjectByUrnAndPhase(int urn, string phase = null)
         {
-            var keyStage = (phase == "Primary") ? 2 : 4;
-            return _efficiencyMetricsRepository.GetBestInClassDataObjectByURNAndKeyStage(urn, keyStage);
+            if (phase == null)
+            {
+                return this.GetBestInClassDataObjectsByUrn(urn).First();
+            }
+            else
+            {
+                var keyStage = (phase == "Primary") ? 2 : 4;
+                return _efficiencyMetricsRepository.GetBestInClassDataObjectByURNAndKeyStage(urn, keyStage);
+            }
         }
     }
 }
