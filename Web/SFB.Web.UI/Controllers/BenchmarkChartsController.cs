@@ -86,6 +86,44 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult> OneClickReport(int urn)
+        {
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
+
+            var simpleCriteria = new SimpleCriteria()
+            {
+                IncludeEal = true,
+                IncludeFsm = true,
+                IncludeSen = true
+            };
+
+            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
+
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, EstablishmentType.All, 15, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
+
+            var benchmarkSchools = comparisonResult.BenchmarkSchools;
+            benchmarkCriteria = comparisonResult.BenchmarkCriteria;
+
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+
+            foreach (var schoolDoc in benchmarkSchools)
+            {
+                var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
+                {
+                    Name = schoolDoc.SchoolName,
+                    Type = schoolDoc.Type,
+                    EstabType = schoolDoc.FinanceType,
+                    Urn = schoolDoc.URN.ToString()
+                };
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
+            }
+
+            AddDefaultBenchmarkSchoolToList();
+
+            return await Index(urn, simpleCriteria, benchmarkCriteria, ComparisonType.Basic, 15, benchmarkSchool.LatestYearFinancialData, EstablishmentType.All);
+        }
+
+        [HttpGet]
         public async Task<ActionResult> GenerateForBestInClass(int? urn, string phase = null)
         {
             try

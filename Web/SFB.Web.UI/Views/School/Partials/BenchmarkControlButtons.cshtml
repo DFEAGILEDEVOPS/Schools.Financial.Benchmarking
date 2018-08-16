@@ -17,6 +17,8 @@
 
         <a @DisplayStyle(!Model.IsInComparisonList) class="add-remove button addto"  href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Add')")">Add to benchmark basket</a>
 
+        <a class="button compare" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">One click report</a>
+
     </div>
 </div>
 
