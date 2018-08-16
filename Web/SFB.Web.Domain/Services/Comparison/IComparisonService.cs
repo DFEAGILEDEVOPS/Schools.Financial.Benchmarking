@@ -16,6 +16,8 @@ namespace SFB.Web.Domain.Services.Comparison
 
         List<BestInClassResult> GenerateBenchmarkListWithBestInClassComparison(int urn, string phase = null);
 
-        bool IsBestInBreedComparisonAvailable(int urn);
+        bool IsBestInClassComparisonAvailable(int urn);
+
+        bool IsMultipleEfficienctMetricsAvailable(int urn);
     }
 }

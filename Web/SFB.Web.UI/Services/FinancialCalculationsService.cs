@@ -15,9 +15,9 @@ namespace SFB.Web.UI.Services
     public class FinancialCalculationsService : IFinancialCalculationsService
     {
         private readonly ILocalAuthoritiesService _localAuthoritiesService;
-        private readonly IBestInBreedDataService _bestInBreedDataService;
+        private readonly IBestInClassDataService _bestInBreedDataService;
 
-        public FinancialCalculationsService(ILocalAuthoritiesService localAuthoritiesService, IBestInBreedDataService bestInBreedDataService)
+        public FinancialCalculationsService(ILocalAuthoritiesService localAuthoritiesService, IBestInClassDataService bestInBreedDataService)
         {
             _localAuthoritiesService = localAuthoritiesService;
             _bestInBreedDataService = bestInBreedDataService;

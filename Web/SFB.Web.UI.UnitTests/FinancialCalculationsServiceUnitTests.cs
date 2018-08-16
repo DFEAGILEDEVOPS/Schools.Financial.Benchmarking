@@ -46,7 +46,7 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+            var mockBestInBreedService = new Mock<IBestInClassDataService>();
             
             var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
@@ -89,7 +89,7 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+            var mockBestInBreedService = new Mock<IBestInClassDataService>();
 
             var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
@@ -132,7 +132,7 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+            var mockBestInBreedService = new Mock<IBestInClassDataService>();
 
             var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
@@ -177,7 +177,7 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+            var mockBestInBreedService = new Mock<IBestInClassDataService>();
             
             var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 
@@ -220,7 +220,7 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var mockBestInBreedService = new Mock<IBestInBreedDataService>();
+            var mockBestInBreedService = new Mock<IBestInClassDataService>();
 
             var service = new FinancialCalculationsService(mockLaService.Object, mockBestInBreedService.Object);
 

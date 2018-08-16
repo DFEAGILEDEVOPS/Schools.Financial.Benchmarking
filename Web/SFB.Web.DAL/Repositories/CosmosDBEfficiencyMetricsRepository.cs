@@ -4,6 +4,7 @@ using SFB.Web.Common;
 using SFB.Web.Common.DataObjects;
 using SFB.Web.DAL.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace SFB.Web.DAL.Repositories
             _collectionName = dataCollectionManager.GetLatestActiveCollectionByDataGroup(DataGroups.EfficiencyMetrics);
         }
 
-        public BestInBreedDataObject GetBestInClassDataObjectByUrn(int urn)
+        public List<BestInClassDataObject> GetBestInClassDataObjectsByUrn(int urn)
         {        
             var query = $"SELECT * FROM c WHERE c.{EfficiencyMetricDBFieldNames.URN} = @URN";
 
@@ -38,12 +39,11 @@ namespace SFB.Web.DAL.Repositories
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter("@URN", urn));
 
-            BestInBreedDataObject result;
+            List<BestInClassDataObject> result;
             try
             {
-                result = _client.CreateDocumentQuery<BestInBreedDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, "20180710012750-EfficiencyMetrics-2016-2017"), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
-                //TODO: correct
-                //result = _client.CreateDocumentQuery<BestInBreedDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+                //TODO: generate collection name dynamically
+                result = _client.CreateDocumentQuery<BestInClassDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, "20180815191924-EfficiencyMetrics-2017-2018"), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList();                
             }
             catch (Exception ex)
             {
@@ -64,21 +64,20 @@ namespace SFB.Web.DAL.Repositories
             return result;
         }
 
-        public BestInBreedDataObject GetBestInClassDataObjectByURNAndDataGroup(int urn, string dataGroup)
+        public BestInClassDataObject GetBestInClassDataObjectByURNAndKeyStage(int urn, int keyStage)
         {
-            var query = $"SELECT * FROM c WHERE c.{EfficiencyMetricDBFieldNames.URN} = @URN AND c.{EfficiencyMetricDBFieldNames.DATA_GROUP}=@DATA_GROUP";
+            var query = $"SELECT * FROM c WHERE c.{EfficiencyMetricDBFieldNames.URN} = @URN AND c[\"{EfficiencyMetricDBFieldNames.EMC_STAGE}\"]=@EMC_STAGE";
 
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter("@URN", urn));
-            querySpec.Parameters.Add(new SqlParameter("@DATA_GROUP", dataGroup));
+            querySpec.Parameters.Add(new SqlParameter("@EMC_STAGE", keyStage));
 
-            BestInBreedDataObject result;
+            BestInClassDataObject result;
             try
             {
-                result = _client.CreateDocumentQuery<BestInBreedDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, "20180710012750-EfficiencyMetrics-2016-2017"), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
-                //TODO: correct
-                //result = _client.CreateDocumentQuery<BestInBreedDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+                //TODO: generate collection name dynamically
+                result = _client.CreateDocumentQuery<BestInClassDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, "20180815191924-EfficiencyMetrics-2017-2018"), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
             }
             catch (Exception ex)
             {

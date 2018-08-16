@@ -13,10 +13,10 @@ namespace SFB.Web.Domain.Services.Comparison
     {
         private readonly IFinancialDataService _financialDataService;
         private readonly IContextDataService _contextDataService;
-        private readonly IBestInBreedDataService _bestInBreedDataService;
+        private readonly IBestInClassDataService _bestInBreedDataService;
         private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
 
-        public ComparisonService(IFinancialDataService financialDataService,  IContextDataService _contextDataService, IBestInBreedDataService bestInBreedDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
+        public ComparisonService(IFinancialDataService financialDataService,  IContextDataService _contextDataService, IBestInClassDataService bestInBreedDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
         {
             _financialDataService = financialDataService;
             this._contextDataService = _contextDataService;
@@ -35,11 +35,18 @@ namespace SFB.Web.Domain.Services.Comparison
             };
         }
 
-        public bool IsBestInBreedComparisonAvailable(int urn)
+        public bool IsBestInClassComparisonAvailable(int urn)
         {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectByUrnAndPhase(urn);
+            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectsByUrn(urn);
 
-            return bestInBreedDataObject != null;
+            return bestInBreedDataObject?.Count > 0;
+        }
+
+        public bool IsMultipleEfficienctMetricsAvailable(int urn)
+        {
+            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectsByUrn(urn);
+
+            return bestInBreedDataObject?.Count > 1;
         }
 
         public List<BestInClassResult> GenerateBenchmarkListWithBestInClassComparison(int urn, string phase = null)

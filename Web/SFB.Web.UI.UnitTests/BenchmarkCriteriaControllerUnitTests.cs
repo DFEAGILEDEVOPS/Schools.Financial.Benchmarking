@@ -97,7 +97,7 @@ namespace SFB.Web.UI.UnitTests
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
-            mockComparisonService.Setup(m => m.IsBestInBreedComparisonAvailable(123)).Returns(true);
+            mockComparisonService.Setup(m => m.IsBestInClassComparisonAvailable(123)).Returns(true);
 
             var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
 
@@ -123,7 +123,7 @@ namespace SFB.Web.UI.UnitTests
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
-            mockComparisonService.Setup(m => m.IsBestInBreedComparisonAvailable(123)).Returns(false);
+            mockComparisonService.Setup(m => m.IsBestInClassComparisonAvailable(123)).Returns(false);
 
             var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
 
@@ -133,7 +133,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public void StepOneShouldRedirectToBenchmarkPageIfNotAllthroughSchoolAndBestInBreedSelected()
+        public void StepOneShouldRedirectToBenchmarkPageIfNotMultipleMetricSchoolAndBestInBreedSelected()
         {
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
@@ -150,7 +150,8 @@ namespace SFB.Web.UI.UnitTests
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
-            mockComparisonService.Setup(m => m.IsBestInBreedComparisonAvailable(123)).Returns(false);
+            mockComparisonService.Setup(m => m.IsBestInClassComparisonAvailable(123)).Returns(false);
+            mockComparisonService.Setup(m => m.IsMultipleEfficienctMetricsAvailable(123)).Returns(false);
 
             var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
 
@@ -161,7 +162,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public void StepOneShouldRedirectToAllthroughPhasePageIfAllthroughSchoolAndBestInBreedSelected()
+        public void StepOneShouldRedirectToSelectPhasePageIfMultipleMetricSchoolAndBestInBreedSelected()
         {
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
@@ -173,12 +174,13 @@ namespace SFB.Web.UI.UnitTests
             var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            testEduResult.OverallPhase = "All-through";
+            testEduResult.OverallPhase = "Primary";
 
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
-            mockComparisonService.Setup(m => m.IsBestInBreedComparisonAvailable(123)).Returns(false);
+            mockComparisonService.Setup(m => m.IsBestInClassComparisonAvailable(123)).Returns(false);
+            mockComparisonService.Setup(m => m.IsMultipleEfficienctMetricsAvailable(123)).Returns(true);
 
             var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
 

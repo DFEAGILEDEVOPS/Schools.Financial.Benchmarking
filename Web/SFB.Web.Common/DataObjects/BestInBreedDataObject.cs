@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SFB.Web.Common.DataObjects
 {
-    public class BestInBreedDataObject
+    public class BestInClassDataObject
     {
         [JsonProperty(PropertyName = EfficiencyMetricDBFieldNames.URN)]
         public int URN;
@@ -15,6 +15,6 @@ namespace SFB.Web.Common.DataObjects
         //public int Score;
 
         [JsonProperty(PropertyName = EfficiencyMetricDBFieldNames.NEIGHBOURS)]
-        public List<BestInBreedDataObject> Neighbours;
+        public List<BestInClassDataObject> Neighbours;
     }
 }
