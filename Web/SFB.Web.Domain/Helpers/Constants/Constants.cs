@@ -41,6 +41,7 @@ namespace SFB.Web.Domain.Helpers.Constants
         public const int LIMIT = 30;
         public const int MAT_LIMIT = 20;
         public const int DEFAULT = 15;
+        public const int ONE_CLICK = 15;
     }
 
     public class CriteriaSearchConfig

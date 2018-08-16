@@ -1,0 +1,159 @@
+﻿@using SFB.Web.Common
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "benchmarking-charts";
+}
+
+@section InsideHead{
+    <link href="~/public/assets/print/bmc-print.css" media="print" rel="stylesheet" type="text/css">
+    <script src="~/node_modules/jspdf/dist/jspdf.debug.js"></script>
+
+}
+
+@section StickyContent
+{
+    @if (Model.EstablishmentType != EstablishmentType.MAT)
+    {
+        @Html.Partial("Partials/BenchmarkListBanner")
+    }
+}
+
+@section BackButtonContent{
+    @if (Model.ComparisonType != ComparisonType.Manual)
+    {
+        ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
+        ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
+
+        @Html.Partial("Partials/Breadcrumbs/BackToSelectCompareTypeLink")
+    }
+    else
+    {
+        @Html.Partial("Partials/BackToHomeLink")
+    }
+}
+
+
+<div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
+    <div class="column-full">
+        <span class="back-chevron">&#706;</span>
+        <a class="home-link" href="javascript:void(0);" onclick="location.reload();">Back to benchmarking charts</a>
+    </div>
+</div>
+
+<h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
+
+@if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
+{
+    <div class="panel panel-border-wide orange-warning">
+        <p>
+            There are no schools in your benchmark basket, so no charts can be displayed.
+        </p>
+    </div>
+}
+else
+{
+    if (Model.SchoolComparisonList != null && !string.IsNullOrEmpty(Model.SchoolComparisonList.HomeSchoolName))
+    {
+        if (Model.BmSchoolInList())
+        {
+            <div class="grid-row">
+                <div class="column-full" id="comparing">
+                    <span>Comparing</span>
+                    <div class="highlight">
+                        <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+    <div class="grid-row download-links hide-in-print">
+        <div id="downloadLinkContainer" class="column-one-third">
+            <div class="download">
+                <a id="DownloadLink" class="no-underline bold-xsmall" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
+                    <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download benchmark data (CSV)</span>
+                </a>
+            </div>
+        </div>
+        <div class="column-one-third">
+            <div class="print">
+                <a id="PrintLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()" href="javascript:void(0);">
+                    <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
+                </a>
+            </div>
+        </div>
+        <div class="column-one-third">
+            <div class="pdf">
+                <a id="PdfLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()" href="javascript:void(0);"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></a>
+            </div>
+        </div>
+    </div>
+
+    if (Model.HasIncompleteFinancialData)
+    {
+        <div class="panel panel-border-wide orange-warning">
+            <p>
+                Some schools don't have a complete set of financial data for this period
+            </p>
+        </div>
+    }
+
+    if (Model.HasIncompleteWorkforceData)
+    {
+        <div class="panel panel-border-wide orange-warning">
+            <p>
+                Some schools don't have a complete set of workforce data for this period
+            </p>
+        </div>
+    }
+
+    <div class="chartsSection">
+        <div class="font-xsmall latest-year-message">
+                <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+        </div>
+        <div id="benchmarkChartsList">
+            @Html.Partial("~/Views/BenchmarkCharts/Partials/Chart.cshtml", Model.ModelList)
+        </div>
+    </div>
+
+    <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
+    <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
+    <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />
+    <input type="hidden" id="HomeSchoolName" name="HomeSchoolName" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
+
+}
+
+@section AfterMain{
+    <div class="full-page-width-wrapper hide-in-print" role="region" aria-label="Feedback Question">
+        <div class="improve-this-page" data-module="improve-this-page">
+            <div class="improve-this-page__prompt js-prompt clearfix" tabindex="-1">
+                <span class="improve-this-page__is-useful-question bold">Are you satisfied with your visit today?</span>
+                <a rel="external noopener noreferrer" target="_blank" title="Feedback form will open in a new page" href="http://www.smartsurvey.co.uk/s/schoolsfinancialbenchmarkingsite/">Please rate this site</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section ViewScripts {
+
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+    <script src="~/public/scripts/jquery-tablesorter/jquery.tablesorter.uk.currency.js"></script>
+    <script src="~/public/scripts/saveSvgAsPng-gh-pages/saveSvgAsPng.js"></script>
+    <script src="~/public/scripts/saveSvgAsPng-gh-pages/rgbcolor.js"></script>
+    <script src="~/public/scripts/saveSvgAsPng-gh-pages/StackBlur.js"></script>
+    <script src="~/public/scripts/saveSvgAsPng-gh-pages/canvg.js"></script>
+
+    <script>
+        DfE.Views.BenchmarkChartsViewModel.Load();
+        GOVUK.Modal.Load();
+    </script>
+
+}
