@@ -115,6 +115,89 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
+        public void OneClickReportShouldBuildWithCorrectCriteria()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.HomeSchoolUrn = "123";
+            fakeSchoolComparisonList.HomeSchoolName = "test";
+            fakeSchoolComparisonList.HomeSchoolType = "test";
+            fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var mockDocumentDbService = new Mock<IFinancialDataService>();
+            var testResult = new SchoolTrustFinancialDataObject();
+            testResult.URN = 321;
+            testResult.SchoolName = "test";
+            testResult.FinanceType = "academies";
+            Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
+            {
+                return new List<SchoolTrustFinancialDataObject> { testResult };
+            });
+
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 321;
+            testEduResult.EstablishmentName = "test";
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(321)).Returns((int urn) => testEduResult);
+
+            var testEduHomeResult = new EdubaseDataObject();
+            testEduHomeResult.URN = 123;
+            testEduHomeResult.EstablishmentName = "test";
+            testEduHomeResult.FinanceType = "Academies";
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduHomeResult);
+
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+
+            var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
+            mockBenchmarkChartBuilder
+                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
+                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+
+            var financialCalculationsService = new Mock<IFinancialCalculationsService>();
+
+            var mockComparisonService = new Mock<IComparisonService>();
+            Task<ComparisonResult> cTask = Task.Run(() =>
+            {
+                return new ComparisonResult() { BenchmarkSchools = new List<SchoolTrustFinancialDataObject>() { testResult } };
+            });
+
+            mockComparisonService.Setup(m =>
+                    m.GenerateBenchmarkListWithSimpleComparisonAsync(It.IsAny<BenchmarkCriteria>(),
+                        It.IsAny<EstablishmentType>(), It.IsAny<Int32>(), It.IsAny<SimpleCriteria>(), It.IsAny<FinancialDataModel>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, int basketSize, SimpleCriteria simpleCr, FinancialDataModel financialDataModel) => cTask);
+
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
+            mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
+
+            var mockBenchmarkCriteriaBuilderService = new Mock<IBenchmarkCriteriaBuilderService>();
+            mockBenchmarkCriteriaBuilderService
+                .Setup(m => m.BuildFromSimpleComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<SimpleCriteria>(), 0))
+                .Returns(new BenchmarkCriteria());
+
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null,
+                mockEdubaseDataService.Object, mockBenchmarkCriteriaBuilderService.Object, mockComparisonService.Object, mockCookieManager.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = controller.OneClickReport(123);
+
+            result.Wait();
+
+            var expectedSimpleCriteria = new SimpleCriteria()
+            {
+                IncludeEal = true,
+                IncludeFsm = true,
+                IncludeSen = true
+            };
+
+            mockBenchmarkCriteriaBuilderService.Verify(m => m.BuildFromSimpleComparisonCriteria(It.IsAny<FinancialDataModel>(), 
+                It.Is<SimpleCriteria>(sc=> sc.Equals(expectedSimpleCriteria)), 
+                It.IsAny<Int32>()));
+        }
+
+        [Test]
         public void GenerateFromAdvancedCriteriaWithAddAddsTheBenchmarkSchoolToTheBenchmarkListIfNotAlreadyReturned()
         {
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();

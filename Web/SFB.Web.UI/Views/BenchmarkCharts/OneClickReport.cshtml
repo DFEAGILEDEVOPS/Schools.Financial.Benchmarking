@@ -23,17 +23,7 @@
 }
 
 @section BackButtonContent{
-    @if (Model.ComparisonType != ComparisonType.Manual)
-    {
-        ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
-        ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
-
-        @Html.Partial("Partials/Breadcrumbs/BackToSelectCompareTypeLink")
-    }
-    else
-    {
         @Html.Partial("Partials/BackToHomeLink")
-    }
 }
 
 
