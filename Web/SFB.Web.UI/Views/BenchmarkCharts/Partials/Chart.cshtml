@@ -8,12 +8,12 @@
     @for (int i = 0; i < Model.Count; i++)
     {
         <div class="chartContainer column-full no-padding" data-group="@Model[i].ChartGroup">
-            @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport)
+            @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
             {
                 if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
                 {
                     <div>
-                        @if (Model[i].ChartType == ChartType.CustomReport)
+                        @if (Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
                         {
                             <div class="column-full no-padding">
                                 <h2 class="heading-medium inline">
@@ -86,7 +86,7 @@
                                 }
                             </div>
                         }
-                        @if (Model[i].ChartType != ChartType.CustomReport)
+                        @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                         {
                             <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].Name" data-sv="@Model[i].ShowValue">
                                 @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
@@ -181,7 +181,7 @@
                         }
 
                     </div>
-                    if (Model[i].ChartType == ChartType.CustomReport)
+                    if (Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
                     {
                         <hr />
                     }
@@ -198,7 +198,7 @@
                         </div>
 
                         <div class="accordion-section-body">
-                            @if (Model[i].ChartType != ChartType.CustomReport)
+                            @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                             {
                                 <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].Name" data-sv="@Model[i].ShowValue">
                                     @if (ViewBag.EstablishmentType != EstablishmentType.MAT)

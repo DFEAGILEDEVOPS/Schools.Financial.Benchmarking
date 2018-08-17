@@ -11,7 +11,7 @@
 @section InsideHead{
     <link href="~/public/assets/print/bmc-print.css" media="print" rel="stylesheet" type="text/css">
     <script src="~/node_modules/jspdf/dist/jspdf.debug.js"></script>
-
+    <script src="~/node_modules/angular/angular.min.js"></script>
 }
 
 @section StickyContent
@@ -144,6 +144,7 @@ else
     <script>
         DfE.Views.BenchmarkChartsViewModel.Load();
         GOVUK.Modal.Load();
+        setTimeout(function () { $("#PdfLink").click(); }, 100);        
     </script>
 
 }
