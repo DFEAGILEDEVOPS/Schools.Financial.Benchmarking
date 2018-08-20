@@ -31,7 +31,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockContextDataService = new Mock<IContextDataService>();
-            var mockBestInBreedDataService = new Mock<IBestInBreedDataService>();
+            var mockBestInBreedDataService = new Mock<IBestInClassDataService>();
 
             var mockBenchmarkCriteriaBuilderService = new Mock<IBenchmarkCriteriaBuilderService>();
             mockBenchmarkCriteriaBuilderService.Setup(s => s.BuildFromSimpleComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<SimpleCriteria>(), It.IsAny<int>()))
