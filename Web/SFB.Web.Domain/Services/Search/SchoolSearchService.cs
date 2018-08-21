@@ -75,7 +75,7 @@ namespace SFB.Web.Domain.Services.Search
                 {
                     retVal.Text = schoolName;
                 }
-                if (r.Properties[$"{EdubaseDBFieldNames.ESTAB_STATUS}"].ToString() == "Closed")
+                if (r.Properties[$"{EdubaseDBFieldNames.ESTAB_STATUS}"]?.ToString() == "Closed")
                 {
                     retVal.Text += " (Closed)";
                 }
