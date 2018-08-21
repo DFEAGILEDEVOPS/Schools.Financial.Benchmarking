@@ -42,8 +42,7 @@ namespace SFB.Web.DAL.Repositories
             List<BestInClassDataObject> result;
             try
             {
-                //TODO: generate collection name dynamically
-                result = _client.CreateDocumentQuery<BestInClassDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, "20180815191924-EfficiencyMetrics-2017-2018"), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList();                
+                result = _client.CreateDocumentQuery<BestInClassDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList();                
             }
             catch (Exception ex)
             {
@@ -76,8 +75,7 @@ namespace SFB.Web.DAL.Repositories
             BestInClassDataObject result;
             try
             {
-                //TODO: generate collection name dynamically
-                result = _client.CreateDocumentQuery<BestInClassDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, "20180815191924-EfficiencyMetrics-2017-2018"), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+                result = _client.CreateDocumentQuery<BestInClassDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
             }
             catch (Exception ex)
             {
