@@ -27,11 +27,9 @@
 
     window.DfE.Util.QueryString = {
         get: function (name, url) {
-            name = name.toLowerCase();
             if (!url) url = window.location.href;
-            url = url.toLowerCase();
             name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", 'i'),
                 results = regex.exec(url);
             if (!results) return null;
             if (!results[2]) return '';
