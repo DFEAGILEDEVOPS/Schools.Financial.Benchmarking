@@ -161,7 +161,7 @@ namespace SFB.Web.Domain.Models
             {
                 if (FinancialDataObjectModel != null)
                 {
-                    return FinancialDataObjectModel.PartialYearsPresent;
+                    return FinancialDataObjectModel.PartialYearsPresent.GetValueOrDefault();
                 }
                 return false;
             }
