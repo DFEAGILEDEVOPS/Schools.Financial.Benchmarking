@@ -184,6 +184,7 @@
                 } else {
                     $(this).on('click',
                         function (e, i) {
+                            dataLayer.push({ 'event': 'bmc_school_link_click' });
                             window.open("/school/detail?urn=" + textParts[1], '_self');
                         });
                 }
