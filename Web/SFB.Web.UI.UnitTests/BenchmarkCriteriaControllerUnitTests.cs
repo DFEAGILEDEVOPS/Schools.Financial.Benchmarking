@@ -11,6 +11,7 @@ using SFB.Web.DAL.Helpers;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Services.Comparison;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -25,9 +26,11 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
-            var controller = new BenchmarkCriteriaController(null, null, null, null, mockCookieManager.Object);
+            var mockComparisonService = new Mock<IComparisonService>();
 
-            var response = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys"} }), ComparisonArea.All, 306, "test");
+            var controller = new BenchmarkCriteriaController(null, null, null, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var response = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test");
 
             Assert.IsNotNull(response);
             Assert.IsNotNull((response as ViewResult).Model);
@@ -42,7 +45,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolUrn = "100";
             fakeSchoolComparisonList.HomeSchoolName = "home school";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test", Urn = "100" });
-            
+
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
             var _mockDocumentDbService = new Mock<IFinancialDataService>();
@@ -51,7 +54,7 @@ namespace SFB.Web.UI.UnitTests
             testResult.SchoolName = "test";
             Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
             {
-                return new List<SchoolTrustFinancialDataObject> { testResult};
+                return new List<SchoolTrustFinancialDataObject> { testResult };
             });
 
             _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
@@ -67,12 +70,124 @@ namespace SFB.Web.UI.UnitTests
             testEduResult.EstablishmentName = "test";
             _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(100)).Returns((string urn) => testEduResult);
 
-            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object);
+            var mockComparisonService = new Mock<IComparisonService>();
 
-            var result = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new [] { "Boys" } }), ComparisonArea.All, 306, "test");
+            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var result = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test");
 
             Assert.AreEqual("BenchmarkCharts", (result as RedirectToRouteResult).RouteValues["Controller"]);
             Assert.AreEqual("GenerateNewFromAdvancedCriteria", (result as RedirectToRouteResult).RouteValues["Action"]);
+        }
+
+        [Test]
+        public void ComparisonStrategyShouldReturnBestInClassOptionIfAvailable()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+
+            var mockComparisonService = new Mock<IComparisonService>();
+            mockComparisonService.Setup(m => m.IsBestInClassComparisonAvailable(123)).Returns(true);
+
+            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var view = controller.ComparisonStrategy(123);
+
+            Assert.IsTrue((view as ViewResult).ViewBag.BestInClassAvailable);
+        }
+
+        [Test]
+        public void ComparisonStrategyShouldNotReturnBestInClassOptionIfNotAvailable()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+
+            var mockComparisonService = new Mock<IComparisonService>();
+            mockComparisonService.Setup(m => m.IsBestInClassComparisonAvailable(123)).Returns(false);
+
+            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var view = controller.ComparisonStrategy(123);
+
+            Assert.IsFalse((view as ViewResult).ViewBag.BestInClassAvailable);
+        }
+
+        [Test]
+        public void StepOneShouldRedirectToBenchmarkPageIfNotMultipleMetricSchoolAndBestInBreedSelected()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            testEduResult.OverallPhase = "Primary";
+
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+
+            var mockComparisonService = new Mock<IComparisonService>();
+            mockComparisonService.Setup(m => m.IsBestInClassComparisonAvailable(123)).Returns(false);
+            mockComparisonService.Setup(m => m.IsMultipleEfficienctMetricsAvailable(123)).Returns(false);
+
+            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var action = controller.StepOne(123, ComparisonType.BestInBreed);
+
+            Assert.IsTrue(action is RedirectToRouteResult);
+            Assert.AreEqual((action as RedirectToRouteResult).RouteValues["action"], "GenerateForBestInClass");
+        }
+
+        [Test]
+        public void StepOneShouldRedirectToSelectPhasePageIfMultipleMetricSchoolAndBestInBreedSelected()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+            var testEduResult = new EdubaseDataObject();
+            testEduResult.URN = 123;
+            testEduResult.FinanceType = "Maintained";
+            testEduResult.OverallPhase = "Primary";
+
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+
+            var mockComparisonService = new Mock<IComparisonService>();
+            mockComparisonService.Setup(m => m.IsBestInClassComparisonAvailable(123)).Returns(false);
+            mockComparisonService.Setup(m => m.IsMultipleEfficienctMetricsAvailable(123)).Returns(true);
+
+            var controller = new BenchmarkCriteriaController(null, null, mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var action = controller.StepOne(123, ComparisonType.BestInBreed);
+
+            Assert.IsTrue(action is ViewResult);
+            Assert.AreEqual((action as ViewResult).ViewName,"AllThroughPhase") ;
         }
     }
 }

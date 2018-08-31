@@ -26,7 +26,8 @@ namespace SFB.Web.UI.Helpers.Enums
     {
         Regular,
         Total,
-        CustomReport
+        CustomReport,
+        OneClick
     }
 
     public enum RevenueGroupType
@@ -45,7 +46,8 @@ namespace SFB.Web.UI.Helpers.Enums
         Basic,
         Advanced,
         Manual,
-        BestInBreed
+        BestInBreed,
+        OneClick
     }
 
     public enum UnitType
@@ -85,7 +87,8 @@ namespace SFB.Web.UI.Helpers.Enums
         TotalExpenditure,
         All,
         SP,
-        Workforce
+        Workforce,
+        Custom
     }
 
     public enum ChartSubGroupType

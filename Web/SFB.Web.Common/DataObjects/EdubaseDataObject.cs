@@ -35,6 +35,9 @@ namespace SFB.Web.Common.DataObjects
         [JsonProperty(PropertyName = EdubaseDBFieldNames.TRUSTS)]
         public string Trusts;
 
+        [JsonProperty(PropertyName = EdubaseDBFieldNames.MAT_NUMBER)]
+        public string MATNumber;
+
         [JsonProperty(PropertyName = EdubaseDBFieldNames.LA_CODE)]
         public int LACode;
 

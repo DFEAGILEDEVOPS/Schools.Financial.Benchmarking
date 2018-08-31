@@ -12,6 +12,7 @@ using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Services;
+using SFB.Web.Domain.Services.Comparison;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -22,15 +23,17 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocalAuthoritiesService _laService;
         private readonly ILaSearchService _laSearchService;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IComparisonService _comparisonService;
 
         public BenchmarkCriteriaController(ILocalAuthoritiesService laService, IFinancialDataService financialDataService, 
-            IContextDataService contextDataService, ILaSearchService laSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+            IContextDataService contextDataService, ILaSearchService laSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IComparisonService comparisonService)
         {
             _financialDataService = financialDataService;
             _laService = laService;
             _contextDataService = contextDataService;
             _laSearchService = laSearchService;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _comparisonService = comparisonService;
         }
 
         /// <summary>
@@ -41,6 +44,7 @@ namespace SFB.Web.UI.Controllers
         public ViewResult ComparisonStrategy(int urn)
         {
             ViewBag.URN = urn;
+            ViewBag.BestInClassAvailable = _comparisonService.IsBestInClassComparisonAvailable(urn);
 
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
 
@@ -54,7 +58,7 @@ namespace SFB.Web.UI.Controllers
             });
             
             benchmarkSchool.ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-
+                        
             return View(benchmarkSchool);
         }
 
@@ -63,13 +67,30 @@ namespace SFB.Web.UI.Controllers
             switch (comparisonType)
             {
                 case ComparisonType.BestInBreed:
-                    TempData["URN"] = urn;
-                    return RedirectToAction("GenerateForBestInClass", "BenchmarkCharts");
+                    return SelectBestInClassNextStep(urn);
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn, comparisonType);
                 case ComparisonType.Advanced:
                 default:
                     return SelectSchoolType(urn, comparisonType, null, null);
+            }
+        }
+
+        private ActionResult SelectBestInClassNextStep(int urn)
+        {
+            var schoolData = _contextDataService.GetSchoolDataObjectByUrn(urn);
+            var multipleEM = _comparisonService.IsMultipleEfficienctMetricsAvailable(urn);
+
+            if (multipleEM)
+            {
+                ViewBag.URN = urn;
+                var benchmarkSchool = new SchoolViewModel(schoolData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                return View("AllThroughPhase", benchmarkSchool);
+            }
+            else
+            {
+                TempData["URN"] = urn;
+                return RedirectToAction("GenerateForBestInClass", "BenchmarkCharts");
             }
         }
 
@@ -251,7 +272,7 @@ namespace SFB.Web.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(new System.ApplicationException("Invalid criteria entered for advanced search!" + criteria.ToString()));
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Invalid criteria entered for advanced search!" + criteria.ToString()));
                 return 0;
             }
 

@@ -9,6 +9,7 @@ using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Common.DataObjects;
 using System.Diagnostics;
+using System.Web.Configuration;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -86,7 +87,7 @@ namespace SFB.Web.DAL.Repositories
             var where = sb.ToString().Substring(0, sb.ToString().Length - 5);
 
             var query =
-                $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.PHASE_OF_EDUCATION}'], c['{EdubaseDBFieldNames.TYPE_OF_ESTAB}'], c['{EdubaseDBFieldNames.STREET}'], c['{EdubaseDBFieldNames.TOWN}'], c['{EdubaseDBFieldNames.LOCATION}'], c['{EdubaseDBFieldNames.POSTCODE}'], c['{EdubaseDBFieldNames.TRUSTS}'], " +
+                $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.PHASE_OF_EDUCATION}'], c['{EdubaseDBFieldNames.TYPE_OF_ESTAB}'], c['{EdubaseDBFieldNames.STREET}'], c['{EdubaseDBFieldNames.TOWN}'], c['{EdubaseDBFieldNames.LOCATION}'], c['{EdubaseDBFieldNames.POSTCODE}'], c['{EdubaseDBFieldNames.TRUSTS}'], c['{EdubaseDBFieldNames.MAT_NUMBER}']," +
                 $"c['{EdubaseDBFieldNames.LA_CODE}'], c['{EdubaseDBFieldNames.ESTAB_NO}'], c['{EdubaseDBFieldNames.TEL_NO}'], c['{EdubaseDBFieldNames.NO_PUPIL}'], c['{EdubaseDBFieldNames.STAT_LOW}'], c['{EdubaseDBFieldNames.STAT_HIGH}'], c['{EdubaseDBFieldNames.HEAD_FIRST_NAME}'], " +
                 $"c['{EdubaseDBFieldNames.HEAD_LAST_NAME}'], c['{EdubaseDBFieldNames.OFFICIAL_6_FORM}'], c['{EdubaseDBFieldNames.SCHOOL_WEB_SITE}'], c['{EdubaseDBFieldNames.OFSTED_RATING}'], c['{EdubaseDBFieldNames.OFSTE_LAST_INSP}'], udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE}, c['{EdubaseDBFieldNames.OPEN_DATE}'], c['{EdubaseDBFieldNames.CLOSE_DATE}'] FROM c WHERE {where}";
 
@@ -106,8 +107,14 @@ namespace SFB.Web.DAL.Repositories
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
                     var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    Debug.WriteLine(errorMessage);
-                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
+                    {
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(errorMessage);
+                    }
                 }
                 return null;
             }
@@ -132,8 +139,14 @@ namespace SFB.Web.DAL.Repositories
                 if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
                 {
                     var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : URNs = {sb.ToString()}";
-                    Debug.WriteLine(errorMessage);
-                    Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
+                    {
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
+                    }
+                    else
+                    {
+                        Debug.WriteLine(errorMessage);
+                    }
                 }
                 return null;
             }

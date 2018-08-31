@@ -224,8 +224,10 @@
             $("abbr.bal-total").attr("title", balTotalAbbr);
             if (balTotalAbbr.includes("-")) {
                 $("abbr.bal-total").addClass("negative-balance");
+                $("span.bal-total").parent().addClass("negative-balance");
             } else {
                 $("abbr.bal-total").removeClass("negative-balance");
+                $("span.bal-total").parent().removeClass("negative-balance");
             }
         },
 

@@ -54,7 +54,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public DateTime? GetDateBinary(string property)//TODO: Remove this when date formats are fixed in DB
+        public DateTime? GetDateBinary(string property)
         {
             try
             {

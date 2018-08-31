@@ -82,6 +82,14 @@
                 margin-top: 10px;
             }
         }
+
+        .button.removefrom, .button.auto {
+            @include grey-button;
+
+            @include media(mobile) {
+                margin-top: 10px;
+            }
+        }
     }
 
     .chartsSection {
@@ -235,8 +243,8 @@
     }
 
     .returns-incomplete {
-        .addto, .set-unset, .compare{
-            display: none!important;
+        .addto, .set-unset, .compare, .auto {
+            display: none !important;
         }
     }
 }

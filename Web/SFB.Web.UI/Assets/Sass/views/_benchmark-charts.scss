@@ -23,7 +23,15 @@
     }
 
     .chartsSection {
+
+        #bm-charts-accordion{
+            padding-top:10px;
+        }
+        
         .chartContainer {
+
+            padding-top:15px;
+
             .chart-header {
                 margin-top: 1.5em;
             }
@@ -56,6 +64,10 @@
                     padding: 0;
                 }
             }
+        }
+
+        .chartContainer:first-of-type {
+            margin-bottom: 15px !important;
         }
 
         .chart {
@@ -92,9 +104,9 @@
             margin-bottom: 10px;
         }
 
-        li{
+        li {
             list-style-type: disc;
-            margin-left:20px;
+            margin-left: 20px;
         }
     }
 
@@ -138,7 +150,7 @@
                 padding-left: 0;
             }
 
-            @include media(mobile){
+            @include media(mobile) {
                 padding-left: 0;
                 padding-top: 10px;
             }

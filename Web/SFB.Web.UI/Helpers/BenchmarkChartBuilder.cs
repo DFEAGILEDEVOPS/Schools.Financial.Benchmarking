@@ -84,6 +84,7 @@ namespace SFB.Web.UI.Helpers
             var chartList =
                 BuildChartList().Where(c => ((revenueGroup == RevenueGroupType.AllIncludingSchoolPerf || c.RevenueGroup == revenueGroup) && (chartGroup == ChartGroupType.All || c.ChartGroup == chartGroup))
                                             || ((revenueGroup == RevenueGroupType.AllExcludingSchoolPerf && c.RevenueGroup != RevenueGroupType.AllIncludingSchoolPerf) && (chartGroup == ChartGroupType.All || c.ChartGroup == chartGroup))
+                                            || (chartGroup == ChartGroupType.Custom && c.ChartGroup == chartGroup)
                     )
                     .ToList();
             return chartList;
@@ -1279,14 +1280,14 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Balance,
                     ChartGroup = ChartGroupType.InYearBalance,
                     ChartSchoolType = ChartSchoolType.Both,
-                    MoreInfo = @"<h3 class=""heading-small"">For local authority maintained schools, this includes:</h3>
-                    <ul><li>the school’s committed and uncommitted revenue balance, plus the community-focused extended school revenue balance.</li></ul>
-                    
-                    <h3 class=""heading-small"">For academies, this includes:</h3>
-		
-		                    <ul><li>the closing balance (restricted and unrestricted funds) carried forward from the previous year, plus total income in the current year (revenue, funds inherited on conversion/transfer and contributions from academies to trust) minus total expenditure in the current year.</li></ul>
-		                    
-		                    <p>For multi-academy trusts (MATs), we've estimated a value per academy by apportioning it on a pro-rata basis using the FTE number of pupils in each academy within that MAT.</p>",
+                    MoreInfo = @"
+                    <p>For local authority maintained schools and single academy trusts, reserves are legally associated with one school and appear under that school in the charts.</p>
+                    <h3 class=""heading-small"">For local authority maintained schools, revenue reserves include:</h3>
+                    <ul><li>the school’s committed and uncommitted revenue balance, plus the community-focused extended school revenue balance.</li></ul>                    
+                    <h3 class=""heading-small"">For single academy trusts, revenue reserves include:</h3>		
+                    <ul><li>the closing balance (restricted and unrestricted funds) carried forward from the previous year, plus total income in the current year (revenue, funds inherited on conversion/transfer and contributions from academies to trust) minus total expenditure in the current year.</li></ul>		                    
+                    <p>For multi-academy trusts, the trust is the legal entity and all revenue reserves belong legally to the trust. We aggregate all declared reserves to trust level and they appear under the trust. The total can be seen by looking up the trust on the website, selecting ‘Balance' and choosing ‘Trust and academies' or ‘Trust only’ from the dropdown under ‘Central financing’.</p>
+                    <p>For single academies within a multi-academy trusts, we've estimated a value per academy by apportioning the trust’s reserves on a pro-rata basis using the FTE number of pupils in each academy within that MAT. This can be seen by looking up the academy, selecting ‘Balance’ and choosing 'Academy and trust proportion’ from the dropdown under ‘Central financing’.</p>",                    
                     ChartType = ChartType.Total,
                     Downloadable = true
                 },
@@ -1968,7 +1969,163 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
                     Downloadable = true
-                }
+                },
+
+                //One Click Report
+                new ChartViewModel()
+                {
+                    Name = "Total expenditure",
+                    FieldName = SchoolTrustFinanceDBFieldNames.TOTAL_EXP,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "Staff total",
+                    FieldName = SchoolTrustFinanceDBFieldNames.STAFF_TOTAL,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "Premises total",
+                    FieldName = SchoolTrustFinanceDBFieldNames.PREMISES,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "Occupation total",
+                    FieldName = SchoolTrustFinanceDBFieldNames.OCCUPATION,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "Supplies and services total",
+                    FieldName = SchoolTrustFinanceDBFieldNames.SUPPLIES_SERVICES,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "School workforce (Full Time Equivalent)",
+                    FieldName = SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL,
+                    RevenueGroup = RevenueGroupType.Workforce,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This is the full-time equivalent (Full Time Equivalent) of the total school workforce.</p>
+                    <p>It includes:</p>
+                    <ul>
+                    <li>classroom teachers (Full Time Equivalent)</li>
+                    <li>senior leadership (Full Time Equivalent)</li>
+                    <li>teaching assistants (Full Time Equivalent)</li>
+                    <li>non-classroom-based support staff</li>
+                    </ul>",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.FTERatioToTotalFTE
+                },
+                new ChartViewModel()
+                {
+                    Name = "Teachers (Full Time Equivalent)",
+                    FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL,
+                    RevenueGroup = RevenueGroupType.Workforce,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This is the full-time equivalent of all classroom and leadership teachers.</p>",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.FTERatioToTotalFTE
+                },
+                new ChartViewModel()
+                {
+                    Name = "Senior leadership (Full Time Equivalent)",
+                    FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_LEADER,
+                    RevenueGroup = RevenueGroupType.Workforce,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This is the full-time equivalent of senior leadership roles.</p>
+                    <p>It includes:</p>
+                    <ul>
+                    <li>headteachers</li>
+                    <li>deputy headteachers</li>
+                    <li>assistant headteachers</li>
+                    </ul>",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.FTERatioToTotalFTE
+                },
+                new ChartViewModel()
+                {
+                    Name = "Teaching assistants (Full Time Equivalent)",
+                    FieldName = SchoolTrustFinanceDBFieldNames.FULL_TIME_TA,
+                    RevenueGroup = RevenueGroupType.Workforce,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This is the full-time equivalent of teaching assistants.</p>
+                    <p>It includes:</p>
+                    <ul>
+                    <li>teaching assistants</li>
+                    <li>higher level teaching assistants</li>
+                    <li>minority ethnic and special educational needs support staff</li>
+                    </ul>",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.FTERatioToTotalFTE
+                },
+                new ChartViewModel()
+                {
+                    Name = "Non-classroom support staff – excluding auxiliary staff  (Full Time Equivalent)",
+                    FieldName = SchoolTrustFinanceDBFieldNames.FULL_TIME_OTHER,
+                    RevenueGroup = RevenueGroupType.Workforce,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This is the full-time equivalent of non-classroom-based support staff.</p>
+                    <p>It excludes:</p>
+                    <ul>
+                    <li>auxiliary staff</li>
+                    <li>third party support staff</li>
+                    </ul>",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.FTERatioToTotalFTE
+                },
+                new ChartViewModel()
+                {
+                    Name = "Auxiliary staff (Full Time Equivalent)",
+                    FieldName = SchoolTrustFinanceDBFieldNames.AUX_STAFF,
+                    RevenueGroup = RevenueGroupType.Workforce,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This is the full-time equivalent of full and part-time auxiliary staff.</p>
+                    <p>It includes:</p>
+                    <ul>
+                    <li>catering</li>
+                    <li>school maintenance staff</li>
+                    </ul>",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.FTERatioToTotalFTE
+                },
             };
         }
     }

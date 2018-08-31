@@ -281,7 +281,7 @@ namespace SFB.Web.Common.DataObjects
         public int? PeriodCoveredByReturn { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PARTIAL_YEARS_PRESENT)]
-        public bool PartialYearsPresent { get; set; }
+        public bool? PartialYearsPresent { get; set; }
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE)]
         public string OverallPhase { get; set; }

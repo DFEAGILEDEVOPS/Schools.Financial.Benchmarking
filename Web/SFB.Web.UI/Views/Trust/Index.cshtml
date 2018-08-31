@@ -96,7 +96,7 @@
 }
 else
 {
-    <div class="grid-row">
+    @*<div class="grid-row">
         @if (!Model.IsReturnsComplete)
         {
             <div class="panel panel-border-wide orange-warning">
@@ -105,7 +105,7 @@ else
                 </p>
             </div>
         }
-    </div>
+    </div>*@
     <div class="grid-row">
         @if (Model.AcademiesList.Any(m => m.HasIncompleteFinancialData))
         {
