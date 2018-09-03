@@ -21,13 +21,6 @@
         public const int YEARS_OF_HISTORY = 5;
     }
 
-    public class CookieNames
-    {
-        public const string COMPARISON_LIST = "sfb_comparison_list";
-        public const string COMPARISON_LIST_MAT = "sfb_comparison_list_mat";
-    }
-
-
     public class OfstedRatings
     {
         public struct Rating

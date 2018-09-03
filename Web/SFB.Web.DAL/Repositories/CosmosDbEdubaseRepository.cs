@@ -8,12 +8,10 @@ using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Common.DataObjects;
-using System.Diagnostics;
-using System.Web.Configuration;
 
 namespace SFB.Web.DAL.Repositories
 {
-    public class CosmosDbEdubaseRepository : IEdubaseRepository
+    public class CosmosDbEdubaseRepository : AppInsightsLoggable, IEdubaseRepository
     {
         private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
         private static DocumentClient _client;
@@ -104,18 +102,8 @@ namespace SFB.Web.DAL.Repositories
                 result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
             }catch(Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
-                {
-                    var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
-                }
+                var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                base.LogException(ex, errorMessage);
                 return null;
             }
             return result;
@@ -136,18 +124,8 @@ namespace SFB.Web.DAL.Repositories
                 result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
             }catch(Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
-                {
-                    var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : URNs = {sb.ToString()}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
-                }
+                var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : URNs = {sb.ToString()}";
+                base.LogException(ex, errorMessage);
                 return null;
             }
             return result;

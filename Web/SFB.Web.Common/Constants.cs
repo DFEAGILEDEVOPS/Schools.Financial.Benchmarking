@@ -276,4 +276,10 @@
         public const string MIN = "Min";
         public const string EQUALTO = "Eq";
     }
+
+    public class CookieNames
+    {
+        public const string COMPARISON_LIST = "sfb_comparison_list";
+        public const string COMPARISON_LIST_MAT = "sfb_comparison_list_mat";
+    }
 }
