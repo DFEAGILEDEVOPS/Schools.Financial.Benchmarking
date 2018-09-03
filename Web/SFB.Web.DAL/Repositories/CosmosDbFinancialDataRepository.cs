@@ -70,7 +70,7 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (term.Contains(DateTime.Today.Year.ToString()))
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(estabType).ToString()))
                 {
                     var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
                     base.LogException(ex, errorMessage);
@@ -102,7 +102,7 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (term.Contains(DateTime.Today.Year.ToString()))
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(estabType).ToString()))
                 {
                     var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
                     base.LogException(ex, errorMessage);
@@ -132,11 +132,9 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (term.Contains(DateTime.Today.Year.ToString()))
-                {
-                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    base.LogException(ex, errorMessage);
-                }
+                var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                base.LogException(ex, errorMessage);
+
                 return null;
             }
         }
@@ -176,7 +174,7 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (term.Contains(DateTime.Today.Year.ToString()))
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT).ToString()))
                 {
                     var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
                     base.LogException(ex, errorMessage);
@@ -207,7 +205,7 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (term.Contains(DateTime.Today.Year.ToString()))
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT).ToString()))
                 {
                     var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
                     base.LogException(ex, errorMessage);
@@ -283,7 +281,7 @@ namespace SFB.Web.DAL.Repositories
 
         private async Task<IEnumerable<SchoolTrustFinancialDataObject>> QueryDBSchoolCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
+            var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(dataGroup);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
@@ -323,7 +321,7 @@ namespace SFB.Web.DAL.Repositories
 
         private async Task<IEnumerable<SchoolTrustFinancialDataObject>> QueryDBTrustCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
+            var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(dataGroup);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
@@ -355,7 +353,7 @@ namespace SFB.Web.DAL.Repositories
 
         private async Task<IEnumerable<int>> QueryDBSchoolCollectionForCountAsync(BenchmarkCriteria criteria, string type)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
+            var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(type);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
@@ -375,7 +373,7 @@ namespace SFB.Web.DAL.Repositories
 
         private async Task<IEnumerable<int>> QueryDBTrustCollectionForCountAsync(BenchmarkCriteria criteria)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(DataGroups.MATOverview);
+            var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(DataGroups.MATOverview);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 

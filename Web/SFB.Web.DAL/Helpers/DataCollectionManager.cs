@@ -59,12 +59,12 @@ namespace SFB.Web.DAL.Helpers
 
         public int GetOverallLatestFinancialDataYear()
         {
-            var maintainedLatestCollectionId = GetLatestActiveTermByDataGroup("Maintained");
+            var maintainedLatestCollectionId = GetLatestActiveCollectionIdByDataGroup("Maintained");
             var maintanedLatestDataYear =
                 Int32.Parse(
                     maintainedLatestCollectionId.Substring(
                         maintainedLatestCollectionId.LastIndexOf("-", StringComparison.Ordinal) + 1));
-            var academiesLatestCollectionId = GetLatestActiveTermByDataGroup("Academies");
+            var academiesLatestCollectionId = GetLatestActiveCollectionIdByDataGroup("Academies");
             var academiesLatestDataYear =
                 Int32.Parse(
                     academiesLatestCollectionId.Substring(
@@ -76,11 +76,11 @@ namespace SFB.Web.DAL.Helpers
 
         public int GetLatestFinancialDataYearPerEstabType(EstablishmentType type)
         {
-            var latestCollectionId = GetLatestActiveTermByDataGroup(type.ToDataGroup());
+            var latestCollectionId = GetLatestActiveCollectionIdByDataGroup(type.ToDataGroup());
             return int.Parse(latestCollectionId.Split('-').Last());
         }
 
-        public string GetLatestActiveTermByDataGroup(string dataGroup)
+        public string GetLatestActiveCollectionIdByDataGroup(string dataGroup)
         {
             var latestTerm = GetCachedActiveCollections()
                 .Where(w => w.GetProperty("data-group", "") == dataGroup)
