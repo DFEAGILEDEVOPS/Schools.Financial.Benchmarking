@@ -82,7 +82,7 @@
 
     //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
     //TODO: Can we eliminate need to use FieldName and instead use ChartName here?
-    BenchmarkChartsViewModel.AddRemoveYourCharts = function (chartName, showValue, checked) {
+    BenchmarkChartsViewModel.AddRemoveYourCharts = function (chartName, showValue, checked, element) {
         var self = this;
         var scope = angular.element($("#listCtrl")).scope();
         scope.$apply(function () {
@@ -124,6 +124,15 @@
                 });
             scope.ctrl.persist();
         });
+
+        if (checked) {
+            $(element).parents(".your-chart-controls").find(".view-your-charts").show();
+            $(".custom").addClass("bold");
+        } else
+        {
+            $(element).parents(".your-chart-controls").find(".view-your-charts").hide();
+        }
+
 
         self.RefreshAddRemoveLinks();
     };
