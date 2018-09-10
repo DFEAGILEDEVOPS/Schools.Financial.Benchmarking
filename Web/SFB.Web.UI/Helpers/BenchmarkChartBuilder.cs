@@ -1803,7 +1803,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Teachers (Full Time Equivalent)",
+                    Name = "Total number of teachers (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -2113,14 +2113,14 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Teachers (Full Time Equivalent)",
+                    Name = "Total number of teachers (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of all classroom and leadership teachers.</p>",
                     ChartType = ChartType.OneClick,
-                    ShowValue = UnitType.FTERatioToTotalFTE
+                    ShowValue = UnitType.NoOfPupilsPerMeasure
                 },
                 new ChartViewModel()
                 {
