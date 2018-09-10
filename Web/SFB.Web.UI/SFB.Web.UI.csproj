@@ -405,6 +405,7 @@
     <Content Include="public\assets\images\icons\icon-pointer-indexed.png" />
     <Content Include="public\assets\images\icons\icon-pointer.png" />
     <Content Include="public\assets\images\icons\icon-print.png" />
+    <Content Include="public\assets\images\icons\icon-report.png" />
     <Content Include="public\assets\images\icons\icon-saveimage-2x.png" />
     <Content Include="public\assets\images\icons\icon-saveimage.png" />
     <Content Include="public\assets\images\icons\icon-search-2x.png" />
