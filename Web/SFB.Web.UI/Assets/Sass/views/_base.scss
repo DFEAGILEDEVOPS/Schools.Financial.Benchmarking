@@ -227,16 +227,18 @@ dialog {
         }
     }
 
-    table.p8-meanings{
+    table.p8-meanings {
         tr {
-            th{
+            th {
                 width: 50%;
                 font-weight: bold;
             }
-            td{
+
+            td {
                 width: 50%;
             }
-            td:first-child{
+
+            td:first-child {
                 font-weight: bold;
             }
         }
@@ -252,11 +254,13 @@ dialog {
                 border: solid 1px #bfc1c3;
                 text-align: center;
             }
+
             td {
                 border-top: 1px solid #bfc1c3;
                 border-right: 1px solid #bfc1c3;
                 text-align: center;
             }
+
             td:first-child {
                 width: 25%;
                 text-align: left;
@@ -269,6 +273,11 @@ dialog {
     .modal-list {
         list-style: square;
         padding-left: 20px;
+    }
+
+    ul {
+        list-style-type: inherit;
+        margin-left: 1em;
     }
 }
 
