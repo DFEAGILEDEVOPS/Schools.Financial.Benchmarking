@@ -1803,7 +1803,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Teachers (Full Time Equivalent)",
+                    Name = "Total number of teachers (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -2033,32 +2033,94 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
-                    Name = "School workforce (Full Time Equivalent)",
-                    FieldName = SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    Name = "Total income",
+                    FieldName = SchoolTrustFinanceDBFieldNames.TOTAL_INCOME,
+                    RevenueGroup = RevenueGroupType.Income,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
-                    MoreInfo = @"<p>This is the full-time equivalent (Full Time Equivalent) of the total school workforce.</p>
-                    <p>It includes:</p>
-                    <ul>
-                    <li>classroom teachers (Full Time Equivalent)</li>
-                    <li>senior leadership (Full Time Equivalent)</li>
-                    <li>teaching assistants (Full Time Equivalent)</li>
-                    <li>non-classroom-based support staff</li>
-                    </ul>",
                     ChartType = ChartType.OneClick,
-                    ShowValue = UnitType.FTERatioToTotalFTE
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "Grant funding total",
+                    FieldName = SchoolTrustFinanceDBFieldNames.GRANT_FUNDING,
+                    RevenueGroup = RevenueGroupType.Income,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "Self-generated funding total",
+                    FieldName = SchoolTrustFinanceDBFieldNames.SELF_GENERATED_FUNDING,
+                    RevenueGroup = RevenueGroupType.Income,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "In-year balance",
+                    FieldName = SchoolTrustFinanceDBFieldNames.IN_YEAR_BALANCE,
+                    RevenueGroup = RevenueGroupType.Balance,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
                 },
                 new ChartViewModel()
                 {
-                    Name = "Teachers (Full Time Equivalent)",
+                    Name = "Revenue reserve",
+                    FieldName = SchoolTrustFinanceDBFieldNames.REVENUE_RESERVE,
+                    RevenueGroup = RevenueGroupType.Balance,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil,
+                    MoreInfo = @"
+                    <p>For local authority maintained schools and single academy trusts, reserves are legally associated with one school and appear under that school in the charts.</p>
+                    <h3 class=""heading-small"">For local authority maintained schools, revenue reserves include:</h3>
+                    <ul><li>the school’s committed and uncommitted revenue balance, plus the community-focused extended school revenue balance.</li></ul>                    
+                    <h3 class=""heading-small"">For single academy trusts, revenue reserves include:</h3>		
+                    <ul><li>the closing balance (restricted and unrestricted funds) carried forward from the previous year, plus total income in the current year (revenue, funds inherited on conversion/transfer and contributions from academies to trust) minus total expenditure in the current year.</li></ul>		                    
+                    <p>For multi-academy trusts, the trust is the legal entity and all revenue reserves belong legally to the trust. We aggregate all declared reserves to trust level and they appear under the trust. The total can be seen by looking up the trust on the website, selecting ‘Balance' and choosing ‘Trust and academies' or ‘Trust only’ from the dropdown under ‘Central financing’.</p>
+                    <p>For single academies within a multi-academy trusts, we've estimated a value per academy by apportioning the trust’s reserves on a pro-rata basis using the FTE number of pupils in each academy within that MAT. This can be seen by looking up the academy, selecting ‘Balance’ and choosing 'Academy and trust proportion’ from the dropdown under ‘Central financing’.</p>",
+
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "School workforce (headcount)",
+                    FieldName = SchoolTrustFinanceDBFieldNames.WORKFORCE_HEADCOUNT,
+                    RevenueGroup = RevenueGroupType.Workforce,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This is the total headcount of the school workforce.</p>
+                    <p>It includes:</p>
+                    <ul>
+                    <li>full and part-time teachers (including school leadership teachers)</li>
+                    <li>teaching assistants</li>
+                    <li>non-classroom-based support staff</li>
+                    </ul>",
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.AbsoluteCount
+                },
+                new ChartViewModel()
+                {
+                    Name = "Total number of teachers (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of all classroom and leadership teachers.</p>",
                     ChartType = ChartType.OneClick,
-                    ShowValue = UnitType.FTERatioToTotalFTE
+                    ShowValue = UnitType.NoOfPupilsPerMeasure
                 },
                 new ChartViewModel()
                 {

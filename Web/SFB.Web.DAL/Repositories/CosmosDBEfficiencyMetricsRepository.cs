@@ -6,13 +6,11 @@ using SFB.Web.DAL.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
-using System.Web.Configuration;
 
 namespace SFB.Web.DAL.Repositories
 {
-    public class CosmosDBEfficiencyMetricsRepository : IEfficiencyMetricsRepository
+    public class CosmosDBEfficiencyMetricsRepository : AppInsightsLoggable, IEfficiencyMetricsRepository
     {           
         private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
         private static DocumentClient _client;
@@ -46,18 +44,8 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
-                {
-                    var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
-                }
+                var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                base.LogException(ex, errorMessage);
                 return null;
             }
             return result;
@@ -79,18 +67,8 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
-                {
-                    var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
-                }
+                var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                base.LogException(ex, errorMessage);
                 return null;
             }
             return result;

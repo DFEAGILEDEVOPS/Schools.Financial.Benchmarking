@@ -30,13 +30,19 @@
     <span>Step 3 of 3</span>
 </div>
 
-<p class="bold-small">This type of comparison generates a group of statistically similar schools using commonly chosen characteristics. This always includes:</p>
-<ul class="list list-bullet">
-    <li>number of pupils</li>
-    <li>school phase</li>
-    <li>urban/rural schools</li>
-</ul>
-<p>The following characteristics can also be used. Select or deselect them using the boxes below.</p>
+<p class="bold-small">Choose characteristics</p>
+<p>This type of comparison generates a group of statistically similar schools using commonly chosen characteristics.</p>
+<div class="panel panel-border-wide" style="margin-bottom:40px">
+    <p class="bold-small">Included as standard:</p>
+    <ul class="list list-bullet">
+        <li>number of pupils</li>
+        <li>school phase</li>
+        <li>urban/rural schools</li>
+    </ul>
+</div>
+
+<p class="bold-small">To customise, choose from the characteristics below</p>
+<p>Suggested characteristics:</p>
 
 <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="post" id="criteriaForm">
     <div class="form-group">
@@ -55,6 +61,16 @@
                    @Html.Raw(Model.SimpleCriteria.IncludeEal.HasValue && !Model.SimpleCriteria.IncludeEal.Value ? "" : "checked")>
             <label for="eal">Pupils with English as an additional language</label>
         </div>
+        <div class="location-char">
+            <span>Location characteristic:</span>
+            <span class="help-icon hide-in-print">
+                <span class="icon dark-blue">
+                    <a href="#" class="js-modal" data-modal-title="Within your local authority" data-modal-text="This characteristic will produce fewer results." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                        <span class="visuallyhidden">Open help text for Location characteristic opens a popup</span>
+                    </a>
+                </span>
+            </span>
+        </div>
         <div class="multiple-choice">
             <input id="la" name="SimpleCriteria.IncludeLa" type="checkbox" value="true"
                    @Html.Raw(Model.SimpleCriteria.IncludeLa.HasValue && Model.SimpleCriteria.IncludeLa.Value ? "checked" : "")>
@@ -63,9 +79,9 @@
     </div>
 
     <div class="grid-row font-xsmall">
-        <div class="column-one-third">
-            <div class="column-one-third next-button">
-                <button type="submit" class="button">Next</button>
+        <div class="column-half">
+            <div class="column-two-thirds next-button">
+                <button type="submit" class="button">Continue to benchmarking charts</button>
             </div>
             <div class="column-one-third back-button">
                 <a href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType&basketsize=@ViewBag.BasketSize">Back</a>
@@ -79,3 +95,10 @@
     <input type="hidden" name="EstType" value="@ViewBag.EstType">
 
 </form>
+
+@section ViewScripts{
+
+    <script>
+        GOVUK.Modal.Load();
+    </script>
+}

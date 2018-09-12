@@ -247,4 +247,25 @@
             display: none !important;
         }
     }
+
+    .auto {
+        margin-left: 30px;
+
+        @include media(mobile) {
+            margin-left: 0;
+        }
+    }
+
+    .img-button {
+        text-decoration: none;
+
+        img.icon {
+            vertical-align: middle;
+            padding: 5px;
+        }
+
+        span {
+            text-decoration: underline;
+        }
+    }
 }

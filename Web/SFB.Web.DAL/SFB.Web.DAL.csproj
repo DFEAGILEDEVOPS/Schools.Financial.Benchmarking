@@ -38,6 +38,9 @@
     <Reference Include="Elmah.AzureTableStorage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Elmah.AzureTableStorage.1.0.0.0\lib\net40\Elmah.AzureTableStorage.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.Documents.Client, Version=1.22.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.22.0\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
     </Reference>
@@ -88,6 +91,7 @@
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\IDataCollectionManager.cs" />
     <Compile Include="Repositories\CosmosDBEfficiencyMetricsRepository.cs" />
+    <Compile Include="Repositories\AppInsightsLoggable.cs" />
     <Compile Include="Repositories\IEdubaseRepository.cs" />
     <Compile Include="Repositories\IFinancialDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

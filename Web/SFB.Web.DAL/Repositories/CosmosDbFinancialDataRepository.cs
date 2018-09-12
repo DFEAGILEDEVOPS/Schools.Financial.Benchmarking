@@ -11,12 +11,10 @@ using SFB.Web.Common;
 using SFB.Web.Common.Attributes;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Common.DataObjects;
-using System.Diagnostics;
-using System.Web.Configuration;
 
 namespace SFB.Web.DAL.Repositories
 {
-    public class CosmosDbFinancialDataRepository : IFinancialDataRepository
+    public class CosmosDbFinancialDataRepository : AppInsightsLoggable, IFinancialDataRepository
     {
         private static readonly string DatabaseId = ConfigurationManager.AppSettings["database"];
         private static DocumentClient _client;
@@ -72,17 +70,10 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(estabType).ToString()))
                 {
                     var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
+                    base.LogException(ex, errorMessage);
                 }
                 return null;
             }
@@ -111,17 +102,10 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if(ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(estabType).ToString()))
                 {
                     var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
+                    base.LogException(ex, errorMessage);
                 }
                 return null;
             }
@@ -148,18 +132,9 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
-                {
-                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
-                }
+                var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                base.LogException(ex, errorMessage);
+
                 return null;
             }
         }
@@ -199,17 +174,10 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT).ToString()))
                 {
                     var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
+                    base.LogException(ex, errorMessage);
                 }
                 return null;
             }
@@ -237,17 +205,10 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT).ToString()))
                 {
                     var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
+                    base.LogException(ex, errorMessage);
                 }
                 return null;
             }
@@ -320,7 +281,7 @@ namespace SFB.Web.DAL.Repositories
 
         private async Task<IEnumerable<SchoolTrustFinancialDataObject>> QueryDBSchoolCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
+            var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(dataGroup);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
@@ -350,18 +311,9 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
-                {
-                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {query}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
-                }
+                var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {query}";
+                base.LogException(ex, errorMessage);
+
                 return null;
             }
             return await result.QueryAsync();
@@ -369,7 +321,7 @@ namespace SFB.Web.DAL.Repositories
 
         private async Task<IEnumerable<SchoolTrustFinancialDataObject>> QueryDBTrustCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(dataGroup);
+            var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(dataGroup);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
@@ -390,18 +342,9 @@ namespace SFB.Web.DAL.Repositories
             }
             catch (Exception ex)
             {
-                if (ex is Newtonsoft.Json.JsonSerializationException || ex is Newtonsoft.Json.JsonReaderException)
-                {
-                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {query}";
-                    if (bool.Parse(WebConfigurationManager.AppSettings["EnableElmahLogs"]))
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
-                    }
-                    else
-                    {
-                        Debug.WriteLine(errorMessage);
-                    }
-                }
+                var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {query}";
+                base.LogException(ex, errorMessage);
+
                 return null;
             }
 
@@ -410,7 +353,7 @@ namespace SFB.Web.DAL.Repositories
 
         private async Task<IEnumerable<int>> QueryDBSchoolCollectionForCountAsync(BenchmarkCriteria criteria, string type)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(type);
+            var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(type);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
@@ -430,7 +373,7 @@ namespace SFB.Web.DAL.Repositories
 
         private async Task<IEnumerable<int>> QueryDBTrustCollectionForCountAsync(BenchmarkCriteria criteria)
         {
-            var collectionName = _dataCollectionManager.GetLatestActiveTermByDataGroup(DataGroups.MATOverview);
+            var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(DataGroups.MATOverview);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 

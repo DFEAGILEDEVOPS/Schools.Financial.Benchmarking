@@ -11,6 +11,6 @@ namespace SFB.Web.DAL.Helpers
         List<string> GetActiveCollectionsByDataGroup(string dataGroup);
         string GetLatestActiveCollectionByDataGroup(string dataGroup);
         List<string> GetActiveTermsByDataGroup(string dataGroup);
-        string GetLatestActiveTermByDataGroup(string dataGroup);
+        string GetLatestActiveCollectionIdByDataGroup(string dataGroup);
     }
 }
