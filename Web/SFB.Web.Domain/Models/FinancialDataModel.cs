@@ -151,7 +151,7 @@ namespace SFB.Web.Domain.Models
         {
             get
             {
-                return FinancialDataObjectModel?.PeriodCoveredByReturn >= 12;
+                return this.EstabType == EstablishmentType.MAT || FinancialDataObjectModel?.PeriodCoveredByReturn >= 12;
             }
         }
 
