@@ -1866,7 +1866,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Non-classroom support staff – excluding auxiliary staff  (Full Time Equivalent)",
+                    Name = "Non-classroom support staff - excluding auxiliary staff  (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.FULL_TIME_OTHER,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
@@ -2158,7 +2158,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Non-classroom support staff – excluding auxiliary staff  (Full Time Equivalent)",
+                    Name = "Non-classroom support staff - excluding auxiliary staff  (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.FULL_TIME_OTHER,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Custom,
