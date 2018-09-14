@@ -996,7 +996,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
-          "Name": "Non-classroom support staff (Full Time Equivalent)",
+          "Name": "Non-classroom support staff - excluding auxiliary staff  (Full Time Equivalent)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,

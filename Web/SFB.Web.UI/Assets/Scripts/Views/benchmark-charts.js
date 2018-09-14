@@ -727,7 +727,15 @@ function PdfGenerator() {
             var charts = $('.chartContainer');
             charts.each(function (index, element) {
                 pdfAddNewPage();
-                pdfWriteLine('H3', $(element).find('h2').get(0).innerText);
+                var header = $(element).find('h2').get(0).innerText;                
+                if (header.length < 60) {
+                    pdfWriteLine('H3', header);
+                } else {
+                    var header1 = header.substring(0, header.lastIndexOf('('));
+                    var header2 = header.substring(header.lastIndexOf('('));
+                    pdfWriteLine('H3', header1);
+                    pdfWriteLine('H3', header2);
+                }
                 if (sessionStorage.chartFormat === 'Charts') {
                     pdfWriteChart('#chart_' + index);
                 } else {
