@@ -1,5 +1,4 @@
 ﻿using Microsoft.ApplicationInsights;
-using Microsoft.Azure.Documents;
 using SFB.Web.Common;
 using System;
 using System.Diagnostics;
@@ -10,7 +9,7 @@ namespace SFB.Web.DAL.Repositories
 {
     public abstract class AppInsightsLoggable
     {
-        internal void LogException(Exception exception, string errorMessage)
+        internal virtual void LogException(Exception exception, string errorMessage)
         {
             if (exception is Newtonsoft.Json.JsonSerializationException || exception is Newtonsoft.Json.JsonReaderException)
             {                
