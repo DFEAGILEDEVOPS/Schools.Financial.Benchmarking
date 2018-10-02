@@ -22,8 +22,14 @@ namespace SFB.Web.DAL.Repositories
                         ai.TrackException(exception);
                         ai.TrackTrace($"URL: {HttpContext.Current.Request.RawUrl}");
                         ai.TrackTrace($"FORM VARIABLES: {HttpContext.Current.Request.Form}");
-                        ai.TrackTrace($"SCHOOL BM COOKIE: {HttpContext.Current.Request.Cookies.Get(CookieNames.COMPARISON_LIST).Value}");
-                        ai.TrackTrace($"TRUST BM COOKIE: {HttpContext.Current.Request.Cookies.Get(CookieNames.COMPARISON_LIST_MAT).Value}");
+                        var schoolBmCookie = HttpContext.Current.Request.Cookies.Get(CookieNames.COMPARISON_LIST);
+                        if (schoolBmCookie != null)
+                            ai.TrackTrace(
+                                $"SCHOOL BM COOKIE: {schoolBmCookie.Value}");
+                        var matBmCookie = HttpContext.Current.Request.Cookies.Get(CookieNames.COMPARISON_LIST_MAT);
+                        if (matBmCookie != null)
+                            ai.TrackTrace(
+                                $"TRUST BM COOKIE: {matBmCookie.Value}");
                     }
                     Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException(errorMessage));
                 }
