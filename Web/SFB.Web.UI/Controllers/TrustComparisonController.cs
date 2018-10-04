@@ -8,6 +8,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 using SFB.Web.Domain.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Common;
@@ -43,7 +44,7 @@ namespace SFB.Web.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Invalid criteria entered for advanced search! : " + criteria.ToString()));
+                //Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Invalid criteria entered for advanced search! : " + criteria.ToString()));
                 return 0;
             }
 
@@ -59,7 +60,7 @@ namespace SFB.Web.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Invalid criteria entered for advanced search! : " + criteria.ToString()));
+                new TelemetryClient().TrackException(new ApplicationException("Invalid criteria entered for advanced search!" + criteria));
                 return null;
             }
 
