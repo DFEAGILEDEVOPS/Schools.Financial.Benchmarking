@@ -144,9 +144,11 @@ namespace SFB.Web.UI.Controllers
 
             var bestInClassResults = _comparisonService.GenerateBenchmarkListWithBestInClassComparison(urn.GetValueOrDefault(), phase);
 
+            var filteredBestInClassResults = bestInClassResults.Where(bic => !isNegativeRRAboveBicTreshold(bic) || bic.ContextData.URN == urn).ToList();
+
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
-            foreach (var bestInClassResult in bestInClassResults)
+            foreach (var bestInClassResult in filteredBestInClassResults)
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
@@ -160,6 +162,28 @@ namespace SFB.Web.UI.Controllers
             }
 
             return await Index(urn, null, null, ComparisonType.BestInBreed);
+        }
+
+        private bool isNegativeRRAboveBicTreshold(BestInClassResult bic)
+        {
+            SchoolTrustFinancialDataObject finance;
+            if (bic.ContextData.FinanceType == "Academies")
+            {
+                finance = _financialDataService.GetSchoolFinancialDataObject(bic.ContextData.URN,
+                    FormatHelpers.FinancialTermFormatAcademies(
+                        _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies)),
+                    EstablishmentType.Academies);
+            }
+            else
+            {
+                finance = _financialDataService.GetSchoolFinancialDataObject(bic.ContextData.URN,
+                    FormatHelpers.FinancialTermFormatAcademies(
+                        _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained)),
+                    EstablishmentType.Maintained);
+            }
+
+            return (finance.RevenueReserve / finance.TotalIncome) < -5/100;
+
         }
 
         [HttpGet]
