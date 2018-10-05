@@ -182,7 +182,7 @@ namespace SFB.Web.UI.Controllers
                     EstablishmentType.Maintained);
             }
 
-            return (finance.RevenueReserve / finance.TotalIncome) < -5/100;
+            return (finance != null) && ((finance.RevenueReserve / finance.TotalIncome) < -5/100);
 
         }
 
