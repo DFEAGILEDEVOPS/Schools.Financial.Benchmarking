@@ -104,31 +104,6 @@ else
                 </div>
             </div>
         }
-        if (Model.ComparisonType == ComparisonType.BestInBreed)
-        {
-            <div class="grid-row">
-                <div class="column-full">
-                    <details class="criteria-details">
-                        <summary class="hide-in-print">
-                            <span class="summary">View characteristics used</span>
-                        </summary>
-                        <div class="panel panel-border-narrow criteria-detail">
-                            Comparing @Model.SchoolComparisonList.HomeSchoolName to similar schools that have a high 
-                            <a rel="external noopener noreferrer" target="_blank" 
-                               href="https://www.gov.uk/government/publications/schools-financial-efficiency-metric-tool">efficiency ranking<span class="visuallyhidden"> Opens in a new window</span></a>.
-
-                            These are statistically similar in terms of the proportion of pupils:
-                            <p>
-                                <ul>
-                                    <li>who have been eligible for free school meals in the last 6 years</li>
-                                    <li>with a statement of special educational needs, or an education, health and care (EHC) plan</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </details>
-                </div>
-            </div>
-        }
 
     }
 
@@ -234,7 +209,23 @@ else
                 <div id="CustomReportContentPlaceHolder">
 
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-                    <div id="tabsSection">
+                    
+                    <div id="bestInClassTabSection" style="display: @Html.Raw(Model.ComparisonType == ComparisonType.BestInBreed ? "block" : "none")">
+                        <div class="grid-row">
+                            <div class="column-full">
+                                <input type="hidden" id="tabSelection" value="@ViewBag.Tab" />
+                                <h3 class="heading-small">Best in class</h3>
+                                <p>
+                                    This is the best in class comparison table showing schools in their efficiency metric order. This allows you to compare your school academically with the 15 most efficient similar schools. We identify these using the Department’s school efficiency metric.
+                                </p>
+                                <p>
+                                    Note: the schools included for financial comparison on this page have been selected based on academic performance not financial performance.
+                                </p>
+                            </div>
+                       </div>
+                    </div>
+
+                    <div id="tabsSection" style="display: @Html.Raw(Model.ComparisonType != ComparisonType.BestInBreed ? "block" : "none")">
                         @Html.Partial("Partials/TabContent")
                     </div>
                     @if (Model.EstablishmentType != EstablishmentType.MAT)
