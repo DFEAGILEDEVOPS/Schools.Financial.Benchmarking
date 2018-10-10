@@ -70,7 +70,7 @@ namespace SFB.Web.UI.Models
         {
             get {
                 var url = ContextDataModel.SchoolWebsite;
-                if (url != null && url.ToLower().StartsWith("www"))
+                if (url != null && !url.ToLower().StartsWith("http"))
                 {
                     url = "http://" + url;
                 }

@@ -6,6 +6,7 @@ using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.ApplicationInsights;
 using SFB.Web.Common;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
@@ -272,7 +273,7 @@ namespace SFB.Web.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Invalid criteria entered for advanced search!" + criteria.ToString()));
+                new TelemetryClient().TrackException(new ApplicationException("Invalid criteria entered for advanced search!" + criteria));
                 return 0;
             }
 
