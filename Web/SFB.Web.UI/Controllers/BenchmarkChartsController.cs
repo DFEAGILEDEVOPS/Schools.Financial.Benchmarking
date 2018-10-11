@@ -359,7 +359,14 @@ namespace SFB.Web.UI.Controllers
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
             var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), chartGroups, comparisonType, benchmarkCriteria, simpleCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, laCode, urn.GetValueOrDefault(), basketSize);
+            var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+
+            if(comparisonType == ComparisonType.BestInBreed)
+            {
+                PopulateExtraFieldsForBestInBreedTab(comparisonList);
+            }
+
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, benchmarkCriteria, simpleCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, laCode, urn.GetValueOrDefault(), basketSize);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -513,6 +520,17 @@ namespace SFB.Web.UI.Controllers
             return File(Encoding.UTF8.GetBytes(csv),
                          "text/plain",
                          "BenchmarkData.csv");
+        }
+
+        private void PopulateExtraFieldsForBestInBreedTab(SchoolComparisonListModel comparisonList)
+        {
+            var benchmarkSchoolDataObjects = _contextDataService.GetMultipleSchoolDataObjectsByUrns(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
+
+            foreach (var bmSchool in comparisonList.BenchmarkSchools)
+            {
+                bmSchool.LaName = _laService.GetLaName(benchmarkSchoolDataObjects.Find(e => e.URN.ToString() == bmSchool.Urn).LACode.ToString());
+                bmSchool.NumberOfPupils = benchmarkSchoolDataObjects.Find(e => e.URN.ToString() == bmSchool.Urn).NumberOfPupils.GetValueOrDefault();
+            }
         }
 
         private List<ChartViewModel> ConvertSelectionListToChartList(List<HierarchicalChartViewModel> customChartSelection)

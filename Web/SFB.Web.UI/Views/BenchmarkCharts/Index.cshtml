@@ -214,13 +214,33 @@ else
                         <div class="grid-row">
                             <div class="column-full">
                                 <input type="hidden" id="tabSelection" value="@ViewBag.Tab" />
-                                <h3 class="heading-small">Best in class</h3>
+                                <h2 class="heading-small">Best in class</h2>
                                 <p>
                                     This is the best in class comparison table showing schools in their efficiency metric order. This allows you to compare your school academically with the 15 most efficient similar schools. We identify these using the Department’s school efficiency metric.
                                 </p>
                                 <p>
                                     Note: the schools included for financial comparison on this page have been selected based on academic performance not financial performance.
                                 </p>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">School Name</th>
+                                            <th scope="col">Local Authority</th>
+                                            <th class="numeric" scope="col">Efficiency Metric Score</th>
+                                            <th class="numeric" scope="col">Number of pupils</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools){
+                                            <tr>
+                                                <td scope="col">@bmSchool.Name</td>
+                                                <td scope="col">@bmSchool.LaName</td>
+                                                <td class="numeric" scope="col">@bmSchool.EmRank</td>
+                                                <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
                             </div>
                        </div>
                     </div>
