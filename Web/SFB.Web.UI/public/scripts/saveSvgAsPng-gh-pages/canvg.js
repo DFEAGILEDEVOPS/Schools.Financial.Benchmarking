@@ -683,8 +683,13 @@
 
 			var data = svg.trim(svg.compressSpaces(v)).replace(/\)([a-zA-Z])/g, ') $1').replace(/\)(\s?,\s?)/g,') ').split(/\s(?=[a-z])/);
 			for (var i=0; i<data.length; i++) {
-				var type = svg.trim(data[i].split('(')[0]);
-				var s = data[i].split('(')[1].replace(')','');
+                var type = svg.trim(data[i].split('(')[0]);
+                var sp = data[i].split('(')[1];
+                if (!sp)
+                {
+                    break;
+                }
+				var s = sp.replace(')','');
 				var transform = new this.Type[type](s);
 				transform.type = type;
 				this.transforms.push(transform);
