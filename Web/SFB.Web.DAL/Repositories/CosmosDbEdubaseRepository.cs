@@ -122,6 +122,7 @@ namespace SFB.Web.DAL.Repositories
                 $"c['{EdubaseDBFieldNames.TOWN}'], " +
                 $"c['{EdubaseDBFieldNames.POSTCODE}'], " +
                 $"c['{EdubaseDBFieldNames.LA_CODE}'], " +
+                $"c['{EdubaseDBFieldNames.NO_PUPIL}'], " +
                 $"udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE} " +
                 $"FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd((','))})";
 
