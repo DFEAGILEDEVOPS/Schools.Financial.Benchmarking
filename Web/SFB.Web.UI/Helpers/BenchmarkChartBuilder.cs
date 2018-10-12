@@ -1976,7 +1976,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Total expenditure",
                     FieldName = SchoolTrustFinanceDBFieldNames.TOTAL_EXP,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -1988,7 +1988,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Staff total",
                     FieldName = SchoolTrustFinanceDBFieldNames.STAFF_TOTAL,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -2000,7 +2000,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Premises total",
                     FieldName = SchoolTrustFinanceDBFieldNames.PREMISES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -2012,7 +2012,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Occupation total",
                     FieldName = SchoolTrustFinanceDBFieldNames.OCCUPATION,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -2024,7 +2024,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Supplies and services total",
                     FieldName = SchoolTrustFinanceDBFieldNames.SUPPLIES_SERVICES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.OneClick,
@@ -2035,7 +2035,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Total income",
                     FieldName = SchoolTrustFinanceDBFieldNames.TOTAL_INCOME,
-                    RevenueGroup = RevenueGroupType.Income,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.OneClick,
@@ -2046,7 +2046,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Grant funding total",
                     FieldName = SchoolTrustFinanceDBFieldNames.GRANT_FUNDING,
-                    RevenueGroup = RevenueGroupType.Income,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.OneClick,
@@ -2057,7 +2057,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Self-generated funding total",
                     FieldName = SchoolTrustFinanceDBFieldNames.SELF_GENERATED_FUNDING,
-                    RevenueGroup = RevenueGroupType.Income,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.OneClick,
@@ -2068,7 +2068,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "In-year balance",
                     FieldName = SchoolTrustFinanceDBFieldNames.IN_YEAR_BALANCE,
-                    RevenueGroup = RevenueGroupType.Balance,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.OneClick,
@@ -2078,7 +2078,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Revenue reserve",
                     FieldName = SchoolTrustFinanceDBFieldNames.REVENUE_RESERVE,
-                    RevenueGroup = RevenueGroupType.Balance,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.OneClick,
@@ -2098,7 +2098,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "School workforce (headcount)",
                     FieldName = SchoolTrustFinanceDBFieldNames.WORKFORCE_HEADCOUNT,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the total headcount of the school workforce.</p>
@@ -2115,7 +2115,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Total number of teachers (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of all classroom and leadership teachers.</p>",
@@ -2126,7 +2126,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Senior leadership (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_LEADER,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of senior leadership roles.</p>
@@ -2143,7 +2143,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Teaching assistants (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.FULL_TIME_TA,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of teaching assistants.</p>
@@ -2160,7 +2160,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Non-classroom support staff - excluding auxiliary staff  (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.FULL_TIME_OTHER,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of non-classroom-based support staff.</p>
@@ -2176,7 +2176,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Auxiliary staff (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.AUX_STAFF,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of full and part-time auxiliary staff.</p>
