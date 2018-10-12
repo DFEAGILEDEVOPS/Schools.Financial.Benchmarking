@@ -9,7 +9,7 @@
         @if (Model.ComparisonType == ComparisonType.BestInBreed)
         {
             <li id="BestInClass" class="hide-in-print @Html.Raw(Model.ComparisonType == ComparisonType.BestInBreed ? "active" : "")" role="tab">
-                <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">Best in class</a>
+                <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">High-performing schools </a>
             </li>
         }
         <li id="@RevenueGroupType.Expenditure" class="hide-in-print @Html.Raw(Model.ComparisonType != ComparisonType.BestInBreed ? "active" : "")" role="tab">
