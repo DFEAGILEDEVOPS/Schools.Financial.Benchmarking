@@ -104,31 +104,6 @@ else
                 </div>
             </div>
         }
-        if (Model.ComparisonType == ComparisonType.BestInBreed)
-        {
-            <div class="grid-row">
-                <div class="column-full">
-                    <details class="criteria-details">
-                        <summary class="hide-in-print">
-                            <span class="summary">View characteristics used</span>
-                        </summary>
-                        <div class="panel panel-border-narrow criteria-detail">
-                            Comparing @Model.SchoolComparisonList.HomeSchoolName to similar schools that have a high 
-                            <a rel="external noopener noreferrer" target="_blank" 
-                               href="https://www.gov.uk/government/publications/schools-financial-efficiency-metric-tool">efficiency ranking<span class="visuallyhidden"> Opens in a new window</span></a>.
-
-                            These are statistically similar in terms of the proportion of pupils:
-                            <p>
-                                <ul>
-                                    <li>who have been eligible for free school meals in the last 6 years</li>
-                                    <li>with a statement of special educational needs, or an education, health and care (EHC) plan</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </details>
-                </div>
-            </div>
-        }
 
     }
 
@@ -234,7 +209,45 @@ else
                 <div id="CustomReportContentPlaceHolder">
 
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-                    <div id="tabsSection">
+                    @if (Model.ComparisonType == ComparisonType.BestInBreed)
+                    {
+                        <div id="bestInClassTabSection">
+                            <div class="grid-row">
+                                <div class="column-full">
+                                    <h2 class="heading-small">Comparison with high-performing schools</h2>
+                                    <p>
+                                        This table shows schools in order of efficiency. The <a rel="external noopener noreferrer" target="_blank" title="Link will open in a new page" href="https://www.gov.uk/government/publications/schools-financial-efficiency-metric-tool">efficiency metric ranking</a> is calculated using data on pupil attainment and the money a school receives for its pupils.
+                                    </p>
+                                    <p>
+                                        When considering this table, we recommend that you also look at the expenditure tab to see how the most efficient schools are spending their money.
+                                    </p>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">School Name</th>
+                                                <th scope="col">Local Authority</th>
+                                                <th class="numeric" scope="col">Efficiency Metric Score</th>
+                                                <th class="numeric" scope="col">Number of pupils</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools)
+                                            {
+                                                <tr>
+                                                    <td scope="col">@bmSchool.Name</td>
+                                                    <td scope="col">@bmSchool.LaName</td>
+                                                    <td class="numeric" scope="col">@bmSchool.EmRank</td>
+                                                    <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div id="tabsSection" style="display: @Html.Raw(Model.ComparisonType != ComparisonType.BestInBreed ? "block" : "none")">
                         @Html.Partial("Partials/TabContent")
                     </div>
                     @if (Model.EstablishmentType != EstablishmentType.MAT)

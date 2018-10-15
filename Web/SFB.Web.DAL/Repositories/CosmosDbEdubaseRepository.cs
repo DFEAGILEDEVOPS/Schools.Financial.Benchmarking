@@ -114,9 +114,17 @@ namespace SFB.Web.DAL.Repositories
             var sb = new StringBuilder();
             ids.ForEach(u => sb.Append(u + ","));
 
-            var query = $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.TYPE_OF_ESTAB}'], " +
-                $"c['{EdubaseDBFieldNames.STREET}'], c['{EdubaseDBFieldNames.TOWN}'], c['{EdubaseDBFieldNames.POSTCODE}'], udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE}" +
-                $" FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd((','))})";
+            var query = $"SELECT c['{EdubaseDBFieldNames.URN}'], " +
+                $"c['{EdubaseDBFieldNames.ESTAB_NAME}'], " +
+                $"c['{EdubaseDBFieldNames.OVERALL_PHASE}'], " +
+                $"c['{EdubaseDBFieldNames.TYPE_OF_ESTAB}'], " +
+                $"c['{EdubaseDBFieldNames.STREET}'], " +
+                $"c['{EdubaseDBFieldNames.TOWN}'], " +
+                $"c['{EdubaseDBFieldNames.POSTCODE}'], " +
+                $"c['{EdubaseDBFieldNames.LA_CODE}'], " +
+                $"c['{EdubaseDBFieldNames.NO_PUPIL}'], " +
+                $"udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE} " +
+                $"FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd((','))})";
 
             List<EdubaseDataObject> result = null;
             try

@@ -513,9 +513,17 @@
             $(".tabs li").removeClass("active");
             $(".tabs li#" + tab).addClass("active");
             $("#tabsSection").empty('');
+            $("#tabsSection").show();
             $("#customTabSection").show();
             $(".download-links").hide();
-        } else {
+        } else if (tab === "BestInClass") {
+            $(".tabs li").removeClass("active");
+            $(".tabs li#" + tab).addClass("active");
+            $("#customTabSection").hide();
+            $(".download-links").show();
+            $("#bestInClassTabSection").show();
+            $("#tabsSection").hide();
+        }else {
             var unitParameter = $("#ShowValue").val();
             var financingParameter = $("#CentralFinancing").val();
             var trustFinancingParameter = $("#TrustCentralFinancing").val();
@@ -534,19 +542,27 @@
             if (formatParameter) {
                 url += "&format=" + formatParameter;
             }
-            $.get(url,
-                function (data) {
+            $.ajax({
+                url: url,
+                datatype: 'json',
+                beforeSend: function () {
+                    $("#bestInClassTabSection").hide();
+                    $("#customTabSection").hide();
+                    $("#tabsSection").show();
+                    DfE.Util.LoadingMessage.display("#tabsSection", "Updating charts");
+                },
+                success: function (data) {
                     $(".tabs li").removeClass("active");
                     $(".tabs li#" + tab).addClass("active");
-                    $("#customTabSection").hide();
                     $(".download-links").show();
-                    $("#tabsSection").html(data);
+                    $("#tabsSection").html(data);                    
                     $("table.dataTable").tablesorter();
                     var unitParameter = $("#ShowValue").val();
                     self.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
                     self.GenerateCharts(unitParameter);
-                });
+                }
+            });
         }
     };
 
