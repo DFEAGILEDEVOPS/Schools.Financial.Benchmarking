@@ -486,7 +486,7 @@
       "GroupName": "Special facilities",
       "Charts": [
         {
-          "Name": "Special facilities",
+          "Name": "Special facilities total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,
@@ -920,7 +920,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
-          "Name": "Teachers (Full Time Equivalent)",
+          "Name": "Total number of teachers (Full Time Equivalent)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,

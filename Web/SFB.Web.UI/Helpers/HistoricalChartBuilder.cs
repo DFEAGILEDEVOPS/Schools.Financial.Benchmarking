@@ -1146,7 +1146,7 @@ namespace SFB.Web.UI.Helpers
                 //Special Facilities
                 new ChartViewModel()
                 {
-                    Name = "Special facilities",
+                    Name = "Special facilities total",
                     FieldName = SchoolTrustFinanceDBFieldNames.SPECIAL_FACILITIES,
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.SpecialFacilities,
@@ -1314,7 +1314,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
-                    Name = "Self-generated total",
+                    Name = "Self-generated funding total",
                     FieldName = SchoolTrustFinanceDBFieldNames.SELF_GENERATED_FUNDING,
                     RevenueGroup = RevenueGroupType.Income,
                     ChartGroup = ChartGroupType.TotalIncome,
@@ -1879,7 +1879,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Total number of Teachers (Full Time Equivalent)",
+                    Name = "Total number of teachers (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,

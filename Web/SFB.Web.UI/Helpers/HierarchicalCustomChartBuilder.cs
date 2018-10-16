@@ -167,7 +167,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Special facilities",
+                            Name = "Special facilities total",
                         },
                     }
                 },
@@ -217,7 +217,7 @@ namespace SFB.Web.UI.Helpers
 
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Self-generated total",
+                            Name = "Self-generated funding total",
                         }
                     }
                 },
@@ -329,7 +329,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new CustomChartSelectionViewModel()
                         {
-                            Name = "Teachers (Full Time Equivalent)",
+                            Name = "Total number of teachers (Full Time Equivalent)",
                             AbsoluteCountAvailable = true,
                             HeadCountPerFTEAvailable = true,
                             PercentageOfWorkforceAvailable = true,
