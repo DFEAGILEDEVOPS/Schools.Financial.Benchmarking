@@ -740,7 +740,7 @@ function PdfGenerator() {
         writeCharts: function () {
             var charts = $('.chartContainer');
             var yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
-            var chartPerPage = Math.ceil(11 / yValuesCount);
+            var chartPerPage = Math.ceil(12 / yValuesCount);
 
             charts.each(function (index, element) {
                 if (index % chartPerPage == 0) {
