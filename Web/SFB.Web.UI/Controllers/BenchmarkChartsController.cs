@@ -581,10 +581,13 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.AbsoluteCountSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
-                    customChart.ShowValue = UnitType.AbsoluteCount;
-                    customChart.ChartType = ChartType.CustomReport;
-                    customChartList.Add(customChart);
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.AbsoluteCount;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
                 }
                 if (selection.HeadCountPerFTESelected)
                 {
