@@ -104,7 +104,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public int TotalPupils => GetInt(EdubaseDBFieldNames.NO_PUPIL);
+        public float TotalPupils => GetFloat(EdubaseDBFieldNames.NO_PUPIL);
 
         public string IsPost16 => GetString(EdubaseDBFieldNames.OFFICIAL_6_FORM) == "Has a sixth form" ? "Yes" : "No";
 
