@@ -230,6 +230,7 @@ namespace SFB.Web.UI.Controllers
         /// <param name="lacode"></param>
         /// <param name="schoolName"></param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult OverwriteStrategy(int urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, ComparisonArea areaType, int? lacode, string schoolName)
         {
             ViewBag.URN = urn;
