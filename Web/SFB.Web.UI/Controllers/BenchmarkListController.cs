@@ -65,16 +65,20 @@ namespace SFB.Web.UI.Controllers
         {
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn.GetValueOrDefault()), null);
+                var schoolDataObject = _contextDataService.GetSchoolDataObjectByUrn(urn.GetValueOrDefault());
+                if (schoolDataObject != null)
+                {
+                    var benchmarkSchool = new SchoolViewModel(schoolDataObject, null);
 
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
-                    new BenchmarkSchoolModel()
-                    {
-                        Name = benchmarkSchool.Name,
-                        Urn = benchmarkSchool.Id.ToString(),
-                        Type = benchmarkSchool.Type,
-                        EstabType = benchmarkSchool.EstablishmentType.ToString()
-                    });
+                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
+                        new BenchmarkSchoolModel()
+                        {
+                            Name = benchmarkSchool.Name,
+                            Urn = benchmarkSchool.Id.ToString(),
+                            Type = benchmarkSchool.Type,
+                            EstabType = benchmarkSchool.EstablishmentType.ToString()
+                        });
+                }
             }
             else
             {
