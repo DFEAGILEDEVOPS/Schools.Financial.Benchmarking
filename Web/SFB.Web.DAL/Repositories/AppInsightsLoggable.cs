@@ -19,6 +19,7 @@ namespace SFB.Web.DAL.Repositories
                     var ai = new TelemetryClient();
                     ai.TrackException(exception);
                     ai.TrackTrace($"URL: {HttpContext.Current.Request.RawUrl}");
+                    ai.TrackTrace($"Data error message: {errorMessage}");
                     ai.TrackTrace($"FORM VARIABLES: {HttpContext.Current.Request.Form}");
                     var schoolBmCookie = HttpContext.Current.Request.Cookies.Get(CookieNames.COMPARISON_LIST);
                     if (schoolBmCookie != null)
