@@ -33,24 +33,27 @@ namespace SFB.Web.UI.Controllers
 
             comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
-            foreach (var benchmarkSchoolDataObject in benchmarkSchoolDataObjects)
+            if (benchmarkSchoolDataObjects != null)
             {
-                var school = new SchoolViewModel(benchmarkSchoolDataObject);
-                var financialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(school.Id, school.EstablishmentType);
-
-                var benchmarkSchool = new BenchmarkSchoolModel()
+                foreach (var benchmarkSchoolDataObject in benchmarkSchoolDataObjects)
                 {
-                    Address = school.Address,
-                    Name = school.Name,
-                    Phase = school.OverallPhase,
-                    Type = school.Type,
-                    EstabType = school.EstablishmentType.ToString(),
-                    Urn = school.Id.ToString(),
-                    IsReturnsComplete = financialDataModel.IsReturnsComplete,
-                    WorkforceDataPresent = financialDataModel.WorkforceDataPresent
-                };
+                    var school = new SchoolViewModel(benchmarkSchoolDataObject);
+                    var financialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(school.Id, school.EstablishmentType);
 
-                comparisonList.BenchmarkSchools.Add(benchmarkSchool);
+                    var benchmarkSchool = new BenchmarkSchoolModel()
+                    {
+                        Address = school.Address,
+                        Name = school.Name,
+                        Phase = school.OverallPhase,
+                        Type = school.Type,
+                        EstabType = school.EstablishmentType.ToString(),
+                        Urn = school.Id.ToString(),
+                        IsReturnsComplete = financialDataModel.IsReturnsComplete,
+                        WorkforceDataPresent = financialDataModel.WorkforceDataPresent
+                    };
+
+                    comparisonList.BenchmarkSchools.Add(benchmarkSchool);
+                }
             }
 
             comparisonList.BenchmarkSchools = comparisonList.BenchmarkSchools.OrderBy(s => SanitizeSchoolName(s.Name)).ToList();
