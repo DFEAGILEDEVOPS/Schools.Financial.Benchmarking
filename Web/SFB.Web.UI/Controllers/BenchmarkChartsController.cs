@@ -541,31 +541,43 @@ namespace SFB.Web.UI.Controllers
             {
                 if (selection.AbsoluteMoneySelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
-                    customChart.ShowValue = UnitType.AbsoluteMoney;
-                    customChart.ChartType = ChartType.CustomReport;
-                    customChartList.Add(customChart);
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.AbsoluteMoney;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
                 }
                 if (selection.PerPupilSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
-                    customChart.ShowValue = UnitType.PerPupil;
-                    customChart.ChartType = ChartType.CustomReport;
-                    customChartList.Add(customChart);
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.PerPupil;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
                 }
                 if (selection.PerTeacherSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
-                    customChart.ShowValue = UnitType.PerTeacher;
-                    customChart.ChartType = ChartType.CustomReport;
-                    customChartList.Add(customChart);
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.PerTeacher;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
                 }
                 if (selection.PercentageSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
-                    customChart.ShowValue = UnitType.PercentageOfTotal;
-                    customChart.ChartType = ChartType.CustomReport;
-                    customChartList.Add(customChart);
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.PercentageOfTotal;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
                 }
                 if (selection.AbsoluteCountSelected)
                 {
@@ -576,24 +588,33 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.HeadCountPerFTESelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
-                    customChart.ShowValue = UnitType.HeadcountPerFTE;
-                    customChart.ChartType = ChartType.CustomReport;
-                    customChartList.Add(customChart);
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.HeadcountPerFTE;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
                 }
                 if (selection.PercentageOfWorkforceSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
-                    customChart.ShowValue = UnitType.FTERatioToTotalFTE;
-                    customChart.ChartType = ChartType.CustomReport;
-                    customChartList.Add(customChart);
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.FTERatioToTotalFTE;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
                 }
                 if (selection.NumberOfPupilsPerMeasureSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.First(c => c.Name == selection.Name).Clone();
-                    customChart.ShowValue = UnitType.NoOfPupilsPerMeasure;
-                    customChart.ChartType = ChartType.CustomReport;
-                    customChartList.Add(customChart);
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.NoOfPupilsPerMeasure;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
                 }
             }
 
