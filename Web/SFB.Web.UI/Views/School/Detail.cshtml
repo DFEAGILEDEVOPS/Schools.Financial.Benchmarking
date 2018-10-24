@@ -22,7 +22,7 @@
 
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
-@if (Model.IsReturnsComplete && !Model.IsSixthForm)
+@if (!Model.IsSixthForm)
 {
     <div class="grid-row hide-in-print returns-complete" id="benchmarkControlsPlaceHolder"></div>
 }
