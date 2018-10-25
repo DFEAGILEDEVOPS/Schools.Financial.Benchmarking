@@ -144,7 +144,7 @@ namespace SFB.Web.UI.Services
                             : chart.FieldName.Substring(0, chart.FieldName.Length - 9);                        
                         total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);                                                
                         rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);                        
-                            if (rawAmount == null)
+                            if (rawAmount == null || rawAmount == 0)
                             {
                                 break;
                             }
@@ -356,7 +356,7 @@ namespace SFB.Web.UI.Services
                         : fieldName.Substring(0, fieldName.Length - 9);
                     var total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);
                     rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);
-                    if (rawAmount == null)
+                    if (rawAmount == null || rawAmount == 0)
                     {
                         break;
                     }
