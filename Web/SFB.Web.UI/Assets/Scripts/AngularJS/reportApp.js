@@ -110,6 +110,7 @@
 
                 angular.element(document).ready(function () {
                     new Accordion(document.getElementById('custom-report-accordion'));
+                    $("#custom-report-accordion .accordion-section-header").first().click();
                 });
 
                 $(document).ready(function() {
