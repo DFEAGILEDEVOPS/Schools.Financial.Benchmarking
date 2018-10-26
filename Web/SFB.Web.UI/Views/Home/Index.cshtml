@@ -90,8 +90,12 @@
                                                type="text"
                                                maxlength="100"
                                                data-suggestion-url="@(Model.SchoolSuggestionUrl)"/>
-                                        <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn"/>
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_NAME_ID">Search</button>
+                                        <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn" />
+                                        <div class="multiple-choice">
+                                            <input id="openOnly" name="openOnly" type="checkbox" value="true" checked>
+                                            <label for="openOnly">Include open schools only</label>
+                                        </div>
                                     </div>
 
                                     <div id="TrustNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_NAME))" aria-controls="SearchByTrustNameFieldset">
