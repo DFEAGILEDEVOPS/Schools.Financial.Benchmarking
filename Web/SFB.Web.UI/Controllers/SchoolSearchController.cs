@@ -160,7 +160,7 @@ namespace SFB.Web.UI.Controllers
                                 return await Search(nameId, trustName, searchType, suggestionUrn, locationorpostcode,
                                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
-                            return RedirectToAction("Search", "La", new {name = laCodeName});
+                            return RedirectToAction("Search", "La", new {name = laCodeName, openOnly = openOnly});
                         }
                         else
                         {
@@ -295,7 +295,7 @@ namespace SFB.Web.UI.Controllers
 
         [Route("SchoolSearch/Search-js")]
         public async Task<PartialViewResult> SearchJS(string nameId, string searchType, string suggestionurn,
-            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, bool openOnly,
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, bool openOnly = false,
             string orderby = "", int page = 1)
 
         {
@@ -307,8 +307,8 @@ namespace SFB.Web.UI.Controllers
 
         [Route("SchoolSearch/Search-json")]
         public async Task<JsonResult> SearchJson(string nameId, string searchType, string suggestionurn,
-            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, bool openOnly,
-            string matNo, string orderby = "", int page = 1)
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, 
+            string matNo, bool openOnly = false, string orderby = "", int page = 1)
 
         {
             dynamic searchResponse;

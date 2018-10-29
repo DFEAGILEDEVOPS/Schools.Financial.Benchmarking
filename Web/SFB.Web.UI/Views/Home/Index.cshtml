@@ -93,7 +93,7 @@
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_NAME_ID">Search</button>
                                         <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn" />
                                         <div class="multiple-choice">
-                                            <input id="openOnly" name="openOnly" type="checkbox" value="true" checked>
+                                            <input id="openOnly" name="openOnly" type="checkbox" value="true" checked disabled>
                                             <label for="openOnly">Include open schools only</label>
                                         </div>
                                     </div>
@@ -142,6 +142,10 @@
                                                type="text"/>
                                         <input type="hidden" id="LocationCoordinates" name="LocationCoordinates"/>
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LOCATION">Search</button>
+                                        <div class="multiple-choice">
+                                            <input id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked disabled>
+                                            <label for="openOnlyLocation">Include open schools only</label>
+                                        </div>
                                     </div>
 
                                     <div id="LaCodeNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))" aria-controls="SearchByLaCodeNameFieldset">
@@ -163,6 +167,10 @@
                                                type="text"/>
                                         <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId"/>
                                         <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
+                                        <div class="multiple-choice">
+                                            <input id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked disabled>
+                                            <label for="openOnlyLa">Include open schools only</label>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>

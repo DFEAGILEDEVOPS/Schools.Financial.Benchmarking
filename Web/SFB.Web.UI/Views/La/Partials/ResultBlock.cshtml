@@ -19,7 +19,7 @@
             @foreach (var laViewModel in Model.ModelList)
             {
                 <li class="document">
-                    <a href="/SchoolSearch/Search?searchtype=search-by-la-code-name&lacodename=@laViewModel.id" class="bold-small">@laViewModel.LaName</a>
+                    <a href="/SchoolSearch/Search?searchtype=search-by-la-code-name&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
                 </li>
             }
         </ul>
