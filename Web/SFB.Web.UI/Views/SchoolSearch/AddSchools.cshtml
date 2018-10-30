@@ -1,13 +1,15 @@
-﻿@{
+﻿@model SFB.Web.UI.Models.SchoolSearchViewModel
+
+@{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "add-schools";
 }
 
-@if (!string.IsNullOrEmpty(ViewBag.HomeSchoolName))
+@if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
     <div>
         <span class="back-chevron">&#9666;</span>
-        <a class="home-link" href="../../school/detail?urn=@ViewBag.HomeSchoolId" aria-label="Back to @ViewBag.HomeSchoolName">Back to @ViewBag.HomeSchoolName</a>
+        <a class="home-link" href="../../school/detail?urn=@Model.ComparisonList.HomeSchoolUrn" aria-label="Back to @Model.ComparisonList.HomeSchoolName">Back to @Model.ComparisonList.HomeSchoolName</a>
     </div>
 
     <h1 class="heading-xlarge page-heading">Add schools</h1>
@@ -17,13 +19,27 @@
         <div class="column-full">
             <span class="font-xsmall">Comparing to</span>
             <div class="highlight">
-                <span class="bold-small">@ViewBag.HomeSchoolName</span>
+                <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
             </div>
         </div>
     </div>
 }
 
 <section class="section" aria-label="Select search type">
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                There are errors on this page that require attention.
+            </h1>
+            <ul class="error-summary-list">
+                <li>
+                    <a href="#finderSection">@Model.ErrorMessage</a>
+                </li>
+            </ul>
+        </div>
+    }
+
     <form>
         <div class="form-group">
             <fieldset>

@@ -672,6 +672,10 @@
     <Content Include="Views\BenchmarkCriteria\AllThroughPhase.cshtml" />
     <Content Include="Views\BenchmarkCharts\OneClickReport.cshtml" />
     <Content Include="Views\SchoolSearch\AddSchools.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\SchoolSearchOption.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\TrustSearchOption.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\LocationSearchOption.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\LaSearchOption.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
