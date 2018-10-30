@@ -64,6 +64,14 @@
             return string.Empty;
         }
 
+        public string GetOpenOnlyDisabledAttr(string testQueryKey)
+        {
+            if (!this.IsSearchType(testQueryKey))
+                return "disabled";
+
+            return string.Empty;
+        }
+
         public bool IsSearchType(string testSearchType)
         {
             return this.QueryKey == testSearchType;
