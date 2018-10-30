@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "add-schools";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.HomeSchoolName))
+{
+    <div>
+        <span class="back-chevron">&#9666;</span>
+        <a class="home-link" href="../../school/detail?urn=@ViewBag.HomeSchoolId" aria-label="Back to @ViewBag.HomeSchoolName">Back to @ViewBag.HomeSchoolName</a>
+    </div>
+
+    <h1 class="heading-xlarge page-heading">Add schools</h1>
+
+
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-small">@ViewBag.HomeSchoolName</span>
+            </div>
+        </div>
+    </div>
+}
+
+<section class="section" aria-label="Select search type">
+    <form>
+        <div class="form-group">
+            <fieldset>
+                <legend>How do you want to add schools?</legend>
+            </fieldset>
+            <p>You can add schools by name or by location:</p>
+        </div>
+        <div class="grid-row font-xsmall">
+            <div class="column-one-third no-padding">
+                <div class="column-one-third back-button">
+                    <a href="/benchmarklist">Back</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+

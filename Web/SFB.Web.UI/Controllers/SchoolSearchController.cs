@@ -245,6 +245,14 @@ namespace SFB.Web.UI.Controllers
             return View("SearchResults", GetSchoolViewModelList(searchResp, orderby, page, searchType, nameId, locationorpostcode, laName));
         }
 
+        public ActionResult AddSchools()
+        {
+            var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            ViewBag.HomeSchoolId = schoolComparisonListModel.HomeSchoolUrn;
+            ViewBag.HomeSchoolName = schoolComparisonListModel.HomeSchoolName;
+            return View();
+        }
+
         public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
