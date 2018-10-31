@@ -15,6 +15,15 @@
             this.bindAutosuggest('#FindByTrustName', '#FindByTrustNameSuggestionId', this.getTrustSuggestionHandler);
             this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
             this.bindEnterKeysToButtons();
+            this.bindAccordionHeaderClick();
+        },
+
+        bindAccordionHeaderClick: function () {
+            var inputs = $("#SearchTypesAccordion .js-accordion");
+            inputs.click(function (event) {
+                $("input:checkbox[name='openOnly']").prop('disabled', true);
+                $(event.currentTarget).next().find("input:checkbox[name='openOnly']").prop('disabled', false);
+            });
         },
 
         bindEnterKeysToButtons: function() {
@@ -36,8 +45,6 @@
         },
 
         accordionChangeHandler: function () {
-            $("input:checkbox[name='openOnly']").prop('disabled', true);
-            $(event.currentTarget).next().find("input:checkbox[name='openOnly']").prop('disabled', false);
             $(".error-summary").hide();
         },
 
