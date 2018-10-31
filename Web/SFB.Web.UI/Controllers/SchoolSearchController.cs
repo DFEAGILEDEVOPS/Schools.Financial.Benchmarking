@@ -248,7 +248,10 @@ namespace SFB.Web.UI.Controllers
         public ActionResult AddSchools()
         {
             var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            return View(new SchoolSearchViewModel(schoolComparisonListModel,""));
+            var vm = new SchoolSearchViewModel(schoolComparisonListModel, "");
+            vm.Authorities = _laService.GetLocalAuthorities();
+
+            return View(vm);
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)

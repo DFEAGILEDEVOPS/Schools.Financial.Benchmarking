@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
-    ViewBag.pageClass = "add-schools";
+    ViewBag.pageClass = "schools-search-page";
 }
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
@@ -15,7 +15,7 @@
     <h1 class="heading-xlarge page-heading">Add schools</h1>
 
 
-    <div class="grid-row">
+    <div class="grid-row home-school section">
         <div class="column-full">
             <span class="font-xsmall">Comparing to</span>
             <div class="highlight">
@@ -25,35 +25,68 @@
     </div>
 }
 
-<section class="section" aria-label="Select search type">
-    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+<div class="column-three-quarters no-padding">
+    <section class="section" aria-label="Select search type">
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
     {
-        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
-                There are errors on this page that require attention.
-            </h1>
-            <ul class="error-summary-list">
-                <li>
-                    <a href="#finderSection">@Model.ErrorMessage</a>
-                </li>
-            </ul>
-        </div>
+            <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+                <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                    There are errors on this page that require attention.
+                </h1>
+                <ul class="error-summary-list">
+                    <li>
+                        <a href="#finderSection">@Model.ErrorMessage</a>
+                    </li>
+                </ul>
+            </div>
     }
 
-    <form>
-        <div class="form-group">
-            <fieldset>
-                <legend>How do you want to add schools?</legend>
-            </fieldset>
-            <p>You can add schools by name or by location:</p>
-        </div>
-        <div class="grid-row font-xsmall">
-            <div class="column-one-third no-padding">
-                <div class="column-one-third back-button">
-                    <a href="/benchmarklist">Back</a>
-                </div>
-            </div>
-        </div>
-    </form>
-</section>
+        <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
+            <form method="get" action="/SchoolSearch/Search" autocomplete="off">
+                <div class="form-group">
+                    <fieldset>
+                        <legend>How do you want to add schools?</legend>
+                    </fieldset>
+                    <p>You can add schools by name or by location:</p>
 
+                    <div>
+
+                        @Html.Partial("Partials/Search/SchoolSearchOption")
+
+                        @Html.Partial("Partials/Search/TrustSearchOption")
+
+                        @Html.Partial("Partials/Search/LocationSearchOption")
+
+                        @Html.Partial("Partials/Search/LaSearchOption")
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="grid-row font-xsmall">
+                        <div class="column-one-third no-padding">
+                            <div class="column-one-third back-button">
+                                <a href="/benchmarklist">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
+
+@section ViewScripts {
+
+    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script>
+        var localAuthorities = @Html.Raw(Model.Authorities);
+        DfE.Views.SchoolsSearchViewModel.Load(localAuthorities);
+
+        function loadViewModel() {
+            DfE.Views.GoogleLocationViewModel.Load();
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])&libraries=places&callback=loadViewModel"></script>
+
+}
