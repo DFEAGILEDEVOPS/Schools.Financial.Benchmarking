@@ -167,7 +167,7 @@ namespace SFB.Web.UI.UnitTests
             var result = await controller.Search("" , "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
 
             Assert.IsNotNull(result);
-            Assert.AreEqual("../Home/Index", (result as ViewResult).ViewName);            
+            Assert.AreEqual("../home/index", (result as ViewResult).ViewName);            
         }
 
         [Test]
