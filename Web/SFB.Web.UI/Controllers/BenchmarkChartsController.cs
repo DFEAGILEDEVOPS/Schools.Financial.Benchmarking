@@ -127,6 +127,8 @@ namespace SFB.Web.UI.Controllers
                 ComparisonArea.All, null, urn,
                 ComparisonListLimit.ONE_CLICK);
 
+            ViewBag.ChartFormat = ChartFormat.Charts;
+
             return View(vm);
         }
 

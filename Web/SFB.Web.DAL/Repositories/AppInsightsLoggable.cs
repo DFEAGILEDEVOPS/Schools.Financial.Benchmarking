@@ -1,6 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using SFB.Web.Common;
 using System;
+using System.Diagnostics;
 using System.Web;
 using System.Web.Configuration;
 
@@ -10,6 +11,8 @@ namespace SFB.Web.DAL.Repositories
     {
         internal virtual void LogException(Exception exception, string errorMessage)
         {
+            Debugger.Break();
+
             if (exception is Newtonsoft.Json.JsonSerializationException || exception is Newtonsoft.Json.JsonReaderException)
             {
                 var enableAITelemetry = WebConfigurationManager.AppSettings["EnableAITelemetry"];
