@@ -56,7 +56,8 @@ namespace SFB.Web.UI.Controllers
             bool openOnly = false,
             string orderby = "", 
             int page = 1,
-            string tab = "list")
+            string tab = "list",
+            string referrer = "home/index")
         {
             dynamic searchResp = null;
             string errorMessage;
@@ -93,7 +94,7 @@ namespace SFB.Web.UI.Controllers
                                 Authorities = _laService.GetLocalAuthorities()
                             };
 
-                            return View("../Home/Index", searchVM);
+                            return View("../" + referrer, searchVM);
                         }
                     }
                     else
@@ -123,7 +124,7 @@ namespace SFB.Web.UI.Controllers
                                 Authorities = _laService.GetLocalAuthorities()
                             };
 
-                            return View("../Home/Index", searchVM);
+                            return View("../" + referrer, searchVM);
                         }
                     }
                     break;
@@ -144,7 +145,7 @@ namespace SFB.Web.UI.Controllers
                             Authorities = _laService.GetLocalAuthorities()
                         };
 
-                        return View("../Home/Index", searchVM);
+                        return View("../" + referrer, searchVM);
                     }
 
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
@@ -171,7 +172,7 @@ namespace SFB.Web.UI.Controllers
                                 Authorities = _laService.GetLocalAuthorities()
                             };
 
-                            return View("../Home/Index", searchVM);
+                            return View("../" + referrer, searchVM);
                         }
                     }
                     else
@@ -204,7 +205,7 @@ namespace SFB.Web.UI.Controllers
                                 Authorities = _laService.GetLocalAuthorities()
                             };
 
-                            return View("../Home/Index", searchVM);
+                            return View("../" + referrer, searchVM);
                         }
                     }
 
@@ -236,7 +237,7 @@ namespace SFB.Web.UI.Controllers
                             Authorities = _laService.GetLocalAuthorities()
                         };
 
-                        return View("../Home/Index", searchVM);
+                        return View("../" + referrer, searchVM);
                     }
                     break;
             }

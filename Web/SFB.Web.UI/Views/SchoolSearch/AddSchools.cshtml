@@ -41,37 +41,40 @@
             </div>
     }
 
-        <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
-            <form method="get" action="/SchoolSearch/Search" autocomplete="off">
-                <div class="form-group">
-                    <fieldset>
-                        <legend>How do you want to add schools?</legend>
-                    </fieldset>
-                    <p>You can add schools by name or by location:</p>
+        <div id="finderSection">
+            <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
+                <form method="get" action="/SchoolSearch/Search" autocomplete="off">
+                    <div class="form-group">
+                        <fieldset>
+                            <legend>How do you want to add schools?</legend>
+                        </fieldset>
+                        <p>You can add schools by name or by location:</p>
 
-                    <div>
+                        <div>
 
-                        @Html.Partial("Partials/Search/SchoolSearchOption")
+                            @Html.Partial("Partials/Search/SchoolSearchOption")
 
-                        @Html.Partial("Partials/Search/TrustSearchOption")
+                            @Html.Partial("Partials/Search/TrustSearchOption")
 
-                        @Html.Partial("Partials/Search/LocationSearchOption")
+                            @Html.Partial("Partials/Search/LocationSearchOption")
 
-                        @Html.Partial("Partials/Search/LaSearchOption")
+                            @Html.Partial("Partials/Search/LaSearchOption")
 
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="grid-row font-xsmall">
-                        <div class="column-one-third no-padding">
-                            <div class="column-one-third back-button">
-                                <a href="/benchmarklist">Back</a>
+                    <div class="form-group">
+                        <div class="grid-row font-xsmall">
+                            <div class="column-one-third no-padding">
+                                <div class="column-one-third back-button">
+                                    <a href="/benchmarklist">Back</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                    <input type="hidden" name="referrer" value="schoolsearch/addschools" />
+                </form>
+            </div>
         </div>
     </section>
 </div>
