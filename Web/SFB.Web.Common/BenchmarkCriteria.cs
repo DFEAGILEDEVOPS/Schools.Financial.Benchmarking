@@ -42,9 +42,9 @@ namespace SFB.Web.Common
         [DBField(name: SchoolTrustFinanceDBFieldNames.REGION, type: CriteriaFieldComparisonTypes.EQUALTO)]
         public string[] GovernmentOffice { get; set; }
 
-        [PrettyName(SchoolCharacteristicsQuestions.LONDON_WEIGHTING)]
-        [DBField(name: SchoolTrustFinanceDBFieldNames.LONDON_BOROUGH, type: CriteriaFieldComparisonTypes.EQUALTO)]
-        public string[] LondonBorough { get; set; }
+        //[PrettyName(SchoolCharacteristicsQuestions.LONDON_WEIGHTING)]
+        //[DBField(name: SchoolTrustFinanceDBFieldNames.LONDON_BOROUGH, type: CriteriaFieldComparisonTypes.EQUALTO)]
+        //public string[] LondonBorough { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.LONDON_WEIGHTING)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.LONDON_WEIGHT, type: CriteriaFieldComparisonTypes.EQUALTO)]
