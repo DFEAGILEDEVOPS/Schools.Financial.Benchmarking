@@ -32,6 +32,18 @@ namespace SFB.Web.UI.Models
             }
         }
 
+        public float GetFloat(string property)
+        {
+            try
+            {
+                return float.Parse(ContextDataModel[property]);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
         public DateTime? GetDate(string property)
         {
             try

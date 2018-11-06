@@ -1,5 +1,4 @@
-﻿@using SFB.Web.Common
-@using SFB.Web.UI.Helpers.Constants
+﻿@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SchoolSearchViewModel
 
 @{
@@ -74,92 +73,18 @@
                                         Begin by finding a school or trust
                                     </h2>
 
-                                    <div id="SchoolOrCollegeNameIdAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_NAME_ID))" aria-controls="SearchByNameIdFieldset">
-                                        <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID))/>
-                                        <label for="SchoolOrCollegeNameId">School</label>
-                                    </div>
-                                    <div id="SearchByNameIdFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
-                                        <label class="form-label" for="FindByNameId">Enter a school name, <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr> or <abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB code</abbr></label>
-                                        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_NAME_ID))
-                                        {
-                                            <span class="error-message">@Model.ErrorMessage</span>
-                                        }
-                                        <input id="FindByNameId"
-                                               class="form-control mbl"
-                                               name="nameId"
-                                               type="text"
-                                               maxlength="100"
-                                               data-suggestion-url="@(Model.SchoolSuggestionUrl)"/>
-                                        <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn"/>
-                                        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_NAME_ID">Search</button>
-                                    </div>
+                                    @Html.Partial("Partials/Search/SchoolSearchOption")
 
-                                    <div id="TrustNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_NAME))" aria-controls="SearchByTrustNameFieldset">
-                                        <input id="TrustName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_NAME))/>
-                                        <label for="TrustName">Trust</label>
-                                    </div>
-                                    <div id="SearchByTrustNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME))">
-                                        <label class="form-label" for="FindByTrustName">Enter the trust name</label>
-                                        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_NAME))
-                                        {
-                                            <span class="error-message">@Model.ErrorMessage</span>
-                                        }
-                                        <input id="FindByTrustName"
-                                               class="form-control mbl"
-                                               name="trustname"
-                                               type="text"
-                                               maxlength="100"
-                                               data-suggestion-url="@(Model.TrustSuggestionUrl)"/>
-                                        <input type="hidden" id="FindByTrustNameSuggestionId" name="trustsuggestionUrn"/>
-                                        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_NAME">Search</button>
-                                    </div>
-
+                                    @Html.Partial("Partials/Search/TrustSearchOption")
+                                    
                                     <h2 class="form-group heading-small bold-small">
                                         Alternatively, search by area
                                     </h2>
-                                    <div id="TownOrCityAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LOCATION))" aria-controls="SearchByTownFieldset">
-                                        <input id="TownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LOCATION))/>
-                                        <label for="TownOrCity">Location</label>
-                                    </div>
-                                    <div id="SearchByTownFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
-                                        <label for="FindSchoolByTown">
-                                            Enter a postcode, town or street. Or
-                                            <a href="javascript:void(0)" id="FindCurrentPosition">use your current location</a>
-                                        </label>
-                                        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
-                                        {
-                                            <span class="error-message">@Model.ErrorMessage</span>
-                                        }
-                                        <input id="FindSchoolByTown"
-                                               class="form-control mbl search-input"
-                                               name="locationorpostcode"
-                                               placeholder=""
-                                               maxlength="100"
-                                               type="text"/>
-                                        <input type="hidden" id="LocationCoordinates" name="LocationCoordinates"/>
-                                        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LOCATION">Search</button>
-                                    </div>
+                                    
+                                    @Html.Partial("Partials/Search/LocationSearchOption")
 
-                                    <div id="LaCodeNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))" aria-controls="SearchByLaCodeNameFieldset">
-                                        <input id="LaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))/>
-                                        <label for="LaCodeName">Local authority</label>
-                                    </div>
-                                    <div id="SearchByLaCodeNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
-                                        <label for="FindSchoolByLaCodeName">
-                                            <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
-                                        </label>
-                                        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
-                                        {
-                                            <span class="error-message">@Model.ErrorMessage</span>
-                                        }
-                                        <input id="FindSchoolByLaCodeName"
-                                               class="form-control mbl"
-                                               name="lacodename"
-                                               maxlength="100"
-                                               type="text"/>
-                                        <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId"/>
-                                        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
-                                    </div>
+                                    @Html.Partial("Partials/Search/LaSearchOption")
+
                                 </fieldset>
                             </div>
                         </form>

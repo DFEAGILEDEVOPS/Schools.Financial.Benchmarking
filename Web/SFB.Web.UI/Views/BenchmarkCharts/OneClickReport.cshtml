@@ -29,7 +29,7 @@
 
 <div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
     <div class="column-full">
-        <span class="back-chevron">&#706;</span>
+        <span class="back-chevron">&#9666;</span>
         <a class="home-link" href="javascript:void(0);" onclick="location.reload();">Back to benchmarking charts</a>
     </div>
 </div>
@@ -104,6 +104,12 @@ else
     }
 
     <div class="chartsSection">
+        <div class="grid-row">
+            <div class="column-full font-xsmall chartTable hide-in-print">
+                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline" href="javascript:void(0)" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></a>
+                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline" href="javascript:void(0)" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></a>
+            </div>
+        </div>
         <div class="font-xsmall latest-year-message">
                 <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
         </div>

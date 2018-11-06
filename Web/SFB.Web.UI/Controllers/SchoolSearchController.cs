@@ -52,10 +52,12 @@ namespace SFB.Web.UI.Controllers
             string locationorpostcode,
             string locationCoordinates,
             string laCodeName,
-            decimal? radius, 
+            decimal? radius,
+            bool openOnly = false,
             string orderby = "", 
             int page = 1,
-            string tab = "list")
+            string tab = "list",
+            string referrer = "home/index")
         {
             dynamic searchResp = null;
             string errorMessage;
@@ -92,7 +94,7 @@ namespace SFB.Web.UI.Controllers
                                 Authorities = _laService.GetLocalAuthorities()
                             };
 
-                            return View("../Home/Index", searchVM);
+                            return View("../" + referrer, searchVM);
                         }
                     }
                     else
@@ -106,8 +108,7 @@ namespace SFB.Web.UI.Controllers
                         if (string.IsNullOrEmpty(errorMessage))
                         {
                             // first see if we get a match on the word
-                            searchResp = await GetSearchResults(nameId, searchType, null, null, null, radius,
-                                orderby, page);
+                            searchResp = await GetSearchResults(nameId, searchType, null, null, null, radius, openOnly, orderby, page);
                             if (searchResp.NumberOfResults == 0)
                             {
                                 return RedirectToActionPermanent("SuggestSchool", "SchoolSearch",
@@ -123,7 +124,7 @@ namespace SFB.Web.UI.Controllers
                                 Authorities = _laService.GetLocalAuthorities()
                             };
 
-                            return View("../Home/Index", searchVM);
+                            return View("../" + referrer, searchVM);
                         }
                     }
                     break;
@@ -144,7 +145,7 @@ namespace SFB.Web.UI.Controllers
                             Authorities = _laService.GetLocalAuthorities()
                         };
 
-                        return View("../Home/Index", searchVM);
+                        return View("../" + referrer, searchVM);
                     }
 
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
@@ -158,9 +159,9 @@ namespace SFB.Web.UI.Controllers
                             {
                                 laCodeName = exactMatch.id;
                                 return await Search(nameId, trustName, searchType, suggestionUrn, locationorpostcode,
-                                    locationCoordinates, laCodeName, radius, orderby, page, tab);
+                                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
-                            return RedirectToAction("Search", "La", new {name = laCodeName});
+                            return RedirectToAction("Search", "La", new {name = laCodeName, openOnly = openOnly});
                         }
                         else
                         {
@@ -171,7 +172,7 @@ namespace SFB.Web.UI.Controllers
                                 Authorities = _laService.GetLocalAuthorities()
                             };
 
-                            return View("../Home/Index", searchVM);
+                            return View("../" + referrer, searchVM);
                         }
                     }
                     else
@@ -179,8 +180,7 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode,
-                                locationCoordinates, laCodeName, radius, orderby, page);
+                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             int resultCount = searchResp.NumberOfResults;
                             switch (resultCount)
@@ -205,7 +205,7 @@ namespace SFB.Web.UI.Controllers
                                 Authorities = _laService.GetLocalAuthorities()
                             };
 
-                            return View("../Home/Index", searchVM);
+                            return View("../" + referrer, searchVM);
                         }
                     }
 
@@ -215,8 +215,7 @@ namespace SFB.Web.UI.Controllers
                     errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
                     if (string.IsNullOrEmpty(errorMessage))
                     {
-                        searchResp = await GetSearchResults(nameId, searchType, locationorpostcode,
-                            locationCoordinates, laCodeName, radius, orderby, page);
+                        searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                         int resultCnt = searchResp.NumberOfResults;
                         switch (resultCnt)
@@ -238,13 +237,22 @@ namespace SFB.Web.UI.Controllers
                             Authorities = _laService.GetLocalAuthorities()
                         };
 
-                        return View("../Home/Index", searchVM);
+                        return View("../" + referrer, searchVM);
                     }
                     break;
             }
 
             var laName = _laService.GetLaName(laCodeName);
             return View("SearchResults", GetSchoolViewModelList(searchResp, orderby, page, searchType, nameId, locationorpostcode, laName));
+        }
+
+        public ActionResult AddSchools()
+        {
+            var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var vm = new SchoolSearchViewModel(schoolComparisonListModel, "");
+            vm.Authorities = _laService.GetLocalAuthorities();
+
+            return View(vm);
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)
@@ -297,12 +305,11 @@ namespace SFB.Web.UI.Controllers
 
         [Route("SchoolSearch/Search-js")]
         public async Task<PartialViewResult> SearchJS(string nameId, string searchType, string suggestionurn,
-            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, bool openOnly = false,
             string orderby = "", int page = 1)
 
         {
-            var searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
-                locationCoordinates, laCodeName, radius, orderby, page);
+            var searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             var vm = GetSchoolViewModelList(searchResponse, orderby,page, searchType, nameId, locationorpostcode, laCodeName);
 
             return PartialView("Partials/SchoolResults", vm);
@@ -310,15 +317,15 @@ namespace SFB.Web.UI.Controllers
 
         [Route("SchoolSearch/Search-json")]
         public async Task<JsonResult> SearchJson(string nameId, string searchType, string suggestionurn,
-            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
-            string matNo, string orderby = "", int page = 1)
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, 
+            string matNo, bool openOnly = false, string orderby = "", int page = 1)
 
         {
             dynamic searchResponse;
             if (string.IsNullOrEmpty(matNo))
             {
                 searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
-                    locationCoordinates, laCodeName, radius, orderby, page, 1000);
+                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
             }
             else
             {
@@ -342,9 +349,10 @@ namespace SFB.Web.UI.Controllers
             string locationorpostcode,
             string locationCoordinates,
             string laCode,
-            decimal? radius, 
-            string orderby, 
-            int page, 
+            decimal? radius,
+            bool openOnly,
+            string orderby,
+            int page,
             int take = SearchDefaults.RESULTS_PER_PAGE)
         {
             dynamic response = null;

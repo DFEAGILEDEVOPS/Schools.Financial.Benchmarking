@@ -87,7 +87,7 @@ namespace SFB.Web.UI.Models
         public bool WorkforceDataPresent;
 
         [JsonIgnore]
-        public int NumberOfPupils;
+        public float NumberOfPupils;
 
         [JsonIgnore]
         public override string ShortName => !string.IsNullOrEmpty(Name) && Name.Length >= 20 ? $"{Name.Substring(0, 17)}..." : Name;

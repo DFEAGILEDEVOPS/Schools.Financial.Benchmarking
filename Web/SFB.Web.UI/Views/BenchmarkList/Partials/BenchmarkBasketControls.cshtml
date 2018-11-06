@@ -3,7 +3,7 @@
     <div class="column-two-thirds">
         <strong class="bold-small">@Model.BenchmarkSchools.Count</strong> schools in this list
         <div class="basket-control-buttons">
-            <a class="benchmarkControls" href="/">Add schools</a>
+            <a class="benchmarkControls" href="/SchoolSearch/AddSchools">Add schools</a>
             @if (Model.BenchmarkSchools.Count > 0)
             {
                 <a class="benchmarkControls" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket(null,'RemoveAll')")">Clear basket</a>

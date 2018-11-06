@@ -17,11 +17,11 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
-        public ActionResult Search(string name, string orderby = "", int page = 1)
+        public ActionResult Search(string name, string orderby = "", int page = 1, bool openOnly = false)
         {
             var filteredResults = _laService.SearchContains(name);
 
-            var vm = new LaListViewModel(filteredResults, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), orderby);
+            var vm = new LaListViewModel(filteredResults, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), orderby, openOnly);
             
             vm.Pagination = new Pagination
                 {

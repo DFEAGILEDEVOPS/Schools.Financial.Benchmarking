@@ -155,6 +155,14 @@ namespace SFB.Web.Domain.Models
             }
         }
 
+        public bool IsReturnsDNS
+        {
+            get
+            {
+                return (FinancialDataObjectModel == null || FinancialDataObjectModel.DidNotSubmit);
+            }
+        }
+
         public bool PartialYearsPresentInSubSchools
         {
             get

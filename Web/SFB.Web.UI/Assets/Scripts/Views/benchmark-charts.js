@@ -12,7 +12,6 @@
     }
 
     //This function is accessing to the scope of the AngularJS controller to retrieve the chart selections model and update the buttons accordingly in other tabs.
-    //TODO: Can we eliminate need to use FieldName and instead use ChartName here?
     BenchmarkChartsViewModel.RefreshAddRemoveLinks = function() {
         var showRemoveLink = function (element) {
             $(element).find("a.customRemove").show();
@@ -81,7 +80,6 @@
     };
 
     //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
-    //TODO: Can we eliminate need to use FieldName and instead use ChartName here?
     BenchmarkChartsViewModel.AddRemoveYourCharts = function (chartName, showValue, checked, element) {
         var self = this;
         var scope = angular.element($("#listCtrl")).scope();
@@ -670,8 +668,8 @@ function PdfGenerator() {
         offset = 70;
     }
 
-    function pdfWriteChart(id) {
-        var svg = $(id).find('svg')[0];
+    function pdfWriteChart(index) {
+        var svg = $('#chart_' + index).find('svg')[0];
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
             function (img) {
                 doc.addImage(img, 'JPEG', -50, offset);
@@ -741,8 +739,16 @@ function PdfGenerator() {
 
         writeCharts: function () {
             var charts = $('.chartContainer');
+            var yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
+            var chartPerPage = Math.ceil(12 / yValuesCount);
+
             charts.each(function (index, element) {
-                pdfAddNewPage();
+                if (index % chartPerPage == 0) {
+                    pdfAddNewPage();
+                } else
+                {
+                    offset += (800 / chartPerPage);
+                }
                 var header = $(element).find('h2').get(0).innerText;                
                 if (header.length < 60) {
                     pdfWriteLine('H3', header);
@@ -753,7 +759,7 @@ function PdfGenerator() {
                     pdfWriteLine('H3', header2);
                 }
                 if (sessionStorage.chartFormat === 'Charts') {
-                    pdfWriteChart('#chart_' + index);
+                    pdfWriteChart(index);
                 } else {
                     //writeTable('#table_for_chart_' + index);
                 }

@@ -361,6 +361,16 @@ namespace SFB.Web.Domain.Services.Search
             //queryFilter.Add("StatutoryHighAge ne '4'");
             //queryFilter.Add("StatutoryHighAge ne '5'");//Todo: Remove .Do not filter out nurseries.
 
+            if (parameters["openOnly"] != null)
+            {
+                var openOnly = false;
+                bool.TryParse(parameters["openOnly"], out openOnly);
+                if (openOnly)
+                {
+                    queryFilter.Add($"{EdubaseDBFieldNames.ESTAB_STATUS} eq 'Open' or {EdubaseDBFieldNames.ESTAB_STATUS} eq 'Open, but proposed to close'");
+                }
+            }
+
             if (parameters["schoollevel"] != null)
             {
                 string[] values = ExtractValues(parameters["schoollevel"]);

@@ -40,7 +40,7 @@
 
 <div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
     <div class="column-full">
-        <span class="back-chevron">&#706;</span>
+        <span class="back-chevron">&#9666;</span>
         @if (Model.ComparisonType == ComparisonType.BestInBreed)
         {
             <a class="home-link" href="@Request.Url.AbsolutePath?Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Back to benchmarking charts</a>
@@ -133,7 +133,7 @@ else
         <div class="panel panel-border-wide orange-warning">
             <p>
                 No similar schools were found. Change the characteristics used or try the
-                <a href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Advanced search</a>.
+                <a href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Detailed comparison</a>.
             </p>
         </div>
     }
@@ -231,10 +231,10 @@ else
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th scope="col">School Name</th>
-                                                <th scope="col">Local Authority</th>
-                                                <th class="numeric" scope="col">Efficiency Metric Score</th>
+                                                <th scope="col">School name</th>
+                                                <th class="numeric" scope="col">Efficiency metric ranking</th>
                                                 <th class="numeric" scope="col">Number of pupils</th>
+                                                <th class="numeric" scope="col">Local authority</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -242,9 +242,9 @@ else
                                             {
                                                 <tr>
                                                     <td scope="col">@bmSchool.Name</td>
-                                                    <td scope="col">@bmSchool.LaName</td>
                                                     <td class="numeric" scope="col">@bmSchool.EmRank</td>
                                                     <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
+                                                    <td class="numeric" scope="col">@bmSchool.LaName</td>
                                                 </tr>
                                             }
                                         </tbody>

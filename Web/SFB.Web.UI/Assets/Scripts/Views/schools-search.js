@@ -15,6 +15,15 @@
             this.bindAutosuggest('#FindByTrustName', '#FindByTrustNameSuggestionId', this.getTrustSuggestionHandler);
             this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
             this.bindEnterKeysToButtons();
+            this.bindAccordionHeaderClick();
+        },
+
+        bindAccordionHeaderClick: function () {
+            var inputs = $("#SearchTypesAccordion .js-accordion");
+            inputs.click(function (event) {
+                $("input:checkbox[name='openOnly']").prop('disabled', true);
+                $(event.currentTarget).next().find("input:checkbox[name='openOnly']").prop('disabled', false);
+            });
         },
 
         bindEnterKeysToButtons: function() {
@@ -155,13 +164,19 @@
             $(targetInputElementName).bind("typeahead:select", function (src, suggestion) {
                 $(targetResolvedInputElementName).val(suggestion[value]);
                 currentSuggestionName = suggestion[field];
+                var openSchoolsOnly = $(this).parent().parent().find("input:checkbox[name='openOnly']").prop('checked');
                 var textBoxId = $(this).attr('id');
                 if (textBoxId === 'FindByNameId') {
                     window.location = '/school/detail?urn=' + suggestion['Id'];
                 }
                 else if (textBoxId === 'FindSchoolByLaCodeName') {
                     // convert it to an la code search, which is the same as if they'd submitted.
-                    window.location = '/schoolsearch/search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
+                    var url = '/schoolsearch/search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
+                    if (openSchoolsOnly) {
+                        url += '&openOnly=true';
+                    }
+                    window.location = url;
+                    
                 }
                 else if (textBoxId === 'FindByTrustName') {
                     window.location = '/trust/index?matno=' + suggestion['Id'] + '&name=' + suggestion['Text'];

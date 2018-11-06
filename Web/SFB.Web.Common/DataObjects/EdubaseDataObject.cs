@@ -48,7 +48,7 @@ namespace SFB.Web.Common.DataObjects
         public string TelephoneNum;
 
         [JsonProperty(PropertyName = EdubaseDBFieldNames.NO_PUPIL)]
-        public int? NumberOfPupils;
+        public float? NumberOfPupils;
 
         [JsonProperty(PropertyName = EdubaseDBFieldNames.STAT_LOW)]
         public int StatutoryLowAge;
