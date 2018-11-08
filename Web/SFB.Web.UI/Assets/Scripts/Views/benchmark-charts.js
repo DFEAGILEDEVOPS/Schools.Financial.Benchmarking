@@ -686,7 +686,7 @@ function PdfGenerator() {
             return trObj;
         });
 
-        doc.table(MARGIN_LEFT, offset, data, headers, { autoSize: true, fontSize: 10, margins: {bottom: 5, left: 5, top: 5, width: 600} });
+        doc.table(MARGIN_LEFT, offset, data, headers, { autoSize: true, fontSize: 9, margins: {bottom: 5, left: 5, top: 5, width: 600} });
     }
 
     function pdfSave() {
