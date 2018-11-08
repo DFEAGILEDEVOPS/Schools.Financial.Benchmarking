@@ -6,14 +6,14 @@
     <table class="tablesorter chart-table">
         <thead>
         <tr>
-            <th class="school-column" scope="col">
+            <th class="school-column" scope="col" data-header="School name">
                 School name
                 <a aria-hidden="True" class="hide-show-button hide detail hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&#9654;</a>
             </th>
-            <th class="detail" scope="col">Local authority</th>
-            <th class="detail" scope="col">School type</th>
-            <th class="detail" scope="col">Number of pupils</th>
-            <th scope="col">
+            <th class="detail" scope="col" data-header="Local authority">Local authority</th>
+            <th class="detail" scope="col" data-header="School type">School type</th>
+            <th class="detail" scope="col" data-header="Number of pupils">Number of pupils</th>
+            <th scope="col" data-header="Amount">
                 <a aria-hidden="True" class="hide-show-button show detail hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</a>
                 <span aria-label="@GetAmountAriaLabel(Model.First().Unit)">Amount</span>
             </th>
@@ -25,18 +25,18 @@
             <tr>
                 @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                 {
-                    <td class="school-column">
+                    <td class="school-column" data-header="School name">
                         <span class="bold-xsmall">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span>
                     </td>
                 }
                 else
                 {
-                    <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                    <td class="school-column" data-header="School name">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
                 }
-                <td class="detail">@schoolBenchmarkData.La</td>
-                <td class="detail">@schoolBenchmarkData.Type</td>
-                <td class="detail">@schoolBenchmarkData.PupilCount</td>
-                <td>
+                <td class="detail" data-header="Local authority">@schoolBenchmarkData.La</td>
+                <td class="detail" data-header="School type">@schoolBenchmarkData.Type</td>
+                <td class="detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount</td>
+                <td data-header="Amount">
                     @if (schoolBenchmarkData.Amount.HasValue)
                     {
                         switch ((UnitType)Enum.Parse(typeof(UnitType),schoolBenchmarkData.Unit))
