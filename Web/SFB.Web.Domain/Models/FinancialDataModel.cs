@@ -102,7 +102,7 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public bool IsSAT
+        public bool IsMAT
         {
             get
             {
@@ -110,7 +110,7 @@ namespace SFB.Web.Domain.Models
                 {
                     if (FinancialDataObjectModel != null)
                     {
-                        return FinancialDataObjectModel.MATSATCentralServices.Equals("SAT");
+                        return FinancialDataObjectModel.MATSATCentralServices.Equals("MAT");
                     }
                     return false;
                 }
