@@ -30,9 +30,10 @@ namespace SFB.Web.UI.Utils
     [ExcludeFromCodeCoverage] // Not our code
     public class BasicAuthenticationModule : IHttpModule
     {
+        private bool _authEnabled;
         private string _username;
         private string _password;
-
+        
         /// <summary>
         /// HTTP1.1 Authorization header
         /// </summary> 
@@ -91,6 +92,11 @@ namespace SFB.Web.UI.Utils
 
         public void AuthenticateUser(Object source, EventArgs e)
         {
+            if (!_authEnabled)
+            {
+                return;
+            }
+
             var context = ((HttpApplication)source).Context;
 
             string authorizationHeader = context.Request.Headers[HttpAuthorizationHeader];
@@ -104,12 +110,10 @@ namespace SFB.Web.UI.Utils
             }
 
             // Validate the user credentials
+
             if (!this.ValidateCredentials(userName, password))
             {
-                if (!this.ValidateCredentials(userName, password))
-                {
-                    return;
-                }
+                return;
             }
 
             // check whether cookie is set and send it to client if needed
@@ -122,7 +126,13 @@ namespace SFB.Web.UI.Utils
         }
 
         public void IssueAuthenticationChallenge(Object source, EventArgs e)
-        {
+        {      
+
+            if(!_authEnabled)
+            {
+                return;
+            }
+
             var context = ((HttpApplication)source).Context;
 
             if (allowRedirects && IsRedirect(context.Response.StatusCode))
@@ -153,6 +163,7 @@ namespace SFB.Web.UI.Utils
         private bool ShouldChallenge(HttpContext context)
         {
             // first check cache
+            
             var key = string.Concat(context.Request.Path, context.Request.HttpMethod);
             if (shouldChallengeCache.ContainsKey(key))
             {
@@ -241,6 +252,7 @@ namespace SFB.Web.UI.Utils
         {
             this.allowRedirects = true;
 
+            bool.TryParse(ConfigurationManager.AppSettings["BasicAuthenticationEnabled"], out _authEnabled);
             _username = ConfigurationManager.AppSettings["TestUserName"];
             _password = ConfigurationManager.AppSettings["TestPassword"];
 
