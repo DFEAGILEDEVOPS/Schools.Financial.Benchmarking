@@ -209,7 +209,8 @@
         };
 
         showValue = showValue || "AbsoluteMoney";
-        var paddingBottom = min < 0 ? 100 :0;
+        var paddingBottom = min < 0 ? 100 : 0;
+        var axisLabel = $('#' + el.id).attr('data-axis-label');
         var yAxis, yFormat;
         switch (showValue) {
             case "AbsoluteCount":
@@ -223,6 +224,10 @@
                     max: max,
                     padding: {
                         bottom: paddingBottom
+                    },
+                    label: {
+                        text: axisLabel,
+                        position: 'outer-center'
                     }
                 };
                 yFormat = function (d) { return window.DfE.Util.Charting.ChartIntegerFormat(d); }
@@ -238,6 +243,10 @@
                     max: max,
                     padding: {
                         bottom: paddingBottom
+                    },
+                    label: {
+                        text: axisLabel,
+                        position: 'outer-center'
                     }
                 };
                 yFormat = function (d) { return window.DfE.Util.Charting.ChartMoneyFormat(d); };
@@ -253,6 +262,10 @@
                     max: max,
                     padding: {
                         bottom: paddingBottom
+                    },
+                    label: {
+                        text: axisLabel,
+                        position: 'outer-center'
                     }
                 };
                 yFormat = function (d) {
@@ -274,6 +287,10 @@
                     max: max,
                     padding: {
                         bottom: paddingBottom
+                    },
+                    label: {
+                        text: axisLabel,
+                        position: 'outer-center'
                     }
                 };
                 yFormat = function (d) {
@@ -297,6 +314,10 @@
                     padding: {
                         bottom: paddingBottom,
                         top: 50
+                    },
+                    label: {
+                        text: axisLabel,
+                        position: 'outer-center'
                     }
                 };
                 yFormat = function (d) { return window.DfE.Util.Charting.ChartPercentageFormat(d); };
@@ -313,6 +334,10 @@
                     max: max,
                     padding: {
                         bottom: paddingBottom
+                    },
+                    label: {
+                        text: axisLabel,
+                        position: 'outer-center'
                     }
                 };
                 yFormat = function (d) { return window.DfE.Util.Charting.ChartDecimalFormat(d); };
