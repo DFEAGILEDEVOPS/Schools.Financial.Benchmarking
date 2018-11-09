@@ -409,6 +409,9 @@
                 position: function (data, width, height, element) {
                     return { top: 0, left: 0 };
                 }
+            },            
+            padding: {
+                bottom: 10
             },
             onrendered: function () {
                 applyChartStyles(el);

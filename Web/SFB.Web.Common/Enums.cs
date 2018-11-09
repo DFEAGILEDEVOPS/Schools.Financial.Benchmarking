@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace SFB.Web.Common
 {
@@ -12,7 +13,9 @@ namespace SFB.Web.Common
 
     public enum CentralFinancingType
     {
+        [Description("including MAT central finance")]
         Include,
+        [Description("excluding MAT central finance")]
         Exclude
     }
 
