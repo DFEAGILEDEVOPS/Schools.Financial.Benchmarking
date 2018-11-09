@@ -241,8 +241,8 @@ namespace SFB.Web.UI.Utils
         {
             this.allowRedirects = true;
 
-            _username = ConfigurationManager.AppSettings["ApiUserName"];
-            _password = ConfigurationManager.AppSettings["ApiPassword"];
+            _username = ConfigurationManager.AppSettings["TestUserName"];
+            _password = ConfigurationManager.AppSettings["TestPassword"];
 
             // Subscribe to the authenticate event to perform the authentication.
             context.AuthenticateRequest += AuthenticateUser;
