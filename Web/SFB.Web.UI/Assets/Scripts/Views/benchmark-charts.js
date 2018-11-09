@@ -664,7 +664,7 @@ function PdfGenerator() {
     }
 
     function pdfAddNewPage() {
-        doc.addPage('a3');
+        doc.addPage('a3', 'portrait');
         offset = 70;
     }
 
@@ -676,9 +676,17 @@ function PdfGenerator() {
             });
     }
 
-    function pdfWriteTable(id) {
-        doc.setFontSize(10);
-        doc.fromHTML($(id).get(0), MARGIN_LEFT, offset, {'width':500});
+    function pdfWriteTable(id) {    
+        var headers = $(id + ' th').toArray().map(function (th) { return th.attributes['data-header'].value });
+        var data = $(id + ' tbody tr').toArray().map(function (tr) {
+            var trObj = {}
+            $(tr).children('td').toArray().map(function (td) {
+                trObj[td.attributes['data-header'].value] = td.textContent.trim();
+            });
+            return trObj;
+        });
+
+        doc.table(MARGIN_LEFT, offset, data, headers, { autoSize: true, fontSize: 9, margins: {bottom: 5, left: 5, top: 5, width: 600} });
     }
 
     function pdfSave() {
@@ -761,7 +769,7 @@ function PdfGenerator() {
                 if (sessionStorage.chartFormat === 'Charts') {
                     pdfWriteChart(index);
                 } else {
-                    //writeTable('#table_for_chart_' + index);
+                    pdfWriteTable('#table_for_chart_' + index);
                 }
             });
         },
