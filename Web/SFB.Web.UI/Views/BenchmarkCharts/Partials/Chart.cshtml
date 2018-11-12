@@ -299,6 +299,8 @@
 
 @helper ChartLabelForCentralFinance()
 {
+if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+{
     if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
     {
         if (ViewBag.Financing != null)
@@ -307,6 +309,18 @@
                 <text>(@centralFinance.GetDescription())</text>
         }
     }
+}
+else
+{
+    if (ViewBag.ChartGroup != null)
+    {
+        if (ViewBag.TrustFinancing != null)
+        {
+            var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.TrustFinancing.ToString());
+                <text>(@matFinance.GetDescription())</text>
+        }
+    }
+}
 }
 
 

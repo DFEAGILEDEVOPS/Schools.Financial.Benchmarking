@@ -506,6 +506,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartFormat = format;
             ViewBag.UnitType = showValue;
             ViewBag.Financing = centralFinancing;
+            ViewBag.TrustFinancing = trustCentralFinancing;
             ViewBag.ChartGroup = chartGroup;
 
             return PartialView("Partials/Chart", benchmarkCharts);

@@ -21,8 +21,11 @@ namespace SFB.Web.Common
 
     public enum MatFinancingType
     {
+        [Description("Central financing - Trust only")]
         TrustOnly,
+        [Description("Central financing - Trust and academies")]
         TrustAndAcademies,
+        [Description("Central financing - Academies only")]
         AcademiesOnly
     }
 
