@@ -84,6 +84,7 @@
                                         }
                                     </div>
                                 }
+                                <div class="chart-header-show-value">@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                             </div>
                         }
                         @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
@@ -204,6 +205,7 @@
                         </div>
 
                         <div class="accordion-section-body">
+                            <div class="chart-header-show-value-accordion column-half">@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                             @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                             {
                                 <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].Name" data-sv="@Model[i].ShowValue">
