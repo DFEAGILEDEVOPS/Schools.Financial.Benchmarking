@@ -305,7 +305,7 @@ if (ViewBag.EstablishmentType != EstablishmentType.MAT)
 {
     if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
     {
-        if (ViewBag.Financing != null)
+        if (ViewBag.EstablishmentType != EstablishmentType.Maintained && ViewBag.Financing != null)
         {
             var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
                 <text>(@centralFinance.GetDescription())</text>

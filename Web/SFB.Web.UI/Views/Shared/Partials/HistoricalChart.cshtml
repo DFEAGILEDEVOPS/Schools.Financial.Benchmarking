@@ -56,7 +56,7 @@
         </div>
         <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
             <div class="column-three-quarters">
-                <div id="chart_@Model.Id" class="chart" data-chart='@Model.DataJson'></div>
+                <div id="chart_@Model.Id" class="chart" data-axis-label="@Model.ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model.DataJson'></div>
             </div>
             <div class="column-quarter desktop">
                 <div>
@@ -103,3 +103,26 @@
         </div>
     </div>
 </div>
+
+@helper ChartLabelForCentralFinance()
+{
+if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+{
+    if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+    {
+        if (ViewBag.EstablishmentType != EstablishmentType.Maintained && ViewBag.Financing != null)
+        {
+            var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                <text>(@centralFinance.GetDescription())</text>
+        }
+    }
+}
+else
+{
+    if (ViewBag.Financing != null)
+    {
+        var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.Financing.ToString());
+            <text>(@matFinance.GetDescription())</text>
+    }    
+}
+}

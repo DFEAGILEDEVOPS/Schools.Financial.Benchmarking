@@ -97,6 +97,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.UnitType = unitType;
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = format;
+            ViewBag.EstablishmentType = EstablishmentType.MAT;
 
             return View(trustVM);
         }
@@ -110,6 +111,9 @@ namespace SFB.Web.UI.Controllers
             _fcService.PopulateHistoricalChartsWithSchoolData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, term, revGroup, unit, EstablishmentType.MAT);
 
             ViewBag.ChartFormat = format;
+            ViewBag.EstablishmentType = EstablishmentType.MAT;
+            ViewBag.UnitType = unit;
+            ViewBag.Financing = financing;
 
             return PartialView("Partials/Chart", trustVM);
         }
