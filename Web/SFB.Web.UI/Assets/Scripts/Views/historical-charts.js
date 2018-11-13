@@ -211,9 +211,20 @@
                     $("#historicalChartsList").html(data);
                     self.GenerateCharts(unitParameter);
                     self.UpdateTotals();
+                    self.UpdateTrustWarnings();
                     new Accordion(document.getElementById('historical-charts-accordion'));
                 }
             });
+        },
+
+        UpdateTrustWarnings: function () {
+            var isPlaceholder = $("#isPlaceholder").val();
+            if (isPlaceholder == "true")
+            {
+                $("#placeholderWarning").show();
+            } else {
+                $("#placeholderWarning").hide();
+            }
         },
 
         UpdateTotals: function() {

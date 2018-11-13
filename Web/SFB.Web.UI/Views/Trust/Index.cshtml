@@ -86,7 +86,7 @@
         }
     </div>
 </div>
-@if (Model.HistoricalFinancialDataModels.Last().IsDNS)
+@if (Model.IsReturnsDNS)
 {
     <div class="panel panel-border-wide orange-warning">
         <p>
@@ -117,6 +117,14 @@ else
         }
     </div>
 }
+
+<div id="placeholderWarning" class="panel panel-border-wide orange-warning" style="display:@Html.Raw(Model.IsReturnsPlaceholder ? "block" : "none")">
+    <p>
+        This trust did not submit finance for the most recent year
+    </p>
+</div>
+
+
 <div class="grid-row download-links hide-in-print">
     <div class="column-full">
         <div class="column-one-third no-padding">

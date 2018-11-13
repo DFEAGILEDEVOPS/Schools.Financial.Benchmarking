@@ -450,5 +450,8 @@ namespace SFB.Web.Common.DataObjects
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OFSTED_RATING)]
         public decimal? OfstedRating { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.IS_PLACEHOLDER)]
+        public bool IsPlaceholder { get; set; }
     }
 }

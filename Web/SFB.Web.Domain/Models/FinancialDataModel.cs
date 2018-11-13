@@ -141,6 +141,25 @@ namespace SFB.Web.Domain.Models
             }
         }
 
+        public bool IsPlaceHolder
+        {
+            get
+            {
+                try
+                {
+                    if (FinancialDataObjectModel != null)
+                    {
+                        return FinancialDataObjectModel.IsPlaceholder;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
         public decimal? TotalIncome => FinancialDataObjectModel?.TotalIncome;
 
         public decimal? TotalExpenditure => FinancialDataObjectModel?.TotalExpenditure;

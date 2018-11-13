@@ -194,6 +194,7 @@
         public const string FUNDING_MINORITY = "Funding for minority ethnic pupils";
         public const string COMM_FOCUSED_SCHOOL_FACILITIES = "Community focused school facilities income";
         public const string CONTRIBUTIONS_TO_VISITS = "Income from contributions to visits etc";
+        public const string IS_PLACEHOLDER = "IsPlaceholder";
 
     }
 

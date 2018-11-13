@@ -111,6 +111,7 @@
 <input type="hidden" id="incTotalAbbr" value="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" />
 <input type="hidden" id="balTotal" value="@Model.InYearBalance.GetValueOrDefault().FormatMoney()" />
 <input type="hidden" id="balTotalAbbr" value="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" />
+<input type="hidden" id="isPlaceholder" value="@Model.IsReturnsPlaceholder.ToString().ToLower()" />
 
 @if (Request.IsAjaxRequest())
 {

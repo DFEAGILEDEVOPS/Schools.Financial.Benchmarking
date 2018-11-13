@@ -36,6 +36,8 @@ namespace SFB.Web.UI.Models
 
         public bool IsReturnsDNS => LatestYearFinancialData.IsReturnsDNS;
 
+        public bool IsReturnsPlaceholder => LatestYearFinancialData.IsPlaceHolder;
+
         public bool WorkforceDataPresent => LatestYearFinancialData.WorkforceDataPresent;
 
         public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0m;
