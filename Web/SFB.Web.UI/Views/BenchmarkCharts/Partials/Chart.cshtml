@@ -84,6 +84,7 @@
                                         }
                                     </div>
                                 }
+                                <div class="chart-header-show-value">@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                             </div>
                         }
                         @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
@@ -161,7 +162,7 @@
                         <div class="grid-row">
                             <div class="column-full">
                                 <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
-                                    <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                    <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                 </div>
 
                                 <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
@@ -204,6 +205,7 @@
                         </div>
 
                         <div class="accordion-section-body">
+                            <div class="chart-header-show-value-accordion column-half">@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                             @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                             {
                                 <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].Name" data-sv="@Model[i].ShowValue">
@@ -265,7 +267,7 @@
                                 <div class="grid-row">
                                     <div class="column-full">
                                         <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
-                                            <div id="chart_@i" class="chart" data-chart='@Model[i].DataJson'></div>
+                                            <div id="chart_@i" class="chart" data-axis-label="@Model[i].Name @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                         </div>
 
                                         <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
@@ -296,6 +298,33 @@
         </div>
     }
 </div>
+
+@helper ChartLabelForCentralFinance()
+{
+if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+{
+    if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+    {
+        if (ViewBag.EstablishmentType != EstablishmentType.Maintained && ViewBag.Financing != null)
+        {
+            var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                <text>(@centralFinance.GetDescription())</text>
+        }
+    }
+}
+else
+{
+    if (ViewBag.ChartGroup != null)
+    {
+        if (ViewBag.TrustFinancing != null)
+        {
+            var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.TrustFinancing.ToString());
+                <text>(@matFinance.GetDescription())</text>
+        }
+    }
+}
+}
+
 
 @*//TODO: Call this in client side*@
 @if (Request.IsAjaxRequest())

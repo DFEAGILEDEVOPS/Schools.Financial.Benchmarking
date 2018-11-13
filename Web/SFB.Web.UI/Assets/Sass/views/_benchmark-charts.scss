@@ -24,16 +24,29 @@
 
     .chartsSection {
 
-        #bm-charts-accordion{
-            padding-top:10px;
+        #bm-charts-accordion {
+            padding-top: 10px;
         }
-        
-        .chartContainer {
 
-            padding-top:15px;
+        .chartContainer {
+            //padding-top: 15px;
 
             .chart-header {
                 margin-top: 1.5em;
+
+                .help-chart {
+                    margin-left: -25px;
+                    margin-right: 25px
+                }
+            }
+
+            .chart-header-show-value {
+                padding-top: 5px;
+            }
+
+            .chart-header-show-value-accordion {
+                margin-top: 1.5em;
+                padding-left: 0;
             }
 
             h2 {
@@ -42,11 +55,12 @@
 
             h2.inline {
                 display: inline;
+                margin-right: 25px;
             }
 
             a.inline {
                 display: inline;
-                margin-left: 25px;
+                white-space: nowrap;
 
                 @include media(mobile) {
                     display: block;

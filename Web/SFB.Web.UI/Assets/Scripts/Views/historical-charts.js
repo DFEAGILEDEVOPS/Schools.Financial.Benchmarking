@@ -44,6 +44,7 @@
 
         GenerateChart: function(el, showValue, min, mid, mid2, max) {
             showValue = showValue || "AbsoluteMoney";
+            var axisLabel = $('#' + el.id).attr('data-axis-label');
             var yAxis;
             switch (showValue) {
             case "PerPupil":
@@ -131,6 +132,10 @@
                             culling: {
                                 max: $(window).width() <= 640 ? 3 : 6
                             }
+                        },
+                        label: {
+                            text: axisLabel,
+                            position: 'outer-center'
                         }
                     }
                 },
@@ -144,6 +149,9 @@
                     contents: function(d, defaultTitleFormat, defaultValueFormat) {
                         return defaultValueFormat(d[0].value);
                     }
+                },
+                padding: {
+                    bottom: 10
                 }
             });
         },

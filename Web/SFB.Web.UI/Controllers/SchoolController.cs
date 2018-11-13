@@ -97,6 +97,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
             ViewBag.Financing = financing;
+            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
             ViewBag.ChartFormat = format;
             ViewBag.SptReportExists = SptReportExists(schoolVM.Id);
 
@@ -176,6 +177,9 @@ namespace SFB.Web.UI.Controllers
             _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, term, revGroup, unit, schoolVM.EstablishmentType);
 
             ViewBag.ChartFormat = format;
+            ViewBag.Financing = financing;
+            ViewBag.ChartGroup = chartGroup;
+            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
 
             return PartialView("Partials/Chart", schoolVM);
         }

@@ -129,6 +129,11 @@ namespace SFB.Web.UI.Controllers
 
             ViewBag.ChartFormat = ChartFormat.Charts;
 
+            if(benchmarkSchool.EstablishmentType == EstablishmentType.Academies || benchmarkSchool.EstablishmentType == EstablishmentType.All)
+            {
+                ViewBag.Financing =  CentralFinancingType.Include;
+            }            
+
             return View(vm);
         }
 
@@ -500,6 +505,9 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = type;
             ViewBag.ChartFormat = format;
             ViewBag.UnitType = showValue;
+            ViewBag.Financing = centralFinancing;
+            ViewBag.TrustFinancing = trustCentralFinancing;
+            ViewBag.ChartGroup = chartGroup;
 
             return PartialView("Partials/Chart", benchmarkCharts);
         }

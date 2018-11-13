@@ -40,6 +40,7 @@
                         }
                             <span class="visuallyhidden"> for @historicalChart.Name</span>
                         </a>
+                        <div class="chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                     </div>
                 }
                 else
@@ -56,6 +57,7 @@
                             </span>
                         </span>
                         }
+                        <div class="chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                     </div>
                 }
 
@@ -80,7 +82,9 @@
                             }
                         </div>
 
+
                         <div class="accordion-section-body">
+                            <div class="chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                             @Html.Partial("Partials/HistoricalChart", historicalChart)
                             @if (historicalChart.SubCharts != null)
                             {
@@ -89,6 +93,7 @@
                                     ChartViewModel subChart = historicalChart.SubCharts[i];
                                     subChart.Id = $"{index}_{i}";
                                     <h2 class="heading-medium">@subChart.Name</h2>
+                                    <div class="chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                                     @Html.Partial("Partials/HistoricalChart", subChart)
                                 }
                             }
@@ -114,3 +119,26 @@
 
 @helper FormatFinancialYear(string year, EstablishmentType schoolType)
 { @( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-')) }
+
+@helper ChartLabelForCentralFinance()
+{
+    if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+    {
+        if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+        {
+            if (ViewBag.EstablishmentType != EstablishmentType.Maintained && ViewBag.Financing != null)
+            {
+                var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                    <text>(@centralFinance.GetDescription())</text>
+            }
+        }
+    }
+    else
+    {
+        if (ViewBag.Financing != null)
+        {
+            var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.Financing.ToString());
+                <text>(@matFinance.GetDescription())</text>
+        }
+    }
+}
