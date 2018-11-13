@@ -267,7 +267,7 @@
                                 <div class="grid-row">
                                     <div class="column-full">
                                         <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
-                                            <div id="chart_@i" class="chart" data-axis-label="@Model[i].Name @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
+                                            <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                         </div>
 
                                         <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
