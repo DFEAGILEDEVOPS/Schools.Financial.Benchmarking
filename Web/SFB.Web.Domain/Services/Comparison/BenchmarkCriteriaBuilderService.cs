@@ -30,21 +30,21 @@ namespace SFB.Web.Domain.Services.Comparison
             {
                 var fsm = benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals;
                 criteria.MinPerFSM =  (fsm - percentageMargin) < 0 ? 0 : (fsm - percentageMargin);
-                criteria.MaxPerFSM = fsm + percentageMargin;
+                criteria.MaxPerFSM = (fsm + percentageMargin) > 100 ? 100 : (fsm + percentageMargin);
             }
 
             if(includeSen)
             {
                 var sen = benchmarkSchoolData.PercentageOfPupilsWithSen;
-                criteria.MinPerSEN =  (sen - percentageMargin < 0) ? 0  : (sen - percentageMargin);
-                criteria.MaxPerSEN = sen + percentageMargin;
+                criteria.MinPerSEN =  (sen - percentageMargin) < 0 ? 0  : (sen - percentageMargin);
+                criteria.MaxPerSEN = (sen + percentageMargin) > 100 ? 100 : (sen + percentageMargin);
             }
 
             if(includeEal)
             {
                 var eal = benchmarkSchoolData.PercentageOfPupilsWithEal;
                 criteria.MinPerEAL = (eal - percentageMargin) < 0 ? 0 : (eal - percentageMargin) ;
-                criteria.MaxPerEAL = eal + percentageMargin;
+                criteria.MaxPerEAL = (eal + percentageMargin) > 100 ? 100 : (eal + percentageMargin);
             }
 
             if(includeLa)
