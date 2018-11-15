@@ -59,7 +59,6 @@
         <label id="EnterTrustManuallyAccordion" for="EnterManually">Enter one or more trusts for comparison</label>
     </div>
     <div id="EnterManuallyFieldset" class="form-group optional-section">
-        <p>Choose one or more trusts for this comparison</p>
         <div id="TrustsToCompare">
             @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.MatNo != Model.BenchmarkTrust.MatNo).ToList())
         </div>
