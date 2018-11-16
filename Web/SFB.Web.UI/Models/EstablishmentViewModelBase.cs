@@ -44,5 +44,8 @@ namespace SFB.Web.UI.Models
 
         public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0m;
 
+        public bool IsSAT => LatestYearFinancialData.IsSAT;
+
+        public bool IsMAT => LatestYearFinancialData.IsMAT;
     }
 }

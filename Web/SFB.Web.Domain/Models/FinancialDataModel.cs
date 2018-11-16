@@ -121,6 +121,25 @@ namespace SFB.Web.Domain.Models
             }
         }
 
+        public bool IsSAT
+        {
+            get
+            {
+                try
+                {
+                    if (FinancialDataObjectModel != null)
+                    {
+                        return FinancialDataObjectModel.MATSATCentralServices.Equals("SAT");
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
 
         public bool IsDNS
         {

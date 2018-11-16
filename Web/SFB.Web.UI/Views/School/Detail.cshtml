@@ -59,7 +59,7 @@ else
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
-                @if (Model.HistoricalFinancialDataModels.Last().IsMAT)
+                @if (Model.IsMAT)
                 {
                     @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{2}</a>", Server.UrlEncode(Model.TrustNo), Server.UrlEncode(Model.TrustName), Model.TrustName)
                 }

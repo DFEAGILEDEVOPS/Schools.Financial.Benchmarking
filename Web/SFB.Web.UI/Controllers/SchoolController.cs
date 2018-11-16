@@ -97,6 +97,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
             ViewBag.Financing = financing;
+            ViewBag.IsSAT = schoolVM.IsSAT;
             ViewBag.EstablishmentType = schoolVM.EstablishmentType;
             ViewBag.ChartFormat = format;
             ViewBag.SptReportExists = SptReportExists(schoolVM.Id);
@@ -178,6 +179,7 @@ namespace SFB.Web.UI.Controllers
 
             ViewBag.ChartFormat = format;
             ViewBag.Financing = financing;
+            ViewBag.IsSat = schoolVM.IsSAT;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.EstablishmentType = schoolVM.EstablishmentType;
 
