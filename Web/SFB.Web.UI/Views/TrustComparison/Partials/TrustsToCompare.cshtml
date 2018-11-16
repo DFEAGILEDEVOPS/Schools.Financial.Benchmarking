@@ -42,7 +42,7 @@
 
                 <div id="NewTrust" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
                     <div class="grid-row trust-element">
-                        <label class="form-label" for="NewTrustName">Enter name of trust @Html.Raw(i + 1)</label>
+                        <label class="form-label" for="NewTrustName">Trust @Html.Raw(i + 1)</label>
                         @if (ViewBag.Error != null)
                         {
                             <span class="error-message">
@@ -72,7 +72,7 @@
             else
             {
                 <div class="grid-row trust-element">
-                    <label class="form-label" for="NewTrustName">Enter name of trust 1</label>
+                    <label class="form-label" for="NewTrustName">Trust 1</label>
                     @if (ViewBag.Error != null)
                     {
                         <span class="error-message">
