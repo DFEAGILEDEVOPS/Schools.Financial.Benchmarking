@@ -2,6 +2,11 @@
 
     @include highlighting;
 
+    .clear-bottom{
+        padding-left:0;
+        margin-top: 10px;
+    }
+
     .trust-element {
         margin: 20px 0;
     }
