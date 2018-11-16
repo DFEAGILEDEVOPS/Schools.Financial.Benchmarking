@@ -195,7 +195,7 @@ AccordionSection.prototype.setup = function() {
   header.addEventListener('click', this.toggleExpanded.bind(this))
   header.addEventListener('keypress', this.keyPressed.bind(this))
   header.setAttribute('tabindex', '0')
-  header.setAttribute('role', 'button')
+  //header.setAttribute('role', 'button')
 
   //var button = this.element.querySelector('.chart-accordion-header')
   //button.setAttribute('aria-label', button.getAttribute('aria-label') + ' Show section')
@@ -232,9 +232,9 @@ AccordionSection.prototype.setExpanded = function(expanded) {
     var button = this.element.querySelector('.chart-accordion-header')
     if (button) {
         if (expanded) {
-            button.setAttribute('aria-label', button.getAttribute('aria-label').replace("Show", "Hide"))
+            button.setAttribute('aria-label', button.getAttribute('aria-label').replace("show", "hide"))
         } else {
-            button.setAttribute('aria-label', button.getAttribute('aria-label').replace("Hide", "Show"))
+            button.setAttribute('aria-label', button.getAttribute('aria-label').replace("hide", "show"))
         }
     }
 
