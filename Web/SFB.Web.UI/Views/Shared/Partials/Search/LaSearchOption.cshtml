@@ -13,16 +13,18 @@
     {
         <span class="error-message">@Model.ErrorMessage</span>
     }
-    <input id="FindSchoolByLaCodeName"
-           class="form-control mbl"
-           name="lacodename"
-           maxlength="100"
-           type="text" />
-    <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />
-    <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
-    <div class="multiple-choice">
+    <div class="multiple-choice" style="float:none">
         <input id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>
         <label for="openOnlyLa">Include open schools only</label>
+    </div>
+    <div>
+        <input id="FindSchoolByLaCodeName"
+               class="form-control mbl"
+               name="lacodename"
+               maxlength="100"
+               type="text" />
+        <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />
+        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
     </div>
 </div>
 

@@ -50,9 +50,15 @@
                 // expand this item
                 GOVUK.Collapsible.prototype.setExpanded.call(this, true);
 
-                // set focus to text box underneath expanded element
-                var input = $(this.getCollapsibleElement()).next().find('input[type=text]');
-                setTimeout(function () { input.focus(); }, 50);
+                // set focus to a control underneath expanded element       
+                debugger;
+                var link = $(this.getCollapsibleElement()).next().find('a.focus-first');
+                if (link.length > 0) {
+                    setTimeout(function () { link.focus(); }, 50);
+                } else {
+                    var input = $(this.getCollapsibleElement()).next().find('input');
+                    setTimeout(function () { input.first().focus(); }, 50);
+                }
             }
         }
     });
