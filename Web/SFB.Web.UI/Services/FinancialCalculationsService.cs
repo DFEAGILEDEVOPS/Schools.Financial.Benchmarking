@@ -143,8 +143,8 @@ namespace SFB.Web.UI.Services
                                 ? chart.FieldName.Substring(0, chart.FieldName.Length - 18)
                             : chart.FieldName.Substring(0, chart.FieldName.Length - 9);                        
                         total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);                                                
-                        rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);                        
-                            if (rawAmount == null || rawAmount == 0)
+                        rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);
+                            if (total == null || rawAmount == null || rawAmount == 0)
                             {
                                 break;
                             }
