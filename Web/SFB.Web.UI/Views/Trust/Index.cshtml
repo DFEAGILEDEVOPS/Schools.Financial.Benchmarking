@@ -50,7 +50,8 @@
                             if (academy.HasIncompleteFinancialData)
                             {
                                 <li>
-                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">@academy.EstablishmentName</a>
+                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">@academy.EstablishmentName 
+                                    <span class="visually-hidden"> has data from a period less than 12 months</span></a>
                                 </li>
                             }
                             else
@@ -72,7 +73,9 @@
                     if (school.HasIncompleteFinancialData)
                     {
                         <li>
-                            <a href="/school/detail?urn=@school.URN" class="highlight-warning">@school.EstablishmentName</a>
+                            <a href="/school/detail?urn=@school.URN" class="highlight-warning">
+                                @school.EstablishmentName
+                            <span class="visually-hidden"> has data from a period less than 12 months</span></a>
                         </li>
                     }
                     else
