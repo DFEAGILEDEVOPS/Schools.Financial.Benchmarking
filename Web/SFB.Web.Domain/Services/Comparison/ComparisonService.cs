@@ -70,7 +70,7 @@ namespace SFB.Web.Domain.Services.Comparison
                 });
             }
 
-            return results;
+            return results.OrderBy(r => r.Rank).ThenBy(r => r.ContextData.EstablishmentName).ToList();
         }
 
         public async Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(
