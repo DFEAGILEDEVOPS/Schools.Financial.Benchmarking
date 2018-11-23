@@ -230,7 +230,7 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = function (d) { return window.DfE.Util.Charting.ChartIntegerFormat(d); }
+                yFormat = function (d) { return window.DfE.Util.Charting.ChartDecimalFormat(d); }
                 break;
             case "AbsoluteMoney":
                 yAxis = {
