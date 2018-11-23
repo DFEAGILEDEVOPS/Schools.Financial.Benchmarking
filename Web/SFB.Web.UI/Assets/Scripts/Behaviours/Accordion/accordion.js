@@ -51,7 +51,6 @@
                 GOVUK.Collapsible.prototype.setExpanded.call(this, true);
 
                 // set focus to a control underneath expanded element       
-                debugger;
                 var link = $(this.getCollapsibleElement()).next().find('a.focus-first');
                 if (link.length > 0) {
                     setTimeout(function () { link.focus(); }, 50);
