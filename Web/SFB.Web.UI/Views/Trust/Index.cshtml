@@ -121,10 +121,12 @@ else
     </div>
 }
 
-<div id="placeholderWarning" class="panel panel-border-wide orange-warning" style="display:@Html.Raw(Model.IsReturnsPlaceholder ? "block" : "none")">
-    <p>
-        This trust did not submit finance for the most recent year
-    </p>
+<div class="grid-row">
+    <div id="placeholderWarning" class="panel panel-border-wide orange-warning" style="display:@Html.Raw(Model.IsReturnsPlaceholder ? "block" : "none")">
+        <p>
+            This trust did not submit finance for the most recent year
+        </p>
+    </div>
 </div>
 
 
