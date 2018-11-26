@@ -26,7 +26,7 @@
                 @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                 {
                     <td class="school-column" data-header="School name">
-                        <span class="bold-xsmall">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span>
+                        <span class="bold-xsmall">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
                     </td>
                 }
                 else

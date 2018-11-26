@@ -51,13 +51,17 @@
                         <p>You can add schools by name or by location:</p>
 
                         <div>
-
-                            @Html.Partial("Partials/Search/SchoolSearchOption")
-
-                            @Html.Partial("Partials/Search/LocationSearchOption")
-
-                            @Html.Partial("Partials/Search/LaSearchOption")
-
+                            <ul style="list-style-type: none; padding-left: 0">
+                                <li>
+                                    @Html.Partial("Partials/Search/SchoolSearchOption")
+                                </li>
+                                <li>
+                                    @Html.Partial("Partials/Search/LocationSearchOption")
+                                </li>
+                                <li>
+                                    @Html.Partial("Partials/Search/LaSearchOption")
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
