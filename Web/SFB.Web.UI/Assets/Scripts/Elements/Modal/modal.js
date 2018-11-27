@@ -13,6 +13,8 @@
             $("body").on("click", ".js-modal", this.renderAccessibleModal.bind(this));
             $("body").on("click", "#js-modal-close", this.closeAccessibleModal.bind(this));
             $("body").on("click", "#js-modal-close-bottom", this.closeAccessibleModal.bind(this));
+            $("body").on("click", "#js-modal-close", this.updateClickFocus.bind(this));
+            $("body").on("keydown", "#js-modal-close-bottom", this.updateKeydownFocus.bind(this));
             $("body").on("click", "#js-modal-overlay", this.updateClickFocus.bind(this));
             $("body").on("keydown", "#js-modal-overlay", this.updateKeydownFocus.bind(this));
             $("body").on("keydown", "#js-modal", this.keyDownCloseAccessibleModal.bind(this));
@@ -105,7 +107,7 @@
             this.init();
             var $this = $(this);
             var options = $this.data();
-            var $modal_starter_id = $(event.target).parent().attr('id');
+            var $modal_starter_id = $(event.target)[0].id;
             var $modal_prefix_classes = typeof options.modalPrefixClass !== 'undefined'
                 ? options.modalPrefixClass + '-'
                 : '';
@@ -137,7 +139,6 @@
                     $modal_code += $($modal_content_id).html();
                 }
             }
-
             $modal_code += '<a href="#" id="js-modal-close-bottom" class="' + $modal_prefix_classes + 'modal-close" data-focus-back="' + $modal_starter_id +
                 '" title="' + $modal_close_title + '">' + $modal_close_text + "</a><br/>";
 
@@ -162,8 +163,8 @@
             event.preventDefault();
 
         },
-        updateClickFocus: function(event) {
-            var $focus_back = '#' + $('#js-modal-close').attr('data-focus-back'),
+        updateClickFocus: function (event) {
+            var $focus_back = '#' + $(event.target).data("focus-back"),
              $js_modal = $('#js-modal'),
              $js_modal_overlay = $('#js-modal-overlay'),
              $modal_background_click = $js_modal_overlay.attr('data-background-click'),
@@ -175,14 +176,14 @@
                 $body.removeClass('no-scroll');
                 $js_modal.remove();
                 $js_modal_overlay.remove();
-                $($focus_back).focus();
             }
+            $($focus_back)[0].focus();
         },
         updateKeydownFocus: function (event) {
             // Space or Enter
             if (event.keyCode == 13 || event.keyCode == 32) {
 
-                var $focus_back = '#' + $('#js-modal-close').attr('data-focus-back'),
+                var $focus_back = '#' + $(event.target).data("focus-back"),
                     $js_modal = $('#js-modal'),
                     $body = $('body'),
                     $js_modal_overlay = $('#js-modal-overlay'),
@@ -194,8 +195,9 @@
                     $body.removeClass('no-scroll');
                     $js_modal.remove();
                     $js_modal_overlay.remove();
-                    $($focus_back).focus();
                 }
+                $($focus_back)[0].focus();
+
             }
         }
     };

@@ -34,7 +34,7 @@
                 <a class="custom" href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">
                     <span aria-hidden="true">@RevenueGroupNames.CUSTOM (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span>
                 </a> 
-                <a class="helpLink" href="#" onclick="DfE.Util.ComparisonList.RenderYourChartsInfoModal()">
+                <a class="helpLink" href="#" id="renderYourChartsInfo" onclick="DfE.Util.ComparisonList.RenderYourChartsInfoModal()">
                     <img src="/public/assets/images/help-icon.png" />
                 </a>
             </li>

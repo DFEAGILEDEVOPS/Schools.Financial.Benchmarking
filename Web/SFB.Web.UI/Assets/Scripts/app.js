@@ -139,10 +139,10 @@
             var $page = $('#js-modal-page');
 
             var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
-                '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
+                '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="additionalGrantModal" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Additional grant for schools</h1><p id="modal-content"><br/>' +
                 'This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.</p>' +
-                '<a href="#" id="js-modal-close-bottom" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a></dialog>';
+                '<a href="#" id="js-modal-close-bottom" class="modal-close" data-focus-back="additionalGrantModal" title="Close">Close</a></dialog>';
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');
@@ -237,10 +237,10 @@
             var $page = $('#js-modal-page');
 
             var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
-                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='label_modal_1' title='Close'>Close</a>" +
+                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderYourChartsInfo' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>Your charts tab</h1><p id='modal-content'><br/>" +
                 "This tab shows which charts you have chosen to include in your customised report. You can add charts to this area by selecting the ‘Add to your charts’ function beside each chart. You can also add charts within the tab by selecting the relevant checkboxes.</p>" +
-                "</div><a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='label_modal_1' title='Close'>Close</a></dialog>";
+                "</div><a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='renderYourChartsInfo' title='Close'>Close</a></dialog>";
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');
