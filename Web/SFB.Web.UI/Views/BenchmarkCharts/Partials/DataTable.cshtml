@@ -6,10 +6,10 @@
 <table class="tablesorter dataTable">
     <thead>
     <tr>
-        <th class="school-column">School</th>
+        <th scope="col" class="school-column">School</th>
         @foreach (var column in Model.TableColumns)
         {
-            <th>
+            <th scope="col">
                 <span>@column.Name</span>
                 
                 <div class="sort-icon"></div>
