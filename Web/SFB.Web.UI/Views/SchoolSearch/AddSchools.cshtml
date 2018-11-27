@@ -8,7 +8,7 @@
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
     <div>
-        <span class="back-chevron">&#9666;</span>
+        <span class="back-chevron" aria-hidden="true">&#9666;</span>
         <a class="home-link" href="../../school/detail?urn=@Model.ComparisonList.HomeSchoolUrn" aria-label="Back to @Model.ComparisonList.HomeSchoolName">Back to @Model.ComparisonList.HomeSchoolName</a>
     </div>
 

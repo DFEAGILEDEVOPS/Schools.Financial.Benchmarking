@@ -40,7 +40,7 @@
 
 <div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
     <div class="column-full">
-        <span class="back-chevron">&#9666;</span>
+        <span class="back-chevron" aria-hidden="true">&#9666;</span>
         @if (Model.ComparisonType == ComparisonType.BestInBreed)
         {
             <a class="home-link" href="@Request.Url.AbsolutePath?Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Back to benchmarking charts</a>
