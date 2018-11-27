@@ -112,7 +112,7 @@
     public class MoreInfoText
     {
         public const string INTERPRET_CHARTS =
-            "For more information about this chart, read our guidance on <a href=\"../Help/InterpretingCharts\">Interpreting the charts</a>.";
+            "For more information about this chart, read our guidance on <a href=\"../Help/InterpretingCharts\">Interpreting the data</a>.";
     }
 
     public class HelpTooltipText
