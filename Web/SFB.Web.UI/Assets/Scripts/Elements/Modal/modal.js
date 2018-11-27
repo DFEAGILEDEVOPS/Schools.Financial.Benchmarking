@@ -12,6 +12,7 @@
         bindEvents: function () {
             $("body").on("click", ".js-modal", this.renderAccessibleModal.bind(this));
             $("body").on("click", "#js-modal-close", this.closeAccessibleModal.bind(this));
+            $("body").on("click", "#js-modal-close-bottom", this.closeAccessibleModal.bind(this));
             $("body").on("click", "#js-modal-overlay", this.updateClickFocus.bind(this));
             $("body").on("keydown", "#js-modal-overlay", this.updateKeydownFocus.bind(this));
             $("body").on("keydown", "#js-modal", this.keyDownCloseAccessibleModal.bind(this));
@@ -100,7 +101,7 @@
             }
         },
         renderAccessibleModal: function (event) {
-            // Re-initialise as we may have AJAXed in a new page
+             // Re-initialise as we may have AJAXed in a new page
             this.init();
             var $this = $(this);
             var options = $this.data();
@@ -121,7 +122,7 @@
             var $page = $('#js-modal-page');
 
             // insert code at the end
-            $modal_code = '<dialog id="js-modal" class="' + $modal_prefix_classes + 'modal" role="dialog" aria-labelledby="modal-title"><div role="document">';
+            $modal_code = '<dialog id="js-modal" class="' + $modal_prefix_classes + 'modal" role="dialog" aria-labelledby="modal-title">';
             $modal_code += '<a href="#" id="js-modal-close" class="' + $modal_prefix_classes + 'modal-close" data-focus-back="' + $modal_starter_id +
                 '" title="' + $modal_close_title + '">' + $modal_close_text + "</a><br/>";
             if ($modal_title !== '') {
@@ -137,7 +138,10 @@
                 }
             }
 
-            $modal_code += '</div></dialog>';
+            $modal_code += '<a href="#" id="js-modal-close-bottom" class="' + $modal_prefix_classes + 'modal-close" data-focus-back="' + $modal_starter_id +
+                '" title="' + $modal_close_title + '">' + $modal_close_text + "</a><br/>";
+
+            $modal_code += '</dialog>';
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');

@@ -297,8 +297,8 @@ dialog {
     @include bold-24();
 }
 
-#js-modal-close {
-     float: right;
+#js-modal-close, #js-modal-close-bottom {
+    float: right;
 }
 //modal dialog
 
