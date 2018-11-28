@@ -537,14 +537,18 @@
         var self = this;
         if (tab === "Custom") {
             $(".tabs li").removeClass("active");
+            $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#tabsSection").empty('');
             $("#tabsSection").show();
             $("#customTabSection").show();
             $(".download-links").hide();
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
+            $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
             $(".download-links").show();
             $("#bestInClassTabSection").show();
@@ -579,7 +583,9 @@
                 },
                 success: function (data) {
                     $(".tabs li").removeClass("active");
+                    $(".tabs li a span.bmtab").text("");
                     $(".tabs li#" + tab).addClass("active");
+                    $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $(".download-links").show();
                     $("#tabsSection").html(data);                    
                     $("table.dataTable").tablesorter();
