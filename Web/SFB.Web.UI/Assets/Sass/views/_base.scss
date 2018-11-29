@@ -86,9 +86,10 @@ a.home-link
         bottom: 5px;
     }
 
-    .button.view-benchmark-charts {
+    div.view-benchmark-charts-wrapper {
         float: right;
-        bottom: 5px;
+        top: -5px;
+        position: relative;
 
         @include media(mobile) {
             float: none;

@@ -8,9 +8,11 @@
                     <a class="edit-basket" href="/benchmarklist">Edit basket</a>
                     <a class="edit-basket" href="javascript:void(0)" onclick="DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</a>
                 } 
-                @if (!((RazorView) ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2) 
+                @if (!((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2)
                 {
-                    <a class="button view-benchmark-charts" href="/BenchmarkCharts">View benchmark charts</a>
+                    <div class="view-benchmark-charts-wrapper">
+                        <a class="button" href="/BenchmarkCharts">View benchmark charts</a>
+                    </div>
                 }
             </div>
         </div>
