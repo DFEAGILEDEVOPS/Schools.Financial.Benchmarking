@@ -91,7 +91,7 @@ a.home-link
         top: -5px;
         position: relative;
 
-        @include media(mobile) {
+        @media (max-width: 1024px) {
             float: none;
             bottom: 0;
             display: block;
