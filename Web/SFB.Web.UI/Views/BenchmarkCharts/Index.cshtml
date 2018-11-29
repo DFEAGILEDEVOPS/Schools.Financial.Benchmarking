@@ -205,7 +205,10 @@ else
                         </thead>
                         <tbody>
                             <tr ng-repeat="school in schoolChartData">
-                                <td class="school-column">{{school.school.split('#')[0]}}</td>
+                                <td class="school-column">
+                                    <span ng-class="{'bold-xsmall' : homeSchoolName === school.school.split('#')[0]}">{{school.school.split('#')[0]}}</span>
+                                    <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
+                                </td>
                                 <td>{{school.la}}</td>
                                 <td>{{school.type}}</td>
                                 <td>{{school.pupilCount}}</td>

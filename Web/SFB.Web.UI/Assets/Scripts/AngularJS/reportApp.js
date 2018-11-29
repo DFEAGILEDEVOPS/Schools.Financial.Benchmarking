@@ -115,6 +115,7 @@
 
                 $(document).ready(function() {
                     $scope.schoolChartData = JSON.parse(($('.chart.c3').first()).attr('data-chart'));
+                    $scope.homeSchoolName = $('#HomeSchoolName').val();
                 });
             }
         ]);
