@@ -8,7 +8,7 @@
         <tr>
             <th class="school-column" scope="col">Trust name</th>
             <th class="detail" scope="col">Number of pupils</th>
-            <th scope="col"><span aria-label="@GetAmountAriaLabel()">Amount</span></th>
+            <th scope="col"><span aria-label="@ViewHelpers.GetAmountAriaLabel(ViewBag.UnitType.ToString())">@ViewHelpers.GetAmountLabel(ViewBag.UnitType.ToString())</span></th>
         </tr>
     </thead>
     <tbody>
@@ -54,22 +54,3 @@
         }
     </tbody>
 </table>
-
-@helper GetAmountAriaLabel()
-{
-switch ((UnitType)ViewBag.UnitType)
-{
-    case UnitType.PercentageOfTotal:
-            <text>Percentage of total</text>;
-            break;
-        case UnitType.PerTeacher:
-            <text>Amount per teacher</text>
-        break;
-    case UnitType.PerPupil:
-            <text>Amount per pupil</text>
-        break;
-    default:
-            <text>Amount</text>
-        break;
-}
-}

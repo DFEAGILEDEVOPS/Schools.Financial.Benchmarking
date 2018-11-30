@@ -10,7 +10,7 @@
                 Year
             </th>
             <th scope="col">
-                Amount
+                <span aria-label="@ViewHelpers.GetAmountAriaLabel(Model.First().Unit)">@ViewHelpers.GetAmountLabel(Model.First().Unit)</span>
             </th>
         </tr>
         </thead>

@@ -300,6 +300,7 @@
     <Content Include="Assets\Sass\utils\_accordion.scss" />
     <Content Include="App_Data\la.json" />
     <Content Include="Assets\Sass\views\_add-schools.scss" />
+    <Content Include="App_Code\ViewHelpers.cshtml" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
