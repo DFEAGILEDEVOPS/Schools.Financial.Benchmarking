@@ -92,7 +92,7 @@ else
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:void(0);" onclick="PrintPage()" aria-label="Print page for @Model.Name">
+                <a class="no-underline bold-xsmall" href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png"/> 
                     Print page
                 </a>
@@ -143,16 +143,16 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
         </li>
     </ol>
 </nav>
@@ -225,98 +225,6 @@ else
     <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])"></script>
 
     <script>
-
-        $.get("/school/GetBenchmarkBasket",
-            function(data) {
-                $("#benchmarkBasket").replaceWith(data);
-            });
-
-        if ($("#benchmarkControlsPlaceHolder").length > 0) {
-            $.get("/school/GetBenchmarkControls?urn=" + @Model.Id,
-                function(data) {
-                    $("#benchmarkControlsPlaceHolder").html(data);
-                    GOVUK.Modal.Load();
-                    $('.sticky-div').Stickyfill();
-                });
-        }
-
-        sessionStorage.chartFormat = '@ViewBag.ChartFormat';
-        DfE.Views.HistoricalCharts.GenerateCharts('@ViewBag.UnitType');
-
-        new Accordion(document.getElementById('historical-charts-accordion'));
-
-        var school = {
-            id: "@(Model.Id)",
-            lat: "@(Model.Lat)",
-            lng: "@(Model.Lng)",
-            hasMap: @(Model.HasCoordinates ? "true" : "false")
-        };
-
-        var options = {
-            elementId: "SchoolLocationMap",
-            hasMap: school.hasMap,
-            primaryMarker: {
-                geometry: {
-                    location: {
-                        lat: school.lat,
-                        lng: school.lng
-                    }
-                }
-            },
-            scrollWheel: false
-        };
-
-        setTimeout(function() {
-                if ($(window).width() <= 640) {
-                    $('details').removeAttr('open');
-                }
-
-                if (!this.mapLoaded) {
-                    this.map = new GOVUK.LocationMap(options);
-                    this.mapLoaded = true;
-                }
-
-                var tab = DfE.Util.QueryString.get('tab');
-                if (tab) {
-                    $("a:contains('" + tab + "')").focus();
-                }
-            },
-            500);
-
-
-        function TabChange(urn, tab) {
-            var queryString = "?urn=" +
-                urn +
-                "&tab=" +
-                tab;
-
-            if (DfE.Util.QueryString.get('tab') !== "Workforce") {
-               queryString += "&unit=" + $("select#ShowValue option:selected")[0].value;
-            }
-
-            if ($("select#Financing option:selected").length > 0) {
-                queryString += "&financing=" + $("select#Financing option:selected")[0].value;
-            }
-
-            if (sessionStorage.chartFormat) {
-                queryString += "&format=" + sessionStorage.chartFormat;
-            }
-
-            window.location = queryString;
-        }
-
-        function PrintPage() {
-            $('details').attr('open', 'true');
-            var detailses = document.getElementsByTagName("details"),
-                details,
-                i = -1;
-            while (details = detailses[++i]) {
-                //DOM API
-                details["open"] = true;
-            }
-
-            window.print();
-        }
-
+        DfE.Views.SchoolDetailsViewModel.Load(@Model.Id, @Model.Lat, @Model.Lng, "@Model.HasCoordinates", "@ViewBag.ChartFormat", "@ViewBag.UnitType");
     </script>
 }

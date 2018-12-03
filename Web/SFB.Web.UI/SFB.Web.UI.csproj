@@ -319,6 +319,7 @@
     <Content Include="Assets\Scripts\Views\criteria-by-area.js" />
     <Content Include="Assets\Scripts\Views\google-location.js" />
     <Content Include="Assets\Scripts\Views\historical-charts.js" />
+    <Content Include="Assets\Scripts\Views\school-details.js" />
     <Content Include="Assets\Scripts\Views\school-results.js" />
     <Content Include="Assets\Scripts\Views\schools-search.js" />
     <Content Include="Assets\Scripts\Views\trust-compare.js" />
