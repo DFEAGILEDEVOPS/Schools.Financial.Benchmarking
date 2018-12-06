@@ -244,7 +244,9 @@ else
                                             @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools)
                                             {
                                                 <tr>
-                                                    <td scope="col">@bmSchool.Name</td>
+                                                    <td scope="col" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "bold":"")">@bmSchool.Name
+                                                        @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                                    </td>
                                                     <td scope="col">@bmSchool.LaName</td>
                                                     <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
                                                     <td class="numeric" scope="col">@bmSchool.EmRank</td>                                  
