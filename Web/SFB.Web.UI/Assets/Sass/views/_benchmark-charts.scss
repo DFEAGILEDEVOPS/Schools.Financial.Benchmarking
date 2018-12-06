@@ -22,6 +22,24 @@
         font-weight: bold;
     }
 
+    .table-highlight {
+        display: inline;
+        color: white;
+        padding: 6px 8px 6px 8px;
+        line-height: 1.8em;
+        font-weight: bold;
+
+        &.index-highlight {
+            background-color: $pink;
+        }
+
+        &.incompleteFinance-highlight, &.incompleteWorkforce-highlight {
+            background-color: $orange;
+        }
+    }
+
+
+
     .chartsSection {
 
         #bm-charts-accordion {
@@ -30,7 +48,6 @@
 
         .chartContainer {
             //padding-top: 15px;
-
             .chart-header {
                 margin-top: 1.5em;
 

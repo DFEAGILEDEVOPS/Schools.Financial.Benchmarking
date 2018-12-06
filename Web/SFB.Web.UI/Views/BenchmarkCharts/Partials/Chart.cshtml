@@ -168,11 +168,11 @@
                                 <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
                                     @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                     {
-                                        @Html.Partial("Partials/ChartTable", Model[i].BenchmarkData)
+                                        @Html.Partial("Partials/ChartTable", Model[i])
                                     }
                                     else
                                     {
-                                        @Html.Partial("Partials/ChartTableTrust", Model[i].BenchmarkData)
+                                        @Html.Partial("Partials/ChartTableTrust", Model[i])
                                     }
                                 </div>
 

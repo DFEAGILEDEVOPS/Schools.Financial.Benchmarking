@@ -1,6 +1,6 @@
 ﻿@using Microsoft.Ajax.Utilities
 @using SFB.Web.UI.Helpers.Enums
-@model List<SFB.Web.Domain.Models.BenchmarkChartData>
+@model SFB.Web.UI.Models.ChartViewModel
 
 
 <table class="tablesorter chart-table">
@@ -12,45 +12,54 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var schoolBenchmarkData in Model)
+        @for (int i = 0; i < Model.BenchmarkData.Count; i++)
         {
-            <tr>
-                @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
+
+            var schoolBenchmarkData = Model.BenchmarkData[i];
+
+        <tr>
+            @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
+            {
+                <td class="school-column" data-header="School name">
+                    <span class="table-highlight index-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
+                </td>
+            }
+            else if (Model.IncompleteFinanceDataIndex.Contains(i))
+            {
+                <td class="school-column" data-header="School name">
+                    <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete financial data</span>
+                </td>
+            }
+            else
+            {
+                <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+            }
+            <td class="detail">@schoolBenchmarkData.PupilCount</td>
+            <td>
+                @if (schoolBenchmarkData.Amount.HasValue)
                 {
-                    <td class="school-column">
-                        <span class="bold-xsmall">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span>
-                    </td>
+                    switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
+                    {
+                        case UnitType.PercentageOfTotal:
+                            @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                            break;
+                        case UnitType.HeadcountPerFTE:
+                        case UnitType.AbsoluteCount:
+                        case UnitType.FTERatioToTotalFTE:
+                        case UnitType.NoOfPupilsPerMeasure:
+                            @schoolBenchmarkData.Amount.GetValueOrDefault()
+                            break;
+                        default:
+                            @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                            break;
+                    }
                 }
                 else
                 {
-                    <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                    <text>Not applicable</text>
                 }
-                <td class="detail">@schoolBenchmarkData.PupilCount</td>
-                <td>
-                    @if (schoolBenchmarkData.Amount.HasValue)
-                    {
-                        switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
-                        {
-                            case UnitType.PercentageOfTotal:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
-                                break;
-                            case UnitType.HeadcountPerFTE:
-                            case UnitType.AbsoluteCount:
-                            case UnitType.FTERatioToTotalFTE:
-                            case UnitType.NoOfPupilsPerMeasure:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault()
-                                break;
-                            default:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        <text>Not applicable</text>
-                    }
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

@@ -128,8 +128,9 @@ namespace SFB.Web.UI.Controllers
                 ComparisonListLimit.ONE_CLICK);
 
             ViewBag.ChartFormat = ChartFormat.Charts;
+            ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
 
-            if(benchmarkSchool.EstablishmentType == EstablishmentType.Academies || benchmarkSchool.EstablishmentType == EstablishmentType.All)
+            if (benchmarkSchool.EstablishmentType == EstablishmentType.Academies || benchmarkSchool.EstablishmentType == EstablishmentType.All)
             {
                 ViewBag.Financing =  CentralFinancingType.Include;
             }            
@@ -302,6 +303,7 @@ namespace SFB.Web.UI.Controllers
                 ComparisonType.Manual, null, null, null, EstablishmentType.All, EstablishmentType.All, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, ComparisonListLimit.DEFAULT);
 
             ViewBag.ChartFormat = format;
+            ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
 
             return PartialView("Partials/CustomCharts", vm);
         }
