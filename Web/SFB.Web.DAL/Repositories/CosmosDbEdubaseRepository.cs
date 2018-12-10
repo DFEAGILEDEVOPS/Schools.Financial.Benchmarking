@@ -106,6 +106,10 @@ namespace SFB.Web.DAL.Repositories
                 base.LogException(ex, errorMessage);
                 return null;
             }
+            if (result == null)
+            {
+                throw new ApplicationException("School document not found in Edubase collection!");
+            }
             return result;
         }
 
