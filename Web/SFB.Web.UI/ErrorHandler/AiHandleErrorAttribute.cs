@@ -5,5 +5,8 @@ namespace SFB.Web.UI.ErrorHandler{    [AttributeUsage(AttributeTargets.Class |
                     {
                         var ai = new TelemetryClient();
                         ai.TrackException(filterContext.Exception);
+                        ai.TrackTrace($"IP ADDRESS: {filterContext.RequestContext.HttpContext.Request.UserHostAddress}");
+                        ai.TrackTrace($"HTTP REFERRER: {filterContext.RequestContext.HttpContext.Request.UrlReferrer}");
+                        ai.TrackTrace($"BROWSER: {filterContext.RequestContext.HttpContext.Request.Browser.Browser}");
                         ai.TrackTrace($"URL: {filterContext.RequestContext.HttpContext.Request.RawUrl}");
                         ai.TrackTrace($"FORM VARIABLES: {filterContext.RequestContext.HttpContext.Request.Form}");                        var schoolBmCookie = filterContext.RequestContext.HttpContext.Request.Cookies.Get(CookieNames.COMPARISON_LIST);                        if (schoolBmCookie != null)                            ai.TrackTrace(                                $"SCHOOL BM COOKIE: {schoolBmCookie.Value}");                        var matBmCookie = filterContext.RequestContext.HttpContext.Request.Cookies.Get(CookieNames.COMPARISON_LIST_MAT);                        if (matBmCookie !=                            null)                            ai.TrackTrace(                                $"TRUST BM COOKIE: {matBmCookie.Value}");                    }                }             }            //base.OnException(filterContext);        }    }}
