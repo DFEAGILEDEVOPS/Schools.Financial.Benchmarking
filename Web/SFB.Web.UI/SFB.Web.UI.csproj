@@ -210,6 +210,7 @@
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PocController.cs" />
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
@@ -656,6 +657,7 @@
     <Content Include="Views\Shared\Partials\Search\TrustSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\LocationSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\LaSearchOption.cshtml" />
+    <Content Include="Views\Poc\LocationSearch.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
