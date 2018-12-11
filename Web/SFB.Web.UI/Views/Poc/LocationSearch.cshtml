@@ -39,13 +39,11 @@
             resultsPanel.innerHTML = '';
 
             var query = document.getElementById("search-input").value;
-
             client.search.getSearchAddress(query, {
                 typeahead: true,
                 countrySet: ['GB'],
                 limit: 5
-            }).then(response => {
-
+            }).then(function(response) {
                 if (response && response.results != null && response.results.length > 0) {
                     //Parse the response into GeoJSON so that the map can understand.
                     var geojsonResponse = new atlas.service.geojson.GeoJsonSearchResponse(response);
