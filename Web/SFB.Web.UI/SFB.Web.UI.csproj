@@ -659,6 +659,7 @@
     <Content Include="Views\Shared\Partials\Search\LaSearchOption.cshtml" />
     <Content Include="Views\Poc\LocationSearch.cshtml" />
     <Content Include="Views\Poc\SchoolMap.cshtml" />
+    <Content Include="Views\Poc\SchoolResults.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

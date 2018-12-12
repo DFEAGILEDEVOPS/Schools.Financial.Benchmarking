@@ -19,5 +19,11 @@ namespace SFB.Web.UI.Controllers
         {
             return View();
         }
+
+        // GET: Poc
+        public ActionResult SchoolResults()
+        {
+            return View();
+        }
     }
 }

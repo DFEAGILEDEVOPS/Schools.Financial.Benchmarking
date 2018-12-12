@@ -112,6 +112,7 @@
             this.initTabs();
         },
         bindMap: function () {
+            debugger;
             if (!this.mapLoaded && this.currentTabName === "map") {
                 var zoomLevel = 12;
                 if (this.location == null) {
@@ -163,6 +164,7 @@
             }
         },
         getMapData: function (serialisedState) {
+            debugger;
             if (this.currentTabName != "map") return;
 
             if (this.cache[serialisedState]) this.renderMapPins(this.cache[serialisedState], serialisedState);
