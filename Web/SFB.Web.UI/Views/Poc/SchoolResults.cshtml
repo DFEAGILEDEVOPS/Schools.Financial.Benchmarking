@@ -1,0 +1,140 @@
+﻿@section InsideHead{
+    <!-- Add references to the Azure Maps Map control JavaScript and CSS files. -->
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/css/atlas.min.css?api-version=1" type="text/css" />
+    <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script>
+
+    <!-- Add a reference to the Azure Maps Services Module JavaScript file. -->
+    <script src="https://atlas.microsoft.com/sdk/js/atlas-service.js?api-version=1"></script>
+
+    <script>
+
+
+    </script>
+
+    <style>
+
+
+        #myMap {
+            width: 500px;
+            height: 400px;
+            border-width: 1px;
+            border-color: black;
+            border-style: solid;
+        }
+    </style>
+}
+
+<p>
+    <h3>Schools in 1 mile radius of Victoria, London</h3>
+
+    <div id="myMap"></div>
+    <div id="actionsPlaceHolder"></div>
+</p>
+
+@section ViewScripts{
+    <script>
+        var map, datasource, client, popup;
+
+        var schools = { "count": 20, "results": [{ "Latitude": 51.496120167467616, "Longitude": -0.14687200188239846, "Name": "St Peter\u0027s Eaton Square CofE Primary School", "Id": "101140", "Address": "Lower Belgrave Street, London, SW1W 0NL", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.495797351807106, "Longitude": -0.14011402802171266, "Name": "St Vincent de Paul RC Primary School", "Id": "101144", "Address": "Morpeth Terrace, London, SW1P 1EP", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.497966049821528, "Longitude": -0.13907486937540761, "Name": "Westminster City School", "Id": "138312", "Address": "55 Palace Street, London, SW1E 5HJ", "EducationPhases": "Secondary", "NFType": "Academy converter" }, { "Latitude": 51.495135014134334, "Longitude": -0.1352140245532121, "Name": "Burdett-Coutts and Townshend Foundation CofE Primary School", "Id": "101122", "Address": "Rochester Street, London, SW1P 2QQ", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.496032136995865, "Longitude": -0.134514706542834, "Name": "The Grey Coat Hospital", "Id": "138313", "Address": "Greycoat Place, London, SW1P 2DY", "EducationPhases": "Secondary", "NFType": "Academy converter" }, { "Latitude": 51.488978985405062, "Longitude": -0.146801461075875, "Name": "Sir Simon Milton Westminster University Technical College", "Id": "144819", "Address": "1 Sutherland Street, London, SW1V 4LD", "EducationPhases": "Secondary", "NFType": "University technical college" }, { "Latitude": 51.4905300735733, "Longitude": -0.1516362135608299, "Name": "St Barnabas\u0027 CofE Primary School", "Id": "101126", "Address": "St Barnabas Street, London, SW1W 8PF", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.4973896302663, "Longitude": -0.13110243888063938, "Name": "St Matthew\u0027s School, Westminster", "Id": "101138", "Address": "18 Old Pye Street, London, SW1P 2DG", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.488179108890819, "Longitude": -0.1371831312050994, "Name": "Pimlico Academy", "Id": "135676", "Address": "Lupus Street, London, SW1V 3AT", "EducationPhases": "Secondary", "NFType": "Academy sponsor led" }, { "Latitude": 51.488179108890819, "Longitude": -0.1371831312050994, "Name": "Pimlico Primary", "Id": "139898", "Address": "Lupus Street, London, SW1V 3AT", "EducationPhases": "Infant and junior", "NFType": "Free school" }, { "Latitude": 51.493451940644924, "Longitude": -0.15673291561165995, "Name": "Holy Trinity CofE Primary School", "Id": "100490", "Address": "Sedding Street, London, SW1X 9DE", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.48719469373588, "Longitude": -0.13918217247966747, "Name": "Churchill Gardens Primary Academy", "Id": "139940", "Address": "Ranelagh Road, London, SW1V 3EU", "EducationPhases": "Infant and junior", "NFType": "Academy sponsor led" }, { "Latitude": 51.491417230138339, "Longitude": -0.13045357595163742, "Name": "Millbank Academy", "Id": "138683", "Address": "Erasmus Street, London, SW1P 4HR", "EducationPhases": "Infant and junior", "NFType": "Academy converter" }, { "Latitude": 51.486348742086989, "Longitude": -0.14254383248734842, "Name": "St Gabriel\u0027s CofE Primary School", "Id": "101129", "Address": "Churchill Gardens Road, London, SW1V 3AG", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.488728943968972, "Longitude": -0.13217682914640297, "Name": "Westminster Cathedral RC Primary School", "Id": "101146", "Address": "Bessborough Place, London, SW1V 3SE", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.486665212633532, "Longitude": -0.13246281699447182, "Name": "Tachbrook Nursery School", "Id": "101104", "Address": "Aylesford Street, London, SW1V 3RT", "EducationPhases": "Nursery", "NFType": "Nursery" }, { "Latitude": 51.492898391559194, "Longitude": -0.16214293122781476, "Name": "Saint Thomas More Language College", "Id": "100502", "Address": "Cadogan Street, London, SW3 2QS", "EducationPhases": "Secondary", "NFType": "Voluntary aided school" }, { "Latitude": 51.492898391559194, "Longitude": -0.16214293122781476, "Name": "St Joseph\u0027s Catholic Primary School", "Id": "100496", "Address": "Cadogan Street, London, SW3 2QT", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.5088236520176, "Longitude": -0.15010335443109762, "Name": "St George\u0027s Hanover Square CofE Primary School", "Id": "101130", "Address": "South Street, London, W1K 2XH", "EducationPhases": "Infant", "NFType": "Voluntary aided school" }, { "Latitude": 51.492725592984357, "Longitude": -0.1660393706308439, "Name": "Marlborough Primary School", "Id": "100483", "Address": "Draycott Avenue, London, SW3 3AP", "EducationPhases": "Infant", "NFType": "Community school" }] };
+
+        $(function () {
+            //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
+            atlas.setSubscriptionKey('@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');
+
+            //Initialize a map instance.
+            var mapCenterPosition = [-0.280167460441589, 51.5655598764621];
+            //map = new atlas.Map('myMap', {
+            //    center: mapCenterPosition,
+            //    zoom: 15
+            //});
+
+            map = new atlas.Map('myMap',
+                {
+                enableAccessibility: true
+            });
+
+            //Wait until the map resources have fully loaded.
+            map.events.add('load', function () {
+
+                //Create a data source and add it to the map.
+                datasource = new atlas.source.DataSource();
+                map.sources.add(datasource);
+
+                //Add a layer for rendering point data.
+                var resultLayer = new atlas.layer.SymbolLayer(datasource, null, {
+                    iconOptions: {
+                        iconImage: 'pin-round-darkblue',
+                        anchor: 'center',
+                        allowOverlap: true
+                    }
+                });
+                map.layers.add(resultLayer);
+
+                //Create a popup but leave it closed so we can update it and display it later.
+                popup = new atlas.Popup();
+
+                //Add a mouse over event to the result layer and display a popup when this event fires.
+                map.events.add('click', resultLayer, showPopup);
+
+                var results = [];
+                var latLangs = [];
+                for (var i = 0; i < schools.count; i++) {
+                    var school = schools.results[i];
+                    results.push(new atlas.data.Feature(new atlas.data.Point([school.Longitude, school.Latitude]), { data: school }));
+                    latLangs.push([school.Longitude, school.Latitude]);
+                }
+
+                //Add the results to the data source so they can be rendered. 
+                datasource.add(results);
+
+                // Set the camera bounds
+                var latLangs = 
+                    map.setCamera({
+                        bounds: atlas.data.BoundingBox.fromLatLngs(latLangs),
+                        padding: 50
+                    });
+
+                /* Construct a zoom control*/
+                var zoomControl = new atlas.control.ZoomControl();
+
+                /* Add the zoom control to the map*/
+                map.controls.add(zoomControl, {
+                    position: "top-left"
+                });
+
+                /* Construct and add a style control*/
+                var styleControl = new atlas.control.StyleControl();
+                map.controls.add(styleControl, {
+                    position: "top-right"
+                })
+
+            });
+
+        });
+
+        function showPopup(e) {
+            //Get the properties and coordinates of the first shape that the event occured on.
+            var p = e.shapes[0].getProperties();
+            var position = e.shapes[0].getCoordinates();
+
+            //Create HTML from properties of the selected result.
+            var html = ['<div style="padding:5px"><div><b>', p.data.Name,
+                '</b></div><div>', p.data.Address,
+                '</div><div><div class="button add add-remove" onclick="AddToBenchmarkBasket('+ p.data.Id +')">Add</div></div></div>'];
+
+            //Update the content and position of the popup.
+            popup.setPopupOptions({
+                content: html.join(''),
+                position: position
+            });
+
+            //Open the popup.
+            popup.open(map);
+        }
+
+        function AddToBenchmarkBasket(id) {
+            $("#actionsPlaceHolder").text("URN: " + id + " added!");
+        }
+
+    </script>
+}
