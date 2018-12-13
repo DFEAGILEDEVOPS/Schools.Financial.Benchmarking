@@ -26,11 +26,10 @@ namespace SFB.Web.Domain.Services.Comparison
 
         public async Task<ComparisonResult> GenerateBenchmarkListWithAdvancedComparisonAsync(BenchmarkCriteria criteria, EstablishmentType estType, int basketSize = ComparisonListLimit.LIMIT)
         {
-            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);
-            var limitedList = benchmarkSchools.Take(basketSize).ToList();
+            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);            
             return new ComparisonResult()
             {
-                BenchmarkSchools = limitedList,
+                BenchmarkSchools = benchmarkSchools,
                 BenchmarkCriteria = criteria
             };
         }

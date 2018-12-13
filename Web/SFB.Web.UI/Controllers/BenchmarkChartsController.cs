@@ -265,6 +265,17 @@ namespace SFB.Web.UI.Controllers
                     var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
                     var comparisonResult = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, ComparisonListLimit.LIMIT - comparisonList.BenchmarkSchools.Count);
 
+                    if(comparisonList.BenchmarkSchools.Count + comparisonList.BenchmarkSchools.Count > ComparisonListLimit.LIMIT)
+                    {
+                        ViewBag.URN = urn;
+                        ViewBag.HomeSchoolName = comparisonList.HomeSchoolName;
+                        ViewBag.ComparisonType = ComparisonType.Advanced;
+                        ViewBag.EstType = estType;
+                        ViewBag.AreaType = areaType;
+                        ViewBag.LaCode = lacode;
+                        return View("~/Views/BenchmarkCriteria/OverwriteStrategy.cshtml", new BenchmarkCriteriaVM(criteria) { ErrorMessage = "Total number of schools in your Benchmark Basket cannot exceed 30. Please remove schools or choose the \"Replace\" option." });
+                    }
+
                     foreach (var schoolDoc in comparisonResult.BenchmarkSchools)
                     {
                         var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
