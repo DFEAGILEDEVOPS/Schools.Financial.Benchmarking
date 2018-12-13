@@ -18,6 +18,7 @@ using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.UI.Helpers.Constants;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -265,7 +266,7 @@ namespace SFB.Web.UI.Controllers
                     var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
                     var comparisonResult = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, ComparisonListLimit.LIMIT - comparisonList.BenchmarkSchools.Count);
 
-                    if(comparisonList.BenchmarkSchools.Count + comparisonList.BenchmarkSchools.Count > ComparisonListLimit.LIMIT)
+                    if(comparisonList.BenchmarkSchools.Count + comparisonResult.BenchmarkSchools.Count > ComparisonListLimit.LIMIT)
                     {
                         ViewBag.URN = urn;
                         ViewBag.HomeSchoolName = comparisonList.HomeSchoolName;
@@ -273,7 +274,11 @@ namespace SFB.Web.UI.Controllers
                         ViewBag.EstType = estType;
                         ViewBag.AreaType = areaType;
                         ViewBag.LaCode = lacode;
-                        return View("~/Views/BenchmarkCriteria/OverwriteStrategy.cshtml", new BenchmarkCriteriaVM(criteria) { ErrorMessage = "Total number of schools in your Benchmark Basket cannot exceed 30. Please remove schools or choose the \"Replace\" option." });
+                        return View("~/Views/BenchmarkCriteria/OverwriteStrategy.cshtml",
+                            new BenchmarkCriteriaVM(criteria) {
+                                ComparisonList = comparisonList,
+                                ErrorMessage = ErrorMessages.BMBasketLimitExceed
+                            });
                     }
 
                     foreach (var schoolDoc in comparisonResult.BenchmarkSchools)
