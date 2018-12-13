@@ -339,7 +339,8 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            Assert.AreEqual((result.Result as ViewResult).ViewName, "OverwriteStrategy");
+            Assert.AreEqual("~/Views/BenchmarkCriteria/OverwriteStrategy.cshtml",(result.Result as ViewResult).ViewName);
+            Assert.IsFalse(string.IsNullOrEmpty(((result.Result as ViewResult).Model as BenchmarkCriteriaVM).ErrorMessage));
 
         }
 
