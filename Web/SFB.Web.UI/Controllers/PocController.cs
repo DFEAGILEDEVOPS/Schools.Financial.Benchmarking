@@ -21,7 +21,19 @@ namespace SFB.Web.UI.Controllers
         }
 
         // GET: Poc
+        public ActionResult SchoolMapWithLeafletJS()
+        {
+            return View();
+        }
+
+        // GET: Poc
         public ActionResult SchoolResults()
+        {
+            return View();
+        }
+
+        // GET: Poc
+        public ActionResult SchoolResultsClustered()
         {
             return View();
         }
