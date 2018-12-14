@@ -107,7 +107,7 @@
     public class ErrorMessages
     {
         public const string DuplicateTrust = "Please select a trust which is not already in your list";
-        public const string BMBasketLimitExceed = "Total number of schools in your Benchmark Basket cannot exceed 30. Please remove schools or choose the \"Replace\" option.";
+        public const string BMBasketLimitExceed = "Combined basket exceeds 30 schools, either replace current basket or go back and reduce new basket size";
     }
 
     public class MoreInfoText
