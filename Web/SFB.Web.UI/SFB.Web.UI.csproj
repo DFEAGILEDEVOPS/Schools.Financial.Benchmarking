@@ -306,7 +306,6 @@
     <Content Include="Assets\Scripts\Views\benchmark-charts.js" />
     <Content Include="Assets\Scripts\Views\benchmark-list.js" />
     <Content Include="Assets\Scripts\Views\criteria-by-area.js" />
-    <Content Include="Assets\Scripts\Views\google-location.js" />
     <Content Include="Assets\Scripts\Views\historical-charts.js" />
     <Content Include="Assets\Scripts\Views\school-details.js" />
     <Content Include="Assets\Scripts\Views\school-results.js" />

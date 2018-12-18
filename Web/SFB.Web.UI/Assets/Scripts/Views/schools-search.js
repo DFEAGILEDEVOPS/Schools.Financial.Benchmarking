@@ -1,7 +1,11 @@
 ﻿(function (GOVUK, Views) {
     'use strict';
+    var azureMapsClient;
 
-    function SchoolsSearchViewModel(localAuthorities) {
+    function SchoolsSearchViewModel(localAuthorities, azureMapsAPIKey) {
+        atlas.setSubscriptionKey(azureMapsAPIKey);
+        azureMapsClient = new atlas.service.Client(atlas.getSubscriptionKey());
+
         this.localAuthorities = localAuthorities;
         this.bindEvents();
     }
@@ -13,6 +17,7 @@
             $('#FindCurrentPosition').click(this.findCurrentLocationHandler.bind(this));
             this.bindAutosuggest('#FindByNameId', '#FindByNameIdSuggestionId', this.getSchoolsSuggestionHandler);
             this.bindAutosuggest('#FindByTrustName', '#FindByTrustNameSuggestionId', this.getTrustSuggestionHandler);
+            this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler);
             this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
             this.bindEnterKeysToButtons();
             this.bindAccordionHeaderClick();
@@ -26,7 +31,7 @@
             });
         },
 
-        bindEnterKeysToButtons: function() {
+        bindEnterKeysToButtons: function () {
             var inputs = $("#finderSection input[type ='text']");
             inputs.keypress(function (e) {
                 if (e.which === 13) {
@@ -102,6 +107,40 @@
             DfE.Util.Analytics.TrackEvent('gps', "SUCCESS", 'auto-geolocation');
         },
 
+        getLocationResultsHandler: function (keywords, callback) {
+            azureMapsClient.search.getSearchAddress(keywords, {
+                typeahead: true,
+                countrySet: ['GB'],
+                limit: 5
+            }).then(function (response) {
+                var suggestions = [];
+                if (response && response.results !== null && response.results.length > 0) {
+                    var geojsonResponse = new atlas.service.geojson.GeoJsonSearchResponse(response);
+                    var results = geojsonResponse.getGeoJsonResults();
+
+                    suggestions = results.features.filter(function (r) { return r.properties.address.countrySubdivision === "ENG"; }).map(function (r) {
+                        var obj = {};
+                        var output = "";
+
+                        if (r.properties.type !== "Street" && !r.properties.address.postalCode && r.properties.address.municipalitySubdivision) {
+                            output = r.properties.address.municipalitySubdivision + ', ' + r.properties.address.municipality;
+                        }
+                        else {
+                            output = r.properties.address.freeformAddress;
+                        }
+
+                        output += ', ' + r.properties.address.countrySecondarySubdivision;
+
+                        obj.Text = output;
+                        obj.Location = r.properties.position.lat + ',' + r.properties.position.lon;
+                        return obj;
+                    });
+                }
+
+                return callback(suggestions);
+            });
+        },
+
         bindAutosuggest: function (targetInputElementName, targetResolvedInputElementName, suggestionSource) {
 
             var field = "Text";
@@ -151,13 +190,13 @@
                 },
                 ariaOwnsId: "arialist_" + DfE.Util.randomNumber()
             }, {
-                display: field,
-                limit: 10,
-                source: source,
-                templates: {
-                    suggestion: templateHandler
-                }
-            });
+                    display: field,
+                    limit: 10,
+                    source: source,
+                    templates: {
+                        suggestion: templateHandler
+                    }
+                });
 
             var currentSuggestionName = "";
 
@@ -176,10 +215,12 @@
                         url += '&openOnly=true';
                     }
                     window.location = url;
-                    
+
                 }
                 else if (textBoxId === 'FindByTrustName') {
                     window.location = '/trust/index?matno=' + suggestion['Id'] + '&name=' + suggestion['Text'];
+                } else if (textBoxId === 'FindSchoolByTown') {
+                    $('#LocationCoordinates').val(suggestion['Location']);
                 }
             });
 
@@ -198,8 +239,8 @@
         }
     };
 
-    SchoolsSearchViewModel.Load = function (localAuthorities) {
-        new DfE.Views.SchoolsSearchViewModel(localAuthorities);
+    SchoolsSearchViewModel.Load = function (localAuthorities, azureMapsAPIKey) {
+        new DfE.Views.SchoolsSearchViewModel(localAuthorities, azureMapsAPIKey);
     };
 
     Views.SchoolsSearchViewModel = SchoolsSearchViewModel;
