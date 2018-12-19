@@ -28,7 +28,7 @@
 <div class="column-three-quarters no-padding">
     <section class="section" aria-label="Select search type">
         @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-    {
+        {
             <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
                 <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
                     There are errors on this page that require attention.
@@ -39,7 +39,7 @@
                     </li>
                 </ul>
             </div>
-    }
+        }
 
         <div id="finderSection">
             <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
@@ -84,14 +84,12 @@
 @section ViewScripts {
 
     <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script>
+    <script src="https://atlas.microsoft.com/sdk/js/atlas-service.js?api-version=1"></script>
     <script>
         var localAuthorities = @Html.Raw(Model.Authorities);
-        DfE.Views.SchoolsSearchViewModel.Load(localAuthorities);
-
-        function loadViewModel() {
-            DfE.Views.GoogleLocationViewModel.Load();
-        }
+        DfE.Views.SchoolsSearchViewModel.Load(localAuthorities, '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])&libraries=places&callback=loadViewModel"></script>
+
 
 }
