@@ -1,6 +1,6 @@
 ﻿@model SFB.Web.UI.Models.Pagination
 
-@if (Model.Total > 50)
+@if (Model.Total > SFB.Web.UI.Helpers.Constants.SearchDefaults.RESULTS_PER_PAGE)
 {
     <div class="grid-row pagination-container">
         <div class="column-full pagination-links no-padding">

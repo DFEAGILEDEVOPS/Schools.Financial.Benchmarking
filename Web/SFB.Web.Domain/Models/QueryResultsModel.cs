@@ -29,9 +29,9 @@ namespace SFB.Web.Domain.Models
 
     public class SuggestionQueryResult
     {
-        public IList<Disambiguation> Matches { get; set; }
+        public List<Disambiguation> Matches { get; set; }
 
-        public SuggestionQueryResult(IList<Disambiguation> matches)
+        public SuggestionQueryResult(List<Disambiguation> matches)
         {
             Matches = matches;
         }

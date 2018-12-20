@@ -29,13 +29,12 @@
         </div>
         @if (Model.ModelList.Count > 0)
         {
-
             <ul>
                 @foreach (var location in Model.ModelList)
                 {
-                <li class="document">
-                    <a href="/SchoolSearch/Search?searchtype=search-by-location&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@location.LocationName</a>
-                </li>
+                    <li class="document">
+                        <a href="/SchoolSearch/Search?searchtype=search-by-location&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@location.LocationName</a>
+                    </li>
                 }
             </ul>
         }

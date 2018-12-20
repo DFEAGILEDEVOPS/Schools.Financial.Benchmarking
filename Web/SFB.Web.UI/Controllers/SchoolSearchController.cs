@@ -219,7 +219,6 @@ namespace SFB.Web.UI.Controllers
                     {
                         if (string.IsNullOrEmpty(locationCoordinates))
                         {
-                            //call location search service
                             var result = _locationSearchService.SuggestLocationName(locationorpostcode);
                             switch (result.Matches.Count)
                             {
@@ -228,7 +227,7 @@ namespace SFB.Web.UI.Controllers
                                         new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 default:
                                     TempData["LocationResults"] = result;
-                                    return RedirectToAction("Suggest", "Location", new { result = result, locationOrPostcode = locationorpostcode, openOnly = openOnly });
+                                    return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationorpostcode, openOnly = openOnly });
                             }                            
                         }
                         else
