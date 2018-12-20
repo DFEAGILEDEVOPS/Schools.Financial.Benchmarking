@@ -57,6 +57,7 @@ namespace SFB.Web.UI
         {
             builder.RegisterType<LocalAuthoritiesService>().As<ILocalAuthoritiesService>();
             builder.RegisterType<LaSearchService>().As<ILaSearchService>();
+            builder.RegisterType<LocationSearchService>().As<ILocationSearchService>();
             builder.RegisterType<BenchmarkChartBuilder>().As<IBenchmarkChartBuilder>();
             builder.RegisterType<HistoricalChartBuilder>().As<IHistoricalChartBuilder>();
             builder.RegisterType<FilterBuilder>().As<IFilterBuilder>();

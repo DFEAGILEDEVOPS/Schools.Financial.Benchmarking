@@ -111,7 +111,7 @@
             azureMapsClient.search.getSearchAddress(keywords, {
                 typeahead: true,
                 countrySet: ['GB'],
-                limit: 5
+                limit: 10
             }).then(function (response) {
                 var suggestions = [];
                 if (response && response.results !== null && response.results.length > 0) {

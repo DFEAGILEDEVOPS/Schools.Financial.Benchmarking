@@ -27,11 +27,6 @@ namespace SFB.Web.Domain.Services.Search
             new[] {"st. ", "st ", "saint "}
         };
 
-        private const string GoogleGeocodingUrl = "https://maps.googleapis.com";
-
-        private const string GoogleGeoCodingQUeryFormat =
-            "/maps/api/geocode/json?address={0}&components=administrative_area_level_1:ENG|country:GB&key=";
-
         private const string GeoDistanceLocationSearchFormat =
             "geo.distance(Location,geography'POINT({1} {0})') le {2}";
 
@@ -158,22 +153,7 @@ namespace SFB.Web.Domain.Services.Search
             return exactMatches;
         }
 
-        public async Task<dynamic> SearchSchoolByLocation(string location, decimal distance, int skip, int take,
-            string orderby, NameValueCollection queryParams)
-        {
-            var locations = ExecuteSuggestLocationName(location);
-
-            if (locations.Matches.Count == 0)
-            {
-                dynamic obj = new ExpandoObject();
-                obj.NumberOfResults = 0;
-                return obj;
-            }
-
-            return await FindNearestSchools(locations.Matches.First().Lat, locations.Matches.First().Long, distance, skip, take, orderby, queryParams);
-        }
-
-        public async Task<dynamic> SearchSchoolByLocation(string lat, string lon, decimal distance, int skip, int take,
+        public async Task<dynamic> SearchSchoolByLatLon(string lat, string lon, decimal distance, int skip, int take,
             string orderby,
             NameValueCollection queryParams)
         {
@@ -195,21 +175,6 @@ namespace SFB.Web.Domain.Services.Search
             var formattedLon = double.Parse(lon).ToString();
             return await ExecuteGeoSpatialSearch(_index, formattedLat, formattedLon,
                 distance, ConstructApiFilterParams(queryParams), orderby, skip, take);
-        }
-
-        private SuggestionQueryResult ExecuteSuggestLocationName(string query)
-        {
-            var client = new RestClient(GoogleGeocodingUrl);
-
-            var request = new RestRequest(string.Format(GoogleGeoCodingQUeryFormat, query) + _googleApiKey);
-            var response = client.Execute(request);
-
-            dynamic content = Newtonsoft.Json.JsonConvert.DeserializeObject(response.Content);
-
-            return new SuggestionQueryResult
-            {
-                Matches = Map(content.results),
-            };
         }
 
         private async Task<QueryResultsModel> ExecuteSearch(string index, string query, string searchFields,
@@ -410,21 +375,5 @@ namespace SFB.Web.Domain.Services.Search
             return commaSeparatedValues.Split(',');
         }
 
-        private List<Disambiguation> Map(dynamic results)
-        {
-            var disambiguationList = new List<Disambiguation>();
-            foreach (var result in results)
-            {
-                disambiguationList.Add(new Disambiguation
-                {
-                    Id = result.place_id,
-                    Text = result.formatted_address,
-                    Lat = result.geometry.location.lat,
-                    Long = result.geometry.location.lng
-                });
-            }
-
-            return disambiguationList;
-        }
     }
 }

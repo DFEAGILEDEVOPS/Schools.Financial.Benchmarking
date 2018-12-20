@@ -21,6 +21,7 @@ namespace SFB.Web.UI.Controllers
     {
         private readonly ILocalAuthoritiesService _laService;
         private readonly ILaSearchService _laSearchService;
+        private readonly ILocationSearchService _locationSearchService;
         private readonly IFilterBuilder _filterBuilder;
         private readonly IValidationService _valService;
         private readonly IContextDataService _contextDataService;
@@ -29,13 +30,14 @@ namespace SFB.Web.UI.Controllers
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
         public SchoolSearchController(ILocalAuthoritiesService laService, 
-            ILaSearchService laSearchService, IFilterBuilder filterBuilder,
+            ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
             ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService,
             IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _laService = laService;
             _laSearchService = laSearchService;
+            _locationSearchService = locationSearchService;
             _filterBuilder = filterBuilder;
             _valService = valService;
             _contextDataService = contextDataService;
@@ -215,17 +217,34 @@ namespace SFB.Web.UI.Controllers
                     errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
                     if (string.IsNullOrEmpty(errorMessage))
                     {
-                        searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
-
-                        int resultCnt = searchResp.NumberOfResults;
-                        switch (resultCnt)
+                        if (string.IsNullOrEmpty(locationCoordinates))
                         {
-                            case 0:
-                                return View("EmptyLocationResult",
-                                    new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
-                            case 1:
-                                return RedirectToAction("Detail", "School",
-                                    new {urn = ((Domain.Models.QueryResultsModel) searchResp).Results.First()["URN"]});
+                            //call location search service
+                            var result = _locationSearchService.SuggestLocationName(locationorpostcode);
+                            switch (result.Matches.Count)
+                            {
+                                case 0:
+                                    return View("EmptyLocationResult",
+                                        new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
+                                default:
+                                    TempData["LocationResults"] = result;
+                                    return RedirectToAction("Suggest", "Location", new { result = result, locationOrPostcode = locationorpostcode, openOnly = openOnly });
+                            }                            
+                        }
+                        else
+                        {
+                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+
+                            int resultCnt = searchResp.NumberOfResults;
+                            switch (resultCnt)
+                            {
+                                case 0:
+                                    return View("EmptyLocationResult",
+                                        new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
+                                case 1:
+                                    return RedirectToAction("Detail", "School",
+                                        new { urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"] });
+                            }
                         }
                     }
                     else
@@ -365,21 +384,11 @@ namespace SFB.Web.UI.Controllers
                         Request.QueryString);
                     break;
                 case SearchTypes.SEARCH_BY_LOCATION:
-                    if (string.IsNullOrEmpty(locationCoordinates))
-                    {
-                        response = await _schoolSearchService.SearchSchoolByLocation(locationorpostcode,
-                            (radius ?? SearchDefaults.LOCATION_SEARCH_DISTANCE) * 1.6m,
-                            (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                            Request.QueryString);
-                    }
-                    else
-                    {
                         var latLng = locationCoordinates.Split(',');
-                        response = await _schoolSearchService.SearchSchoolByLocation(latLng[0], latLng[1],
+                        response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
                             (radius ?? SearchDefaults.LOCATION_SEARCH_DISTANCE) * 1.6m,
                             (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
                             Request.QueryString);
-                    }
                     break;
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     response = await _schoolSearchService.SearchSchoolByLaCode(laCode,

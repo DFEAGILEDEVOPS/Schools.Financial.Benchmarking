@@ -42,17 +42,9 @@ namespace SFB.Web.Domain.Models
         }
     }
 
-    public class Disambiguation : IEquatable<Disambiguation>
+    public class Disambiguation
     {
-        public string Id { get; set; }
         public string Text { get; set; }
-        public string Lat { get; set; }
-        public string Long { get; set; }
-
-        public bool Equals(Disambiguation other) => other?.Id == Id;
-
-        public override int GetHashCode() => Id.GetHashCode();
-
-        public override bool Equals(object obj) => (obj as Disambiguation)?.Id == Id;
+        public string LatLon { get; set; }
     }
 }
