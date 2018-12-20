@@ -111,7 +111,7 @@
             azureMapsClient.search.getSearchAddress(keywords, {
                 typeahead: true,
                 countrySet: ['GB'],
-                limit: 5
+                limit: 10
             }).then(function (response) {
                 var suggestions = [];
                 if (response && response.results !== null && response.results.length > 0) {
@@ -215,12 +215,16 @@
                         url += '&openOnly=true';
                     }
                     window.location = url;
-
                 }
                 else if (textBoxId === 'FindByTrustName') {
                     window.location = '/trust/index?matno=' + suggestion['Id'] + '&name=' + suggestion['Text'];
                 } else if (textBoxId === 'FindSchoolByTown') {
-                    $('#LocationCoordinates').val(suggestion['Location']);
+                    $('#LocationCoordinates').val(suggestion['Location']);                    
+                    url = '/SchoolSearch/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
+                    if (openSchoolsOnly) {
+                        url += '&openOnly=true';
+                    }
+                    window.location = url;
                 }
             });
 
