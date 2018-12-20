@@ -115,7 +115,9 @@ namespace SFB.Web.UI.UnitTests
 
         [Test]
         public async Task SearchActionReturnsSuggestionsViewIfSearchByLocationKeyword()
-        {         
+        {
+            _mockLocationSearchService.Setup(m => m.SuggestLocationName("Test")).Returns(() => new SuggestionQueryResult(new List<Disambiguation>() { new Disambiguation { Text= "Test" }  }));
+
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockEdubaseDataService.Object, _mockEdubaseSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
@@ -125,7 +127,7 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Location", (result as RedirectToRouteResult).RouteValues["Controller"]);
-            Assert.AreEqual("Search", (result as RedirectToRouteResult).RouteValues["Action"]);
+            Assert.AreEqual("Suggest", (result as RedirectToRouteResult).RouteValues["Action"]);
             Assert.AreEqual("Test", (result as RedirectToRouteResult).RouteValues["locationorpostcode"]);
         }
 
