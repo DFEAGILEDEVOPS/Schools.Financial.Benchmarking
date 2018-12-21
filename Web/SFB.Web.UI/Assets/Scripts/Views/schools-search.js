@@ -68,16 +68,13 @@
         },
 
         getCurrentPositionErrorHandler: function (err) {
-
-            DfE.Util.Analytics.TrackEvent('gps', "ERR_" + err.code, 'auto-geolocation');
-
             var msg;
             switch (err.code) {
                 case err.UNKNOWN_ERROR:
                     msg = "Unable to find your location";
                     break;
                 case err.PERMISSION_DENIED:
-                    msg = "Permission denied in finding your location";
+                    msg = "Your location is blocked by your browser, please enter your location manually";
                     break;
                 case err.POSITION_UNAVAILABLE:
                     msg = "Your location is currently unknown";
@@ -88,12 +85,27 @@
                 default:
                     msg = "Location detection not supported in browser";
             }
-            $('#FindSchoolByTown').attr("placeholder", msg);
+            var html = '<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">' +
+                '<h1 id = "ErrorSummaryHeading" class="heading-medium error-summary-heading">' +
+                'There are errors on this page that require attention.'+
+                    '</h1>'+
+                '<ul class="error-summary-list">'+
+                    '<li>'+
+                        '<a id="error-msg" href="#finderSection">'+ msg +'</a>'+
+                    '</li>'+
+                '</ul>'+
+                '</div>';
+            $("#error-summary-placeholder").empty();
+            $("#error-summary-placeholder").append(html);
+            $("#location-error-message-placeholder").empty();
+            $("#location-error-message-placeholder").append('<span class="error-message">' + msg + '</span>');
         },
 
         getCurrentPositionSuccessHandler: function (position) {
             var coords = position.coords || position.coordinate || position;
 
+            $("#error-summary-placeholder").empty();
+            $("#location-error-message-placeholder").empty();
             $('#LocationCoordinates').val(coords.latitude + ',' + coords.longitude);
             $('#SearchByTownFieldset button[type="submit"]').removeAttr('disabled');
 
@@ -104,7 +116,6 @@
                 }
             });
 
-            DfE.Util.Analytics.TrackEvent('gps', "SUCCESS", 'auto-geolocation');
         },
 
         getLocationResultsHandler: function (keywords, callback) {

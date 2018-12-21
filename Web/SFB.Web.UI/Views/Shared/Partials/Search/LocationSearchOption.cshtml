@@ -10,10 +10,12 @@
         Enter a postcode, town or street. Or
         <a href="javascript:void(0)" id="FindCurrentPosition" class="focus-first" title="Select to use your current location">use your current location</a>
     </label>
-    @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
-    {
-        <span class="error-message">@Model.ErrorMessage</span>
-    }
+    <div id="location-error-message-placeholder">
+        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
+        {
+            <span class="error-message">@Model.ErrorMessage</span>
+        }
+    </div>
     <div class="multiple-choice" style="float:none">
         <input id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LOCATION))>
         <label for="openOnlyLocation">Include open schools only</label>
