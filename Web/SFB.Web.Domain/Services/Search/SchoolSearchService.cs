@@ -20,7 +20,6 @@ namespace SFB.Web.Domain.Services.Search
         private readonly string _key;
         private readonly string _searchInstance;
         private readonly string _index;
-        private readonly string _googleApiKey;
 
         private readonly string[][] _aliases = new[]
         {
@@ -32,11 +31,10 @@ namespace SFB.Web.Domain.Services.Search
 
         private const string GeoDistanceLocationOrderFormat = "geo.distance(Location,geography'POINT({1} {0})') asc";
 
-        public SchoolSearchService(string searchInstance, string key, string index, string googleApiKey)
+        public SchoolSearchService(string searchInstance, string key, string index)
         {
             this._searchInstance = searchInstance;
             this._key = key;
-            this._googleApiKey = googleApiKey;
             this._index = index;
         }
 

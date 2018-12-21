@@ -75,7 +75,7 @@ namespace SFB.Web.UI
             builder.RegisterType<BenchmarkBasketCookieManager>().As<IBenchmarkBasketCookieManager>();
             builder.RegisterType<BenchmarkCriteriaBuilderService>().As<IBenchmarkCriteriaBuilderService>();
             builder.RegisterType<DownloadCSVBuilder>().As<IDownloadCSVBuilder>();
-            builder.RegisterInstance(new SchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"], ConfigurationManager.AppSettings["GoogleAPIKey"])).As<ISchoolSearchService>();
+            builder.RegisterInstance(new SchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();
             builder.RegisterInstance(new TrustSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
         }
 
