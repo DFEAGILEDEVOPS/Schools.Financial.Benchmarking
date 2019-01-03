@@ -1,9 +1,9 @@
 ﻿(function (GOVUK, Views) {
     'use strict';
 
-    function SchoolDetailsViewModel(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType) {
+    function SchoolDetailsViewModel(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType, mapApiKey) {
         this.initControls(modelId, chartFormat, unitType);
-        this.initMaps(modelId, modelLat, modelLng, modelHasCoordinates);
+        this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey);        
     }
 
     SchoolDetailsViewModel.prototype = {
@@ -29,9 +29,8 @@
             new Accordion(document.getElementById('historical-charts-accordion'));
         },
 
-        initMaps: function (modelId, modelLat, modelLng, modelHasCoordinates) {
+        initMaps: function (modelLat, modelLng, modelHasCoordinates, mapApiKey) {
             var school = {
-                id: modelId,
                 lat: modelLat,
                 lng: modelLng,
                 hasMap: modelHasCoordinates ? "true" : "false"
@@ -48,7 +47,8 @@
                         }
                     }
                 },
-                scrollWheel: false
+                scrollWheel: false,
+                mapApiKey: mapApiKey
             };
 
             setTimeout(function () {
@@ -57,7 +57,7 @@
                 }
 
                 if (!this.mapLoaded) {
-                    this.map = new GOVUK.LocationMap(options);
+                    this.map = new GOVUK.AzureLocationMap(options);
                     this.mapLoaded = true;
                 }
 
@@ -70,8 +70,8 @@
         }
     };
 
-    SchoolDetailsViewModel.Load = function (modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType) {
-        new DfE.Views.SchoolDetailsViewModel(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType);
+    SchoolDetailsViewModel.Load = function (modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType, mapApiKey) {
+        new DfE.Views.SchoolDetailsViewModel(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType, mapApiKey);
     };
 
     SchoolDetailsViewModel.PrintPage = function () {

@@ -1,12 +1,8 @@
 ﻿@section InsideHead{
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
-          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-          crossorigin="" />
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
 
     <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
-            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
-            crossorigin=""></script>
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
 
     <style>
         #mapid {
@@ -29,7 +25,7 @@
 
         var mymap = L.map('mapid').setView(schoolPosition, 13);
 
-        L.tileLayer(`https://atlas.microsoft.com/map/tile/png?api-version=1&layer=basic&style=main&zoom={z}&x={x}&y={y}&subscription-key=@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]`, {
+        L.tileLayer('https://atlas.microsoft.com/map/tile/png?api-version=1&layer=basic&style=main&zoom={z}&x={x}&y={y}&subscription-key=@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]', {
             attribution: '© ' + new Date().getFullYear() + ' Microsoft, © 1992 - ' + new Date().getFullYear() + ' TomTom',
             maxZoom: 18,
             minZoom: 4,

@@ -2,7 +2,7 @@
     "use strict";
     window.GOVUK = window.GOVUK || {};
 
-    function LocationMap(options) {
+    function GoogleLocationMap(options) {
         if (!options.elementId || options.elementId == "")
             throw new ReferenceError("options.elementId is not present.");
 
@@ -25,12 +25,12 @@
     }
 
     // static constants
-    LocationMap.EarthRadii = {
+    GoogleLocationMap.EarthRadii = {
         miles: 3963.1676,
         km: 6378.1
     };
 
-    LocationMap.prototype = {
+    GoogleLocationMap.prototype = {
 
         get mapElement() {
             return document.getElementById(this.mapElementId)
@@ -89,6 +89,6 @@
 
     };
 
-    GOVUK.LocationMap = LocationMap;
+    GOVUK.GoogleLocationMap = GoogleLocationMap;
 
 }(jQuery));
