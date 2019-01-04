@@ -49,7 +49,12 @@
                 subscriptionKey: this.mapApiKey
             };
 
-            this.azureMap = L.map(this.mapElementId).setView(this.centreLatLng, this.defaultZoom);
+            this.azureMap = L.map(this.mapElementId, { attributionControl: false }).setView(this.centreLatLng, this.defaultZoom);
+
+            this.azureMap.addControl(L.control.attribution({
+                prefix: ''
+            }));
+
             L.tileLayer(
                 'https://atlas.microsoft.com/map/tile/png?api-version=1&layer=basic&style=main&zoom={z}&x={x}&y={y}&subscription-key='+this.mapApiKey,
                 mapOptions)
