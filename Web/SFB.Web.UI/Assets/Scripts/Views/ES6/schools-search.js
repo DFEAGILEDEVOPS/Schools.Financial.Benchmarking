@@ -1,4 +1,4 @@
-(function (GOVUK, Views) {
+﻿(function (GOVUK, Views) {
     'use strict';
     var azureMapsClient;
 
@@ -87,13 +87,13 @@
             }
             var html = '<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">' +
                 '<h1 id = "ErrorSummaryHeading" class="heading-medium error-summary-heading">' +
-                'There are errors on this page that require attention.' +
-                '</h1>' +
-                '<ul class="error-summary-list">' +
-                '<li>' +
-                '<a id="error-msg" href="#finderSection">' + msg + '</a>' +
-                '</li>' +
-                '</ul>' +
+                'There are errors on this page that require attention.'+
+                    '</h1>'+
+                '<ul class="error-summary-list">'+
+                    '<li>'+
+                        '<a id="error-msg" href="#finderSection">'+ msg +'</a>'+
+                    '</li>'+
+                '</ul>'+
                 '</div>';
             $("#error-summary-placeholder").empty();
             $("#error-summary-placeholder").append(html);
@@ -230,7 +230,7 @@
                 else if (textBoxId === 'FindByTrustName') {
                     window.location = '/trust/index?matno=' + suggestion['Id'] + '&name=' + suggestion['Text'];
                 } else if (textBoxId === 'FindSchoolByTown') {
-                    $('#LocationCoordinates').val(suggestion['Location']);
+                    $('#LocationCoordinates').val(suggestion['Location']);                    
                     url = '/SchoolSearch/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
                     if (openSchoolsOnly) {
                         url += '&openOnly=true';

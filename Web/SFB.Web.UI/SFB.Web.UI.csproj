@@ -688,6 +688,7 @@
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\scripts\require\" />
     <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
   <ItemGroup>
