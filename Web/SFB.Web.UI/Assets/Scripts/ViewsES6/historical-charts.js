@@ -195,7 +195,7 @@
                 "&name=" +
                 nameParameter +
                 "&format=" +
-                formatParameter;;
+                formatParameter;
 
             if (financingParameter) {
                 url += "&financing=" + financingParameter;

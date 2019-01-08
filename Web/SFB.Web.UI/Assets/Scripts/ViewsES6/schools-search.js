@@ -55,20 +55,20 @@
 
         getSchoolsSuggestionHandler: function (keywords, callback) {
             var dataSuggestionUrl = $("#FindByNameId").attr("data-suggestion-url");
-            return $.get(encodeURI(dataSuggestionUrl + '?nameId=' + keywords), function (response) {
+            return $.get(encodeURI(`${dataSuggestionUrl}?nameId=${keywords}`), function (response) {
                 return callback(response.Matches);
             });
         },
 
         getTrustSuggestionHandler: function (keywords, callback) {
             var dataSuggestionUrl = $("#FindByTrustName").attr("data-suggestion-url");
-            return $.get(encodeURI(dataSuggestionUrl + '?name=' + keywords), function (response) {
+            return $.get(encodeURI(`${dataSuggestionUrl}?name=${keywords}`), function (response) {
                 return callback(response.Matches);
             });
         },
 
         getCurrentPositionErrorHandler: function (err) {
-            var msg;
+            let msg;
             switch (err.code) {
                 case err.UNKNOWN_ERROR:
                     msg = "Unable to find your location";
@@ -85,20 +85,20 @@
                 default:
                     msg = "Location detection not supported in browser";
             }
-            var html = '<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">' +
-                '<h1 id = "ErrorSummaryHeading" class="heading-medium error-summary-heading">' +
-                'There are errors on this page that require attention.'+
-                    '</h1>'+
-                '<ul class="error-summary-list">'+
-                    '<li>'+
-                        '<a id="error-msg" href="#finderSection">'+ msg +'</a>'+
-                    '</li>'+
-                '</ul>'+
-                '</div>';
+            var html = `<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+                <h1 id = "ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                There are errors on this page that require attention.
+                </h1>
+                <ul class="error-summary-list">
+                    <li>
+                        <a id="error-msg" href="#finderSection">${msg}</a>
+                    </li>
+                </ul>
+                </div>`;
             $("#error-summary-placeholder").empty();
             $("#error-summary-placeholder").append(html);
             $("#location-error-message-placeholder").empty();
-            $("#location-error-message-placeholder").append('<span class="error-message">' + msg + '</span>');
+            $("#location-error-message-placeholder").append(`<span class="error-message">${msg}</span>`);
         },
 
         getCurrentPositionSuccessHandler: function (position) {
@@ -109,7 +109,7 @@
             $('#LocationCoordinates').val(coords.latitude + ',' + coords.longitude);
             $('#SearchByTownFieldset button[type="submit"]').removeAttr('disabled');
 
-            $.getJSON('https://api.postcodes.io/postcodes?lat=' + coords.latitude + '&lon=' + coords.longitude + '&widesearch=true', function (data) {
+            $.getJSON(`https://api.postcodes.io/postcodes?lat=${coords.latitude}&lon=${coords.longitude}&widesearch=true`, function (data) {
                 if (data.result) {
                     $('#FindSchoolByTown').val(data.result[0].postcode);
                     $('#FindSchoolByTown').attr("placeholder", "");
@@ -154,10 +154,10 @@
 
         bindAutosuggest: function (targetInputElementName, targetResolvedInputElementName, suggestionSource) {
 
-            var field = "Text";
-            var value = "Id";
-            var source = null;
-            var minChars = 0;
+            let field = "Text";
+            let value = "Id";
+            let source = null;
+            let minChars = 0;
 
             if (typeof suggestionSource === "function") { // remote source
                 minChars = 3;
@@ -209,7 +209,7 @@
                     }
                 });
 
-            var currentSuggestionName = "";
+            let currentSuggestionName = "";
 
             $(targetInputElementName).bind("typeahead:select", function (src, suggestion) {
                 $(targetResolvedInputElementName).val(suggestion[value]);
