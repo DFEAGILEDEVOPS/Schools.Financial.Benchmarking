@@ -15,4 +15,4 @@ out/
 
 # None
 appSettings.config
-/SFB.Web.UI/Assets/Scripts/Views
+SFB.Web.UI/Assets/Scripts/Views/
