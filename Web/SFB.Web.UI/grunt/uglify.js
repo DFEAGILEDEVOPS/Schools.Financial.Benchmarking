@@ -19,7 +19,7 @@
               'Assets/Scripts/Behaviours/PartialRequest/*.js',
               'Assets/Scripts/Behaviours/floatThead/*.js',
               'Assets/Scripts/Elements/**/*.js',
-              'Assets/Scripts/Views/*.js',
+              'Assets/Scripts/Views/**/*.js',
               'Public/Scripts/stickyfill/*.js',
               'Public/Scripts/modernizr/*.js'
             ],

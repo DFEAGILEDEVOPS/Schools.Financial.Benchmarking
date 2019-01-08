@@ -4,7 +4,7 @@
   'use strict';
 
   var HistoricalCharts = {
-    GenerateCharts: function (unitParameter) {
+    GenerateCharts: function GenerateCharts(unitParameter) {
       var self = this;
       $(".chart").each(function () {
         var yValues = JSON.parse($('#' + this.id).attr('data-chart'));
@@ -41,7 +41,7 @@
         }
       });
     },
-    RoundedTickRange: function (min, max) {
+    RoundedTickRange: function RoundedTickRange(min, max) {
       var range = max - min;
       var tickCount = 3;
       var unroundedTickSize = range / (tickCount - 1);
@@ -50,7 +50,7 @@
       var roundedTickRange = Math.ceil(unroundedTickSize / pow10x) * pow10x;
       return roundedTickRange;
     },
-    GenerateChart: function (el, showValue, min, mid, mid2, max) {
+    GenerateChart: function GenerateChart(el, showValue, min, mid, mid2, max) {
       showValue = showValue || "AbsoluteMoney";
       var axisLabel = $('#' + el.id).attr('data-axis-label');
       var yAxis;
@@ -59,7 +59,7 @@
         case "PerPupil":
           yAxis = {
             tick: {
-              format: function (d) {
+              format: function format(d) {
                 return window.DfE.Util.Charting.ChartMoneyFormat(d);
               },
               values: [min, mid, mid2, max],
@@ -73,7 +73,7 @@
         case "AbsoluteMoney":
           yAxis = {
             tick: {
-              format: function (d) {
+              format: function format(d) {
                 return window.DfE.Util.Charting.ChartMoneyFormat(d);
               },
               values: [min, mid, mid2, max],
@@ -87,7 +87,7 @@
         case "PerTeacher":
           yAxis = {
             tick: {
-              format: function (d) {
+              format: function format(d) {
                 return window.DfE.Util.Charting.ChartMoneyFormat(d);
               },
               values: [min, mid, mid2, max],
@@ -102,7 +102,7 @@
         case "FTERatioToTotalFTE":
           yAxis = {
             tick: {
-              format: function (d) {
+              format: function format(d) {
                 return window.DfE.Util.Charting.ChartPercentageFormat(d);
               },
               values: [min, mid, mid2, max],
@@ -118,7 +118,7 @@
         case "AbsoluteCount":
           yAxis = {
             tick: {
-              format: function (d) {
+              format: function format(d) {
                 return window.DfE.Util.Charting.ChartDecimalFormat(d);
               },
               values: [min, mid, mid2, max],
@@ -143,7 +143,7 @@
             value: ['amount']
           },
           labels: {
-            format: function (v) {
+            format: function format(v) {
               return v === null ? "No data" : "";
             }
           }
@@ -172,7 +172,7 @@
           pattern: ['#28A197']
         },
         tooltip: {
-          contents: function (d, defaultTitleFormat, defaultValueFormat) {
+          contents: function contents(d, defaultTitleFormat, defaultValueFormat) {
             return defaultValueFormat(d[0].value);
           }
         },
@@ -181,13 +181,13 @@
         }
       });
     },
-    SelectGrouping: function (grouping) {
+    SelectGrouping: function SelectGrouping(grouping) {
       $("#ChartGroup").val(grouping);
       $("#ChartGroup").change();
       $("#financialSummary")[0].scrollIntoView();
       $("#ChartGroup").focus();
     },
-    RebuildCharts: function (establishment) {
+    RebuildCharts: function RebuildCharts(establishment) {
       var self = this;
       var codeParameter = DfE.Util.QueryString.get('code');
       var urnParameter = DfE.Util.QueryString.get('urn');
@@ -209,10 +209,10 @@
       $.ajax({
         url: url,
         datatype: 'json',
-        beforeSend: function () {
+        beforeSend: function beforeSend() {
           DfE.Util.LoadingMessage.display("#historicalChartsList", "Updating charts");
         },
-        success: function (data) {
+        success: function success(data) {
           $("#historicalChartsList").html(data);
           self.GenerateCharts(unitParameter);
           self.UpdateTotals();
@@ -221,7 +221,7 @@
         }
       });
     },
-    UpdateTrustWarnings: function () {
+    UpdateTrustWarnings: function UpdateTrustWarnings() {
       var isPlaceholder = $("#isPlaceholder").val();
 
       if (isPlaceholder == "true") {
@@ -230,7 +230,7 @@
         $("#placeholderWarning").hide();
       }
     },
-    UpdateTotals: function () {
+    UpdateTotals: function UpdateTotals() {
       var expTotal = $("#expTotal").val();
       var expTotalAbbr = $("#expTotalAbbr").val();
       var incTotal = $("#incTotal").val();
@@ -252,7 +252,7 @@
         $("span.bal-total").parent().removeClass("negative-balance");
       }
     },
-    UpdateBenchmarkBasket: function (urn, withAction) {
+    UpdateBenchmarkBasket: function UpdateBenchmarkBasket(urn, withAction) {
       if (withAction === "Add") {
         if (DfE.Util.ComparisonList.count() === 30) {
           DfE.Util.ComparisonList.RenderFullListWarningModal();

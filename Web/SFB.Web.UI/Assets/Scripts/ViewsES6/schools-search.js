@@ -1,6 +1,6 @@
 ﻿(function (GOVUK, Views) {
     'use strict';
-    var azureMapsClient;
+    let azureMapsClient;
 
     function SchoolsSearchViewModel(localAuthorities, azureMapsAPIKey) {
         atlas.setSubscriptionKey(azureMapsAPIKey);

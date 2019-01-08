@@ -16,7 +16,7 @@
   }
 
   SchoolsResultsViewModel.prototype = {
-    bindEvents: function () {
+    bindEvents: function bindEvents() {
       // Live Search Form (aka filter form)
       var $results = $('#schoolResults'),
           $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0');
@@ -33,19 +33,19 @@
       window.addEventListener("load", this.load.bind(this));
       this.bindTracking();
     },
-    getTabName: function () {
+    getTabName: function getTabName() {
       return !this.currentTabName ? "list" : this.currentTabName;
     },
-    load: function () {
+    load: function load() {
       this.trackRadiusSearch();
       this.initTabs();
       SchoolsResultsViewModel.AddAllVisibility();
     },
-    onDisplayResults: function (state) {
+    onDisplayResults: function onDisplayResults(state) {
       var serialisedState = $.param(state);
       this.getMapData(serialisedState);
     },
-    initTabs: function () {
+    initTabs: function initTabs() {
       this.currentTabName = this.initialTabName = $("nav.navigation-links .olist .litem.active").data("tab") === "map" ? "list" : "map";
       var self = this;
       $(".navigation-link").click(function (e) {
@@ -54,14 +54,14 @@
         return false;
       });
     },
-    trackRadiusSearch: function () {
+    trackRadiusSearch: function trackRadiusSearch() {
       var item = $("#DistanceRadius option:selected");
       if (item.length > 0) this.trackFilter("Radius: " + item.text().trim());
     },
-    trackFilter: function (label) {
+    trackFilter: function trackFilter(label) {
       DfE.Util.Analytics.TrackEvent('search-results', label.trim(), 'filter');
     },
-    bindTracking: function () {
+    bindTracking: function bindTracking() {
       var self = this;
       $("#DistanceRadius").change(this.trackRadiusSearch.bind(this));
       $(".js-live-search-results-block input[type=checkbox]").change(function () {
@@ -72,10 +72,10 @@
         }
       });
     },
-    bindEditSearchButton: function () {
+    bindEditSearchButton: function bindEditSearchButton() {
       GOVUK.Collapsible.bindElements("#EditSearchCollapsible.js-collapsible");
     },
-    bindFilterCollapseButtons: function () {
+    bindFilterCollapseButtons: function bindFilterCollapseButtons() {
       // Instantiate an option select for each one found on the page
       var filters = $('.govuk-option-select').map(function () {
         return new GOVUK.OptionSelect({
@@ -83,7 +83,7 @@
         });
       });
     },
-    changeTab: function (tabName, suppressAddHistory) {
+    changeTab: function changeTab(tabName, suppressAddHistory) {
       if ($(".navigation-links .litem.active").data("tab") === tabName) {
         $("nav.navigation-links .olist .litem,  div.tabs>div").removeClass("active");
         $("nav.navigation-links .olist .litem." + tabName + ", div.tabs>div." + tabName).addClass("active");
@@ -107,16 +107,14 @@
         SchoolsResultsViewModel.AddAllVisibility();
       }
     },
-    onRefresh: function () {
+    onRefresh: function onRefresh() {
       this.bindEditSearchButton();
       this.bindFilterCollapseButtons();
       this.bindTracking();
       this.mapLoaded = false;
       this.initTabs();
     },
-    bindMap: function () {
-      debugger;
-
+    bindMap: function bindMap() {
       if (!this.mapLoaded && this.currentTabName === "map") {
         var zoomLevel = 12;
 
@@ -176,8 +174,7 @@
         };
       }
     },
-    getMapData: function (serialisedState) {
-      debugger;
+    getMapData: function getMapData(serialisedState) {
       if (this.currentTabName != "map") return;
       if (this.cache[serialisedState]) this.renderMapPins(this.cache[serialisedState], serialisedState);else {
         var self = this;
@@ -192,7 +189,7 @@
         });
       }
     },
-    renderMapPins: function (response, serialisedState) {
+    renderMapPins: function renderMapPins(response, serialisedState) {
       var self = this;
       var data = response.results;
       var count = response.count;
@@ -216,7 +213,7 @@
       var coords = [];
       var hashtable = {};
 
-      var genKey = function (lat, lng) {
+      var genKey = function genKey(lat, lng) {
         return lat + "#" + lng;
       };
 
@@ -282,7 +279,9 @@
       });
       var bounds = new google.maps.LatLngBounds();
 
-      for (var i = 0; i < coords.length; i++) bounds.extend(coords[i]);
+      for (var i = 0; i < coords.length; i++) {
+        bounds.extend(coords[i]);
+      }
 
       if (coords.length > 0) {
         this.map.fitBounds(bounds);

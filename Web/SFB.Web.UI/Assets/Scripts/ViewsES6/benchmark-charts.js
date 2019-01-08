@@ -86,10 +86,9 @@
         scope.$apply(function () {
             _.forEach(scope.selectionList.HierarchicalCharts,
                 function (group) {
-                    var selection = _.find(group.Charts,
-                        function (c) {
-                            return c.Name === chartName;
-                        });
+                    var selection = group.Charts.find((c) => {
+                        return c.Name === chartName;
+                    });
 
                     if (selection) {
                         switch (showValue) {

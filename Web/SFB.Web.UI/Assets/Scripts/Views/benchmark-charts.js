@@ -15,12 +15,12 @@
 
 
   BenchmarkChartsViewModel.RefreshAddRemoveLinks = function () {
-    var showRemoveLink = function (element) {
+    var showRemoveLink = function showRemoveLink(element) {
       $(element).find("a.customRemove").show();
       $(element).find("a.customAdd").hide();
     };
 
-    var showAddLink = function (element) {
+    var showAddLink = function showAddLink(element) {
       $(element).find("a.customAdd").show();
       $(element).find("a.customRemove").hide();
     };
@@ -86,7 +86,7 @@
     var scope = angular.element($("#listCtrl")).scope();
     scope.$apply(function () {
       _.forEach(scope.selectionList.HierarchicalCharts, function (group) {
-        var selection = _.find(group.Charts, function (c) {
+        var selection = group.Charts.find(function (c) {
           return c.Name === chartName;
         });
 
@@ -141,7 +141,7 @@
   };
 
   BenchmarkChartsViewModel.GenerateChart = function (el, showValue, min, mid, max, barCount) {
-    var applyChartStyles = function (el) {
+    var applyChartStyles = function applyChartStyles(el) {
       var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chartContainer'))[0].value;
 
       if (benchmarkSchoolIndex > -1) {
@@ -167,7 +167,7 @@
       }
     };
 
-    var restructureSchoolNames = function (id) {
+    var restructureSchoolNames = function restructureSchoolNames(id) {
       var texts = $("#" + id + " .c3-axis-x g.tick text tspan");
       texts.each(function () {
         var textParts = $(this).text().split("#");
@@ -205,10 +205,10 @@
       case "AbsoluteCount":
         yAxis = {
           tick: {
-            format: function (d) {
+            format: function format(d) {
               return window.DfE.Util.Charting.ChartIntegerFormat(d);
             },
-            values: function () {
+            values: function values() {
               return $(window).width() <= 640 ? [max] : [min, mid, max];
             },
             count: 3
@@ -224,7 +224,7 @@
           }
         };
 
-        yFormat = function (d) {
+        yFormat = function yFormat(d) {
           return window.DfE.Util.Charting.ChartDecimalFormat(d);
         };
 
@@ -233,10 +233,10 @@
       case "AbsoluteMoney":
         yAxis = {
           tick: {
-            format: function (d) {
+            format: function format(d) {
               return window.DfE.Util.Charting.ChartMoneyFormat(d);
             },
-            values: function () {
+            values: function values() {
               return $(window).width() <= 640 ? [max] : [min, mid, max];
             },
             count: 3
@@ -252,7 +252,7 @@
           }
         };
 
-        yFormat = function (d) {
+        yFormat = function yFormat(d) {
           return window.DfE.Util.Charting.ChartMoneyFormat(d);
         };
 
@@ -261,10 +261,10 @@
       case "PerPupil":
         yAxis = {
           tick: {
-            format: function (d) {
+            format: function format(d) {
               return window.DfE.Util.Charting.ChartMoneyFormat(d);
             },
-            values: function () {
+            values: function values() {
               return $(window).width() <= 640 ? [max] : [min, mid, max];
             },
             count: 3
@@ -280,7 +280,7 @@
           }
         };
 
-        yFormat = function (d) {
+        yFormat = function yFormat(d) {
           if (d === null) {
             return "No pupil data";
           } else {
@@ -293,10 +293,10 @@
       case "PerTeacher":
         yAxis = {
           tick: {
-            format: function (d) {
+            format: function format(d) {
               return window.DfE.Util.Charting.ChartMoneyFormat(d);
             },
-            values: function () {
+            values: function values() {
               return $(window).width() <= 640 ? [max] : [min, mid, max];
             },
             count: 3
@@ -312,7 +312,7 @@
           }
         };
 
-        yFormat = function (d) {
+        yFormat = function yFormat(d) {
           if (d === null) {
             return "No teacher data";
           } else {
@@ -326,10 +326,10 @@
       case "FTERatioToTotalFTE":
         yAxis = {
           tick: {
-            format: function (d) {
+            format: function format(d) {
               return window.DfE.Util.Charting.ChartPercentageFormat(d);
             },
-            values: function () {
+            values: function values() {
               return $(window).width() <= 640 ? [max] : [min, mid, max];
             },
             count: 3
@@ -346,7 +346,7 @@
           }
         };
 
-        yFormat = function (d) {
+        yFormat = function yFormat(d) {
           return window.DfE.Util.Charting.ChartPercentageFormat(d);
         };
 
@@ -356,10 +356,10 @@
       case "HeadcountPerFTE":
         yAxis = {
           tick: {
-            format: function (d) {
+            format: function format(d) {
               return window.DfE.Util.Charting.ChartDecimalFormat(d);
             },
-            values: function () {
+            values: function values() {
               return $(window).width() <= 640 ? [max] : [min, mid, max];
             },
             count: 3
@@ -375,7 +375,7 @@
           }
         };
 
-        yFormat = function (d) {
+        yFormat = function yFormat(d) {
           return window.DfE.Util.Charting.ChartDecimalFormat(d);
         };
 
@@ -420,7 +420,7 @@
         pattern: ['#097F96']
       },
       tooltip: {
-        contents: function (d, defaultTitleFormat) {
+        contents: function contents(d, defaultTitleFormat) {
           var nameAndUrn = defaultTitleFormat(d[0].index).split('#');
           var name = nameAndUrn[0];
           var chartData = JSON.parse($('#' + el.id).attr('data-chart'));
@@ -437,7 +437,7 @@
           return tableHtml;
         },
         show: $("#Type").val() !== "MAT",
-        position: function (data, width, height, element) {
+        position: function position(data, width, height, element) {
           return {
             top: 0,
             left: 0
@@ -447,7 +447,7 @@
       padding: {
         bottom: 10
       },
-      onrendered: function () {
+      onrendered: function onrendered() {
         applyChartStyles(el);
         restructureSchoolNames(el.id);
       }
@@ -457,7 +457,7 @@
   BenchmarkChartsViewModel.GenerateCharts = function (unitParameter) {
     var self = this;
 
-    var RoundedTickRange = function (min, max) {
+    var RoundedTickRange = function RoundedTickRange(min, max) {
       var range = max - min;
       var tickCount = 3;
       var unroundedTickSize = range / (tickCount - 1);
@@ -538,10 +538,10 @@
     $.ajax({
       url: url,
       datatype: 'json',
-      beforeSend: function () {
+      beforeSend: function beforeSend() {
         DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Updating charts");
       },
-      success: function (data) {
+      success: function success(data) {
         $("#benchmarkChartsList").html(data);
         self.RefreshAddRemoveLinks();
         $('.save-as-image').show();
@@ -614,13 +614,13 @@
       $.ajax({
         url: url,
         datatype: 'json',
-        beforeSend: function () {
+        beforeSend: function beforeSend() {
           $("#bestInClassTabSection").hide();
           $("#customTabSection").hide();
           $("#tabsSection").show();
           DfE.Util.LoadingMessage.display("#tabsSection", "Updating charts");
         },
-        success: function (data) {
+        success: function success(data) {
           $(".tabs li").removeClass("active");
           $(".tabs li a span.bmtab").text("");
           $(".tabs li#" + tab).addClass("active");
@@ -775,14 +775,14 @@ function PdfGenerator() {
   }
 
   return {
-    init: function () {
+    init: function init() {
       doc = new jsPDF({
         unit: 'px',
         format: 'a3'
       });
       offset = 60;
     },
-    writeHeadings: function () {
+    writeHeadings: function writeHeadings() {
       pdfWriteLine('H1', 'Schools Financial Benchmarking');
       pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
 
@@ -790,7 +790,7 @@ function PdfGenerator() {
         pdfWriteLine('H3', $('#comparing').get(0).innerText);
       }
     },
-    writeWarnings: function () {
+    writeWarnings: function writeWarnings() {
       var warnings = $('.panel.orange-warning');
 
       if (warnings.length > 0) {
@@ -799,7 +799,7 @@ function PdfGenerator() {
         });
       }
     },
-    writeTabs: function () {
+    writeTabs: function writeTabs() {
       offset += 30;
 
       if ($('.tabs li.active').length > 0) {
@@ -814,14 +814,14 @@ function PdfGenerator() {
         });
       }
     },
-    writeLastYearMessage: function () {
+    writeLastYearMessage: function writeLastYearMessage() {
       pdfAddHorizontalLine();
 
       if ($('.latest-year-message').length > 0) {
         pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
       }
     },
-    writeCharts: function () {
+    writeCharts: function writeCharts() {
       var charts = $('.chartContainer');
       var yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
       var chartPerPage = Math.ceil(12 / yValuesCount);
@@ -850,7 +850,7 @@ function PdfGenerator() {
         }
       });
     },
-    writeCriteria: function () {
+    writeCriteria: function writeCriteria() {
       return new Promise(function (resolve, reject) {
         if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible")) {
           pdfAddNewPage();
@@ -864,7 +864,7 @@ function PdfGenerator() {
         }
       });
     },
-    writeContextData: function () {
+    writeContextData: function writeContextData() {
       return new Promise(function (resolve, reject) {
         if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
           pdfAddNewPage();
@@ -878,7 +878,7 @@ function PdfGenerator() {
         }
       });
     },
-    save: function () {
+    save: function save() {
       pdfSave();
     }
   };

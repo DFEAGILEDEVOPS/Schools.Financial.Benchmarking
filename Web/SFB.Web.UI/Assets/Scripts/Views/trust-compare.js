@@ -1,5 +1,7 @@
 "use strict";
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 (function (GOVUK, Views) {
   'use strict';
 
@@ -16,16 +18,16 @@
   }
 
   TrustCompareViewModel.prototype = {
-    validateForm: function () {
+    validateForm: function validateForm() {
       $('#criteriaForm').validate({
-        errorPlacement: function (error, element) {
+        errorPlacement: function errorPlacement(error, element) {
           error.appendTo(element.closest(".question").find(".error-message"));
         },
-        highlight: function (element, errorClass, validClass) {
+        highlight: function highlight(element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
           $(element).closest(".panel").addClass("error");
         },
-        unhighlight: function (element, errorClass, validClass) {
+        unhighlight: function unhighlight(element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
 
           if ($(element).closest(".panel").find("input.error").length === 0) {
@@ -34,7 +36,7 @@
         }
       });
     },
-    bindCriteriaEvents: function () {
+    bindCriteriaEvents: function bindCriteriaEvents() {
       var self = this;
       $(questionCheckBoxSelector).change(function (event) {
         var $panel = $(this).parent().next(".panel");
@@ -96,7 +98,7 @@
         self.RemoveAllTrusts();
       });
     },
-    bindManualEvents: function () {
+    bindManualEvents: function bindManualEvents() {
       var self = this;
       self.bindAutosuggest('#NewTrustName', this.getTrustSuggestionHandler);
       $("input.criteria-input").keyup(function (e) {
@@ -138,7 +140,7 @@
         $("#manualButton").hide();
       });
     },
-    checkResultCount: function () {
+    checkResultCount: function checkResultCount() {
       var self = this;
       var count = $("#schoolCount").text().substring(0, $("#schoolCount").text().indexOf(' '));
 
@@ -148,7 +150,7 @@
         self.renderWarningModal(count);
       }
     },
-    renderWarningModal: function (resultCount) {
+    renderWarningModal: function renderWarningModal(resultCount) {
       var $body = $('body');
       var $page = $('#js-modal-page'); // insert code at the end
 
@@ -161,10 +163,10 @@
       $($modal_overlay).insertAfter($('#js-modal'));
       $('#js-modal-close').focus();
     },
-    clear: function () {
+    clear: function clear() {
       $(questionCheckBoxSelector + ":checked").click();
     },
-    updateResultCount: function () {
+    updateResultCount: function updateResultCount() {
       if (jqxhr) {
         jqxhr.abort();
       }
@@ -188,13 +190,13 @@
         $('.sticky-div').Stickyfill();
       });
     },
-    getTrustSuggestionHandler: function (keywords, callback) {
+    getTrustSuggestionHandler: function getTrustSuggestionHandler(keywords, callback) {
       var dataSuggestionUrl = $("#NewTrustName").attr("data-suggestion-url");
       return $.get(encodeURI(dataSuggestionUrl + '?name=' + keywords), function (response) {
         return callback(response.Matches);
       });
     },
-    bindAutosuggest: function (targetInputElementName, suggestionSource) {
+    bindAutosuggest: function bindAutosuggest(targetInputElementName, suggestionSource) {
       var self = this;
       var field = "Text";
       var value = "Id";
@@ -205,10 +207,10 @@
         // remote source
         minChars = 3;
 
-        source = function (query, syncResultsFn, asyncResultsFn) {
+        source = function source(query, syncResultsFn, asyncResultsFn) {
           return suggestionSource.call(self, query, asyncResultsFn);
         };
-      } else if (typeof suggestionSource === "object") {
+      } else if (_typeof(suggestionSource) === "object") {
         // local data source
         if (!suggestionSource.data) {
           console.log("suggestionSource.data is null");
@@ -230,7 +232,7 @@
         field = suggestionSource.name;
         value = suggestionSource.value;
         source = new Bloodhound({
-          datumTokenizer: function (d) {
+          datumTokenizer: function datumTokenizer(d) {
             return Bloodhound.tokenizers.whitespace(d[field]);
           },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -242,7 +244,7 @@
         return;
       }
 
-      var templateHandler = function (suggestion) {
+      var templateHandler = function templateHandler(suggestion) {
         return '<div><a href="javascript:">' + suggestion[field] + '</a></div>';
       };
 
@@ -273,21 +275,21 @@
         });
       });
     },
-    RemoveTrust: function (matNo) {
+    RemoveTrust: function RemoveTrust(matNo) {
       var self = this;
       $.get("trustcomparison/RemoveTrust?matNo=" + matNo, function (data) {
         $("#TrustsToCompare").html(data);
         self.bindManualEvents();
       });
     },
-    RemoveAllTrusts: function () {
+    RemoveAllTrusts: function RemoveAllTrusts() {
       var self = this;
       $.get("trustcomparison/RemoveAllTrusts", function (data) {
         $("#TrustsToCompare").html(data);
         self.bindManualEvents();
       });
     },
-    DisplayNewTrustElements: function () {
+    DisplayNewTrustElements: function DisplayNewTrustElements() {
       $("#NewTrust").show();
       $("#NewTrustName").focus();
       $("#AddButton").hide();

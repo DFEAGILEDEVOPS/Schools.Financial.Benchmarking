@@ -54,7 +54,7 @@
 
 <h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
 
-@if (Model.SchoolComparisonList !=null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
+@if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
 {
     <div class="panel panel-border-wide orange-warning">
         <p>
@@ -97,15 +97,15 @@ else
                         </summary>
                         <div class="panel panel-border-narrow criteria-detail">
                             @if (Model.ComparisonType == ComparisonType.Advanced)
-                        {
-                            Html.RenderPartial("Partials/AdvancedHiddenFields");
-                            Html.RenderPartial("Partials/UsedAdvancedCriteria");
-                        }
-                        else if (Model.ComparisonType == ComparisonType.Basic)
-                        {
-                            Html.RenderPartial("Partials/BasicHiddenFields");
-                            Html.RenderPartial("Partials/UsedBasicCriteria");
-                        }
+                            {
+                                Html.RenderPartial("Partials/AdvancedHiddenFields");
+                                Html.RenderPartial("Partials/UsedAdvancedCriteria");
+                            }
+                            else if (Model.ComparisonType == ComparisonType.Basic)
+                            {
+                                Html.RenderPartial("Partials/BasicHiddenFields");
+                                Html.RenderPartial("Partials/UsedBasicCriteria");
+                            }
                         </div>
                     </details>
                 </div>
@@ -152,11 +152,11 @@ else
                     <a id="PrintLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()" href="javascript:void(0);">
                         <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
                     </a>
+                </div>
             </div>
-        </div>
-        <div class="column-one-third">
-            <div class="pdf">
-                <a id="PdfLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()" href="javascript:void(0);"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></a>
+            <div class="column-one-third">
+                <div class="pdf">
+                    <a id="PdfLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()" href="javascript:void(0);"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></a>
                 </div>
             </div>
         </div>
@@ -237,21 +237,22 @@ else
                                                 <th scope="col">School name</th>
                                                 <th scope="col">Local authority</th>
                                                 <th class="numeric" scope="col">Number of pupils</th>
-                                                <th class="numeric" scope="col">Efficiency metric ranking</th>                                               
+                                                <th class="numeric" scope="col">Efficiency metric ranking</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools)
                                             {
                                                 <tr>
-                                                    <td scope="col" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "bold":"")">@bmSchool.Name
-                                                        @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
-                                                    </td>
-                                                    <td scope="col">@bmSchool.LaName</td>
-                                                    <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
-                                                    <td class="numeric" scope="col">@bmSchool.EmRank</td>                                  
-                                                </tr>
-                                            }
+                                                    <td scope="col" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "bold":"")">
+                                                        @bmSchool.Name
+                                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                                </td>
+                                                <td scope="col">@bmSchool.LaName</td>
+                                                <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
+                                                <td class="numeric" scope="col">@bmSchool.EmRank</td>
+                                            </tr>
+                                        }
                                         </tbody>
                                     </table>
                                 </div>
@@ -275,7 +276,7 @@ else
 
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
         <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />
-        <input type = "hidden" id = "HomeSchoolName" name = "HomeSchoolName" value = "@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
+        <input type="hidden" id="HomeSchoolName" name="HomeSchoolName" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
     }
 }
 
@@ -292,7 +293,8 @@ else
 
 @section ViewScripts {
 
-
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
     <script src="~/node_modules/lodash/lodash.min.js"></script>
     <script src="~/public/scripts/jquery-tablesorter/jquery.tablesorter.uk.currency.js"></script>
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/saveSvgAsPng.js"></script>

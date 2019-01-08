@@ -15,16 +15,16 @@
   }
 
   AdvancedCharacteristicsViewModel.prototype = {
-    validateForm: function () {
+    validateForm: function validateForm() {
       $('#criteriaForm').validate({
-        errorPlacement: function (error, element) {
+        errorPlacement: function errorPlacement(error, element) {
           error.appendTo(element.closest(".question").find(".error-message"));
         },
-        highlight: function (element, errorClass, validClass) {
+        highlight: function highlight(element, errorClass, validClass) {
           $(element).addClass(errorClass).removeClass(validClass);
           $(element).closest(".panel").addClass("error");
         },
-        unhighlight: function (element, errorClass, validClass) {
+        unhighlight: function unhighlight(element, errorClass, validClass) {
           $(element).removeClass(errorClass).addClass(validClass);
 
           if ($(element).closest(".panel").find("input.error").length === 0) {
@@ -33,7 +33,7 @@
         }
       });
     },
-    updateResultCount: function () {
+    updateResultCount: function updateResultCount() {
       if (jqxhr) {
         jqxhr.abort();
       }
@@ -59,7 +59,7 @@
         $('.sticky-div').Stickyfill();
       });
     },
-    updateCounter: function (element) {
+    updateCounter: function updateCounter(element) {
       var $counterElement = $(element).parents(".accordion-section").find(".selection-counter");
       var count = $counterElement.text();
 
@@ -69,14 +69,14 @@
         $counterElement.text(--count);
       }
     },
-    updateAllCounters: function () {
+    updateAllCounters: function updateAllCounters() {
       var $counterElements = $(".accordion-section-header .selection-counter");
       $counterElements.each(function () {
         var count = $(this).parents(".accordion-section").find("div.multiple-choice.question input:checked").length;
         $(this).text(count);
       });
     },
-    checkResultCount: function () {
+    checkResultCount: function checkResultCount() {
       var self = this;
       var count = $("#schoolCount").text().substring(0, $("#schoolCount").text().indexOf(' '));
 
@@ -86,10 +86,10 @@
         self.renderWarningModal(count);
       }
     },
-    clear: function () {
+    clear: function clear() {
       $(questionCheckBoxSelector + ":checked").click();
     },
-    renderWarningModal: function (resultCount) {
+    renderWarningModal: function renderWarningModal(resultCount) {
       var $body = $('body');
       var $page = $('#js-modal-page'); // insert code at the end
 
@@ -102,7 +102,7 @@
       $($modal_overlay).insertAfter($('#js-modal'));
       $('#js-modal-close').focus();
     },
-    bindEvents: function () {
+    bindEvents: function bindEvents() {
       var self = this;
       $(questionCheckBoxSelector).change(function (event) {
         var $panel = $(this).parent().next();

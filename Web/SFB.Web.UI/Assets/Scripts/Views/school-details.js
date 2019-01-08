@@ -9,7 +9,7 @@
   }
 
   SchoolDetailsViewModel.prototype = {
-    initControls: function (modelId, chartFormat, unitType) {
+    initControls: function initControls(modelId, chartFormat, unitType) {
       $.get("/school/GetBenchmarkBasket", function (data) {
         $("#benchmarkBasket").replaceWith(data);
       });
@@ -26,7 +26,7 @@
       DfE.Views.HistoricalCharts.GenerateCharts(unitType);
       new Accordion(document.getElementById('historical-charts-accordion'));
     },
-    initMaps: function (modelLat, modelLng, modelHasCoordinates, mapApiKey) {
+    initMaps: function initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey) {
       var school = {
         lat: modelLat,
         lng: modelLng,

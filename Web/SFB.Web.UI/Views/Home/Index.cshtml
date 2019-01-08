@@ -129,8 +129,12 @@
 </div>
 
 @section ViewScripts {
+
+    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script>
+    <script src="https://atlas.microsoft.com/sdk/js/atlas-service.js?api-version=1"></script>
     <script>
-        var localAuthorities = @Html.Raw(Model.Authorities);
-        DfE.Views.SchoolsSearchViewModel.Load(localAuthorities, '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');
+    var localAuthorities = @Html.Raw(Model.Authorities);
+    DfE.Views.SchoolsSearchViewModel.Load(localAuthorities, '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');
     </script>
 }

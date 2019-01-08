@@ -9,11 +9,11 @@
     $.ajax({
       url: "/benchmarklist/UpdateBenchmarkBasket?urn=" + urn + "&withAction=" + withAction,
       datatype: 'json',
-      beforeSend: function () {
+      beforeSend: function beforeSend() {
         $("#benchmarkBasketLoadingPlaceHolder").show();
         DfE.Util.LoadingMessage.display("#benchmarkBasketLoadingPlaceHolder", "Updating benchmark basket");
       },
-      success: function (data) {
+      success: function success(data) {
         $("#benchmarkBasketLoadingPlaceHolder").hide();
 
         switch (withAction) {

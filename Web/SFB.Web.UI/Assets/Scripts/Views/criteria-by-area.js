@@ -1,5 +1,7 @@
 "use strict";
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 (function (GOVUK, Views) {
   "use strict";
 
@@ -9,7 +11,7 @@
   }
 
   CriteriaByAreaViewModel.prototype = {
-    bindEvents: function () {
+    bindEvents: function bindEvents() {
       GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
       this.bindAutosuggest("#FindSchoolByLaName", "#SelectedLocalAuthorityId", {
         data: this.localAuthorities,
@@ -17,10 +19,10 @@
         value: "id"
       });
     },
-    accordionChangeHandler: function () {
+    accordionChangeHandler: function accordionChangeHandler() {
       $(".error-summary").hide();
     },
-    bindAutosuggest: function (targetInputElementName, targetResolvedInputElementName, suggestionSource) {
+    bindAutosuggest: function bindAutosuggest(targetInputElementName, targetResolvedInputElementName, suggestionSource) {
       var field = "Text";
       var value = "Id";
       var source = null;
@@ -30,10 +32,10 @@
         // remote source
         minChars = 3;
 
-        source = function (query, syncResultsFn, asyncResultsFn) {
+        source = function source(query, syncResultsFn, asyncResultsFn) {
           return suggestionSource.call(self, query, asyncResultsFn);
         };
-      } else if (typeof suggestionSource === "object") {
+      } else if (_typeof(suggestionSource) === "object") {
         // local data source
         if (!suggestionSource.data) {
           console.log("suggestionSource.data is null");
@@ -55,7 +57,7 @@
         field = suggestionSource.name;
         value = suggestionSource.value;
         source = new Bloodhound({
-          datumTokenizer: function (d) {
+          datumTokenizer: function datumTokenizer(d) {
             return Bloodhound.tokenizers.whitespace(d[field]);
           },
           queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -67,7 +69,7 @@
         return;
       }
 
-      var templateHandler = function (suggestion) {
+      var templateHandler = function templateHandler(suggestion) {
         return '<div><a href="javascript:">' + suggestion[field] + "</a></div>";
       };
 
