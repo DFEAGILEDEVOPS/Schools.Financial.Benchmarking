@@ -53,7 +53,7 @@ namespace SFB.Web.UI.Helpers
 
         private string RetrieveParameter(string key, dynamic parameters)
         {
-            var value = parameters[key];
+            var value = parameters?[key];
             if (value == null)
             {
                 return string.Empty;
@@ -88,7 +88,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "Religious character"
             };
 
-            var filterSelected = (queryParams[queryParamForReligiousCharacter] != null);
+            var filterSelected = (queryParams?[queryParamForReligiousCharacter] != null);
 
             var religiousCharacterFacets = facets["ReligiousCharacter"];
 
@@ -134,7 +134,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "School type"
             };
 
-            var filterSelected = (queryParams[queryParamForSchoolType] != null);
+            var filterSelected = (queryParams?[queryParamForSchoolType] != null);
 
             var schoolTypeFacets = facets["TypeOfEstablishment"];
 
@@ -166,7 +166,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "Education phase"
             };
 
-            var filterSelected = (queryParams[queryParamForSchoolLevel] != null);
+            var filterSelected = (queryParams?[queryParamForSchoolLevel] != null);
 
             var schoolLevelFacets = facets["OverallPhase"];
 
@@ -198,7 +198,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "Pupil gender"
             };
 
-            var filterSelected = (queryParams[queryParamForSchoolLevel] != null);
+            var filterSelected = (queryParams?[queryParamForSchoolLevel] != null);
 
             var schoolLevelFacets = facets["Gender"];
 
@@ -230,7 +230,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "Ofsted rating"
             };
 
-            var filterSelected = (queryParams[queryParamForOfstedRating] != null);
+            var filterSelected = (queryParams?[queryParamForOfstedRating] != null);
 
             var ofstedRatingFacets = facets["OfstedRating"];
             var ofstedRatingFacetsOrdered = ((FacetResult[]) ofstedRatingFacets).ToList().OrderBy(o => o.Value);

@@ -14,6 +14,8 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Services;
 using System;
 using SFB.Web.UI.Helpers.Enums;
+using SFB.Web.Domain.Models;
+using RedDog.Search.Model;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -373,30 +375,47 @@ namespace SFB.Web.UI.Controllers
             int page,
             int take = SearchDefaults.RESULTS_PER_PAGE)
         {
-            dynamic response = null;
+            QueryResultsModel response = null;
 
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_NAME_ID:
                     response = await _schoolSearchService.SearchSchoolByName(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby, 
-                        Request.QueryString);
+                        Request.QueryString) as QueryResultsModel;
                     break;
                 case SearchTypes.SEARCH_BY_LOCATION:
                         var latLng = locationCoordinates.Split(',');
                         response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
                             (radius ?? SearchDefaults.LOCATION_SEARCH_DISTANCE) * 1.6m,
                             (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                            Request.QueryString);
+                            Request.QueryString) as QueryResultsModel;
                     break;
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
                         string.IsNullOrEmpty(orderby) ? "EstablishmentName" : orderby,
-                        Request.QueryString);
+                        Request.QueryString) as QueryResultsModel;
                     break;
             }
+
+            OrderFacetFilters(response);
+
             return response;
+        }
+
+        private void OrderFacetFilters(QueryResultsModel results)
+        {
+            if (results.Facets != null)
+            {
+                var orderedFacetFilters = new Dictionary<string, FacetResult[]>();
+                foreach (var facet in results.Facets)
+                {
+                    orderedFacetFilters.Add(facet.Key, facet.Value.OrderBy(fr => fr.Value).ToArray());
+                }
+
+                results.Facets = orderedFacetFilters;
+            }
         }
 
         private string DetermineSelectionState(Models.Filter[] filters)

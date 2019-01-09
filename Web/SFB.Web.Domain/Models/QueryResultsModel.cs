@@ -1,11 +1,12 @@
-﻿using System;
+﻿using RedDog.Search.Model;
+using System;
 using System.Collections.Generic;
 
 namespace SFB.Web.Domain.Models
 {
     public class QueryResultsModel
     {
-        public QueryResultsModel(int numberOfResults, dynamic facets, IEnumerable<IDictionary<string, object>> results,
+        public QueryResultsModel(int numberOfResults, Dictionary<string, FacetResult[]> facets, IEnumerable<IDictionary<string, object>> results,
             int taken,
             int skipped)
         {
@@ -21,7 +22,7 @@ namespace SFB.Web.Domain.Models
         public IEnumerable<IDictionary<string, object>> Results { get; set; }
         public int Taken { get; private set; }
         public int Skipped { get; private set; }
-        public dynamic Facets { get; set; }
+        public Dictionary<string, FacetResult[]> Facets { get; set; }
         public string QueryLat { get; set; }
         public string QueryLong { get; set; }
         public bool Disambiguate { get; set; }
