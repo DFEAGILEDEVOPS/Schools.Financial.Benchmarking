@@ -9,8 +9,19 @@
 }
 
 @section BackButtonContent{
-    
+
     @Html.Partial("Partials/BackToHomeLink")
+}
+
+@section InsideHead{
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 }
 
 @using SFB.Web.Common
@@ -59,7 +70,7 @@
                     <text>var loc = { lat: @(ViewBag.QueryLat ?? "null"), lng: @(ViewBag.QueryLong ?? "null") };</text>
                 }
 
-        DfE.Views.SchoolsResultsViewModel.Load(loc, "@(ViewBag.tab)");
+        DfE.Views.SchoolsResultsViewModel.Load(loc, "@(ViewBag.tab)", '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
 
         $(function () {
             if ($(window).width() <= 640)

@@ -4,8 +4,7 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "build-es6": "babel Assets\\Scripts\\ViewsES6 -d Assets\\Scripts\\Views",
-    "init-assets": "grunt compile-dev-assets"
+    "init-assets": "babel Assets\\Scripts\\ViewsES6 -d Assets\\Scripts\\Views && grunt compile-dev-assets"
   },
   "author": "",
   "license": "ISC",
@@ -39,5 +38,10 @@
     "leaflet": "^1.4.0",
     "leaflet.markercluster": "^1.4.1",
     "lodash": "^4.17.4"
+  },
+  "-vs-binding": {
+    "AfterBuild": [
+      "build-es6"
+    ]
   }
 }

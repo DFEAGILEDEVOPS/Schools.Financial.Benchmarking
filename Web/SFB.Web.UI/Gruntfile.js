@@ -1,4 +1,4 @@
-/// <binding AfterBuild='compile-dev-assets' />
+/// <binding />
 /// <vs BeforeBuild='compile-dev-assets' />
 module.exports = function (grunt) {
     var pathUtil = require("path");

@@ -306,6 +306,7 @@
     <Content Include="Assets\Scripts\Elements\Forms\live-search.js" />
     <Content Include="Assets\Scripts\Elements\Forms\option-select.js" />
     <Content Include="Assets\Scripts\Elements\Modal\modal.js" />
+    <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-results-map.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-map.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\google-school-map.js" />
     <Content Include="Assets\Scripts\ViewsES6\advanced-characteristics.js" />
