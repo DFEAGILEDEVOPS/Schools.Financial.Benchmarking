@@ -48,7 +48,8 @@
                     }
                 },
                 scrollWheel: false,
-                mapApiKey: mapApiKey
+                mapApiKey: mapApiKey,
+                fullScreen: true 
             };
 
             setTimeout(function () {

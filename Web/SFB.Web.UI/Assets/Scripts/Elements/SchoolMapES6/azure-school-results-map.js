@@ -15,6 +15,7 @@
             throw new ReferenceError("options.primaryMarker is not present.");
         this.primaryMarker = options.primaryMarker;
         this.defaultZoom = 6;
+        this.fullScreen = options.fullScreen;
         this.topLayer = null;
         this.initialize();
     }
@@ -45,6 +46,10 @@
             this.azureMap.addControl(L.control.attribution({
                 prefix: ''
             }));
+
+            if (this.fullScreen) {
+                this.azureMap.addControl(new L.Control.Fullscreen());
+            }
 
             L.tileLayer(
                 'https://atlas.microsoft.com/map/tile/png?api-version=1&layer=basic&style=main&zoom={z}&x={x}&y={y}&subscription-key='+this.mapApiKey,

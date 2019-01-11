@@ -123,7 +123,8 @@
                             }
                         }
                     },
-                    mapApiKey: mapApiKey
+                    mapApiKey: mapApiKey,
+                    fullScreen : true
                 };
 
                 this.map = new GOVUK.AzureSchoolLocationsMap(options);

@@ -16,6 +16,7 @@
         this.primaryMarker = options.primaryMarker;
         this.hasMap = options.hasMap;
         this.defaultZoom = 14;
+        this.fullScreen = options.fullScreen;
         this.initialize();
     }
 
@@ -48,6 +49,10 @@
             this.azureMap.addControl(L.control.attribution({
                 prefix: ''
             }));
+
+            if (this.fullScreen) {
+                this.azureMap.addControl(new L.Control.Fullscreen());
+            }
 
             L.tileLayer(
                 'https://atlas.microsoft.com/map/tile/png?api-version=1&layer=basic&style=main&zoom={z}&x={x}&y={y}&subscription-key=' + this.mapApiKey,
