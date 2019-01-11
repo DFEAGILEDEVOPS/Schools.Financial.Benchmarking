@@ -55,22 +55,11 @@
 <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
 @section ViewScripts{
-    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])"></script>
-    <script src="~/node_modules/js-marker-clusterer/src/markerclusterer_compiled.js"></script>
     <script src="~/node_modules/lodash/lodash.min.js"></script>
     <script>
         GOVUK.Modal.Load();
 
-        @if (string.IsNullOrWhiteSpace(ViewBag.QueryLat))
-{
-                    <text>var loc = null;</text>
-                }
-                else
-                {
-                    <text>var loc = { lat: @(ViewBag.QueryLat ?? "null"), lng: @(ViewBag.QueryLong ?? "null") };</text>
-                }
-
-        DfE.Views.SchoolsResultsViewModel.Load(loc, "@(ViewBag.tab)", '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+        DfE.Views.SchoolsResultsViewModel.Load('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
 
         $(function () {
             if ($(window).width() <= 640)

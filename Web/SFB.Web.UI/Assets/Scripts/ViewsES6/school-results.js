@@ -1,15 +1,14 @@
 ﻿(function (GOVUK, Views) {
     'use strict';
 
-    function SchoolsResultsViewModel(location, activeTab, mapApiKey) {
+    function SchoolsResultsViewModel(activeTab, mapApiKey) {
         this.cache = {};
         this.bindEvents();
-        this.location = location;
+        this.location;
         this.currentTabName = activeTab;
         this.mapApiKey = mapApiKey;
 
         if (activeTab === "map") {            
-            //this.bindMap();
             this.bindAzureMap(this.mapApiKey);
             this.liveSearch.disabled = true;
         }
@@ -29,7 +28,7 @@
                 $atomAutodiscoveryLink: $atomAutodiscoveryLink,
                 onRefresh: this.onRefresh.bind(this),
                 onDisplayResults: this.onDisplayResults.bind(this),
-                resultsViewModel: this // really, this component and LiveSearch should be merged together
+                resultsViewModel: this 
             });
 
             window.addEventListener("load", this.load.bind(this));
@@ -92,18 +91,13 @@
                 $("nav.navigation-links .olist .litem." + tabName + ", div.tabs>div." + tabName).addClass("active");
                 $("nav.navigation-links .olist .litem.active a").focus();
                 this.currentTabName = tabName;
-               // this.bindMap();
                 this.bindAzureMap(this.mapApiKey);
-                this.liveSearch.disabled = (tabName == "map");
-                if (tabName == "list") {
+                this.liveSearch.disabled = (tabName === "map");
+                if (tabName === "list") {
                     this.liveSearch.updateResults.bind(this.liveSearch).call(null);
                 }
                 this.liveSearch.tabChange(suppressAddHistory);
-                if (tabName == "map" && this.count > 1000) {
-                    $(".map-view-qualifier").show();
-                } else {
-                    $(".map-view-qualifier").hide();
-                }
+
                 SchoolsResultsViewModel.AddAllVisibility();
             }
         },
@@ -114,63 +108,10 @@
             this.mapLoaded = false;
             this.initTabs();
         },
-        bindMap: function () {
-            if (!this.mapLoaded && this.currentTabName === "map") {
-                var zoomLevel = 12;
-                if (this.location == null) {
-                    this.location = { lat: 52.636, lng: -1.139 }; // no location specified, so use central England.
-                    zoomLevel = 6;
-                }
-
-                this.centrePoint = new google.maps.LatLng(this.location.lat, this.location.lng);
-                this.map = new google.maps.Map(document.getElementById("gmap"),
-                    {
-                        center: this.centrePoint,
-                        zoom: zoomLevel,
-                        streetViewControl: false,
-                        scrollwheel: false,
-                        disableDefaultUI: true,
-                        mapTypeControl: true,
-                        mapTypeControlOptions: {
-                            position: google.maps.ControlPosition.TOP_RIGHT
-                        },
-                        fullscreenControl: true,
-                        fullscreenControlOptions: {
-                            position: google.maps.ControlPosition.RIGHT_BOTTOM
-                        },
-                        zoomControl: true,
-                        zoomControlOptions: {
-                            position: google.maps.ControlPosition.TOP_LEFT
-                        }
-                    });
-                setTimeout(function () {
-                    $(".gm-style").children().first().attr("aria-label", "A google map of the school locations");
-                },
-                    1500);
-                this.mapLoaded = true;
-                this.map.addListener("click", function () {
-                    if (this.infoWindow) this.infoWindow.close();
-                    if (this.activeMarker) this.activeMarker.setIcon(this.iconBlack);
-                    this.activeMarker = null;
-                }.bind(this));
-            }
-
-            if (this.currentTabName == "map") {
-                this.getMapData(this.liveSearch.$form.serialize());
-            }
-
-            if (!this.iconBlack) {
-                this.iconBlack = { url: "/public/assets/images/icons/icon-location.png", scaledSize: new google.maps.Size(20, 32) };
-                this.iconPink = { url: "/public/assets/images/icons/icon-location-pink.png", scaledSize: new google.maps.Size(20, 32) };
-            }
-        },
         bindAzureMap: function (mapApiKey) {
-            this.mapLoaded = false;//remove
             if (!this.mapLoaded && this.currentTabName === "map") {
-
-                if (this.location === null) {
-                    this.location = { lat: 52.636, lng: -1.139 }; // no location specified, so use central England.                    
-                }
+                                
+                this.location = { lat: 52.636, lng: -1.139 }; // no location specified, so use central England.                                    
 
                 var options = {
                     elementId: "azuremap",
@@ -182,15 +123,10 @@
                             }
                         }
                     },
-                    scrollWheel: false,
                     mapApiKey: mapApiKey
                 };
 
                 this.map = new GOVUK.AzureSchoolLocationsMap(options);
-
-                setTimeout(function () {
-                    $(".gm-style").children().first().attr("aria-label", "An Azure map of the school locations");
-                }, 1500);
 
                 this.mapLoaded = true;
             }
@@ -198,19 +134,15 @@
             if (this.currentTabName === "map") {
                 this.getMapData(this.liveSearch.$form.serialize());
             }
-
-            if (!this.iconBlack) {
-                this.iconBlack = { url: "/public/assets/images/icons/icon-location.png", scaledSize: new google.maps.Size(20, 32) };
-                this.iconPink = { url: "/public/assets/images/icons/icon-location-pink.png", scaledSize: new google.maps.Size(20, 32) };
-            }
         },
         getMapData: function (serialisedState) {
-            if (this.currentTabName !== "map") return;
+             if (this.currentTabName !== "map")
+                return;
 
-            //if (this.cache[serialisedState]) this.renderMapPins(this.cache[serialisedState], serialisedState);
             if (this.cache[serialisedState])
             {
-                this.renderMapPinsForAzureMap(this.cache[serialisedState], serialisedState);
+                this.updateLiveCount(this.cache[serialisedState].count);
+                this.map.renderMapPinsForAzureMap(this.cache[serialisedState]);
             }
             else {
                 var self = this;
@@ -219,25 +151,15 @@
                     data: serialisedState
                 }).done(function (response) {
                     self.cache[serialisedState] = response;
-                    //self.renderMapPins(response);
-                    self.renderMapPinsForAzureMap(response);
+                    self.updateLiveCount(response.count);
+                    self.map.renderMapPinsForAzureMap(response);
                 }).error(function (error) {
                     console.log("Error loading map pins: " + error);
                 });
             }
         },
-        renderMapPins: function (response) {
-            var self = this;
-            var data = response.results;
-            var count = response.count;
-            self.count = count;
-            this.rawMapData = data;
-            this.infoWindow = new google.maps.InfoWindow();
-            this.infoWindow.addListener("closeclick", function () {
-                if (self.activeMarker) self.activeMarker.setIcon(self.iconBlack);
-                self.activeMarker = null;
-            });
 
+        updateLiveCount: function (count) {
             $("span.result-count").html(count);
             $("span.screen-reader-result-count").html("Filtering results");
             setTimeout(function () {
@@ -246,212 +168,8 @@
 
             this.liveSearch.getSummaryBlock().css("visibility", "visible");
             this.liveSearch.getSummaryContainerBlock().find("p.msg").remove();
+        }      
 
-            if (this.markerCluster) this.markerCluster.clearMarkers();
-
-            var markers = [];
-            var coords = [];
-            var hashtable = {};
-            var genKey = function (lat, lng) { return lat + "#" + lng; };
-
-            for (var i = 0; i < data.length; i++) {
-
-                // This is where we scatter any pins that have the exact same co-ordinates
-                var adjustment = 0.00005; // put the school pin about 6 metres away from it's equivalent.
-                var lat = new Number(data[i].Latitude), lng = new Number(data[i].Longitude);
-                var key = genKey(lat, lng);
-                if (!hashtable[key]) hashtable[key] = key;
-                else {
-                    lng += adjustment;
-                    key = genKey(lat, lng);
-                    hashtable[key] = key;
-                }
-
-                var latLng = new google.maps.LatLng(lat, lng);
-                var marker = new google.maps.Marker({ position: latLng, icon: this.iconBlack });
-
-                markers.push(marker);
-                coords.push(latLng);
-
-                window.google.maps.event.addListener(marker, "click", (function (m, info, infoWindow) {
-                    return function (evt) {
-                        var html = "<div class=\"infowindow-school-summary\">";
-                        html += "<a href=\"/school/detail?urn=" + info.Id + "\">" + info.Name + "</a>";
-                        html += "<p>" + info.Address + "</p>";
-                        html += "<p>" + info.EducationPhases + "</p>";
-                        html += "<p>" + info.NFType + "</p>";
-                        html += "<div id=\"" + info.Id + "\" data-urn=\"" + info.Id + "\">";
-                        if (DfE.Util.ComparisonList.isInList(info.Id)) {
-                            html += "<div class=\"button add add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Add')\">Add</div>";
-                            html += "<div class=\"button remove add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Remove')\">Remove</div>";
-                        } else {
-                            html += "<div class=\"button add add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Add')\">Add</div>";
-                            html += "<div class=\"button remove add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Remove')\">Remove</div>";
-                        }
-                        html += "</div></div>";
-                        infoWindow.setContent(html);
-                        infoWindow.open(this.map, m);
-                        m.setIcon(self.iconPink);
-                        if (self.activeMarker) self.activeMarker.setIcon(self.iconBlack);
-                        self.activeMarker = m;
-                    }
-                })(marker, data[i], this.infoWindow));
-
-                window.google.maps.event.addListener(marker, "mouseover", (function (m) {
-                    return function (evt) {
-                        if (!self.activeMarker) m.setIcon(self.iconPink);
-                    }
-                })(marker));
-
-                window.google.maps.event.addListener(marker, "mouseout", (function (m) {
-                    return function (evt) {
-                        if (!self.activeMarker) m.setIcon(self.iconBlack);
-                    }
-                })(marker));
-            }
-
-            this.markerCluster = new MarkerClusterer(this.map, markers, { imagePath: "/public/js-marker-clusterer/images/m", minimumClusterSize: 5 });
-
-            var bounds = new google.maps.LatLngBounds();
-            for (var i = 0; i < coords.length; i++) bounds.extend(coords[i]);
-            if (coords.length > 0) {
-                this.map.fitBounds(bounds);
-            } else {
-                this.map.setCenter(this.centrePoint);
-                this.map.setZoom(7);
-            }
-
-            if (self.count > 1000) $(".map-view-qualifier").show();
-            else $(".map-view-qualifier").hide();
-        },
-
-        renderMapPinsForAzureMap: function (response) {
-            var self = this;
-            var data = response.results;
-            var count = response.count;
-            self.count = count;
-            this.rawMapData = data;
-            //this.infoWindow = new google.maps.InfoWindow();
-            //this.infoWindow.addListener("closeclick", function () {
-            //    if (self.activeMarker) self.activeMarker.setIcon(self.iconBlack);
-            //    self.activeMarker = null;
-            //});
-
-            $("span.result-count").html(count);
-            $("span.screen-reader-result-count").html("Filtering results");
-            setTimeout(function () {
-                $("span.screen-reader-result-count").html(count + " schools found");
-            }, 1000);
-
-            this.liveSearch.getSummaryBlock().css("visibility", "visible");
-            this.liveSearch.getSummaryContainerBlock().find("p.msg").remove();
-
-            //if (this.markerCluster) this.markerCluster.clearMarkers();
-
-            var hashtable = {};
-            var genKey = function (lat, lng) { return lat + "#" + lng; };
-
-            var latLangs = [];
-            var markers = L.markerClusterGroup();
-            for (var i = 0; i < data.length; i++) {
-
-                // This is where we scatter any pins that have the exact same co-ordinates
-                var adjustment = 0.00005; // put the school pin about 6 metres away from it's equivalent.
-                var lat = new Number(data[i].Latitude);
-                var lng = new Number(data[i].Longitude);
-                var key = genKey(lat, lng);
-                if (!hashtable[key]) {
-                    hashtable[key] = key;
-                }
-                else {
-                    lng += adjustment;
-                    key = genKey(lat, lng);
-                    hashtable[key] = key;
-                }
-
-                //var latLng = new google.maps.LatLng(lat, lng);
-                //var marker = new google.maps.Marker({ position: latLng, icon: this.iconBlack });
-                var marker = L.marker([data[i].Latitude, data[i].Longitude]);
-                markers.addLayer(marker);
-                latLangs.push([data[i].Latitude, data[i].Longitude]);
-                //markers.push(marker);
-                //coords.push(latLng);
-
-                //gmaps
-                //window.google.maps.event.addListener(marker, "click", (function (m, info, infoWindow) {
-                //    return function (evt) {
-                //        var html = "<div class=\"infowindow-school-summary\">";
-                //        html += "<a href=\"/school/detail?urn=" + info.Id + "\">" + info.Name + "</a>";
-                //        html += "<p>" + info.Address + "</p>";
-                //        html += "<p>" + info.EducationPhases + "</p>";
-                //        html += "<p>" + info.NFType + "</p>";
-                //        html += "<div id=\"" + info.Id + "\" data-urn=\"" + info.Id + "\">";
-                //        if (DfE.Util.ComparisonList.isInList(info.Id)) {
-                //            html += "<div class=\"button add add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Add')\">Add</div>";
-                //            html += "<div class=\"button remove add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Remove')\">Remove</div>";
-                //        } else {
-                //            html += "<div class=\"button add add-remove\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Add')\">Add</div>";
-                //            html += "<div class=\"button remove add-remove\"" + "style=\"display: none\"" + "onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(" + info.Id + ",'Remove')\">Remove</div>";
-                //        }
-                //        html += "</div></div>";
-                //        infoWindow.setContent(html);
-                //        infoWindow.open(this.map, m);
-                //        m.setIcon(self.iconPink);
-                //        if (self.activeMarker) self.activeMarker.setIcon(self.iconBlack);
-                //        self.activeMarker = m;
-                //    }
-                //})(marker, data[i], this.infoWindow));
-
-                //azure maps
-                var info = data[i];
-                var html = `<div class="infowindow-school-summary">
-                    <a href="/school/detail?urn=${info.Id}">${info.Name}</a>
-                    <p>${info.Address}</p>
-                    <p>${info.EducationPhases}</p>
-                    <p>${info.NFType}</p>
-                    <div id="${info.Id}" data-urn="${info.Id}">`;
-                if (DfE.Util.ComparisonList.isInList(info.Id)) {
-                    html += `<div class="button add add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('${info.Id}','Add')">Add</div>
-                        <div class="button remove add-remove" onclick="DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
-                } else {
-                    html += `<div class="button add add-remove" onclick="DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('${info.Id}','Add')">Add</div>
-                        <div class="button remove add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
-                }
-                marker.bindPopup(html);
-
-                //window.google.maps.event.addListener(marker, "mouseover", (function (m) {
-                //    return function (evt) {
-                //        if (!self.activeMarker) m.setIcon(self.iconPink);
-                //    }
-                //})(marker));
-
-                //window.google.maps.event.addListener(marker, "mouseout", (function (m) {
-                //    return function (evt) {
-                //        if (!self.activeMarker) m.setIcon(self.iconBlack);
-                //    }
-                //})(marker));
-            }
-
-            //this.markerCluster = new MarkerClusterer(this.map, markers, { imagePath: "/public/js-marker-clusterer/images/m", minimumClusterSize: 5 });
-
-            //var bounds = new google.maps.LatLngBounds();
-            //for (var i = 0; i < coords.length; i++) bounds.extend(coords[i]);
-            //if (coords.length > 0) {
-            //    this.map.fitBounds(bounds);
-            //} else {
-            //    this.map.setCenter(this.centrePoint);
-            //    this.map.setZoom(7);
-            //}
-
-            debugger;
-            this.map.azureMap.addLayer(markers);
-
-            this.map.azureMap.fitBounds(L.latLngBounds(latLangs));
-
-            if (self.count > 1000) $(".map-view-qualifier").show();
-            else $(".map-view-qualifier").hide();
-
-        }
     };
 
     SchoolsResultsViewModel.UpdateBenchmarkBasket = function (urn, withAction) {

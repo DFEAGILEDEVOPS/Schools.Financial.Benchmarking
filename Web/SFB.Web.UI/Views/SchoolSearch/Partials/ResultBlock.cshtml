@@ -79,8 +79,7 @@
                 @(Html.Partial("Partials/SchoolResults", Model))
             </div>
         </div>
-        <div class="map @(ViewBag.tab == "map" ? "active" : string.Empty)">
-            <div id="gmap" class="results-map" title="A google map of the school locations" aria-label="A google map of the school locations"></div>
+        <div class="map @(ViewBag.tab == "map" ? "active" : string.Empty)">            
             <div id="azuremap" class="results-map" title="An Azure map of the school locations" aria-label="An Azure map of the school locations"></div>
         </div>
     </div>
