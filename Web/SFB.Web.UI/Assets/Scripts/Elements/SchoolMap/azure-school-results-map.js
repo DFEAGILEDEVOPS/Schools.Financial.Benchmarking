@@ -85,7 +85,13 @@
           hashtable[key] = key;
         }
 
-        var marker = L.marker([data[i].Latitude, data[i].Longitude]);
+        var blackIcon = L.icon({
+          iconUrl: '/public/assets/images/icons/icon-location.png',
+          iconSize: [20, 32]
+        });
+        var marker = L.marker([data[i].Latitude, data[i].Longitude], {
+          icon: blackIcon
+        });
         markers.addLayer(marker);
         latLangs.push([data[i].Latitude, data[i].Longitude]);
         var info = data[i];
@@ -97,7 +103,15 @@
           html += "<div class=\"button add add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                        <div class=\"button remove add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
         }
 
-        marker.bindPopup(html); // window.google.maps.event.addListener(marker, "mouseover", (function (m) {
+        marker.bindPopup(html);
+        marker.on('click', function (ev) {
+          ev.target.options.icon.options.iconUrl = "/public/assets/images/icons/icon-location-pink.png";
+          ev.target.refreshIconOptions();
+        });
+        marker.on('popupclose', function (ev) {
+          ev.target.options.icon.options.iconUrl = "/public/assets/images/icons/icon-location.png";
+          ev.target.refreshIconOptions();
+        }); // window.google.maps.event.addListener(marker, "mouseover", (function (m) {
         //    return function (evt) {
         //        if (!self.activeMarker) m.setIcon(self.iconPink);
         //    }
