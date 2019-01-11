@@ -13,6 +13,7 @@
     if (!options.primaryMarker) throw new ReferenceError("options.primaryMarker is not present.");
     this.primaryMarker = options.primaryMarker;
     this.defaultZoom = 6;
+    this.topLayer = null;
     this.initialize();
   }
 
@@ -54,6 +55,10 @@
       var genKey = function genKey(lat, lng) {
         return lat + "#" + lng;
       };
+
+      if (this.topLayer) {
+        this.topLayer.clearLayers();
+      }
 
       var latLangs = [];
       var markers = L.markerClusterGroup();
@@ -98,6 +103,7 @@
         //})(marker));
       }
 
+      this.topLayer = markers;
       this.azureMap.addLayer(markers);
       this.azureMap.fitBounds(L.latLngBounds(latLangs));
     }
