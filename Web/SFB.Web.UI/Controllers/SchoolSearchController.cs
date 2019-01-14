@@ -411,7 +411,32 @@ namespace SFB.Web.UI.Controllers
                 var orderedFacetFilters = new Dictionary<string, FacetResult[]>();
                 foreach (var facet in results.Facets)
                 {
-                    orderedFacetFilters.Add(facet.Key, facet.Value.OrderBy(fr => fr.Value).ToArray());
+                    if (facet.Key == "OverallPhase")
+                    {
+                        orderedFacetFilters.Add(facet.Key, facet.Value.OrderBy(fr => {
+                            switch (fr.Value)
+                            {
+                                case "Nursery":
+                                    return 1;
+                                case "Primary":
+                                    return 2;
+                                case "Secondary":
+                                    return 3;
+                                case "All-through":
+                                case "All through":
+                                    return 4;
+                                case "Pupil referral unit":
+                                    return 5;
+                                case "Special":
+                                    return 6;
+                                default:
+                                    return 0; ;
+                            }
+                        }).ToArray());                        
+                    }
+                    else {
+                        orderedFacetFilters.Add(facet.Key, facet.Value.OrderBy(fr => fr.Value).ToArray());
+                    }
                 }
 
                 results.Facets = orderedFacetFilters;

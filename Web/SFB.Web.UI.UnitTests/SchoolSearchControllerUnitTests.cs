@@ -134,12 +134,12 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForPhase ()
+        public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForType ()
         {
             Task<dynamic> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResult[]>();
-                facets.Add("OverallPhase", new FacetResult[] { new FacetResult() { Value = "Primary", Count = 2 }, new FacetResult() { Value = "Secondary", Count = 1 }, new FacetResult() { Value = "All-Through", Count = 1 } });
+                facets.Add("OverallPhase", new FacetResult[] { new FacetResult() { Value = "Primary", Count = 2 }, new FacetResult() { Value = "Secondary", Count = 1 }, new FacetResult() { Value = "All through", Count = 1 } });
                 facets.Add("TypeOfEstablishment", new FacetResult[] { new FacetResult() { Value = "Pupil Referral Unit", Count = 2 }, new FacetResult() { Value = "Nursery", Count = 1 }, new FacetResult() { Value = "Primary", Count = 1 } });
                 facets.Add("OfstedRating", new FacetResult[] { new FacetResult() { Value = "Outstanding", Count = 2 }, new FacetResult() { Value = "Good", Count = 1 }, new FacetResult() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResult[] { new FacetResult() { Value = "Hindu", Count = 2 }, new FacetResult() { Value = "Church of England", Count = 1 }, new FacetResult() { Value = "Roman Catholic", Count = 1 } });
@@ -176,7 +176,7 @@ namespace SFB.Web.UI.UnitTests
             Task<dynamic> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResult[]>();
-                facets.Add("OverallPhase", new FacetResult[] { new FacetResult() { Value = "Primary", Count = 2 }, new FacetResult() { Value = "Secondary", Count = 1 }, new FacetResult() { Value = "All-Through", Count = 1 } });
+                facets.Add("OverallPhase", new FacetResult[] { new FacetResult() { Value = "Primary", Count = 2 }, new FacetResult() { Value = "Secondary", Count = 1 }, new FacetResult() { Value = "All through", Count = 1 } });
                 facets.Add("TypeOfEstablishment", new FacetResult[] { new FacetResult() { Value = "Pupil Referral Unit", Count = 2 }, new FacetResult() { Value = "Nursery", Count = 1 }, new FacetResult() { Value = "Primary", Count = 1 } });
                 facets.Add("OfstedRating", new FacetResult[] { new FacetResult() { Value = "Outstanding", Count = 2 }, new FacetResult() { Value = "Good", Count = 1 }, new FacetResult() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResult[] { new FacetResult() { Value = "Hindu", Count = 2 }, new FacetResult() { Value = "Church of England", Count = 1 }, new FacetResult() { Value = "Roman Catholic", Count = 1 } });
@@ -208,12 +208,12 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForType()
+        public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForPhase()
         {
             Task<dynamic> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResult[]>();
-                facets.Add("OverallPhase", new FacetResult[] { new FacetResult() { Value = "Primary", Count = 2 }, new FacetResult() { Value = "Secondary", Count = 1 }, new FacetResult() { Value = "All-Through", Count = 1 } });
+                facets.Add("OverallPhase", new FacetResult[] { new FacetResult() { Value = "Primary", Count = 2 }, new FacetResult() { Value = "Secondary", Count = 1 }, new FacetResult() { Value = "All through", Count = 1 } });
                 facets.Add("TypeOfEstablishment", new FacetResult[] { new FacetResult() { Value = "Pupil Referral Unit", Count = 2 }, new FacetResult() { Value = "Nursery", Count = 1 }, new FacetResult() { Value = "Primary", Count = 1 } });
                 facets.Add("OfstedRating", new FacetResult[] { new FacetResult() { Value = "Outstanding", Count = 2 }, new FacetResult() { Value = "Good", Count = 1 }, new FacetResult() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResult[] { new FacetResult() { Value = "Hindu", Count = 2 }, new FacetResult() { Value = "Church of England", Count = 1 }, new FacetResult() { Value = "Roman Catholic", Count = 1 } });
@@ -238,10 +238,10 @@ namespace SFB.Web.UI.UnitTests
 
             var filters = ((result as ViewResult).Model as SearchedSchoolListViewModel).Filters;
 
-            var TypeFilter = filters.First(l => l.Id == "faith");
+            var TypeFilter = filters.First(l => l.Id == "schoolLevel");
 
-            Assert.IsTrue(TypeFilter.Metadata[0].Label.CompareTo(TypeFilter.Metadata[1].Label) < 0);
-            Assert.IsTrue(TypeFilter.Metadata[1].Label.CompareTo(TypeFilter.Metadata[2].Label) < 0);
+            Assert.IsTrue(TypeFilter.Metadata[2].Label.CompareTo(TypeFilter.Metadata[1].Label) < 0);
+            Assert.IsTrue(TypeFilter.Metadata[2].Label.CompareTo(TypeFilter.Metadata[0].Label) < 0);            
         }
 
         [Test]

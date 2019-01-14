@@ -101,7 +101,6 @@
         marker.on('click', function (ev) {
           ev.target.options.icon.options.iconUrl = "/public/assets/images/icons/icon-location-pink.png";
           ev.target.refreshIconOptions();
-          debugger;
           var urn = $(ev.target.getPopup().getContent()).find('.add').parent().data('urn');
 
           if (DfE.Util.ComparisonList.isInList(urn.toString())) {
