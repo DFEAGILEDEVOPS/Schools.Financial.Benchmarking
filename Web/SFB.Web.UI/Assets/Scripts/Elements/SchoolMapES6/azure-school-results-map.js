@@ -60,12 +60,6 @@
         renderMapPinsForAzureMap : function (response) {
             var data = response.results;
 
-            //this.infoWindow = new google.maps.InfoWindow();
-            //this.infoWindow.addListener("closeclick", function () {
-            //    if (self.activeMarker) self.activeMarker.setIcon(self.iconBlack);
-            //    self.activeMarker = null;
-            //});
-
             var hashtable = {};
 
             var genKey = function genKey(lat, lng) {
@@ -80,7 +74,7 @@
             var markers = L.markerClusterGroup();
 
             for (var i = 0; i < data.length; i++) {
-                // This is where we scatter any pins that have the exact same co-ordinates
+
                 var adjustment = 0.00005; // put the school pin about 6 metres away from it's equivalent.
 
                 var lat = new Number(data[i].Latitude);
@@ -121,17 +115,6 @@
                     ev.target.options.icon.options.iconUrl = "/public/assets/images/icons/icon-location.png";
                     ev.target.refreshIconOptions();
                 });
-
-                // window.google.maps.event.addListener(marker, "mouseover", (function (m) {
-                //    return function (evt) {
-                //        if (!self.activeMarker) m.setIcon(self.iconPink);
-                //    }
-                //})(marker));
-                //window.google.maps.event.addListener(marker, "mouseout", (function (m) {
-                //    return function (evt) {
-                //        if (!self.activeMarker) m.setIcon(self.iconBlack);
-                //    }
-                //})(marker));
             }
 
             this.topLayer = markers;

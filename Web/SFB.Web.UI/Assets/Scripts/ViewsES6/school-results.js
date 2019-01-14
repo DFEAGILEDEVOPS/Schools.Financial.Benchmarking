@@ -132,31 +132,27 @@
                 this.mapLoaded = true;
             }
 
-            if (this.currentTabName === "map") {
-                this.getMapData(this.liveSearch.$form.serialize());
-            }
+            this.getMapData(this.liveSearch.$form.serialize());
         },
         getMapData: function (serialisedState) {
-             if (this.currentTabName !== "map")
-                return;
-
-            if (this.cache[serialisedState])
-            {
-                this.updateLiveCount(this.cache[serialisedState].count);
-                this.map.renderMapPinsForAzureMap(this.cache[serialisedState]);
-            }
-            else {
-                var self = this;
-                return $.ajax({
-                    url: "/SchoolSearch/search-json",
-                    data: serialisedState
-                }).done(function (response) {
-                    self.cache[serialisedState] = response;
-                    self.updateLiveCount(response.count);
-                    self.map.renderMapPinsForAzureMap(response);
-                }).error(function (error) {
-                    console.log("Error loading map pins: " + error);
-                });
+            if (this.currentTabName === "map") {
+                if (this.cache[serialisedState]) {
+                    this.updateLiveCount(this.cache[serialisedState].count);
+                    this.map.renderMapPinsForAzureMap(this.cache[serialisedState]);
+                }
+                else {
+                    var self = this;
+                    return $.ajax({
+                        url: "/SchoolSearch/search-json",
+                        data: serialisedState
+                    }).done(function (response) {
+                        self.cache[serialisedState] = response;
+                        self.updateLiveCount(response.count);
+                        self.map.renderMapPinsForAzureMap(response);
+                    }).error(function (error) {
+                        console.log("Error loading map pins: " + error);
+                    });
+                }
             }
         },
 
