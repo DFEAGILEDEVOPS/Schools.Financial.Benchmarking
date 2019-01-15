@@ -15,7 +15,7 @@
 
 <div class="column-two-thirds">
     <div>
-        <a class='add-remove button addall' style="display: none" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.AddAll()">Add all to basket</a>
+        <a class='add-remove button addall' style="display: none" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to basket</a>
     </div>
     <div id="schoolCountPlaceHolder" class="no-padding"></div>
     <div class="result-controllers">
@@ -46,7 +46,7 @@
                          {
                              <div class="filter-box">
                                  <label class="legend" for="OrderByControl">Sorted by</label>
-                                 <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                 <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                                      <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                                      <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
                                  </select>
@@ -59,7 +59,7 @@
                         {
                             <div class="filter-box">
                                 <label class="legend" for="OrderByControl">Sorted by</label>
-                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                                     <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                                     <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
                                     <option value="" @(string.IsNullOrEmpty(Model.OrderBy) ? "selected" : "")>distance</option>

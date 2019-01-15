@@ -223,8 +223,8 @@
         if (action == $.param(this.state)) {
             this.$resultsBlock.empty();
             this.$resultsBlock.html(results);
-            DfE.Views.SchoolsResultsViewModel.AddAllVisibility();
-            DfE.Views.SchoolsResultsViewModel.ActivateAddRemoveButtons();
+            DfE.Views.SchoolsResultsViewModel.addAllVisibility();
+            DfE.Views.SchoolsResultsViewModel.activateAddRemoveButtons();
             //this.bindEvents();
         }
     };

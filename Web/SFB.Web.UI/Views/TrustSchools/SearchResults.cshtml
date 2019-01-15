@@ -50,7 +50,7 @@
     <script>
         GOVUK.Modal.Load();
 
-        DfE.Views.SchoolsResultsViewModel.Load('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+        DfE.Views.SchoolsResultsViewModel = new SchoolsResultsViewModel('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
 
         $(function() {
             if ($(window).width() <= 640) {
