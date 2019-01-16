@@ -126,7 +126,7 @@
 
             $("a.remove-trust").click(function (event) {
                 event.preventDefault();
-                self.RemoveTrust($(event.target).data('companyNo'));
+                self.RemoveTrust($(event.target).data('companyno'));
             });
 
             $("a#displayNew").click(function (event) {

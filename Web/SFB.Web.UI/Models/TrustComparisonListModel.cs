@@ -35,7 +35,7 @@ namespace SFB.Web.UI.Models
         public string MatNo { get; }
 
         [JsonProperty(PropertyName = "CN")]
-        public int CompanyNo { get; }
+        public int CompanyNo { get; set; }
 
         [JsonProperty(PropertyName = "NA")]
         public string MatName { get; set; }
@@ -56,9 +56,10 @@ namespace SFB.Web.UI.Models
         [JsonIgnore]
         public override string Type { get; set; }
 
-        public BenchmarkTrustModel(int companyNo, string matName = null)
+        public BenchmarkTrustModel(int companyNo, string matName = null, string matNo = null)
         {
             this.CompanyNo = companyNo;
+            this.MatNo = matNo;
             this.MatName = matName;
             this.Type = EstablishmentType.MAT.ToString();
         }

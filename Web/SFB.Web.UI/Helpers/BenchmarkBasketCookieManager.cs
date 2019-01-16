@@ -168,7 +168,7 @@ namespace SFB.Web.UI.Helpers
                                 var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
                                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
                                 var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(trust.MatNo, term, MatFinancingType.TrustAndAcademies);
-                                companyNo = financialDataObject.CompanyNumber;
+                                trust.CompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
                             }
                         }
                         comparisonList.DefaultTrustCompanyNo = companyNo.GetValueOrDefault();

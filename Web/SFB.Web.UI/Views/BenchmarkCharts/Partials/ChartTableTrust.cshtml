@@ -18,7 +18,7 @@
             var schoolBenchmarkData = Model.BenchmarkData[i];
 
         <tr>
-            @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
+            @if (ViewBag.HomeSchoolId.ToString() == schoolBenchmarkData.Urn)
             {
                 <td class="school-column" data-header="School name">
                     <span class="table-highlight index-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
