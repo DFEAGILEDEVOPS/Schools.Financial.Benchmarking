@@ -38,6 +38,9 @@ namespace SFB.Web.Common.DataObjects
         [JsonProperty(PropertyName = EdubaseDBFieldNames.MAT_NUMBER)]
         public string MATNumber;
 
+        [JsonProperty(PropertyName = EdubaseDBFieldNames.COMPANY_NUMBER)]
+        public int? CompanyNumber;
+
         [JsonProperty(PropertyName = EdubaseDBFieldNames.LA_CODE)]
         public int LACode;
 

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SFB.Web.Common;
 using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
@@ -13,8 +14,11 @@ namespace SFB.Web.UI.Helpers
 {
     public class BenchmarkBasketCookieManager : IBenchmarkBasketCookieManager
     {
-        public BenchmarkBasketCookieManager()
+        private readonly IFinancialDataService _financialDataService;
+
+        public BenchmarkBasketCookieManager(IFinancialDataService financialDataService)
         {
+            _financialDataService = financialDataService;
         }
 
         public SchoolComparisonListModel ExtractSchoolComparisonListFromCookie()
@@ -138,7 +142,7 @@ namespace SFB.Web.UI.Helpers
             return comparisonList;
         }
 
-        public TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, string matNo = null, string matName = null)
+        public TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, int? companyNo = null, string matName = null)
         {
             TrustComparisonListModel comparisonList = null;
             HttpCookie cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
@@ -148,19 +152,30 @@ namespace SFB.Web.UI.Helpers
                     if (cookie == null)
                     {
                         cookie = new HttpCookie(CookieNames.COMPARISON_LIST_MAT);
-                        comparisonList = new TrustComparisonListModel(matNo, matName)
+                        comparisonList = new TrustComparisonListModel(companyNo.GetValueOrDefault(), matName)
                         {
-                            Trusts = new List<BenchmarkTrustModel> { new BenchmarkTrustModel(matNo, matName) }
+                            Trusts = new List<BenchmarkTrustModel> { new BenchmarkTrustModel(companyNo.GetValueOrDefault(), matName) }
                         };
                     }
                     else
                     {
                         comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
-                        comparisonList.DefaultTrustMatNo = matNo;
-                        comparisonList.DefaultTrustName = matName;
-                        if (comparisonList.Trusts.All(s => s.MatNo != matNo))
+
+                        foreach (var trust in comparisonList.Trusts)
                         {
-                            comparisonList.Trusts.Add(new BenchmarkTrustModel(matNo, matName));
+                            if (trust.CompanyNo == 0)//Retrieving CompanyNumbers from DB for old cookies which don't have them
+                            {
+                                var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
+                                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+                                var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(trust.MatNo, term, MatFinancingType.TrustAndAcademies);
+                                companyNo = financialDataObject.CompanyNumber;
+                            }
+                        }
+                        comparisonList.DefaultTrustCompanyNo = companyNo.GetValueOrDefault();
+                        comparisonList.DefaultTrustName = matName;
+                        if (comparisonList.Trusts.All(s => s.CompanyNo != companyNo))
+                        {
+                            comparisonList.Trusts.Add(new BenchmarkTrustModel(companyNo.GetValueOrDefault(), matName));
                         }
                     }
                     break;
@@ -169,27 +184,27 @@ namespace SFB.Web.UI.Helpers
                     if (cookie == null)
                     {
                         cookie = new HttpCookie(CookieNames.COMPARISON_LIST_MAT);
-                        comparisonList = new TrustComparisonListModel(matNo, matName)
+                        comparisonList = new TrustComparisonListModel(companyNo.GetValueOrDefault(), matName)
                         {
-                            Trusts = new List<BenchmarkTrustModel> { new BenchmarkTrustModel(matNo, matName) }
+                            Trusts = new List<BenchmarkTrustModel> { new BenchmarkTrustModel(companyNo.GetValueOrDefault(), matName) }
                         };
                     }
                     else
                     {
                         comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
-                        if (comparisonList.DefaultTrustMatNo == matNo || comparisonList.Trusts.Any(s => s.MatNo == matNo))
+                        if (comparisonList.DefaultTrustCompanyNo == companyNo || comparisonList.Trusts.Any(s => s.CompanyNo == companyNo))
                         {
                             throw new ApplicationException(ErrorMessages.DuplicateTrust);                            
                         }
                         else
                         {
-                            comparisonList.Trusts.Add(new BenchmarkTrustModel(matNo, matName));
+                            comparisonList.Trusts.Add(new BenchmarkTrustModel(companyNo.GetValueOrDefault(), matName));
                         }
                     }
                     break;
                 case CookieActions.Remove:
                     comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
-                    comparisonList.Trusts.Remove(new BenchmarkTrustModel(matNo));
+                    comparisonList.Trusts.Remove(new BenchmarkTrustModel(companyNo.GetValueOrDefault()));
                     break;
                 case CookieActions.RemoveAll:
                     comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
@@ -197,9 +212,9 @@ namespace SFB.Web.UI.Helpers
                     break;
                 case CookieActions.AddDefaultToList:
                     comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
-                    if (comparisonList.Trusts.All(s => comparisonList.DefaultTrustMatNo != matNo))
+                    if (comparisonList.Trusts.All(s => comparisonList.DefaultTrustCompanyNo != companyNo))
                     {
-                        comparisonList.Trusts.Add(new BenchmarkTrustModel(comparisonList.DefaultTrustMatNo, comparisonList.DefaultTrustName));
+                        comparisonList.Trusts.Add(new BenchmarkTrustModel(comparisonList.DefaultTrustCompanyNo, comparisonList.DefaultTrustName));
                     }
                     break;
             }

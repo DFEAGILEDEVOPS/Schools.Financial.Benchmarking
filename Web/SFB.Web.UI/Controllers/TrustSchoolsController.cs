@@ -23,27 +23,27 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
         
-        public async Task<ActionResult> Index(string matNo, string matName, string orderBy = "", int page = 1)
+        public async Task<ActionResult> Index(int companyNo, string matName, string orderBy = "", int page = 1)
         {
-            var searchResults = await _schoolSearchService.SearchSchoolByMatNo(matNo,
+            var searchResults = await _schoolSearchService.SearchSchoolByCompanyNo(companyNo,
                 (page - 1) * SearchDefaults.TRUST_SCHOOLS_PER_PAGE, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, orderBy,
                 Request.QueryString);
 
-            ViewBag.MatNo = matNo;
+            ViewBag.CompanyNo = companyNo;
             ViewBag.MatName = matName;
 
             return View("SearchResults", GetSchoolViewModelList(searchResults, orderBy, page));
         }
 
         [Route("TrustSchoolSearch/Search-js")]
-        public async Task<PartialViewResult> SearchJS(string matNo, string matName, string orderBy = "", int page = 1)
+        public async Task<PartialViewResult> SearchJS(int companyNo, string matName, string orderBy = "", int page = 1)
 
         {
-            var searchResults = await _schoolSearchService.SearchSchoolByMatNo(matNo,
+            var searchResults = await _schoolSearchService.SearchSchoolByCompanyNo(companyNo,
                 (page - 1) * SearchDefaults.TRUST_SCHOOLS_PER_PAGE, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, orderBy,
                 Request.QueryString);
 
-            ViewBag.MatNo = matNo;
+            ViewBag.CompanyNo = companyNo;
             ViewBag.MatName = matName;
 
             return PartialView("Partials/SchoolResults", GetSchoolViewModelList(searchResults, orderBy, page));

@@ -158,10 +158,10 @@ namespace SFB.Web.Domain.Services.Search
             return await FindNearestSchools(lat, lon, distance, skip, take, orderby, queryParams);
         }
 
-        public async Task<dynamic> SearchSchoolByMatNo(string matNo, int skip, int take, string @orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchSchoolByCompanyNo(int companyNo, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
             var facets = new[] { $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.OFSTED_RATING}", $"{EdubaseDBFieldNames.GENDER}" };
-            var exactMatches = await ExecuteSearch(_index, $"{matNo}", $"{EdubaseDBFieldNames.MAT_NUMBER}",
+            var exactMatches = await ExecuteSearch(_index, $"{companyNo}", $"{EdubaseDBFieldNames.COMPANY_NUMBER}",
                 ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
             return exactMatches;
         }

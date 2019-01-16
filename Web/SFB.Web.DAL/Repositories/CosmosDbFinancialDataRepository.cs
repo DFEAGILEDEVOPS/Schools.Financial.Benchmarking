@@ -111,16 +111,16 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public List<AcademiesContextualDataObject> GetAcademiesContextualDataObject(string term, string matNo)
+        public List<AcademiesContextualDataObject> GetAcademiesContextualDataObject(string term, int companyNo)
         {
             var collectionName =
                 _dataCollectionManager.GetActiveCollectionsByDataGroup(DataGroups.Academies)
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
 
-            var query = $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'] as EstablishmentName, c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']=@MatNo";
+            var query = $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'] as EstablishmentName, c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
-            querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+            querySpec.Parameters.Add(new SqlParameter($"@companyNo", companyNo));
 
             try
             {
@@ -139,7 +139,7 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance)
+        public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(int companyNo, string term, MatFinancingType matFinance)
         {
             var dataGroup = EstablishmentType.MAT.ToDataGroup(matFinance);
 
@@ -150,10 +150,10 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
 
-            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']='{matNo}'";
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
-            querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+            querySpec.Parameters.Add(new SqlParameter($"@companyNo", companyNo));
 
             var res =
                 _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
@@ -183,16 +183,60 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(string matNo, string term, MatFinancingType matFinance)
+        public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatNo(string matNo, string term, MatFinancingType matFinance)
         {
             var dataGroup = EstablishmentType.MAT.ToDataGroup(matFinance);
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
-            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']='{matNo}'";
+            if (collectionName == null)
+            {
+                return null;
+            }
+
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']=@matNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
-            querySpec.Parameters.Add(new SqlParameter($"@MatNo", matNo));
+            querySpec.Parameters.Add(new SqlParameter($"@matNo", matNo));
+
+            var res =
+                _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
+                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                    querySpec);
+
+            try
+            {
+                var result = res.ToList().FirstOrDefault();
+
+                if (result != null && result.DidNotSubmit)
+                {
+                    var emptyObj = new SchoolTrustFinancialDataObject();
+                    emptyObj.DidNotSubmit = true;
+                    return emptyObj;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT).ToString()))
+                {
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                    base.LogException(ex, errorMessage);
+                }
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(int companyNo, string term, MatFinancingType matFinance)
+        {
+            var dataGroup = EstablishmentType.MAT.ToDataGroup(matFinance);
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
+
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            querySpec.Parameters.Add(new SqlParameter($"@companyNo", companyNo));
 
             try
             {
@@ -338,7 +382,7 @@ namespace SFB.Web.DAL.Repositories
             {
                 result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                   $"SELECT c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}'], c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}'] FROM c WHERE {query}");
+                   $"SELECT c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}'], c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}'] FROM c WHERE {query}");
             }
             catch (Exception ex)
             {

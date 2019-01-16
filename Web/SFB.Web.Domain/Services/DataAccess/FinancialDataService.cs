@@ -39,14 +39,19 @@ namespace SFB.Web.Domain.Services.DataAccess
             return new FinancialDataModel(urn.ToString(), term, schoolFinancialDataObject, schoolFinancialType);
         }
 
-        public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(string matNo, string term, MatFinancingType matFinance)
+        public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(int companyNo, string term, MatFinancingType matFinance)
         {
-            return _financialDataRepository.GetTrustFinancialDataObject(matNo, term, matFinance);
+            return _financialDataRepository.GetTrustFinancialDataObject(companyNo, term, matFinance);
         }
 
-        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(string matNo, string term, MatFinancingType matFinance)
+        public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatNo(string matNo, string term, MatFinancingType matFinance)
         {
-            return await _financialDataRepository.GetTrustFinancialDataObjectAsync(matNo, term, matFinance);
+            return _financialDataRepository.GetTrustFinancialDataObjectByMatNo(matNo, term, matFinance);
+        }
+
+        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(int companyNo, string term, MatFinancingType matFinance)
+        {
+            return await _financialDataRepository.GetTrustFinancialDataObjectAsync(companyNo, term, matFinance);
         }
 
         public int GetLatestFinancialDataYear()
@@ -99,9 +104,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             return await _financialDataRepository.GetEstablishmentRecordCountAsync(term, estType);
         }
 
-        public List<AcademiesContextualDataObject> GetAcademiesByMatNumber(string term, string matNo)
+        public List<AcademiesContextualDataObject> GetAcademiesByCompanyNumber(string term, int companyNo)
         {
-            return _financialDataRepository.GetAcademiesContextualDataObject(term, matNo);
+            return _financialDataRepository.GetAcademiesContextualDataObject(term, companyNo);
         }
     }
 }

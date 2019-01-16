@@ -40,7 +40,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = new List<AcademiesContextualDataObject>();
 
-            mockFinancialDataService.Setup(m => m.GetAcademiesByMatNumber(It.IsAny<string>(), It.IsAny<string>()))
+            mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumber(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(result);
 
             mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentral())
@@ -68,9 +68,9 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            controller.Index("123", "test");
+            controller.Index(123, "test");
 
-            mockFinancialDataService.Verify(m => m.GetTrustFinancialDataObjectAsync("123", "2014 / 2015", MatFinancingType.TrustAndAcademies));
+            mockFinancialDataService.Verify(m => m.GetTrustFinancialDataObjectAsync(123, "2014 / 2015", MatFinancingType.TrustAndAcademies));
         }
     }
 }

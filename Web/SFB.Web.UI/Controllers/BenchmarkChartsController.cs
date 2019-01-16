@@ -435,7 +435,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = defaultUnitType;
-            ViewBag.HomeSchoolId = vm.TrustComparisonList.DefaultTrustMatNo;
+            ViewBag.HomeSchoolId = vm.TrustComparisonList.DefaultTrustCompanyNo;
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.TrustFinancing = financing;
 
@@ -500,7 +500,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = type;
             ViewBag.Financing = financing;
             ViewBag.TrustFinancing = trustFinancing;
-            ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustMatNo : vm.SchoolComparisonList.HomeSchoolUrn;
+            ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustCompanyNo.ToString() : vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.ChartFormat = format;
 
             return PartialView("Partials/TabContent", vm);
@@ -512,7 +512,7 @@ namespace SFB.Web.UI.Controllers
             if (type == EstablishmentType.MAT)
             {
                 benchmarkCharts = BuildTrustBenchmarkCharts(revGroup, chartGroup, showValue, trustCentralFinancing);
-                ViewBag.HomeSchoolId = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie().DefaultTrustMatNo;
+                ViewBag.HomeSchoolId = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie().DefaultTrustCompanyNo;
             }
             else
             {
@@ -699,7 +699,7 @@ namespace SFB.Web.UI.Controllers
             var benchmarkCharts = _benchmarkChartBuilder.Build(revGroup, chartGroup, EstablishmentType.MAT);
             var financialDataModels = this.GetFinancialDataForTrusts(comparisonList.Trusts, mFinancing);
             var trimSchoolNames = Request.Browser.IsMobileDevice;
-            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.Trusts, comparisonList.DefaultTrustMatNo, showValue, trimSchoolNames);
+            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.Trusts, comparisonList.DefaultTrustCompanyNo.ToString(), showValue, trimSchoolNames);
             return benchmarkCharts;
         }
 
@@ -733,8 +733,8 @@ namespace SFB.Web.UI.Controllers
             var terms = _financialDataService.GetActiveTermsForMatCentral();
 
             foreach (var trust in trusts){
-                var financialDataModel = _financialDataService.GetTrustFinancialDataObject(trust.MatNo, terms.First(), matFinancing);
-                models.Add(new FinancialDataModel(trust.MatNo, terms.First(), financialDataModel, EstablishmentType.MAT));
+                var financialDataModel = _financialDataService.GetTrustFinancialDataObject(trust.CompanyNo, terms.First(), matFinancing);
+                models.Add(new FinancialDataModel(trust.CompanyNo.ToString(), terms.First(), financialDataModel, EstablishmentType.MAT));
             }
 
             return models;

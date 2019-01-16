@@ -102,6 +102,25 @@ namespace SFB.Web.Domain.Models
             }
         }
 
+        public int? CompanyNo
+        {
+            get
+            {
+                try
+                {
+                    if (FinancialDataObjectModel != null)
+                    {
+                        return FinancialDataObjectModel.CompanyNumber;
+                    }
+                    return null;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
         public bool IsMAT
         {
             get

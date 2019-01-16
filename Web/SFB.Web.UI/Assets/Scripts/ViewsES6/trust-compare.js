@@ -126,7 +126,7 @@
 
             $("a.remove-trust").click(function (event) {
                 event.preventDefault();
-                self.RemoveTrust($(event.target).data('matno'));
+                self.RemoveTrust($(event.target).data('companyNo'));
             });
 
             $("a#displayNew").click(function (event) {
@@ -292,7 +292,7 @@
 
             $(targetInputElementName).bind("typeahead:select",
                 function (src, suggestion) {
-                    $.get("trustcomparison/AddTrust?matNo=" + suggestion[value] + "&matName=" + suggestion[field],
+                    $.get("trustcomparison/AddTrust?companyNo=" + suggestion[value] + "&matName=" + suggestion[field],
                         function (data) {
                             $("#TrustsToCompare").html(data);
                             self.bindManualEvents();
@@ -303,9 +303,9 @@
                 });
         },
 
-        RemoveTrust: function (matNo) {
+        RemoveTrust: function (companyNo) {
             var self = this;
-            $.get("trustcomparison/RemoveTrust?matNo=" + matNo,
+            $.get("trustcomparison/RemoveTrust?companyNo=" + companyNo,
                 function (data) {
                     $("#TrustsToCompare").html(data);
                     self.bindManualEvents();

@@ -130,24 +130,24 @@ namespace SFB.Web.UI.Helpers
 
         private void BuildDefaultTrustLine(TrustComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
         {
-            if (!string.IsNullOrEmpty(comparisonList.DefaultTrustMatNo) && comparisonList.Trusts.Any(s => s.MatNo == comparisonList.DefaultTrustMatNo))
+            if (comparisonList.Trusts.Any(s => s.CompanyNo == comparisonList.DefaultTrustCompanyNo))
             {
                 var valuesLine = new StringBuilder();
-                var data = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustMatNo);
+                var data = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustCompanyNo.ToString());
                 var term = data.Term;
 
                 valuesLine.Append($"Your trust,{data.Urn},{term},{data.PupilCount},{data.TeacherCount},");
 
                 foreach (var chart in benchmarkCharts.Where(bc => bc.Downloadable))
                 {
-                    var amount = chart.BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustMatNo).Amount;
+                    var amount = chart.BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustCompanyNo.ToString() ).Amount;
                     valuesLine.Append(amount == null ? "N/A" : amount.ToString());
                     valuesLine.Append(",");
                 }
 
                 foreach (var col in benchmarkCharts.Where(bc => bc.TableColumns != null).SelectMany(bc => bc.TableColumns))
                 {
-                    var amount = col.BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustMatNo).Amount;
+                    var amount = col.BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustCompanyNo.ToString()).Amount;
                     valuesLine.Append(amount == null ? "N/A" : amount.ToString());
                     valuesLine.Append(",");
                 }
@@ -188,25 +188,25 @@ namespace SFB.Web.UI.Helpers
 
         private void BuildOtherTrustsLines(TrustComparisonListModel comparisonList, List<ChartViewModel> benchmarkCharts, StringBuilder csv)
         {
-            var otherTrusts = comparisonList.Trusts.Where(b => b.MatNo != comparisonList.DefaultTrustMatNo);
+            var otherTrusts = comparisonList.Trusts.Where(b => b.CompanyNo != comparisonList.DefaultTrustCompanyNo);
 
             foreach (var trust in otherTrusts)
             {
                 var valuesLine = new StringBuilder();
-                var data = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == trust.MatNo);
-                var term = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == trust.MatNo).Term;
+                var data = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == trust.CompanyNo.ToString());
+                var term = benchmarkCharts.First().BenchmarkData.Find(d => d.Urn == trust.CompanyNo.ToString()).Term;
                 valuesLine.Append($"\"{trust.Name}\",{data.Urn},{term},{data.PupilCount},{data.TeacherCount},");
 
                 foreach (var chart in benchmarkCharts.Where(bc => bc.Downloadable))
                 {
-                    var amount = chart.BenchmarkData.Find(d => d.Urn == trust.MatNo).Amount;
+                    var amount = chart.BenchmarkData.Find(d => d.Urn == trust.CompanyNo.ToString()).Amount;
                     valuesLine.Append(amount == null ? "N/A" : amount.ToString());
                     valuesLine.Append(",");
                 }
 
                 foreach (var col in benchmarkCharts.Where(bc => bc.TableColumns != null).SelectMany(bc => bc.TableColumns))
                 {
-                    var amount = col.BenchmarkData.Find(d => d.Urn == trust.MatNo).Amount;
+                    var amount = col.BenchmarkData.Find(d => d.Urn == trust.CompanyNo.ToString()).Amount;
                     valuesLine.Append(amount == null ? "N/A" : amount.ToString());
                     valuesLine.Append(",");
                 }

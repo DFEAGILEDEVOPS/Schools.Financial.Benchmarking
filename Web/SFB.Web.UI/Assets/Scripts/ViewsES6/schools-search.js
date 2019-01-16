@@ -228,7 +228,7 @@
                     window.location = url;
                 }
                 else if (textBoxId === 'FindByTrustName') {
-                    window.location = '/trust/index?matno=' + suggestion['Id'] + '&name=' + suggestion['Text'];
+                    window.location = '/trust/index?companyNo=' + suggestion['Id'] + '&name=' + suggestion['Text'];
                 } else if (textBoxId === 'FindSchoolByTown') {
                     $('#LocationCoordinates').val(suggestion['Location']);                    
                     url = '/SchoolSearch/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];

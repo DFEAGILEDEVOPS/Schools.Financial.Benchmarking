@@ -338,18 +338,18 @@ namespace SFB.Web.UI.Controllers
         [Route("SchoolSearch/Search-json")]
         public async Task<JsonResult> SearchJson(string nameId, string searchType, string suggestionurn,
             string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, 
-            string matNo, bool openOnly = false, string orderby = "", int page = 1)
+            int? companyNo, bool openOnly = false, string orderby = "", int page = 1)
 
         {
             dynamic searchResponse;
-            if (string.IsNullOrEmpty(matNo))
+            if (!companyNo.HasValue)
             {
                 searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
             }
             else
             {
-                searchResponse = await _schoolSearchService.SearchSchoolByMatNo(matNo,
+                searchResponse = await _schoolSearchService.SearchSchoolByCompanyNo(companyNo.GetValueOrDefault(),
                     0, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, "", Request.QueryString);
             }
 

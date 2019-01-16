@@ -25,7 +25,7 @@
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 <div class="grid-row">
     <div class="column-third">
-        <a class="button" href="/TrustComparison?matno=@Model.MatNo&matName=@Model.Name">Compare with other trusts</a>
+        <a class="button" href="/TrustComparison?companyNo=@Model.CompanyNo&matName=@Model.Name">Compare with other trusts</a>
     </div>
 </div>
 
@@ -33,7 +33,7 @@
     <div class="column-full">
         <div class="result-list-summary">
             This trust is made up of <span class="bold">@Model.AcademiesList.Count</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
-            <a href="/TrustSchools?matno=@Model.MatNo&matname=@Model.Name">Select schools to compare</a>
+            <a href="/TrustSchools?companyNo=@Model.CompanyNo&matname=@Model.Name">Select schools to compare</a>
         </div>
     </div>
     <div class="column-full resultListPanel">
@@ -134,7 +134,7 @@ else
     <div class="column-full">
         <div class="column-one-third no-padding">
             <div class="download">
-                <a class="no-underline bold-xsmall" href="/trust/download?matNo=@Model.MatNo&name=@Model.Name" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <a class="no-underline bold-xsmall" href="/trust/download?companyNo=@Model.CompanyNo&name=@Model.Name" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-file-download.png"/>
                     Download data for this trust (CSV)
                 </a>
@@ -158,13 +158,13 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
         </li>
     </ol>
 </nav>
@@ -212,11 +212,11 @@ else
             window.print();
         }
 
-        function TabChange(code, matno, name, tab) {
+        function TabChange(code, companyNo, name, tab) {
             var queryString = "?code=" +
                 code +
-                "&matno=" +
-                matno +
+                "&companyNo=" +
+                companyNo +
                 "&name=" +
                 name +
                 "&tab=" +

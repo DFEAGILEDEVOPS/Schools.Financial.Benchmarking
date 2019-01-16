@@ -85,7 +85,7 @@ namespace SFB.Web.UI.Models
 
         public string TrustName => ContextDataModel.Trusts;
 
-        public string TrustNo => ContextDataModel.MATNumber;
+        public int? CompanyNo => ContextDataModel.CompanyNumber;
 
         public string PhoneNumber => ContextDataModel.TelephoneNum;
 

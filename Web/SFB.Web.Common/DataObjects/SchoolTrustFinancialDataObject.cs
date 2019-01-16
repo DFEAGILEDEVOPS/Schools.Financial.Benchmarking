@@ -19,6 +19,9 @@ namespace SFB.Web.Common.DataObjects
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MAT_NUMBER)]
         public string MATNumber { get; set; }
 
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER)]
+        public int? CompanyNumber { get; set; }
+
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME)]
         public string TrustOrCompanyName { get; set; }
 

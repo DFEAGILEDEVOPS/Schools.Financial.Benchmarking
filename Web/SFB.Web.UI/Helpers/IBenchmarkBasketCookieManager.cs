@@ -9,6 +9,6 @@ namespace SFB.Web.UI.Helpers
         SchoolComparisonListModel ExtractSchoolComparisonListFromCookie();
         void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool);
         TrustComparisonListModel ExtractTrustComparisonListFromCookie();
-        TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, string matNo = null, string matName = null);        
+        TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, int? companyNo = null, string matName = null);        
     }
 }

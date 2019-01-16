@@ -74,7 +74,7 @@
         if (event.originalEvent.state) {
             var tab = event.originalEvent.state.tab;
             if (!tab) tab = "list";
-            if (tab != this.currentTab) {
+            if (tab !== this.currentTab) {
                 if (this.resultsViewModel.changeTab) this.resultsViewModel.changeTab(tab, true);
             } else if (event.originalEvent.state) {
                 this.saveState(event.originalEvent.state.payload);
@@ -143,7 +143,7 @@
 
     LiveSearch.prototype.tabChange = function (suppressAddHistory) {
         var ct = this.resultsViewModel.currentTabName;
-        if (this.currentTab != ct) {
+        if (this.currentTab !== ct) {
             this.currentTab = ct;
             if (!suppressAddHistory) history.pushState({ payload: this.state, tab: this.resultsViewModel.currentTabName }, '', window.location.pathname + "?" + $.param(this.state) + "&tab=" + ct);
         }
@@ -220,7 +220,7 @@
         if (this.disabled) return;
         // As search is asynchronous, check that the action associated with these results is
         // still the latest to stop results being overwritten by stale data
-        if (action == $.param(this.state)) {
+        if (action === $.param(this.state)) {
             this.$resultsBlock.empty();
             this.$resultsBlock.html(results);
             DfE.Views.SchoolsResultsViewModel.addAllVisibility();

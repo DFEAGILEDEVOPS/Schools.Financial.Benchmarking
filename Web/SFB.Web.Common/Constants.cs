@@ -35,6 +35,7 @@
         public const string RELIGIOUS_CHARACTER = "ReligiousCharacter";
         public const string GENDER = "Gender";
         public const string MAT_NUMBER = "MATNumber";
+        public const string COMPANY_NUMBER = "CompanyNumber";
     }
 
     public class SchoolTrustFinanceDBFieldNames
@@ -106,6 +107,7 @@
         public const string SCHOOL_NAME = "School Name";
         public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
         public const string MAT_NUMBER = "MATNumber";
+        public const string COMPANY_NUMBER = "CompanyNumber";
         public const string TRUST_COMPANY_NAME = "TrustOrCompanyName";
         public const string OTHER_INCOME = "Other Income";
         public const string SEN = "SEN";

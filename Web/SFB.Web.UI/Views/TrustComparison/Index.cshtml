@@ -60,7 +60,7 @@
     </div>
     <div id="EnterManuallyFieldset" class="form-group optional-section">
         <div id="TrustsToCompare">
-            @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.MatNo != Model.BenchmarkTrust.MatNo).ToList())
+            @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
         </div>
     </div>
 
@@ -89,7 +89,7 @@
             </div>
             <div class="column-half no-padding">
                 <div class="column-one-third back-button">
-                    <a href="/trust/index?matno=@Model.BenchmarkTrust.MatNo&name=@Model.BenchmarkTrust.Name">Back</a>
+                    <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo&name=@Model.BenchmarkTrust.Name">Back</a>
                 </div>
                 <div class="column-two-thirds back-button">
                     <a id="removeAllTrusts" href="javascript:void(0);">Remove all trusts</a>

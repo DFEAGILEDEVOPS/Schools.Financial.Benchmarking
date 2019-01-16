@@ -185,7 +185,7 @@
                 if (type === "MAT") {
                     $(this).on('click',
                         function (e, i) {
-                            window.open("/trust/index?matno=" + textParts[1] + "&name=" + textParts[0], '_self');
+                            window.open("/trust/index?companyNo=" + textParts[1] + "&name=" + textParts[0], '_self');
                         });
                 } else {
                     $(this).on('click',
@@ -395,7 +395,7 @@
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
                         "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
 
-                    if ($("#ComparisonType").val() == "BestInBreed"){
+                    if ($("#ComparisonType").val() === "BestInBreed"){
                         tableHtml += "<tr><td class='bold'>Efficiency metric rank</td><td>" + schoolData.efficiencyRank + "</td></tr>";
                     }
 
@@ -784,7 +784,7 @@ function PdfGenerator() {
             var chartPerPage = Math.ceil(12 / yValuesCount);
 
             charts.each(function (index, element) {
-                if (index % chartPerPage == 0) {
+                if (index % chartPerPage === 0) {
                     pdfAddNewPage();
                 } else
                 {

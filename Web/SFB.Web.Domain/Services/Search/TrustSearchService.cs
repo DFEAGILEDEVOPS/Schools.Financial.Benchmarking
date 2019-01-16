@@ -33,7 +33,7 @@ namespace SFB.Web.Domain.Services.Search
             Func<SuggestionResultRecord, ExpandoObject> processResult = r =>
             {
                 dynamic retVal = new ExpandoObject();
-                retVal.Id = r.Properties[$"{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}"]?.ToString();
+                retVal.Id = r.Properties[$"{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}"]?.ToString();
                 retVal.Text = r.Properties[$"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}"] as string;
                 return retVal;
             };
@@ -41,7 +41,7 @@ namespace SFB.Web.Domain.Services.Search
             var response = await client.SuggestAsync(_index, new SuggestionQuery(name)
                 .SuggesterName("namesuggest")
                 .Fuzzy(false)
-                .Select($"{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}")
+                .Select($"{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}")
                 .Select($"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}")
                 .SearchField($"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}")
                 .Top(10));

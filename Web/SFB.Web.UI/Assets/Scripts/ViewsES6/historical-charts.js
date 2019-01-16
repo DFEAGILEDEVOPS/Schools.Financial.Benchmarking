@@ -167,7 +167,7 @@
             var self = this;
             var codeParameter = DfE.Util.QueryString.get('code');
             var urnParameter = DfE.Util.QueryString.get('urn');
-            var matNoParameter = DfE.Util.QueryString.get('matno');
+            var companyNoParameter = DfE.Util.QueryString.get('companyNo');
             var nameParameter = DfE.Util.QueryString.get('name');
             var tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
             var unitParameter = $("#ShowValue").val();
@@ -182,8 +182,8 @@
                 urnParameter +
                 "&code=" +
                 codeParameter +
-                "&matno=" +
-                matNoParameter +
+                "&companyNo=" +
+                companyNoParameter +
                 "&revgroup=" +
                 tabParameter +
                 "&chartGroup=" +
@@ -219,7 +219,7 @@
 
         UpdateTrustWarnings: function () {
             var isPlaceholder = $("#isPlaceholder").val();
-            if (isPlaceholder == "true")
+            if (isPlaceholder === "true")
             {
                 $("#placeholderWarning").show();
             } else {
