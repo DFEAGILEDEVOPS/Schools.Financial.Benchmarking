@@ -160,17 +160,7 @@ namespace SFB.Web.UI.Helpers
                     else
                     {
                         comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
-
-                        foreach (var trust in comparisonList.Trusts)
-                        {
-                            if (trust.CompanyNo == 0)//Retrieving CompanyNumbers from DB for old cookies which don't have them
-                            {
-                                var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
-                                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-                                var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(trust.MatNo, term, MatFinancingType.TrustAndAcademies);
-                                trust.CompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
-                            }
-                        }
+                        RetrieveCompanyNumbers(comparisonList);
                         comparisonList.DefaultTrustCompanyNo = companyNo.GetValueOrDefault();
                         comparisonList.DefaultTrustName = matName;
                         if (comparisonList.Trusts.All(s => s.CompanyNo != companyNo))
@@ -224,6 +214,29 @@ namespace SFB.Web.UI.Helpers
             HttpContext.Current.Response.Cookies.Add(cookie);
 
             return comparisonList;
+        }
+
+
+        /// <summary>
+        /// TODO: Temporary method to update cookies seamlessly, can be removed after release
+        /// </summary>
+        /// <param name="comparisonList"></param>
+        public void RetrieveCompanyNumbers(TrustComparisonListModel comparisonList)
+        {
+            foreach (var trust in comparisonList.Trusts)
+            {
+                if (trust.CompanyNo == 0)//Retrieving CompanyNumbers from DB for old cookies which don't have them
+                {
+                    var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
+                    var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+                    var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(trust.MatNo, term, MatFinancingType.TrustAndAcademies);
+                    trust.CompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
+                }
+            }
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
+            cookie.Value = JsonConvert.SerializeObject(comparisonList);
+            cookie.Expires = DateTime.MaxValue;
+            HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
         private string FormatTerm(string term, EstablishmentType estabType)

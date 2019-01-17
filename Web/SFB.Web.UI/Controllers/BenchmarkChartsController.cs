@@ -696,6 +696,7 @@ namespace SFB.Web.UI.Controllers
         private List<ChartViewModel> BuildTrustBenchmarkCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, MatFinancingType mFinancing)
         {
             var comparisonList = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie();
+            _benchmarkBasketCookieManager.RetrieveCompanyNumbers(comparisonList);
             var benchmarkCharts = _benchmarkChartBuilder.Build(revGroup, chartGroup, EstablishmentType.MAT);
             var financialDataModels = this.GetFinancialDataForTrusts(comparisonList.Trusts, mFinancing);
             var trimSchoolNames = Request.Browser.IsMobileDevice;
