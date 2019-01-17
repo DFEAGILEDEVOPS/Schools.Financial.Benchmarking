@@ -219,16 +219,24 @@ namespace SFB.Web.UI.Helpers
 
         /// <summary>
         /// TODO: Temporary method to update cookies seamlessly, can be removed after release
+        ///  Retrieving CompanyNumbers from DB for old cookies which don't have them
         /// </summary>
         /// <param name="comparisonList"></param>
         public void RetrieveCompanyNumbers(TrustComparisonListModel comparisonList)
         {
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
+            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+
+            if(comparisonList.DefaultTrustCompanyNo == 0)
+            {
+                var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(comparisonList.DefaultTrustMatNo, term, MatFinancingType.TrustAndAcademies);
+                comparisonList.DefaultTrustCompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
+            }
+
             foreach (var trust in comparisonList.Trusts)
             {
-                if (trust.CompanyNo == 0)//Retrieving CompanyNumbers from DB for old cookies which don't have them
+                if (trust.CompanyNo == 0)
                 {
-                    var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
-                    var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
                     var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(trust.MatNo, term, MatFinancingType.TrustAndAcademies);
                     trust.CompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
                 }
