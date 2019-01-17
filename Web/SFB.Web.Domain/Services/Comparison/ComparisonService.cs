@@ -108,7 +108,7 @@ namespace SFB.Web.Domain.Services.Comparison
             }
 
             tryCount = 1;
-            while (benchmarkSchools.Count < basketSize) //Query return is still less than required
+            while (benchmarkSchools.Count < basketSize) //Query return is still less than required. Flex the Urban/Rural criteria gradually.
             {
                 var urbanRuralDefault = defaultSchoolFinancialDataModel.UrbanRural;
                 var urbanRuralKey = Dictionaries.UrbanRuralDictionary.First(d => d.Value == urbanRuralDefault).Key;
