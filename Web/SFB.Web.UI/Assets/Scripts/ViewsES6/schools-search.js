@@ -214,7 +214,7 @@
             $(targetInputElementName).bind("typeahead:select", function (src, suggestion) {
                 $(targetResolvedInputElementName).val(suggestion[value]);
                 currentSuggestionName = suggestion[field];
-                var openSchoolsOnly = $(this).parent().parent().find("input:checkbox[name='openOnly']").prop('checked');
+                var openSchoolsOnly = $(this).parents('.form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
                 var textBoxId = $(this).attr('id');
                 if (textBoxId === 'FindByNameId') {
                     window.location = '/school/detail?urn=' + suggestion['Id'];
