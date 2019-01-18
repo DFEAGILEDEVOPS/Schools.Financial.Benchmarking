@@ -23,6 +23,9 @@ namespace SFB.Web.Domain.Helpers.Constants
 
         public const string SCHOOL_ID_ERR_MESSAGE =
             "Please enter the URN code (6 characters) or LAESTAB code (7 characters) of the school or college you're looking for";
+
+        public const string COMPANY_NO_ERR_MESSAGE =
+            "Please enter the company number (7 characters) of the trust you're looking for";
     }
 
     public class SearchParameterValidLengths
@@ -34,6 +37,7 @@ namespace SFB.Web.Domain.Helpers.Constants
         public const int LA_NAME_MIN_LENGTH = 2;
         public const int URN_LENGTH = 6;
         public const int LAESTAB_LENGTH = 7;
+        public const int COMPANY_NO_LENGTH = 7;
     }
 
     public class ComparisonListLimit

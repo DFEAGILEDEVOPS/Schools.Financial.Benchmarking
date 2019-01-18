@@ -8,5 +8,6 @@
         string ValidateLaCodeParameter(string laCode);
         string ValidateLaNameParameter(string laName);
         string ValidateSchoolIdParameter(string schoolId);
+        string ValidateCompanyNoParameter(string companyNo);
     }
 }

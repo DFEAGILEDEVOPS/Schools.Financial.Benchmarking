@@ -323,7 +323,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search("", "TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME, null, null, null, null, null, false, null, 0);
+            var result = await controller.Search("", "TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
 
             Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Search", (result as RedirectToRouteResult).RouteValues["action"]);
@@ -368,6 +368,27 @@ namespace SFB.Web.UI.UnitTests
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("1234567", (result as RedirectToRouteResult).RouteValues["urn"].ToString());
+        }
+
+        [Test]
+        public async Task SearchActionRedirectsToTrustViewIfCompanyNumberIsUsedAsId()
+        {
+            var testResult = new EdubaseDataObject();
+            testResult.URN = 1234567;
+
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567")).Returns((string urn) => testResult);
+
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = await controller.Search(null, "6182612", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
+            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("6182612", (result as RedirectToRouteResult).RouteValues["companyNo"].ToString());
         }
 
         [Test]

@@ -1,23 +1,23 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SchoolSearchViewModel
 
-<div id="TrustNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_NAME))" aria-controls="SearchByTrustNameFieldset">
-    <input id="TrustName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_NAME)) />
-    <label for="TrustName">Trust</label>
+<div id="TrustNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))" aria-controls="SearchByTrustNameFieldset">
+    <input id="trustNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_NAME_ID)) />
+    <label for="TrustNameId">Trust</label>
 </div>
-<div id="SearchByTrustNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME))">
-    <label class="form-label" for="FindByTrustName">Enter the trust name</label>
-    @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_NAME))
+<div id="SearchByTrustNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))">
+    <label class="form-label" for="FindByTrustName">Enter the trust name or company number</label>
+    @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_NAME_ID))
     {
         <span class="error-message">@Model.ErrorMessage</span>
     }
     <input id="FindByTrustName"
            class="form-control mbl"
-           name="trustname"
+           name="trustnameid"
            type="text"
            maxlength="100"
            data-suggestion-url="@(Model.TrustSuggestionUrl)" />
     <input type="hidden" id="FindByTrustNameSuggestionId" name="trustsuggestionUrn" />
-    <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_NAME">Search</button>
+    <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_NAME_ID">Search</button>
 </div>
 

@@ -50,7 +50,7 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> Search(
             string nameId,
-            string trustName,
+            string trustNameId,
             string searchType,
             string suggestionUrn,
             string locationorpostcode,
@@ -133,25 +133,45 @@ namespace SFB.Web.UI.Controllers
                     }
                     break;
 
-                case SearchTypes.SEARCH_BY_TRUST_NAME:
-
-                    errorMessage = _valService.ValidateTrustNameParameter(trustName);
-                    if (string.IsNullOrEmpty(errorMessage))
+                case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
+                    if(IsNumeric(trustNameId))
                     {
-                        return RedirectToAction("Search", "Trust", new {name = trustName});
+                        errorMessage = _valService.ValidateCompanyNoParameter(trustNameId);
+                        if (string.IsNullOrEmpty(errorMessage))
+                        {
+                            return RedirectToAction("Index", "Trust", new { companyNo = trustNameId });
+                        }
+                        else
+                        {
+                            var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
+                            {
+                                SearchType = searchType,
+                                ErrorMessage = errorMessage,
+                                Authorities = _laService.GetLocalAuthorities()
+                            };
+
+                            return View("../" + referrer, searchVM);
+                        }
                     }
                     else
                     {
-                        var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
+                        errorMessage = _valService.ValidateTrustNameParameter(trustNameId);
+                        if (string.IsNullOrEmpty(errorMessage))
                         {
-                            SearchType = searchType,
-                            ErrorMessage = errorMessage,
-                            Authorities = _laService.GetLocalAuthorities()
-                        };
+                            return RedirectToAction("Search", "Trust", new { name = trustNameId });
+                        }
+                        else
+                        {
+                            var searchVM = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
+                            {
+                                SearchType = searchType,
+                                ErrorMessage = errorMessage,
+                                Authorities = _laService.GetLocalAuthorities()
+                            };
 
-                        return View("../" + referrer, searchVM);
+                            return View("../" + referrer, searchVM);
+                        }
                     }
-
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
                     {
@@ -162,7 +182,7 @@ namespace SFB.Web.UI.Controllers
                             if (exactMatch != null)
                             {
                                 laCodeName = exactMatch.id;
-                                return await Search(nameId, trustName, searchType, suggestionUrn, locationorpostcode,
+                                return await Search(nameId, trustNameId, searchType, suggestionUrn, locationorpostcode,
                                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
                             return RedirectToAction("Search", "La", new {name = laCodeName, openOnly = openOnly});
