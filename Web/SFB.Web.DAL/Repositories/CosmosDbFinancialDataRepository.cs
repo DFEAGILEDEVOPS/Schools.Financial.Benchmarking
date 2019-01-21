@@ -117,7 +117,8 @@ namespace SFB.Web.DAL.Repositories
                 _dataCollectionManager.GetActiveCollectionsByDataGroup(DataGroups.Academies)
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
 
-            var query = $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'] as EstablishmentName, c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
+            var query = $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'] as EstablishmentName, c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'], c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}'] " +
+                $"FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@companyNo", companyNo));

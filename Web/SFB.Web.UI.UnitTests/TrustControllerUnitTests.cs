@@ -38,7 +38,9 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var result = new List<AcademiesContextualDataObject>();
+            var result = new List<AcademiesContextualDataObject>() {
+                new AcademiesContextualDataObject()
+            };
 
             mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumber(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(result);
@@ -68,7 +70,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            controller.Index(123, "test");
+            controller.Index(123);
 
             mockFinancialDataService.Verify(m => m.GetTrustFinancialDataObjectAsync(123, "2014 / 2015", MatFinancingType.TrustAndAcademies));
         }

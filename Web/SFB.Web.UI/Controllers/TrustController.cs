@@ -48,7 +48,7 @@ namespace SFB.Web.UI.Controllers
             return View("TrustResults", vm);
         }
 
-        public async Task<ActionResult> Index(int companyNo, string name, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
+        public async Task<ActionResult> Index(int companyNo, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -72,7 +72,12 @@ namespace SFB.Web.UI.Controllers
           
             var academies = _financialDataService.GetAcademiesByCompanyNumber(term, companyNo);
 
-            var trustVM = await BuildTrustVMAsync(companyNo, name, academies, tab, chartGroup, financing);
+            if(academies.Count == 0)
+            {
+                throw new ApplicationException($"No record found for trust company number: {companyNo}");
+            }
+ 
+            var trustVM = await BuildTrustVMAsync(companyNo, academies.First().TrustName, academies, tab, chartGroup, financing);
 
             List<string> terms = _financialDataService.GetActiveTermsForMatCentral();
             var latestTerm = terms.First();

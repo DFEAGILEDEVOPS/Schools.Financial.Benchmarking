@@ -58,7 +58,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchActionReturnsSuggestionsViewIfResultEmpty()
+        public async Task SearchActionReturnsSchoolSuggestionsViewIfResultEmpty()
         {
             dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);            
 
