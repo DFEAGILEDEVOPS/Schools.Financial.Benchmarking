@@ -66,7 +66,8 @@ namespace SFB.Web.Domain.Services
 
         public string ValidateCompanyNoParameter(string companyNo)
         {
-            var isNumber = int.TryParse(companyNo, out int result);
+            int result;
+            var isNumber = int.TryParse(companyNo, out result);
             if (!isNumber || companyNo.Length != SearchParameterValidLengths.COMPANY_NO_LENGTH)
             {
                 return SearchErrorMessages.COMPANY_NO_ERR_MESSAGE;
