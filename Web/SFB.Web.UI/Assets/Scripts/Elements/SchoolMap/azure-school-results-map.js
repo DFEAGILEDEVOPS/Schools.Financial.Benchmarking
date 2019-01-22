@@ -89,12 +89,12 @@
         markers.addLayer(marker);
         latLangs.push([data[i].Latitude, data[i].Longitude]);
         var info = data[i];
-        var html = "<div class=\"infowindow-school-summary\">\n                    <a href=\"/school/detail?urn=".concat(info.Id, "\">").concat(info.Name, "</a>\n                    <p>").concat(info.Address, "</p>\n                    <p>").concat(info.EducationPhases, "</p>\n                    <p>").concat(info.NFType, "</p>\n                    <div id=\"").concat(info.Id, "\" data-urn=\"").concat(info.Id, "\">");
+        var html = "<div class=\"infowindow-school-summary\">                    \n                        <a href =\"/school/detail?urn=".concat(info.Id, "\">").concat(info.Name, "</a>\n                        <p>").concat(info.Address, "</p>\n                        <p>").concat(info.EducationPhases, "</p>\n                        <p>").concat(info.NFType, "</p>\n                        <div id =\"").concat(info.Id, "\" data-urn=\"").concat(info.Id, "\">");
 
         if (DfE.Util.ComparisonList.isInList(info.Id)) {
-          html += "<div class=\"button add add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                        <div class=\"button remove add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
+          html += "<div class=\"button add add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
         } else {
-          html += "<div class=\"button add add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                        <div class=\"button remove add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
+          html += "<div class=\"button add add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
         }
 
         marker.bindPopup(html);
