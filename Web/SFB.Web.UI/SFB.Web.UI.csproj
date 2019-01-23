@@ -223,6 +223,7 @@
     <Compile Include="Helpers\IBenchmarkBasketCookieManager.cs" />
     <Compile Include="Models\BenchmarkCriteriaMultipleChoiceVM.cs" />
     <Compile Include="Models\BenchmarkCriteriaRangeVM.cs" />
+    <Compile Include="Models\BestInClassCharacteristicsViewModel.cs" />
     <Compile Include="Models\CompareEntityBase.cs" />
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
@@ -295,6 +296,7 @@
     <Content Include="App_Data\la.json" />
     <Content Include="Assets\Sass\views\_add-schools.scss" />
     <Content Include="App_Code\ViewHelpers.cshtml" />
+    <Content Include="Assets\Sass\views\_bic-characteristics.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -662,6 +664,7 @@
     <Content Include="Views\Shared\Partials\Search\LocationSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\LaSearchOption.cshtml" />
     <Content Include="Views\Location\Suggest.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\BestInClassCharacteristics.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

@@ -3,7 +3,6 @@ using System.Linq;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.Common.DataObjects;
-using SFB.Web.Domain.Models;
 using System.Globalization;
 
 namespace SFB.Web.UI.Models

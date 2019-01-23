@@ -78,6 +78,7 @@
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\BenchmarkChartData.cs" />
     <Compile Include="Models\BenchmarkChartModel.cs" />
+    <Compile Include="Models\BestInClassCriteria.cs" />
     <Compile Include="Models\ComparisonResult.cs" />
     <Compile Include="Models\GeoCodeCalc.cs" />
     <Compile Include="Models\HistoricalChartData.cs" />
