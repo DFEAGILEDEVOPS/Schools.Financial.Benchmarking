@@ -15,12 +15,10 @@ namespace SFB.Web.UI.Services
     public class FinancialCalculationsService : IFinancialCalculationsService
     {
         private readonly ILocalAuthoritiesService _localAuthoritiesService;
-        private readonly IBestInClassDataService _bestInBreedDataService;
 
-        public FinancialCalculationsService(ILocalAuthoritiesService localAuthoritiesService, IBestInClassDataService bestInBreedDataService)
+        public FinancialCalculationsService(ILocalAuthoritiesService localAuthoritiesService)
         {
             _localAuthoritiesService = localAuthoritiesService;
-            _bestInBreedDataService = bestInBreedDataService;
         }
 
         public void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts,
@@ -295,7 +293,7 @@ namespace SFB.Web.UI.Services
                     IsWFDataPresent = dataModel.WorkforceDataPresent,
                     PartialYearsPresentInSubSchools = dataModel.PartialYearsPresentInSubSchools,
                     Unit = unit.ToString(),
-                    EfficiencyRank = school is BenchmarkSchoolModel ? (school as BenchmarkSchoolModel).EmRank : null
+                    ProgressScore = school is BenchmarkSchoolModel ? (school as BenchmarkSchoolModel).ProgressScore : null
                 });
             }
 

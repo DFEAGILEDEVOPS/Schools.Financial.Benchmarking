@@ -46,7 +46,7 @@ namespace SFB.Web.UI.Helpers.Enums
         Basic,
         Advanced,
         Manual,
-        BestInBreed,
+        BestInClass,
         OneClick
     }
 

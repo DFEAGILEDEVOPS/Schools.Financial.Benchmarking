@@ -31,13 +31,12 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockContextDataService = new Mock<IContextDataService>();
-            var mockBestInBreedDataService = new Mock<IBestInClassDataService>();
 
             var mockBenchmarkCriteriaBuilderService = new Mock<IBenchmarkCriteriaBuilderService>();
             mockBenchmarkCriteriaBuilderService.Setup(s => s.BuildFromSimpleComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<SimpleCriteria>(), It.IsAny<int>()))
                 .Returns((FinancialDataModel dm, SimpleCriteria sc, int percentage) => new BenchmarkCriteria() { Gender = new[] { "Male" } });
 
-            var service = new ComparisonService(mockFinancialDataService.Object, mockContextDataService.Object, mockBestInBreedDataService.Object, mockBenchmarkCriteriaBuilderService.Object);
+            var service = new ComparisonService(mockFinancialDataService.Object, mockContextDataService.Object, mockBenchmarkCriteriaBuilderService.Object);
 
             var comparisonResult = await service.GenerateBenchmarkListWithSimpleComparisonAsync(new BenchmarkCriteria(){ Gender = new []{"Male"}},
                 EstablishmentType.Maintained, 15, new SimpleCriteria(), new FinancialDataModel("123","14-15",testResult,EstablishmentType.Maintained));

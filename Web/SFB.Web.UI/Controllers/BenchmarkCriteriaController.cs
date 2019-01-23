@@ -45,7 +45,6 @@ namespace SFB.Web.UI.Controllers
         public ViewResult ComparisonStrategy(int urn)
         {
             ViewBag.URN = urn;
-            ViewBag.BestInClassAvailable = _comparisonService.IsBestInClassComparisonAvailable(urn);
 
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
 
@@ -67,31 +66,13 @@ namespace SFB.Web.UI.Controllers
         {
             switch (comparisonType)
             {
-                case ComparisonType.BestInBreed:
-                    return SelectBestInClassNextStep(urn);
+                case ComparisonType.BestInClass:
+                    return SelectBasketSize(urn, comparisonType);
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn, comparisonType);
                 case ComparisonType.Advanced:
                 default:
                     return SelectSchoolType(urn, comparisonType, null, null);
-            }
-        }
-
-        private ActionResult SelectBestInClassNextStep(int urn)
-        {
-            var schoolData = _contextDataService.GetSchoolDataObjectByUrn(urn);
-            var multipleEM = _comparisonService.IsMultipleEfficienctMetricsAvailable(urn);
-
-            if (multipleEM)
-            {
-                ViewBag.URN = urn;
-                var benchmarkSchool = new SchoolViewModel(schoolData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-                return View("AllThroughPhase", benchmarkSchool);
-            }
-            else
-            {
-                TempData["URN"] = urn;
-                return RedirectToAction("GenerateForBestInClass", "BenchmarkCharts");
             }
         }
 

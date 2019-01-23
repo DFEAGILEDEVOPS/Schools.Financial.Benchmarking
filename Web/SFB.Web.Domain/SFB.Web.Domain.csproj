@@ -78,7 +78,6 @@
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\BenchmarkChartData.cs" />
     <Compile Include="Models\BenchmarkChartModel.cs" />
-    <Compile Include="Models\BestInClassResult.cs" />
     <Compile Include="Models\ComparisonResult.cs" />
     <Compile Include="Models\GeoCodeCalc.cs" />
     <Compile Include="Models\HistoricalChartData.cs" />
@@ -89,12 +88,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Comparison\BenchmarkCriteriaBuilderService.cs" />
     <Compile Include="Services\Comparison\ComparisonService.cs" />
-    <Compile Include="Services\DataAccess\BestInClassDataService.cs" />
     <Compile Include="Services\DataAccess\FinancialDataService.cs" />
     <Compile Include="Services\DataAccess\ContextDataService.cs" />
     <Compile Include="Services\Comparison\IBenchmarkCriteriaBuilderService.cs" />
     <Compile Include="Services\Comparison\IComparisonService.cs" />
-    <Compile Include="Services\DataAccess\IBestInClassDataService.cs" />
     <Compile Include="Services\ILocalAuthoritiesService.cs" />
     <Compile Include="Services\LocalAuthoritiesService.cs" />
     <Compile Include="Services\Search\SchoolSearchService.cs" />

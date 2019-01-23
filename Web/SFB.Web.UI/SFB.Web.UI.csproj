@@ -655,7 +655,6 @@
     <Content Include="Views\BenchmarkCharts\Partials\ChartTableTrust.cshtml" />
     <Content Include="Views\Shared\Partials\ChartTable.cshtml" />
     <Content Include="Views\Shared\EmptyLocationResult.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\AllThroughPhase.cshtml" />
     <Content Include="Views\BenchmarkCharts\OneClickReport.cshtml" />
     <Content Include="Views\SchoolSearch\AddSchools.cshtml" />
     <Content Include="Views\Shared\Partials\Search\SchoolSearchOption.cshtml" />

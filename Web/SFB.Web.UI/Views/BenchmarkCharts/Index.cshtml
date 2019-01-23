@@ -41,7 +41,7 @@
 <div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
     <div class="column-full">
         <span class="back-chevron" aria-hidden="true">&#9666;</span>
-        @if (Model.ComparisonType == ComparisonType.BestInBreed)
+        @if (Model.ComparisonType == ComparisonType.BestInClass)
         {
             <a class="home-link" href="@Request.Url.AbsolutePath?Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Back to benchmarking charts</a>
         }
@@ -219,7 +219,7 @@ else
                 <div id="CustomReportContentPlaceHolder">
 
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-                    @if (Model.ComparisonType == ComparisonType.BestInBreed)
+                    @if (Model.ComparisonType == ComparisonType.BestInClass)
                     {
                         <div id="bestInClassTabSection">
                             <div class="grid-row">
@@ -250,7 +250,7 @@ else
                                                 </td>
                                                 <td scope="col">@bmSchool.LaName</td>
                                                 <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
-                                                <td class="numeric" scope="col">@bmSchool.EmRank</td>
+                                                <td class="numeric" scope="col">@bmSchool.ProgressScore</td>
                                             </tr>
                                         }
                                         </tbody>
@@ -260,7 +260,7 @@ else
                         </div>
                     }
 
-                    <div id="tabsSection" style="display: @Html.Raw(Model.ComparisonType != ComparisonType.BestInBreed ? "block" : "none")">
+                    <div id="tabsSection" style="display: @Html.Raw(Model.ComparisonType != ComparisonType.BestInClass ? "block" : "none")">
                         @Html.Partial("Partials/TabContent")
                     </div>
                     @if (Model.EstablishmentType != EstablishmentType.MAT)

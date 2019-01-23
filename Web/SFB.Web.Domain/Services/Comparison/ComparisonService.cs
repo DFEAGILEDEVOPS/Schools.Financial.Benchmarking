@@ -13,14 +13,12 @@ namespace SFB.Web.Domain.Services.Comparison
     {
         private readonly IFinancialDataService _financialDataService;
         private readonly IContextDataService _contextDataService;
-        private readonly IBestInClassDataService _bestInBreedDataService;
         private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
 
-        public ComparisonService(IFinancialDataService financialDataService,  IContextDataService _contextDataService, IBestInClassDataService bestInBreedDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
+        public ComparisonService(IFinancialDataService financialDataService,  IContextDataService _contextDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
         {
             _financialDataService = financialDataService;
             this._contextDataService = _contextDataService;
-            _bestInBreedDataService = bestInBreedDataService;
             _benchmarkCriteriaBuilderService = benchmarkCriteriaBuilderService;
         }
 
@@ -33,45 +31,7 @@ namespace SFB.Web.Domain.Services.Comparison
                 BenchmarkCriteria = criteria
             };
         }
-
-        public bool IsBestInClassComparisonAvailable(int urn)
-        {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectsByUrn(urn);
-
-            return bestInBreedDataObject?.Count > 0;
-        }
-
-        public bool IsMultipleEfficienctMetricsAvailable(int urn)
-        {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectsByUrn(urn);
-
-            return bestInBreedDataObject?.Count > 1;
-        }
-
-        public List<BestInClassResult> GenerateBenchmarkListWithBestInClassComparison(int urn, string phase = null)
-        {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectByUrnAndPhase(urn, phase);
-
-            var results = new List<BestInClassResult>();
-
-            results.Add(new BestInClassResult()
-            {
-                ContextData = _contextDataService.GetSchoolDataObjectByUrn(bestInBreedDataObject.URN),
-                Rank = bestInBreedDataObject.Rank
-            });
-
-            foreach (var neighbour in bestInBreedDataObject.Neighbours)
-            {
-                results.Add(new BestInClassResult()
-                {
-                    ContextData = _contextDataService.GetSchoolDataObjectByUrn(neighbour.URN),
-                    Rank = neighbour.Rank
-                });
-            }
-
-            return results.OrderBy(r => r.Rank).ThenBy(r => r.ContextData.EstablishmentName).ToList();
-        }
-
+        
         public async Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(
             BenchmarkCriteria benchmarkCriteria, EstablishmentType estType,
             int basketSize,

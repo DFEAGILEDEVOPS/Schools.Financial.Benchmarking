@@ -140,62 +140,6 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateForBestInClass(int? urn, string phase = null)
-        {
-            try
-            {
-                urn = urn ?? (int)TempData["URN"];
-            }
-            catch(Exception)
-            {
-                return new RedirectResult("/Errors/InvalidRequest");
-            }
-
-            var bestInClassResults = _comparisonService.GenerateBenchmarkListWithBestInClassComparison(urn.GetValueOrDefault(), phase);
-
-            var filteredBestInClassResults = bestInClassResults.Where(bic => !isNegativeRRAboveBicTreshold(bic) || bic.ContextData.URN == urn).ToList();
-
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
-
-            foreach (var bestInClassResult in filteredBestInClassResults)
-            {
-                var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
-                {
-                    Name = bestInClassResult.ContextData.EstablishmentName,
-                    Type = bestInClassResult.ContextData.TypeOfEstablishment,
-                    EstabType = bestInClassResult.ContextData.FinanceType,
-                    Urn = bestInClassResult.ContextData.URN.ToString(),
-                    EmRank = bestInClassResult.Rank
-                };
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
-            }
-
-            return await Index(urn, null, null, ComparisonType.BestInBreed);
-        }
-
-        private bool isNegativeRRAboveBicTreshold(BestInClassResult bic)
-        {
-            SchoolTrustFinancialDataObject finance;
-            if (bic.ContextData.FinanceType == "Academies")
-            {
-                finance = _financialDataService.GetSchoolFinancialDataObject(bic.ContextData.URN,
-                    FormatHelpers.FinancialTermFormatAcademies(
-                        _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies)),
-                    EstablishmentType.Academies);
-            }
-            else
-            {
-                finance = _financialDataService.GetSchoolFinancialDataObject(bic.ContextData.URN,
-                    FormatHelpers.FinancialTermFormatAcademies(
-                        _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained)),
-                    EstablishmentType.Maintained);
-            }
-
-            return (finance != null) && ((finance.RevenueReserve / finance.TotalIncome) < -5/100);
-
-        }
-
-        [HttpGet]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
             int urn;
@@ -386,7 +330,7 @@ namespace SFB.Web.UI.Controllers
 
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
-            if(comparisonType == ComparisonType.BestInBreed)
+            if(comparisonType == ComparisonType.BestInClass)
             {
                 PopulateExtraFieldsForBestInBreedTab(comparisonList);
             }
