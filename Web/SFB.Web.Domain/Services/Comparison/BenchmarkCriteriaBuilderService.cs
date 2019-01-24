@@ -6,6 +6,25 @@ namespace SFB.Web.Domain.Services.Comparison
 {
     public class BenchmarkCriteriaBuilderService : IBenchmarkCriteriaBuilderService
     {
+        public BenchmarkCriteria BuildFromBicComparisonCriteria(BestInClassCriteria bicCriteria)
+        {
+            return new BenchmarkCriteria()
+            {
+                SchoolOverallPhase = new[] { bicCriteria.OverallPhase },
+                UrbanRural = new[] { bicCriteria.UrbanRural },
+                MinNoPupil = bicCriteria.NoPupilsMin,
+                MaxNoPupil = bicCriteria.NoPupilsMax,
+                MinPerFSM = bicCriteria.PercentageFSMMin,
+                MaxPerFSM = bicCriteria.PercentageFSMMax,
+                MinPerSEN = bicCriteria.PercentageSENMin,
+                MaxPerSEN = bicCriteria.PercentageSENMax,
+                MinKs2Progress = bicCriteria.Ks2ProgressScoreMin,
+                MaxKs2Progress = bicCriteria.Ks2ProgressScoreMax,
+                MinP8Mea = bicCriteria.Ks4ProgressScoreMin,
+                MaxP8Mea = bicCriteria.Ks4ProgressScoreMax
+            };
+        }
+
         public BenchmarkCriteria BuildFromSimpleComparisonCriteria(FinancialDataModel benchmarkSchoolData, SimpleCriteria simpleCriteria, int percentageMargin = 0)
         {
             return BuildFromSimpleComparisonCriteria(benchmarkSchoolData, simpleCriteria.IncludeFsm.GetValueOrDefault(),

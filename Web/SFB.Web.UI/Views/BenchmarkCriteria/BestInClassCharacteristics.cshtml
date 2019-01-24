@@ -1,4 +1,6 @@
-﻿@model SFB.Web.UI.Models.BestInClassCharacteristicsViewModel
+﻿@using SFB.Web.Domain.Helpers.Constants
+
+@model SFB.Web.UI.Models.BestInClassCharacteristicsViewModel
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "bic-characteristics";
@@ -59,12 +61,12 @@
             <div class="column-half no-padding">
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MinNoPupil">From(-%15)</label>
-                        <input type="number" name="BicCriteria.MinNoPupil" id="MinNoPupil" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMin">
+                        <label class="form-label" for="NoPupilsMin">From (-@CriteriaSearchConfig.BIC_DEFAULT_FLEX.ToString("P"))</label>
+                        <input type="number" name="BicCriteria.NoPupilsMin" id="NoPupilsMin" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMin">
                     </div>
                     <div class="column-half">
-                        <label class="form-label" for="MaxNoPupil">To(+%15)</label>
-                        <input type="number" name="BicCriteria.MaxNoPupil" id="MaxNoPupil" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMax">
+                        <label class="form-label" for="NoPupilsMax">To (+@CriteriaSearchConfig.BIC_DEFAULT_FLEX.ToString("P"))</label>
+                        <input type="number" name="BicCriteria.NoPupilsMax" id="NoPupilsMax" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMax">
                     </div>
                 </div>
             </div>
@@ -83,11 +85,11 @@
             <div class="column-half no-padding">
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MinPerFSM">From(-%15)</label>
+                        <label class="form-label" for="MinPerFSM">From (-@CriteriaSearchConfig.BIC_DEFAULT_FLEX.ToString("P"))</label>
                         <input type="number" name="BicCriteria.PercentageFSMMin" id="MinPerFSM" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageFSMMin.ToString("F2")">
                     </div>
                     <div class="column-half">
-                        <label class="form-label" for="MaxPerFSM">To(+%15)</label>
+                        <label class="form-label" for="MaxPerFSM">To (+@CriteriaSearchConfig.BIC_DEFAULT_FLEX.ToString("P"))</label>
                         <input type="number" name="BicCriteria.PercentageFSMMax" id="MaxPerFSM" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageFSMMax.ToString("F2")">
                     </div>
                 </div>
@@ -107,11 +109,11 @@
             <div class="column-half no-padding">
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MinPerSEN">From(-%15)</label>
+                        <label class="form-label" for="MinPerSEN">From (-@CriteriaSearchConfig.BIC_DEFAULT_FLEX.ToString("P"))</label>
                         <input type="number" name="BicCriteria.PercentageSENMin" id="MinPerSEN" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageSENMin.ToString("F2")">
                     </div>
                     <div class="column-half">
-                        <label class="form-label" for="MaxPerSEN">To(+%15)</label>
+                        <label class="form-label" for="MaxPerSEN">To (+@CriteriaSearchConfig.BIC_DEFAULT_FLEX.ToString("P"))</label>
                         <input type="number" name="BicCriteria.PercentageSENMax" id="MaxPerSEN" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageSENMax.ToString("F2")">
                     </div>
                 </div>
@@ -130,6 +132,7 @@
         </div>
     </div>
 
+    <input type="hidden" name="Urn" value="@Model.BenchmarkSchool.Id">
     <input type="hidden" name="BicCriteria.EstablishmentType" value="@Model.BicCriteria.EstablishmentType">
     <input type="hidden" name="BicCriteria.OverallPhase" value="@Model.BicCriteria.OverallPhase">
     <input type="hidden" name="BicCriteria.UrbanRural" value="@Model.BicCriteria.UrbanRural">

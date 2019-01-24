@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SFB.Web.Domain.Helpers.Constants
+﻿namespace SFB.Web.Domain.Helpers.Constants
 {
     public class SearchErrorMessages
     {
@@ -52,5 +46,6 @@ namespace SFB.Web.Domain.Helpers.Constants
     {
         public const int DEFAULT_MARGIN = 10;
         public const int MAX_TRY_LIMIT = 10;
+        public const decimal BIC_DEFAULT_FLEX = 0.15M;
     }
 }

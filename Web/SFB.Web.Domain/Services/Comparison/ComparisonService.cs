@@ -31,7 +31,17 @@ namespace SFB.Web.Domain.Services.Comparison
                 BenchmarkCriteria = criteria
             };
         }
-        
+
+        public async Task<ComparisonResult> GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType estType, BenchmarkCriteria benchmarkCriteria, BestInClassCriteria bicCriteria)
+        {
+            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
+            return new ComparisonResult()
+            {
+                BenchmarkSchools = benchmarkSchools,
+                BenchmarkCriteria = benchmarkCriteria
+            };
+        }
+
         public async Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(
             BenchmarkCriteria benchmarkCriteria, EstablishmentType estType,
             int basketSize,

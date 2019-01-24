@@ -12,8 +12,8 @@ namespace SFB.Web.Domain.Models
         public decimal? Ks2ProgressScoreMax { get; set; }
         public decimal? Ks4ProgressScoreMin { get; set; }
         public decimal? Ks4ProgressScoreMax { get; set; }
-        public float NoPupilsMin { get; set; }
-        public float NoPupilsMax { get; set; }
+        public decimal NoPupilsMin { get; set; }
+        public decimal NoPupilsMax { get; set; }
         public decimal PercentageFSMMin { get; set; }
         public decimal PercentageFSMMax { get; set; }
         public decimal PercentageSENMin { get; set; }
