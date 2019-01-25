@@ -395,8 +395,8 @@
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
                         "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
 
-                    if ($("#ComparisonType").val() === "BestInBreed"){
-                        tableHtml += "<tr><td class='bold'>Efficiency metric rank</td><td>" + schoolData.efficiencyRank + "</td></tr>";
+                    if ($("#ComparisonType").val() === "BestInClass"){
+                        tableHtml += "<tr><td class='bold'>Key stage progress</td><td>" + schoolData.progressscore + "</td></tr>";
                     }
 
                    tableHtml += "</table>";

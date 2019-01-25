@@ -345,13 +345,27 @@ namespace SFB.Web.DAL.Repositories
                 {
                     result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'],  '{DataGroups.Academies}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'] FROM c WHERE {query}");
+                        $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], " +
+                        $"'{DataGroups.Academies}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'] " +
+                        $"FROM c WHERE {query}");
                 }
                 else
                 {
                     result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'], c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], '{DataGroups.Maintained}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'] FROM c WHERE {query}");
+                        $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], " +
+                        $"'{DataGroups.Maintained}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}']" +
+                        $"FROM c WHERE {query}");
                 }
             }
             catch (Exception ex)

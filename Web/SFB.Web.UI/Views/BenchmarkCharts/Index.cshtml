@@ -79,7 +79,7 @@ else
                         <span>&nbsp;to schools</span>
                         <span class="bold-small"> with characteristics you've chosen</span>
                     }
-                    else if (Model.ComparisonType == ComparisonType.Basic)
+                    else if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.BestInClass)
                     {
                         <span>&nbsp;to schools</span>
                         <span class="bold-small"> matching your chosen characteristics</span>
@@ -87,7 +87,7 @@ else
                 </div>
             </div>
         }
-        if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced)
+        if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass)
         {
             <div class="grid-row">
                 <div class="column-full">
@@ -105,6 +105,10 @@ else
                             {
                                 Html.RenderPartial("Partials/BasicHiddenFields");
                                 Html.RenderPartial("Partials/UsedBasicCriteria");
+                            }else if (Model.ComparisonType == ComparisonType.BestInClass)
+                            {
+                                Html.RenderPartial("Partials/BicHiddenFields");
+                                Html.RenderPartial("Partials/UsedBicCriteria");
                             }
                         </div>
                     </details>
@@ -236,7 +240,7 @@ else
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools)
+                                            @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools.OrderByDescending(s => s.ProgressScore))
                                             {
                                                 <tr>
                                                     <td scope="col" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "bold":"")">

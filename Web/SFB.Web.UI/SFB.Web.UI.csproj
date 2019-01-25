@@ -665,6 +665,8 @@
     <Content Include="Views\Shared\Partials\Search\LaSearchOption.cshtml" />
     <Content Include="Views\Location\Suggest.cshtml" />
     <Content Include="Views\BenchmarkCriteria\BestInClassCharacteristics.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\BicHiddenFields.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\UsedBicCriteria.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

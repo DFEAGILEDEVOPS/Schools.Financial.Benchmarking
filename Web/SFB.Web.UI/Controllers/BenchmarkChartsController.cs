@@ -107,7 +107,8 @@ namespace SFB.Web.UI.Controllers
                     Name = schoolDoc.SchoolName,
                     Type = schoolDoc.Type,
                     EstabType = schoolDoc.FinanceType,
-                    Urn = schoolDoc.URN.ToString()
+                    Urn = schoolDoc.URN.ToString(),
+                    ProgressScore = schoolDoc.Ks2Progress.HasValue ? schoolDoc.Ks2Progress : schoolDoc.Progress8Measure
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }

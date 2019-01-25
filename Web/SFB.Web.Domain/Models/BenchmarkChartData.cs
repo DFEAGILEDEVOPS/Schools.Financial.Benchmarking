@@ -41,6 +41,6 @@ namespace SFB.Web.Domain.Models
         public string La { get; set; }
 
         [JsonProperty(PropertyName = "progressscore")]
-        public int? ProgressScore { get; set; }
+        public decimal? ProgressScore { get; set; }
     }
 }
