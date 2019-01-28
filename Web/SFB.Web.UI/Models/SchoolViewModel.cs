@@ -167,6 +167,10 @@ namespace SFB.Web.UI.Models
 
         public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
 
+        public bool IsSAT => LatestYearFinancialData.IsSAT;
+
+        public bool IsMAT => LatestYearFinancialData.IsMAT;
+
         public bool HasCoordinates
         {
             get

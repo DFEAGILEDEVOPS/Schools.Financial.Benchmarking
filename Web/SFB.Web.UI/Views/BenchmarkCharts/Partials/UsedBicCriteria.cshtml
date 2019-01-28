@@ -43,19 +43,19 @@
                     var fieldType = (dbAttribute as DBFieldAttribute).Type;
                     var criteriaValue = typeof(SchoolTrustFinancialDataObject).GetProperties().First(p => (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).First() as JsonPropertyAttribute).PropertyName == fieldName).GetValue(Model.BenchmarkSchoolData.FinancialDataObjectModel);
                     var uiName = (uiNameAttribute as PrettyNameAttribute).Name;
-                    if (!uiName.IsNullOrWhiteSpace())
+                    if (!uiName.IsNullOrWhiteSpace() && criteriaValue != null)
                     {
                         switch (fieldType)
                         {
                             case CriteriaFieldComparisonTypes.MIN:
                                 @Html.Raw($"<td>{uiName} (minimum)</td>")
-                                @Html.Raw($"<td>{criteriaValue}</td>")
-                                @Html.Raw($"<td>{fieldValue}</td>")
+                                @Html.Raw($"<td>{decimal.Round((decimal)criteriaValue, 2, MidpointRounding.AwayFromZero)}</td>")
+                                @Html.Raw($"<td>{decimal.Round((decimal)fieldValue, 2, MidpointRounding.AwayFromZero)}</td>")
                                 break;
                             case CriteriaFieldComparisonTypes.MAX:
                                 @Html.Raw($"<td>{uiName} (maximum)</td>")
-                                @Html.Raw($"<td>{criteriaValue}</td>")
-                                @Html.Raw($"<td>{fieldValue}</td>")
+                                @Html.Raw($"<td>{decimal.Round((decimal)criteriaValue, 2, MidpointRounding.AwayFromZero)}</td>")
+                                @Html.Raw($"<td>{decimal.Round((decimal)fieldValue, 2, MidpointRounding.AwayFromZero)}</td>")
                                 break;
                             case CriteriaFieldComparisonTypes.EQUALTO:
                                 if (fieldValue is string)

@@ -456,5 +456,13 @@ namespace SFB.Web.Common.DataObjects
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.IS_PLACEHOLDER)]
         public bool IsPlaceholder { get; set; }
+
+        public decimal? RRPerIncomePercentage
+        {
+            get
+            {
+                return this.RevenueReserve / this.TotalIncome;
+            }
+        }
     }
 }

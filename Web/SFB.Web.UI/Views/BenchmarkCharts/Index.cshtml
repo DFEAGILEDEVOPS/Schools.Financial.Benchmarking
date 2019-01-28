@@ -249,7 +249,7 @@ else
                                                 </td>
                                                 <td scope="col">@bmSchool.LaName</td>
                                                 <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
-                                                <td class="numeric" scope="col">@bmSchool.ProgressScore</td>
+                                                <td class="numeric" scope="col">@bmSchool.ProgressScore.GetValueOrDefault().ToString("F")</td>
                                             </tr>
                                         }
                                         </tbody>

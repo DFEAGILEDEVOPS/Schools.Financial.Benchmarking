@@ -14,6 +14,6 @@ namespace SFB.Web.Domain.Services.Comparison
             SimpleCriteria simpleCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
 
         Task<ComparisonResult> GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType establishmentType, BenchmarkCriteria benchmarkCriteria, 
-            BestInClassCriteria bicCriteria);
+            BestInClassCriteria bicCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
     }
 }

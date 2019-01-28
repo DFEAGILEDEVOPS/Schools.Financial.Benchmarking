@@ -302,7 +302,7 @@ namespace SFB.Web.Domain.Models
 
         public decimal? Ks2Actual => FinancialDataObjectModel.Ks2Actual;
 
-        public decimal? Ks2Progress => FinancialDataObjectModel.Ks2Progress;
+        public decimal? Ks2Progress => FinancialDataObjectModel.Ks2Progress.HasValue ? decimal.Round(FinancialDataObjectModel.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) : (decimal?)null;
 
         public decimal? AvAtt8 => FinancialDataObjectModel.AverageAttainment;
 
