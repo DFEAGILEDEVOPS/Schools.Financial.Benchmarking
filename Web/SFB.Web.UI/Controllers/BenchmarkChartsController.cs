@@ -91,7 +91,7 @@ namespace SFB.Web.UI.Controllers
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
 
-            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(bicCriteria);
+            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(benchmarkSchool.LatestYearFinancialData, bicCriteria);
 
             var comparisonResult = await _comparisonService.GenerateBenchmarkListWithBestInClassComparisonAsync(
                 benchmarkSchool.EstablishmentType, 
