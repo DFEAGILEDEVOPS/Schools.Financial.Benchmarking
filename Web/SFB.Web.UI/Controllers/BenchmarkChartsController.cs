@@ -788,7 +788,7 @@ namespace SFB.Web.UI.Controllers
                 Type = cookieObject.HomeSchoolType,
                 EstabType = cookieObject.HomeSchoolFinancialType,
                 Urn = cookieObject.HomeSchoolUrn,
-                ProgressScore = bmSchool.LatestYearFinancialData.Ks2Progress ?? bmSchool.LatestYearFinancialData.P8Mea
+                ProgressScore = bmSchool.LatestYearFinancialData?.Ks2Progress ?? bmSchool.LatestYearFinancialData?.P8Mea
             };
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);            
         }
