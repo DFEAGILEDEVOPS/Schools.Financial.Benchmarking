@@ -49,5 +49,119 @@ namespace SFB.Web.UI.UnitTests
             Assert.IsTrue(comparisonResult.BenchmarkCriteria.UrbanRural.Contains("Hamlet and isolated dwelling"));
             Assert.IsTrue(comparisonResult.BenchmarkCriteria.UrbanRural.Contains("Conurbation"));
         }
+
+        [Test]
+        public async Task GenerateBenchmarkListWithBestInClassComparisonAsyncShouldExpandTheUrbanRuralIfNotEnoughSchoolsFound()
+        {
+            var mockFinancialDataService = new Mock<IFinancialDataService>();
+            var testResult = new SchoolTrustFinancialDataObject();
+            testResult.URN = 321;
+            testResult.SchoolName = "test";
+            testResult.FinanceType = "Maintained";
+            testResult.UrbanRural = "Town and fringe";
+            Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
+            {
+                return new List<SchoolTrustFinancialDataObject> { testResult };
+            });
+
+            mockFinancialDataService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+
+            var mockContextDataService = new Mock<IContextDataService>();
+
+            var mockBenchmarkCriteriaBuilderService = new Mock<IBenchmarkCriteriaBuilderService>();
+            mockBenchmarkCriteriaBuilderService.Setup(s => s.BuildFromBicComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<BestInClassCriteria>(), It.IsAny<int>()))
+                .Returns((FinancialDataModel dm, BestInClassCriteria bic, int percentage) => new BenchmarkCriteria() { Gender = new[] { "Male" } });
+
+            var service = new ComparisonService(mockFinancialDataService.Object, mockContextDataService.Object, mockBenchmarkCriteriaBuilderService.Object);
+
+            var comparisonResult = await service.GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType.Maintained, new BenchmarkCriteria() { Gender = new[] { "Male" } },
+                new BestInClassCriteria(), new FinancialDataModel("123", "14-15", testResult, EstablishmentType.Maintained));
+
+            mockFinancialDataService.Verify(s => s.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), EstablishmentType.Maintained), Times.AtLeast(11));
+            Assert.AreEqual(5, comparisonResult.BenchmarkCriteria.UrbanRural.Length);
+            Assert.IsTrue(comparisonResult.BenchmarkCriteria.UrbanRural.Contains("Rural and village"));
+            Assert.IsTrue(comparisonResult.BenchmarkCriteria.UrbanRural.Contains("Town and fringe"));
+            Assert.IsTrue(comparisonResult.BenchmarkCriteria.UrbanRural.Contains("Urban and city"));
+            Assert.IsTrue(comparisonResult.BenchmarkCriteria.UrbanRural.Contains("Hamlet and isolated dwelling"));
+            Assert.IsTrue(comparisonResult.BenchmarkCriteria.UrbanRural.Contains("Conurbation"));
+        }
+
+        [Test]
+        public async Task GenerateBenchmarkListWithBestInClassComparisonAsyncShouldExpandWhenNotEnoughSchoolsFound()
+        {
+            var testResult = new SchoolTrustFinancialDataObject();
+            testResult.URN = 321;
+            testResult.SchoolName = "test";
+            testResult.FinanceType = "Maintained";
+            testResult.UrbanRural = "Town and fringe";
+            testResult.RevenueReserve = 10;
+            testResult.TotalIncome = 100;
+            Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
+            {
+                var results = new List<SchoolTrustFinancialDataObject>();
+                for(var i=0; i<25; i++)
+                {
+                    results.Add(testResult);
+                }
+
+                return results;
+            });
+
+            var mockFinancialDataService = new Mock<IFinancialDataService>();
+            mockFinancialDataService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+            
+            var mockBenchmarkCriteriaBuilderService = new Mock<IBenchmarkCriteriaBuilderService>();
+            mockBenchmarkCriteriaBuilderService.Setup(s => s.BuildFromBicComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<BestInClassCriteria>(), It.IsAny<int>()))
+                .Returns((FinancialDataModel dm, BestInClassCriteria bic, int percentage) => new BenchmarkCriteria() { Gender = new[] { "Male" } });
+
+            var service = new ComparisonService(mockFinancialDataService.Object, new Mock<IContextDataService>().Object, mockBenchmarkCriteriaBuilderService.Object);
+
+            var comparisonResult = await service.GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType.Maintained, new BenchmarkCriteria() { Gender = new[] { "Male" } },
+                new BestInClassCriteria(), new FinancialDataModel("123", "14-15", testResult, EstablishmentType.Maintained));
+
+            mockFinancialDataService.Verify(s => s.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), EstablishmentType.Maintained), Times.Exactly(13));
+            Assert.AreEqual(15, comparisonResult.BenchmarkSchools.Count);            
+        }
+
+
+        [Test]
+        public async Task GenerateBenchmarkListWithBestInClassComparisonAsyncShouldNotExpandWhenNotEnoughSchoolsFound()
+        {
+            var testResult = new SchoolTrustFinancialDataObject();
+            testResult.URN = 321;
+            testResult.SchoolName = "test";
+            testResult.FinanceType = "Maintained";
+            testResult.UrbanRural = "Town and fringe";
+            testResult.RevenueReserve = 10;
+            testResult.TotalIncome = 100;
+            Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
+            {
+                var results = new List<SchoolTrustFinancialDataObject>();
+                for (var i = 0; i < 51; i++)
+                {
+                    results.Add(testResult);
+                }
+
+                return results;
+            });
+
+            var mockFinancialDataService = new Mock<IFinancialDataService>();
+            mockFinancialDataService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+
+            var mockBenchmarkCriteriaBuilderService = new Mock<IBenchmarkCriteriaBuilderService>();
+            mockBenchmarkCriteriaBuilderService.Setup(s => s.BuildFromBicComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<BestInClassCriteria>(), It.IsAny<int>()))
+                .Returns((FinancialDataModel dm, BestInClassCriteria bic, int percentage) => new BenchmarkCriteria() { Gender = new[] { "Male" } });
+
+            var service = new ComparisonService(mockFinancialDataService.Object, new Mock<IContextDataService>().Object, mockBenchmarkCriteriaBuilderService.Object);
+
+            var comparisonResult = await service.GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType.Maintained, new BenchmarkCriteria() { Gender = new[] { "Male" } },
+                new BestInClassCriteria(), new FinancialDataModel("123", "14-15", testResult, EstablishmentType.Maintained));
+
+            mockFinancialDataService.Verify(s => s.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), EstablishmentType.Maintained), Times.Exactly(1));
+            Assert.AreEqual(15, comparisonResult.BenchmarkSchools.Count);
+        }
     }
 }

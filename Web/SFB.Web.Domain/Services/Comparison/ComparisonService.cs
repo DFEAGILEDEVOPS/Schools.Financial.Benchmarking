@@ -37,9 +37,9 @@ namespace SFB.Web.Domain.Services.Comparison
             BenchmarkCriteria benchmarkCriteria, BestInClassCriteria bicCriteria,
             FinancialDataModel defaultSchoolFinancialDataModel)
         {
+            //STEP 1: Straight search with prefilled criteria
             var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
-            //STEP 1: Straigth search with prefilled criteria
             if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Original query returns more than required. Clip from top by people count proximity.
             {
                 benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault()))
@@ -106,7 +106,7 @@ namespace SFB.Web.Domain.Services.Comparison
                     .ToList();
             }
 
-            UpdateUsedBicCriteriaWithResultSchoolsLimits(benchmarkCriteria, benchmarkSchools);
+            //UpdateUsedBicCriteriaWithResultSchoolsLimits(benchmarkCriteria, benchmarkSchools);
 
             return new ComparisonResult()
             {
@@ -191,18 +191,18 @@ namespace SFB.Web.Domain.Services.Comparison
             return school.RRPerIncomePercentage > CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD;
         }
 
-        private void UpdateUsedBicCriteriaWithResultSchoolsLimits(BenchmarkCriteria benchmarkCriteria, List<SchoolTrustFinancialDataObject> benchmarkSchools)
-        {
-            //benchmarkCriteria.MinPerFSM = benchmarkSchools.Min(s => s.PercentageFSM);
-            //benchmarkCriteria.MaxPerFSM = benchmarkSchools.Max(s => s.PercentageFSM);
-            //benchmarkCriteria.MinPerSEN = benchmarkSchools.Min(s => s.PercentagePupilsWSEN);
-            //benchmarkCriteria.MaxPerSEN = benchmarkSchools.Max(s => s.PercentagePupilsWSEN);
-            //benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
-            //benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils);
-            //benchmarkCriteria.MinKs2Progress = benchmarkSchools.Min(s => decimal.Round(s.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero));
-            //benchmarkCriteria.MaxKs2Progress = benchmarkSchools.Max(s => decimal.Round(s.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero));
-            //benchmarkCriteria.MinP8Mea = benchmarkSchools.Min(s => s.Progress8Measure);
-            //benchmarkCriteria.MaxP8Mea = benchmarkSchools.Max(s => s.Progress8Measure);
-        }
+        //private void UpdateUsedBicCriteriaWithResultSchoolsLimits(BenchmarkCriteria benchmarkCriteria, List<SchoolTrustFinancialDataObject> benchmarkSchools)
+        //{
+        //    benchmarkCriteria.MinPerFSM = benchmarkSchools.Min(s => s.PercentageFSM);
+        //    benchmarkCriteria.MaxPerFSM = benchmarkSchools.Max(s => s.PercentageFSM);
+        //    benchmarkCriteria.MinPerSEN = benchmarkSchools.Min(s => s.PercentagePupilsWSEN);
+        //    benchmarkCriteria.MaxPerSEN = benchmarkSchools.Max(s => s.PercentagePupilsWSEN);
+        //    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
+        //    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils);
+        //    benchmarkCriteria.MinKs2Progress = benchmarkSchools.Min(s => decimal.Round(s.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero));
+        //    benchmarkCriteria.MaxKs2Progress = benchmarkSchools.Max(s => decimal.Round(s.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero));
+        //    benchmarkCriteria.MinP8Mea = benchmarkSchools.Min(s => s.Progress8Measure);
+        //    benchmarkCriteria.MaxP8Mea = benchmarkSchools.Max(s => s.Progress8Measure);
+        //}
     }
 }

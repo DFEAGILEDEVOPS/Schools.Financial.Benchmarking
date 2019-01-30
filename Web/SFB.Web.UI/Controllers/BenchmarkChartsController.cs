@@ -99,12 +99,9 @@ namespace SFB.Web.UI.Controllers
                 bicCriteria,
                 benchmarkSchool.LatestYearFinancialData);
 
-            var benchmarkSchools = comparisonResult.BenchmarkSchools;
-            benchmarkCriteria = comparisonResult.BenchmarkCriteria;
-
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
-            foreach (var schoolDoc in benchmarkSchools)
+            foreach (var schoolDoc in comparisonResult.BenchmarkSchools)
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
@@ -121,7 +118,7 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
-            return await Index(urn, null, benchmarkCriteria, bicCriteria, ComparisonType.BestInClass, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType);
+            return await Index(urn, null, comparisonResult.BenchmarkCriteria, bicCriteria, ComparisonType.BestInClass, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType);
         }
 
         [HttpGet]
