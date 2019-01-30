@@ -1,73 +1,70 @@
-﻿(function (GOVUK, Views) {
-    'use strict';
-    let azureMapsClient;
+﻿class SchoolsSearchViewModel {
 
-    function SchoolsSearchViewModel(localAuthorities, azureMapsAPIKey) {
-        atlas.setSubscriptionKey(azureMapsAPIKey);
-        azureMapsClient = new atlas.service.Client(atlas.getSubscriptionKey());
-
+    constructor(localAuthorities, azureMapsAPIKey) {
         this.localAuthorities = localAuthorities;
+
+        atlas.setSubscriptionKey(azureMapsAPIKey);
+        this.azureMapsClient = new atlas.service.Client(atlas.getSubscriptionKey());
+
         this.bindEvents();
     }
 
-    SchoolsSearchViewModel.prototype = {
+    bindEvents() {
+        GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
+        $('#FindCurrentPosition').click(this.findCurrentLocationHandler.bind(this));
+        this.bindAutosuggest('#FindByNameId', '#FindByNameIdSuggestionId', this.getSchoolsSuggestionHandler);
+        this.bindAutosuggest('#FindByTrustName', '#FindByTrustNameSuggestionId', this.getTrustSuggestionHandler);
+        this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
+        this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
+        this.bindEnterKeysToButtons();
+        this.bindAccordionHeaderClick();
+    }
 
-        bindEvents: function () {
-            GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
-            $('#FindCurrentPosition').click(this.findCurrentLocationHandler.bind(this));
-            this.bindAutosuggest('#FindByNameId', '#FindByNameIdSuggestionId', this.getSchoolsSuggestionHandler);
-            this.bindAutosuggest('#FindByTrustName', '#FindByTrustNameSuggestionId', this.getTrustSuggestionHandler);
-            this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler);
-            this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
-            this.bindEnterKeysToButtons();
-            this.bindAccordionHeaderClick();
-        },
+    bindAccordionHeaderClick() {
+        let inputs = $("#SearchTypesAccordion .js-accordion");
+        inputs.click(function (event) {
+            $("input:checkbox[name='openOnly']").prop('disabled', true);
+            $(event.currentTarget).next().find("input:checkbox[name='openOnly']").prop('disabled', false);
+        });
+    }
 
-        bindAccordionHeaderClick: function () {
-            var inputs = $("#SearchTypesAccordion .js-accordion");
-            inputs.click(function (event) {
-                $("input:checkbox[name='openOnly']").prop('disabled', true);
-                $(event.currentTarget).next().find("input:checkbox[name='openOnly']").prop('disabled', false);
-            });
-        },
+    bindEnterKeysToButtons() {
+        let inputs = $("#finderSection input[type ='text']");
+        inputs.keypress(function (e) {
+            if (e.which === 13) {
+                e.preventDefault();
+                $(e.target).closest(".form-group").find("button").click();
+            }
+        });
+    }
 
-        bindEnterKeysToButtons: function () {
-            var inputs = $("#finderSection input[type ='text']");
-            inputs.keypress(function (e) {
-                if (e.which === 13) {
-                    e.preventDefault();
-                    $(e.target).closest(".form-group").find("button").click();
-                }
-            });
-        },
+    findCurrentLocationHandler(evt) {
+        evt.preventDefault();
+        if (navigator.geolocation) {
+            $('#FindSchoolByPostcode').attr("placeholder", "Locating...");
+            navigator.geolocation.getCurrentPosition(this.getCurrentPositionSuccessHandler, this.getCurrentPositionErrorHandler);
+        } else this.getCurrentPositionErrorHandler(-1);
+    }
 
-        findCurrentLocationHandler: function (evt) {
-            evt.preventDefault();
-            if (navigator.geolocation) {
-                $('#FindSchoolByPostcode').attr("placeholder", "Locating...");
-                navigator.geolocation.getCurrentPosition(this.getCurrentPositionSuccessHandler, this.getCurrentPositionErrorHandler);
-            } else this.getCurrentPositionErrorHandler(-1);
-        },
+    accordionChangeHandler() {
+        $(".error-summary").hide();
+    }
+    
+    getSchoolsSuggestionHandler(keywords, callback) {
+        let dataSuggestionUrl = $("#FindByNameId").attr("data-suggestion-url");
+        return $.get(encodeURI(`${dataSuggestionUrl}?nameId=${keywords}`), function (response) {
+            return callback(response.Matches);
+        });
+    }
 
-        accordionChangeHandler: function () {
-            $(".error-summary").hide();
-        },
+    getTrustSuggestionHandler(keywords, callback) {
+        let dataSuggestionUrl = $("#FindByTrustName").attr("data-suggestion-url");
+        return $.get(encodeURI(`${dataSuggestionUrl}?name=${keywords}`), function (response) {
+            return callback(response.Matches);
+        });
+    }
 
-        getSchoolsSuggestionHandler: function (keywords, callback) {
-            var dataSuggestionUrl = $("#FindByNameId").attr("data-suggestion-url");
-            return $.get(encodeURI(`${dataSuggestionUrl}?nameId=${keywords}`), function (response) {
-                return callback(response.Matches);
-            });
-        },
-
-        getTrustSuggestionHandler: function (keywords, callback) {
-            var dataSuggestionUrl = $("#FindByTrustName").attr("data-suggestion-url");
-            return $.get(encodeURI(`${dataSuggestionUrl}?name=${keywords}`), function (response) {
-                return callback(response.Matches);
-            });
-        },
-
-        getCurrentPositionErrorHandler: function (err) {
+        getCurrentPositionErrorHandler (err) {
             let msg;
             switch (err.code) {
                 case err.UNKNOWN_ERROR:
@@ -99,10 +96,10 @@
             $("#error-summary-placeholder").append(html);
             $("#location-error-message-placeholder").empty();
             $("#location-error-message-placeholder").append(`<span class="error-message">${msg}</span>`);
-        },
+        }
 
-        getCurrentPositionSuccessHandler: function (position) {
-            var coords = position.coords || position.coordinate || position;
+        getCurrentPositionSuccessHandler (position) {
+            let coords = position.coords || position.coordinate || position;
 
             $("#error-summary-placeholder").empty();
             $("#location-error-message-placeholder").empty();
@@ -115,16 +112,15 @@
                     $('#FindSchoolByTown').attr("placeholder", "");
                 }
             });
+        }
 
-        },
-
-        getLocationResultsHandler: function (keywords, callback) {
-            azureMapsClient.search.getSearchAddress(keywords, {
+    getLocationResultsHandler(keywords, callback) {
+            this.azureMapsClient.search.getSearchAddress(keywords, {
                 typeahead: true,
                 countrySet: ['GB'],
                 limit: 10
             }).then(function (response) {
-                var suggestions = [];
+                let suggestions = [];
                 if (response && response.results !== null && response.results.length > 0) {
                     var geojsonResponse = new atlas.service.geojson.GeoJsonSearchResponse(response);
                     var results = geojsonResponse.getGeoJsonResults();
@@ -150,9 +146,9 @@
 
                 return callback(suggestions);
             });
-        },
+        }
 
-        bindAutosuggest: function (targetInputElementName, targetResolvedInputElementName, suggestionSource) {
+        bindAutosuggest (targetInputElementName, targetResolvedInputElementName, suggestionSource) {
 
             let field = "Text";
             let value = "Id";
@@ -252,12 +248,10 @@
                 }
             });
         }
-    };
 
-    SchoolsSearchViewModel.Load = function (localAuthorities, azureMapsAPIKey) {
-        new DfE.Views.SchoolsSearchViewModel(localAuthorities, azureMapsAPIKey);
-    };
+}
 
-    Views.SchoolsSearchViewModel = SchoolsSearchViewModel;
 
-}(GOVUK, DfE.Views));
+
+
+
