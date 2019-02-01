@@ -1,9 +1,6 @@
-﻿(function(GOVUK, Views) {
-    'use strict';
+﻿class BenchmarkListViewModel{
 
-    function BenchmarkListViewModel() {}
-
-    BenchmarkListViewModel.UpdateBenchmarkBasket = function (urn, withAction) {
+    UpdateBenchmarkBasket(urn, withAction) {
         $.ajax({
             url: "/benchmarklist/UpdateBenchmarkBasket?urn=" + urn + "&withAction=" + withAction,
             datatype: 'json',
@@ -47,11 +44,6 @@
                 }
             }
         });
-    };
+    }
 
-    BenchmarkListViewModel.Load = function () {
-        new DfE.Views.BenchmarkListViewModel();
-    };
-
-    Views.BenchmarkListViewModel = BenchmarkListViewModel;
-}(GOVUK, DfE.Views));
+}

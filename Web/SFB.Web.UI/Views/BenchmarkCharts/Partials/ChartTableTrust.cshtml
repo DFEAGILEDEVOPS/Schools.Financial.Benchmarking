@@ -6,9 +6,9 @@
 <table class="tablesorter chart-table">
     <thead>
         <tr>
-            <th class="school-column" scope="col">Trust name</th>
-            <th class="detail" scope="col">Number of pupils</th>
-            <th scope="col"><span aria-label="@ViewHelpers.GetAmountAriaLabel(ViewBag.UnitType.ToString())">@ViewHelpers.GetAmountLabel(ViewBag.UnitType.ToString())</span></th>
+            <th class="school-column" scope="col"  data-header="Trust name">Trust name</th>
+            <th class="detail" scope="col" data-header="Number of pupils">Number of pupils</th>
+            <th scope="col" data-header="Amount"><span aria-label="@ViewHelpers.GetAmountAriaLabel(ViewBag.UnitType.ToString())">@ViewHelpers.GetAmountLabel(ViewBag.UnitType.ToString())</span></th>
         </tr>
     </thead>
     <tbody>
@@ -20,22 +20,22 @@
         <tr>
             @if (ViewBag.HomeSchoolId.ToString() == schoolBenchmarkData.Urn)
             {
-                <td class="school-column" data-header="School name">
+                <td class="school-column" data-header="Trust name">
                     <span class="table-highlight index-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
                 </td>
             }
             else if (Model.IncompleteFinanceDataIndex.Contains(i))
             {
-                <td class="school-column" data-header="School name">
+                <td class="school-column" data-header="Trust name">
                     <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete financial data</span>
                 </td>
             }
             else
             {
-                <td class="school-column">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                <td class="school-column" data-header="Trust name">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
             }
-            <td class="detail">@schoolBenchmarkData.PupilCount</td>
-            <td>
+            <td class="detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount</td>
+            <td data-header="Amount">
                 @if (schoolBenchmarkData.Amount.HasValue)
                 {
                     switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))

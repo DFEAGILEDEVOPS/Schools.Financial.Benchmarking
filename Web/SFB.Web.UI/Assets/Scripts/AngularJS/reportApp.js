@@ -9,23 +9,23 @@
                 self.inReportView = false;
                 self.format = "Charts";
 
-                self.loadData = function(resolve) {
+                self.loadData = function (resolve) {
                     if (localStorage.CustomCharts) {
                         $scope.selectionList = JSON.parse(localStorage.CustomCharts);
                         resolve();
                     } else {
-                        $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function(response) {
+                        $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function (response) {
                             $scope.selectionList = response.data;
                             resolve();
                         });
                     }
-                }
+                };
 
                 self.persist = function () {
                     setTimeout(function () {
                         localStorage.CustomCharts = JSON.stringify($scope.selectionList);
-                    }, 500);                    
-                }
+                    }, 500);
+                };
 
                 self.anySelected = function() {
                     return self.totalSelectCount() > 0;
@@ -41,12 +41,12 @@
                     });
                 };
 
-                self.openDetails = function() {
+                self.openDetails = function () {
                     $("#customTabSection button.accordion-expand-all:contains('Open')").click();
-
-                }
+                };
 
                 self.displayCustomReport = function () {
+                    sessionStorage.chartFormat = self.format;
                     $.ajax({
                         type: "POST",
                         url: "/benchmarkcharts/CustomReport",

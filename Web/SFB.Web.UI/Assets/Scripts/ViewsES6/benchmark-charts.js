@@ -1,40 +1,45 @@
-﻿(function(GOVUK, Views) {
-    'use strict';
+﻿class BenchmarkChartsViewModel {
 
-    function BenchmarkChartsViewModel() {
+    constructor() {
+
         sessionStorage.chartFormat = 'Charts';
-        $(document).ready(function () {
+
+        $(document).ready(() => {
             $("table.dataTable").tablesorter();
-            DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
-            DfE.Views.BenchmarkChartsViewModel.RefreshAddRemoveLinks();
+            this.GenerateCharts();
+            this.RefreshAddRemoveLinks();
             $('.save-as-image').show();
         });
+
+        GOVUK.Modal.Load();
     }
 
+
     //This function is accessing to the scope of the AngularJS controller to retrieve the chart selections model and update the buttons accordingly in other tabs.
-    BenchmarkChartsViewModel.RefreshAddRemoveLinks = function() {
-        var showRemoveLink = function (element) {
+    RefreshAddRemoveLinks() {
+
+        function showRemoveLink(element) {
             $(element).find("a.customRemove").show();
             $(element).find("a.customAdd").hide();
         }
 
-        var showAddLink = function (element) {
+        function showAddLink(element) {
             $(element).find("a.customAdd").show();
             $(element).find("a.customRemove").hide();
         }
 
-        var scope = angular.element($("#listCtrl")).scope();
+        let scope = angular.element($("#listCtrl")).scope();
         if (scope) {
             scope.dataLoaded.then(
                 function () {
                     $(".customActions").each(function () {
-                        var self = this;
-                        var chartName = $(self).attr("data-fn");
-                        var showValue = $(self).attr("data-sv");
+                        let self = this;
+                        let chartName = $(self).attr("data-fn");
+                        let showValue = $(self).attr("data-sv");
 
                         _.forEach(scope.selectionList.HierarchicalCharts,
                             function (group) {
-                                var selection = _.find(group.Charts,
+                                let selection = _.find(group.Charts,
                                     function (c) {
                                         return c.Name === chartName;
                                     });
@@ -77,16 +82,15 @@
                     });
                 });
         }
-    };
+    }
 
     //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
-    BenchmarkChartsViewModel.AddRemoveYourCharts = function (chartName, showValue, checked, element) {
-        var self = this;
-        var scope = angular.element($("#listCtrl")).scope();
-        scope.$apply(function () {
+    AddRemoveYourCharts(chartName, showValue, checked, element) {
+        let scope = angular.element($("#listCtrl")).scope();
+        scope.$apply(() => {
             _.forEach(scope.selectionList.HierarchicalCharts,
-                function (group) {
-                    var selection = group.Charts.find((c) => {
+                (group) => {
+                    let selection = group.Charts.find((c) => {
                         return c.Name === chartName;
                     });
 
@@ -125,18 +129,16 @@
         if (checked) {
             $(element).parents(".your-chart-controls").find(".view-your-charts").show();
             $(".custom").addClass("bold");
-        } else
-        {
+        } else {
             $(element).parents(".your-chart-controls").find(".view-your-charts").hide();
         }
 
+        this.RefreshAddRemoveLinks();
+    }
 
-        self.RefreshAddRemoveLinks();
-    };
-
-    BenchmarkChartsViewModel.GenerateChart = function (el, showValue, min, mid, max, barCount) {
-        var applyChartStyles = function (el) {
-            var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chartContainer'))[0]
+    GenerateChart(el, showValue, min, mid, max, barCount) {
+        let applyChartStyles = function (el) {
+            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chartContainer'))[0]
                 .value;
             if (benchmarkSchoolIndex > -1) {
                 $("#" +
@@ -147,8 +149,8 @@
                     benchmarkSchoolIndex).css("fill", "#D53880");
             }
 
-            var incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chartContainer'))[0].value;
-            var incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
+            let incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chartContainer'))[0].value;
+            let incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
             if (incompleteFinanceDataIndexArray.length > 0) {
                 incompleteFinanceDataIndexArray.forEach(function (index) {
                     $("#" +
@@ -160,8 +162,8 @@
                 });
             }
 
-            var incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chartContainer'))[0].value;
-            var incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
+            let incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chartContainer'))[0].value;
+            let incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
             if (incompleteWorkforceDataIndexArray.length > 0) {
                 incompleteWorkforceDataIndexArray.forEach(function (index) {
                     $("#" +
@@ -174,13 +176,13 @@
             }
         };
 
-        var restructureSchoolNames = function (id) {
-            var texts = $("#" + id + " .c3-axis-x g.tick text tspan");
+        let restructureSchoolNames = function (id) {
+            let texts = $("#" + id + " .c3-axis-x g.tick text tspan");
 
             texts.each(function () {
-                var textParts = $(this).text().split("#");
+                let textParts = $(this).text().split("#");
 
-                var type = $("#Type").val();
+                let type = $("#Type").val();
 
                 if (type === "MAT") {
                     $(this).on('click',
@@ -194,29 +196,28 @@
                             window.open("/school/detail?urn=" + textParts[1], '_self');
                         });
                 }
-                var limit = 36;
-                var text = textParts[0].length < limit
+                let limit = 36;
+                let text = textParts[0].length < limit
                     ? textParts[0]
                     : textParts[0].substring(0, limit - 3) + "...";
                 $(this).text(text);
 
-                if (textParts[0] === $("#HomeSchoolName").val())
-                {
+                if (textParts[0] === $("#HomeSchoolName").val()) {
                     $(this).css("font-weight", "bold");
                 }
             });
         };
 
         showValue = showValue || "AbsoluteMoney";
-        var paddingBottom = min < 0 ? 100 : 0;
-        var axisLabel = $('#' + el.id).attr('data-axis-label');
-        var yAxis, yFormat;
+        let paddingBottom = min < 0 ? 100 : 0;
+        let axisLabel = $('#' + el.id).attr('data-axis-label');
+        let yAxis, yFormat;
         switch (showValue) {
             case "AbsoluteCount":
                 yAxis = {
                     tick: {
-                        format: function (d) { return window.DfE.Util.Charting.ChartIntegerFormat(d); },
-                        values: function () { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        format: (d) => { return window.DfE.Util.Charting.ChartIntegerFormat(d); },
+                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
                         count: 3
                     },
                     min: min,
@@ -229,13 +230,13 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = function (d) { return window.DfE.Util.Charting.ChartDecimalFormat(d); }
+                yFormat = (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); }
                 break;
             case "AbsoluteMoney":
                 yAxis = {
                     tick: {
-                        format: function (d) { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
-                        values: function () { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
                         count: 3
                     },
                     min: min,
@@ -248,13 +249,13 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = function (d) { return window.DfE.Util.Charting.ChartMoneyFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); };
                 break;
             case "PerPupil":
                 yAxis = {
                     tick: {
-                        format: function (d) { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
-                        values: function () { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
                         count: 3
                     },
                     min: min,
@@ -267,7 +268,7 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = function (d) {
+                yFormat = (d) => {
                     if (d === null) {
                         return "No pupil data";
                     } else {
@@ -278,8 +279,8 @@
             case "PerTeacher":
                 yAxis = {
                     tick: {
-                        format: function (d) { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
-                        values: function () { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
                         count: 3
                     },
                     min: min,
@@ -292,7 +293,7 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = function (d) {
+                yFormat = (d) => {
                     if (d === null) {
                         return "No teacher data";
                     } else {
@@ -304,8 +305,8 @@
             case "FTERatioToTotalFTE":
                 yAxis = {
                     tick: {
-                        format: function (d) { return window.DfE.Util.Charting.ChartPercentageFormat(d); },
-                        values: function () { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        format: (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); },
+                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
                         count: 3
                     },
                     min: min,
@@ -319,14 +320,14 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = function (d) { return window.DfE.Util.Charting.ChartPercentageFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); };
                 break;
             case "NoOfPupilsPerMeasure":
             case "HeadcountPerFTE":
                 yAxis = {
                     tick: {
-                        format: function (d) { return window.DfE.Util.Charting.ChartDecimalFormat(d); },
-                        values: function () { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        format: (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); },
+                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
                         count: 3
                     },
                     min: min,
@@ -339,7 +340,7 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = function (d) { return window.DfE.Util.Charting.ChartDecimalFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); };
                 break;
         }
 
@@ -381,63 +382,63 @@
             },
             tooltip: {
                 contents: function (d, defaultTitleFormat) {
-                    var nameAndUrn = defaultTitleFormat(d[0].index).split('#');
-                    var name = nameAndUrn[0];
-                    var chartData = JSON.parse($('#' + el.id).attr('data-chart'));
-                    var schoolData = chartData[d[0].index];
-                    var benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
+                    let nameAndUrn = defaultTitleFormat(d[0].index).split('#');
+                    let name = nameAndUrn[0];
+                    let chartData = JSON.parse($('#' + el.id).attr('data-chart'));
+                    let schoolData = chartData[d[0].index];
+                    let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
                         $(el).closest('.chartContainer'))[0].value;
-                    var highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
-                    var tableHtml =
+                    let highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
+                    let tableHtml =
                         "<table class='bmc-rollover-table' >" +
                         "<tr><th colspan='2' class='" + highlight + "'>" + name + "</th></tr>" +
                         "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
                         "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
 
-                    if ($("#ComparisonType").val() === "BestInClass"){
+                    if ($("#ComparisonType").val() === "BestInClass") {
                         tableHtml += "<tr><td class='bold'>Key stage progress</td><td>" + schoolData.progressscore + "</td></tr>";
                     }
 
-                   tableHtml += "</table>";
+                    tableHtml += "</table>";
 
                     return tableHtml;
                 },
-                
+
                 show: $("#Type").val() !== "MAT",
-                position: function (data, width, height, element) {
+                position: () => {
                     return { top: 0, left: 0 };
                 }
-            },            
+            },
             padding: {
                 bottom: 10
             },
-            onrendered: function () {
+            onrendered: () => {
                 applyChartStyles(el);
                 restructureSchoolNames(el.id);
             }
         });
-    };
+    }
 
-    BenchmarkChartsViewModel.GenerateCharts = function (unitParameter) {
-        var self = this;
-        var RoundedTickRange = function (min, max) {
-            var range = max - min;
-            var tickCount = 3;
-            var unroundedTickSize = range / (tickCount - 1);
-            var x = Math.ceil(Math.log10(unroundedTickSize) - 1);
-            var pow10x = Math.pow(10, x);
-            var roundedTickRange = Math.ceil(unroundedTickSize / pow10x) * pow10x;
+    GenerateCharts(unitParameter) {
+        let self = this;
+        let RoundedTickRange = function (min, max) {
+            let range = max - min;
+            let tickCount = 3;
+            let unroundedTickSize = range / (tickCount - 1);
+            let x = Math.ceil(Math.log10(unroundedTickSize) - 1);
+            let pow10x = Math.pow(10, x);
+            let roundedTickRange = Math.ceil(unroundedTickSize / pow10x) * pow10x;
             return roundedTickRange;
         };
 
         $(".chart").each(function () {
-            var yValues = JSON.parse($('#' + this.id).attr('data-chart'));
-            var unit = unitParameter ? unitParameter : yValues[0].unit;
-            var minBy = _.minBy(yValues, function (o) { return o.amount; });
-            var minimum = minBy ? minBy.amount : 0;
-            var maxBy = _.maxBy(yValues, function (o) { return o.amount; });
-            var maximum = maxBy ? maxBy.amount : 0;
+            let yValues = JSON.parse($('#' + this.id).attr('data-chart'));
+            let unit = unitParameter ? unitParameter : yValues[0].unit;
+            let minBy = _.minBy(yValues, function (o) { return o.amount; });
+            let minimum = minBy ? minBy.amount : 0;
+            let maxBy = _.maxBy(yValues, function (o) { return o.amount; });
+            let maximum = maxBy ? maxBy.amount : 0;
             if (minimum === 0 && maximum === 0) {
                 self.GenerateChart(this, unit, 0, 0, 0, yValues.length);
             } else if (minimum === maximum) {
@@ -446,36 +447,35 @@
                 if (minimum > 0) {
                     minimum = 0;
                 }
-                var range = RoundedTickRange(minimum, maximum);
-                var newMin = (minimum < 0)
+                let range = RoundedTickRange(minimum, maximum);
+                let newMin = (minimum < 0)
                     ? (range * Math.floor(minimum / range))
                     : (range * Math.round(minimum / range));
-                var newMax = range * Math.ceil(maximum / range);
+                let newMax = range * Math.ceil(maximum / range);
                 self.GenerateChart(this, unit, newMin, newMin + range, newMax, yValues.length);
             }
         });
 
         new Accordion(document.getElementById('bm-charts-accordion'));
-    };
+    }
 
-    BenchmarkChartsViewModel.SelectGrouping = function (grouping) {
+    SelectGrouping(grouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
         $("#BCHeader")[0].scrollIntoView();
         $("#ChartGroup").focus();
-    };
+    }
 
-    BenchmarkChartsViewModel.RebuildCharts = function () {
-        var self = this;
-        var tabParameter = $("#tabSelection").val();
-        var chartGroupParameter = $("#ChartGroup").val();
-        var unitParameter = $("#ShowValue").val();
-        var centralFinancing = $("#CentralFinancing").val();
-        var trustCentralFinancing = $("#TrustCentralFinancing").val();
-        var formatParameter = sessionStorage.chartFormat;
-        var type = $("#Type").val();
+    RebuildCharts() {
+        let tabParameter = $("#tabSelection").val();
+        let chartGroupParameter = $("#ChartGroup").val();
+        let unitParameter = $("#ShowValue").val();
+        let centralFinancing = $("#CentralFinancing").val();
+        let trustCentralFinancing = $("#TrustCentralFinancing").val();
+        let formatParameter = sessionStorage.chartFormat;
+        let type = $("#Type").val();
 
-        var url = "/benchmarkcharts/getcharts?revgroup=" +
+        let url = "/benchmarkcharts/getcharts?revgroup=" +
             tabParameter +
             "&showValue=" +
             unitParameter +
@@ -501,39 +501,38 @@
         $.ajax({
             url: url,
             datatype: 'json',
-            beforeSend: function() {
+            beforeSend: () => {
                 DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Updating charts");
             },
-            success: function(data) {
+            success: (data) => {
                 $("#benchmarkChartsList").html(data);
-                self.RefreshAddRemoveLinks();
+                this.RefreshAddRemoveLinks();
                 $('.save-as-image').show();
-                self.GenerateCharts(unitParameter);
+                this.GenerateCharts(unitParameter);
                 $("table.dataTable").tablesorter();
             }
         });
-    };
+    }
 
-    BenchmarkChartsViewModel.saveAsImage = function(name, id) {
-        var svg = $('#' + id).find('svg')[0];
+    saveAsImage(name, id) {
+        let svg = $('#' + id).find('svg')[0];
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' });
-    };
+    }
 
-    BenchmarkChartsViewModel.PrintPage = function() {
+    PrintPage() {
 
-        var accordion_sections = $("#benchmarkChartsList .accordion-section");
-        accordion_sections.attr('aria-expanded', true)
+        let accordion_sections = $("#benchmarkChartsList .accordion-section");
+        accordion_sections.attr('aria-expanded', true);
 
-        var buttons = $("#benchmarkChartsList .chart-accordion-header")
-        buttons.each(function() {
-            $(this).attr('aria-label', $(this).attr('aria-label').replace("Show", "Hide"))
+        let buttons = $("#benchmarkChartsList .chart-accordion-header");
+        buttons.each(function () {
+            $(this).attr('aria-label', $(this).attr('aria-label').replace("Show", "Hide"));
         });
 
         window.print();
-    };
-    
-    BenchmarkChartsViewModel.ChangeTab = function (tab) {
-        var self = this;
+    }
+
+    ChangeTab(tab) {
         if (tab === "Custom") {
             $(".tabs li").removeClass("active");
             $(".tabs li a span.bmtab").text("");
@@ -552,14 +551,14 @@
             $(".download-links").show();
             $("#bestInClassTabSection").show();
             $("#tabsSection").hide();
-        }else {
-            var unitParameter = $("#ShowValue").val();
-            var financingParameter = $("#CentralFinancing").val();
-            var trustFinancingParameter = $("#TrustCentralFinancing").val();
+        } else {
+            let unitParameter = $("#ShowValue").val();
+            let financingParameter = $("#CentralFinancing").val();
+            let trustFinancingParameter = $("#TrustCentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
-            var typeParameter = $("#Type").val();
-            var formatParameter = sessionStorage.chartFormat;
-            var url = "/benchmarkcharts/tabchange?tab=" + tab +
+            let typeParameter = $("#Type").val();
+            let formatParameter = sessionStorage.chartFormat;
+            let url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
                 "&showValue=" + unitParameter;
             if (financingParameter) {
@@ -574,71 +573,65 @@
             $.ajax({
                 url: url,
                 datatype: 'json',
-                beforeSend: function () {
+                beforeSend: () => {
                     $("#bestInClassTabSection").hide();
                     $("#customTabSection").hide();
                     $("#tabsSection").show();
                     DfE.Util.LoadingMessage.display("#tabsSection", "Updating charts");
                 },
-                success: function (data) {
+                success: (data) => {
                     $(".tabs li").removeClass("active");
                     $(".tabs li a span.bmtab").text("");
                     $(".tabs li#" + tab).addClass("active");
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $(".download-links").show();
-                    $("#tabsSection").html(data);                    
+                    $("#tabsSection").html(data);
                     $("table.dataTable").tablesorter();
-                    var unitParameter = $("#ShowValue").val();
-                    self.RefreshAddRemoveLinks();
+                    let unitParameter = $("#ShowValue").val();
+                    this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
-                    self.GenerateCharts(unitParameter);
+                    this.GenerateCharts(unitParameter);
                 }
             });
         }
-    };
+    }
 
-    BenchmarkChartsViewModel.HideShowDetails = function (element) {
-        var $table = $(element).closest('table');
+    HideShowDetails(element) {
+        let $table = $(element).closest('table');
         $table.find('.detail').toggle(200);
     }
 
-    BenchmarkChartsViewModel.Load = function () {
-        new DfE.Views.BenchmarkChartsViewModel();
-    };
+    PdfPage() {
 
-    BenchmarkChartsViewModel.PdfGenerator = PdfGenerator();
+        let pdfGenerator = new PdfGenerator();
 
-    BenchmarkChartsViewModel.PdfPage = function () {        
+        pdfGenerator.writeHeadings();
 
-        BenchmarkChartsViewModel.PdfGenerator.init();
+        pdfGenerator.writeWarnings();
 
-        BenchmarkChartsViewModel.PdfGenerator.writeHeadings();
+        pdfGenerator.writeTabs();
 
-        BenchmarkChartsViewModel.PdfGenerator.writeWarnings();
+        pdfGenerator.writeLastYearMessage();
 
-        BenchmarkChartsViewModel.PdfGenerator.writeTabs();
+        pdfGenerator.writeCharts();
 
-        BenchmarkChartsViewModel.PdfGenerator.writeLastYearMessage();
-        
-        BenchmarkChartsViewModel.PdfGenerator.writeCharts();
-
-        BenchmarkChartsViewModel.PdfGenerator.writeCriteria().then(function () {
-            BenchmarkChartsViewModel.PdfGenerator.writeContextData().then(function () {
-                BenchmarkChartsViewModel.PdfGenerator.save();
+        pdfGenerator.writeCriteria().then(() => {
+            pdfGenerator.writeContextData().then(() => {
+                pdfGenerator.save();
             });
         });
-    };
+    }
+}
 
+class PdfGenerator {
 
-    Views.BenchmarkChartsViewModel = BenchmarkChartsViewModel;
-}(GOVUK, DfE.Views));
+    constructor() {
+        this.MARGIN_LEFT = 20;
+        this.doc = new jsPDF({ unit: 'px', format: 'a3' });
+        this.offset = 60;
+    }
 
-function PdfGenerator() {
-
-    var MARGIN_LEFT = 20;
-    var doc, offset;
-    
-    function pdfGenerateImage(element) {
+    pdfGenerateImage(element) {
 
         function getCanvas(element) {
             return html2canvas($(element), {
@@ -650,196 +643,188 @@ function PdfGenerator() {
         return getCanvas(element);
     }
 
-    function pdfAddImage(canvas) {
-        var img = canvas.toDataURL("image/png");
-        doc.addImage(img, 'JPEG', MARGIN_LEFT, offset);
+    pdfAddImage(canvas) {
+        let img = canvas.toDataURL("image/png");
+        this.doc.addImage(img, 'JPEG', this.MARGIN_LEFT, this.offset);
     }
-    
-    function pdfWriteLine(type, text) {
-        doc.setFont("helvetica");
-        doc.setTextColor(0, 0, 0);
-        var fontSize;
+
+    pdfWriteLine(type, text) {
+        this.doc.setFont("helvetica");
+        this.doc.setTextColor(0, 0, 0);
+        let fontSize;
         switch (type) {
             case 'H1':
-                doc.setFontType("bold");
+                this.doc.setFontType("bold");
                 fontSize = 40;
                 break;
             case 'H2':
-                doc.setFontType("bold");
+                this.doc.setFontType("bold");
                 fontSize = 30;
                 break;
             case 'H3':
-                doc.setFontType("bold");
+                this.doc.setFontType("bold");
                 fontSize = 20;
                 break;
             case 'Warning':
-                doc.setFontType("italic");
-                doc.setTextColor(244, 119, 56);
+                this.doc.setFontType("italic");
+                this.doc.setTextColor(244, 119, 56);
                 fontSize = 20;
                 break;
             case 'Info':
-                doc.setFontType("italic");
+                this.doc.setFontType("italic");
                 fontSize = 15;
                 break;
             default:
-                doc.setFontType("normal");
+                this.doc.setFontType("normal");
                 fontSize = 15;
         }
 
-        doc.setFontSize(fontSize);
-        doc.text(MARGIN_LEFT, offset, text);
-        offset += fontSize + 8;
+        this.doc.setFontSize(fontSize);
+        this.doc.text(this.MARGIN_LEFT, this.offset, text);
+        this.offset += fontSize + 8;
     }
 
-    function pdfAddHorizontalLine() {
-        doc.line(MARGIN_LEFT, offset, 620, offset);
-        offset += 18;
+    pdfAddHorizontalLine() {
+        this.doc.line(this.MARGIN_LEFT, this.offset, 620, this.offset);
+        this.offset += 18;
     }
 
-    function pdfAddNewPage() {
-        doc.addPage('a3', 'portrait');
-        offset = 70;
+    pdfAddNewPage() {
+        this.doc.addPage('a3', 'portrait');
+        this.offset = 70;
     }
 
-    function pdfWriteChart(index) {
-        var svg = $('#chart_' + index).find('svg')[0];
+    pdfWriteChart(index) {
+        let svg = $('#chart_' + index).find('svg')[0];
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
-            function (img) {
-                doc.addImage(img, 'JPEG', -50, offset);
+            (img) => {
+                this.doc.addImage(img, 'JPEG', -50, this.offset);
             });
     }
 
-    function pdfWriteTable(id) {    
-        var headers = $(id + ' th').toArray().map(function (th) { return th.attributes['data-header'].value });
-        var data = $(id + ' tbody tr').toArray().map(function (tr) {
-            var trObj = {}
-            $(tr).children('td').toArray().map(function (td) {
+    pdfWriteTable(id) {
+        let headers = $(id + ' th').toArray().map((th) => {
+            return th.attributes['data-header'].value;
+        });
+        let data = $(id + ' tbody tr').toArray().map((tr) => {
+            let trObj = {}
+            $(tr).children('td').toArray().map((td) => {
                 trObj[td.attributes['data-header'].value] = td.textContent.trim();
             });
             return trObj;
         });
 
-        doc.table(MARGIN_LEFT, offset, data, headers, { autoSize: true, fontSize: 9, margins: {bottom: 5, left: 5, top: 5, width: 600} });
+        this.doc.table(this.MARGIN_LEFT, this.offset, data, headers, { autoSize: true, fontSize: 9, margins: { bottom: 5, left: 5, top: 5, width: 600 } });
     }
 
-    function pdfSave() {
-        doc.save('sfb-benchmark-charts.pdf');
+    pdfSave() {
+        this.doc.save('sfb-benchmark-charts.pdf');
     }
 
-    return {
+    writeHeadings() {
 
-        init: function () {
-            doc = new jsPDF({ unit: 'px', format: 'a3' });
-            offset = 60;           
-        },
+        this.pdfWriteLine('H1', 'Schools Financial Benchmarking');
 
-        writeHeadings: function () {
+        this.pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
 
-            pdfWriteLine('H1', 'Schools Financial Benchmarking');
+        if ($('#comparing').length > 0) {
+            this.pdfWriteLine('H3', $('#comparing').get(0).innerText);
+        }
+    }
 
-            pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
+    writeWarnings() {
 
-            if ($('#comparing').length > 0) {
-                pdfWriteLine('H3', $('#comparing').get(0).innerText);
-            }
-        },
-
-        writeWarnings: function () {
-
-            var warnings = $('.panel.orange-warning');
-            if (warnings.length > 0) {
-                warnings.each(function (index, element) {
-                    pdfWriteLine('Warning', element.innerText);
-                });
-            }
-        },
-
-        writeTabs: function () {
-
-            offset += 30;
-
-            if ($('.tabs li.active').length > 0) {
-                pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
-            }
-
-            var filters = $('.chart-filter');
-            if (filters.length > 0) {
-                filters.each(function (index, element) {
-                    pdfWriteLine('Normal', $(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText);
-                });
-            }
-        },
-
-        writeLastYearMessage: function () {
-            pdfAddHorizontalLine();
-            if ($('.latest-year-message').length > 0) {
-                pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
-            }
-
-        },
-
-        writeCharts: function () {
-            var charts = $('.chartContainer');
-            var yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
-            var chartPerPage = Math.ceil(12 / yValuesCount);
-
-            charts.each(function (index, element) {
-                if (index % chartPerPage === 0) {
-                    pdfAddNewPage();
-                } else
-                {
-                    offset += (800 / chartPerPage);
-                }
-                var header = $(element).find('h2').get(0).innerText;                
-                if (header.length < 60) {
-                    pdfWriteLine('H3', header);
-                } else {
-                    var header1 = header.substring(0, header.lastIndexOf('('));
-                    var header2 = header.substring(header.lastIndexOf('('));
-                    pdfWriteLine('H3', header1);
-                    pdfWriteLine('H3', header2);
-                }
-                if (sessionStorage.chartFormat === 'Charts') {
-                    pdfWriteChart(index);
-                } else {
-                    pdfWriteTable('#table_for_chart_' + index);
-                }
+        let warnings = $('.panel.orange-warning');
+        if (warnings.length > 0) {
+            warnings.each((index, element) => {
+                this.pdfWriteLine('Warning', element.innerText);
             });
-        },
+        }
+    }
 
-        writeCriteria: function () {
-            return new Promise(function(resolve, reject) {
-                if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible")) {
-                    pdfAddNewPage();
-                    pdfWriteLine('Normal', $('#criteriaExp').get(0).innerText)
-                    pdfGenerateImage('#criteriaTable').then(function (canvas) {
-                        pdfAddImage(canvas);
-                        resolve();
-                    });
-                } else {
-                    resolve();
-                }
-            });
-        },
+    writeTabs() {
 
-        writeContextData: function () {
-            return new Promise(function (resolve, reject) {
-                if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
-                    pdfAddNewPage();
-                    pdfWriteLine('H2', $('#contextExp').get(0).innerText)
-                    pdfGenerateImage('#contextDataTable').then(function (canvas) {
-                        pdfAddImage(canvas);
-                        resolve();
-                    });
-                } else {
-                    resolve();
-                }
-            });
-        },
+        this.offset += 30;
 
-        save: function () {
-            pdfSave();
+        if ($('.tabs li.active').length > 0) {
+            this.pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
         }
 
-    };
+        let filters = $('.chart-filter');
+        if (filters.length > 0) {
+            filters.each((index, element) => {
+                this.pdfWriteLine('Normal', $(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText);
+            });
+        }
+    }
+
+    writeLastYearMessage() {
+        this.pdfAddHorizontalLine();
+        if ($('.latest-year-message').length > 0) {
+            this.pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
+        }
+
+    }
+
+    writeCharts() {
+        let charts = $('.chartContainer');
+        let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
+        let chartPerPage = Math.ceil(12 / yValuesCount);
+
+        charts.each((index, element) => {
+            if (index % chartPerPage === 0) {
+                this.pdfAddNewPage();
+            } else {
+                this.offset += (800 / chartPerPage);
+            }
+            let header = $(element).find('h2').get(0).innerText;
+            if (header.length < 60) {
+                this.pdfWriteLine('H3', header);
+            } else {
+                let header1 = header.substring(0, header.lastIndexOf('('));
+                let header2 = header.substring(header.lastIndexOf('('));
+                this.pdfWriteLine('H3', header1);
+                this.pdfWriteLine('H3', header2);
+            }
+            if (sessionStorage.chartFormat === 'Charts') {
+                this.pdfWriteChart(index);
+            } else {
+                this.pdfWriteTable('#table_for_chart_' + index);
+            }
+        });
+    }
+
+    writeCriteria() {
+        return new Promise((resolve, reject) => {
+            if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible")) {
+                this.pdfAddNewPage();
+                this.pdfWriteLine('Normal', $('#criteriaExp').get(0).innerText)
+                this.pdfGenerateImage('#criteriaTable').then((canvas) => {
+                    this.pdfAddImage(canvas);
+                    resolve();
+                });
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    writeContextData() {
+        return new Promise((resolve, reject) => {
+            if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
+                this.pdfAddNewPage();
+                this.pdfWriteLine('H2', $('#contextExp').get(0).innerText)
+                this.pdfGenerateImage('#contextDataTable').then((canvas) => {
+                    this.pdfAddImage(canvas);
+                    resolve();
+                });
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    save() {
+        this.pdfSave();
+    }
 }
