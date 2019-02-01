@@ -319,6 +319,7 @@
     <Content Include="Assets\Scripts\ViewsES6\school-results.js" />
     <Content Include="Assets\Scripts\ViewsES6\schools-search.js" />
     <Content Include="Assets\Scripts\ViewsES6\trust-compare.js" />
+    <Content Include="Assets\Scripts\ViewsES6\trust-details.js" />
     <Content Include="browserconfig.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

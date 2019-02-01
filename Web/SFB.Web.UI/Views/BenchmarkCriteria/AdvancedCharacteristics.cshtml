@@ -114,7 +114,6 @@
 @section ViewScripts {
     <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
     <script>
-        GOVUK.Modal.Load();
-        DfE.Views.AdvancedCharacteristicsViewModel.Load();
+        DfE.Views.AdvancedCharacteristicsViewModel = new AdvancedCharacteristicsViewModel();
     </script>
 }

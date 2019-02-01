@@ -142,7 +142,7 @@ else
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:PrintPage()" aria-label="Print page for @Model.Name">
+                <a class="no-underline bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png"/>
                     Print page
                 </a>
@@ -158,13 +158,13 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
         </li>
     </ol>
 </nav>
@@ -197,51 +197,6 @@ else
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-
-        GOVUK.Modal.Load();
-
-        function PrintPage() {
-            $('details').attr('open', 'true');
-            var detailses = document.getElementsByTagName("details"),
-                details,
-                i = -1;
-            while (details = detailses[++i]) {
-                //DOM API
-                details["open"] = true;
-            }
-            window.print();
-        }
-
-        function TabChange(code, companyNo, name, tab) {
-            var queryString = "?code=" +
-                code +
-                "&companyNo=" +
-                companyNo +
-                "&name=" +
-                name +
-                "&tab=" +
-                tab +
-                "&unit=" +
-                $("select#ShowValue option:selected")[0].value +
-                "&financing=" +
-                $("select#Financing option:selected")[0].value +
-                "&format=" +
-                sessionStorage.chartFormat;
-
-            window.location = queryString;
-        }
-
-        sessionStorage.chartFormat = '@ViewBag.ChartFormat';
-        DfE.Views.HistoricalCharts = new HistoricalCharts();
-        DfE.Views.HistoricalCharts.GenerateCharts();
-
-        new Accordion(document.getElementById('historical-charts-accordion'));
-
-        $(document).ready(function() {
-            var tab = DfE.Util.QueryString.get('tab');
-            if (tab) {
-                $("a:contains('" + tab + "')").focus();
-            }
-        });
+        DfE.Views.TrustDetailsViewModel = new TrustDetailsViewModel('@ViewBag.ChartFormat');
     </script>
 }
