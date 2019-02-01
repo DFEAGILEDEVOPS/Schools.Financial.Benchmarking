@@ -21,6 +21,8 @@
         }
 
         sessionStorage.chartFormat = chartFormat;
+
+        DfE.Views.HistoricalCharts = new HistoricalCharts();
         DfE.Views.HistoricalCharts.GenerateCharts(unitType);
 
         new Accordion(document.getElementById('historical-charts-accordion'));

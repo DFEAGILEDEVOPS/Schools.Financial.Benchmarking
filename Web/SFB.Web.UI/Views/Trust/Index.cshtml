@@ -232,6 +232,7 @@ else
         }
 
         sessionStorage.chartFormat = '@ViewBag.ChartFormat';
+        DfE.Views.HistoricalCharts = new HistoricalCharts();
         DfE.Views.HistoricalCharts.GenerateCharts();
 
         new Accordion(document.getElementById('historical-charts-accordion'));
