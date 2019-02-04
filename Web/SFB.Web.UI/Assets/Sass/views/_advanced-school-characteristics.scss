@@ -1,13 +1,6 @@
 ﻿.advanced-school-characteristics {
 
-    .highlight {
-        @include bold-16();
-        background-color: $pink;
-        color: $white;
-        text-align: center;
-        padding: 5px;
-        display: inline;
-    }
+    @include highlighting;
 
     .center-text {
         text-align: center;
