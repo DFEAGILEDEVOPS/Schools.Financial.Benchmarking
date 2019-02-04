@@ -374,12 +374,12 @@
         });
         var suppressCookie = GOVUK.cookie("suppress-dynamic-header");
         if (suppressCookie === "yes") {
-            $(".dynamic-header").hide();
+            $(".header-content__dynamic-header ").hide();
         } else {
-            $(".dynamic-header").show();
+            $(".header-content__dynamic-header ").show();
         }
         $(".js-dismiss-dynamic-header").click(function () {
-            $(".dynamic-header").hide();
+            $(".header-content__dynamic-header ").hide();
             GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
         });
         $(".print-link a").click(function () { window.print(); });

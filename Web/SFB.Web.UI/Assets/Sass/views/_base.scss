@@ -1,4 +1,116 @@
-﻿.js-enabled {
+﻿%banner-box {
+    outline: none;
+    max-width: 960px;
+    margin: 0 $gutter-half;
+
+    @include media(tablet) {
+        margin: 0 $gutter;
+    }
+
+    @include media($min-width: ($site-width + $gutter * 2)) {
+        margin: 0 auto;
+    }
+}
+
+.header-content {
+
+    @extend %banner-box;
+
+    &__dynamic-header {
+        display: none;
+        position: relative;
+        background-color: #d5e8f3;
+        padding: 20px;
+        margin: 10px 0;
+
+        &__copy {
+            margin-right: 115px;
+            font-size: 16px;
+
+            b, strong {
+                font-weight: bold;
+            }
+
+            p {
+                margin-bottom: 5px;
+            }
+
+            @include media(mobile) {
+                margin-right: 0;
+            }
+        }
+
+        &__button {
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 30px;
+            width: 105px;
+            font-size: 15.2px;
+            text-align: right;
+
+            @include media(mobile) {
+                position: static;
+                text-align: left;
+                top: auto;
+                right: auto;
+                margin-top: 10px;
+            }
+        }
+    }
+}
+
+.sticky-div {
+
+    @extend %banner-box;
+    position: -webkit-sticky; // required for Safari
+    position: sticky;
+    top: 0; // required as well.
+    z-index: 10000;
+    margin-top: 5px;
+
+    &__comparison-list-info-panel {
+        @include core-16;
+        background-color: #D9ECE2;
+        padding: 20px;
+
+        &__count {
+            font-weight: bold;
+        }
+
+        &__edit-basket, &__clear-basket, &__clear-criteria {
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 20px;
+
+            @include media(mobile) {
+                margin-left: 0;
+                margin-top: 10px;
+                display: block;
+            }
+        }
+    }
+
+    .button.view-benchmark {
+        float: right;
+        bottom: 5px;
+    }
+
+    div.view-benchmark-charts-wrapper {
+        float: right;
+        top: -5px;
+        position: relative;
+
+        @media (max-width: 1024px) {
+            float: none;
+            bottom: 0;
+            display: block;
+            margin-top: 10px;
+        }
+    }
+}
+
+.js-enabled {
 
     .js-collapsed, .optional-section {
         display: none;
@@ -57,48 +169,7 @@ a.home-link
     background-color: darkseagreen;
 }
 
-.comparisonListInfoPanel {
-    @include core-16;
-    background-color: #D9ECE2;
-    padding: 20px;
 
-    .count {
-        font-weight: bold;
-    }
-
-    a {
-        text-decoration: none;
-
-        &.edit-basket, &.clear-criteria {
-            font-weight: bold;
-            margin-left: 20px;
-
-            @include media(mobile) {
-                margin-left: 0;
-                margin-top: 10px;
-                display: block;
-            }
-        }
-    }
-
-    .button.view-benchmark {
-        float: right;
-        bottom: 5px;
-    }
-
-    div.view-benchmark-charts-wrapper {
-        float: right;
-        top: -5px;
-        position: relative;
-
-        @media (max-width: 1024px) {
-            float: none;
-            bottom: 0;
-            display: block;
-            margin-top: 10px;
-        }
-    }
-}
 
 .text.section {
     margin-top: 40px;
@@ -307,17 +378,6 @@ a.float-to-right{
     float: right
 }
 
-.sticky-div {
-    outline: none;
-    margin: 0 auto;
-    max-width: 960px;
-    position: -webkit-sticky; // required for Safari
-    position: sticky;
-    top: 0; // required as well.
-    z-index: 10000;
-    margin-top: 5px;
-}
-
 .sticky.stick {
     margin-top: 0 !important;
     position: fixed;
@@ -483,42 +543,6 @@ span.back-link {
     background-image: url(/public/assets/images/icons/icon-saveimage.png);
 }
 
-.dynamic-header
-{
-    display: none;
-    position:relative;
-    background-color:#d5e8f3;
-    padding:10px;
-    margin:10px 0;
-    > div
-    {
-        margin-right:115px;
-        font-size:16px;
-        b, strong { font-weight:bold; }
-        p { margin-bottom:5px; }
-        @include media(mobile){
-            margin-right:0;
-        }
-    }
-    > a
-    {
-        display:block;
-        position:absolute;
-        right:10px;
-        top:15px;
-        width:105px;
-        font-size:15.2px;
-        text-align:right;
-        @include media(mobile){
-            position:static;
-            text-align:left;
-            top:auto;
-            right:auto;
-            margin-top:10px;
-        }
-    }
-}
-
 .float-to-right{
     float: right;
 }
@@ -530,20 +554,6 @@ span.back-link {
 a.chevron-button {
     text-decoration: none;
     color: $text-colour;
-}
-
-.header-content, .sticky-div {
-    outline: none;
-    max-width: 960px;
-    margin: 0 $gutter-half;
-
-    @include media(tablet) {
-        margin: 0 $gutter;
-    }
-
-    @include media($min-width: ($site-width + $gutter * 2)) {
-        margin: 0 auto;
-    }
 }
 
 .result-info{

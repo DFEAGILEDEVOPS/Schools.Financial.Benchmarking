@@ -129,7 +129,7 @@
             this.DisplayNewTrustElements();
         });
 
-        $(".clear-criteria").click(() => {
+        $(".js-clear-criteria").click(() => {
             this.clear();
         });
 
