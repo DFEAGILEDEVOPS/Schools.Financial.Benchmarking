@@ -11,6 +11,15 @@
             this.bindAzureMap(this.mapApiKey);
             this.liveSearch.disabled = true;
         }
+
+        GOVUK.Modal.Load();
+
+        $(function () {
+            if ($(window).width() <= 640)
+                $('details').removeAttr('open');
+
+            GOVUK.LiveSearch.displaceSchoolCount();
+        });
     }
 
     bindEvents() {

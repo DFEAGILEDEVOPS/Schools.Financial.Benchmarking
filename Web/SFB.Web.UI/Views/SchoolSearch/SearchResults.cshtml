@@ -59,15 +59,6 @@
 @section ViewScripts{
     <script src="~/node_modules/lodash/lodash.min.js"></script>
     <script>
-        GOVUK.Modal.Load();
-
         DfE.Views.SchoolsResultsViewModel = new SchoolsResultsViewModel('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
-
-        $(function () {
-            if ($(window).width() <= 640)
-                $('details').removeAttr('open');
-
-            GOVUK.LiveSearch.displaceSchoolCount();
-        });
     </script>
 }
