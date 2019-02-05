@@ -5,9 +5,14 @@
                 Your benchmark basket contains <span class="sticky-div__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span>
                 @if (Model.ComparisonListCount >= 1)
                 {
-                    <a class="sticky-div__comparison-list-info-panel__edit-basket" href="/benchmarklist">Edit basket</a>
+                    var referrer = Request.IsAjaxRequest() ? Request.UrlReferrer.ToString() : Request.RawUrl;
+                    if(referrer.Contains("BenchmarkCharts/"))
+                    {
+                        referrer = "/BenchmarkCharts";
+                    }
+                    <a class="sticky-div__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@Html.Raw(referrer)">Edit basket</a>
                     <a class="sticky-div__comparison-list-info-panel__clear-basket" href="javascript:void(0)" onclick="DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</a>
-                } 
+                }
                 @if (!((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2)
                 {
                     <div class="view-benchmark-charts-wrapper">

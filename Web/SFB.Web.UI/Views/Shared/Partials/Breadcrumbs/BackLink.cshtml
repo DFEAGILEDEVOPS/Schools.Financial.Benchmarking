@@ -1,10 +1,14 @@
 ﻿<div id="backLink" class="hide-in-print">
     <div>
-        <a class="home-link" href="/" aria-label="Back">
+        @{
+            var link = Request.QueryString["referrer"]?? "/";
+
+        <a class="home-link" href="@link" aria-label="Close basket">
             <i class="icon icon-back">
-                <span class="visually-hidden">Back</span>
+                <span class="visually-hidden">Close basket</span>
             </i>
-            <span class="back-link">Back</span>
+            <span class="back-link">Close basket</span>
         </a>
+        }
     </div>
 </div>
