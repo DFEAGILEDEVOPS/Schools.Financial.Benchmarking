@@ -121,6 +121,31 @@
         </div>
     </div>
 
+
+    <div class="panel panel-border-wide">
+        <div class="form-group">
+            <div class="column-full no-padding">
+                <div class="bold-small">Total Expenditure Per Pupil</div>
+                <div class="benchmark-school-value">
+                    <span>Please enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
+                    <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault().ToString("C"))</span>
+                </div>
+            </div>
+            <div class="column-half no-padding">
+                <div class="form-group no-padding">
+                    <div class="column-half no-padding">
+                        <label class="form-label" for="MinPerSEN">From</label>
+                        <input type="number" name="BicCriteria.PerPupilExpMin" id="PerPupilExpMin" class="form-control criteria-input" required="" step=".01" min="0" value="@Model.BicCriteria.PerPupilExpMin.ToString("F2")">
+                    </div>
+                    <div class="column-half">
+                        <label class="form-label" for="MaxPerSEN">To</label>
+                        <input type="number" name="BicCriteria.PerPupilExpMax" id="PerPupilExpMax" class="form-control criteria-input" required="" step=".01" min="0" value="@Model.BicCriteria.PerPupilExpMax.ToString("F2")">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="grid-row font-xsmall">
         <div class="column-half">
             <div class="column-two-thirds next-button">
@@ -140,6 +165,7 @@
     <input type="hidden" name="BicCriteria.Ks2ProgressScoreMax" value="@Model.BicCriteria.Ks2ProgressScoreMax">
     <input type="hidden" name="BicCriteria.Ks4ProgressScoreMin" value="@Model.BicCriteria.Ks4ProgressScoreMin">
     <input type="hidden" name="BicCriteria.Ks4ProgressScoreMax" value="@Model.BicCriteria.Ks4ProgressScoreMax">
+    <input type="hidden" name="BicCriteria.RRPerIncomeMin" value="@Model.BicCriteria.RRPerIncomeMin">
 
 </form>
 

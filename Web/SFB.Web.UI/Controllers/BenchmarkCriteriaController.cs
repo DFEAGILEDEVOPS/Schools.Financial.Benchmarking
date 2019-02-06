@@ -196,14 +196,17 @@ namespace SFB.Web.UI.Controllers
                     UrbanRural = benchmarkSchool.LatestYearFinancialData.UrbanRural,
                     NoPupilsMin = (decimal)benchmarkSchool.LatestYearFinancialData.PupilCount * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX),
                     NoPupilsMax = (decimal)benchmarkSchool.LatestYearFinancialData.PupilCount * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX),
-                    PercentageFSMMin = benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX),
-                    PercentageFSMMax = benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX),
-                    PercentageSENMin = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX),
-                    PercentageSENMax = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX),
-                    Ks2ProgressScoreMin = benchmarkSchool.LatestYearFinancialData.Ks2Progress.HasValue ? -20 : (decimal?)null,
+                    PerPupilExpMin = 1,
+                    PerPupilExpMax = (decimal)benchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX),
+                    PercentageFSMMin = benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM),
+                    PercentageFSMMax = benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM),
+                    PercentageSENMin = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM),
+                    PercentageSENMax = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM),
+                    Ks2ProgressScoreMin = benchmarkSchool.LatestYearFinancialData.Ks2Progress.HasValue ? 0 : (decimal?)null,
                     Ks2ProgressScoreMax = benchmarkSchool.LatestYearFinancialData.Ks2Progress.HasValue ? +20 : (decimal?)null,
-                    Ks4ProgressScoreMin = benchmarkSchool.LatestYearFinancialData.P8Mea.HasValue ? -5 : (decimal?)null,
-                    Ks4ProgressScoreMax = benchmarkSchool.LatestYearFinancialData.P8Mea.HasValue ? +5 : (decimal?)null
+                    Ks4ProgressScoreMin = benchmarkSchool.LatestYearFinancialData.P8Mea.HasValue ? 0 : (decimal?)null,
+                    Ks4ProgressScoreMax = benchmarkSchool.LatestYearFinancialData.P8Mea.HasValue ? +5 : (decimal?)null,
+                    RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD
                 };
             }
 

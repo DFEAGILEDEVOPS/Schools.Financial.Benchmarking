@@ -350,12 +350,8 @@ namespace SFB.Web.DAL.Repositories
                         $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], " +
                         $"'{DataGroups.Academies}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
                         $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PERCENTAGE_FSM}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.REVENUE_RESERVE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.TOTAL_INCOME}']" +
+                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'] " +
                         $"FROM c WHERE {query}");
                 }
                 else
@@ -367,12 +363,8 @@ namespace SFB.Web.DAL.Repositories
                         $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], " +
                         $"'{DataGroups.Maintained}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
                         $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PERCENTAGE_FSM}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.REVENUE_RESERVE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.TOTAL_INCOME}']" +
+                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'] " +
                         $"FROM c WHERE {query}");
                 }
             }

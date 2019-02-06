@@ -44,6 +44,7 @@
                     var criteriaValue = typeof(SchoolTrustFinancialDataObject).GetProperties().First(p => (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).First() as JsonPropertyAttribute).PropertyName == fieldName).GetValue(Model.BenchmarkSchoolData.FinancialDataObjectModel);
                     var uiName = (uiNameAttribute as PrettyNameAttribute).Name;
                     if (!uiName.IsNullOrWhiteSpace() && criteriaValue != null 
+                        && fieldName != SchoolTrustFinanceDBFieldNames.RR_TO_INCOME
                         && fieldName != SchoolTrustFinanceDBFieldNames.KS2_PROGRESS
                         && fieldName != SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE)
                     {

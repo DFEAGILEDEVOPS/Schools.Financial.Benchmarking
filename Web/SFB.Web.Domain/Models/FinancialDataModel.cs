@@ -334,6 +334,12 @@ namespace SFB.Web.Domain.Models
 
         public decimal? OtherLearningDifficulty => FinancialDataObjectModel.OtherLearningDiff;
 
+        public decimal? RRPerIncomePercentage => FinancialDataObjectModel.RRPerIncomePercentage;
+
+        public decimal? PerPupilTotalExpenditure => FinancialDataObjectModel.PerPupilTotalExpenditure;
+
+        public decimal? PerPupilGrantFunding => FinancialDataObjectModel.PerPupilGrantFunding;
+
         public int? CrossPhaseBreakdownPrimary
         {
             get

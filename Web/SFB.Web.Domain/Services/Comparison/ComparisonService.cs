@@ -40,9 +40,9 @@ namespace SFB.Web.Domain.Services.Comparison
             //STEP 1: Straight search with prefilled criteria
             var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
-            if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Original query returns more than required. Clip from top by people count proximity.
+            if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Original query returns more than required. Clip from top by per people expenditure proximity.
             {
-                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault()))
+                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.PerPupilTotalExpenditure.GetValueOrDefault() - defaultSchoolFinancialDataModel.PerPupilTotalExpenditure.GetValueOrDefault()))
                     .Take(CriteriaSearchConfig.BIC_TARGET_POOL_COUNT).ToList();
             }
 
@@ -59,9 +59,9 @@ namespace SFB.Web.Domain.Services.Comparison
 
                 benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
-                if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by people count proximity.
+                if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by per people expenditure proximity.
                 {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault()))
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.PerPupilTotalExpenditure.GetValueOrDefault() - defaultSchoolFinancialDataModel.PerPupilTotalExpenditure.GetValueOrDefault()))
                         .Take(CriteriaSearchConfig.BIC_TARGET_POOL_COUNT).ToList();
                     break;
                 }
@@ -81,9 +81,9 @@ namespace SFB.Web.Domain.Services.Comparison
 
                 benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
-                if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by people count proximity.
+                if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by per people expenditure proximity.
                 {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault()))
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.PerPupilTotalExpenditure.GetValueOrDefault() - defaultSchoolFinancialDataModel.PerPupilTotalExpenditure.GetValueOrDefault()))
                         .Take(CriteriaSearchConfig.BIC_TARGET_POOL_COUNT).ToList();
                     break;
                 }
@@ -96,11 +96,11 @@ namespace SFB.Web.Domain.Services.Comparison
                 tryCount++;
             }
 
-            //STEP 4: Further reduce pool of 50 (or less) to target 15 by highest progress measure while removing high-deficit schools
+            //STEP 4: Further reduce pool of 50 (or less) to target 15 by highest progress measure
             if (benchmarkSchools.Count > ComparisonListLimit.BIC)
             {
                 benchmarkSchools = benchmarkSchools
-                    .Where(b => IsItInLimitsForDeficit(b))
+                    //.Where(b => IsItInLimitsForDeficit(b))
                     .OrderByDescending(b => b.Ks2Progress ?? b.Progress8Measure)
                     .Take(ComparisonListLimit.BIC)
                     .ToList();
@@ -186,10 +186,10 @@ namespace SFB.Web.Domain.Services.Comparison
             };
         }
 
-        private bool IsItInLimitsForDeficit(SchoolTrustFinancialDataObject school)
-        {
-            return school.RRPerIncomePercentage > CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD;
-        }
+        //private bool IsItInLimitsForDeficit(SchoolTrustFinancialDataObject school)
+        //{
+        //    return school.RRPerIncomePercentage > CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD;
+        //}
 
         //private void UpdateUsedBicCriteriaWithResultSchoolsLimits(BenchmarkCriteria benchmarkCriteria, List<SchoolTrustFinancialDataObject> benchmarkSchools)
         //{

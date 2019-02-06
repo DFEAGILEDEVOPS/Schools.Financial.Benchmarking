@@ -457,12 +457,13 @@ namespace SFB.Web.Common.DataObjects
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.IS_PLACEHOLDER)]
         public bool IsPlaceholder { get; set; }
 
-        public decimal? RRPerIncomePercentage
-        {
-            get
-            {
-                return this.RevenueReserve / this.TotalIncome;
-            }
-        }
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.RR_TO_INCOME)]
+        public decimal? RRPerIncomePercentage { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.GRANT_FUNDING_PP)]
+        public decimal? PerPupilGrantFunding { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP)]
+        public decimal? PerPupilTotalExpenditure { get; set; }
     }
 }

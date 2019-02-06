@@ -18,6 +18,9 @@ namespace SFB.Web.Domain.Models
         public decimal PercentageFSMMax { get; set; }
         public decimal PercentageSENMin { get; set; }
         public decimal PercentageSENMax { get; set; }
+        public decimal RRPerIncomeMin { get; set; }
+        public decimal PerPupilExpMin { get; set; }
+        public decimal PerPupilExpMax { get; set; }
 
         public bool Equals(BestInClassCriteria other)
         {
@@ -25,7 +28,7 @@ namespace SFB.Web.Domain.Models
                 && this.OverallPhase == other.OverallPhase
                 && this.UrbanRural == other.UrbanRural
                 && this.Ks2ProgressScoreMin == other.Ks2ProgressScoreMin
-                && this.Ks2ProgressScoreMax == other.Ks2ProgressScoreMax      
+                && this.Ks2ProgressScoreMax == other.Ks2ProgressScoreMax
                 && this.Ks4ProgressScoreMin == other.Ks4ProgressScoreMin
                 && this.Ks4ProgressScoreMax == other.Ks4ProgressScoreMax
                 && this.PercentageFSMMin == other.PercentageFSMMin
@@ -33,7 +36,10 @@ namespace SFB.Web.Domain.Models
                 && this.PercentageSENMin == other.PercentageSENMin
                 && this.PercentageSENMax == other.PercentageSENMax
                 && this.NoPupilsMin == other.NoPupilsMin
-                && this.NoPupilsMax == other.NoPupilsMax;
+                && this.NoPupilsMax == other.NoPupilsMax
+                && this.RRPerIncomeMin == other.RRPerIncomeMin
+                && this.PerPupilExpMin == other.PerPupilExpMin
+                && this.PerPupilExpMax == other.PerPupilExpMax;
         }
     }
 }

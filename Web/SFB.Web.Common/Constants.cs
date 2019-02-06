@@ -197,6 +197,9 @@
         public const string COMM_FOCUSED_SCHOOL_FACILITIES = "Community focused school facilities income";
         public const string CONTRIBUTIONS_TO_VISITS = "Income from contributions to visits etc";
         public const string IS_PLACEHOLDER = "TrustDidNotSubmit";
+        public const string RR_TO_INCOME = "RatioRevenueReserveToTotalIncome";
+        public const string GRANT_FUNDING_PP = "PerPupilGrantFunding";
+        public const string TOTAL_EXP_PP = "PerPupilTotalExpenditure";
 
     }
 
@@ -271,6 +274,8 @@
         public const string PHYSICAL_DISABILITY = "Physical disability";
         public const string AUTISTIC_DISORDER = "Autistic spectrum disorder";
         public const string OTHER_LEARNING_DIFF = "Other learning difficulty";
+        public const string PER_PUPIL_EXP = "Expenditure per pupil";
+        public const string RR_TO_INCOME = "RR to Income";
     }
 
     public class CriteriaFieldComparisonTypes

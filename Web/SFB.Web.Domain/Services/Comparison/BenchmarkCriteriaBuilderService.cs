@@ -21,7 +21,10 @@ namespace SFB.Web.Domain.Services.Comparison
                 MinKs2Progress = bicCriteria.Ks2ProgressScoreMin,
                 MaxKs2Progress = bicCriteria.Ks2ProgressScoreMax,
                 MinP8Mea = bicCriteria.Ks4ProgressScoreMin,
-                MaxP8Mea = bicCriteria.Ks4ProgressScoreMax
+                MaxP8Mea = bicCriteria.Ks4ProgressScoreMax,
+                MinRRToIncome = bicCriteria.RRPerIncomeMin,
+                MinPerPupilExp = bicCriteria.PerPupilExpMin,
+                MaxPerPupilExp = bicCriteria.PerPupilExpMax                
             };
         }
 
