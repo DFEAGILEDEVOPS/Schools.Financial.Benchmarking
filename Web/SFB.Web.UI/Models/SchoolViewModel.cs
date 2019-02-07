@@ -171,6 +171,8 @@ namespace SFB.Web.UI.Models
 
         public bool IsMAT => LatestYearFinancialData.IsMAT;
 
+        public bool HasProgressScore => LatestYearFinancialData.Ks2Progress.HasValue || LatestYearFinancialData.P8Mea.HasValue;
+
         public bool HasCoordinates
         {
             get

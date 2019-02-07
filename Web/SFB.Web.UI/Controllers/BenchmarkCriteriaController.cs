@@ -46,7 +46,7 @@ namespace SFB.Web.UI.Controllers
         {
             ViewBag.URN = urn;
 
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.SetDefault,            
             new BenchmarkSchoolModel()
