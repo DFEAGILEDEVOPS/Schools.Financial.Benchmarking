@@ -39,7 +39,6 @@
     <ul class="list list-bullet">
         <li><span class="bold-small">Establishment type: </span>@Model.BicCriteria.EstablishmentType</li>
         <li><span class="bold-small">School phase: </span>@Model.BicCriteria.OverallPhase</li>
-        <li><span class="bold-small">Urban/rural schools: </span> @Model.BicCriteria.UrbanRural</li>
     </ul>
 </div>
 
@@ -106,7 +105,14 @@
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
                 </div>
             </div>
-            <div class="column-half no-padding">
+            <div class="column-full no-padding">
+                <div class="multiple-choice">
+                    <input id="sen" name="BicCriteria.SENEnabled" type="checkbox" value="true" onchange="javascript: $('#sen_range').toggle();" 
+                           @Html.Raw(Model.BicCriteria.SENEnabled ? "checked" : "none")>
+                    <label for="sen">Please check to include this constraint.</label>
+                </div>
+            </div>
+            <div class="column-half no-padding" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="MinPerSEN">From</label>
@@ -141,6 +147,25 @@
                         <label class="form-label" for="MaxPerSEN">To</label>
                         <input type="number" name="BicCriteria.PerPupilExpMax" id="PerPupilExpMax" class="form-control criteria-input" required="" step=".01" min="0" value="@Model.BicCriteria.PerPupilExpMax.ToString("F2")">
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-border-wide">
+        <div class="form-group">
+            <div class="column-full no-padding">
+                <div class="bold-small">Urban/Rural schools</div>
+                <div class="benchmark-school-value">
+                    <span>The value for @Model.BenchmarkSchool.Name is </span>
+                    <span class="bold-small">@(Model.BicCriteria.UrbanRural)</span>
+                </div>
+            </div>
+            <div class="column-full no-padding">
+                <div class="multiple-choice">
+                    <input id="ur" name="BicCriteria.UREnabled" type="checkbox" value="true" 
+                           @Html.Raw(Model.BicCriteria.UREnabled ? "checked" : "")/>
+                    <label for="ur">Please check to include this constraint.</label>
                 </div>
             </div>
         </div>

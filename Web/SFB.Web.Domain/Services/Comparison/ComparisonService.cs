@@ -68,33 +68,33 @@ namespace SFB.Web.Domain.Services.Comparison
             }
 
             //STEP 3: Query return is still less than required. Flex the Urban/Rural criteria gradually.
-            tryCount = 1;
-            while (benchmarkSchools.Count < CriteriaSearchConfig.BIC_TARGET_POOL_COUNT)
-            {
-                var urbanRuralDefault = defaultSchoolFinancialDataModel.UrbanRural;
-                var urbanRuralKey = Dictionaries.UrbanRuralDictionary.First(d => d.Value == urbanRuralDefault).Key;
+            //tryCount = 1;
+            //while (benchmarkSchools.Count < CriteriaSearchConfig.BIC_TARGET_POOL_COUNT)
+            //{
+            //    var urbanRuralDefault = defaultSchoolFinancialDataModel.UrbanRural;
+            //    var urbanRuralKey = Dictionaries.UrbanRuralDictionary.First(d => d.Value == urbanRuralDefault).Key;
 
-                var urbanRuralQuery = Dictionaries.UrbanRuralDictionary.Where(d =>
-                    d.Key >= urbanRuralKey - tryCount && d.Key <= urbanRuralKey + tryCount).Select(d => d.Value).ToArray();
+            //    var urbanRuralQuery = Dictionaries.UrbanRuralDictionary.Where(d =>
+            //        d.Key >= urbanRuralKey - tryCount && d.Key <= urbanRuralKey + tryCount).Select(d => d.Value).ToArray();
 
-                benchmarkCriteria.UrbanRural = urbanRuralQuery;
+            //    benchmarkCriteria.UrbanRural = urbanRuralQuery;
 
-                benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
+            //    benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
-                if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by per people expenditure proximity.
-                {
-                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.PerPupilTotalExpenditure.GetValueOrDefault() - defaultSchoolFinancialDataModel.PerPupilTotalExpenditure.GetValueOrDefault()))
-                        .Take(CriteriaSearchConfig.BIC_TARGET_POOL_COUNT).ToList();
-                    break;
-                }
+            //    if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by per people expenditure proximity.
+            //    {
+            //        benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.PerPupilTotalExpenditure.GetValueOrDefault() - defaultSchoolFinancialDataModel.PerPupilTotalExpenditure.GetValueOrDefault()))
+            //            .Take(CriteriaSearchConfig.BIC_TARGET_POOL_COUNT).ToList();
+            //        break;
+            //    }
 
-                if (urbanRuralQuery.Length == Dictionaries.UrbanRuralDictionary.Count)
-                {
-                    break;
-                }
+            //    if (urbanRuralQuery.Length == Dictionaries.UrbanRuralDictionary.Count)
+            //    {
+            //        break;
+            //    }
 
-                tryCount++;
-            }
+            //    tryCount++;
+            //}
 
             //STEP 4: Further reduce pool of 50 (or less) to target 15 by highest progress measure
             if (benchmarkSchools.Count > ComparisonListLimit.BIC)

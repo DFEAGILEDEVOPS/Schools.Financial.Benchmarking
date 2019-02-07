@@ -8,24 +8,34 @@ namespace SFB.Web.Domain.Services.Comparison
     {
         public BenchmarkCriteria BuildFromBicComparisonCriteria(FinancialDataModel benchmarkSchoolData, BestInClassCriteria bicCriteria, int percentageMargin = 0)
         {
-            return new BenchmarkCriteria()
+            var bmCriteria = new BenchmarkCriteria()
             {
                 SchoolOverallPhase = new[] { bicCriteria.OverallPhase },
-                UrbanRural = new[] { bicCriteria.UrbanRural },
                 MinNoPupil = (bicCriteria.NoPupilsMin - (benchmarkSchoolData.PupilCount * percentageMargin / 100)) < 0 ? 0 : (bicCriteria.NoPupilsMin - (benchmarkSchoolData.PupilCount * percentageMargin / 100)),
                 MaxNoPupil = (bicCriteria.NoPupilsMax + (benchmarkSchoolData.PupilCount * percentageMargin / 100)),
                 MinPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMin - (benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals * percentageMargin / 100)),
                 MaxPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMax + (benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals * percentageMargin / 100)),
-                MinPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMin - (benchmarkSchoolData.PercentageOfPupilsWithSen * percentageMargin / 100)),
-                MaxPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMax + (benchmarkSchoolData.PercentageOfPupilsWithSen * percentageMargin / 100)),
                 MinKs2Progress = bicCriteria.Ks2ProgressScoreMin,
                 MaxKs2Progress = bicCriteria.Ks2ProgressScoreMax,
                 MinP8Mea = bicCriteria.Ks4ProgressScoreMin,
                 MaxP8Mea = bicCriteria.Ks4ProgressScoreMax,
                 MinRRToIncome = bicCriteria.RRPerIncomeMin,
                 MinPerPupilExp = bicCriteria.PerPupilExpMin,
-                MaxPerPupilExp = bicCriteria.PerPupilExpMax                
+                MaxPerPupilExp = bicCriteria.PerPupilExpMax
             };
+
+            if (bicCriteria.SENEnabled)
+            {
+                bmCriteria.MinPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMin - (benchmarkSchoolData.PercentageOfPupilsWithSen * percentageMargin / 100));
+                bmCriteria.MaxPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMax + (benchmarkSchoolData.PercentageOfPupilsWithSen * percentageMargin / 100));
+            }
+
+            if(bicCriteria.UREnabled)
+            {
+                bmCriteria.UrbanRural = new[] { bicCriteria.UrbanRural };
+            }
+
+            return bmCriteria;
         }
 
         public BenchmarkCriteria BuildFromSimpleComparisonCriteria(FinancialDataModel benchmarkSchoolData, SimpleCriteria simpleCriteria, int percentageMargin = 0)

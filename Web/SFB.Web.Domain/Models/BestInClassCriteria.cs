@@ -21,6 +21,8 @@ namespace SFB.Web.Domain.Models
         public decimal RRPerIncomeMin { get; set; }
         public decimal PerPupilExpMin { get; set; }
         public decimal PerPupilExpMax { get; set; }
+        public bool UREnabled { get; set; }
+        public bool SENEnabled { get; set; }
 
         public bool Equals(BestInClassCriteria other)
         {
