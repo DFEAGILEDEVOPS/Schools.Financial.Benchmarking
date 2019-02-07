@@ -197,7 +197,7 @@
         public const string COMM_FOCUSED_SCHOOL_FACILITIES = "Community focused school facilities income";
         public const string CONTRIBUTIONS_TO_VISITS = "Income from contributions to visits etc";
         public const string IS_PLACEHOLDER = "TrustDidNotSubmit";
-        public const string RR_TO_INCOME = "RatioRevenueReserveToTotalIncome";
+        public const string RR_TO_INCOME = "PercentRevenueReserveOfTotalIncome";
         public const string GRANT_FUNDING_PP = "PerPupilGrantFunding";
         public const string TOTAL_EXP_PP = "PerPupilTotalExpenditure";
 
