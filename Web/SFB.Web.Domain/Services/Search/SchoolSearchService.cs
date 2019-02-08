@@ -242,6 +242,7 @@ namespace SFB.Web.Domain.Services.Search
                 .Facet($"{EdubaseDBFieldNames.OVERALL_PHASE}")
                 .Facet($"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}")
                 .Facet($"{EdubaseDBFieldNames.OFSTED_RATING}")
+                .Facet($"{EdubaseDBFieldNames.ESTAB_STATUS}")
                 .Count(true)
                 .Filter(filterBuilder.ToString())
                 .Skip(skip)
@@ -365,12 +366,25 @@ namespace SFB.Web.Domain.Services.Search
                 queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.GENDER} eq '" + x + "'")));
             }
 
+            if (parameters["establishmentStatus"] != null)
+            {
+                string[] values = ExtractValues(parameters["establishmentStatus"]);
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.ESTAB_STATUS} eq '" + x + "'")));
+            }
+
             return string.Join(" and ", queryFilter.Select(x => "(" + x + ")"));
         }
 
         private string[] ExtractValues(string commaSeparatedValues)
         {
-            return commaSeparatedValues.Split(',');
+            if (commaSeparatedValues == "Open, but proposed to close")
+            {
+                return new string[] { commaSeparatedValues };
+            }
+            else
+            {
+                return commaSeparatedValues.Split(',');
+            }
         }
 
     }

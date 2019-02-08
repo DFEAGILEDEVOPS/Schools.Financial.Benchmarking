@@ -465,7 +465,7 @@ namespace SFB.Web.UI.Controllers
 
         private string DetermineSelectionState(Models.Filter[] filters)
         {
-            bool ofstedExpanded = false, schoolTypeExpanded = false, religiousCharacterExpanded = false;
+            bool ofstedExpanded = false, schoolTypeExpanded = false, religiousCharacterExpanded = false, statusExpanded = false;
 
             if (filters.Where(x => x.Group == "ofstedrating").Any(filter => filter.Metadata.Any(x => x.Checked)))
             {
@@ -482,8 +482,13 @@ namespace SFB.Web.UI.Controllers
                 religiousCharacterExpanded = true;
             }
 
+            if (filters.Where(x => x.Group == "establishmentStatus").Any(filter => filter.Metadata.Any(x => x.Checked)))
+            {
+                statusExpanded = true;
+            }
+
             return
-                $"{(ofstedExpanded ? "1" : "0")},{(schoolTypeExpanded ? "1" : "0")},{(religiousCharacterExpanded ? "1" : "0")}";
+                $"{(ofstedExpanded ? "1" : "0")},{(schoolTypeExpanded ? "1" : "0")},{(religiousCharacterExpanded ? "1" : "0")},{(statusExpanded ? "1" : "0")}";
         }
 
         private SearchedSchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)

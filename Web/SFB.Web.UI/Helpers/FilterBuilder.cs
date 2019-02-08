@@ -68,13 +68,50 @@ namespace SFB.Web.UI.Helpers
             string schoolTypes = RetrieveParameter("schooltype", parameters);
             string ofstedRatings = RetrieveParameter("ofstedrating", parameters);
             string religiousCharacter = RetrieveParameter("faith", parameters);
+            string schoolStatus = RetrieveParameter("establishmentStatus", parameters);
 
             var result = new List<Filter>();
             result.Add(AddSchoolLevelFilters(schoolLevels, facets, parameters));
             result.Add(AddSchoolTypeFilters(schoolTypes, facets, parameters));
             result.Add(AddOfstedRatingFilters(ofstedRatings, facets, parameters));
             result.Add(AddReligiousCharacterFilters(religiousCharacter, facets, parameters));
+            if (parameters["searchType"] == SearchTypes.SEARCH_BY_LOCATION && parameters["openOnly"] != "true")
+            {
+                result.Add(AddStatusFilters(schoolStatus, facets, parameters));
+            }
             return result.ToArray();
+        }
+
+        private Filter AddStatusFilters(string status, dynamic facets, dynamic queryParams)
+        {
+            var queryParamForStatus = "establishmentStatus";
+
+            var result = new Filter
+            {
+                Id = "establishmentStatus",
+                Group = "establishmentStatus",
+                Label = "Establishment Status"
+            };
+
+            var filterSelected = (queryParams?[queryParamForStatus] != null);
+
+            var statusFacets = facets["EstablishmentStatus"];
+
+            var metadata = new List<OptionSelect>();
+
+            foreach (var facet in statusFacets)
+            {
+                if (facet.Value != string.Empty)
+                {
+                    metadata.Add(CreateOption(facet.Value, facet.Value, status, "EstablishmentStatus",
+                        facet.Count > 0 || filterSelected));
+                }
+            }
+
+            result.Expanded = metadata.Any(x => x.Checked);
+            result.Metadata = metadata.ToArray();
+
+            return result;
         }
 
         private Filter AddReligiousCharacterFilters(string religiousCharacter, dynamic facets, dynamic queryParams)
