@@ -16,6 +16,7 @@ using SFB.Web.UI.Helpers;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class TrustComparisonController : Controller
     {
         private readonly IFinancialDataService _financialDataService;

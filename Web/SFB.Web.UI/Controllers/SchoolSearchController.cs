@@ -19,6 +19,7 @@ using RedDog.Search.Model;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class SchoolSearchController : Controller
     {
         private readonly ILocalAuthoritiesService _laService;

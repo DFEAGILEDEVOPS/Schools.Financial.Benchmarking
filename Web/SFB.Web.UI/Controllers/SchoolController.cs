@@ -20,6 +20,7 @@ using SFB.Web.Domain.ApiWrappers;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class SchoolController : Controller
     {
         private readonly IContextDataService _contextDataService;

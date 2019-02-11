@@ -6,6 +6,7 @@ using SFB.Web.UI.Helpers;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILocalAuthoritiesService _laService;

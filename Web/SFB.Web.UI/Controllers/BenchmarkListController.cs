@@ -12,6 +12,7 @@ using SFB.Web.Common;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class BenchmarkListController : Controller
     {
         private readonly IContextDataService _contextDataService;

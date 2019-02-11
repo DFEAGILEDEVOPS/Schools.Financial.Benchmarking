@@ -22,6 +22,7 @@ using SFB.Web.UI.Helpers.Constants;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class BenchmarkChartsController : Controller
     {
         private readonly IBenchmarkChartBuilder _benchmarkChartBuilder;

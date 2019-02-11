@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using SFB.Web.Common;
 using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.UI.Helpers;
-using SFB.Web.UI.Helpers.Constants;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class DownloadController : Controller
     {
         private readonly IFinancialDataService _dataService;

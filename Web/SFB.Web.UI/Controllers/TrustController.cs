@@ -18,6 +18,7 @@ using System;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class TrustController : Controller
     {
         private readonly ITrustSearchService _trustSearchService;

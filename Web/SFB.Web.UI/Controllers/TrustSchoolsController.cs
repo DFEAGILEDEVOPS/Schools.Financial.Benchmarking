@@ -10,6 +10,7 @@ using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class TrustSchoolsController : Controller
     {
         private readonly ISchoolSearchService _schoolSearchService;

@@ -17,6 +17,7 @@ using SFB.Web.Domain.Services.Comparison;
 
 namespace SFB.Web.UI.Controllers
 {
+    [Authorize]
     public class BenchmarkCriteriaController : Controller
     {
         private readonly IFinancialDataService _financialDataService;
