@@ -75,7 +75,7 @@ namespace SFB.Web.UI.Helpers
             result.Add(AddSchoolTypeFilters(schoolTypes, facets, parameters));
             result.Add(AddOfstedRatingFilters(ofstedRatings, facets, parameters));
             result.Add(AddReligiousCharacterFilters(religiousCharacter, facets, parameters));
-            if (parameters["searchType"] == SearchTypes.SEARCH_BY_LOCATION && parameters["openOnly"] != "true")
+            if (parameters?["searchType"] == SearchTypes.SEARCH_BY_LOCATION && parameters?["openOnly"] != "true")
             {
                 result.Add(AddStatusFilters(schoolStatus, facets, parameters));
             }

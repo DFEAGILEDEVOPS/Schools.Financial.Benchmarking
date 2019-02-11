@@ -217,6 +217,7 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("TypeOfEstablishment", new FacetResult[] { new FacetResult() { Value = "Pupil Referral Unit", Count = 2 }, new FacetResult() { Value = "Nursery", Count = 1 }, new FacetResult() { Value = "Primary", Count = 1 } });
                 facets.Add("OfstedRating", new FacetResult[] { new FacetResult() { Value = "Outstanding", Count = 2 }, new FacetResult() { Value = "Good", Count = 1 }, new FacetResult() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResult[] { new FacetResult() { Value = "Hindu", Count = 2 }, new FacetResult() { Value = "Church of England", Count = 1 }, new FacetResult() { Value = "Roman Catholic", Count = 1 } });
+                facets.Add("EstablishmentStatus", new FacetResult[] { new FacetResult() { Value = "Open", Count = 2 }, new FacetResult() { Value = "Closed", Count = 1 } });
 
                 var matchedResults = new Dictionary<string, object>();
                 matchedResults.Add("test1", 1);
