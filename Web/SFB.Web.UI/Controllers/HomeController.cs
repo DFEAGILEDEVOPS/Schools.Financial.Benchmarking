@@ -3,9 +3,11 @@ using SFB.Web.UI.Models;
 using System.Web.Mvc;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class HomeController : Controller
     {
         private readonly ILocalAuthoritiesService _laService;

@@ -17,9 +17,11 @@ using SFB.Web.Domain.Models;
 using System.Web.UI;//Do not remove. Required in release mode build
 using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.ApiWrappers;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class SchoolController : Controller
     {
         private readonly IContextDataService _contextDataService;

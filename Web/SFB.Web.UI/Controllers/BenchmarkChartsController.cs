@@ -19,9 +19,11 @@ using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Common.DataObjects;
 using SFB.Web.UI.Helpers.Constants;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class BenchmarkChartsController : Controller
     {
         private readonly IBenchmarkChartBuilder _benchmarkChartBuilder;

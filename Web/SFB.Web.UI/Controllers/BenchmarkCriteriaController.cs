@@ -14,9 +14,11 @@ using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Services;
 using SFB.Web.Domain.Services.Comparison;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class BenchmarkCriteriaController : Controller
     {
         private readonly IFinancialDataService _financialDataService;

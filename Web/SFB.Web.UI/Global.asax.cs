@@ -8,10 +8,8 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Autofac.Integration.Mvc;
 using Autofac;
 using SFB.Web.Domain.Services.DataAccess;
-using System.Web.Caching;
-using System.Diagnostics;
 
-namespace SFB.Web.UI 
+namespace SFB.Web.UI
 {
     public class MvcApplication : System.Web.HttpApplication
     {

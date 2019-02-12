@@ -13,9 +13,11 @@ using SFB.Web.Domain.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class TrustComparisonController : Controller
     {
         private readonly IFinancialDataService _financialDataService;
