@@ -16,10 +16,11 @@ using System;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Models;
 using RedDog.Search.Model;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
-    [Authorize]
+    [CustomAuthorize]
     public class SchoolSearchController : Controller
     {
         private readonly ILocalAuthoritiesService _laService;

@@ -2,10 +2,11 @@
 using System.Web.Mvc;
 using SFB.Web.Common;
 using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
-    [Authorize]
+    [CustomAuthorize]
     public class DownloadController : Controller
     {
         private readonly IFinancialDataService _dataService;

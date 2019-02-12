@@ -15,10 +15,11 @@ using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.Common.DataObjects;
 using System;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
-    [Authorize]
+    [CustomAuthorize]
     public class TrustController : Controller
     {
         private readonly ITrustSearchService _trustSearchService;

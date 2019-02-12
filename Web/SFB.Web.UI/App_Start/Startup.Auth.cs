@@ -13,9 +13,7 @@ namespace SFB.Web.UI
     {
         // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
-        {
-                //       if (bool.Parse(ConfigurationManager.AppSettings["AuthenticationEnabled"] ?? "false"))
-
+        {              
             // Configure the user manager and signin manager to use a single instance per request            
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);

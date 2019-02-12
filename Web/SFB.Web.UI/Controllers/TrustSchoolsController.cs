@@ -2,15 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using SFB.Web.Common;
 using SFB.Web.Domain.Services.Search;
+using SFB.Web.UI.Attributes;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Controllers
 {
-    [Authorize]
+    [CustomAuthorize]
     public class TrustSchoolsController : Controller
     {
         private readonly ISchoolSearchService _schoolSearchService;

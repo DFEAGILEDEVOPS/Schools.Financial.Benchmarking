@@ -5,11 +5,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SFB.Web.UI.Attributes;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Controllers
 {
-    [Authorize]
+    [CustomAuthorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
