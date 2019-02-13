@@ -212,27 +212,33 @@
                 currentSuggestionName = suggestion[field];
                 var openSchoolsOnly = $(this).parents('.form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
                 var textBoxId = $(this).attr('id');
-                if (textBoxId === 'FindByNameId') {
-                    window.location = '/school/detail?urn=' + suggestion['Id'];
+                let url = '';
+                switch (textBoxId) {
+                    case 'FindByNameId':
+                        url = '/school/detail?urn=' + suggestion['Id'];
+                        if (openSchoolsOnly) {
+                            url += '&openOnly=true';
+                        }
+                        break;
+                    case 'FindSchoolByLaCodeName':
+                        // convert it to an la code search, which is the same as if they'd submitted.
+                        url = '/schoolsearch/search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
+                        if (openSchoolsOnly) {
+                            url += '&openOnly=true';
+                        }
+                        break;
+                    case 'FindByTrustName':
+                        url = '/trust/index?companyNo=' + suggestion['Id'];
+                        break;
+                    case 'FindSchoolByTown':
+                        $('#LocationCoordinates').val(suggestion['Location']);
+                        url = '/SchoolSearch/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
+                        if (openSchoolsOnly) {
+                            url += '&openOnly=true';
+                        }
+                        break;
                 }
-                else if (textBoxId === 'FindSchoolByLaCodeName') {
-                    // convert it to an la code search, which is the same as if they'd submitted.
-                    var url = '/schoolsearch/search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
-                    if (openSchoolsOnly) {
-                        url += '&openOnly=true';
-                    }
-                    window.location = url;
-                }
-                else if (textBoxId === 'FindByTrustName') {
-                    window.location = '/trust/index?companyNo=' + suggestion['Id'];
-                } else if (textBoxId === 'FindSchoolByTown') {
-                    $('#LocationCoordinates').val(suggestion['Location']);                    
-                    url = '/SchoolSearch/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
-                    if (openSchoolsOnly) {
-                        url += '&openOnly=true';
-                    }
-                    window.location = url;
-                }
+                window.location = url;
             });
 
             $(targetInputElementName).bind("typeahead:autocomplete", function (src, suggestion) {
