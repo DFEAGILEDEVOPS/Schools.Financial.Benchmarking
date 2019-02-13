@@ -38,7 +38,7 @@ namespace SFB.Web.Domain.Services.Search
             this._index = index;
         }
 
-        public async Task<dynamic> SuggestSchoolByName(string name)
+        public async Task<dynamic> SuggestSchoolByName(string name, bool openOnly)
         {
             var connection = ApiConnection.Create(_searchInstance, _key);
             var client = new IndexQueryClient(connection);
@@ -84,31 +84,6 @@ namespace SFB.Web.Domain.Services.Search
                 .Select($"{EdubaseDBFieldNames.TOWN}")
                 .Select($"{EdubaseDBFieldNames.POSTCODE}")
                 .Select($"{EdubaseDBFieldNames.ESTAB_STATUS}")
-                //.Filter("EstablishmentStatus eq 'Open'" +
-                //        " and TypeOfEstablishment ne 'Higher Education Institutions'" +
-                //        " and TypeOfEstablishment ne 'LA Nursery School'" +
-                //        " and TypeOfEstablishment ne 'Other Independent School'" +
-                //        " and TypeOfEstablishment ne 'Other Independent Special School'" +
-                //        " and TypeOfEstablishment ne 'Welsh Establishment'" +
-                //        " and TypeOfEstablishment ne 'Special Post 16 Institution'" +
-                //        " and TypeOfEstablishment ne 'Sixth Form Centres'" +
-                //        " and TypeOfEstablishment ne 'Service Childrens Education'" +
-                //        " and TypeOfEstablishment ne 'Secure Units'" +
-                //        " and TypeOfEstablishment ne 'Offshore Schools'" +
-                //        " and TypeOfEstablishment ne 'Institution funded by other Government Department'" +
-                //        " and TypeOfEstablishment ne 'Free Schools - 16-19'" +
-                //        " and TypeOfEstablishment ne 'British Schools Overseas'" +
-                //        " and TypeOfEstablishment ne 'Academy 16-19 Sponsor Led'" +
-                //        " and TypeOfEstablishment ne 'Academy 16-19 Converter'" +
-                //        " and StatutoryLowAge ne '16'" +
-                //        " and StatutoryLowAge ne '17'" +
-                //        " and StatutoryLowAge ne '18'" +
-                //        " and StatutoryLowAge ne '19'")
-                //.Filter("StatutoryHighAge ne '1'" +
-                //        " and StatutoryHighAge ne '2'" +
-                //        " and StatutoryHighAge ne '3'" +
-                //        " and StatutoryHighAge ne '4'" +
-                //        " and StatutoryHighAge ne '5'")//Todo: Remove .Do not filter out nurseries.
                 .SearchField($"{EdubaseDBFieldNames.ESTAB_NAME}")
                 .Top(10));
 
@@ -118,6 +93,11 @@ namespace SFB.Web.Domain.Services.Search
                     $"Edubase school suggestion error {response.Error.Code}: {response.Error.Message}");
             }
             var results = response.Body.Records;
+
+            if (openOnly)
+            {
+                results = results.Where<SuggestionResultRecord>(s => s.Properties[$"{EdubaseDBFieldNames.ESTAB_STATUS}"]?.ToString() != "Closed");
+            }
 
             var matches = (from r in results
                 select processResult(r));
