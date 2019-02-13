@@ -54,12 +54,26 @@ namespace SFB.Web.UI
 
         public Task<ApplicationUser> FindByIdAsync(string userId)
         {
-            throw new NotImplementedException();
+            var task = Task.Run(() =>
+            {
+                return new ApplicationUser()
+                {
+                    Id = userId
+                };
+            });
+            return task;
         }
 
         public Task<ApplicationUser> FindByNameAsync(string userName)
         {
-            throw new NotImplementedException();
+            var task = Task.Run(() =>
+            {
+                return new ApplicationUser()
+                {
+                    UserName = userName
+                };
+            });
+            return task;
         }
 
         public Task UpdateAsync(ApplicationUser user)
