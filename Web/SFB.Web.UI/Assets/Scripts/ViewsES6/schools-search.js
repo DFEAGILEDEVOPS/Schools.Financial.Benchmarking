@@ -12,6 +12,7 @@
     bindEvents() {
         GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
         $('#FindCurrentPosition').click(this.findCurrentLocationHandler.bind(this));
+        $('#openOnlyLocation').change(() => $('#FindByNameId').typeahead('val', ''));
         this.bindAutosuggest('#FindByNameId', '#FindByNameIdSuggestionId', this.getSchoolsSuggestionHandler);
         this.bindAutosuggest('#FindByTrustName', '#FindByTrustNameSuggestionId', this.getTrustSuggestionHandler);
         this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
