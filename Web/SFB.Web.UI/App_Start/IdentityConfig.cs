@@ -38,16 +38,6 @@ namespace SFB.Web.UI
 
     public class CustomUserStore<T> : IUserStore<ApplicationUser>
     {
-        private ApplicationUser _user;
-        public CustomUserStore()
-        {
-            _user = new ApplicationUser()
-            {
-                Id = "1",
-                UserName = "TestUser"
-            };
-        }
-
         public Task CreateAsync(ApplicationUser user)
         {
             throw new NotImplementedException();
@@ -66,7 +56,10 @@ namespace SFB.Web.UI
         {
             var task = Task.Run(() =>
             {
-                return _user;
+                return new ApplicationUser()
+                {
+                    Id = userId
+                };
             });
             return task;
         }
@@ -75,7 +68,10 @@ namespace SFB.Web.UI
         {
             var task = Task.Run(() =>
             {
-                return _user;
+                return new ApplicationUser()
+                {
+                    UserName = userName
+                };
             });
             return task;
         }
