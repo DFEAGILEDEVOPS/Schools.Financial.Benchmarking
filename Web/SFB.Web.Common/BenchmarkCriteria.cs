@@ -270,6 +270,14 @@ namespace SFB.Web.Common
         [DBField(name: SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP, type: CriteriaFieldComparisonTypes.MAX)]
         public decimal? MaxPerPupilExp { get; set; }
 
+        [PrettyName(SchoolCharacteristicsQuestions.PER_PUPIL_GF)]
+        [DBField(name: SchoolTrustFinanceDBFieldNames.GRANT_FUNDING_PP, type: CriteriaFieldComparisonTypes.MIN)]
+        public decimal? MinPerPupilGrantFunding { get; set; }
+
+        [PrettyName(SchoolCharacteristicsQuestions.PER_PUPIL_GF)]
+        [DBField(name: SchoolTrustFinanceDBFieldNames.GRANT_FUNDING_PP, type: CriteriaFieldComparisonTypes.MAX)]
+        public decimal? MaxPerPupilGrantFunding { get; set; }
+
         [PrettyName(SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SPECIFIC_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MIN)]
