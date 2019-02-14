@@ -324,7 +324,7 @@ namespace SFB.Web.UI.Controllers
             return View("NotFound", vm);
         }
 
-        public async Task<ActionResult> Suggest(string nameId, bool openOnly)
+        public async Task<ActionResult> Suggest(string nameId, bool openOnly = false)
         {
             string json = null;
 

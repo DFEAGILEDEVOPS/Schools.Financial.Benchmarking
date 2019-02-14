@@ -52,7 +52,8 @@
     
     getSchoolsSuggestionHandler(keywords, callback) {
         let dataSuggestionUrl = $("#FindByNameId").attr("data-suggestion-url");
-        return $.get(encodeURI(`${dataSuggestionUrl}?nameId=${keywords}`), function (response) {
+        let openSchoolsOnly = $("#FindByNameId").parents('.form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
+        return $.get(encodeURI(`${dataSuggestionUrl}?nameId=${keywords}&openonly=${openSchoolsOnly}`), function (response) {
             return callback(response.Matches);
         });
     }
