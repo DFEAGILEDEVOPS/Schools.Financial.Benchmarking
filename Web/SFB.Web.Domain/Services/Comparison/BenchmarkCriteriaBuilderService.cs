@@ -38,6 +38,40 @@ namespace SFB.Web.Domain.Services.Comparison
             return bmCriteria;
         }
 
+        public BenchmarkCriteria BuildFromOneClickComparisonCriteria(FinancialDataModel benchmarkSchoolData, int percentageMargin = 0)
+        {
+            var criteria = new BenchmarkCriteria();
+
+            criteria.SchoolOverallPhase = new[] { benchmarkSchoolData.SchoolOverallPhase };
+            criteria.UrbanRural = new[] { benchmarkSchoolData.UrbanRural };
+
+            var minPcMarginFactor = 1 - ((percentageMargin + CriteriaSearchConfig.PC_DEFAULT_MARGIN) / 100m);
+            var maxPcMarginFactor = 1 + ((percentageMargin + CriteriaSearchConfig.PC_DEFAULT_MARGIN) / 100m);
+
+            criteria.MinNoPupil = benchmarkSchoolData.PupilCount * minPcMarginFactor;
+            criteria.MaxNoPupil = benchmarkSchoolData.PupilCount * maxPcMarginFactor;
+
+            var fsm = benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals;
+            criteria.MinPerFSM = WithinPercentLimits(fsm - percentageMargin);
+            criteria.MaxPerFSM = WithinPercentLimits(fsm + percentageMargin);
+
+            var sen = benchmarkSchoolData.PercentageOfPupilsWithSen;
+            criteria.MinPerSEN = WithinPercentLimits(sen - percentageMargin);
+            criteria.MaxPerSEN = WithinPercentLimits(sen + percentageMargin);
+
+            var eal = benchmarkSchoolData.PercentageOfPupilsWithEal;
+            criteria.MinPerEAL = WithinPercentLimits(eal - percentageMargin);
+            criteria.MaxPerEAL = WithinPercentLimits(eal + percentageMargin);
+
+            var ppGrantFunding = benchmarkSchoolData.PerPupilGrantFunding;
+            var minGfMarginFactor = 1 - ((percentageMargin + CriteriaSearchConfig.GF_DEFAULT_MARGIN) / 100m);
+            var maxGfMarginFactor = 1 + ((percentageMargin + CriteriaSearchConfig.GF_DEFAULT_MARGIN) / 100m);
+            criteria.MinPerPupilGrantFunding = ppGrantFunding * minGfMarginFactor;
+            criteria.MaxPerPupilGrantFunding = ppGrantFunding * maxGfMarginFactor;
+
+            return criteria;
+        }
+
         public BenchmarkCriteria BuildFromSimpleComparisonCriteria(FinancialDataModel benchmarkSchoolData, SimpleCriteria simpleCriteria, int percentageMargin = 0)
         {
             return BuildFromSimpleComparisonCriteria(benchmarkSchoolData, simpleCriteria.IncludeFsm.GetValueOrDefault(),
@@ -52,8 +86,8 @@ namespace SFB.Web.Domain.Services.Comparison
             criteria.SchoolOverallPhase = new []{ benchmarkSchoolData.SchoolOverallPhase};
             criteria.UrbanRural = new []{ benchmarkSchoolData.UrbanRural};
 
-            var minMarginFactor = 1 - ((percentageMargin + CriteriaSearchConfig.DEFAULT_MARGIN) / 100m);
-            var maxMarginFactor = 1 + ((percentageMargin + CriteriaSearchConfig.DEFAULT_MARGIN) / 100m);
+            var minMarginFactor = 1 - ((percentageMargin + CriteriaSearchConfig.PC_DEFAULT_MARGIN) / 100m);
+            var maxMarginFactor = 1 + ((percentageMargin + CriteriaSearchConfig.PC_DEFAULT_MARGIN) / 100m);
             
             criteria.MinNoPupil = benchmarkSchoolData.PupilCount * minMarginFactor;
             criteria.MaxNoPupil = benchmarkSchoolData.PupilCount * maxMarginFactor;

@@ -45,7 +45,8 @@
 
     public class CriteriaSearchConfig
     {
-        public const int DEFAULT_MARGIN = 10;
+        public const int PC_DEFAULT_MARGIN = 10;
+        public const int GF_DEFAULT_MARGIN = 20;
         public const int MAX_TRY_LIMIT = 10;
         public const decimal BIC_DEFAULT_FLEX_PUPIL_COUNT = 0.25M;
         public const decimal BIC_DEFAULT_FLEX_EXP_PP_MIN = 0.5M;
