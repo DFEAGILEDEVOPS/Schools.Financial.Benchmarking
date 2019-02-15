@@ -115,7 +115,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public void OneClickReportShouldBuildWithCorrectCriteria()
+        public void OneClickReportShouldBuildCorrectViewModel()
         {
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
@@ -164,9 +164,9 @@ namespace SFB.Web.UI.UnitTests
             });
 
             mockComparisonService.Setup(m =>
-                    m.GenerateBenchmarkListWithSimpleComparisonAsync(It.IsAny<BenchmarkCriteria>(),
-                        It.IsAny<EstablishmentType>(), It.IsAny<Int32>(), It.IsAny<SimpleCriteria>(), It.IsAny<FinancialDataModel>()))
-                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, int basketSize, SimpleCriteria simpleCr, FinancialDataModel financialDataModel) => cTask);
+                    m.GenerateBenchmarkListWithOneClickComparisonAsync(It.IsAny<BenchmarkCriteria>(),
+                        It.IsAny<EstablishmentType>(), It.IsAny<int>(), It.IsAny<FinancialDataModel>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, int basketSize, FinancialDataModel financialDataModel) => cTask);
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
@@ -184,17 +184,11 @@ namespace SFB.Web.UI.UnitTests
             var result = controller.OneClickReport(123);
 
             result.Wait();
-
-            var expectedSimpleCriteria = new SimpleCriteria()
-            {
-                IncludeEal = true,
-                IncludeFsm = true,
-                IncludeSen = true
-            };
-
-            mockBenchmarkCriteriaBuilderService.Verify(m => m.BuildFromSimpleComparisonCriteria(It.IsAny<FinancialDataModel>(), 
-                It.Is<SimpleCriteria>(sc=> sc.Equals(expectedSimpleCriteria)), 
-                It.IsAny<Int32>()));
+            
+            Assert.AreEqual(ChartFormat.Charts, result.Result.ViewBag.ChartFormat);
+            Assert.AreEqual("123", result.Result.ViewBag.HomeSchoolId);
+            Assert.AreEqual(ComparisonType.OneClick, (result.Result.Model as BenchmarkChartListViewModel).ComparisonType);
+            Assert.AreEqual(EstablishmentType.Academies, (result.Result.Model as BenchmarkChartListViewModel).EstablishmentType);
         }
 
         [Test]
