@@ -5,8 +5,8 @@
     <input id="LaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME)) />
     <label for="LaCodeName">Local authority</label>
 </div>
-<div id="SearchByLaCodeNameFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
-    <label for="FindSchoolByLaCodeName">
+<div id="SearchByLaCodeNameFieldset" class="search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
+    <label class="search-types__optional-section__label" for="FindSchoolByLaCodeName">
         <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
     </label>
     @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
@@ -15,7 +15,7 @@
     }
     <div class="multiple-choice" style="float:none">
         <input id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>
-        <label for="openOnlyLa">Include open schools only</label>
+        <label for="openOnlyLa" class="search-types__optional-section__label">Include open schools only</label>
     </div>
     <div>
         <input id="FindSchoolByLaCodeName"

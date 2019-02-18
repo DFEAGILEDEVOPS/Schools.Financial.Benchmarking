@@ -1,29 +1,26 @@
 ﻿.guidance {
-    ul {
-        list-style-type: inherit;
-        padding-left: 20px;
-    }
-}
+    list-style-type: inherit;
+    padding-left: 20px;
+    margin-bottom: 15px;
 
-.contents{
-    margin-bottom:15px;
-
-    ul{
+    &__list {
         list-style-type: none;
         padding-left: 0;
         line-height: 1em;
-        li{
-            padding-top:8px;
-            padding-bottom:8px;
+
+        &__item {
+            padding-top: 8px;
+            padding-bottom: 8px;
         }
-        a{
+
+        &__link {
             text-decoration: none;
         }
     }
 }
 
-.text{
-    @include media(tablet){
-        margin-top:-25px;
+.text {
+    @include media(tablet) {
+        margin-top: -25px;
     }
 }
