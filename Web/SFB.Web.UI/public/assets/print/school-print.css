@@ -13,12 +13,12 @@
     max-width: 250px;
 }
 
-.school-detail #SchoolLocationMap {
+.school-detail .school-location-map {
     width: 465px;
     height: 300px;
 }
 
-.chartContainer {
+.chart-container {
     page-break-inside: avoid;
 }
 

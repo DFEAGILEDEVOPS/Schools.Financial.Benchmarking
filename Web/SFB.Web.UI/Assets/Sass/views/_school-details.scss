@@ -2,11 +2,11 @@
     .metadata-school-detail {
         overflow: hidden;
 
-        dl {
+        &__dl {
             margin-bottom: 7px;
         }
 
-        dt {
+        &__dt {
             min-width: 150px;
             display: block;
             float: left;
@@ -20,7 +20,7 @@
             }
         }
 
-        dd {
+        &__dd {
             display: block;
             float: left;
             text-align: left;
@@ -55,35 +55,13 @@
         }
     }
 
-    .metadata-school-detail.names {
-        text-align: right;
-        padding: 10px;
-    }
-
-    .metadata-school-detail.values {
-        text-align: left;
-        padding: 10px;
-    }
-
     .compare-buttons-panel {
 
-        .column-full {
+        &__column-full {
             margin-bottom: 20px;
         }
 
-        .column-two-thirds {
-            padding-left: 0;
-        }
-
-        .button.removefrom, .button.addto {
-            @include grey-button;
-
-            @include media(mobile) {
-                margin-top: 10px;
-            }
-        }
-
-        .button.removefrom, .button.auto {
+        &__button--removefrom, &__button--addto, &__button--auto {
             @include grey-button;
 
             @include media(mobile) {
@@ -92,9 +70,9 @@
         }
     }
 
-    .chartsSection {
+    .charts-section {
 
-        .chartContainer {
+        .chart-container {
             .chart-header {
                 margin-top: 1.5em;
             }
@@ -169,7 +147,7 @@
         }
     }
 
-    #SchoolLocationMap {
+    .school-location-map {
         width: 100%;
         height: 300px;
     }
@@ -213,7 +191,7 @@
         }
     }
 
-    .revenueDiv {
+    .revenue-box {
         h2 {
             margin-bottom: 5px;
         }

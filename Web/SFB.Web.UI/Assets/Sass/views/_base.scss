@@ -191,7 +191,7 @@ nav.tabs ol li {
     }
 }
 
-.chartsSection {
+.charts-section {
     margin-top: 15px;
 }
 
@@ -203,7 +203,7 @@ a.no-underline{
     text-decoration: none;
 }
 
-div.revenueDiv {
+.revenue-box {
     border-top: 1px solid $border-colour;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -257,7 +257,7 @@ tspan.england-average-tick{
     }
 }
 
-.chartContainer ul{
+.chart-container ul{
     list-style-type:disc;
     padding: inherit;
     padding-top: 0;
