@@ -128,17 +128,21 @@ namespace SFB.Web.DAL.Repositories
                 $"c['{EdubaseDBFieldNames.LA_CODE}'], " +
                 $"c['{EdubaseDBFieldNames.NO_PUPIL}'], " +
                 $"udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE} " +
-                $"FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd((','))})";
+                $"FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd(',')})";
 
             List<EdubaseDataObject> result = null;
             try
             {
                 result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
+                if(result.Count < ids.Count)
+                {
+                    throw new Newtonsoft.Json.JsonSerializationException();
+                }
             }catch(Exception ex)
             {
-                var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : URNs = {sb.ToString()}";
+                var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : URNs = {sb.ToString().TrimEnd(',')}";
                 base.LogException(ex, errorMessage);
-                return null;
+                throw new ApplicationException($"One or more documents could not be loaded from {_collectionName} : URNs = {sb.ToString().TrimEnd(',')}");
             }
             return result;
         }
