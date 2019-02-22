@@ -257,8 +257,8 @@ tspan.england-average-tick{
     }
 }
 
-.chart-container ul{
-    list-style-type:disc;
+.chart-container ul, .charts-section__chart-container ul{
+    list-style-type: disc;
     padding: inherit;
     padding-top: 0;
 }

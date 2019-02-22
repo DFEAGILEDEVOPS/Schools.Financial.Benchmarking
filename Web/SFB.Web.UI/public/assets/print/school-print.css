@@ -18,7 +18,7 @@
     height: 300px;
 }
 
-.chart-container {
+.charts-section__chart-container {
     page-break-inside: avoid;
 }
 
