@@ -174,6 +174,20 @@
                         index).css("fill", "#F47738");
                 });
             }
+
+            let texts = $("#" + el.id + " .c3-axis-x g.tick text tspan");
+            texts.css('fill', '#005ea5');
+                       
+            let svg = $("#" + el.id + " svg");
+            svg.css('font-size', '14px');
+
+            let axisLines = $("#" + el.id + " .domain");
+            axisLines.css('fill', 'none');
+            axisLines.css('stroke', '#000');
+
+            let tickLines = $("#" + el.id + " .tick line");
+            tickLines.css('fill', 'none');
+            tickLines.css('stroke', '#000');
         };
 
         let restructureSchoolNames = function (id) {
