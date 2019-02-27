@@ -660,7 +660,7 @@
     <Content Include="Views\School\Partials\CentralFinancing.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\CentralFinancing.cshtml" />
     <Content Include="Views\School\Partials\BenchmarkControlButtons.cshtml" />
-    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\SchoolSearch\NotFound.cshtml" />
     <Content Include="Views\BenchmarkList\Partials\BenchmarkBasketControls.cshtml" />
     <Content Include="Views\SchoolSearch\Partials\SchoolResults.cshtml" />
     <Content Include="Views\Shared\Partials\AdvancedCriteriaHiddenFields.cshtml" />
@@ -721,6 +721,8 @@
     <Content Include="Views\TrustSchools\Partials\SchoolResults.cshtml" />
     <Content Include="Views\Trust\Partials\GeneralCharacteristics.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
+    <Content Include="Views\Trust\SuggestTrust.cshtml" />
+    <Content Include="Views\Trust\NotFound.cshtml" />
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>

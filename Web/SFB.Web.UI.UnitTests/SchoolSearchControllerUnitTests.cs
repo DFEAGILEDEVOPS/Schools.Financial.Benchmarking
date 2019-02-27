@@ -321,6 +321,27 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToTrustSearchViewIfValidTrustNameProvided()
         {
+            Task<dynamic> task = Task.Run(() =>
+            {
+                var facets = new Dictionary<string, FacetResult[]>();
+                facets.Add("OverallPhase", new FacetResult[] { new FacetResult() { Value = "Primary", Count = 2 }, new FacetResult() { Value = "Secondary", Count = 1 }, new FacetResult() { Value = "All through", Count = 1 } });
+                facets.Add("TypeOfEstablishment", new FacetResult[] { new FacetResult() { Value = "Pupil Referral Unit", Count = 2 }, new FacetResult() { Value = "Nursery", Count = 1 }, new FacetResult() { Value = "Primary", Count = 1 } });
+                facets.Add("OfstedRating", new FacetResult[] { new FacetResult() { Value = "Outstanding", Count = 2 }, new FacetResult() { Value = "Good", Count = 1 }, new FacetResult() { Value = "Requires Improvement", Count = 1 } });
+                facets.Add("ReligiousCharacter", new FacetResult[] { new FacetResult() { Value = "Hindu", Count = 2 }, new FacetResult() { Value = "Church of England", Count = 1 }, new FacetResult() { Value = "Roman Catholic", Count = 1 } });
+                facets.Add("EstablishmentStatus", new FacetResult[] { new FacetResult() { Value = "Open", Count = 2 }, new FacetResult() { Value = "Closed", Count = 1 } });
+
+                var matchedResults = new Dictionary<string, object>();
+                matchedResults.Add("test1", 1);
+                matchedResults.Add("test2", 2);
+                var matches = new List<Dictionary<string, object>>();
+                matches.Add(matchedResults);
+                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                return results;
+            });
+
+            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.RESULTS_PER_PAGE, "", null))
+                .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
+
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
@@ -329,6 +350,30 @@ namespace SFB.Web.UI.UnitTests
             Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Search", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("TestTrust", (result as RedirectToRouteResult).RouteValues["name"]);
+        }
+
+        [Test]
+        public async Task SearchActionRedirectsToSuggestionViewIfNoTrustFound()
+        {
+            Task<dynamic> task = Task.Run(() =>
+            {
+                var facets = new Dictionary<string, FacetResult[]>();
+                var matches = new List<Dictionary<string, object>>();
+                dynamic results = new QueryResultsModel(0, facets, matches, 0, 0);
+                return results;
+            });
+
+            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.RESULTS_PER_PAGE, "", null))
+                .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
+
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search("", "TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
+
+            Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
+            Assert.AreEqual("SuggestTrust", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("TestTrust", (result as RedirectToRouteResult).RouteValues["trustNameId"]);
         }
 
         [Test]
