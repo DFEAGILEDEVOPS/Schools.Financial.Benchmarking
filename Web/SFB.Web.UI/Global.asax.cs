@@ -51,12 +51,12 @@ namespace SFB.Web.UI
 
         private void CacheSchoolUrns()
         {
-            using (var scope = AutofacDependencyResolver.Current.ApplicationContainer.BeginLifetimeScope())
-            {
-                var service = scope.Resolve<IContextDataService>();                
-                var urnList = service.GetAllSchoolUrns();
-                HttpContext.Current.Cache.Insert("SFBActiveURNList", urnList);               
-            }            
+            //using (var scope = AutofacDependencyResolver.Current.ApplicationContainer.BeginLifetimeScope())
+            //{
+            //    var service = scope.Resolve<IContextDataService>();                
+            //    var urnList = service.GetAllSchoolUrns();
+            //    HttpContext.Current.Cache.Insert("SFBActiveURNList", urnList);               
+            //}            
         }
     }
 }

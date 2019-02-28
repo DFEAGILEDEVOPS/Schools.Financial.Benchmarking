@@ -111,6 +111,10 @@ namespace SFB.Web.UI.Controllers
         public ActionResult Status(int urn)
         { 
             var urns = (List<int>)HttpContext.Cache.Get("SFBActiveURNList");
+            if(urns == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+            }
             var found = urns.Contains(urn);         
             return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);                               
         }
