@@ -25,10 +25,6 @@ namespace SFB.Web.UI
 
             var enableAITelemetry = ConfigurationManager.AppSettings["EnableAITelemetry"];
             TelemetryConfiguration.Active.DisableTelemetry = enableAITelemetry == null || !bool.Parse(enableAITelemetry);
-
-            #if !DEBUG
-            CacheSchoolUrns();
-            #endif
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -49,14 +45,5 @@ namespace SFB.Web.UI
             Response.Headers.Remove("Server");
         }
 
-        private void CacheSchoolUrns()
-        {
-            using (var scope = AutofacDependencyResolver.Current.ApplicationContainer.BeginLifetimeScope())
-            {
-                var service = scope.Resolve<IContextDataService>();
-                var urnList = service.GetAllSchoolUrns();
-                HttpContext.Current.Cache.Insert("SFBActiveURNList", urnList);
-            }
-        }
     }
 }

@@ -110,14 +110,22 @@ namespace SFB.Web.UI.Controllers
         [HttpHead]
         [AllowAnonymous]
         public ActionResult Status(int urn)
-        { 
-            var urns = (List<int>)HttpContext.Cache.Get("SFBActiveURNList");
-            if(urns == null)
+        {
+            try
+            {
+                var urns = (List<int>)HttpContext?.Cache?.Get("SFBActiveURNList");
+                if (urns == null)
+                {
+                    urns = _contextDataService.GetAllSchoolUrns();
+                    HttpContext.Cache.Insert("SFBActiveURNList", urns);
+                }
+                var found = urns.Contains(urn);
+                return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);
+            }
+            catch
             {
                 return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
             }
-            var found = urns.Contains(urn);         
-            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);                               
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int? urn, CookieActions withAction)
