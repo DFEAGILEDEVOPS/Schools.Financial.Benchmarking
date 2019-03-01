@@ -108,6 +108,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpHead]
+        [AllowAnonymous]
         public ActionResult Status(int urn)
         { 
             var urns = (List<int>)HttpContext.Cache.Get("SFBActiveURNList");
