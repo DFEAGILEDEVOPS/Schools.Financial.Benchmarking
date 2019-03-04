@@ -16,7 +16,7 @@
     <ul>
         @foreach (var school in Model.ModelList)
         {
-            <li class="document">
+            <li class="school-document">
                 <div class="grid-row">
                     <div class="column-half">
                         <a href="/school/detail?urn=@school.Id" class="bold-small">
@@ -26,7 +26,7 @@
                             <span> (Closed)</span>
                         }
                         </a>
-                        <div class="addtocompare add-remove-mobile">
+                        <div class="school-document__add-to-compare-button school-document__add-to-compare-button--add-remove-mobile">
                             @AddRemoveButton(school, "mobile")
                         </div>
                         <ul class="metadata">
@@ -39,7 +39,7 @@
                             }
                         </ul>
                     </div>
-                    <div class="column-half addtocompare add-remove-desktop">
+                    <div class="school-document__add-to-compare-button school-document__add-to-compare-button--add-remove-desktop">
                         @AddRemoveButton(school, "desktop")
                     </div>
                 </div>
@@ -67,8 +67,8 @@ else
         string status = school.Status == "Open" ? "" : "Closed";
         string deviceLabel = device == "desktop" ? "" : "mobile";
         <div id="@school.Id@device" data-urn="@school.Id">
-            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='add-remove button removefrom' data-urn="@school.Id" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</a>
-            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto' data-urn="@school.Id" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</a>
+            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</a>
+            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</a>
             <a class="hidden-goto-basket" href="/benchmarklist">Go to your benchmark basket</a>
         </div>
     }

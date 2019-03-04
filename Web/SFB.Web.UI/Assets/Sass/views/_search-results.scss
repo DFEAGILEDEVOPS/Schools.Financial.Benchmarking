@@ -4,7 +4,7 @@
         float: none;
     }
 
-    li.document {
+    .school-document {
         border-bottom: solid 1px $border-colour;
         padding: $gutter-half 0;
 
@@ -12,6 +12,39 @@
             padding-top: 0;
             margin-top: -2px;
         }
+    }
+
+    .school-document__add-to-compare-button--add-remove-desktop {
+        @include media(tablet) {
+            display: block;
+        }
+
+        @include media(mobile) {
+            display: none;
+        }
+    }
+
+    .school-document__add-to-compare-button--add-remove-mobile {
+        @include media(mobile) {
+            display: block;
+        }
+
+        @include media(tablet) {
+            display: none;
+        }
+    }
+
+    .desktop-button {
+        float: right;
+        top: 40%;
+    }
+
+    .mobile-button {
+        width: 25%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        float: none;
+        top: 0;
     }
 
     .metadata {
@@ -84,43 +117,8 @@
         float: right;
     }
 
-    .document .addtocompare.add-remove-desktop {
-        .button {
-            float: right;
-            top: 40%;
-        }
-    }
-
     div.govuk-option-select.js-collapsible:focus {
         outline: 3px solid #ffbf47;
-    }
-
-    .add-remove-desktop {
-        @include media(tablet) {
-            display: block;
-        }
-
-        @include media(mobile) {
-            display: none;
-        }
-    }
-
-    .add-remove-mobile {
-        @include media(mobile) {
-            display: block;
-        }
-
-        @include media(tablet) {
-            display: none;
-        }
-
-        .button {
-            width: 25%;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            float: none;
-            top: 0;
-        }
     }
 
     nav.navigation-links {
@@ -254,7 +252,7 @@
         position: relative;
         top: 10px;
         color: $white;
-        cursor:default;
+        cursor: default;
         font-size: 16px;
     }
 }
