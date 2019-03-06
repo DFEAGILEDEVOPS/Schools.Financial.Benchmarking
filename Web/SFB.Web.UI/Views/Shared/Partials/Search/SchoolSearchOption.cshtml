@@ -11,6 +11,10 @@
     {
         <span class="error-message">@Model.ErrorMessage</span>
     }
+    <div class="multiple-choice" style="float:none">
+        <input id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
+        <label for="openOnlyLocation">Include open schools only</label>
+    </div>
     <input id="FindByNameId"
            class="form-control mbl"
            name="nameId"
@@ -19,9 +23,5 @@
            data-suggestion-url="@(Model.SchoolSuggestionUrl)" />
     <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_NAME_ID">Search</button>
     <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn" />
-    @*<div class="multiple-choice">
-        <input id="openOnly" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
-        <label for="openOnly">Include open schools only</label>
-    </div>*@
 </div>
 
