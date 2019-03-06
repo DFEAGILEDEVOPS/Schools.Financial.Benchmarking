@@ -39,7 +39,7 @@
 
         <p class="lede">Compare your school's income and expenditure with other schools in England.</p>
         <p class="homep">You can:</p>
-        <ul>
+        <ul class="search-options-list">
             <li>view your school's financial data</li>
             <li> see how similar schools manage their finances</li>
             <li>use the information gathered to establish relationships with other schools</li>
@@ -48,7 +48,7 @@
 
         @if (Model.ComparisonList.HomeSchoolUrn != null)
         {
-            <div class="home-school section">
+            <div class="home-school-section">
                 <p>
                     <span class="heading-small bold-small">
                         Your default school:
@@ -59,11 +59,10 @@
                     <a class="button" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.ComparisonList.HomeSchoolUrn">Compare with other schools</a>
                 </div>
             </div>
-            <hr class="home-school-divider" />
+            <hr class="home-school-section-divider" />
         }
 
-        <div class="section">
-            <div class="finder-section" id="finderSection">
+        <div class="finder-section" id="finderSection">
                 <fieldset>
                     <legend class="visuallyhidden">Select a search type option</legend>
                     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
@@ -94,20 +93,19 @@
                 </fieldset>
             </div>
 
-        </div>
     </div>
     <div class="column-quarter">
-        <aside class="contents guidance">
+        <aside class="guidance">
             <h3 class="heading-medium">Guidance</h3>
-            <ul class="font-small">
-                <li>
-                    <a href="Help/Guidance">Help using this site</a>
+            <ul class="guidance__list font-small">
+                <li class="guidance__list__item">
+                    <a class="guidance__list__link" href="Help/Guidance">Help using this site</a>
                 </li>
-                <li>
-                    <a href="Help/InterpretingCharts">Interpreting the charts</a>
+                <li class="guidance__list__item">
+                    <a class="guidance__list__link" href="Help/InterpretingCharts">Interpreting the charts</a>
                 </li>
-                <li>
-                    <a href="Help/DataSources">Data sources</a>
+                <li class="guidance__list__item">
+                    <a class="guidance__list__link" href="Help/DataSources">Data sources</a>
                 </li>
             </ul>
         </aside>

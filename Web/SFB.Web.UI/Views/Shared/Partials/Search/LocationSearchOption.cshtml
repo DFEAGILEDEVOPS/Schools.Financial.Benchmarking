@@ -5,8 +5,8 @@
     <input id="TownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LOCATION)) />
     <label for="TownOrCity">Location</label>
 </div>
-<div id="SearchByTownFieldset" class="form-group optional-section @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
-    <label for="FindSchoolByTown">
+<div id="SearchByTownFieldset" class="search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
+    <label class="search-types__optional-section__label" for="FindSchoolByTown">
         Enter a postcode, town or street. Or
         <a href="javascript:void(0)" id="FindCurrentPosition" class="focus-first" title="Select to use your current location">use your current location</a>
     </label>
@@ -18,11 +18,11 @@
     </div>
     <div class="multiple-choice" style="float:none">
         <input id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LOCATION))>
-        <label for="openOnlyLocation">Include open schools only</label>
+        <label class="search-types__optional-section__label" for="openOnlyLocation">Include open schools only</label>
     </div>
     <div>
         <input id="FindSchoolByTown"
-               class="form-control mbl search-input"
+               class="form-control search-input"
                name="locationorpostcode"
                placeholder=""
                maxlength="100"

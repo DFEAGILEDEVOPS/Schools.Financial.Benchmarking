@@ -202,10 +202,10 @@
             url: url,
             datatype: 'json',
             beforeSend: () => {
-                DfE.Util.LoadingMessage.display("#historicalChartsList", "Updating charts");
+                DfE.Util.LoadingMessage.display(".historical-charts-list", "Updating charts");
             },
             success: (data) => {
-                $("#historicalChartsList").html(data);
+                $(".historical-charts-list").html(data);
                 this.GenerateCharts(unitParameter);
                 this.UpdateTotals();
                 this.UpdateTrustWarnings();
@@ -268,7 +268,7 @@
                         break;
                     case "Add":
                     case "Remove":
-                        $(".add-remove").toggle();
+                        $(".add-remove-js").toggle();
                         break;
                 }
             });

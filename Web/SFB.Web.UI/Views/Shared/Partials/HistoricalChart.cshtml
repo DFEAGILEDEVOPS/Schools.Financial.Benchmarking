@@ -21,7 +21,7 @@
             <div>
                 <span class="bold">@ViewBag.FinancialYear</span>
             </div>
-            <div class="lastYearBalance">
+            <div class="charts-section__chart-container__lastYearBalance">
                 @if (Model.ShowValue == UnitType.PercentageOfTotal ||
                      Model.ShowValue == UnitType.FTERatioToTotalFTE)
                 {
@@ -55,14 +55,14 @@
             </div>
         </div>
         <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
-            <div class="column-three-quarters">
+            <div class="chart-wrapper__inner column-three-quarters">
                 <div id="chart_@Model.Id" class="chart" data-axis-label="@Model.ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model.DataJson'></div>
             </div>
             <div class="column-quarter desktop">
                 <div>
                     <span class="bold">@ViewBag.FinancialYear</span>
                 </div>
-                <div class="lastYearBalance">
+                <div class="charts-section__chart-container__lastYearBalance">
                     @if (Model.ShowValue == UnitType.PercentageOfTotal ||
                          Model.ShowValue == UnitType.FTERatioToTotalFTE)
                     {
