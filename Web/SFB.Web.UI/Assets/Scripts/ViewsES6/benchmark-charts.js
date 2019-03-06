@@ -138,7 +138,7 @@
 
     GenerateChart(el, showValue, min, mid, max, barCount) {
         let applyChartStyles = function (el) {
-            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chartContainer'))[0]
+            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0]
                 .value;
             if (benchmarkSchoolIndex > -1) {
                 $("#" +
@@ -149,7 +149,7 @@
                     benchmarkSchoolIndex).css("fill", "#D53880");
             }
 
-            let incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chartContainer'))[0].value;
+            let incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chart-container'))[0].value;
             let incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
             if (incompleteFinanceDataIndexArray.length > 0) {
                 incompleteFinanceDataIndexArray.forEach(function (index) {
@@ -162,7 +162,7 @@
                 });
             }
 
-            let incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chartContainer'))[0].value;
+            let incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chart-container'))[0].value;
             let incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
             if (incompleteWorkforceDataIndexArray.length > 0) {
                 incompleteWorkforceDataIndexArray.forEach(function (index) {
@@ -401,7 +401,7 @@
                     let chartData = JSON.parse($('#' + el.id).attr('data-chart'));
                     let schoolData = chartData[d[0].index];
                     let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
-                        $(el).closest('.chartContainer'))[0].value;
+                        $(el).closest('.chart-container'))[0].value;
                     let highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
                     let tableHtml =
                         "<table class='bmc-rollover-table' >" +
@@ -781,7 +781,7 @@ class PdfGenerator {
     }
 
     writeCharts() {
-        let charts = $('.chartContainer');
+        let charts = $('.chart-container');
         let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
         let chartPerPage = Math.ceil(12 / yValuesCount);
 

@@ -59,7 +59,7 @@
             margin-bottom: 20px;
         }
 
-        &__button--removefrom, &__button--addto, &__button--auto {
+        &__button--removefrom, &__button--addto {
             @include grey-button;
 
             @include media(mobile) {
