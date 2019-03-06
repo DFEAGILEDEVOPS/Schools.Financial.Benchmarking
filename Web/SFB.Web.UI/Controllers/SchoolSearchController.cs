@@ -160,6 +160,12 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateTrustNameParameter(trustNameId);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
+                            searchResp = await _trustSearchService.SearchTrustByName(trustNameId, 0, SearchDefaults.RESULTS_PER_PAGE, "", Request?.QueryString);
+                            if (searchResp.NumberOfResults == 0)
+                            {
+                                return RedirectToActionPermanent("SuggestTrust", "Trust",
+                                    new RouteValueDictionary { { "trustNameId", trustNameId } });
+                            }
                             return RedirectToAction("Search", "Trust", new { name = trustNameId });
                         }
                         else
