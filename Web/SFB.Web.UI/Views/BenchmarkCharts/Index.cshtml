@@ -1,5 +1,6 @@
 ﻿@using SFB.Web.Common
 @using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
 
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
@@ -230,12 +231,17 @@ else
                                 <div class="column-full">
                                     <h2 class="heading-small">Comparison with high-performing schools</h2>
 
-                                    <table>
+                                    <table class="tablesorter dataTable">
                                         <thead>
                                             <tr>
-                                                <th scope="col">School name</th>
+                                                <th scope="col" class="school-column">School</th>
                                                 <th scope="col">Local authority</th>
-                                                <th class="numeric" scope="col">Number of pupils</th>
+                                                <th class="numeric" scope="col">
+                                                    Pupils
+                                                    <a class="helpLink" href="javascript:void(0);" id="renderPupilsInfo" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
                                                 <th class="numeric" scope="col">Key stage progress</th>
                                             </tr>
                                         </thead>
@@ -243,10 +249,10 @@ else
                                             @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools.OrderByDescending(s => s.ProgressScore))
                                             {
                                                 <tr>
-                                                    <td scope="col" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "bold":"")">
-                                                        @bmSchool.Name
-                                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
-                                                </td>
+                                                    <td scope="col" class="school-column">                                                        
+                                                        <a href="/school/detail?Urn=@bmSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "highlight" : "")"><span>@bmSchool.Name</span></a> 
+                                                        @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                                    </td>
                                                 <td scope="col">@bmSchool.LaName</td>
                                                 <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
                                                 <td class="numeric" scope="col">@bmSchool.ProgressScore.GetValueOrDefault().ToString("F")</td>

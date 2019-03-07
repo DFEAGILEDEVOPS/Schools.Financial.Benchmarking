@@ -5,7 +5,10 @@
         sessionStorage.chartFormat = 'Charts';
 
         $(document).ready(() => {
-            $("table.dataTable").tablesorter();
+            $("#benchmarkChartsList table.dataTable").tablesorter();
+            $("#bestInClassTabSection table.dataTable").tablesorter(
+                    { sortList: [[3, 1]] }
+            );
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
             $('.save-as-image').show();
@@ -620,6 +623,10 @@
                 pdfGenerator.save();
             });
         });
+    }
+
+    SubmitCriteriaForm() {
+        $('form#advancedCriteria').submit();
     }
 }
 
