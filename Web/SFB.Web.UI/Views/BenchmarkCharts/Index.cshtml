@@ -246,41 +246,69 @@ else
                                                 <th scope="col">Local authority</th>
                                                 <th nowrap class="numeric" scope="col">
                                                     Pupils
-                                                    <a class="helpLink" href="javascript:void(0);" id="renderPupilsInfo" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                <th nowrap scope="col">
+                                                    FSM
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                <th nowrap scope="col">
+                                                    EHCP
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                <th scope="col">
+                                                    Expenditure per pupil
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                <th scope="col">
+                                                    Urban/rural description
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
                                                         <img class="help-image" src="/public/assets/images/help-icon.png">
                                                     </a>
                                                 </th>
                                                 @if (ViewBag.HomeSchoolPhase == "Secondary")
                                                 {
-                                                <th nowrap class="numeric" scope="col">
-                                                    Progress 8
-                                                    <a class="helpLink" href="javascript:void(0);" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
-                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </a>
-                                                </th>
+                                                    <th nowrap class="numeric" scope="col">
+                                                        Progress 8
+                                                        <a class="helpLink" href="javascript:void(0);" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                                                            <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                        </a>
+                                                    </th>
                                                 }
                                                 else
                                                 {
-                                                <th class="numeric" scope="col">
-                                                    Key stage 2 progress
-                                                    <a class="helpLink" href="javascript:void(0);" id="renderKs2Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
-                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </a>
-                                                </th>
+                                                    <th class="numeric" scope="col">
+                                                        Key stage 2 progress
+                                                        <a class="helpLink" href="javascript:void(0);" id="renderKs2Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                                            <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                        </a>
+                                                    </th>
                                                 }
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools.OrderByDescending(s => s.ProgressScore))
+                                            @foreach (var bicSchool in Model.BicComparisonSchools.OrderByDescending(s => s.ProgressScore))
                                             {
                                                 <tr>
                                                     <td scope="col" class="school-column">                                                        
-                                                        <a href="/school/detail?Urn=@bmSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "highlight" : "")"><span>@bmSchool.Name</span></a> 
-                                                        @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                                        <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a> 
+                                                        @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
                                                     </td>
-                                                <td scope="col">@bmSchool.LaName</td>
-                                                <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
-                                                <td class="numeric" scope="col">@bmSchool.ProgressScore.GetValueOrDefault().ToString("F")</td>
+                                                <td scope="col">@bicSchool.LaName</td>
+                                                <td class="numeric" scope="col">@bicSchool.TotalPupils</td>
+                                                <td class="numeric" scope="col">@bicSchool.FSM</td>
+                                                <td class="numeric" scope="col">@bicSchool.SEN</td>
+                                                <td class="numeric" scope="col">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
+                                                <td class="numeric" scope="col">@bicSchool.UrbanRural</td>
+                                                <td class="numeric" scope="col">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</td>
                                             </tr>
                                         }
                                         </tbody>

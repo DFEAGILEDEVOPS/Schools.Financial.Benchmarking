@@ -7,7 +7,7 @@
         $(document).ready(() => {
             $("#benchmarkChartsList table.dataTable").tablesorter();
             $("#bestInClassTabSection table.dataTable").tablesorter(
-                    { sortList: [[3, 1]] }
+                    { sortList: [[7, 1]] }
             );
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
