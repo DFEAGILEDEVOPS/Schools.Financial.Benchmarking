@@ -229,20 +229,45 @@ else
                         <div id="bestInClassTabSection">
                             <div class="grid-row">
                                 <div class="column-full">
-                                    <h2 class="heading-small">Comparison with high-performing schools</h2>
+                                    @if (ViewBag.HomeSchoolPhase == "Secondary")
+                                    {
+                                        <h2 class="heading-small">Overall Progress 8 - all pupils</h2>
+                                    } else
+                                    {
+                                        <h2 class="heading-small">Overall key stage 2 progress - all pupils</h2>
+                                    }
+
+                                    <p class="no-margin mt-1">Showing <span class="bold-xsmall">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>
 
                                     <table class="tablesorter dataTable">
                                         <thead>
                                             <tr>
-                                                <th scope="col" class="school-column">School</th>
+                                                <th nowrap scope="col" class="school-column">School</th>
                                                 <th scope="col">Local authority</th>
-                                                <th class="numeric" scope="col">
+                                                <th nowrap class="numeric" scope="col">
                                                     Pupils
                                                     <a class="helpLink" href="javascript:void(0);" id="renderPupilsInfo" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
-                                                        <img src="/public/assets/images/help-icon.png">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
                                                     </a>
                                                 </th>
-                                                <th class="numeric" scope="col">Key stage progress</th>
+                                                @if (ViewBag.HomeSchoolPhase == "Secondary")
+                                                {
+                                                <th nowrap class="numeric" scope="col">
+                                                    Progress 8
+                                                    <a class="helpLink" href="javascript:void(0);" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                }
+                                                else
+                                                {
+                                                <th class="numeric" scope="col">
+                                                    Key stage 2 progress
+                                                    <a class="helpLink" href="javascript:void(0);" id="renderKs2Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                }
                                             </tr>
                                         </thead>
                                         <tbody>

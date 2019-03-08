@@ -383,6 +383,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
+            ViewBag.HomeSchoolPhase = vm.BenchmarkSchoolData.SchoolPhase;
 
             return View("Index", vm);
         }
