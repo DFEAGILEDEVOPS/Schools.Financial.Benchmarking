@@ -377,7 +377,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
-            ViewBag.HomeSchoolPhase = benchmarkSchoolData.SchoolPhase;
+            ViewBag.HomeSchoolPhase = benchmarkSchoolData?.SchoolPhase;
 
             return View("Index", vm);
         }
