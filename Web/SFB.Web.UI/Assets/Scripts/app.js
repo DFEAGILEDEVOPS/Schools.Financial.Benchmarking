@@ -255,6 +255,88 @@
 
             $('#js-modal-close').focus();
 
+        },
+        RenderBicCriteriaInfoModal: function (event) {
+
+            event.stopPropagation();
+
+            var $body = $('body');
+            var $page = $('#js-modal-page');
+
+            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+                "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
+                "<h1 id='modal-title' class='modal-title'>Similar characteristics</h1><p id='modal-content'><br/>" +
+                "We have added a standard variance to the default school's characteristic to provide a spread of schools we consider statistically similar.</p>" +
+                "<p>If you wish to change the school results you can <a href='#' onclick='DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()'> edit the characteristics.</a></p>"+
+                "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";
+
+            $($modal_code).insertAfter($page);
+            $body.addClass('no-scroll');
+
+            $page.attr('aria-hidden', 'true');
+
+            // add overlay
+            var $modal_overlay =
+                '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+            $($modal_overlay).insertAfter($('#js-modal'));
+
+            $('#js-modal-close').focus();
+
+        },
+        RenderBicCriteriaP8Modal: function (event) {
+
+            event.stopPropagation();
+
+            var $body = $('body');
+            var $page = $('#js-modal-page');
+
+            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderP8Info' title='Close'>Close</a>" +
+                "<h1 id='modal-title' class='modal-title'>Progress 8 scores</h1><p id='modal-content'><br/>" +
+                "Progress 8 score is calculated for each pupil by comparing their Attainment 8 score – with the average Attainment 8 scores of all pupils nationally who had a similar starting point, using assessment results from the end of primary school.</p>" +                
+                "</div><a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='renderP8Info' title='Close'>Close</a></dialog>";
+
+            $($modal_code).insertAfter($page);
+            $body.addClass('no-scroll');
+
+            $page.attr('aria-hidden', 'true');
+
+            // add overlay
+            var $modal_overlay =
+                '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+            $($modal_overlay).insertAfter($('#js-modal'));
+
+            $('#js-modal-close').focus();
+
+        },
+        RenderBicCriteriaKs2Modal: function (event) {
+
+            event.stopPropagation();
+
+            var $body = $('body');
+            var $page = $('#js-modal-page');
+
+            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderKs2Info' title='Close'>Close</a>" +
+                "<h1 id='modal-title' class='modal-title'>Key stage 2 progress scores</h1><p id='modal-content'><br/>" +
+                "The scores are calculated by comparing the key stage 2 test and assessment results of pupils with the results of pupils in schools across England who started with similar assessment results at the end of the previous key stage 1.</p>" +
+                "</div><a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
+
+            $($modal_code).insertAfter($page);
+            $body.addClass('no-scroll');
+
+            $page.attr('aria-hidden', 'true');
+
+            // add overlay
+            var $modal_overlay =
+                '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+            $($modal_overlay).insertAfter($('#js-modal'));
+
+            $('#js-modal-close').focus();
+
         }
     };
 

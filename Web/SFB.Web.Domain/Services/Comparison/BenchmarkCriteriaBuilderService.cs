@@ -11,23 +11,23 @@ namespace SFB.Web.Domain.Services.Comparison
             var bmCriteria = new BenchmarkCriteria()
             {
                 SchoolOverallPhase = new[] { bicCriteria.OverallPhase },
-                MinNoPupil = (bicCriteria.NoPupilsMin - (benchmarkSchoolData.PupilCount * percentageMargin / 100)) < 0 ? 0 : (bicCriteria.NoPupilsMin - (benchmarkSchoolData.PupilCount * percentageMargin / 100)),
-                MaxNoPupil = (bicCriteria.NoPupilsMax + (benchmarkSchoolData.PupilCount * percentageMargin / 100)),
-                MinPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMin - (benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals * percentageMargin / 100)),
-                MaxPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMax + (benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals * percentageMargin / 100)),
                 MinKs2Progress = bicCriteria.Ks2ProgressScoreMin,
                 MaxKs2Progress = bicCriteria.Ks2ProgressScoreMax,
                 MinP8Mea = bicCriteria.Ks4ProgressScoreMin,
                 MaxP8Mea = bicCriteria.Ks4ProgressScoreMax,
                 MinRRToIncome = bicCriteria.RRPerIncomeMin,
+                MinNoPupil = WithinPositiveLimits(bicCriteria.NoPupilsMin - (bicCriteria.NoPupilsMin * percentageMargin / 100)),
+                MaxNoPupil = bicCriteria.NoPupilsMax + (bicCriteria.NoPupilsMax * percentageMargin / 100),
                 MinPerPupilExp = bicCriteria.PerPupilExpMin,
-                MaxPerPupilExp = bicCriteria.PerPupilExpMax
+                MaxPerPupilExp = bicCriteria.PerPupilExpMax + (bicCriteria.PerPupilExpMax * percentageMargin / 100),
+                MinPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMin - (bicCriteria.PercentageFSMMin * percentageMargin / 100)),
+                MaxPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMax + (bicCriteria.PercentageFSMMax * percentageMargin / 100))
             };
 
             if (bicCriteria.SENEnabled)
             {
-                bmCriteria.MinPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMin - (benchmarkSchoolData.PercentageOfPupilsWithSen * percentageMargin / 100));
-                bmCriteria.MaxPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMax + (benchmarkSchoolData.PercentageOfPupilsWithSen * percentageMargin / 100));
+                bmCriteria.MinPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMin - (bicCriteria.PercentageSENMin * percentageMargin / 100));
+                bmCriteria.MaxPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMax + (bicCriteria.PercentageSENMax * percentageMargin / 100));
             }
 
             if(bicCriteria.UREnabled)
@@ -98,6 +98,15 @@ namespace SFB.Web.Domain.Services.Comparison
                 return 0;
             }
             else return percent;
+        }
+
+        private decimal? WithinPositiveLimits(decimal? value)
+        {
+            if (value < 0)
+            {
+                return 0;
+            }
+            else return value;
         }
     }
 

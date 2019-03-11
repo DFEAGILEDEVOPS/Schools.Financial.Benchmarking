@@ -26,12 +26,12 @@ namespace SFB.Web.UI.Controllers
     [CustomAuthorize]
     public class BenchmarkChartsController : Controller
     {
-        private readonly IBenchmarkChartBuilder _benchmarkChartBuilder;
+        private readonly IContextDataService _contextDataService;
         private readonly IFinancialDataService _financialDataService;
         private readonly IFinancialCalculationsService _fcService;
         private readonly ILocalAuthoritiesService _laService;
+        private readonly IBenchmarkChartBuilder _benchmarkChartBuilder;
         private readonly IDownloadCSVBuilder _csvBuilder;
-        private readonly IContextDataService _contextDataService;
         private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
         private readonly IComparisonService _comparisonService;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
@@ -110,10 +110,7 @@ namespace SFB.Web.UI.Controllers
                     Name = schoolDoc.SchoolName,
                     Type = schoolDoc.Type,
                     EstabType = schoolDoc.FinanceType,
-                    Urn = schoolDoc.URN.ToString(),
-                    ProgressScore = schoolDoc.Ks2Progress.HasValue ? 
-                        decimal.Round(schoolDoc.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) 
-                        : schoolDoc.Progress8Measure
+                    Urn = schoolDoc.URN.ToString()
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }
@@ -281,7 +278,7 @@ namespace SFB.Web.UI.Controllers
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
             return await Index(urn, null,
-                criteria, null, ComparisonType.Advanced, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalFinancialDataModels.Last(), estType, areaType, lacode.ToString());
+                criteria, null, ComparisonType.Advanced, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, estType, areaType, lacode.ToString());
         }
 
         public async Task<PartialViewResult> CustomReport(string json, ChartFormat format)
@@ -368,13 +365,10 @@ namespace SFB.Web.UI.Controllers
             var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            
+            var bicComparisonSchools = PopulateBicSchoolsForBestInBreedTab(comparisonType, comparisonList);
 
-            if(comparisonType == ComparisonType.BestInClass)
-            {
-                PopulateExtraFieldsForBestInBreedTab(comparisonList);
-            }
-
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, advancedCriteria, simpleCriteria, bicCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, laCode, urn.GetValueOrDefault(), basketSize);
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, advancedCriteria, simpleCriteria, bicCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, laCode, urn.GetValueOrDefault(), basketSize, null, bicComparisonSchools);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -383,6 +377,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
+            ViewBag.HomeSchoolPhase = benchmarkSchoolData?.SchoolPhase;
 
             return View("Index", vm);
         }
@@ -533,15 +528,22 @@ namespace SFB.Web.UI.Controllers
                          "BenchmarkData.csv");
         }
 
-        private void PopulateExtraFieldsForBestInBreedTab(SchoolComparisonListModel comparisonList)
+        private List<SchoolViewModel> PopulateBicSchoolsForBestInBreedTab(ComparisonType comparisonType, SchoolComparisonListModel comparisonList)
         {
-            var benchmarkSchoolDataObjects = _contextDataService.GetMultipleSchoolDataObjectsByUrns(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
-
-            foreach (var bmSchool in comparisonList.BenchmarkSchools)
+            if (comparisonType == ComparisonType.BestInClass)
             {
-                bmSchool.LaName = _laService.GetLaName(benchmarkSchoolDataObjects.Find(e => e.URN.ToString() == bmSchool.Urn).LACode.ToString());
-                bmSchool.NumberOfPupils = benchmarkSchoolDataObjects.Find(e => e.URN.ToString() == bmSchool.Urn).NumberOfPupils.GetValueOrDefault();
+                var bicSchools = new List<SchoolViewModel>();
+
+                foreach (var school in comparisonList.BenchmarkSchools)
+                {
+                    var bicSchool = InstantiateBenchmarkSchool(int.Parse(school.Urn));
+                    bicSchool.LaName = _laService.GetLaName(bicSchool.La.ToString());
+                    bicSchools.Add(bicSchool);
+                }
+
+                return bicSchools;
             }
+            return null;
         }
 
         private List<ChartViewModel> ConvertSelectionListToChartList(List<HierarchicalChartViewModel> customChartSelection)
@@ -787,7 +789,7 @@ namespace SFB.Web.UI.Controllers
                 Type = cookieObject.HomeSchoolType,
                 EstabType = cookieObject.HomeSchoolFinancialType,
                 Urn = cookieObject.HomeSchoolUrn,
-                ProgressScore = bmSchool.LatestYearFinancialData?.Ks2Progress ?? bmSchool.LatestYearFinancialData?.P8Mea
+                //ProgressScore = bmSchool.LatestYearFinancialData?.Ks2Progress ?? bmSchool.LatestYearFinancialData?.P8Mea
             };
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);            
         }

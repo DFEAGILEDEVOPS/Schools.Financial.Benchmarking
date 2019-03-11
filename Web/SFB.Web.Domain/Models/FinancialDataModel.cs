@@ -254,7 +254,7 @@ namespace SFB.Web.Domain.Models
 
         public string SchoolOverallPhase => FinancialDataObjectModel.OverallPhase;
 
-        public string SchoolPhase => FinancialDataObjectModel.Phase;
+        public string SchoolPhase => FinancialDataObjectModel?.Phase;
 
         public string SchoolType => FinancialDataObjectModel.Type;
 

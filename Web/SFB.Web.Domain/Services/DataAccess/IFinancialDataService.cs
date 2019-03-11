@@ -19,7 +19,7 @@ namespace SFB.Web.Domain.Services.DataAccess
         Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);
         Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType);
         Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria);
-        Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType);
+        Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType);        
     }
 
     public interface ITermYearDataService

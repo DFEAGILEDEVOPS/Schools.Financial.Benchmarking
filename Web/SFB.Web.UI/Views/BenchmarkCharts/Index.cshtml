@@ -1,5 +1,6 @@
 ﻿@using SFB.Web.Common
 @using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
 
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
@@ -79,10 +80,16 @@ else
                         <span>&nbsp;to schools</span>
                         <span class="bold-small"> with characteristics you've chosen</span>
                     }
-                    else if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.BestInClass)
+                    else if (Model.ComparisonType == ComparisonType.Basic)
                     {
                         <span>&nbsp;to schools</span>
                         <span class="bold-small"> matching your chosen characteristics</span>
+                    }
+                    else if (Model.ComparisonType == ComparisonType.BestInClass)
+                    {
+                        <span>&nbsp;to high progress schools</span>
+                        <span class="bold-small"> with similar characteristics to yours. </span>
+                        <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit</button>
                     }
                 </div>
             </div>
@@ -92,25 +99,37 @@ else
             <div class="grid-row">
                 <div class="column-full">
                     <details class="criteria-details">
-                        <summary class="hide-in-print">
-                            <span class="summary">View or change characteristics used</span>
-                        </summary>
-                        <div class="panel panel-border-narrow criteria-detail">
-                            @if (Model.ComparisonType == ComparisonType.Advanced)
-                            {
-                                Html.RenderPartial("Partials/AdvancedHiddenFields");
-                                Html.RenderPartial("Partials/UsedAdvancedCriteria");
-                            }
-                            else if (Model.ComparisonType == ComparisonType.Basic)
-                            {
-                                Html.RenderPartial("Partials/BasicHiddenFields");
-                                Html.RenderPartial("Partials/UsedBasicCriteria");
-                            }else if (Model.ComparisonType == ComparisonType.BestInClass)
-                            {
-                                Html.RenderPartial("Partials/BicHiddenFields");
-                                Html.RenderPartial("Partials/UsedBicCriteria");
-                            }
-                        </div>
+                        @if (Model.ComparisonType == ComparisonType.Advanced)
+                        {
+                            <summary class="hide-in-print">
+                                <span class="summary">View or change characteristics used</span>
+                            </summary>
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/AdvancedHiddenFields")
+                                @Html.Partial("Partials/UsedAdvancedCriteria")
+                            </div>
+                        }
+                        else if (Model.ComparisonType == ComparisonType.Basic)
+                        {
+                            <summary class="hide-in-print">
+                                <span class="summary">View or change characteristics used</span>
+                            </summary>
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/BasicHiddenFields")
+                                @Html.Partial("Partials/UsedBasicCriteria")
+                            </div>
+                        }
+                        else if (Model.ComparisonType == ComparisonType.BestInClass)
+                        {
+                            <summary class="hide-in-print">
+                                <span class="summary">View characteristics used</span>
+                            </summary>
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/BicHiddenFields")
+                                @Html.Partial("Partials/UsedBicCriteria")
+                            </div>
+                        }
+
                     </details>
                 </div>
             </div>
@@ -228,28 +247,86 @@ else
                         <div id="bestInClassTabSection">
                             <div class="grid-row">
                                 <div class="column-full">
-                                    <h2 class="heading-small">Comparison with high-performing schools</h2>
+                                    @if (ViewBag.HomeSchoolPhase == "Secondary")
+                                    {
+                                        <h2 class="heading-small">Overall Progress 8 - all pupils</h2>
+                                    } else
+                                    {
+                                        <h2 class="heading-small">Overall key stage 2 progress - all pupils</h2>
+                                    }
 
-                                    <table>
+                                    <p class="no-margin mt-1">Showing <span class="bold-xsmall">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>
+
+                                    <table class="tablesorter dataTable">
                                         <thead>
                                             <tr>
-                                                <th scope="col">School name</th>
+                                                <th nowrap scope="col" class="school-column">School</th>
                                                 <th scope="col">Local authority</th>
-                                                <th class="numeric" scope="col">Number of pupils</th>
-                                                <th class="numeric" scope="col">Key stage progress</th>
+                                                <th nowrap class="numeric" scope="col">
+                                                    Pupils
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                <th nowrap scope="col">
+                                                    FSM
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                <th nowrap scope="col">
+                                                    EHCP
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                <th scope="col">
+                                                    Expenditure per pupil
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                <th scope="col">
+                                                    Urban/rural description
+                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                    </a>
+                                                </th>
+                                                @if (ViewBag.HomeSchoolPhase == "Secondary")
+                                                {
+                                                    <th nowrap class="numeric" scope="col">
+                                                        Progress 8
+                                                        <a class="helpLink" href="javascript:void(0);" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                                                            <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                        </a>
+                                                    </th>
+                                                }
+                                                else
+                                                {
+                                                    <th class="numeric" scope="col">
+                                                        Key stage 2 progress
+                                                        <a class="helpLink" href="javascript:void(0);" id="renderKs2Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                                            <img class="help-image" src="/public/assets/images/help-icon.png">
+                                                        </a>
+                                                    </th>
+                                                }
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools.OrderByDescending(s => s.ProgressScore))
+                                            @foreach (var bicSchool in Model.BicComparisonSchools.OrderByDescending(s => s.ProgressScore))
                                             {
                                                 <tr>
-                                                    <td scope="col" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "bold":"")">
-                                                        @bmSchool.Name
-                                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
-                                                </td>
-                                                <td scope="col">@bmSchool.LaName</td>
-                                                <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
-                                                <td class="numeric" scope="col">@bmSchool.ProgressScore.GetValueOrDefault().ToString("F")</td>
+                                                    <td scope="col" class="school-column">                                                        
+                                                        <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a> 
+                                                        @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                                    </td>
+                                                <td scope="col">@bicSchool.LaName</td>
+                                                <td class="numeric" scope="col">@bicSchool.TotalPupils</td>
+                                                <td class="numeric" scope="col">@bicSchool.FSM</td>
+                                                <td class="numeric" scope="col">@bicSchool.SEN</td>
+                                                <td class="numeric" scope="col">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
+                                                <td class="numeric" scope="col">@bicSchool.UrbanRural</td>
+                                                <td class="numeric" scope="col">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</td>
                                             </tr>
                                         }
                                         </tbody>

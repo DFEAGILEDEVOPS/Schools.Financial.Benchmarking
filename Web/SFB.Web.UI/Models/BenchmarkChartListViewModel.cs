@@ -19,6 +19,7 @@ namespace SFB.Web.UI.Models
         public EstablishmentType EstablishmentType { get; set; }
         public EstablishmentType SearchedEstablishmentType { get; set; }
         public TrustComparisonListModel TrustComparisonList { get; set; }
+        public List<SchoolViewModel> BicComparisonSchools { get; set; }
         public string LatestTermAcademies { get; set; }
         public string LatestTermMaintained { get; set; }
         public ComparisonArea AreaType { get; }
@@ -58,7 +59,7 @@ namespace SFB.Web.UI.Models
         public bool NoResultsForSimpleSearch => (ComparisonType == ComparisonType.Basic && ComparisonListCount < 2);
         public int BasketSize { get; set; }
 
-        public BenchmarkChartListViewModel(List<ChartViewModel> modelList, SchoolComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, BestInClassCriteria bicCriteria, FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, int urn, int basketSize, TrustComparisonListModel trustComparisonList = null)
+        public BenchmarkChartListViewModel(List<ChartViewModel> modelList, SchoolComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, BestInClassCriteria bicCriteria, FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, int urn, int basketSize, TrustComparisonListModel trustComparisonList = null, List<SchoolViewModel> bicSchools = null)
             :base(modelList, comparisonList)
         {
             this.ChartGroups = chartGroups;
@@ -78,6 +79,7 @@ namespace SFB.Web.UI.Models
             this.LaCode = laCode;
             this.URN = urn;
             this.BasketSize = basketSize;
+            this.BicComparisonSchools = bicSchools;
         }
     }
 }
