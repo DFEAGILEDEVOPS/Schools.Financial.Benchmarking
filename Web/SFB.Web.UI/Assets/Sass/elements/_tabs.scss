@@ -54,7 +54,7 @@ nav.tabs {
                     text-decoration: none;
                 }
 
-                a {
+                button {
                     color: $black;
                     border: 1px solid $grey-2;
                     margin: 0 0 -2px -1px;
@@ -75,7 +75,7 @@ nav.tabs {
                 }
             }
 
-            a {
+            button {
                 border: 1px solid transparent;
                 text-decoration: underline;
                 display: block;
@@ -95,7 +95,7 @@ nav.tabs {
                 }*/
             }
 
-            &.one-line a {
+            &.one-line button {
                 padding-top: 20px;
             }
         }

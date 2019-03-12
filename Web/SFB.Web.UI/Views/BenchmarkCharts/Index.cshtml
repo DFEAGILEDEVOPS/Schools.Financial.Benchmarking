@@ -48,7 +48,7 @@
         }
         else
         {
-            <a class="home-link" href="javascript:void(0);" onclick="location.reload();">Back to benchmarking charts</a>
+            <button class="link-button font-xsmall home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
         }
     </div>
 </div>
@@ -172,14 +172,14 @@ else
             </div>
             <div class="column-one-third">
                 <div class="print">
-                    <a id="PrintLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()" href="javascript:void(0);">
+                    <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()">
                         <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="column-one-third">
                 <div class="pdf">
-                    <a id="PdfLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()" href="javascript:void(0);"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></a>
+                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></button>
                 </div>
             </div>
         </div>
@@ -264,50 +264,50 @@ else
                                                 <th scope="col">Local authority</th>
                                                 <th nowrap class="numeric" scope="col">
                                                     Pupils
-                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
                                                         <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </a>
+                                                    </button>
                                                 </th>
                                                 <th nowrap scope="col">
                                                     FSM
-                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
                                                         <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </a>
+                                                    </button>
                                                 </th>
                                                 <th nowrap scope="col">
                                                     EHCP
-                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
                                                         <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </a>
+                                                    </button>
                                                 </th>
                                                 <th scope="col">
                                                     Expenditure per pupil
-                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
                                                         <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </a>
+                                                    </button>
                                                 </th>
                                                 <th scope="col">
                                                     Urban/rural description
-                                                    <a class="helpLink" href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
+                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
                                                         <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </a>
+                                                    </button>
                                                 </th>
                                                 @if (ViewBag.HomeSchoolPhase == "Secondary")
                                                 {
                                                     <th nowrap class="numeric" scope="col">
                                                         Progress 8
-                                                        <a class="helpLink" href="javascript:void(0);" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                                                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
                                                             <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                        </a>
+                                                        </button>
                                                     </th>
                                                 }
                                                 else
                                                 {
                                                     <th class="numeric" scope="col">
                                                         Key stage 2 progress
-                                                        <a class="helpLink" href="javascript:void(0);" id="renderKs2Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                                        <button class="helpLink link-button no-padding" id="renderKs2Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
                                                             <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                        </a>
+                                                        </button>
                                                     </th>
                                                 }
                                             </tr>

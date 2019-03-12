@@ -8,13 +8,13 @@
         <tr>
             <th class="school-column" scope="col" data-header="School name">
                 School name
-                <a aria-hidden="True" class="hide-show-button hide detail hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&#9654;</a>
+                <button aria-hidden="True" class="hide-show-button hide detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&#9654;</button>
             </th>
             <th class="detail" scope="col" data-header="Local authority">Local authority</th>
             <th class="detail" scope="col" data-header="School type">School type</th>
             <th class="detail" scope="col" data-header="Number of pupils">Number of pupils</th>
             <th scope="col" data-header="Amount">
-                <a aria-hidden="True" class="hide-show-button show detail hide-in-print" href="javascript:void(0)" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</a>
+                <button aria-hidden="True" class="hide-show-button show detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</button>
                 <span aria-label="@ViewHelpers.GetAmountAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
             </th>
         </tr>

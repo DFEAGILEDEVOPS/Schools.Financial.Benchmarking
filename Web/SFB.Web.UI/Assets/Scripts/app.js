@@ -108,8 +108,8 @@
         ToggleChartsTables: function (mode) {
             var $charts = $('.chart-wrapper');
             var $tables = $('.chart-table-wrapper');
-            var $showChartsButton = $('a.view-charts-tables.charts');
-            var $showTablesButton = $('a.view-charts-tables.tables');
+            var $showChartsButton = $('.view-charts-tables.charts');
+            var $showTablesButton = $('.view-charts-tables.tables');
             var $saveAsImagesButtons = $('.save-as-image');
             var $viewMoreLabels = $("a span.view-more");
             if (mode === 'Charts') {

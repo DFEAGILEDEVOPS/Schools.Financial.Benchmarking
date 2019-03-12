@@ -11,7 +11,7 @@
                         referrer = "/BenchmarkCharts";
                     }
                     <a class="sticky-div__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@Html.Raw(referrer)">Edit basket</a>
-                    <a class="sticky-div__comparison-list-info-panel__clear-basket" href="javascript:void(0)" onclick="DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</a>
+                    <button class="sticky-div__comparison-list-info-panel__clear-basket link-button no-underline bold-xsmall" onclick="DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</button>
                 }
                 @if (!((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2)
                 {

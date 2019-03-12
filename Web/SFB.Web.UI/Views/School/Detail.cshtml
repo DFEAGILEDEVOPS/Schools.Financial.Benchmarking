@@ -102,10 +102,10 @@ else
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                <button class="no-underline link-button no-underline bold-xsmall" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png" />
                     Print page
-                </a>
+                </button>
             </div>
         </div>
     </div>
@@ -153,16 +153,16 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</button>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</button>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</button>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</button>
         </li>
     </ol>
 </nav>
@@ -177,8 +177,8 @@ else
                 Html.RenderPartial("Partials/CentralFinancing");
             }
             <div class="column-full font-xsmall chartTable hide-in-print">
-                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline" href="javascript:void(0);" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></a>
-                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline" href="javascript:void(0);" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></a>
+                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
+                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
             </div>
         </div>
     </div>

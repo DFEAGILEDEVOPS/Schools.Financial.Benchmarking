@@ -2,15 +2,15 @@
 <div class="compare-buttons-panel compare-buttons-panel--set-unset">
     <div class="compare-buttons-panel__column-full">
             
-        <a @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default" href="javascript:void(0);" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
+        <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default link-button font-small" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
             <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt="Opens in a new window" />
             <span>Unset as default school</span>
-        </a>
+        </button>
 
-        <a @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default" href="javascript:void(0);" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
+        <button @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default link-button font-small" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
             <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt="Opens in a new window" />
             <span>Set as default school</span>
-        </a>
+        </button>
 
         <a class="img-button compare-buttons-panel__button--auto sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]" aria-label="Automatic report. Opens in a new window.">
             <img class="icon" src="~/public/assets/images/icons/icon-file-download-small.png" alt="Opens in a new window" />

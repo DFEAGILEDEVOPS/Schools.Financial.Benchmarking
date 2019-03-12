@@ -199,8 +199,8 @@ span.bold{
     font-weight:bold;
 }
 
-a.no-underline{
-    text-decoration: none;
+.no-underline{
+    text-decoration: none!important;
 }
 
 .revenue-box {
@@ -393,6 +393,17 @@ a.float-to-right{
     color: $link-colour;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.a-button {
+    background: none;
+    border: none;
+    color: $link-colour;
+    text-decoration: none;
+    cursor: pointer;
+    padding-left: 0;
+    padding-right: 0;
+    @include core-16;
 }
 
 .chart.c3 svg {
@@ -636,17 +647,17 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     }
 }
 
-table a.hide-show-button.hide {
+table .hide-show-button.hide {
     float: right;
 }
 
-table a.hide-show-button.show {
+table .hide-show-button.show {
     @include media(tablet) {
         margin-right: 30px;
     }
 }
 
-a.view-charts-tables {
+.view-charts-tables {
     float: right;
     margin-bottom: 20px;
 }

@@ -22,13 +22,13 @@
     RefreshAddRemoveLinks() {
 
         function showRemoveLink(element) {
-            $(element).find("a.customRemove").show();
-            $(element).find("a.customAdd").hide();
+            $(element).find(".customRemove").show();
+            $(element).find(".customAdd").hide();
         }
 
         function showAddLink(element) {
-            $(element).find("a.customAdd").show();
-            $(element).find("a.customRemove").hide();
+            $(element).find(".customAdd").show();
+            $(element).find(".customRemove").hide();
         }
 
         let scope = angular.element($("#listCtrl")).scope();
