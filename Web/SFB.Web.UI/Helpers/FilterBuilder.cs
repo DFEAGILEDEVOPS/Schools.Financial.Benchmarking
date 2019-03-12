@@ -53,7 +53,7 @@ namespace SFB.Web.UI.Helpers
 
         private string RetrieveParameter(string key, dynamic parameters)
         {
-            var value = parameters[key];
+            var value = parameters?[key];
             if (value == null)
             {
                 return string.Empty;
@@ -68,13 +68,50 @@ namespace SFB.Web.UI.Helpers
             string schoolTypes = RetrieveParameter("schooltype", parameters);
             string ofstedRatings = RetrieveParameter("ofstedrating", parameters);
             string religiousCharacter = RetrieveParameter("faith", parameters);
+            string schoolStatus = RetrieveParameter("establishmentStatus", parameters);
 
             var result = new List<Filter>();
             result.Add(AddSchoolLevelFilters(schoolLevels, facets, parameters));
             result.Add(AddSchoolTypeFilters(schoolTypes, facets, parameters));
             result.Add(AddOfstedRatingFilters(ofstedRatings, facets, parameters));
             result.Add(AddReligiousCharacterFilters(religiousCharacter, facets, parameters));
+            if (parameters?["searchType"] == SearchTypes.SEARCH_BY_LOCATION && parameters?["openOnly"] != "true")
+            {
+                result.Add(AddStatusFilters(schoolStatus, facets, parameters));
+            }
             return result.ToArray();
+        }
+
+        private Filter AddStatusFilters(string status, dynamic facets, dynamic queryParams)
+        {
+            var queryParamForStatus = "establishmentStatus";
+
+            var result = new Filter
+            {
+                Id = "establishmentStatus",
+                Group = "establishmentStatus",
+                Label = "Establishment Status"
+            };
+
+            var filterSelected = (queryParams?[queryParamForStatus] != null);
+
+            var statusFacets = facets["EstablishmentStatus"];
+
+            var metadata = new List<OptionSelect>();
+
+            foreach (var facet in statusFacets)
+            {
+                if (facet.Value != string.Empty)
+                {
+                    metadata.Add(CreateOption(facet.Value, facet.Value, status, "EstablishmentStatus",
+                        facet.Count > 0 || filterSelected));
+                }
+            }
+
+            result.Expanded = metadata.Any(x => x.Checked);
+            result.Metadata = metadata.ToArray();
+
+            return result;
         }
 
         private Filter AddReligiousCharacterFilters(string religiousCharacter, dynamic facets, dynamic queryParams)
@@ -88,7 +125,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "Religious character"
             };
 
-            var filterSelected = (queryParams[queryParamForReligiousCharacter] != null);
+            var filterSelected = (queryParams?[queryParamForReligiousCharacter] != null);
 
             var religiousCharacterFacets = facets["ReligiousCharacter"];
 
@@ -134,7 +171,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "School type"
             };
 
-            var filterSelected = (queryParams[queryParamForSchoolType] != null);
+            var filterSelected = (queryParams?[queryParamForSchoolType] != null);
 
             var schoolTypeFacets = facets["TypeOfEstablishment"];
 
@@ -166,7 +203,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "Education phase"
             };
 
-            var filterSelected = (queryParams[queryParamForSchoolLevel] != null);
+            var filterSelected = (queryParams?[queryParamForSchoolLevel] != null);
 
             var schoolLevelFacets = facets["OverallPhase"];
 
@@ -198,7 +235,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "Pupil gender"
             };
 
-            var filterSelected = (queryParams[queryParamForSchoolLevel] != null);
+            var filterSelected = (queryParams?[queryParamForSchoolLevel] != null);
 
             var schoolLevelFacets = facets["Gender"];
 
@@ -230,7 +267,7 @@ namespace SFB.Web.UI.Helpers
                 Label = "Ofsted rating"
             };
 
-            var filterSelected = (queryParams[queryParamForOfstedRating] != null);
+            var filterSelected = (queryParams?[queryParamForOfstedRating] != null);
 
             var ofstedRatingFacets = facets["OfstedRating"];
             var ofstedRatingFacetsOrdered = ((FacetResult[]) ofstedRatingFacets).ToList().OrderBy(o => o.Value);

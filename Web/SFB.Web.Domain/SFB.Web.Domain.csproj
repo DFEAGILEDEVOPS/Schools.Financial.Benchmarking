@@ -32,14 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -86,7 +78,7 @@
     <Compile Include="Helpers\Utilities.cs" />
     <Compile Include="Models\BenchmarkChartData.cs" />
     <Compile Include="Models\BenchmarkChartModel.cs" />
-    <Compile Include="Models\BestInClassResult.cs" />
+    <Compile Include="Models\BestInClassCriteria.cs" />
     <Compile Include="Models\ComparisonResult.cs" />
     <Compile Include="Models\GeoCodeCalc.cs" />
     <Compile Include="Models\HistoricalChartData.cs" />
@@ -97,12 +89,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Comparison\BenchmarkCriteriaBuilderService.cs" />
     <Compile Include="Services\Comparison\ComparisonService.cs" />
-    <Compile Include="Services\DataAccess\BestInClassDataService.cs" />
     <Compile Include="Services\DataAccess\FinancialDataService.cs" />
     <Compile Include="Services\DataAccess\ContextDataService.cs" />
     <Compile Include="Services\Comparison\IBenchmarkCriteriaBuilderService.cs" />
     <Compile Include="Services\Comparison\IComparisonService.cs" />
-    <Compile Include="Services\DataAccess\IBestInClassDataService.cs" />
     <Compile Include="Services\ILocalAuthoritiesService.cs" />
     <Compile Include="Services\LocalAuthoritiesService.cs" />
     <Compile Include="Services\Search\SchoolSearchService.cs" />

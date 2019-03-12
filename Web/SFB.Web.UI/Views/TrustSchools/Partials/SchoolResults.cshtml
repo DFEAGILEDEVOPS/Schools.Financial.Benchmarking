@@ -5,7 +5,7 @@
     <div id="js-search-results-info">
         <div class="result-info">
             <p class="summary">
-                <span class="bold result-count">@(Model.Pagination.Total)</span> schools in <a href="/Trust?matNo=@ViewBag.MatNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
+                <span class="bold result-count">@(Model.Pagination.Total)</span> schools in <a href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
             </p>
         </div>
     </div>
@@ -69,8 +69,8 @@ else
         string status = school.Status == "Open" ? "" : "Closed";
         string deviceLabel = device == "desktop" ? "" : "mobile";
         <div id="@school.Id@device" data-urn="@school.Id">
-            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='add-remove button removefrom' data-urn="@school.Id" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'Remove)" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</a>
-            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto' data-urn="@school.Id" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.UpdateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</a>
+            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='add-remove button removefrom' data-urn="@school.Id" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove)" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</a>
+            <a @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='add-remove button addto' data-urn="@school.Id" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</a>
         </div>
     }
 }

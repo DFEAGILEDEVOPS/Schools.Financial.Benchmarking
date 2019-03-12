@@ -1,0 +1,57 @@
+﻿@using SFB.Web.UI.Helpers.Enums
+
+@helper GetAmountAriaLabel(string unit)
+{
+    switch ((UnitType)Enum.Parse(typeof(UnitType), unit))
+    {
+        case UnitType.PercentageOfTotal:
+            <text>Percentage of total</text>;
+            break;
+        case UnitType.PerTeacher:
+            <text>Amount per teacher</text>
+            break;
+        case UnitType.PerPupil:
+            <text>Amount per pupil</text>
+            break;
+        case UnitType.HeadcountPerFTE:
+            <text>Headcount per full time equivalent</text>
+            break;
+        case UnitType.FTERatioToTotalFTE:
+            <text>Percentage of workforce</text>
+            break;
+        case UnitType.NoOfPupilsPerMeasure:
+            <text>Pupils per measure</text>
+            break;
+        case UnitType.AbsoluteCount:
+            <text>Count</text>
+            break;
+        default:
+            <text>Amount</text>
+            break;
+    }
+}
+
+@helper GetAmountLabel(string unit)
+{
+    switch ((UnitType)Enum.Parse(typeof(UnitType), unit))
+    {
+        case UnitType.PercentageOfTotal:
+            <text>Percentage</text>;
+            break;
+        case UnitType.AbsoluteCount:
+            <text>Count</text>
+            break;
+        case UnitType.HeadcountPerFTE:
+            <text>Ratio</text>
+            break;
+        case UnitType.FTERatioToTotalFTE:
+            <text>Percentage</text>
+            break;
+        case UnitType.NoOfPupilsPerMeasure:
+            <text>Pupils per role</text>
+            break;
+        default:
+            <text>Amount</text>
+            break;
+    }
+}

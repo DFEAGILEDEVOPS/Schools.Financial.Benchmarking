@@ -6,25 +6,25 @@
 
 <nav class="tabs" role="navigation">
     <ol role="tablist">
-        @if (Model.ComparisonType == ComparisonType.BestInBreed)
+        @if (Model.ComparisonType == ComparisonType.BestInClass)
         {
-            <li id="BestInClass" class="hide-in-print @Html.Raw(Model.ComparisonType == ComparisonType.BestInBreed ? "active" : "")" role="tab">
-                <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">High-performing schools </a>
+            <li id="BestInClass" class="hide-in-print @Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "active" : "")" role="tab">                
+                <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">High-performing schools <span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
             </li>
         }
-        <li id="@RevenueGroupType.Expenditure" class="hide-in-print @Html.Raw(Model.ComparisonType != ComparisonType.BestInBreed ? "active" : "")" role="tab">
-            <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+        <li id="@RevenueGroupType.Expenditure" class="hide-in-print @Html.Raw(Model.ComparisonType != ComparisonType.BestInClass ? "active" : "")" role="tab">
+            <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE <span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType != ComparisonType.BestInClass ? "selected " : "")</span></a>            
         </li>
         <li id="@RevenueGroupType.Income" class="hide-in-print" role="tab">
-            <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME <span class="bmtab visually-hidden"></span></a>            
         </li>
         <li id="@RevenueGroupType.Balance" class="hide-in-print" role="tab">
-            <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE <span class="bmtab visually-hidden"></span></a>            
         </li>
         @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@RevenueGroupType.Workforce" class="hide-in-print" role="tab">
-                <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+                <a href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>                
             </li>
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
@@ -33,10 +33,11 @@
                 <span class="visually-hidden">@RevenueGroupNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>
                 <a class="custom" href="#" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">
                     <span aria-hidden="true">@RevenueGroupNames.CUSTOM (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span>
+                    <span class="bmtab visually-hidden">tab</span>
                 </a> 
-                <a class="helpLink" href="#" onclick="DfE.Util.ComparisonList.RenderYourChartsInfoModal()">
+                <a class="helpLink" href="#" id="renderYourChartsInfo" onclick="DfE.Util.ComparisonList.RenderYourChartsInfoModal()">
                     <img src="/public/assets/images/help-icon.png" />
-                </a>
+                </a>                
             </li>
         }
     </ol>

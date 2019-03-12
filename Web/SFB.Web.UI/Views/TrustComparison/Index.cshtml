@@ -11,12 +11,14 @@
     <div id="liveCountBar" role="region" aria-label="Trust results live counter" style="display: none">
         <div class="grid-row">
             <div class="column-full">
-                <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResults">
+                <div class="sticky-div__comparison-list-info-panel" id="comparisonListInfoPanelResults">
                     <span id="schoolCount" class="bold-small" aria-live="assertive">0 trusts found</span>
-                    <a class="clear-criteria" href="#">Clear all characteristics</a>
-                    <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
+                    <a class="sticky-div__comparison-list-info-panel__clear-criteria js-clear-criteria" href="#">Clear all characteristics</a>
+                    <div class="view-benchmark-charts-wrapper">
+                        <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
+                    </div>
                 </div>
-                <div class="comparisonListInfoPanel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
+                <div class="sticky-div__comparison-list-info-panel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
                     <span role="alert" aria-live="assertive">No trusts found, select some more characteristics</span>
                 </div>
             </div>
@@ -32,7 +34,7 @@
 
 <div id="ErrorSummaryPlaceHolder"></div>
 
-<h1 class="heading-xlarge page-heading">Select and compare trusts</h1>
+<h1 class="heading-xlarge page-heading">Find and compare trusts</h1>
 
 <div class="grid-row">
     <div class="column-full">
@@ -56,12 +58,11 @@
     
     <div id="EnterManuallyAccordion" class="multiple-choice js-accordion column-full selected" aria-controls="EnterManuallyFieldset">
         <input id="EnterManually" type="radio" checked/>
-        <label id="EnterTrustManuallyAccordion" for="EnterManually">Enter trusts manually</label>
+        <label id="EnterTrustManuallyAccordion" for="EnterManually">Enter one or more trusts for comparison</label>
     </div>
     <div id="EnterManuallyFieldset" class="form-group optional-section">
-        <p>Choose one or more trusts for this comparison</p>
         <div id="TrustsToCompare">
-            @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.MatNo != Model.BenchmarkTrust.MatNo).ToList())
+            @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
         </div>
     </div>
 
@@ -73,6 +74,9 @@
         <form method="post" id="criteriaForm" action="TrustComparison/GenerateListFromManualCriteria" autocomplete="off">
             @Html.Partial("Partials/TrustCharacteristics", Model)
         </form>
+        <div class="column-full clear-bottom">
+            <a class="clear-criteria js-clear-criteria" href="javascript:void(0);">Clear all characteristics</a>
+        </div>
     </div>
 
 </div>
@@ -87,7 +91,7 @@
             </div>
             <div class="column-half no-padding">
                 <div class="column-one-third back-button">
-                    <a href="/trust/index?matno=@Model.BenchmarkTrust.MatNo&name=@Model.BenchmarkTrust.Name">Back</a>
+                    <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo&name=@Model.BenchmarkTrust.Name">Back</a>
                 </div>
                 <div class="column-two-thirds back-button">
                     <a id="removeAllTrusts" href="javascript:void(0);">Remove all trusts</a>
@@ -102,6 +106,6 @@
     <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
     <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
     <script>
-        DfE.Views.TrustCompareViewModel.Load();
+        DfE.Views.TrustCompareViewModel = new TrustCompareViewModel();
     </script>
 }

@@ -40,7 +40,7 @@ namespace SFB.Web.Domain.Models
         [JsonProperty(PropertyName = "la")]
         public string La { get; set; }
 
-        [JsonProperty(PropertyName = "efficiencyRank")]
-        public int? EfficiencyRank { get; set; }
+        [JsonProperty(PropertyName = "progressscore")]
+        public decimal? ProgressScore { get; set; }
     }
 }

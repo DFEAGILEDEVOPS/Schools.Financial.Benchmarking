@@ -14,9 +14,11 @@ using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Services;
 using SFB.Web.Domain.Services.Comparison;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class BenchmarkCriteriaController : Controller
     {
         private readonly IFinancialDataService _financialDataService;
@@ -45,9 +47,8 @@ namespace SFB.Web.UI.Controllers
         public ViewResult ComparisonStrategy(int urn)
         {
             ViewBag.URN = urn;
-            ViewBag.BestInClassAvailable = _comparisonService.IsBestInClassComparisonAvailable(urn);
 
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.SetDefault,            
             new BenchmarkSchoolModel()
@@ -67,31 +68,13 @@ namespace SFB.Web.UI.Controllers
         {
             switch (comparisonType)
             {
-                case ComparisonType.BestInBreed:
-                    return SelectBestInClassNextStep(urn);
+                case ComparisonType.BestInClass:
+                    return BestInClassCharacteristics(urn, null);
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn, comparisonType);
                 case ComparisonType.Advanced:
                 default:
                     return SelectSchoolType(urn, comparisonType, null, null);
-            }
-        }
-
-        private ActionResult SelectBestInClassNextStep(int urn)
-        {
-            var schoolData = _contextDataService.GetSchoolDataObjectByUrn(urn);
-            var multipleEM = _comparisonService.IsMultipleEfficienctMetricsAvailable(urn);
-
-            if (multipleEM)
-            {
-                ViewBag.URN = urn;
-                var benchmarkSchool = new SchoolViewModel(schoolData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-                return View("AllThroughPhase", benchmarkSchool);
-            }
-            else
-            {
-                TempData["URN"] = urn;
-                return RedirectToAction("GenerateForBestInClass", "BenchmarkCharts");
             }
         }
 
@@ -195,6 +178,43 @@ namespace SFB.Web.UI.Controllers
 
             var schoolCharsVM = new SchoolCharacteristicsViewModel(benchmarkSchool, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), AdvancedCriteria);
             return View(schoolCharsVM);
+        }
+
+        /// <summary>
+        /// Step 1 - Best in class
+        /// </summary>
+        /// <param name="urn"></param>
+        /// <returns></returns>
+        public ActionResult BestInClassCharacteristics(int urn, BestInClassCriteria bicCriteria)
+        {                                
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
+
+            if (bicCriteria == null)
+            {
+                bicCriteria = new BestInClassCriteria()
+                {
+                    EstablishmentType = benchmarkSchool.EstablishmentType,
+                    OverallPhase = benchmarkSchool.OverallPhase,
+                    UrbanRural = benchmarkSchool.LatestYearFinancialData.UrbanRural,
+                    NoPupilsMin = benchmarkSchool.LatestYearFinancialData.PupilCount.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
+                    NoPupilsMax = benchmarkSchool.LatestYearFinancialData.PupilCount.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
+                    PerPupilExpMin = benchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_EXP_PP_MIN),
+                    PerPupilExpMax = benchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_EXP_PP_MAX),
+                    PercentageFSMMin = benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM),
+                    PercentageFSMMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM)),
+                    PercentageSENMin = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM),
+                    PercentageSENMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM)),
+                    Ks2ProgressScoreMin = benchmarkSchool.LatestYearFinancialData.Ks2Progress.HasValue ? 0 : (decimal?)null,
+                    Ks2ProgressScoreMax = benchmarkSchool.LatestYearFinancialData.Ks2Progress.HasValue ? +20 : (decimal?)null,
+                    Ks4ProgressScoreMin = benchmarkSchool.LatestYearFinancialData.P8Mea.HasValue ? 0 : (decimal?)null,
+                    Ks4ProgressScoreMax = benchmarkSchool.LatestYearFinancialData.P8Mea.HasValue ? +5 : (decimal?)null,
+                    RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD
+                };
+            }
+
+            var schoolCharsVM = new BestInClassCharacteristicsViewModel(benchmarkSchool, bicCriteria);
+
+            return View("BestInClassCharacteristics", schoolCharsVM);
         }
 
         /// <summary>
@@ -309,6 +329,27 @@ namespace SFB.Web.UI.Controllers
             }
 
             return !benchmarkSchool.HasError();
+        }
+
+        private SchoolViewModel InstantiateBenchmarkSchool(int urn)
+        {
+            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+            var schoolsLatestFinancialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
+            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
+            return benchmarkSchool;
+        }
+
+        private decimal WithinPercentLimits(decimal percent)
+        {
+            if (percent > 100)
+            {
+                return 100;
+            }
+            if (percent < 0)
+            {
+                return 0;
+            }
+            else return percent;
         }
     }
 }

@@ -18,7 +18,9 @@
               'Assets/Scripts/Behaviours/Accordion/*.js',
               'Assets/Scripts/Behaviours/PartialRequest/*.js',
               'Assets/Scripts/Behaviours/floatThead/*.js',
-              'Assets/Scripts/Elements/**/*.js',
+              'Assets/Scripts/Elements/Forms/*.js',
+              'Assets/Scripts/Elements/Modal/*.js',
+              'Assets/Scripts/Elements/SchoolMap/*.js',
               'Assets/Scripts/Views/**/*.js',
               'Public/Scripts/stickyfill/*.js',
               'Public/Scripts/modernizr/*.js'

@@ -10,7 +10,7 @@
                 Year
             </th>
             <th scope="col">
-                Amount
+                <span aria-label="@ViewHelpers.GetAmountAriaLabel(Model.First().Unit)">@ViewHelpers.GetAmountLabel(Model.First().Unit)</span>
             </th>
         </tr>
         </thead>
@@ -25,11 +25,11 @@
                         switch ((UnitType) Enum.Parse(typeof(UnitType), schoolHistoricalData.Unit))
                         {
                             case UnitType.PercentageOfTotal:
+                            case UnitType.FTERatioToTotalFTE:
                                 @schoolHistoricalData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
                                 break;
                             case UnitType.HeadcountPerFTE:
                             case UnitType.AbsoluteCount:
-                            case UnitType.FTERatioToTotalFTE:
                             case UnitType.NoOfPupilsPerMeasure:
                                 @schoolHistoricalData.Amount.GetValueOrDefault()
                                 break;

@@ -2,14 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using SFB.Web.Common;
 using SFB.Web.Domain.Services.Search;
+using SFB.Web.UI.Attributes;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class TrustSchoolsController : Controller
     {
         private readonly ISchoolSearchService _schoolSearchService;
@@ -23,27 +24,27 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
         
-        public async Task<ActionResult> Index(string matNo, string matName, string orderBy = "", int page = 1)
+        public async Task<ActionResult> Index(int companyNo, string matName, string orderBy = "", int page = 1)
         {
-            var searchResults = await _schoolSearchService.SearchSchoolByMatNo(matNo,
+            var searchResults = await _schoolSearchService.SearchSchoolByCompanyNo(companyNo,
                 (page - 1) * SearchDefaults.TRUST_SCHOOLS_PER_PAGE, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, orderBy,
                 Request.QueryString);
 
-            ViewBag.MatNo = matNo;
+            ViewBag.CompanyNo = companyNo;
             ViewBag.MatName = matName;
 
             return View("SearchResults", GetSchoolViewModelList(searchResults, orderBy, page));
         }
 
         [Route("TrustSchoolSearch/Search-js")]
-        public async Task<PartialViewResult> SearchJS(string matNo, string matName, string orderBy = "", int page = 1)
+        public async Task<PartialViewResult> SearchJS(int companyNo, string matName, string orderBy = "", int page = 1)
 
         {
-            var searchResults = await _schoolSearchService.SearchSchoolByMatNo(matNo,
+            var searchResults = await _schoolSearchService.SearchSchoolByCompanyNo(companyNo,
                 (page - 1) * SearchDefaults.TRUST_SCHOOLS_PER_PAGE, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, orderBy,
                 Request.QueryString);
 
-            ViewBag.MatNo = matNo;
+            ViewBag.CompanyNo = companyNo;
             ViewBag.MatName = matName;
 
             return PartialView("Partials/SchoolResults", GetSchoolViewModelList(searchResults, orderBy, page));

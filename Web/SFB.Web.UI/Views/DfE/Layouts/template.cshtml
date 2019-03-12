@@ -1,7 +1,7 @@
 ﻿@using SFB.Web.UI.Controllers
 @{
     Layout = "../../govuk/layouts/template.cshtml";
-    var version = typeof (HomeController).Assembly.GetName().Version;
+    var version = typeof(HomeController).Assembly.GetName().Version;
 }
 
 @section Head {
@@ -9,7 +9,6 @@
     <!--[if IE 6]><link href="/public/assets/stylesheets/main-ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
     <!--[if IE 7]><link href="/public/assets/stylesheets/main-ie7.css" rel="stylesheet" type="text/css"/><![endif]-->
     <!--[if IE 8]><link href="/public/assets/stylesheets/main-ie8.css" rel="stylesheet" type="text/css"/><![endif]-->
-
     <!--[if gt IE 8]><!--><link href="/public/assets/stylesheets/elements-page.css?v=@version" rel="stylesheet" type="text/css"><!--<![endif]-->
     <!--[if IE 6]><link href="/public/assets/stylesheets/elements-page-ie6.css" rel="stylesheet" type="text/css"/><![endif]-->
     <!--[if IE 7]><link href="/public/assets/stylesheets/elements-page-ie7.css" rel="stylesheet" type="text/css"/><![endif]-->
@@ -20,11 +19,12 @@
         .c3 svg {
             font: 14px sans-serif;
         }
+
         .c3-bar._expanded_ {
-            fill-opacity: 1;        
+            fill-opacity: 1;
         }
     </style>
-    
+
     <!-- Google Tag Manager -->
     <script type="text/javascript">
         (function (w, d, s, l, i) {
@@ -39,7 +39,7 @@
     <!-- End Google Tag Manager -->
 
     @RenderSection("InsideHead", required: false)
-    
+
     <script type="text/javascript">
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -61,17 +61,17 @@
             </text>
         }
     </script>
- 
+
 }
 
 <div class="header-content" role="region" aria-label="Announcement">
     @if (ViewBag.DynamicHeaderContent != null)
     {
-        <div class="dynamic-header hide-in-print">
-            <div>
+        <div class="header-content__dynamic-header hide-in-print">
+            <div class="header-content__dynamic-header__copy">
                 @Html.Raw(ViewBag.DynamicHeaderContent)
             </div>
-            <a class="js-dismiss-dynamic-header" href="javascript:void(0);">Hide message</a>
+            <a class="header-content__dynamic-header__button js-dismiss-dynamic-header" href="javascript:void(0);">Hide message</a>
         </div>
     }
 </div>
@@ -96,19 +96,19 @@
     @if (!Request.Browser.Browser.Contains("MSIE 8"))//TODO: why do we have this?
     {
         <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="~/node_modules/promise-polyfill/dist/polyfill.min.js"></script>
+        <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
 
         <!--[if IE 9]>
         <script src="/public/scripts/termi/element.details.ie8.js"></script>
         <!--<![endif]-->
         <script src="/public/scripts/termi/element.details.js"></script>
-        
+
         <script src="/public/assets/scripts/application.js?v=@version"></script>
         @(RenderSection("ViewScripts", required: false))
 
         <script>
-             $('.sticky-div').Stickyfill();
+            $('.sticky-div').Stickyfill();
         </script>
     }
- 
+
 }

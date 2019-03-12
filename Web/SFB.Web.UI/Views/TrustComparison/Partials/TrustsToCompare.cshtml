@@ -35,7 +35,7 @@
                         <div class="grid-row trust-element">
                             <label class="form-label" for="mat_@i">Trust @Html.Raw(i + 1)</label>
                             <input class="form-control" style="width: 50%" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
-                            <a class="remove-trust" href="javascript:void(0)" data-matNo="@Model[i].MatNo" aria-label="Remove @Model[i].MatName">Remove</a>
+                            <a class="remove-trust" href="javascript:void(0)" data-companyno="@Model[i].CompanyNo" aria-label="Remove @Model[i].MatName">Remove</a>
                         </div>
                     }
                 </div>

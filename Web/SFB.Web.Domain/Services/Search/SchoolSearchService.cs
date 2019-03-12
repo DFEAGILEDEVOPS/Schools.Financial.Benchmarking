@@ -20,28 +20,21 @@ namespace SFB.Web.Domain.Services.Search
         private readonly string _key;
         private readonly string _searchInstance;
         private readonly string _index;
-        private readonly string _googleApiKey;
 
         private readonly string[][] _aliases = new[]
         {
             new[] {"st. ", "st ", "saint "}
         };
 
-        private const string GoogleGeocodingUrl = "https://maps.googleapis.com";
-
-        private const string GoogleGeoCodingQUeryFormat =
-            "/maps/api/geocode/json?address={0}&components=administrative_area_level_1:ENG|country:GB&key=";
-
         private const string GeoDistanceLocationSearchFormat =
             "geo.distance(Location,geography'POINT({1} {0})') le {2}";
 
         private const string GeoDistanceLocationOrderFormat = "geo.distance(Location,geography'POINT({1} {0})') asc";
 
-        public SchoolSearchService(string searchInstance, string key, string index, string googleApiKey)
+        public SchoolSearchService(string searchInstance, string key, string index)
         {
             this._searchInstance = searchInstance;
             this._key = key;
-            this._googleApiKey = googleApiKey;
             this._index = index;
         }
 
@@ -158,32 +151,17 @@ namespace SFB.Web.Domain.Services.Search
             return exactMatches;
         }
 
-        public async Task<dynamic> SearchSchoolByLocation(string location, decimal distance, int skip, int take,
-            string orderby, NameValueCollection queryParams)
-        {
-            var locations = ExecuteSuggestLocationName(location);
-
-            if (locations.Matches.Count == 0)
-            {
-                dynamic obj = new ExpandoObject();
-                obj.NumberOfResults = 0;
-                return obj;
-            }
-
-            return await FindNearestSchools(locations.Matches.First().Lat, locations.Matches.First().Long, distance, skip, take, orderby, queryParams);
-        }
-
-        public async Task<dynamic> SearchSchoolByLocation(string lat, string lon, decimal distance, int skip, int take,
+        public async Task<dynamic> SearchSchoolByLatLon(string lat, string lon, decimal distance, int skip, int take,
             string orderby,
             NameValueCollection queryParams)
         {
             return await FindNearestSchools(lat, lon, distance, skip, take, orderby, queryParams);
         }
 
-        public async Task<dynamic> SearchSchoolByMatNo(string matNo, int skip, int take, string @orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchSchoolByCompanyNo(int companyNo, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
             var facets = new[] { $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.OFSTED_RATING}", $"{EdubaseDBFieldNames.GENDER}" };
-            var exactMatches = await ExecuteSearch(_index, $"{matNo}", $"{EdubaseDBFieldNames.MAT_NUMBER}",
+            var exactMatches = await ExecuteSearch(_index, $"{companyNo}", $"{EdubaseDBFieldNames.COMPANY_NUMBER}",
                 ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
             return exactMatches;
         }
@@ -195,21 +173,6 @@ namespace SFB.Web.Domain.Services.Search
             var formattedLon = double.Parse(lon).ToString();
             return await ExecuteGeoSpatialSearch(_index, formattedLat, formattedLon,
                 distance, ConstructApiFilterParams(queryParams), orderby, skip, take);
-        }
-
-        private SuggestionQueryResult ExecuteSuggestLocationName(string query)
-        {
-            var client = new RestClient(GoogleGeocodingUrl);
-
-            var request = new RestRequest(string.Format(GoogleGeoCodingQUeryFormat, query) + _googleApiKey);
-            var response = client.Execute(request);
-
-            dynamic content = Newtonsoft.Json.JsonConvert.DeserializeObject(response.Content);
-
-            return new SuggestionQueryResult
-            {
-                Matches = Map(content.results),
-            };
         }
 
         private async Task<QueryResultsModel> ExecuteSearch(string index, string query, string searchFields,
@@ -279,6 +242,7 @@ namespace SFB.Web.Domain.Services.Search
                 .Facet($"{EdubaseDBFieldNames.OVERALL_PHASE}")
                 .Facet($"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}")
                 .Facet($"{EdubaseDBFieldNames.OFSTED_RATING}")
+                .Facet($"{EdubaseDBFieldNames.ESTAB_STATUS}")
                 .Count(true)
                 .Filter(filterBuilder.ToString())
                 .Skip(skip)
@@ -402,29 +366,26 @@ namespace SFB.Web.Domain.Services.Search
                 queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.GENDER} eq '" + x + "'")));
             }
 
+            if (parameters["establishmentStatus"] != null)
+            {
+                string[] values = ExtractValues(parameters["establishmentStatus"]);
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.ESTAB_STATUS} eq '" + x + "'")));
+            }
+
             return string.Join(" and ", queryFilter.Select(x => "(" + x + ")"));
         }
 
         private string[] ExtractValues(string commaSeparatedValues)
         {
-            return commaSeparatedValues.Split(',');
-        }
-
-        private List<Disambiguation> Map(dynamic results)
-        {
-            var disambiguationList = new List<Disambiguation>();
-            foreach (var result in results)
+            if (commaSeparatedValues == "Open, but proposed to close")
             {
-                disambiguationList.Add(new Disambiguation
-                {
-                    Id = result.place_id,
-                    Text = result.formatted_address,
-                    Lat = result.geometry.location.lat,
-                    Long = result.geometry.location.lng
-                });
+                return new string[] { commaSeparatedValues };
             }
-
-            return disambiguationList;
+            else
+            {
+                return commaSeparatedValues.Split(',');
+            }
         }
+
     }
 }

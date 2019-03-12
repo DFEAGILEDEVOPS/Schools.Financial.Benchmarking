@@ -25,7 +25,7 @@
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 <div class="grid-row">
     <div class="column-third">
-        <a class="button" href="/TrustComparison?matno=@Model.MatNo&matName=@Model.Name">Compare with other trusts</a>
+        <a class="button" href="/TrustComparison?companyNo=@Model.CompanyNo&matName=@Model.Name">Compare with other trusts</a>
     </div>
 </div>
 
@@ -33,7 +33,7 @@
     <div class="column-full">
         <div class="result-list-summary">
             This trust is made up of <span class="bold">@Model.AcademiesList.Count</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
-            <a href="/TrustSchools?matno=@Model.MatNo&matname=@Model.Name">Select schools to compare</a>
+            <a href="/TrustSchools?companyNo=@Model.CompanyNo&matname=@Model.Name">Select schools to compare</a>
         </div>
     </div>
     <div class="column-full resultListPanel">
@@ -50,7 +50,8 @@
                             if (academy.HasIncompleteFinancialData)
                             {
                                 <li>
-                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">@academy.EstablishmentName</a>
+                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">@academy.EstablishmentName 
+                                    <span class="visually-hidden"> has data from a period less than 12 months</span></a>
                                 </li>
                             }
                             else
@@ -72,7 +73,9 @@
                     if (school.HasIncompleteFinancialData)
                     {
                         <li>
-                            <a href="/school/detail?urn=@school.URN" class="highlight-warning">@school.EstablishmentName</a>
+                            <a href="/school/detail?urn=@school.URN" class="highlight-warning">
+                                @school.EstablishmentName
+                            <span class="visually-hidden"> has data from a period less than 12 months</span></a>
                         </li>
                     }
                     else
@@ -86,7 +89,7 @@
         }
     </div>
 </div>
-@if (Model.HistoricalFinancialDataModels.Last().IsDNS)
+@if (Model.IsReturnsDNS)
 {
     <div class="panel panel-border-wide orange-warning">
         <p>
@@ -117,11 +120,21 @@ else
         }
     </div>
 }
+
+<div class="grid-row">
+    <div id="placeholderWarning" class="panel panel-border-wide orange-warning" style="display:@Html.Raw(Model.IsReturnsPlaceholder ? "block" : "none")">
+        <p>
+            This trust did not submit finance for the most recent year
+        </p>
+    </div>
+</div>
+
+
 <div class="grid-row download-links hide-in-print">
     <div class="column-full">
         <div class="column-one-third no-padding">
             <div class="download">
-                <a class="no-underline bold-xsmall" href="/trust/download?matNo=@Model.MatNo&name=@Model.Name" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <a class="no-underline bold-xsmall" href="/trust/download?companyNo=@Model.CompanyNo&name=@Model.Name" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-file-download.png"/>
                     Download data for this trust (CSV)
                 </a>
@@ -129,7 +142,7 @@ else
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:PrintPage()" aria-label="Print page for @Model.Name">
+                <a class="no-underline bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png"/>
                     Print page
                 </a>
@@ -145,13 +158,13 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='TabChange("@Model.Code","@Model.MatNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
         </li>
     </ol>
 </nav>
@@ -184,50 +197,6 @@ else
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-
-        GOVUK.Modal.Load();
-
-        function PrintPage() {
-            $('details').attr('open', 'true');
-            var detailses = document.getElementsByTagName("details"),
-                details,
-                i = -1;
-            while (details = detailses[++i]) {
-                //DOM API
-                details["open"] = true;
-            }
-            window.print();
-        }
-
-        function TabChange(code, matno, name, tab) {
-            var queryString = "?code=" +
-                code +
-                "&matno=" +
-                matno +
-                "&name=" +
-                name +
-                "&tab=" +
-                tab +
-                "&unit=" +
-                $("select#ShowValue option:selected")[0].value +
-                "&financing=" +
-                $("select#Financing option:selected")[0].value +
-                "&format=" +
-                sessionStorage.chartFormat;
-
-            window.location = queryString;
-        }
-
-        sessionStorage.chartFormat = '@ViewBag.ChartFormat';
-        DfE.Views.HistoricalCharts.GenerateCharts();
-
-        new Accordion(document.getElementById('historical-charts-accordion'));
-
-        $(document).ready(function() {
-            var tab = DfE.Util.QueryString.get('tab');
-            if (tab) {
-                $("a:contains('" + tab + "')").focus();
-            }
-        });
+        DfE.Views.TrustDetailsViewModel = new TrustDetailsViewModel('@ViewBag.ChartFormat');
     </script>
 }

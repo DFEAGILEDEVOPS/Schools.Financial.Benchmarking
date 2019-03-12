@@ -17,9 +17,11 @@ using SFB.Web.Domain.Models;
 using System.Web.UI;//Do not remove. Required in release mode build
 using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.ApiWrappers;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class SchoolController : Controller
     {
         private readonly IContextDataService _contextDataService;
@@ -97,6 +99,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unitType;
             ViewBag.Financing = financing;
+            ViewBag.IsSAT = schoolVM.IsSAT;
+            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
             ViewBag.ChartFormat = format;
             ViewBag.SptReportExists = SptReportExists(schoolVM.Id);
 
@@ -104,11 +108,24 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpHead]
+        [AllowAnonymous]
         public ActionResult Status(int urn)
-        { 
-            var urns = (List<int>)HttpContext.Cache.Get("SFBActiveURNList");
-            var found = urns.Contains(urn);         
-            return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);                               
+        {
+            try
+            {
+                var urns = (List<int>)HttpContext?.Cache?.Get("SFBActiveURNList");
+                if (urns == null)
+                {
+                    urns = _contextDataService.GetAllSchoolUrns();
+                    HttpContext.Cache.Insert("SFBActiveURNList", urns);
+                }
+                var found = urns.Contains(urn);
+                return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);
+            }
+            catch
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+            }
         }
 
         public PartialViewResult UpdateBenchmarkBasket(int? urn, CookieActions withAction)
@@ -176,6 +193,10 @@ namespace SFB.Web.UI.Controllers
             _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, term, revGroup, unit, schoolVM.EstablishmentType);
 
             ViewBag.ChartFormat = format;
+            ViewBag.Financing = financing;
+            ViewBag.IsSat = schoolVM.IsSAT;
+            ViewBag.ChartGroup = chartGroup;
+            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
 
             return PartialView("Partials/Chart", schoolVM);
         }

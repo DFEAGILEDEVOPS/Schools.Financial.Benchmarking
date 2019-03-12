@@ -39,6 +39,8 @@
     @Html.Partial("Partials/BenchmarkBasketControls")
 </div>
 
+<div id="benchmarkBasketLoadingPlaceHolder"></div>
+
 <ul>
     @foreach (var school in Model.BenchmarkSchools)
     {
@@ -118,6 +120,6 @@
 
 @section ViewScripts {
     <script>
-        DfE.Views.BenchmarkListViewModel.Load();
+        DfE.Views.BenchmarkListViewModel = new BenchmarkListViewModel();
     </script>
 }

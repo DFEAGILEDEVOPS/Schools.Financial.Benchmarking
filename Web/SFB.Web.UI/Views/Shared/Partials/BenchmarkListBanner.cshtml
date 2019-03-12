@@ -1,16 +1,23 @@
 ﻿<div class="sticky-div hide-in-print" id="benchmarkBasket" role="region" aria-label="Benchmark Basket">
     <div class="grid-row">
         <div class="column-full">
-            <div class="comparisonListInfoPanel">
-                Your benchmark basket contains <span class="count">@Model.ComparisonListCount schools</span>
+            <div class="sticky-div__comparison-list-info-panel">
+                Your benchmark basket contains <span class="sticky-div__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span>
                 @if (Model.ComparisonListCount >= 1)
                 {
-                    <a class="edit-basket" href="/benchmarklist">Edit basket</a>
-                    <a class="edit-basket" href="javascript:void(0)" onclick="DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</a>
-                } 
-                @if (!((RazorView) ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2) 
+                    var referrer = Request.IsAjaxRequest() ? Request.UrlReferrer.ToString() : Request.RawUrl;
+                    if(referrer.Contains("BenchmarkCharts/"))
+                    {
+                        referrer = "/BenchmarkCharts";
+                    }
+                    <a class="sticky-div__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@Html.Raw(referrer)">Edit basket</a>
+                    <a class="sticky-div__comparison-list-info-panel__clear-basket" href="javascript:void(0)" onclick="DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</a>
+                }
+                @if (!((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2)
                 {
-                    <a class="button view-benchmark-charts" href="/BenchmarkCharts">View benchmark charts</a>
+                    <div class="view-benchmark-charts-wrapper">
+                        <a class="button" href="/BenchmarkCharts">View benchmark charts</a>
+                    </div>
                 }
             </div>
         </div>

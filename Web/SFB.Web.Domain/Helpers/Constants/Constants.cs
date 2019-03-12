@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SFB.Web.Domain.Helpers.Constants
+﻿namespace SFB.Web.Domain.Helpers.Constants
 {
     public class SearchErrorMessages
     {
@@ -23,6 +17,9 @@ namespace SFB.Web.Domain.Helpers.Constants
 
         public const string SCHOOL_ID_ERR_MESSAGE =
             "Please enter the URN code (6 characters) or LAESTAB code (7 characters) of the school or college you're looking for";
+
+        public const string COMPANY_NO_ERR_MESSAGE =
+            "Please enter the company number (7 characters) of the trust you're looking for";
     }
 
     public class SearchParameterValidLengths
@@ -34,6 +31,7 @@ namespace SFB.Web.Domain.Helpers.Constants
         public const int LA_NAME_MIN_LENGTH = 2;
         public const int URN_LENGTH = 6;
         public const int LAESTAB_LENGTH = 7;
+        public const int COMPANY_NO_LENGTH = 7;
     }
 
     public class ComparisonListLimit
@@ -42,11 +40,18 @@ namespace SFB.Web.Domain.Helpers.Constants
         public const int MAT_LIMIT = 20;
         public const int DEFAULT = 15;
         public const int ONE_CLICK = 15;
+        public const int BIC = 15;
     }
 
     public class CriteriaSearchConfig
     {
         public const int DEFAULT_MARGIN = 10;
         public const int MAX_TRY_LIMIT = 10;
+        public const decimal BIC_DEFAULT_FLEX_PUPIL_COUNT = 0.25M;
+        public const decimal BIC_DEFAULT_FLEX_EXP_PP_MIN = 0.5M;
+        public const decimal BIC_DEFAULT_FLEX_EXP_PP_MAX = 0.1M;
+        public const decimal BIC_DEFAULT_FLEX_SEN_FSM = 0.15M;
+        public const decimal RR_PER_INCOME_TRESHOLD = -5M;
+        public const int BIC_TARGET_POOL_COUNT = 50;
     }
 }

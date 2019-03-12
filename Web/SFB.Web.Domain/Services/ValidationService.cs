@@ -1,4 +1,5 @@
 ﻿using SFB.Web.Domain.Helpers.Constants;
+using System;
 
 namespace SFB.Web.Domain.Services
 {
@@ -58,6 +59,18 @@ namespace SFB.Web.Domain.Services
             if (schoolId == null || (schoolId.Length != SearchParameterValidLengths.URN_LENGTH && schoolId.Length != SearchParameterValidLengths.LAESTAB_LENGTH))
             {
                 return SearchErrorMessages.SCHOOL_ID_ERR_MESSAGE;
+            }
+
+            return null;
+        }
+
+        public string ValidateCompanyNoParameter(string companyNo)
+        {
+            int result;
+            var isNumber = int.TryParse(companyNo, out result);
+            if (!isNumber || companyNo.Length != SearchParameterValidLengths.COMPANY_NO_LENGTH)
+            {
+                return SearchErrorMessages.COMPANY_NO_ERR_MESSAGE;
             }
 
             return null;

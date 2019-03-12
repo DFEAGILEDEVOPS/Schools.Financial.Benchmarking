@@ -9,6 +9,14 @@
 
 @section InsideHead{
     <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+
 }
 
 @section StickyContent
@@ -35,7 +43,7 @@ else
     <div class="column-half">
         <div class="metadata-school-detail font-xsmall">
             <dl>
-                @SchoolDetailField("Address:",$"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
+                @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
                 @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: 0{Model.PhoneNumber}\" aria-label=\"Call telephone number 0{Model.PhoneNumber}\">0{Model.PhoneNumber}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
@@ -44,14 +52,16 @@ else
                 }
                 @SchoolDetailField("School phase:", Model.Phase)
                 @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
-                <dt class="names"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt><dd class="values bold">@Model.Id</dd>
+                <dt class="names"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
+                <dd class="values bold">@Model.Id</dd>
                 @SchoolDetailFieldFormatted("Ofsted rating:",
                                 "<span class=\"rating rating-{0}\"> {0} </span><span class=\"rating-text\"> {1} </span>" +
                                 "<span class=\"ofsted-divider\" aria-hidden=\"true\">| </span>" +
                                 "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"visually-hidden\">Opens in a new window</span></a>" +
                                 "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
                                 Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate)
-                <dt class="names"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt><dd class="values bold">@Model.LaEstab</dd>
+                <dt class="names"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt>
+                <dd class="values bold">@Model.LaEstab</dd>
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
                 @SchoolDetailField("Has sixth form:", Model.IsPost16)
@@ -59,15 +69,15 @@ else
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
-                @if (!Model.HistoricalFinancialDataModels.Last().IsSAT)
+                @if (Model.IsMAT)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?matno={0}&name={1}\">{2}</a>", Server.UrlEncode(Model.TrustNo), Server.UrlEncode(Model.TrustName), Model.TrustName)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
                 }
                 @DataSourcesField()
 
-</dl>
-            <input type="hidden" id="la" value="@Model.La"/>
-            <input type="hidden" id="estab" value="@Model.Estab"/>
+            </dl>
+            <input type="hidden" id="la" value="@Model.La" />
+            <input type="hidden" id="estab" value="@Model.Estab" />
         </div>
     </div>
     <div class="column-half">
@@ -77,7 +87,7 @@ else
             </summary>
             <div class="panel panel-border-narrow map">
                 <a href="#post-map-content" class="skip-map">Skip the map</a>
-                <div id="SchoolLocationMap" class="mtl" title="A google map of the school's location" aria-label="A google map of the school's location"></div>
+                <div id="SchoolLocationMap" class="mtl" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
     </div>
@@ -85,15 +95,15 @@ else
         <div class="column-one-third no-padding">
             <div class="download">
                 <a class="no-underline bold-xsmall sfb_gtm_csv_school" href="/school/download?urn=@Model.Id" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
-                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/icon-file-download.png"/>
+                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/icon-file-download.png" />
                     Download data for this school (CSV)
                 </a>
             </div>
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:void(0);" onclick="PrintPage()" aria-label="Print page for @Model.Name">
-                    <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png"/> 
+                <a class="no-underline bold-xsmall" href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png" />
                     Print page
                 </a>
             </div>
@@ -143,16 +153,16 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
         </li>
     </ol>
 </nav>
@@ -162,7 +172,7 @@ else
             @Html.Partial("Partials/Terms", Model)
             @Html.Partial("Partials/ValueSelect", Model)
             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-            @if (Model.EstablishmentType == EstablishmentType.Academies && !Model.HistoricalFinancialDataModels.Last().IsSAT)
+            @if (Model.EstablishmentType == EstablishmentType.Academies && Model.HistoricalFinancialDataModels.Last().IsMAT)
             {
                 Html.RenderPartial("Partials/CentralFinancing");
             }
@@ -222,101 +232,8 @@ else
     <script src="~/node_modules/d3/d3.min.js"></script>
     <script src="~/node_modules/c3/c3.min.js"></script>
     <script src="~/node_modules/lodash/lodash.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])"></script>
 
     <script>
-
-        $.get("/school/GetBenchmarkBasket",
-            function(data) {
-                $("#benchmarkBasket").replaceWith(data);
-            });
-
-        if ($("#benchmarkControlsPlaceHolder").length > 0) {
-            $.get("/school/GetBenchmarkControls?urn=" + @Model.Id,
-                function(data) {
-                    $("#benchmarkControlsPlaceHolder").html(data);
-                    GOVUK.Modal.Load();
-                    $('.sticky-div').Stickyfill();
-                });
-        }
-
-        sessionStorage.chartFormat = '@ViewBag.ChartFormat';
-        DfE.Views.HistoricalCharts.GenerateCharts('@ViewBag.UnitType');
-
-        new Accordion(document.getElementById('historical-charts-accordion'));
-
-        var school = {
-            id: "@(Model.Id)",
-            lat: "@(Model.Lat)",
-            lng: "@(Model.Lng)",
-            hasMap: @(Model.HasCoordinates ? "true" : "false")
-        };
-
-        var options = {
-            elementId: "SchoolLocationMap",
-            hasMap: school.hasMap,
-            primaryMarker: {
-                geometry: {
-                    location: {
-                        lat: school.lat,
-                        lng: school.lng
-                    }
-                }
-            },
-            scrollWheel: false
-        };
-
-        setTimeout(function() {
-                if ($(window).width() <= 640) {
-                    $('details').removeAttr('open');
-                }
-
-                if (!this.mapLoaded) {
-                    this.map = new GOVUK.LocationMap(options);
-                    this.mapLoaded = true;
-                }
-
-                var tab = DfE.Util.QueryString.get('tab');
-                if (tab) {
-                    $("a:contains('" + tab + "')").focus();
-                }
-            },
-            500);
-
-
-        function TabChange(urn, tab) {
-            var queryString = "?urn=" +
-                urn +
-                "&tab=" +
-                tab;
-
-            if (DfE.Util.QueryString.get('tab') !== "Workforce") {
-               queryString += "&unit=" + $("select#ShowValue option:selected")[0].value;
-            }
-
-            if ($("select#Financing option:selected").length > 0) {
-                queryString += "&financing=" + $("select#Financing option:selected")[0].value;
-            }
-
-            if (sessionStorage.chartFormat) {
-                queryString += "&format=" + sessionStorage.chartFormat;
-            }
-
-            window.location = queryString;
-        }
-
-        function PrintPage() {
-            $('details').attr('open', 'true');
-            var detailses = document.getElementsByTagName("details"),
-                details,
-                i = -1;
-            while (details = detailses[++i]) {
-                //DOM API
-                details["open"] = true;
-            }
-
-            window.print();
-        }
-
+        DfE.Views.SchoolDetailsViewModel = new SchoolDetailsViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
     </script>
 }

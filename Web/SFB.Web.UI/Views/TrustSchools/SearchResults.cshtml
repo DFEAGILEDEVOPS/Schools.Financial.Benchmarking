@@ -8,13 +8,27 @@
     @Html.Partial("Partials/BenchmarkListBanner")
 }
 
+@section InsideHead{
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+
+}
+
 <div id="searchSchoolsLink" class="grid-row hide-in-print">
     <div class="column-full">
-        <a class="home-link" href="/Trust?matNo=@ViewBag.MatNo&name=@ViewBag.MatName" aria-label="Back to @ViewBag.MatName">
+        <a class="home-link" href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName" aria-label="Back to @ViewBag.MatName">
             <i class="icon icon-back">
                 <span class="visually-hidden">Back</span>
             </i>
-            <span class="back-link">Back to @ViewBag.MatName</span> 
+            <span class="back-link">Back to @ViewBag.MatName</span>
         </a>
     </div>
 </div>
@@ -32,22 +46,11 @@
 <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
 @section ViewScripts{
-    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])"></script>
-    <script src="~/node_modules/js-marker-clusterer/src/markerclusterer_compiled.js"></script>
     <script src="~/node_modules/lodash/lodash.min.js"></script>
     <script>
         GOVUK.Modal.Load();
 
-        @if (string.IsNullOrWhiteSpace(ViewBag.QueryLat))
-        {
-            <text>var loc = null;</text>
-        }
-        else
-        {
-            <text>var loc = { lat: @(ViewBag.QueryLat ?? "null"), lng: @(ViewBag.QueryLong ?? "null") };</text>
-        }
-
-        DfE.Views.SchoolsResultsViewModel.Load(loc, "@(ViewBag.tab)");
+        DfE.Views.SchoolsResultsViewModel = new SchoolsResultsViewModel('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
 
         $(function() {
             if ($(window).width() <= 640) {
@@ -55,7 +58,7 @@
             }
 
             GOVUK.LiveSearch.displaceSchoolCount();
-            
+
         });
     </script>
 }

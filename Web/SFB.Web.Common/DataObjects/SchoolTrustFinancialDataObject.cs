@@ -19,6 +19,9 @@ namespace SFB.Web.Common.DataObjects
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.MAT_NUMBER)]
         public string MATNumber { get; set; }
 
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER)]
+        public int? CompanyNumber { get; set; }
+
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME)]
         public string TrustOrCompanyName { get; set; }
 
@@ -450,5 +453,17 @@ namespace SFB.Web.Common.DataObjects
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.OFSTED_RATING)]
         public decimal? OfstedRating { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.IS_PLACEHOLDER)]
+        public bool IsPlaceholder { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.RR_TO_INCOME)]
+        public decimal? RRPerIncomePercentage { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.GRANT_FUNDING_PP)]
+        public decimal? PerPupilGrantFunding { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP)]
+        public decimal? PerPupilTotalExpenditure { get; set; }
     }
 }

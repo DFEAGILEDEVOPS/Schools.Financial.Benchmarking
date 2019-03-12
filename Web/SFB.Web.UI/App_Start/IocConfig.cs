@@ -57,6 +57,7 @@ namespace SFB.Web.UI
         {
             builder.RegisterType<LocalAuthoritiesService>().As<ILocalAuthoritiesService>();
             builder.RegisterType<LaSearchService>().As<ILaSearchService>();
+            builder.RegisterType<LocationSearchService>().As<ILocationSearchService>();
             builder.RegisterType<BenchmarkChartBuilder>().As<IBenchmarkChartBuilder>();
             builder.RegisterType<HistoricalChartBuilder>().As<IHistoricalChartBuilder>();
             builder.RegisterType<FilterBuilder>().As<IFilterBuilder>();
@@ -64,17 +65,15 @@ namespace SFB.Web.UI
             builder.RegisterType<FinancialDataService>().As<IFinancialDataService>().SingleInstance();
             builder.RegisterType<FinancialDataService>().As<ITermYearDataService>().SingleInstance();
             builder.RegisterType<ContextDataService>().As<IContextDataService>().SingleInstance();
-            builder.RegisterType<BestInClassDataService>().As<IBestInClassDataService>().SingleInstance();
             builder.RegisterType<DataCollectionManager>().As<IDataCollectionManager>().SingleInstance();
             builder.RegisterType<CosmosDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
             builder.RegisterType<CosmosDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
-            builder.RegisterType<CosmosDBEfficiencyMetricsRepository>().As<IEfficiencyMetricsRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();
             builder.RegisterType<BenchmarkBasketCookieManager>().As<IBenchmarkBasketCookieManager>();
             builder.RegisterType<BenchmarkCriteriaBuilderService>().As<IBenchmarkCriteriaBuilderService>();
             builder.RegisterType<DownloadCSVBuilder>().As<IDownloadCSVBuilder>();
-            builder.RegisterInstance(new SchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"], ConfigurationManager.AppSettings["GoogleAPIKey"])).As<ISchoolSearchService>();
+            builder.RegisterInstance(new SchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();
             builder.RegisterInstance(new TrustSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
         }
 

@@ -13,9 +13,11 @@ using SFB.Web.Domain.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class TrustComparisonController : Controller
     {
         private readonly IFinancialDataService _financialDataService;
@@ -27,13 +29,13 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
-        public ActionResult Index(string matNo, string matName)
+        public ActionResult Index(int companyNo, string matName)
         {            
-            var benchmarkTrust = new TrustViewModel(matNo, matName);
+            var benchmarkTrust = new TrustViewModel(companyNo, matName);
 
             LoadFinancialDataOfLatestYear(benchmarkTrust);
 
-            var trustComparisonList = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.SetDefault, matNo, matName);
+            var trustComparisonList = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.SetDefault, companyNo, matName);
 
             var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
 
@@ -73,7 +75,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     try
                     {
-                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.MATNumber, doc.TrustOrCompanyName);
+                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.CompanyNumber, doc.TrustOrCompanyName);
                     }catch (ApplicationException)
                     {
                         //Default trust cannot be added twice. Do nothing.
@@ -83,44 +85,44 @@ namespace SFB.Web.UI.Controllers
             return Redirect("/BenchmarkCharts/Mats");
         }
 
-        public PartialViewResult AddTrust(string matNo, string matName)
+        public PartialViewResult AddTrust(int companyNo, string matName)
         {
             TrustComparisonListModel vm;
             try
             {
-                vm = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, matNo, matName);
+                vm = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, companyNo, matName);
             }catch(ApplicationException ex)
             {
                 vm = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie();
                 ViewBag.Error = ex.Message;
             }
 
-            return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.MatNo != vm.DefaultTrustMatNo).ToList());
+            return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }
 
-        public PartialViewResult RemoveTrust(string matNo)
+        public PartialViewResult RemoveTrust(int companyNo)
         {
-            var vm = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Remove, matNo);
+            var vm = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Remove, companyNo);
 
-            return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.MatNo != vm.DefaultTrustMatNo).ToList());
+            return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }
 
         public PartialViewResult RemoveAllTrusts()
         {
             var vm = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.RemoveAll);
 
-            return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.MatNo != vm.DefaultTrustMatNo).ToList());
+            return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }
 
         private void LoadFinancialDataOfLatestYear(TrustViewModel benchmarkTrust)
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var financialDataObject = _financialDataService.GetTrustFinancialDataObject(benchmarkTrust.MatNo, term, MatFinancingType.TrustAndAcademies);
+            var financialDataObject = _financialDataService.GetTrustFinancialDataObject(benchmarkTrust.CompanyNo, term, MatFinancingType.TrustAndAcademies);
 
             benchmarkTrust.HistoricalFinancialDataModels = new List<Domain.Models.FinancialDataModel>
             {
-                new Domain.Models.FinancialDataModel(benchmarkTrust.MatNo, term, financialDataObject, EstablishmentType.MAT)
+                new Domain.Models.FinancialDataModel(benchmarkTrust.CompanyNo.ToString(), term, financialDataObject, EstablishmentType.MAT)
             };
         }
     }

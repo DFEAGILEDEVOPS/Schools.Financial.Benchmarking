@@ -17,19 +17,21 @@
 <div class="grid-row">
     <div class="column-three-quarters">
 
-        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-        {
-            <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-                <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
-                    There are errors on this page that require attention.
-                </h1>
-                <ul class="error-summary-list">
-                    <li>
-                        <a href="#finderSection">@Model.ErrorMessage</a>
-                    </li>
-                </ul>
-            </div>
-        }
+        <div id="error-summary-placeholder">
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+                    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                        There are errors on this page that require attention.
+                    </h1>
+                    <ul class="error-summary-list">
+                        <li>
+                            <a href="#finderSection">@Model.ErrorMessage</a>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </div>
 
         <h1 class="heading-xlarge page-heading">
             @ViewBag.Title
@@ -57,7 +59,7 @@
                     <a class="button" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.ComparisonList.HomeSchoolUrn">Compare with other schools</a>
                 </div>
             </div>
-            <hr class="home-school-divider"/>
+            <hr class="home-school-divider" />
         }
 
         <div class="section">
@@ -76,11 +78,11 @@
                                     @Html.Partial("Partials/Search/SchoolSearchOption")
 
                                     @Html.Partial("Partials/Search/TrustSearchOption")
-                                    
+
                                     <h2 class="form-group heading-small bold-small">
                                         Alternatively, search by area
                                     </h2>
-                                    
+
                                     @Html.Partial("Partials/Search/LocationSearchOption")
 
                                     @Html.Partial("Partials/Search/LaSearchOption")
@@ -103,40 +105,35 @@
                 </li>
                 <li>
                     <a href="Help/InterpretingCharts">Interpreting the charts</a>
-                </li>                
+                </li>
                 <li>
                     <a href="Help/DataSources">Data sources</a>
                 </li>
             </ul>
         </aside>
         @*<aside class="contents guidance">
-            <h3 class="heading-medium">Downloads</h3>
-            <ul class="font-small">
-                <li>
-                    <a href="Download/Maintained">Maintained schools</a>
-                </li>                
-                <li>
-                    <a href="Download/Academy">Academies</a>
-                </li>
-                <li>
-                    <a href="Download/MAT">Trust</a>
-                </li>
-            </ul>
-        </aside>*@
+                <h3 class="heading-medium">Downloads</h3>
+                <ul class="font-small">
+                    <li>
+                        <a href="Download/Maintained">Maintained schools</a>
+                    </li>
+                    <li>
+                        <a href="Download/Academy">Academies</a>
+                    </li>
+                    <li>
+                        <a href="Download/MAT">Trust</a>
+                    </li>
+                </ul>
+            </aside>*@
     </div>
 </div>
 
 @section ViewScripts {
 
     <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script>
+    <script src="https://atlas.microsoft.com/sdk/js/atlas-service.js?api-version=1"></script>
     <script>
-        var localAuthorities = @Html.Raw(Model.Authorities);
-        DfE.Views.SchoolsSearchViewModel.Load(localAuthorities);
-
-        function loadViewModel() {
-            DfE.Views.GoogleLocationViewModel.Load();
-        }
+        DfE.Views.SchoolsSearchViewModel = new SchoolsSearchViewModel(@Html.Raw(Model.Authorities), '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleAPIKey"])&libraries=places&callback=loadViewModel"></script>
-
 }

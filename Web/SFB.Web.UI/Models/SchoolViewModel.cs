@@ -3,7 +3,6 @@ using System.Linq;
 using SFB.Web.Common;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.Common.DataObjects;
-using SFB.Web.Domain.Models;
 using System.Globalization;
 
 namespace SFB.Web.UI.Models
@@ -85,7 +84,7 @@ namespace SFB.Web.UI.Models
 
         public string TrustName => ContextDataModel.Trusts;
 
-        public string TrustNo => ContextDataModel.MATNumber;
+        public int? CompanyNo => ContextDataModel.CompanyNumber;
 
         public string PhoneNumber => ContextDataModel.TelephoneNum;
 
@@ -167,6 +166,12 @@ namespace SFB.Web.UI.Models
         public override string Type => ContextDataModel.TypeOfEstablishment;
 
         public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
+
+        public bool IsSAT => LatestYearFinancialData.IsSAT;
+
+        public bool IsMAT => LatestYearFinancialData.IsMAT;
+
+        public bool HasProgressScore => LatestYearFinancialData.Ks2Progress.HasValue || LatestYearFinancialData.P8Mea.HasValue;
 
         public bool HasCoordinates
         {

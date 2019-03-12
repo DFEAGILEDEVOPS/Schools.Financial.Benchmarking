@@ -8,10 +8,8 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Autofac.Integration.Mvc;
 using Autofac;
 using SFB.Web.Domain.Services.DataAccess;
-using System.Web.Caching;
-using System.Diagnostics;
 
-namespace SFB.Web.UI 
+namespace SFB.Web.UI
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -27,10 +25,6 @@ namespace SFB.Web.UI
 
             var enableAITelemetry = ConfigurationManager.AppSettings["EnableAITelemetry"];
             TelemetryConfiguration.Active.DisableTelemetry = enableAITelemetry == null || !bool.Parse(enableAITelemetry);
-
-            #if !DEBUG
-            CacheSchoolUrns();
-            #endif
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -39,7 +33,7 @@ namespace SFB.Web.UI
 
             if (!Request.Path.Contains("/BenchmarkCharts/"))
             {
-                Response.Cache.SetCacheability(HttpCacheability.Server); // HTTP 1.1.
+                //Response.Cache.SetCacheability(HttpCacheability.Server); //Caches the pages unnecessarily when auth enabled. Therefore commented out.
                 Response.Cache.AppendCacheExtension("no-store, must-revalidate");
                 Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
                 Response.AppendHeader("Expires", "0"); // Proxies.
@@ -51,14 +45,5 @@ namespace SFB.Web.UI
             Response.Headers.Remove("Server");
         }
 
-        private void CacheSchoolUrns()
-        {
-            using (var scope = AutofacDependencyResolver.Current.ApplicationContainer.BeginLifetimeScope())
-            {
-                var service = scope.Resolve<IContextDataService>();                
-                var urnList = service.GetAllSchoolUrns();
-                HttpContext.Current.Cache.Insert("SFBActiveURNList", urnList);               
-            }            
-        }
     }
 }

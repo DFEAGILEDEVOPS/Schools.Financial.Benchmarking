@@ -31,7 +31,7 @@ namespace SFB.Web.DAL
 
         public static string GetDataGroup(this JObject json)
         {
-            if (json.Properties().Any(a => a.Name == "MAT Number") || json.Properties().Any(a => a.Name == "MATNumber"))
+            if (json.Properties().Any(a => a.Name == "CompanyNumber"))
                 return json.GetProperty("URN", 0, requirements: ValidationIndicators.Number) == 0
                     ? DataGroups.MATCentral
                     : DataGroups.Academies;

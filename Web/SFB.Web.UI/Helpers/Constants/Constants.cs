@@ -11,7 +11,7 @@
     public class SearchTypes
     {
         public const string SEARCH_BY_NAME_ID = "search-by-name-id";
-        public const string SEARCH_BY_TRUST_NAME = "search-by-trust-name";
+        public const string SEARCH_BY_TRUST_NAME_ID = "search-by-trust-name-id";
         public const string SEARCH_BY_LOCATION = "search-by-location";
         public const string SEARCH_BY_LA_CODE_NAME = "search-by-la-code-name";
     }
@@ -107,12 +107,13 @@
     public class ErrorMessages
     {
         public const string DuplicateTrust = "Please select a trust which is not already in your list";
+        public const string BMBasketLimitExceed = "Combined basket exceeds 30 schools, either replace current basket or go back and reduce new basket size";
     }
 
     public class MoreInfoText
     {
         public const string INTERPRET_CHARTS =
-            "For more information about this chart, read our guidance on <a href=\"../Help/InterpretingCharts\">Interpreting the charts</a>.";
+            "For more information about this chart, read our guidance on <a href=\"../Help/InterpretingCharts\">Interpreting the data</a>.";
     }
 
     public class HelpTooltipText
@@ -122,7 +123,10 @@
         public const string DirectGrantsHelp = "This includes: pre-16 funding, post-16 funding, DfE/EFA revenue grants, other DfE/EFA revenue grants, local authority and other government grants.";
         public const string AdditionalGrantForSchoolsHelp = "This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.";
         public const string OccupationChartHelp = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering.";
-        public const string ShowValueHelp = "This controls the chart value. To change it to per pupil, for example, select the relevant option from the dropdown.";
+        public const string ShowValueHelp = @"<p>This controls the chart value. To change it, select the relevant option from the dropdown. You can choose from the values listed below.</p>
+                                            <ul><li>Headcount per FTE is the number of staff employed per full time position. The higher the figure, the more part time staff and job sharing.</li>
+                                            <li>Percentage of workforce is the percentage of the total workforce the chart grouping represents in the school. For example, teachers might make up 60% of the total school workforce.</li>
+                                            <li>Pupils per measure is the ratio of pupils to staff for that particular chart group – 22 pupils per total number of teachers, for example.</li></ul>";
         public const string BestInClassHelp = "This allows you to compare your school with the 15 most efficient similar schools, as identified by the Department's <a rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.gov.uk/government/publications/schools-financial-efficiency-metric-tool\">school efficiency metric<span class=\"visuallyhidden\"> Opens in a new window</span></a> tool. <p>These are statistically similar in terms of the proportion of pupils:</p>" +
             "<ul><li>who have been eligible for free school meals in the last 6 years</li><li>with a statement of special educational needs, or an education, health and care (EHC) plan</li></ul>" +
             "<p>The efficiency metric is calculated based on pupil attainment and the money a school receives for its pupils. It is just one indication of efficiency.</p>";

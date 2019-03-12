@@ -35,6 +35,7 @@
         public const string RELIGIOUS_CHARACTER = "ReligiousCharacter";
         public const string GENDER = "Gender";
         public const string MAT_NUMBER = "MATNumber";
+        public const string COMPANY_NUMBER = "CompanyNumber";
     }
 
     public class SchoolTrustFinanceDBFieldNames
@@ -106,6 +107,7 @@
         public const string SCHOOL_NAME = "School Name";
         public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
         public const string MAT_NUMBER = "MATNumber";
+        public const string COMPANY_NUMBER = "CompanyNumber";
         public const string TRUST_COMPANY_NAME = "TrustOrCompanyName";
         public const string OTHER_INCOME = "Other Income";
         public const string SEN = "SEN";
@@ -194,6 +196,10 @@
         public const string FUNDING_MINORITY = "Funding for minority ethnic pupils";
         public const string COMM_FOCUSED_SCHOOL_FACILITIES = "Community focused school facilities income";
         public const string CONTRIBUTIONS_TO_VISITS = "Income from contributions to visits etc";
+        public const string IS_PLACEHOLDER = "TrustDidNotSubmit";
+        public const string RR_TO_INCOME = "PercentRevenueReserveOfTotalIncome";
+        public const string GRANT_FUNDING_PP = "PerPupilGrantFunding";
+        public const string TOTAL_EXP_PP = "PerPupilTotalExpenditure";
 
     }
 
@@ -268,6 +274,8 @@
         public const string PHYSICAL_DISABILITY = "Physical disability";
         public const string AUTISTIC_DISORDER = "Autistic spectrum disorder";
         public const string OTHER_LEARNING_DIFF = "Other learning difficulty";
+        public const string PER_PUPIL_EXP = "Expenditure per pupil";
+        public const string RR_TO_INCOME = "RR to Income";
     }
 
     public class CriteriaFieldComparisonTypes

@@ -14,6 +14,7 @@ namespace SFB.Web.UI.Models
         public ComparisonType ComparisonType { get; set; }
         public BenchmarkCriteria AdvancedCriteria { get; set; }
         public SimpleCriteria SimpleCriteria { get; set; }
+        public BestInClassCriteria BicCriteria { get; set; }
         public FinancialDataModel BenchmarkSchoolData { get; set; }    
         public EstablishmentType EstablishmentType { get; set; }
         public EstablishmentType SearchedEstablishmentType { get; set; }
@@ -57,12 +58,13 @@ namespace SFB.Web.UI.Models
         public bool NoResultsForSimpleSearch => (ComparisonType == ComparisonType.Basic && ComparisonListCount < 2);
         public int BasketSize { get; set; }
 
-        public BenchmarkChartListViewModel(List<ChartViewModel> modelList, SchoolComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, int urn, int basketSize, TrustComparisonListModel trustComparisonList = null)
+        public BenchmarkChartListViewModel(List<ChartViewModel> modelList, SchoolComparisonListModel comparisonList, List<ChartViewModel> chartGroups, ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, BestInClassCriteria bicCriteria, FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, int urn, int basketSize, TrustComparisonListModel trustComparisonList = null)
             :base(modelList, comparisonList)
         {
             this.ChartGroups = chartGroups;
             this.AdvancedCriteria = advancedCriteria;
             this.SimpleCriteria = simpleCriteria;
+            this.BicCriteria = bicCriteria;
             this.ComparisonType = comparisonType;
             this.BenchmarkSchoolData = benchmarkSchoolData;
             this.EstablishmentType = estabType;

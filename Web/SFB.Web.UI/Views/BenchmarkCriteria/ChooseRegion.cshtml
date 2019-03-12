@@ -129,7 +129,6 @@ else
 
     <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
     <script>
-        var localAuthorities = @Html.Raw(ViewBag.Authorities);
-        DfE.Views.CriteriaByAreaViewModel.Load(localAuthorities);
+        DfE.Views.CriteriaByAreaViewModel = new CriteriaByAreaViewModel(@Html.Raw(ViewBag.Authorities));
     </script>
 }

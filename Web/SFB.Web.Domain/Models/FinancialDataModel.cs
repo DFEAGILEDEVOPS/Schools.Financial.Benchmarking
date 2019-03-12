@@ -102,6 +102,44 @@ namespace SFB.Web.Domain.Models
             }
         }
 
+        public int? CompanyNo
+        {
+            get
+            {
+                try
+                {
+                    if (FinancialDataObjectModel != null)
+                    {
+                        return FinancialDataObjectModel.CompanyNumber;
+                    }
+                    return null;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
+
+        public bool IsMAT
+        {
+            get
+            {
+                try
+                {
+                    if (FinancialDataObjectModel != null)
+                    {
+                        return FinancialDataObjectModel.MATSATCentralServices.Equals("MAT");
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
         public bool IsSAT
         {
             get
@@ -131,6 +169,25 @@ namespace SFB.Web.Domain.Models
                     if (FinancialDataObjectModel != null)
                     {
                         return FinancialDataObjectModel.DidNotSubmit;
+                    }
+                    return false;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool IsPlaceHolder
+        {
+            get
+            {
+                try
+                {
+                    if (FinancialDataObjectModel != null)
+                    {
+                        return FinancialDataObjectModel.IsPlaceholder;
                     }
                     return false;
                 }
@@ -245,7 +302,7 @@ namespace SFB.Web.Domain.Models
 
         public decimal? Ks2Actual => FinancialDataObjectModel.Ks2Actual;
 
-        public decimal? Ks2Progress => FinancialDataObjectModel.Ks2Progress;
+        public decimal? Ks2Progress => FinancialDataObjectModel.Ks2Progress.HasValue ? decimal.Round(FinancialDataObjectModel.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) : (decimal?)null;
 
         public decimal? AvAtt8 => FinancialDataObjectModel.AverageAttainment;
 
@@ -276,6 +333,12 @@ namespace SFB.Web.Domain.Models
         public decimal? AutisticDisorder => FinancialDataObjectModel.AutisticDisorder;
 
         public decimal? OtherLearningDifficulty => FinancialDataObjectModel.OtherLearningDiff;
+
+        public decimal? RRPerIncomePercentage => FinancialDataObjectModel.RRPerIncomePercentage;
+
+        public decimal? PerPupilTotalExpenditure => FinancialDataObjectModel.PerPupilTotalExpenditure;
+
+        public decimal? PerPupilGrantFunding => FinancialDataObjectModel.PerPupilGrantFunding;
 
         public int? CrossPhaseBreakdownPrimary
         {

@@ -1,0 +1,18 @@
+﻿.highlight {
+    @include bold-16();
+    background-color: $pink;
+    color: $white;
+    text-align: center;
+    padding: 5px;
+    display: inline;
+}
+.benchmark-school-value {
+    margin-bottom: 10px;
+    color: $grey-1;
+}
+
+@include media(desktop) {
+    .form-control {
+        width: 80%;
+    }
+}

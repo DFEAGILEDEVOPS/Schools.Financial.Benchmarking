@@ -62,8 +62,8 @@ namespace SFB.Web.UI.Models
         [JsonProperty(PropertyName = "T")]
         public override string Type { get; set; }
 
-        [JsonProperty(PropertyName = "R")]
-        public int? EmRank { get; set; }
+        [JsonProperty(PropertyName = "P")]
+        public decimal? ProgressScore { get; set; }
 
         [JsonIgnore]
         public int La;

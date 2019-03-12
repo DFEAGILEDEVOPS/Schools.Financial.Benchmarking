@@ -1,17 +1,16 @@
 ﻿using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using SFB.Web.Domain.Services.DataAccess;
 using System;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Common.DataObjects;
-using SFB.Web.Common;
+using SFB.Web.UI.Attributes;
 
 namespace SFB.Web.UI.Controllers
 {
+    [CustomAuthorize]
     public class BenchmarkListController : Controller
     {
         private readonly IContextDataService _contextDataService;

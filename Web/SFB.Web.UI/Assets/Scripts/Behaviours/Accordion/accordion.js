@@ -50,9 +50,14 @@
                 // expand this item
                 GOVUK.Collapsible.prototype.setExpanded.call(this, true);
 
-                // set focus to text box underneath expanded element
-                var input = $(this.getCollapsibleElement()).next().find('input[type=text]');
-                setTimeout(function () { input.focus(); }, 50);
+                // set focus to a control underneath expanded element       
+                var link = $(this.getCollapsibleElement()).next().find('a.focus-first');
+                if (link.length > 0) {
+                    setTimeout(function () { link.focus(); }, 50);
+                } else {
+                    var input = $(this.getCollapsibleElement()).next().find('input');
+                    setTimeout(function () { input.first().focus(); }, 50);
+                }
             }
         }
     });
@@ -195,7 +200,7 @@ AccordionSection.prototype.setup = function() {
   header.addEventListener('click', this.toggleExpanded.bind(this))
   header.addEventListener('keypress', this.keyPressed.bind(this))
   header.setAttribute('tabindex', '0')
-  header.setAttribute('role', 'button')
+  //header.setAttribute('role', 'button')
 
   //var button = this.element.querySelector('.chart-accordion-header')
   //button.setAttribute('aria-label', button.getAttribute('aria-label') + ' Show section')
@@ -232,9 +237,9 @@ AccordionSection.prototype.setExpanded = function(expanded) {
     var button = this.element.querySelector('.chart-accordion-header')
     if (button) {
         if (expanded) {
-            button.setAttribute('aria-label', button.getAttribute('aria-label').replace("Show", "Hide"))
+            button.setAttribute('aria-label', button.getAttribute('aria-label').replace("show", "hide"))
         } else {
-            button.setAttribute('aria-label', button.getAttribute('aria-label').replace("Hide", "Show"))
+            button.setAttribute('aria-label', button.getAttribute('aria-label').replace("hide", "show"))
         }
     }
 

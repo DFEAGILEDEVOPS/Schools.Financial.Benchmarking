@@ -138,10 +138,11 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title"><div role="document">' +
-                '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
+            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+                '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="additionalGrantModal" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Additional grant for schools</h1><p id="modal-content"><br/>' +
-                'This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.</p>';
+                'This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.</p>' +
+                '<a href="#" id="js-modal-close-bottom" class="modal-close" data-focus-back="additionalGrantModal" title="Close">Close</a></dialog>';
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');
@@ -187,10 +188,11 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
         
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title"><div role="document">' +
+            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Not enough space in basket</h1><p id="modal-content"><br/>' +
-                'You can only benchmark up to 30 schools. You can view and remove schools from the <a href=\'/benchmarklist\'>edit basket</a> page.</p>';
+                'You can only benchmark up to 30 schools. You can view and remove schools from the <a href=\'/benchmarklist\'>edit basket</a> page.</p>' +
+                '<a href="#" id="js-modal-close-bottom" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a></dialog>';
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');
@@ -210,10 +212,11 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title"><div role="document">' +
+            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Trust basket is full</h1><p id="modal-content"><br/>' +
-                'You can only benchmark up to 10 trusts.</p>';
+                'You can only benchmark up to 10 trusts.</p>' +
+                '<a href="#" id="js-modal-close-bottom" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a></dialog>';
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');
@@ -234,9 +237,10 @@
             var $page = $('#js-modal-page');
 
             var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
-                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='label_modal_1' title='Close'>Close</a>" +
+                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderYourChartsInfo' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>Your charts tab</h1><p id='modal-content'><br/>" +
-                "This tab shows which charts you have chosen to include in your customised report. You can add charts to this area by selecting the ‘Add to your charts’ function beside each chart. You can also add charts within the tab by selecting the relevant checkboxes.</p>";
+                "This tab shows which charts you have chosen to include in your customised report. You can add charts to this area by selecting the ‘Add to your charts’ function beside each chart. You can also add charts within the tab by selecting the relevant checkboxes.</p>" +
+                "</div><a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='renderYourChartsInfo' title='Close'>Close</a></dialog>";
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');
@@ -370,12 +374,12 @@
         });
         var suppressCookie = GOVUK.cookie("suppress-dynamic-header");
         if (suppressCookie === "yes") {
-            $(".dynamic-header").hide();
+            $(".header-content__dynamic-header ").hide();
         } else {
-            $(".dynamic-header").show();
+            $(".header-content__dynamic-header ").show();
         }
         $(".js-dismiss-dynamic-header").click(function () {
-            $(".dynamic-header").hide();
+            $(".header-content__dynamic-header ").hide();
             GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
         });
         $(".print-link a").click(function () { window.print(); });
@@ -393,20 +397,4 @@
     Math.log10 = Math.log10 || function (x) {
         return Math.log(x) * Math.LOG10E;
     };
-
-    //polyfill for includes()
-    if (!String.prototype.includes) {
-        String.prototype.includes = function (search, start) {
-            'use strict';
-            if (typeof start !== 'number') {
-                start = 0;
-            }
-
-            if (start + search.length > this.length) {
-                return false;
-            } else {
-                return this.indexOf(search, start) !== -1;
-            }
-        };
-    }
 }());

@@ -234,6 +234,17 @@
         maxValue: Model.BenchmarkCriteria.MaxPerSEN
         ))
 
+
+            @Html.Partial("Partials/Criteria/PercentageCriteria",
+    new BenchmarkCriteriaRangeVM(
+        question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL],
+        homeSchoolName: Model.BenchmarkSchool.Name,
+        elementName: "PerEAL",
+        minValue: Model.BenchmarkCriteria.MinPerEAL,
+        maxValue: Model.BenchmarkCriteria.MaxPerEAL
+        ))
+
             @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
         question: SchoolCharacteristicsQuestions.URBAN_RURAL,
@@ -251,15 +262,41 @@
         )
     )
 
-            @Html.Partial("Partials/Criteria/PercentageCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL],
+            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
+    new BenchmarkCriteriaMultipleChoiceVM(
+        question: SchoolCharacteristicsQuestions.LONDON_WEIGHTING,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.LONDON_WEIGHTING],
         homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "PerEAL",
-        minValue: Model.BenchmarkCriteria.MinPerEAL,
-        maxValue: Model.BenchmarkCriteria.MaxPerEAL
-        ))
+        elementName: "LondonWeighting",
+        options: new List<OptionVM>
+        {
+            new OptionVM("Inner", "Inner", Model.BenchmarkCriteria.LondonWeighting),
+            new OptionVM("Outer", "Outer", Model.BenchmarkCriteria.LondonWeighting),
+            new OptionVM("Neither", "Neither", Model.BenchmarkCriteria.LondonWeighting)
+        }
+        )
+    )
+
+            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
+    new BenchmarkCriteriaMultipleChoiceVM(
+        question: SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE,
+        homeSchoolValue: Model[SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE],
+        homeSchoolName: Model.BenchmarkSchool.Name,
+        elementName: "GovernmentOffice",
+        options: new List<OptionVM>
+        {
+            new OptionVM("East Midlands", "East Midlands", Model.BenchmarkCriteria.GovernmentOffice),
+            new OptionVM("East of England", "East of England", Model.BenchmarkCriteria.GovernmentOffice),
+            new OptionVM("London", "London", Model.BenchmarkCriteria.GovernmentOffice),
+            new OptionVM("North East", "North East", Model.BenchmarkCriteria.GovernmentOffice),
+            new OptionVM("North West", "North West", Model.BenchmarkCriteria.GovernmentOffice),
+            new OptionVM("South East", "South East", Model.BenchmarkCriteria.GovernmentOffice),
+            new OptionVM("South West", "South West", Model.BenchmarkCriteria.GovernmentOffice),
+            new OptionVM("West Midlands", "West Midlands", Model.BenchmarkCriteria.GovernmentOffice),
+            new OptionVM("Yorkshire and the Humber", "Yorkshire and the Humber", Model.BenchmarkCriteria.GovernmentOffice)
+        }
+        )
+    )
 
             @Html.Partial("Partials/Criteria/RadioboxCriteria",
     new BenchmarkCriteriaMultipleChoiceVM(
@@ -335,41 +372,6 @@
         maxValue: Model.BenchmarkCriteria.MaxHighestAgePupils
         ))
 
-            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-    new BenchmarkCriteriaMultipleChoiceVM(
-        question: SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "GovernmentOffice",
-        options: new List<OptionVM>
-        {
-            new OptionVM("East Midlands", "East Midlands", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("East of England", "East of England", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("London", "London", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("North East", "North East", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("North West", "North West", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("South East", "South East", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("South West", "South West", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("West Midlands", "West Midlands", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("Yorkshire and the Humber", "Yorkshire and the Humber", Model.BenchmarkCriteria.GovernmentOffice)
-        }
-        )
-    )
-
-            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-    new BenchmarkCriteriaMultipleChoiceVM(
-        question: SchoolCharacteristicsQuestions.LONDON_WEIGHTING,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.LONDON_WEIGHTING],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "LondonWeighting",
-        options: new List<OptionVM>
-        {
-            new OptionVM("Inner", "Inner", Model.BenchmarkCriteria.LondonWeighting),
-            new OptionVM("Outer", "Outer", Model.BenchmarkCriteria.LondonWeighting),
-            new OptionVM("Neither", "Neither", Model.BenchmarkCriteria.LondonWeighting)
-        }
-        )
-    )
 
             @Html.Partial("Partials/Criteria/PercentageCriteria",
     new BenchmarkCriteriaRangeVM(

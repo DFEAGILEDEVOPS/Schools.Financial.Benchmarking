@@ -6,6 +6,38 @@ namespace SFB.Web.Domain.Services.Comparison
 {
     public class BenchmarkCriteriaBuilderService : IBenchmarkCriteriaBuilderService
     {
+        public BenchmarkCriteria BuildFromBicComparisonCriteria(FinancialDataModel benchmarkSchoolData, BestInClassCriteria bicCriteria, int percentageMargin = 0)
+        {
+            var bmCriteria = new BenchmarkCriteria()
+            {
+                SchoolOverallPhase = new[] { bicCriteria.OverallPhase },
+                MinNoPupil = (bicCriteria.NoPupilsMin - (benchmarkSchoolData.PupilCount * percentageMargin / 100)) < 0 ? 0 : (bicCriteria.NoPupilsMin - (benchmarkSchoolData.PupilCount * percentageMargin / 100)),
+                MaxNoPupil = (bicCriteria.NoPupilsMax + (benchmarkSchoolData.PupilCount * percentageMargin / 100)),
+                MinPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMin - (benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals * percentageMargin / 100)),
+                MaxPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMax + (benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals * percentageMargin / 100)),
+                MinKs2Progress = bicCriteria.Ks2ProgressScoreMin,
+                MaxKs2Progress = bicCriteria.Ks2ProgressScoreMax,
+                MinP8Mea = bicCriteria.Ks4ProgressScoreMin,
+                MaxP8Mea = bicCriteria.Ks4ProgressScoreMax,
+                MinRRToIncome = bicCriteria.RRPerIncomeMin,
+                MinPerPupilExp = bicCriteria.PerPupilExpMin,
+                MaxPerPupilExp = bicCriteria.PerPupilExpMax
+            };
+
+            if (bicCriteria.SENEnabled)
+            {
+                bmCriteria.MinPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMin - (benchmarkSchoolData.PercentageOfPupilsWithSen * percentageMargin / 100));
+                bmCriteria.MaxPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMax + (benchmarkSchoolData.PercentageOfPupilsWithSen * percentageMargin / 100));
+            }
+
+            if(bicCriteria.UREnabled)
+            {
+                bmCriteria.UrbanRural = new[] { bicCriteria.UrbanRural };
+            }
+
+            return bmCriteria;
+        }
+
         public BenchmarkCriteria BuildFromSimpleComparisonCriteria(FinancialDataModel benchmarkSchoolData, SimpleCriteria simpleCriteria, int percentageMargin = 0)
         {
             return BuildFromSimpleComparisonCriteria(benchmarkSchoolData, simpleCriteria.IncludeFsm.GetValueOrDefault(),
@@ -29,22 +61,22 @@ namespace SFB.Web.Domain.Services.Comparison
             if(includeFsm)
             {
                 var fsm = benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals;
-                criteria.MinPerFSM =  (fsm - percentageMargin) < 0 ? 0 : (fsm - percentageMargin);
-                criteria.MaxPerFSM = fsm + percentageMargin;
+                criteria.MinPerFSM =  WithinPercentLimits(fsm - percentageMargin);
+                criteria.MaxPerFSM = WithinPercentLimits(fsm + percentageMargin);
             }
 
             if(includeSen)
             {
                 var sen = benchmarkSchoolData.PercentageOfPupilsWithSen;
-                criteria.MinPerSEN =  (sen - percentageMargin < 0) ? 0  : (sen - percentageMargin);
-                criteria.MaxPerSEN = sen + percentageMargin;
+                criteria.MinPerSEN =  WithinPercentLimits(sen - percentageMargin);
+                criteria.MaxPerSEN = WithinPercentLimits(sen + percentageMargin);
             }
 
             if(includeEal)
             {
                 var eal = benchmarkSchoolData.PercentageOfPupilsWithEal;
-                criteria.MinPerEAL = (eal - percentageMargin) < 0 ? 0 : (eal - percentageMargin) ;
-                criteria.MaxPerEAL = eal + percentageMargin;
+                criteria.MinPerEAL = WithinPercentLimits(eal - percentageMargin);
+                criteria.MaxPerEAL = WithinPercentLimits(eal + percentageMargin);
             }
 
             if(includeLa)
@@ -54,5 +86,19 @@ namespace SFB.Web.Domain.Services.Comparison
 
             return criteria;
         }
+
+        private decimal? WithinPercentLimits(decimal? percent)
+        {
+            if(percent > 100)
+            {
+                return 100;
+            }
+            if (percent < 0)
+            {
+                return 0;
+            }
+            else return percent;
+        }
     }
+
 }

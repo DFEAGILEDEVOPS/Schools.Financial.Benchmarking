@@ -56,6 +56,12 @@
       <HintPath>..\packages\Autofac.Mvc5.4.0.0\lib\net451\Autofac.Integration.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -84,6 +90,15 @@
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
@@ -105,16 +120,30 @@
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.1.0\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=5.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.5.0.2\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="RedDog.Search, Version=0.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RedDog.Search.0.5.3-pre\lib\net45\RedDog.Search.dll</HintPath>
@@ -201,19 +230,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BenchmarkChartsController.cs" />
     <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
     <Compile Include="Controllers\BenchmarkListController.cs" />
@@ -222,21 +246,25 @@
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
-    <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
+    <Compile Include="Attributes\AiHandleErrorAttribute.cs" />
     <Compile Include="Helpers\BenchmarkBasketCookieManager.cs" />
     <Compile Include="Helpers\DownloadCSVBuilder.cs" />
     <Compile Include="Helpers\Filters\DynamicHeaderMessageAttribute.cs" />
     <Compile Include="Helpers\HierarchicalCustomChartBuilder.cs" />
     <Compile Include="Helpers\HistoricalChartBuilder.cs" />
     <Compile Include="Helpers\IBenchmarkBasketCookieManager.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BenchmarkCriteriaMultipleChoiceVM.cs" />
     <Compile Include="Models\BenchmarkCriteriaRangeVM.cs" />
+    <Compile Include="Models\BestInClassCharacteristicsViewModel.cs" />
     <Compile Include="Models\CompareEntityBase.cs" />
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
     <Compile Include="Models\HierarchicalChartViewModel.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LaListViewModel.cs" />
     <Compile Include="Models\LaViewModel.cs" />
     <Compile Include="Controllers\LaController.cs" />
@@ -257,6 +285,8 @@
     <Compile Include="Models\DataTableColumnViewModel.cs" />
     <Compile Include="Models\BenchmarkChartListViewModel.cs" />
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
+    <Compile Include="Models\LocationListViewModel.cs" />
+    <Compile Include="Models\LocationViewModel.cs" />
     <Compile Include="Models\SchoolComparisonListModel.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
@@ -290,16 +320,18 @@
     <Compile Include="Services\FinancialCalculationsService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
     <Compile Include="Services\ILaSearchService.cs" />
+    <Compile Include="Services\ILocationSearchService.cs" />
     <Compile Include="Services\LaSearchService.cs" />
+    <Compile Include="Services\LocationSearchService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\BasicAuthenticationModule.cs" />
     <Compile Include="Utils\IRequestContext.cs" />
     <Compile Include="Utils\RequestContextWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Sass\utils\_accordion.scss" />
     <Content Include="App_Data\la.json" />
-    <Content Include="Assets\Sass\views\_add-schools.scss" />
+    <Content Include="App_Code\ViewHelpers.cshtml" />
+    <Content Include="Assets\Sass\views\_bic-characteristics.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -311,23 +343,20 @@
     <Content Include="Assets\Scripts\Elements\Forms\live-search.js" />
     <Content Include="Assets\Scripts\Elements\Forms\option-select.js" />
     <Content Include="Assets\Scripts\Elements\Modal\modal.js" />
-    <Content Include="Assets\Scripts\Elements\SchoolMap\school-map.js" />
-    <Content Include="Assets\Scripts\Views\advanced-characteristics.js" />
-    <Content Include="Assets\Scripts\Views\benchmark-charts.js" />
-    <Content Include="Assets\Scripts\Views\benchmark-list.js" />
-    <Content Include="Assets\Scripts\Views\criteria-by-area.js" />
-    <Content Include="Assets\Scripts\Views\google-location.js" />
-    <Content Include="Assets\Scripts\Views\historical-charts.js" />
-    <Content Include="Assets\Scripts\Views\school-results.js" />
-    <Content Include="Assets\Scripts\Views\schools-search.js" />
-    <Content Include="Assets\Scripts\Views\trust-compare.js" />
+    <Content Include="Assets\Scripts\Elements\SchoolMapES6\azure-school-results-map.js" />
+    <Content Include="Assets\Scripts\Elements\SchoolMapES6\azure-school-map.js" />
+    <Content Include="Assets\Scripts\ViewsES6\advanced-characteristics.js" />
+    <Content Include="Assets\Scripts\ViewsES6\benchmark-charts.js" />
+    <Content Include="Assets\Scripts\ViewsES6\benchmark-list.js" />
+    <Content Include="Assets\Scripts\ViewsES6\criteria-by-area.js" />
+    <Content Include="Assets\Scripts\ViewsES6\historical-charts.js" />
+    <Content Include="Assets\Scripts\ViewsES6\school-details.js" />
+    <Content Include="Assets\Scripts\ViewsES6\school-results.js" />
+    <Content Include="Assets\Scripts\ViewsES6\schools-search.js" />
+    <Content Include="Assets\Scripts\ViewsES6\trust-compare.js" />
+    <Content Include="Assets\Scripts\ViewsES6\trust-details.js" />
     <Content Include="browserconfig.xml" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="public\assets\images\accordion-arrow-2x.png" />
     <Content Include="public\assets\images\accordion-arrow.png" />
@@ -538,11 +567,6 @@
     <Content Include="Assets\Sass\views\_dashboard.scss" />
     <Content Include="Assets\Sass\views\_detailed-report.scss" />
     <Content Include="Assets\Sass\views\_summary-report.scss" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Assets\Sass\views\_schools-search-page.scss" />
     <Content Include="Assets\Sass\elements-page-ie6.scss" />
     <Content Include="Assets\Sass\elements-page-ie7.scss" />
@@ -669,13 +693,17 @@
     <Content Include="Views\BenchmarkCharts\Partials\ChartTableTrust.cshtml" />
     <Content Include="Views\Shared\Partials\ChartTable.cshtml" />
     <Content Include="Views\Shared\EmptyLocationResult.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\AllThroughPhase.cshtml" />
     <Content Include="Views\BenchmarkCharts\OneClickReport.cshtml" />
     <Content Include="Views\SchoolSearch\AddSchools.cshtml" />
     <Content Include="Views\Shared\Partials\Search\SchoolSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\TrustSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\LocationSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\LaSearchOption.cshtml" />
+    <Content Include="Views\Location\Suggest.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\BestInClassCharacteristics.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\BicHiddenFields.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\UsedBicCriteria.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
@@ -696,12 +724,10 @@
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\scripts\require\" />
     <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>

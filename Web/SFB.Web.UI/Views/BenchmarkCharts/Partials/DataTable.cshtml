@@ -6,17 +6,17 @@
 <table class="tablesorter dataTable">
     <thead>
     <tr>
-        <th class="school-column">School</th>
+        <th scope="col" class="school-column">School</th>
         @foreach (var column in Model.TableColumns)
         {
-            <th>
+            <th scope="col">
                 <span>@column.Name</span>
                 
                 <div class="sort-icon"></div>
 
             @if (column.HelpTooltip != null)
             {
-                <a class="helpLink" href="#" onclick="DfE.Util.ModalRenderer.RenderAdditionalGrantModal()">
+                <a class="helpLink" href="#" id="additionalGrantModal" onclick="DfE.Util.ModalRenderer.RenderAdditionalGrantModal()">
                     <img src="/public/assets/images/help-icon.png">
                 </a>
             }
@@ -35,7 +35,7 @@
                     if (school.Urn.StartsWith("MAT"))
                     {
                         var name = school.School.Substring(0, school.School.LastIndexOf("#"));
-                        <a target="_self" href="/trust/index?matno=@school.Urn&name=@name" class="@style">@name</a>
+                        <a target="_self" href="/trust/index?companyNo=@school.Urn&name=@name" class="@style">@name</a>
                     }
                     else
                     {

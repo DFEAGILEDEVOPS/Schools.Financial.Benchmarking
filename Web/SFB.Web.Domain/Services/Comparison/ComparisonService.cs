@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFB.Web.Common;
+using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.DataAccess;
@@ -13,64 +14,102 @@ namespace SFB.Web.Domain.Services.Comparison
     {
         private readonly IFinancialDataService _financialDataService;
         private readonly IContextDataService _contextDataService;
-        private readonly IBestInClassDataService _bestInBreedDataService;
         private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
 
-        public ComparisonService(IFinancialDataService financialDataService,  IContextDataService _contextDataService, IBestInClassDataService bestInBreedDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
+        public ComparisonService(IFinancialDataService financialDataService,  IContextDataService _contextDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService)
         {
             _financialDataService = financialDataService;
             this._contextDataService = _contextDataService;
-            _bestInBreedDataService = bestInBreedDataService;
             _benchmarkCriteriaBuilderService = benchmarkCriteriaBuilderService;
         }
 
         public async Task<ComparisonResult> GenerateBenchmarkListWithAdvancedComparisonAsync(BenchmarkCriteria criteria, EstablishmentType estType, int basketSize = ComparisonListLimit.LIMIT)
         {
-            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);
-            var limitedList = benchmarkSchools.Take(basketSize).ToList();
+            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);            
             return new ComparisonResult()
             {
-                BenchmarkSchools = limitedList,
+                BenchmarkSchools = benchmarkSchools,
                 BenchmarkCriteria = criteria
             };
         }
 
-        public bool IsBestInClassComparisonAvailable(int urn)
+        public async Task<ComparisonResult> GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType estType, 
+            BenchmarkCriteria benchmarkCriteria, BestInClassCriteria bicCriteria,
+            FinancialDataModel defaultSchoolFinancialDataModel)
         {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectsByUrn(urn);
+            //STEP 1: Straight search with prefilled criteria
+            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
-            return bestInBreedDataObject?.Count > 0;
-        }
-
-        public bool IsMultipleEfficienctMetricsAvailable(int urn)
-        {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectsByUrn(urn);
-
-            return bestInBreedDataObject?.Count > 1;
-        }
-
-        public List<BestInClassResult> GenerateBenchmarkListWithBestInClassComparison(int urn, string phase = null)
-        {
-            var bestInBreedDataObject = _bestInBreedDataService.GetBestInClassDataObjectByUrnAndPhase(urn, phase);
-
-            var results = new List<BestInClassResult>();
-
-            results.Add(new BestInClassResult()
+            if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Original query returns more than required. Clip from top by per people expenditure proximity.
             {
-                ContextData = _contextDataService.GetSchoolDataObjectByUrn(bestInBreedDataObject.URN),
-                Rank = bestInBreedDataObject.Rank
-            });
-
-            foreach (var neighbour in bestInBreedDataObject.Neighbours)
-            {
-                results.Add(new BestInClassResult()
-                {
-                    ContextData = _contextDataService.GetSchoolDataObjectByUrn(neighbour.URN),
-                    Rank = neighbour.Rank
-                });
+                benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.PerPupilTotalExpenditure.GetValueOrDefault() - defaultSchoolFinancialDataModel.PerPupilTotalExpenditure.GetValueOrDefault()))
+                    .Take(CriteriaSearchConfig.BIC_TARGET_POOL_COUNT).ToList();
             }
 
-            return results;
+            //STEP 2: Original query returns less than required. Expand criteria values gradually and try this max 10 times
+            var tryCount = 0;
+            while (benchmarkSchools.Count < CriteriaSearchConfig.BIC_TARGET_POOL_COUNT)
+            {
+                if (++tryCount > CriteriaSearchConfig.MAX_TRY_LIMIT) //Max query try reached. Return whatever is found.
+                {
+                    break;
+                }
+
+                benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(defaultSchoolFinancialDataModel, bicCriteria, tryCount);
+
+                benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
+
+                if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by per people expenditure proximity.
+                {
+                    benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.PerPupilTotalExpenditure.GetValueOrDefault() - defaultSchoolFinancialDataModel.PerPupilTotalExpenditure.GetValueOrDefault()))
+                        .Take(CriteriaSearchConfig.BIC_TARGET_POOL_COUNT).ToList();
+                    break;
+                }
+            }
+
+            //STEP 3: Query return is still less than required. Flex the Urban/Rural criteria gradually.
+            //tryCount = 1;
+            //while (benchmarkSchools.Count < CriteriaSearchConfig.BIC_TARGET_POOL_COUNT)
+            //{
+            //    var urbanRuralDefault = defaultSchoolFinancialDataModel.UrbanRural;
+            //    var urbanRuralKey = Dictionaries.UrbanRuralDictionary.First(d => d.Value == urbanRuralDefault).Key;
+
+            //    var urbanRuralQuery = Dictionaries.UrbanRuralDictionary.Where(d =>
+            //        d.Key >= urbanRuralKey - tryCount && d.Key <= urbanRuralKey + tryCount).Select(d => d.Value).ToArray();
+
+            //    benchmarkCriteria.UrbanRural = urbanRuralQuery;
+
+            //    benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
+
+            //    if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by per people expenditure proximity.
+            //    {
+            //        benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.PerPupilTotalExpenditure.GetValueOrDefault() - defaultSchoolFinancialDataModel.PerPupilTotalExpenditure.GetValueOrDefault()))
+            //            .Take(CriteriaSearchConfig.BIC_TARGET_POOL_COUNT).ToList();
+            //        break;
+            //    }
+
+            //    if (urbanRuralQuery.Length == Dictionaries.UrbanRuralDictionary.Count)
+            //    {
+            //        break;
+            //    }
+
+            //    tryCount++;
+            //}
+
+            //STEP 4: Further reduce pool of 50 (or less) to target 15 by highest progress measure
+            if (benchmarkSchools.Count > ComparisonListLimit.BIC)
+            {
+                benchmarkSchools = benchmarkSchools
+                    .OrderByDescending(b => b.Ks2Progress ?? b.Progress8Measure)
+                    .Take(ComparisonListLimit.BIC)
+                    .ToList();
+            }
+
+            return new ComparisonResult()
+            {
+                BenchmarkSchools = benchmarkSchools,
+                BenchmarkCriteria = benchmarkCriteria
+            };
         }
 
         public async Task<ComparisonResult> GenerateBenchmarkListWithSimpleComparisonAsync(
@@ -80,11 +119,11 @@ namespace SFB.Web.Domain.Services.Comparison
         {
             var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
 
-            if (benchmarkSchools.Count > basketSize) //Original query returns more than required. Cut from top by proximity.
+            if (benchmarkSchools.Count > basketSize) //Original query returns more than required. Clip from top by people count proximity.
             {
                 benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
                 benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
-                benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the criteria to reflect the max and min pupil count of the found schools
+                benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the used criteria to reflect the max and min pupil count of the found schools
             }
 
             var tryCount = 0;
@@ -109,7 +148,7 @@ namespace SFB.Web.Domain.Services.Comparison
             }
 
             tryCount = 1;
-            while (benchmarkSchools.Count < basketSize) //Query return is still less than required
+            while (benchmarkSchools.Count < basketSize) //Query return is still less than required. Flex the Urban/Rural criteria gradually.
             {
                 var urbanRuralDefault = defaultSchoolFinancialDataModel.UrbanRural;
                 var urbanRuralKey = Dictionaries.UrbanRuralDictionary.First(d => d.Value == urbanRuralDefault).Key;

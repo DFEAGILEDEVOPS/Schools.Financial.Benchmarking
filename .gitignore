@@ -211,3 +211,5 @@ Web/Web.UI.Automation/screenshots/*
 /Web/SFB.Web.UI/public/jquery
 /Web/SFB.Web.UI/public/jquery-simulate
 /Web/SFB.Web.DAL.Tests/App.config
+/Web/SFB.Web.UI/Assets/Scripts/Views/
+/Web/SFB.Web.UI/Assets/Scripts/Elements/SchoolMap/

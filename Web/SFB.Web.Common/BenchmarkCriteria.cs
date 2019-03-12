@@ -258,6 +258,18 @@ namespace SFB.Web.Common
         [DBField(name: SchoolTrustFinanceDBFieldNames.OFSTED_RATING_NAME, type: CriteriaFieldComparisonTypes.EQUALTO)]
         public string[] OfstedRating { get; set; }
 
+        [PrettyName(SchoolCharacteristicsQuestions.RR_TO_INCOME)]
+        [DBField(name: SchoolTrustFinanceDBFieldNames.RR_TO_INCOME, type: CriteriaFieldComparisonTypes.MIN)]
+        public decimal? MinRRToIncome { get; set; }
+
+        [PrettyName(SchoolCharacteristicsQuestions.PER_PUPIL_EXP)]
+        [DBField(name: SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP, type: CriteriaFieldComparisonTypes.MIN)]
+        public decimal? MinPerPupilExp { get; set; }
+
+        [PrettyName(SchoolCharacteristicsQuestions.PER_PUPIL_EXP)]
+        [DBField(name: SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP, type: CriteriaFieldComparisonTypes.MAX)]
+        public decimal? MaxPerPupilExp { get; set; }
+
         [PrettyName(SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY)]
         [Range(0, 100)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SPECIFIC_LEARNING_DIFFICULTY, type: CriteriaFieldComparisonTypes.MIN)]
