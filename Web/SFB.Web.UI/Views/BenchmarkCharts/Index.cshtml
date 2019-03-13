@@ -89,8 +89,8 @@ else
                     {
                         <span>&nbsp;to high progress schools</span>
                         <span class="bold-small"> with similar characteristics to yours. </span>
-                        <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit</button>
                     }
+                    <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                 </div>
             </div>
         }
@@ -99,11 +99,11 @@ else
             <div class="grid-row">
                 <div class="column-full">
                     <details class="criteria-details">
+                        <summary class="hide-in-print">
+                            <span class="summary font-xsmall">View characteristics used</span>
+                        </summary>
                         @if (Model.ComparisonType == ComparisonType.Advanced)
                         {
-                            <summary class="hide-in-print">
-                                <span class="summary">View or change characteristics used</span>
-                            </summary>
                             <div class="panel panel-border-narrow criteria-detail">
                                 @Html.Partial("Partials/AdvancedHiddenFields")
                                 @Html.Partial("Partials/UsedAdvancedCriteria")
@@ -111,9 +111,6 @@ else
                         }
                         else if (Model.ComparisonType == ComparisonType.Basic)
                         {
-                            <summary class="hide-in-print">
-                                <span class="summary">View or change characteristics used</span>
-                            </summary>
                             <div class="panel panel-border-narrow criteria-detail">
                                 @Html.Partial("Partials/BasicHiddenFields")
                                 @Html.Partial("Partials/UsedBasicCriteria")
@@ -121,9 +118,6 @@ else
                         }
                         else if (Model.ComparisonType == ComparisonType.BestInClass)
                         {
-                            <summary class="hide-in-print">
-                                <span class="summary">View characteristics used</span>
-                            </summary>
                             <div class="panel panel-border-narrow criteria-detail">
                                 @Html.Partial("Partials/BicHiddenFields")
                                 @Html.Partial("Partials/UsedBicCriteria")
