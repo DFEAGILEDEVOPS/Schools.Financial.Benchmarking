@@ -23,7 +23,6 @@
         .c3-bar._expanded_ {
             fill-opacity: 1;
         }
-
     </style>
 
     <!-- Google Tag Manager -->
@@ -94,22 +93,23 @@
 
 @section BodyEnd {
 
-    @if (!Request.Browser.Browser.Contains("MSIE 8"))//TODO: why do we have this?
-    {
-        <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
 
+    @if (Request.Browser.Browser.Contains("InternetExplorer"))
+    {
         <!--[if IE 9]>
         <script src="/public/scripts/termi/element.details.ie8.js"></script>
         <!--<![endif]-->
         <script src="/public/scripts/termi/element.details.js"></script>
-
-        <script src="/public/assets/scripts/application.js?v=@version"></script>
-        @(RenderSection("ViewScripts", required: false))
-
-        <script>
-            $('.sticky-div').Stickyfill();
-        </script>
     }
+
+    <script src="/public/assets/scripts/application.js?v=@version"></script>
+    @(RenderSection("ViewScripts", required: false))
+
+    <script>
+        $('.sticky-div').Stickyfill();
+    </script>
+
 
 }

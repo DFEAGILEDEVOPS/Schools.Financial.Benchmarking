@@ -53,16 +53,16 @@
                                                 </span>
                                             </span>
                                         }
-                                        <button class="link-button font-small inline hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">
-                                        @if (ViewBag.ChartFormat == ChartFormat.Charts)
-                                        {
-                                            <span class="view-more">View more charts</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="view-more">View more tables</span>
-                                        }
-                                        <span class="visuallyhidden"> for @Model[i].Name</span>
+                                        <button class="link-button font-xsmall inline hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">
+                                            @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                                            {
+                                                <span class="view-more">View more charts</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="view-more">View more tables</span>
+                                            }
+                                            <span class="visuallyhidden"> for @Model[i].Name</span>
                                         </button>
                                     </div>
                                 }
@@ -94,7 +94,7 @@
                                 {
                                     <div class="column-half font-xsmall no-padding">
                                         <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
-                                           aria-label="Save image of @Model[i].FieldName">
+                                                aria-label="Save image of @Model[i].FieldName">
                                             <i class="icon icon-save-image">
                                                 <span class="visually-hidden">Save as image</span>
                                             </i>
@@ -137,7 +137,7 @@
                                 {
                                     <div class="column-full font-xsmall no-padding">
                                         <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
-                                           aria-label="Save image of @Model[i].FieldName">
+                                                aria-label="Save image of @Model[i].FieldName">
                                             <i class="icon icon-save-image">
                                                 <span class="visually-hidden">Save as image</span>
                                             </i>
@@ -178,9 +178,9 @@
 
                             </div>
                         </div>
-                        <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
-                        <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)"/>
-                        <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)"/>
+                        <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                        <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)" />
+                        <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)" />
 
                         @if (Model[i].TableColumns != null && Model[i].TableColumns.Count > 0)
                         {
@@ -214,7 +214,7 @@
                                         <div class="your-chart-controls">
                                             <div class="column-half font-xsmall no-padding">
                                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
-                                                   aria-label="Save image of @Model[i].FieldName">
+                                                        aria-label="Save image of @Model[i].FieldName">
                                                     <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
                                                     <span>Save as image</span>
                                                 </button>
@@ -242,7 +242,7 @@
                                     {
                                         <div class="column-full font-xsmall no-padding">
                                             <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
-                                               aria-label="Save image of @Model[i].FieldName">
+                                                    aria-label="Save image of @Model[i].FieldName">
                                                 <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
                                                 <span>Save as image</span>
                                             </button>
@@ -283,9 +283,9 @@
 
                                     </div>
                                 </div>
-                                <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
-                                <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)"/>
-                                <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)"/>
+                                <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                                <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)" />
+                                <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)" />
                             }
                             @if (Model[i].TableColumns != null)
                             {
@@ -306,7 +306,7 @@
         if (ViewBag.TrustFinancing != null)
         {
             var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.TrustFinancing.ToString());
-                <text>(@matFinance.GetDescription())</text>
+            <text>(@matFinance.GetDescription())</text>
         }
     }
     else
@@ -316,7 +316,7 @@
             if (ViewBag.EstablishmentType != EstablishmentType.Maintained && ViewBag.Financing != null)
             {
                 var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
-                    <text>(@centralFinance.GetDescription())</text>
+                <text>(@centralFinance.GetDescription())</text>
             }
         }
 
@@ -324,8 +324,7 @@
 }
 
 
-@*//TODO: Call this in client side*@
-@if (Request.IsAjaxRequest())
+@if (Request.IsAjaxRequest() && Request.Browser.Browser.Contains("InternetExplorer"))
 {
     <script src="/public/scripts/termi/element.details.ajax.js"></script>
 }
