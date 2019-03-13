@@ -54,7 +54,7 @@ nav.tabs {
                     text-decoration: none;
                 }
 
-                button {
+                button, a {
                     color: $black;
                     border: 1px solid $grey-2;
                     margin: 0 0 -2px -1px;
@@ -75,7 +75,7 @@ nav.tabs {
                 }
             }
 
-            button {
+            button, a {
                 border: 1px solid transparent;
                 text-decoration: underline;
                 display: block;
@@ -89,13 +89,13 @@ nav.tabs {
                 @include media(mobile) {
                     padding: 10px 10px 0 10px;
                 }
-
                 /*&:focus {                    
                     outline: none;
                 }*/
             }
 
-            &.one-line button {
+            &.one-line button, &.one-line a
+            {
                 padding-top: 20px;
             }
         }

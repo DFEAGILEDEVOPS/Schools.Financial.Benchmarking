@@ -35,7 +35,7 @@
                         <div class="grid-row trust-element">
                             <label class="form-label" for="mat_@i">Trust @Html.Raw(i + 1)</label>
                             <input class="form-control" style="width: 50%" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
-                            <a class="remove-trust" href="javascript:void(0)" data-companyno="@Model[i].CompanyNo" aria-label="Remove @Model[i].MatName">Remove</a>
+                            <button class="remove-trust a-button" data-companyno="@Model[i].CompanyNo" aria-label="Remove @Model[i].MatName">Remove</button>
                         </div>
                     }
                 </div>
@@ -60,11 +60,11 @@
                     <div class="column-full">
                         @if (Model.Count < ComparisonListLimit.MAT_LIMIT)
                         {
-                            <a href="javascript:void(0);" id="displayNew">Add another trust</a>
+                            <button class="a-button" id="displayNew">Add another trust</button>
                         }
                         else
                         {
-                            <a href="javascript:void(0);" onclick="DfE.Util.ComparisonList.RenderFullListWarningModalMat()">Add another trust</a>
+                            <button class="a-button" onclick="DfE.Util.ComparisonList.RenderFullListWarningModalMat()">Add another trust</button>
                         }
                     </div>
                 </div>

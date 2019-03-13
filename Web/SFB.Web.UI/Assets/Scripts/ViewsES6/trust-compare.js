@@ -89,8 +89,7 @@
             });
 
 
-        $("a#removeAllTrusts").click(() => {
-            event.preventDefault();
+        $("#removeAllTrusts").click(() => {
             this.RemoveAllTrusts();
         });
     }
@@ -119,12 +118,12 @@
             this.checkResultCount();
         });
 
-        $("a.remove-trust").click((event) => {
+        $(".remove-trust").click((event) => {
             event.preventDefault();
             this.RemoveTrust($(event.target).data('companyno'));
         });
 
-        $("a#displayNew").click((event) => {
+        $("#displayNew").click((event) => {
             event.preventDefault();
             this.DisplayNewTrustElements();
         });

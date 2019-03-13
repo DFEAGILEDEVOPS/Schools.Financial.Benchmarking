@@ -131,7 +131,7 @@ main {
     }
 }
 
-a.home-link
+.home-link
 {
     display:inline-block;
     margin-top:10px;
@@ -374,7 +374,7 @@ dialog {
 }
 //modal dialog
 
-a.float-to-right{
+.float-to-right{
     float: right
 }
 
@@ -404,6 +404,10 @@ a.float-to-right{
     padding-left: 0;
     padding-right: 0;
     @include core-16;
+}
+
+.underline{
+    text-decoration: underline;
 }
 
 .chart.c3 svg {
@@ -570,9 +574,10 @@ span.back-link {
     font-weight:normal;
 }
 
-a.chevron-button {
+.chevron-button {
     text-decoration: none;
     color: $text-colour;
+    @include core-19;
 }
 
 .result-info{
@@ -589,8 +594,8 @@ abbr.summary{
     text-decoration-style: dotted;
 }
 
-a.skip-map{
-    color: white;
+.skip-map{
+    color: white!important;
     font-size: 16px;
     &:focus{
         height:auto;

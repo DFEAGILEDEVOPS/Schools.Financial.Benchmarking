@@ -75,7 +75,7 @@
                 margin-right: 25px;
             }
 
-            a.inline {
+            a.inline, button.inline {
                 display: inline;
                 white-space: nowrap;
 
@@ -416,11 +416,11 @@ nav.tabs ol li a.helpLink {
     }
 }
 
-nav.tabs ol li a.custom {    
+nav.tabs ol li a.custom, nav.tabs ol li button.custom {
     display: inline-block;
     padding-right: 30px
 }
-nav.tabs ol li.active a.custom {
+nav.tabs ol li.active a.custom, nav.tabs ol li.active button.custom {
     padding-right: 45px;
 
     @include media(tablet) {

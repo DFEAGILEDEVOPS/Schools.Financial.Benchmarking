@@ -158,13 +158,13 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</a>
+            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</button>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</a>
+            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</button>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</a>
+            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</button>
         </li>
     </ol>
 </nav>

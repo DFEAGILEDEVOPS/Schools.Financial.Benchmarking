@@ -1,13 +1,13 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 <div class="compare-buttons-panel compare-buttons-panel--set-unset">
-    <div class="compare-buttons-panel__column-full">
+    <div class="compare-buttons-panel__column-full column-full">
             
-        <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default link-button font-small" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
+        <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default link-button font-small no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
             <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt="Opens in a new window" />
             <span>Unset as default school</span>
         </button>
 
-        <button @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default link-button font-small" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
+        <button @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default link-button font-small no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
             <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt="Opens in a new window" />
             <span>Set as default school</span>
         </button>
@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="compare-buttons-panel">
-    <div class="compare-buttons-panel__column-full">
+    <div class="compare-buttons-panel__column-full column-full">
 
         <a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>
 
