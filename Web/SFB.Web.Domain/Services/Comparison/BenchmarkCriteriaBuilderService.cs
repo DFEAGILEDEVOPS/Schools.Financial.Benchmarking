@@ -11,6 +11,7 @@ namespace SFB.Web.Domain.Services.Comparison
             var bmCriteria = new BenchmarkCriteria()
             {
                 SchoolOverallPhase = new[] { bicCriteria.OverallPhase },
+                SchoolPhase = CriteriaSearchConfig.BIC_ALLOWED_PHASES,
                 MinKs2Progress = bicCriteria.Ks2ProgressScoreMin,
                 MaxKs2Progress = bicCriteria.Ks2ProgressScoreMax,
                 MinP8Mea = bicCriteria.Ks4ProgressScoreMin,
