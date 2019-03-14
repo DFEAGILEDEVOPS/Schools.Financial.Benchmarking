@@ -7,8 +7,14 @@
     display: inline;
 }
 .benchmark-school-value {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    margin-top: 8px;
     color: $grey-1;
+}
+
+.multiple-choice {
+    margin-bottom: 8px;
+    margin-top: 8px;
 }
 
 @include media(desktop) {
