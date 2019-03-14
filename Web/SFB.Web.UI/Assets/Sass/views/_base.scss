@@ -136,7 +136,7 @@ main {
     display:inline-block;
     margin-top:10px;
     font-size:15px;
-    color:black;
+    color:black!important;
     &:hover{color:black;}
     @include media(mobile)
     {
