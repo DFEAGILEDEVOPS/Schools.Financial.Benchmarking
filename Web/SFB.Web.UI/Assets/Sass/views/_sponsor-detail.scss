@@ -44,6 +44,7 @@
                 &__a--inline {
                     display: inline;
                     margin-left: 25px;
+                    @include core-16;
 
                     @include media(mobile) {
                         display: block;

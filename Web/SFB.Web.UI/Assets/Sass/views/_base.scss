@@ -396,14 +396,13 @@ dialog {
 }
 
 .a-button {
-    background: none;
-    border: none;
-    color: $link-colour;
-    text-decoration: none;
-    cursor: pointer;
-    padding-left: 0;
-    padding-right: 0;
-    @include core-16;
+    @include a-button;
+}
+
+.back-to-main-chart-group-button {
+    @include a-button;
+    margin-bottom: 1em;
+    display: none;
 }
 
 .underline{

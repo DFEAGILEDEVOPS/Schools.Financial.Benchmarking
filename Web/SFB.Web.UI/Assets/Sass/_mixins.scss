@@ -25,3 +25,14 @@
     -webkit-box-shadow: 0 2px 0 #7d8185;
     box-shadow: 0 2px 0 #7d8185;
 }
+
+@mixin a-button {
+    background: none;
+    border: none;
+    color: $link-colour;
+    text-decoration: none;
+    cursor: pointer;
+    padding-left: 0;
+    padding-right: 0;
+    @include core-16;
+}

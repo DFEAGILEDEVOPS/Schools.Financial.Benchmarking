@@ -476,11 +476,19 @@
         new Accordion(document.getElementById('bm-charts-accordion'));
     }
 
-    SelectGrouping(grouping) {
+    SelectGrouping(grouping, parentGrouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
         $("#BCHeader")[0].scrollIntoView();
         $("#ChartGroup").focus();
+        $(".back-to-main-chart-group-button .js-parent-group").text(parentGrouping);
+        $(".back-to-main-chart-group-button").show();
+    }
+
+    ResetGrouping() {
+        $('#ChartGroup').prop('selectedIndex', 0);
+        $("#ChartGroup").change();
+        $(".back-to-main-chart-group-button").hide();
     }
 
     RebuildCharts() {
