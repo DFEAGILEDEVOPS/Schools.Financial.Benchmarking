@@ -56,12 +56,15 @@ namespace SFB.Web.UI.UnitTests
             testResult.URN = 321;
             testResult.SchoolName = "test";
             testResult.FinanceType = "Academies";
+            testResult.Ks2Progress = 1;
             Task<List<SchoolTrustFinancialDataObject>> task = Task.Run(() =>
             {
                 return new List<SchoolTrustFinancialDataObject> { testResult };
             });
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+            mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModel(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
+                .Returns((int urn, EstablishmentType estType) => new FinancialDataModel("321","2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies));
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
             var testEduResult = new EdubaseDataObject();
@@ -100,7 +103,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
-            fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
+            fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";            
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object);
@@ -149,6 +152,8 @@ namespace SFB.Web.UI.UnitTests
 
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+            mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModel(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
+                .Returns((int urn, EstablishmentType estType) => new FinancialDataModel("321", "2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies));
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -232,6 +237,8 @@ namespace SFB.Web.UI.UnitTests
 
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+            mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModel(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
+                .Returns((int urn, EstablishmentType estType) => new FinancialDataModel("321", "2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies));
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
