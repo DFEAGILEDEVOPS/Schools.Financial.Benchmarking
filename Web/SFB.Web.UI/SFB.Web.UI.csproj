@@ -259,6 +259,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BenchmarkCriteriaMultipleChoiceVM.cs" />
     <Compile Include="Models\BenchmarkCriteriaRangeVM.cs" />
+    <Compile Include="Models\BenchmarkSchoolModel.cs" />
     <Compile Include="Models\BestInClassCharacteristicsViewModel.cs" />
     <Compile Include="Models\CompareEntityBase.cs" />
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />

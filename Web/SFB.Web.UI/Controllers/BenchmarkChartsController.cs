@@ -103,14 +103,17 @@ namespace SFB.Web.UI.Controllers
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
-            foreach (var schoolDoc in comparisonResult.BenchmarkSchools)
+            foreach (var schoolData in comparisonResult.BenchmarkSchools)
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
-                    Name = schoolDoc.SchoolName,
-                    Type = schoolDoc.Type,
-                    EstabType = schoolDoc.FinanceType,
-                    Urn = schoolDoc.URN.ToString()
+                    Name = schoolData.SchoolName,
+                    Type = schoolData.Type,
+                    EstabType = schoolData.FinanceType,
+                    Urn = schoolData.URN.ToString(),
+                    ProgressScore = schoolData.Ks2Progress.HasValue ?
+                        decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
+                        : schoolData.Progress8Measure
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }
@@ -789,7 +792,7 @@ namespace SFB.Web.UI.Controllers
                 Type = cookieObject.HomeSchoolType,
                 EstabType = cookieObject.HomeSchoolFinancialType,
                 Urn = cookieObject.HomeSchoolUrn,
-                //ProgressScore = bmSchool.LatestYearFinancialData?.Ks2Progress ?? bmSchool.LatestYearFinancialData?.P8Mea
+                ProgressScore = bmSchool.ProgressScore
             };
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);            
         }
