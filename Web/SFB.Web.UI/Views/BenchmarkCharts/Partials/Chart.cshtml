@@ -56,7 +56,7 @@
                                         <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto', '@Model[i].RevenueGroupName.ToLower()')">
                                             @if (ViewBag.ChartFormat == ChartFormat.Charts)
                                             {
-                                                <span class="view-more">All @Model[i].Name.ToLower() charts</span>
+                                                <span class="view-more">All @Model[i].Name.Replace("total","").ToLower() charts</span>
                                             }
                                             else
                                             {
