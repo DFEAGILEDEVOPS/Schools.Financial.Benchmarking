@@ -30,6 +30,10 @@ namespace SFB.Web.Common
         [DBField(name: SchoolTrustFinanceDBFieldNames.SCHOOL_PHASE, type: CriteriaFieldComparisonTypes.EQUALTO)]
         public string[] SchoolPhase { get; set; }
 
+        [PrettyName(SchoolCharacteristicsQuestions.PERIOD_COVERED_BY_RETURN)]
+        [DBField(name: SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN, type: CriteriaFieldComparisonTypes.EQUALTO)]
+        public int PeriodCoveredByReturn { get; set; }
+
         [PrettyName(SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE, type: CriteriaFieldComparisonTypes.EQUALTO)]
         public string[] TypeOfEstablishment { get; set; }
@@ -41,10 +45,6 @@ namespace SFB.Web.Common
         [PrettyName(SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.REGION, type: CriteriaFieldComparisonTypes.EQUALTO)]
         public string[] GovernmentOffice { get; set; }
-
-        //[PrettyName(SchoolCharacteristicsQuestions.LONDON_WEIGHTING)]
-        //[DBField(name: SchoolTrustFinanceDBFieldNames.LONDON_BOROUGH, type: CriteriaFieldComparisonTypes.EQUALTO)]
-        //public string[] LondonBorough { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.LONDON_WEIGHTING)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.LONDON_WEIGHT, type: CriteriaFieldComparisonTypes.EQUALTO)]

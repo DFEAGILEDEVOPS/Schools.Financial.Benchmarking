@@ -12,6 +12,7 @@ namespace SFB.Web.Domain.Services.Comparison
             {
                 SchoolOverallPhase = new[] { bicCriteria.OverallPhase },
                 SchoolPhase = CriteriaSearchConfig.BIC_ALLOWED_PHASES,
+                PeriodCoveredByReturn = 12,
                 MinKs2Progress = bicCriteria.Ks2ProgressScoreMin,
                 MaxKs2Progress = bicCriteria.Ks2ProgressScoreMax,
                 MinP8Mea = bicCriteria.Ks4ProgressScoreMin,

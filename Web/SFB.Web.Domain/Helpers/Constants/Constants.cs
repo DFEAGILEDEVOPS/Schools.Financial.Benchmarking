@@ -48,10 +48,10 @@
         public const int DEFAULT_MARGIN = 10;
         public const int MAX_TRY_LIMIT = 10;
         public const decimal BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP = 10M;
-        public const decimal BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP = 400M;
-        public const decimal BIC_DEFAULT_CONSTANT_FSM_TOPUP = 4M;
-        public const decimal BIC_DEFAULT_FLEX_PUPIL_COUNT = 0.25M;
-        public const decimal BIC_DEFAULT_FLEX_EXP_PP_MAX = 0.1M;
+        //public const decimal BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP = 400M;
+        public const decimal BIC_DEFAULT_CONSTANT_FSM_TOPUP = 3M;
+        public const decimal BIC_DEFAULT_FLEX_PUPIL_COUNT = 0.15M;
+        //public const decimal BIC_DEFAULT_FLEX_EXP_PP_MAX = 0.1M;
         public const decimal BIC_DEFAULT_FLEX_SEN = 0.15M;
         public const decimal BIC_DEFAULT_FLEX_FSM = 0.1M;
         public const decimal RR_PER_INCOME_TRESHOLD = -5M;
