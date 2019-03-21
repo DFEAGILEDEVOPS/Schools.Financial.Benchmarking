@@ -256,7 +256,8 @@ else
                                     @if (ViewBag.HomeSchoolPhase == "Secondary")
                                     {
                                         <h2 class="heading-small">Overall Progress 8 - all pupils</h2>
-                                    } else
+                                    }
+                                    else
                                     {
                                         <h2 class="heading-small">Overall key stage 2 progress - all pupils</h2>
                                     }
@@ -267,37 +268,12 @@ else
                                         <thead>
                                             <tr>
                                                 <th nowrap scope="col" class="school-column">School</th>
-                                                <th scope="col">Local authority</th>
-                                                <th nowrap class="numeric" scope="col">
-                                                    Pupils
-                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
-                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </button>
-                                                </th>
-                                                <th nowrap scope="col">
-                                                    FSM
-                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
-                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </button>
-                                                </th>
-                                                <th nowrap scope="col">
-                                                    EHCP
-                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
-                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </button>
-                                                </th>
-                                                <th scope="col">
-                                                    Expenditure per pupil
-                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
-                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </button>
-                                                </th>
-                                                <th scope="col">
-                                                    Urban/rural description
-                                                    <button class="helpLink link-button no-padding" onclick="DfE.Util.ComparisonList.RenderBicCriteriaInfoModal(event)">
-                                                        <img class="help-image" src="/public/assets/images/help-icon.png">
-                                                    </button>
-                                                </th>
+                                                <th nowrap scope="col">Local authority</th>
+                                                <th nowrap class="numeric" scope="col">Pupils</th>
+                                                <th nowrap scope="col">FSM</th>
+                                                <th nowrap scope="col">EHCP</th>
+                                                <th scope="col">Expenditure per pupil</th>
+                                                <th scope="col">Urban/rural description</th>
                                                 @if (ViewBag.HomeSchoolPhase == "Secondary")
                                                 {
                                                     <th nowrap class="numeric" scope="col">
@@ -322,19 +298,24 @@ else
                                             @foreach (var bicSchool in Model.BicComparisonSchools.OrderByDescending(s => s.ProgressScore))
                                             {
                                                 <tr>
-                                                    <td scope="col" class="school-column">                                                        
-                                                        <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a> 
+                                                    <td scope="col" class="school-column">
+                                                        <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a>
                                                         @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
                                                     </td>
-                                                <td scope="col">@bicSchool.LaName</td>
-                                                <td class="numeric" scope="col">@bicSchool.TotalPupils</td>
-                                                <td class="numeric" scope="col">@bicSchool.FSM</td>
-                                                <td class="numeric" scope="col">@bicSchool.SEN</td>
-                                                <td class="numeric" scope="col">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
-                                                <td class="numeric" scope="col">@bicSchool.UrbanRural</td>
-                                                <td class="numeric" scope="col">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</td>
-                                            </tr>
-                                        }
+                                                    <td scope="col">@bicSchool.LaName</td>
+                                                    <td class="numeric" scope="col">@bicSchool.TotalPupils</td>
+                                                    <td class="numeric" scope="col">@bicSchool.FSM</td>
+                                                    <td class="numeric" scope="col">@bicSchool.SEN</td>
+                                                    <td class="numeric" scope="col">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
+                                                    <td class="numeric" scope="col">@bicSchool.UrbanRural</td>
+                                                    <td class="numeric no-padding" scope="col">
+                                                        <div class="score @ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault())">
+                                                            <div class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</div>
+                                                            <div class="no-wrap">@ScoreText(bicSchool.ProgressScore.GetValueOrDefault())</div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -359,6 +340,106 @@ else
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
         <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />
         <input type="hidden" id="HomeSchoolName" name="HomeSchoolName" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
+    }
+}
+
+@helper ScoreText(decimal score)
+{
+    if (ViewBag.HomeSchoolPhase == "Secondary")
+    {
+        if (score < -0.5m)
+        {
+            @("Well below average")
+        }
+        else if (score >= -0.5m && score < -0.25m)
+        {
+            @("Below average")
+        }
+        else if (score >= -0.25m && score <= 0.25m)
+        {
+            @("Average")
+        }
+        else if (score > 0.25m && score <= 0.5m)
+        {
+            @("Above average")
+        }
+        else if (score > 0.5m)
+        {
+            @("Well above average")
+        }
+    }
+    else
+    {
+        if (score < -3m)
+        {
+            @("Well below average")
+        }
+        else if (score >= -3m && score < -2m)
+        {
+            @("Below average")
+        }
+        else if (score >= -2m && score <= 2m)
+        {
+            @("Average")
+        }
+        else if (score > 2m && score <= 3m)
+        {
+            @("Above average")
+        }
+        else if (score > 3m)
+        {
+            @("Well above average")
+        }
+    }
+}
+
+@helper ScoreColorCode(decimal score)
+{
+    if (ViewBag.HomeSchoolPhase == "Secondary")
+    {
+        if (score < -0.5m)
+        {
+            @("well-below")
+        }
+        else if (score >= -0.5m && score < -0.25m)
+        {
+            @("below")
+        }
+        else if (score >= -0.25m && score <= 0.25m)
+        {
+            @("average")
+        }
+        else if (score > 0.25m && score <= 0.5m)
+        {
+            @("above")
+        }
+        else if (score > 0.5m)
+        {
+            @("well-above")
+        }
+    }
+    else
+    {
+        if (score < -3m)
+        {
+            @("well-below")
+        }
+        else if (score >= -3m && score < -2m)
+        {
+            @("below")
+        }
+        else if (score >= -2m && score <= 2m)
+        {
+            @("average")
+        }
+        else if (score > 2m && score <= 3m)
+        {
+            @("above")
+        }
+        else if (score > 3m)
+        {
+            @("well-above")
+        }
     }
 }
 

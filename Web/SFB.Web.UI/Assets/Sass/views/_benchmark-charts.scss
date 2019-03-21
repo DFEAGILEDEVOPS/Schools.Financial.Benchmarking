@@ -38,8 +38,6 @@
         }
     }
 
-
-
     .charts-section {
 
         #bm-charts-accordion {
@@ -439,4 +437,58 @@ nav.tabs ol li.active a.custom, nav.tabs ol li.active button.custom {
 
 .help-image{
     vertical-align: top;
+}
+
+.score {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: .6em;
+    line-height: 14px;
+    margin: 0 0 0 1em;
+
+    &.well-below {
+        background-color: #df3034;
+        color: #fff;
+    }
+
+    &.below {
+        background-color: #f47738;
+        color: #fff;
+    }
+
+    &.average {
+        background-color: #ffbf47;
+    }
+
+    &.above {
+        background-color: #85994b;
+        color: #fff;
+    }
+
+    &.well-above {
+        background-color: #006435;
+        color: #fff;
+    }
+}
+
+.modal__score {
+    display: inline-block;
+    font-size: 1.4rem;
+    text-align:center;
+    width:18%;
+    margin-left: 0.6em;
+
+    .score {
+        font-size: 1.4rem;
+        padding: 1em 0.3em;
+        margin: 0.5em 0;
+    }
+}
+
+.modal__score:first-of-type {
+    margin-left: 0;
 }
