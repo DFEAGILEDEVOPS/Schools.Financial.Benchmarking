@@ -492,3 +492,16 @@ nav.tabs ol li.active a.custom, nav.tabs ol li.active button.custom {
 .modal__score:first-of-type {
     margin-left: 0;
 }
+
+.chart-table__score {
+    font-size: 1.4rem;
+    padding: .4em .2em;
+    line-height: 1.4rem;
+    margin: 0;
+    width: 50%;
+    float: right;
+}
+
+.chart-table__score__text{
+    vertical-align: sub;
+}

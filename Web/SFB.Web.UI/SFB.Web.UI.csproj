@@ -705,6 +705,7 @@
     <Content Include="Views\BenchmarkCharts\Partials\BicHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedBicCriteria.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\BicTabContent.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

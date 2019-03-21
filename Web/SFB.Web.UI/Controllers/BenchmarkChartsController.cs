@@ -380,7 +380,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
-            ViewBag.HomeSchoolPhase = benchmarkSchoolData?.SchoolPhase;
+            ViewBag.ComparisonType = comparisonType;
+            ViewBag.BicComparisonPhase = bicComparisonSchools?.FirstOrDefault()?.Phase;
 
             return View("Index", vm);
         }
@@ -423,7 +424,9 @@ namespace SFB.Web.UI.Controllers
             return View("Index",vm);
         }
 
-        public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
+        public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, 
+            CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies, 
+            ChartFormat format = ChartFormat.Charts, ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonPhase = "Primary")
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -483,11 +486,16 @@ namespace SFB.Web.UI.Controllers
             ViewBag.TrustFinancing = trustFinancing;
             ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustCompanyNo.ToString() : vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.ChartFormat = format;
+            ViewBag.ComparisonType = comparisonType;
+            ViewBag.BicComparisonPhase = bicComparisonPhase;
 
             return PartialView("Partials/TabContent", vm);
         }
 
-        public async Task<PartialViewResult> GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,EstablishmentType type = EstablishmentType.All, ChartFormat format = ChartFormat.Charts)
+        public async Task<PartialViewResult> GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, 
+            CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,
+            EstablishmentType type = EstablishmentType.All, ChartFormat format = ChartFormat.Charts,
+            ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonPhase = "Primary")
         {
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
@@ -507,6 +515,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = centralFinancing;
             ViewBag.TrustFinancing = trustCentralFinancing;
             ViewBag.ChartGroup = chartGroup;
+            ViewBag.ComparisonType = comparisonType;
+            ViewBag.BicComparisonPhase = bicComparisonPhase;
 
             return PartialView("Partials/Chart", benchmarkCharts);
         }

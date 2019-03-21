@@ -10,6 +10,27 @@
                 School name
                 <button aria-hidden="True" class="hide-show-button hide detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&#9654;</button>
             </th>
+            @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
+            {
+                if (ViewBag.BicComparisonPhase == "Secondary")
+                {
+                    <th class="detail" scope="col" data-header="Progress Score">
+                        Progress 8
+                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                            <img class="help-image" src="/public/assets/images/help-icon.png">
+                        </button>
+                    </th>
+                }
+                else
+                {
+                    <th class="detail" scope="col" data-header="Progress Score">
+                        KS2 progress
+                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                            <img class="help-image" src="/public/assets/images/help-icon.png">
+                        </button>
+                    </th>
+                }
+            }
             <th class="detail" scope="col" data-header="Local authority">Local authority</th>
             <th class="detail" scope="col" data-header="School type">School type</th>
             <th class="detail" scope="col" data-header="Number of pupils">Number of pupils</th>
@@ -25,58 +46,67 @@
 
             var schoolBenchmarkData = Model.BenchmarkData[i];
 
-            <tr>
-                @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
+        <tr>
+            @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
+            {
+                <td class="school-column" data-header="School name">
+                    <span class="table-highlight index-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
+                </td>
+            }
+            else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
+            {
+                <td class="school-column" data-header="School name">
+                    <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete financial data</span>
+                </td>
+            }
+            else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
+            {
+                <td class="school-column" data-header="School name">
+                    <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete workforce data</span>
+                </td>
+            }
+            else
+            {
+                <td class="school-column" data-header="School name">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+            }
+
+            @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
+            {
+                <td class="detail" data-header="Progress Score">
+                    <div class="score chart-table__score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonPhase)">
+                        <span class="chart-table__score__text">@schoolBenchmarkData.ProgressScore</span>
+                    </div>
+                </td>
+            }
+
+            <td class="detail" data-header="Local authority">@schoolBenchmarkData.La</td>
+            <td class="detail" data-header="School type">@schoolBenchmarkData.Type</td>
+            <td class="detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount</td>
+            <td data-header="Amount">
+                @if (schoolBenchmarkData.Amount.HasValue)
                 {
-                    <td class="school-column" data-header="School name">
-                        <span class="table-highlight index-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
-                    </td>
-                }
-                else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
-                {
-                    <td class="school-column" data-header="School name">
-                        <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete financial data</span>
-                    </td>
-                }
-                else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
-                {
-                    <td class="school-column" data-header="School name">
-                        <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete workforce data</span>
-                    </td>
+                    switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
+                    {
+                        case UnitType.PercentageOfTotal:
+                        case UnitType.FTERatioToTotalFTE:
+                            @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                            break;
+                        case UnitType.HeadcountPerFTE:
+                        case UnitType.AbsoluteCount:
+                        case UnitType.NoOfPupilsPerMeasure:
+                            @schoolBenchmarkData.Amount.GetValueOrDefault()
+                            break;
+                        default:
+                            @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                            break;
+                    }
                 }
                 else
                 {
-                    <td class="school-column" data-header="School name">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                    <text>Not applicable</text>
                 }
-
-                <td class="detail" data-header="Local authority">@schoolBenchmarkData.La</td>
-                <td class="detail" data-header="School type">@schoolBenchmarkData.Type</td>
-                <td class="detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount</td>
-                <td data-header="Amount">
-                    @if (schoolBenchmarkData.Amount.HasValue)
-                    {
-                        switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
-                        {
-                            case UnitType.PercentageOfTotal:
-                            case UnitType.FTERatioToTotalFTE:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
-                                break;
-                            case UnitType.HeadcountPerFTE:
-                            case UnitType.AbsoluteCount:
-                            case UnitType.NoOfPupilsPerMeasure:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault()
-                                break;
-                            default:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        <text>Not applicable</text>
-                    }
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

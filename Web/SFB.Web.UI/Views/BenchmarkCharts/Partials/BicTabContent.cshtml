@@ -1,0 +1,125 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+<div id="bestInClassTabSection">
+    <div class="grid-row">
+        <div class="column-full">
+            @if (ViewBag.BicComparisonPhase == "Secondary")
+            {
+                <h2 class="heading-small">Overall Progress 8 - all pupils</h2>
+            }
+            else
+            {
+                <h2 class="heading-small">Overall key stage 2 progress - all pupils</h2>
+            }
+
+            <p class="no-margin mt-1">Showing <span class="bold-xsmall">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>
+
+            <table class="tablesorter dataTable">
+                <thead>
+                    <tr>
+                        <th nowrap scope="col" class="school-column">School</th>
+                        <th nowrap scope="col">Local authority</th>
+                        <th nowrap class="numeric" scope="col">Pupils</th>
+                        <th nowrap scope="col">FSM</th>
+                        <th nowrap scope="col">EHCP</th>
+                        <th scope="col">Expenditure per pupil</th>
+                        <th scope="col">Urban/rural description</th>
+                        @if (ViewBag.BicComparisonPhase == "Secondary")
+                        {
+                            <th nowrap class="numeric" scope="col">
+                                Progress 8
+                                <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                                    <img class="help-image" src="/public/assets/images/help-icon.png">
+                                </button>
+                            </th>
+                        }
+                        else
+                        {
+                            <th class="numeric" scope="col">
+                                Key stage 2 progress
+                                <button class="helpLink link-button no-padding" id="renderKs2Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                    <img class="help-image" src="/public/assets/images/help-icon.png">
+                                </button>
+                            </th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var bicSchool in Model.BicComparisonSchools.OrderByDescending(s => s.ProgressScore))
+                    {
+                        <tr>
+                            <td scope="col" class="school-column">
+                                <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a>
+                                @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                            </td>
+                            <td scope="col">@bicSchool.LaName</td>
+                            <td class="numeric" scope="col">@bicSchool.TotalPupils</td>
+                            <td class="numeric" scope="col">@bicSchool.FSM</td>
+                            <td class="numeric" scope="col">@bicSchool.SEN</td>
+                            <td class="numeric" scope="col">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
+                            <td class="numeric" scope="col">@bicSchool.UrbanRural</td>
+                            <td class="numeric no-padding" scope="col">
+                                <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonPhase)">
+                                    <div class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</div>
+                                    <div class="no-wrap">@ScoreText(bicSchool.ProgressScore.GetValueOrDefault())</div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@helper ScoreText(decimal score)
+{
+    if (ViewBag.BicComparisonPhase == "Secondary")
+    {
+        if (score < -0.5m)
+        {
+            @("Well below average")
+        }
+        else if (score >= -0.5m && score < -0.25m)
+        {
+            @("Below average")
+        }
+        else if (score >= -0.25m && score <= 0.25m)
+        {
+            @("Average")
+        }
+        else if (score > 0.25m && score <= 0.5m)
+        {
+            @("Above average")
+        }
+        else if (score > 0.5m)
+        {
+            @("Well above average")
+        }
+    }
+    else
+    {
+        if (score < -3m)
+        {
+            @("Well below average")
+        }
+        else if (score >= -3m && score < -2m)
+        {
+            @("Below average")
+        }
+        else if (score >= -2m && score <= 2m)
+        {
+            @("Average")
+        }
+        else if (score > 2m && score <= 3m)
+        {
+            @("Above average")
+        }
+        else if (score > 3m)
+        {
+            @("Well above average")
+        }
+    }
+}

@@ -499,6 +499,8 @@
         let trustCentralFinancing = $("#TrustCentralFinancing").val();
         let formatParameter = sessionStorage.chartFormat;
         let type = $("#Type").val();
+        let comparisonType = $("#ComparisonType").val();
+        let bicComparisonPhase = $("#BicComparisonPhase").val();
 
         let url = "/benchmarkcharts/getcharts?revgroup=" +
             tabParameter +
@@ -521,6 +523,14 @@
 
         if (formatParameter) {
             url += "&format=" + formatParameter;
+        }
+
+        if (comparisonType) {
+            url += "&comparisonType=" + comparisonType;
+        }
+
+        if (bicComparisonPhase) {
+            url += "&bicComparisonPhase=" + bicComparisonPhase;
         }
 
         $.ajax({
@@ -582,6 +592,8 @@
             let trustFinancingParameter = $("#TrustCentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             let typeParameter = $("#Type").val();
+            let comparisonType = $("#ComparisonType").val();
+            let bicComparisonPhase = $("#BicComparisonPhase").val();
             let formatParameter = sessionStorage.chartFormat;
             let url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
@@ -594,6 +606,12 @@
             }
             if (formatParameter) {
                 url += "&format=" + formatParameter;
+            }
+            if (comparisonType) {
+                url += "&comparisonType=" + comparisonType;
+            }
+            if (bicComparisonPhase) {
+                url += "&bicComparisonPhase=" + bicComparisonPhase;
             }
             $.ajax({
                 url: url,
