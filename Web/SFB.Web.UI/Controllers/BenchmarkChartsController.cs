@@ -340,7 +340,9 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            var defaultUnitType = tab == RevenueGroupType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
+            var defaultUnitType = tab == RevenueGroupType.Workforce ? 
+                UnitType.AbsoluteCount : 
+                comparisonType == ComparisonType.BestInClass ? UnitType.PerPupil : UnitType.AbsoluteMoney;
             var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(tab, chartGroup, defaultUnitType, financing);
             var establishmentType = DetectEstablishmentType(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 

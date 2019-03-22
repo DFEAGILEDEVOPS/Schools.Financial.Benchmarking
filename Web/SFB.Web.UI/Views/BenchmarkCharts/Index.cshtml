@@ -247,12 +247,7 @@ else
                 <div id="CustomReportContentPlaceHolder">
 
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-                    @if (Model.ComparisonType == ComparisonType.BestInClass)
-                    {
-                        @Html.Partial("Partials/BicTabContent")
-                    }
-
-                    <div id="tabsSection" style="display: @Html.Raw(Model.ComparisonType != ComparisonType.BestInClass ? "block" : "none")">
+                    <div id="tabsSection">
                         @Html.Partial("Partials/TabContent")
                     </div>
                     @if (Model.EstablishmentType != EstablishmentType.MAT)
@@ -260,6 +255,10 @@ else
                         <div id="customTabSection" style="display: none">
                             @Html.Partial("Partials/CustomTabContent")
                         </div>
+                    }
+                    @if (Model.ComparisonType == ComparisonType.BestInClass)
+                    {
+                        @Html.Partial("Partials/BicTabContent")
                     }
                 </div>
             </div>
