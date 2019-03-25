@@ -152,7 +152,7 @@ namespace SFB.Web.UI.Models
                     case OfstedRatings.Rating.REQUIRES_IMPROVEMENT:
                         return OfstedRatings.Description.REQUIRES_IMPROVEMENT;
                     default:
-                        return null;
+                        return OfstedRatings.Description.NOT_RATED;
                 }
             }
         }
