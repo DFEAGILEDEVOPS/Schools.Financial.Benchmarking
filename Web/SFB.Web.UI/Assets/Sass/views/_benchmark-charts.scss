@@ -502,6 +502,25 @@ nav.tabs ol li.active a.custom, nav.tabs ol li.active button.custom {
     float: right;
 }
 
-.chart-table__score__text{
+.chart__score {
+    font-size: 1.4rem;
+    padding: .21em .2em;
+    line-height: 1.4rem;
+    margin-right:0;
+    margin-left:0;  
+    display: block;
+    float: none;
+}
+
+.chart-table__score__text, .chart__score__text {
     vertical-align: sub;
+}
+
+.chart-scores-wrapper {
+    width: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    float: right;
+    padding-top: 28px;
 }
