@@ -88,6 +88,35 @@ namespace SFB.Web.UI.Controllers
             return await Index(urn, simpleCriteria, benchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GenerateFromBicCriteria(int urn)
+        {
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
+            var bmFinancialData = benchmarkSchool.LatestYearFinancialData;
+
+            var bicCriteria = new BestInClassCriteria()
+                {
+                    EstablishmentType = benchmarkSchool.EstablishmentType,
+                    OverallPhase = benchmarkSchool.OverallPhase,
+                    UrbanRural = bmFinancialData.UrbanRural,
+                    NoPupilsMin = WithinPositiveLimits((bmFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
+                    NoPupilsMax = (bmFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
+                    PerPupilExpMin = 0,
+                    PerPupilExpMax = bmFinancialData.PerPupilTotalExpenditure.GetValueOrDefault(),
+                    PercentageFSMMin = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                    PercentageFSMMax = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                    PercentageSENMin = bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
+                    PercentageSENMax = WithinPercentLimits(bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
+                    Ks2ProgressScoreMin = bmFinancialData.Ks2Progress.HasValue ? 0 : (decimal?)null,
+                    Ks2ProgressScoreMax = bmFinancialData.Ks2Progress.HasValue ? +20 : (decimal?)null,
+                    Ks4ProgressScoreMin = bmFinancialData.P8Mea.HasValue ? 0 : (decimal?)null,
+                    Ks4ProgressScoreMax = bmFinancialData.P8Mea.HasValue ? +5 : (decimal?)null,
+                    RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD
+                };
+
+            return await GenerateFromBicCriteria(urn, bicCriteria);
+        }
+
         [HttpPost]
         public async Task<ActionResult> GenerateFromBicCriteria(int urn, BestInClassCriteria bicCriteria)
         {
@@ -839,6 +868,28 @@ namespace SFB.Web.UI.Controllers
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }
+        }
+
+        private decimal WithinPercentLimits(decimal percent)
+        {
+            if (percent > 100)
+            {
+                return 100;
+            }
+            if (percent < 0)
+            {
+                return 0;
+            }
+            else return percent;
+        }
+
+        private decimal WithinPositiveLimits(decimal value)
+        {
+            if (value < 0)
+            {
+                return 0;
+            }
+            else return value;
         }
 
     }

@@ -69,7 +69,7 @@ namespace SFB.Web.UI.Controllers
             switch (comparisonType)
             {
                 case ComparisonType.BestInClass:
-                    return BestInClassCharacteristics(urn, null);
+                    return HighestProgressSchoolsBenchmarking(urn);
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn, comparisonType);
                 case ComparisonType.Advanced:
@@ -181,37 +181,24 @@ namespace SFB.Web.UI.Controllers
         }
 
         /// <summary>
-        /// Step 1 - Best in class
+        /// Step 1 - Best in class interstitial
+        /// </summary>
+        /// <param name="urn"></param>
+        /// <returns></returns>
+        public ActionResult HighestProgressSchoolsBenchmarking(int urn)
+        {
+            ViewBag.URN = urn;
+            return View("HighestProgressSchoolsBenchmarking");
+        }
+
+        /// <summary>
+        /// Step 4 - Best in class edit
         /// </summary>
         /// <param name="urn"></param>
         /// <returns></returns>
         public ActionResult BestInClassCharacteristics(int urn, BestInClassCriteria bicCriteria)
         {                                
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
-            var bmFinancialData = benchmarkSchool.LatestYearFinancialData;
-
-            if (bicCriteria == null)
-            {
-                bicCriteria = new BestInClassCriteria()
-                {
-                    EstablishmentType = benchmarkSchool.EstablishmentType,
-                    OverallPhase = benchmarkSchool.OverallPhase,
-                    UrbanRural = bmFinancialData.UrbanRural,
-                    NoPupilsMin = WithinPositiveLimits((bmFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
-                    NoPupilsMax = (bmFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
-                    PerPupilExpMin = 0,
-                    PerPupilExpMax = bmFinancialData.PerPupilTotalExpenditure.GetValueOrDefault(),
-                    PercentageFSMMin = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
-                    PercentageFSMMax = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
-                    PercentageSENMin = bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
-                    PercentageSENMax = WithinPercentLimits(bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
-                    Ks2ProgressScoreMin = bmFinancialData.Ks2Progress.HasValue ? 0 : (decimal?)null,
-                    Ks2ProgressScoreMax = bmFinancialData.Ks2Progress.HasValue ? +20 : (decimal?)null,
-                    Ks4ProgressScoreMin = bmFinancialData.P8Mea.HasValue ? 0 : (decimal?)null,
-                    Ks4ProgressScoreMax = bmFinancialData.P8Mea.HasValue ? +5 : (decimal?)null,
-                    RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD
-                };
-            }
 
             var schoolCharsVM = new BestInClassCharacteristicsViewModel(benchmarkSchool, bicCriteria);
 

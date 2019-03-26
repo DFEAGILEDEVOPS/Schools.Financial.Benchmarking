@@ -441,7 +441,28 @@ abbr[title]{
     margin-top:2em;
 }
 
-.hidden{
+.mt-header {
+    font-size: 24px;
+    margin-top: 1.875em;
+}
+
+.mt-15 {
+    margin-top: 1.5em;
+}
+
+.pl-1 {
+    padding-left: 1em;
+}
+
+.pl-2{
+    padding-left: 2em;
+}
+
+.w-100{
+    max-width: 100%;
+}
+
+.hidden {
     display: none;
 }
 
