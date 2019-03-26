@@ -32,7 +32,7 @@ namespace SFB.Web.Common
 
         [PrettyName(SchoolCharacteristicsQuestions.PERIOD_COVERED_BY_RETURN)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN, type: CriteriaFieldComparisonTypes.EQUALTO)]
-        public int PeriodCoveredByReturn { get; set; }
+        public int? PeriodCoveredByReturn { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT)]
         [DBField(name: SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE, type: CriteriaFieldComparisonTypes.EQUALTO)]
