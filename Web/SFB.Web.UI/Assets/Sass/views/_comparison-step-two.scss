@@ -15,10 +15,11 @@
 
         .form-control {
             width: 100%;
+            margin-bottom: -2px;
         }
     }
 
-   .tt-menu {
+    .tt-menu {
         background-color: white;
         z-index: 99 !important; // accessibility requirement
         .tt-suggestion {

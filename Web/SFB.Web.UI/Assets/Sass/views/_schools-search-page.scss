@@ -30,6 +30,7 @@
 
         .form-control {
             width: 100%;
+            margin-bottom: -2px;
         }
     }
 
@@ -59,7 +60,7 @@
     .tt-cursor {
         background-color: #f9f9f9;
     }
-    
+
     .view-tables-legend, search-by-legend {
         clear: left;
         margin-top: 1em;
@@ -154,6 +155,3 @@
         }
     }
 }
-
-
-
