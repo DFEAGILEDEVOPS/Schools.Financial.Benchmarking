@@ -66,7 +66,7 @@
                                 $("#downloadLinkContainer").hide();
                                 $("#BackToBMCharts").show();
                                 DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
-                                $("table.dataTable").tablesorter();
+                                $("table.data-table-js").tablesorter();
                             }, 500);
                         }
                     });

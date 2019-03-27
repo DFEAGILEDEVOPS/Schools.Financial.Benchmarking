@@ -5,8 +5,8 @@
         sessionStorage.chartFormat = 'Charts';
 
         $(document).ready(() => {
-            $("#benchmarkChartsList table.dataTable").tablesorter();
-            $("#bestInClassTabSection table.dataTable").tablesorter(
+            $("#benchmarkChartsList table.data-table-js").tablesorter();
+            $("#bestInClassTabSection table.data-table-js").tablesorter(
                     { sortList: [[7, 1]] }
             );
             this.GenerateCharts();
@@ -544,7 +544,7 @@
                 this.RefreshAddRemoveLinks();
                 $('.save-as-image').show();
                 this.GenerateCharts(unitParameter);
-                $("table.dataTable").tablesorter();
+                $("table.data-table-js").tablesorter();
             }
         });
     }
@@ -629,7 +629,7 @@
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $(".download-links").show();
                     $("#tabsSection").html(data);
-                    $("table.dataTable").tablesorter();
+                    $("table.data-table-js").tablesorter();
                     let unitParameter = $("#ShowValue").val();
                     this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
