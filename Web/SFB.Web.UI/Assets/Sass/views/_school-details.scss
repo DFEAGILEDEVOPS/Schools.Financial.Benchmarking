@@ -171,21 +171,22 @@
     }
 
     .column-quarter.mobile {
-        @include media(tablet) {
+        @media(min-width: 1000px) {
             display: none;
         }
 
-        @include media(mobile) {
+        @media(max-width: 1000px) {
             display: block;
+            width: 100%;
         }
     }
 
     .column-quarter.desktop {
-        @include media(mobile) {
+        @media(max-width: 1000px) {
             display: none;
         }
 
-        @include media(tablet) {
+        @media(min-width: 1000px) {
             display: block;
         }
     }
