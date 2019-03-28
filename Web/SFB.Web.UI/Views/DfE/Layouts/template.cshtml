@@ -96,7 +96,7 @@
     <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
 
-    @if (Request.Browser.Browser.Contains("InternetExplorer"))
+    @if (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge"))
     {
         <!--[if IE 9]>
         <script src="/public/scripts/termi/element.details.ie8.js"></script>
