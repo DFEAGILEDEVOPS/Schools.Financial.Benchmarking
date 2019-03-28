@@ -107,6 +107,7 @@
 
         ToggleChartsTables: function (mode) {
             var $charts = $('.chart-wrapper');
+            var $chartsScores = $('.chart-scores-wrapper');
             var $tables = $('.chart-table-wrapper');
             var $showChartsButton = $('.view-charts-tables.charts');
             var $showTablesButton = $('.view-charts-tables.tables');
@@ -117,6 +118,7 @@
                 $showTablesButton.show();
                 $tables.hide();
                 $charts.show();
+                $chartsScores.show();
                 $saveAsImagesButtons.show();
                 $viewMoreLabels.text("View more charts");
                 sessionStorage.chartFormat = 'Charts';
@@ -124,6 +126,7 @@
                 $showTablesButton.hide();
                 $showChartsButton.show();
                 $charts.hide();
+                $chartsScores.hide();
                 $tables.show();
                 $saveAsImagesButtons.hide();
                 $viewMoreLabels.text("View more tables");
