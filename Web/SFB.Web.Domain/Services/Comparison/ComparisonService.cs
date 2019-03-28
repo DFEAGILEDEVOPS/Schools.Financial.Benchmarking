@@ -50,7 +50,7 @@ namespace SFB.Web.Domain.Services.Comparison
             var tryCount = 0;
             while (benchmarkSchools.Count < CriteriaSearchConfig.BIC_TARGET_POOL_COUNT)
             {
-                if (++tryCount > CriteriaSearchConfig.MAX_TRY_LIMIT) //Max query try reached. Return whatever is found.
+                if (++tryCount > CriteriaSearchConfig.MAX_BIC_TRY_LIMIT) //Max query try reached. Return whatever is found.
                 {
                     break;
                 }
