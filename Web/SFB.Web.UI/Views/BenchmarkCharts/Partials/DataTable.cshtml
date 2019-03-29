@@ -30,7 +30,7 @@
         <tr>
             <td class="school-column">
                 @{
-                    var style = school.Urn == ViewBag.HomeSchoolId ? "highlight-field" : "";
+                    var style = school.Urn == ViewBag.HomeSchoolId.ToString() ? "highlight-field" : "";
 
                     if (school.Urn.StartsWith("MAT"))
                     {
