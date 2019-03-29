@@ -19,7 +19,7 @@
             "Please enter the URN code (6 characters) or LAESTAB code (7 characters) of the school or college you're looking for";
 
         public const string COMPANY_NO_ERR_MESSAGE =
-            "Please enter the company number (7 characters) of the trust you're looking for";
+            "Please enter the company number (7-8 characters) of the trust you're looking for";
     }
 
     public class SearchParameterValidLengths
@@ -31,7 +31,8 @@
         public const int LA_NAME_MIN_LENGTH = 2;
         public const int URN_LENGTH = 6;
         public const int LAESTAB_LENGTH = 7;
-        public const int COMPANY_NO_LENGTH = 7;
+        public const int COMPANY_NO_LENGTH_MIN = 7;
+        public const int COMPANY_NO_LENGTH_MAX = 8;
     }
 
     public class ComparisonListLimit
