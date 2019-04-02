@@ -165,15 +165,34 @@
                                     <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                 </div>
                                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
-                                {
-                                    <div class="chart-scores-wrapper" style="height:@(Model[i].BenchmarkData.Count * 30 - 25)px">
-                                        @foreach (var bData in Model[i].BenchmarkData)
-                                        {
-                                            <div class="score chart__score @ViewHelpers.ScoreColorCode(bData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonPhase)">
-                                                <span class="chart__score__text">@bData.ProgressScore</span>
-                                            </div>
-                                        }
+                                {                                    
+                                <div class="chart-scores-wrapper" style="height:@(Model[i].BenchmarkData.Count * 30)px">
+                                    @if (ViewBag.BicComparisonPhase == "Secondary")
+                                    {
+                                    <div class="chart-scores-header">
+                                        Progress 8
+                                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                                            <img class="help-image" src="/public/assets/images/help-icon.png">
+                                        </button>
                                     </div>
+                                    }
+                                    else
+                                    {
+                                    <div class="chart-scores-header">
+                                        <span>KS2</span>
+                                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                            <img class="help-image" src="/public/assets/images/help-icon.png">
+                                        </button>
+                                        <span class="show-in-desktop">progress</span>
+                                    </div>
+                                    }
+                                    @foreach (var bData in Model[i].BenchmarkData)
+                                    {
+                                        <div class="score chart__score @ViewHelpers.ScoreColorCode(bData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonPhase)">
+                                            <span class="chart__score__text">@bData.ProgressScore</span>
+                                        </div>
+                                    }
+                                </div>
                                 }
                                 <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
                                     @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
