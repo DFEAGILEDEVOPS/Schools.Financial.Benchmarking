@@ -21,78 +21,75 @@
         }
     }
 
-    .chartsSection {
-
-        .chartContainer {
-            .chart-header {
+    .charts-section {
+        &__chart-container {
+            &__chart-header {
                 margin-top: 1.5em;
-            }
 
-            h2.inline {
-                display: inline;
-            }
+                &__h2 {
+                    @include bold-24();
+                    margin-top: 1em;
+                    margin-bottom: em(10, 20);
 
-            a.inline {
-                display: inline;
-                margin-left: 25px;
+                    @include media(tablet) {
+                        margin-top: em(45, 24);
+                        margin-bottom: em(20, 24);
+                    }
 
-                @include media(mobile) {
-                    display: block;
-                    margin-left: 0;
-                    margin-bottom: 5px;
+                    &--inline {
+                        display: inline;
+                    }
                 }
-            }
-            
-            h3 {
-                margin-top: 1em;
-            }
 
-            &.column-full {
-                @include media(mobile) {
-                    padding: 0;
-                }
-            }
+                &__a--inline {
+                    display: inline;
+                    margin-left: 25px;
+                    @include core-16;
 
-            .column-three-quarters {
-                @include media(mobile) {
-                    padding: 0;
+                    @include media(mobile) {
+                        display: block;
+                        margin-left: 0;
+                        margin-bottom: 5px;
+                    }
                 }
             }
 
-            ul {
-                @include media(mobile) {
-                    padding-left: 15px;
-                }
+            &__chart-header-show-value {
+                padding-top: 5px;
             }
-        }
 
-        .chart {
-            margin-top: 20px;
-            margin-bottom: 20px;
+            &__accordion-section-header__h2 {
+                margin-top: 0;
+            }
 
-            .c3-line-amount {
-                stroke-width: 4px;
+            &__lastYearBalance {
+                @include core-36;
+                border-top: 1px solid $border-colour;
                 color: $turquoise;
-            }
-
-            .c3-axis-y path {
-                display: none;
-            }
-
-            .c3-axis-x {
-                path {
-                    stroke-width: 2px;
-                    stroke: $border-colour;
-                }
+                padding-top: 12px;
+                font-weight: bold;
             }
         }
+    }
 
-        .lastYearBalance {
-            @include core-36;
-            border-top: 1px solid $border-colour;
+    .chart {
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        .c3-line-amount {
+            stroke-width: 4px;
             color: $turquoise;
-            padding-top: 12px;
-            font-weight: bold;
+        }
+
+        .c3-axis-y path {
+            display: none;
+        }
+
+        .c3-axis-x {
+            path {
+                stroke-width: 2px;
+                stroke: $border-colour;
+            }
         }
     }
 
@@ -136,7 +133,7 @@
         }
     }
 
-    .revenueDiv {
+    .revenue-box {
         h3 {
             margin-bottom: 5px;
         }

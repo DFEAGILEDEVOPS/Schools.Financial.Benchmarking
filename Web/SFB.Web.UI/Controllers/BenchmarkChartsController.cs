@@ -26,12 +26,12 @@ namespace SFB.Web.UI.Controllers
     [CustomAuthorize]
     public class BenchmarkChartsController : Controller
     {
-        private readonly IBenchmarkChartBuilder _benchmarkChartBuilder;
+        private readonly IContextDataService _contextDataService;
         private readonly IFinancialDataService _financialDataService;
         private readonly IFinancialCalculationsService _fcService;
         private readonly ILocalAuthoritiesService _laService;
+        private readonly IBenchmarkChartBuilder _benchmarkChartBuilder;
         private readonly IDownloadCSVBuilder _csvBuilder;
-        private readonly IContextDataService _contextDataService;
         private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
         private readonly IComparisonService _comparisonService;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
@@ -88,6 +88,35 @@ namespace SFB.Web.UI.Controllers
             return await Index(urn, simpleCriteria, benchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
 
+        [HttpGet]
+        public async Task<ActionResult> GenerateFromBicCriteria(int urn)
+        {
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
+            var bmFinancialData = benchmarkSchool.LatestYearFinancialData;
+
+            var bicCriteria = new BestInClassCriteria()
+                {
+                    EstablishmentType = benchmarkSchool.EstablishmentType,
+                    OverallPhase = benchmarkSchool.OverallPhase,
+                    UrbanRural = bmFinancialData.UrbanRural,
+                    NoPupilsMin = WithinPositiveLimits((bmFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
+                    NoPupilsMax = (bmFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
+                    PerPupilExpMin = 0,
+                    PerPupilExpMax = bmFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP,
+                    PercentageFSMMin = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                    PercentageFSMMax = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                    PercentageSENMin = bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
+                    PercentageSENMax = WithinPercentLimits(bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
+                    Ks2ProgressScoreMin = bmFinancialData.Ks2Progress.HasValue ? 0 : (decimal?)null,
+                    Ks2ProgressScoreMax = bmFinancialData.Ks2Progress.HasValue ? +20 : (decimal?)null,
+                    Ks4ProgressScoreMin = bmFinancialData.P8Mea.HasValue ? 0 : (decimal?)null,
+                    Ks4ProgressScoreMax = bmFinancialData.P8Mea.HasValue ? +5 : (decimal?)null,
+                    RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD
+                };
+
+            return await GenerateFromBicCriteria(urn, bicCriteria);
+        }
+
         [HttpPost]
         public async Task<ActionResult> GenerateFromBicCriteria(int urn, BestInClassCriteria bicCriteria)
         {
@@ -103,17 +132,17 @@ namespace SFB.Web.UI.Controllers
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
-            foreach (var schoolDoc in comparisonResult.BenchmarkSchools)
+            foreach (var schoolData in comparisonResult.BenchmarkSchools)
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
-                    Name = schoolDoc.SchoolName,
-                    Type = schoolDoc.Type,
-                    EstabType = schoolDoc.FinanceType,
-                    Urn = schoolDoc.URN.ToString(),
-                    ProgressScore = schoolDoc.Ks2Progress.HasValue ? 
-                        decimal.Round(schoolDoc.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) 
-                        : schoolDoc.Progress8Measure
+                    Name = schoolData.SchoolName,
+                    Type = schoolData.Type,
+                    EstabType = schoolData.FinanceType,
+                    Urn = schoolData.URN.ToString(),
+                    ProgressScore = schoolData.Ks2Progress.HasValue ?
+                        decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
+                        : schoolData.Progress8Measure
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }
@@ -281,7 +310,7 @@ namespace SFB.Web.UI.Controllers
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
             return await Index(urn, null,
-                criteria, null, ComparisonType.Advanced, ComparisonListLimit.DEFAULT, benchmarkSchool.HistoricalFinancialDataModels.Last(), estType, areaType, lacode.ToString());
+                criteria, null, ComparisonType.Advanced, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, estType, areaType, lacode.ToString());
         }
 
         public async Task<PartialViewResult> CustomReport(string json, ChartFormat format)
@@ -340,7 +369,9 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            var defaultUnitType = tab == RevenueGroupType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
+            var defaultUnitType = tab == RevenueGroupType.Workforce ? 
+                UnitType.AbsoluteCount : 
+                comparisonType == ComparisonType.BestInClass ? UnitType.PerPupil : UnitType.AbsoluteMoney;
             var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(tab, chartGroup, defaultUnitType, financing);
             var establishmentType = DetectEstablishmentType(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
@@ -368,13 +399,10 @@ namespace SFB.Web.UI.Controllers
             var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            
+            var bicComparisonSchools = PopulateBicSchoolsForBestInBreedTab(comparisonType, comparisonList);
 
-            if(comparisonType == ComparisonType.BestInClass)
-            {
-                PopulateExtraFieldsForBestInBreedTab(comparisonList);
-            }
-
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, advancedCriteria, simpleCriteria, bicCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, laCode, urn.GetValueOrDefault(), basketSize);
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, advancedCriteria, simpleCriteria, bicCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, laCode, urn.GetValueOrDefault(), basketSize, null, bicComparisonSchools);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -383,6 +411,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
+            ViewBag.ComparisonType = comparisonType;
+            ViewBag.BicComparisonPhase = bicComparisonSchools?.FirstOrDefault()?.Phase;
 
             return View("Index", vm);
         }
@@ -425,7 +455,9 @@ namespace SFB.Web.UI.Controllers
             return View("Index",vm);
         }
 
-        public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
+        public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, 
+            CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies, 
+            ChartFormat format = ChartFormat.Charts, ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonPhase = "Primary")
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -485,11 +517,16 @@ namespace SFB.Web.UI.Controllers
             ViewBag.TrustFinancing = trustFinancing;
             ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustCompanyNo.ToString() : vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.ChartFormat = format;
+            ViewBag.ComparisonType = comparisonType;
+            ViewBag.BicComparisonPhase = bicComparisonPhase;
 
             return PartialView("Partials/TabContent", vm);
         }
 
-        public async Task<PartialViewResult> GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,EstablishmentType type = EstablishmentType.All, ChartFormat format = ChartFormat.Charts)
+        public async Task<PartialViewResult> GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, 
+            CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,
+            EstablishmentType type = EstablishmentType.All, ChartFormat format = ChartFormat.Charts,
+            ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonPhase = "Primary")
         {
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
@@ -509,6 +546,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = centralFinancing;
             ViewBag.TrustFinancing = trustCentralFinancing;
             ViewBag.ChartGroup = chartGroup;
+            ViewBag.ComparisonType = comparisonType;
+            ViewBag.BicComparisonPhase = bicComparisonPhase;
 
             return PartialView("Partials/Chart", benchmarkCharts);
         }
@@ -533,15 +572,22 @@ namespace SFB.Web.UI.Controllers
                          "BenchmarkData.csv");
         }
 
-        private void PopulateExtraFieldsForBestInBreedTab(SchoolComparisonListModel comparisonList)
+        private List<SchoolViewModel> PopulateBicSchoolsForBestInBreedTab(ComparisonType comparisonType, SchoolComparisonListModel comparisonList)
         {
-            var benchmarkSchoolDataObjects = _contextDataService.GetMultipleSchoolDataObjectsByUrns(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
-
-            foreach (var bmSchool in comparisonList.BenchmarkSchools)
+            if (comparisonType == ComparisonType.BestInClass)
             {
-                bmSchool.LaName = _laService.GetLaName(benchmarkSchoolDataObjects.Find(e => e.URN.ToString() == bmSchool.Urn).LACode.ToString());
-                bmSchool.NumberOfPupils = benchmarkSchoolDataObjects.Find(e => e.URN.ToString() == bmSchool.Urn).NumberOfPupils.GetValueOrDefault();
+                var bicSchools = new List<SchoolViewModel>();
+
+                foreach (var school in comparisonList.BenchmarkSchools)
+                {
+                    var bicSchool = InstantiateBenchmarkSchool(int.Parse(school.Urn));
+                    bicSchool.LaName = _laService.GetLaName(bicSchool.La.ToString());
+                    bicSchools.Add(bicSchool);
+                }
+
+                return bicSchools;
             }
+            return null;
         }
 
         private List<ChartViewModel> ConvertSelectionListToChartList(List<HierarchicalChartViewModel> customChartSelection)
@@ -787,7 +833,7 @@ namespace SFB.Web.UI.Controllers
                 Type = cookieObject.HomeSchoolType,
                 EstabType = cookieObject.HomeSchoolFinancialType,
                 Urn = cookieObject.HomeSchoolUrn,
-                ProgressScore = bmSchool.LatestYearFinancialData?.Ks2Progress ?? bmSchool.LatestYearFinancialData?.P8Mea
+                ProgressScore = bmSchool.ProgressScore
             };
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);            
         }
@@ -822,6 +868,28 @@ namespace SFB.Web.UI.Controllers
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }
+        }
+
+        private decimal WithinPercentLimits(decimal percent)
+        {
+            if (percent > 100)
+            {
+                return 100;
+            }
+            if (percent < 0)
+            {
+                return 0;
+            }
+            else return percent;
+        }
+
+        private decimal WithinPositiveLimits(decimal value)
+        {
+            if (value < 0)
+            {
+                return 0;
+            }
+            else return value;
         }
 
     }

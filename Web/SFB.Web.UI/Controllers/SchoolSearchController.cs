@@ -118,7 +118,7 @@ namespace SFB.Web.UI.Controllers
                             if (searchResp.NumberOfResults == 0)
                             {
                                 return RedirectToActionPermanent("SuggestSchool", "SchoolSearch",
-                                    new RouteValueDictionary {{"nameId", nameId}});
+                                    new RouteValueDictionary {{"nameId", nameId}, { "openOnly", openOnly} });
                             }
                         }
                         else
@@ -160,6 +160,12 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateTrustNameParameter(trustNameId);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
+                            searchResp = await _trustSearchService.SearchTrustByName(trustNameId, 0, SearchDefaults.RESULTS_PER_PAGE, "", Request?.QueryString);
+                            if (searchResp.NumberOfResults == 0)
+                            {
+                                return RedirectToActionPermanent("SuggestTrust", "Trust",
+                                    new RouteValueDictionary { { "trustNameId", trustNameId } });
+                            }
                             return RedirectToAction("Search", "Trust", new { name = trustNameId });
                         }
                         else
@@ -314,23 +320,23 @@ namespace SFB.Web.UI.Controllers
                 new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
-        public async Task<ActionResult> SuggestSchool(string nameId)
+        public async Task<ActionResult> SuggestSchool(string nameId, bool openOnly = false)
         {
             var vm = new SchoolNotFoundViewModel
             {
                 SearchKey = nameId,
-                Suggestions = await _schoolSearchService.SuggestSchoolByName(nameId)
+                Suggestions = await _schoolSearchService.SuggestSchoolByName(nameId, openOnly)
             };
             return View("NotFound", vm);
         }
 
-        public async Task<ActionResult> Suggest(string nameId)
+        public async Task<ActionResult> Suggest(string nameId, bool openOnly = false)
         {
             string json = null;
 
             if (!IsNumeric(nameId))
             {
-                dynamic response = await _schoolSearchService.SuggestSchoolByName(nameId);
+                dynamic response = await _schoolSearchService.SuggestSchoolByName(nameId, openOnly);
                 json = JsonConvert.SerializeObject(response);
             }
 

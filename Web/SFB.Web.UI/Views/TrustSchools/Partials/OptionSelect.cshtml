@@ -1,8 +1,8 @@
 ﻿<div class="govuk-option-select js-collapsible" data-closed-on-load="@(Model.Expanded ? "false" : "true")">
     <div class="container-head js-container-head">
         <div class='option-select-label'>@(Model.Label)</div>
-        <div class="chevron chevron-down"><a class="chevron-button" aria-label="Click to close section" href="javascript:void(0);">&#708;</a></div>
-        <div class="chevron chevron-up"><a class="chevron-button" aria-label="Click to open section" href="javascript:void(0);">&#709;</a></div>
+        <div class="chevron chevron-down"><button type="button" class="chevron-button" aria-label="Click to close section">&#708;</button></div>
+        <div class="chevron chevron-up"><button type="button" class="chevron-button" aria-label="Click to open section">&#709;</button></div>
         <div class="js-selected-counter"></div>
     </div>
     <div class="options-container" id="@(Model.Id)">

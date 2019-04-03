@@ -5,7 +5,7 @@ namespace SFB.Web.Domain.Services.Search
 {
     public interface ISchoolSearchService
     {
-        Task<dynamic> SuggestSchoolByName(string name);
+        Task<dynamic> SuggestSchoolByName(string name, bool openOnly);
 
         Task<dynamic> SearchSchoolByName(string name, int skip, int take, string @orderby,
             NameValueCollection queryParams);

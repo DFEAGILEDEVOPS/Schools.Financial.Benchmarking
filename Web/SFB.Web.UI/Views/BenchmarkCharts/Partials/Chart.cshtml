@@ -7,7 +7,7 @@
 <div id="bm-charts-accordion" class="accordion">
     @for (int i = 0; i < Model.Count; i++)
     {
-        <div class="chartContainer column-full no-padding" data-group="@Model[i].ChartGroup">
+        <div class="chart-container column-full no-padding" data-group="@Model[i].ChartGroup">
             @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
             {
                 if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
@@ -53,17 +53,17 @@
                                                 </span>
                                             </span>
                                         }
-                                        <a class="inline hide-in-print" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto')">
-                                        @if (ViewBag.ChartFormat == ChartFormat.Charts)
-                                        {
-                                            <span class="view-more">View more charts</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="view-more">View more tables</span>
-                                        }
-                                        <span class="visuallyhidden"> for @Model[i].Name</span>
-                                        </a>
+                                        <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto', '@Model[i].RevenueGroupName.ToLower()')">
+                                            @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                                            {
+                                                <span class="view-more">All @Model[i].Name.Replace("total", "").ToLower() charts</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="view-more">View more tables</span>
+                                            }
+                                            <span class="visuallyhidden"> for @Model[i].Name</span>
+                                        </button>
                                     </div>
                                 }
                                 else
@@ -93,28 +93,28 @@
                                 @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                 {
                                     <div class="column-half font-xsmall no-padding">
-                                        <a class="save-as-image" style="display: none" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
-                                           aria-label="Save image of @Model[i].FieldName">
+                                        <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                                aria-label="Save image of @Model[i].FieldName">
                                             <i class="icon icon-save-image">
                                                 <span class="visually-hidden">Save as image</span>
                                             </i>
                                             <span>Save as image</span>
-                                        </a>
+                                        </button>
                                     </div>
                                     <div class="column-half font-xsmall no-padding float-to-right your-chart-controls">
                                         <div class="float-to-right">
-                                            <a style="display: none" class="customAdd" aria-label="Add @Model[i].FieldName to Your Charts" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
+                                            <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
                                                 <i class="icon icon-bookmark">
                                                     <span class="visually-hidden">Bookmark</span>
                                                 </i>
                                                 <span>Add to your charts</span>
-                                            </a>
-                                            <a style="display: none" class="customRemove" aria-label="Remove @Model[i].FieldName from Your Charts" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
+                                            </button>
+                                            <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
                                                 <i class="icon icon-bookmark">
                                                     <span class="visually-hidden">Bookmark</span>
                                                 </i>
                                                 <span>Remove from your charts</span>
-                                            </a>
+                                            </button>
                                             <div style="display:inline">
                                                 <span class="help-icon help-addremove hide-in-print">
                                                     <span class="icon dark-blue">
@@ -126,23 +126,23 @@
                                             </div>
                                         </div>
                                         <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
-                                            <a aria-label="View Your Charts" href="#" onclick="$('.custom').click(); $('.custom').focus();">
+                                            <button aria-label="View Your Charts" class="a-button" onclick="$('.custom').click(); $('.custom').focus();">
                                                 <i class="icon icon-report"></i>
                                                 <span>View your charts</span>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="column-full font-xsmall no-padding">
-                                        <a class="save-as-image" style="display: none" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
-                                           aria-label="Save image of @Model[i].FieldName">
+                                        <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                                aria-label="Save image of @Model[i].FieldName">
                                             <i class="icon icon-save-image">
                                                 <span class="visually-hidden">Save as image</span>
                                             </i>
                                             <span>Save as image</span>
-                                        </a>
+                                        </button>
                                     </div>
                                 }
                             </div>
@@ -161,10 +161,20 @@
                         }
                         <div class="grid-row">
                             <div class="column-full">
-                                <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
+                                <div class="chart-wrapper" style="width:@(ViewBag.ComparisonType == ComparisonType.BestInClass ? 95 : 100)%; float: left ;display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
                                     <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                 </div>
-
+                                @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
+                                {
+                                    <div class="chart-scores-wrapper" style="height:@(Model[i].BenchmarkData.Count * 30 - 25)px">
+                                        @foreach (var bData in Model[i].BenchmarkData)
+                                        {
+                                            <div class="score chart__score @ViewHelpers.ScoreColorCode(bData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonPhase)">
+                                                <span class="chart__score__text">@bData.ProgressScore</span>
+                                            </div>
+                                        }
+                                    </div>
+                                }
                                 <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
                                     @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                     {
@@ -178,9 +188,9 @@
 
                             </div>
                         </div>
-                        <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
-                        <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)"/>
-                        <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)"/>
+                        <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                        <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)" />
+                        <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)" />
 
                         @if (Model[i].TableColumns != null && Model[i].TableColumns.Count > 0)
                         {
@@ -213,22 +223,22 @@
                                     {
                                         <div class="your-chart-controls">
                                             <div class="column-half font-xsmall no-padding">
-                                                <a class="save-as-image" style="display: none" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
-                                                   aria-label="Save image of @Model[i].FieldName">
+                                                <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                                        aria-label="Save image of @Model[i].FieldName">
                                                     <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
                                                     <span>Save as image</span>
-                                                </a>
+                                                </button>
                                             </div>
 
                                             <div class="column-half font-xsmall no-padding float-to-right">
-                                                <a style="display: none" class="customAdd float-to-right" aria-label="Add @Model[i].FieldName to Your Charts" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
+                                                <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
                                                     <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
                                                     <span>Add to your charts</span>
-                                                </a>
-                                                <a style="display: none" class="customRemove float-to-right" aria-label="Remove @Model[i].FieldName from Your Charts" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
+                                                </button>
+                                                <button style="display: none" class="customRemove float-to-right a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
                                                     <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
                                                     <span>Remove from your charts</span>
-                                                </a>
+                                                </button>
                                             </div>
                                             <div style="display: none" class="column-half font-xsmall no-padding view-your-charts float-to-right">
                                                 <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus();">
@@ -241,11 +251,11 @@
                                     else
                                     {
                                         <div class="column-full font-xsmall no-padding">
-                                            <a class="save-as-image" style="display: none" href="javascript:void(0);" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
-                                               aria-label="Save image of @Model[i].FieldName">
+                                            <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                                    aria-label="Save image of @Model[i].FieldName">
                                                 <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
                                                 <span>Save as image</span>
-                                            </a>
+                                            </button>
                                         </div>
                                     }
                                 </div>
@@ -283,9 +293,9 @@
 
                                     </div>
                                 </div>
-                                <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex"/>
-                                <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)"/>
-                                <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)"/>
+                                <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                                <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)" />
+                                <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)" />
                             }
                             @if (Model[i].TableColumns != null)
                             {
@@ -306,7 +316,7 @@
         if (ViewBag.TrustFinancing != null)
         {
             var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.TrustFinancing.ToString());
-                <text>(@matFinance.GetDescription())</text>
+            <text>(@matFinance.GetDescription())</text>
         }
     }
     else
@@ -316,7 +326,7 @@
             if (ViewBag.EstablishmentType != EstablishmentType.Maintained && ViewBag.Financing != null)
             {
                 var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
-                    <text>(@centralFinance.GetDescription())</text>
+                <text>(@centralFinance.GetDescription())</text>
             }
         }
 
@@ -324,8 +334,7 @@
 }
 
 
-@*//TODO: Call this in client side*@
-@if (Request.IsAjaxRequest())
+@if (Request.IsAjaxRequest() && (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge")))
 {
     <script src="/public/scripts/termi/element.details.ajax.js"></script>
 }

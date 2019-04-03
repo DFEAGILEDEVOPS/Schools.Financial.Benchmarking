@@ -19,7 +19,7 @@
             "Please enter the URN code (6 characters) or LAESTAB code (7 characters) of the school or college you're looking for";
 
         public const string COMPANY_NO_ERR_MESSAGE =
-            "Please enter the company number (7 characters) of the trust you're looking for";
+            "Please enter the company number (7-8 characters) of the trust you're looking for";
     }
 
     public class SearchParameterValidLengths
@@ -31,7 +31,8 @@
         public const int LA_NAME_MIN_LENGTH = 2;
         public const int URN_LENGTH = 6;
         public const int LAESTAB_LENGTH = 7;
-        public const int COMPANY_NO_LENGTH = 7;
+        public const int COMPANY_NO_LENGTH_MIN = 7;
+        public const int COMPANY_NO_LENGTH_MAX = 8;
     }
 
     public class ComparisonListLimit
@@ -47,11 +48,16 @@
     {
         public const int DEFAULT_MARGIN = 10;
         public const int MAX_TRY_LIMIT = 10;
-        public const decimal BIC_DEFAULT_FLEX_PUPIL_COUNT = 0.25M;
-        public const decimal BIC_DEFAULT_FLEX_EXP_PP_MIN = 0.5M;
-        public const decimal BIC_DEFAULT_FLEX_EXP_PP_MAX = 0.1M;
-        public const decimal BIC_DEFAULT_FLEX_SEN_FSM = 0.15M;
+        public const int MAX_BIC_TRY_LIMIT = 15;
+        public const decimal BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP = 30M;
+        public const decimal BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP = 100M;
+        public const decimal BIC_DEFAULT_CONSTANT_FSM_TOPUP = 3M;
+        public const decimal BIC_DEFAULT_FLEX_PUPIL_COUNT = 0.20M;
+        //public const decimal BIC_DEFAULT_FLEX_EXP_PP_MAX = 0.1M;
+        public const decimal BIC_DEFAULT_FLEX_SEN = 0.15M;
+        public const decimal BIC_DEFAULT_FLEX_FSM = 0.1M;
         public const decimal RR_PER_INCOME_TRESHOLD = -5M;
         public const int BIC_TARGET_POOL_COUNT = 50;
+        public static readonly string[] BIC_ALLOWED_PHASES = new[] { "Infant and junior", "Secondary", "Nursery", "Junior", "Middle deemed secondary" };
     }
 }

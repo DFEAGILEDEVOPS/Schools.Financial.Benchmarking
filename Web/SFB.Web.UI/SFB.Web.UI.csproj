@@ -259,6 +259,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BenchmarkCriteriaMultipleChoiceVM.cs" />
     <Compile Include="Models\BenchmarkCriteriaRangeVM.cs" />
+    <Compile Include="Models\BenchmarkSchoolModel.cs" />
     <Compile Include="Models\BestInClassCharacteristicsViewModel.cs" />
     <Compile Include="Models\CompareEntityBase.cs" />
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
@@ -660,7 +661,7 @@
     <Content Include="Views\School\Partials\CentralFinancing.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\CentralFinancing.cshtml" />
     <Content Include="Views\School\Partials\BenchmarkControlButtons.cshtml" />
-    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\SchoolSearch\NotFound.cshtml" />
     <Content Include="Views\BenchmarkList\Partials\BenchmarkBasketControls.cshtml" />
     <Content Include="Views\SchoolSearch\Partials\SchoolResults.cshtml" />
     <Content Include="Views\Shared\Partials\AdvancedCriteriaHiddenFields.cshtml" />
@@ -704,6 +705,8 @@
     <Content Include="Views\BenchmarkCharts\Partials\BicHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedBicCriteria.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\BicTabContent.cshtml" />
+    <Content Include="Views\BenchmarkCriteria\HighestProgressSchoolsBenchmarking.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
@@ -721,6 +724,8 @@
     <Content Include="Views\TrustSchools\Partials\SchoolResults.cshtml" />
     <Content Include="Views\Trust\Partials\GeneralCharacteristics.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
+    <Content Include="Views\Trust\SuggestTrust.cshtml" />
+    <Content Include="Views\Trust\NotFound.cshtml" />
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>

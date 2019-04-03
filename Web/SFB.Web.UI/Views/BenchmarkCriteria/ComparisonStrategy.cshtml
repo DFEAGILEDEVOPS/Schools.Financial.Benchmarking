@@ -1,4 +1,5 @@
 ﻿@using SFB.Web.UI.Helpers.Constants;
+@using SFB.Web.Domain.Helpers.Constants;
 @using SFB.Web.UI.Helpers.Enums
 
 @model SFB.Web.UI.Models.SchoolViewModel
@@ -47,12 +48,21 @@
                         Detailed comparison using characteristics you choose
                     </label>
                 </div>
-                @*@if (Model.HasProgressScore && Model.EstablishmentType == SFB.Web.Common.EstablishmentType.Maintained)
+                @*@if (Model.HasProgressScore && Model.EstablishmentType == SFB.Web.Common.EstablishmentType.Maintained
+                    && CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase))
                 {
+                    <p style="clear:left">or</p>
                     <div class="multiple-choice">
                         <input id="radio-3" type="radio" name="comparisonType" value="@ComparisonType.BestInClass">
-                        <label class="selection-button-radio" for="radio-3">
-                            Similar schools with best KS progress
+                        <label class="selection-button-radio" style="padding-right: 0" for="radio-3">
+                            Schools with the highest progress but similar characteristics (including number of pupils, expenditure, <abbr title="Free school meals" aria-label="Free school meals">FSM</abbr>)
+                            <span class="help-icon inline-block hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" data-modal-title="High progress school comparison" data-modal-text="@HelpTooltipText.BicComparisonHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
+                                        <span class="visuallyhidden">Open more info text for High progress school comparison opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
                         </label>
                     </div>
                 }*@

@@ -30,7 +30,7 @@
 <div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
     <div class="column-full">
         <span class="back-chevron" aria-hidden="true">&#9666;</span>
-        <a class="home-link" href="javascript:void(0);" onclick="location.reload();">Back to benchmarking charts</a>
+        <button class="link-button font-xsmall home-link" onclick="location.reload();">Back to benchmarking charts</button>
     </div>
 </div>
 
@@ -73,14 +73,14 @@ else
         </div>
         <div class="column-one-third">
             <div class="print">
-                <a id="PrintLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()" href="javascript:void(0);">
+                <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()">
                     <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
-                </a>
+                </button>
             </div>
         </div>
         <div class="column-one-third">
             <div class="pdf">
-                <a id="PdfLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()" href="javascript:void(0);"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></a>
+                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></button>
             </div>
         </div>
     </div>
@@ -103,11 +103,11 @@ else
         </div>
     }
 
-    <div class="chartsSection">
+    <div class="charts-section">
         <div class="grid-row">
             <div class="column-full font-xsmall chartTable hide-in-print">
-                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline" href="javascript:void(0);" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></a>
-                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline" href="javascript:void(0);" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></a>
+                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline link-button font-xsmall" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
+                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline link-button font-xsmall" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
             </div>
         </div>
         <div class="font-xsmall latest-year-message">

@@ -69,7 +69,7 @@ namespace SFB.Web.UI.Controllers
             switch (comparisonType)
             {
                 case ComparisonType.BestInClass:
-                    return BestInClassCharacteristics(urn, null);
+                    return HighestProgressSchoolsBenchmarking(urn);
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn, comparisonType);
                 case ComparisonType.Advanced:
@@ -181,36 +181,24 @@ namespace SFB.Web.UI.Controllers
         }
 
         /// <summary>
-        /// Step 1 - Best in class
+        /// Step 1 - Best in class interstitial
+        /// </summary>
+        /// <param name="urn"></param>
+        /// <returns></returns>
+        public ActionResult HighestProgressSchoolsBenchmarking(int urn)
+        {
+            ViewBag.URN = urn;
+            return View("HighestProgressSchoolsBenchmarking");
+        }
+
+        /// <summary>
+        /// Step 4 - Best in class edit
         /// </summary>
         /// <param name="urn"></param>
         /// <returns></returns>
         public ActionResult BestInClassCharacteristics(int urn, BestInClassCriteria bicCriteria)
         {                                
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
-
-            if (bicCriteria == null)
-            {
-                bicCriteria = new BestInClassCriteria()
-                {
-                    EstablishmentType = benchmarkSchool.EstablishmentType,
-                    OverallPhase = benchmarkSchool.OverallPhase,
-                    UrbanRural = benchmarkSchool.LatestYearFinancialData.UrbanRural,
-                    NoPupilsMin = benchmarkSchool.LatestYearFinancialData.PupilCount.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
-                    NoPupilsMax = benchmarkSchool.LatestYearFinancialData.PupilCount.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
-                    PerPupilExpMin = benchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_EXP_PP_MIN),
-                    PerPupilExpMax = benchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_EXP_PP_MAX),
-                    PercentageFSMMin = benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM),
-                    PercentageFSMMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM)),
-                    PercentageSENMin = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM),
-                    PercentageSENMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN_FSM)),
-                    Ks2ProgressScoreMin = benchmarkSchool.LatestYearFinancialData.Ks2Progress.HasValue ? 0 : (decimal?)null,
-                    Ks2ProgressScoreMax = benchmarkSchool.LatestYearFinancialData.Ks2Progress.HasValue ? +20 : (decimal?)null,
-                    Ks4ProgressScoreMin = benchmarkSchool.LatestYearFinancialData.P8Mea.HasValue ? 0 : (decimal?)null,
-                    Ks4ProgressScoreMax = benchmarkSchool.LatestYearFinancialData.P8Mea.HasValue ? +5 : (decimal?)null,
-                    RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD
-                };
-            }
 
             var schoolCharsVM = new BestInClassCharacteristicsViewModel(benchmarkSchool, bicCriteria);
 
@@ -350,6 +338,15 @@ namespace SFB.Web.UI.Controllers
                 return 0;
             }
             else return percent;
+        }
+
+        private decimal WithinPositiveLimits(decimal value)
+        {
+            if (value < 0)
+            {
+                return 0;
+            }
+            else return value;
         }
     }
 }

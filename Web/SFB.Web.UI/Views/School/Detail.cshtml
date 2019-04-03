@@ -42,7 +42,7 @@ else
 <div class="grid-row">
     <div class="column-half">
         <div class="metadata-school-detail font-xsmall">
-            <dl>
+            <dl class="metadata-school-detail__dl">
                 @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
                 @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: 0{Model.PhoneNumber}\" aria-label=\"Call telephone number 0{Model.PhoneNumber}\">0{Model.PhoneNumber}</a>")
                 @SchoolDetailField("School type:", Model.Type)
@@ -52,16 +52,23 @@ else
                 }
                 @SchoolDetailField("School phase:", Model.Phase)
                 @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
-                <dt class="names"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
-                <dd class="values bold">@Model.Id</dd>
-                @SchoolDetailFieldFormatted("Ofsted rating:",
-                                "<span class=\"rating rating-{0}\"> {0} </span><span class=\"rating-text\"> {1} </span>" +
-                                "<span class=\"ofsted-divider\" aria-hidden=\"true\">| </span>" +
-                                "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"visually-hidden\">Opens in a new window</span></a>" +
-                                "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
-                                Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate)
-                <dt class="names"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt>
-                <dd class="values bold">@Model.LaEstab</dd>
+                <dt class="metadata-school-detail__dt"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
+                <dd class="metadata-school-detail__dd bold">@Model.Id</dd>
+                @if (Model.OfstedRating == "0")
+                {
+                    @SchoolDetailField("Ofsted rating:", Model.OfstedRatingText)
+                }
+                else
+                {
+                    @SchoolDetailFieldFormatted("Ofsted rating:",
+                                    "<span class=\"rating rating-{0}\"> {0} </span><span class=\"rating-text\"> {1} </span>" +
+                                    "<span class=\"ofsted-divider\" aria-hidden=\"true\">| </span>" +
+                                    "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"visually-hidden\">Opens in a new window</span></a>" +
+                                    "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
+                                    Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate)
+                }
+                <dt class="metadata-school-detail__dt"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt>
+                <dd class="metadata-school-detail__dd bold">@Model.LaEstab</dd>
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
                 @SchoolDetailField("Has sixth form:", Model.IsPost16)
@@ -87,7 +94,7 @@ else
             </summary>
             <div class="panel panel-border-narrow map">
                 <a href="#post-map-content" class="skip-map">Skip the map</a>
-                <div id="SchoolLocationMap" class="mtl" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
+                <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
     </div>
@@ -102,10 +109,10 @@ else
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                <button class="no-underline link-button no-underline bold-xsmall" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png" />
                     Print page
-                </a>
+                </button>
             </div>
         </div>
     </div>
@@ -153,20 +160,20 @@ else
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</a>
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</button>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</a>
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</button>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</a>
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</button>
         </li>
         <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <a href="javascript:void(0);" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</a>
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</button>
         </li>
     </ol>
 </nav>
-<div class="chartsSection">
+<div class="charts-section">
     <div class="grid-row">
         <div>
             @Html.Partial("Partials/Terms", Model)
@@ -177,12 +184,18 @@ else
                 Html.RenderPartial("Partials/CentralFinancing");
             }
             <div class="column-full font-xsmall chartTable hide-in-print">
-                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline" href="javascript:void(0);" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></a>
-                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline" href="javascript:void(0);" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></a>
+                <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
+                <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
+            </div>
+            <div class="column-full font-xsmall hide-in-print">
+                <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                    <span><</span>
+                    <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                </button>
             </div>
         </div>
     </div>
-    <div id="historicalChartsList">
+    <div class="historical-charts-list">
         @Html.Partial("Partials/Chart", Model)
     </div>
 </div>
@@ -210,15 +223,15 @@ else
     {
         var htmlValue = new MvcHtmlString(value);
 
-        <dt class="names">@name</dt>
-        <dd class="values bold">@htmlValue</dd>
+        <dt class="metadata-school-detail__dt">@name</dt>
+        <dd class="metadata-school-detail__dd bold">@htmlValue</dd>
     }
 }
 
 @helper DataSourcesField()
 {
-    <dt class="names">Data from other <br>services:</dt>
-    <dd class="values bold">
+    <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
+    <dd class="metadata-school-detail__dd bold">
         @if (ViewBag.SptReportExists)
         {
             <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">School performance tables<span class="visuallyhidden"> Opens in a new window</span></a>

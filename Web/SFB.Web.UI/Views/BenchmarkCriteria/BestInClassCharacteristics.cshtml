@@ -14,13 +14,15 @@
     @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
-<h1 class="heading-xlarge page-heading">Best in class comparison</h1>
+<h1 class="heading-xlarge page-heading">
+    Edit characteristics
+</h1>
 
 @if (!string.IsNullOrEmpty(Model.BenchmarkSchool.Name))
 {
     <div class="grid-row">
         <div class="column-full">
-            <span class="font-xsmall">Comparing to</span>
+            <span class="font-small">Comparing to</span>
             <div class="highlight">
                 <span class="bold-small">@Model.BenchmarkSchool.Name</span>
             </div>
@@ -28,12 +30,8 @@
     </div>
 }
 
-<div class="steps">
-    <span>Step 1 of 1</span>
-</div>
+<p class="mt-2">This comparison generates a group of statistically similar schools using the following characteristics and progress data.</p>
 
-<p class="bold-small">Choose characteristics</p>
-<p>This type of comparison generates a group of statistically similar schools using following characteristics and KS progress data.</p>
 <div class="panel panel-border-wide" style="margin-bottom:40px">
     <p class="bold-small">Included as standard:</p>
     <ul class="list list-bullet">
@@ -42,13 +40,9 @@
     </ul>
 </div>
 
-<p class="bold-small">To customise, edit the characteristics below</p>
-<p>Suggested characteristics:</p>
-
-
 <form action="/BenchmarkCharts/GenerateFromBicCriteria" method="post" id="criteriaForm">
 
-    <div class="panel panel-border-wide">
+    <div>
         <div class="form-group">
             <div class="column-full no-padding">
                 <div class="bold-small">Number of pupils</div>
@@ -61,21 +55,21 @@
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="NoPupilsMin">From</label>
-                        <input type="number" name="BicCriteria.NoPupilsMin" id="NoPupilsMin" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMin">
+                        <input type="number" name="BicCriteria.NoPupilsMin" id="NoPupilsMin" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMin.ToString("F2")">
                     </div>
                     <div class="column-half">
                         <label class="form-label" for="NoPupilsMax">To</label>
-                        <input type="number" name="BicCriteria.NoPupilsMax" id="NoPupilsMax" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMax">
+                        <input type="number" name="BicCriteria.NoPupilsMax" id="NoPupilsMax" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMax.ToString("F2")">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="panel panel-border-wide">
+    <div>
         <div class="form-group">
             <div class="column-full no-padding">
-                <div class="bold-small">Eligibility for free school meals</div>
+                <div class="bold-small">Eligibility for free school meals (% of pupils)</div>
                 <div class="benchmark-school-value">
                     <span>Please enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault().ToString("F2"))%</span>
@@ -96,23 +90,25 @@
         </div>
     </div>
 
-    <div class="panel panel-border-wide">
+    <div>
         <div class="form-group">
             <div class="column-full no-padding">
-                <div class="bold-small">Pupils with SEN who have statements or EHC plans</div>
+                <div class="bold-small">Pupils with <abbr title="Special Education Needs" aria-label="">SEN</abbr> who have statements or <abbr title="Education, health and care" aria-label="">EHC</abbr> plans (% of pupils)</div>
+            </div>
+            <div class="column-full no-padding">
+                <div class="form-group no-padding">
+                    <div class="multiple-choice">
+                        <input id="sen" name="BicCriteria.SENEnabled" type="checkbox" value="true" onchange="javascript: $('#sen_range').toggle();"
+                               @Html.Raw(Model.BicCriteria.SENEnabled ? "checked" : "none")>
+                        <label for="sen">Include schools with a similar <abbr title="Education, health and care" aria-label="">EHC</abbr> plan value</label>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-border-wide" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
                 <div class="benchmark-school-value">
                     <span>Please enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
                 </div>
-            </div>
-            <div class="column-full no-padding">
-                <div class="multiple-choice">
-                    <input id="sen" name="BicCriteria.SENEnabled" type="checkbox" value="true" onchange="javascript: $('#sen_range').toggle();" 
-                           @Html.Raw(Model.BicCriteria.SENEnabled ? "checked" : "none")>
-                    <label for="sen">Please check to include this constraint.</label>
-                </div>
-            </div>
-            <div class="column-half no-padding" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="MinPerSEN">From</label>
@@ -128,10 +124,12 @@
     </div>
 
 
-    <div class="panel panel-border-wide">
+    <div>
         <div class="form-group">
             <div class="column-full no-padding">
-                <div class="bold-small">Total Expenditure Per Pupil</div>
+                <div class="bold-small">
+                    Total expenditure in £ per pupil
+                </div>
                 <div class="benchmark-school-value">
                     <span>Please enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault().ToString("C"))</span>
@@ -152,7 +150,7 @@
         </div>
     </div>
 
-    <div class="panel panel-border-wide">
+    <div>
         <div class="form-group">
             <div class="column-full no-padding">
                 <div class="bold-small">Urban/Rural schools</div>
@@ -165,19 +163,19 @@
                 <div class="multiple-choice">
                     <input id="ur" name="BicCriteria.UREnabled" type="checkbox" value="true" 
                            @Html.Raw(Model.BicCriteria.UREnabled ? "checked" : "")/>
-                    <label for="ur">Please check to include this constraint.</label>
+                    <label for="ur">Include schools with this value</label>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="grid-row font-xsmall">
+    <div class="grid-row font-xsmall mt-2">
         <div class="column-half">
             <div class="column-two-thirds next-button">
-                <button type="submit" class="button">Continue to benchmarking charts</button>
+                <button type="submit" class="button">Update comparison</button>
             </div>
             <div class="column-one-third back-button">
-                <a href="~/BenchmarkCriteria/ComparisonStrategy?urn=@Model.BenchmarkSchool.Id">Back</a>
+                <a href="~/BenchmarkCriteria/ComparisonStrategy?urn=@Model.BenchmarkSchool.Id">Cancel</a>
             </div>
         </div>
     </div>

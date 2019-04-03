@@ -131,12 +131,12 @@ main {
     }
 }
 
-a.home-link
+.home-link
 {
     display:inline-block;
     margin-top:10px;
     font-size:15px;
-    color:black;
+    color:black!important;
     &:hover{color:black;}
     @include media(mobile)
     {
@@ -191,7 +191,7 @@ nav.tabs ol li {
     }
 }
 
-.chartsSection {
+.charts-section {
     margin-top: 15px;
 }
 
@@ -199,11 +199,11 @@ span.bold{
     font-weight:bold;
 }
 
-a.no-underline{
-    text-decoration: none;
+.no-underline{
+    text-decoration: none!important;
 }
 
-div.revenueDiv {
+.revenue-box {
     border-top: 1px solid $border-colour;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -257,8 +257,8 @@ tspan.england-average-tick{
     }
 }
 
-.chartContainer ul{
-    list-style-type:disc;
+.chart-container ul, .charts-section__chart-container ul{
+    list-style-type: disc;
     padding: inherit;
     padding-top: 0;
 }
@@ -374,7 +374,7 @@ dialog {
 }
 //modal dialog
 
-a.float-to-right{
+.float-to-right{
     float: right
 }
 
@@ -393,6 +393,20 @@ a.float-to-right{
     color: $link-colour;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.a-button {
+    @include a-button;
+}
+
+.back-to-main-chart-group-button {
+    @include a-button;
+    margin-bottom: 1em;
+    display: none;
+}
+
+.underline{
+    text-decoration: underline;
 }
 
 .chart.c3 svg {
@@ -419,7 +433,36 @@ abbr[title]{
     margin: 0 0 0 0;
 }
 
-.hidden{
+.mt-1 {
+    margin-top: 1em;
+}
+
+.mt-2{
+    margin-top:2em;
+}
+
+.mt-header {
+    font-size: 24px;
+    margin-top: 1.875em;
+}
+
+.mt-15 {
+    margin-top: 1.5em;
+}
+
+.pl-1 {
+    padding-left: 1em;
+}
+
+.pl-2{
+    padding-left: 2em;
+}
+
+.w-100{
+    max-width: 100%;
+}
+
+.hidden {
     display: none;
 }
 
@@ -551,9 +594,10 @@ span.back-link {
     font-weight:normal;
 }
 
-a.chevron-button {
+.chevron-button {
     text-decoration: none;
     color: $text-colour;
+    @include core-19;
 }
 
 .result-info{
@@ -570,8 +614,8 @@ abbr.summary{
     text-decoration-style: dotted;
 }
 
-a.skip-map{
-    color: white;
+.skip-map{
+    color: white!important;
     font-size: 16px;
     &:focus{
         height:auto;
@@ -628,17 +672,17 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     }
 }
 
-table a.hide-show-button.hide {
+table .hide-show-button.hide {
     float: right;
 }
 
-table a.hide-show-button.show {
+table .hide-show-button.show {
     @include media(tablet) {
         margin-right: 30px;
     }
 }
 
-a.view-charts-tables {
+.view-charts-tables {
     float: right;
     margin-bottom: 20px;
 }
@@ -700,4 +744,8 @@ body.print-mode .hide-in-print {
 
 .form-group .panel-border-narrow:last-child { 
     margin-bottom: 25px;
+}
+
+.no-wrap {
+    white-space: nowrap;
 }

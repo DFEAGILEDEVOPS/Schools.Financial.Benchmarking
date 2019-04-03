@@ -2,11 +2,11 @@
     .metadata-school-detail {
         overflow: hidden;
 
-        dl {
+        &__dl {
             margin-bottom: 7px;
         }
 
-        dt {
+        &__dt {
             min-width: 150px;
             display: block;
             float: left;
@@ -20,7 +20,7 @@
             }
         }
 
-        dd {
+        &__dd {
             display: block;
             float: left;
             text-align: left;
@@ -43,8 +43,6 @@
             }
         }
 
-
-
         a {
             font-weight: initial;
         }
@@ -55,27 +53,13 @@
         }
     }
 
-    .metadata-school-detail.names {
-        text-align: right;
-        padding: 10px;
-    }
-
-    .metadata-school-detail.values {
-        text-align: left;
-        padding: 10px;
-    }
-
     .compare-buttons-panel {
 
-        .column-full {
+        &__column-full {
             margin-bottom: 20px;
         }
 
-        .column-two-thirds {
-            padding-left: 0;
-        }
-
-        .button.removefrom, .button.addto {
+        &__button--removefrom, &__button--addto {
             @include grey-button;
 
             @include media(mobile) {
@@ -83,93 +67,94 @@
             }
         }
 
-        .button.removefrom, .button.auto {
-            @include grey-button;
+        &__button--auto {
+            margin-left: 30px;
 
             @include media(mobile) {
-                margin-top: 10px;
+                margin-left: 0;
             }
         }
     }
 
-    .chartsSection {
+    .chart-wrapper__inner {
+        @include media(mobile) {
+            padding: 0;
+        }
+    }
 
-        .chartContainer {
-            .chart-header {
+    .charts-section {
+        &__chart-container {
+            &__chart-header {
                 margin-top: 1.5em;
+
+                &__h2 {
+                    @include bold-24();
+                    margin-top: 1em;
+                    margin-bottom: em(10, 20);
+
+                    @include media(tablet) {
+                        margin-top: em(45, 24);
+                        margin-bottom: em(20, 24);
+                    }
+
+                    &--inline {
+                        display: inline;
+                    }
+                }
+
+                &__a--inline {
+                    display: inline;
+                    margin-left: 25px;
+                    @include core-16;
+
+                    @include media(mobile) {
+                        display: block;
+                        margin-left: 0;
+                        margin-bottom: 5px;
+                    }
+                }
             }
 
-            .chart-header-show-value {
+            &__chart-header-show-value {
                 padding-top: 5px;
             }
 
-            h2 {
-                margin-top: 1em;
-            }
-
-            h2.inline {
-                display: inline;
-            }
-
-            a.inline {
-                display: inline;
-                margin-left: 25px;
-
-                @include media(mobile) {
-                    display: block;
-                    margin-left: 0;
-                    margin-bottom: 5px;
-                }
-            }
-
-            .accordion-section-header h2 {
+            &__accordion-section-header__h2 {
                 margin-top: 0;
             }
 
-            .column-three-quarters {
-                @include media(mobile) {
-                    padding: 0;
-                }
-            }
-
-            ul {
-                @include media(mobile) {
-                    padding-left: 15px;
-                }
-            }
-        }
-
-        .chart {
-            margin-top: 20px;
-            margin-bottom: 20px;
-
-            .c3-line-amount {
-                stroke-width: 4px;
+            &__lastYearBalance {
+                @include core-36;
+                border-top: 1px solid $border-colour;
                 color: $turquoise;
+                padding-top: 12px;
+                font-weight: bold;
             }
-
-            .c3-axis-y path {
-                display: none;
-            }
-
-            .c3-axis-x {
-                path {
-                    stroke-width: 2px;
-                    stroke: $border-colour;
-                }
-            }
-        }
-
-        .lastYearBalance {
-            @include core-36;
-            border-top: 1px solid $border-colour;
-            color: $turquoise;
-            padding-top: 12px;
-            font-weight: bold;
         }
     }
 
-    #SchoolLocationMap {
+    .chart {
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        .c3-line-amount {
+            stroke-width: 4px;
+            color: $turquoise;
+        }
+
+        .c3-axis-y path {
+            display: none;
+        }
+
+        .c3-axis-x {
+            path {
+                stroke-width: 2px;
+                stroke: $border-colour;
+            }
+        }
+    }
+
+    .school-location-map {
         width: 100%;
         height: 300px;
     }
@@ -186,21 +171,22 @@
     }
 
     .column-quarter.mobile {
-        @include media(tablet) {
+        @media(min-width: 1000px) {
             display: none;
         }
 
-        @include media(mobile) {
+        @media(max-width: 1000px) {
             display: block;
+            width: 100%;
         }
     }
 
     .column-quarter.desktop {
-        @include media(mobile) {
+        @media(max-width: 1000px) {
             display: none;
         }
 
-        @include media(tablet) {
+        @media(min-width: 1000px) {
             display: block;
         }
     }
@@ -213,7 +199,7 @@
         }
     }
 
-    .revenueDiv {
+    .revenue-box {
         h2 {
             margin-bottom: 5px;
         }
@@ -247,16 +233,8 @@
     }
 
     .returns-incomplete {
-        .addto, .set-unset, .compare, .auto {
+        .compare-buttons-panel--set-unset, .compare-buttons-panel__button--addto, .compare-buttons-panel__button--compare, .compare-buttons-panel--auto {
             display: none !important;
-        }
-    }
-
-    .auto {
-        margin-left: 30px;
-
-        @include media(mobile) {
-            margin-left: 0;
         }
     }
 

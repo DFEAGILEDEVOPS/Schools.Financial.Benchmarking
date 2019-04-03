@@ -71,7 +71,7 @@
             <div class="header-content__dynamic-header__copy">
                 @Html.Raw(ViewBag.DynamicHeaderContent)
             </div>
-            <a class="header-content__dynamic-header__button js-dismiss-dynamic-header" href="javascript:void(0);">Hide message</a>
+            <button class="header-content__dynamic-header__button js-dismiss-dynamic-header a-button underline">Hide message</button>
         </div>
     }
 </div>
@@ -93,22 +93,23 @@
 
 @section BodyEnd {
 
-    @if (!Request.Browser.Browser.Contains("MSIE 8"))//TODO: why do we have this?
-    {
-        <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
+    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
 
+    @if (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge"))
+    {
         <!--[if IE 9]>
         <script src="/public/scripts/termi/element.details.ie8.js"></script>
         <!--<![endif]-->
         <script src="/public/scripts/termi/element.details.js"></script>
-
-        <script src="/public/assets/scripts/application.js?v=@version"></script>
-        @(RenderSection("ViewScripts", required: false))
-
-        <script>
-            $('.sticky-div').Stickyfill();
-        </script>
     }
+
+    <script src="/public/assets/scripts/application.js?v=@version"></script>
+    @(RenderSection("ViewScripts", required: false))
+
+    <script>
+        $('.sticky-div').Stickyfill();
+    </script>
+
 
 }

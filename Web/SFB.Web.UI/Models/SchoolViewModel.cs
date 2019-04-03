@@ -57,6 +57,8 @@ namespace SFB.Web.UI.Models
 
         public int La => ContextDataModel.LACode;
 
+        public string LaName { get; set; }
+
         public int Estab => ContextDataModel.EstablishmentNumber;
 
         public string OverallPhase => ContextDataModel.OverallPhase;
@@ -150,7 +152,7 @@ namespace SFB.Web.UI.Models
                     case OfstedRatings.Rating.REQUIRES_IMPROVEMENT:
                         return OfstedRatings.Description.REQUIRES_IMPROVEMENT;
                     default:
-                        return null;
+                        return OfstedRatings.Description.NOT_RATED;
                 }
             }
         }
@@ -171,7 +173,19 @@ namespace SFB.Web.UI.Models
 
         public bool IsMAT => LatestYearFinancialData.IsMAT;
 
+        public decimal? FSM => LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals;
+
+        public decimal? SEN => LatestYearFinancialData.PercentageOfPupilsWithSen;
+
+        public string UrbanRural => LatestYearFinancialData.UrbanRural;
+
+        public decimal? ExpenditurePerPupil => LatestYearFinancialData.PerPupilTotalExpenditure;
+
         public bool HasProgressScore => LatestYearFinancialData.Ks2Progress.HasValue || LatestYearFinancialData.P8Mea.HasValue;
+
+        public decimal? ProgressScore => LatestYearFinancialData.Ks2Progress.HasValue ?
+                        decimal.Round(LatestYearFinancialData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) 
+                        : LatestYearFinancialData.P8Mea;
 
         public bool HasCoordinates
         {

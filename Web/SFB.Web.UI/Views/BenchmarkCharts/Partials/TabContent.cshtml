@@ -1,13 +1,13 @@
 ﻿@using SFB.Web.Common
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-<div class="chartsSection">
+<div class="charts-section">
     <div class="grid-row">
         <input type="hidden" id="tabSelection" value="@ViewBag.Tab" />
         <form autocomplete="off">
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
-            @if (Model.EstablishmentType == EstablishmentType.Academies  || Model.EstablishmentType == EstablishmentType.All)
+            @if (Model.EstablishmentType == EstablishmentType.Academies || Model.EstablishmentType == EstablishmentType.All)
             {
                 Html.RenderPartial("~/Views/BenchmarkCharts/Partials/CentralFinancing.cshtml");
             }
@@ -18,10 +18,16 @@
                 </div>
             }
             <div class="column-full font-xsmall chartTable hide-in-print">
-                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline" href="javascript:void(0);" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></a>
-                <a style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline" href="javascript:void(0);" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></a>
+                <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline a-button" onclick="DfE.Util.Charting.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
+                <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline a-button" onclick="DfE.Util.Charting.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
             </div>
-            <input type="submit" class="hidden"/>
+            <div class="column-full font-xsmall hide-in-print">
+                <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.BenchmarkChartsViewModel.ResetGrouping()">
+                    <span><</span>
+                    <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                </button>
+            </div>
+            <input type="submit" class="hidden" />
         </form>
     </div>
 

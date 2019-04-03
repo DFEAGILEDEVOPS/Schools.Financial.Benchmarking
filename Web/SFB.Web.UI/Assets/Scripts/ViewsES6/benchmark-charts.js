@@ -5,7 +5,10 @@
         sessionStorage.chartFormat = 'Charts';
 
         $(document).ready(() => {
-            $("table.dataTable").tablesorter();
+            $("#benchmarkChartsList table.data-table-js").tablesorter();
+            $("#bestInClassTabSection table.data-table-js").tablesorter(
+                    { sortList: [[7, 1]] }
+            );
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
             $('.save-as-image').show();
@@ -19,13 +22,13 @@
     RefreshAddRemoveLinks() {
 
         function showRemoveLink(element) {
-            $(element).find("a.customRemove").show();
-            $(element).find("a.customAdd").hide();
+            $(element).find(".customRemove").show();
+            $(element).find(".customAdd").hide();
         }
 
         function showAddLink(element) {
-            $(element).find("a.customAdd").show();
-            $(element).find("a.customRemove").hide();
+            $(element).find(".customAdd").show();
+            $(element).find(".customRemove").hide();
         }
 
         let scope = angular.element($("#listCtrl")).scope();
@@ -138,7 +141,7 @@
 
     GenerateChart(el, showValue, min, mid, max, barCount) {
         let applyChartStyles = function (el) {
-            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chartContainer'))[0]
+            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0]
                 .value;
             if (benchmarkSchoolIndex > -1) {
                 $("#" +
@@ -149,7 +152,7 @@
                     benchmarkSchoolIndex).css("fill", "#D53880");
             }
 
-            let incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chartContainer'))[0].value;
+            let incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chart-container'))[0].value;
             let incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
             if (incompleteFinanceDataIndexArray.length > 0) {
                 incompleteFinanceDataIndexArray.forEach(function (index) {
@@ -162,7 +165,7 @@
                 });
             }
 
-            let incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chartContainer'))[0].value;
+            let incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chart-container'))[0].value;
             let incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
             if (incompleteWorkforceDataIndexArray.length > 0) {
                 incompleteWorkforceDataIndexArray.forEach(function (index) {
@@ -174,6 +177,20 @@
                         index).css("fill", "#F47738");
                 });
             }
+
+            let texts = $("#" + el.id + " .c3-axis-x g.tick text tspan");
+            texts.css('fill', '#005ea5');
+                       
+            let svg = $("#" + el.id + " svg");
+            svg.css('font-size', '14px');
+
+            let axisLines = $("#" + el.id + " .domain");
+            axisLines.css('fill', 'none');
+            axisLines.css('stroke', '#000');
+
+            let tickLines = $("#" + el.id + " .tick line");
+            tickLines.css('fill', 'none');
+            tickLines.css('stroke', '#000');
         };
 
         let restructureSchoolNames = function (id) {
@@ -387,7 +404,7 @@
                     let chartData = JSON.parse($('#' + el.id).attr('data-chart'));
                     let schoolData = chartData[d[0].index];
                     let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']",
-                        $(el).closest('.chartContainer'))[0].value;
+                        $(el).closest('.chart-container'))[0].value;
                     let highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
                     let tableHtml =
                         "<table class='bmc-rollover-table' >" +
@@ -459,11 +476,19 @@
         new Accordion(document.getElementById('bm-charts-accordion'));
     }
 
-    SelectGrouping(grouping) {
+    SelectGrouping(grouping, parentGrouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
         $("#BCHeader")[0].scrollIntoView();
         $("#ChartGroup").focus();
+        $(".back-to-main-chart-group-button .js-parent-group").text(parentGrouping);
+        $(".back-to-main-chart-group-button").show();
+    }
+
+    ResetGrouping() {
+        $('#ChartGroup').prop('selectedIndex', 0);
+        $("#ChartGroup").change();
+        $(".back-to-main-chart-group-button").hide();
     }
 
     RebuildCharts() {
@@ -474,6 +499,8 @@
         let trustCentralFinancing = $("#TrustCentralFinancing").val();
         let formatParameter = sessionStorage.chartFormat;
         let type = $("#Type").val();
+        let comparisonType = $("#ComparisonType").val();
+        let bicComparisonPhase = $("#BicComparisonPhase").val();
 
         let url = "/benchmarkcharts/getcharts?revgroup=" +
             tabParameter +
@@ -498,6 +525,14 @@
             url += "&format=" + formatParameter;
         }
 
+        if (comparisonType) {
+            url += "&comparisonType=" + comparisonType;
+        }
+
+        if (bicComparisonPhase) {
+            url += "&bicComparisonPhase=" + bicComparisonPhase;
+        }
+
         $.ajax({
             url: url,
             datatype: 'json',
@@ -509,7 +544,7 @@
                 this.RefreshAddRemoveLinks();
                 $('.save-as-image').show();
                 this.GenerateCharts(unitParameter);
-                $("table.dataTable").tablesorter();
+                $("table.data-table-js").tablesorter();
             }
         });
     }
@@ -557,6 +592,8 @@
             let trustFinancingParameter = $("#TrustCentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             let typeParameter = $("#Type").val();
+            let comparisonType = $("#ComparisonType").val();
+            let bicComparisonPhase = $("#BicComparisonPhase").val();
             let formatParameter = sessionStorage.chartFormat;
             let url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
@@ -569,6 +606,12 @@
             }
             if (formatParameter) {
                 url += "&format=" + formatParameter;
+            }
+            if (comparisonType) {
+                url += "&comparisonType=" + comparisonType;
+            }
+            if (bicComparisonPhase) {
+                url += "&bicComparisonPhase=" + bicComparisonPhase;
             }
             $.ajax({
                 url: url,
@@ -586,7 +629,7 @@
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $(".download-links").show();
                     $("#tabsSection").html(data);
-                    $("table.dataTable").tablesorter();
+                    $("table.data-table-js").tablesorter();
                     let unitParameter = $("#ShowValue").val();
                     this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
@@ -620,6 +663,10 @@
                 pdfGenerator.save();
             });
         });
+    }
+
+    SubmitCriteriaForm() {
+        $('form#advancedCriteria').submit();
     }
 }
 
@@ -767,7 +814,7 @@ class PdfGenerator {
     }
 
     writeCharts() {
-        let charts = $('.chartContainer');
+        let charts = $('.chart-container');
         let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
         let chartPerPage = Math.ceil(12 / yValuesCount);
 

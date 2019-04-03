@@ -41,18 +41,27 @@
 <div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
     <div class="column-full">
         <span class="back-chevron" aria-hidden="true">&#9666;</span>
-        @if (Model.ComparisonType == ComparisonType.BestInClass)
-        {
-            <a class="home-link" href="@Request.Url.AbsolutePath?Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Back to benchmarking charts</a>
-        }
-        else
-        {
-            <a class="home-link" href="javascript:void(0);" onclick="location.reload();">Back to benchmarking charts</a>
-        }
+        @*@if (Model.ComparisonType == ComparisonType.BestInClass)
+            {
+                <a class="home-link" href="@Request.Url.AbsolutePath?Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Back to benchmarking charts</a>
+            }
+            else
+            {
+                <button class="link-button font-xsmall home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
+            }*@
+
+        <button class="link-button font-xsmall home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
     </div>
 </div>
 
-<h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
+@if (Model.ComparisonType == ComparisonType.BestInClass)
+{
+    <h1 id="BCHeader" class="heading-xlarge page-heading">Highest progress schools benchmark</h1>
+}
+else
+{
+    <h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
+}
 
 @if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
 {
@@ -70,20 +79,37 @@ else
         {
             <div class="grid-row">
                 <div class="column-full" id="comparing">
-                    <span>Comparing</span>
-                    <div class="highlight">
-                        <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
-                    </div>
+
                     @if (Model.ComparisonType == ComparisonType.Advanced)
                     {
+                        <span>Comparing</span>
+                        <div class="highlight">
+                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        </div>
                         <span>&nbsp;to schools</span>
-                        <span class="bold-small"> with characteristics you've chosen</span>
+                        <span class="bold-small"> with characteristics you've chosen. </span>
+                        <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
-                    else if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.BestInClass)
+                    else if (Model.ComparisonType == ComparisonType.Basic)
                     {
+                        <span>Comparing</span>
+                        <div class="highlight">
+                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        </div>
                         <span>&nbsp;to schools</span>
-                        <span class="bold-small"> matching your chosen characteristics</span>
+                        <span class="bold-small"> matching your chosen characteristics. </span>
+                        <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
+                    else if (Model.ComparisonType == ComparisonType.BestInClass)
+                    {
+                        <span>Comparing</span>
+                        <div class="highlight">
+                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        </div>
+                        <span>&nbsp;to the highest progress schools. </span>                        
+                        <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+                    }
+
                 </div>
             </div>
         }
@@ -93,24 +119,30 @@ else
                 <div class="column-full">
                     <details class="criteria-details">
                         <summary class="hide-in-print">
-                            <span class="summary">View or change characteristics used</span>
+                            <span class="summary font-xsmall">View characteristics used</span>
                         </summary>
-                        <div class="panel panel-border-narrow criteria-detail">
-                            @if (Model.ComparisonType == ComparisonType.Advanced)
-                            {
-                                Html.RenderPartial("Partials/AdvancedHiddenFields");
-                                Html.RenderPartial("Partials/UsedAdvancedCriteria");
-                            }
-                            else if (Model.ComparisonType == ComparisonType.Basic)
-                            {
-                                Html.RenderPartial("Partials/BasicHiddenFields");
-                                Html.RenderPartial("Partials/UsedBasicCriteria");
-                            }else if (Model.ComparisonType == ComparisonType.BestInClass)
-                            {
-                                Html.RenderPartial("Partials/BicHiddenFields");
-                                Html.RenderPartial("Partials/UsedBicCriteria");
-                            }
-                        </div>
+                        @if (Model.ComparisonType == ComparisonType.Advanced)
+                        {
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/AdvancedHiddenFields")
+                                @Html.Partial("Partials/UsedAdvancedCriteria")
+                            </div>
+                        }
+                        else if (Model.ComparisonType == ComparisonType.Basic)
+                        {
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/BasicHiddenFields")
+                                @Html.Partial("Partials/UsedBasicCriteria")
+                            </div>
+                        }
+                        else if (Model.ComparisonType == ComparisonType.BestInClass)
+                        {
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/BicHiddenFields")
+                                @Html.Partial("Partials/UsedBicCriteria")
+                            </div>
+                        }
+
                     </details>
                 </div>
             </div>
@@ -153,14 +185,14 @@ else
             </div>
             <div class="column-one-third">
                 <div class="print">
-                    <a id="PrintLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()" href="javascript:void(0);">
+                    <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()">
                         <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="column-one-third">
                 <div class="pdf">
-                    <a id="PdfLink" class="no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()" href="javascript:void(0);"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></a>
+                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></button>
                 </div>
             </div>
         </div>
@@ -223,43 +255,7 @@ else
                 <div id="CustomReportContentPlaceHolder">
 
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-                    @if (Model.ComparisonType == ComparisonType.BestInClass)
-                    {
-                        <div id="bestInClassTabSection">
-                            <div class="grid-row">
-                                <div class="column-full">
-                                    <h2 class="heading-small">Comparison with high-performing schools</h2>
-
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">School name</th>
-                                                <th scope="col">Local authority</th>
-                                                <th class="numeric" scope="col">Number of pupils</th>
-                                                <th class="numeric" scope="col">Key stage progress</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var bmSchool in Model.SchoolComparisonList.BenchmarkSchools.OrderByDescending(s => s.ProgressScore))
-                                            {
-                                                <tr>
-                                                    <td scope="col" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "bold":"")">
-                                                        @bmSchool.Name
-                                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bmSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
-                                                </td>
-                                                <td scope="col">@bmSchool.LaName</td>
-                                                <td class="numeric" scope="col">@bmSchool.NumberOfPupils</td>
-                                                <td class="numeric" scope="col">@bmSchool.ProgressScore.GetValueOrDefault().ToString("F")</td>
-                                            </tr>
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    }
-
-                    <div id="tabsSection" style="display: @Html.Raw(Model.ComparisonType != ComparisonType.BestInClass ? "block" : "none")">
+                    <div id="tabsSection">
                         @Html.Partial("Partials/TabContent")
                     </div>
                     @if (Model.EstablishmentType != EstablishmentType.MAT)
@@ -268,6 +264,10 @@ else
                             @Html.Partial("Partials/CustomTabContent")
                         </div>
                     }
+                    @if (Model.ComparisonType == ComparisonType.BestInClass)
+                    {
+                        @Html.Partial("Partials/BicTabContent")
+                    }
                 </div>
             </div>
         </div>
@@ -275,9 +275,12 @@ else
 
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
         <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />
+        <input type="hidden" id="BicComparisonPhase" name="Type" value="@(Model.BenchmarkSchoolData?.SchoolPhase)" />
         <input type="hidden" id="HomeSchoolName" name="HomeSchoolName" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
     }
 }
+
+
 
 @section AfterMain{
     <div class="full-page-width-wrapper hide-in-print" role="region" aria-label="Feedback Question">

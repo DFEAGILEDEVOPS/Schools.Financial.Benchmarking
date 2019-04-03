@@ -154,11 +154,19 @@
         });
     }
 
-    SelectGrouping(grouping) {
+    SelectGrouping(grouping, parentGrouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
         $("#financialSummary")[0].scrollIntoView();
         $("#ChartGroup").focus();
+        $(".back-to-main-chart-group-button .js-parent-group").text(parentGrouping);
+        $(".back-to-main-chart-group-button").show();
+    }
+
+    ResetGrouping() {
+        $('#ChartGroup').prop('selectedIndex', 0);
+        $("#ChartGroup").change();
+        $(".back-to-main-chart-group-button").hide();
     }
 
     RebuildCharts(establishment) {
@@ -202,10 +210,10 @@
             url: url,
             datatype: 'json',
             beforeSend: () => {
-                DfE.Util.LoadingMessage.display("#historicalChartsList", "Updating charts");
+                DfE.Util.LoadingMessage.display(".historical-charts-list", "Updating charts");
             },
             success: (data) => {
-                $("#historicalChartsList").html(data);
+                $(".historical-charts-list").html(data);
                 this.GenerateCharts(unitParameter);
                 this.UpdateTotals();
                 this.UpdateTrustWarnings();
@@ -268,7 +276,7 @@
                         break;
                     case "Add":
                     case "Remove":
-                        $(".add-remove").toggle();
+                        $(".add-remove-js").toggle();
                         break;
                 }
             });

@@ -79,8 +79,8 @@
                         @DefaultButton(school)
                     </div>
                     <div class="remove-benchmark column-quarter no-padding">
-                        <a class="button removefrom" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'Remove')")"
-                           aria-label="Remove @school.Name from benchmark">Remove</a>
+                        <button class="button removefrom" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'Remove')")"
+                           aria-label="Remove @school.Name from benchmark">Remove</button>
                     </div>
                 </div>
             </div>
@@ -100,10 +100,10 @@
 
 @helper DefaultButton(BenchmarkSchoolModel school)
 {
-    <a @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'SetDefault')")"
-                                                        aria-label="Use @school.Name as default school">Use as default school</a>
-    <a @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark bold-xsmall" href="javascript:void(0);" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'UnsetDefault')")"
-                                                        aria-label="Remove @school.Name as default school">Remove as default school</a>
+    <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button no-underline bold-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'SetDefault')")"
+                                                        aria-label="Use @school.Name as default school">Use as default school</button>
+    <button @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark link-button no-underline bold-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'UnsetDefault')")"
+                                                        aria-label="Remove @school.Name as default school">Remove as default school</button>
 }
 
 @helper DisplayStyle(bool display)

@@ -11,14 +11,14 @@
         historicalChart.Id = index.ToString();
         ViewBag.FinancialYear = Model.EstablishmentType == EstablishmentType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
 
-        <div class="chartContainer column-full no-padding" data-group="@historicalChart.ChartGroup">
+        <div class="charts-section__chart-container column-full no-padding" data-group="@historicalChart.ChartGroup">
             @if (historicalChart.ChartType == ChartType.Total)
             {
 
                 if (historicalChart.DrillInto != null)
                 {
-                    <div class="chart-header">
-                        <h2 class="heading-medium inline">@historicalChart.Name</h2>
+                    <div class="charts-section__chart-container__chart-header">
+                        <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
                         @if (historicalChart.HelpTooltip != null)
                         {
                             <span class="help-icon help-chart hide-in-print">
@@ -29,24 +29,24 @@
                                 </span>
                             </span>
                         }
-                        <a class="inline hide-in-print" href="javascript:void(0)" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto')">
+                        <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto','@historicalChart.RevenueGroupName.ToLower()')">
                         @if (ViewBag.ChartFormat == ChartFormat.Charts)
                         {
-                            <span class="view-more">View more charts</span>
+                            <span class="view-more">All @historicalChart.Name.Replace("total", "").ToLower() charts</span>
                         }
                         else
                         {
                             <span class="view-more">View more tables</span>
                         }
                             <span class="visuallyhidden"> for @historicalChart.Name</span>
-                        </a>
-                        <div class="chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
+                        </button>
+                        <div class="charts-section__chart-container__chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                     </div>
                 }
                 else
                 {
-                    <div class="chart-header">
-                        <h2 class="heading-medium inline">@historicalChart.Name</h2>
+                    <div class="charts-section__chart-container__chart-header">
+                        <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
                         @if (historicalChart.HelpTooltip != null)
                         {
                         <span class="help-icon help-chart hide-in-print">
@@ -57,7 +57,7 @@
                             </span>
                         </span>
                         }
-                        <div class="chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
+                        <div class="charts-section__chart-container__chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                     </div>
                 }
 
@@ -69,7 +69,7 @@
                     <fieldset role="group">
                         <legend class="hidden">@historicalChart.Name</legend>
                         <div class="accordion-section-header">
-                            <h2 class="heading-medium chart-accordion-header" aria-label="@historicalChart.Name Select to show section">@historicalChart.Name</h2>
+                            <h2 class="heading-medium chart-accordion-header charts-section__chart-container__accordion-section-header_h2" aria-label="@historicalChart.Name Select to show section">@historicalChart.Name</h2>
                             @if (historicalChart.HelpTooltip != null)
                             {
                                 <span class="help-icon help-chart hide-in-print">
@@ -84,7 +84,7 @@
 
 
                         <div class="accordion-section-body">
-                            <div class="chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
+                            <div class="charts-section__chart-container__chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                             @Html.Partial("Partials/HistoricalChart", historicalChart)
                             @if (historicalChart.SubCharts != null)
                             {
@@ -92,8 +92,8 @@
                                 {
                                     ChartViewModel subChart = historicalChart.SubCharts[i];
                                     subChart.Id = $"{index}_{i}";
-                                    <h2 class="heading-medium">@subChart.Name</h2>
-                                    <div class="chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
+                                    <h2 class="charts-section__chart-container__chart-header__h2">@subChart.Name</h2>
+                                    <div class="charts-section__chart-container__chart-header-show-value">@historicalChart.ShowValue.GetDescription() @ChartLabelForCentralFinance()</div>
                                     @Html.Partial("Partials/HistoricalChart", subChart)
                                 }
                             }
@@ -113,7 +113,7 @@
 <input type="hidden" id="balTotalAbbr" value="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" />
 <input type="hidden" id="isPlaceholder" value="@Model.IsReturnsPlaceholder.ToString().ToLower()" />
 
-@if (Request.IsAjaxRequest())
+@if (Request.IsAjaxRequest() && (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge")))
 {
     <script src="/public/scripts/termi/element.details.ajax.js"></script>
 }

@@ -121,7 +121,7 @@ namespace SFB.Web.UI.UnitTests
             var comparisonResult = await service.GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType.Maintained, new BenchmarkCriteria() { Gender = new[] { "Male" } },
                 new BestInClassCriteria(), new FinancialDataModel("123", "14-15", testResult, EstablishmentType.Maintained));
 
-            mockFinancialDataService.Verify(s => s.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), EstablishmentType.Maintained), Times.Exactly(11));
+            mockFinancialDataService.Verify(s => s.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), EstablishmentType.Maintained), Times.Exactly(16));
             Assert.AreEqual(15, comparisonResult.BenchmarkSchools.Count);            
         }
 

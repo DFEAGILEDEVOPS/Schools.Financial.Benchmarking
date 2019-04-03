@@ -2,21 +2,21 @@
 
     @include highlighting;
 
-    .home-school.section {
+    .home-school-section {
         margin-top: 30px;
         margin-bottom: 30px;
     }
 
-    .home-school-divider {
+    .home-school-section-divider {
         margin-bottom: 0;
     }
 
-    ul {
+    .search-options-list {
         list-style-type: disc;
         padding-left: 20px;
     }
 
-    ul.error-summary-list {
+    .error-summary-list {
         list-style-type: none;
     }
 
@@ -30,33 +30,35 @@
 
         .form-control {
             width: 100%;
+            margin-bottom: -2px;
         }
     }
 
     .tt-menu {
         background-color: white;
         z-index: 99 !important; // accessibility requirement
-        .tt-suggestion {
-            a {
-                display: block;
-                padding: $gutter-one-quarter;
-                text-decoration: none;
-            }
+    }
 
-            a strong {
-                text-decoration: underline;
-            }
-
-            &:hover, a:hover {
-                background-color: $link-hover-colour;
-                color: white;
-                cursor: pointer;
-            }
+    .tt-suggestion {
+        a {
+            display: block;
+            padding: $gutter-one-quarter;
+            text-decoration: none;
         }
 
-        .tt-cursor {
-            background-color: #f9f9f9;
+        a strong {
+            text-decoration: underline;
         }
+
+        &:hover, a:hover {
+            background-color: $link-hover-colour;
+            color: white;
+            cursor: pointer;
+        }
+    }
+
+    .tt-cursor {
+        background-color: #f9f9f9;
     }
 
     .view-tables-legend, search-by-legend {
@@ -65,7 +67,7 @@
         padding-top: 0.8em;
     }
 
-    p.search-legend {
+    .search-legend {
         margin-top: 0.25em;
         margin-bottom: 0.5em;
     }
@@ -75,7 +77,7 @@
         margin-bottom: 1em;
     }
 
-    input.search-input {
+    .search-input {
         position: relative;
         display: inline-block;
         float: left;
@@ -85,7 +87,7 @@
         }
     }
 
-    button.search-button {
+    .search-button {
         display: inline-block;
         float: left;
         position: relative;
@@ -104,7 +106,7 @@
         }
     }
 
-    input.mbl.tt-input, input.mbl.search-input {
+    .tt-input, .search-input {
         height: 37px;
     }
 
@@ -120,23 +122,10 @@
     select {
         margin-bottom: 14px;
     }
-    /*div#SearchTypesAccordion {
-        input[type=radio] {
-            display: none;
-        }
 
-        label.block-label {
-            padding-left: 24px;
-
-            &:hover {
-                border-color: #dee0e2;
-                cursor: default;
-            }
-        }
-    }*/
     .search-types {
-        .optional-section {
-            label {
+        &__optional-section {
+            &__label {
                 float: left;
                 width: 100%;
                 margin-bottom: 1em;
@@ -145,51 +134,19 @@
                     font-weight: normal;
                 }
             }
-
-            .academy-search {
-                margin-bottom: 13px;
-
-                label {
-                    margin-bottom: 0;
-                }
-
-                details {
-                    div.panel-indent {
-                        margin-bottom: 14px;
-
-                        p {
-                            font-size: 16px;
-                        }
-                    }
-
-                    summary {
-                        font-size: 15.2px;
-
-                        .details-marker {
-                            font-size: 9.6px;
-                            font-weight: normal;
-                        }
-
-                        span.summary {
-                            font-size: 15.2px;
-                            font-weight: normal;
-                        }
-                    }
-                }
-            }
         }
     }
 
-    p.search-legend {
+    .search-legend {
         margin-top: 0.25em;
         margin-bottom: 0.5em;
     }
 
-    p.homep {
+    .homep {
         margin-bottom: 0.7em;
     }
 
-    .contents.guidance {
+    .contents-guidance {
         border-top: 10px solid $govuk-blue;
         margin-top: 36px;
 
@@ -198,26 +155,3 @@
         }
     }
 }
-
-
-/*.js-enabled .schools-search-page
-{
-    div#SearchTypesAccordion
-    {
-        input[type=radio]
-        {
-            display:inline-block;
-        }
-        label.block-label
-        {
-            padding-left:54px;
-            &:hover
-            {
-                border-color:#0b0c0c;
-                cursor:pointer;
-            }
-        }
-    }
-}*/
-
-

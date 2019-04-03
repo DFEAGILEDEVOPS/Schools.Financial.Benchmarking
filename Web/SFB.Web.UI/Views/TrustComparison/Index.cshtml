@@ -75,7 +75,7 @@
             @Html.Partial("Partials/TrustCharacteristics", Model)
         </form>
         <div class="column-full clear-bottom">
-            <a class="clear-criteria js-clear-criteria" href="javascript:void(0);">Clear all characteristics</a>
+            <button class="clear-criteria js-clear-criteria a-button">Clear all characteristics</button>
         </div>
     </div>
 
@@ -94,7 +94,7 @@
                     <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo&name=@Model.BenchmarkTrust.Name">Back</a>
                 </div>
                 <div class="column-two-thirds back-button">
-                    <a id="removeAllTrusts" href="javascript:void(0);">Remove all trusts</a>
+                    <button id="removeAllTrusts" class="a-button underline">Remove all trusts</button>
                 </div>
             </div>
         </div>

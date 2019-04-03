@@ -15,7 +15,7 @@
 
 <div class="column-two-thirds">
     <div>
-        <a class='add-remove button addall' style="display: none" href="javascript:void(0);" onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to basket</a>
+        <button class='add-remove button addall' style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to basket</button>
     </div>
     <div id="schoolCountPlaceHolder" class="no-padding"></div>
     <div class="result-controllers">
@@ -23,16 +23,16 @@
             <nav class="navigation-links" role="navigation">
                 <div class="olist" role="tablist">
                     <div class="litem navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
-                        <a href="javascript:void(0)">
+                        <button class="link-button bold-small no-padding no-underline">
                             <img src="~/public/assets/images/icons/icon-map.png" alt="view on map"/>View on map
                             <span class="visuallyhidden"> click to expand.</span>
-                        </a>
+                        </button>
                     </div>
                     <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
-                        <a href="javascript:void(0)">
+                        <button class="link-button bold-small no-padding no-underline">
                             <img src="~/public/assets/images/icons/icon-list.png" alt="view as list"/>View as list
                             <span class="visuallyhidden"> click to expand.</span>
-                        </a>
+                        </button>
                     </div>
                 </div>
             </nav>

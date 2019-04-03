@@ -50,6 +50,16 @@ namespace SFB.Web.UI.Controllers
             return View("TrustResults", vm);
         }
 
+        public async Task<ActionResult> SuggestTrust(string trustNameId)
+        {
+            var vm = new SchoolNotFoundViewModel
+            {
+                SearchKey = trustNameId,
+                Suggestions = await _trustSearchService.SuggestTrustByName(trustNameId)
+            };
+            return View("NotFound", vm);
+        }
+
         public async Task<ActionResult> Index(int companyNo, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
