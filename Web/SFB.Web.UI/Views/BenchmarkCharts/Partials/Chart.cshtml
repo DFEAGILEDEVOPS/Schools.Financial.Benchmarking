@@ -166,7 +166,7 @@
                                 </div>
                                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                                 {                                    
-                                <div class="chart-scores-wrapper" style="height:@(Model[i].BenchmarkData.Count * 30)px">
+                                <div class="chart-scores-wrapper" style="height:@(Model[i].BenchmarkData.Count * 30)px; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "flex")">
                                     @if (ViewBag.BicComparisonPhase == "Secondary")
                                     {
                                     <div class="chart-scores-header">
@@ -299,7 +299,7 @@
                                         </div>
                                         @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                                         {
-                                            <div class="chart-scores-wrapper" style="height:@(Model[i].BenchmarkData.Count * 30)px">
+                                            <div class="chart-scores-wrapper" style="height:@(Model[i].BenchmarkData.Count * 30)px; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "flex")">
                                                 @if (ViewBag.BicComparisonPhase == "Secondary")
                                                 {
                                                     <div class="chart-scores-header">

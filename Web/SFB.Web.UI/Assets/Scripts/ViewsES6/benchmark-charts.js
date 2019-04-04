@@ -639,6 +639,36 @@
         }
     }
 
+    ToggleChartsTables(mode) {
+        let $charts = $('.chart-wrapper');
+        let $chartsScores = $('.chart-scores-wrapper');
+        let $tables = $('.chart-table-wrapper');
+        let $showChartsButton = $('.view-charts-tables.charts');
+        let $showTablesButton = $('.view-charts-tables.tables');
+        let $saveAsImagesButtons = $('.save-as-image');
+        let $viewMoreLabels = $("a span.view-more");
+        if (mode === 'Charts') {
+            $showChartsButton.hide();
+            $showTablesButton.show();
+            $tables.hide();
+            $charts.css('display', 'inline-block');
+            $chartsScores.css('display', 'flex');
+            $saveAsImagesButtons.show();
+            $viewMoreLabels.text("View more charts");
+            sessionStorage.chartFormat = 'Charts';
+            this.RebuildCharts();
+        } else if (mode === 'Tables') {
+            $showTablesButton.hide();
+            $showChartsButton.show();
+            $charts.hide();
+            $chartsScores.hide();
+            $tables.show();
+            $saveAsImagesButtons.hide();
+            $viewMoreLabels.text("View more tables");
+            sessionStorage.chartFormat = 'Tables';
+        }
+    }
+
     HideShowDetails(element) {
         let $table = $(element).closest('table');
         $table.find('.detail').toggle(200);
