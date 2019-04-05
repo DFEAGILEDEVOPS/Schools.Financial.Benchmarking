@@ -350,6 +350,7 @@ namespace SFB.Web.DAL.Repositories
                         $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], " +
                         $"'{DataGroups.Academies}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
                         $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_PHASE}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'] " +
                         $"FROM c WHERE {query}");
@@ -363,6 +364,7 @@ namespace SFB.Web.DAL.Repositories
                         $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], " +
                         $"'{DataGroups.Maintained}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
                         $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_PHASE}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'] " +
                         $"FROM c WHERE {query}");

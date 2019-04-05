@@ -181,11 +181,13 @@ namespace SFB.Web.UI.Models
 
         public decimal? ExpenditurePerPupil => LatestYearFinancialData.PerPupilTotalExpenditure;
 
+        public string PhaseInFinancialSubmission => LatestYearFinancialData.SchoolPhase;
+
         public bool HasProgressScore => LatestYearFinancialData.Ks2Progress.HasValue || LatestYearFinancialData.P8Mea.HasValue;
 
-        public decimal? ProgressScore => LatestYearFinancialData.Ks2Progress.HasValue ?
-                        decimal.Round(LatestYearFinancialData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) 
-                        : LatestYearFinancialData.P8Mea;
+        public decimal? ProgressScore => PhaseInFinancialSubmission == "Secondary" ?
+                        LatestYearFinancialData.P8Mea
+                        : decimal.Round(LatestYearFinancialData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
 
         public bool HasCoordinates
         {

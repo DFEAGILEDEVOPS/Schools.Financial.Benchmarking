@@ -140,9 +140,10 @@ namespace SFB.Web.UI.Controllers
                     Type = schoolData.Type,
                     EstabType = schoolData.FinanceType,
                     Urn = schoolData.URN.ToString(),
-                    ProgressScore = schoolData.Ks2Progress.HasValue ?
-                        decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
-                        : schoolData.Progress8Measure
+                    ProgressScore = schoolData.Phase == "Secondary" ?
+                        schoolData.Progress8Measure
+                        : decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
+                        
                 };
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }
@@ -405,7 +406,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BicComparisonPhase = bicComparisonSchools?.FirstOrDefault()?.Phase;
+            ViewBag.BicComparisonPhase = bicComparisonSchools?.FirstOrDefault()?.PhaseInFinancialSubmission;
 
             return View("Index", vm);
         }
