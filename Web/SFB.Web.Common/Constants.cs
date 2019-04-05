@@ -276,6 +276,7 @@
         public const string AUTISTIC_DISORDER = "Autistic spectrum disorder";
         public const string OTHER_LEARNING_DIFF = "Other learning difficulty";
         public const string PER_PUPIL_EXP = "Expenditure per pupil";
+        public const string PER_PUPIL_GF = "Grant funding per pupil";
         public const string RR_TO_INCOME = "RR to Income";
     }
 

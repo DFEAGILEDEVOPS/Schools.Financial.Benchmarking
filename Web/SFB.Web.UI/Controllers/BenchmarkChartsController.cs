@@ -153,20 +153,13 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> OneClickReport(int urn)
+        public async Task<ViewResult> OneClickReport(int urn)
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
 
-            var simpleCriteria = new SimpleCriteria()
-            {
-                IncludeEal = true,
-                IncludeFsm = true,
-                IncludeSen = true
-            };
+            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromOneClickComparisonCriteria(benchmarkSchool.LatestYearFinancialData);
 
-            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
-
-            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.ONE_CLICK, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithOneClickComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.ONE_CLICK, benchmarkSchool.LatestYearFinancialData);
 
             EmptyBenchmarkList();
 
@@ -184,7 +177,7 @@ namespace SFB.Web.UI.Controllers
                 null,
                 ComparisonType.OneClick,
                 benchmarkCriteria,
-                simpleCriteria,
+                null,
                 null,
                 null,
                 benchmarkSchool.EstablishmentType,

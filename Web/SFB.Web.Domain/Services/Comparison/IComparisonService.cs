@@ -13,7 +13,10 @@ namespace SFB.Web.Domain.Services.Comparison
             EstablishmentType estType, int basketSize,
             SimpleCriteria simpleCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
 
-        Task<ComparisonResult> GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType establishmentType, BenchmarkCriteria benchmarkCriteria, 
+        Task<ComparisonResult> GenerateBenchmarkListWithOneClickComparisonAsync(BenchmarkCriteria benchmarkCriteria,
+            EstablishmentType estType, int basketSize, FinancialDataModel defaultSchoolFinancialDataModel);
+
+        Task<ComparisonResult> GenerateBenchmarkListWithBestInClassComparisonAsync(EstablishmentType establishmentType, BenchmarkCriteria benchmarkCriteria,
             BestInClassCriteria bicCriteria, FinancialDataModel defaultSchoolFinancialDataModel);
     }
 }
