@@ -98,7 +98,7 @@ namespace SFB.Web.Domain.Services.Comparison
             if (benchmarkSchools.Count > ComparisonListLimit.BIC)
             {
                 benchmarkSchools = benchmarkSchools
-                    .OrderByDescending(b => b.Ks2Progress ?? b.Progress8Measure)
+                    .OrderByDescending(b => b.Phase == "Secondary" ? b.Progress8Measure : b.Ks2Progress)
                     .Take(ComparisonListLimit.BIC)
                     .ToList();
             }
