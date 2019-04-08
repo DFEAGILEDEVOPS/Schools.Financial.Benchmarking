@@ -286,6 +286,8 @@ namespace SFB.Web.Domain.Models
 
         public decimal? FullTimeAdmin => FinancialDataObjectModel.AdminStaff;
 
+        public decimal? FullTimeAux => FinancialDataObjectModel.AuxStaff;
+
         public decimal? FullTimeOther => FinancialDataObjectModel.FullTimeOther;
 
         public decimal? PercentageQualifiedTeachers => FinancialDataObjectModel.PercentageQualifiedTeachers;

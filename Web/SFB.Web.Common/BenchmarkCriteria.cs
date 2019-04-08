@@ -174,15 +174,15 @@ namespace SFB.Web.Common
         [DBField(name: SchoolTrustFinanceDBFieldNames.FULL_TIME_OTHER, type: CriteriaFieldComparisonTypes.MAX)]
         public decimal? MaxFullTimeOther { get; set; }
 
-        [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_ADMIN)]
+        [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_AUX)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: SchoolTrustFinanceDBFieldNames.ADMIN_STAFF, type: CriteriaFieldComparisonTypes.MIN)]
-        public decimal? MinFullTimeAdmin { get; set; }
+        [DBField(name: SchoolTrustFinanceDBFieldNames.AUX_STAFF, type: CriteriaFieldComparisonTypes.MIN)]
+        public decimal? MinFullTimeAux { get; set; }
 
-        [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_ADMIN)]
+        [PrettyName(SchoolCharacteristicsQuestions.FULL_TIME_AUX)]
         [Range(0, Int32.MaxValue)]
-        [DBField(name: SchoolTrustFinanceDBFieldNames.ADMIN_STAFF, type: CriteriaFieldComparisonTypes.MAX)]
-        public decimal? MaxFullTimeAdmin { get; set; }
+        [DBField(name: SchoolTrustFinanceDBFieldNames.AUX_STAFF, type: CriteriaFieldComparisonTypes.MAX)]
+        public decimal? MaxFullTimeAux { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE)]
         [Range(0, Int32.MaxValue)]

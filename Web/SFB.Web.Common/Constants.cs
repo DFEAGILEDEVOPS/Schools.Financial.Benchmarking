@@ -254,7 +254,7 @@
         public const string PERCENTAGE_QUALIFIED_TEACHERS = "Percentage of teachers with qualified teacher status (full time equivalent)";
         public const string FULL_TIME_TA = "Number of teaching assistants (full time equivalent)";
         public const string FULL_TIME_OTHER = "Number of non-classroom support staff – excluding auxiliary staff (full time equivalent)";
-        public const string FULL_TIME_ADMIN = "Number of admin/clerical staff (full time equivalent)";
+        public const string FULL_TIME_AUX = "Number of Auxiliary staff (Full Time Equivalent)";
         public const string SCHOOL_WORKFORCE_FTE = "Number in the school workforce (full time equivalent)";
         public const string NUMBER_OF_TEACHERS_FTE = "Number of teachers (full time equivalent)";
         public const string SENIOR_LEADERSHIP_FTE = "Number in the senior leadership team (full time equivalent)";

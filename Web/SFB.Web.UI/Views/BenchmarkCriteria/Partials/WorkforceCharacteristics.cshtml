@@ -72,14 +72,14 @@
                     maxValue: Model.BenchmarkCriteria.MaxFullTimeOther
                     ))
 
-            @Html.Partial("Partials/Criteria/PercentageCriteria",
+            @Html.Partial("Partials/Criteria/RangeCriteria",
                 new BenchmarkCriteriaRangeVM(
-                    question: SchoolCharacteristicsQuestions.FULL_TIME_ADMIN,
-                    homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_ADMIN],
+                    question: SchoolCharacteristicsQuestions.FULL_TIME_AUX,
+                    homeSchoolValue: Model[SchoolCharacteristicsQuestions.FULL_TIME_AUX],
                     homeSchoolName: Model.BenchmarkSchool.Name,
-                    elementName: "FullTimeAdmin",
-                    minValue: Model.BenchmarkCriteria.MinFullTimeAdmin,
-                    maxValue: Model.BenchmarkCriteria.MaxFullTimeAdmin
+                    elementName: "FullTimeAux",
+                    minValue: Model.BenchmarkCriteria.MinFullTimeAux,
+                    maxValue: Model.BenchmarkCriteria.MaxFullTimeAux
                     ))
         </div>
     </fieldset>
