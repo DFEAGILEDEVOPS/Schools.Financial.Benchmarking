@@ -78,11 +78,13 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateSchoolIdParameter(nameIdSanitized);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = IsLaEstab(nameId)
-                                ? _contextDataService.GetSchoolDataObjectByLaEstab(nameIdSanitized)
-                                : _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(nameIdSanitized));
-
-                            if (searchResp == null)
+                            try
+                            {
+                                searchResp = IsLaEstab(nameId)
+                                    ? _contextDataService.GetSchoolDataObjectByLaEstab(nameIdSanitized)
+                                    : _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(nameIdSanitized));
+                            }
+                            catch(Exception)
                             {
                                 return View("EmptyResult",
                                     new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),

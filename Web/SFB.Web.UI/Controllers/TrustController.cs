@@ -16,6 +16,7 @@ using SFB.Web.Domain.Services.Search;
 using SFB.Web.Common.DataObjects;
 using System;
 using SFB.Web.UI.Attributes;
+using System.Web.Routing;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -86,7 +87,7 @@ namespace SFB.Web.UI.Controllers
 
             if(academies.Count == 0)
             {
-                throw new ApplicationException($"No record found for trust company number: {companyNo}");
+                return RedirectToActionPermanent("SuggestTrust", "Trust", new RouteValueDictionary { { "trustNameId", companyNo } });
             }
  
             var trustVM = await BuildTrustVMAsync(companyNo, academies.First().TrustName, academies, tab, chartGroup, financing);
