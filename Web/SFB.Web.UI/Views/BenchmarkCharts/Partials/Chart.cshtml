@@ -20,9 +20,12 @@
                                     <span>
                                         @Model[i].Name
                                     </span>
-                                    <span class="not-bold">
-                                        @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
-                                    </span>
+                                    @if (Model[i].ChartType != ChartType.OneClick || Model[i].FieldName != SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL)//exception #31821
+                                    {
+                                        <span class="not-bold">
+                                            @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
+                                        </span>
+                                    }
                                 </h2>
                                 @if (Model[i].HelpTooltip != null)
                                 {
