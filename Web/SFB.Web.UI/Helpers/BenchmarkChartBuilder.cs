@@ -1974,6 +1974,39 @@ namespace SFB.Web.UI.Helpers
                 //One Click Report
                 new ChartViewModel()
                 {
+                    Name = "Total income",
+                    FieldName = SchoolTrustFinanceDBFieldNames.TOTAL_INCOME,
+                    RevenueGroup = RevenueGroupType.Custom,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "Grant funding total",
+                    FieldName = SchoolTrustFinanceDBFieldNames.GRANT_FUNDING,
+                    RevenueGroup = RevenueGroupType.Custom,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
+                    Name = "Self-generated funding total",
+                    FieldName = SchoolTrustFinanceDBFieldNames.SELF_GENERATED_FUNDING,
+                    RevenueGroup = RevenueGroupType.Custom,
+                    ChartGroup = ChartGroupType.Custom,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.OneClick,
+                    ShowValue = UnitType.PerPupil
+                },
+
+                new ChartViewModel()
+                {
                     Name = "Total expenditure",
                     FieldName = SchoolTrustFinanceDBFieldNames.TOTAL_EXP,
                     RevenueGroup = RevenueGroupType.Custom,
@@ -2033,39 +2066,6 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
-                    Name = "Total income",
-                    FieldName = SchoolTrustFinanceDBFieldNames.TOTAL_INCOME,
-                    RevenueGroup = RevenueGroupType.Custom,
-                    ChartGroup = ChartGroupType.Custom,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    ChartType = ChartType.OneClick,
-                    ShowValue = UnitType.PerPupil
-                },
-
-                new ChartViewModel()
-                {
-                    Name = "Grant funding total",
-                    FieldName = SchoolTrustFinanceDBFieldNames.GRANT_FUNDING,
-                    RevenueGroup = RevenueGroupType.Custom,
-                    ChartGroup = ChartGroupType.Custom,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    ChartType = ChartType.OneClick,
-                    ShowValue = UnitType.PerPupil
-                },
-
-                new ChartViewModel()
-                {
-                    Name = "Self-generated funding total",
-                    FieldName = SchoolTrustFinanceDBFieldNames.SELF_GENERATED_FUNDING,
-                    RevenueGroup = RevenueGroupType.Custom,
-                    ChartGroup = ChartGroupType.Custom,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    ChartType = ChartType.OneClick,
-                    ShowValue = UnitType.PerPupil
-                },
-
-                new ChartViewModel()
-                {
                     Name = "In-year balance",
                     FieldName = SchoolTrustFinanceDBFieldNames.IN_YEAR_BALANCE,
                     RevenueGroup = RevenueGroupType.Custom,
@@ -2113,7 +2113,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Total number of teachers (Full Time Equivalent)",
+                    Name = "Number of pupils per FTE Teacher",
                     FieldName = SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Custom,
                     ChartGroup = ChartGroupType.Custom,
