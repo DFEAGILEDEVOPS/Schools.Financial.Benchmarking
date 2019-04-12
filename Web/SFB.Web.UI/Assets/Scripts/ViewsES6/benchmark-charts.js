@@ -500,7 +500,7 @@
         let formatParameter = sessionStorage.chartFormat;
         let type = $("#Type").val();
         let comparisonType = $("#ComparisonType").val();
-        let bicComparisonPhase = $("#BicComparisonPhase").val();
+        let bicComparisonOverallPhase = $("#BicComparisonOverallPhase").val();
 
         let url = "/benchmarkcharts/getcharts?revgroup=" +
             tabParameter +
@@ -529,8 +529,8 @@
             url += "&comparisonType=" + comparisonType;
         }
 
-        if (bicComparisonPhase) {
-            url += "&bicComparisonPhase=" + bicComparisonPhase;
+        if (bicComparisonOverallPhase) {
+            url += "&bicComparisonOverallPhase=" + bicComparisonOverallPhase;
         }
 
         $.ajax({
@@ -593,7 +593,7 @@
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             let typeParameter = $("#Type").val();
             let comparisonType = $("#ComparisonType").val();
-            let bicComparisonPhase = $("#BicComparisonPhase").val();
+            let bicComparisonOverallPhase = $("#BicComparisonOverallPhase").val();
             let formatParameter = sessionStorage.chartFormat;
             let url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
@@ -610,8 +610,8 @@
             if (comparisonType) {
                 url += "&comparisonType=" + comparisonType;
             }
-            if (bicComparisonPhase) {
-                url += "&bicComparisonPhase=" + bicComparisonPhase;
+            if (bicComparisonOverallPhase) {
+                url += "&bicComparisonOverallPhase=" + bicComparisonOverallPhase;
             }
             $.ajax({
                 url: url,

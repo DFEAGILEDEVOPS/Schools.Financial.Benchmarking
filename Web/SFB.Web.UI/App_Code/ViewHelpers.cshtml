@@ -56,9 +56,9 @@
     }
 }
 
-@helper ScoreColorCode(decimal score, string bicComparisonPhase)
+@helper ScoreColorCode(decimal score, string bicComparisonOverallPhase)
 {
-    if (bicComparisonPhase == "Secondary")
+    if (bicComparisonOverallPhase == "Secondary")
     {
         if (score < -0.5m)
         {

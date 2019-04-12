@@ -351,8 +351,10 @@ namespace SFB.Web.DAL.Repositories
                         $"'{DataGroups.Academies}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
                         $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_PHASE}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'] " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP}'] " +
                         $"FROM c WHERE {query}");
                 }
                 else
@@ -365,8 +367,10 @@ namespace SFB.Web.DAL.Repositories
                         $"'{DataGroups.Maintained}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
                         $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_PHASE}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE}'], " +
                         $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'] " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'], " +
+                        $"c['{SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP}'] " +
                         $"FROM c WHERE {query}");
                 }
             }
