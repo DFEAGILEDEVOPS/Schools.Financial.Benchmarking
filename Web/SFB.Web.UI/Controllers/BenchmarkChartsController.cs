@@ -95,24 +95,25 @@ namespace SFB.Web.UI.Controllers
             var bmFinancialData = benchmarkSchool.LatestYearFinancialData;
 
             var bicCriteria = new BestInClassCriteria()
-                {
-                    EstablishmentType = EstablishmentType.All,
-                    OverallPhase = benchmarkSchool.OverallPhase,
-                    UrbanRural = bmFinancialData.UrbanRural,
-                    NoPupilsMin = WithinPositiveLimits((bmFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
-                    NoPupilsMax = (bmFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
-                    PerPupilExpMin = 0,
-                    PerPupilExpMax = bmFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP,
-                    PercentageFSMMin = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
-                    PercentageFSMMax = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
-                    PercentageSENMin = bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
-                    PercentageSENMax = WithinPercentLimits(bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
-                    Ks2ProgressScoreMin = bmFinancialData.SchoolOverallPhase == "Secondary" ? (decimal?)null : 0,
-                    Ks2ProgressScoreMax = bmFinancialData.SchoolOverallPhase == "Secondary" ? (decimal?)null : 20,
-                    Ks4ProgressScoreMin = bmFinancialData.SchoolOverallPhase == "Secondary" ? 0 : (decimal?)null,
-                    Ks4ProgressScoreMax = bmFinancialData.SchoolPhase == "Secondary" ? +5 : (decimal?)null,
-                    RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD
-                };
+            {
+                EstablishmentType = EstablishmentType.All,
+                OverallPhase = benchmarkSchool.OverallPhase,
+                UrbanRural = bmFinancialData.UrbanRural,
+                NoPupilsMin = WithinPositiveLimits((bmFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
+                NoPupilsMax = (bmFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
+                PerPupilExpMin = 0,
+                PerPupilExpMax = bmFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP,
+                PercentageFSMMin = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                PercentageFSMMax = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                PercentageSENMin = bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
+                PercentageSENMax = WithinPercentLimits(bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
+                Ks2ProgressScoreMin = bmFinancialData.SchoolOverallPhase == "Secondary" ? (decimal?)null : 0,
+                Ks2ProgressScoreMax = bmFinancialData.SchoolOverallPhase == "Secondary" ? (decimal?)null : 20,
+                Ks4ProgressScoreMin = bmFinancialData.SchoolOverallPhase == "Secondary" ? 0 : (decimal?)null,
+                Ks4ProgressScoreMax = bmFinancialData.SchoolPhase == "Secondary" ? +5 : (decimal?)null,
+                RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD,
+                LondonWeighting = bmFinancialData.LondonWeighting == "Neither" ? new[] { "Neither" } : new [] { "Inner", "Outer" }
+            };
 
             return await GenerateFromBicCriteria(urn, bicCriteria);
         }

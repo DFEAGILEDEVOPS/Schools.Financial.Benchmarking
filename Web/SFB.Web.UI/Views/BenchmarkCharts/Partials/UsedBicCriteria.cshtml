@@ -1,9 +1,4 @@
-﻿@using Newtonsoft.Json
-@using SFB.Web.Common.DataObjects
-@using System.Reflection;
-@using Microsoft.Ajax.Utilities
-@using SFB.Web.Common
-@using SFB.Web.Common.Attributes
+﻿@using SFB.Web.Common
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
 <p>
@@ -67,6 +62,15 @@
                 <td>Urban / rural location</td>
                 <td>@Model.BenchmarkSchoolData.UrbanRural</td>
                 <td>@string.Join(", ", Model.AdvancedCriteria.UrbanRural.ToArray())</td>
+            </tr>
+        }
+
+        @if (Model.AdvancedCriteria.LondonWeighting != null)
+        {
+            <tr>
+                <td>London Weighting</td>
+                <td>@Model.BenchmarkSchoolData.LondonWeighting</td>
+                <td>@string.Join(", ", Model.AdvancedCriteria.LondonWeighting.ToArray())</td>
             </tr>
         }
 

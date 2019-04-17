@@ -23,6 +23,7 @@ namespace SFB.Web.Domain.Models
         public decimal PerPupilExpMax { get; set; }
         public bool UREnabled { get; set; }
         public bool SENEnabled { get; set; }
+        public string[] LondonWeighting { get; set; }
 
         public bool Equals(BestInClassCriteria other)
         {
@@ -41,7 +42,9 @@ namespace SFB.Web.Domain.Models
                 && this.NoPupilsMax == other.NoPupilsMax
                 && this.RRPerIncomeMin == other.RRPerIncomeMin
                 && this.PerPupilExpMin == other.PerPupilExpMin
-                && this.PerPupilExpMax == other.PerPupilExpMax;
+                && this.PerPupilExpMax == other.PerPupilExpMax
+                && this.UREnabled == other.UREnabled
+                && this.LondonWeighting == other.LondonWeighting;
         }
     }
 }
