@@ -57,6 +57,33 @@ namespace SFB.Web.UI.Helpers
                         cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     }
                     break;
+                case CookieActions.AddOrReplace:
+                    cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
+                    if (cookie == null)
+                    {
+                        cookie = new HttpCookie(CookieNames.COMPARISON_LIST);
+                        var listCookie = new SchoolComparisonListModel();
+                        listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+                    }
+                    else
+                    {
+                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+                        if ((listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT || listCookie.HomeSchoolUrn == benchmarkSchool.Urn))
+                        {
+                            if (listCookie.BenchmarkSchools.Any(s => s.Urn == benchmarkSchool.Urn))
+                            {
+                                listCookie.BenchmarkSchools.RemoveAll(s => s.Urn == benchmarkSchool.Urn);
+                                listCookie.BenchmarkSchools.Add(benchmarkSchool);                                
+                            }
+                            else
+                            {
+                                listCookie.BenchmarkSchools.Add(benchmarkSchool);
+                            }
+                        }
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+                    }
+                    break;
                 case CookieActions.Remove:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie != null)
