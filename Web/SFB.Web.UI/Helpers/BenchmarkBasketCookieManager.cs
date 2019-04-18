@@ -126,9 +126,8 @@ namespace SFB.Web.UI.Helpers
             if (cookie != null)
             {
                 cookie.Expires = DateTime.MaxValue;
+                HttpContext.Current.Response.Cookies.Add(cookie);
             }
-
-            HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
         public TrustComparisonListModel ExtractTrustComparisonListFromCookie()
