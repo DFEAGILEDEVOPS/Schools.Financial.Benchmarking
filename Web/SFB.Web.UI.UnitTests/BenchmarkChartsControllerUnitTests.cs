@@ -114,8 +114,7 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.Add, It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(1));
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.AddOrReplace, It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(1));
+            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.Add, It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(2));
         }
 
         [Test]
@@ -265,8 +264,7 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.Add, It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(1));
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.AddOrReplace, It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(1));
+            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.Add, It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(2));
 
         }
 

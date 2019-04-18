@@ -102,7 +102,6 @@ namespace SFB.Web.UI.Helpers.Enums
         SetDefault,        
         AddDefaultToList,
         Add,
-        AddOrReplace,
         Remove,
         RemoveAll,
         UnsetDefault       
