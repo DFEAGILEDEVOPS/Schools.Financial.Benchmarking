@@ -433,12 +433,20 @@ abbr[title]{
     margin: 0 0 0 0;
 }
 
+.mt-0 {
+    margin-top: 0;
+}
+
 .mt-1 {
     margin-top: 1em;
 }
 
 .mt-2{
     margin-top:2em;
+}
+
+.mb-0 {
+    margin-bottom: 0;
 }
 
 .mt-header {
@@ -448,6 +456,14 @@ abbr[title]{
 
 .mt-15 {
     margin-top: 1.5em;
+}
+
+.pt-0{
+    padding-top: 0;
+}
+
+.pb-0 {
+    padding-bottom: 0;
 }
 
 .pl-1 {
@@ -748,4 +764,13 @@ body.print-mode .hide-in-print {
 
 .no-wrap {
     white-space: nowrap;
+}
+
+.govuk-box-highlight .govuk-box-highlight__link {
+    color: $white;
+}
+
+.govuk-box-highlight {
+    background-color: $govuk-blue;
+    padding: 1em 1em;
 }
