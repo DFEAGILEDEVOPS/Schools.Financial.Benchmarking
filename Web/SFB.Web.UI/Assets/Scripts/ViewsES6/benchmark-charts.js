@@ -647,6 +647,7 @@
         let $showTablesButton = $('.view-charts-tables.tables');
         let $saveAsImagesButtons = $('.save-as-image');
         let $viewMoreLabels = $("a span.view-more");
+        let $comparisonType = $("#ComparisonType");
         if (mode === 'Charts') {
             $showChartsButton.hide();
             $showTablesButton.show();
@@ -656,7 +657,9 @@
             $saveAsImagesButtons.show();
             $viewMoreLabels.text("View more charts");
             sessionStorage.chartFormat = 'Charts';
-            this.RebuildCharts();
+            if ($comparisonType.val() === "BestInClass") {
+                this.RebuildCharts();
+            }
         } else if (mode === 'Tables') {
             $showTablesButton.hide();
             $showChartsButton.show();
