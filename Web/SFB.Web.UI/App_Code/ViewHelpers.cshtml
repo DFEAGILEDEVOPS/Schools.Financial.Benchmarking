@@ -1,6 +1,6 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
 
-@helper GetAmountAriaLabel(string unit)
+@helper GetAmountHeaderAriaLabel(string unit)
 {
     switch ((UnitType)Enum.Parse(typeof(UnitType), unit))
     {
@@ -27,6 +27,37 @@
             break;
         default:
             <text>Amount</text>
+            break;
+    }
+}
+
+@helper GetAmountCellAriaLabel(string unit, string chartName)
+{
+    switch ((UnitType)Enum.Parse(typeof(UnitType), unit))
+    {
+        case UnitType.PercentageOfTotal:
+            <text>Percentage of @chartName to total</text>;
+            break;
+        case UnitType.PerTeacher:
+            <text>Per teacher @chartName</text>
+            break;
+        case UnitType.PerPupil:
+            <text>Per pupil @chartName</text>
+            break;
+        case UnitType.HeadcountPerFTE:
+            <text>Ratio of Headcount of @chartName per full time equivalent</text>
+            break;
+        case UnitType.FTERatioToTotalFTE:
+            <text>Percentage of @chartName to total workforce</text>
+            break;
+        case UnitType.NoOfPupilsPerMeasure:
+            <text>Pupils per @chartName</text>
+            break;
+        case UnitType.AbsoluteCount:
+            <text>Count of @chartName</text>
+            break;
+        default:
+            <text>@chartName</text>
             break;
     }
 }

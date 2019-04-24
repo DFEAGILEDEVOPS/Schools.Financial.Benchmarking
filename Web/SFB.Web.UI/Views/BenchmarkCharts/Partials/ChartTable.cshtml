@@ -36,7 +36,7 @@
             <th class="detail" scope="col" data-header="Number of pupils">Number of pupils</th>
             <th scope="col" data-header="Amount">
                 <button aria-hidden="True" class="hide-show-button show detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664;Show details</button>
-                <span aria-label="@ViewHelpers.GetAmountAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
+                <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
             </th>
         </tr>
     </thead>
@@ -81,7 +81,7 @@
 
             <td class="detail" data-header="Local authority">@schoolBenchmarkData.La</td>
             <td class="detail" data-header="School type">@schoolBenchmarkData.Type</td>
-            <td class="detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount</td>
+            <td class="detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount <span class="visually-hidden">pupils</span></td>
             <td data-header="Amount">
                 @if (schoolBenchmarkData.Amount.HasValue)
                 {
@@ -99,7 +99,8 @@
                         default:
                             @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
                             break;
-                    }
+                    }  
+                    <span class="visually-hidden">@ViewHelpers.GetAmountCellAriaLabel(schoolBenchmarkData.Unit, Model.Name)</span>
                 }
                 else
                 {
