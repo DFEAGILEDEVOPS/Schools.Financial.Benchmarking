@@ -43,7 +43,7 @@ namespace SFB.Web.DAL.Repositories
             {
                 return null;
             }
-            
+
             var query = $"SELECT * FROM c WHERE c.{SchoolTrustFinanceDBFieldNames.URN}=@URN";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
@@ -84,7 +84,7 @@ namespace SFB.Web.DAL.Repositories
             var dataGroup = estabType.ToDataGroup(cFinance);
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
-            
+
             var query = $"SELECT * FROM c WHERE c.{SchoolTrustFinanceDBFieldNames.URN}=@URN";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
@@ -228,6 +228,50 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
+        public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatName(string matName, string term, MatFinancingType matFinance)
+        {
+            var dataGroup = EstablishmentType.MAT.ToDataGroup(matFinance);
+
+            var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
+
+            if (collectionName == null)
+            {
+                return null;
+            }
+
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}']=@matName";
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            querySpec.Parameters.Add(new SqlParameter($"@matName", matName));
+
+            var res =
+                _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
+                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
+                    querySpec);
+
+            try
+            {
+                var result = res.ToList().FirstOrDefault();
+
+                if (result != null && result.DidNotSubmit)
+                {
+                    var emptyObj = new SchoolTrustFinancialDataObject();
+                    emptyObj.DidNotSubmit = true;
+                    return emptyObj;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT).ToString()))
+                {
+                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                    base.LogException(ex, errorMessage);
+                }
+                return null;
+            }
+        }
+
         public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(int companyNo, string term, MatFinancingType matFinance)
         {
             var dataGroup = EstablishmentType.MAT.ToDataGroup(matFinance);
@@ -271,7 +315,7 @@ namespace SFB.Web.DAL.Repositories
                 return maintainedSchools;
             }
             else
-            {                
+            {
                 return (await QueryDBSchoolCollectionAsync(criteria, estType.ToDataGroup())).ToList();
             }
         }
@@ -293,7 +337,7 @@ namespace SFB.Web.DAL.Repositories
         }
 
         public async Task<List<SchoolTrustFinancialDataObject>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
-        {            
+        {
             return (await QueryDBTrustCollectionAsync(criteria, DataGroups.MATOverview)).ToList();
         }
 

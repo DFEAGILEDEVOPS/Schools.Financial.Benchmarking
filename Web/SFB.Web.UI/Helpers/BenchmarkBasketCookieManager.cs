@@ -224,11 +224,11 @@ namespace SFB.Web.UI.Helpers
         public void RetrieveCompanyNumbers(TrustComparisonListModel comparisonList)
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear-1);
 
             if(comparisonList.DefaultTrustCompanyNo == 0)
             {
-                var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(comparisonList.DefaultTrustMatNo, term, MatFinancingType.TrustAndAcademies);
+                var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatName(comparisonList.DefaultTrustName, term, MatFinancingType.TrustOnly);
                 comparisonList.DefaultTrustCompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
             }
 
@@ -236,7 +236,11 @@ namespace SFB.Web.UI.Helpers
             {
                 if (trust.CompanyNo == 0)
                 {
-                    var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(trust.MatNo, term, MatFinancingType.TrustAndAcademies);
+                    var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatName(trust.MatName, term, MatFinancingType.TrustOnly);
+                    if (financialDataObject == null)
+                    {
+                        financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatName(trust.MatName.Replace("The ", ""), term, MatFinancingType.TrustOnly);
+                    }
                     trust.CompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
                 }
             }
