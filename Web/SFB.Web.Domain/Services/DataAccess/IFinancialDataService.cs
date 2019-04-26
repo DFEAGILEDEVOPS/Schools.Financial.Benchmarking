@@ -11,6 +11,7 @@ namespace SFB.Web.Domain.Services.DataAccess
         List<AcademiesContextualDataObject> GetAcademiesByCompanyNumber(string term, int companyNo);
         SchoolTrustFinancialDataObject GetTrustFinancialDataObject(int companyNo, string term, MatFinancingType matFinance);
         SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatNo(string matNo, string term, MatFinancingType matFinance);
+        SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatName(string matName, string term, MatFinancingType matFinance);
         FinancialDataModel GetSchoolsLatestFinancialDataModel(int urn, EstablishmentType schoolFinancialType);
         SchoolTrustFinancialDataObject GetSchoolFinancialDataObject(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);
         Task<IEnumerable<SchoolTrustFinancialDataObject>> GetSchoolFinancialDataObjectAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude);

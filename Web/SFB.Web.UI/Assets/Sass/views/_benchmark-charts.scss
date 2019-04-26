@@ -522,5 +522,13 @@ nav.tabs ol li.active a.custom, nav.tabs ol li.active button.custom {
     flex-direction: column;
     justify-content: space-between;
     float: right;
-    padding-top: 28px;
+    //padding-top: 28px;
+    top: -5px;
+    position: relative;
+}
+
+.chart-scores-header {
+    font-size: 1.4rem;
+    padding: 0;
+    line-height: 1.4rem;
 }

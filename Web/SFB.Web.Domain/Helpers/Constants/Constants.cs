@@ -59,6 +59,6 @@
         public const decimal BIC_DEFAULT_FLEX_FSM = 0.1M;
         public const decimal RR_PER_INCOME_TRESHOLD = -5M;
         public const int BIC_TARGET_POOL_COUNT = 50;
-        public static readonly string[] BIC_ALLOWED_PHASES = new[] { "Infant and junior", "Secondary", "Nursery", "Junior", "Middle deemed secondary" };
+        public static readonly string[] BIC_ALLOWED_PHASES = new[] { "Infant and junior", "Secondary", "Junior", "Middle deemed secondary", "Middle deemed primary" };
     }
 }

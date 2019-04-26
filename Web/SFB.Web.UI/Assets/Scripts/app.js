@@ -103,37 +103,7 @@
 
         NumberWithCommas: function(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        },
-
-        ToggleChartsTables: function (mode) {
-            var $charts = $('.chart-wrapper');
-            var $chartsScores = $('.chart-scores-wrapper');
-            var $tables = $('.chart-table-wrapper');
-            var $showChartsButton = $('.view-charts-tables.charts');
-            var $showTablesButton = $('.view-charts-tables.tables');
-            var $saveAsImagesButtons = $('.save-as-image');
-            var $viewMoreLabels = $("a span.view-more");
-            if (mode === 'Charts') {
-                $showChartsButton.hide();
-                $showTablesButton.show();
-                $tables.hide();
-                $charts.show();
-                $chartsScores.show();
-                $saveAsImagesButtons.show();
-                $viewMoreLabels.text("View more charts");
-                sessionStorage.chartFormat = 'Charts';
-            } else if (mode === 'Tables') {
-                $showTablesButton.hide();
-                $showChartsButton.show();
-                $charts.hide();
-                $chartsScores.hide();
-                $tables.show();
-                $saveAsImagesButtons.hide();
-                $viewMoreLabels.text("View more tables");
-                sessionStorage.chartFormat = 'Tables';
-            }
         }
-
     };
 
     window.DfE.Util.ModalRenderer = {

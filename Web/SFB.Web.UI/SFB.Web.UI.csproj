@@ -333,6 +333,7 @@
     <Content Include="App_Data\la.json" />
     <Content Include="App_Code\ViewHelpers.cshtml" />
     <Content Include="Assets\Sass\views\_bic-characteristics.scss" />
+    <Content Include="Assets\Sass\elements\_components.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />

@@ -21,6 +21,15 @@
     <input type="hidden" name="bicCriteria.PerPupilExpMax" value="@Model.BicCriteria.PerPupilExpMax" />
     <input type="hidden" name="bicCriteria.UREnabled" value="@Model.BicCriteria.UREnabled.ToString()" />
     <input type="hidden" name="bicCriteria.SENEnabled" value="@Model.BicCriteria.SENEnabled.ToString()" />
+    <input type="hidden" name="bicCriteria.RRPerIncomeMin" value="@Model.BicCriteria.RRPerIncomeMin" />
+
+    @if (Model.BicCriteria.LondonWeighting != null)
+    {
+        for (int i = 0; i < Model.BicCriteria.LondonWeighting.Length; i++)
+        {
+            @Html.HiddenFor(model => Model.BicCriteria.LondonWeighting[i])
+        }
+    }
 
     <input type="hidden" name="Urn" value="@Model.URN">
 

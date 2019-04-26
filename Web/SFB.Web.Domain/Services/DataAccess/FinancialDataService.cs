@@ -49,6 +49,11 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _financialDataRepository.GetTrustFinancialDataObjectByMatNo(matNo, term, matFinance);
         }
 
+        public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatName(string matName, string term, MatFinancingType matFinance)
+        {
+            return _financialDataRepository.GetTrustFinancialDataObjectByMatName(matName, term, matFinance);
+        }
+
         public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(int companyNo, string term, MatFinancingType matFinance)
         {
             return await _financialDataRepository.GetTrustFinancialDataObjectAsync(companyNo, term, matFinance);

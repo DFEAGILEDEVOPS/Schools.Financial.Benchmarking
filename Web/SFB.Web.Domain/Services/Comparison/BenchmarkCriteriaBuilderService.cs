@@ -23,7 +23,8 @@ namespace SFB.Web.Domain.Services.Comparison
                 MinPerPupilExp = bicCriteria.PerPupilExpMin,
                 MaxPerPupilExp = bicCriteria.PerPupilExpMax + (bicCriteria.PerPupilExpMax * percentageMargin / 100),
                 MinPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMin - (bicCriteria.PercentageFSMMin * percentageMargin / 100)),
-                MaxPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMax + (bicCriteria.PercentageFSMMax * percentageMargin / 100))
+                MaxPerFSM = WithinPercentLimits(bicCriteria.PercentageFSMMax + (bicCriteria.PercentageFSMMax * percentageMargin / 100)),
+                LondonWeighting = bicCriteria.LondonWeighting
             };
 
             if (bicCriteria.SENEnabled)

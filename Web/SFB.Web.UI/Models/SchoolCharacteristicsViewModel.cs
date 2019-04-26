@@ -55,7 +55,7 @@ namespace SFB.Web.UI.Models
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS, Value = latestSchoolData.PercentageQualifiedTeachers.ToString() });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.FULL_TIME_TA, Value = latestSchoolData.FullTimeTA.ToString() });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.FULL_TIME_OTHER, Value = latestSchoolData.FullTimeOther.ToString() });
-            list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.FULL_TIME_ADMIN, Value = latestSchoolData.FullTimeAdmin.ToString() });
+            list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.FULL_TIME_AUX, Value = latestSchoolData.FullTimeAux.ToString() });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE, Value = latestSchoolData.TotalSchoolWorkforceFTE.ToString() });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE, Value = latestSchoolData.TotalNumberOfTeachersFTE.ToString() });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE, Value = latestSchoolData.TotalSeniorTeachersFTE.ToString() });

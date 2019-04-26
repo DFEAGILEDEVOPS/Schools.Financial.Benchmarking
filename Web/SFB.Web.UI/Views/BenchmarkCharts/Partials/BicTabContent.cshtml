@@ -5,7 +5,7 @@
 <div id="bestInClassTabSection" style="display: none">
     <div class="grid-row">
         <div class="column-full">
-            @if (ViewBag.BicComparisonPhase == "Secondary")
+            @if (ViewBag.BicComparisonOverallPhase == "Secondary")
             {
                 <h2 class="heading-small">Overall Progress 8 - all pupils</h2>
             }
@@ -26,7 +26,7 @@
                         <th nowrap scope="col">EHCP</th>
                         <th scope="col">Expenditure per pupil</th>
                         <th scope="col">Urban/rural description</th>
-                        @if (ViewBag.BicComparisonPhase == "Secondary")
+                        @if (ViewBag.BicComparisonOverallPhase == "Secondary")
                         {
                             <th nowrap class="numeric" scope="col">
                                 Progress 8
@@ -61,7 +61,7 @@
                             <td class="numeric" scope="col">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
                             <td class="numeric" scope="col">@bicSchool.UrbanRural</td>
                             <td class="numeric no-padding" scope="col">
-                                <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonPhase)">
+                                <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
                                     <div class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</div>
                                     <div class="no-wrap">@ScoreText(bicSchool.ProgressScore.GetValueOrDefault())</div>
                                 </div>
@@ -76,7 +76,7 @@
 
 @helper ScoreText(decimal score)
 {
-    if (ViewBag.BicComparisonPhase == "Secondary")
+    if (ViewBag.BicComparisonOverallPhase == "Secondary")
     {
         if (score < -0.5m)
         {

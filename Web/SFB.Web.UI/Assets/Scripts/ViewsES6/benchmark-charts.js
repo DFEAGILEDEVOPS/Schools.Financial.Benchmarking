@@ -500,7 +500,7 @@
         let formatParameter = sessionStorage.chartFormat;
         let type = $("#Type").val();
         let comparisonType = $("#ComparisonType").val();
-        let bicComparisonPhase = $("#BicComparisonPhase").val();
+        let bicComparisonOverallPhase = $("#BicComparisonOverallPhase").val();
 
         let url = "/benchmarkcharts/getcharts?revgroup=" +
             tabParameter +
@@ -529,8 +529,8 @@
             url += "&comparisonType=" + comparisonType;
         }
 
-        if (bicComparisonPhase) {
-            url += "&bicComparisonPhase=" + bicComparisonPhase;
+        if (bicComparisonOverallPhase) {
+            url += "&bicComparisonOverallPhase=" + bicComparisonOverallPhase;
         }
 
         $.ajax({
@@ -593,7 +593,7 @@
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
             let typeParameter = $("#Type").val();
             let comparisonType = $("#ComparisonType").val();
-            let bicComparisonPhase = $("#BicComparisonPhase").val();
+            let bicComparisonOverallPhase = $("#BicComparisonOverallPhase").val();
             let formatParameter = sessionStorage.chartFormat;
             let url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
@@ -610,8 +610,8 @@
             if (comparisonType) {
                 url += "&comparisonType=" + comparisonType;
             }
-            if (bicComparisonPhase) {
-                url += "&bicComparisonPhase=" + bicComparisonPhase;
+            if (bicComparisonOverallPhase) {
+                url += "&bicComparisonOverallPhase=" + bicComparisonOverallPhase;
             }
             $.ajax({
                 url: url,
@@ -636,6 +636,39 @@
                     this.GenerateCharts(unitParameter);
                 }
             });
+        }
+    }
+
+    ToggleChartsTables(mode) {
+        let $charts = $('.chart-wrapper');
+        let $chartsScores = $('.chart-scores-wrapper');
+        let $tables = $('.chart-table-wrapper');
+        let $showChartsButton = $('.view-charts-tables.charts');
+        let $showTablesButton = $('.view-charts-tables.tables');
+        let $saveAsImagesButtons = $('.save-as-image');
+        let $viewMoreLabels = $("a span.view-more");
+        let $comparisonType = $("#ComparisonType");
+        if (mode === 'Charts') {
+            $showChartsButton.hide();
+            $showTablesButton.show();
+            $tables.hide();
+            $charts.css('display', 'inline-block');
+            $chartsScores.css('display', 'flex');
+            $saveAsImagesButtons.show();
+            $viewMoreLabels.text("View more charts");
+            sessionStorage.chartFormat = 'Charts';
+            if ($comparisonType.val() === "BestInClass") {
+                this.RebuildCharts();
+            }
+        } else if (mode === 'Tables') {
+            $showTablesButton.hide();
+            $showChartsButton.show();
+            $charts.hide();
+            $chartsScores.hide();
+            $tables.show();
+            $saveAsImagesButtons.hide();
+            $viewMoreLabels.text("View more tables");
+            sessionStorage.chartFormat = 'Tables';
         }
     }
 

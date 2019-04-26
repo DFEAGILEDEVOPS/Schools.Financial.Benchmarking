@@ -95,24 +95,25 @@ namespace SFB.Web.UI.Controllers
             var bmFinancialData = benchmarkSchool.LatestYearFinancialData;
 
             var bicCriteria = new BestInClassCriteria()
-                {
-                    EstablishmentType = benchmarkSchool.EstablishmentType,
-                    OverallPhase = benchmarkSchool.OverallPhase,
-                    UrbanRural = bmFinancialData.UrbanRural,
-                    NoPupilsMin = WithinPositiveLimits((bmFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
-                    NoPupilsMax = (bmFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
-                    PerPupilExpMin = 0,
-                    PerPupilExpMax = bmFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP,
-                    PercentageFSMMin = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
-                    PercentageFSMMax = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
-                    PercentageSENMin = bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
-                    PercentageSENMax = WithinPercentLimits(bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
-                    Ks2ProgressScoreMin = bmFinancialData.Ks2Progress.HasValue ? 0 : (decimal?)null,
-                    Ks2ProgressScoreMax = bmFinancialData.Ks2Progress.HasValue ? +20 : (decimal?)null,
-                    Ks4ProgressScoreMin = bmFinancialData.P8Mea.HasValue ? 0 : (decimal?)null,
-                    Ks4ProgressScoreMax = bmFinancialData.P8Mea.HasValue ? +5 : (decimal?)null,
-                    RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD
-                };
+            {
+                EstablishmentType = EstablishmentType.All,
+                OverallPhase = benchmarkSchool.OverallPhase,
+                UrbanRural = bmFinancialData.UrbanRural,
+                NoPupilsMin = WithinPositiveLimits((bmFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
+                NoPupilsMax = (bmFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
+                PerPupilExpMin = 0,
+                PerPupilExpMax = bmFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP,
+                PercentageFSMMin = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                PercentageFSMMax = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                PercentageSENMin = bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
+                PercentageSENMax = WithinPercentLimits(bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
+                Ks2ProgressScoreMin = bmFinancialData.SchoolOverallPhase == "Secondary" ? (decimal?)null : 0,
+                Ks2ProgressScoreMax = bmFinancialData.SchoolOverallPhase == "Secondary" ? (decimal?)null : 20,
+                Ks4ProgressScoreMin = bmFinancialData.SchoolOverallPhase == "Secondary" ? 0 : (decimal?)null,
+                Ks4ProgressScoreMax = bmFinancialData.SchoolPhase == "Secondary" ? +5 : (decimal?)null,
+                RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD,
+                LondonWeighting = bmFinancialData.LondonWeighting == "Neither" ? new[] { "Neither" } : new [] { "Inner", "Outer" }
+            };
 
             return await GenerateFromBicCriteria(urn, bicCriteria);
         }
@@ -125,7 +126,7 @@ namespace SFB.Web.UI.Controllers
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(benchmarkSchool.LatestYearFinancialData, bicCriteria);
 
             var comparisonResult = await _comparisonService.GenerateBenchmarkListWithBestInClassComparisonAsync(
-                benchmarkSchool.EstablishmentType, 
+                bicCriteria.EstablishmentType, 
                 benchmarkCriteria, 
                 bicCriteria,
                 benchmarkSchool.LatestYearFinancialData);
@@ -140,7 +141,7 @@ namespace SFB.Web.UI.Controllers
                     Type = schoolData.Type,
                     EstabType = schoolData.FinanceType,
                     Urn = schoolData.URN.ToString(),
-                    ProgressScore = schoolData.Phase == "Secondary" ?
+                    ProgressScore = schoolData.OverallPhase == "Secondary" ?
                         schoolData.Progress8Measure
                         : decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
                         
@@ -150,7 +151,7 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
-            return await Index(urn, null, comparisonResult.BenchmarkCriteria, bicCriteria, ComparisonType.BestInClass, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType);
+            return await Index(urn, null, comparisonResult.BenchmarkCriteria, bicCriteria, ComparisonType.BestInClass, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, bicCriteria.EstablishmentType);
         }
 
         [HttpGet]
@@ -406,7 +407,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BicComparisonPhase = bicComparisonSchools?.FirstOrDefault()?.PhaseInFinancialSubmission;
+            ViewBag.BicComparisonOverallPhase = bicComparisonSchools?.FirstOrDefault()?.OverallPhaseInFinancialSubmission;
 
             return View("Index", vm);
         }
@@ -451,7 +452,7 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure, 
             CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies, 
-            ChartFormat format = ChartFormat.Charts, ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonPhase = "Primary")
+            ChartFormat format = ChartFormat.Charts, ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonOverallPhase = "Primary")
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -512,7 +513,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.HomeSchoolId = (type == EstablishmentType.MAT) ? vm.TrustComparisonList.DefaultTrustCompanyNo.ToString() : vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.ChartFormat = format;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BicComparisonPhase = bicComparisonPhase;
+            ViewBag.BicComparisonOverallPhase = bicComparisonOverallPhase;
 
             return PartialView("Partials/TabContent", vm);
         }
@@ -520,7 +521,7 @@ namespace SFB.Web.UI.Controllers
         public async Task<PartialViewResult> GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, 
             CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,
             EstablishmentType type = EstablishmentType.All, ChartFormat format = ChartFormat.Charts,
-            ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonPhase = "Primary")
+            ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonOverallPhase = "Primary")
         {
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
@@ -541,7 +542,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.TrustFinancing = trustCentralFinancing;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BicComparisonPhase = bicComparisonPhase;
+            ViewBag.BicComparisonOverallPhase = bicComparisonOverallPhase;
 
             return PartialView("Partials/Chart", benchmarkCharts);
         }

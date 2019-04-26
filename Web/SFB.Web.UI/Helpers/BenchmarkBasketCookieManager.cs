@@ -27,7 +27,7 @@ namespace SFB.Web.UI.Helpers
             var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
             if (cookie != null)
             {
-                comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value);
+                comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
             }
             return comparisonList;
         }
@@ -45,23 +45,23 @@ namespace SFB.Web.UI.Helpers
                         cookie = new HttpCookie(CookieNames.COMPARISON_LIST);
                         var listCookie = new SchoolComparisonListModel();
                         listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
-                        cookie.Value = JsonConvert.SerializeObject(listCookie);
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     }
                     else
                     {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value);
+                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() {StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                         if ((listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT || listCookie.HomeSchoolUrn == benchmarkSchool.Urn) && !listCookie.BenchmarkSchools.Any(s => s.Urn == benchmarkSchool.Urn))
                         {
                             listCookie.BenchmarkSchools.Add(benchmarkSchool);
                         }
-                        cookie.Value = JsonConvert.SerializeObject(listCookie);
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     }
                     break;
                 case CookieActions.Remove:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie != null)
                     {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value);
+                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                         listCookie.BenchmarkSchools.Remove(benchmarkSchool);
                         if (listCookie.HomeSchoolUrn == benchmarkSchool.Urn)
                         {
@@ -70,7 +70,7 @@ namespace SFB.Web.UI.Helpers
                             listCookie.HomeSchoolType = null;
                             listCookie.HomeSchoolFinancialType = null;
                         }
-                        cookie.Value = JsonConvert.SerializeObject(listCookie);
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     }
                     break;
                 case CookieActions.SetDefault:
@@ -84,11 +84,11 @@ namespace SFB.Web.UI.Helpers
                         listCookie.HomeSchoolType = benchmarkSchool.Type;
                         listCookie.HomeSchoolFinancialType = benchmarkSchool.EstabType;
                         listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
-                        cookie.Value = JsonConvert.SerializeObject(listCookie);
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     }
                     else
                     {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value);
+                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                         listCookie.HomeSchoolUrn = benchmarkSchool.Urn;
                         listCookie.HomeSchoolName = benchmarkSchool.Name;
                         listCookie.HomeSchoolType = benchmarkSchool.Type;
@@ -97,28 +97,28 @@ namespace SFB.Web.UI.Helpers
                         {
                             listCookie.BenchmarkSchools.Add(benchmarkSchool);
                         }
-                        cookie.Value = JsonConvert.SerializeObject(listCookie);
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     }
                     break;
                 case CookieActions.UnsetDefault:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie != null)
                     {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value);
+                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                         listCookie.HomeSchoolUrn = null;
                         listCookie.HomeSchoolName = null;
                         listCookie.HomeSchoolType = null;
                         listCookie.HomeSchoolFinancialType = null;
-                        cookie.Value = JsonConvert.SerializeObject(listCookie);
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     }
                     break;
                 case CookieActions.RemoveAll:
                     cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
                     if (cookie != null)
                     {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value);
+                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                         listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>();
-                        cookie.Value = JsonConvert.SerializeObject(listCookie);
+                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     }
                     break;
             }
@@ -126,9 +126,8 @@ namespace SFB.Web.UI.Helpers
             if (cookie != null)
             {
                 cookie.Expires = DateTime.MaxValue;
+                HttpContext.Current.Response.Cookies.Add(cookie);
             }
-
-            HttpContext.Current.Response.Cookies.Add(cookie);
         }
 
         public TrustComparisonListModel ExtractTrustComparisonListFromCookie()
@@ -137,7 +136,7 @@ namespace SFB.Web.UI.Helpers
             var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
             if (cookie != null)
             {
-                comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
             }
             return comparisonList;
         }
@@ -159,7 +158,7 @@ namespace SFB.Web.UI.Helpers
                     }
                     else
                     {
-                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                         RetrieveCompanyNumbers(comparisonList);
                         comparisonList.DefaultTrustCompanyNo = companyNo.GetValueOrDefault();
                         comparisonList.DefaultTrustName = matName;
@@ -181,7 +180,7 @@ namespace SFB.Web.UI.Helpers
                     }
                     else
                     {
-                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                         if (comparisonList.DefaultTrustCompanyNo == companyNo || comparisonList.Trusts.Any(s => s.CompanyNo == companyNo))
                         {
                             throw new ApplicationException(ErrorMessages.DuplicateTrust);                            
@@ -193,15 +192,15 @@ namespace SFB.Web.UI.Helpers
                     }
                     break;
                 case CookieActions.Remove:
-                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     comparisonList.Trusts.Remove(new BenchmarkTrustModel(companyNo.GetValueOrDefault()));
                     break;
                 case CookieActions.RemoveAll:
-                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     comparisonList.Trusts.Clear();
                     break;
                 case CookieActions.AddDefaultToList:
-                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value);
+                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                     if (comparisonList.Trusts.All(s => comparisonList.DefaultTrustCompanyNo != companyNo))
                     {
                         comparisonList.Trusts.Add(new BenchmarkTrustModel(comparisonList.DefaultTrustCompanyNo, comparisonList.DefaultTrustName));
@@ -209,7 +208,7 @@ namespace SFB.Web.UI.Helpers
                     break;
             }
 
-            cookie.Value = JsonConvert.SerializeObject(comparisonList);
+            cookie.Value = JsonConvert.SerializeObject(comparisonList, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
             cookie.Expires = DateTime.MaxValue;
             HttpContext.Current.Response.Cookies.Add(cookie);
 
@@ -225,11 +224,11 @@ namespace SFB.Web.UI.Helpers
         public void RetrieveCompanyNumbers(TrustComparisonListModel comparisonList)
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear-1);
 
             if(comparisonList.DefaultTrustCompanyNo == 0)
             {
-                var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(comparisonList.DefaultTrustMatNo, term, MatFinancingType.TrustAndAcademies);
+                var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatName(comparisonList.DefaultTrustName, term, MatFinancingType.TrustOnly);
                 comparisonList.DefaultTrustCompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
             }
 
@@ -237,12 +236,16 @@ namespace SFB.Web.UI.Helpers
             {
                 if (trust.CompanyNo == 0)
                 {
-                    var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatNo(trust.MatNo, term, MatFinancingType.TrustAndAcademies);
+                    var financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatName(trust.MatName, term, MatFinancingType.TrustOnly);
+                    if (financialDataObject == null)
+                    {
+                        financialDataObject = _financialDataService.GetTrustFinancialDataObjectByMatName(trust.MatName.Replace("The ", ""), term, MatFinancingType.TrustOnly);
+                    }
                     trust.CompanyNo = financialDataObject.CompanyNumber.GetValueOrDefault();
                 }
             }
             HttpCookie cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
-            cookie.Value = JsonConvert.SerializeObject(comparisonList);
+            cookie.Value = JsonConvert.SerializeObject(comparisonList, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
             cookie.Expires = DateTime.MaxValue;
             HttpContext.Current.Response.Cookies.Add(cookie);
         }

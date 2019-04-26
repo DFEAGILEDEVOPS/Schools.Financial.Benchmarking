@@ -183,6 +183,8 @@ namespace SFB.Web.UI.Models
 
         public string PhaseInFinancialSubmission => LatestYearFinancialData.SchoolPhase;
 
+        public string OverallPhaseInFinancialSubmission => LatestYearFinancialData.SchoolOverallPhase;
+
         public bool HasProgressScore => LatestYearFinancialData.Ks2Progress.HasValue || LatestYearFinancialData.P8Mea.HasValue;
 
         public decimal? ProgressScore => PhaseInFinancialSubmission == "Secondary" ?
