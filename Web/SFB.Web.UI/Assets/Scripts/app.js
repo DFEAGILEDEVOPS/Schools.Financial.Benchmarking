@@ -25,6 +25,10 @@
 
     window.DfE.Util.randomNumber = function () { return Math.floor((Math.random() * 10000000) + 1); };
 
+    window.DfE.Util.focusTo = function (elementId) {
+        location.href = '#' + elementId;
+    };
+
     window.DfE.Util.QueryString = {
         get: function (name, url) {
             if (!url) url = window.location.href;
