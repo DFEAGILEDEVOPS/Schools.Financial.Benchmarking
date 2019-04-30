@@ -128,7 +128,7 @@
       <Name>SFB.Web.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFB.Web.UI\SFB.Web.UI.csproj">
-      <Project>{F32E2A2E-6782-4293-B533-284FF1B17FF6}</Project>
+      <Project>{f32e2a2e-6782-4293-b533-284ff1b17ff6}</Project>
       <Name>SFB.Web.UI</Name>
     </ProjectReference>
   </ItemGroup>

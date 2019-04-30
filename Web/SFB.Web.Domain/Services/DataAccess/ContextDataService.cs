@@ -23,9 +23,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _edubaseRepository.GetAllSchoolUrns();
         }
 
-        public EdubaseDataObject GetSchoolDataObjectByLaEstab(string laEstab)
+        public List<EdubaseDataObject> GetSchoolDataObjectByLaEstab(string laEstab, bool openOnly)
         {
-            return _edubaseRepository.GetSchoolByLaEstab(laEstab);
+            return _edubaseRepository.GetSchoolsByLaEstab(laEstab, openOnly);
         }
 
         public List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns)

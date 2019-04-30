@@ -54,7 +54,7 @@ namespace SFB.Web.DAL.Repositories
 
         public EdubaseDataObject GetSchoolDataObjectByUrn(int urn)
         {
-            return GetSchoolDataObjectById(new Dictionary<string, int> { { SchoolTrustFinanceDBFieldNames.URN, urn } });
+            return GetSchoolDataObjectById(new Dictionary<string, object> { { SchoolTrustFinanceDBFieldNames.URN, urn } }).FirstOrDefault();
         }
 
         public List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns)
@@ -62,18 +62,25 @@ namespace SFB.Web.DAL.Repositories
             return GetMultipleSchoolDataObjetsByIds(SchoolTrustFinanceDBFieldNames.URN, urns);
         }
 
-        public EdubaseDataObject GetSchoolByLaEstab(string laEstab)
+        public List<EdubaseDataObject> GetSchoolsByLaEstab(string laEstab, bool openOnly)
         {
-            return GetSchoolDataObjectById(new Dictionary<string, int>
+            var parameters = new Dictionary<string, object>
             {
                 {EdubaseDBFieldNames.LA_CODE, Int32.Parse(laEstab.Substring(0, 3))},
                 {EdubaseDBFieldNames.ESTAB_NO, Int32.Parse(laEstab.Substring(3))}
-            });
+            };
+
+            if(openOnly)
+            {
+                parameters.Add(EdubaseDBFieldNames.ESTAB_STATUS, "Open");
+            }
+
+            return GetSchoolDataObjectById(parameters);
         }
 
         #region Private methods
        
-        private EdubaseDataObject GetSchoolDataObjectById(Dictionary<string, int> fields)
+        private List<EdubaseDataObject> GetSchoolDataObjectById(Dictionary<string, object> fields)
         {
 
             var sb = new StringBuilder();
@@ -96,10 +103,10 @@ namespace SFB.Web.DAL.Repositories
                 querySpec.Parameters.Add(new SqlParameter($"@{field.Key}", field.Value));
             }
 
-            EdubaseDataObject result;
+            List<EdubaseDataObject> result;
             try
             {
-                result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList().FirstOrDefault();
+                result = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec, new FeedOptions() { MaxItemCount = 1 }).ToList();
             }catch(Exception ex)
             {
                 var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
