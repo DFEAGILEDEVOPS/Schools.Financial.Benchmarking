@@ -20,7 +20,7 @@ Navigate to the `deploy/azure-search/app` folder within the solution.
 Open app/config.json and update the CosmosDB and Azure Search instance details to those that have been provisioned.  The required values can be found in the Azure Portal.
 Open schema/datasource/search.json and schema/datasource/search-trust.json and update the data container name you want to index from.
 
-Open a terminal instance and from the `deploy/azure-search/app` directory execute `node index.js search` and then `node index.js search-trust`.  This will rebuild the search indexes, datasources and indexers.  Finally it will schedule the indexer to run immediately.  If the program reports back that the indexer cannot be run at this time("cannot be used while offline" error message), wait a few minutes for the search index to catch up with the datasource and re-run the commands above.
+Open a terminal instance and from the `deploy/azure-search/app` directory execute `node index.js search` and then `node index.js search-trust`. If this is the first time you are running, run `npm install` prior to that.  This will rebuild the search indexes, datasources and indexers.  Finally it will schedule the indexer to run immediately.  If the program reports back that the indexer cannot be run at this time("cannot be used while offline" error message), wait a few minutes for the search index to catch up with the datasource and re-run the commands above.
 
 ## Domain name configuration
 
