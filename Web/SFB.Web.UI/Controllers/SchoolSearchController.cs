@@ -92,6 +92,10 @@ namespace SFB.Web.UI.Controllers
                                     {                                         
                                         return RedirectToAction("Detail", "School", new { urn = (searchResp as List<EdubaseDataObject>).First().URN });
                                     }
+                                    else
+                                    {
+                                        searchResp = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, null, null, null, radius, openOnly, orderby, page);
+                                    }
                                 }
                                 else
                                 {
@@ -425,6 +429,11 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_NAME_ID:
                     response = await _schoolSearchService.SearchSchoolByName(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby, 
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LA_ESTAB:
+                    response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
                         Request.QueryString) as QueryResultsModel;
                     break;
                 case SearchTypes.SEARCH_BY_LOCATION:
