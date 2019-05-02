@@ -7,7 +7,7 @@ namespace SFB.Web.Domain.Services.DataAccess
     {
         EdubaseDataObject GetSchoolDataObjectByUrn(int urn);
         List<int> GetAllSchoolUrns();
-        EdubaseDataObject GetSchoolDataObjectByLaEstab(string laEstab);        
+        List<EdubaseDataObject> GetSchoolDataObjectByLaEstab(string laEstab, bool openOnly);        
         List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns);
     }
 }

@@ -15,6 +15,7 @@
         public const string TRUSTS = "Trusts";
         public const string LA_CODE = "LACode";
         public const string ESTAB_NO = "EstablishmentNumber";
+        public const string LA_ESTAB = "LAEstab";
         public const string TEL_NO = "TelephoneNum";
         public const string NO_PUPIL = "NumberOfPupils";
         public const string STAT_LOW = "StatutoryLowAge";
