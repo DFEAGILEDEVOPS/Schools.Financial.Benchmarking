@@ -376,7 +376,16 @@ namespace SFB.Web.UI.Controllers
             string orderby = "", int page = 1)
 
         {
-            var searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+            dynamic searchResponse;
+
+            if (IsLaEstab(nameId))
+            {
+                searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+            }
+            else
+            {
+                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+            }
             var vm = GetSchoolViewModelList(searchResponse, orderby,page, searchType, nameId, locationorpostcode, laCodeName);
 
             return PartialView("Partials/SchoolResults", vm);
@@ -391,8 +400,16 @@ namespace SFB.Web.UI.Controllers
             dynamic searchResponse;
             if (!companyNo.HasValue)
             {
-                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
-                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                if (IsLaEstab(nameId))
+                {
+                    searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
+                        locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                }
+                else
+                {
+                    searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
+                        locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                }
             }
             else
             {

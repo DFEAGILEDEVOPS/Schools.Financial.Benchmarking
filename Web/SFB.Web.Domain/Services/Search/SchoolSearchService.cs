@@ -124,7 +124,7 @@ namespace SFB.Web.Domain.Services.Search
         public async Task<dynamic> SearchSchoolByLaEstab(string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
             var facets = new[] { $"{EdubaseDBFieldNames.TYPE_OF_ESTAB}, count:25", $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDBFieldNames.OFSTED_RATING}" };
-            var exactMatches = await ExecuteSearch(_index, $"{laEstab}", $"{EdubaseDBFieldNames.ESTAB_NAME}",
+            var exactMatches = await ExecuteSearch(_index, $"{laEstab}", $"{EdubaseDBFieldNames.LA_ESTAB}",
                 ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
             return exactMatches;
         }
