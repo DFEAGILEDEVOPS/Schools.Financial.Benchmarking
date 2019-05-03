@@ -125,7 +125,8 @@ else
         <div class="font-xsmall latest-year-message">
             <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
         </div>
-        <div id="benchmarkChartsList">
+        <hr />
+        <div id="benchmarkChartsList" class="one-click-charts">
             @Html.Partial("~/Views/BenchmarkCharts/Partials/Chart.cshtml", Model.ModelList)
         </div>
     </div>
