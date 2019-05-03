@@ -708,6 +708,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\BicTabContent.cshtml" />
     <Content Include="Views\BenchmarkCriteria\HighestProgressSchoolsBenchmarking.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\UsedOneClickCriteria.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
