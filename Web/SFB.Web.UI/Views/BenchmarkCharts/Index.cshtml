@@ -228,30 +228,6 @@ else
 
         <div ng-app="reportApp">
             <div id="listCtrl" ng-controller="ChartListController as ctrl">
-                <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
-                    <h2 class="heading-medium" id="contextExp">School context data</h2>
-                    <table id="contextDataTable" class="tablesorter context-table">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="school-column">School name</th>
-                                <th scope="col">Local authority</th>
-                                <th scope="col">School type</th>
-                                <th scope="col">Number of pupils</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="school in schoolChartData">
-                                <td class="school-column">
-                                    <span ng-class="{'bold-xsmall' : homeSchoolName === school.school.split('#')[0]}">{{school.school.split('#')[0]}}</span>
-                                    <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
-                                </td>
-                                <td>{{school.la}}</td>
-                                <td>{{school.type}}</td>
-                                <td>{{school.pupilCount}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
                 <div id="CustomReportContentPlaceHolder">
 
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
