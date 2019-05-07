@@ -63,5 +63,14 @@
             <td nowrap>@Model.BenchmarkSchoolData.PerPupilGrantFunding.GetValueOrDefault().ToString("C")</td>
             <td nowrap>@Model.AdvancedCriteria.MinPerPupilGrantFunding.GetValueOrDefault().ToString("C") - @Model.AdvancedCriteria.MaxPerPupilGrantFunding.GetValueOrDefault().ToString("C")</td>
         </tr>
+
+        @if (Model.AdvancedCriteria.LondonWeighting != null)
+        {
+            <tr>
+                <td>London Weighting</td>
+                <td>@Model.BenchmarkSchoolData.LondonWeighting</td>
+                <td>@string.Join(", ", Model.AdvancedCriteria.LondonWeighting.ToArray())</td>
+            </tr>
+        }
     </tbody>
 </table>
