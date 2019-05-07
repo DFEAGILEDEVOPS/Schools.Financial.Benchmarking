@@ -570,8 +570,8 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        private bool IsNumeric(string field) => Regex.IsMatch(field, @"^\d+$");
-        private bool IsLaEstab(string field) => Regex.IsMatch(field, "^[0-9]{3}(-|/)?[0-9]{4}$");
-        private bool IsURN(string field) => Regex.IsMatch(field, "^[0-9]{5}$");
+        private bool IsNumeric(string field) => field != null ? Regex.IsMatch(field, @"^\d+$") : false;
+        private bool IsLaEstab(string field) => field != null ? Regex.IsMatch(field, "^[0-9]{3}(-|/)?[0-9]{4}$") : false;
+        private bool IsURN(string field) => field != null ? Regex.IsMatch(field, "^[0-9]{5}$") : false;
     }
 }
