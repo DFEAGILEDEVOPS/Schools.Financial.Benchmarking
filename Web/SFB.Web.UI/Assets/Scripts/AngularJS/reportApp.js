@@ -5,7 +5,7 @@
             function($scope, $location, $http, $q) {
                 var self = this;
                 self.location = $location;
-                self.showContextTable = true;
+                self.showContextTable = false;
                 self.inReportView = false;
                 self.format = "Charts";
 
@@ -63,8 +63,7 @@
                                 $("#benchmarkBasket").hide();
                                 $(".download-links").show();
                                 $("#searchSchoolsLink").hide();
-                                $("#downloadLinkContainer").hide();
-                                $("#BackToBMCharts").show();
+                                $("#downloadLinkContainer").hide();                                
                                 DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
                                 $("table.data-table-js").tablesorter();
                             }, 500);

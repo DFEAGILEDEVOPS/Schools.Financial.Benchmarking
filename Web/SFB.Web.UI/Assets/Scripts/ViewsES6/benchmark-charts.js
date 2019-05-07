@@ -576,14 +576,18 @@
             $("#tabsSection").empty('');
             $("#tabsSection").show();
             $("#customTabSection").show();
-            $(".download-links").hide();
+            $("#downloadLinkContainer").hide();
+            $("#PrintLinkText").text(" Print report");
+            $("#PdfLinkText").text(" Download report (PDF)");
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
-            $(".download-links").show();
+            $("#downloadLinkContainer").show();
+            $("#PrintLinkText").text(" Print page");
+            $("#PdfLinkText").text(" Download PDF");
             $("#bestInClassTabSection").show();
             $("#tabsSection").hide();
         } else {
@@ -627,7 +631,9 @@
                     $(".tabs li a span.bmtab").text("");
                     $(".tabs li#" + tab).addClass("active");
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
-                    $(".download-links").show();
+                    $("#downloadLinkContainer").show();
+                    $("#PrintLinkText").text(" Print page");
+                    $("#PdfLinkText").text(" Download PDF");
                     $("#tabsSection").html(data);
                     $("table.data-table-js").tablesorter();
                     let unitParameter = $("#ShowValue").val();
