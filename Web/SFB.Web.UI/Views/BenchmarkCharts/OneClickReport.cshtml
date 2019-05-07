@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
+<h1 id="BCHeader" class="heading-xlarge page-heading">Quick comparison report</h1>
 
 @if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
 {
@@ -56,7 +56,7 @@ else
                     <div class="highlight">
                         <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                     </div>
-                    <span>&nbsp;using quick report.</span>
+                    <span>&nbsp;using </span><span class="bold-xsmall">Quick report characteristics</span><span>.</span>
                 </div>
             </div>
         }
