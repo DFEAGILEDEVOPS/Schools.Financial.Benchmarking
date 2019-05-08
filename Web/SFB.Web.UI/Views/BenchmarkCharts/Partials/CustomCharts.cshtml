@@ -1,6 +1,17 @@
 ﻿@model SFB.Web.UI.Models.BenchmarkChartListViewModel
 <div class="charts-section custom-report">
-    <div id="benchmarkChartsList">
-        @Html.Partial("Partials/Chart", Model.ModelList)
-    </div>
+    @if (Model.ModelList.Count > 0)
+    {
+        <div id="benchmarkChartsList">
+            @Html.Partial("Partials/Chart", Model.ModelList)
+        </div>
+    }
+    else {
+        <div style="text-align: center">
+            <h2 class="heading-medium">You have no charts</h2>
+            <p>
+                Either bulk add charts above or individually on the other tabs.
+            </p>
+        </div>
+    }
 </div>
