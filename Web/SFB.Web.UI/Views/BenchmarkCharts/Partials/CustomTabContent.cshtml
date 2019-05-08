@@ -2,26 +2,34 @@
 @using SFB.Web.UI.Helpers.Constants
 
 <div class="grid-row">
-
     <div class="column-full">
-        <div class="column-half no-padding">
+        <div class="column-one-third no-padding">
             <div class="form-group">
                 <label class="form-label" for="CFinancing">Academy values</label>
-                <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.persist()">
+                <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
                     <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
                     <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
                 </select>
             </div>
         </div>
-        <div class="column-half no-padding include-context-table">
+        <div class="column-one-third no-padding">
+            <div class="form-group">
+                <label class="form-label" for="CMSelection">Current view</label>
+                <select name="CMSelection" id="CMSelection" class="form-control" ng-model="ctrl.format" ng-change="ctrl.onSelectionChange()">
+                    <option value="@ChartFormat.Charts">@CMSelection.CHART</option>
+                    <option value="@ChartFormat.Tables">@CMSelection.TABLE</option>
+                </select>
+            </div>
+        </div>
+        <div class="column-one-third no-padding include-context-table">
             <div class="multiple-choice">
                 <input type="checkbox" id="IncludeContextTable" class="form-control" ng-model="ctrl.showContextTable" />
                 <label class="form-label" for="IncludeContextTable">School context data</label>
             </div>
         </div>
     </div>
-
 </div>
+
 <div class="grid-row">
     <div class="column-full">
         <details class="criteria-details">
@@ -39,23 +47,11 @@
                         </div>
                         <div class="column-half no-padding">
                             <div class="selection-controls column-one-third no-padding" ng-show="ctrl.anySelected()">
-                                @*<div class="column-half no-padding">
-                                        <a href="#" class="button" ng-click="ctrl.displayCustomReport()">View report</a>
-                                    </div>*@
                                 <div class="clear-link">
                                     <a href="#" class="font-xsmall" ng-click="ctrl.clear()">Clear selections</a>
                                 </div>
                             </div>
                         </div>
-                        @*<div class="column-half no-padding">
-                                <div class="form-group">
-                                    <label class="form-label" for="CMSelection">Current view</label>
-                                    <select name="CMSelection" id="CMSelection" class="form-control" ng-model="ctrl.format">
-                                        <option value="@ChartFormat.Charts">@CMSelection.CHART</option>
-                                        <option value="@ChartFormat.Tables">@CMSelection.TABLE</option>
-                                    </select>
-                                </div>
-                            </div>*@
                     </div>
                 </div>
 
@@ -81,35 +77,35 @@
                                         </div>
                                         <div class="multiple-choices column-three-quarters">
                                             <div class="multiple-choice" ng-show="chart.PerPupilAvailable">
-                                                <input id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PerPupilSelected">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerPupilSelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_1" aria-label="{{chart.Name}} per pupil">Per pupil</label>
                                             </div>
                                             <div class="multiple-choice" ng-show="chart.PerTeacherAvailable">
-                                                <input id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PerTeacherSelected">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerTeacherSelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_2" aria-label="{{chart.Name}} per teacher">Per teacher</label>
                                             </div>
                                             <div class="multiple-choice" ng-show="chart.PercentageAvailable">
-                                                <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PercentageSelected">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageSelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total</label>
                                             </div>
                                             <div class="multiple-choice" ng-show="chart.AbsoluteMoneyAvailable">
-                                                <input id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.AbsoluteMoneySelected">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteMoneySelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_4" aria-label="{{chart.Name}} absolute total">Absolute total</label>
                                             </div>
                                             <div class="multiple-choice" ng-show="chart.AbsoluteCountAvailable">
-                                                <input id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.AbsoluteCountSelected">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteCountSelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_5" aria-label="{{chart.Name}} total">Total</label>
                                             </div>
                                             <div class="multiple-choice" ng-show="chart.HeadCountPerFTEAvailable">
-                                                <input id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.HeadCountPerFTESelected">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.HeadCountPerFTESelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_6" aria-label="{{chart.Name}} headcount per FTE">Headcount per FTE</label>
                                             </div>
                                             <div class="multiple-choice" ng-show="chart.PercentageOfWorkforceAvailable">
-                                                <input id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.PercentageOfWorkforceSelected">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageOfWorkforceSelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_7" aria-label="{{chart.Name}} percentage of workforce">Percentage of workforce</label>
                                             </div>
                                             <div class="multiple-choice" ng-show="chart.NumberOfPupilsPerMeasureAvailable">
-                                                <input id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.persist()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_8" aria-label="{{chart.Name}} pupils per measure">Pupils per measure</label>
                                             </div>
                                         </div>
@@ -126,6 +122,7 @@
     </div>
 </div>
 
+<div id="CustomReportContentPlaceHolder"></div>
 
 <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable">
     <h2 class="heading-medium" id="contextExp">School context data</h2>
@@ -141,7 +138,7 @@
         <tbody>
             <tr ng-repeat="school in schoolChartData">
                 <td class="school-column">
-                    <span ng-class="{'bold-xsmall' : homeSchoolName === school.school.split('#')[0]}">{{school.school.split('#')[0]}}</span>
+                    <span ng-class="{'bold-xsmall' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
                     <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
                 </td>
                 <td>{{school.la}}</td>
