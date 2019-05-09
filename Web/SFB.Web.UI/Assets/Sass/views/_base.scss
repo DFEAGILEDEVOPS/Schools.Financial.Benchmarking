@@ -630,16 +630,23 @@ abbr.summary{
     text-decoration-style: dotted;
 }
 
-.skip-map{
-    color: white!important;
+.skip-map, .hidden-button {
+    color: white !important;
     font-size: 16px;
-    &:focus{
-        height:auto;
+
+    &:focus {
+        height: auto;
         color: $link-colour;
     }
-    &:hover{
-               cursor:default;
-           }
+
+    &:hover {
+        cursor: default;
+    }
+}
+
+.hidden-button:focus {
+    background-color: #ffbf47;
+    outline: 3px solid #ffbf47;
 }
 
 .tt-menu.form-control.mtm{
@@ -674,7 +681,7 @@ table.tablesorter {
 }
 
 table.tablesorter.chart-table {
-    margin-top: 20px;
+    //margin-top: 20px;
     margin-bottom: 30px;
 }
 
@@ -774,3 +781,4 @@ body.print-mode .hide-in-print {
     background-color: $govuk-blue;
     padding: 1em 1em;
 }
+

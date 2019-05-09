@@ -66,12 +66,9 @@ namespace SFB.Web.UI.Controllers
 
             var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
 
-            var benchmarkSchools = comparisonResult.BenchmarkSchools;
-            benchmarkCriteria = comparisonResult.BenchmarkCriteria;
-
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
-            foreach (var schoolDoc in benchmarkSchools)
+            foreach (var schoolDoc in comparisonResult.BenchmarkSchools)
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                 {
@@ -85,7 +82,7 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
-            return await Index(urn, simpleCriteria, benchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
+            return await Index(urn, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
 
         [HttpGet]
@@ -161,7 +158,7 @@ namespace SFB.Web.UI.Controllers
 
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromOneClickComparisonCriteria(benchmarkSchool.LatestYearFinancialData);
 
-            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithOneClickComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.ONE_CLICK, benchmarkSchool.LatestYearFinancialData);
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithOneClickComparisonAsync(benchmarkCriteria, EstablishmentType.All, ComparisonListLimit.ONE_CLICK, benchmarkSchool.LatestYearFinancialData);
 
             EmptyBenchmarkList();
 
@@ -178,12 +175,12 @@ namespace SFB.Web.UI.Controllers
                 _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
                 null,
                 ComparisonType.OneClick,
-                benchmarkCriteria,
+                comparisonResult.BenchmarkCriteria,
                 null,
                 null,
-                null,
+                benchmarkSchool.LatestYearFinancialData,
                 benchmarkSchool.EstablishmentType,
-                benchmarkSchool.EstablishmentType,
+                EstablishmentType.All,
                 null, null,
                 FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies)),
                 FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained)),
@@ -192,11 +189,8 @@ namespace SFB.Web.UI.Controllers
 
             ViewBag.ChartFormat = ChartFormat.Charts;
             ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
-
-            if (benchmarkSchool.EstablishmentType == EstablishmentType.Academies || benchmarkSchool.EstablishmentType == EstablishmentType.All)
-            {
-                ViewBag.Financing =  CentralFinancingType.Include;
-            }            
+            ViewBag.Financing =  CentralFinancingType.Include;
+          
 
             return View(vm);
         }

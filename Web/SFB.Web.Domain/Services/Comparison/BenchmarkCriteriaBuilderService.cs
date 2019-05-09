@@ -72,6 +72,8 @@ namespace SFB.Web.Domain.Services.Comparison
             criteria.MinPerPupilGrantFunding = ppGrantFunding * minGfMarginFactor;
             criteria.MaxPerPupilGrantFunding = ppGrantFunding * maxGfMarginFactor;
 
+            criteria.LondonWeighting = benchmarkSchoolData.LondonWeighting == "Neither" ? new[] { "Neither" } : new[] { "Inner", "Outer" };
+
             return criteria;
         }
 

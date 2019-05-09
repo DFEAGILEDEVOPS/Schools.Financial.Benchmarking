@@ -17,6 +17,7 @@ using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Models;
 using RedDog.Search.Model;
 using SFB.Web.UI.Attributes;
+using SFB.Web.Common.DataObjects;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -80,18 +81,34 @@ namespace SFB.Web.UI.Controllers
                         {
                             try
                             {
-                                searchResp = IsLaEstab(nameId)
-                                    ? _contextDataService.GetSchoolDataObjectByLaEstab(nameIdSanitized)
-                                    : _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(nameIdSanitized));
+                                if(IsLaEstab(nameId))
+                                {
+                                    searchResp = _contextDataService.GetSchoolDataObjectByLaEstab(nameIdSanitized, openOnly);
+                                    if (searchResp.Count == 0)
+                                    {
+                                        return View("EmptyResult", new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
+                                    }
+                                    else if(searchResp.Count == 1)
+                                    {                                         
+                                        return RedirectToAction("Detail", "School", new { urn = (searchResp as List<EdubaseDataObject>).First().URN });
+                                    }
+                                    else
+                                    {
+                                        searchResp = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, null, null, null, radius, openOnly, orderby, page);
+                                    }
+                                }
+                                else
+                                {
+                                    searchResp = _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(nameIdSanitized));
+                                    return RedirectToAction("Detail", "School", new { urn = searchResp.URN });
+                                }
                             }
                             catch(Exception)
                             {
                                 return View("EmptyResult",
                                     new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
                                         SearchTypes.SEARCH_BY_NAME_ID));
-                            }                                                       
-
-                            return RedirectToAction("Detail", "School", new {urn = searchResp.URN});
+                            }                                                     
                         }
                         else
                         {
@@ -359,7 +376,16 @@ namespace SFB.Web.UI.Controllers
             string orderby = "", int page = 1)
 
         {
-            var searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+            dynamic searchResponse;
+
+            if (IsLaEstab(nameId))
+            {
+                searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+            }
+            else
+            {
+                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+            }
             var vm = GetSchoolViewModelList(searchResponse, orderby,page, searchType, nameId, locationorpostcode, laCodeName);
 
             return PartialView("Partials/SchoolResults", vm);
@@ -374,8 +400,16 @@ namespace SFB.Web.UI.Controllers
             dynamic searchResponse;
             if (!companyNo.HasValue)
             {
-                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
-                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                if (IsLaEstab(nameId))
+                {
+                    searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
+                        locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                }
+                else
+                {
+                    searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
+                        locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                }
             }
             else
             {
@@ -412,6 +446,11 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_NAME_ID:
                     response = await _schoolSearchService.SearchSchoolByName(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby, 
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LA_ESTAB:
+                    response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
                         Request.QueryString) as QueryResultsModel;
                     break;
                 case SearchTypes.SEARCH_BY_LOCATION:
@@ -531,8 +570,8 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        private bool IsNumeric(string field) => Regex.IsMatch(field, @"^\d+$");
-        private bool IsLaEstab(string field) => Regex.IsMatch(field, "^[0-9]{3}(-|/)?[0-9]{4}$");
-        private bool IsURN(string field) => Regex.IsMatch(field, "^[0-9]{5}$");
+        private bool IsNumeric(string field) => field != null ? Regex.IsMatch(field, @"^\d+$") : false;
+        private bool IsLaEstab(string field) => field != null ? Regex.IsMatch(field, "^[0-9]{3}(-|/)?[0-9]{4}$") : false;
+        private bool IsURN(string field) => field != null ? Regex.IsMatch(field, "^[0-9]{5}$") : false;
     }
 }

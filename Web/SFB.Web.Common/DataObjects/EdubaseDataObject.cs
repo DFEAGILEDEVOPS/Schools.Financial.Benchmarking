@@ -47,6 +47,9 @@ namespace SFB.Web.Common.DataObjects
         [JsonProperty(PropertyName = EdubaseDBFieldNames.ESTAB_NO)]
         public int EstablishmentNumber;
 
+        [JsonProperty(PropertyName = EdubaseDBFieldNames.LA_ESTAB)]
+        public int LAEstab;
+
         [JsonProperty(PropertyName = EdubaseDBFieldNames.TEL_NO)]
         public string TelephoneNum;
 

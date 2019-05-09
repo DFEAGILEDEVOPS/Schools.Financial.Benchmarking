@@ -23,7 +23,7 @@
 }
 
 @section BackButtonContent{
-        @Html.Partial("Partials/BackToHomeLink")
+    @Html.Partial("Partials/BackToHomeLink")
 }
 
 
@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
+<h1 id="BCHeader" class="heading-xlarge page-heading">Quick comparison report</h1>
 
 @if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
 {
@@ -54,14 +54,26 @@ else
                 <div class="column-full" id="comparing">
                     <span>Comparing</span>
                     <div class="highlight">
-                        <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>                        
+                        <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                     </div>
-                    <span>&nbsp;using the quick comparison</span>
+                    <span>&nbsp;using </span><span class="bold-xsmall">Quick report characteristics</span><span>.</span>
                 </div>
             </div>
         }
     }
 
+    <div class="grid-row">
+        <div class="column-full">
+            <details class="criteria-details">
+                <summary class="hide-in-print">
+                    <span class="summary font-xsmall">View characteristics used</span>
+                </summary>
+                <div class="panel panel-border-narrow criteria-detail">
+                    @Html.Partial("Partials/UsedOneClickCriteria")
+                </div>
+            </details>
+        </div>
+    </div>
 
     <div class="grid-row download-links hide-in-print">
         <div id="downloadLinkContainer" class="column-one-third">
@@ -111,9 +123,10 @@ else
             </div>
         </div>
         <div class="font-xsmall latest-year-message">
-                <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+            <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
         </div>
-        <div id="benchmarkChartsList">
+        <hr />
+        <div id="benchmarkChartsList" class="one-click-charts">
             @Html.Partial("~/Views/BenchmarkCharts/Partials/Chart.cshtml", Model.ModelList)
         </div>
     </div>
@@ -149,7 +162,7 @@ else
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/canvg.js"></script>
 
     <script>
-        DfE.Views.BenchmarkChartsViewModel = new BenchmarkChartsViewModel();  
+        DfE.Views.BenchmarkChartsViewModel = new BenchmarkChartsViewModel();
     </script>
 
 }

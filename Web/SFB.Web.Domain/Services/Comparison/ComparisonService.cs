@@ -193,8 +193,8 @@ namespace SFB.Web.Domain.Services.Comparison
             if (benchmarkSchools.Count > basketSize) //Original query returns more than required. Clip from top by people count proximity.
             {
                 benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
-                //benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
-                //benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the used criteria to reflect the max and min pupil count of the found schools
+                benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
+                benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the used criteria to reflect the max and min pupil count of the found schools
             }
 
             //STEP 2: Original query returns less than required. Expand criteria values gradually and try this max 10 times
@@ -213,8 +213,8 @@ namespace SFB.Web.Domain.Services.Comparison
                 if (benchmarkSchools.Count > basketSize) //Number jumping to more than ideal. Cut from top by pupil count proximity.
                 {
                     benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
-                    //benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
-                    //benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the criteria to reflect the max and min pupil count of the found schools
+                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
+                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the criteria to reflect the max and min pupil count of the found schools
                     break;
                 }
             }
@@ -236,8 +236,8 @@ namespace SFB.Web.Domain.Services.Comparison
                 if (benchmarkSchools.Count > basketSize) //Number jumping to more than ideal. Cut from top by pupil count proximity.
                 {
                     benchmarkSchools = benchmarkSchools.OrderBy(b => Math.Abs(b.NoPupils.GetValueOrDefault() - defaultSchoolFinancialDataModel.PupilCount.GetValueOrDefault())).Take(basketSize).ToList();
-                    //benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
-                    //benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the criteria to reflect the max and min pupil count of the found schools
+                    benchmarkCriteria.MinNoPupil = benchmarkSchools.Min(s => s.NoPupils);
+                    benchmarkCriteria.MaxNoPupil = benchmarkSchools.Max(s => s.NoPupils); //Update the criteria to reflect the max and min pupil count of the found schools
                     break;
                 }
 
@@ -251,8 +251,8 @@ namespace SFB.Web.Domain.Services.Comparison
 
             return new ComparisonResult()
             {
-                BenchmarkSchools = benchmarkSchools
-                //,BenchmarkCriteria = benchmarkCriteria
+                BenchmarkSchools = benchmarkSchools,
+                BenchmarkCriteria = benchmarkCriteria
             };
         }
     }

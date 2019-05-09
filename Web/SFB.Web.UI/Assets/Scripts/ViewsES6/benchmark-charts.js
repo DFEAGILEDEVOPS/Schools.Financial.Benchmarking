@@ -878,7 +878,9 @@ class PdfGenerator {
         return new Promise((resolve, reject) => {
             if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible")) {
                 this.pdfAddNewPage();
-                this.pdfWriteLine('Normal', $('#criteriaExp').get(0).innerText)
+                if ($('#criteriaExp').length > 0) {
+                    this.pdfWriteLine('Normal', $('#criteriaExp').get(0).innerText);
+                }
                 this.pdfGenerateImage('#criteriaTable').then((canvas) => {
                     this.pdfAddImage(canvas);
                     resolve();

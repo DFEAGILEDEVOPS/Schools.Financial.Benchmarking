@@ -10,6 +10,9 @@ namespace SFB.Web.Domain.Services.Search
         Task<dynamic> SearchSchoolByName(string name, int skip, int take, string @orderby,
             NameValueCollection queryParams);
 
+        Task<dynamic> SearchSchoolByLaEstab(string laEstab, int skip, int take, string @orderby,
+            NameValueCollection queryParams);
+
         Task<dynamic> SearchSchoolByLaCode(string laCode, int skip, int take, string orderby,
             NameValueCollection queryParams);
 

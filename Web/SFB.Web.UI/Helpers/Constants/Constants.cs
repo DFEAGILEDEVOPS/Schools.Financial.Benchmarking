@@ -11,6 +11,7 @@
     public class SearchTypes
     {
         public const string SEARCH_BY_NAME_ID = "search-by-name-id";
+        public const string SEARCH_BY_LA_ESTAB = "search-by-la-estab";
         public const string SEARCH_BY_TRUST_NAME_ID = "search-by-trust-name-id";
         public const string SEARCH_BY_LOCATION = "search-by-location";
         public const string SEARCH_BY_LA_CODE_NAME = "search-by-la-code-name";
@@ -128,9 +129,9 @@
         public const string BestInClassHelp = "This allows you to compare your school with the 15 most efficient similar schools, as identified by the Department's <a rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.gov.uk/government/publications/schools-financial-efficiency-metric-tool\">school efficiency metric<span class=\"visuallyhidden\"> Opens in a new window</span></a> tool. <p>These are statistically similar in terms of the proportion of pupils:</p>" +
             "<ul><li>who have been eligible for free school meals in the last 6 years</li><li>with a statement of special educational needs, or an education, health and care (EHC) plan</li></ul>" +
             "<p>The efficiency metric is calculated based on pupil attainment and the money a school receives for its pupils. It is just one indication of efficiency.</p>";
-        public const string QuickComparisonHelp = "This generates high-level benchmark charts using pre-selected characteristics (including number of pupils and school phase). These are the same as those used in the <a href=\"https://schools-financial-benchmarking.service.gov.uk/BenchmarkCriteria/ComparisonStrategy?urn={0}\">quick comparison</a> option on this site.<p>For in-depth benchmarking, we recommend that you do a <a href=\"https://schools-financial-benchmarking.service.gov.uk/BenchmarkCriteria/ComparisonStrategy?urn={0}\">detailed comparison</a>.</p>";
+        public const string QuickComparisonHelp = "This generates high-level benchmark charts using pre-selected characteristics (including school phase, number of pupils, SEN, FSM, EAL and per pupil funding). For in-depth benchmarking, we recommend that you do a detailed comparison.</a></p>";
         public const string BicComparisonHelp = "<p>This comparison generates a group of statistically similar schools using the following characteristics and progress data. This gives schools the opportunity to gauge their selected school's progress as well as see statistical data to help them improve their progress.</p>" +
             "<p>The following characteristics and keystage progress data is used:</p>" +
-            "<ul><li>Number of pupils</li><li>Eligibility of free school meals</li><li>Pupils with SEN who have statements or EHC plans</li><li>Total expenditure per pupil</li><li>Urban/rural school similarity</li></ul>";
+            "<ul><li>Number of pupils</li><li>Eligibility of free school meals</li><li>Total expenditure per pupil</li></ul>";
     }
 }
