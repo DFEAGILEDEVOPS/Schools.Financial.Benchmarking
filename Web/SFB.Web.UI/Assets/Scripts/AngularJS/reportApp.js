@@ -4,7 +4,6 @@
             '$scope', '$http', '$q',
             function($scope, $http, $q) {
                 var self = this;
-                self.showContextTable = false;
                 self.format = "Charts";
 
                 self.loadData = function (resolve) {

@@ -82,31 +82,37 @@ else
 
                     @if (Model.ComparisonType == ComparisonType.Advanced)
                     {
-                        <span>Comparing</span>
-                        <div class="highlight">
-                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        <div id="comparing-text">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to schools</span>
+                            <span class="bold-small"> with characteristics you've chosen. </span>
                         </div>
-                        <span>&nbsp;to schools</span>
-                        <span class="bold-small"> with characteristics you've chosen. </span>
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
                     else if (Model.ComparisonType == ComparisonType.Basic)
                     {
-                        <span>Comparing</span>
-                        <div class="highlight">
-                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        <div id="comparing-text">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to schools</span>
+                            <span class="bold-small"> matching your chosen characteristics. </span>
                         </div>
-                        <span>&nbsp;to schools</span>
-                        <span class="bold-small"> matching your chosen characteristics. </span>
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
                     else if (Model.ComparisonType == ComparisonType.BestInClass)
                     {
-                        <span>Comparing</span>
-                        <div class="highlight">
-                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        <div id="comparing-text">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to the highest progress schools. </span>
                         </div>
-                        <span>&nbsp;to the highest progress schools. </span>                        
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
 

@@ -685,6 +685,8 @@
 
     PdfPage() {
 
+        $('.criteria-details').attr('open', 'true');
+
         let pdfGenerator = new PdfGenerator();
 
         pdfGenerator.writeHeadings();
@@ -813,8 +815,8 @@ class PdfGenerator {
 
         this.pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
 
-        if ($('#comparing').length > 0) {
-            this.pdfWriteLine('H3', $('#comparing').get(0).innerText);
+        if ($('#comparing-text').length > 0) {
+            this.pdfWriteLine('H3', $('#comparing-text').get(0).innerText);
         }
     }
 
@@ -833,7 +835,9 @@ class PdfGenerator {
         this.offset += 30;
 
         if ($('.tabs li.active').length > 0) {
-            this.pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
+            if ($('.tabs li.active').get(0).innerText.indexOf('Your') < 0) {
+                this.pdfWriteLine('H3', $('.tabs li.active').get(0).innerText.replace('selected', ''));
+            }
         }
 
         let filters = $('.chart-filter');
