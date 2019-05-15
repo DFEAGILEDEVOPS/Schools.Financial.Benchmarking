@@ -3,7 +3,7 @@
 
 <div class="grid-row">
     <div class="column-full">
-        <div class="column-half no-padding">
+        <div class="column-one-third no-padding chart-filter">
             <div class="form-group">
                 <label class="form-label" for="CFinancing">Academy values</label>
                 <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
@@ -12,7 +12,7 @@
                 </select>
             </div>
         </div>
-        <div class="column-half no-padding">
+        <div class="column-two-thirds no-padding">
             <div class="font-xsmall chartTable hide-in-print">
                 <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
                 <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>

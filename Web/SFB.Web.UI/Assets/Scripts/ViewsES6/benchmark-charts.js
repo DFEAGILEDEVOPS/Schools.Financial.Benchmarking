@@ -685,7 +685,7 @@
 
     PdfPage() {
 
-        $('.criteria-details').attr('open', 'true');
+        $('#criteria-details.criteria-details').attr('open', 'true');
 
         let pdfGenerator = new PdfGenerator();
 
@@ -837,10 +837,12 @@ class PdfGenerator {
         if ($('.tabs li.active').length > 0) {
             if ($('.tabs li.active').get(0).innerText.indexOf('Your') < 0) {
                 this.pdfWriteLine('H3', $('.tabs li.active').get(0).innerText.replace('selected', ''));
+            } else {
+                this.pdfWriteLine('H3', 'Your charts');
             }
         }
 
-        let filters = $('.chart-filter');
+        let filters = $('.chart-filter:visible');
         if (filters.length > 0) {
             filters.each((index, element) => {
                 this.pdfWriteLine('Normal', $(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText);
