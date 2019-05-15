@@ -56,11 +56,16 @@
                         url: "/benchmarkcharts/CustomReport",
                         datatype: "json",
                         data: { "json": localStorage.CustomCharts, "format": self.format },
-                        beforeSend: function() {
-                            DfE.Util.LoadingMessage.display("#CustomReportContentPlaceHolder", "Generating custom benchmarking report");
+                        beforeSend: function () {
+                            $('#CustomReportContentPlaceHolder').html('');
+                            $('#spinner-place-holder').html(
+                                '<img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif"></img>' +
+                                '<span role="alert" aria-live="assertive" aria-label="Updating charts"></span>' +
+                                '<span style="margin-left: 10px; color: black">Updating charts</span>');
                         },
                         success: function (data) {
-                            setTimeout(function() {
+                            setTimeout(function () {
+                                $('#spinner-place-holder').html('');
                                 $('#CustomReportContentPlaceHolder').html(data);                           
                                 DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
                                 $("table.data-table-js").tablesorter();

@@ -579,6 +579,8 @@
             $("#downloadLinkContainer").hide();
             $("#PrintLinkText").text(" Print report");
             $("#PdfLinkText").text(" Download report (PDF)");
+            let scope = angular.element($("#listCtrl")).scope();
+            scope.ctrl.displayCustomReport();
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
             $(".tabs li a span.bmtab").text("");
