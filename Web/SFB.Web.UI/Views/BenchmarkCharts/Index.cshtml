@@ -82,31 +82,37 @@ else
 
                     @if (Model.ComparisonType == ComparisonType.Advanced)
                     {
-                        <span>Comparing</span>
-                        <div class="highlight">
-                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        <div id="comparing-text">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to schools</span>
+                            <span class="bold-small"> with characteristics you've chosen. </span>
                         </div>
-                        <span>&nbsp;to schools</span>
-                        <span class="bold-small"> with characteristics you've chosen. </span>
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
                     else if (Model.ComparisonType == ComparisonType.Basic)
                     {
-                        <span>Comparing</span>
-                        <div class="highlight">
-                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        <div id="comparing-text">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to schools</span>
+                            <span class="bold-small"> matching your chosen characteristics. </span>
                         </div>
-                        <span>&nbsp;to schools</span>
-                        <span class="bold-small"> matching your chosen characteristics. </span>
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
                     else if (Model.ComparisonType == ComparisonType.BestInClass)
                     {
-                        <span>Comparing</span>
-                        <div class="highlight">
-                            <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                        <div id="comparing-text">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to the highest progress schools. </span>
                         </div>
-                        <span>&nbsp;to the highest progress schools. </span>                        
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
 
@@ -117,7 +123,7 @@ else
         {
             <div class="grid-row">
                 <div class="column-full">
-                    <details class="criteria-details">
+                    <details id="criteria-details" class="criteria-details">
                         <summary class="hide-in-print">
                             <span class="summary font-xsmall">View characteristics used</span>
                         </summary>
@@ -192,7 +198,7 @@ else
             </div>
             <div class="column-one-third">
                 <div class="pdf">
-                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></button>
+                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PdfLinkText"> Download PDF</span></button>
                 </div>
             </div>
         </div>
@@ -228,31 +234,7 @@ else
 
         <div ng-app="reportApp">
             <div id="listCtrl" ng-controller="ChartListController as ctrl">
-                <div id="contextTable" ng-cloak ng-show="ctrl.showContextTable && ctrl.inReportView">
-                    <h2 class="heading-medium" id="contextExp">School context data</h2>
-                    <table id="contextDataTable" class="tablesorter context-table">
-                        <thead>
-                            <tr>
-                                <th scope="col" class="school-column">School name</th>
-                                <th scope="col">Local authority</th>
-                                <th scope="col">School type</th>
-                                <th scope="col">Number of pupils</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="school in schoolChartData">
-                                <td class="school-column">
-                                    <span ng-class="{'bold-xsmall' : homeSchoolName === school.school.split('#')[0]}">{{school.school.split('#')[0]}}</span>
-                                    <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
-                                </td>
-                                <td>{{school.la}}</td>
-                                <td>{{school.type}}</td>
-                                <td>{{school.pupilCount}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="CustomReportContentPlaceHolder">
+                <div>
 
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
                     <div id="tabsSection">
@@ -260,7 +242,7 @@ else
                     </div>
                     @if (Model.EstablishmentType != EstablishmentType.MAT)
                     {
-                        <div id="customTabSection" style="display: none">
+                        <div id="customTabSection" style="display: none" class="charts-section">
                             @Html.Partial("Partials/CustomTabContent")
                         </div>
                     }

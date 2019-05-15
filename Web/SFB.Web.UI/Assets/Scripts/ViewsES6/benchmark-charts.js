@@ -576,14 +576,20 @@
             $("#tabsSection").empty('');
             $("#tabsSection").show();
             $("#customTabSection").show();
-            $(".download-links").hide();
+            $("#downloadLinkContainer").hide();
+            $("#PrintLinkText").text(" Print report");
+            $("#PdfLinkText").text(" Download report (PDF)");
+            let scope = angular.element($("#listCtrl")).scope();
+            scope.ctrl.displayCustomReport();
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
-            $(".download-links").show();
+            $("#downloadLinkContainer").show();
+            $("#PrintLinkText").text(" Print page");
+            $("#PdfLinkText").text(" Download PDF");
             $("#bestInClassTabSection").show();
             $("#tabsSection").hide();
         } else {
@@ -627,7 +633,9 @@
                     $(".tabs li a span.bmtab").text("");
                     $(".tabs li#" + tab).addClass("active");
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
-                    $(".download-links").show();
+                    $("#downloadLinkContainer").show();
+                    $("#PrintLinkText").text(" Print page");
+                    $("#PdfLinkText").text(" Download PDF");
                     $("#tabsSection").html(data);
                     $("table.data-table-js").tablesorter();
                     let unitParameter = $("#ShowValue").val();
@@ -678,6 +686,8 @@
     }
 
     PdfPage() {
+
+        $('#criteria-details.criteria-details').attr('open', 'true');
 
         let pdfGenerator = new PdfGenerator();
 
@@ -807,8 +817,8 @@ class PdfGenerator {
 
         this.pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
 
-        if ($('#comparing').length > 0) {
-            this.pdfWriteLine('H3', $('#comparing').get(0).innerText);
+        if ($('#comparing-text').length > 0) {
+            this.pdfWriteLine('H3', $('#comparing-text').get(0).innerText);
         }
     }
 
@@ -827,10 +837,14 @@ class PdfGenerator {
         this.offset += 30;
 
         if ($('.tabs li.active').length > 0) {
-            this.pdfWriteLine('H3', $('.tabs li.active').get(0).innerText);
+            if ($('.tabs li.active').get(0).innerText.indexOf('Your') < 0) {
+                this.pdfWriteLine('H3', $('.tabs li.active').get(0).innerText.replace('selected', ''));
+            } else {
+                this.pdfWriteLine('H3', 'Your charts');
+            }
         }
 
-        let filters = $('.chart-filter');
+        let filters = $('.chart-filter:visible');
         if (filters.length > 0) {
             filters.each((index, element) => {
                 this.pdfWriteLine('Normal', $(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText);
