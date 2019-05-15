@@ -57,15 +57,12 @@
                         datatype: "json",
                         data: { "json": localStorage.CustomCharts, "format": self.format },
                         beforeSend: function () {
-                            $('#CustomReportContentPlaceHolder').html('');
-                            $('#spinner-place-holder').html(
-                                '<img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif"></img>' +
-                                '<span role="alert" aria-live="assertive" aria-label="Updating charts"></span>' +
-                                '<span style="margin-left: 10px; color: black">Updating charts</span>');
+                            $('#CustomReportContentPlaceHolder').html(' ');
+                            $('#spinner-place-holder').show();
                         },
                         success: function (data) {
                             setTimeout(function () {
-                                $('#spinner-place-holder').html('');
+                                $('#spinner-place-holder').hide();
                                 $('#CustomReportContentPlaceHolder').html(data);                           
                                 DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
                                 $("table.data-table-js").tablesorter();
