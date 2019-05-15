@@ -100,7 +100,7 @@
                                 @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
                                 break;
                         }
-                        <span class="visually-hidden">@ViewHelpers.GetAmountCellAriaLabel(schoolBenchmarkData.Unit, Model.Name)</span>
+                        <span aria-label="@ViewHelpers.GetAmountCellAriaLabel(schoolBenchmarkData.Unit, Model.Name)"></span>
                     }
                     else
                     {
