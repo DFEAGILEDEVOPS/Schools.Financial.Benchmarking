@@ -788,7 +788,7 @@ class PdfGenerator {
         let svg = $('#chart_' + index).find('svg')[0];
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
             (img) => {
-                this.doc.addImage(img, 'JPEG', -50, this.offset);
+                this.doc.addImage(img, 'JPEG', 0, this.offset);
             });
     }
 
