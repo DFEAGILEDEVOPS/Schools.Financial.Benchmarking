@@ -768,7 +768,7 @@
     "REGIONNAME": "South West B"
   },
   {
-    "id": "835",
+    "id": "838",
     "LANAME": "Dorset",
     "REGION": "43",
     "REGIONNAME": "South West A"
@@ -786,8 +786,8 @@
     "REGIONNAME": "South West A"
   },
   {
-    "id": "837",
-    "LANAME": "Bournemouth",
+    "id": "839",
+    "LANAME": "Bournemouth, Christchurch & Poole",
     "REGION": "43",
     "REGIONNAME": "South West A"
   },
@@ -886,12 +886,6 @@
     "LANAME": "Bristol",
     "REGION": "45",
     "REGIONNAME": "South West B"
-  },
-  {
-    "id": "836",
-    "LANAME": "Poole",
-    "REGION": "43",
-    "REGIONNAME": "South West A"
   },
   {
     "id": "846",
