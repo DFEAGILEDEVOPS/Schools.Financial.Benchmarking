@@ -129,7 +129,7 @@
                                             </div>
                                         </div>
                                         <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
-                                            <button aria-label="View Your Charts" class="a-button" onclick="$('.custom').click(); $('.custom').focus();">
+                                            <button aria-label="View Your Charts" class="a-button" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom')">
                                                 <i class="icon icon-report"></i>
                                                 <span>View your charts</span>
                                             </button>
@@ -174,7 +174,7 @@
                                     {
                                     <div class="chart-scores-header">
                                         Progress 8
-                                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                                        <button class="helpLink link-button no-padding hide-in-print" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
                                             <img class="help-image" src="/public/assets/images/help-icon.png">
                                         </button>
                                     </div>
@@ -183,7 +183,7 @@
                                     {
                                     <div class="chart-scores-header">
                                         <span>KS2</span>
-                                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                        <button class="helpLink link-button no-padding hide-in-print" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
                                             <img class="help-image" src="/public/assets/images/help-icon.png">
                                         </button>
                                         <span class="show-in-desktop">progress</span>
@@ -262,7 +262,7 @@
                                                 </button>
                                             </div>
                                             <div style="display: none" class="column-half font-xsmall no-padding view-your-charts float-to-right">
-                                                <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus();">
+                                                <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom');" >
                                                     <i class="icon icon-report"></i>
                                                     <span>View your charts</span>
                                                 </a>
@@ -307,7 +307,7 @@
                                                 {
                                                     <div class="chart-scores-header">
                                                         Progress 8
-                                                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
+                                                        <button class="helpLink link-button no-padding hide-in-print" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaP8Modal(event)">
                                                             <img class="help-image" src="/public/assets/images/help-icon.png">
                                                         </button>
                                                     </div>
@@ -316,7 +316,7 @@
                                                 {
                                                     <div class="chart-scores-header">
                                                         <span>KS2</span>
-                                                        <button class="helpLink link-button no-padding" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                                        <button class="helpLink link-button no-padding hide-in-print" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
                                                             <img class="help-image" src="/public/assets/images/help-icon.png">
                                                         </button>
                                                         <span class="show-in-desktop">progress</span>

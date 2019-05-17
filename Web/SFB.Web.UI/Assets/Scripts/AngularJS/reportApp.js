@@ -1,12 +1,9 @@
 ﻿var app = angular.module('reportApp', [])
     .controller('ChartListController',
         [
-            '$scope', '$location', '$http', '$q',
-            function($scope, $location, $http, $q) {
+            '$scope', '$http', '$q',
+            function($scope, $http, $q) {
                 var self = this;
-                self.location = $location;
-                self.showContextTable = true;
-                self.inReportView = false;
                 self.format = "Charts";
 
                 self.loadData = function (resolve) {
@@ -16,9 +13,17 @@
                     } else {
                         $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function (response) {
                             $scope.selectionList = response.data;
+                            localStorage.CustomCharts = JSON.stringify($scope.selectionList);
                             resolve();
                         });
                     }
+                };
+
+                self.onSelectionChange = function () {
+                    self.persist();
+                    setTimeout(function () {
+                        self.displayCustomReport();
+                    }, 600);
                 };
 
                 self.persist = function () {
@@ -34,10 +39,10 @@
                 self.clear = function() {
                     $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function(response) {
                         $scope.selectionList = response.data;
-                        self.persist();
                         self.query = "";
                         setTimeout(function() { new Accordion(document.getElementById('custom-report-accordion')); },
                             500);
+                        self.onSelectionChange();
                     });
                 };
 
@@ -52,26 +57,19 @@
                         url: "/benchmarkcharts/CustomReport",
                         datatype: "json",
                         data: { "json": localStorage.CustomCharts, "format": self.format },
-                        beforeSend: function() {
-                            DfE.Util.LoadingMessage.display("#CustomReportContentPlaceHolder", "Generating custom benchmarking report");
+                        beforeSend: function () {
+                            $('#CustomReportContentPlaceHolder').html(' ');
+                            $('#spinner-place-holder').show();
                         },
                         success: function (data) {
-                            setTimeout(function() {
-                                $('#CustomReportContentPlaceHolder').html(data);
-                                $("#BCHeader").text("Custom benchmarking report");
-                                $("#PrintLinkText").text(" Print report");
-                                $("#benchmarkBasket").hide();
-                                $(".download-links").show();
-                                $("#searchSchoolsLink").hide();
-                                $("#downloadLinkContainer").hide();
-                                $("#BackToBMCharts").show();
+                            setTimeout(function () {
+                                $('#spinner-place-holder').hide();
+                                $('#CustomReportContentPlaceHolder').html(data);                           
                                 DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
                                 $("table.data-table-js").tablesorter();
                             }, 500);
                         }
                     });
-                    self.location.url("report");
-                    self.inReportView = true;
                 };
 
                 self.groupSelectCount = function(group) {
@@ -104,13 +102,13 @@
                     return count;
                 };
 
-                $scope.dataLoaded = $q(function(resolve) {
+                $scope.dataLoaded = $q(function (resolve) {
                     self.loadData(resolve);
                 });
 
                 angular.element(document).ready(function () {
                     new Accordion(document.getElementById('custom-report-accordion'));
-                    $("#custom-report-accordion .accordion-section-header").first().click();
+                    //$("#custom-report-accordion .accordion-section-header").first().click();
                 });
 
                 $(document).ready(function() {
@@ -120,11 +118,3 @@
             }
         ]);
 
-//app.run(function($rootScope, $location) {
-//    $rootScope.$on('$locationChangeStart',
-//        function() {
-//            if ($location.$$urlUpdatedByLocation) {
-//                window.location.reload();
-//            }
-//        });
-//});
