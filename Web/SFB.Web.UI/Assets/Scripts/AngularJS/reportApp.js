@@ -13,6 +13,7 @@
                     } else {
                         $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function (response) {
                             $scope.selectionList = response.data;
+                            localStorage.CustomCharts = JSON.stringify($scope.selectionList);
                             resolve();
                         });
                     }
@@ -101,7 +102,7 @@
                     return count;
                 };
 
-                $scope.dataLoaded = $q(function(resolve) {
+                $scope.dataLoaded = $q(function (resolve) {
                     self.loadData(resolve);
                 });
 
