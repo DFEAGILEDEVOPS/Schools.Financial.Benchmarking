@@ -92,7 +92,11 @@ else
         </div>
         <div class="column-one-third">
             <div class="pdf">
-                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></button>
+                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()">
+                    <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
+                    <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />
+                    <span id="PrintLinkText"> Download PDF</span>
+                </button>
             </div>
         </div>
     </div>

@@ -67,7 +67,7 @@
     position: sticky;
     top: 0; // required as well.
     z-index: 10000;
-    margin-top: 5px;
+    margin-top: 10px;
 
     &__comparison-list-info-panel {
         @include core-16;
@@ -786,3 +786,6 @@ body.print-mode .hide-in-print {
     padding: 1em 1em;
 }
 
+.phase-banner{
+    margin-bottom: -10px;
+}

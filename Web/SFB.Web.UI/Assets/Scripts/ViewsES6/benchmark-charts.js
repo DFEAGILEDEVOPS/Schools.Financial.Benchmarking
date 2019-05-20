@@ -687,6 +687,9 @@
 
     PdfPage() {
 
+        $('#PdfLink .download-icon').toggle();
+        $('#PdfLink .spin-icon').toggle();
+
         $('#criteria-details.criteria-details').attr('open', 'true');
 
         let pdfGenerator = new PdfGenerator();
@@ -704,6 +707,8 @@
         pdfGenerator.writeCriteria().then(() => {
             pdfGenerator.writeContextData().then(() => {
                 pdfGenerator.save();
+                $('#PdfLink .download-icon').toggle();
+                $('#PdfLink .spin-icon').toggle();
             });
         });
     }
