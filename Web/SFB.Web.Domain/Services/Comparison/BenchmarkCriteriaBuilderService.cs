@@ -74,6 +74,8 @@ namespace SFB.Web.Domain.Services.Comparison
 
             criteria.LondonWeighting = benchmarkSchoolData.LondonWeighting == "Neither" ? new[] { "Neither" } : new[] { "Inner", "Outer" };
 
+            criteria.PeriodCoveredByReturn = 12;
+
             return criteria;
         }
 
@@ -122,6 +124,8 @@ namespace SFB.Web.Domain.Services.Comparison
             {
                 criteria.LocalAuthorityCode = benchmarkSchoolData.LaNumber;
             }
+
+            criteria.PeriodCoveredByReturn = 12;
 
             return criteria;
         }
