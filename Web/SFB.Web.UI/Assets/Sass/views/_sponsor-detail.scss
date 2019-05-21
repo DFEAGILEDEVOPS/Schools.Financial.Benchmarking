@@ -69,6 +69,10 @@
                 padding-top: 12px;
                 font-weight: bold;
             }
+
+            &.index-0 {
+                margin-top: 1.5em;
+            }
         }
     }
 
@@ -162,5 +166,10 @@
 
     .accordion-controls {
         display: none;
+    }
+
+    .print img.icon, .download img.icon {
+        width: 24px;
+        height: 24px;
     }
 }
