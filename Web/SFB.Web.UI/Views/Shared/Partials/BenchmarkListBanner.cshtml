@@ -1,12 +1,12 @@
-﻿@if (Model.ComparisonListCount >= 1)
-{
-    <div class="sticky-div hide-in-print" id="benchmarkBasket" role="region" aria-label="Benchmark Basket">
+﻿<div class="sticky-div hide-in-print" id="benchmarkBasket" role="region" aria-label="Benchmark Basket">
+    @if (Model.ComparisonListCount >= 1)
+    {
         <div class="grid-row">
             <div class="column-full">
                 <div class="sticky-div__comparison-list-info-panel">
                     Your benchmark basket contains <span class="sticky-div__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span>
 
-                    @{ 
+                    @{
                         var referrer = Request.IsAjaxRequest() ? Request.UrlReferrer.ToString() : Request.RawUrl;
                         if (referrer.Contains("BenchmarkCharts/"))
                         {
@@ -25,5 +25,5 @@
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
+</div>
