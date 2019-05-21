@@ -46,6 +46,10 @@
 
         .chart-container {
             //padding-top: 15px;
+            &.index-0 {
+                margin-top: 1.5em;
+            }
+
             .chart-header {
                 margin-top: 1.5em;
 
@@ -340,6 +344,27 @@
                 padding-left: 0;
             }
         }
+    }
+
+    .print img.icon, .download img.icon, .pdf img.icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .download-link {
+        float: left;
+        margin-right: 32px;
+        padding-top: 1em;
+        padding-bottom: 1em;
+
+        @include media(mobile) {
+            width: 100%;
+            padding: 0;
+        }
+    }
+
+    #DownloadLink {
+        padding-left: 5px;
     }
 }
 
