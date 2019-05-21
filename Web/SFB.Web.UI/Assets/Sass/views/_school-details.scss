@@ -65,6 +65,8 @@
             @include media(mobile) {
                 margin-top: 10px;
             }
+
+            margin-left: 1em;
         }
 
         &__button--auto {
@@ -113,6 +115,10 @@
                         margin-bottom: 5px;
                     }
                 }
+            }
+
+            &.index-0 {
+                margin-top: 1.5em;
             }
 
             &__chart-header-show-value {
@@ -249,5 +255,14 @@
         span {
             text-decoration: underline;
         }
+    }
+
+    .print img.icon, .download img.icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .post-map-content {
+        margin-bottom: 15px;
     }
 }
