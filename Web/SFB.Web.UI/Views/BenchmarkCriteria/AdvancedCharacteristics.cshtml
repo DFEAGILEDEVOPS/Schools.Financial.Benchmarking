@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="sticky-div__comparison-list-info-panel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
-                    <span role="alert" aria-live="assertive">No schools found, select some more characteristics</span>
+                    <span role="alert" aria-live="assertive" class="font-small">No schools found, select some more characteristics</span>
                 </div>
             </div>
         </div>
@@ -51,69 +51,73 @@
     <span>Step 3 of 3</span>
 </div>
 
-<div class="criteria-section">
-<div class="grid-row">
-    <div class="column-three-quarters">
-        <div class="bold-small" id="mainQuestion">Which characteristics would you like to use for your comparison?</div>
-        <p>
-            A meaningful benchmark group has around 15 schools, and the largest group we can display charts for is 30.
-            Keep this range in mind when selecting characteristics. If there are too many matches, revise the values entered for your characteristics.
-        </p>
-    </div>
-</div>
-
-@if (Model.HasError())
-{
-    <div class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-
-        <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
-            There are errors on this page that require attention.
-        </h1>
-        @Html.ValidationSummary()
-    </div>
-}
-<div class="grid-row">
-<div class="column-three-quarters">
-<form action="OverwriteStrategy" method="post" id="criteriaForm" autocomplete="off">
-<div class="criteria-questions">
-    <div id="characteristics-accordion" class="accordion">
-        @Html.Partial("Partials/GeneralCharacteristics")
-        @Html.Partial("Partials/SenCharacteristics")
-        @Html.Partial("Partials/PerformanceCharacteristics")
-        @Html.Partial("Partials/WorkforceCharacteristics")
-    </div>
-</div>
-
-<div class="grid-row">
-    <div class="button-set column-full font-xsmall">
+<section class="section" aria-labelledby="mainQuestion">
+    <div class="criteria-section">
         <div class="grid-row">
-            <div class="column-one-third">
-                <button class="button submit" disabled="disabled">View benchmarking charts</button>
+            <div class="column-three-quarters">
+                <div class="bold-small" id="mainQuestion">Which characteristics would you like to use for your comparison?</div>
+                <p>
+                    A meaningful benchmark group has around 15 schools, and the largest group we can display charts for is 30.
+                    Keep this range in mind when selecting characteristics. If there are too many matches, revise the values entered for your characteristics.
+                </p>
             </div>
-            <div class="column-one-third link">
-                <a href="#" class="clear-criteria js-clear-criteria">Clear all characteristics</a>
+        </div>
+
+        @if (Model.HasError())
+        {
+            <div class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+
+                <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+                    There are errors on this page that require attention.
+                </h1>
+                @Html.ValidationSummary()
             </div>
-            <div class="column-one-third link">
-                <a href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
+        }
+        <div class="grid-row">
+            <div class="column-three-quarters">
+                <form action="OverwriteStrategy" method="post" id="criteriaForm" autocomplete="off">
+                    <div class="criteria-questions">
+                        <div id="characteristics-accordion" class="accordion">
+                            @Html.Partial("Partials/GeneralCharacteristics")
+                            @Html.Partial("Partials/SenCharacteristics")
+                            @Html.Partial("Partials/PerformanceCharacteristics")
+                            @Html.Partial("Partials/WorkforceCharacteristics")
+                        </div>
+                    </div>
+
+                    <div class="grid-row">
+                        <div class="button-set column-full font-xsmall">
+                            <div class="grid-row">
+                                <div class="column-one-third">
+                                    <button class="button submit" disabled="disabled">View benchmarking charts</button>
+                                </div>
+                                <div class="column-one-third link">
+                                    <a href="#" class="clear-criteria js-clear-criteria">Clear all characteristics</a>
+                                </div>
+                                <div class="column-one-third link">
+                                    <a href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="Urn" value="@ViewBag.URN">
+                    <input type="hidden" name="SchoolName" value="@Model.ComparisonList.HomeSchoolName">
+                    <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
+                    <input type="hidden" name="EstType" value="@ViewBag.EstType">
+                    <input type="hidden" name="AreaType" value="@ViewBag.AreaType">
+                    <input type="hidden" name="LaCode" value="@ViewBag.LaCode">
+
+                </form>
             </div>
         </div>
     </div>
-</div>
+    
+</section>
 
-<input type="hidden" name="Urn" value="@ViewBag.URN">
-<input type="hidden" name="SchoolName" value="@Model.ComparisonList.HomeSchoolName">
-<input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
-<input type="hidden" name="EstType" value="@ViewBag.EstType">
-<input type="hidden" name="AreaType" value="@ViewBag.AreaType">
-<input type="hidden" name="LaCode" value="@ViewBag.LaCode">
-
-</form>
-</div>
-</div>
-</div>
-@section ViewScripts {
-    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script>
-        DfE.Views.AdvancedCharacteristicsViewModel = new AdvancedCharacteristicsViewModel();
-    </script>
-}
+    @section ViewScripts {
+        <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script>
+            DfE.Views.AdvancedCharacteristicsViewModel = new AdvancedCharacteristicsViewModel();
+        </script>
+    }

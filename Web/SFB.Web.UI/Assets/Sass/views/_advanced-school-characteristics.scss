@@ -1,13 +1,13 @@
 ﻿.advanced-school-characteristics {
 
+    .section {
+        margin-top: 30px;
+    }
+    
     @include highlighting;
 
     .center-text {
         text-align: center;
-    }
-
-    #mainQuestion {
-        padding-top: 4%;
     }
 
     .benchmark-school-value {
