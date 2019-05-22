@@ -44,11 +44,14 @@ else
         <div class="metadata-school-detail font-xsmall">
             <dl class="metadata-school-detail__dl">
                 @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
-                @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: 0{Model.PhoneNumber}\" aria-label=\"Call telephone number 0{Model.PhoneNumber}\">0{Model.PhoneNumber}</a>")
+                @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                {
+                    @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: {Model.PhoneNumber}\" aria-label=\"Call telephone number {Model.PhoneNumber}\">{Model.PhoneNumber}</a>")
+                }
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
-                    @SchoolDetailField("School overall phase:", Model.OverallPhase)
+                        @SchoolDetailField("School overall phase:", Model.OverallPhase)
                 }
                 @SchoolDetailField("School phase:", Model.Phase)
                 @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
