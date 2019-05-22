@@ -54,13 +54,13 @@
 </p>
 
 
-<div id="SelectTrustAccordion" class="search-types column-three-quarters" aria-live="polite">
+<div id="SelectTrustAccordion" class="search-types column-three-quarters no-padding" aria-live="polite">
     
-    <div id="EnterManuallyAccordion" class="multiple-choice js-accordion column-full selected" aria-controls="EnterManuallyFieldset">
+    <div id="EnterManuallyAccordion" class="multiple-choice js-accordion column-full" aria-controls="EnterManuallyFieldset">
         <input id="EnterManually" type="radio" checked/>
         <label id="EnterTrustManuallyAccordion" for="EnterManually">Enter one or more trusts for comparison</label>
     </div>
-    <div id="EnterManuallyFieldset" class="form-group optional-section">
+    <div id="EnterManuallyFieldset" class="form-group panel panel-border-narrow">
         <div id="TrustsToCompare">
             @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
         </div>
@@ -70,7 +70,7 @@
         <input id="EnterChars" type="radio" />
         <label id="EnterTrustCharsAccordion" for="EnterChars">Select characteristics</label>
     </div>
-    <div id="EnterCharsFieldset" class="form-group optional-section">
+    <div id="EnterCharsFieldset" class="form-group panel panel-border-narrow">
         <form method="post" id="criteriaForm" action="TrustComparison/GenerateListFromManualCriteria" autocomplete="off">
             @Html.Partial("Partials/TrustCharacteristics", Model)
         </form>
