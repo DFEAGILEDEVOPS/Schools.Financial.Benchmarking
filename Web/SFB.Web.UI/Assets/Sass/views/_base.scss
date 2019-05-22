@@ -810,3 +810,10 @@ body.print-mode .hide-in-print {
 .phase-banner{
     margin-bottom: -10px;
 }
+
+.header-bar {
+    height: 10px;
+    background-color: $govuk-blue;
+    width: 100%;
+    margin: 40px 0;
+}
