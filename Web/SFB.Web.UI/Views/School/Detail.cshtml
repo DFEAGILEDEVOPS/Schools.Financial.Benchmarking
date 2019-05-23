@@ -186,7 +186,6 @@ else
 <div class="charts-section">
     <div class="grid-row">
         <div>
-            @Html.Partial("Partials/Terms", Model)
             @Html.Partial("Partials/ValueSelect", Model)
             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
             @if (Model.EstablishmentType == EstablishmentType.Academies && Model.HistoricalFinancialDataModels.Last().IsMAT)

@@ -176,7 +176,6 @@
         let nameParameter = DfE.Util.QueryString.get('name');
         let tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
         let unitParameter = $("#ShowValue").val();
-        let termParameter = $("#Year").val();
         let chartGroupParameter = $("#ChartGroup").val();
         let financingParameter = $("#Financing").val();
         let formatParameter = sessionStorage.chartFormat;
@@ -195,8 +194,6 @@
             chartGroupParameter +
             "&unit=" +
             unitParameter +
-            "&term=" +
-            termParameter +
             "&name=" +
             nameParameter +
             "&format=" +

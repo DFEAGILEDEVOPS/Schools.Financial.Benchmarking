@@ -18,7 +18,7 @@
                     </span>
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.EstablishmentType)</div>
+            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
     <div class="column-third">
@@ -34,7 +34,7 @@
                     </span>
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.EstablishmentType)</div>
+            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
     <div class="column-third">
@@ -65,7 +65,7 @@
                     }
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.Terms.First(), Model.EstablishmentType)</div>
+            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
 </div>

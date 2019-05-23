@@ -633,7 +633,6 @@
     <Content Include="Views\BenchmarkCharts\Partials\ChartGroups.cshtml" />
     <Content Include="Views\BenchmarkCriteria\ComparisonStrategy.cshtml" />
     <Content Include="Views\BenchmarkCriteria\OverwriteStrategy.cshtml" />
-    <Content Include="Views\School\Partials\Terms.cshtml" />
     <Content Include="Views\Shared\Partials\BackToHomeLink.cshtml" />
     <Content Include="Views\Help\Guidance.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
@@ -713,7 +712,6 @@
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
     <Content Include="Views\Trust\Partials\ValueSelect.cshtml" />
-    <Content Include="Views\Trust\Partials\Terms.cshtml" />
     <Content Include="Views\Trust\TrustResults.cshtml" />
     <Content Include="Views\Trust\Partials\ResultBlock.cshtml" />
     <Content Include="Views\Trust\Partials\TrustCentralFinancing.cshtml" />

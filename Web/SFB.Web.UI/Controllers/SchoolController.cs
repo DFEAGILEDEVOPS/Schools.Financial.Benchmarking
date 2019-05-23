@@ -93,7 +93,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, (BuildTermsList(schoolVM.EstablishmentType)).First(), tab, unitType, schoolVM.EstablishmentType);
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, LatestTerm(schoolVM.EstablishmentType), tab, unitType, schoolVM.EstablishmentType);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -182,7 +182,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
-        public async Task<PartialViewResult> GetCharts(int urn, string term, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include, ChartFormat format = ChartFormat.Charts)
+        public async Task<PartialViewResult> GetCharts(int urn, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include, ChartFormat format = ChartFormat.Charts)
         {
             financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
 
@@ -190,7 +190,7 @@ namespace SFB.Web.UI.Controllers
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
 
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, term, revGroup, unit, schoolVM.EstablishmentType);
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, LatestTerm(schoolVM.EstablishmentType), revGroup, unit, schoolVM.EstablishmentType);
 
             ViewBag.ChartFormat = format;
             ViewBag.Financing = financing;
@@ -206,9 +206,8 @@ namespace SFB.Web.UI.Controllers
             var schoolDetailsFromEdubase = _contextDataService.GetSchoolDataObjectByUrn(urn);
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
-
-            var termsList = BuildTermsList(schoolVM.EstablishmentType);
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, termsList.First(), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, schoolVM.EstablishmentType);
+                        
+            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, LatestTerm(schoolVM.EstablishmentType), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, schoolVM.EstablishmentType);
 
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(schoolVM.EstablishmentType);
 
@@ -225,7 +224,7 @@ namespace SFB.Web.UI.Controllers
 
             schoolVM.HistoricalCharts = _historicalChartBuilder.Build(revenueGroup, chartGroup, schoolVM.EstablishmentType, unit);
             schoolVM.ChartGroups = _historicalChartBuilder.Build(revenueGroup, schoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
-            schoolVM.Terms = BuildTermsList(schoolVM.EstablishmentType);
+            schoolVM.LatestTerm = LatestTerm(schoolVM.EstablishmentType);
             schoolVM.Tab = revenueGroup;
 
             cFinance = revenueGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : cFinance;//TODO: Remove this rule after WF data is distributed
@@ -239,16 +238,10 @@ namespace SFB.Web.UI.Controllers
             return schoolVM;
         }
 
-        private List<string> BuildTermsList(EstablishmentType type)
+        private string LatestTerm(EstablishmentType type)
         {
-            var years = new List<string>();
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(type);
-            for (int i = 0; i < ChartHistory.YEARS_OF_HISTORY; i++)
-            {                
-                years.Add(FormatHelpers.FinancialTermFormatAcademies(latestYear - i));
-            }
-
-            return years;
+            return FormatHelpers.FinancialTermFormatAcademies(latestYear);
         }
 
         private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
