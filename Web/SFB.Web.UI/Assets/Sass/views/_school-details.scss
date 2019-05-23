@@ -118,7 +118,7 @@
             }
 
             &.index-0 {
-                margin-top: 1.5em;
+                margin-top: 0.5em;
             }
 
             &__chart-header-show-value {
@@ -260,6 +260,7 @@
     .print img.icon, .download img.icon {
         width: 24px;
         height: 24px;
+        padding-right: 5px;
     }
 
     .post-map-content {

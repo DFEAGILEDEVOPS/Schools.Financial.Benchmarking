@@ -60,7 +60,7 @@
         <input id="EnterManually" type="radio" checked/>
         <label id="EnterTrustManuallyAccordion" for="EnterManually">Enter one or more trusts for comparison</label>
     </div>
-    <div id="EnterManuallyFieldset" class="form-group panel panel-border-narrow">
+    <div id="EnterManuallyFieldset" class="form-group panel panel-border-narrow pb-0">
         <div id="TrustsToCompare">
             @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
         </div>
@@ -70,7 +70,7 @@
         <input id="EnterChars" type="radio" />
         <label id="EnterTrustCharsAccordion" for="EnterChars">Select characteristics</label>
     </div>
-    <div id="EnterCharsFieldset" class="form-group panel panel-border-narrow">
+    <div id="EnterCharsFieldset" class="form-group panel panel-border-narrow pb-0">
         <form method="post" id="criteriaForm" action="TrustComparison/GenerateListFromManualCriteria" autocomplete="off">
             @Html.Partial("Partials/TrustCharacteristics", Model)
         </form>

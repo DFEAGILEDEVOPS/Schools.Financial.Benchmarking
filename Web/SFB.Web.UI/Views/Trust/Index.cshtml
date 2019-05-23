@@ -36,56 +36,61 @@
             <a href="/TrustSchools?companyNo=@Model.CompanyNo&matname=@Model.Name">Select schools to compare</a>
         </div>
     </div>
-    <div class="column-full resultListPanel">
+    <div class="column-full">
         @if (Model.AcademiesList.Count > 10)
         {
-            <details>
+            <details class="resultListPanel">
                 <summary class="hide-in-print">
                     <span class="summary">View all academies</span>
                 </summary>
                 <div>
-                    <ul class="list two-columns">
+                    <ul class="list two-columns resultListPanel__ul">
                         @foreach (var academy in Model.AcademiesList)
                         {
                             if (academy.HasIncompleteFinancialData)
                             {
                                 <li>
-                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">@academy.EstablishmentName 
-                                    <span class="visually-hidden"> has data from a period less than 12 months</span></a>
-                                </li>
-                            }
-                            else
-                            {
-                                <li>
-                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
-                                </li>
-                            }
+                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
+                                        @academy.EstablishmentName
+                                    <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                </a>
+                            </li>
                         }
+                        else
+                        {
+                            <li>
+                                <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                            </li>
+                        }
+                    }
                     </ul>
                 </div>
             </details>
         }
         else
         {
-            <ul class="list list-bullet">
-                @foreach (var school in Model.AcademiesList)
-                {
-                    if (school.HasIncompleteFinancialData)
+            <div class="resultListPanel">
+                <ul class="list list-bullet resultListPanel__ul">
+                    @foreach (var school in Model.AcademiesList)
                     {
-                        <li>
-                            <a href="/school/detail?urn=@school.URN" class="highlight-warning">
-                                @school.EstablishmentName
-                            <span class="visually-hidden"> has data from a period less than 12 months</span></a>
-                        </li>
+                        if (school.HasIncompleteFinancialData)
+                        {
+                            <li>
+                                <a href="/school/detail?urn=@school.URN" class="highlight-warning">
+                                    @school.EstablishmentName
+                                    <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                            </li>
+                        }
                     }
-                    else
-                    {
-                        <li>
-                            <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
-                        </li>
-                    }
-                }
-            </ul>
+                </ul>
+            </div>
         }
     </div>
 </div>
@@ -100,32 +105,37 @@
 else
 {
     @*<div class="grid-row">
-        @if (!Model.IsReturnsComplete)
-        {
-            <div class="panel panel-border-wide orange-warning">
-                <p>
-                    This trust's data is from a period less than 12 months
-                </p>
+            @if (!Model.IsReturnsComplete)
+            {
+                <div class="panel panel-border-wide orange-warning">
+                    <p>
+                        This trust's data is from a period less than 12 months
+                    </p>
+                </div>
+            }
+        </div>*@
+    if (Model.AcademiesList.Any(m => m.HasIncompleteFinancialData))
+    {
+        <div class="grid-row">
+            <div class="column-full">
+                <div class="panel panel-border-wide orange-warning">
+                    <p>
+                        Some of this trust's schools have data from a period less than 12 months
+                    </p>
+                </div>
             </div>
-        }
-    </div>*@
-    <div class="grid-row">
-        @if (Model.AcademiesList.Any(m => m.HasIncompleteFinancialData))
-        {
-            <div class="panel panel-border-wide orange-warning">
-                <p>
-                    Some of this trust's schools have data from a period less than 12 months
-                </p>
-            </div>
-        }
-    </div>
+        </div>
+    }
+
 }
 
 <div class="grid-row">
-    <div id="placeholderWarning" class="panel panel-border-wide orange-warning" style="display:@Html.Raw(Model.IsReturnsPlaceholder ? "block" : "none")">
-        <p>
-            This trust did not submit finance for the most recent year
-        </p>
+    <div class="column-full">
+        <div id="placeholderWarning" class="panel panel-border-wide orange-warning" style="display:@Html.Raw(Model.IsReturnsPlaceholder ? "block" : "none")">
+            <p>
+                This trust did not submit finance for the most recent year
+            </p>
+        </div>
     </div>
 </div>
 
@@ -135,7 +145,7 @@ else
         <div class="column-one-third no-padding">
             <div class="download">
                 <a class="no-underline bold-xsmall" href="/trust/download?companyNo=@Model.CompanyNo&name=@Model.Name" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
-                    <img class="icon" alt="" src="~/public/assets/images/icons/icon-file-download.png"/>
+                    <img class="icon" alt="" src="~/public/assets/images/icons/icon-file-download.png" />
                     Download data for this trust (CSV)
                 </a>
             </div>
@@ -143,7 +153,7 @@ else
         <div class="column-one-third no-padding">
             <div class="print">
                 <a class="no-underline bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
-                    <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png"/>
+                    <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png" />
                     Print page
                 </a>
             </div>

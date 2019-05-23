@@ -45,9 +45,8 @@
         }
 
         .chart-container {
-            //padding-top: 15px;
             &.index-0 {
-                margin-top: 1.5em;
+                margin-top: 0.5em;
             }
 
             .chart-header {
@@ -349,6 +348,7 @@
     .print img.icon, .download img.icon, .pdf img.icon {
         width: 24px;
         height: 24px;
+        padding-right: 5px;
     }
 
     .download-link {

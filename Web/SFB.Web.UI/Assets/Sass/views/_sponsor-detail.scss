@@ -6,8 +6,7 @@
 
     .resultListPanel {
         background-color: $grey-4;
-        padding: 20px 15px;
-        margin: 20px 15px;
+        padding: 25px;
 
         ul.two-columns {
             columns: 2;
@@ -71,7 +70,7 @@
             }
 
             &.index-0 {
-                margin-top: 1.5em;
+                margin-top: 0.5em;
             }
         }
     }
@@ -171,5 +170,10 @@
     .print img.icon, .download img.icon {
         width: 24px;
         height: 24px;
+        padding-right: 5px;
+    }
+
+    .resultListPanel__ul{
+        margin-bottom: 0;
     }
 }
