@@ -13,6 +13,7 @@
 }
 
 .header-content {
+    padding-top: 10px;
 
     @extend %banner-box;
 
@@ -67,7 +68,7 @@
     position: sticky;
     top: 0; // required as well.
     z-index: 10000;
-    margin-top: 10px;
+    //margin-top: 10px;
 
     &__comparison-list-info-panel {
         @include core-16;
@@ -134,7 +135,7 @@ main {
 .home-link
 {
     display:inline-block;
-    margin-top:10px;
+    //margin-top:10px;
     font-size:15px;
     color:black!important;
     &:hover{color:black;}
