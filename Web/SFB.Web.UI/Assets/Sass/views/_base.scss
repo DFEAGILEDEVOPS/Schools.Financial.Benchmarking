@@ -87,7 +87,7 @@
             @include media(mobile) {
                 margin-left: 0;
                 margin-top: 10px;
-                display: inline;                
+                display: inline-block;                
             }
         }
 
@@ -833,4 +833,29 @@ body.print-mode .hide-in-print {
     background-color: $govuk-blue;
     width: 100%;
     margin: 40px 0;
+}
+
+
+nav.tabs ol li {
+    @include media(mobile) {
+        background-color: $grey-3;
+        border-color: $grey-1;
+        border-width: 1px;
+
+        button {
+            border: none;
+            margin: 0 auto;
+        }
+    }
+}
+
+nav.tabs ol li.active {
+    @include media(mobile) {
+        background-color: $page-colour;
+
+        button {
+            border: none;
+            margin: 0 auto;
+        }
+    }
 }

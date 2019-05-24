@@ -167,7 +167,7 @@ else
 @Html.Partial("Partials/FinancialSummaryFields")
 
 <a name="charts"></a>
-<nav class="tabs" role="navigation">
+<nav id="tabs" class="tabs" role="navigation">
     <ol role="tablist">
         <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
             <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</button>

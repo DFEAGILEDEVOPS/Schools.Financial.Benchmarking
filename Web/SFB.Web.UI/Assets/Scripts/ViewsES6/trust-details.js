@@ -44,7 +44,8 @@
             "&financing=" +
             $("select#Financing option:selected")[0].value +
             "&format=" +
-            sessionStorage.chartFormat;
+            sessionStorage.chartFormat +
+            '#financialSummary';
 
         window.location = queryString;
     }

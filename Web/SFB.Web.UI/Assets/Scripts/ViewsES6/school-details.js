@@ -96,6 +96,8 @@
             queryString += `&format=${sessionStorage.chartFormat}`;
         }
 
+        queryString += '#financialSummary';
+
         window.location = queryString;
     }
 
