@@ -142,7 +142,12 @@ main {
     @include media(mobile)
     {
         margin-bottom:2px;
+        font-size: 14px;
     }
+}
+
+.breadcrumb-item{
+    display: inline-block;
 }
 
 .pre-content
