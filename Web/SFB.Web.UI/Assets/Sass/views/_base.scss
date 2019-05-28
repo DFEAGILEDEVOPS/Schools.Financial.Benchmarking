@@ -411,6 +411,10 @@ dialog {
     color: $link-colour;
     text-decoration: underline;
     cursor: pointer;
+
+    @include media(mobile) {
+        padding-left: 0;
+    }
 }
 
 .a-button {
