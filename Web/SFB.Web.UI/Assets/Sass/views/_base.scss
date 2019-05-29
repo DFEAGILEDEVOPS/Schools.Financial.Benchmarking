@@ -232,8 +232,8 @@ span.bold{
 
 div.download-links{
     margin-top:10px;
-    margin-bottom:25px;
-    margin-left: -10px;
+    margin-bottom:15px;
+    margin-left: -5px;
 }
 
 a.disabled{
@@ -872,20 +872,18 @@ nav.tabs ol li {
         border-color: $grey-1;
         border-width: 1px;
 
-        button {
+        button, &.active button {
             border: none;
             margin: 0 auto;
+        }
+
+        a {
+            text-align: center;
+        }
+
+        &.active {
+            background-color: $page-colour;
         }
     }
 }
 
-nav.tabs ol li.active {
-    @include media(mobile) {
-        background-color: $page-colour;
-
-        button {
-            border: none;
-            margin: 0 auto;
-        }
-    }
-}

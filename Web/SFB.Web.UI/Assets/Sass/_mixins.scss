@@ -16,6 +16,11 @@
                 color: white;
             }
         }
+
+        @include media(mobile)
+        {
+            margin-bottom: 5px;
+        }
     }
 }
 
