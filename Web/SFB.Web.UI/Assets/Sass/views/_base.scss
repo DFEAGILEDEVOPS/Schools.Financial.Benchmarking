@@ -432,7 +432,11 @@ dialog {
 }
 
 .chart.c3 svg {
-  font: 14px sans-serif;
+    font: 14px sans-serif;
+
+    @include media(mobile) {
+        font: 12px sans-serif!important;
+    }
 }
 
 abbr[title]{
@@ -918,4 +922,12 @@ nav.tabs ol li {
     max-width: 960px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.chart-wrapper svg {
+    @include media(desktop)
+    {
+        position: relative;
+        left: -60px;
+    }
 }

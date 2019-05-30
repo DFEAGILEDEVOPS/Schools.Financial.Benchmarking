@@ -48,9 +48,6 @@ namespace SFB.Web.UI.Models
         [JsonIgnore]
         public float NumberOfPupils;
         
-        [JsonIgnore]
-        public override string ShortName => !string.IsNullOrEmpty(Name) && Name.Length >= 20 ? $"{Name.Substring(0, 17)}..." : Name;
-
         public bool Equals(BenchmarkSchoolModel other)
         {
             return this.Urn == other.Urn;

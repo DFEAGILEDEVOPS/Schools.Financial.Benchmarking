@@ -309,8 +309,7 @@ namespace SFB.Web.UI.Controllers
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
             var financialDataModels = await this.GetFinancialDataForSchoolsAsync(comparisonList.BenchmarkSchools, (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), customSelection.CentralFinance));
-            var trimSchoolNames = Request.Browser.IsMobileDevice;
-            _fcService.PopulateBenchmarkChartsWithFinancialData(customCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonList.HomeSchoolUrn, null, trimSchoolNames);
+            _fcService.PopulateBenchmarkChartsWithFinancialData(customCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonList.HomeSchoolUrn, null);
 
             var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
             var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
@@ -679,12 +678,7 @@ namespace SFB.Web.UI.Controllers
 
             var financialDataModels = await this.GetFinancialDataForSchoolsAsync(comparisonList.BenchmarkSchools, cFinancing);
 
-            var trimSchoolNames = false;
-            if (Request.Browser != null)
-            {
-                trimSchoolNames = Request.Browser.IsMobileDevice;
-            }
-            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonList.HomeSchoolUrn, showValue, trimSchoolNames);
+            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonList.HomeSchoolUrn, showValue);
             return benchmarkCharts;
         }
 
@@ -717,8 +711,7 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager.RetrieveCompanyNumbers(comparisonList);
             var benchmarkCharts = _benchmarkChartBuilder.Build(revGroup, chartGroup, EstablishmentType.MAT);
             var financialDataModels = this.GetFinancialDataForTrusts(comparisonList.Trusts, mFinancing);
-            var trimSchoolNames = Request.Browser.IsMobileDevice;
-            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.Trusts, comparisonList.DefaultTrustCompanyNo.ToString(), showValue, trimSchoolNames);
+            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.Trusts, comparisonList.DefaultTrustCompanyNo.ToString(), showValue);
             return benchmarkCharts;
         }
 

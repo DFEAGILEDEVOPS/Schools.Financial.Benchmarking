@@ -215,7 +215,7 @@ namespace SFB.Web.UI.Services
 
         public void PopulateBenchmarkChartsWithFinancialData(List<ChartViewModel> benchmarkCharts,
             List<FinancialDataModel> financialDataModels, IEnumerable<CompareEntityBase> bmEntities, string homeSchoolId,
-            UnitType? unit, bool trimSchoolNames = false)
+            UnitType? unit)
         {
             foreach (var chart in benchmarkCharts)
             {
@@ -223,7 +223,7 @@ namespace SFB.Web.UI.Services
                 if (!string.IsNullOrEmpty(chart.FieldName))
                 {
                     var benchmarkChart = BuildBenchmarkChartModel(chart.FieldName, bmEntities, financialDataModels, chartUnit,
-                        chart.RevenueGroup, homeSchoolId, trimSchoolNames);
+                        chart.RevenueGroup, homeSchoolId);
                     chart.BenchmarkData = benchmarkChart.ChartData;
                     chart.DataJson = JsonConvert.SerializeObject(benchmarkChart.ChartData);
                     chart.BenchmarkSchoolIndex = benchmarkChart.BenchmarkSchoolIndex;
@@ -248,8 +248,7 @@ namespace SFB.Web.UI.Services
         }
         
         private BenchmarkChartModel BuildBenchmarkChartModel(string fieldName, IEnumerable<CompareEntityBase> bmSchools,
-            List<FinancialDataModel> financialDataModels, UnitType unit, RevenueGroupType revGroup, string homeSchoolId,
-            bool trimSchoolNames = false)
+            List<FinancialDataModel> financialDataModels, UnitType unit, RevenueGroupType revGroup, string homeSchoolId)
         {
             var chartDataList = new List<BenchmarkChartData>();
             foreach (var school in bmSchools)
@@ -281,7 +280,7 @@ namespace SFB.Web.UI.Services
 
                 chartDataList.Add(new BenchmarkChartData()
                 {
-                    School = trimSchoolNames ? $"{school.ShortName}#{school.Id}" : $"{school.Name}#{school.Id}",
+                    School = $"{school.Name}#{school.Id}",
                     Amount = amountPerUnit,
                     Urn = school.Id,
                     TeacherCount = dataModel.TeacherCount,

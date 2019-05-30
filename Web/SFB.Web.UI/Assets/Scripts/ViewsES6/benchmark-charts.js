@@ -229,12 +229,13 @@
         let paddingBottom = min < 0 ? 100 : 0;
         let axisLabel = $('#' + el.id).attr('data-axis-label');
         let yAxis, yFormat;
+        let isMobile = $(window).width() <= 640;
         switch (showValue) {
             case "AbsoluteCount":
                 yAxis = {
                     tick: {
                         format: (d) => { return window.DfE.Util.Charting.ChartIntegerFormat(d); },
-                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        values: () => { return [min, mid, max]; },
                         count: 3
                     },
                     min: min,
@@ -243,17 +244,17 @@
                         bottom: paddingBottom
                     },
                     label: {
-                        text: axisLabel,
+                        text: isMobile ? axisLabel.replace('including', 'inc.').replace('excluding', 'excl.') : axisLabel,
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); }
+                yFormat = (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); };
                 break;
             case "AbsoluteMoney":
                 yAxis = {
                     tick: {
                         format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
-                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        values: () => { return [min, mid, max]; },
                         count: 3
                     },
                     min: min,
@@ -262,7 +263,7 @@
                         bottom: paddingBottom
                     },
                     label: {
-                        text: axisLabel,
+                        text: isMobile ? axisLabel.replace('including', 'inc.').replace('excluding', 'excl.') : axisLabel,
                         position: 'outer-center'
                     }
                 };
@@ -272,7 +273,7 @@
                 yAxis = {
                     tick: {
                         format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
-                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        values: () => { return [min, mid, max]; },
                         count: 3
                     },
                     min: min,
@@ -281,7 +282,7 @@
                         bottom: paddingBottom
                     },
                     label: {
-                        text: axisLabel,
+                        text: isMobile ? axisLabel.replace('including', 'inc.').replace('excluding', 'excl.') : axisLabel,
                         position: 'outer-center'
                     }
                 };
@@ -297,7 +298,7 @@
                 yAxis = {
                     tick: {
                         format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
-                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        values: () => { return [min, mid, max]; },
                         count: 3
                     },
                     min: min,
@@ -306,7 +307,7 @@
                         bottom: paddingBottom
                     },
                     label: {
-                        text: axisLabel,
+                        text: isMobile ? axisLabel.replace('including', 'inc.').replace('excluding', 'excl.') : axisLabel,
                         position: 'outer-center'
                     }
                 };
@@ -323,7 +324,7 @@
                 yAxis = {
                     tick: {
                         format: (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); },
-                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        values: () => { return [min, mid, max]; },
                         count: 3
                     },
                     min: min,
@@ -333,7 +334,7 @@
                         top: 50
                     },
                     label: {
-                        text: axisLabel,
+                        text: isMobile ? axisLabel.replace('including', 'inc.').replace('excluding', 'excl.') : axisLabel,
                         position: 'outer-center'
                     }
                 };
@@ -344,7 +345,7 @@
                 yAxis = {
                     tick: {
                         format: (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); },
-                        values: () => { return ($(window).width() <= 640) ? [max] : [min, mid, max] },
+                        values: () => { return [min, mid, max]; },
                         count: 3
                     },
                     min: min,
@@ -353,7 +354,7 @@
                         bottom: paddingBottom
                     },
                     label: {
-                        text: axisLabel,
+                        text: isMobile ? axisLabel.replace('including', 'inc.').replace('excluding', 'excl.') : axisLabel,
                         position: 'outer-center'
                     }
                 };
@@ -375,10 +376,10 @@
                 }
             },
             size: {
-                height: (barCount + 1) * 30
+                height: (barCount + 1) * 30 * (isMobile ? 1.3 : 1)
             },
             bar: {
-                width: 20
+                width: 20 * (isMobile ? 1.4 : 1)
             },
             axis: {
                 y: yAxis,
@@ -386,7 +387,8 @@
                     type: 'category', // this needed to load string x value
                     tick: {
                         centered: true,
-                        multiline: false
+                        multiline: isMobile,
+                        multilineMax: 2
                     }
                 },
                 rotated: true

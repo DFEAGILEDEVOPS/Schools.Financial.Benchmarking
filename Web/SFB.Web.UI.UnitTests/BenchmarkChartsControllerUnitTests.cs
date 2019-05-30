@@ -384,8 +384,7 @@ namespace SFB.Web.UI.UnitTests
                 It.IsAny<List<FinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
-                UnitType.PerPupil,
-                It.IsAny<bool>()));
+                UnitType.PerPupil));
         }
 
         [Test]
@@ -429,8 +428,7 @@ namespace SFB.Web.UI.UnitTests
                 It.IsAny<List<FinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
-                UnitType.PerPupil,
-                It.IsAny<bool>()));
+                UnitType.PerPupil));
         }
 
         [Test]
@@ -477,8 +475,8 @@ namespace SFB.Web.UI.UnitTests
                 It.IsAny<List<FinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
-                UnitType.AbsoluteMoney,
-                It.IsAny<bool>()));
+                UnitType.AbsoluteMoney
+                ));
         }
 
         [Test]
@@ -525,8 +523,7 @@ namespace SFB.Web.UI.UnitTests
                 It.IsAny<List<FinancialDataModel>>(),
                 It.IsAny<IEnumerable<CompareEntityBase>>(),
                 It.IsAny<string>(),
-                UnitType.AbsoluteCount,
-                It.IsAny<bool>()));
+                UnitType.AbsoluteCount));
         }
     }
 }
