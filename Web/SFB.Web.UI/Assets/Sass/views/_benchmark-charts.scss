@@ -362,35 +362,6 @@
         }
     }
 
-    #footer {
-        border-top: 10px solid $govuk-blue;
-    }
-
-    .full-page-width-wrapper {
-        max-width: 960px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .improve-this-page__prompt {
-        background-color: $govuk-blue;
-        color: #fff;
-        padding: 10px 15px 0;
-
-        a {
-            color: #fff;
-
-            &:hover, &:visited {
-                color: #fff;
-            }
-
-            &:after {
-                -webkit-filter: brightness(0) invert(1);
-                filter: brightness(0) invert(1);
-            }
-        }
-    }
-
     table.bmc-rollover-table {
         background-color: $page-colour;
 
