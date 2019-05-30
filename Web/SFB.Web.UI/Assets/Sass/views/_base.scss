@@ -544,12 +544,6 @@ abbr[title]{
     max-width: 100%;
 }
 
-.w-60-mobile{
-    @include media(mobile){
-        max-width: 60%;
-    }
-}
-
 .hidden {
     display: none;
 }
