@@ -543,4 +543,13 @@
     .tab-link {
         color: $link-colour;
     }
+
+    .custom-action-mobile {
+        @include media(mobile) {
+            width: unset !important;
+            display: inline;
+            float: left;
+            margin-right: 15px;
+        }
+    }
 }

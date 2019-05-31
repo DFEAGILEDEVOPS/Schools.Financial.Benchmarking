@@ -95,7 +95,7 @@
                             <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].Name" data-sv="@Model[i].ShowValue">
                                 @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                 {
-                                    <div class="column-half font-xsmall no-padding">
+                                    <div class="column-half font-xsmall no-padding custom-action-mobile">
                                         <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                                 aria-label="Save image of @Model[i].FieldName">
                                             <i class="icon icon-save-image">
@@ -104,7 +104,7 @@
                                             <span>Save as image</span>
                                         </button>
                                     </div>
-                                    <div class="column-half font-xsmall no-padding float-to-right your-chart-controls">
+                                    <div class="column-half font-xsmall no-padding float-to-right your-chart-controls custom-action-mobile">
                                         <div class="float-to-right">
                                             <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
                                                 <i class="icon icon-bookmark">
@@ -243,7 +243,7 @@
                                     @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                     {
                                         <div class="your-chart-controls">
-                                            <div class="column-half font-xsmall no-padding">
+                                            <div class="column-half font-xsmall no-padding custom-action-mobile">
                                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                                         aria-label="Save image of @Model[i].FieldName">
                                                     <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
@@ -251,21 +251,23 @@
                                                 </button>
                                             </div>
 
-                                            <div class="column-half font-xsmall no-padding float-to-right">
-                                                <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
-                                                    <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
-                                                    <span>Add to your charts</span>
-                                                </button>
-                                                <button style="display: none" class="customRemove float-to-right a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
-                                                    <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
-                                                    <span>Remove from your charts</span>
-                                                </button>
-                                            </div>
-                                            <div style="display: none" class="column-half font-xsmall no-padding view-your-charts float-to-right">
-                                                <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom');" >
-                                                    <i class="icon icon-report"></i>
-                                                    <span>View your charts</span>
-                                                </a>
+                                            <div class="column-half font-xsmall no-padding float-to-right custom-action-mobile">
+                                                <div class="float-to-right">
+                                                    <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
+                                                        <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                                        <span>Add to your charts</span>
+                                                    </button>
+                                                    <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
+                                                        <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                                        <span>Remove from your charts</span>
+                                                    </button>
+                                                </div>
+                                                <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
+                                                    <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom');">
+                                                        <i class="icon icon-report"></i>
+                                                        <span>View your charts</span>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     }
