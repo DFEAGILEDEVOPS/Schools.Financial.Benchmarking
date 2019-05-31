@@ -110,6 +110,11 @@
                 fill: #005ea5;
                 cursor: pointer;
             }
+
+            @include media(mobile)
+            {
+                margin-top: 0;
+            }
         }
 
         .accordion-controls {
