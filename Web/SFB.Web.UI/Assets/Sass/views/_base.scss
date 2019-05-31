@@ -69,30 +69,29 @@
     top: 0; // required as well.
     z-index: 10000;
     //margin-top: 10px;
-
     &__comparison-list-info-panel {
         @include core-16;
         background-color: #D9ECE2;
         padding: 20px;
 
-        &__count{
+        &__count {
             font-weight: bold;
+            margin-right: 20px;
         }
 
         &__edit-basket, &__clear-basket, &__clear-criteria {
             text-decoration: none;
             font-weight: bold;
-            margin-left: 20px;
+            margin-right: 15px;
 
             @include media(mobile) {
                 margin-left: 0;
                 margin-top: 10px;
-                display: inline-block;                
+                display: inline-block;
             }
         }
 
-        @include media(mobile)
-        {
+        @include media(mobile) {
             padding: 10px;
         }
     }
@@ -599,11 +598,11 @@ abbr[title]{
 }
 
 .download, .print, .pdf {
-    margin-top: 10px;
+    margin: 10px 0 20px 0;
     padding-left: 5px;
 
     @include media(mobile) {
-        margin-bottom: 20px;
+        margin: 0 0 20px 0;
     }
 
     img.icon {
@@ -883,6 +882,7 @@ nav.tabs ol li {
         button, &.active button {
             border: none;
             margin: 0 auto;
+            padding-top: 5px;
         }
 
         a {

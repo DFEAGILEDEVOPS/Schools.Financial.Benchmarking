@@ -17,6 +17,8 @@
 
             @include media(mobile) {
                 text-align: left;
+                min-width: unset;
+                width: 100px;
             }
         }
 
