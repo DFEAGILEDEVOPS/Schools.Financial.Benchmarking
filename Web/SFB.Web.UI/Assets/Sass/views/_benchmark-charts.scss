@@ -560,10 +560,10 @@
         }
     }
 
-    .chart-wrapper svg {
+    /*.chart-wrapper svg {
         @include media(desktop) {
             position: relative;
-            left: -60px;
+            left: -30px;
         }
-    }
+    }*/
 }

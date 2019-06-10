@@ -280,7 +280,7 @@ namespace SFB.Web.UI.Services
 
                 chartDataList.Add(new BenchmarkChartData()
                 {
-                    School = $"{school.Name}#{school.Id}",
+                    School = $"{school.Name}",
                     Amount = amountPerUnit,
                     Urn = school.Id,
                     TeacherCount = dataModel.TeacherCount,

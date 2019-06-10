@@ -194,32 +194,41 @@
         };
 
         let restructureSchoolNames = function (id) {
-            let texts = $("#" + id + " .c3-axis-x g.tick text tspan");
+            let texts = $("#" + id + " .c3-axis-x g.tick text");
+            let chartData = $("#" + id).data('chart');            
 
             texts.each(function () {
-                let textParts = $(this).text().split("#");
-
+                let schoolNameParts = $(this).find('tspan');
+                let schoolName = schoolNameParts[0].textContent + (schoolNameParts[1] ? ` ${schoolNameParts[1].textContent}` : '');
+                let schoolData = chartData.find(c => c.school === schoolName);
+                if (!schoolData) {
+                    schoolData = chartData.find(c => c.school.startsWith(schoolName.replace('...','')));
+                }
+                let urn = schoolData.urn;
                 let type = $("#Type").val();
 
                 if (type === "MAT") {
                     $(this).on('click',
                         function (e, i) {
-                            window.open("/trust/index?companyNo=" + textParts[1] + "&name=" + textParts[0], '_self');
+                            window.open("/trust/index?companyNo=" + urn, '_self');
                         });
                 } else {
                     $(this).on('click',
                         function (e, i) {
                             dataLayer.push({ 'event': 'bmc_school_link_click' });
-                            window.open("/school/detail?urn=" + textParts[1], '_self');
+                            window.open("/school/detail?urn=" + urn, '_self');
                         });
                 }
-                let limit = 36;
-                let text = textParts[0].length < limit
-                    ? textParts[0]
-                    : textParts[0].substring(0, limit - 3) + "...";
-                $(this).text(text);
 
-                if (textParts[0] === $("#HomeSchoolName").val()) {
+                if (schoolNameParts.length === 1) {
+                    let limit = 42;
+                    let text = schoolName.length < limit
+                        ? schoolName
+                        : schoolName.substring(0, limit - 3) + "...";
+                    $(this).find('tspan').text(text);
+                }              
+                
+                if (schoolName === $("#HomeSchoolName").val()) {
                     $(this).css("font-weight", "bold");
                 }
             });
