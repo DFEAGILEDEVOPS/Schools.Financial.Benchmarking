@@ -111,8 +111,7 @@
                 cursor: pointer;
             }
 
-            @include media(mobile)
-            {
+            @include media(mobile) {
                 margin-top: 0;
             }
         }
@@ -546,8 +545,8 @@
 
     .tab-link {
         color: $link-colour;
-        @include media(mobile)
-        {
+
+        @include media(mobile) {
             font-size: 14px;
         }
     }
@@ -558,6 +557,13 @@
             display: inline;
             float: left;
             margin-right: 15px;
+        }
+    }
+
+    .chart-wrapper svg {
+        @include media(desktop) {
+            position: relative;
+            left: -60px;
         }
     }
 }

@@ -923,11 +923,3 @@ nav.tabs ol li {
     margin-left: auto;
     margin-right: auto;
 }
-
-.chart-wrapper svg {
-    @include media(desktop)
-    {
-        position: relative;
-        left: -60px;
-    }
-}
