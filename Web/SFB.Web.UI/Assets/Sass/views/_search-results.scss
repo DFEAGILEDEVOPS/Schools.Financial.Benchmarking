@@ -152,6 +152,10 @@
                 padding-right: 10px;
             }
         }
+
+        @include media(mobile){
+            float: unset;
+        }
     }
 
     div.tabs {
