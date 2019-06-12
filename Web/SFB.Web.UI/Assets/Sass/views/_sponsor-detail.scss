@@ -20,6 +20,12 @@
         }
     }
 
+    .chart-wrapper__inner {
+        @include media(mobile) {
+            padding: 0;
+        }
+    }
+
     .charts-section {
         &__chart-container {
             &__chart-header {
@@ -173,7 +179,7 @@
         padding-right: 5px;
     }
 
-    .resultListPanel__ul{
+    .resultListPanel__ul {
         margin-bottom: 0;
     }
 }

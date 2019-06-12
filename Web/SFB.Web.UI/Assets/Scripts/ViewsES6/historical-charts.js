@@ -44,6 +44,18 @@
         showValue = showValue || "AbsoluteMoney";
         let axisLabel = $('#' + el.id).attr('data-axis-label');
         let yAxis;
+        let isMobile = $(window).width() <= 640;
+
+        let applyChartStyles = function (el) {
+            if (isMobile) {
+                let texts = $("#" + el.id + " .c3-axis-x g.tick text tspan");
+                jQuery.each(texts, (index, element) => {
+                    $(element).text($(element).text().replace('201', '1'));
+                    $(element).text($(element).text().replace('202', '2'));
+                });                
+            }
+        };
+
         switch (showValue) {
             case "PerPupil":
                 yAxis = {
@@ -109,7 +121,7 @@
             bindto: '#' + el.id,
             size: {
                 height: 175,
-                width: (window.innerWidth > 768) ? 710 : (window.innerWidth > 640) ? 523 : null
+                width: (window.innerWidth > 768) ? 710 : !isMobile ? 523 : null
             },
             data: {
                 json: JSON.parse($('#' + el.id).attr('data-chart')),
@@ -128,7 +140,7 @@
                     tick: {
                         centered: true,
                         culling: {
-                            max: $(window).width() <= 640 ? 3 : 6
+                            max: isMobile ? 3 : 6
                         }
                     },
                     label: {
@@ -150,6 +162,9 @@
             },
             padding: {
                 bottom: 10
+            },
+            onrendered: () => {
+                applyChartStyles(el);                
             }
         });
     }
