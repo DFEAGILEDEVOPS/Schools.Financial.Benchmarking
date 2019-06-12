@@ -164,7 +164,7 @@
                         }
                         <div class="grid-row">
                             <div class="column-full">
-                                <div class="chart-wrapper" style="width:@(ViewBag.ComparisonType == ComparisonType.BestInClass ? 95 : 100)%; float: left; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
+                                <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
                                     <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                 </div>
                                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
@@ -299,7 +299,7 @@
                                 }
                                 <div class="grid-row">
                                     <div class="column-full">
-                                        <div class="chart-wrapper" style="width:@(ViewBag.ComparisonType == ComparisonType.BestInClass ? 95 : 100)%; float: left; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
+                                        <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
                                             <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                         </div>
                                         @if (ViewBag.ComparisonType == ComparisonType.BestInClass)

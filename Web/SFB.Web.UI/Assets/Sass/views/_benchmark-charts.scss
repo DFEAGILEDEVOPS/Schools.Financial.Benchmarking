@@ -510,10 +510,26 @@
         margin-left: 0;
         display: block;
         float: none;
+
+        @include media(mobile) {
+            font-size: 1.2rem;
+            padding: 0.09em .2em;
+            line-height: 2.7rem;
+            margin: 0.23em 0;
+        }
     }
 
     .chart-table__score__text, .chart__score__text {
         vertical-align: sub;
+    }
+
+    .chart-wrapper.bic {
+        width: 95%;
+        float: left;
+
+        @include media(mobile) {
+            width: 85%;
+        }
     }
 
     .chart-scores-wrapper {
@@ -522,9 +538,13 @@
         flex-direction: column;
         justify-content: space-between;
         float: right;
-        //padding-top: 28px;
         top: -5px;
         position: relative;
+
+        @include media(mobile) {
+            width: 15%;
+            top: -25px;
+        }
     }
 
     .chart-scores-header {
@@ -559,11 +579,4 @@
             margin-right: 15px;
         }
     }
-
-    /*.chart-wrapper svg {
-        @include media(desktop) {
-            position: relative;
-            left: -30px;
-        }
-    }*/
 }
