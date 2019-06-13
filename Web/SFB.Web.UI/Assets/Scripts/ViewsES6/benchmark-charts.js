@@ -740,7 +740,7 @@
         let $body = $('body');
         let $page = $('#js-modal-page');
         var $modal_code = `<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'>
-        <div role='document'>
+        <div role='document' class='save-modal-js' style='display: block'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Save benchmarking basket</h1>
             <p id='modal-content'><br/>
@@ -749,10 +749,18 @@
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
                 <button class='button' type='button' onclick='DfE.Views.BenchmarkChartsViewModel.CopyLinkToClipboard()'>Copy link to clipboard</button>
-            </div>
-            <div>
-            <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}"><img class="icon email-list-icon" src="public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
+            </div>         
+            <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
+            <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
         </div>
+        <div role='document' class='save-modal-js' style='display: none'>
+            <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
+            <h1 id='modal-title' class='modal-title'>Link copied to clipboard</h1>
+            <p id='modal-content'><br/>
+                You can now save the link as a bookmark or in a document to keep your benchmark basket.
+            </p>
+            <div>
+            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ToggleSaveModals()'>See more options to save</button>            
         </div>
         <a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
         </dialog>`;
@@ -775,11 +783,11 @@
         var copyText = document.getElementById("saveUrl");
         copyText.select();
         document.execCommand("copy");
+        this.ToggleSaveModals();
     }
 
-    EmailListLink() {
-        let link = $("#saveUrl").val();
-        debugger;
+    ToggleSaveModals() {
+        $('.save-modal-js').toggle();
     }
 }
 

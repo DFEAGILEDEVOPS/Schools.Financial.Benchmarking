@@ -931,6 +931,10 @@ nav.tabs ol li {
         position:relative;
         bottom: 1px;
     }
+    @include media(mobile)
+    {
+        margin-bottom: 5px;
+    }
 }
 
 .email-list-icon {
