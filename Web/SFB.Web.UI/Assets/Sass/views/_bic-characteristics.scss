@@ -1,24 +1,27 @@
-﻿.highlight {
-    @include bold-16();
-    background-color: $pink;
-    color: $white;
-    text-align: center;
-    padding: 5px;
-    display: inline;
-}
-.benchmark-school-value {
-    margin-bottom: 8px;
-    margin-top: 8px;
-    color: $grey-1;
-}
+﻿.bic-characteristics {
+    .highlight {
+        @include bold-16();
+        background-color: $pink;
+        color: $white;
+        text-align: center;
+        padding: 5px;
+        display: inline;
+    }
 
-.multiple-choice {
-    margin-bottom: 8px;
-    margin-top: 8px;
-}
+    .benchmark-school-value {
+        margin-bottom: 8px;
+        margin-top: 8px;
+        color: $grey-1;
+    }
 
-@include media(desktop) {
-    .form-control {
-        width: 80%;
+    .multiple-choice {
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+
+    @include media(desktop) {
+        .form-control {
+            width: 80%;
+        }
     }
 }
