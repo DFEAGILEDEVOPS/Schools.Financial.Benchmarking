@@ -729,13 +729,23 @@
     }
 
     SaveBenchmarkBasketModal() {
-        let schoolListCookie = GOVUK.cookie("sfb_comparison_list");
         let link;
-        if (schoolListCookie) {
-            let schoolList = JSON.parse(schoolListCookie);
-            let urnList = Array.from(schoolList.BS, s => s.U);
-            link = `${window.location.origin}/benchmarking?urns=${urnList.join('-')}`;
-        }        
+        let type = $('#Type').val();
+        if (type === 'MAT') {
+            let listCookie = GOVUK.cookie("sfb_comparison_list_mat");
+            if (listCookie) {
+                let matList = JSON.parse(listCookie);
+                let cnoList = Array.from(matList.T, t => t.CN);
+                link = `${window.location.origin}/benchmarking?companyNumbers=${cnoList.join('-')}`;
+            } 
+        } else {
+            let listCookie = GOVUK.cookie("sfb_comparison_list");
+            if (listCookie) {
+                let schoolList = JSON.parse(listCookie);
+                let urnList = Array.from(schoolList.BS, s => s.U);
+                link = `${window.location.origin}/benchmarking?urns=${urnList.join('-')}`;
+            }  
+        }      
         
         let $body = $('body');
         let $page = $('#js-modal-page');
