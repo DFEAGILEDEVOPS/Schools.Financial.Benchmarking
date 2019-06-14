@@ -7,6 +7,7 @@ using SFB.Web.DAL;
 using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Helpers;
+using System.Linq;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -44,9 +45,11 @@ namespace SFB.Web.Domain.Services.DataAccess
             return _financialDataRepository.GetTrustFinancialDataObject(companyNo, term, matFinance);
         }
 
-        public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatNo(string matNo, string term, MatFinancingType matFinance)
+        public List<SchoolTrustFinancialDataObject> GetMultipleTrustDataObjectsByCompanyNumbers(List<int> companyNos)
         {
-            return _financialDataRepository.GetTrustFinancialDataObjectByMatNo(matNo, term, matFinance);
+            var term = GetActiveTermsForMatCentral().First();            
+            var trustList = _financialDataRepository.GetMultipleTrustFinancialDataObjects(companyNos, term, MatFinancingType.TrustOnly);
+            return trustList;
         }
 
         public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatName(string matName, string term, MatFinancingType matFinance)

@@ -736,14 +736,14 @@
             if (listCookie) {
                 let matList = JSON.parse(listCookie);
                 let cnoList = Array.from(matList.T, t => t.CN);
-                link = `${window.location.origin}/benchmarking?companyNumbers=${cnoList.join('-')}`;
+                link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?companyNumbers=${cnoList.join('-')}`;
             } 
         } else {
             let listCookie = GOVUK.cookie("sfb_comparison_list");
             if (listCookie) {
                 let schoolList = JSON.parse(listCookie);
                 let urnList = Array.from(schoolList.BS, s => s.U);
-                link = `${window.location.origin}/benchmarking?urns=${urnList.join('-')}`;
+                link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?urns=${urnList.join('-')}`;
             }  
         }      
         

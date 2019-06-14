@@ -156,7 +156,7 @@ else
 
     }
 
-    if (Model.EstablishmentType == EstablishmentType.MAT)
+    if (Model.EstablishmentType == EstablishmentType.MAT && Model.TrustComparisonList.Trusts.Any(t => t.CompanyNo == Model.TrustComparisonList.DefaultTrustCompanyNo))
     {
         <div class="grid-row">
             <div class="column-full">
