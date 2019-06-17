@@ -745,6 +745,10 @@
                 let urnList = Array.from(schoolList.BS, s => s.U);
                 link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?urns=${urnList.join('-')}`;
             }  
+            let comparison = $('#ComparisonType').val();
+            if (comparison === "BestInClass") {
+                link += "&comparison=BestInClass";
+            }
         }      
         
         let $body = $('body');

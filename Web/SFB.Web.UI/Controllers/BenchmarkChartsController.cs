@@ -20,6 +20,7 @@ using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Common.DataObjects;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Attributes;
+using System.Net;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -52,7 +53,7 @@ namespace SFB.Web.UI.Controllers
         }
 
 
-        public async Task<ActionResult> GenerateFromSavedBasket(string urns, string companyNumbers)
+        public async Task<ActionResult> GenerateFromSavedBasket(string urns, string companyNumbers, ComparisonType comparison = ComparisonType.Manual)
         {
             if(urns != null)
             {
@@ -63,25 +64,31 @@ namespace SFB.Web.UI.Controllers
                 }
                 catch (Exception)
                 {
-                    return new RedirectResult("/Errors/InvalidRequest");
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 
                 var benchmarkSchoolDataObjects = _contextDataService.GetMultipleSchoolDataObjectsByUrns(urnList);
 
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
-                foreach (var schoolData in benchmarkSchoolDataObjects)
+                foreach (var schoolContextData in benchmarkSchoolDataObjects)
                 {
                     var benchmarkSchoolToAdd = new BenchmarkSchoolModel()
                     {
-                        Name = schoolData.EstablishmentName,
-                        Type = schoolData.TypeOfEstablishment,
-                        EstabType = schoolData.FinanceType,
-                        Urn = schoolData.URN.ToString()
+                        Name = schoolContextData.EstablishmentName,
+                        Type = schoolContextData.TypeOfEstablishment,
+                        EstabType = schoolContextData.FinanceType,
+                        Urn = schoolContextData.URN.ToString()
                     };
+                    if(comparison == ComparisonType.BestInClass)
+                    {
+                        var schoolFinancialData = _financialDataService.GetSchoolsLatestFinancialDataModel(int.Parse(benchmarkSchoolToAdd.Urn), (EstablishmentType)Enum.Parse(typeof(EstablishmentType),benchmarkSchoolToAdd.EstabType));
+                        benchmarkSchoolToAdd.ProgressScore = schoolFinancialData.SchoolOverallPhase == "Secondary" ? schoolFinancialData.P8Mea
+                            : decimal.Round(schoolFinancialData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                    }
                     _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
                 }
-                return await Index(null, null, null);
+                return await Index(null, null, null, null, comparison);
             }
 
             else if (companyNumbers != null)
@@ -93,7 +100,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 catch (Exception)
                 {
-                    return new RedirectResult("/Errors/InvalidRequest");
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
 
                 var trustDataObjects = _financialDataService.GetMultipleTrustDataObjectsByCompanyNumbers(companyNoList);
@@ -108,7 +115,7 @@ namespace SFB.Web.UI.Controllers
                 return Mats();
             }
 
-            return new RedirectResult("/Errors/InvalidRequest");
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         [HttpGet]

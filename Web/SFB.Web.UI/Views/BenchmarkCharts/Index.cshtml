@@ -24,7 +24,7 @@
 }
 
 @section BackButtonContent{
-    @if (Model.ComparisonType != ComparisonType.Manual)
+    @if (Model.ComparisonType != ComparisonType.Manual && Model.SchoolComparisonList.HomeSchoolUrn != null)
     {
         ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
         ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
@@ -104,7 +104,7 @@ else
                         </div>
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
-                    else if (Model.ComparisonType == ComparisonType.BestInClass)
+                    else if (Model.ComparisonType == ComparisonType.BestInClass && Model.AdvancedCriteria != null)
                     {
                         <div id="comparing-text">
                             <span>Comparing</span>
@@ -119,7 +119,7 @@ else
                 </div>
             </div>
         }
-        if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass)
+        if ((Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass) && Model.AdvancedCriteria != null)
         {
             <div class="grid-row">
                 <div class="column-full">
@@ -141,7 +141,7 @@ else
                                 @Html.Partial("Partials/UsedBasicCriteria")
                             </div>
                         }
-                        else if (Model.ComparisonType == ComparisonType.BestInClass)
+                        else if (Model.ComparisonType == ComparisonType.BestInClass && Model.BicCriteria != null)
                         {
                             <div class="panel panel-border-narrow criteria-detail">
                                 @Html.Partial("Partials/BicHiddenFields")
