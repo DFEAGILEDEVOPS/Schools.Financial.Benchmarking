@@ -17,8 +17,9 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
-        public ActionResult Search(string name, string orderby = "", int page = 1, bool openOnly = false)
+        public ActionResult Search(string name, string orderby = "", int page = 1, bool openOnly = false, string referrer = null)
         {
+            ViewBag.referrer = referrer;
             var filteredResults = _laService.SearchContains(name);
 
             var vm = new LaListViewModel(filteredResults, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), orderby, openOnly);
