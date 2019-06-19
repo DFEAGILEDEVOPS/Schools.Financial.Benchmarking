@@ -923,3 +923,22 @@ nav.tabs ol li {
     margin-left: auto;
     margin-right: auto;
 }
+
+.shared-icon-wrapper {
+    display: inline-block;
+
+    .shared-icon {
+        vertical-align: middle;
+    }
+
+    margin-right: 0.5em;
+}
+
+.combined-warnings{
+    display: inline-block;
+    vertical-align: middle;
+    p{
+        margin-bottom: 0.5px;
+    }
+}
+

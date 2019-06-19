@@ -28,6 +28,46 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
+@if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            @if (!Model.IsReturnsComplete)
+            {
+                <p>
+                    This school doesn't have a complete set of financial data for this period
+                </p>
+            }
+
+            @if (!Model.WorkforceDataPresent)
+            {
+                <p>
+                    This school doesn't have a complete set of workforce data for this period
+                </p>
+            }
+
+            @if (Model.HasNoTeacherData)
+            {
+                <p>
+                    We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                </p>
+            }
+
+            @if (Model.HasNoPupilData)
+            {
+                <p>
+                    We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                </p>
+            }
+        </div>
+    </div>
+}
+
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
 @if (!Model.IsReturnsDNS && !Model.IsSixthForm)
@@ -51,7 +91,7 @@ else
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
-                        @SchoolDetailField("School overall phase:", Model.OverallPhase)
+                    @SchoolDetailField("School overall phase:", Model.OverallPhase)
                 }
                 @SchoolDetailField("School phase:", Model.Phase)
                 @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
@@ -101,7 +141,7 @@ else
             </div>
         </details>
         <div class="govuk-box-highlight">
-            <h3 class="heading-large mt-0 pt-0">                
+            <h3 class="heading-large mt-0 pt-0">
                 <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">Deals for schools<span class="visuallyhidden"> Opens in a new window</span></a>
             </h3>
             <p class="font-xsmall pb-0 mb-0">
@@ -128,42 +168,6 @@ else
         </div>
     </div>
 </div>
-
-@if (!Model.IsReturnsComplete)
-{
-    <div class="panel panel-border-wide orange-warning">
-        <p>
-            This school doesn't have a complete set of financial data for this period
-        </p>
-    </div>
-}
-
-@if (!Model.WorkforceDataPresent)
-{
-    <div class="panel panel-border-wide orange-warning">
-        <p>
-            This school doesn't have a complete set of workforce data for this period
-        </p>
-    </div>
-}
-
-@if (Model.HasNoTeacherData)
-{
-    <div class="panel panel-border-wide orange-warning">
-        <p>
-            We can’t show charts with per teacher values because they weren't supplied within these finance returns
-        </p>
-    </div>
-}
-
-@if (Model.HasNoPupilData)
-{
-    <div class="panel panel-border-wide orange-warning">
-        <p>
-            We can’t show charts with per pupil values because they weren't supplied within these finance returns
-        </p>
-    </div>
-}
 
 @Html.Partial("Partials/FinancialSummaryFields")
 
