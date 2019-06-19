@@ -34,6 +34,22 @@
     </div>
 </div>
 
+@if (Model.HasIncompleteFinancialData)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            <p>
+                Some schools don't have a complete set of financial data for this period
+            </p>
+        </div>
+    </div>
+}
+
 <h1 id="BCHeader" class="heading-xlarge page-heading">Quick comparison report</h1>
 
 @if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
@@ -100,24 +116,6 @@ else
             </div>
         </div>
     </div>
-
-    if (Model.HasIncompleteFinancialData)
-    {
-        <div class="panel panel-border-wide orange-warning">
-            <p>
-                Some schools don't have a complete set of financial data for this period
-            </p>
-        </div>
-    }
-
-    if (Model.HasIncompleteWorkforceData)
-    {
-        <div class="panel panel-border-wide orange-warning">
-            <p>
-                Some schools don't have a complete set of workforce data for this period
-            </p>
-        </div>
-    }
 
     <div class="charts-section">
         <div class="grid-row">

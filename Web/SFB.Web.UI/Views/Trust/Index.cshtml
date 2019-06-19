@@ -22,6 +22,42 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
+@if (Model.IsReturnsDNS || Model.AcademiesList.Any(m => m.HasIncompleteFinancialData) || Model.IsReturnsPlaceholder)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            @if (Model.IsReturnsDNS)
+            {
+                <p>
+                    This trust has not submitted any data
+                </p>
+            }
+            else
+            {
+                if (Model.AcademiesList.Any(m => m.HasIncompleteFinancialData))
+                {
+                    <p>
+                        Some of this trust's schools have data from a period less than 12 months
+                    </p>
+                }
+
+            }
+
+            @if (Model.IsReturnsPlaceholder)
+            {
+                <p>
+                    This trust did not submit finance for the most recent year
+                </p>
+            }
+        </div>
+    </div>
+}
+
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 <div class="grid-row">
     <div class="column-third">
@@ -52,17 +88,17 @@
                                 <li>
                                     <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
                                         @academy.EstablishmentName
-                                    <span class="visually-hidden"> has data from a period less than 12 months</span>
-                                </a>
-                            </li>
+                                        <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                </li>
+                            }
                         }
-                        else
-                        {
-                            <li>
-                                <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
-                            </li>
-                        }
-                    }
                     </ul>
                 </div>
             </details>
@@ -94,51 +130,6 @@
         }
     </div>
 </div>
-@if (Model.IsReturnsDNS)
-{
-    <div class="panel panel-border-wide orange-warning">
-        <p>
-            This trust has not submitted any data
-        </p>
-    </div>
-}
-else
-{
-    @*<div class="grid-row">
-            @if (!Model.IsReturnsComplete)
-            {
-                <div class="panel panel-border-wide orange-warning">
-                    <p>
-                        This trust's data is from a period less than 12 months
-                    </p>
-                </div>
-            }
-        </div>*@
-    if (Model.AcademiesList.Any(m => m.HasIncompleteFinancialData))
-    {
-        <div class="grid-row">
-            <div class="column-full">
-                <div class="panel panel-border-wide orange-warning">
-                    <p>
-                        Some of this trust's schools have data from a period less than 12 months
-                    </p>
-                </div>
-            </div>
-        </div>
-    }
-
-}
-
-<div class="grid-row">
-    <div class="column-full">
-        <div id="placeholderWarning" class="panel panel-border-wide orange-warning" style="display:@Html.Raw(Model.IsReturnsPlaceholder ? "block" : "none")">
-            <p>
-                This trust did not submit finance for the most recent year
-            </p>
-        </div>
-    </div>
-</div>
-
 
 <div class="grid-row download-links hide-in-print">
     <div class="column-full">

@@ -54,6 +54,31 @@
     </div>
 </div>
 
+@if (Model.HasIncompleteFinancialData)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            @if (Model.EstablishmentType == EstablishmentType.MAT)
+            {
+                <p>
+                    Some trusts don't have a complete set of financial data for this period
+                </p>
+            }
+            else
+            {
+                <p>
+                    Some schools don't have a complete set of financial data for this period
+                </p>
+            }
+        </div>
+    </div>
+}
+
 @if (Model.ComparisonType == ComparisonType.BestInClass)
 {
     <h1 id="BCHeader" class="heading-xlarge page-heading">Highest progress schools benchmark</h1>
@@ -199,41 +224,13 @@ else
             <div class="download-link">
                 <div class="pdf">
                     <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()">
-                    <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
-                    <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none"/>
-                    <span id="PdfLinkText"> Download PDF</span></button>
+                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
+                        <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />
+                        <span id="PdfLinkText"> Download PDF</span>
+                    </button>
                 </div>
             </div>
         </div>
-
-        if (Model.HasIncompleteFinancialData)
-        {
-            if (Model.EstablishmentType == EstablishmentType.MAT)
-            {
-                <div class="panel panel-border-wide orange-warning">
-                    <p>
-                        Some trusts don't have a complete set of financial data for this period
-                    </p>
-                </div>
-            }
-            else
-            {
-                <div class="panel panel-border-wide orange-warning">
-                    <p>
-                        Some schools don't have a complete set of financial data for this period
-                    </p>
-                </div>
-            }
-        }
-
-        if (Model.HasIncompleteWorkforceData)
-        {
-            <div class="panel panel-border-wide orange-warning">
-                <p>
-                    Some schools don't have a complete set of workforce data for this period
-                </p>
-            </div>
-        }
 
         <div ng-app="reportApp">
             <div id="listCtrl" ng-controller="ChartListController as ctrl">
