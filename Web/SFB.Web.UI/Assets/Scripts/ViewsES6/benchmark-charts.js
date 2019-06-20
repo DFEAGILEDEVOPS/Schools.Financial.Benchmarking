@@ -184,29 +184,35 @@
             let drawExcIcon = function (originalTextX, $text) {
                 let tick = $text.parent()[0];
                 let newTextX = originalTextX - 11;
+                let isMobile = $(window).width() <= 640;
+                let cy = 14;
+                let r = 7;
+                if (isMobile) {
+                    cy += 3;
+                }
                 let isMAT = $("#Type").val() === "MAT";
                 d3.select(tick).append('circle')
                     .classed("ex-icon-circle", 1)
                     .attr("stroke", "#005EA5")
                     .attr("stroke-width", "4")
                     .attr("fill", "#005EA5")
-                    .attr("r", "7")
-                    .attr("cy", "14")
+                    .attr("r", r)
+                    .attr("cy", cy)
                     .attr("cx", newTextX);
                 $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
                 d3.select(tick).append('line')
                     .classed("ex-icon", 1)
                     .attr("x1", newTextX)
-                    .attr("y1", "9")
+                    .attr("y1", cy - r + 2)
                     .attr("x2", newTextX)
-                    .attr("y2", "15");
+                    .attr("y2", cy - r + 8);
                 $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
                 d3.select(tick).append('line')
                     .classed("ex-icon", 1)
                     .attr("x1", newTextX)
-                    .attr("y1", "18")
+                    .attr("y1", cy - r + 11)
                     .attr("x2", newTextX)
-                    .attr("y2", "19");
+                    .attr("y2", cy - r + 12);
                 $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
             };
 
