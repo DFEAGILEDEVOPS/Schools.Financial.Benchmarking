@@ -145,12 +145,7 @@
             let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0].value;
 
             if (benchmarkSchoolIndex > -1) {
-                $("#" +
-                    el.id +
-                    " .c3-shape.c3-shape-" +
-                    benchmarkSchoolIndex +
-                    ".c3-bar.c3-bar-" +
-                    benchmarkSchoolIndex).css("fill", "#D53880");
+                $(`#${el.id} .c3-shape.c3-shape-${benchmarkSchoolIndex}.c3-bar.c3-bar-${benchmarkSchoolIndex}`).css("fill", "#D53880");
             }
 
             let incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chart-container'))[0].value;
@@ -180,13 +175,16 @@
             let moveLabelLeft = function ($text) {
                 $tspan = $text.find('tspan');
                 let originalTextX = $text.attr('x');
-                $text.attr('x', originalTextX - 25);
-                $tspan.attr('x', originalTextX - 25);
+                let newTextX = originalTextX - 25;
+                $text.attr('x', newTextX);
+                $tspan.attr('x', newTextX);
                 return originalTextX;
             };
 
-            let drawExIcon = function (originalTextX, $text) {
+            let drawExcIcon = function (originalTextX, $text) {
                 let tick = $text.parent()[0];
+                let newTextX = originalTextX - 11;
+                let isMAT = $("#Type").val() === "MAT";
                 d3.select(tick).append('circle')
                     .classed("ex-icon-circle", 1)
                     .attr("stroke", "#005EA5")
@@ -194,22 +192,22 @@
                     .attr("fill", "#005EA5")
                     .attr("r", "7")
                     .attr("cy", "14")
-                    .attr("cx", originalTextX - 9);
-                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal());
+                    .attr("cx", newTextX);
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
                 d3.select(tick).append('line')
                     .classed("ex-icon", 1)
-                    .attr("x1", originalTextX - 9)
+                    .attr("x1", newTextX)
                     .attr("y1", "9")
-                    .attr("x2", originalTextX - 9)
+                    .attr("x2", newTextX)
                     .attr("y2", "15");
-                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal());
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
                 d3.select(tick).append('line')
                     .classed("ex-icon", 1)
-                    .attr("x1", originalTextX - 9)
+                    .attr("x1", newTextX)
                     .attr("y1", "18")
-                    .attr("x2", originalTextX - 9)
+                    .attr("x2", newTextX)
                     .attr("y2", "19");
-                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal());
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
             };
 
             let texts = $("#" + id + " .c3-axis-x g.tick text");
@@ -226,13 +224,9 @@
                 let type = $("#Type").val();
 
                 if (type === "MAT") {
-                    $(this).on('click',
-                        function (e, i) {
-                            window.open("/trust/index?companyNo=" + urn, '_self');
-                        });
+                    $(this).on('click', () => window.open("/trust/index?companyNo=" + urn, '_self'));
                 } else {
-                    $(this).on('click',
-                        function (e, i) {
+                    $(this).on('click', () => {
                             dataLayer.push({ 'event': 'bmc_school_link_click' });
                             window.open("/school/detail?urn=" + urn, '_self');
                         });
@@ -250,10 +244,17 @@
                     $(this).css("font-weight", "bold");
                 }
 
-                if (!schoolData.iscompleteyear) {
-                    let originalTextX = moveLabelLeft($(this));
-                    drawExIcon(originalTextX, $(this));
-                }
+                if (type === "MAT") {
+                    if (schoolData.partialyearspresent) {
+                        let originalTextX = moveLabelLeft($(this));
+                        drawExcIcon(originalTextX, $(this));
+                    }
+                } else {
+                    if (!schoolData.iscompleteyear) {
+                        let originalTextX = moveLabelLeft($(this));
+                        drawExcIcon(originalTextX, $(this));
+                    }
+                }                
             });
         };
 
@@ -751,15 +752,20 @@
         $('form#advancedCriteria').submit();
     }
 
-    RenderMissingFinanceInfoModal() {
+    RenderMissingFinanceInfoModal(isMAT) {
         var $body = $('body');
         var $page = $('#js-modal-page');
 
         var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
             "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
-            "<h1 id='modal-title' class='modal-title'>Warning</h1><p id='modal-content'><br/>" +
-            "This schools doesn't have a complete set of financial data for this period.</p>" +
-            "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";
+            "<h1 id='modal-title' class='modal-title'>Warning</h1><p id='modal-content'><br/>";
+        if (isMAT) {
+            $modal_code += "<p>Some of this trust's schools have data from a period less than 12 months.</p>"
+        } else {
+            $modal_code += "<p>This school doesn't have a complete set of financial data for this period.</p>"
+        }
+
+        $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');
@@ -887,7 +893,7 @@ class PdfGenerator {
 
     writeWarnings() {
 
-        let warnings = $('.panel.orange-warning');
+        let warnings = $('.panel.orange-warning .combined-warnings');
         if (warnings.length > 0) {
             warnings.each((index, element) => {
                 this.pdfWriteLine('Warning', element.innerText);

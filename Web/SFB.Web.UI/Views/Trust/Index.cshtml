@@ -25,7 +25,7 @@
 @if (Model.IsReturnsDNS || Model.AcademiesList.Any(m => m.HasIncompleteFinancialData) || Model.IsReturnsPlaceholder)
 {
     <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper">
+        <div class="shared-icon-wrapper hide-in-print">
             <i class="icon icon-important shared-icon">
                 <span class="visually-hidden">Warning</span>
             </i>
