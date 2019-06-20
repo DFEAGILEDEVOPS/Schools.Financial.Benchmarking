@@ -141,8 +141,9 @@
 
     GenerateChart(el, showValue, min, mid, max, barCount) {
         let applyChartStyles = function (el) {
-            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0]
-                .value;
+
+            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0].value;
+
             if (benchmarkSchoolIndex > -1) {
                 $("#" +
                     el.id +
@@ -156,25 +157,7 @@
             let incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
             if (incompleteFinanceDataIndexArray.length > 0) {
                 incompleteFinanceDataIndexArray.forEach(function (index) {
-                    $("#" +
-                        el.id +
-                        " .c3-shape.c3-shape-" +
-                        index +
-                        ".c3-bar.c3-bar-" +
-                        index).css("fill", "#F47738");
-                });
-            }
-
-            let incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chart-container'))[0].value;
-            let incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
-            if (incompleteWorkforceDataIndexArray.length > 0) {
-                incompleteWorkforceDataIndexArray.forEach(function (index) {
-                    $("#" +
-                        el.id +
-                        " .c3-shape.c3-shape-" +
-                        index +
-                        ".c3-bar.c3-bar-" +
-                        index).css("fill", "#F47738");
+                    $(`#${el.id} .c3-shape.c3-shape-${index}.c3-bar.c3-bar-${index}`).css("fill", "#F47738");
                 });
             }
 
@@ -194,6 +177,41 @@
         };
 
         let restructureSchoolNames = function (id) {
+            let moveLabelLeft = function ($text) {
+                $tspan = $text.find('tspan');
+                let originalTextX = $text.attr('x');
+                $text.attr('x', originalTextX - 25);
+                $tspan.attr('x', originalTextX - 25);
+                return originalTextX;
+            };
+
+            let drawExIcon = function (originalTextX, $text) {
+                let tick = $text.parent()[0];
+                d3.select(tick).append('circle')
+                    .classed("ex-icon-circle", 1)
+                    .attr("stroke", "#005EA5")
+                    .attr("stroke-width", "4")
+                    .attr("fill", "#005EA5")
+                    .attr("r", "7")
+                    .attr("cy", "14")
+                    .attr("cx", originalTextX - 9);
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal());
+                d3.select(tick).append('line')
+                    .classed("ex-icon", 1)
+                    .attr("x1", originalTextX - 9)
+                    .attr("y1", "9")
+                    .attr("x2", originalTextX - 9)
+                    .attr("y2", "15");
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal());
+                d3.select(tick).append('line')
+                    .classed("ex-icon", 1)
+                    .attr("x1", originalTextX - 9)
+                    .attr("y1", "18")
+                    .attr("x2", originalTextX - 9)
+                    .attr("y2", "19");
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal());
+            };
+
             let texts = $("#" + id + " .c3-axis-x g.tick text");
             let chartData = $("#" + id).data('chart');            
 
@@ -230,6 +248,11 @@
                 
                 if (schoolName === $("#HomeSchoolName").val()) {
                     $(this).css("font-weight", "bold");
+                }
+
+                if (!schoolData.iscompleteyear) {
+                    let originalTextX = moveLabelLeft($(this));
+                    drawExIcon(originalTextX, $(this));
                 }
             });
         };
@@ -448,7 +471,7 @@
         });
     }
 
-    GenerateCharts(unitParameter) {
+     GenerateCharts(unitParameter) {
         let self = this;
         let RoundedTickRange = function (min, max) {
             let range = max - min;
@@ -726,6 +749,30 @@
 
     SubmitCriteriaForm() {
         $('form#advancedCriteria').submit();
+    }
+
+    RenderMissingFinanceInfoModal() {
+        var $body = $('body');
+        var $page = $('#js-modal-page');
+
+        var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
+            "<h1 id='modal-title' class='modal-title'>Warning</h1><p id='modal-content'><br/>" +
+            "This schools doesn't have a complete set of financial data for this period.</p>" +
+            "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";
+
+        $($modal_code).insertAfter($page);
+        $body.addClass('no-scroll');
+
+        $page.attr('aria-hidden', 'true');
+
+        // add overlay
+        var $modal_overlay =
+            '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+        $($modal_overlay).insertAfter($('#js-modal'));
+
+        $('#js-modal-close').focus();
     }
 }
 

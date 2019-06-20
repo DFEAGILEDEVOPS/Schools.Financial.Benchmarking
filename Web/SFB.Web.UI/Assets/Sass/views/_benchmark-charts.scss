@@ -559,11 +559,28 @@
             margin-right: 15px;
         }
     }
-
     /*.chart-wrapper svg {
         @include media(desktop) {
             position: relative;
             left: -30px;
         }
     }*/
+
+    .ex-icon {
+        fill: none;
+        stroke: #FFFFFF !important;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+
+        &:hover {
+            cursor: pointer
+        }
+    }
+
+    .ex-icon-circle {
+        &:hover {
+            cursor: pointer
+        }
+    }
 }
