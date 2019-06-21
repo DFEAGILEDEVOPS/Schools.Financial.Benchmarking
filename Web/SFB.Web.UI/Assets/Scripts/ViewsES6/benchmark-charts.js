@@ -141,40 +141,18 @@
 
     GenerateChart(el, showValue, min, mid, max, barCount) {
         let applyChartStyles = function (el) {
-            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0]
-                .value;
+
+            let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0].value;
+
             if (benchmarkSchoolIndex > -1) {
-                $("#" +
-                    el.id +
-                    " .c3-shape.c3-shape-" +
-                    benchmarkSchoolIndex +
-                    ".c3-bar.c3-bar-" +
-                    benchmarkSchoolIndex).css("fill", "#D53880");
+                $(`#${el.id} .c3-shape.c3-shape-${benchmarkSchoolIndex}.c3-bar.c3-bar-${benchmarkSchoolIndex}`).css("fill", "#D53880");
             }
 
             let incompleteFinanceDataIndex = $("input[name='incompleteFinanceDataIndex']", $(el).closest('.chart-container'))[0].value;
             let incompleteFinanceDataIndexArray = incompleteFinanceDataIndex.split(",");
             if (incompleteFinanceDataIndexArray.length > 0) {
                 incompleteFinanceDataIndexArray.forEach(function (index) {
-                    $("#" +
-                        el.id +
-                        " .c3-shape.c3-shape-" +
-                        index +
-                        ".c3-bar.c3-bar-" +
-                        index).css("fill", "#F47738");
-                });
-            }
-
-            let incompleteWorkforceDataIndex = $("input[name='incompleteWorkforceDataIndex']", $(el).closest('.chart-container'))[0].value;
-            let incompleteWorkforceDataIndexArray = incompleteWorkforceDataIndex.split(",");
-            if (incompleteWorkforceDataIndexArray.length > 0) {
-                incompleteWorkforceDataIndexArray.forEach(function (index) {
-                    $("#" +
-                        el.id +
-                        " .c3-shape.c3-shape-" +
-                        index +
-                        ".c3-bar.c3-bar-" +
-                        index).css("fill", "#F47738");
+                    $(`#${el.id} .c3-shape.c3-shape-${index}.c3-bar.c3-bar-${index}`).css("fill", "#F47738");
                 });
             }
 
@@ -194,6 +172,50 @@
         };
 
         let restructureSchoolNames = function (id) {
+            let moveLabelLeft = function ($text) {
+                $tspan = $text.find('tspan');
+                let originalTextX = $text.attr('x');
+                let newTextX = originalTextX - 25;
+                $text.attr('x', newTextX);
+                $tspan.attr('x', newTextX);
+                return originalTextX;
+            };
+
+            let drawExcIcon = function (originalTextX, $text) {
+                let tick = $text.parent()[0];
+                let newTextX = originalTextX - 11;
+                let isMobile = $(window).width() <= 640;
+                let cy = 14;
+                let r = 7;
+                if (isMobile) {
+                    cy += 3;
+                }
+                let isMAT = $("#Type").val() === "MAT";
+                d3.select(tick).append('circle')
+                    .classed("ex-icon-circle", 1)
+                    .attr("stroke", "#005EA5")
+                    .attr("stroke-width", "4")
+                    .attr("fill", "#005EA5")
+                    .attr("r", r)
+                    .attr("cy", cy)
+                    .attr("cx", newTextX);
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
+                d3.select(tick).append('line')
+                    .classed("ex-icon", 1)
+                    .attr("x1", newTextX)
+                    .attr("y1", cy - r + 2)
+                    .attr("x2", newTextX)
+                    .attr("y2", cy - r + 8);
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
+                d3.select(tick).append('line')
+                    .classed("ex-icon", 1)
+                    .attr("x1", newTextX)
+                    .attr("y1", cy - r + 11)
+                    .attr("x2", newTextX)
+                    .attr("y2", cy - r + 12);
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
+            };
+
             let texts = $("#" + id + " .c3-axis-x g.tick text");
             let chartData = $("#" + id).data('chart');            
 
@@ -208,13 +230,9 @@
                 let type = $("#Type").val();
 
                 if (type === "MAT") {
-                    $(this).on('click',
-                        function (e, i) {
-                            window.open("/trust/index?companyNo=" + urn, '_self');
-                        });
+                    $(this).on('click', () => window.open("/trust/index?companyNo=" + urn, '_self'));
                 } else {
-                    $(this).on('click',
-                        function (e, i) {
+                    $(this).on('click', () => {
                             dataLayer.push({ 'event': 'bmc_school_link_click' });
                             window.open("/school/detail?urn=" + urn, '_self');
                         });
@@ -231,6 +249,18 @@
                 if (schoolName === $("#HomeSchoolName").val()) {
                     $(this).css("font-weight", "bold");
                 }
+
+                if (type === "MAT") {
+                    if (schoolData.partialyearspresent) {
+                        let originalTextX = moveLabelLeft($(this));
+                        drawExcIcon(originalTextX, $(this));
+                    }
+                } else {
+                    if (!schoolData.iscompleteyear) {
+                        let originalTextX = moveLabelLeft($(this));
+                        drawExcIcon(originalTextX, $(this));
+                    }
+                }                
             });
         };
 
@@ -439,7 +469,8 @@
                 }
             },
             padding: {
-                bottom: 10
+                bottom: 10,
+                left: isMobile ? 140 : 300
             },
             onrendered: () => {
                 applyChartStyles(el);
@@ -448,7 +479,7 @@
         });
     }
 
-    GenerateCharts(unitParameter) {
+     GenerateCharts(unitParameter) {
         let self = this;
         let RoundedTickRange = function (min, max) {
             let range = max - min;
@@ -751,36 +782,24 @@
             }
         }      
         
-        let $body = $('body');
-        let $page = $('#js-modal-page');
-        var $modal_code = `<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'>
-        <div role='document' class='save-modal-js' style='display: block'>
-            <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
-            <h1 id='modal-title' class='modal-title'>Save benchmarking basket</h1>
-            <p id='modal-content'><br/>
-                Save your basket by copying the link below and saving it as a bookmark or in a document. Alternatively you can email the link to yourself or share with others.
-            </p>
-            <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
-                <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
-                <button class='button' type='button' onclick='DfE.Views.BenchmarkChartsViewModel.CopyLinkToClipboard()'>Copy link to clipboard</button>
-            </div>         
-            <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
-            <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
-        </div>
-        <div role='document' class='save-modal-js' style='display: none'>
-            <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
-            <h1 id='modal-title' class='modal-title'>Link copied to clipboard</h1>
-            <p id='modal-content'><br/>
-                You can now save the link as a bookmark or in a document to keep your benchmark basket.
-            </p>
-            <div>
-            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ToggleSaveModals()'>See more options to save</button>            
-        </div>
-        <a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
-        </dialog>`;
+    RenderMissingFinanceInfoModal(isMAT) {
+        var $body = $('body');
+        var $page = $('#js-modal-page');
+
+        var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
+            "<h1 id='modal-title' class='modal-title'>Warning</h1><p id='modal-content'><br/>";
+        if (isMAT) {
+            $modal_code += "<p>Some of this trust's schools have data from a period less than 12 months.</p>"
+        } else {
+            $modal_code += "<p>This school doesn't have a complete set of financial data for this period.</p>"
+        }
+
+        $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');
+
         $page.attr('aria-hidden', 'true');
 
         // add overlay
@@ -790,8 +809,8 @@
         $($modal_overlay).insertAfter($('#js-modal'));
 
         $('#js-modal-close').focus();
-
     }
+
 
     CopyLinkToClipboard() {
         var copyText = document.getElementById("saveUrl");
@@ -916,7 +935,7 @@ class PdfGenerator {
 
     writeWarnings() {
 
-        let warnings = $('.panel.orange-warning');
+        let warnings = $('.panel.orange-warning .combined-warnings');
         if (warnings.length > 0) {
             warnings.each((index, element) => {
                 this.pdfWriteLine('Warning', element.innerText);
