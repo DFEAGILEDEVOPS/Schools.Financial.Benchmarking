@@ -469,7 +469,8 @@
                 }
             },
             padding: {
-                bottom: 10
+                bottom: 10,
+                left: isMobile ? 140 : 300
             },
             onrendered: () => {
                 applyChartStyles(el);
