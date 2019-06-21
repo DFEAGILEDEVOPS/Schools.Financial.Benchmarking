@@ -597,7 +597,7 @@ abbr[title]{
     }
 }
 
-.download, .print, .pdf {
+.download, .print, .pdf, .save {
     margin: 10px 0 20px 0;
     padding-left: 5px;
 
@@ -922,4 +922,22 @@ nav.tabs ol li {
     max-width: 960px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.save-url-input {
+    @include media(desktop) {
+        width: 75%;
+        margin-right: 5px;
+        position:relative;
+        bottom: 1px;
+    }
+    @include media(mobile)
+    {
+        margin-bottom: 5px;
+    }
+}
+
+.email-list-icon {
+    vertical-align: sub;
+    margin-right: 5px;
 }

@@ -406,6 +406,8 @@
     <Content Include="public\assets\images\icons\icon-bookmark-x2.png" />
     <Content Include="public\assets\images\icons\icon-bookmark.png" />
     <Content Include="public\assets\images\icons\icon-chart.png" />
+    <Content Include="public\assets\images\icons\icon-email.png" />
+    <Content Include="public\assets\images\icons\icon-file-download-small.png" />
     <Content Include="public\assets\images\icons\icon-list.png" />
     <Content Include="public\assets\images\icons\icon-location-pink.png" />
     <Content Include="public\assets\images\icons\icon-location.png" />

@@ -727,6 +727,82 @@
     SubmitCriteriaForm() {
         $('form#advancedCriteria').submit();
     }
+
+    SaveBenchmarkBasketModal() {
+        let link;
+        let type = $('#Type').val();
+        if (type === 'MAT') {
+            let listCookie = GOVUK.cookie("sfb_comparison_list_mat");
+            if (listCookie) {
+                let matList = JSON.parse(listCookie);
+                let cnoList = Array.from(matList.T, t => t.CN);
+                link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?companyNumbers=${cnoList.join('-')}`;
+            } 
+        } else {
+            let listCookie = GOVUK.cookie("sfb_comparison_list");
+            if (listCookie) {
+                let schoolList = JSON.parse(listCookie);
+                let urnList = Array.from(schoolList.BS, s => s.U);
+                link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?urns=${urnList.join('-')}`;
+            }  
+            let comparison = $('#ComparisonType').val();
+            if (comparison === "BestInClass") {
+                link += "&comparison=BestInClass";
+            }
+        }      
+        
+        let $body = $('body');
+        let $page = $('#js-modal-page');
+        var $modal_code = `<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'>
+        <div role='document' class='save-modal-js' style='display: block'>
+            <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
+            <h1 id='modal-title' class='modal-title'>Save benchmarking basket</h1>
+            <p id='modal-content'><br/>
+                Save your basket by copying the link below and saving it as a bookmark or in a document. Alternatively you can email the link to yourself or share with others.
+            </p>
+            <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
+                <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
+                <button class='button' type='button' onclick='DfE.Views.BenchmarkChartsViewModel.CopyLinkToClipboard()'>Copy link to clipboard</button>
+            </div>         
+            <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
+            <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
+        </div>
+        <div role='document' class='save-modal-js' style='display: none'>
+            <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
+            <h1 id='modal-title' class='modal-title'>Link copied to clipboard</h1>
+            <p id='modal-content'><br/>
+                You can now save the link as a bookmark or in a document to keep your benchmark basket.
+            </p>
+            <div>
+            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ToggleSaveModals()'>See more options to save</button>            
+        </div>
+        <a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
+        </dialog>`;
+
+        $($modal_code).insertAfter($page);
+        $body.addClass('no-scroll');
+        $page.attr('aria-hidden', 'true');
+
+        // add overlay
+        var $modal_overlay =
+            '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+        $($modal_overlay).insertAfter($('#js-modal'));
+
+        $('#js-modal-close').focus();
+
+    }
+
+    CopyLinkToClipboard() {
+        var copyText = document.getElementById("saveUrl");
+        copyText.select();
+        document.execCommand("copy");
+        this.ToggleSaveModals();
+    }
+
+    ToggleSaveModals() {
+        $('.save-modal-js').toggle();
+    }
 }
 
 class PdfGenerator {

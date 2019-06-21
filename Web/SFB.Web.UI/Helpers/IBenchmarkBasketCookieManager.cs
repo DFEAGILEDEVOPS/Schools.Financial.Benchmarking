@@ -10,6 +10,5 @@ namespace SFB.Web.UI.Helpers
         void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool);
         TrustComparisonListModel ExtractTrustComparisonListFromCookie();
         TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, int? companyNo = null, string matName = null);
-        void RetrieveCompanyNumbers(TrustComparisonListModel comparisonList);
     }
 }

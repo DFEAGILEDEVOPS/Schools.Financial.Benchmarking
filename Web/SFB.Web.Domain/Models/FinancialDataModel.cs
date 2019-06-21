@@ -83,25 +83,6 @@ namespace SFB.Web.Domain.Models
             }
         }
 
-        public string MatNo
-        {
-            get
-            {
-                try
-                {
-                    if (FinancialDataObjectModel != null)
-                    {
-                        return FinancialDataObjectModel.MATNumber;
-                    }
-                    return string.Empty;
-                }
-                catch (Exception)
-                {
-                    return string.Empty;
-                }
-            }
-        }
-
         public int? CompanyNo
         {
             get

@@ -24,7 +24,7 @@
 }
 
 @section BackButtonContent{
-    @if (Model.ComparisonType != ComparisonType.Manual)
+    @if (Model.ComparisonType != ComparisonType.Manual && Model.SchoolComparisonList.HomeSchoolUrn != null)
     {
         ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
         ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
@@ -104,7 +104,7 @@ else
                         </div>
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
-                    else if (Model.ComparisonType == ComparisonType.BestInClass)
+                    else if (Model.ComparisonType == ComparisonType.BestInClass && Model.AdvancedCriteria != null)
                     {
                         <div id="comparing-text">
                             <span>Comparing</span>
@@ -119,7 +119,7 @@ else
                 </div>
             </div>
         }
-        if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass)
+        if ((Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass) && Model.AdvancedCriteria != null)
         {
             <div class="grid-row">
                 <div class="column-full">
@@ -141,7 +141,7 @@ else
                                 @Html.Partial("Partials/UsedBasicCriteria")
                             </div>
                         }
-                        else if (Model.ComparisonType == ComparisonType.BestInClass)
+                        else if (Model.ComparisonType == ComparisonType.BestInClass && Model.BicCriteria != null)
                         {
                             <div class="panel panel-border-narrow criteria-detail">
                                 @Html.Partial("Partials/BicHiddenFields")
@@ -156,7 +156,7 @@ else
 
     }
 
-    if (Model.EstablishmentType == EstablishmentType.MAT)
+    if (Model.EstablishmentType == EstablishmentType.MAT && Model.TrustComparisonList.Trusts.Any(t => t.CompanyNo == Model.TrustComparisonList.DefaultTrustCompanyNo))
     {
         <div class="grid-row">
             <div class="column-full">
@@ -185,8 +185,17 @@ else
             <div id="downloadLinkContainer" class="download-link">
                 <div class="download">
                     <a id="DownloadLink" class="no-underline bold-xsmall sfb_gtm_csv_bm" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
-                        <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download benchmark data (CSV)</span>
+                        <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download data (CSV)</span>
                     </a>
+                </div>
+            </div>
+            <div class="download-link">
+                <div class="pdf">
+                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()">
+                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
+                        <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />
+                        <span id="PdfLinkText"> Download page (PDF)</span>
+                    </button>
                 </div>
             </div>
             <div class="download-link">
@@ -197,11 +206,11 @@ else
                 </div>
             </div>
             <div class="download-link">
-                <div class="pdf">
-                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()">
-                    <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
-                    <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none"/>
-                    <span id="PdfLinkText"> Download PDF</span></button>
+                <div class="save">
+                    <button id="SaveLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.SaveBenchmarkBasketModal()">
+                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-save-list.png" alt="" />
+                        <span id="PrintLinkText"> Save benchmark basket</span>
+                    </button>
                 </div>
             </div>
         </div>
