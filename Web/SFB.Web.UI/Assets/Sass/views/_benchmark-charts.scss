@@ -597,4 +597,12 @@
             cursor: pointer
         }
     }
+
+    .ks2-help{
+        display: inline-block;
+        @include media(mobile)
+        {
+            display: block;
+        }
+    }
 }
