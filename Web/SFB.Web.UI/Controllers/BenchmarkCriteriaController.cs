@@ -281,22 +281,21 @@ namespace SFB.Web.UI.Controllers
                 return RedirectToAction("GenerateNewFromAdvancedCriteria", "BenchmarkCharts");
             }
         }
-      
+
         public async Task<int> GenerateCountFromManualCriteria(BenchmarkCriteriaVM criteria, EstablishmentType estType, int? lacode)
         {
             if (!ModelState.IsValid)
             {
-                //new TelemetryClient().TrackException(new ApplicationException("Invalid criteria entered for advanced search!" + criteria));
                 return 0;
             }
 
-            if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
+            if (criteria.AdvancedCriteria == null)
             {
-                criteria.AdvancedCriteria.LocalAuthorityCode = lacode;
-                var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType);
-                return result;
+                criteria.AdvancedCriteria = new BenchmarkCriteria();
             }
-            return 0;
+            criteria.AdvancedCriteria.LocalAuthorityCode = lacode;
+            var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType);
+            return result;
         }
 
         private bool IsAreaFieldsValid(ComparisonArea? areaType, int? lacode, SchoolViewModel benchmarkSchool)

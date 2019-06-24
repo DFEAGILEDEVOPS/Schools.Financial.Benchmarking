@@ -7,7 +7,7 @@
     ViewBag.pageClass = "advanced-school-characteristics";
 }
 
-@section StickyContent
+@*@section StickyContent
 {
     <div id="liveCountBar" class="sticky-div" role="region" aria-label="School results live counter">
         <div class="grid-row">
@@ -25,7 +25,7 @@
             </div>
         </div>
     </div>
-}
+}*@
 
 @section BackButtonContent{
     @{
@@ -67,7 +67,14 @@
         <div class="grid-row">
             <div class="column-three-quarters">
                 <div class="school-match-info">
-                    0 schools matching <span class="bold-small">'@ViewBag.EstTypeDescription'</span> in <span class="bold-small">'@ViewBag.AreaTypeDescription'</span> (max. 30)
+                    <span id="spinnerPlaceHolder" class="ml-1 font-xsmall" role="alert">
+                        <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" />                        
+                        <span style="margin-left: 10px; color: black">Searching</span>
+                    </span>
+                    <span id="schoolCount" aria-live="assertive" style="display: none">
+                        <span id="countPart" class="bold-small">0</span>
+                        <span id="rest"> schools matching <span class="bold-small">'@ViewBag.EstTypeDescription'</span> in <span class="bold-small">'@ViewBag.AreaTypeDescription'</span> (max. 30)</span>
+                    </span>
                 </div>
             </div>
         </div>
@@ -97,7 +104,7 @@
                     <div class="grid-row">
                         <div class="button-set column-full font-xsmall">
                             <div class="criteria-controls">
-                                <button class="button submit mr-2">View benchmarking charts</button>
+                                <button class="button submit-criteria-js submit mr-2">View benchmarking charts</button>
                             </div>
                             <div class="criteria-controls-wrapper">
                                 <div class="criteria-controls">

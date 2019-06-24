@@ -41,14 +41,24 @@
         if (this.jqxhr) {
             this.jqxhr.abort();
         }
+
+        $("#schoolCount").hide();
+        $('#spinnerPlaceHolder').show();
+
         this.jqxhr = $.post("GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
             .done((count) => {
-                $("#schoolCount").text("Searching");
+                
+                let restHtml = $("#schoolCount #rest").html();
+                
                 setTimeout(() => {
-                    $("#schoolCount").text(count + " schools found");
+                    $('#spinnerPlaceHolder').hide();
+                    $("#schoolCount").html(`<span id='countPart' class='bold-small'>${count}</span><span id='rest'>${restHtml}</span>`);
+                    $("#schoolCount").show();
                 }, 500);
-                $("button.view-benchmark-charts").attr("aria-label", "View " + count + " schools in a benchmark chart");
-                $("#liveCountBar").show();
+
+
+                $("button.submit-criteria-js").attr("aria-label", "View " + count + " schools in a benchmark chart");
+
                 $('.sticky-div').Stickyfill();
             });
     }
