@@ -1,4 +1,6 @@
-﻿@model SFB.Web.UI.Models.SchoolCharacteristicsViewModel
+﻿@using SFB.Web.Domain.Helpers;
+
+@model SFB.Web.UI.Models.SchoolCharacteristicsViewModel
 
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
@@ -54,13 +56,20 @@
 <section class="section" aria-labelledby="mainQuestion">
     <div class="criteria-section">
         <div class="grid-row">
-            <fieldset class="column-three-quarters">
-                <legend class="bold-small" id="mainQuestion">Which characteristics would you like to use for your comparison?</legend>
+            <div class="column-three-quarters">
+                <h2 class="bold-small" id="mainQuestion">Which characteristics would you like to use for your comparison?</h2>
                 <p>
-                    A meaningful benchmark group has around 15 schools, and the largest group we can display charts for is 30.
-                    Keep this range in mind when selecting characteristics. If there are too many matches, revise the values entered for your characteristics.
+                    Please create a benchmark group of <span class="bold-xsmall">1-30</span> schools with a recommended size of <span class="bold-xsmall">15</span>.
                 </p>
-            </fieldset>
+            </div>
+        </div>
+
+        <div class="grid-row">
+            <div class="column-three-quarters">
+                <div class="school-match-info">
+                    0 schools matching <span class="bold-small">'@ViewBag.EstTypeDescription'</span> in <span class="bold-small">'@ViewBag.AreaTypeDescription'</span> (max. 30)
+                </div>
+            </div>
         </div>
 
         @if (Model.HasError())
@@ -87,17 +96,17 @@
 
                     <div class="grid-row">
                         <div class="button-set column-full font-xsmall">
+                            <div class="criteria-controls">
+                                <button class="button submit mr-2">View benchmarking charts</button>
+                            </div>
+                            <div class="criteria-controls-wrapper">
                                 <div class="criteria-controls">
-                                    <button class="button submit mr-2" disabled="disabled">View benchmarking charts</button>
+                                    <a href="#" class="clear-criteria js-clear-criteria">Clear all characteristics</a>
                                 </div>
-                                <div class="criteria-controls-wrapper">
-                                    <div class="criteria-controls">
-                                        <a href="#" class="clear-criteria js-clear-criteria">Clear all characteristics</a>
-                                    </div>
-                                    <div class="criteria-controls ml-2">
-                                        <a href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
-                                    </div>
+                                <div class="criteria-controls ml-2">
+                                    <a href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
                                 </div>
+                            </div>
                         </div>
                     </div>
 
@@ -115,9 +124,9 @@
     
 </section>
 
-    @section ViewScripts {
-        <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script>
-            DfE.Views.AdvancedCharacteristicsViewModel = new AdvancedCharacteristicsViewModel();
-        </script>
-    }
+@section ViewScripts {
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        DfE.Views.AdvancedCharacteristicsViewModel = new AdvancedCharacteristicsViewModel();
+    </script>
+}

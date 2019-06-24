@@ -49,16 +49,6 @@
                 }, 500);
                 $("button.view-benchmark-charts").attr("aria-label", "View " + count + " schools in a benchmark chart");
                 $("#liveCountBar").show();
-                if (count > 0) {
-                    $("button.submit").show();
-                    $("button.submit").removeAttr("disabled");
-                    //if (count <= 30) {
-                    //    $('button.submit.view-benchmark-charts').focus();
-                    //}
-                } else {
-                    $("button.submit").hide();
-                    $("button.submit").attr("disabled", "disabled");
-                }
                 $('.sticky-div').Stickyfill();
             });
     }

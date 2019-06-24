@@ -164,7 +164,9 @@ namespace SFB.Web.UI.Controllers
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
+            ViewBag.EstTypeDescription = estType.GetDescription();
             ViewBag.AreaType = areaType;
+            ViewBag.AreaTypeDescription = lacode == null ? "All of England" : string.IsNullOrEmpty(laNameText) ? _laService.GetLaName(lacode.ToString()) : laNameText;
             ViewBag.LaCode = lacode;
 
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
