@@ -218,7 +218,12 @@
                 let referrer = $("#referrer").val();
                 switch (textBoxId) {
                     case 'FindByNameId':
-                        url = '/school/detail?urn=' + suggestion['Id'];
+                        if (referrer && referrer.toLowerCase() === "schoolsearch/addschools") {
+                            url = `/SchoolSearch/Search?nameId=${suggestion['Text'].substring(0, suggestion['Text'].indexOf('(') - 1)}&searchtype=search-by-name-id`;
+                            url += '&referrer=' + referrer;
+                        } else {
+                            url = '/school/detail?urn=' + suggestion['Id'];
+                        }
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
