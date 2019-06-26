@@ -111,6 +111,8 @@ namespace SFB.Web.UI.Models
 
         public string HelpTooltip { get; set; }
 
+        public string DealsForSchoolsMessage { get; set; }
+
         public object Clone()
         {
             var copy = new ChartViewModel
