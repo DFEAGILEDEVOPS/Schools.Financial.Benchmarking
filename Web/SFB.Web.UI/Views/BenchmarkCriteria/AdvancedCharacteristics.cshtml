@@ -59,22 +59,24 @@
             <div class="column-three-quarters">
                 <h2 class="bold-small" id="mainQuestion">Which characteristics would you like to use for your comparison?</h2>
                 <p>
-                    Please create a benchmark group of <span class="bold-xsmall">1-30</span> schools with a recommended size of <span class="bold-xsmall">15</span>.
+                    Please create a benchmark group of <span class="bold-small">1-30</span> schools with a recommended size of <span class="bold-small">15</span>.
                 </p>
             </div>
         </div>
 
-        <div class="grid-row">
-            <div class="column-three-quarters">
-                <div class="school-match-info">
-                    <span id="spinnerPlaceHolder" class="font-xsmall" role="alert">
-                        <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" />                        
-                        <span style="margin-left: 10px; color: black">Searching</span>
-                    </span>
-                    <span id="schoolCount" aria-live="assertive" style="display: none">
-                        <span id="countPart" class="bold-small">0</span>
-                        <span id="rest"> schools matching <span class="bold-small">'@ViewBag.EstTypeDescription'</span> in <span class="bold-small">'@ViewBag.AreaTypeDescription'</span> (max. 30)</span>
-                    </span>
+        <div class="sticky-div">
+            <div class="grid-row">
+                <div class="column-three-quarters">
+                    <div class="school-match-info">
+                        <span id="spinnerPlaceHolder" class="font-xsmall" role="alert">
+                            <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" />
+                            <span style="margin-left: 10px; color: black">Searching</span>
+                        </span>
+                        <span id="schoolCount" aria-live="assertive" style="display: none" class="font-xsmall">
+                            <span id="countPart" class="bold-small">0</span>
+                            <span id="rest"> schools matching <span class="bold-xsmall">'@ViewBag.EstTypeDescription'</span> in <span class="bold-xsmall">'@ViewBag.AreaTypeDescription'</span> (max. 30)</span>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

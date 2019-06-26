@@ -71,7 +71,6 @@
     }
 
     form .criteria-questions {
-        margin-top: 10px;
         margin-bottom: 10px;
     }
 
@@ -132,9 +131,22 @@
         }
     }
 
-    .school-match-info{
+    .school-match-info {
         border-top: 1px solid black;
         border-bottom: 1px solid black;
         padding: 12px 0 10px 0;
+        background-color: $page-colour;
+    }
+
+    .accordion-section.general {
+        border-top: none;
+    }
+
+    .accordion.with-js .accordion-section:last-child {
+        border-bottom: 1px solid;
+    }
+
+    .accordion.with-js {
+        border-bottom: none;
     }
 }
