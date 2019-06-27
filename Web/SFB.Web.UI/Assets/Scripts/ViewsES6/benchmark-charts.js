@@ -793,7 +793,7 @@
             </p>
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
-                <button class='button' type='button' onclick='DfE.Views.BenchmarkChartsViewModel.CopyLinkToClipboard()'>Copy link to clipboard</button>
+                <button class='button clip-button' type='button' data-clipboard-target='#saveUrl'>Copy link to clipboard</button>
             </div>         
             <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
@@ -820,8 +820,14 @@
 
         $($modal_overlay).insertAfter($('#js-modal'));
 
-        $('#js-modal-close').focus();
+        let clipboard = new ClipboardJS('.clip-button');
 
+        clipboard.on('success', function () {
+            DfE.Views.BenchmarkChartsViewModel.ToggleSaveModals();
+        });
+
+
+        $('#js-modal-close').focus();
     }
 
     RenderMissingFinanceInfoModal(isMAT) {
@@ -832,9 +838,9 @@
             "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1><p id='modal-content'><br/>";
         if (isMAT) {
-            $modal_code += "<p>Some of this trust's schools have data from a period less than 12 months.</p>"
+            $modal_code += "<p>Some of this trust's schools have data from a period less than 12 months.</p>";
         } else {
-            $modal_code += "<p>This school doesn't have a complete set of financial data for this period.</p>"
+            $modal_code += "<p>This school doesn't have a complete set of financial data for this period.</p>";
         }
 
         $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";
@@ -852,15 +858,7 @@
 
         $('#js-modal-close').focus();
     }
-
-
-    CopyLinkToClipboard() {
-        var copyText = document.getElementById("saveUrl");
-        copyText.select();
-        document.execCommand("copy");
-        this.ToggleSaveModals();
-    }
-
+        
     ToggleSaveModals() {
         $('.save-modal-js').toggle();
     }
