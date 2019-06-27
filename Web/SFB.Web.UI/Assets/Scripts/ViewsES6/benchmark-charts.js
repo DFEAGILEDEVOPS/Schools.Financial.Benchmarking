@@ -803,8 +803,7 @@
             <h1 id='modal-title' class='modal-title'>Link copied to clipboard</h1>
             <p id='modal-content'><br/>
                 You can now save the link as a bookmark or in a document to keep your benchmark basket.
-            </p>
-            <div>
+            </p>           
             <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ShowSaveModalOne()'>See more options to save</button>            
         </div>
         <a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
