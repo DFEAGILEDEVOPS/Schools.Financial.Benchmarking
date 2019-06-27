@@ -785,7 +785,7 @@
         let $body = $('body');
         let $page = $('#js-modal-page');
         var $modal_code = `<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'>
-        <div role='document' class='save-modal-js' style='display: block'>
+        <div role='document' class='save-modal-js page-1' style='display: block'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Save benchmarking basket</h1>
             <p id='modal-content'><br/>
@@ -793,19 +793,19 @@
             </p>
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
-                <button class='button clip-button' type='button' data-clipboard-target='#saveUrl'>Copy link to clipboard</button>
+                <button id='clip-button' class='button' type='button' data-clipboard-target='#saveUrl'>Copy link to clipboard</button>
             </div>         
             <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
         </div>
-        <div role='document' class='save-modal-js' style='display: none'>
+        <div role='document' class='save-modal-js page-2' style='display: none'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Link copied to clipboard</h1>
             <p id='modal-content'><br/>
                 You can now save the link as a bookmark or in a document to keep your benchmark basket.
             </p>
             <div>
-            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ToggleSaveModals()'>See more options to save</button>            
+            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ShowSaveModalOne()'>See more options to save</button>            
         </div>
         <a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
         </dialog>`;
@@ -820,10 +820,10 @@
 
         $($modal_overlay).insertAfter($('#js-modal'));
 
-        let clipboard = new ClipboardJS('.clip-button');
+        let clipboard = new ClipboardJS('#clip-button');
 
         clipboard.on('success', function () {
-            DfE.Views.BenchmarkChartsViewModel.ToggleSaveModals();
+            DfE.Views.BenchmarkChartsViewModel.ShowSaveModalTwo();
         });
 
 
@@ -859,8 +859,14 @@
         $('#js-modal-close').focus();
     }
         
-    ToggleSaveModals() {
-        $('.save-modal-js').toggle();
+    ShowSaveModalOne() {
+        $('.save-modal-js.page-2').hide();
+        $('.save-modal-js.page-1').show();
+    }
+
+    ShowSaveModalTwo() {
+        $('.save-modal-js.page-1').hide();
+        $('.save-modal-js.page-2').show();
     }
 }
 
