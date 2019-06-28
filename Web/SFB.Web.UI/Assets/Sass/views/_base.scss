@@ -62,13 +62,16 @@
 }
 
 .sticky-div {
-
-    @extend %banner-box;
     position: -webkit-sticky; // required for Safari
     position: sticky;
     top: 0; // required as well.
     z-index: 10000;
     //margin-top: 10px;
+    }
+
+.banner {
+    @extend %banner-box;
+
     &__comparison-list-info-panel {
         @include core-16;
         background-color: #D9ECE2;
@@ -112,12 +115,6 @@
             display: block;
             margin-top: 10px;
         }
-    }
-}
-
-.desktop-only-sticky-div {
-    @include media(mobile) {
-        position: unset;
     }
 }
 

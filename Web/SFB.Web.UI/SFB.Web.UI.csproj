@@ -624,7 +624,7 @@
     <Content Include="Views\Shared\Partials\Pagination.cshtml" />
     <Content Include="Views\School\Partials\ValueSelect.cshtml" />
     <Content Include="Views\BenchmarkList\Index.cshtml" />
-    <Content Include="Views\Shared\Partials\StickingBenchmarkListBanner.cshtml" />
+    <Content Include="Views\Shared\Partials\BenchmarkListBanner.cshtml" />
     <Content Include="Views\BenchmarkCharts\Index.cshtml" />
     <Content Include="Views\School\Partials\ChartGroups.cshtml" />
     <Content Include="Views\SchoolSearch\Partials\FilterForm.cshtml" />
@@ -710,7 +710,6 @@
     <Content Include="Views\BenchmarkCharts\Partials\BicTabContent.cshtml" />
     <Content Include="Views\BenchmarkCriteria\HighestProgressSchoolsBenchmarking.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedOneClickCriteria.cshtml" />
-    <Content Include="Views\Shared\Partials\DesktopStickingBenchmarkListBanner.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

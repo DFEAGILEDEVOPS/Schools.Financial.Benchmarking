@@ -14,11 +14,11 @@
     <script src="~/node_modules/angular/angular.min.js"></script>
 }
 
-@section StickyContent
+@section BMListBannerContent
 {
     @if (Model.EstablishmentType != EstablishmentType.MAT)
     {
-        @Html.Partial("Partials/DesktopStickingBenchmarkListBanner")
+        @Html.Partial("Partials/BenchmarkListBanner")
     }
 }
 

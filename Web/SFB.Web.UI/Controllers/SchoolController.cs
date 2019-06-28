@@ -148,7 +148,7 @@ namespace SFB.Web.UI.Controllers
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction, null);
             }                       
 
-            return PartialView("Partials/DesktopStickingBenchmarkListBanner",
+            return PartialView("Partials/BenchmarkListBanner",
                 new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
         
@@ -168,13 +168,13 @@ namespace SFB.Web.UI.Controllers
                     });
             }
 
-            return PartialView("Partials/DesktopStickingBenchmarkListBanner",
+            return PartialView("Partials/BenchmarkListBanner",
                 new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetBenchmarkBasket()
         {
-            return PartialView("Partials/DesktopStickingBenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetBenchmarkControls(int urn)

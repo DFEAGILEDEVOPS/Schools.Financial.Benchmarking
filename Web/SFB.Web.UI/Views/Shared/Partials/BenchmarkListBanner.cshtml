@@ -1,10 +1,10 @@
-﻿<div class="sticky-div hide-in-print" id="benchmarkBasket" role="region" aria-label="Benchmark Basket">
+﻿<div class="banner hide-in-print" id="benchmarkBasket" role="region" aria-label="Benchmark Basket">
     @if (Model.ComparisonListCount >= 1)
     {
         <div class="grid-row">
             <div class="column-full">
-                <div class="sticky-div__comparison-list-info-panel">
-                    Your benchmark basket contains <span class="sticky-div__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span>
+                <div class="banner__comparison-list-info-panel">
+                    Your benchmark basket contains <span class="banner__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span>
 
                     @{
                         var referrer = Request.IsAjaxRequest() ? Request.UrlReferrer.ToString() : Request.RawUrl;
@@ -13,8 +13,7 @@
                             referrer = "/BenchmarkCharts";
                         }
                     }
-                    <a class="sticky-div__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@Html.Raw(referrer)">Edit basket</a>
-                    <button class="sticky-div__comparison-list-info-panel__clear-basket link-button no-underline bold-xsmall" onclick="DfE.Sfb.BenchmarkBasket.ClearBenchmarkBasket()">Clear basket</button>
+                    <a class="banner__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@Html.Raw(referrer)">Edit basket</a>
 
                     @if (!((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2)
                     {

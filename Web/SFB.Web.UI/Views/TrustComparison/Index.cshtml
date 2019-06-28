@@ -5,20 +5,20 @@
     ViewBag.pageClass = "trust-comparison";
 }
 
-@section StickyContent
+@section BMListBannerContent
 {
-<div class="sticky-div">
+<div class="banner">
     <div id="liveCountBar" role="region" aria-label="Trust results live counter" style="display: none">
         <div class="grid-row">
             <div class="column-full">
-                <div class="sticky-div__comparison-list-info-panel" id="comparisonListInfoPanelResults">
+                <div class="banner__comparison-list-info-panel" id="comparisonListInfoPanelResults">
                     <span id="schoolCount" class="bold-small" aria-live="assertive">0 trusts found</span>
-                    <a class="sticky-div__comparison-list-info-panel__clear-criteria js-clear-criteria" href="#">Clear all characteristics</a>
+                    <a class="banner__comparison-list-info-panel__clear-criteria js-clear-criteria" href="#">Clear all characteristics</a>
                     <div class="view-benchmark-charts-wrapper">
                         <button type="submit" class="button view-benchmark-charts submit">View benchmark charts</button>
                     </div>
                 </div>
-                <div class="sticky-div__comparison-list-info-panel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
+                <div class="banner__comparison-list-info-panel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
                     <span role="alert" aria-live="assertive">No trusts found, select some more characteristics</span>
                 </div>
             </div>
