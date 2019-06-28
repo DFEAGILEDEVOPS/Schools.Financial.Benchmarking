@@ -835,11 +835,11 @@
 
         var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
             "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
-            "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1><p id='modal-content'><br/>";
+            "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1>";
         if (isMAT) {
-            $modal_code += "<p>Some of this trust's schools have data from a period less than 12 months.</p>";
+            $modal_code += "<p id='modal-content'><br/>Some of this trust's schools have data from a period less than 12 months.</p>";
         } else {
-            $modal_code += "<p>This school doesn't have a complete set of financial data for this period.</p>";
+            $modal_code += "<p id='modal-content'><br/>This school doesn't have a complete set of financial data for this period.</p>";
         }
 
         $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";

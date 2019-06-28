@@ -11,29 +11,24 @@
     @Html.Partial("Partials/BreadCrumbs/BackLink")
 }
 
-<h1 class="heading-xlarge page-heading">Benchmark basket</h1>
-
-<p>
-    @if (Model.HasIncompleteFinancialData)
-    {
-
-        <div class="panel panel-border-wide orange-warning">
+@if (Model.HasIncompleteFinancialData)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper hide-in-print">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
             <p>
                 Some schools have data from a period less than 12 months
             </p>
         </div>
+    </div>
+}
 
-    }
+<h1 class="heading-xlarge page-heading">Benchmark basket</h1>
 
-    @if (Model.HasIncompleteWorkforceData)
-    {
-        <div class="panel panel-border-wide orange-warning">
-            <p>
-                Some schools don't have a complete set of workforce data
-            </p>
-        </div>
-    }
-</p>
 
 <div id="benchmarkBasketControlsPlaceHolder">
     @Html.Partial("Partials/BenchmarkBasketControls")
@@ -47,11 +42,18 @@
         <li class="document" id="doc_@school.Urn">
             <div class="grid-row">
                 <div class="column-half">
-                    @if (!school.IsReturnsComplete || !school.WorkforceDataPresent)
+                    @if (!school.IsReturnsComplete)
                     {
                         <div class="name highlight-warning">
                             <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"> (has incomplete data)</span></a>
                         </div>
+                        <span class="help-icon inline-block hide-in-print">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="<p id='modal-content'><br/>This school doesn't have a complete set of financial data for this period.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
+                                    <span class="visuallyhidden">Open incomplete financial modal. Opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
                     }
                     else
                     {
@@ -80,7 +82,9 @@
                     </div>
                     <div class="remove-benchmark column-quarter no-padding">
                         <button class="button removefrom" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'Remove')")"
-                           aria-label="Remove @school.Name from benchmark">Remove</button>
+                                aria-label="Remove @school.Name from benchmark">
+                            Remove
+                        </button>
                     </div>
                 </div>
             </div>
@@ -101,9 +105,13 @@
 @helper DefaultButton(BenchmarkSchoolModel school)
 {
     <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button no-underline bold-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'SetDefault')")"
-                                                        aria-label="Use @school.Name as default school">Use as default school</button>
+            aria-label="Use @school.Name as default school">
+        Use as default school
+    </button>
     <button @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark link-button no-underline bold-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'UnsetDefault')")"
-                                                        aria-label="Remove @school.Name as default school">Remove as default school</button>
+            aria-label="Remove @school.Name as default school">
+        Remove as default school
+    </button>
 }
 
 @helper DisplayStyle(bool display)
