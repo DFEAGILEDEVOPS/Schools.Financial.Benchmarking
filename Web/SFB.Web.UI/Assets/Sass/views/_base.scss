@@ -77,20 +77,49 @@
         background-color: #D9ECE2;
         padding: 20px;
 
+        .message {
+            display: block;
+            margin-bottom: 10px;
+
+            @include media(desktop) {
+                display: inline-block;
+                margin-bottom: 0;
+            }
+        }
+
         &__count {
             font-weight: bold;
         }
 
-        &__edit-basket, &__clear-basket, &__clear-criteria {
-            text-decoration: none;
-            font-weight: bold;
+        &__edit-basket {
+            margin-left: 0;
+            width: 100%;
+
+            @include media(desktop) {
+                margin-left: 15px;                
+                width: auto;
+            }
+        }
+
+        &__clear-criteria {
             margin-right: 15px;
             margin-left: 15px;
 
             @include media(mobile) {
                 margin-left: 0;
                 margin-top: 10px;
+                display: block;
+            }
+        }
+
+        .add-schools{
+            display: block;
+            margin-top: 10px;
+            
+            @include media(tablet){
                 display: inline-block;
+                float: right;
+                margin-top: 0;
             }
         }
 
@@ -116,8 +145,8 @@
             margin-top: 10px;
         }
 
-        @include media(mobile){
-            margin-top: 2em;
+        @include media(mobile) {
+            margin-top: 1em;
         }
     }
 }
