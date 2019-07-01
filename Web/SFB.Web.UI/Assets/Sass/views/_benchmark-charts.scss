@@ -598,10 +598,10 @@
         }
     }
 
-    .ks2-help{
+    .ks2-help {
         display: inline-block;
-        @include media(mobile)
-        {
+
+        @include media(mobile) {
             display: block;
         }
     }

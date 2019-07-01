@@ -79,13 +79,13 @@
 
         &__count {
             font-weight: bold;
-            margin-right: 20px;
         }
 
         &__edit-basket, &__clear-basket, &__clear-criteria {
             text-decoration: none;
             font-weight: bold;
             margin-right: 15px;
+            margin-left: 15px;
 
             @include media(mobile) {
                 margin-left: 0;
@@ -114,6 +114,10 @@
             bottom: 0;
             display: block;
             margin-top: 10px;
+        }
+
+        @include media(mobile){
+            margin-top: 2em;
         }
     }
 }
@@ -957,3 +961,7 @@ nav.tabs ol li {
     }
 }
 
+.mag-icon {
+    margin-right: 3px;
+    vertical-align: middle;
+}
