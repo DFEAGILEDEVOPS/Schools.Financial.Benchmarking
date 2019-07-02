@@ -502,6 +502,10 @@ namespace SFB.Web.DAL.Repositories
 
         private string Exclude6Forms(string query)
         {
+            if(string.IsNullOrEmpty(query))
+            {
+                return $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'] != 'Free 16-19'";
+            }
             return $"{query} AND c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'] != 'Free 16-19'";
         }
 

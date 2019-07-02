@@ -132,16 +132,18 @@ Accordion.prototype.setup = function() {
     var accordion_controls = document.createElement('div')
     accordion_controls.setAttribute('class', 'accordion-controls')
 
-    var open_or_close_all_button = document.createElement('button')
-    open_or_close_all_button.textContent = 'Open all'
-    open_or_close_all_button.setAttribute('aria-label', 'Open all sections')
-    open_or_close_all_button.setAttribute('class', 'accordion-expand-all')
-    open_or_close_all_button.setAttribute('aria-expanded', 'false')
-    open_or_close_all_button.setAttribute('type', 'button')
+    if (accordion_sections.length > 4) {
+        var open_or_close_all_button = document.createElement('button')
+        open_or_close_all_button.textContent = 'Open all'
+        open_or_close_all_button.setAttribute('aria-label', 'Open all sections')
+        open_or_close_all_button.setAttribute('class', 'accordion-expand-all')
+        open_or_close_all_button.setAttribute('aria-expanded', 'false')
+        open_or_close_all_button.setAttribute('type', 'button')
 
-    open_or_close_all_button.addEventListener('click', this.openOrCloseAll.bind(this))
+        open_or_close_all_button.addEventListener('click', this.openOrCloseAll.bind(this))
 
-    accordion_controls.appendChild(open_or_close_all_button)
+        accordion_controls.appendChild(open_or_close_all_button)
+    }
     this.element.insertBefore(accordion_controls, this.element.firstChild)
 
   this.element.classList.add('with-js')
@@ -166,10 +168,12 @@ Accordion.prototype.setOpenCloseButtonExpanded = function(expanded) {
   var open_or_close_all_button = this.element.querySelector('.accordion-expand-all')
 
   var new_button_text = expanded ? "Close all" : "Open all"
-  var new_button_aria_label = expanded ? "Close all sections" : "Open all sections"
-  open_or_close_all_button.setAttribute('aria-expanded', expanded)
-  open_or_close_all_button.setAttribute('aria-label', new_button_aria_label)
-  open_or_close_all_button.textContent = new_button_text
+    var new_button_aria_label = expanded ? "Close all sections" : "Open all sections"
+    if (open_or_close_all_button) {
+        open_or_close_all_button.setAttribute('aria-expanded', expanded)
+        open_or_close_all_button.setAttribute('aria-label', new_button_aria_label)
+        open_or_close_all_button.textContent = new_button_text
+    }
 
 }
 

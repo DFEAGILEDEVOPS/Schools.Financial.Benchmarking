@@ -5,9 +5,13 @@ namespace SFB.Web.Common
 {
     public enum EstablishmentType
     {
+        [Description("Academies")]
         Academies,
+        [Description("Maintained")]
         Maintained,
+        [Description("MAT")]
         MAT,
+        [Description("All school types")]
         All
     }
 

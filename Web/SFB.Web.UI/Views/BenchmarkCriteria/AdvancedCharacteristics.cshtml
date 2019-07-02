@@ -1,11 +1,13 @@
-﻿@model SFB.Web.UI.Models.SchoolCharacteristicsViewModel
+﻿@using SFB.Web.Domain.Helpers;
+
+@model SFB.Web.UI.Models.SchoolCharacteristicsViewModel
 
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "advanced-school-characteristics";
 }
 
-@section StickyContent
+@*@section StickyContent
 {
     <div id="liveCountBar" class="sticky-div" role="region" aria-label="School results live counter">
         <div class="grid-row">
@@ -23,7 +25,7 @@
             </div>
         </div>
     </div>
-}
+}*@
 
 @section BackButtonContent{
     @{
@@ -54,13 +56,29 @@
 <section class="section" aria-labelledby="mainQuestion">
     <div class="criteria-section">
         <div class="grid-row">
-            <fieldset class="column-three-quarters">
-                <legend class="bold-small" id="mainQuestion">Which characteristics would you like to use for your comparison?</legend>
+            <div class="column-three-quarters">
+                <h2 class="bold-small" id="mainQuestion">Which characteristics would you like to use for your comparison?</h2>
                 <p>
-                    A meaningful benchmark group has around 15 schools, and the largest group we can display charts for is 30.
-                    Keep this range in mind when selecting characteristics. If there are too many matches, revise the values entered for your characteristics.
+                    Please create a benchmark group of <span class="bold-small">1-30</span> schools with a recommended size of <span class="bold-small">15</span>.
                 </p>
-            </fieldset>
+            </div>
+        </div>
+
+        <div class="sticky-div">
+            <div class="grid-row">
+                <div class="column-three-quarters">
+                    <div class="school-match-info">
+                        <span id="spinnerPlaceHolder" class="font-xsmall" role="alert">
+                            <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" />
+                            <span style="margin-left: 10px; color: black">Searching</span>
+                        </span>
+                        <span id="schoolCount" aria-live="assertive" style="display: none" class="font-xsmall">
+                            <span id="countPart" class="bold-small">0</span>
+                            <span id="rest"> schools matching <span class="bold-xsmall">'@ViewBag.EstTypeDescription'</span> in <span class="bold-xsmall">'@ViewBag.AreaTypeDescription'</span> (max. 30)</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         @if (Model.HasError())
@@ -87,17 +105,17 @@
 
                     <div class="grid-row">
                         <div class="button-set column-full font-xsmall">
+                            <div class="criteria-controls">
+                                <button class="button submit-criteria-js submit mr-2">View benchmarking charts</button>
+                            </div>
+                            <div class="criteria-controls-wrapper">
                                 <div class="criteria-controls">
-                                    <button class="button submit mr-2" disabled="disabled">View benchmarking charts</button>
+                                    <a href="#" class="clear-criteria js-clear-criteria">Clear all characteristics</a>
                                 </div>
-                                <div class="criteria-controls-wrapper">
-                                    <div class="criteria-controls">
-                                        <a href="#" class="clear-criteria js-clear-criteria">Clear all characteristics</a>
-                                    </div>
-                                    <div class="criteria-controls ml-2">
-                                        <a href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
-                                    </div>
+                                <div class="criteria-controls ml-2">
+                                    <a href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
                                 </div>
+                            </div>
                         </div>
                     </div>
 
@@ -115,9 +133,9 @@
     
 </section>
 
-    @section ViewScripts {
-        <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
-        <script>
-            DfE.Views.AdvancedCharacteristicsViewModel = new AdvancedCharacteristicsViewModel();
-        </script>
-    }
+@section ViewScripts {
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        DfE.Views.AdvancedCharacteristicsViewModel = new AdvancedCharacteristicsViewModel();
+    </script>
+}
