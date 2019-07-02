@@ -443,10 +443,19 @@ abbr[title]{
     text-decoration-style: dotted;
 }
 
-.orange-warning{
+.orange-warning {
     border-color: $orange;
     background-color: bisque;
-    margin-top:15px;
+    margin-top: 15px;
+
+    @include media(mobile) {
+        display: inline-flex;
+
+        .shared-icon-wrapper {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
 }
 
 .no-padding{

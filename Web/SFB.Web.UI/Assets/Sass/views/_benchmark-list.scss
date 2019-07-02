@@ -114,4 +114,14 @@
         border-top: solid 1px #bfc1c3;
         padding: 15px 0;
     }
+
+    .help-icon {
+        position: relative;
+        left: 2px;
+
+        @include media(mobile) {
+            top: 1px;
+            left: 0;
+        }
+    }
 }
