@@ -11,7 +11,7 @@
 
 @section StickyContent
 {
-    @Html.Partial("Partials/BenchmarkListBanner")
+    @Html.Partial("Partials/DesktopStickingBenchmarkListBanner")
 }
 
 <div class="grid-row">
@@ -69,16 +69,13 @@
                         <form method="get" action="/SchoolSearch/Search" autocomplete="off">
                             <div class="form-group">
                                 <fieldset>
-                                    <legend class="hidden">Begin by finding a school or trust</legend>
-                                    <h2 id="form-head" class="form-group heading-small bold-small">
-                                        Begin by finding a school or trust
-                                    </h2>
+                                    <legend class="mt-1">Begin by finding a school or trust</legend>
 
                                     @Html.Partial("Partials/Search/SchoolSearchOption")
 
                                     @Html.Partial("Partials/Search/TrustSearchOption")
 
-                                    <h2 class="form-group heading-small bold-small">
+                                    <h2 class="form-group heading-small bold-small mb-1">
                                         Alternatively, search by area
                                     </h2>
 
@@ -96,6 +93,7 @@
     </div>
     <div class="column-quarter">
         <aside class="guidance">
+            <div class="header-bar"></div>
             <h3 class="heading-medium">Guidance</h3>
             <ul class="guidance__list font-small">
                 <li class="guidance__list__item">
@@ -112,9 +110,10 @@
 
         <aside>
             <div class="govuk-box-highlight">
-                <h3 class="heading-large mt-0 pt-0">Deals for schools</h3>
-                <p class="font-xsmall pb-0 mb-0">Find a range of cost-saving deals for schools assessed for compliance with procurement regulations and ease of use by the DfE 
-                <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">here<span class="visuallyhidden"> Opens in a new window</span></a>.</p>
+                <h3 class="heading-large mt-0 pt-0">
+                    <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">Deals for schools<span class="visuallyhidden"> Opens in a new window</span></a>                    
+                </h3>
+                <p class="font-xsmall pb-0 mb-0">Find a range of cost-saving deals for schools assessed for compliance with procurement regulations and ease of use by the DfE</p>
             </div>
         </aside>
         @*<aside class="contents guidance">

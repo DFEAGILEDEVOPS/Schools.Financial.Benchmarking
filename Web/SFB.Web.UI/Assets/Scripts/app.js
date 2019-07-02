@@ -192,7 +192,7 @@
             var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Trust basket is full</h1><p id="modal-content"><br/>' +
-                'You can only benchmark up to 10 trusts.</p>' +
+                'You can only benchmark up to 20 trusts.</p>' +
                 '<a href="#" id="js-modal-close-bottom" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a></dialog>';
 
             $($modal_code).insertAfter($page);

@@ -29,5 +29,7 @@ li.active {
 li.active a {
     border: none !important;
     padding-left: 0!important;
-    font-size: 36px;
+    font-size: 24px!important;
+    font-weight: bold!important;
+    text-align: left!important;
 }

@@ -184,7 +184,7 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatNo(string matNo, string term, MatFinancingType matFinance)
+        public List<SchoolTrustFinancialDataObject> GetMultipleTrustFinancialDataObjects(List<int> companyNoList, string term, MatFinancingType matFinance)
         {
             var dataGroup = EstablishmentType.MAT.ToDataGroup(matFinance);
 
@@ -195,37 +195,32 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
 
-            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.MAT_NUMBER}']=@matNo";
-            SqlQuerySpec querySpec = new SqlQuerySpec(query);
-            querySpec.Parameters = new SqlParameterCollection();
-            querySpec.Parameters.Add(new SqlParameter($"@matNo", matNo));
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}'] in ({string.Join(",", companyNoList)})";
 
-            var res =
-                _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
-                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                    querySpec);
+            var results = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), query);
 
+            List<SchoolTrustFinancialDataObject> resultsList;
             try
             {
-                var result = res.ToList().FirstOrDefault();
+                resultsList = results.ToList();
 
-                if (result != null && result.DidNotSubmit)
-                {
-                    var emptyObj = new SchoolTrustFinancialDataObject();
-                    emptyObj.DidNotSubmit = true;
-                    return emptyObj;
-                }
-                return result;
+                resultsList.ForEach(result => {
+                    if (result.DidNotSubmit)
+                    {
+                        var emptyObj = new SchoolTrustFinancialDataObject();
+                        emptyObj.DidNotSubmit = true;
+                        result = emptyObj;
+                    }
+                });               
             }
             catch (Exception ex)
             {
-                if (term.Contains(_dataCollectionManager.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT).ToString()))
-                {
-                    var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
-                    base.LogException(ex, errorMessage);
-                }
-                return null;
+                var errorMessage = $"{collectionName} could not be loaded! : {ex.Message} : URNs = {string.Join(",", companyNoList)}";
+                base.LogException(ex, errorMessage);
+                throw new ApplicationException($"One or more documents could not be loaded from {collectionName} : URNs = {string.Join(",", companyNoList)}");
             }
+
+            return resultsList;
         }
 
         public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatName(string matName, string term, MatFinancingType matFinance)
@@ -585,6 +580,6 @@ namespace SFB.Web.DAL.Repositories
             }
             var query = queryBuilder.ToString();
             return string.IsNullOrEmpty(query) ? query : query.Substring(0, query.Length - 5);
-        }
+        }        
     }
 }

@@ -5,7 +5,7 @@
     <input id="TownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LOCATION)) />
     <label for="TownOrCity">Location</label>
 </div>
-<div id="SearchByTownFieldset" class="search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
+<div id="SearchByTownFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
     <label class="search-types__optional-section__label" for="FindSchoolByTown">
         Enter a postcode, town or street. Or
         <button id="FindCurrentPosition" class="focus-first link-button font-small no-underline no-padding" title="Select to use your current location">use your current location</button>

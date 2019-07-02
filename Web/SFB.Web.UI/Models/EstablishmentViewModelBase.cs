@@ -20,7 +20,7 @@ namespace SFB.Web.UI.Models
 
         public List<ChartViewModel> ChartGroups { get; set; }
 
-        public List<string> Terms { get; set; }
+        public string LatestTerm { get; set; }
 
         public decimal? TotalRevenueIncome { get; set; }
 

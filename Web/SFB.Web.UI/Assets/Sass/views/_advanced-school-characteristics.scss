@@ -1,13 +1,13 @@
 ﻿.advanced-school-characteristics {
 
+    .section {
+        margin-top: 30px;
+    }
+
     @include highlighting;
 
     .center-text {
         text-align: center;
-    }
-
-    #mainQuestion {
-        padding-top: 4%;
     }
 
     .benchmark-school-value {
@@ -109,6 +109,26 @@
             label {
                 float: none;
             }
+        }
+    }
+
+    .criteria-controls {
+        display: inline-block;
+    }
+
+    .criteria-controls-wrapper {
+        display: inline-block;
+        top: 10px;
+        position: relative;
+
+        @include media(mobile) {
+            margin-top: 5px;
+        }
+    }
+
+    .question .panel .form-group .column-half:last-child {
+        @include media(mobile) {
+            margin-top: 13px;
         }
     }
 }

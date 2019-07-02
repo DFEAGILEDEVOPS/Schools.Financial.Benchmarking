@@ -12,19 +12,19 @@
     <link href="~/public/assets/print/bmc-print.css" media="print" rel="stylesheet" type="text/css">
     <script src="~/node_modules/angular/angular.min.js"></script>
     <script src="~/node_modules/jspdf/dist/jspdf.debug.js"></script>
-
+    <script src="~/node_modules/clipboard/dist/clipboard.min.js"></script>
 }
 
 @section StickyContent
 {
     @if (Model.EstablishmentType != EstablishmentType.MAT)
     {
-        @Html.Partial("Partials/BenchmarkListBanner")
+        @Html.Partial("Partials/DesktopStickingBenchmarkListBanner")
     }
 }
 
 @section BackButtonContent{
-    @if (Model.ComparisonType != ComparisonType.Manual)
+    @if (Model.ComparisonType != ComparisonType.Manual && Model.SchoolComparisonList.HomeSchoolUrn != null)
     {
         ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
         ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
@@ -53,6 +53,31 @@
         <button class="link-button font-xsmall home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
     </div>
 </div>
+
+@if (Model.HasIncompleteFinancialData)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper hide-in-print">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            @if (Model.EstablishmentType == EstablishmentType.MAT)
+            {
+                <p>
+                    Some trusts don't have a complete set of financial data for this period
+                </p>
+            }
+            else
+            {
+                <p>
+                    Some schools don't have a complete set of financial data for this period
+                </p>
+            }
+        </div>
+    </div>
+}
 
 @if (Model.ComparisonType == ComparisonType.BestInClass)
 {
@@ -104,7 +129,7 @@ else
                         </div>
                         <button type="submit" class="link-button font-small no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                     }
-                    else if (Model.ComparisonType == ComparisonType.BestInClass)
+                    else if (Model.ComparisonType == ComparisonType.BestInClass && Model.AdvancedCriteria != null)
                     {
                         <div id="comparing-text">
                             <span>Comparing</span>
@@ -119,7 +144,7 @@ else
                 </div>
             </div>
         }
-        if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass)
+        if ((Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass) && Model.AdvancedCriteria != null)
         {
             <div class="grid-row">
                 <div class="column-full">
@@ -141,7 +166,7 @@ else
                                 @Html.Partial("Partials/UsedBasicCriteria")
                             </div>
                         }
-                        else if (Model.ComparisonType == ComparisonType.BestInClass)
+                        else if (Model.ComparisonType == ComparisonType.BestInClass && Model.BicCriteria != null)
                         {
                             <div class="panel panel-border-narrow criteria-detail">
                                 @Html.Partial("Partials/BicHiddenFields")
@@ -156,7 +181,7 @@ else
 
     }
 
-    if (Model.EstablishmentType == EstablishmentType.MAT)
+    if (Model.EstablishmentType == EstablishmentType.MAT && Model.TrustComparisonList.Trusts.Any(t => t.CompanyNo == Model.TrustComparisonList.DefaultTrustCompanyNo))
     {
         <div class="grid-row">
             <div class="column-full">
@@ -181,57 +206,41 @@ else
     }
     else
     {
-        <div class="grid-row download-links hide-in-print">
-            <div id="downloadLinkContainer" class="column-one-third">
+        <div class="download-links hide-in-print grid-row">
+            <div id="downloadLinkContainer" class="download-link">
                 <div class="download">
                     <a id="DownloadLink" class="no-underline bold-xsmall sfb_gtm_csv_bm" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
-                        <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download benchmark data (CSV)</span>
+                        <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download data (CSV)</span>
                     </a>
                 </div>
             </div>
-            <div class="column-one-third">
+            <div class="download-link">
+                <div class="pdf">
+                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()">
+                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
+                        <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />
+                        <span id="PdfLinkText"> Download page (PDF)</span>
+                    </button>
+                </div>
+            </div>
+            <div class="download-link">
                 <div class="print">
                     <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()">
                         <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
                     </button>
                 </div>
             </div>
-            <div class="column-one-third">
-                <div class="pdf">
-                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PdfLinkText"> Download PDF</span></button>
+            <div class="download-link">
+                <div class="save">
+                    <button id="SaveLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.SaveBenchmarkBasketModal()">
+                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-save-list.png" alt="" />
+                        <span id="SaveLinkText"> Save benchmark basket</span>
+                    </button>
                 </div>
             </div>
         </div>
 
-        if (Model.HasIncompleteFinancialData)
-        {
-            if (Model.EstablishmentType == EstablishmentType.MAT)
-            {
-                <div class="panel panel-border-wide orange-warning">
-                    <p>
-                        Some trusts don't have a complete set of financial data for this period
-                    </p>
-                </div>
-            }
-            else
-            {
-                <div class="panel panel-border-wide orange-warning">
-                    <p>
-                        Some schools don't have a complete set of financial data for this period
-                    </p>
-                </div>
-            }
-        }
-
-        if (Model.HasIncompleteWorkforceData)
-        {
-            <div class="panel panel-border-wide orange-warning">
-                <p>
-                    Some schools don't have a complete set of workforce data for this period
-                </p>
-            </div>
-        }
-
+       
         <div ng-app="reportApp">
             <div id="listCtrl" ng-controller="ChartListController as ctrl">
                 <div>

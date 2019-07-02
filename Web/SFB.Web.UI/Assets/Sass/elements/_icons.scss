@@ -42,7 +42,7 @@
 }
 
 .icon-important {
-  @include icon(icon-important, 35, 35);
+  @include icon(icon-important, 35, 35, "icons");
 }
 
 .icon-information {

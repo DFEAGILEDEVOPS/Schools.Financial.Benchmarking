@@ -4,7 +4,7 @@
 <div id="result-list">
     <div id="js-search-results-info">
         <div class="result-info">
-            <p class="summary">
+            <p class="summary count-summary">
                 <span class="bold result-count">@(Model.Pagination.Total)</span> schools found
             </p>
         </div>
@@ -18,7 +18,7 @@
         {
             <li class="school-document">
                 <div class="grid-row">
-                    <div class="column-half">
+                    <div class="column-two-thirds">
                         <a href="/school/detail?urn=@school.Id" class="bold-small">
                             @school.Name
                         @if (school.Status == "Closed")

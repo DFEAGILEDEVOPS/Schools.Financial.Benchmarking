@@ -1,6 +1,6 @@
 ﻿@model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-@if (Model != null)
+@if (Model != null && Model.BicCriteria != null)
 {
 <form id="advancedCriteria" method="post" action="~/BenchmarkCriteria/BestInClassCharacteristics">
 

@@ -2,7 +2,7 @@
     .highlight {
         background-color: $pink;
         display: inline;
-        padding: 5px;
+        padding: 5px 5px;
 
         span {
             color: white;
@@ -15,6 +15,11 @@
                 text-decoration: underline;
                 color: white;
             }
+        }
+
+        @include media(mobile)
+        {
+            margin-bottom: 5px;
         }
     }
 }

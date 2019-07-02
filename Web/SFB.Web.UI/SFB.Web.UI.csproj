@@ -406,6 +406,8 @@
     <Content Include="public\assets\images\icons\icon-bookmark-x2.png" />
     <Content Include="public\assets\images\icons\icon-bookmark.png" />
     <Content Include="public\assets\images\icons\icon-chart.png" />
+    <Content Include="public\assets\images\icons\icon-email.png" />
+    <Content Include="public\assets\images\icons\icon-file-download-small.png" />
     <Content Include="public\assets\images\icons\icon-list.png" />
     <Content Include="public\assets\images\icons\icon-location-pink.png" />
     <Content Include="public\assets\images\icons\icon-location.png" />
@@ -622,7 +624,7 @@
     <Content Include="Views\Shared\Partials\Pagination.cshtml" />
     <Content Include="Views\School\Partials\ValueSelect.cshtml" />
     <Content Include="Views\BenchmarkList\Index.cshtml" />
-    <Content Include="Views\Shared\Partials\BenchmarkListBanner.cshtml" />
+    <Content Include="Views\Shared\Partials\StickingBenchmarkListBanner.cshtml" />
     <Content Include="Views\BenchmarkCharts\Index.cshtml" />
     <Content Include="Views\School\Partials\ChartGroups.cshtml" />
     <Content Include="Views\SchoolSearch\Partials\FilterForm.cshtml" />
@@ -633,7 +635,6 @@
     <Content Include="Views\BenchmarkCharts\Partials\ChartGroups.cshtml" />
     <Content Include="Views\BenchmarkCriteria\ComparisonStrategy.cshtml" />
     <Content Include="Views\BenchmarkCriteria\OverwriteStrategy.cshtml" />
-    <Content Include="Views\School\Partials\Terms.cshtml" />
     <Content Include="Views\Shared\Partials\BackToHomeLink.cshtml" />
     <Content Include="Views\Help\Guidance.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
@@ -709,11 +710,11 @@
     <Content Include="Views\BenchmarkCharts\Partials\BicTabContent.cshtml" />
     <Content Include="Views\BenchmarkCriteria\HighestProgressSchoolsBenchmarking.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedOneClickCriteria.cshtml" />
+    <Content Include="Views\Shared\Partials\DesktopStickingBenchmarkListBanner.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
     <Content Include="Views\Trust\Partials\ValueSelect.cshtml" />
-    <Content Include="Views\Trust\Partials\Terms.cshtml" />
     <Content Include="Views\Trust\TrustResults.cshtml" />
     <Content Include="Views\Trust\Partials\ResultBlock.cshtml" />
     <Content Include="Views\Trust\Partials\TrustCentralFinancing.cshtml" />

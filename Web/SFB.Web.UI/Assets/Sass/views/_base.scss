@@ -13,6 +13,7 @@
 }
 
 .header-content {
+    padding-top: 10px;
 
     @extend %banner-box;
 
@@ -67,8 +68,7 @@
     position: sticky;
     top: 0; // required as well.
     z-index: 10000;
-    margin-top: 5px;
-
+    //margin-top: 10px;
     &__comparison-list-info-panel {
         @include core-16;
         background-color: #D9ECE2;
@@ -76,18 +76,23 @@
 
         &__count {
             font-weight: bold;
+            margin-right: 20px;
         }
 
         &__edit-basket, &__clear-basket, &__clear-criteria {
             text-decoration: none;
             font-weight: bold;
-            margin-left: 20px;
+            margin-right: 15px;
 
             @include media(mobile) {
                 margin-left: 0;
                 margin-top: 10px;
-                display: block;
+                display: inline-block;
             }
+        }
+
+        @include media(mobile) {
+            padding: 10px;
         }
     }
 
@@ -107,6 +112,12 @@
             display: block;
             margin-top: 10px;
         }
+    }
+}
+
+.desktop-only-sticky-div {
+    @include media(mobile) {
+        position: unset;
     }
 }
 
@@ -134,14 +145,19 @@ main {
 .home-link
 {
     display:inline-block;
-    margin-top:10px;
+    //margin-top:10px;
     font-size:15px;
     color:black!important;
     &:hover{color:black;}
     @include media(mobile)
     {
         margin-bottom:2px;
+        font-size: 14px;
     }
+}
+
+.breadcrumb-item{
+    display: inline-block;
 }
 
 .pre-content
@@ -215,7 +231,8 @@ span.bold{
 
 div.download-links{
     margin-top:10px;
-    margin-bottom:25px;
+    margin-bottom:15px;
+    margin-left: -5px;
 }
 
 a.disabled{
@@ -393,6 +410,10 @@ dialog {
     color: $link-colour;
     text-decoration: underline;
     cursor: pointer;
+
+    @include media(mobile) {
+        padding-left: 0;
+    }
 }
 
 .a-button {
@@ -410,7 +431,11 @@ dialog {
 }
 
 .chart.c3 svg {
-  font: 14px sans-serif;
+    font: 14px sans-serif;
+
+    @include media(mobile) {
+        font: 12px sans-serif!important;
+    }
 }
 
 abbr[title]{
@@ -441,8 +466,16 @@ abbr[title]{
     margin-top: 1em;
 }
 
+.mt-2 {
+    margin-top: 2em;
+}
+
 .ml-1 {
     margin-left: 1em;
+}
+
+.ml-2 {
+    margin-left: 2em;
 }
 
 .mt-2{
@@ -453,9 +486,29 @@ abbr[title]{
     margin-bottom: 0;
 }
 
+.mb-1 {
+    margin-bottom: 1em;
+}
+
+.mb-2 {
+    margin-bottom: 2em;
+}
+
+.mr-1 {
+    margin-right: 1em;
+}
+
+.mr-2 {
+    margin-right: 2em;
+}
+
 .mt-header {
     font-size: 24px;
     margin-top: 1.875em;
+
+    @include media(mobile) {
+        margin-top: 0;
+    }
 }
 
 .mt-15 {
@@ -466,8 +519,20 @@ abbr[title]{
     padding-top: 0;
 }
 
+.pt-1 {
+    padding-top: 1em;
+}
+
+.pt-5 {
+    padding-top: 5px;
+}
+
 .pb-0 {
     padding-bottom: 0;
+}
+
+.pb-1 {
+    padding-bottom: 1em;
 }
 
 .pl-1 {
@@ -484,6 +549,13 @@ abbr[title]{
 
 .hidden {
     display: none;
+}
+
+.break-in-mobile{
+    @include media(mobile)
+    {
+        display: block;
+    }
 }
 
 .right-padding{
@@ -525,12 +597,12 @@ abbr[title]{
     }
 }
 
-.download, .print, .pdf {
-    margin-top: 10px;
+.download, .print, .pdf, .save {
+    margin: 10px 0 20px 0;
     padding-left: 5px;
 
     @include media(mobile) {
-        margin-bottom: 20px;
+        margin: 0 0 20px 0;
     }
 
     img.icon {
@@ -618,10 +690,6 @@ span.back-link {
     text-decoration: none;
     color: $text-colour;
     @include core-19;
-}
-
-.result-info{
-    padding-top: 10px;
 }
 
 .page-top {
@@ -784,5 +852,111 @@ body.print-mode .hide-in-print {
 .govuk-box-highlight {
     background-color: $govuk-blue;
     padding: 1em 1em;
+}
+
+.phase-banner{
+    margin-bottom: -10px;
+}
+
+.header-bar {
+    height: 10px;
+    background-color: $govuk-blue;
+    width: 100%;
+    margin: 40px 0 30px 0;
+}
+
+.form-group .panel-border-narrow{
+    padding-bottom: 15px;
+}
+
+.form-group.panel-border-narrow {
+    padding-bottom: 15px;
+}
+
+nav.tabs ol li {
+    @include media(mobile) {
+        background-color: $grey-3;
+        border-color: $grey-1;
+        border-width: 1px;
+
+        button, &.active button {
+            border: none;
+            margin: 0 auto;
+            padding-top: 5px;
+        }
+
+        a {
+            text-align: center;
+        }
+
+        &.active {
+            background-color: $page-colour;
+        }
+    }
+}
+
+.improve-this-page__prompt {
+    background-color: $govuk-blue;
+    color: #fff;
+    padding: 10px 15px 0;
+
+    a {
+        color: #fff;
+
+        &:hover, &:visited {
+            color: #fff;
+        }
+
+        &:after {
+            -webkit-filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1);
+        }
+    }
+}
+
+#footer {
+    border-top: 10px solid $govuk-blue;
+}
+
+.full-page-width-wrapper {
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.save-url-input {
+    @include media(desktop) {
+        width: 75%;
+        margin-right: 5px;
+        position:relative;
+        bottom: 1px;
+    }
+    @include media(mobile)
+    {
+        margin-bottom: 5px;
+    }
+}
+
+.email-list-icon {
+    vertical-align: sub;
+    margin-right: 5px;
+}
+
+.shared-icon-wrapper {
+    display: inline-block;
+
+    .shared-icon {
+        vertical-align: middle;
+    }
+
+    margin-right: 0.5em;
+}
+
+.combined-warnings{
+    display: inline-block;
+    vertical-align: middle;
+    p{
+        margin-bottom: 0.5px;
+    }
 }
 

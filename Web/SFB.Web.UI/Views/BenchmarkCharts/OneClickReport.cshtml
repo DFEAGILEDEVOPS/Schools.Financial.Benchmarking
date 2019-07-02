@@ -18,7 +18,7 @@
 {
     @if (Model.EstablishmentType != EstablishmentType.MAT)
     {
-        @Html.Partial("Partials/BenchmarkListBanner")
+        @Html.Partial("Partials/DesktopStickingBenchmarkListBanner")
     }
 }
 
@@ -33,6 +33,22 @@
         <button class="link-button font-xsmall home-link" onclick="location.reload();">Back to benchmarking charts</button>
     </div>
 </div>
+
+@if (Model.HasIncompleteFinancialData)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            <p>
+                Some schools don't have a complete set of financial data for this period
+            </p>
+        </div>
+    </div>
+}
 
 <h1 id="BCHeader" class="heading-xlarge page-heading">Quick comparison report</h1>
 
@@ -76,44 +92,38 @@ else
     </div>
 
     <div class="grid-row download-links hide-in-print">
-        <div id="downloadLinkContainer" class="column-one-third">
+        <div id="downloadLinkContainer" class="download-link">
             <div class="download">
                 <a id="DownloadLink" class="no-underline bold-xsmall sfb_gtm_csv_bm" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
-                    <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download benchmark data (CSV)</span>
+                    <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download data (CSV)</span>
                 </a>
             </div>
         </div>
-        <div class="column-one-third">
+        <div class="download-link">
+            <div class="pdf">
+                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()">
+                    <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
+                    <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />
+                    <span id="PdfLinkText"> Download page (PDF)</span>
+                </button>
+            </div>
+        </div>
+        <div class="download-link">
             <div class="print">
                 <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()">
                     <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
                 </button>
             </div>
         </div>
-        <div class="column-one-third">
-            <div class="pdf">
-                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()"><img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="PrintLinkText"> Download PDF</span></button>
+        <div class="download-link">
+            <div class="save">
+                <button id="SaveLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.SaveBenchmarkBasketModal()">
+                    <img class="icon download-icon" src="~/public/assets/images/icons/icon-save-list.png" alt="" />
+                    <span id="SaveLinkText"> Save benchmark basket</span>
+                </button>
             </div>
         </div>
     </div>
-
-    if (Model.HasIncompleteFinancialData)
-    {
-        <div class="panel panel-border-wide orange-warning">
-            <p>
-                Some schools don't have a complete set of financial data for this period
-            </p>
-        </div>
-    }
-
-    if (Model.HasIncompleteWorkforceData)
-    {
-        <div class="panel panel-border-wide orange-warning">
-            <p>
-                Some schools don't have a complete set of workforce data for this period
-            </p>
-        </div>
-    }
 
     <div class="charts-section">
         <div class="grid-row">

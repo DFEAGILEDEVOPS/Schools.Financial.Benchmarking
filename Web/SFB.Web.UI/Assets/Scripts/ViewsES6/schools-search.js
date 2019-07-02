@@ -215,9 +215,15 @@
                 var openSchoolsOnly = $(this).parents('.form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
                 var textBoxId = $(this).attr('id');
                 let url = '';
+                let referrer = $("#referrer").val();
                 switch (textBoxId) {
                     case 'FindByNameId':
-                        url = '/school/detail?urn=' + suggestion['Id'];
+                        if (referrer && referrer.toLowerCase() === "schoolsearch/addschools") {
+                            url = `/SchoolSearch/Search?nameId=${suggestion['Text'].substring(0, suggestion['Text'].indexOf('(') - 1)}&searchtype=search-by-name-id`;
+                            url += '&referrer=' + referrer;
+                        } else {
+                            url = '/school/detail?urn=' + suggestion['Id'];
+                        }
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
@@ -225,6 +231,9 @@
                     case 'FindSchoolByLaCodeName':
                         // convert it to an la code search, which is the same as if they'd submitted.
                         url = '/schoolsearch/search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
+                        if (referrer && referrer.toLowerCase() === "schoolsearch/addschools") {
+                            url += '&referrer=' + referrer;
+                        }
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
@@ -237,6 +246,9 @@
                         url = '/SchoolSearch/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
+                        }
+                        if (referrer && referrer.toLowerCase() === "schoolsearch/addschools") {
+                            url += '&referrer=' + referrer;
                         }
                         break;
                 }

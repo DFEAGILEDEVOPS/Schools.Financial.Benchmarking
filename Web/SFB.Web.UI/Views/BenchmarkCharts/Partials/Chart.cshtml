@@ -7,7 +7,7 @@
 <div id="bm-charts-accordion" class="accordion">
     @for (int i = 0; i < Model.Count; i++)
     {
-        <div class="chart-container column-full no-padding" data-group="@Model[i].ChartGroup">
+        <div class="chart-container index-@i column-full no-padding" data-group="@Model[i].ChartGroup">
             @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
             {
                 if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
@@ -95,7 +95,7 @@
                             <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].Name" data-sv="@Model[i].ShowValue">
                                 @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                 {
-                                    <div class="column-half font-xsmall no-padding">
+                                    <div class="column-half font-xsmall no-padding custom-action-mobile">
                                         <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                                 aria-label="Save image of @Model[i].FieldName">
                                             <i class="icon icon-save-image">
@@ -104,7 +104,7 @@
                                             <span>Save as image</span>
                                         </button>
                                     </div>
-                                    <div class="column-half font-xsmall no-padding float-to-right your-chart-controls">
+                                    <div class="column-half font-xsmall no-padding float-to-right your-chart-controls custom-action-mobile">
                                         <div class="float-to-right">
                                             <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
                                                 <i class="icon icon-bookmark">
@@ -164,7 +164,7 @@
                         }
                         <div class="grid-row">
                             <div class="column-full">
-                                <div class="chart-wrapper" style="width:@(ViewBag.ComparisonType == ComparisonType.BestInClass ? 95 : 100)%; float: left; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
+                                <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
                                     <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                 </div>
                                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
@@ -183,7 +183,7 @@
                                     {
                                     <div class="chart-scores-header">
                                         <span>KS2</span>
-                                        <button class="helpLink link-button no-padding hide-in-print" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
+                                        <button class="helpLink link-button no-padding hide-in-print ks2-help" id="renderP8Info" onclick="DfE.Util.ComparisonList.RenderBicCriteriaKs2Modal(event)">
                                             <img class="help-image" src="/public/assets/images/help-icon.png">
                                         </button>
                                         <span class="show-in-desktop">progress</span>
@@ -243,7 +243,7 @@
                                     @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                     {
                                         <div class="your-chart-controls">
-                                            <div class="column-half font-xsmall no-padding">
+                                            <div class="column-half font-xsmall no-padding custom-action-mobile">
                                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                                         aria-label="Save image of @Model[i].FieldName">
                                                     <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
@@ -251,21 +251,23 @@
                                                 </button>
                                             </div>
 
-                                            <div class="column-half font-xsmall no-padding float-to-right">
-                                                <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
-                                                    <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
-                                                    <span>Add to your charts</span>
-                                                </button>
-                                                <button style="display: none" class="customRemove float-to-right a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
-                                                    <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
-                                                    <span>Remove from your charts</span>
-                                                </button>
-                                            </div>
-                                            <div style="display: none" class="column-half font-xsmall no-padding view-your-charts float-to-right">
-                                                <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom');" >
-                                                    <i class="icon icon-report"></i>
-                                                    <span>View your charts</span>
-                                                </a>
+                                            <div class="column-half font-xsmall no-padding float-to-right custom-action-mobile">
+                                                <div class="float-to-right">
+                                                    <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
+                                                        <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                                        <span>Add to your charts</span>
+                                                    </button>
+                                                    <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
+                                                        <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                                        <span>Remove from your charts</span>
+                                                    </button>
+                                                </div>
+                                                <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
+                                                    <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom');">
+                                                        <i class="icon icon-report"></i>
+                                                        <span>View your charts</span>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     }
@@ -297,7 +299,7 @@
                                 }
                                 <div class="grid-row">
                                     <div class="column-full">
-                                        <div class="chart-wrapper" style="width:@(ViewBag.ComparisonType == ComparisonType.BestInClass ? 95 : 100)%; float: left; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
+                                        <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
                                             <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                         </div>
                                         @if (ViewBag.ComparisonType == ComparisonType.BestInClass)

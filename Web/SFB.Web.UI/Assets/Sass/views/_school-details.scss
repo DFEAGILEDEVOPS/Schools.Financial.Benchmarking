@@ -17,6 +17,8 @@
 
             @include media(mobile) {
                 text-align: left;
+                min-width: unset;
+                width: 100px;
             }
         }
 
@@ -31,11 +33,11 @@
             padding-bottom: 15px;
 
             @include media(mobile) {
-                max-width: 100px;
+                max-width: 165px;
             }
 
             @include media(tablet) {
-                max-width: 130px;
+                max-width: 165px;
             }
 
             @include media(desktop) {
@@ -64,7 +66,10 @@
 
             @include media(mobile) {
                 margin-top: 10px;
+                margin-left: 0;
             }
+
+            margin-left: 1em;
         }
 
         &__button--auto {
@@ -113,6 +118,10 @@
                         margin-bottom: 5px;
                     }
                 }
+            }
+
+            &.index-0 {
+                margin-top: 0.5em;
             }
 
             &__chart-header-show-value {
@@ -239,6 +248,7 @@
     }
 
     .img-button {
+        display: inline-block;
         text-decoration: none;
 
         img.icon {
@@ -249,5 +259,15 @@
         span {
             text-decoration: underline;
         }
+    }
+
+    .print img.icon, .download img.icon {
+        width: 24px;
+        height: 24px;
+        padding-right: 5px;
+    }
+
+    .post-map-content {
+        margin-bottom: 15px;
     }
 }

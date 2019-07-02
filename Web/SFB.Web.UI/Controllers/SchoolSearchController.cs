@@ -69,6 +69,7 @@ namespace SFB.Web.UI.Controllers
             dynamic searchResp = null;
             string errorMessage;
             ViewBag.tab = tab;
+            ViewBag.referrer = referrer;
 
             switch (searchType)
             {
@@ -210,9 +211,9 @@ namespace SFB.Web.UI.Controllers
                             {
                                 laCodeName = exactMatch.id;
                                 return await Search(nameId, trustNameId, searchType, suggestionUrn, locationorpostcode,
-                                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
+                                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab, referrer);
                             }
-                            return RedirectToAction("Search", "La", new {name = laCodeName, openOnly = openOnly});
+                            return RedirectToAction("Search", "La", new {name = laCodeName, openOnly = openOnly, referrer = referrer});
                         }
                         else
                         {
@@ -240,11 +241,15 @@ namespace SFB.Web.UI.Controllers
                                     return View("EmptyResult",
                                         new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 case 1:
-                                    return RedirectToAction("Detail", "School",
-                                        new
-                                        {
-                                            urn = ((Domain.Models.QueryResultsModel) searchResp).Results.First()["URN"]
-                                        });
+                                    if (referrer != "schoolsearch/addschools")
+                                    {
+                                        return RedirectToAction("Detail", "School",
+                                            new
+                                            {
+                                                urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"]
+                                            });
+                                    }
+                                    break;
                             }
                         }
                         else
@@ -276,7 +281,7 @@ namespace SFB.Web.UI.Controllers
                                         new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 default:
                                     TempData["LocationResults"] = result;
-                                    return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationorpostcode, openOnly = openOnly });
+                                    return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationorpostcode, openOnly = openOnly, referrer = referrer });
                             }                            
                         }
                         else
@@ -290,8 +295,12 @@ namespace SFB.Web.UI.Controllers
                                     return View("EmptyLocationResult",
                                         new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 case 1:
-                                    return RedirectToAction("Detail", "School",
+                                    if (referrer != "schoolsearch/addschools")
+                                    {
+                                        return RedirectToAction("Detail", "School",
                                         new { urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"] });
+                                    }
+                                    break;
                             }
                         }
                     }
@@ -335,7 +344,7 @@ namespace SFB.Web.UI.Controllers
                     EstabType = benchmarkSchool.EstablishmentType.ToString()
                 });                      
 
-            return PartialView("Partials/BenchmarkListBanner",
+            return PartialView("Partials/StickingBenchmarkListBanner",
                 new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 

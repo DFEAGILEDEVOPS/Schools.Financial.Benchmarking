@@ -53,77 +53,79 @@ else
     <span>Step 2 of 3</span>
 </div>
 
-<div id="SearchTypesAccordion" class="search-types" aria-live="polite">
-    <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
-        <div class="form-group">
-            <fieldset role="radiogroup" id="RadioFieldSet">
+<section class="section" aria-labelledby="legend">
+    <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
+        <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
+            <div class="form-group">
+                <fieldset role="radiogroup" id="RadioFieldSet">
 
-                <legend id="legend">Which area are you interested in?</legend>
+                    <legend id="legend">Which area are you interested in?</legend>
 
-                <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
-                    <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") aria-labelledby="legend"/>
-                    <label id="AllAccordion" for="All">All of England</label>
-                </div>
-                <div id="AllFieldset"></div>
+                    <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
+                        <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") aria-labelledby="legend" />
+                        <label id="AllAccordion" for="All">All of England</label>
+                    </div>
+                    <div id="AllFieldset"></div>
 
-                <div id="LaAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCode ? "selected" : "")" aria-controls="SearchByLaCodeFieldset">
-                    <input id="LaCodeRadio" type="radio" name="areaType" value="LACode" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCode ? "checked" : "")  aria-labelledby="legend"/>
-                    <label id="LaCodeAccordion" for="LaCodeRadio">
-                        Local authority code
-                    </label>
-                </div>
-                <div id="SearchByLaCodeFieldset" class="form-group optional-section">
-                    <label for="FindSchoolByLaCode">
-                        <span class="visuallyhidden">Enter a local authority code, </span>for example 306, 319 or 372
-                    </label>
-                    @if (ViewBag.AreaType == ComparisonArea.LaCode)
-                    {
-                        <span class="error-message">@Model.ErrorMessage</span>
-                    }
-                    <input id="FindSchoolByLaCode"
-                           class="form-control"
-                           name="lacode"
-                           type="text" />
-                </div>
+                    <div id="LaAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCode ? "selected" : "")" aria-controls="SearchByLaCodeFieldset">
+                        <input id="LaCodeRadio" type="radio" name="areaType" value="LACode" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCode ? "checked" : "") aria-labelledby="legend" />
+                        <label id="LaCodeAccordion" for="LaCodeRadio">
+                            Local authority code
+                        </label>
+                    </div>
+                    <div id="SearchByLaCodeFieldset" class="form-group optional-section">
+                        <label for="FindSchoolByLaCode">
+                            <span class="visuallyhidden">Enter a local authority code, </span>for example 306, 319 or 372
+                        </label>
+                        @if (ViewBag.AreaType == ComparisonArea.LaCode)
+                        {
+                            <span class="error-message">@Model.ErrorMessage</span>
+                        }
+                        <input id="FindSchoolByLaCode"
+                               class="form-control"
+                               name="lacode"
+                               type="text" />
+                    </div>
 
-                <div id="LaNameAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaName ? "selected" : "")" aria-controls="SearchByLaNameFieldset">
-                    <input id="LaName" type="radio" name="areaType" value="LAName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaName ? "checked" : "") aria-labelledby="legend"/>
-                    <label id="LaNameAccordion" for="LaName">
-                        Local authority name
-                    </label>
-                </div>
-                <div id="SearchByLaNameFieldset" class="form-group optional-section">
-                    <label for="FindSchoolByLaName">
-                        <span class="visuallyhidden">Enter the name of a local authority, </span>such as Hampshire or West Sussex
-                    </label>
-                    @if (ViewBag.AreaType == ComparisonArea.LaName)
-                    {
-                        <span class="error-message">@Model.ErrorMessage</span>
-                    }
-                    <input id="FindSchoolByLaName"
-                           class="form-control"
-                           name="lanametext"
-                           type="text" />
-                </div>
-            </fieldset>
+                    <div id="LaNameAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaName ? "selected" : "")" aria-controls="SearchByLaNameFieldset">
+                        <input id="LaName" type="radio" name="areaType" value="LAName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaName ? "checked" : "") aria-labelledby="legend" />
+                        <label id="LaNameAccordion" for="LaName">
+                            Local authority name
+                        </label>
+                    </div>
+                    <div id="SearchByLaNameFieldset" class="form-group optional-section">
+                        <label for="FindSchoolByLaName">
+                            <span class="visuallyhidden">Enter the name of a local authority, </span>such as Hampshire or West Sussex
+                        </label>
+                        @if (ViewBag.AreaType == ComparisonArea.LaName)
+                        {
+                            <span class="error-message">@Model.ErrorMessage</span>
+                        }
+                        <input id="FindSchoolByLaName"
+                               class="form-control"
+                               name="lanametext"
+                               type="text" />
+                    </div>
+                </fieldset>
 
-        </div>
-        <div class="grid-row font-xsmall">
-            <div class="column-one-third">
-                <div class="column-one-third next-button">
-                    <button type="submit" class="button">Next</button>
-                </div>
-                <div class="column-one-third back-button">
-                    <a href="SelectSchoolType?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
+            </div>
+            <div class="grid-row font-xsmall">
+                <div class="column-one-third">
+                    <div class="column-one-third next-button">
+                        <button type="submit" class="button">Next</button>
+                    </div>
+                    <div class="column-one-third back-button">
+                        <a href="SelectSchoolType?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <input type="hidden" id="Urn" name="Urn" value="@ViewBag.URN">
-        <input type="hidden" id="ComparisonType" name="ComparisonType" value="@ViewBag.ComparisonType">
-        <input type="hidden" id="EstType" name="EstType" value="@ViewBag.EstType">
-    </form>
-</div>
+            <input type="hidden" id="Urn" name="Urn" value="@ViewBag.URN">
+            <input type="hidden" id="ComparisonType" name="ComparisonType" value="@ViewBag.ComparisonType">
+            <input type="hidden" id="EstType" name="EstType" value="@ViewBag.EstType">
+        </form>
+    </div>
+</section>
 
 @section ViewScripts {
 

@@ -4,7 +4,7 @@
     {
         public abstract string Id { get; }
 
-        public abstract string ShortName { get; }
+        //public abstract string ShortName { get; }
 
         public abstract string Name { get; set; }
 
