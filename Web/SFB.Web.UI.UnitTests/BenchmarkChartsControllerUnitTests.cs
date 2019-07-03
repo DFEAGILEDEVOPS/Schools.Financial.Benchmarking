@@ -525,5 +525,39 @@ namespace SFB.Web.UI.UnitTests
                 It.IsAny<string>(),
                 UnitType.AbsoluteCount));
         }
+
+        [Test]
+        public void GenerateFromSavedBasketReturnsWarningPageIfThereIsAnExistingList()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.HomeSchoolUrn = "123";
+            fakeSchoolComparisonList.HomeSchoolName = "test";
+            fakeSchoolComparisonList.HomeSchoolType = "test";
+            fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
+            for (int i = 0; i < 5; i++)
+            {
+                fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel()
+                {
+                    Urn = i.ToString(),
+                    Name = "test",
+                    EstabType = "Academies"
+                });
+            }
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object, 
+                new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object, 
+                new Mock<ILocalAuthoritiesService>().Object, null,
+                new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object, mockCookieManager.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = controller.GenerateFromSavedBasket("123-456", null, null);
+
+            result.Wait();
+
+            Assert.AreEqual("SaveOverwriteStrategy?savedUrns=123-456", (result.Result as RedirectResult).Url);
+        }
     }
 }

@@ -288,6 +288,7 @@
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
     <Compile Include="Models\LocationListViewModel.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
+    <Compile Include="Models\SaveOverwriteViewModel.cs" />
     <Compile Include="Models\SchoolComparisonListModel.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
@@ -710,6 +711,7 @@
     <Content Include="Views\BenchmarkCharts\Partials\BicTabContent.cshtml" />
     <Content Include="Views\BenchmarkCriteria\HighestProgressSchoolsBenchmarking.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedOneClickCriteria.cshtml" />
+    <Content Include="Views\BenchmarkCharts\SaveOverwriteStrategy.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
