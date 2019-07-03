@@ -62,32 +62,64 @@
 }
 
 .sticky-div {
-
-    @extend %banner-box;
     position: -webkit-sticky; // required for Safari
     position: sticky;
     top: 0; // required as well.
     z-index: 10000;
     //margin-top: 10px;
+    }
+
+.banner {
+    @extend %banner-box;
+
     &__comparison-list-info-panel {
         @include core-16;
         background-color: #D9ECE2;
         padding: 20px;
 
-        &__count {
-            font-weight: bold;
-            margin-right: 20px;
+        .message {
+            display: block;
+            margin-bottom: 10px;
+
+            @include media(desktop) {
+                display: inline-block;
+                margin-bottom: 0;
+            }
         }
 
-        &__edit-basket, &__clear-basket, &__clear-criteria {
-            text-decoration: none;
+        &__count {
             font-weight: bold;
+        }
+
+        &__edit-basket {
+            margin-left: 0;
+            width: 100%;
+
+            @include media(desktop) {
+                margin-left: 15px;                
+                width: auto;
+            }
+        }
+
+        &__clear-criteria {
             margin-right: 15px;
+            margin-left: 15px;
 
             @include media(mobile) {
                 margin-left: 0;
                 margin-top: 10px;
+                display: block;
+            }
+        }
+
+        .add-schools{
+            display: block;
+            margin-top: 10px;
+            
+            @include media(tablet){
                 display: inline-block;
+                float: right;
+                margin-top: 0;
             }
         }
 
@@ -112,12 +144,10 @@
             display: block;
             margin-top: 10px;
         }
-    }
-}
 
-.desktop-only-sticky-div {
-    @include media(mobile) {
-        position: unset;
+        @include media(mobile) {
+            margin-top: 1em;
+        }
     }
 }
 
@@ -978,3 +1008,7 @@ nav.tabs ol li {
     width: 100%;
 }
 
+.mag-icon {
+    margin-right: 3px;
+    vertical-align: middle;
+}

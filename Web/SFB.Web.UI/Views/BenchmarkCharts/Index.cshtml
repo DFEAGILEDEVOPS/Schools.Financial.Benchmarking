@@ -15,11 +15,11 @@
     <script src="~/node_modules/clipboard/dist/clipboard.min.js"></script>
 }
 
-@section StickyContent
+@section BMListBannerContent
 {
     @if (Model.EstablishmentType != EstablishmentType.MAT)
     {
-        @Html.Partial("Partials/DesktopStickingBenchmarkListBanner")
+        @Html.Partial("Partials/BenchmarkListBanner")
     }
 }
 

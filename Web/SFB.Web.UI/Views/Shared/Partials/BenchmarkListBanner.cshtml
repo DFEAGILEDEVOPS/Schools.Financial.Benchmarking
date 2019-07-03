@@ -1,0 +1,42 @@
+﻿<div class="banner hide-in-print" id="benchmarkBasket" role="region" aria-label="Benchmark Basket">
+    @if (Model.ComparisonListCount >= 1)
+    {
+        <div class="grid-row">
+            <div class="column-full">
+                <div class="banner__comparison-list-info-panel">
+                    @if (((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts"))
+                    {
+                        <span class="message">Showing the <span class="banner__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span> in your benchmark basket</span>
+                    }
+                    else
+                    {
+                        <span class="message">Your benchmark basket contains <span class="banner__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span></span>
+                    }
+
+                    @{
+                        var referrer = Request.IsAjaxRequest() ? Request.UrlReferrer.ToString() : Request.RawUrl;
+                        if (referrer.Contains("BenchmarkCharts/"))
+                        {
+                            referrer = "/BenchmarkCharts";
+                        }
+                    }
+                    <a class="banner__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@Html.Raw(referrer)">Edit basket</a>
+
+                    @if (!((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2)
+                    {
+                        <div class="view-benchmark-charts-wrapper">
+                            <a class="button" href="/BenchmarkCharts">View benchmark charts</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="/schoolsearch/addschools" class="add-schools">
+                            <img class="mag-icon" src="~/public/assets/images/icons/mag.png" alt="Add another school name or location" />
+                            <span>Add another school by name or location</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
