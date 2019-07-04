@@ -1,0 +1,30 @@
+﻿@model SFB.Web.UI.Models.SaveOverwriteViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "overwrite-strategy";
+}
+
+<h1 class="heading-xlarge page-heading">Replace current benchmark basket</h1>
+
+<p>
+    You have <span class="bold">@Model.ComparisonListCount</span> schools in your current benchmarking basket. If you choose to view this saved basket it will remove the schools in your current basket and replace them with the schools saved in the link.
+</p>
+
+<form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
+
+    <input type="hidden" id="overwriteStrategy" name="overwriteStrategy" value="overwrite" />
+    <input type="hidden" id="urns" name="urns" value="@Model.SavedUrns" />
+
+    <div class="grid-row font-xsmall mt-2">
+        <div class="column-half">
+            <div class="column-two-thirds next-button">
+                <button type="submit" class="button">View new benchmark basket</button>
+            </div>
+            <div class="column-one-third back-button">
+                <a href="/">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+

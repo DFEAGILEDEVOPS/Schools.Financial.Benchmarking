@@ -527,7 +527,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public void GenerateFromSavedBasketReturnsWarningPageIfThereIsAnExistingList()
+        public void GenerateFromSavedBasketReturnsWarningPageIfThereIsAnExistingListAndWouldReplace()
         {
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
@@ -535,7 +535,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 29; i++)
             {
                 fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel()
                 {
@@ -548,6 +548,40 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object, 
                 new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object, 
+                new Mock<ILocalAuthoritiesService>().Object, null,
+                new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object, mockCookieManager.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = controller.GenerateFromSavedBasket("123-456", null, null);
+
+            result.Wait();
+
+            Assert.AreEqual("ReplaceWithSavedBasket?savedUrns=123-456", (result.Result as RedirectResult).Url);
+        }
+
+        [Test]
+        public void GenerateFromSavedBasketReturnsConfirmationPageIfThereIsAnExistingListAndCouldReplaceOrAdd()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var fakeSchoolComparisonList = new SchoolComparisonListModel();
+            fakeSchoolComparisonList.HomeSchoolUrn = "123";
+            fakeSchoolComparisonList.HomeSchoolName = "test";
+            fakeSchoolComparisonList.HomeSchoolType = "test";
+            fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
+            for (int i = 0; i < 28; i++)
+            {
+                fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel()
+                {
+                    Urn = i.ToString(),
+                    Name = "test",
+                    EstabType = "Academies"
+                });
+            }
+            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+
+            var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object,
+                new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object,
                 new Mock<ILocalAuthoritiesService>().Object, null,
                 new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object, mockCookieManager.Object);
 

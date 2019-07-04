@@ -55,28 +55,34 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> GenerateFromSavedBasket(string urns, string companyNumbers, BenchmarkListOverwriteStrategy? overwriteStrategy, ComparisonType comparison = ComparisonType.Manual)
         {
-            if (urns != null && overwriteStrategy == null)
+            List<int> urnList = null;
+            List<int> companyNoList = null;
+            try
+            {
+                urnList = urns?.Split('-').Select(urn => int.Parse(urn)).ToList();
+                companyNoList = companyNumbers?.Split('-').Select(cn => int.Parse(cn)).ToList();
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            if (overwriteStrategy == null)
             {
                 var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
-                if (comparisonList?.BenchmarkSchools?.Count > 0)
+                if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count <= ComparisonListLimit.LIMIT)
                 {
                     return Redirect($"SaveOverwriteStrategy?savedUrns={urns}");
                 }
+                if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count > ComparisonListLimit.LIMIT)
+                {
+                    return Redirect($"ReplaceWithSavedBasket?savedUrns={urns}");
+                }
             }
 
-            if (urns != null && overwriteStrategy == BenchmarkListOverwriteStrategy.Add)
+            if (overwriteStrategy == BenchmarkListOverwriteStrategy.Add)
             {
-                List<int> urnList = null;
-                try
-                {
-                    urnList = urns.Split('-').Select(urn => int.Parse(urn)).ToList();
-                }
-                catch (Exception)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
                 var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
                 if (comparisonList.BenchmarkSchools.Count + urnList.Count > ComparisonListLimit.LIMIT)
@@ -98,18 +104,8 @@ namespace SFB.Web.UI.Controllers
                 }
             }
             
-            if (urns != null)
+            if (urnList != null)
             {
-                List<int> urnList = null;
-                try
-                {
-                    urnList = urns.Split('-').Select(urn => int.Parse(urn)).ToList();
-                }
-                catch (Exception)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 
                 AddSchoolDataObjectsToBasket(comparison, urnList);
@@ -117,18 +113,8 @@ namespace SFB.Web.UI.Controllers
                 return await Index(null, null, null, null, comparison);
             }
 
-            else if (companyNumbers != null)
+            else if (companyNoList != null)
             {
-                List<int> companyNoList = null;
-                try
-                {
-                    companyNoList = companyNumbers.Split('-').Select(cn => int.Parse(cn)).ToList();
-                }
-                catch (Exception)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-
                 var trustDataObjects = _financialDataService.GetMultipleTrustDataObjectsByCompanyNumbers(companyNoList);
 
                 _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.RemoveAll, null);
@@ -154,6 +140,18 @@ namespace SFB.Web.UI.Controllers
             };
 
             return View("SaveOverwriteStrategy", vm);
+        }
+
+        [HttpGet]
+        public ActionResult ReplaceWithSavedBasket(string savedUrns)
+        {
+            var vm = new SaveOverwriteViewModel()
+            {
+                ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
+                SavedUrns = savedUrns
+            };
+
+            return View("ReplaceWithSavedBasket", vm);
         }
 
         [HttpGet]

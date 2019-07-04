@@ -712,6 +712,7 @@
     <Content Include="Views\BenchmarkCriteria\HighestProgressSchoolsBenchmarking.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedOneClickCriteria.cshtml" />
     <Content Include="Views\BenchmarkCharts\SaveOverwriteStrategy.cshtml" />
+    <Content Include="Views\BenchmarkCharts\ReplaceWithSavedBasket.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

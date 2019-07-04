@@ -22,7 +22,7 @@
 <h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
 
 <p>
-    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. You can replace them or retain them alongside those matching the characteristics you've just selected.
+    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. You can replace them or retain them alongside the saved schools from the link.
 </p>
 
 <form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
@@ -57,6 +57,9 @@
         <div class="column-one-third">
             <div class="column-one-third next-button">
                 <button type="submit" class="button">Next</button>
+            </div>
+            <div class="column-one-third back-button">
+                <a href="/">Cancel</a>
             </div>
         </div>
     </div>
