@@ -679,11 +679,12 @@
                     $("#PrintLinkText").text(" Print page");
                     $("#PdfLinkText").text(" Download PDF");
                     $("#tabsSection").html(data);
+                    $('.sticky-div').Stickyfill();  
                     $("table.data-table-js").tablesorter();
                     let unitParameter = $("#ShowValue").val();
                     this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
-                    this.GenerateCharts(unitParameter);
+                    this.GenerateCharts(unitParameter);                  
                 }
             });
         }

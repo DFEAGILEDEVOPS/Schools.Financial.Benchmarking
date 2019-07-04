@@ -3,8 +3,7 @@
 
 <div class="charts-section">
     <div class="grid-row">
-        <input type="hidden" id="tabSelection" value="@ViewBag.Tab" />
-        <form autocomplete="off">
+        <div class="sticky-div sticky-chart-controls">
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
             @if (Model.EstablishmentType == EstablishmentType.Academies || Model.EstablishmentType == EstablishmentType.All)
@@ -17,7 +16,10 @@
                     @Html.Partial("~/Views/BenchmarkCharts/Partials/TrustCentralFinancing.cshtml")
                 </div>
             }
-            <div class="column-full font-xsmall chartTable hide-in-print">
+        </div>
+        <input type="hidden" id="tabSelection" value="@ViewBag.Tab" />
+        <form autocomplete="off">
+            <div class="column-full font-xsmall chartTable hide-in-print mt-1">
                 <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
                 <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
             </div>
@@ -28,20 +30,19 @@
                 </button>
             </div>
             <input type="submit" class="hidden" />
+            <div class="font-xsmall latest-year-message column-full">
+                @if (Model.EstablishmentType == EstablishmentType.MAT)
+                {
+                    <span>The data below is from the latest year available. For trusts this is <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+                }
+                else
+                {
+                    <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+                }
+            </div>
+            <div id="benchmarkChartsList" class="column-full">
+                @Html.Partial("~/Views/BenchmarkCharts/Partials/Chart.cshtml", Model.ModelList)
+            </div>
         </form>
-    </div>
-
-    <div class="font-xsmall latest-year-message">
-        @if (Model.EstablishmentType == EstablishmentType.MAT)
-        {
-            <span>The data below is from the latest year available. For trusts this is <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
-        }
-        else
-        {
-            <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
-        }
-    </div>
-    <div id="benchmarkChartsList">
-        @Html.Partial("~/Views/BenchmarkCharts/Partials/Chart.cshtml", Model.ModelList)
     </div>
 </div>
