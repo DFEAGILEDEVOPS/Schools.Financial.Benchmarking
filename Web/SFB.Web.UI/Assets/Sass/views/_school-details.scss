@@ -120,10 +120,6 @@
                 }
             }
 
-            &.index-0 {
-                margin-top: 0.5em;
-            }
-
             &__chart-header-show-value {
                 padding-top: 5px;
             }
@@ -269,5 +265,52 @@
 
     .post-map-content {
         margin-bottom: 15px;
+    }
+
+    .sticky-chart-controls {
+        margin-top: 10px;
+        background-color: $page-colour;
+        border-bottom: 1px solid $border-colour;
+
+        .form-group {
+            margin-bottom: 0;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+
+        .chart-filter {
+            height: 75px;
+        }
+
+        @include media(tablet) {
+            
+            height: 93px;
+
+            .chart-filter:first-of-type {
+                padding-left: 0;
+            }
+
+            .chart-filter:last-of-type {
+                padding-right: 0;
+            }
+
+            .form-group {
+                padding-bottom: 20px;
+            }
+        }
+    }
+
+    #historical-charts-accordion {
+        border: none;
+    }
+
+    .view-charts-tables {
+        margin-bottom: 0;
+    }
+
+    .tabs {
+        @include media(mobile) {
+            margin-left: 1em;
+        }
     }
 }

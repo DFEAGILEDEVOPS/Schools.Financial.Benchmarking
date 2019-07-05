@@ -618,7 +618,6 @@
 
     .sticky-chart-controls {
         margin: 0;
-        height: 215px;
         background-color: $page-colour;
         border-bottom: 1px solid $border-colour;
 
@@ -626,6 +625,10 @@
             margin-bottom: 0;
             padding-bottom: 5px;
             padding-top: 5px;
+        }
+
+        .chart-filter {
+            height: 75px;
         }
 
         @include media(tablet) {
