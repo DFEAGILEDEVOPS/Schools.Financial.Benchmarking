@@ -170,13 +170,14 @@
     </ol>
 </nav>
 
+<div class="sticky-div sticky-chart-controls">
+    @Html.Partial("Partials/ValueSelect")
+    @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+    @Html.Partial("Partials/TrustCentralFinancing")
+</div>
 <div class="charts-section">
     <div class="grid-row">
         <div autocomplete="off">
-            @Html.Partial("Partials/ValueSelect")
-            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-            @Html.Partial("Partials/TrustCentralFinancing")
-
             <div class="column-full font-xsmall chartTable hide-in-print">
                 <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
                 <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
