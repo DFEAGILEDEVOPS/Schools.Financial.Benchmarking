@@ -59,7 +59,6 @@
 
                 $("button.submit-criteria-js").attr("aria-label", "View " + count + " schools in a benchmark chart");
 
-                $('.sticky-div').Stickyfill();
             });
     }
 

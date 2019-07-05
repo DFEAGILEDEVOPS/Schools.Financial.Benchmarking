@@ -615,8 +615,9 @@
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
-            $("#tabsSection").empty('');
-            $("#tabsSection").show();
+            $("#tabsSection form").empty('');
+            $("#tabsSection .sticky-chart-controls").empty('');
+            $("#tabsSection").hide();
             $("#customTabSection").show();
             $("#downloadLinkContainer").hide();
             $("#PrintLinkText").text(" Print report");
@@ -668,7 +669,8 @@
                     $("#bestInClassTabSection").hide();
                     $("#customTabSection").hide();
                     $("#tabsSection").show();
-                    DfE.Util.LoadingMessage.display("#tabsSection", "Updating charts");
+                    DfE.Util.LoadingMessage.display(".sticky-chart-controls", "Updating charts");
+                    $("#tabsSection form").hide();
                 },
                 success: (data) => {
                     $(".tabs li").removeClass("active");
@@ -678,7 +680,11 @@
                     $("#downloadLinkContainer").show();
                     $("#PrintLinkText").text(" Print page");
                     $("#PdfLinkText").text(" Download PDF");
-                    $("#tabsSection").html(data);
+                    let stickyDivHtml = $(data).find(".sticky-div").html();
+                    $("#tabsSection .sticky-chart-controls").html(stickyDivHtml);
+                    let formHtml = $(data).find("form").html();
+                    $("#tabsSection form").html(formHtml);
+                    $("#tabsSection form").show();
                     $('.sticky-div').Stickyfill();  
                     $("table.data-table-js").tablesorter();
                     let unitParameter = $("#ShowValue").val();
