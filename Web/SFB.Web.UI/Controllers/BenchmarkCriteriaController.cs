@@ -128,13 +128,14 @@ namespace SFB.Web.UI.Controllers
         /// <param name="comparisonType"></param>
         /// <param name="estType"></param>
         /// <returns></returns>
-        public ViewResult ChooseRegion(int urn, ComparisonType comparisonType, EstablishmentType estType)
+        public ViewResult ChooseRegion(int urn, ComparisonType comparisonType, EstablishmentType estType, bool excludePartial = false)
         {
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
             ViewBag.AreaType = ComparisonArea.All;
             ViewBag.Authorities = _laService.GetLocalAuthorities();
+            ViewBag.ExcludePartial = excludePartial.ToString();
 
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
             return View("ChooseRegion", benchmarkSchool);
@@ -150,7 +151,7 @@ namespace SFB.Web.UI.Controllers
         /// <param name="lacode"></param>
         /// <returns></returns>
         public ActionResult AdvancedCharacteristics(int urn, ComparisonType comparisonType, EstablishmentType estType, ComparisonArea? areaType, int? lacode,
-            string laNameText, BenchmarkCriteria AdvancedCriteria)
+            string laNameText, BenchmarkCriteria AdvancedCriteria, bool excludePartial = false)
         {
             if (areaType == ComparisonArea.LaName && !string.IsNullOrEmpty(laNameText) && lacode == null)
             {
@@ -168,6 +169,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.AreaType = areaType;
             ViewBag.AreaTypeDescription = lacode == null ? "All of England" : string.IsNullOrEmpty(laNameText) ? _laService.GetLaName(lacode.ToString()) : laNameText;
             ViewBag.LaCode = lacode;
+            ViewBag.ExcludePartial = excludePartial.ToString();
 
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
@@ -243,7 +245,8 @@ namespace SFB.Web.UI.Controllers
         /// <param name="schoolName"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult OverwriteStrategy(int urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, ComparisonArea areaType, int? lacode, string schoolName)
+        public ActionResult OverwriteStrategy(int urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, 
+            ComparisonArea areaType, int? lacode, string schoolName, bool excludePartial = false)
         {
             ViewBag.URN = urn;
             ViewBag.HomeSchoolName = schoolName;
@@ -251,6 +254,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.EstType = estType;
             ViewBag.AreaType = areaType;
             ViewBag.LaCode = lacode;
+            ViewBag.ExcludePartial = excludePartial.ToString();
 
             var benchmarkList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
@@ -277,12 +281,13 @@ namespace SFB.Web.UI.Controllers
                 TempData["EstType"] = estType;
                 TempData["AreaType"] = areaType;
                 TempData["LaCode"] = lacode;
+                TempData["ExcludePartial"] = excludePartial;
 
                 return RedirectToAction("GenerateNewFromAdvancedCriteria", "BenchmarkCharts");
             }
         }
 
-        public async Task<int> GenerateCountFromManualCriteria(BenchmarkCriteriaVM criteria, EstablishmentType estType, int? lacode)
+        public async Task<int> GenerateCountFromAdvancedCriteria(BenchmarkCriteriaVM criteria, EstablishmentType estType, int? lacode, bool excludePartial = false)
         {
             if (!ModelState.IsValid)
             {
@@ -294,7 +299,7 @@ namespace SFB.Web.UI.Controllers
                 criteria.AdvancedCriteria = new BenchmarkCriteria();
             }
             criteria.AdvancedCriteria.LocalAuthorityCode = lacode;
-            var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType);
+            var result = await _financialDataService.SearchSchoolsCountByCriteriaAsync(criteria.AdvancedCriteria, estType, excludePartial);
             return result;
         }
 

@@ -21,9 +21,16 @@ namespace SFB.Web.Domain.Services.Comparison
             _benchmarkCriteriaBuilderService = benchmarkCriteriaBuilderService;
         }
 
-        public async Task<ComparisonResult> GenerateBenchmarkListWithAdvancedComparisonAsync(BenchmarkCriteria criteria, EstablishmentType estType, int basketSize = ComparisonListLimit.LIMIT)
+        public async Task<ComparisonResult> GenerateBenchmarkListWithAdvancedComparisonAsync(BenchmarkCriteria criteria, 
+            EstablishmentType estType, int basketSize = ComparisonListLimit.LIMIT)
         {
-            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);            
+            return await GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, false, basketSize);
+        }
+
+        public async Task<ComparisonResult> GenerateBenchmarkListWithAdvancedComparisonAsync(BenchmarkCriteria criteria, EstablishmentType estType,
+            bool excludePartial, int basketSize = ComparisonListLimit.LIMIT)
+        {
+            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType, excludePartial);            
             return new ComparisonResult()
             {
                 BenchmarkSchools = benchmarkSchools,

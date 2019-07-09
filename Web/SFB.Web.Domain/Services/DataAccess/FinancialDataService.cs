@@ -89,7 +89,12 @@ namespace SFB.Web.Domain.Services.DataAccess
 
         public async Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
         {
-            return await _financialDataRepository.SearchSchoolsByCriteriaAsync(criteria, estType);
+            return await _financialDataRepository.SearchSchoolsByCriteriaAsync(criteria, estType, false);
+        }
+
+        public async Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial)
+        {
+            return await _financialDataRepository.SearchSchoolsByCriteriaAsync(criteria, estType, excludePartial);
         }
 
         public async Task<List<SchoolTrustFinancialDataObject>> SearchTrustsByCriteriaAsync(BenchmarkCriteria criteria)
@@ -97,9 +102,9 @@ namespace SFB.Web.Domain.Services.DataAccess
             return await _financialDataRepository.SearchTrustsByCriteriaAsync(criteria);
         }
 
-        public async Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
+        public async Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial = false)
         {
-            return await _financialDataRepository.SearchSchoolsCountByCriteriaAsync(criteria, estType);
+            return await _financialDataRepository.SearchSchoolsCountByCriteriaAsync(criteria, estType, excludePartial);
         }
 
         public async Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria)

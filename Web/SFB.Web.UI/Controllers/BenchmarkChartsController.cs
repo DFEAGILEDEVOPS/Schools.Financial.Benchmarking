@@ -322,7 +322,13 @@ namespace SFB.Web.UI.Controllers
                 laCode = Convert.ToInt32(TempData["LaCode"]);
             }
 
-            return await GenerateFromAdvancedCriteria(usedCriteria, searchedEstabType, laCode, urn, areaType);
+            bool excludePartial = false;
+            if(TempData["ExcludePartial"] != null)
+            {
+                excludePartial = Convert.ToBoolean(TempData["ExcludePartial"]);
+            }
+
+            return await GenerateFromAdvancedCriteria(usedCriteria, searchedEstabType, laCode, urn, areaType, BenchmarkListOverwriteStrategy.Overwrite, excludePartial);
         }
 
         [HttpGet]
@@ -332,7 +338,8 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int urn, ComparisonArea areaType, BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite)
+        public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int urn, ComparisonArea areaType, 
+            BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite, bool excludePartial = false)
         {
             criteria.LocalAuthorityCode = lacode;
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
@@ -340,7 +347,7 @@ namespace SFB.Web.UI.Controllers
             switch (overwriteStrategy)
             {
                 case BenchmarkListOverwriteStrategy.Overwrite:
-                    var result = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType);
+                    var result = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, excludePartial, 30);
 
                     _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 

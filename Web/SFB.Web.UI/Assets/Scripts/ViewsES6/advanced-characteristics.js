@@ -45,7 +45,7 @@
         $("#schoolCount").hide();
         $('#spinnerPlaceHolder').show();
 
-        this.jqxhr = $.post("GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
+        this.jqxhr = $.post("GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
             .done((count) => {
                 
                 let restHtml = $("#schoolCount #rest").html();

@@ -42,7 +42,7 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
-        public async Task<int> GenerateCountFromManualCriteria(BenchmarkCriteriaVM criteria)
+        public async Task<int> GenerateCountFromAdvancedCriteria(BenchmarkCriteriaVM criteria)
         {
             if (!ModelState.IsValid)
             {

@@ -189,7 +189,7 @@
         if (this.jqxhr) {
             this.jqxhr.abort();
         }
-        this.jqxhr = $.post("TrustComparison/GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
+        this.jqxhr = $.post("TrustComparison/GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
             .done(function (count) {
                 $("#schoolCount").text("Searching");
                 setTimeout(function () { $("#schoolCount").text(count + " trusts found"); }, 500);

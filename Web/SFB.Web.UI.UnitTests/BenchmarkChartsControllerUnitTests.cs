@@ -61,7 +61,7 @@ namespace SFB.Web.UI.UnitTests
             {
                 return new List<SchoolTrustFinancialDataObject> { testResult };
             });
-            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
             mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModel(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
                 .Returns((int urn, EstablishmentType estType) => new FinancialDataModel("321","2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies));
@@ -85,8 +85,8 @@ namespace SFB.Web.UI.UnitTests
 
             mockComparisonService.Setup(m =>
                     m.GenerateBenchmarkListWithAdvancedComparisonAsync(It.IsAny<BenchmarkCriteria>(),
-                        It.IsAny<EstablishmentType>(), It.IsAny<Int32>()))
-                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, int basketSize) => cTask);
+                        It.IsAny<EstablishmentType>(), false, It.IsAny<Int32>()))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial, int basketSize) => cTask);
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -150,7 +150,7 @@ namespace SFB.Web.UI.UnitTests
             testEduHomeResult.FinanceType = "Academies";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduHomeResult);
 
-            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
             mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModel(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
                 .Returns((int urn, EstablishmentType estType) => new FinancialDataModel("321", "2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies));
@@ -229,7 +229,7 @@ namespace SFB.Web.UI.UnitTests
             testEduHomeResult.FinanceType = "Academies";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduHomeResult);
 
-            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
             mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModel(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
                 .Returns((int urn, EstablishmentType estType) => new FinancialDataModel("321", "2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies));
@@ -307,7 +307,7 @@ namespace SFB.Web.UI.UnitTests
             testEduHomeResult.FinanceType = "Academies";
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduHomeResult);
 
-            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
