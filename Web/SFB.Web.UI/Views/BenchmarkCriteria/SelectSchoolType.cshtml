@@ -62,7 +62,7 @@ else
 
                 <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
                     <input id="Maintained" type="radio" name="EstType" value="Maintained">
-                    <label class="selection-button-radio" for="radio-1">Maintained schools</label>
+                    <label class="selection-button-radio" for="Maintained">Maintained schools</label>
                 </div>
                 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                 {
@@ -77,7 +77,7 @@ else
                 }
                 <div id="AcademiesContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AcademiesFieldset">
                     <input id="Academies" type="radio" name="EstType" value="Academies">
-                    <label class="selection-button-radio" for="radio-2">Academies</label>
+                    <label class="selection-button-radio" for="Academies">Academies</label>
                 </div>
                 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                 {
@@ -93,7 +93,7 @@ else
 
                 <div id="AllContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AllFieldset">
                     <input id="All" type="radio" name="EstType" value="All">
-                    <label class="selection-button-radio" for="radio-3">All schools</label>
+                    <label class="selection-button-radio" for="All">All schools</label>
                 </div>
                 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                 {
@@ -146,11 +146,13 @@ else
                     $("input:checkbox[name='excludePartial']").prop('disabled', true);
                     $(event.currentTarget).next().find("input:checkbox[name='excludePartial']").prop('disabled', false);
                 });
-
-                var defaultInput = $('#@Model.EstablishmentType');
-                defaultInput.click();
             });
-            
+
         </script>
     }
+
+    <script>
+        var defaultInput = $('#@Model.EstablishmentType');
+        defaultInput.click();
+    </script>
 }

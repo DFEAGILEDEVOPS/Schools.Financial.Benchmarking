@@ -643,6 +643,7 @@
             let typeParameter = $("#Type").val();
             let comparisonType = $("#ComparisonType").val();
             let bicComparisonOverallPhase = $("#BicComparisonOverallPhase").val();
+            let excludePartial = $("#ExcludePartial").val();
             let formatParameter = sessionStorage.chartFormat;
             let url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
@@ -661,6 +662,9 @@
             }
             if (bicComparisonOverallPhase) {
                 url += "&bicComparisonOverallPhase=" + bicComparisonOverallPhase;
+            }
+            if (excludePartial) {
+                url += "&excludePartial=" + excludePartial;
             }
             $.ajax({
                 url: url,

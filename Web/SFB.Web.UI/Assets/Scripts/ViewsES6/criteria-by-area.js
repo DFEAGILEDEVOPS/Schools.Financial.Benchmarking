@@ -80,7 +80,7 @@
             currentSuggestionName = suggestion[field];
             $("#FindSchoolByLaCode").val(suggestion["id"]);
             window.location = `/BenchmarkCriteria/AdvancedCharacteristics?areaType=LACode&lacode=${suggestion["id"]}&Urn=${$("#Urn").val()}`
-                            +`&ComparisonType=${$("#ComparisonType").val()}&EstType=${$("#EstType").val()}`;
+                + `&ComparisonType=${$("#ComparisonType").val()}&EstType=${$("#EstType").val()}&ExcludePartial=${$("#ExcludePartial").val()}`;
         });
 
         $(targetInputElementName).bind("typeahead:autocomplete", function (src, suggestion) {
