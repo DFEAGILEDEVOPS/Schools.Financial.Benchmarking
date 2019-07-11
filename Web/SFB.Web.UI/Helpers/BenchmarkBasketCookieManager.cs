@@ -52,6 +52,11 @@ namespace SFB.Web.UI.Helpers
                         var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() {StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                         if ((listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT || listCookie.HomeSchoolUrn == benchmarkSchool.Urn) && !listCookie.BenchmarkSchools.Any(s => s.Urn == benchmarkSchool.Urn))
                         {
+                            if(listCookie.BenchmarkSchools.Any(s => s.Name == benchmarkSchool.Name))
+                            {
+                                benchmarkSchool.Name += " ";
+                            }
+
                             listCookie.BenchmarkSchools.Add(benchmarkSchool);
                         }
                         cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });

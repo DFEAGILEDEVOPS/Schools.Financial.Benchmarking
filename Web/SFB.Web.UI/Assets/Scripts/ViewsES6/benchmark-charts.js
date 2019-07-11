@@ -246,7 +246,7 @@
                     $(this).find('tspan').text(text);
                 }
 
-                if (schoolName === $("#HomeSchoolName").val()) {
+                if (urn === $("#HomeSchoolURN").val()) {
                     $(this).css("font-weight", "bold");
                 }
 
