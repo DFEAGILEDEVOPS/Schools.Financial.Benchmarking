@@ -246,15 +246,14 @@
     .img-button {
         display: inline-block;
         text-decoration: none;
+        color: black;
+        font-weight: bold;
 
         img.icon {
             vertical-align: middle;
             padding: 5px;
         }
 
-        span {
-            text-decoration: underline;
-        }
     }
 
     .print img.icon, .download img.icon {

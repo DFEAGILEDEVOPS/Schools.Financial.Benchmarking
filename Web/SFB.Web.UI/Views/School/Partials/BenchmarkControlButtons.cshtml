@@ -2,23 +2,23 @@
 <div class="compare-buttons-panel compare-buttons-panel--set-unset">
     <div class="compare-buttons-panel__column-full column-full">
             
-        <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default link-button font-small no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
+        <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-small no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
             <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt="Opens in a new window" />
             <span>Unset as default school</span>
         </button>
 
-        <button @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default link-button font-small no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
+        <button @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-small no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
             <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt="Opens in a new window" />
             <span>Set as default school</span>
         </button>
 
-        <a class="img-button compare-buttons-panel__button--auto sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]" aria-label="Automatic report. Opens in a new window.">
+        <a class="img-button no-underline compare-buttons-panel__button--auto sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]" aria-label="Automatic report. Opens in a new window.">
             <img class="icon" src="~/public/assets/images/icons/icon-file-download-small.png" alt="Opens in a new window" />
             <span id="DownloadLinkText">View quick comparison report</span>                  
         </a>
         <span class="help-icon inline-block hide-in-print">
             <span class="icon dark-blue">
-                <a href="#" class="js-modal" data-modal-title="Quick comparison report" data-modal-text="@String.Format(HelpTooltipText.QuickComparisonHelp, Request.QueryString["urn"])" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
+                <a href="#" class="js-modal no-underline" data-modal-title="Quick comparison report" data-modal-text="@String.Format(HelpTooltipText.QuickComparisonHelp, Request.QueryString["urn"])" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
                     <span class="visuallyhidden">Open more info text for Quick comparison report opens a popup</span>
                 </a>
             </span>

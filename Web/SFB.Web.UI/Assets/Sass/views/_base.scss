@@ -429,6 +429,10 @@ dialog {
     float: right
 }
 
+.black{
+    color: black!important;
+}
+
 .sticky.stick {
     margin-top: 0 !important;
     position: fixed;
@@ -651,6 +655,9 @@ abbr[title]{
 .download, .print, .pdf, .save {
     margin: 10px 0 20px 0;
     padding-left: 5px;
+    a{
+    color: black;
+    }
 
     @include media(mobile) {
         margin: 0 0 20px 0;
