@@ -34,10 +34,11 @@
 @mixin a-button {
     background: none;
     border: none;
-    color: $link-colour;
+    color: black;
     text-decoration: none;
     cursor: pointer;
     padding-left: 0;
     padding-right: 0;
     @include core-16;
+    font-weight: bold;
 }

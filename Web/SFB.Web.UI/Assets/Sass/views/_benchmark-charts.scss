@@ -349,6 +349,9 @@
         float: left;
         margin-right: 32px;
         padding-top: 1em;
+        a, span{
+            color: black;
+        }
 
         @include media(mobile) {
             width: 100%;
