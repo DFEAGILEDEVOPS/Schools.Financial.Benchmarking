@@ -68,7 +68,7 @@ else
                 {
                     <div id="MaintainedFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
-                            <input name="excludePartial" type="checkbox" value="true" checked />
+                            <input name="excludePartial" type="checkbox" value="true" checked disabled/>
                             <label for="excludePartial">
                                 Exclude maintained schools that don't have a complete set of financial data
                             </label>
@@ -83,7 +83,7 @@ else
                 {
                     <div id="AcademiesFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
-                            <input name="excludePartial" type="checkbox" value="true" checked />
+                            <input name="excludePartial" type="checkbox" value="true" checked disabled/>
                             <label for="excludePartial">
                                 Exclude academies that don't have a complete set of financial data
                             </label>
@@ -99,7 +99,7 @@ else
                 {
                     <div id="AllFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
-                            <input name="excludePartial" type="checkbox" value="true" checked />
+                            <input name="excludePartial" type="checkbox" value="true" checked disabled/>
                             <label for="excludePartial">
                                 Exclude schools that don't have a complete set of financial data
                             </label>
@@ -152,7 +152,9 @@ else
     }
 
     <script>
-        var defaultInput = $('#@Model.EstablishmentType');
-        defaultInput.click();
+        $().ready(function () {
+            var defaultInput = $('#@Model.EstablishmentType');
+            defaultInput.click();
+        });
     </script>
 }
