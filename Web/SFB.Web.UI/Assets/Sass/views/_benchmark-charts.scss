@@ -349,7 +349,8 @@
         float: left;
         margin-right: 32px;
         padding-top: 1em;
-        a, span{
+
+        a, span {
             color: black;
         }
 
@@ -431,90 +432,6 @@
 
     .help-image {
         vertical-align: top;
-    }
-
-    .score {
-        border-top-right-radius: 5px;
-        border-top-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-        font-size: 1.2rem;
-        text-align: center;
-        padding: .6em;
-        line-height: 14px;
-        margin: 0 0 0 1em;
-
-        &.well-below {
-            background-color: #df3034;
-            color: #fff;
-        }
-
-        &.below {
-            background-color: #f47738;
-            color: #fff;
-        }
-
-        &.average {
-            background-color: #ffbf47;
-        }
-
-        &.above {
-            background-color: #85994b;
-            color: #fff;
-        }
-
-        &.well-above {
-            background-color: #006435;
-            color: #fff;
-        }
-    }
-
-    .modal__score {
-        display: inline-block;
-        font-size: 1.4rem;
-        text-align: center;
-        width: 18%;
-        margin-left: 0.6em;
-
-        .score {
-            font-size: 1.4rem;
-            padding: 1em 0.3em;
-            margin: 0.5em 0;
-        }
-    }
-
-    .modal__score:first-of-type {
-        margin-left: 0;
-    }
-
-    .chart-table__score {
-        font-size: 1.4rem;
-        padding: .4em .2em;
-        line-height: 1.4rem;
-        margin: 0;
-        width: 50%;
-        float: right;
-    }
-
-    .chart__score {
-        font-size: 1.4rem;
-        padding: .21em .2em;
-        line-height: 1.4rem;
-        margin-right: 0;
-        margin-left: 0;
-        display: block;
-        float: none;
-
-        @include media(mobile) {
-            font-size: 1.2rem;
-            padding: 0.09em .2em;
-            line-height: 2.7rem;
-            margin: 0.23em 0;
-        }
-    }
-
-    .chart-table__score__text, .chart__score__text {
-        vertical-align: sub;
     }
 
     .chart-wrapper.bic {
@@ -651,4 +568,92 @@
             }
         }
     }
+
+    .bic-chart-wrapper{
+        margin-top: 10px;
+    }
+}
+
+.score {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: .6em;
+    line-height: 14px;
+    margin: 0 0 0 1em;
+
+    &.well-below {
+        background-color: #df3034;
+        color: #fff;
+    }
+
+    &.below {
+        background-color: #f47738;
+        color: #fff;
+    }
+
+    &.average {
+        background-color: #ffbf47;
+    }
+
+    &.above {
+        background-color: #85994b;
+        color: #fff;
+    }
+
+    &.well-above {
+        background-color: #006435;
+        color: #fff;
+    }
+}
+
+.modal__score {
+    display: inline-block;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 18%;
+    margin-left: 0.6em;
+
+    .score {
+        font-size: 1.4rem;
+        padding: 1em 0.3em;
+        margin: 0.5em 0;
+    }
+}
+
+.modal__score:first-of-type {
+    margin-left: 0;
+}
+
+.chart-table__score {
+    font-size: 1.4rem;
+    padding: .4em .2em;
+    line-height: 1.4rem;
+    margin: 0;
+    width: 50%;
+    float: right;
+}
+
+.chart__score {
+    font-size: 1.4rem;
+    padding: .21em .2em;
+    line-height: 1.4rem;
+    margin-right: 0;
+    margin-left: 0;
+    display: block;
+    float: none;
+
+    @include media(mobile) {
+        font-size: 1.2rem;
+        padding: 0.09em .2em;
+        line-height: 2.7rem;
+        margin: 0.23em 0;
+    }
+}
+
+.chart-table__score__text, .chart__score__text {
+    vertical-align: sub;
 }
