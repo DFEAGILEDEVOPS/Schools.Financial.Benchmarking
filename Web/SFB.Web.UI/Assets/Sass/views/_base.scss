@@ -458,6 +458,18 @@ dialog {
     @include a-button;
 }
 
+.map-button {
+    @include a-button;
+    font-size: 19px!important;
+}
+
+.tabs {
+    .a-button {
+        color: $link-colour;
+        font-weight: normal;
+    }
+}
+
 .back-to-main-chart-group-button {
     @include a-button;
     margin-bottom: 1em;
