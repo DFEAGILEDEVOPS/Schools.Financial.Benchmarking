@@ -569,8 +569,18 @@
         }
     }
 
-    .bic-chart-wrapper{
+    .bic-chart-wrapper {
         margin-top: 10px;
+    }
+
+    .chart-wrapper {
+        @include media(tablet) {
+            max-width: 708px;
+        }
+
+        @include media(desktop) {
+            max-width: 960px;
+        }
     }
 }
 

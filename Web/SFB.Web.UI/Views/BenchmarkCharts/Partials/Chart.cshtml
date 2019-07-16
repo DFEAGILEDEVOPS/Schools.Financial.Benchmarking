@@ -167,7 +167,7 @@
                     </details>
                 }
                 <div class="grid-row">
-                    <div class="column-full @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic-chart-wrapper" : "")">
+                    <div class="column-full no-padding @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic-chart-wrapper" : "")">
                         <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
                             <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                         </div>
