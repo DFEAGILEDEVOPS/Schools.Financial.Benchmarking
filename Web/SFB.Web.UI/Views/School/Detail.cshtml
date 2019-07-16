@@ -88,6 +88,7 @@ else
                 {
                     @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: {Model.PhoneNumber}\" aria-label=\"Call telephone number {Model.PhoneNumber}\">{Model.PhoneNumber}</a>")
                 }
+                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")                
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
