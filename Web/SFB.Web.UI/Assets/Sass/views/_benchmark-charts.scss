@@ -15,7 +15,7 @@
     }
 
     .highlight-field {
-        background-color: $pink;
+        background-color: $pink_contrast;
         color: white;
         padding-left: 10px;
         padding-right: 10px;
@@ -30,7 +30,7 @@
         font-weight: bold;
 
         &.index-highlight {
-            background-color: $pink;
+            background-color: $pink_contrast;
         }
 
         &.incompleteFinance-highlight, &.incompleteWorkforce-highlight {

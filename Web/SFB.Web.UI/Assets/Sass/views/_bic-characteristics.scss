@@ -1,7 +1,7 @@
 ﻿.bic-characteristics {
     .highlight {
         @include bold-16();
-        background-color: $pink;
+        background-color: $pink_contrast;
         color: $white;
         text-align: center;
         padding: 5px;
