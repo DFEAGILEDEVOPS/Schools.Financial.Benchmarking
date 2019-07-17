@@ -1139,12 +1139,14 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    TableColumns = new List<DataTableColumnViewModel>
-                    {
-                        new DataTableColumnViewModel
+                },
+
+                                        new ChartViewModel
                         {
                             Name = "Loan interest",
                             FieldName = "Interest charges for Loan and Bank",
+                            RevenueGroup = RevenueGroupType.Expenditure,
+                            ChartGroup = ChartGroupType.CostOfFinance,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes:</p>
 
@@ -1157,10 +1159,12 @@ namespace SFB.Web.UI.Helpers
                                         <li>interest received</li>
                                         </ul>"
                         },
-                        new DataTableColumnViewModel
+                        new ChartViewModel
                         {
                             Name = "Direct revenue financing (revenue contributions to capital)",
                             FieldName = SchoolTrustFinanceDBFieldNames.DIRECT_REVENUE,
+                                                RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.CostOfFinance,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes:</p>
 
@@ -1175,9 +1179,7 @@ namespace SFB.Web.UI.Helpers
                                 <ul>
                                 <li>funds specifically provided for capital purposes</li>
                                 </ul>"
-                        }
-                    }
-                },
+                        },
 
                 //Community
                 new ChartViewModel()
@@ -1295,7 +1297,7 @@ namespace SFB.Web.UI.Helpers
                     <h3 class=""heading-small"">For single academy trusts, revenue reserves include:</h3>		
                     <ul><li>the closing balance (restricted and unrestricted funds) carried forward from the previous year, plus total income in the current year (revenue, funds inherited on conversion/transfer and contributions from academies to trust) minus total expenditure in the current year.</li></ul>		                    
                     <p>For multi-academy trusts, the trust is the legal entity and all revenue reserves belong legally to the trust. We aggregate all declared reserves to trust level and they appear under the trust. The total can be seen by looking up the trust on the website, selecting ‘Balance' and choosing ‘Trust and academies' or ‘Trust only’ from the dropdown under ‘Central financing’.</p>
-                    <p>For single academies within a multi-academy trusts, we've estimated a value per academy by apportioning the trust’s reserves on a pro-rata basis using the FTE number of pupils in each academy within that MAT. This can be seen by looking up the academy, selecting ‘Balance’ and choosing 'Academy and trust proportion’ from the dropdown under ‘Central financing’.</p>",                    
+                    <p>For single academies within a multi-academy trusts, we've estimated a value per academy by apportioning the trust’s reserves on a pro-rata basis using the FTE number of pupils in each academy within that MAT. This can be seen by looking up the academy, selecting ‘Balance’ and choosing 'Academy and trust proportion’ from the dropdown under ‘Central financing’.</p>",
                     ChartType = ChartType.Total,
                     Downloadable = true
                 },

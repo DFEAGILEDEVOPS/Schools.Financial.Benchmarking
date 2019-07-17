@@ -1196,9 +1196,9 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.CostOfFinance,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
-                    SubCharts = new List<ChartViewModel>()
-                    {
-                        new ChartViewModel
+                    ChartType = ChartType.Total
+                },
+                                        new ChartViewModel
                         {
                             Name = "Loan interest",
                             FieldName = SchoolTrustFinanceDBFieldNames.INTEREST_CHARGES,
@@ -1237,8 +1237,6 @@ namespace SFB.Web.UI.Helpers
                                 <li>funds specifically provided for capital purposes</li>
                                 </ul>"
                         },
-                    }
-                },
 
                 //Community
                 new ChartViewModel()
