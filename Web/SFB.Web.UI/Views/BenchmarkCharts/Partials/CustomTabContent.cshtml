@@ -69,7 +69,7 @@
                                 <div class="accordion-section-body">
                                     <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="chart-selection" ng-class="{'show-details': ctrl.query}">
                                         <div class="multiple-choice-header column-quarter">
-                                            <label class="bold-xsmall">{{chart.Name}}</label>
+                                            <span class="bold-xsmall">{{chart.Name}}</span>
                                         </div>
                                         <div class="multiple-choices column-three-quarters">
                                             <div class="multiple-choice" ng-show="chart.PerPupilAvailable">
