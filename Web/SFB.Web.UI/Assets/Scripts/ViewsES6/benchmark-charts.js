@@ -12,6 +12,12 @@
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
             $('.save-as-image').show();
+
+            $(document).keyup((e) => {
+                if (e.key === "Escape") { // escape key maps to keycode `27`
+                    $(".c3-tooltip-container").hide();
+                }
+            });
         });
 
         GOVUK.Modal.Load();
@@ -464,8 +470,8 @@
                 },
 
                 show: $("#Type").val() !== "MAT",
-                position: () => {
-                    return { top: 0, left: 0 };
+                position: (data, width, height, element) => {
+                    return { top: 0, left: 15 };
                 }
             },
             padding: {
