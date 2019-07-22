@@ -193,15 +193,19 @@
             this.clear();
         });
 
-        //$(".min-js").focusout((event) => {
-        //    let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
-        //    maxInput.valid();
-        //});
+        $(".min-js").focusout((event) => {
+            let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
+            if (!maxInput[0].validity.valueMissing) {
+                maxInput.valid();
+            }
+        });
 
-        //$(".max-js").focusout((event) => {
-        //    let minInput = $(event.target.parentNode.parentNode).find(".min-js");
-        //    minInput.valid();
-        //});
+        $(".max-js").focusout((event) => {
+            let minInput = $(event.target.parentNode.parentNode).find(".min-js");
+            if (!minInput[0].validity.valueMissing) {
+                minInput.valid();
+            }
+        });
     }
 }
 
