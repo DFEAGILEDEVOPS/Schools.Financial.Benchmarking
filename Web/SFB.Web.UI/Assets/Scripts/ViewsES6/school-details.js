@@ -16,7 +16,6 @@
                 (data) => {
                     $("#benchmarkControlsPlaceHolder").html(data);
                     GOVUK.Modal.Load();
-                    $('.sticky-div').Stickyfill();
                 });
         }
 

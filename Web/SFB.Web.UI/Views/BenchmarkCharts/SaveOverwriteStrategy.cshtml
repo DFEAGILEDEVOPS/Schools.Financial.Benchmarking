@@ -1,16 +1,8 @@
-﻿@model SFB.Web.UI.Models.BenchmarkCriteriaVM
+﻿@model SFB.Web.UI.Models.SaveOverwriteViewModel
 
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "overwrite-strategy";
-}
-
-@section BackButtonContent{
-    @{
-        ViewBag.HomeSchoolId = ViewBag.URN;
-        ViewBag.HomeSchoolName = ViewBag.HomeSchoolName;
-    }
-    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
@@ -30,10 +22,10 @@
 <h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
 
 <p>
-    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. You can replace them or retain them alongside those matching the characteristics you've just selected.
+    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. You can replace them or retain them alongside the saved schools from the link.
 </p>
 
-<form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post">
+<form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
     <div class="form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "form-group-error")">
 
         <fieldset>
@@ -58,27 +50,17 @@
 
         </fieldset>
     </div>
+
+    <input type="hidden" id="urns" name="urns" value="@Model.SavedUrns" />
+
     <div class="grid-row font-xsmall">
         <div class="column-one-third">
             <div class="column-one-third next-button">
                 <button type="submit" class="button">Next</button>
             </div>
             <div class="column-one-third back-button">
-                <input type="submit" class="link-button" formaction="/BenchmarkCriteria/AdvancedCharacteristics" value="Back">
+                <a href="/">Cancel</a>
             </div>
         </div>
-    </div>
-
-    <div id="criteria">
-
-        @Html.Partial("Partials/AdvancedCriteriaHiddenFields", Model.AdvancedCriteria)
-
-        <input type="hidden" name="Urn" value="@ViewBag.URN">
-        <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
-        <input type="hidden" name="EstType" value="@ViewBag.EstType">
-        <input type="hidden" name="AreaType" value="@ViewBag.AreaType">
-        <input type="hidden" name="LaCode" value="@ViewBag.LaCode">
-        <input type="hidden" name="ExcludePartial" value="@ViewBag.ExcludePartial">
-
     </div>
 </form>

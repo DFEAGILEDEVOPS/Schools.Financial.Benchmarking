@@ -189,19 +189,19 @@
         if (this.jqxhr) {
             this.jqxhr.abort();
         }
-        this.jqxhr = $.post("TrustComparison/GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
+        this.jqxhr = $.post("TrustComparison/GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
             .done(function (count) {
                 $("#schoolCount").text("Searching");
                 setTimeout(function () { $("#schoolCount").text(count + " trusts found"); }, 500);
                 $("button.view-benchmark-charts").attr("aria-label", "View " + count + " trusts in a benchmark chart");
                 $("#liveCountBar").show();
-                if (count > 0) {
-                    $("button.submit").show();
-                    $("button.submit").removeAttr("disabled");
-                } else {
-                    $("button.submit").hide();
-                    $("button.submit").attr("disabled", "disabled");
-                }
+                //if (count > 0) {
+                //    $("button.submit").show();
+                //    $("button.submit").removeAttr("disabled");
+                //} else {
+                //    $("button.submit").hide();
+                //    $("button.submit").attr("disabled", "disabled");
+                //}
                 $('.sticky-div').Stickyfill();
             });
     }

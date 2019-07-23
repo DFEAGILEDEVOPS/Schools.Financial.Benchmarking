@@ -18,6 +18,7 @@ using System.Web.UI;//Do not remove. Required in release mode build
 using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.ApiWrappers;
 using SFB.Web.UI.Attributes;
+using SFB.Web.Domain.Services;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -31,10 +32,11 @@ namespace SFB.Web.UI.Controllers
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
         private readonly IApiRequest _apiRequest;
+        private readonly ILocalAuthoritiesService _laSearchService;
 
         public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IApiRequest apiRequest)
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IApiRequest apiRequest, ILocalAuthoritiesService laSearchService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
@@ -43,6 +45,7 @@ namespace SFB.Web.UI.Controllers
             _csvBuilder = csvBuilder;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
             _apiRequest = apiRequest;
+            _laSearchService = laSearchService;
         }
 
         #if !DEBUG
@@ -78,6 +81,7 @@ namespace SFB.Web.UI.Controllers
             }
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(tab, chartGroup, financing, schoolDetailsFromEdubase);
+            schoolVM.LaName = _laSearchService.GetLaName(schoolVM.La.ToString());
 
             UnitType unitType;
             switch (tab)
@@ -148,7 +152,7 @@ namespace SFB.Web.UI.Controllers
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction, null);
             }                       
 
-            return PartialView("Partials/DesktopStickingBenchmarkListBanner",
+            return PartialView("Partials/BenchmarkListBanner",
                 new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
         
@@ -168,13 +172,13 @@ namespace SFB.Web.UI.Controllers
                     });
             }
 
-            return PartialView("Partials/DesktopStickingBenchmarkListBanner",
+            return PartialView("Partials/BenchmarkListBanner",
                 new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetBenchmarkBasket()
         {
-            return PartialView("Partials/DesktopStickingBenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
         public PartialViewResult GetBenchmarkControls(int urn)

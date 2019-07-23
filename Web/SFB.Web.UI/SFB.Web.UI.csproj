@@ -288,6 +288,7 @@
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
     <Compile Include="Models\LocationListViewModel.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
+    <Compile Include="Models\SaveOverwriteViewModel.cs" />
     <Compile Include="Models\SchoolComparisonListModel.cs" />
     <Compile Include="Models\ChartViewModel.cs" />
     <Compile Include="Models\EstablishmentViewModelBase.cs" />
@@ -624,7 +625,7 @@
     <Content Include="Views\Shared\Partials\Pagination.cshtml" />
     <Content Include="Views\School\Partials\ValueSelect.cshtml" />
     <Content Include="Views\BenchmarkList\Index.cshtml" />
-    <Content Include="Views\Shared\Partials\StickingBenchmarkListBanner.cshtml" />
+    <Content Include="Views\Shared\Partials\BenchmarkListBanner.cshtml" />
     <Content Include="Views\BenchmarkCharts\Index.cshtml" />
     <Content Include="Views\School\Partials\ChartGroups.cshtml" />
     <Content Include="Views\SchoolSearch\Partials\FilterForm.cshtml" />
@@ -710,7 +711,8 @@
     <Content Include="Views\BenchmarkCharts\Partials\BicTabContent.cshtml" />
     <Content Include="Views\BenchmarkCriteria\HighestProgressSchoolsBenchmarking.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedOneClickCriteria.cshtml" />
-    <Content Include="Views\Shared\Partials\DesktopStickingBenchmarkListBanner.cshtml" />
+    <Content Include="Views\BenchmarkCharts\SaveOverwriteStrategy.cshtml" />
+    <Content Include="Views\BenchmarkCharts\ReplaceWithSavedBasket.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

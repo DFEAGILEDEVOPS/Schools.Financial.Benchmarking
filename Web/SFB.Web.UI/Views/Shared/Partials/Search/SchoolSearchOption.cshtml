@@ -12,8 +12,8 @@
         <span class="error-message">@Model.ErrorMessage</span>
     }
     <div class="multiple-choice" style="float:none">
-        <input id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
-        <label class="search-types__optional-section__label" for="openOnlyLocation">Include open schools only</label>
+        <input id="openOnlyName" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
+        <label class="search-types__optional-section__label" for="openOnlyName">Include open schools only</label>
     </div>
     <input id="FindByNameId"
            class="form-control"

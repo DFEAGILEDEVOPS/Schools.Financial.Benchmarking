@@ -36,65 +36,125 @@ else
 }
 
 <div class="steps">
-@if (ViewBag.ComparisonType == ComparisonType.Advanced)
-{
-    <span>Step 1 of 3</span>
-}
-else
-{
-    <span>Step 2 of 3</span>
-}
+    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+    {
+        <span>Step 1 of 3</span>
+    }
+    else
+    {
+        <span>Step 2 of 3</span>
+    }
 </div>
 
 <section class="section" aria-labelledby="fieldset-legend">
-            @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-            {
-                Html.BeginForm("ChooseRegion", "BenchmarkCriteria", FormMethod.Get);
-            }
-            else
-            {
-                Html.BeginForm("SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get);
-            }
-                <div class="form-group">
-                    <fieldset>
-                        <legend id="fieldset-legend">Which schools would you like to include?</legend>
+    <div id="SchoolTypesAccordion" class="search-types" aria-live="polite">
+        @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+        {
+            Html.BeginForm("ChooseRegion", "BenchmarkCriteria", FormMethod.Get);
+        }
+        else
+        {
+            Html.BeginForm("SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get);
+        }
+        <div class="form-group">
+            <fieldset role="radiogroup" id="RadioFieldSet">
+                <legend id="fieldset-legend">Which schools would you like to include?</legend>
 
-                        <div class="multiple-choice">
-                            <input id="radio-1" type="radio" name="EstType" value="Maintained" @Html.Raw(Model.EstablishmentType == EstablishmentType.Maintained ? "checked" : "")>
-                            <label class="selection-button-radio" for="radio-1">Maintained schools</label>
-                        </div>
-
-                        <div class="multiple-choice">
-                            <input id="radio-2" type="radio" name="EstType" value="Academies" @Html.Raw(Model.EstablishmentType == EstablishmentType.Academies ? "checked" : "")>
-                            <label class="selection-button-radio" for="radio-2">Academies</label>
-                        </div>
-
-                        <div class="multiple-choice">
-                            <input id="radio-3" type="radio" name="EstType" value="All">
-                            <label class="selection-button-radio" for="radio-3">All schools</label>
-                        </div>
-                    </fieldset>
+                <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
+                    <input id="Maintained" type="radio" name="EstType" value="Maintained">
+                    <label class="selection-button-radio" for="Maintained">Maintained schools</label>
                 </div>
-                <div class="grid-row font-xsmall">
-                    <div class="column-one-third">
-                        <div class="column-one-third next-button">
-                            <button type="submit" class="button">Next</button>
-                        </div>
-                        <div class="column-one-third back-button">
-                            @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-                            {
-                                <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
-                            }
-                            else
-                            {
-                                <a href="SelectBasketSize?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
-                            }
+                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                {
+                    <div id="MaintainedFieldset" class="form-group optional-section panel panel-border-narrow">
+                        <div class="multiple-choice" style="float:none">
+                            <input id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled/>
+                            <label for="excludePartialMaintained">
+                                Exclude maintained schools that don't have a complete set of financial data
+                            </label>
                         </div>
                     </div>
+                }
+                <div id="AcademiesContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AcademiesFieldset">
+                    <input id="Academies" type="radio" name="EstType" value="Academies">
+                    <label class="selection-button-radio" for="Academies">Academies</label>
                 </div>
+                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                {
+                    <div id="AcademiesFieldset" class="form-group optional-section panel panel-border-narrow">
+                        <div class="multiple-choice" style="float:none">
+                            <input id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled/>
+                            <label for="excludePartialAcademies">
+                                Exclude academies that don't have a complete set of financial data
+                            </label>
+                        </div>
+                    </div>
+                }
 
-                <input type="hidden" name="Urn" value="@ViewBag.URN">
-                <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
-                <input type="hidden" name="BasketSize" value="@ViewBag.BasketSize">
-            </form>
-    </section>
+                <div id="AllContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AllFieldset">
+                    <input id="All" type="radio" name="EstType" value="All">
+                    <label class="selection-button-radio" for="All">All schools</label>
+                </div>
+                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                {
+                    <div id="AllFieldset" class="form-group optional-section panel panel-border-narrow">
+                        <div class="multiple-choice" style="float:none">
+                            <input id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled/>
+                            <label for="excludePartialAll">
+                                Exclude schools that don't have a complete set of financial data
+                            </label>
+                        </div>
+                    </div>
+                }
+            </fieldset>
+        </div>
+        <div class="grid-row font-xsmall">
+            <div class="column-one-third">
+                <div class="column-one-third next-button">
+                    <button type="submit" class="button">Next</button>
+                </div>
+                <div class="column-one-third back-button">
+                    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                    {
+                        <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
+                    }
+                    else
+                    {
+                        <a href="SelectBasketSize?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="Urn" value="@ViewBag.URN">
+        <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
+        <input type="hidden" name="BasketSize" value="@ViewBag.BasketSize">
+        </form>
+    </div>
+</section>
+
+@section ViewScripts {
+
+    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+    {
+        <script>
+            GOVUK.Accordion.bindElements("SchoolTypesAccordion");
+
+            $().ready(function () {
+                var inputs = $("#SchoolTypesAccordion .js-accordion");
+                inputs.click(function (event) {
+                    $("input:checkbox[name='excludePartial']").prop('disabled', true);
+                    $(event.currentTarget).next().find("input:checkbox[name='excludePartial']").prop('disabled', false);
+                });
+            });
+
+        </script>
+    }
+
+    <script>
+        $().ready(function () {
+            var defaultInput = $('#@Model.EstablishmentType');
+            defaultInput.click();
+        });
+    </script>
+}

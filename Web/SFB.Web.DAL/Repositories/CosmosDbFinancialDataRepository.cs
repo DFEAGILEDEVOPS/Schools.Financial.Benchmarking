@@ -298,12 +298,12 @@ namespace SFB.Web.DAL.Repositories
             }
         }
 
-        public async Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
+        public async Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial = false)
         {
             if (estType == EstablishmentType.All)
             {
-                var maintainedSchoolsTask = QueryDBSchoolCollectionAsync(criteria, DataGroups.Maintained);
-                var academiesTask = QueryDBSchoolCollectionAsync(criteria, DataGroups.Academies);
+                var maintainedSchoolsTask = QueryDBSchoolCollectionAsync(criteria, DataGroups.Maintained, excludePartial);
+                var academiesTask = QueryDBSchoolCollectionAsync(criteria, DataGroups.Academies, excludePartial);
                 var maintainedSchools = (await maintainedSchoolsTask).ToList();
                 var academies = (await academiesTask).ToList();
                 maintainedSchools.AddRange(academies);
@@ -311,22 +311,22 @@ namespace SFB.Web.DAL.Repositories
             }
             else
             {
-                return (await QueryDBSchoolCollectionAsync(criteria, estType.ToDataGroup())).ToList();
+                return (await QueryDBSchoolCollectionAsync(criteria, estType.ToDataGroup(), excludePartial)).ToList();
             }
         }
 
-        public async Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
+        public async Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial = false)
         {
             if (estType == EstablishmentType.All)
             {
-                var maintainedSchoolsCountTask = QueryDBSchoolCollectionForCountAsync(criteria, DataGroups.Maintained);
-                var academiesCountTask = QueryDBSchoolCollectionForCountAsync(criteria, DataGroups.Academies);
+                var maintainedSchoolsCountTask = QueryDBSchoolCollectionForCountAsync(criteria, DataGroups.Maintained, excludePartial);
+                var academiesCountTask = QueryDBSchoolCollectionForCountAsync(criteria, DataGroups.Academies, excludePartial);
                 return (await maintainedSchoolsCountTask).First() + (await academiesCountTask).First();
             }
             else
             {
                 var type = estType == EstablishmentType.Academies ? DataGroups.Academies : DataGroups.Maintained;
-                var result = (await QueryDBSchoolCollectionForCountAsync(criteria, type)).First();
+                var result = (await QueryDBSchoolCollectionForCountAsync(criteria, type, excludePartial)).First();
                 return result;
             }
         }
@@ -363,13 +363,18 @@ namespace SFB.Web.DAL.Repositories
             return (await result.QueryAsync()).First();
         }
 
-        private async Task<IEnumerable<SchoolTrustFinancialDataObject>> QueryDBSchoolCollectionAsync(BenchmarkCriteria criteria, string dataGroup)
+        private async Task<IEnumerable<SchoolTrustFinancialDataObject>> QueryDBSchoolCollectionAsync(BenchmarkCriteria criteria, string dataGroup, bool excludePartial = false)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(dataGroup);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
             query = Exclude6Forms(query);
+
+            if(excludePartial)
+            {
+                query = ExcludePartials(query);
+            }
 
             if (string.IsNullOrEmpty(query))
             {
@@ -455,13 +460,18 @@ namespace SFB.Web.DAL.Repositories
             return await result.QueryAsync();
         }
 
-        private async Task<IEnumerable<int>> QueryDBSchoolCollectionForCountAsync(BenchmarkCriteria criteria, string type)
+        private async Task<IEnumerable<int>> QueryDBSchoolCollectionForCountAsync(BenchmarkCriteria criteria, string type, bool excludePartial = false)
         {
             var collectionName = _dataCollectionManager.GetLatestActiveCollectionIdByDataGroup(type);
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
             query = Exclude6Forms(query);
+
+            if (excludePartial)
+            {
+                query = ExcludePartials(query);
+            }
 
             if (string.IsNullOrEmpty(query))
             {
@@ -502,7 +512,20 @@ namespace SFB.Web.DAL.Repositories
 
         private string Exclude6Forms(string query)
         {
+            if(string.IsNullOrEmpty(query))
+            {
+                return $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'] != 'Free 16-19'";
+            }
             return $"{query} AND c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'] != 'Free 16-19'";
+        }
+
+        private string ExcludePartials(string query)
+        {
+            if(string.IsNullOrEmpty(query))
+            {
+                return $"c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] = 12";
+            }
+            return $"{query} AND c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] = 12";
         }
 
         private string BuildQueryFromBenchmarkCriteria(BenchmarkCriteria criteria)

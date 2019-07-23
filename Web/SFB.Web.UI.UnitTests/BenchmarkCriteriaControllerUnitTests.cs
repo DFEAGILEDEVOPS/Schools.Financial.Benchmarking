@@ -57,7 +57,7 @@ namespace SFB.Web.UI.UnitTests
                 return new List<SchoolTrustFinancialDataObject> { testResult };
             });
 
-            _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>()))
+            _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
 
             var _mockDataCollectionManager = new Mock<IDataCollectionManager>();

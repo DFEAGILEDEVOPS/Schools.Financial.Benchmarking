@@ -1,6 +1,6 @@
 ﻿@mixin highlighting {
     .highlight {
-        background-color: $pink;
+        background-color: $pink_contrast;
         display: inline;
         padding: 5px 5px;
 
@@ -9,16 +9,16 @@
             line-height: 1.8em;
         }
 
-        a{
-            text-decoration:none;
-            &:hover{
+        a {
+            text-decoration: none;
+
+            &:hover {
                 text-decoration: underline;
                 color: white;
             }
         }
 
-        @include media(mobile)
-        {
+        @include media(mobile) {
             margin-bottom: 5px;
         }
     }
@@ -34,10 +34,11 @@
 @mixin a-button {
     background: none;
     border: none;
-    color: $link-colour;
+    color: black;
     text-decoration: none;
     cursor: pointer;
     padding-left: 0;
     padding-right: 0;
     @include core-16;
+    font-weight: bold;
 }

@@ -14,11 +14,11 @@
     <script src="~/node_modules/angular/angular.min.js"></script>
 }
 
-@section StickyContent
+@section BMListBannerContent
 {
     @if (Model.EstablishmentType != EstablishmentType.MAT)
     {
-        @Html.Partial("Partials/DesktopStickingBenchmarkListBanner")
+        @Html.Partial("Partials/BenchmarkListBanner")
     }
 }
 
@@ -128,8 +128,8 @@ else
     <div class="charts-section">
         <div class="grid-row">
             <div class="column-full font-xsmall chartTable hide-in-print">
-                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline link-button font-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
-                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline link-button font-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
+                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
+                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
             </div>
         </div>
         <div class="font-xsmall latest-year-message">
@@ -146,6 +146,7 @@ else
     <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
     <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />
     <input type="hidden" id="HomeSchoolName" name="HomeSchoolName" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
+    <input type="hidden" id="HomeSchoolURN" name="HomeSchoolURN" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustCompanyNo.ToString() : Model.SchoolComparisonList.HomeSchoolUrn)" />
 
 }
 

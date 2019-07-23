@@ -12,6 +12,12 @@
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
             $('.save-as-image').show();
+
+            $(document).keyup((e) => {
+                if (e.key === "Escape") { // escape key maps to keycode `27`
+                    $(".c3-tooltip-container").hide();
+                }
+            });
         });
 
         GOVUK.Modal.Load();
@@ -246,7 +252,7 @@
                     $(this).find('tspan').text(text);
                 }
 
-                if (schoolName === $("#HomeSchoolName").val()) {
+                if (urn === $("#HomeSchoolURN").val()) {
                     $(this).css("font-weight", "bold");
                 }
 
@@ -415,7 +421,7 @@
                 }
             },
             size: {
-                height: (barCount + 1) * 30 * (isMobile ? 1.3 : 1)
+                height: (barCount > 3 ? barCount + 1 : barCount + 1.5) * 30 * (isMobile ? 1.3 : 1)
             },
             bar: {
                 width: 20 * (isMobile ? 1.4 : 1)
@@ -464,8 +470,8 @@
                 },
 
                 show: $("#Type").val() !== "MAT",
-                position: () => {
-                    return { top: 0, left: 0 };
+                position: (data, width, height, element) => {
+                    return { top: 0, left: 15 };
                 }
             },
             padding: {
@@ -615,8 +621,9 @@
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
-            $("#tabsSection").empty('');
-            $("#tabsSection").show();
+            $("#tabsSection form").empty('');
+            $("#tabsSection .sticky-chart-controls").empty('');
+            $("#tabsSection").hide();
             $("#customTabSection").show();
             $("#downloadLinkContainer").hide();
             $("#PrintLinkText").text(" Print report");
@@ -642,6 +649,7 @@
             let typeParameter = $("#Type").val();
             let comparisonType = $("#ComparisonType").val();
             let bicComparisonOverallPhase = $("#BicComparisonOverallPhase").val();
+            let excludePartial = $("#ExcludePartial").val();
             let formatParameter = sessionStorage.chartFormat;
             let url = "/benchmarkcharts/tabchange?tab=" + tab +
                 "&type=" + typeParameter +
@@ -661,6 +669,9 @@
             if (bicComparisonOverallPhase) {
                 url += "&bicComparisonOverallPhase=" + bicComparisonOverallPhase;
             }
+            if (excludePartial) {
+                url += "&excludePartial=" + excludePartial;
+            }
             $.ajax({
                 url: url,
                 datatype: 'json',
@@ -668,7 +679,8 @@
                     $("#bestInClassTabSection").hide();
                     $("#customTabSection").hide();
                     $("#tabsSection").show();
-                    DfE.Util.LoadingMessage.display("#tabsSection", "Updating charts");
+                    DfE.Util.LoadingMessage.display(".sticky-chart-controls", "Updating charts");
+                    $("#tabsSection form").hide();
                 },
                 success: (data) => {
                     $(".tabs li").removeClass("active");
@@ -678,12 +690,17 @@
                     $("#downloadLinkContainer").show();
                     $("#PrintLinkText").text(" Print page");
                     $("#PdfLinkText").text(" Download PDF");
-                    $("#tabsSection").html(data);
+                    let stickyDivHtml = $(data).find(".sticky-div").html();
+                    $("#tabsSection .sticky-chart-controls").html(stickyDivHtml);
+                    let formHtml = $(data).find("form").html();
+                    $("#tabsSection form").html(formHtml);
+                    $("#tabsSection form").show();
+                    $('.sticky-div').Stickyfill();  
                     $("table.data-table-js").tablesorter();
                     let unitParameter = $("#ShowValue").val();
                     this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
-                    this.GenerateCharts(unitParameter);
+                    this.GenerateCharts(unitParameter);                  
                 }
             });
         }
@@ -835,11 +852,11 @@
 
         var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
             "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
-            "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1><p id='modal-content'><br/>";
+            "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1>";
         if (isMAT) {
-            $modal_code += "<p>Some of this trust's schools have data from a period less than 12 months.</p>";
+            $modal_code += "<p id='modal-content'><br/>Some of this trust's schools have data from a period less than 12 months.</p>";
         } else {
-            $modal_code += "<p>This school doesn't have a complete set of financial data for this period.</p>";
+            $modal_code += "<p id='modal-content'><br/>This school doesn't have a complete set of financial data for this period.</p>";
         }
 
         $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";

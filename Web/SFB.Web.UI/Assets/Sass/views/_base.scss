@@ -46,8 +46,8 @@
             position: absolute;
             right: 20px;
             top: 30px;
-            width: 105px;
-            font-size: 15.2px;
+            width: 120px;
+            font-size: 16px;
             text-align: right;
 
             @include media(mobile) {
@@ -62,32 +62,64 @@
 }
 
 .sticky-div {
-
-    @extend %banner-box;
     position: -webkit-sticky; // required for Safari
     position: sticky;
     top: 0; // required as well.
     z-index: 10000;
     //margin-top: 10px;
+    }
+
+.banner {
+    @extend %banner-box;
+
     &__comparison-list-info-panel {
         @include core-16;
         background-color: #D9ECE2;
         padding: 20px;
 
-        &__count {
-            font-weight: bold;
-            margin-right: 20px;
+        .message {
+            display: block;
+            margin-bottom: 10px;
+
+            @include media(desktop) {
+                display: inline-block;
+                margin-bottom: 0;
+            }
         }
 
-        &__edit-basket, &__clear-basket, &__clear-criteria {
-            text-decoration: none;
+        &__count {
             font-weight: bold;
+        }
+
+        &__edit-basket {
+            margin-left: 0;
+            width: 100%;
+
+            @include media(desktop) {
+                margin-left: 15px;                
+                width: auto;
+            }
+        }
+
+        &__clear-criteria {
             margin-right: 15px;
+            margin-left: 15px;
 
             @include media(mobile) {
                 margin-left: 0;
                 margin-top: 10px;
+                display: block;
+            }
+        }
+
+        .add-schools{
+            display: block;
+            margin-top: 10px;
+            
+            @include media(tablet){
                 display: inline-block;
+                float: right;
+                margin-top: 0;
             }
         }
 
@@ -112,12 +144,10 @@
             display: block;
             margin-top: 10px;
         }
-    }
-}
 
-.desktop-only-sticky-div {
-    @include media(mobile) {
-        position: unset;
+        @include media(mobile) {
+            margin-top: 1em;
+        }
     }
 }
 
@@ -233,6 +263,10 @@ div.download-links{
     margin-top:10px;
     margin-bottom:15px;
     margin-left: -5px;
+    
+    a, span{
+        color: black;
+    }
 }
 
 a.disabled{
@@ -395,6 +429,10 @@ dialog {
     float: right
 }
 
+.black{
+    color: black!important;
+}
+
 .sticky.stick {
     margin-top: 0 !important;
     position: fixed;
@@ -402,6 +440,10 @@ dialog {
     z-index: 10000;
     border-radius: 0 0 0.5em 0.5em;
     width:50%;
+}
+
+.white-font{
+    color: white!important;
 }
 
 .link-button {
@@ -418,6 +460,18 @@ dialog {
 
 .a-button {
     @include a-button;
+}
+
+.map-button {
+    @include a-button;
+    font-size: 19px!important;
+}
+
+.tabs {
+    .a-button {
+        color: $link-colour;
+        font-weight: normal;
+    }
 }
 
 .back-to-main-chart-group-button {
@@ -443,10 +497,19 @@ abbr[title]{
     text-decoration-style: dotted;
 }
 
-.orange-warning{
+.orange-warning {
     border-color: $orange;
     background-color: bisque;
-    margin-top:15px;
+    margin-top: 15px;
+
+    @include media(mobile) {
+        display: inline-flex;
+
+        .shared-icon-wrapper {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
 }
 
 .no-padding{
@@ -535,6 +598,14 @@ abbr[title]{
     padding-bottom: 1em;
 }
 
+.pl-0 {
+    padding-left: 0;
+}
+
+.pr-0 {
+    padding-right: 0;
+}
+
 .pl-1 {
     padding-left: 1em;
 }
@@ -600,6 +671,9 @@ abbr[title]{
 .download, .print, .pdf, .save {
     margin: 10px 0 20px 0;
     padding-left: 5px;
+    a{
+    color: black;
+    }
 
     @include media(mobile) {
         margin: 0 0 20px 0;
@@ -960,3 +1034,16 @@ nav.tabs ol li {
     }
 }
 
+.dfs-panel {
+    background-color: rgba(0, 94, 165, 0.0980392156862745);
+    border-color: $govuk-blue;
+    margin-top: 0.8em;
+    float: left;
+    font-size: 16px;
+    width: 100%;
+}
+
+.mag-icon {
+    margin-right: 3px;
+    vertical-align: middle;
+}

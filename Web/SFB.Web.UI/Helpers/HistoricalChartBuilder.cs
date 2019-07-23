@@ -135,7 +135,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
                     MoreInfo = @"",
-                    DrillInto = ChartGroupType.Staff
+                    DrillInto = ChartGroupType.Staff,
+                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
 
                 new ChartViewModel()
@@ -147,7 +148,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DrillInto = ChartGroupType.Premises
+                    DrillInto = ChartGroupType.Premises,
+                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
                 },
 
                 new ChartViewModel()
@@ -160,7 +162,8 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.Occupation,
-                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp,
+                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
                 },
 
                 new ChartViewModel()
@@ -172,7 +175,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DrillInto = ChartGroupType.SuppliesAndServices
+                    DrillInto = ChartGroupType.SuppliesAndServices,
+                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
 
                 new ChartViewModel()
@@ -255,7 +259,8 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
-                    MoreInfo = @""
+                    MoreInfo = @"",
+                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
                 new ChartViewModel()
                 {
@@ -563,7 +568,8 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.Premises,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    ChartType = ChartType.Total,
+                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
                 },
                 new ChartViewModel()
                 {
@@ -706,7 +712,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp
+                    HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp,
+                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
                 },
                 new ChartViewModel()
                 {
@@ -913,7 +920,8 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    ChartType = ChartType.Total,
+                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
                 new ChartViewModel()
                 {
@@ -1188,9 +1196,9 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.CostOfFinance,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
-                    SubCharts = new List<ChartViewModel>()
-                    {
-                        new ChartViewModel
+                    ChartType = ChartType.Total
+                },
+                                        new ChartViewModel
                         {
                             Name = "Loan interest",
                             FieldName = SchoolTrustFinanceDBFieldNames.INTEREST_CHARGES,
@@ -1229,8 +1237,6 @@ namespace SFB.Web.UI.Helpers
                                 <li>funds specifically provided for capital purposes</li>
                                 </ul>"
                         },
-                    }
-                },
 
                 //Community
                 new ChartViewModel()

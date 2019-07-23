@@ -19,6 +19,16 @@
 
 
     validateForm() {
+        $.validator.methods.maxGreaterThanMin = (value, element) => {
+            let minValue = $(element.parentNode.parentNode).find(".min-js").val();
+            return minValue === "" || parseFloat(value) >= parseFloat(minValue);
+        };
+
+        $.validator.methods.minLowerThanMax = (value, element) => {
+            let maxValue = $(element.parentNode.parentNode).find(".max-js").val();
+            return maxValue === "" || parseFloat(value) <= parseFloat(maxValue);
+        };
+
         $('#criteriaForm').
             validate({
                 errorPlacement: (error, element) => {
@@ -35,31 +45,38 @@
                     }
                 }
             });
+
+        $(".max-js").each((index, element) => $(element).rules("add", {
+            maxGreaterThanMin: ""
+        }));
+
+        $(".min-js").each((index, element) => $(element).rules("add", {
+            minLowerThanMax: ""
+        }));
     }
 
     updateResultCount() {
         if (this.jqxhr) {
             this.jqxhr.abort();
         }
-        this.jqxhr = $.post("GenerateCountFromManualCriteria", $('#criteriaForm').serialize())
+
+        $("#schoolCount").hide();
+        $('#spinnerPlaceHolder').show();
+
+        this.jqxhr = $.post("GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
             .done((count) => {
-                $("#schoolCount").text("Searching");
+                
+                let restHtml = $("#schoolCount #rest").html();
+                
                 setTimeout(() => {
-                    $("#schoolCount").text(count + " schools found");
+                    $('#spinnerPlaceHolder').hide();
+                    $("#schoolCount").html(`<span id='countPart' class='bold-xsmall'>${count}</span><span id='rest'>${restHtml}</span>`);
+                    $("#schoolCount").show();
                 }, 500);
-                $("button.view-benchmark-charts").attr("aria-label", "View " + count + " schools in a benchmark chart");
-                $("#liveCountBar").show();
-                if (count > 0) {
-                    $("button.submit").show();
-                    $("button.submit").removeAttr("disabled");
-                    //if (count <= 30) {
-                    //    $('button.submit.view-benchmark-charts').focus();
-                    //}
-                } else {
-                    $("button.submit").hide();
-                    $("button.submit").attr("disabled", "disabled");
-                }
-                $('.sticky-div').Stickyfill();
+
+
+                $("button.submit-criteria-js").attr("aria-label", "View " + count + " schools in a benchmark chart");
+
             });
     }
 
@@ -84,7 +101,7 @@
 
     checkResultCount() {
         let count = $("#schoolCount").text().substring(0, $("#schoolCount").text().indexOf(' '));
-        if (count <= 30) {
+        if (count > 0 && count <= 30) {
             $("#criteriaForm").submit();
         } else {
             this.renderWarningModal(count);
@@ -105,7 +122,7 @@
             '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
             '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
             '<h1 id="modal-title" class="modal-title">' + resultCount + ' matches found</h1>' +
-            '<p id="modal-content"><br/>Please refine the characteristics entered until there are 30 or fewer matched schools.</p>';
+            '<p id="modal-content"><br/>Please refine the characteristics entered until there are between 1 and 30 matched schools.</p>';
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');
@@ -176,6 +193,19 @@
             this.clear();
         });
 
+        $(".min-js").focusout((event) => {
+            let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
+            if (!maxInput[0].validity.valueMissing) {
+                maxInput.valid();
+            }
+        });
+
+        $(".max-js").focusout((event) => {
+            let minInput = $(event.target.parentNode.parentNode).find(".min-js");
+            if (!minInput[0].validity.valueMissing) {
+                minInput.valid();
+            }
+        });
     }
 }
 

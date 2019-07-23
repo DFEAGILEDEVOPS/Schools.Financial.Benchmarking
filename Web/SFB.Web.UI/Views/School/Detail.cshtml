@@ -19,7 +19,7 @@
 
 }
 
-@section StickyContent
+@section BMListBannerContent
 {
     <div id="benchmarkBasket"></div>
 }
@@ -88,6 +88,7 @@ else
                 {
                     @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: {Model.PhoneNumber}\" aria-label=\"Call telephone number {Model.PhoneNumber}\">{Model.PhoneNumber}</a>")
                 }
+                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")                
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
@@ -140,14 +141,14 @@ else
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
-        <div class="govuk-box-highlight">
+        @*<div class="govuk-box-highlight">
             <h3 class="heading-large mt-0 pt-0">
                 <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">Deals for schools<span class="visuallyhidden"> Opens in a new window</span></a>
             </h3>
             <p class="font-xsmall pb-0 mb-0">
                 Find a range of cost-saving deals for schools assessed for compliance with procurement regulations and ease of use by the DfE
             </p>
-        </div>
+        </div>*@
     </div>
     <div id="post-map-content" class="column-full hide-in-print">
         <div class="column-one-third no-padding">
@@ -160,7 +161,7 @@ else
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <button class="no-underline link-button no-underline bold-xsmall" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                <button class="no-underline link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png" />
                     Print page
                 </button>
@@ -188,15 +189,17 @@ else
         </li>
     </ol>
 </nav>
+<div class="sticky-div sticky-chart-controls">
+    @Html.Partial("Partials/ValueSelect", Model)
+    @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+    @if (Model.EstablishmentType == EstablishmentType.Academies && Model.HistoricalFinancialDataModels.Last().IsMAT)
+    {
+        Html.RenderPartial("Partials/CentralFinancing");
+    }
+</div>
 <div class="charts-section">
     <div class="grid-row">
         <div>
-            @Html.Partial("Partials/ValueSelect", Model)
-            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-            @if (Model.EstablishmentType == EstablishmentType.Academies && Model.HistoricalFinancialDataModels.Last().IsMAT)
-            {
-                Html.RenderPartial("Partials/CentralFinancing");
-            }
             <div class="column-full font-xsmall chartTable hide-in-print">
                 <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
                 <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>

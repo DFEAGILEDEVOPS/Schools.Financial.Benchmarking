@@ -134,4 +134,12 @@
             "<p>The following characteristics and keystage progress data is used:</p>" +
             "<ul><li>Number of pupils</li><li>Eligibility of free school meals</li><li>Total expenditure per pupil</li></ul>";
     }
+
+    public class DealsForSchoolsLinkText
+    {
+        public const string StaffTotal = "Learn about cost-saving deals available for recruitment at";
+        public const string PremisesTotal = "Learn about cost-saving deals available for facilities and estates at";
+        public const string OccupationTotal = "Learn about cost-saving deals available for energy and water at";
+        public const string SuppliesAndServicesTotal = "Learn about cost-saving deals available for supplies and services at";
+    }
 }

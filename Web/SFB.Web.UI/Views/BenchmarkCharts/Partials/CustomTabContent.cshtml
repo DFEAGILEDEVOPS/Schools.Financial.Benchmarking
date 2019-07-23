@@ -14,8 +14,8 @@
         </div>
         <div class="column-two-thirds no-padding">
             <div class="font-xsmall chartTable hide-in-print">
-                <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
-                <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
+                <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
+                <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
             <summary class="hide-in-print">
                 <span class="summary font-xsmall">Add or remove charts</span>
                 <span id="spinner-place-holder" class="ml-1 font-xsmall">
-                    <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" />
+                    <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading"/>
                     <span role="alert" aria-live="assertive" aria-label="Updating charts"></span>
                     <span style="margin-left: 10px; color: black">Updating charts</span>
                 </span>
@@ -53,7 +53,7 @@
 
                 <div class="selections">
                     <fieldset>
-                        <legend class="hidden">Selections</legend>
+                        <legend class="visually-hidden">Selections</legend>
                         <div id="custom-report-accordion" class="accordion">
                             <div class="accordion-section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
                                 <div class="accordion-section-header" ng-class="{'hide-summary': ctrl.query}">
@@ -69,7 +69,7 @@
                                 <div class="accordion-section-body">
                                     <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="chart-selection" ng-class="{'show-details': ctrl.query}">
                                         <div class="multiple-choice-header column-quarter">
-                                            <label class="bold-xsmall">{{chart.Name}}</label>
+                                            <span class="bold-xsmall">{{chart.Name}}</span>
                                         </div>
                                         <div class="multiple-choices column-three-quarters">
                                             <div class="multiple-choice" ng-show="chart.PerPupilAvailable">

@@ -17,6 +17,7 @@ using SFB.Web.UI.Services;
 using SFB.Web.Domain.ApiWrappers;
 using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain;
+using SFB.Web.Domain.Services;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -75,7 +76,10 @@ namespace SFB.Web.UI.UnitTests
 
             var mockApiRequest = new Mock<IApiRequest>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
+            var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -119,7 +123,10 @@ namespace SFB.Web.UI.UnitTests
 
             var mockApiRequest = new Mock<IApiRequest>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
+            var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -163,7 +170,10 @@ namespace SFB.Web.UI.UnitTests
 
             var mockApiRequest = new Mock<IApiRequest>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
+            var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -207,7 +217,10 @@ namespace SFB.Web.UI.UnitTests
 
             var mockApiRequest = new Mock<IApiRequest>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
+            var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
+
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -251,11 +264,14 @@ namespace SFB.Web.UI.UnitTests
 
             var mockApiRequest = new Mock<IApiRequest>();
 
+            var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
+
             mockApiRequest
                 .Setup(ar => ar.Head(It.IsAny<string>(), It.IsAny<List<string>>()))
                 .Returns((string endpoint, List<string> parameters) => new ApiResponse(System.Net.HttpStatusCode.OK, null));
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -294,11 +310,14 @@ namespace SFB.Web.UI.UnitTests
 
             var mockApiRequest = new Mock<IApiRequest>();
 
+            var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
+
             mockApiRequest
                 .Setup(ar => ar.Head(It.IsAny<string>(), It.IsAny<List<string>>()))
                 .Returns((string endpoint, List<string> parameters) => new ApiResponse(System.Net.HttpStatusCode.NotFound, null));
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object);
+            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 

@@ -21,9 +21,16 @@ namespace SFB.Web.Domain.Services.Comparison
             _benchmarkCriteriaBuilderService = benchmarkCriteriaBuilderService;
         }
 
-        public async Task<ComparisonResult> GenerateBenchmarkListWithAdvancedComparisonAsync(BenchmarkCriteria criteria, EstablishmentType estType, int basketSize = ComparisonListLimit.LIMIT)
+        public async Task<ComparisonResult> GenerateBenchmarkListWithAdvancedComparisonAsync(BenchmarkCriteria criteria, 
+            EstablishmentType estType, int basketSize = ComparisonListLimit.LIMIT)
         {
-            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType);            
+            return await GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, false, basketSize);
+        }
+
+        public async Task<ComparisonResult> GenerateBenchmarkListWithAdvancedComparisonAsync(BenchmarkCriteria criteria, EstablishmentType estType,
+            bool excludePartial, int basketSize = ComparisonListLimit.LIMIT)
+        {
+            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(criteria, estType, excludePartial);            
             return new ComparisonResult()
             {
                 BenchmarkSchools = benchmarkSchools,
@@ -36,7 +43,7 @@ namespace SFB.Web.Domain.Services.Comparison
             FinancialDataModel defaultSchoolFinancialDataModel)
         {
             //STEP 1: Straight search with prefilled criteria
-            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
+            var benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType, true);
 
             if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Original query returns more than required. Clip from top by per people expenditure proximity.
             {
@@ -55,7 +62,7 @@ namespace SFB.Web.Domain.Services.Comparison
 
                 benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(defaultSchoolFinancialDataModel, bicCriteria, tryCount);
 
-                benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType);
+                benchmarkSchools = await _financialDataService.SearchSchoolsByCriteriaAsync(benchmarkCriteria, estType, true);
 
                 if (benchmarkSchools.Count > CriteriaSearchConfig.BIC_TARGET_POOL_COUNT) //Number jumping to more than ideal. Clip from top by per people expenditure proximity.
                 {

@@ -12,9 +12,9 @@
     <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
 }
 
-@section StickyContent
+@section BMListBannerContent
 {
-    @Html.Partial("Partials/DesktopStickingBenchmarkListBanner")
+    @Html.Partial("Partials/BenchmarkListBanner")
 }
 
 @section BackButtonContent{
@@ -143,10 +143,9 @@
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <a class="no-underline bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
-                    <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png" />
-                    Print page
-                </a>
+                <button class="no-underline link-button bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="/public/assets/images/icons/icon-print.png"><span>Print page</span>
+                </button>
             </div>
         </div>
     </div>
@@ -170,13 +169,14 @@
     </ol>
 </nav>
 
+<div class="sticky-div sticky-chart-controls">
+    @Html.Partial("Partials/ValueSelect")
+    @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+    @Html.Partial("Partials/TrustCentralFinancing")
+</div>
 <div class="charts-section">
     <div class="grid-row">
         <div autocomplete="off">
-            @Html.Partial("Partials/ValueSelect")
-            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-            @Html.Partial("Partials/TrustCentralFinancing")
-
             <div class="column-full font-xsmall chartTable hide-in-print">
                 <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
                 <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>

@@ -71,23 +71,29 @@
             <div class="header-content__dynamic-header__copy">
                 @Html.Raw(ViewBag.DynamicHeaderContent)
             </div>
-            <button class="header-content__dynamic-header__button js-dismiss-dynamic-header a-button underline">Hide message</button>
+            <button class="header-content__dynamic-header__button js-dismiss-dynamic-header link-button">Hide message</button>
         </div>
     }
 </div>
 
-@RenderSection("StickyContent", required: false)
+@RenderSection("BMListBannerContent", required: false)
 
 <div class="header-content" role="navigation">
     @RenderSection("BackButtonContent", required: false)
 </div>
 
-<main id="content" class="page @(ViewBag.pageClass)" role="main" tabindex="-1">
+<div class="grid-row" id="content">
 
-    @*<div class="pre-content"></div>*@
+        <main class="page @(ViewBag.pageClass)" role="main" tabindex="-1">
 
-    @RenderBody()
-</main>
+            @*<div class="pre-content"></div>*@
+
+            @RenderBody()
+        </main>
+    
+
+        @RenderSection("Aside", required: false)
+</div>
 
 @RenderSection("AfterMain", required: false)
 

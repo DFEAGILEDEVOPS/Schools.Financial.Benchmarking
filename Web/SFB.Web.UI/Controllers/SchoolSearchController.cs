@@ -344,7 +344,7 @@ namespace SFB.Web.UI.Controllers
                     EstabType = benchmarkSchool.EstablishmentType.ToString()
                 });                      
 
-            return PartialView("Partials/StickingBenchmarkListBanner",
+            return PartialView("Partials/BenchmarkListBanner",
                 new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 

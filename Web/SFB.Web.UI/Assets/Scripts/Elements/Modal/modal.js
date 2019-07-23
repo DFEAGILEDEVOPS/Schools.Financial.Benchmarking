@@ -139,7 +139,7 @@
                     $modal_code += $($modal_content_id).html();
                 }
             }
-            $modal_code += '<a href="#" id="js-modal-close-bottom" class="' + $modal_prefix_classes + 'modal-close" data-focus-back="' + $modal_starter_id +
+            $modal_code += '<a href="#" id="js-modal-close-bottom" class="' + $modal_prefix_classes + 'modal-close white-font" data-focus-back="' + $modal_starter_id +
                 '" title="' + $modal_close_title + '">' + $modal_close_text + "</a><br/>";
 
             $modal_code += '</dialog>';

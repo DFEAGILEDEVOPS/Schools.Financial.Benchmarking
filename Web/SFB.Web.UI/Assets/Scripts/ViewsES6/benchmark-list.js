@@ -1,4 +1,7 @@
 ﻿class BenchmarkListViewModel{
+    constructor() {
+        GOVUK.Modal.Load();
+    }
 
     UpdateBenchmarkBasket(urn, withAction) {
         $.ajax({

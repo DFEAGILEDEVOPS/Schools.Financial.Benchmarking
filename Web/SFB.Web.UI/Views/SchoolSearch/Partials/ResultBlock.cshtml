@@ -23,14 +23,14 @@
             <nav class="navigation-links" role="navigation">
                 <div class="olist" role="tablist">
                     <div class="litem navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
-                        <button class="link-button bold-small no-padding no-underline">
-                            <img src="~/public/assets/images/icons/icon-map.png" alt="view on map"/>View on map
+                        <button class="map-button no-padding">
+                            <img src="~/public/assets/images/icons/icon-map.png" alt=""/>View on map
                             <span class="visuallyhidden"> click to expand.</span>
                         </button>
                     </div>
                     <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
-                        <button class="link-button bold-small no-padding no-underline">
-                            <img src="~/public/assets/images/icons/icon-list.png" alt="view as list"/>View as list
+                        <button class="map-button no-padding">
+                            <img src="~/public/assets/images/icons/icon-list.png" alt=""/>View as list
                             <span class="visuallyhidden"> click to expand.</span>
                         </button>
                     </div>
