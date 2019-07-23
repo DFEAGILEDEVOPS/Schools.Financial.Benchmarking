@@ -811,7 +811,6 @@
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
                 <button id='clip-button' class='button' type='button' data-clipboard-target='#saveUrl'>Copy link to clipboard</button>
-                <span class='error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
             <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
@@ -842,11 +841,6 @@
         clipboard.on('success', function () {
             DfE.Views.BenchmarkChartsViewModel.ShowSaveModalTwo();
         });
-
-        if (!ClipboardJS.isSupported()) {
-            $('#clip-button').hide();
-            $('#clip-not-supported').show();
-        }
 
 
         $('#js-modal-close').focus();
