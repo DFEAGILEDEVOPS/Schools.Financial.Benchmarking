@@ -1140,46 +1140,45 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                 },
-
-                                        new ChartViewModel
-                        {
-                            Name = "Loan interest",
-                            FieldName = "Interest charges for Loan and Bank",
-                            RevenueGroup = RevenueGroupType.Expenditure,
-                            ChartGroup = ChartGroupType.CostOfFinance,
-                            ChartSchoolType = ChartSchoolType.Both,
-                            MoreInfo = @"<p>This includes:</p>
-
-                                        <ul>
-                                        <li>interest paid on overdrafts and other liabilities</li>
-                                        </ul>
-
-                                        <p>It excludes:</p>
-                                        <ul>
-                                        <li>interest received</li>
-                                        </ul>"
-                        },
-                        new ChartViewModel
-                        {
-                            Name = "Direct revenue financing (revenue contributions to capital)",
-                            FieldName = SchoolTrustFinanceDBFieldNames.DIRECT_REVENUE,
-                                                RevenueGroup = RevenueGroupType.Expenditure,
+                new ChartViewModel
+                {
+                    Name = "Loan interest",
+                    FieldName = "Interest charges for Loan and Bank",
+                    RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.CostOfFinance,
-                            ChartSchoolType = ChartSchoolType.Both,
-                            MoreInfo = @"<p>This includes:</p>
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This includes:</p>
 
                                 <ul>
-                                <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11 </li>
-                                <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
-                                <li>any repayment of principal on a capital loan from the local authority</li>
+                                <li>interest paid on overdrafts and other liabilities</li>
                                 </ul>
 
-                                <p>It excludes: </p>
-
+                                <p>It excludes:</p>
                                 <ul>
-                                <li>funds specifically provided for capital purposes</li>
+                                <li>interest received</li>
                                 </ul>"
-                        },
+                },
+                new ChartViewModel
+                {
+                    Name = "Direct revenue financing (revenue contributions to capital)",
+                    FieldName = SchoolTrustFinanceDBFieldNames.DIRECT_REVENUE,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.CostOfFinance,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This includes:</p>
+
+                        <ul>
+                        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11 </li>
+                        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
+                        <li>any repayment of principal on a capital loan from the local authority</li>
+                        </ul>
+
+                        <p>It excludes: </p>
+
+                        <ul>
+                        <li>funds specifically provided for capital purposes</li>
+                        </ul>"
+                },
 
                 //Community
                 new ChartViewModel()
@@ -1191,48 +1190,47 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Maintained,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    TableColumns = new List<DataTableColumnViewModel>
-                    {
-                        new DataTableColumnViewModel
-                        {
-                            Name = "Community focused school staff",
-                            FieldName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_STAFF,
-                            ChartSchoolType = ChartSchoolType.Maintained,
-                            MoreInfo =
-                                @"<p>This is expenditure on salaries and wages of staff employed directly by the school for community purposes. It consists of gross pay including allowances, maternity pay and the employer's contributions to national insurance and superannuation. </p>
-
-                                <p>It includes:</p>
-                                <ul>
-                                <li>the cost of all staff employed directly by the school for community-focused activities</li>
-                                <li>adult education tutors, where the school manages an adult education programme </li>
-                                </ul>
-
-                                <p>It excludes: </p>
-
-                                <ul>
-                                <li>the cost of school staff who are not employed directly by the school for community-focused activities</li>
-                                </ul>"
-                        },
-                        new DataTableColumnViewModel
-                        {
-                            Name = "Community focused school costs",
-                            FieldName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_SCHOOL,
-                            ChartSchoolType = ChartSchoolType.Maintained,
-                            MoreInfo = @"
-                                <p>This includes:</p>
-                                <ul>
-                                <li>all running costs associated with a community-focused school activity or facility</li>
-                                <li>recruitment costs and materials</li>
-                                </ul>
-
-                                <p>It excludes: </p>
-
-                                <ul>
-                                <li>any community-focused running costs that are incurred as a result of a third party delivering the activity where they’re not directly employed or contracted by the school.</li>
-                                </ul>"
-                        }
-                    }
                 },
+                new ChartViewModel
+                {
+                    Name = "Community focused school staff",
+                    FieldName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_STAFF,
+                    ChartSchoolType = ChartSchoolType.Maintained,
+                    ChartGroup = ChartGroupType.Community,
+                    MoreInfo =
+                        @"<p>This is expenditure on salaries and wages of staff employed directly by the school for community purposes. It consists of gross pay including allowances, maternity pay and the employer's contributions to national insurance and superannuation. </p>
+
+                        <p>It includes:</p>
+                        <ul>
+                        <li>the cost of all staff employed directly by the school for community-focused activities</li>
+                        <li>adult education tutors, where the school manages an adult education programme </li>
+                        </ul>
+
+                        <p>It excludes: </p>
+
+                        <ul>
+                        <li>the cost of school staff who are not employed directly by the school for community-focused activities</li>
+                        </ul>"
+                },
+                new ChartViewModel
+                {
+                    Name = "Community focused school costs",
+                    FieldName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_SCHOOL,
+                    ChartSchoolType = ChartSchoolType.Maintained,
+                    ChartGroup = ChartGroupType.Community,
+                    MoreInfo = @"
+                        <p>This includes:</p>
+                        <ul>
+                        <li>all running costs associated with a community-focused school activity or facility</li>
+                        <li>recruitment costs and materials</li>
+                        </ul>
+
+                        <p>It excludes: </p>
+
+                        <ul>
+                        <li>any community-focused running costs that are incurred as a result of a third party delivering the activity where they’re not directly employed or contracted by the school.</li>
+                        </ul>"
+                },                
 
                 //Total Income
                 new ChartViewModel()
