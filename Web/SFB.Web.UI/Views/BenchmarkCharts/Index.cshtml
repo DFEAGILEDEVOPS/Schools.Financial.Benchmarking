@@ -13,6 +13,7 @@
     <script src="~/node_modules/angular/angular.min.js"></script>
     <script src="~/node_modules/jspdf/dist/jspdf.debug.js"></script>
     <script src="~/node_modules/clipboard/dist/clipboard.min.js"></script>
+    <script src="~/node_modules/pptxgenjs/dist/pptxgen.bundle.js"></script>
 }
 
 @section BMListBannerContent
@@ -216,10 +217,10 @@ else
             </div>
             <div class="download-link">
                 <div class="pdf">
-                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()">
+                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.PptPage()">
                         <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
                         <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />
-                        <span id="PdfLinkText"> Download page (PDF)</span>
+                        <span id="PdfLinkText"> Download page (PPT)</span>
                     </button>
                 </div>
             </div>

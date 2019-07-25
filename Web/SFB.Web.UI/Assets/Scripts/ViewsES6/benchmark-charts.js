@@ -744,6 +744,40 @@
         $table.find('.detail').toggle(200);
     }
 
+    PptPage() {
+        var pptx = new PptxGenJS();
+        let slide = pptx.addNewSlide();
+        slide.addText('Hello World!', { x: 1.5, y: 1.5, fontSize: 18, color: '363636' });
+        let svg = $('#chart_0').find('svg')[0];
+        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+            (img) => {
+                slide.addImage({ data: img, x: 1.0, y: 1.0, w: 6.0, h: 3.0 });                
+                slide = this.addTable(slide, pptx);
+            });
+
+        pptx.save('Sample Presentation');
+    }
+
+    addTable(slide, pptx) {
+        let rows = [];
+        let headers = [];
+        $('#table_for_chart_0 th').toArray().map((th) => {
+            headers.push(th.attributes['data-header'].value);
+        });
+        let data = $('#table_for_chart_0 tbody tr').toArray().map((tr) => {
+            let trArr = [];
+            $(tr).children('td').toArray().map((td) => {
+                trArr.push(td.textContent.trim());
+            });
+            return trArr;
+        });
+        rows.splice(0, 0, headers);
+        rows = rows.concat(data);
+        slide = pptx.addNewSlide();
+        slide.addTable(rows, { x: 0.5, y: 1.0, w: 9.0, color: '363636' });
+        return slide;
+    }
+
     PdfPage() {
 
         $('#PdfLink .download-icon').toggle();
