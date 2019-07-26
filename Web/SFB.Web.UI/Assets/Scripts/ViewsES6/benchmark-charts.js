@@ -744,6 +744,64 @@
         $table.find('.detail').toggle(200);
     }
 
+    WordPage() {
+        const doc = new Document();
+
+        //const paragraph = new Paragraph("Hello World");
+        //const institutionText = new TextRun("Foo Bar").bold();
+        //const dateText = new TextRun("Github is the best").tab().bold();
+        //paragraph.addRun(institutionText);
+        //paragraph.addRun(dateText);
+
+        //doc.addParagraph(paragraph);
+
+        this.addTableWord(doc);
+
+        let svg = $('#chart_0').find('svg')[0];
+        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+            (img) => {
+                doc.createImage(img, 576, 288);
+            });
+
+        const packer = new Packer();
+
+        packer.toBlob(doc).then(blob => {
+            console.log(blob);
+            saveAs(blob, "example.docx");
+            console.log("Document created successfully");
+        });
+
+    }
+
+    addTableWord(doc) {
+        let rows = [];
+        let headers = [];
+        $('#table_for_chart_0 th').toArray().map((th) => {
+            headers.push(th.attributes['data-header'].value);
+        });
+        let data = $('#table_for_chart_0 tbody tr').toArray().map((tr) => {
+            let trArr = [];
+            $(tr).children('td').toArray().map((td) => {
+                trArr.push(td.textContent.trim());
+            });
+            return trArr;
+        });
+        rows.splice(0, 0, headers);
+        rows = rows.concat(data);
+
+        let table = doc.createTable({
+            rows: rows.length,
+            columns: rows[0].length
+        });
+
+        for (var r = 0; r < rows.length; r++) {
+            for (var c = 0; c < rows[r].length; c++) {
+                table.getCell(r, c).addParagraph(new Paragraph(rows[r][c]));
+            }
+        }
+
+    }
+
     PptPage() {
         var pptx = new PptxGenJS();
         let slide = pptx.addNewSlide();
@@ -752,13 +810,13 @@
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
             (img) => {
                 slide.addImage({ data: img, x: 1.0, y: 1.0, w: 6.0, h: 3.0 });                
-                slide = this.addTable(slide, pptx);
+                slide = this.addTablePpt(slide, pptx);
             });
 
         pptx.save('Sample Presentation');
     }
 
-    addTable(slide, pptx) {
+    addTablePpt(slide, pptx) {
         let rows = [];
         let headers = [];
         $('#table_for_chart_0 th').toArray().map((th) => {
