@@ -745,6 +745,7 @@
     }
 
     PptPage() {
+        
         var pptx = new PptxGenJS();
         let slide = pptx.addNewSlide();
         slide.addText('Hello World!', { x: 1.5, y: 1.5, fontSize: 18, color: '363636' });
@@ -776,6 +777,17 @@
         slide = pptx.addNewSlide();
         slide.addTable(rows, { x: 0.5, y: 1.0, w: 9.0, color: '363636' });
         return slide;
+    }
+
+
+    DownloadPage() {
+
+        let downloadFormat = $("input:radio[name='downloadFormat']:checked").val();
+        if (downloadFormat === "pdf") {
+            this.PdfPage();
+        } else {
+            this.PptPage();
+        }        
     }
 
     PdfPage() {
@@ -923,6 +935,60 @@
     ShowSaveModalTwo() {
         $('.save-modal-js.page-1').hide();
         $('.save-modal-js.page-2').show();
+    }
+
+    RenderDownloadModal(event) {
+
+        event.stopPropagation();
+
+        var $body = $('body');
+        var $page = $('#js-modal-page');
+
+        var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='PdfLink' title='Close'>Close</a><br>" +
+            "<h1 id='modal-title' class='modal-title'>Select file format</h1>" +            
+            `<div class="form-group">
+              <fieldset>
+
+                <legend>
+                  You can download the page's charts in PDF or PowerPoint format.
+                </legend>
+
+                <div class="multiple-choice">
+                  <input id="radio-1" type="radio" name="downloadFormat" value="pdf" checked>
+                  <label for="radio-1" class="font-small">PDF format</label>
+                </div>
+                <div class="multiple-choice">
+                  <input id="radio-2" type="radio" name="downloadFormat" value="ppt">
+                  <label for="radio-2" class="font-small">PowerPoint format</label>
+                </div>
+              </fieldset>
+            <div class="grid-row modal-form-buttons">
+                <div class="column-half">
+                    <div class="column-one-third next-button" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">
+                        <button type="button" class="button">Download</button>
+                    </div>
+                    <div class="column-one-third back-button">
+                        <button type="button" class="link-button" value="Cancel" onclick="GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            </div>` +
+            "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
+
+        $($modal_code).insertAfter($page);
+        $body.addClass('no-scroll');
+
+        $page.attr('aria-hidden', 'true');
+
+        // add overlay
+        var $modal_overlay =
+            '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+        $($modal_overlay).insertAfter($('#js-modal'));
+
+        $('#js-modal-close').focus();
+
     }
 }
 

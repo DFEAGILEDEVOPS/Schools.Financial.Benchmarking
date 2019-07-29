@@ -402,6 +402,24 @@ dialog {
         list-style-type: inherit;
         margin-left: 1em;
     }
+
+    legend{
+        font-weight: normal;
+        margin-top: 1em;
+    }
+
+    .modal-form-buttons{
+        margin-top: 2em;
+        font-size: 16px;
+    }
+
+    button{
+        font-size: 16px;
+    }
+
+    .form-group{
+        margin-bottom: 0;
+    }
 }
 
 .modal-overlay {
@@ -1047,3 +1065,12 @@ nav.tabs ol li {
     margin-right: 3px;
     vertical-align: middle;
 }
+
+.download-link.pdf-ppt {
+    display: none;
+}
+
+.strictmode .download-link.pdf-ppt {
+    display: block;
+}
+
