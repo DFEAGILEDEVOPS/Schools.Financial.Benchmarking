@@ -31,7 +31,6 @@
     "clipboard": "^2.0.4",
     "corejs-typeahead": "^1.1.1",
     "d3": "^3.5.17",
-    "docx": "^5.0.0-rc4",
     "govuk_frontend_toolkit": "~7.4.2",
     "jquery": "^1.11.3",
     "jquery-validation": "^1.16.0",
