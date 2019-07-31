@@ -627,7 +627,7 @@
             $("#customTabSection").show();
             $("#downloadLinkContainer").hide();
             $("#PrintLinkText").text(" Print report");
-            $("#PdfLinkText").text(" Download report (PDF)");
+            $("#PdfLinkText").text(" Download report");
             let scope = angular.element($("#listCtrl")).scope();
             scope.ctrl.displayCustomReport();
         } else if (tab === "BestInClass") {
@@ -744,41 +744,28 @@
         $table.find('.detail').toggle(200);
     }
 
-    PptPage() {
-        
-        var pptx = new PptxGenJS();
-        let slide = pptx.addNewSlide();
-        slide.addText('Hello World!', { x: 1.5, y: 1.5, fontSize: 18, color: '363636' });
-        let svg = $('#chart_0').find('svg')[0];
-        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
-            (img) => {
-                slide.addImage({ data: img, x: 1.0, y: 1.0, w: 6.0, h: 3.0 });                
-                slide = this.addTable(slide, pptx);
-            });
+    PptPage() {        
 
-        pptx.save('Sample Presentation');
+        $('#criteria-details.criteria-details').attr('open', 'true');
+
+        let pptGenerator = new PptGenerator();
+
+        pptGenerator.writeHeadings();
+
+        pptGenerator.writeWarnings();
+
+        pptGenerator.writeTabs();
+
+        pptGenerator.writeLastYearMessage();
+
+        pptGenerator.writeCharts();
+
+        //pptGenerator.writeCriteria();
+
+        //pdfGenerator.writeContextData();
+
+        pptGenerator.save();
     }
-
-    addTable(slide, pptx) {
-        let rows = [];
-        let headers = [];
-        $('#table_for_chart_0 th').toArray().map((th) => {
-            headers.push(th.attributes['data-header'].value);
-        });
-        let data = $('#table_for_chart_0 tbody tr').toArray().map((tr) => {
-            let trArr = [];
-            $(tr).children('td').toArray().map((td) => {
-                trArr.push(td.textContent.trim());
-            });
-            return trArr;
-        });
-        rows.splice(0, 0, headers);
-        rows = rows.concat(data);
-        slide = pptx.addNewSlide();
-        slide.addTable(rows, { x: 0.5, y: 1.0, w: 9.0, color: '363636' });
-        return slide;
-    }
-
 
     DownloadPage() {
 
@@ -792,8 +779,8 @@
 
     PdfPage() {
 
-        $('#PdfLink .download-icon').toggle();
-        $('#PdfLink .spin-icon').toggle();
+        //$('#PdfLink .download-icon').toggle();
+        //$('#PdfLink .spin-icon').toggle();
 
         $('#criteria-details.criteria-details').attr('open', 'true');
 
@@ -812,8 +799,8 @@
         pdfGenerator.writeCriteria().then(() => {
             pdfGenerator.writeContextData().then(() => {
                 pdfGenerator.save();
-                $('#PdfLink .download-icon').toggle();
-                $('#PdfLink .spin-icon').toggle();
+                //$('#PdfLink .download-icon').toggle();
+                //$('#PdfLink .spin-icon').toggle();
             });
         });
     }
@@ -989,6 +976,138 @@
 
         $('#js-modal-close').focus();
 
+    }
+}
+
+class PptGenerator {
+    constructor() {
+        this.doc = new PptxGenJS();
+        this.slide = this.doc.addNewSlide();
+        this.yOffset = 0;
+    }
+
+    writeHeadings() {
+        this.yOffset += 0.5;
+        this.slide.addText('Schools Financial Benchmarking', { x: 0.2, y: this.yOffset, fontSize: 18, bold: true  });
+
+        this.yOffset += 0.5;
+        this.slide.addText($('#BCHeader').get(0).innerText, { x: 0.2,y: this.yOffset, fontSize: 16, bold: true });
+
+        if ($('#comparing-text').length > 0) {
+            this.yOffset += 0.5;
+            this.slide.addText($('#comparing-text').get(0).innerText, { x: 0.2,y: this.yOffset, fontSize: 12, bold: true, w: '90%' });
+        }
+    }
+
+    writeWarnings() {
+        let warnings = $('.panel.orange-warning .combined-warnings');
+        if (warnings.length > 0) {
+            warnings.each((index, element) => {
+                this.yOffset += 0.5;
+                this.slide.addText(element.innerText, { x: 0.2, y: this.yOffset, fontSize: 12, italic: true, color: 'f47738', w: '90%' });
+            });
+        }
+    }
+
+    writeTabs() {
+        this.yOffset += 0.2;
+        if ($('.tabs li.active').length > 0) {
+            this.yOffset += 0.5;
+            if ($('.tabs li.active').get(0).innerText.indexOf('Your') < 0) {                
+                this.slide.addText($('.tabs li.active').get(0).innerText.replace('selected', ''), { x: 0.2, y: this.yOffset, fontSize: 12, bold: true });
+            } else {
+                this.slide.addText('Your charts', { x: 0.2, y: this.yOffset, fontSize: 12, bold: true });
+            }
+        }
+
+        let filters = $('.chart-filter:visible');
+        if (filters.length > 0) {
+            filters.each((index, element) => {                
+                this.yOffset += 0.3;
+                this.slide.addText($(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText, { x: 0.2, y: this.yOffset, fontSize: 12 });
+            });
+        }
+    }
+
+    writeLastYearMessage() {
+        this.yOffset += 0.5;
+        this.slide.addText('', { x: 0.2, y: this.yOffset, fontSize: 12, line: { pt: '2', color: 'A9A9A9' }, w: '95%' });
+        if ($('.latest-year-message').length > 0) {
+            this.yOffset += 0.2;
+            this.slide.addText($('.latest-year-message').get(0).innerText, { x: 0.2, y: this.yOffset, fontSize: 12, w: '95%' });
+        }
+    }
+
+    writeCharts() {
+        let charts = $('.chart-container');
+        let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
+        let chartPerPage = Math.ceil(5 / yValuesCount);
+
+        charts.each((index, element) => {
+            if (index % chartPerPage === 0) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0;
+            } else {
+                this.yOffset += (4 / chartPerPage);
+            }
+            let header = $(element).find('h2').get(0).innerText;
+            if (header.length < 60) {
+                this.yOffset += 0.2;
+                this.slide.addText(header, { x: 0.5, y: this.yOffset, fontSize: 12, bold: true });
+            } else {
+                let header1 = header.substring(0, header.lastIndexOf('('));
+                let header2 = header.substring(header.lastIndexOf('('));
+                this.yOffset += 0.2;
+                this.slide.addText(header1, { x: 0.5, y: this.yOffset, fontSize: 12, bold: true });
+                this.yOffset += 0.2;
+                this.slide.addText(header2, { x: 0.5, y: this.yOffset, fontSize: 12, bold: true });
+            }
+            if (sessionStorage.chartFormat === 'Charts') {
+                this.pptWriteChart(index, chartPerPage);
+            } else {
+                this.pptWriteTable(index);
+            }
+        });
+    }
+
+
+    pptWriteChart(index, chartPerPage) {
+        let svg = $('#chart_' + index).find('svg')[0];
+        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+            (img) => {
+                this.yOffset += 0.5;
+                let ratio = svg.clientWidth / svg.clientHeight;
+                let height = 4 / chartPerPage;
+                let width = height * ratio;
+                if (width > 8) { //not to overflow horizontally
+                    width = 8;
+                    height = width / ratio;
+                }
+                this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: width, h: height });
+            });
+    }
+
+    pptWriteTableindex() {
+        let rows = [];
+        let headers = [];
+        $(`#table_for_chart_${index} th`).toArray().map((th) => {
+            headers.push(th.attributes['data-header'].value);
+        });
+        let data = $(`#table_for_chart_${index} tbody tr`).toArray().map((tr) => {
+            let trArr = [];
+            $(tr).children('td').toArray().map((td) => {
+                trArr.push(td.textContent.trim());
+            });
+            return trArr;
+        });
+        rows.splice(0, 0, headers);
+        rows = rows.concat(data);
+        slide.addTable(rows, { x: 0.5, y: this.yOffset, w: 9.0, color: '363636' });
+        return slide;
+    }
+
+    save() {
+        this.doc.save('sfb-benchmark-charts');
     }
 }
 
