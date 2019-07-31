@@ -1076,7 +1076,7 @@ class PptGenerator {
                 this.slide = this.doc.addNewSlide();
                 this.yOffset = 0.2;
                 if ($('#criteriaExp').length > 0) {
-                    this.slide.addText($('#criteriaExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 12 });
+                    this.slide.addText($('#criteriaExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 12, w: '95%' });
                 }
                 this.pptWriteTable('#criteriaTable', 1);                
             }
