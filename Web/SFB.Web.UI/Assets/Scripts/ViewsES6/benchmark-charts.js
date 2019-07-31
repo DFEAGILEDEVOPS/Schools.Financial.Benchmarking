@@ -760,9 +760,9 @@
 
         pptGenerator.writeCharts();
 
-        //pptGenerator.writeCriteria();
+        pptGenerator.writeCriteria();
 
-        //pdfGenerator.writeContextData();
+        pptGenerator.writeContextData();
 
         pptGenerator.save();
     }
@@ -980,6 +980,7 @@
 }
 
 class PptGenerator {
+
     constructor() {
         this.doc = new PptxGenJS();
         this.slide = this.doc.addNewSlide();
@@ -1053,26 +1054,50 @@ class PptGenerator {
             let header = $(element).find('h2').get(0).innerText;
             if (header.length < 60) {
                 this.yOffset += 0.2;
-                this.slide.addText(header, { x: 0.5, y: this.yOffset, fontSize: 12, bold: true });
+                this.slide.addText(header, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
             } else {
                 let header1 = header.substring(0, header.lastIndexOf('('));
                 let header2 = header.substring(header.lastIndexOf('('));
                 this.yOffset += 0.2;
-                this.slide.addText(header1, { x: 0.5, y: this.yOffset, fontSize: 12, bold: true });
+                this.slide.addText(header1, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
                 this.yOffset += 0.2;
-                this.slide.addText(header2, { x: 0.5, y: this.yOffset, fontSize: 12, bold: true });
+                this.slide.addText(header2, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
             }
             if (sessionStorage.chartFormat === 'Charts') {
-                this.pptWriteChart(index, chartPerPage);
+                this.pptWriteChart(`#chart_${index}`, chartPerPage);
             } else {
-                this.pptWriteTable(index);
+                this.pptWriteTable(`#table_for_chart_${index}`, chartPerPage);
             }
         });
     }
 
+    writeCriteria() {
+            if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible")) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0.2;
+                if ($('#criteriaExp').length > 0) {
+                    this.slide.addText($('#criteriaExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 12 });
+                }
+                this.pptWriteTable('#criteriaTable', 1);                
+            }
+    }
 
-    pptWriteChart(index, chartPerPage) {
-        let svg = $('#chart_' + index).find('svg')[0];
+    writeContextData() {
+            if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0.2;
+                this.slide.addText($('#contextExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+
+                this.pptWriteTable('#contextDataTable', 1);     
+            }
+    }
+
+    save() {
+        this.doc.save('sfb-benchmark-charts');
+    }
+
+    pptWriteChart(chartId, chartPerPage) {
+        let svg = $(chartId).find('svg')[0];
         saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
             (img) => {
                 this.yOffset += 0.5;
@@ -1087,13 +1112,13 @@ class PptGenerator {
             });
     }
 
-    pptWriteTableindex() {
+    pptWriteTable(tableId, tablePerPage) {
         let rows = [];
         let headers = [];
-        $(`#table_for_chart_${index} th`).toArray().map((th) => {
-            headers.push(th.attributes['data-header'].value);
+        $(`${tableId} th`).toArray().map((th) => {
+            headers.push({ text: th.attributes['data-header'] === undefined ? th.textContent : th.attributes['data-header'].value, options: { bold: true } });
         });
-        let data = $(`#table_for_chart_${index} tbody tr`).toArray().map((tr) => {
+        let data = $(`${tableId} tbody tr`).toArray().map((tr) => {
             let trArr = [];
             $(tr).children('td').toArray().map((td) => {
                 trArr.push(td.textContent.trim());
@@ -1102,12 +1127,8 @@ class PptGenerator {
         });
         rows.splice(0, 0, headers);
         rows = rows.concat(data);
-        slide.addTable(rows, { x: 0.5, y: this.yOffset, w: 9.0, color: '363636' });
-        return slide;
-    }
-
-    save() {
-        this.doc.save('sfb-benchmark-charts');
+        this.yOffset += 0.5;
+        this.slide.addTable(rows, { x: 0.5, y: this.yOffset, fontSize: 10, w: 9.0, color: '363636', autoPage: tablePerPage === 1 });
     }
 }
 
@@ -1195,7 +1216,7 @@ class PdfGenerator {
             return th.attributes['data-header'].value;
         });
         let data = $(id + ' tbody tr').toArray().map((tr) => {
-            let trObj = {}
+            let trObj = {};
             $(tr).children('td').toArray().map((td) => {
                 trObj[td.attributes['data-header'].value] = td.textContent.trim();
             });
@@ -1307,7 +1328,7 @@ class PdfGenerator {
         return new Promise((resolve, reject) => {
             if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
                 this.pdfAddNewPage();
-                this.pdfWriteLine('H2', $('#contextExp').get(0).innerText)
+                this.pdfWriteLine('H2', $('#contextExp').get(0).innerText);
                 this.pdfGenerateImage('#contextDataTable').then((canvas) => {
                     this.pdfAddImage(canvas);
                     resolve();

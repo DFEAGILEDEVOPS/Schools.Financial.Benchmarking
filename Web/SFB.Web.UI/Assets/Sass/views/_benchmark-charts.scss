@@ -377,7 +377,7 @@
             background-color: $grey-3;
 
             &.highlighted {
-                background-color: $pink-contrast; 
+                background-color: $pink-contrast;
                 font-weight: bold;
                 color: white;
             }
@@ -591,6 +591,10 @@
         @include media(desktop) {
             max-width: 960px;
         }
+    }
+
+    .chart-table-wrapper{
+        padding: 0 15px;
     }
 }
 
