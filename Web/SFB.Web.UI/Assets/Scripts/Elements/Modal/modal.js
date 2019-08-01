@@ -126,7 +126,7 @@
             // insert code at the end
             $modal_code = '<dialog id="js-modal" class="' + $modal_prefix_classes + 'modal" role="dialog" aria-labelledby="modal-title">';
             $modal_code += '<a href="#" id="js-modal-close" class="' + $modal_prefix_classes + 'modal-close" data-focus-back="' + $modal_starter_id +
-                '" title="' + $modal_close_title + '">' + $modal_close_text + "</a><br/>";
+                '" title="' + $modal_close_title + '">' + $modal_close_text + "</a>";
             if ($modal_title !== '') {
                 $modal_code += '<h1 id="modal-title" class="' + $modal_prefix_classes + 'modal-title">' + $modal_title + '</h1>';
             }

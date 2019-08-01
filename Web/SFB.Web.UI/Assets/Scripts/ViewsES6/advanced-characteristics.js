@@ -122,7 +122,7 @@
             '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
             '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
             '<h1 id="modal-title" class="modal-title">' + resultCount + ' matches found</h1>' +
-            '<p id="modal-content"><br/>Please refine the characteristics entered until there are between 1 and 30 matched schools.</p>';
+            '<p id="modal-content">Please refine the characteristics entered until there are between 1 and 30 matched schools.</p>';
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');

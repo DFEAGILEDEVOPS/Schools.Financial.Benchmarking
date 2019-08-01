@@ -838,7 +838,7 @@
         <div role='document' class='save-modal-js page-1' style='display: block'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Save benchmarking basket</h1>
-            <p id='modal-content'><br/>
+            <p id='modal-content'>
                 Save your basket by copying the link below and saving it as a bookmark or in a document. Alternatively you can email the link to yourself or share with others.
             </p>
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
@@ -852,7 +852,7 @@
         <div role='document' class='save-modal-js page-2' style='display: none'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Link copied to clipboard</h1>
-            <p id='modal-content'><br/>
+            <p id='modal-content'>
                 You can now save the link as a bookmark or in a document to keep your benchmark basket.
             </p>           
             <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ShowSaveModalOne()'>See more options to save</button>            
@@ -893,12 +893,12 @@
             "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1>";
         if (isMAT) {
-            $modal_code += "<p id='modal-content'><br/>Some of this trust's schools have data from a period less than 12 months.</p>";
+            $modal_code += "<p id='modal-content'>Some of this trust's schools have data from a period less than 12 months.</p>";
         } else {
-            $modal_code += "<p id='modal-content'><br/>This school doesn't have a complete set of financial data for this period.</p>";
+            $modal_code += "<p id='modal-content'>This school doesn't have a complete set of financial data for this period.</p>";
         }
 
-        $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";
+        $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' title='Close'>Close</a></dialog>";
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');
@@ -932,7 +932,7 @@
         var $page = $('#js-modal-page');
 
         var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
-            "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='PdfLink' title='Close'>Close</a><br>" +
+            "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='PdfLink' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Select file format</h1>" +            
             `<div class="form-group">
               <fieldset>

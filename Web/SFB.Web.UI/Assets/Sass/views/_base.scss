@@ -450,6 +450,8 @@ dialog {
 .modal-title {
     font-weight: bold;
     @include bold-24();
+    margin-bottom: 15px;
+    padding-top: 15px;
 }
 
 #js-modal-close, #js-modal-close-bottom {
