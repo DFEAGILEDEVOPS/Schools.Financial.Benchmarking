@@ -50,24 +50,34 @@
                 @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                 {
                     <td class="school-column" data-header="School name">
-                        <span class="table-highlight index-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
+                        <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                            <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
+                        </a>
                     </td>
                 }
                 else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                 {
                     <td class="school-column" data-header="School name">
-                        <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete financial data</span>
+                        <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                            <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
+                        </a>
                     </td>
                 }
                 else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
                 {
                     <td class="school-column" data-header="School name">
-                        <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete workforce data</span>
+                        <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                            <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete workforce data</span>
+                        </a>
                     </td>
                 }
                 else
                 {
-                    <td class="school-column" data-header="School name">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                     <td class="school-column" data-header="School name">
+                         <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                             @schoolBenchmarkData.School
+                         </a>
+                     </td>                   
                 }
 
                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)

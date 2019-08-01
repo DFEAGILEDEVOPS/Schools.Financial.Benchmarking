@@ -21,18 +21,26 @@
             @if (ViewBag.HomeSchoolId.ToString() == schoolBenchmarkData.Urn)
             {
                 <td class="school-column" data-header="Trust name">
-                    <span class="table-highlight index-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
+                    <a href="/trust/index?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                        <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
+                    </a>
                 </td>
             }
             else if (Model.IncompleteFinanceDataIndex.Contains(i))
             {
                 <td class="school-column" data-header="Trust name">
-                    <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete financial data</span>
+                    <a href="/trust/index?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                        <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
+                    </a>
                 </td>
             }
             else
             {
-                <td class="school-column" data-header="Trust name">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                <td class="school-column" data-header="Trust name">
+                    <a href="/trust/index?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                        @schoolBenchmarkData.School
+                    </a>
+                </td>
             }
             <td class="detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount</td>
             <td data-header="Amount">
