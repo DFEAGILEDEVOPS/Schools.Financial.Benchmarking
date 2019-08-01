@@ -952,12 +952,8 @@
               </fieldset>
             <div class="grid-row modal-form-buttons">
                 <div class="column-half">
-                    <div class="column-one-third next-button" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">
-                        <button type="button" class="button">Download</button>
-                    </div>
-                    <div class="column-one-third back-button">
-                        <button type="button" class="link-button" value="Cancel" onclick="GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
-                    </div>
+                    <button type="button" class="button next-button" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">Download</button>
+                    <button type="button" class="back-button link-button" value="Cancel" onclick="GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
                 </div>
             </div>
             </div>` +

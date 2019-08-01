@@ -308,7 +308,21 @@ tspan.england-average-tick{
     }
 }
 
-.chart-container ul, .charts-section__chart-container ul{
+.modal-form-buttons {
+    .next-button {
+        padding-left: 15px;
+    }
+
+    .back-button{
+        margin-top:15px;
+
+        @include media(desktop){
+            margin-top:2%;
+            margin-left: 15px;
+        }
+    }
+}
+.chart-container ul, .charts-section__chart-container ul {
     list-style-type: disc;
     padding: inherit;
     padding-top: 0;
