@@ -35,7 +35,7 @@
             $($focus_back).focus();
             event.preventDefault();
         },
-        focusTabIndex : function(event) {
+        focusTabIndex: function (event) {
             $('#js-modal-close').focus();
         },
         init: function () {
@@ -57,11 +57,6 @@
         keyDownCloseAccessibleModal: function(event) {
             var $this = $(this);
 
-            if (event.keyCode === 9) { // tab
-                event.preventDefault();
-                return;
-            } 
-
             if (event.keyCode === 27) { // esc
                 var $focus_back = '#' + $('#js-modal-close').attr('data-focus-back'),
                     $js_modal = $('#js-modal'),
@@ -75,29 +70,21 @@
                 $js_modal_overlay.remove();
                 $($focus_back).focus();
             }
-            if (event.keyCode == 9) { // tab or maj+tab
+            if (event.keyCode === 9) { // tab or maj+tab
 
-                // get list of all children elements in given object
-                var children = $this.find('*');
+                var focusableItems = $('#js-modal').find('a[href], area[href], input:not([disabled]), button:not([disabled])').filter(':visible');
+                var focusableItemsCount = focusableItems.length;
 
-                // get list of focusable items
-                this.focusableElementsString = "a[href], area[href], input:not([disabled]), button:not([disabled])";
-                var focusableItems = children.filter(focusableElementsString).filter(':visible');
-
-                // get currently focused item
                 var focusedItem = $(document.activeElement);
-
-                // get the number of focusable items
-                var numberOfFocusableItems = focusableItems.length;
 
                 var focusedItemIndex = focusableItems.index(focusedItem);
 
-                if (!event.shiftKey && (focusedItemIndex == numberOfFocusableItems - 1)) {
+                if (!event.shiftKey && (focusedItemIndex === focusableItemsCount - 1)) {
                     focusableItems.get(0).focus();
                     event.preventDefault();
                 }
-                if (event.shiftKey && focusedItemIndex == 0) {
-                    focusableItems.get(numberOfFocusableItems - 1).focus();
+                if (event.shiftKey && focusedItemIndex === 0) {
+                    focusableItems.get(focusableItemsCount - 1).focus();
                     event.preventDefault();
                 }
             }
