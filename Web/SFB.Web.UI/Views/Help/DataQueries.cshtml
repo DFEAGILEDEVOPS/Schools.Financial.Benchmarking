@@ -1,0 +1,143 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "data-queries";
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+@model SFB.Web.UI.Models.DataQueryViewModel
+
+<div class="grid-row">
+    <div class="column-one-third contents">
+        <h3 class="heading-small">Contents</h3>
+        <ul class="list font-xsmall">
+            <li><a href="#school-information">School information</a></li>
+            <li><a href="#workforce-data">Workforce data</a></li>
+            <li><a href="#financial-data">Financial data</a></li>
+            <li><a href="#data-query">Data query</a></li>
+        </ul>
+    </div>
+    <div class="column-two-thirds text" id="helpContent">
+
+        @FormErrorSummary()
+
+        <h1 class="heading-xlarge page-heading">Data queries</h1>
+
+        <p>
+            Schools financial benchmarking uses data from multiple school data collections. We make every effort to ensure
+            that the information displayed is accurate and reflects the data provided to us by schools, trusts and local authorities.
+            There are rare occasions when there are inaccuracies reflected in the tool or inconsistencies with the data provided to us.
+            The following are some possible reasons and remedies that can be taken to change this.
+            If none of these solve your problem please use the data queries <a href="#data-query">form</a> to help us to identify and rectify your problem.
+        </p>
+
+        <a id="school-information"></a>
+        <h2 class="heading-medium">School information</h2>
+        <p>
+            For school information we display information that has been entered into <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://get-information-schools.service.gov.uk">Get more information about schools (GIAS)<span class="visuallyhidden"> Opens in a new window</span></a> by the school or their trust.
+            If you believe the school information is incorrect please get in touch with the person at the school or trust with responsibility to keep GIAS
+            up-to-date and request they update the information.
+        </p>
+
+        <a id="workforce-data"></a>
+        <h2 class="heading-medium">Workforce data</h2>
+        <p>
+            Workforce information is collected annually and if a school has been unable to submit on time they will be registered as having missing data.
+        </p>
+
+        <a id="financial-data"></a>
+        <h2 class="heading-medium">Financial data</h2>
+        <p>
+            For new schools, schools which have converted to academy status in year or schools which have joined a trust in year, we will often receive a part-year financial submission for the school. We display this partial submission on the tool, but we will also flag it as having missing or incomplete financial data. When we receive a full year's financial submission from the school, this flag will be removed.
+        </p>
+
+        <a id="data-query"></a>
+        <h2 class="heading-medium">Data query</h2>
+        <form action="DataQuerySubmission" method="post">
+            <p>If the above information does not resolve your data query please submit a request for us to look into.</p>
+
+            <div class="form-group @FormGroupErrorClass("dataQuery.Name")">
+                <label class="form-label" for="dataQuery.Name">Name</label>
+                @InputErrorMessage("dataQuery.Name")
+                <input class="form-control @FormControlErrorClass("dataQuery.Name")" id="dataQuery.Name" name="dataQuery.Name" type="text" value="@Model.Name">
+            </div>
+            <div class="form-group @FormGroupErrorClass("dataQuery.Email")">
+                <label class="form-label" for="dataQuery.Email">Email</label>
+                @InputErrorMessage("dataQuery.Email")
+                <input class="form-control @FormControlErrorClass("dataQuery.Email")" id="dataQuery.Email" name="dataQuery.Email" type="text" value="@Model.Email">
+            </div>
+            <div class="form-group @FormGroupErrorClass("dataQuery.Reference")">
+                <label class="form-label" for="dataQuery.Reference">School name/reference number or trust name/reference number</label>
+                @InputErrorMessage("dataQuery.Reference")
+                <input class="form-control @FormControlErrorClass("dataQuery.Reference")" id="dataQuery.Reference" name="dataQuery.Reference" type="text" value="@Model.Reference">
+            </div>
+            <div class="form-group @FormGroupErrorClass("dataQuery.DataQuery")">
+                <label class="form-label" for="dataQuery.DataQuery">Data query</label>
+                @InputErrorMessage("dataQuery.DataQuery")
+                <textarea class="form-control form-control-3-4 @FormControlErrorClass("dataQuery.DataQuery")" name="dataQuery.DataQuery" id="dataQuery.DataQuery" rows="8" maxlength="1000">@Model.DataQuery</textarea>
+            </div>
+            <button class="button" type="submit">Submit</button>
+        </form>
+
+    </div>
+</div>
+
+@helper FormErrorSummary()
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+
+    if (msDictionary != null && msDictionary.Count > 0)
+    {
+        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                There are errors on this page that require attention.
+            </h1>
+            <ul class="error-summary-list">
+                @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
+                {
+                    if (ms.Value.Errors.Count > 0)
+                    {
+                        <li>
+                            <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+}
+
+@helper FormGroupErrorClass(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        @("form-group-error")
+    }
+}
+
+
+@helper FormControlErrorClass(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        @("form-control-error")
+    }
+}
+
+@helper InputErrorMessage(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        <span class="error-message">
+            @ms.Errors.First().ErrorMessage
+        </span>
+    }
+}

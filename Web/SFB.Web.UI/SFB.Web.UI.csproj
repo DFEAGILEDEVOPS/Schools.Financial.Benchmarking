@@ -264,6 +264,7 @@
     <Compile Include="Models\CompareEntityBase.cs" />
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
+    <Compile Include="Models\DataQueryViewModel.cs" />
     <Compile Include="Models\HierarchicalChartViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LaListViewModel.cs" />
@@ -335,6 +336,7 @@
     <Content Include="App_Code\ViewHelpers.cshtml" />
     <Content Include="Assets\Sass\views\_bic-characteristics.scss" />
     <Content Include="Assets\Sass\elements\_components.scss" />
+    <Content Include="Assets\Sass\views\_data-queries.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -713,6 +715,8 @@
     <Content Include="Views\BenchmarkCharts\Partials\UsedOneClickCriteria.cshtml" />
     <Content Include="Views\BenchmarkCharts\SaveOverwriteStrategy.cshtml" />
     <Content Include="Views\BenchmarkCharts\ReplaceWithSavedBasket.cshtml" />
+    <Content Include="Views\Help\DataQueries.cshtml" />
+    <Content Include="Views\Help\DataQueryConfirmation.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
