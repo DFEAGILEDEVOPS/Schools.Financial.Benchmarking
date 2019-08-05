@@ -1,4 +1,5 @@
 ﻿using SFB.Web.UI.Models;
+using System;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -28,12 +29,13 @@ namespace SFB.Web.UI.Controllers
             return View(new DataQueryViewModel());
         }
 
+        [HttpPost]
         public ActionResult DataQuerySubmission(DataQueryViewModel dataQuery)
         {
             ViewBag.ModelState = ModelState;
             if (ModelState.IsValid)
             {
-                //Todo: Generate reference number and send emails.
+                ViewBag.Guid = $"{dataQuery.Reference.Substring(0,3)}-{DateTime.UtcNow.Minute.ToString()}{DateTime.UtcNow.Second.ToString()}{DateTime.UtcNow.Millisecond.ToString()}";
                 return View("DataQueryConfirmation");
             }
             else
