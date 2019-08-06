@@ -55,7 +55,7 @@
                     </a>
                     @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                     {
-                        <span class="help-icon">
+                        <span class="ex-icon">
                             <span class="icon dark-blue">
                                 <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                     <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
@@ -71,7 +71,7 @@
                         <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
                             <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
                         </a>
-                        <span class="help-icon"> 
+                        <span class="ex-icon"> 
                             <span class="icon dark-blue">
                                 <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                     <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>

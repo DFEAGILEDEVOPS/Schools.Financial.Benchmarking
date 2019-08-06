@@ -335,6 +335,7 @@
     <Content Include="App_Code\ViewHelpers.cshtml" />
     <Content Include="Assets\Sass\views\_bic-characteristics.scss" />
     <Content Include="Assets\Sass\elements\_components.scss" />
+    <Content Include="Assets\Sass\elements\_exicon.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -370,6 +371,7 @@
     <Content Include="public\assets\images\dfe-small.png" />
     <Content Include="public\assets\images\dfe-xsmall.png" />
     <Content Include="public\assets\images\dfe.png" />
+    <Content Include="public\assets\images\ex-icon.png" />
     <Content Include="public\assets\images\favicon.ico" />
     <Content Include="public\assets\images\grid-rating.png" />
     <Content Include="public\assets\images\help-icon-2x.png" />
