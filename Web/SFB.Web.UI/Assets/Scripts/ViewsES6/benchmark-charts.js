@@ -747,7 +747,8 @@
     PptPage() {        
 
         $('#criteria-details.criteria-details').attr('open', 'true');
-
+        $('.chart-container .accordion-section[aria-expanded="false"] .accordion-section-header').click();
+        
         let pptGenerator = new PptGenerator();
 
         pptGenerator.writeHeadings();
