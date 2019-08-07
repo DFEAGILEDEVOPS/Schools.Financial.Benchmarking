@@ -19,9 +19,8 @@ namespace SFB.Web.UI.Controllers
             _locationSearchService = locationSearchService;
         }
         
-        public ActionResult Suggest(string locationOrPostcode, bool openOnly = true, string referrer = null)
+        public ActionResult Suggest(string locationOrPostcode, bool openOnly = true)
         {
-            ViewBag.referrer = referrer;
             var suggestions = TempData["LocationResults"] as SuggestionQueryResult;
             if(suggestions == null)
             {

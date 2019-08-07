@@ -49,17 +49,7 @@
 <div id="screen-reader-result-list" class="visuallyhidden">
     <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
 </div>
-@if (ViewBag.referrer == "schoolsearch/addschools")
-{
-    <div class="grid-row mb-2">
-        <div class="column-full">
-            <a href="/schoolsearch/addschools">
-            <img class="mag-icon" src="~/public/assets/images/icons/mag.png" alt="Add another school name or location" />
-            <span>Add another school by name or location</span>
-            </a>
-        </div>        
-    </div>
-}
+
 <div class="grid-row js-live-search-results-block">
     @Html.Partial("Partials/ResultBlock")
 </div>

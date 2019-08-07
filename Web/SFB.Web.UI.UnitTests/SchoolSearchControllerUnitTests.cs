@@ -401,7 +401,7 @@ namespace SFB.Web.UI.UnitTests
             var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 } };
 
             _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567", false)).Returns((string urn, bool openOnly) => testResult);
-
+                       
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
@@ -413,57 +413,6 @@ namespace SFB.Web.UI.UnitTests
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("1234567", (result as RedirectToRouteResult).RouteValues["urn"].ToString());
-        }
-
-        [Test]
-        public async Task SearchActionRedirectsToResultsViewIfLaEstabIsUsedAsIdAndOneResultFoundButComingFromAddSchools()
-        {
-            var testDictionary = new Dictionary<string, object>();
-            testDictionary.Add("URN", "654321");
-            dynamic edubaseSearchResponse = new QueryResultsModel(1, null, new List<IDictionary<string, object>>() { testDictionary }, 50, 0);
-            Task<dynamic> task = Task.Run(() =>
-            {
-                return edubaseSearchResponse;
-            });
-
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("123", 0, 50, "EstablishmentName", null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
-
-
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
-
-            controller.ControllerContext = new ControllerContext(_rc, controller);
-
-            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, "123", null, false, null, 1, null, "schoolsearch/addschools");
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual("SearchResults", (result as ViewResult).ViewName);
-        }
-
-        [Test]
-        public async Task SearchActionRedirectsToResultsViewIfLocationIsUsedAsIdAndOneResultFoundButComingFromAddSchools()
-        {
-            var testDictionary = new Dictionary<string, object>();
-            testDictionary.Add("URN", "654321");
-            dynamic edubaseSearchResponse = new QueryResultsModel(1, null, new List<IDictionary<string, object>>() { testDictionary }, 50, 0);
-            Task<dynamic> task = Task.Run(() =>
-            {
-                return edubaseSearchResponse;
-            });
-
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLon(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<decimal>(), It.IsAny<int>(), It.IsAny<int>(), null, null)).Returns((string lat, string lon, decimal distance, int skip, int take,
-            string orderby, NameValueCollection queryParams) => task);
-
-
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
-
-            controller.ControllerContext = new ControllerContext(_rc, controller);
-
-            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_LOCATION, null, "test", "123, 321", null, null, false, null, 1, null, "schoolsearch/addschools");
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual("SearchResults", (result as ViewResult).ViewName);
         }
 
         [Test]

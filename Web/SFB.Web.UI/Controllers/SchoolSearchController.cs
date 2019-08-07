@@ -69,7 +69,6 @@ namespace SFB.Web.UI.Controllers
             dynamic searchResp = null;
             string errorMessage;
             ViewBag.tab = tab;
-            ViewBag.referrer = referrer;
 
             switch (searchType)
             {
@@ -211,9 +210,9 @@ namespace SFB.Web.UI.Controllers
                             {
                                 laCodeName = exactMatch.id;
                                 return await Search(nameId, trustNameId, searchType, suggestionUrn, locationorpostcode,
-                                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab, referrer);
+                                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
-                            return RedirectToAction("Search", "La", new {name = laCodeName, openOnly = openOnly, referrer = referrer});
+                            return RedirectToAction("Search", "La", new {name = laCodeName, openOnly = openOnly});
                         }
                         else
                         {
@@ -241,15 +240,11 @@ namespace SFB.Web.UI.Controllers
                                     return View("EmptyResult",
                                         new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 case 1:
-                                    if (referrer != "schoolsearch/addschools")
-                                    {
-                                        return RedirectToAction("Detail", "School",
-                                            new
-                                            {
-                                                urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"]
-                                            });
-                                    }
-                                    break;
+                                    return RedirectToAction("Detail", "School",
+                                        new
+                                        {
+                                            urn = ((Domain.Models.QueryResultsModel) searchResp).Results.First()["URN"]
+                                        });
                             }
                         }
                         else
@@ -281,7 +276,7 @@ namespace SFB.Web.UI.Controllers
                                         new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 default:
                                     TempData["LocationResults"] = result;
-                                    return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationorpostcode, openOnly = openOnly, referrer = referrer });
+                                    return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationorpostcode, openOnly = openOnly });
                             }                            
                         }
                         else
@@ -295,12 +290,8 @@ namespace SFB.Web.UI.Controllers
                                     return View("EmptyLocationResult",
                                         new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 case 1:
-                                    if (referrer != "schoolsearch/addschools")
-                                    {
-                                        return RedirectToAction("Detail", "School",
+                                    return RedirectToAction("Detail", "School",
                                         new { urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"] });
-                                    }
-                                    break;
                             }
                         }
                     }

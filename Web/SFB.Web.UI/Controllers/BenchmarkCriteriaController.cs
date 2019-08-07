@@ -72,8 +72,6 @@ namespace SFB.Web.UI.Controllers
                     return HighestProgressSchoolsBenchmarking(urn);
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn, comparisonType);
-                case ComparisonType.Manual:
-                    return RedirectToAction("AddSchools", "SchoolSearch");
                 case ComparisonType.Advanced:
                 default:
                     return SelectSchoolType(urn, comparisonType, null, null);
