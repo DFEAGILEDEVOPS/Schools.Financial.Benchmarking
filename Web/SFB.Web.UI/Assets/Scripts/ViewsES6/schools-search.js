@@ -17,6 +17,8 @@
         this.bindAutosuggest('#FindByTrustName', '#FindByTrustNameSuggestionId', this.getTrustSuggestionHandler);
         this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
+        this.bindAutosuggest('#FindSchoolManuallyByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
+        this.bindAutosuggest('#FindSchoolManuallyByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindEnterKeysToButtons();
         this.bindAccordionHeaderClick();
     }
@@ -111,7 +113,9 @@
             $.getJSON(`https://api.postcodes.io/postcodes?lat=${coords.latitude}&lon=${coords.longitude}&widesearch=true`, function (data) {
                 if (data.result) {
                     $('#FindSchoolByTown').val(data.result[0].postcode);
+                    $('#FindSchoolManuallyByTown').val(data.result[0].postcode);
                     $('#FindSchoolByTown').attr("placeholder", "");
+                    $('#FindSchoolManuallyByTown').attr("placeholder", "");
                 }
             });
         }
@@ -234,12 +238,26 @@
                             url += '&openOnly=true';
                         }
                         break;
+                    case 'FindSchoolManuallyByLaCodeName':
+                        // convert it to an la code search, which is the same as if they'd submitted.
+                        url = '/schoolsearch/ManualSearch?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
+                        if (openSchoolsOnly) {
+                            url += '&openOnly=true';
+                        }
+                        break;
                     case 'FindByTrustName':
                         url = '/trust/index?companyNo=' + suggestion['Id'];
                         break;
                     case 'FindSchoolByTown':
                         $('#LocationCoordinates').val(suggestion['Location']);
                         url = '/SchoolSearch/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
+                        if (openSchoolsOnly) {
+                            url += '&openOnly=true';
+                        }
+                        break;
+                    case 'FindSchoolManuallyByTown':
+                        $('#LocationCoordinates').val(suggestion['Location']);
+                        url = '/SchoolSearch/ManualSearch?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }

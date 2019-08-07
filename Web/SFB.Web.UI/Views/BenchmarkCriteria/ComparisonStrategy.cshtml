@@ -48,6 +48,14 @@
                         Detailed comparison using characteristics you choose
                     </label>
                 </div>
+
+                <div class="multiple-choice">
+                    <input id="radio-4" type="radio" name="comparisonType" value="@ComparisonType.Manual">
+                    <label class="selection-button-radio" for="radio-4">
+                        Manual comparison by name or location
+                    </label>
+                </div>
+
                 @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase))
                 {
                     <p style="clear:left; padding: 0.8em 0 0 0">or</p>

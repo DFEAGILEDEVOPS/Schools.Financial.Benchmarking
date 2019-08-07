@@ -11,7 +11,7 @@
         ViewBag.HomeSchoolId = Model.Id.ToString();
         ViewBag.HomeSchoolName = Model.Name;
     }
-    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink", Model)
+    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
