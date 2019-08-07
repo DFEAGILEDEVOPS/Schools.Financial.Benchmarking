@@ -335,7 +335,7 @@
     <Content Include="App_Code\ViewHelpers.cshtml" />
     <Content Include="Assets\Sass\views\_bic-characteristics.scss" />
     <Content Include="Assets\Sass\elements\_components.scss" />
-    <Content Include="Assets\Sass\elements\_exicon.scss" />
+    <Content Include="Assets\Sass\elements\_excicon.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
