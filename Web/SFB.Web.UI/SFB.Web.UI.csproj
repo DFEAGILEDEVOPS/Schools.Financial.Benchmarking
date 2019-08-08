@@ -247,6 +247,7 @@
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\ManualComparisonController.cs" />
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="Attributes\AiHandleErrorAttribute.cs" />
@@ -336,6 +337,7 @@
     <Content Include="Assets\Sass\views\_bic-characteristics.scss" />
     <Content Include="Assets\Sass\elements\_components.scss" />
     <Content Include="Assets\Sass\elements\_excicon.scss" />
+    <Content Include="Assets\Sass\views\_add-schools-manually.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -349,6 +351,7 @@
     <Content Include="Assets\Scripts\Elements\Modal\modal.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMapES6\azure-school-results-map.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMapES6\azure-school-map.js" />
+    <Content Include="Assets\Scripts\ViewsES6\add-schools-manually.js" />
     <Content Include="Assets\Scripts\ViewsES6\advanced-characteristics.js" />
     <Content Include="Assets\Scripts\ViewsES6\benchmark-charts.js" />
     <Content Include="Assets\Scripts\ViewsES6\benchmark-list.js" />
@@ -715,10 +718,12 @@
     <Content Include="Views\BenchmarkCharts\Partials\UsedOneClickCriteria.cshtml" />
     <Content Include="Views\BenchmarkCharts\SaveOverwriteStrategy.cshtml" />
     <Content Include="Views\BenchmarkCharts\ReplaceWithSavedBasket.cshtml" />
-    <Content Include="Views\SchoolSearch\ManualComparison.cshtml" />
     <Content Include="Views\Shared\Partials\Search\ManualSchoolSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\ManualLocationSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\ManualLaSearchOption.cshtml" />
+    <Content Include="Views\ManualComparison\AddSchoolsManually.cshtml" />
+    <Content Include="Views\ManualComparison\Partials\SchoolsToAdd.cshtml" />
+    <Content Include="Views\ManualComparison\Index.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

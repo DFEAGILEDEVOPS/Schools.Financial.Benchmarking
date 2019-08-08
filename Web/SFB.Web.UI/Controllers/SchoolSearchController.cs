@@ -322,15 +322,6 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
-        public ActionResult ManualComparison()
-        {
-            var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var vm = new SchoolSearchViewModel(schoolComparisonListModel, "");
-            vm.Authorities = _laService.GetLocalAuthorities();
-
-            return View(vm);
-        }
-
         public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);

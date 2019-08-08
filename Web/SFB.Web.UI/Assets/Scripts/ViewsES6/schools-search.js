@@ -240,7 +240,7 @@
                         break;
                     case 'FindSchoolManuallyByLaCodeName':
                         // convert it to an la code search, which is the same as if they'd submitted.
-                        url = '/schoolsearch/ManualSearch?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
+                        url = '/ManualComparison/ManualSearch?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
@@ -257,7 +257,7 @@
                         break;
                     case 'FindSchoolManuallyByTown':
                         $('#LocationCoordinates').val(suggestion['Location']);
-                        url = '/SchoolSearch/ManualSearch?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
+                        url = '/ManualComparison/ManualSearch?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }

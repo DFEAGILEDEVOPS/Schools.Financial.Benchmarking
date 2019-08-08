@@ -32,6 +32,17 @@ namespace SFB.Web.UI.Helpers
             return comparisonList;
         }
 
+        public SchoolComparisonListModel ExtractManualComparisonListFromCookie()
+        {
+            SchoolComparisonListModel comparisonList = new SchoolComparisonListModel();
+            var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MANUAL];
+            if (cookie != null)
+            {
+                comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+            return comparisonList;
+        }
+
         public void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool)
         {
             HttpCookie cookie = null;
@@ -39,98 +50,54 @@ namespace SFB.Web.UI.Helpers
             switch (withAction)
             {
                 case CookieActions.Add:
-                    cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
-                    if (cookie == null)
-                    {
-                        cookie = new HttpCookie(CookieNames.COMPARISON_LIST);
-                        var listCookie = new SchoolComparisonListModel();
-                        listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
-                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                    }
-                    else
-                    {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() {StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                        if ((listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT || listCookie.HomeSchoolUrn == benchmarkSchool.Urn) && !listCookie.BenchmarkSchools.Any(s => s.Urn == benchmarkSchool.Urn))
-                        {
-                            if(listCookie.BenchmarkSchools.Any(s => s.Name == benchmarkSchool.Name))
-                            {
-                                benchmarkSchool.Name += " ";
-                            }
-
-                            listCookie.BenchmarkSchools.Add(benchmarkSchool);
-                        }
-                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                    }
+                    cookie = AddSchoolToCookie(benchmarkSchool, CookieNames.COMPARISON_LIST);
                     break;
                 case CookieActions.Remove:
-                    cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
-                    if (cookie != null)
-                    {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                        listCookie.BenchmarkSchools.Remove(benchmarkSchool);
-                        if (listCookie.HomeSchoolUrn == benchmarkSchool.Urn)
-                        {
-                            listCookie.HomeSchoolUrn = null;
-                            listCookie.HomeSchoolName = null;
-                            listCookie.HomeSchoolType = null;
-                            listCookie.HomeSchoolFinancialType = null;
-                        }
-                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                    }
+                    cookie = RemoveSchoolFromCookie(benchmarkSchool, CookieNames.COMPARISON_LIST);
                     break;
                 case CookieActions.SetDefault:
-                    cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
-                    if (cookie == null)
-                    {
-                        cookie = new HttpCookie(CookieNames.COMPARISON_LIST);
-                        var listCookie = new SchoolComparisonListModel();
-                        listCookie.HomeSchoolUrn = benchmarkSchool.Urn;
-                        listCookie.HomeSchoolName = benchmarkSchool.Name;
-                        listCookie.HomeSchoolType = benchmarkSchool.Type;
-                        listCookie.HomeSchoolFinancialType = benchmarkSchool.EstabType;
-                        listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
-                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                    }
-                    else
-                    {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                        listCookie.HomeSchoolUrn = benchmarkSchool.Urn;
-                        listCookie.HomeSchoolName = benchmarkSchool.Name;
-                        listCookie.HomeSchoolType = benchmarkSchool.Type;
-                        listCookie.HomeSchoolFinancialType = benchmarkSchool.EstabType;
-                        if (listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT && listCookie.BenchmarkSchools.All(s => s.Urn != benchmarkSchool.Urn))
-                        {
-                            listCookie.BenchmarkSchools.Add(benchmarkSchool);
-                        }
-                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                    }
+                    cookie = SetDefaultSchoolInCookie(benchmarkSchool, CookieNames.COMPARISON_LIST);
                     break;
                 case CookieActions.UnsetDefault:
-                    cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
-                    if (cookie != null)
-                    {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                        listCookie.HomeSchoolUrn = null;
-                        listCookie.HomeSchoolName = null;
-                        listCookie.HomeSchoolType = null;
-                        listCookie.HomeSchoolFinancialType = null;
-                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                    }
+                    cookie = UnsetDefaultSchoolInCookie(CookieNames.COMPARISON_LIST);
                     break;
                 case CookieActions.RemoveAll:
-                    cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
-                    if (cookie != null)
-                    {
-                        var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                        listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>();
-                        cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-                    }
+                    cookie = RemoveAllSchoolsFromCookie(CookieNames.COMPARISON_LIST);
                     break;
             }
 
             if (cookie != null)
             {
                 cookie.Expires = DateTime.MaxValue;
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+        }
+
+        public void UpdateManualComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool)
+        {
+            HttpCookie cookie = null;
+
+            switch (withAction)
+            {
+                case CookieActions.Add:
+                    cookie = AddSchoolToCookie(benchmarkSchool, CookieNames.COMPARISON_LIST_MANUAL);
+                    break;
+                case CookieActions.Remove:
+                    cookie = RemoveSchoolFromCookie(benchmarkSchool, CookieNames.COMPARISON_LIST_MANUAL);
+                    break;
+                case CookieActions.SetDefault:
+                    cookie = SetDefaultSchoolInCookie(benchmarkSchool, CookieNames.COMPARISON_LIST_MANUAL);
+                    break;
+                case CookieActions.UnsetDefault:
+                    cookie = UnsetDefaultSchoolInCookie(CookieNames.COMPARISON_LIST_MANUAL);
+                    break;
+                case CookieActions.RemoveAll:
+                    cookie = RemoveAllSchoolsFromCookie(CookieNames.COMPARISON_LIST_MANUAL);
+                    break;
+            }
+
+            if (cookie != null)
+            {                
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
         }
@@ -229,6 +196,114 @@ namespace SFB.Web.UI.Helpers
         private string FormatTerm(string term, EstablishmentType estabType)
         {
             return estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT ? term : term.Replace('/', '-');
+        }
+
+        private HttpCookie RemoveAllSchoolsFromCookie(string cookieName)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+            if (cookie != null)
+            {
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+                listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>();
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+
+            return cookie;
+        }
+
+        private HttpCookie UnsetDefaultSchoolInCookie(string cookieName)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+            if (cookie != null)
+            {
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+                listCookie.HomeSchoolUrn = null;
+                listCookie.HomeSchoolName = null;
+                listCookie.HomeSchoolType = null;
+                listCookie.HomeSchoolFinancialType = null;
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+
+            return cookie;
+        }
+
+        private HttpCookie SetDefaultSchoolInCookie(BenchmarkSchoolModel benchmarkSchool, string cookieName)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+            if (cookie == null)
+            {
+                cookie = new HttpCookie(cookieName);
+                var listCookie = new SchoolComparisonListModel();
+                listCookie.HomeSchoolUrn = benchmarkSchool.Urn;
+                listCookie.HomeSchoolName = benchmarkSchool.Name;
+                listCookie.HomeSchoolType = benchmarkSchool.Type;
+                listCookie.HomeSchoolFinancialType = benchmarkSchool.EstabType;
+                listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+            else
+            {
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+                listCookie.HomeSchoolUrn = benchmarkSchool.Urn;
+                listCookie.HomeSchoolName = benchmarkSchool.Name;
+                listCookie.HomeSchoolType = benchmarkSchool.Type;
+                listCookie.HomeSchoolFinancialType = benchmarkSchool.EstabType;
+                if (listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT && listCookie.BenchmarkSchools.All(s => s.Urn != benchmarkSchool.Urn))
+                {
+                    listCookie.BenchmarkSchools.Add(benchmarkSchool);
+                }
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+
+            return cookie;
+        }
+
+        private HttpCookie RemoveSchoolFromCookie(BenchmarkSchoolModel benchmarkSchool, string cookieName)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+            if (cookie != null)
+            {
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+                listCookie.BenchmarkSchools.Remove(benchmarkSchool);
+                if (listCookie.HomeSchoolUrn == benchmarkSchool.Urn)
+                {
+                    listCookie.HomeSchoolUrn = null;
+                    listCookie.HomeSchoolName = null;
+                    listCookie.HomeSchoolType = null;
+                    listCookie.HomeSchoolFinancialType = null;
+                }
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+
+            return cookie;
+        }
+
+        private HttpCookie AddSchoolToCookie(BenchmarkSchoolModel benchmarkSchool, string cookieName)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
+            if (cookie == null)
+            {
+                cookie = new HttpCookie(cookieName);
+                var listCookie = new SchoolComparisonListModel();
+                listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+            else
+            {
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+                if ((listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT || listCookie.HomeSchoolUrn == benchmarkSchool.Urn) && !listCookie.BenchmarkSchools.Any(s => s.Urn == benchmarkSchool.Urn))
+                {
+                    if (listCookie.BenchmarkSchools.Any(s => s.Name == benchmarkSchool.Name))
+                    {
+                        benchmarkSchool.Name += " ";
+                    }
+
+                    listCookie.BenchmarkSchools.Add(benchmarkSchool);
+                }
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+
+            return cookie;
         }
     }
 }

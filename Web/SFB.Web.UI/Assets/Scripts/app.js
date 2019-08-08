@@ -185,15 +185,39 @@
             $('#js-modal-close').focus();
 
         },
+        RenderFullListWarningModalManual: function () {
+            var $body = $('body');
+            var $page = $('#js-modal-page');
+
+            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+                '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="manualButton" title="Close">Close</a>' +
+                '<h1 id="modal-title" class="modal-title">Not enough space in basket</h1><p id="modal-content">' +
+                'You can only benchmark up to 30 schools.</p>' +
+                '<a href="#" id="js-modal-close-bottom" class="modal-close white-font" data-focus-back="manualButton" title="Close">Close</a></dialog>';
+
+            $($modal_code).insertAfter($page);
+            $body.addClass('no-scroll');
+
+            $page.attr('aria-hidden', 'true');
+
+            // add overlay
+            var $modal_overlay =
+                '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+            $($modal_overlay).insertAfter($('#js-modal'));
+
+            $('#js-modal-close').focus();
+
+        },
         RenderFullListWarningModalMat: function () {
             var $body = $('body');
             var $page = $('#js-modal-page');
 
             var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
-                '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
+                '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="manualButton" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Trust basket is full</h1><p id="modal-content">' +
                 'You can only benchmark up to 20 trusts.</p>' +
-                '<a href="#" id="js-modal-close-bottom" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a></dialog>';
+                '<a href="#" id="js-modal-close-bottom" class="modal-close white-font" data-focus-back="manualButton" title="Close">Close</a></dialog>';
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');

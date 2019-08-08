@@ -1,0 +1,72 @@
+﻿@using SFB.Web.Domain.Helpers.Constants
+@using SFB.Web.UI.Helpers.Constants
+@model List<SFB.Web.UI.Models.BenchmarkSchoolModel>
+
+<form autocomplete="off">
+    <span id="schoolCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count schools in manual comparison list</span>
+    <input id="schoolCount" type="hidden" value="@Model.Count"/>
+    <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
+    <fieldset>
+        <legend class="visuallyhidden">Choose a school from auto completion list</legend>
+        @{
+            int i = 0;
+            if (Model.Count > 0)
+            {
+                <div id="ExistingSchools">
+                    @for (; i < Model.Count; i++)
+                    {
+                        <div class="grid-row school-element">
+                            <label class="form-label" for="school_@i">School @Html.Raw(i + 1)</label>
+                            <input class="form-control" style="width: 50%" id="school_@i" name="school_@i" type="text" disabled="disabled" value="@Model[i].Name"/>
+                            <button class="remove-school a-button" data-urn="@Model[i].Id" aria-label="Remove @Model[i].Name">Remove</button>
+                        </div>
+                    }
+                </div>
+
+                <div id="NewSchool" style="display: none">
+                    <div class="grid-row school-element">
+                        <label class="form-label" for="NewSchoolName">School @Html.Raw(i + 1)</label>
+                        <input id="NewSchoolName"
+                               class="form-control"
+                               name="schoolname"
+                               type="text"
+                               data-suggestion-url="/schoolsearch/suggest"/>
+                    </div>
+                </div>
+                <div id="AddButton" class="grid-row">
+                    <div class="column-full">
+                        @if (Model.Count + 1 < ComparisonListLimit.LIMIT)
+                        {
+                            <button class="a-button" id="displayNew">Add another school</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="a-button" onclick="DfE.Util.ComparisonList.RenderFullListWarningModalManual()">Add another school</button>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="grid-row school-element">
+                    <label class="form-label" for="NewSchoolName">School 1</label>
+                    <input id="NewSchoolName"
+                           class="form-control"
+                           name="schoolname"
+                           type="text"
+                           data-suggestion-url="/schoolsearch/suggest"/>
+                </div>
+            }
+        }
+    </fieldset>
+</form>
+
+@if (Request.IsAjaxRequest())
+{
+    <script>
+        $('#schoolCountMessage').text("Updating manual comparison list");
+        setTimeout(function () {
+            $('#schoolCountMessage').text($("#schoolCount").val() + " schools in list");
+        }, 2000);
+    </script>
+}

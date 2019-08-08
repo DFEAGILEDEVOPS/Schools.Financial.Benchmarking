@@ -1,0 +1,59 @@
+﻿@model SFB.Web.UI.Models.SchoolViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "add-schools-manually";
+    ViewBag.HomeSchoolId = Model.ComparisonList.HomeSchoolUrn;
+    ViewBag.HomeSchoolName = Model.ComparisonList.HomeSchoolName;
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
+}
+
+<h1 class="heading-xlarge page-heading">Manual comparison</h1>
+
+<div class="grid-row home-school section">
+    <div class="column-full mb-1">
+        <span class="font-xsmall">Comparing to</span>
+        <div class="highlight">
+            <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+        </div>
+    </div>
+</div>
+
+<div class="column-three-quarters no-padding">
+    <div class="steps">
+        <span>Step 2 of 2</span>
+    </div>
+
+    <div>
+        <span class="bold-small">Enter a school by name</span><span class="font-xsmall"> (max. 30)</span>
+    </div>
+
+    <div id="SchoolsToAdd">
+        @Html.Partial("Partials/SchoolsToAdd", Model.ManualComparisonList.BenchmarkSchools.Where(t => t.Urn != Model.ManualComparisonList.HomeSchoolUrn).ToList())
+    </div>
+</div>
+
+<div class="grid-row control-buttons font-xsmall">
+    <div class="column-half mt-1">
+        <div class="column-two-thirds next-button">
+            <a id="manualButton" class="button" href="BenchmarkCharts/Mats">Continue to benchmarking charts</a>
+        </div>
+        <div class="column-one-third no-padding back-button">
+            <a href="/ManualComparison">Back</a>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="openOnly" value="@ViewBag.OpenOnly.ToString()" />
+
+@section ViewScripts {
+
+    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        DfE.Views.AddSchoolsManuallyViewModel = new AddSchoolsManuallyViewModel();
+    </script>
+}

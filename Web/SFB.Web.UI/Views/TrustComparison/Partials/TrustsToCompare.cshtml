@@ -58,7 +58,7 @@
                 </div>
                 <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
                     <div class="column-full">
-                        @if (Model.Count < ComparisonListLimit.MAT_LIMIT)
+                        @if (Model.Count + 1 < ComparisonListLimit.MAT_LIMIT)
                         {
                             <button class="a-button" id="displayNew">Add another trust</button>
                         }
