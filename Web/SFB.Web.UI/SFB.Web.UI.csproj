@@ -724,6 +724,7 @@
     <Content Include="Views\ManualComparison\AddSchoolsManually.cshtml" />
     <Content Include="Views\ManualComparison\Partials\SchoolsToAdd.cshtml" />
     <Content Include="Views\ManualComparison\Index.cshtml" />
+    <Content Include="Views\ManualComparison\OverwriteStrategy.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

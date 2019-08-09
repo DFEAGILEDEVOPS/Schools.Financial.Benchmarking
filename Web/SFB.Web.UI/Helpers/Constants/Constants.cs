@@ -107,6 +107,7 @@
 
     public class ErrorMessages
     {
+        public const string DuplicateSchool = "Please select a school which is not already in your list";
         public const string DuplicateTrust = "Please select a trust which is not already in your list";
         public const string BMBasketLimitExceed = "Combined basket exceeds 30 schools, either replace current basket or go back and reduce new basket size";
     }

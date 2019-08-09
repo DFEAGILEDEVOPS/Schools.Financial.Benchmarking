@@ -1,9 +1,11 @@
-﻿using SFB.Web.Domain.Services;
+﻿using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -73,18 +75,94 @@ namespace SFB.Web.UI.Controllers
             return null;
         }
 
+        public ActionResult OverwriteStrategy()
+        {            
+            var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+            if (comparisonList?.BenchmarkSchools?.Count > 0)
+            {
+                var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
+                ViewBag.referrer = Request.UrlReferrer;
+                return View(vm);
+            }
+            else
+            {
+                foreach (var school in manualComparisonList.BenchmarkSchools)
+                {
+                    comparisonList.BenchmarkSchools.Add(school);
+                }
+                return Redirect("/BenchmarkCharts");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ReplaceAdd(BenchmarkListOverwriteStrategy overwriteStrategy, string referrer)
+        {
+            var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+
+            switch (overwriteStrategy)
+            {                              
+                case BenchmarkListOverwriteStrategy.Add:
+                    if (comparisonList.BenchmarkSchools.Count + manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn).Count()  > ComparisonListLimit.LIMIT)
+                    {
+                        var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                        var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
+                        vm.ErrorMessage = ErrorMessages.BMBasketLimitExceed;
+                        ViewBag.referrer = referrer;
+                        return View("OverwriteStrategy", vm);
+                    }
+                    else
+                    {
+                        foreach (var school in manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn))
+                        {
+                            try
+                            {
+                                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, school);
+                            }catch(ApplicationException)
+                            {
+                                //duplicate school adds will be ignored
+                            }
+                        }
+                        return Redirect("/BenchmarkCharts");
+                    }
+                case BenchmarkListOverwriteStrategy.Overwrite:                    
+                default:
+                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+                    foreach (var school in manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn))
+                    {
+                        _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, school);
+                    }
+                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel() {
+                        Urn = manualComparisonList.HomeSchoolUrn,
+                        Name = manualComparisonList.HomeSchoolName,
+                        Type = manualComparisonList.HomeSchoolType,
+                        EstabType = manualComparisonList.HomeSchoolFinancialType
+                    });
+                    return Redirect("/BenchmarkCharts");
+            }
+        }
+
         public PartialViewResult AddSchool(int urn)
         {
             var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
 
-            _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.Add,
-                new BenchmarkSchoolModel()
-                {
-                    Name = benchmarkSchool.Name,
-                    Urn = benchmarkSchool.Id.ToString(),
-                    Type = benchmarkSchool.Type,
-                    EstabType = benchmarkSchool.EstablishmentType.ToString()
-                });
+            try
+            {
+                _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.Add,
+                    new BenchmarkSchoolModel()
+                    {
+                        Name = benchmarkSchool.Name,
+                        Urn = benchmarkSchool.Id.ToString(),
+                        Type = benchmarkSchool.Type,
+                        EstabType = benchmarkSchool.EstablishmentType.ToString()
+                    });
+            }
+            catch (ApplicationException ex)
+            {
+                ViewBag.Error = ex.Message;
+            }
 
             var vm = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
 
