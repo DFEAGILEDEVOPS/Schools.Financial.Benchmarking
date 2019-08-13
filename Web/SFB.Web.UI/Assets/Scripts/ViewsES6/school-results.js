@@ -158,8 +158,9 @@
                 this.map.renderMapPinsForAzureMap(this.cache[serialisedState]);
             }
             else {
+                var searchController = $("#SearchMethod").val() === "Manual" ? "ManualSearch" : "SchoolSearch";
                 return $.ajax({
-                    url: "/SchoolSearch/search-json",
+                    url: `/${searchController}/search-json`,
                     data: serialisedState
                 }).done((response) => {
                     this.cache[serialisedState] = response;
@@ -196,6 +197,26 @@
                 $("#benchmarkBasket").replaceWith(data);
                 $("div[data-urn='" + urn + "']>.add-remove").toggle();
                 this.addAllVisibility();
+            });
+    }
+
+    updateManualBasket(urn, withAction) {
+        if (withAction === "Add") {
+            if (DfE.Util.ComparisonList.countManual() === 30) {
+                DfE.Util.ComparisonList.RenderFullListWarningModalManual();
+                return;
+            }
+        }
+
+        $.get("/manualComparison/UpdateManualBasket?urn=" + urn + "&withAction=" + withAction,
+            (data) => {
+                if (data > 1) {
+                    $(".manual-button").show();
+                } else {
+                    $(".manual-button").hide();
+                }
+                $("#manualCount").text(data); 
+                $("div[data-urn='" + urn + "']>.add-remove").toggle();                                
             });
     }
 
@@ -237,7 +258,12 @@
 
         $addRemoveButtons.each(function () {
             var urn = $(this).parent().attr("data-urn");
-            var inList = DfE.Util.ComparisonList.isInList(urn);
+            var inList;
+            if ($("#SearchMethod").val() === "Manual") {
+                inList = DfE.Util.ComparisonList.isInManualList(urn);
+            } else {
+                inList = DfE.Util.ComparisonList.isInList(urn);
+            }
             if (inList) {
                 $(this).parent().find('.addto').hide();
                 $(this).parent().find('.removefrom').show();

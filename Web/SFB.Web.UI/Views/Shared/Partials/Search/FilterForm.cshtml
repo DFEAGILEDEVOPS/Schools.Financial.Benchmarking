@@ -3,9 +3,11 @@
 @model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
 <div id="EditSearchCollapse" aria-expanded="true">
-
-    <form id="SearchFacetsForm" method="get" action="/SchoolSearch/Search" class="js-live-search-form">
-
+    
+    @{ 
+        var action = ViewBag.SearchMethod == "Manual" ? "ManualSearch" : "SchoolSearch";
+    }
+    <form id="SearchFacetsForm" method="get" action="/@(action)/Search" class="js-live-search-form">
         <div class="grid-row mvs pvl filter-header">
             <div class="column-full">
                 <nav>Filter by:</nav>
@@ -36,7 +38,7 @@
         {
             foreach (var filter in Model.Filters)
             {
-                @Html.Partial("Partials/OptionSelect", filter)
+                @Html.Partial("Partials/Search/OptionSelect", filter)
                 <div class="filter-divider"></div>
             }
         }

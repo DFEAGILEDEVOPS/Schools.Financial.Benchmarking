@@ -1,5 +1,28 @@
 .search-results {
 
+    @include highlighting;
+
+    .manual-button {
+
+        position: relative;
+        bottom: 10px;
+
+        @include media(desktop) {
+            float: right;
+        }
+    }
+
+
+    .schools-in{
+        margin-bottom: 1.5em;
+    }
+
+    .back-to-manual-compare{
+        @include media(tablet){
+            float: right;
+        }
+    }
+
     .filter-box {
         float: none;
     }
@@ -153,7 +176,7 @@
             }
         }
 
-        @include media(mobile){
+        @include media(mobile) {
             float: unset;
         }
     }
@@ -268,6 +291,6 @@
     }
 
     .js-container-head {
-        padding: 0 0 5px 0!important;
+        padding: 0 0 5px 0 !important;
     }
 }

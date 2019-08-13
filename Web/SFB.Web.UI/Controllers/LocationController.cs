@@ -22,6 +22,7 @@ namespace SFB.Web.UI.Controllers
         public ActionResult Suggest(string locationOrPostcode, bool openOnly = true)
         {
             var suggestions = TempData["LocationResults"] as SuggestionQueryResult;
+            var searchMethod = TempData["SearchMethod"] as string;
             if(suggestions == null)
             {
                 suggestions = _locationSearchService.SuggestLocationName(locationOrPostcode);
@@ -31,7 +32,7 @@ namespace SFB.Web.UI.Controllers
 
             suggestions.Matches.ForEach(item => result.Add(new LocationViewModel(item.Text, item.LatLon)));
 
-            var vm = new LocationListViewModel(result, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), locationOrPostcode, string.Empty, openOnly);
+            var vm = new LocationListViewModel(result, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), locationOrPostcode, string.Empty, openOnly, searchMethod);
 
             return View(vm);
         }

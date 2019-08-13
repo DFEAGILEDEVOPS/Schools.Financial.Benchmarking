@@ -1,16 +1,12 @@
 ﻿@{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "search-results";
-}
-
-@section BMListBannerContent
-{
-    @Html.Partial("Partials/BenchmarkListBanner")
+    ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
+    ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
 }
 
 @section BackButtonContent{
-
-    @Html.Partial("Partials/BackToHomeLink")
+    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
 @section InsideHead{
@@ -30,21 +26,35 @@
 @using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
-@switch (Model.SearchType)
-{
-    case SearchTypes.SEARCH_BY_NAME_ID:
-        <h1 class="heading-xlarge page-heading">Search results for "@Model.NameKeyword"</h1>
-        break;
-    case SearchTypes.SEARCH_BY_LOCATION:
-        <h1 class="heading-xlarge page-heading">Schools in and near @Model.LocationKeyword</h1>
-        break;
-    case SearchTypes.SEARCH_BY_LA_CODE_NAME:
-        <h1 class="heading-xlarge page-heading">Schools in @Model.LaKeyword</h1>
-        break;
-    default:
-        <h1 class="heading-xlarge page-heading">School</h1>
-        break;
-}
+<h1 class="heading-xlarge page-heading">Manual comparison</h1>
+
+<div class="grid-row home-school section">
+    <div class="column-three-quarters">
+        <span class="font-xsmall">Comparing to</span>
+        <div class="highlight">
+            <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span>
+        </div>
+    </div>
+    <div class="column-quarter">
+        <a class="font-xsmall back-to-manual-compare" href="/ManualComparison">Back</a>
+    </div>
+</div>
+
+<div class="steps">
+    <span>Step 2 of 2</span>
+</div>
+
+<div class="schools-in">
+    @switch (Model.SearchType)
+    {
+        case SearchTypes.SEARCH_BY_LOCATION:
+            <span class="bold-small">Schools in and near @Model.LocationKeyword</span>
+            break;
+        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+            <span class="bold-small">Schools in @Model.LaKeyword</span>
+            break;
+    }
+</div>
 
 <div id="screen-reader-result-list" class="visuallyhidden">
     <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>

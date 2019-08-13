@@ -248,6 +248,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManualComparisonController.cs" />
+    <Compile Include="Controllers\SchoolSearchBaseController.cs" />
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
     <Compile Include="Attributes\AiHandleErrorAttribute.cs" />
@@ -633,9 +634,9 @@
     <Content Include="Views\Shared\Partials\BenchmarkListBanner.cshtml" />
     <Content Include="Views\BenchmarkCharts\Index.cshtml" />
     <Content Include="Views\School\Partials\ChartGroups.cshtml" />
-    <Content Include="Views\SchoolSearch\Partials\FilterForm.cshtml" />
-    <Content Include="Views\SchoolSearch\Partials\OptionSelect.cshtml" />
-    <Content Include="Views\SchoolSearch\Partials\ResultBlock.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\FilterForm.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\OptionSelect.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\ResultBlock.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\ValueSelect.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\Chart.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\ChartGroups.cshtml" />
@@ -671,7 +672,7 @@
     <Content Include="Views\School\Partials\BenchmarkControlButtons.cshtml" />
     <Content Include="Views\SchoolSearch\NotFound.cshtml" />
     <Content Include="Views\BenchmarkList\Partials\BenchmarkBasketControls.cshtml" />
-    <Content Include="Views\SchoolSearch\Partials\SchoolResults.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\SchoolResults.cshtml" />
     <Content Include="Views\Shared\Partials\AdvancedCriteriaHiddenFields.cshtml" />
     <Content Include="Assets\Sass\views\_trust-comparison.scss" />
     <Content Include="Views\BenchmarkCharts\Partials\TrustCentralFinancing.cshtml" />
@@ -725,6 +726,7 @@
     <Content Include="Views\ManualComparison\Partials\SchoolsToAdd.cshtml" />
     <Content Include="Views\ManualComparison\Index.cshtml" />
     <Content Include="Views\ManualComparison\OverwriteStrategy.cshtml" />
+    <Content Include="Views\ManualComparison\ManualSearchResults.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

@@ -138,14 +138,23 @@
     }
 
     window.DfE.Util.ComparisonList = {
-        getData: function () {
+        getData: function (cookieName) {
             var decodedCookieData = null;
-            var cookieData = GOVUK.cookie("sfb_comparison_list");
+            var cookieData = GOVUK.cookie(cookieName);
             if (cookieData) decodedCookieData = decodeURIComponent(cookieData);
             return decodedCookieData;
         },
         isInList: function (id) {
-            var data = this.getData();
+            var data = this.getData("sfb_comparison_list");
+            var comparisonList = JSON.parse(data);
+            if (comparisonList == null) {
+                return false;
+            }
+            var found = _.find(comparisonList.BS, function (bs) { return bs.U === id; });
+            return found !== undefined;
+        },
+        isInManualList: function (id) {
+            var data = this.getData("sfb_comparison_list_manual");
             var comparisonList = JSON.parse(data);
             if (comparisonList == null) {
                 return false;
@@ -154,7 +163,15 @@
             return found !== undefined;
         },
         count: function () {
-            var data = this.getData();
+            var data = this.getData("sfb_comparison_list");
+            var comparisonList = JSON.parse(data);
+            if (comparisonList == null) {
+                return 0;
+            }
+            return comparisonList.BS.length;
+        },
+        countManual: function () {
+            var data = this.getData("sfb_comparison_list_manual");
             var comparisonList = JSON.parse(data);
             if (comparisonList == null) {
                 return 0;

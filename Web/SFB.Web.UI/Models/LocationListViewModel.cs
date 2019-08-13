@@ -6,12 +6,14 @@ namespace SFB.Web.UI.Models
     {
         public bool OpenOnly { get; }
         public string LocationOrPostcode { get; }
+        public string SearchMethod { get; }
 
-        public LocationListViewModel(List<LocationViewModel> modelList, SchoolComparisonListModel comparisonList, string locationOrPostcode, string orderBy = "", bool openOnly = false)
+        public LocationListViewModel(List<LocationViewModel> modelList, SchoolComparisonListModel comparisonList, string locationOrPostcode, string orderBy = "", bool openOnly = false, string searchMethod = "Random")
             : base(modelList, comparisonList, orderBy)
         {
             OpenOnly = openOnly;
             LocationOrPostcode = locationOrPostcode;
+            SearchMethod = searchMethod;
         }
     }
 }

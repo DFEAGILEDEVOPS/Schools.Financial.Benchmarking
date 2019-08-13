@@ -30,7 +30,7 @@
         } else {
             this.$form.find('.js-live-search-fallback').show();
         }
-    };
+    }
 
     LiveSearch.displaceSchoolCount = function () {
         if ($('#result-list > #js-search-results-info').length === 0) {
@@ -225,6 +225,7 @@
             this.$resultsBlock.html(results);
             DfE.Views.SchoolsResultsViewModel.addAllVisibility();
             DfE.Views.SchoolsResultsViewModel.activateAddRemoveButtons();
+
             //this.bindEvents();
         }
     };
