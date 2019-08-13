@@ -727,6 +727,7 @@
     <Content Include="Views\ManualComparison\Index.cshtml" />
     <Content Include="Views\ManualComparison\OverwriteStrategy.cshtml" />
     <Content Include="Views\ManualComparison\ManualSearchResults.cshtml" />
+    <Content Include="Views\Shared\EmptyManualLocationResult.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

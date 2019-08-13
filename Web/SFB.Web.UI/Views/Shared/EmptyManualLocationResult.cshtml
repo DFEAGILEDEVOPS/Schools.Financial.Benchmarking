@@ -3,6 +3,10 @@
     ViewBag.pageClass = "search-results";
 }
 
+@section BMListBannerContent{
+    @Html.Partial("Partials/BenchmarkListBanner")    
+}
+
 @section BackButtonContent{
     @Html.Partial("Partials/BackToHomeLink")
 }
@@ -14,7 +18,7 @@
         We found no matches for the location you provided.
     </p>
     <p>
-        <a href="/ManualComparison">Try searching again</a>
+        <a href="/">Try searching again</a>
         
         <span>using different spelling or words</span>
     </p>

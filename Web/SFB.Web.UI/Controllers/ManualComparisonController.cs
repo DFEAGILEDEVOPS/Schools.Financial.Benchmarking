@@ -149,7 +149,7 @@ namespace SFB.Web.UI.Controllers
                             switch (result.Matches.Count)
                             {
                                 case 0:
-                                    return View("EmptyLocationResult",
+                                    return View("EmptyManualLocationResult",
                                         new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 default:
                                     TempData["LocationResults"] = result;
@@ -163,7 +163,7 @@ namespace SFB.Web.UI.Controllers
 
                             if (searchResp.NumberOfResults == 0)
                             {
-                                return View("EmptyLocationResult", new SchoolSearchViewModel(comparisonList, searchType));
+                                return View("EmptyManualLocationResult", new SchoolSearchViewModel(comparisonList, searchType));
                             }
                             ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
                             return View("ManualSearchResults", GetSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
