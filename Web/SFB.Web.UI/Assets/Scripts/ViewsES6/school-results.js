@@ -212,8 +212,11 @@
             (data) => {
                 if (data > 1) {
                     $(".manual-button").show();
+                    $(".hidden-goto-basket").attr('aria-label',`Continue to benchmark charts with ${data} schools selected`);
+                    $(".hidden-goto-basket").show();
                 } else {
                     $(".manual-button").hide();
+                    $(".hidden-goto-basket").hide();
                 }
                 $("#manualCount").text(data); 
                 $("div[data-urn='" + urn + "']>.add-remove").toggle();                                
