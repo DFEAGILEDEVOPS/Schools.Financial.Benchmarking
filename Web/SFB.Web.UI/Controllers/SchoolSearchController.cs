@@ -581,6 +581,6 @@ namespace SFB.Web.UI.Controllers
 
         private bool IsNumeric(string field) => field != null ? Regex.IsMatch(field, @"^\d+$") : false;
         private bool IsLaEstab(string field) => field != null ? Regex.IsMatch(field, "^[0-9]{3}(-|/)?[0-9]{4}$") : false;
-        private bool IsURN(string field) => field != null ? Regex.IsMatch(field, "^[0-9]{5}$") : false;
+        private bool IsURN(string field) => field != null ? Regex.IsMatch(field, "^[0-9]{6}$") : false;
     }
 }

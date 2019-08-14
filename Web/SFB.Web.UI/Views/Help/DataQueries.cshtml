@@ -68,10 +68,15 @@
                 @InputErrorMessage("dataQuery.Email")
                 <input class="form-control @FormControlErrorClass("dataQuery.Email")" id="dataQuery.Email" name="dataQuery.Email" type="text" value="@Model.Email">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.Reference")">
-                <label class="form-label" for="dataQuery.Reference">School name/reference number or trust name/reference number</label>
-                @InputErrorMessage("dataQuery.Reference")
-                <input class="form-control @FormControlErrorClass("dataQuery.Reference")" id="dataQuery.Reference" name="dataQuery.Reference" type="text" value="@Model.Reference">
+            <div class="form-group @FormGroupErrorClass("dataQuery.SchoolTrustName")">
+                <label class="form-label" for="dataQuery.SchoolTrustName">School or trust name</label>
+                @InputErrorMessage("dataQuery.SchoolTrustName")
+                <input class="form-control @FormControlErrorClass("dataQuery.SchoolTrustName")" id="dataQuery.SchoolTrustName" name="dataQuery.SchoolTrustName" type="text" value="@Model.SchoolTrustName">
+            </div>
+            <div class="form-group @FormGroupErrorClass("dataQuery.SchoolTrustReferenceNumber")">
+                <label class="form-label" for="dataQuery.SchoolTrustReferenceNumber">School or trust reference number e.g. <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>, <abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB code</abbr> or company number</label>
+                @InputErrorMessage("dataQuery.SchoolTrustReferenceNumber")
+                <input class="form-control @FormControlErrorClass("dataQuery.SchoolTrustReferenceNumber")" id="dataQuery.SchoolTrustReferenceNumber" name="dataQuery.SchoolTrustReferenceNumber" type="text" value="@Model.SchoolTrustReferenceNumber">
             </div>
             <div class="form-group @FormGroupErrorClass("dataQuery.DataQuery")">
                 <label class="form-label" for="dataQuery.DataQuery">Data query</label>
