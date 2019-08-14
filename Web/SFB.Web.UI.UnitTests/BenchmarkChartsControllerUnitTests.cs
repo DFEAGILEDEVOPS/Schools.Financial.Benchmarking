@@ -62,7 +62,7 @@ namespace SFB.Web.UI.UnitTests
                 return new List<SchoolTrustFinancialDataObject> { testResult };
             });
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
-                .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial) => task);
             mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModel(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
                 .Returns((int urn, EstablishmentType estType) => new FinancialDataModel("321","2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies));
 
@@ -151,7 +151,7 @@ namespace SFB.Web.UI.UnitTests
             mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduHomeResult);
 
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
-                .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial) => task);
             mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModel(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
                 .Returns((int urn, EstablishmentType estType) => new FinancialDataModel("321", "2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies));
 
