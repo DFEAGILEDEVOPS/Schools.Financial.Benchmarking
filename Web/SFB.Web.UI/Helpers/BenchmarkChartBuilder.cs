@@ -117,7 +117,6 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.Staff,
                     MoreInfo = @"",
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
 
                 new ChartViewModel()
@@ -130,7 +129,8 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     DrillInto = ChartGroupType.Premises,
                     ChartType = ChartType.Total,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.Premises,
+                    DealsForSchoolsCategory = "category-fm"
                 },
 
                 new ChartViewModel()
@@ -144,7 +144,8 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.OccupationCosts,
+                    DealsForSchoolsCategory = "category-energy"
                 },
 
                 new ChartViewModel()
@@ -156,7 +157,6 @@ namespace SFB.Web.UI.Helpers
                     DrillInto = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
 
                 new ChartViewModel()
@@ -241,7 +241,6 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
                     MoreInfo = @"",
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
                 new ChartViewModel()
                 {
@@ -272,6 +271,8 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.SupplyStaff,
+                    DealsForSchoolsCategory = "category-hr",
                     MoreInfo = @"<p>This includes:</p>
                                 <ul>
                                     <li>supply teaching staff</li>
@@ -538,7 +539,8 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.Premises,
+                    DealsForSchoolsCategory = "category-fm"
                 },
                 new ChartViewModel()
                 {
@@ -679,7 +681,8 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.OccupationCosts,
+                    DealsForSchoolsCategory = "category-energy"
                 },
                 new ChartViewModel()
                 {
@@ -771,6 +774,8 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.OtherInsurancePremium,
+                    DealsForSchoolsCategory = "category-financial",
                     MoreInfo = @"<p>This includes: </p>
                                 <ul>
                                 <li>sums de-delegated by the local authority for centrally managed insurance schemes</li>
@@ -875,7 +880,6 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
                 new ChartViewModel()
                 {
@@ -924,13 +928,15 @@ namespace SFB.Web.UI.Helpers
                                 <li>ICT learning resources</li>
                                 <li>examination fees</li>
                                 </ul>",
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.EducationalSupplies,
+                    DealsForSchoolsCategory = "category-books",
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
                         {
                             Name = "ICT learning resources",
                             FieldName = SchoolTrustFinanceDBFieldNames.ICT_LEARNING_RESOURCES,
-                            ChartSchoolType = ChartSchoolType.Both,
+                            ChartSchoolType = ChartSchoolType.Both,                            
                             MoreInfo = @"<p>This includes:</p>
 
                                 <ul>
@@ -1011,6 +1017,8 @@ namespace SFB.Web.UI.Helpers
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.BoughtInProfessionalServices,
+                    DealsForSchoolsCategory = "category-legal",
                     MoreInfo = @"<p>This includes:</p>
                                 <ul>
                                 <li>educational consultancy</li>
@@ -2035,7 +2043,6 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.OneClick,
                     ShowValue = UnitType.PerPupil,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
 
                 new ChartViewModel()
@@ -2048,7 +2055,8 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.OneClick,
                     ShowValue = UnitType.PerPupil,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.Premises,
+                    DealsForSchoolsCategory = "category-fm"
                 },
 
                 new ChartViewModel()
@@ -2061,7 +2069,8 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.OneClick,
                     ShowValue = UnitType.PerPupil,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
+                    DealsForSchoolsMessage = DealsForSchoolsLinkText.OccupationCosts,
+                    DealsForSchoolsCategory = "category-energy"
                 },
 
                 new ChartViewModel()
@@ -2073,7 +2082,6 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.OneClick,
                     ShowValue = UnitType.PerPupil,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
 
                 new ChartViewModel()

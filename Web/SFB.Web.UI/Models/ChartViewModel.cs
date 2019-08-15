@@ -113,6 +113,8 @@ namespace SFB.Web.UI.Models
 
         public string DealsForSchoolsMessage { get; set; }
 
+        public string DealsForSchoolsCategory { get; set; }
+
         public object Clone()
         {
             var copy = new ChartViewModel

@@ -136,7 +136,6 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     MoreInfo = @"",
                     DrillInto = ChartGroupType.Staff,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
 
                 new ChartViewModel()
@@ -149,7 +148,6 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.Premises,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
                 },
 
                 new ChartViewModel()
@@ -163,7 +161,6 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.Occupation,
                     HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
                 },
 
                 new ChartViewModel()
@@ -176,7 +173,6 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.SuppliesAndServices,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
 
                 new ChartViewModel()
@@ -260,7 +256,6 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
                     MoreInfo = @"",
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
                 new ChartViewModel()
                 {
@@ -569,7 +564,6 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
                 },
                 new ChartViewModel()
                 {
@@ -713,7 +707,6 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
                 },
                 new ChartViewModel()
                 {
@@ -921,7 +914,6 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
                 new ChartViewModel()
                 {
