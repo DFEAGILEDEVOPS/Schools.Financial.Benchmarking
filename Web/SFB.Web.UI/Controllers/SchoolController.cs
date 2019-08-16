@@ -48,9 +48,8 @@ namespace SFB.Web.UI.Controllers
             _laSearchService = laSearchService;
         }
 
-        #if !DEBUG
-            [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
-        #endif
+
+        [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
         public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
