@@ -18,7 +18,9 @@ namespace SFB.Web.Domain.Services
         /// </summary>
         public RedisCachedLocalAuthoritiesService()
         {
-            ClearCachedData();
+            #if !DEBUG
+                ClearCachedData();
+            #endif
         }
 
         private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
