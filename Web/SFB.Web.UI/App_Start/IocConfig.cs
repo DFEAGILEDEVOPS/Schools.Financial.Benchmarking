@@ -55,8 +55,8 @@ namespace SFB.Web.UI
 
         private static void RegisterServices(ContainerBuilder builder)
         {
-            //builder.RegisterType<LocalAuthoritiesService>().As<ILocalAuthoritiesService>();
-            builder.RegisterType<RedisCachedLocalAuthoritiesService>().As<ILocalAuthoritiesService>().SingleInstance();
+            builder.RegisterType<AspNetCachedLocalAuthoritiesService>().As<ILocalAuthoritiesService>();
+            //builder.RegisterType<RedisCachedLocalAuthoritiesService>().As<ILocalAuthoritiesService>().SingleInstance();
             builder.RegisterType<LaSearchService>().As<ILaSearchService>();
             builder.RegisterType<LocationSearchService>().As<ILocationSearchService>();
             builder.RegisterType<BenchmarkChartBuilder>().As<IBenchmarkChartBuilder>();
