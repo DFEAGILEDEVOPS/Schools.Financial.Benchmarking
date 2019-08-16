@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace SFB.Web.Domain.Services
 {
-    public class LocalAuthoritiesService : ILocalAuthoritiesService
+    public class AspNetCachedLocalAuthoritiesService : ILocalAuthoritiesService
     {
         public dynamic GetLocalAuthorities()
         {
