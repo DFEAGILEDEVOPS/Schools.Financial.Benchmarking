@@ -121,7 +121,6 @@
     <Compile Include="Services\Comparison\IComparisonService.cs" />
     <Compile Include="Services\ILocalAuthoritiesService.cs" />
     <Compile Include="Services\AspNetCachedLocalAuthoritiesService.cs" />
-    <Compile Include="Services\RedisCachedLocalAuthoritiesService.cs" />
     <Compile Include="Services\Search\SchoolSearchService.cs" />
     <Compile Include="Services\DataAccess\IFinancialDataService.cs" />
     <Compile Include="Services\DataAccess\IContextDataService.cs" />

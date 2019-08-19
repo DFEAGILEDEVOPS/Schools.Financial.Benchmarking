@@ -33,10 +33,12 @@ namespace SFB.Web.UI.Controllers
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
         private readonly IApiRequest _apiRequest;
         private readonly ILocalAuthoritiesService _laSearchService;
+        private readonly IActiveUrnsService _activeUrnsService;
 
         public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IApiRequest apiRequest, ILocalAuthoritiesService laSearchService)
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IApiRequest apiRequest, ILocalAuthoritiesService laSearchService,
+            IActiveUrnsService activeUrnsService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
@@ -46,10 +48,12 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
             _apiRequest = apiRequest;
             _laSearchService = laSearchService;
+            _activeUrnsService = activeUrnsService;
         }
 
-
-        [OutputCache (Duration=14400, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
+        #if !DEBUG
+        [OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
+        #endif
         public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
@@ -116,13 +120,8 @@ namespace SFB.Web.UI.Controllers
         {
             try
             {
-                var urns = (List<int>)HttpContext?.Cache?.Get("SFBActiveURNList");
-                if (urns == null)
-                {
-                    urns = _contextDataService.GetAllSchoolUrns();
-                    HttpContext.Cache.Insert("SFBActiveURNList", urns);
-                }
-                var found = urns.Contains(urn);
+                var activeUrns = _activeUrnsService.GetAllActiveUrns();
+                var found = activeUrns.Contains(urn);
                 return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);
             }
             catch

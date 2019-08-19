@@ -363,6 +363,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\FinancialCalculationsService.cs" />
+    <Compile Include="Services\IActiveUrnsService.cs" />
     <Compile Include="Services\IEmailSendingService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
     <Compile Include="Services\ILaSearchService.cs" />
@@ -370,6 +371,7 @@
     <Compile Include="Services\LaSearchService.cs" />
     <Compile Include="Services\LocationSearchService.cs" />
     <Compile Include="Services\NotifyEmailSendingService.cs" />
+    <Compile Include="Services\RedisCachedActiveUrnsService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\IRequestContext.cs" />
     <Compile Include="Utils\RequestContextWrapper.cs" />
