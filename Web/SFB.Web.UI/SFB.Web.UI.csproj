@@ -288,6 +288,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManualComparisonController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\SchoolSearchBaseController.cs" />
     <Compile Include="Controllers\TrustComparisonController.cs" />
     <Compile Include="Controllers\TrustSchoolsController.cs" />
@@ -789,6 +790,7 @@
     <Content Include="Views\ManualComparison\OverwriteStrategy.cshtml" />
     <Content Include="Views\ManualComparison\ManualSearchResults.cshtml" />
     <Content Include="Views\Shared\EmptyManualLocationResult.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
