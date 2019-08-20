@@ -50,8 +50,8 @@ namespace SFB.Web.Domain.Services.Comparison
             var minPcMarginFactor = 1 - ((percentageMargin + CriteriaSearchConfig.PC_DEFAULT_MARGIN) / 100m);
             var maxPcMarginFactor = 1 + ((percentageMargin + CriteriaSearchConfig.PC_DEFAULT_MARGIN) / 100m);
 
-            criteria.MinNoPupil = benchmarkSchoolData.PupilCount * minPcMarginFactor;
-            criteria.MaxNoPupil = benchmarkSchoolData.PupilCount * maxPcMarginFactor;
+            criteria.MinNoPupil = WithinPositiveLimits(benchmarkSchoolData.PupilCount - CriteriaSearchConfig.QC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * minPcMarginFactor;
+            criteria.MaxNoPupil = (benchmarkSchoolData.PupilCount + CriteriaSearchConfig.QC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * maxPcMarginFactor;
 
             var fsm = benchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals;
             criteria.MinPerFSM = WithinPercentLimits(fsm - percentageMargin);
@@ -95,8 +95,8 @@ namespace SFB.Web.Domain.Services.Comparison
             var minMarginFactor = 1 - ((percentageMargin + CriteriaSearchConfig.PC_DEFAULT_MARGIN) / 100m);
             var maxMarginFactor = 1 + ((percentageMargin + CriteriaSearchConfig.PC_DEFAULT_MARGIN) / 100m);
             
-            criteria.MinNoPupil = benchmarkSchoolData.PupilCount * minMarginFactor;
-            criteria.MaxNoPupil = benchmarkSchoolData.PupilCount * maxMarginFactor;
+            criteria.MinNoPupil = WithinPositiveLimits(benchmarkSchoolData.PupilCount - CriteriaSearchConfig.QC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * minMarginFactor;
+            criteria.MaxNoPupil = (benchmarkSchoolData.PupilCount + CriteriaSearchConfig.QC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * maxMarginFactor;
 
             if(includeFsm)
             {
