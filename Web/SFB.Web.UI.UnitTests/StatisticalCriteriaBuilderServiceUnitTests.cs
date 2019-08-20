@@ -9,6 +9,7 @@ using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Helpers.Constants;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -89,8 +90,8 @@ namespace SFB.Web.UI.UnitTests
 
             var criteria = builder.BuildFromSimpleComparisonCriteria(benchmarkSchool.HistoricalFinancialDataModels.Last(), true, true, true, true, 5);
 
-            Assert.AreEqual(financeObj.NoPupils * 0.85m, criteria.MinNoPupil);
-            Assert.AreEqual(financeObj.NoPupils * 1.15m, criteria.MaxNoPupil);
+            Assert.AreEqual((financeObj.NoPupils - CriteriaSearchConfig.QC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP)  * 0.85m, criteria.MinNoPupil);
+            Assert.AreEqual((financeObj.NoPupils + CriteriaSearchConfig.QC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * 1.15m, criteria.MaxNoPupil);
         }
 
         [Test]
