@@ -136,7 +136,6 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     MoreInfo = @"",
                     DrillInto = ChartGroupType.Staff,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
 
                 new ChartViewModel()
@@ -149,7 +148,6 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.Premises,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
                 },
 
                 new ChartViewModel()
@@ -163,7 +161,6 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.Occupation,
                     HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
                 },
 
                 new ChartViewModel()
@@ -176,7 +173,6 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.SuppliesAndServices,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
 
                 new ChartViewModel()
@@ -260,7 +256,6 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
                     MoreInfo = @"",
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.StaffTotal
                 },
                 new ChartViewModel()
                 {
@@ -569,7 +564,6 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.PremisesTotal
                 },
                 new ChartViewModel()
                 {
@@ -713,7 +707,6 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
                     HelpTooltip = Constants.HelpTooltipText.OccupationChartHelp,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.OccupationTotal
                 },
                 new ChartViewModel()
                 {
@@ -921,7 +914,6 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                    DealsForSchoolsMessage = Constants.DealsForSchoolsLinkText.SuppliesAndServicesTotal
                 },
                 new ChartViewModel()
                 {
@@ -1241,57 +1233,55 @@ namespace SFB.Web.UI.Helpers
                 //Community
                 new ChartViewModel()
                 {
-                    Name = "Community expenditure",
+                    Name = "Community expenditure total",
                     FieldName = SchoolTrustFinanceDBFieldNames.COMMUNITY_EXP,
                     RevenueGroup = RevenueGroupType.Expenditure,
                     ChartGroup = ChartGroupType.Community,
                     ChartSchoolType = ChartSchoolType.Maintained,
+                    ChartType = ChartType.Total,
                     MoreInfo = @"",
-                    SubCharts = new List<ChartViewModel>()
-                    {
-                        new ChartViewModel
-                        {
-                            Name = "Community focused school staff",
-                            FieldName = SchoolTrustFinanceDBFieldNames.COMMUNITY_FOCUSED,
-                            RevenueGroup = RevenueGroupType.Expenditure,
-                            ChartGroup = ChartGroupType.Community,
-                            ChartSchoolType = ChartSchoolType.Maintained,
-                            MoreInfo =
-                                @"<p>This is expenditure on salaries and wages of staff employed directly by the school for community purposes. It consists of gross pay including allowances, maternity pay and the employer's contributions to national insurance and superannuation. </p>
+                },
+                new ChartViewModel
+                {
+                    Name = "Community focused school staff",
+                    FieldName = SchoolTrustFinanceDBFieldNames.COMMUNITY_FOCUSED,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.Community,
+                    ChartSchoolType = ChartSchoolType.Maintained,
+                    MoreInfo =
+                        @"<p>This is expenditure on salaries and wages of staff employed directly by the school for community purposes. It consists of gross pay including allowances, maternity pay and the employer's contributions to national insurance and superannuation. </p>
 
-                                <p>It includes:</p>
-                                <ul>
-                                <li>the cost of all staff employed directly by the school for community-focused activities</li>
-                                <li>adult education tutors, where the school manages an adult education programme </li>
-                                </ul>
+                        <p>It includes:</p>
+                        <ul>
+                        <li>the cost of all staff employed directly by the school for community-focused activities</li>
+                        <li>adult education tutors, where the school manages an adult education programme </li>
+                        </ul>
 
-                                <p>It excludes: </p>
+                        <p>It excludes: </p>
 
-                                <ul>
-                                <li>the cost of school staff who are not employed directly by the school for community-focused activities</li>
-                                </ul>"
-                        },
-                        new ChartViewModel
-                        {
-                            Name = "Community focused school costs",
-                            FieldName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_SCHOOL,
-                            ChartSchoolType = ChartSchoolType.Maintained,
-                            RevenueGroup = RevenueGroupType.Expenditure,
-                            ChartGroup = ChartGroupType.Community,
-                            MoreInfo = @"
-                                <p>This includes:</p>
-                                <ul>
-                                <li>all running costs associated with a community-focused school activity or facility</li>
-                                <li>recruitment costs and materials</li>
-                                </ul>
+                        <ul>
+                        <li>the cost of school staff who are not employed directly by the school for community-focused activities</li>
+                        </ul>"
+                },
+                new ChartViewModel
+                {
+                    Name = "Community focused school costs",
+                    FieldName = SchoolTrustFinanceDBFieldNames.COMM_FOCUSED_SCHOOL,
+                    ChartSchoolType = ChartSchoolType.Maintained,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.Community,
+                    MoreInfo = @"
+                        <p>This includes:</p>
+                        <ul>
+                        <li>all running costs associated with a community-focused school activity or facility</li>
+                        <li>recruitment costs and materials</li>
+                        </ul>
 
-                                <p>It excludes: </p>
+                        <p>It excludes: </p>
 
-                                <ul>
-                                <li>any community-focused running costs that are incurred as a result of a third party delivering the activity where they’re not directly employed or contracted by the school.</li>
-                                </ul>"
-                        },
-                    }
+                        <ul>
+                        <li>any community-focused running costs that are incurred as a result of a third party delivering the activity where they’re not directly employed or contracted by the school.</li>
+                        </ul>"
                 },
 
                 //Total Income

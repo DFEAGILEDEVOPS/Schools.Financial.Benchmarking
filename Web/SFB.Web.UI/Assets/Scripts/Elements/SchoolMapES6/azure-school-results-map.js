@@ -105,12 +105,22 @@
                         <p>${info.NFType}</p>
                         <div id ="${info.Id}" data-urn="${info.Id}">`;
 
-                if (DfE.Util.ComparisonList.isInList(info.Id)) {
-                    html += `<div class="button add add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
+                if ($("#SearchMethod").val() === "Manual") {
+                    if (DfE.Util.ComparisonList.isInManualList(info.Id)) {
+                        html += `<div class="button add add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</div>
+                            <div class="button remove add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</div>`;
+                    } else {
+                        html += `<div class="button add add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</div>
+                            <div class="button remove add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</div>`;
+                    }
                 } else {
-                    html += `<div class="button add add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</div>
+                    if (DfE.Util.ComparisonList.isInList(info.Id)) {
+                        html += `<div class="button add add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</div>
+                            <div class="button remove add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
+                    } else {
+                        html += `<div class="button add add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</div>
                             <div class="button remove add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
+                    }
                 }
 
                 marker.bindPopup(html);
@@ -119,12 +129,22 @@
                     ev.target.refreshIconOptions();
 
                     var urn = $(ev.target.getPopup().getContent()).find('.add').parent().data('urn');
-                    if (DfE.Util.ComparisonList.isInList(urn.toString())) {
-                        $('.infowindow-school-summary').find('.add').hide();
-                        $('.infowindow-school-summary').find('.remove').show();
+                    if ($("#SearchMethod").val() === "Manual") {
+                        if (DfE.Util.ComparisonList.isInManualList(urn.toString())) {
+                            $('.infowindow-school-summary').find('.add').hide();
+                            $('.infowindow-school-summary').find('.remove').show();
+                        } else {
+                            $('.infowindow-school-summary').find('.add').show();
+                            $('.infowindow-school-summary').find('.remove').hide();
+                        }
                     } else {
-                        $('.infowindow-school-summary').find('.add').show();
-                        $('.infowindow-school-summary').find('.remove').hide();
+                        if (DfE.Util.ComparisonList.isInList(urn.toString())) {
+                            $('.infowindow-school-summary').find('.add').hide();
+                            $('.infowindow-school-summary').find('.remove').show();
+                        } else {
+                            $('.infowindow-school-summary').find('.add').show();
+                            $('.infowindow-school-summary').find('.remove').hide();
+                        }
                     }
                 });
                 marker.on('popupclose', function (ev) {                    

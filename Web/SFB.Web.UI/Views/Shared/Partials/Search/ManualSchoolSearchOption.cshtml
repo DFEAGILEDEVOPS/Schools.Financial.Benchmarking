@@ -1,0 +1,21 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.SchoolSearchViewModel
+
+<div id="SchoolOrCollegeNameIdAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_NAME_ID))" aria-controls="SearchByNameIdFieldset">
+    <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID)) />
+    <label for="SchoolOrCollegeNameId">Add schools by name</label>
+</div>
+<div id="SearchByNameIdFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
+    <label class="search-types__optional-section__label form-label" for="FindManuallyByNameId">Enter a school name, <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr> or <abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB code</abbr></label>
+    @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_NAME_ID))
+    {
+        <span class="error-message">@Model.ErrorMessage</span>
+    }
+    <div class="multiple-choice" style="float:none">
+        <input id="openOnlyName" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
+        <label class="search-types__optional-section__label" for="openOnlyName">Include open schools only</label>
+    </div>
+    <button type="submit" class="button" name="searchtype" value="@SearchTypes.SEARCH_BY_NAME_ID">Next</button>
+    <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn" />
+</div>
+

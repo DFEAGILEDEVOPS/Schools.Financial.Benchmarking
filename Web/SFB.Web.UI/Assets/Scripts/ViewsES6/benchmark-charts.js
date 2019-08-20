@@ -627,7 +627,7 @@
             $("#customTabSection").show();
             $("#downloadLinkContainer").hide();
             $("#PrintLinkText").text(" Print report");
-            $("#PdfLinkText").text(" Download report (PDF)");
+            $("#PdfLinkText").text(" Download report");
             let scope = angular.element($("#listCtrl")).scope();
             scope.ctrl.displayCustomReport();
         } else if (tab === "BestInClass") {
@@ -744,10 +744,44 @@
         $table.find('.detail').toggle(200);
     }
 
+    PptPage() {        
+
+        $('#criteria-details.criteria-details').attr('open', 'true');
+        $('.chart-container .accordion-section[aria-expanded="false"] .accordion-section-header').click();
+        
+        let pptGenerator = new PptGenerator();
+
+        pptGenerator.writeHeadings();
+
+        pptGenerator.writeWarnings();
+
+        pptGenerator.writeTabs();
+
+        pptGenerator.writeLastYearMessage();
+
+        pptGenerator.writeCharts();
+
+        pptGenerator.writeCriteria();
+
+        pptGenerator.writeContextData();
+
+        pptGenerator.save();
+    }
+
+    DownloadPage() {
+
+        let downloadFormat = $("input:radio[name='downloadFormat']:checked").val();
+        if (downloadFormat === "pdf") {
+            this.PdfPage();
+        } else {
+            this.PptPage();
+        }        
+    }
+
     PdfPage() {
 
-        $('#PdfLink .download-icon').toggle();
-        $('#PdfLink .spin-icon').toggle();
+        //$('#PdfLink .download-icon').toggle();
+        //$('#PdfLink .spin-icon').toggle();
 
         $('#criteria-details.criteria-details').attr('open', 'true');
 
@@ -766,8 +800,8 @@
         pdfGenerator.writeCriteria().then(() => {
             pdfGenerator.writeContextData().then(() => {
                 pdfGenerator.save();
-                $('#PdfLink .download-icon').toggle();
-                $('#PdfLink .spin-icon').toggle();
+                //$('#PdfLink .download-icon').toggle();
+                //$('#PdfLink .spin-icon').toggle();
             });
         });
     }
@@ -805,12 +839,13 @@
         <div role='document' class='save-modal-js page-1' style='display: block'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Save benchmarking basket</h1>
-            <p id='modal-content'><br/>
+            <p id='modal-content'>
                 Save your basket by copying the link below and saving it as a bookmark or in a document. Alternatively you can email the link to yourself or share with others.
             </p>
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
                 <button id='clip-button' class='button' type='button' data-clipboard-target='#saveUrl'>Copy link to clipboard</button>
+                <span id='clip-not-supported' class='error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
             <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
@@ -818,7 +853,7 @@
         <div role='document' class='save-modal-js page-2' style='display: none'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Link copied to clipboard</h1>
-            <p id='modal-content'><br/>
+            <p id='modal-content'>
                 You can now save the link as a bookmark or in a document to keep your benchmark basket.
             </p>           
             <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ShowSaveModalOne()'>See more options to save</button>            
@@ -842,6 +877,11 @@
             DfE.Views.BenchmarkChartsViewModel.ShowSaveModalTwo();
         });
 
+        if (!ClipboardJS.isSupported()) {
+            $('#clip-button').hide();
+            $('#clip-not-supported').show();
+        }
+
 
         $('#js-modal-close').focus();
     }
@@ -854,12 +894,12 @@
             "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1>";
         if (isMAT) {
-            $modal_code += "<p id='modal-content'><br/>Some of this trust's schools have data from a period less than 12 months.</p>";
+            $modal_code += "<p id='modal-content'>Some of this trust's schools have data from a period less than 12 months.</p>";
         } else {
-            $modal_code += "<p id='modal-content'><br/>This school doesn't have a complete set of financial data for this period.</p>";
+            $modal_code += "<p id='modal-content'>This school doesn't have a complete set of financial data for this period.</p>";
         }
 
-        $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close' title='Close'>Close</a></dialog>";
+        $modal_code += "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' title='Close'>Close</a></dialog>";
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');
@@ -883,6 +923,209 @@
     ShowSaveModalTwo() {
         $('.save-modal-js.page-1').hide();
         $('.save-modal-js.page-2').show();
+    }
+
+    RenderDownloadModal(event) {
+
+        event.stopPropagation();
+
+        var $body = $('body');
+        var $page = $('#js-modal-page');
+
+        var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='PdfLink' title='Close'>Close</a>" +
+            "<h1 id='modal-title' class='modal-title'>Select file format</h1>" +            
+            `<div class="form-group">
+              <fieldset>
+
+                <legend>
+                  You can download the page's charts in PDF or PowerPoint format.
+                </legend>
+
+                <div class="multiple-choice">
+                  <input id="radio-1" type="radio" name="downloadFormat" value="pdf" checked>
+                  <label for="radio-1" class="font-small">PDF format</label>
+                </div>
+                <div class="multiple-choice">
+                  <input id="radio-2" type="radio" name="downloadFormat" value="ppt">
+                  <label for="radio-2" class="font-small">PowerPoint format</label>
+                </div>
+              </fieldset>
+            <div class="grid-row modal-form-buttons">
+                <div class="column-half">
+                    <button type="button" class="button next-button" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">Download</button>
+                    <button type="button" class="back-button link-button" value="Cancel" onclick="GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
+                </div>
+            </div>
+            </div>` +
+            "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
+
+        $($modal_code).insertAfter($page);
+        $body.addClass('no-scroll');
+
+        $page.attr('aria-hidden', 'true');
+
+        // add overlay
+        var $modal_overlay =
+            '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
+
+        $($modal_overlay).insertAfter($('#js-modal'));
+
+        $('#js-modal-close').focus();
+
+    }
+}
+
+class PptGenerator {
+
+    constructor() {
+        this.doc = new PptxGenJS();
+        this.slide = this.doc.addNewSlide();
+        this.yOffset = 0;
+    }
+
+    writeHeadings() {
+        this.yOffset += 0.5;
+        this.slide.addText('Schools Financial Benchmarking', { x: 0.2, y: this.yOffset, fontSize: 18, bold: true  });
+
+        this.yOffset += 0.5;
+        this.slide.addText($('#BCHeader').get(0).innerText, { x: 0.2,y: this.yOffset, fontSize: 16, bold: true });
+
+        if ($('#comparing-text').length > 0) {
+            this.yOffset += 0.5;
+            this.slide.addText($('#comparing-text').get(0).innerText, { x: 0.2,y: this.yOffset, fontSize: 12, bold: true, w: '90%' });
+        }
+    }
+
+    writeWarnings() {
+        let warnings = $('.panel.orange-warning .combined-warnings');
+        if (warnings.length > 0) {
+            warnings.each((index, element) => {
+                this.yOffset += 0.5;
+                this.slide.addText(element.innerText, { x: 0.2, y: this.yOffset, fontSize: 12, italic: true, color: 'f47738', w: '90%' });
+            });
+        }
+    }
+
+    writeTabs() {
+        this.yOffset += 0.2;
+        if ($('.tabs li.active').length > 0) {
+            this.yOffset += 0.5;
+            if ($('.tabs li.active').get(0).innerText.indexOf('Your') < 0) {                
+                this.slide.addText($('.tabs li.active').get(0).innerText.replace('selected', ''), { x: 0.2, y: this.yOffset, fontSize: 12, bold: true });
+            } else {
+                this.slide.addText('Your charts', { x: 0.2, y: this.yOffset, fontSize: 12, bold: true });
+            }
+        }
+
+        let filters = $('.chart-filter:visible');
+        if (filters.length > 0) {
+            filters.each((index, element) => {                
+                this.yOffset += 0.3;
+                this.slide.addText($(element).find('label').get(0).innerText + ': ' + $(element).find('option[selected]').get(0).innerText, { x: 0.2, y: this.yOffset, fontSize: 12 });
+            });
+        }
+    }
+
+    writeLastYearMessage() {
+        this.yOffset += 0.5;
+        this.slide.addText('', { x: 0.2, y: this.yOffset, fontSize: 12, line: { pt: '2', color: 'A9A9A9' }, w: '95%' });
+        if ($('.latest-year-message').length > 0) {
+            this.yOffset += 0.2;
+            this.slide.addText($('.latest-year-message').get(0).innerText, { x: 0.2, y: this.yOffset, fontSize: 12, w: '95%' });
+        }
+    }
+
+    writeCharts() {
+        let charts = $('.chart-container');
+        let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
+        let chartPerPage = Math.ceil(5 / yValuesCount);
+
+        charts.each((index, element) => {
+            if (index % chartPerPage === 0) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0;
+            } else {
+                this.yOffset += (4 / chartPerPage);
+            }
+            let header = $(element).find('h2').get(0).innerText;
+            if (header.length < 60) {
+                this.yOffset += 0.2;
+                this.slide.addText(header, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+            } else {
+                let header1 = header.substring(0, header.lastIndexOf('('));
+                let header2 = header.substring(header.lastIndexOf('('));
+                this.yOffset += 0.2;
+                this.slide.addText(header1, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+                this.yOffset += 0.2;
+                this.slide.addText(header2, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+            }
+            if (sessionStorage.chartFormat === 'Charts') {
+                this.pptWriteChart(`#chart_${index}`, chartPerPage);
+            } else {
+                this.pptWriteTable(`#table_for_chart_${index}`, chartPerPage);
+            }
+        });
+    }
+
+    writeCriteria() {
+            if ($('#criteriaTable').length > 0 && $('#criteriaTable').is(":visible")) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0.2;
+                if ($('#criteriaExp').length > 0) {
+                    this.slide.addText($('#criteriaExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 12, w: '95%' });
+                }
+                this.pptWriteTable('#criteriaTable', 1);                
+            }
+    }
+
+    writeContextData() {
+            if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0.2;
+                this.slide.addText($('#contextExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+
+                this.pptWriteTable('#contextDataTable', 1);     
+            }
+    }
+
+    save() {
+        this.doc.save('sfb-benchmark-charts');
+    }
+
+    pptWriteChart(chartId, chartPerPage) {
+        let svg = $(chartId).find('svg')[0];
+        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+            (img) => {
+                this.yOffset += 0.5;
+                let ratio = svg.clientWidth / svg.clientHeight;
+                let height = 4 / chartPerPage;
+                let width = height * ratio;
+                if (width > 8) { //not to overflow horizontally
+                    width = 8;
+                    height = width / ratio;
+                }
+                this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: width, h: height });
+            });
+    }
+
+    pptWriteTable(tableId, tablePerPage) {
+        let rows = [];
+        let headers = [];
+        $(`${tableId} th`).toArray().map((th) => {
+            headers.push({ text: th.attributes['data-header'] === undefined ? th.textContent : th.attributes['data-header'].value, options: { bold: true } });
+        });
+        let data = $(`${tableId} tbody tr`).toArray().map((tr) => {
+            let trArr = [];
+            $(tr).children('td').toArray().map((td) => {
+                trArr.push(td.textContent.trim());
+            });
+            return trArr;
+        });
+        rows.splice(0, 0, headers);
+        rows = rows.concat(data);
+        this.yOffset += 0.5;
+        this.slide.addTable(rows, { x: 0.5, y: this.yOffset, fontSize: 10, w: 9.0, color: '363636', autoPage: tablePerPage === 1 });
     }
 }
 
@@ -970,7 +1213,7 @@ class PdfGenerator {
             return th.attributes['data-header'].value;
         });
         let data = $(id + ' tbody tr').toArray().map((tr) => {
-            let trObj = {}
+            let trObj = {};
             $(tr).children('td').toArray().map((td) => {
                 trObj[td.attributes['data-header'].value] = td.textContent.trim();
             });
@@ -1082,7 +1325,7 @@ class PdfGenerator {
         return new Promise((resolve, reject) => {
             if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
                 this.pdfAddNewPage();
-                this.pdfWriteLine('H2', $('#contextExp').get(0).innerText)
+                this.pdfWriteLine('H2', $('#contextExp').get(0).innerText);
                 this.pdfGenerateImage('#contextDataTable').then((canvas) => {
                     this.pdfAddImage(canvas);
                     resolve();

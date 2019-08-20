@@ -18,9 +18,18 @@
         <ul>
             @foreach (var laViewModel in Model.ModelList)
             {
-                <li class="document">
-                    <a href="/SchoolSearch/Search?searchtype=search-by-la-code-name&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()&referrer=@ViewBag.referrer" class="bold-small">@laViewModel.LaName</a>
-                </li>
+                if (Model.SearchMethod == "Manual")
+                {
+                    <li class="document">
+                        <a href="/ManualComparison/ManualSearch?searchtype=search-by-la-code-name&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="document">
+                        <a href="/SchoolSearch/Search?searchtype=search-by-la-code-name&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
+                    </li>
+                }
             }
         </ul>
 
@@ -29,8 +38,17 @@
     else
     {
         <p class="bold-small" style="margin-top: 22px;">Please try:</p>
-        <p class="indent">
-            • <a href="/">searching again</a> using different spelling or words
-        </p>
+        if (Model.SearchMethod == "Manual")
+        {
+            <p class="indent">
+                • <a href="/ManualComparison">searching again</a> using different spelling or words
+            </p>
+        }
+        else
+        {
+            <p class="indent">
+                • <a href="/">searching again</a> using different spelling or words
+            </p>
+        }
     }
 </div>

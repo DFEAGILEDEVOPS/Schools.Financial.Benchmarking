@@ -919,7 +919,11 @@ namespace SFB.Web.UI.Controllers
                 Urn = cookieObject.HomeSchoolUrn,
                 ProgressScore = bmSchool.ProgressScore
             };
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);
+            try
+            {
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);
+            }
+            catch (ApplicationException) { }
         }
 
         private void SetSchoolAsDefault(SchoolViewModel benchmarkSchool)

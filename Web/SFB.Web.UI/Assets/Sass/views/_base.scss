@@ -1,4 +1,5 @@
-﻿%banner-box {
+﻿
+%banner-box {
     outline: none;
     max-width: 960px;
     margin: 0 $gutter-half;
@@ -308,7 +309,21 @@ tspan.england-average-tick{
     }
 }
 
-.chart-container ul, .charts-section__chart-container ul{
+.modal-form-buttons {
+    .next-button {
+        padding-left: 15px;
+    }
+
+    .back-button{
+        margin-top:15px;
+
+        @include media(desktop){
+            margin-top:2%;
+            margin-left: 15px;
+        }
+    }
+}
+.chart-container ul, .charts-section__chart-container ul {
     list-style-type: disc;
     padding: inherit;
     padding-top: 0;
@@ -402,6 +417,24 @@ dialog {
         list-style-type: inherit;
         margin-left: 1em;
     }
+
+    legend{
+        font-weight: normal;
+        margin-top: 1em;
+    }
+
+    .modal-form-buttons{
+        margin-top: 2em;
+        font-size: 16px;
+    }
+
+    button{
+        font-size: 16px;
+    }
+
+    .form-group{
+        margin-bottom: 0;
+    }
 }
 
 .modal-overlay {
@@ -418,6 +451,8 @@ dialog {
 .modal-title {
     font-weight: bold;
     @include bold-24();
+    margin-bottom: 15px;
+    padding-top: 15px;
 }
 
 #js-modal-close, #js-modal-close-bottom {
@@ -531,6 +566,10 @@ abbr[title]{
 
 .mt-2 {
     margin-top: 2em;
+}
+
+.ml-05 {
+    margin-left: 0.5em;
 }
 
 .ml-1 {
@@ -924,7 +963,7 @@ body.print-mode .hide-in-print {
 }
 
 .govuk-box-highlight {
-    background-color: $govuk-blue;
+    background-color: $green;
     padding: 1em 1em;
 }
 
@@ -1047,3 +1086,12 @@ nav.tabs ol li {
     margin-right: 3px;
     vertical-align: middle;
 }
+
+.download-link.pdf-ppt {
+    display: none;
+}
+
+.strictmode .download-link.pdf-ppt {
+    display: block;
+}
+

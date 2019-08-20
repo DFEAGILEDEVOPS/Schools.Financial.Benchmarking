@@ -8,9 +8,6 @@ namespace SFB.Web.UI.Models
     [Serializable]
     public class TrustComparisonListModel
     {
-        [JsonProperty(PropertyName = "DTMN")]
-        public string DefaultTrustMatNo { get; set; }
-
         [JsonProperty(PropertyName = "DTCN")]
         public int DefaultTrustCompanyNo { get; set; }
 
@@ -31,9 +28,6 @@ namespace SFB.Web.UI.Models
     [Serializable]
     public class BenchmarkTrustModel : CompareEntityBase, IEquatable<BenchmarkTrustModel>
     {
-        [JsonProperty(PropertyName = "N")]
-        public string MatNo { get; }
-
         [JsonProperty(PropertyName = "CN")]
         public int CompanyNo { get; set; }
 
@@ -53,10 +47,9 @@ namespace SFB.Web.UI.Models
         [JsonIgnore]
         public override string Type { get; set; }
 
-        public BenchmarkTrustModel(int companyNo, string matName = null, string matNo = null)
+        public BenchmarkTrustModel(int companyNo, string matName = null)
         {
             this.CompanyNo = companyNo;
-            this.MatNo = matNo;
             this.MatName = matName;
             this.Type = EstablishmentType.MAT.ToString();
         }

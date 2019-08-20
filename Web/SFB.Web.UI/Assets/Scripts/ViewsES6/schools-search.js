@@ -17,6 +17,8 @@
         this.bindAutosuggest('#FindByTrustName', '#FindByTrustNameSuggestionId', this.getTrustSuggestionHandler);
         this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
+        this.bindAutosuggest('#FindSchoolManuallyByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
+        this.bindAutosuggest('#FindSchoolManuallyByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindEnterKeysToButtons();
         this.bindAccordionHeaderClick();
     }
@@ -111,7 +113,9 @@
             $.getJSON(`https://api.postcodes.io/postcodes?lat=${coords.latitude}&lon=${coords.longitude}&widesearch=true`, function (data) {
                 if (data.result) {
                     $('#FindSchoolByTown').val(data.result[0].postcode);
+                    $('#FindSchoolManuallyByTown').val(data.result[0].postcode);
                     $('#FindSchoolByTown').attr("placeholder", "");
+                    $('#FindSchoolManuallyByTown').attr("placeholder", "");
                 }
             });
         }
@@ -215,15 +219,9 @@
                 var openSchoolsOnly = $(this).parents('.form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
                 var textBoxId = $(this).attr('id');
                 let url = '';
-                let referrer = $("#referrer").val();
                 switch (textBoxId) {
                     case 'FindByNameId':
-                        if (referrer && referrer.toLowerCase() === "schoolsearch/addschools") {
-                            url = `/SchoolSearch/Search?nameId=${suggestion['Text'].substring(0, suggestion['Text'].indexOf('(') - 1)}&searchtype=search-by-name-id`;
-                            url += '&referrer=' + referrer;
-                        } else {
-                            url = '/school/detail?urn=' + suggestion['Id'];
-                        }
+                        url = '/school/detail?urn=' + suggestion['Id'];
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
@@ -231,9 +229,13 @@
                     case 'FindSchoolByLaCodeName':
                         // convert it to an la code search, which is the same as if they'd submitted.
                         url = '/schoolsearch/search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
-                        if (referrer && referrer.toLowerCase() === "schoolsearch/addschools") {
-                            url += '&referrer=' + referrer;
+                        if (openSchoolsOnly) {
+                            url += '&openOnly=true';
                         }
+                        break;
+                    case 'FindSchoolManuallyByLaCodeName':
+                        // convert it to an la code search, which is the same as if they'd submitted.
+                        url = '/ManualComparison/ManualSearch?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
@@ -247,8 +249,12 @@
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
-                        if (referrer && referrer.toLowerCase() === "schoolsearch/addschools") {
-                            url += '&referrer=' + referrer;
+                        break;
+                    case 'FindSchoolManuallyByTown':
+                        $('#LocationCoordinates').val(suggestion['Location']);
+                        url = '/ManualComparison/ManualSearch?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
+                        if (openSchoolsOnly) {
+                            url += '&openOnly=true';
                         }
                         break;
                 }

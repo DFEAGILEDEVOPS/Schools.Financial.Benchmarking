@@ -12,6 +12,20 @@
         <a class="home-link" href="../../school/detail?urn=@Model.ComparisonList.HomeSchoolUrn" aria-label="Back to @Model.ComparisonList.HomeSchoolName">Back to @Model.ComparisonList.HomeSchoolName</a>
     </div>
 
+    if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                There are errors on this page that require attention.
+            </h1>
+            <ul class="error-summary-list">
+                <li>
+                    <a href="#finderSection">@Model.ErrorMessage</a>
+                </li>
+            </ul>
+        </div>
+    }
+
     <h1 class="heading-xlarge page-heading">Add schools</h1>
 
 
@@ -27,20 +41,6 @@
 
 <div class="column-three-quarters no-padding">
     <section class="section" aria-label="Select search type">
-        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-        {
-            <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-                <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
-                    There are errors on this page that require attention.
-                </h1>
-                <ul class="error-summary-list">
-                    <li>
-                        <a href="#finderSection">@Model.ErrorMessage</a>
-                    </li>
-                </ul>
-            </div>
-        }
-
         <div id="finderSection">
             <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
                 <form method="get" action="/SchoolSearch/Search" autocomplete="off">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" id="referrer" name="referrer" value="schoolsearch/addschools" />
+                    <input type="hidden" name="referrer" value="schoolsearch/addschools" />
                 </form>
             </div>
         </div>
@@ -88,7 +88,7 @@
     <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script>
     <script src="https://atlas.microsoft.com/sdk/js/atlas-service.js?api-version=1"></script>
     <script>
-        DfE.Views.SchoolsSearchViewModel = new SchoolsSearchViewModel(@Html.Raw(Model.Authorities), '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');                
+        DfE.Views.SchoolsSearchViewModel = new SchoolsSearchViewModel(@Html.Raw(Model.Authorities), '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');
     </script>
 
 

@@ -49,6 +49,7 @@ $path: "/public/assets/images/";
 
 // Help icon
 @import "elements/_helpicon";
+@import "elements/_excicon";
 
 // Components
 // ==========================================================================
@@ -101,3 +102,5 @@ $path: "/public/assets/images/";
 @import "views/cookies_page";
 @import "views/trust-comparison";
 @import "views/bic-characteristics";
+@import "views/add-schools-manually";
+@import "views/data-queries";

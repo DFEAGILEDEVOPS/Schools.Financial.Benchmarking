@@ -49,25 +49,52 @@
             <tr>
                 @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                 {
-                    <td class="school-column" data-header="School name">
-                        <span class="table-highlight index-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> index school</span>
-                    </td>
+                <td class="school-column" data-header="School name">
+                    <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                        <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
+                    </a>
+                    @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
+                    {
+                        <span class="exc-icon">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
+                    }
+                </td>
                 }
                 else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                 {
                     <td class="school-column" data-header="School name">
-                        <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete financial data</span>
+                        <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
+                        </a>
+                        <span class="exc-icon"> 
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
                     </td>
                 }
                 else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
                 {
                     <td class="school-column" data-header="School name">
-                        <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School.SubstringUpToFirst('#')</span><span class="visually-hidden"> has incomplete workforce data</span>
+                        <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete workforce data</span>
+                        </a>
                     </td>
                 }
                 else
                 {
-                    <td class="school-column" data-header="School name">@schoolBenchmarkData.School.SubstringUpToFirst('#')</td>
+                     <td class="school-column" data-header="School name">
+                         <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                             @schoolBenchmarkData.School
+                         </a>
+                     </td>                   
                 }
 
                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)

@@ -107,6 +107,7 @@
 
     public class ErrorMessages
     {
+        public const string DuplicateSchool = "Please select a school which is not already in your list";
         public const string DuplicateTrust = "Please select a trust which is not already in your list";
         public const string BMBasketLimitExceed = "Combined basket exceeds 30 schools, either replace current basket or go back and reduce new basket size";
     }
@@ -137,9 +138,12 @@
 
     public class DealsForSchoolsLinkText
     {
-        public const string StaffTotal = "Learn about cost-saving deals available for recruitment at";
-        public const string PremisesTotal = "Learn about cost-saving deals available for facilities and estates at";
-        public const string OccupationTotal = "Learn about cost-saving deals available for energy and water at";
-        public const string SuppliesAndServicesTotal = "Learn about cost-saving deals available for supplies and services at";
+        public const string EducationalSupplies = "For information on centrally negotiated deals for books and related materials , including education software";
+        public const string Premises = "For information on centrally negotiated deals for facilities management and estates";
+        //public const string IctLearningResources = "For information on centrally negotiated deals for ICT";
+        public const string BoughtInProfessionalServices = "For information on centrally negotiated deals for legal and professional services";
+        public const string OccupationCosts = "For information on centrally negotiated deals for energy and utilities";
+        public const string OtherInsurancePremium = "For information on centrally negotiated deals for insurance and other financial services";
+        public const string SupplyStaff = "For information on centrally negotiated deals for HR services including screening services and supply staff";
     }
 }

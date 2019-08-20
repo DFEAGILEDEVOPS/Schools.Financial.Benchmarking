@@ -88,7 +88,7 @@ else
                 {
                     @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: {Model.PhoneNumber}\" aria-label=\"Call telephone number {Model.PhoneNumber}\">{Model.PhoneNumber}</a>")
                 }
-                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")                
+                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
@@ -127,6 +127,9 @@ else
                 @DataSourcesField()
 
             </dl>
+            <div style="display: inline-block" class="mb-1">
+                <a href="~/Help/DataQueries">Do you have a query about this school's data?</a>
+            </div>
             <input type="hidden" id="la" value="@Model.La" />
             <input type="hidden" id="estab" value="@Model.Estab" />
         </div>
@@ -155,7 +158,7 @@ else
             <div class="download">
                 <a class="no-underline bold-xsmall sfb_gtm_csv_school" href="/school/download?urn=@Model.Id" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/icon-file-download.png" />
-                    Download data for this school (CSV)
+                    Download data for this school
                 </a>
             </div>
         </div>

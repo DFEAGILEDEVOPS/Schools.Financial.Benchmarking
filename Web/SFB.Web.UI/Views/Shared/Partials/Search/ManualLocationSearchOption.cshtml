@@ -1,0 +1,33 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.SchoolSearchViewModel
+
+<div id="TownOrCityAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LOCATION))" aria-controls="SearchByTownFieldset">
+    <input id="TownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LOCATION)) />
+    <label for="TownOrCity">Add schools by location</label>
+</div>
+<div id="SearchByTownFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
+    <label class="search-types__optional-section__label" for="FindSchoolManuallyByTown">
+        Enter a postcode, town or street. Or
+        <button id="FindCurrentPosition" class="focus-first link-button font-small no-padding" title="Select to use your current location">use your current location</button>
+    </label>
+    <div id="location-error-message-placeholder">
+        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
+        {
+            <span class="error-message">@Model.ErrorMessage</span>
+        }
+    </div>
+    <div class="multiple-choice" style="float:none">
+        <input id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LOCATION))>
+        <label class="search-types__optional-section__label" for="openOnlyLocation">Include open schools only</label>
+    </div>
+    <div>
+        <input id="FindSchoolManuallyByTown"
+               class="form-control search-input"
+               name="locationorpostcode"
+               placeholder=""
+               maxlength="100"
+               type="text" />
+        <input type="hidden" id="LocationCoordinates" name="LocationCoordinates" />
+        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LOCATION">Search</button>
+    </div>
+</div>

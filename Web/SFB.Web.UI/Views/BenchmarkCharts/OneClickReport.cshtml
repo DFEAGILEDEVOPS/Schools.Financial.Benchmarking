@@ -10,8 +10,9 @@
 
 @section InsideHead{
     <link href="~/public/assets/print/bmc-print.css" media="print" rel="stylesheet" type="text/css">
-    <script src="~/node_modules/jspdf/dist/jspdf.debug.js"></script>
     <script src="~/node_modules/angular/angular.min.js"></script>
+    <script src="~/node_modules/jspdf/dist/jspdf.debug.js"></script>
+    <script src="~/node_modules/pptxgenjs/dist/pptxgen.bundle.js"></script>
 }
 
 @section BMListBannerContent
@@ -95,16 +96,16 @@ else
         <div id="downloadLinkContainer" class="download-link">
             <div class="download">
                 <a id="DownloadLink" class="no-underline bold-xsmall sfb_gtm_csv_bm" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
-                    <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download data (CSV)</span>
+                    <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download data</span>
                 </a>
             </div>
         </div>
-        <div class="download-link">
+        <div class="download-link pdf-ppt">
             <div class="pdf">
-                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PdfPage()">
+                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.RenderDownloadModal(event)">
                     <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
-                    <img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />
-                    <span id="PdfLinkText"> Download page (PDF)</span>
+                    @*<img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />*@
+                    <span id="PdfLinkText"> Download page</span>
                 </button>
             </div>
         </div>

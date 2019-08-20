@@ -58,7 +58,7 @@ namespace SFB.Web.UI.UnitTests
             });
 
             _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
-                .Returns((BenchmarkCriteria criteria, EstablishmentType estType) => task);
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial) => task);
 
             var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
             _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(It.IsAny<EstablishmentType>()))

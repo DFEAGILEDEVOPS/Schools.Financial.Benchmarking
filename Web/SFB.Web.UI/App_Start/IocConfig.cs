@@ -55,7 +55,6 @@ namespace SFB.Web.UI
 
         private static void RegisterServices(ContainerBuilder builder)
         {
-            builder.RegisterType<LocalAuthoritiesService>().As<ILocalAuthoritiesService>();
             builder.RegisterType<LaSearchService>().As<ILaSearchService>();
             builder.RegisterType<LocationSearchService>().As<ILocationSearchService>();
             builder.RegisterType<BenchmarkChartBuilder>().As<IBenchmarkChartBuilder>();
@@ -73,8 +72,11 @@ namespace SFB.Web.UI
             builder.RegisterType<BenchmarkBasketCookieManager>().As<IBenchmarkBasketCookieManager>();
             builder.RegisterType<BenchmarkCriteriaBuilderService>().As<IBenchmarkCriteriaBuilderService>();
             builder.RegisterType<DownloadCSVBuilder>().As<IDownloadCSVBuilder>();
+            builder.RegisterType<NotifyEmailSendingService>().As<IEmailSendingService>();
             builder.RegisterInstance(new SchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();
             builder.RegisterInstance(new TrustSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
+            builder.RegisterType<AspNetCachedLocalAuthoritiesService>().As<ILocalAuthoritiesService>();
+            builder.RegisterType<RedisCachedActiveUrnsService>().As<IActiveUrnsService>().SingleInstance();
         }
 
         private static void RegisterWrappers(ContainerBuilder builder)

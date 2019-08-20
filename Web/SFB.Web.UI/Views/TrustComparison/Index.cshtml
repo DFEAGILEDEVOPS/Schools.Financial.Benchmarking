@@ -7,7 +7,7 @@
 
 @section BMListBannerContent
 {
-<div class="banner">
+<div class="banner sticky-div">
     <div id="liveCountBar" role="region" aria-label="Trust results live counter" style="display: none">
         <div class="grid-row">
             <div class="column-full">
@@ -91,7 +91,7 @@
             </div>
             <div class="column-half no-padding">
                 <div class="column-one-third back-button">
-                    <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo&name=@Model.BenchmarkTrust.Name">Back</a>
+                    <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo">Back</a>
                 </div>
                 <div class="column-two-thirds back-button">
                     <button id="removeAllTrusts" class="a-button underline">Remove all trusts</button>
