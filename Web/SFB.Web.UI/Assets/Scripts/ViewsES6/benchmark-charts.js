@@ -638,7 +638,7 @@
             $("#customTabSection").hide();
             $("#downloadLinkContainer").show();
             $("#PrintLinkText").text(" Print page");
-            $("#PdfLinkText").text(" Download PDF");
+            $("#PdfLinkText").text(" Download page");
             $("#bestInClassTabSection").show();
             $("#tabsSection").hide();
         } else {
@@ -689,7 +689,7 @@
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $("#downloadLinkContainer").show();
                     $("#PrintLinkText").text(" Print page");
-                    $("#PdfLinkText").text(" Download PDF");
+                    $("#PdfLinkText").text(" Download page");
                     let stickyDivHtml = $(data).find(".sticky-div").html();
                     $("#tabsSection .sticky-chart-controls").html(stickyDivHtml);
                     let formHtml = $(data).find("form").html();
@@ -765,7 +765,12 @@
 
         pptGenerator.writeContextData();
 
-        pptGenerator.save();
+        $("#BestInClass .tab-link").click();
+
+        setTimeout(() => {
+            pptGenerator.writeBicTable();                     
+            pptGenerator.save();
+        }, 500);          
     }
 
     DownloadPage() {
@@ -1083,13 +1088,23 @@ class PptGenerator {
     }
 
     writeContextData() {
-            if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
-                this.slide = this.doc.addNewSlide();
-                this.yOffset = 0.2;
-                this.slide.addText($('#contextExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+        if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
+            this.slide = this.doc.addNewSlide();
+            this.yOffset = 0.2;
+            this.slide.addText($('#contextExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
 
-                this.pptWriteTable('#contextDataTable', 1);     
-            }
+            this.pptWriteTable('#contextDataTable', 1);
+        }
+    }
+
+    writeBicTable() {
+        if ($('#ProgressScoresTable').length > 0) {
+            this.slide = this.doc.addNewSlide();
+            this.yOffset = 0.2;
+            this.slide.addText($('#ProgressScoresTableHeading').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+
+            this.pptWriteTable('#ProgressScoresTable', 1);
+        }
     }
 
     save() {
