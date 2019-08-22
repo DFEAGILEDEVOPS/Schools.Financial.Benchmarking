@@ -798,10 +798,13 @@
         pdfGenerator.writeCharts();
 
         pdfGenerator.writeCriteria().then(() => {
-            pdfGenerator.writeContextData().then(() => {
-                pdfGenerator.save();
-                //$('#PdfLink .download-icon').toggle();
-                //$('#PdfLink .spin-icon').toggle();
+            pdfGenerator.writeContextData().then(() => {                
+                $("#BestInClass .tab-link").click();
+                setTimeout(() => {
+                    pdfGenerator.writeBicTable().then(() => {
+                        pdfGenerator.save();
+                    });
+                }, 500);                
             });
         });
     }
@@ -1327,6 +1330,21 @@ class PdfGenerator {
                 this.pdfAddNewPage();
                 this.pdfWriteLine('H2', $('#contextExp').get(0).innerText);
                 this.pdfGenerateImage('#contextDataTable').then((canvas) => {
+                    this.pdfAddImage(canvas);
+                    resolve();
+                });
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    writeBicTable() {
+        return new Promise((resolve, reject) => {
+            if ($('#ProgressScoresTable').length > 0 ) {
+                this.pdfAddNewPage();
+                this.pdfWriteLine('H2', $('#ProgressScoresTableHeading').get(0).innerText);
+                this.pdfGenerateImage('#ProgressScoresTable').then((canvas) => {
                     this.pdfAddImage(canvas);
                     resolve();
                 });
