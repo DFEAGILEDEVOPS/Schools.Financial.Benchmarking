@@ -500,10 +500,11 @@
         });
 
         var isInNewsPage = window.location.href.toLowerCase().endsWith("/news");
-        var suppressNewsCookie = GOVUK.cookie("suppress-news-header");
-        if (suppressNewsCookie !== "yes" && !isInNewsPage) {
-            DfE.Util.ModalRenderer.RenderNewsModal();        
-            GOVUK.cookie("suppress-news-header", 'yes', { days: 7 });
+        var seenVersion = GOVUK.cookie("seen-news-for-version");
+        var lastVersion = $('#version').val();
+        if (seenVersion !== lastVersion && !isInNewsPage) {
+            DfE.Util.ModalRenderer.RenderNewsModal();
+            GOVUK.cookie("seen-news-for-version", lastVersion, { days: 10000 });
         }
 
         $(".print-link a").click(function () { window.print(); });
