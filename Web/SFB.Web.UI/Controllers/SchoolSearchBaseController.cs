@@ -96,6 +96,8 @@ namespace SFB.Web.UI.Controllers
                                     return 5;
                                 case "Special":
                                     return 6;
+                                case "16 plus":
+                                    return 7;
                                 default:
                                     return 0; ;
                             }

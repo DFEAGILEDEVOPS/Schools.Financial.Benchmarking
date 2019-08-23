@@ -21,10 +21,10 @@
                     <div class="column-two-thirds">
                         <a href="/school/detail?urn=@school.Id" class="bold-small">
                             @school.Name
-                        @if (school.Status == "Closed")
-                        {
-                            <span> (Closed)</span>
-                        }
+                            @if (school.Status == "Closed")
+                            {
+                                <span> (Closed)</span>
+                            }
                         </a>
                         <div class="school-document__add-to-compare-button school-document__add-to-compare-button--add-remove-mobile">
                             @AddRemoveButton(school, "mobile")
@@ -47,48 +47,45 @@
         }
     </ul>
 
-        @Html.Partial("Partials/Pagination", Model.Pagination)
+    @Html.Partial("Partials/Pagination", Model.Pagination)
 }
 else
 {
     <p class="bold-small" style="margin-top: 22px;">Please try:</p>
-        <p class="indent">
-            • <a href="/">searching again</a> using different spelling or words
-        </p>
-        <p class="indent">
-            • removing your filters
-        </p>
+    <p class="indent">
+        • <a href="/">searching again</a> using different spelling or words
+    </p>
+    <p class="indent">
+        • removing your filters
+    </p>
 }
 
 <input type="hidden" id="SearchMethod" value="@ViewBag.SearchMethod" />
 
 @helper AddRemoveButton(SchoolSearchResultViewModel school, string device)
 {
-    if (!school.IsSixthForm)
-    {
-        string status = school.Status == "Open" ? "" : "Closed";
-        string deviceLabel = device == "desktop" ? "" : "mobile";
-<div id="@school.Id@device" data-urn="@school.Id">
-    @if (ViewBag.SearchMethod == "Manual")
-    {
-        <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</button>
-        <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</button>              
-        <a class="hidden-goto-basket" href="/manualcomparison/overwritestrategy" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")" aria-label="Continue to benchmark charts with @ViewBag.manualCount schools selected">Continue to benchmark charts</a>       
-    }
-    else
-    {
-        <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</button>
-        <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</button>
-        <a class="hidden-goto-basket" href="/benchmarklist">Go to your benchmark basket</a>
-    }
-</div>
-    }
+    string status = school.Status == "Open" ? "" : "Closed";
+    string deviceLabel = device == "desktop" ? "" : "mobile";
+    <div id="@school.Id@device" data-urn="@school.Id">
+        @if (ViewBag.SearchMethod == "Manual")
+        {
+            <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</button>
+            <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</button>
+            <a class="hidden-goto-basket" href="/manualcomparison/overwritestrategy" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")" aria-label="Continue to benchmark charts with @ViewBag.manualCount schools selected">Continue to benchmark charts</a>
+        }
+        else
+        {
+            <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</button>
+            <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</button>
+            <a class="hidden-goto-basket" href="/benchmarklist">Go to your benchmark basket</a>
+        }
+    </div>
 }
 
 @helper DisplayStyle(bool display)
 {
-if (display)
-{
+    if (display)
+    {
         @Html.Raw("style=\"display: inline-block\"");
     }
     else
