@@ -120,8 +120,15 @@ namespace SFB.Web.UI.Controllers
         {
             try
             {
-                var activeUrns = _activeUrnsService.GetAllActiveUrns();
-                var found = activeUrns.Contains(urn);
+                //var activeUrns = _activeUrnsService.GetAllActiveUrns();
+                //var found = activeUrns.Contains(urn);
+                var urns = (List<int>)HttpContext?.Cache?.Get("SFBActiveURNList");
+                if (urns == null)
+                {
+                    urns = _contextDataService.GetAllSchoolUrns();
+                    HttpContext.Cache.Insert("SFBActiveURNList", urns);
+                }
+                var found = urns.Contains(urn);
                 return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);
             }
             catch
