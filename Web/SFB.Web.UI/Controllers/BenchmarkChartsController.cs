@@ -98,7 +98,14 @@ namespace SFB.Web.UI.Controllers
                 }
                 else
                 {
-                    AddSchoolDataObjectsToBasket(comparison, urnList);
+                    try
+                    {
+                        AddSchoolDataObjectsToBasket(comparison, urnList);
+                    }
+                    catch (ApplicationException)
+                    {
+                        //ignore double addition attempts
+                    }
 
                     return await Index(null, null, null, null, comparison);
                 }
