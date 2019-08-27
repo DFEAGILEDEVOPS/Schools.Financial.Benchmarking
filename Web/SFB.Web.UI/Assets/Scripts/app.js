@@ -145,7 +145,7 @@
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderKs2Info' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>New feature</h1>" +
                 "<p id = 'modal-content'>A new article has been added to the News Page that could help your schools financial benchmarking experience. " +
-                "Click 'Go to news page' to view the News Page or find the News link in the News and Guidance section.</p>" +
+                "<a href='/news'>Go to the news page</a> to view the article or find the News link in the 'News and Guidance' section on the homepage.</p>" +
                 "<div class='grid-row modal-form-buttons'>"+
                 "<div class='column-half'>"+
                     "<a class='button next-button' href='/news'>Go to news page</a>"+
