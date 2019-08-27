@@ -144,8 +144,8 @@
             var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderKs2Info' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>New feature</h1>" +
-                "<p id = 'modal-content'>We have released a new feature 'Highest progress schools comparison', " +
-                "<a href='/news'>learn more on the news page</a>.</p>" +
+                "<p id = 'modal-content'>A new article has been added to the News Page that could help your schools financial benchmarking experience. " +
+                "Click 'Go to news page' to view the News Page or find the News link in the News and Guidance section.</p>" +
                 "<div class='grid-row modal-form-buttons'>"+
                 "<div class='column-half'>"+
                     "<a class='button next-button' href='/news'>Go to news page</a>"+
