@@ -11,19 +11,20 @@
 <html lang="en">
 <!--<![endif]-->
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>@documentTitle</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:image" content="@(ViewBag.assetsPath)/images/opengraph-image.png?0.12.0">
-    <link rel="shortcut icon" href="/public/assets/images/icons/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="/public/assets/images/icons/favicon.ico" type="image/x-icon" />
     <link rel="mask-icon" href="/public/assets/images/icons/gov.uk_logotype_crown.svg" color="#0b0c0c">
     <link rel="apple-touch-icon" sizes="180x180" href="~/public/assets/images/icons/apple-touch-icon-180x180.png">
     <link rel="apple-touch-icon" sizes="167x167" href="~/public/assets/images/icons/apple-touch-icon-167x167.png">
     <link rel="apple-touch-icon" sizes="152x152" href="~/public/assets/images/icons/apple-touch-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="120x120" href="~/public/govuk_template/assets/images/apple-touch-icon-120x120.png">
     <link rel="apple-touch-icon" href="/public/assets/images/icons/apple-touch-icon.png">
-    <meta name="theme-color" content="#0b0c0c"/>
+    <meta name="theme-color" content="#0b0c0c" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com atlas.microsoft.com ">
 
     @*//////// Added by SFB dev in regards to story #18856 ////////////////*@
     @if (ViewBag.pageDescription == null)
@@ -37,7 +38,7 @@
     @*//////// Added by SFB dev in regards to story #18856 ////////////////*@
 
     <script type="text/javascript">
-        (function() {
+        (function () {
             if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
                 var d = document, c = "appendChild", a = d.createElement("style");
                 a[c](d.createTextNode("@@-ms-viewport{width:auto!important}"));
@@ -47,15 +48,15 @@
     </script>
 
     <!--[if gt IE 8]><!-->
-    <link href="@(ViewBag.assetsPath)/stylesheets/govuk-template.css?0.12.0" media="screen" rel="stylesheet" type="text/css"/><!--<![endif]-->
+    <link href="@(ViewBag.assetsPath)/stylesheets/govuk-template.css?0.12.0" media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
     <!--[if IE 6]><link href="@(ViewBag.assetsPath)/stylesheets/govuk-template-ie6.css?0.12.0" media="screen" rel="stylesheet" type="text/css"/><![endif]-->
     <!--[if IE 7]<link href="@(ViewBag.assetsPath)/stylesheets/govuk-template-ie7.css?0.12.0" media="screen" rel="stylesheet" type="text/css"/><![endif]-->
     <!--[if IE 8]><link href="@(ViewBag.assetsPath)/stylesheets/govuk-template-ie8.css?0.12.0" media="screen" rel="stylesheet" type="text/css"/><![endif]-->
 
-    <link href="@(ViewBag.assetsPath)/stylesheets/govuk-template-print.css?0.12.0" media="print" rel="stylesheet" type="text/css"/>
+    <link href="@(ViewBag.assetsPath)/stylesheets/govuk-template-print.css?0.12.0" media="print" rel="stylesheet" type="text/css" />
 
     <!--[if gte IE 9]><!-->
-    <link href="@(ViewBag.assetsPath)/stylesheets/fonts.css?0.12.0" media="all" rel="stylesheet" type="text/css"/>
+    <link href="@(ViewBag.assetsPath)/stylesheets/fonts.css?0.12.0" media="all" rel="stylesheet" type="text/css" />
     <!--<![endif]-->
     <!--[if lt IE 9]>
         <script src="@(ViewBag.assetsPath)/javascripts/ie.js?0.12.0" type="text/javascript"></script>
