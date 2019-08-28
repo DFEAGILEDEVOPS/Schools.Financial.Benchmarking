@@ -38,6 +38,8 @@ namespace SFB.Web.UI
                 Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
                 Response.AppendHeader("Expires", "0"); // Proxies.
             }
+
+            Response.AppendHeader("Strict-Transport-Security", "max-age=31536000"); // HSTS.
         }
 
         protected void Application_PreSendRequestHeaders()
