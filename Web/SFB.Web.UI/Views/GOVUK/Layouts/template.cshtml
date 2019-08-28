@@ -24,7 +24,16 @@
     <link rel="apple-touch-icon" sizes="120x120" href="~/public/govuk_template/assets/images/apple-touch-icon-120x120.png">
     <link rel="apple-touch-icon" href="/public/assets/images/icons/apple-touch-icon.png">
     <meta name="theme-color" content="#0b0c0c" />
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com atlas.microsoft.com ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com atlas.microsoft.com ">
+    <meta http-equiv="Content-Security-Policy" content="object-src 'none'">
+    <meta http-equiv="Content-Security-Policy" content="frame-src 'none'">
+    <meta http-equiv="Content-Security-Policy" content="media-src 'none'">
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' api.postcodes.io">
+    <meta http-equiv="Content-Security-Policy" content="font-src 'self' data:">
+    <meta http-equiv="Content-Security-Policy" content="manifest-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline'">
+    <meta http-equiv="Content-Security-Policy" content="img-src 'self' www.google-analytics.com atlas.microsoft.com data:">
+    <meta http-equiv="Content-Security-Policy" content="form-action 'self'">
 
     @*//////// Added by SFB dev in regards to story #18856 ////////////////*@
     @if (ViewBag.pageDescription == null)
@@ -57,6 +66,7 @@
 
     <!--[if gte IE 9]><!-->
     <link href="@(ViewBag.assetsPath)/stylesheets/fonts.css?0.12.0" media="all" rel="stylesheet" type="text/css" />
+
     <!--<![endif]-->
     <!--[if lt IE 9]>
         <script src="@(ViewBag.assetsPath)/javascripts/ie.js?0.12.0" type="text/javascript"></script>
