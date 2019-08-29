@@ -42,6 +42,7 @@
     if (document.location.protocol == 'https:'){
       cookieString = cookieString + "; Secure";
     }
+    cookieString = cookieString + "; samesite=lax";
     document.cookie = cookieString;
   };
   GOVUK.getCookie = function (name) {
