@@ -41,6 +41,7 @@ namespace SFB.Web.UI
             Response.AddHeader("x-frame-options", "SAMEORIGIN");
             Response.AppendHeader("Strict-Transport-Security", "max-age=31536000"); // HSTS.
             Response.AppendHeader("X-XSS-Protection", "1; mode=block");
+            Response.AppendHeader("X-Content-Type-Options", "nosniff");
         }
 
         protected void Application_PreSendRequestHeaders()
