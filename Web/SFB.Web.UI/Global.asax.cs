@@ -28,8 +28,7 @@ namespace SFB.Web.UI
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-            HttpContext.Current.Response.AddHeader("x-frame-options", "SAMEORIGIN");
+        {          
 
             if (!Request.Path.Contains("/BenchmarkCharts/"))
             {
@@ -39,7 +38,9 @@ namespace SFB.Web.UI
                 Response.AppendHeader("Expires", "0"); // Proxies.
             }
 
+            Response.AddHeader("x-frame-options", "SAMEORIGIN");
             Response.AppendHeader("Strict-Transport-Security", "max-age=31536000"); // HSTS.
+            Response.AppendHeader("X-XSS-Protection", "1; mode=block");
         }
 
         protected void Application_PreSendRequestHeaders()
