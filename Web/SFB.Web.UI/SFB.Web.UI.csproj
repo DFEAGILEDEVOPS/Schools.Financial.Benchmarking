@@ -654,16 +654,6 @@
     <Content Include="public\assets\print\school-print.css" />
     <Content Include="public\scripts\modernizr\modernizr-custom.js" />
     <Content Include="public\scripts\stickyfill\stickyfill.min.js" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -779,8 +769,6 @@
     <Content Include="Views\BenchmarkCharts\ReplaceWithSavedBasket.cshtml" />
     <Content Include="Views\Help\DataQueries.cshtml" />
     <Content Include="Views\Help\DataQueryConfirmation.cshtml" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Shared\Partials\Search\ManualSchoolSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\ManualLocationSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\ManualLaSearchOption.cshtml" />
