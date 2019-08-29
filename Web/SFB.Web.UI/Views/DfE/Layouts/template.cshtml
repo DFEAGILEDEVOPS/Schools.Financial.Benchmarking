@@ -2,9 +2,9 @@
 @{
     Layout = "../../govuk/layouts/template.cshtml";
     var version = "1.0.0.0";
-    //#if !DEBUG
+    #if !DEBUG
         version = typeof(HomeController).Assembly.GetName().Version.ToString();
-    //#endif
+    #endif
 }
 
 @section Head {

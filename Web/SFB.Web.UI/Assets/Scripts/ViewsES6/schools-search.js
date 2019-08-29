@@ -171,8 +171,7 @@
                 if (!suggestionSource.data) { console.log("suggestionSource.data is null"); return; }
                 if (!suggestionSource.name) { console.log("suggestionSource.name is null"); return; }
                 if (!suggestionSource.value) { console.log("suggestionSource.value is null"); return; }
-                console.log("suggestionSource.data has " + suggestionSource.data.length + " items");
-
+                
                 minChars = 2;
                 field = suggestionSource.name;
                 value = suggestionSource.value;
