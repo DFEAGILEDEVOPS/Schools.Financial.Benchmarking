@@ -777,10 +777,6 @@
     <Content Include="Views\TrustComparison\Index.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustsToCompare.cshtml" />
     <Content Include="Views\TrustSchools\SearchResults.cshtml" />
-    <Content Include="Views\TrustSchools\Partials\FilterForm.cshtml" />
-    <Content Include="Views\TrustSchools\Partials\OptionSelect.cshtml" />
-    <Content Include="Views\TrustSchools\Partials\ResultBlock.cshtml" />
-    <Content Include="Views\TrustSchools\Partials\SchoolResults.cshtml" />
     <Content Include="Views\Trust\Partials\GeneralCharacteristics.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
     <Content Include="Views\Trust\SuggestTrust.cshtml" />

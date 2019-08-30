@@ -32,29 +32,29 @@
         }
     }
 
-    LiveSearch.displaceSchoolCount = function () {
-        if ($('#result-list > #js-search-results-info').length === 0) {
-            return;
-        }
+    //LiveSearch.displaceSchoolCount = function () {
+    //    if ($('#result-list > #js-search-results-info').length === 0) {
+    //        return;
+    //    }
 
-        $('#schoolCountPlaceHolder').empty();
-        $('#result-list > #js-search-results-info').detach().appendTo('#schoolCountPlaceHolder');
+    //    $('#schoolCountPlaceHolder').empty();
+    //    $('#result-list > #js-search-results-info').detach().appendTo('#schoolCountPlaceHolder');
 
-        $("span.screen-reader-result-count").html("Filtering results");
-        $("span.trust-screen-reader-result-count").html("Filtering results");
-        setTimeout(function () {
-            $("span.screen-reader-result-count").html($('#schoolCountPlaceHolder .summary').html());
-            $("span.trust-screen-reader-result-count").html($('#schoolCountPlaceHolder .summary span').html() + " schools found");
-        }, 1000);
+    //    $("span.screen-reader-result-count").html("Filtering results");
+    //    $("span.trust-screen-reader-result-count").html("Filtering results");
+    //    setTimeout(function () {
+    //        $("span.screen-reader-result-count").html($('#schoolCountPlaceHolder .summary').html());
+    //        $("span.trust-screen-reader-result-count").html($('#schoolCountPlaceHolder .summary span').html() + " schools found");
+    //    }, 1000);
 
-    };
+    //};
 
     LiveSearch.prototype.bindEvents = function bindEvents(state) {
       this.$form = $("#" + this.formId);
       this.$secondaryForm = $("#" + this.secondaryFormId);
       this.$form.on('change', 'input[type=checkbox], input[type=text], input[type=radio]', this.formChange.bind(this));
       this.$form.on('change', 'select', this.distanceChange.bind(this));
-      this.$secondaryForm.on('change', 'select, input[type=checkbox], input[type=text], input[type=radio]', this.formChange.bind(this));
+      //this.$secondaryForm.on('change', 'select, input[type=checkbox], input[type=text], input[type=radio]', this.formChange.bind(this));
       $('.pagination a').on('click', this.pageChange.bind(this));
       //$(window).on('popstate', this.popState.bind(this));
       if (this.onRefresh) {
@@ -175,7 +175,6 @@
             }).done(function (response) {
                 liveSearch.cache($.param(liveSearch.state), response);
                 liveSearch.displayResults(response, this.searchState);
-                GOVUK.LiveSearch.displaceSchoolCount();
                 liveSearch.toggleSortControl();
                 $('.pagination a').on('click', liveSearch.pageChange.bind(liveSearch));
             }).error(function () {
@@ -183,7 +182,7 @@
             });
         } else {
             this.displayResults(cachedResultData, searchState);
-            GOVUK.LiveSearch.displaceSchoolCount();
+            //GOVUK.LiveSearch.displaceSchoolCount();
             liveSearch.toggleSortControl();
             $('.pagination a').on('click', liveSearch.pageChange.bind(liveSearch));
             var out = new $.Deferred();
@@ -225,8 +224,8 @@
             this.$resultsBlock.html(results);
             DfE.Views.SchoolsResultsViewModel.addAllVisibility();
             DfE.Views.SchoolsResultsViewModel.activateAddRemoveButtons();
-
-            //this.bindEvents();
+            DfE.Views.SchoolsResultsViewModel.initTabs();
+            DfE.Views.SchoolsResultsViewModel.initSort();
         }
     };
 
