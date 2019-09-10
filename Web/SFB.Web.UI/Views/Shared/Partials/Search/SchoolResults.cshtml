@@ -4,46 +4,19 @@
 
 <div id="schoolResults">
 
-    @if (@ViewBag.CompanyNo == null)
-    {
-        <div id="result-list">
-            <div id="js-search-results-info">
-                <div class="result-info">
-                    <p class="summary count-summary font-xsmall">
-                        <span class="bold-xsmall result-count">@(Model.Pagination.Total)</span> schools found
-                    </p>
-                </div>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div id="result-list">
-            <div id="js-search-results-info">
-                <div class="result-info">
-                    <p class="summary">
-                        <span class="bold result-count">@(Model.Pagination.Total)</span> schools in <a href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    }
-
     @Html.Partial("Partials/Pagination", Model.Pagination)
 
     @if (ViewBag.SearchMethod != "Manual")
     {
-        <div>
-            <button class='add-remove button addall' style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to basket</button>
+        <div class="add-all-wrapper" style="display: none">
+            <button class='add-remove button add-all' onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to basket</button>
         </div>
     }
-    <div id="schoolCountPlaceHolder" class="no-padding inline-block"></div>
+    @*<div id="schoolCountPlaceHolder" class="no-padding inline-block"></div>*@
     @if (ViewBag.SearchMethod == "Manual")
     {
-        <div id="manualSchoolCountPlaceHolder" class="no-padding inline-block font-xsmall">- <span id="manualCount" class="bold-xsmall">@(ViewBag.manualCount ?? 0)</span> selected (max. 30)</div>
-
         <div class="manual-button" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")">
-            <a id="manualButton" class="button font-xsmall" href="OverwriteStrategy">Continue to benchmarking charts</a>
+            <a id="manualButton" class="manual-button__button button font-xsmall" href="OverwriteStrategy">Continue to benchmarking charts</a>
         </div>
     }
     <div class="result-controllers">

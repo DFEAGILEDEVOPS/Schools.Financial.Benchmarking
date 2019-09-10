@@ -190,6 +190,7 @@ namespace SFB.Web.UI.Controllers
             dynamic searchResponse;
 
             var schoolComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+            var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
 
             if (IsLaEstab(nameId))
             {
@@ -202,6 +203,7 @@ namespace SFB.Web.UI.Controllers
             var vm = GetSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
 
             ViewBag.SearchMethod = "Manual";
+            ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
             return PartialView("Partials/Search/SchoolResults", vm);
         }
 

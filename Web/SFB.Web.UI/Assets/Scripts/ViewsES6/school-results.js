@@ -232,9 +232,9 @@
         let schoolsToAddCount = $addButtons.length;
         let comparisonListCount = DfE.Util.ComparisonList.count();
         if (schoolsToAddCount <= 1 || comparisonListCount + schoolsToAddCount > 30) {
-            $(".addall").hide();
+            $(".add-all-wrapper").hide();
         } else {
-            $(".addall").show();
+            $(".add-all-wrapper").show();
         }
     }
 
