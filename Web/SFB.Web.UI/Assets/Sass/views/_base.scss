@@ -342,8 +342,8 @@ dialog {
 
 .modal {
     position: fixed;
-    left: 23%;
-    right: auto;
+    /*left: 23%;
+    right: auto;*/
     top: 25%;
     width: 40%;
     margin: 0 auto;
@@ -353,6 +353,7 @@ dialog {
     padding: 2em;
     max-height: 50%;
     overflow: auto;
+    max-width: 720px;
 
     @include media(mobile) {
         left: 0;

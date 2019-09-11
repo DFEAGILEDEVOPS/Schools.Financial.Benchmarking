@@ -142,7 +142,7 @@
             var $page = $('#js-modal-page');
 
             var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
-                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderKs2Info' title='Close'>Close</a>" +
+                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLinkText' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>New feature</h1>" +
                 "<p id = 'modal-content'>A new article has been added to the News Page that could help your schools financial benchmarking experience. " +
                 "<a href='/news'>Go to the news page</a> to view the article or find the News link in the 'News and Guidance' section on the homepage.</p>" +
@@ -151,7 +151,7 @@
                     "<a class='button next-button' href='/news'>Go to news page</a>"+
                     "<button type='button' class='back-button link-button' value='Cancel' onclick='GOVUK.Modal.prototype.closeAccessibleModal()'>Cancel</button>"+
                 "</div>"+                
-                "</div></div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
+                "</div></div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLinkText' title='Close'>Close</a></dialog>";
 
             $($modal_code).insertAfter($page);
             $body.addClass('no-scroll');
