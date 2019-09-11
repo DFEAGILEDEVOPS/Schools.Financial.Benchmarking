@@ -1039,7 +1039,7 @@ nav.tabs ol li {
 
 .save-url-input {
     @include media(desktop) {
-        width: 75%;
+        width: 65%;
         margin-right: 5px;
         position:relative;
         bottom: 1px;
@@ -1048,6 +1048,11 @@ nav.tabs ol li {
     {
         margin-bottom: 5px;
     }
+}
+
+.email-the-link{
+    margin-top: 14px;
+    display: inline-block;
 }
 
 .email-list-icon {

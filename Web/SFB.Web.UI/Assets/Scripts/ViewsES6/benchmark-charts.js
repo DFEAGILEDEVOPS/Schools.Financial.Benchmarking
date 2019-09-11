@@ -855,7 +855,7 @@
                 <button id='clip-button' class='button' type='button' data-clipboard-target='#saveUrl'>Copy link to clipboard</button>
                 <span id='clip-not-supported' class='error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
-            <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
+            <a class='bold-xsmall email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
         </div>
         <div role='document' class='save-modal-js page-2' style='display: none'>
@@ -866,7 +866,7 @@
             </p>           
             <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ShowSaveModalOne()'>See more options to save</button>            
         </div>
-        <a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
+        <a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLink' title='Close'>Close</a>
         </dialog>`;
 
         $($modal_code).insertAfter($page);
