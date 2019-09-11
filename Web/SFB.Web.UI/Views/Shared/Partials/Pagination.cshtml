@@ -19,7 +19,7 @@
                     else
                     {
                         <p class="summary">
-                            <span class="bold result-count">Showing @(Model.Total)</span> schools in <a href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
+                            Showing <span class="bold result-count">@(Model.Total)</span> schools in <a href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
                         </p>
                     }
                 </div>
@@ -33,7 +33,7 @@
                 {
                     if (Model.HasPreviousPage())
                     {
-                        <a class="pagination-page-link" href="@(Model.ConstructPageUrl(Model.CurrentPage - 1))">Previous</a>
+                        <a class="pagination-page-link" aria-label="Go to previous page of results" href="@(Model.ConstructPageUrl(Model.CurrentPage - 1))">Previous</a>
                     }
 
                     var pageCount = Math.Min(Model.PageCount, SearchDefaults.LINKS_PER_PAGE);
@@ -47,13 +47,13 @@
                         }
                         else
                         {
-                            <a class="pagination-page-link" href="@(Model.ConstructPageUrl(i))">@i</a>
+                            <a class="pagination-page-link" aria-label="Go to page @i of results" href="@(Model.ConstructPageUrl(i))">@i</a>
                         }
                     }
 
                     if (Model.HasMorePages())
                     {
-                        <a class="pagination-page-link" href="@(Model.ConstructPageUrl(Model.CurrentPage + 1))">Next</a>
+                        <a class="pagination-page-link" aria-label="Go to next page of results" href="@(Model.ConstructPageUrl(Model.CurrentPage + 1))">Next</a>
                     }
                 }
             </div>

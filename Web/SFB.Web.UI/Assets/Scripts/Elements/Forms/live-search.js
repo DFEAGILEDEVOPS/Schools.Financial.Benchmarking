@@ -32,22 +32,12 @@
         }
     }
 
-    //LiveSearch.displaceSchoolCount = function () {
-    //    if ($('#result-list > #js-search-results-info').length === 0) {
-    //        return;
-    //    }
-
-    //    $('#schoolCountPlaceHolder').empty();
-    //    $('#result-list > #js-search-results-info').detach().appendTo('#schoolCountPlaceHolder');
-
-    //    $("span.screen-reader-result-count").html("Filtering results");
-    //    $("span.trust-screen-reader-result-count").html("Filtering results");
-    //    setTimeout(function () {
-    //        $("span.screen-reader-result-count").html($('#schoolCountPlaceHolder .summary').html());
-    //        $("span.trust-screen-reader-result-count").html($('#schoolCountPlaceHolder .summary span').html() + " schools found");
-    //    }, 1000);
-
-    //};
+    LiveSearch.prototype.updateSchoolCount = function () {
+        $("span.screen-reader-result-count").html("Filtering results");
+        setTimeout(function () {
+            $("span.screen-reader-result-count").html($('#result-list .summary').html());
+        }, 1000);
+    };
 
     LiveSearch.prototype.bindEvents = function bindEvents(state) {
       this.$form = $("#" + this.formId);
@@ -182,7 +172,6 @@
             });
         } else {
             this.displayResults(cachedResultData, searchState);
-            //GOVUK.LiveSearch.displaceSchoolCount();
             liveSearch.toggleSortControl();
             $('.pagination a').on('click', liveSearch.pageChange.bind(liveSearch));
             var out = new $.Deferred();
@@ -226,6 +215,7 @@
             DfE.Views.SchoolsResultsViewModel.activateAddRemoveButtons();
             DfE.Views.SchoolsResultsViewModel.initTabs();
             DfE.Views.SchoolsResultsViewModel.initSort();
+            this.updateSchoolCount();
         }
     };
 
