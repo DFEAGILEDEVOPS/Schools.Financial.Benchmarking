@@ -178,10 +178,10 @@
         };
 
         let restructureSchoolNames = function (id) {
-            let moveLabelLeft = function ($text) {
+            let moveLabelLeft = function ($text, margin) {
                 $tspan = $text.find('tspan');
                 let originalTextX = $text.attr('x');
-                let newTextX = originalTextX - 25;
+                let newTextX = originalTextX - margin;
                 $text.attr('x', newTextX);
                 $tspan.attr('x', newTextX);
                 return originalTextX;
@@ -222,12 +222,47 @@
                 $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
             };
 
+            let drawProgressScoreBox = function (originalTextX, $text, progressscore) {
+                let tick = $text.parent()[0];
+                let newTextX = originalTextX - 40;
+                let isMobile = $(window).width() <= 640;
+                let height = 18;
+                let width = 40;
+                if (isMobile) {
+                    height += 3;
+                }
+
+                d3.select(tick).append('rect')
+                    .classed("progress-svg", 1)
+                    .attr("stroke", "#006435")
+                    .attr("stroke-width", "4")
+                    .attr("fill", "#006435")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("x", newTextX)
+                    .attr("y", 6);
+                d3.select(tick).append("text")
+                    .text(progressscore.toFixed(2))
+                    .attr("fill", "#FFFFFF")
+                    .attr("x", newTextX+7)
+                    .attr("y", 20);
+            };
+
             let texts = $("#" + id + " .c3-axis-x g.tick text");
             let chartData = $("#" + id).data('chart');
 
             texts.each(function () {
                 let schoolNameParts = $(this).find('tspan');
-                let schoolName = schoolNameParts[0].textContent + (schoolNameParts[1] ? ` ${schoolNameParts[1].textContent}` : '');
+                if (schoolNameParts.length === 0) {
+                    return;
+                }
+                let schoolName;
+                if (schoolNameParts[0]) {
+                    schoolName = schoolNameParts[0].textContent;
+                }
+                if (schoolNameParts[1]) {
+                    schoolName += ` ${schoolNameParts[1].textContent}`;
+                }
                 let schoolData = chartData.find(c => c.school === schoolName);
                 if (!schoolData) {
                     schoolData = chartData.find(c => c.school.startsWith(schoolName.replace('...', '')));
@@ -258,14 +293,19 @@
 
                 if (type === "MAT") {
                     if (schoolData.partialyearspresent) {
-                        let originalTextX = moveLabelLeft($(this));
+                        let originalTextX = moveLabelLeft($(this), 25);
                         drawExcIcon(originalTextX, $(this));
                     }
                 } else {
                     if (!schoolData.iscompleteyear) {
-                        let originalTextX = moveLabelLeft($(this));
+                        let originalTextX = moveLabelLeft($(this), 25);
                         drawExcIcon(originalTextX, $(this));
                     }
+                }
+
+                if ($('#ComparisonType').val() === 'BestInClass') {
+                    let originalTextX = moveLabelLeft($(this), 50);
+                    drawProgressScoreBox(originalTextX, $(this), schoolData.progressscore);
                 }
             });
         };
@@ -275,6 +315,7 @@
         let axisLabel = $('#' + el.id).attr('data-axis-label');
         let yAxis, yFormat;
         let isMobile = $(window).width() <= 640;
+        let isBic = $("#ComparisonType").val() === "BestInClass";
         switch (showValue) {
             case "AbsoluteCount":
                 yAxis = {
@@ -476,7 +517,7 @@
             },
             padding: {
                 bottom: 10,
-                left: isMobile ? 140 : 310
+                left: isMobile ? 140 : isBic ? 360 : 310
             },
             onrendered: () => {
                 applyChartStyles(el);
@@ -764,13 +805,9 @@
         pptGenerator.writeCriteria();
 
         pptGenerator.writeContextData();
-
-        $("#BestInClass .tab-link").click();
-
-        setTimeout(() => {
-            pptGenerator.writeBicTable();                     
-            pptGenerator.save();
-        }, 500);          
+                
+        pptGenerator.save();
+         
     }
 
     DownloadPage() {
@@ -803,14 +840,7 @@
         pdfGenerator.writeCharts();
 
         pdfGenerator.writeCriteria().then(() => {
-            pdfGenerator.writeContextData().then(() => {                
-                $("#BestInClass .tab-link").click();
-                setTimeout(() => {
-                    pdfGenerator.writeBicTable().then(() => {
-                        pdfGenerator.save();
-                    });
-                }, 500);                
-            });
+            pdfGenerator.writeContextData();
         });
     }
 
@@ -1097,16 +1127,6 @@ class PptGenerator {
         }
     }
 
-    writeBicTable() {
-        if ($('#ProgressScoresTable').length > 0) {
-            this.slide = this.doc.addNewSlide();
-            this.yOffset = 0.2;
-            this.slide.addText($('#ProgressScoresTableHeading').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
-
-            this.pptWriteTable('#ProgressScoresTable', 1);
-        }
-    }
-
     save() {
         this.doc.save('sfb-benchmark-charts');
     }
@@ -1345,21 +1365,6 @@ class PdfGenerator {
                 this.pdfAddNewPage();
                 this.pdfWriteLine('H2', $('#contextExp').get(0).innerText);
                 this.pdfGenerateImage('#contextDataTable').then((canvas) => {
-                    this.pdfAddImage(canvas);
-                    resolve();
-                });
-            } else {
-                resolve();
-            }
-        });
-    }
-
-    writeBicTable() {
-        return new Promise((resolve, reject) => {
-            if ($('#ProgressScoresTable').length > 0 ) {
-                this.pdfAddNewPage();
-                this.pdfWriteLine('H2', $('#ProgressScoresTableHeading').get(0).innerText);
-                this.pdfGenerateImage('#ProgressScoresTable').then((canvas) => {
                     this.pdfAddImage(canvas);
                     resolve();
                 });

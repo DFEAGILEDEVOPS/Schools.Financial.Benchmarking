@@ -434,15 +434,6 @@
         vertical-align: top;
     }
 
-    .chart-wrapper.bic {
-        width: 95%;
-        float: left;
-
-        @include media(mobile) {
-            width: 85%;
-        }
-    }
-
     .chart-scores-wrapper {
         width: 5%;
         display: flex;
@@ -503,7 +494,7 @@
         }
     }
 
-    .ex-icon-circle {
+    .ex-icon-circle{
         &:hover {
             cursor: pointer
         }
@@ -571,16 +562,6 @@
 
     .bic-chart-wrapper {
         margin-top: 10px;
-
-        .chart-wrapper {
-            @include media(tablet) {
-                max-width: 678px;
-            }
-
-            @include media(desktop) {
-                max-width: 920px;
-            }
-        }
     }
 
     .chart-wrapper {
