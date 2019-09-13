@@ -863,7 +863,9 @@
         pdfGenerator.writeCharts();
 
         pdfGenerator.writeCriteria().then(() => {
-            pdfGenerator.writeContextData();
+            pdfGenerator.writeContextData().then(() => {
+                pdfGenerator.save();
+            });
         });
     }
 
