@@ -222,27 +222,43 @@
                 $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
             };
 
-            let drawProgressScoreBox = function (originalTextX, $text, progressscore) {
+            let drawProgressScoreBox = function (originalTextX, $text, progressScore) {
                 let tick = $text.parent()[0];
-                let newTextX = originalTextX - 40;
+                let newTextX = originalTextX - 42;
                 let isMobile = $(window).width() <= 640;
                 let height = 18;
                 let width = 40;
                 if (isMobile) {
                     height += 3;
                 }
+                let progressColour;
+                if (progressScore < -0.5) {
+                    progressColour = "#df3034";
+                }
+                else if (progressScore >= -0.5 && progressScore < -0.25) {
+                    progressColour = "#f47738";
+                }
+                else if (progressScore >= -0.25 && progressScore <= 0.25) {
+                    progressColour = "#ffbf47";
+                }
+                else if (progressScore > 0.25 && progressScore <= 0.5) {
+                    progressColour = "#85994b";
+                }
+                else if (progressScore > 0.5) {
+                    progressColour = "#006435";
+                }
 
                 d3.select(tick).append('rect')
                     .classed("progress-svg", 1)
-                    .attr("stroke", "#006435")
+                    .attr("stroke", progressColour)
                     .attr("stroke-width", "4")
-                    .attr("fill", "#006435")
+                    .attr("fill", progressColour)
                     .attr("width", width)
                     .attr("height", height)
                     .attr("x", newTextX)
                     .attr("y", 6);
                 d3.select(tick).append("text")
-                    .text(progressscore.toFixed(2))
+                    .text(progressScore.toFixed(2))
                     .attr("fill", "#FFFFFF")
                     .attr("x", newTextX+7)
                     .attr("y", 20);
@@ -308,6 +324,12 @@
                     drawProgressScoreBox(originalTextX, $(this), schoolData.progressscore);
                 }
             });
+        };
+
+        let insertProgressLabel = function () {
+            var left = $("#chart_0")[0].getBoundingClientRect().width - $(".c3-event-rects.c3-event-rects-single")[0].getBoundingClientRect().width - 62;
+            $(".chart-scores-header").css("left", left);
+            $(".chart-scores-header").show();
         };
 
         showValue = showValue || "AbsoluteMoney";
@@ -517,11 +539,12 @@
             },
             padding: {
                 bottom: 10,
-                left: isMobile ? 140 : isBic ? 360 : 310
+                left: isMobile ? (isBic ? 180 : 140) : (isBic ? 360 : 310)
             },
             onrendered: () => {
                 applyChartStyles(el);
                 restructureSchoolNames(el.id);
+                insertProgressLabel();
             }
         });
     }
