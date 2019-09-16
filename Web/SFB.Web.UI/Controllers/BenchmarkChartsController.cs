@@ -391,7 +391,11 @@ namespace SFB.Web.UI.Controllers
                             EstabType = schoolDoc.FinanceType,
                             Urn = schoolDoc.URN.ToString()
                         };
-                        _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
+                        try
+                        {
+                            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
+                        }
+                        catch (ApplicationException) { }
                     }
 
                     break;
