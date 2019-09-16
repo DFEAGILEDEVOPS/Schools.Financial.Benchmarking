@@ -1,12 +1,13 @@
-﻿@using SFB.Web.Common
-@using SFB.Web.UI.Helpers.Constants
+﻿@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
 <div id="EditSearchCollapse" aria-expanded="true">
     
     @{ 
-        var action = ViewBag.SearchMethod == "Manual" ? "ManualSearch" : "SchoolSearch";
+        var action = ViewBag.SearchMethod == "Manual" ? "ManualSearch" :
+            Model.SearchType == SearchTypes.SEARCH_BY_MAT ? "TrustSchoolSearch" : "SchoolSearch";
     }
+
     <form id="SearchFacetsForm" method="get" action="/@(action)/Search" class="js-live-search-form">
         <div class="grid-row mvs pvl filter-header">
             <div class="column-full">
@@ -15,7 +16,7 @@
         </div>
         @if (Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_LOCATION)
         {
-            var distanceRadius = new[] {1, 3, 5, 10, 15, 20, 25};
+            var distanceRadius = new[] { 1, 3, 5, 10, 15, 20, 25 };
 
             <div class="filter">
                 <div class="form-group filter-box">
@@ -46,35 +47,45 @@
 
         @if (Request.QueryString["nameId"] != null)
         {
-            <input type="hidden" name="nameId" value="@(Request.QueryString["nameId"])"/>
+            <input type="hidden" name="nameId" value="@(Request.QueryString["nameId"])" />
         }
 
         @if (Request.QueryString["searchtype"] != null)
         {
-            <input type="hidden" name="searchtype" value="@(Request.QueryString["searchtype"])"/>
+            <input type="hidden" name="searchtype" value="@(Request.QueryString["searchtype"])" />
         }
 
         @if (Request.QueryString["LocationCoordinates"] != null)
         {
-            <input type="hidden" name="LocationCoordinates" value="@(Request.QueryString["LocationCoordinates"])"/>
+            <input type="hidden" name="LocationCoordinates" value="@(Request.QueryString["LocationCoordinates"])" />
         }
 
         @if (Request.QueryString["locationorpostcode"] != null)
         {
-            <input type="hidden" name="locationorpostcode" value="@(Request.QueryString["locationorpostcode"])"/>
+            <input type="hidden" name="locationorpostcode" value="@(Request.QueryString["locationorpostcode"])" />
         }
 
         @if (Request.QueryString["lacodename"] != null)
         {
-            <input type="hidden" name="lacodename" value="@(Request.QueryString["lacodename"])"/>
+            <input type="hidden" name="lacodename" value="@(Request.QueryString["lacodename"])" />
+        }
+
+        @if (Request.QueryString["companyNo"] != null)
+        {
+            <input type="hidden" name="companyNo" value="@(Request.QueryString["companyNo"])" />
+        }
+
+        @if (Request.QueryString["matname"] != null)
+        {
+            <input type="hidden" name="matname" value="@(Request.QueryString["matname"])" />
         }
 
         <input type="hidden" name="orderby" id="OrderBy" value="@(Request.QueryString["orderby"])">
 
         <input type="hidden" name="openOnly" id="OpenOnly" value="@(Request.QueryString["openOnly"])">
 
-        <input type="hidden" name="selectionState" value="@(Model.FilterSelectionState)"/>
-        
+        <input type="hidden" name="selectionState" value="@(Model.FilterSelectionState)" />
+
         <button type="submit" class="hidden" disabled="disabled">hidden</button>
     </form>
 </div>

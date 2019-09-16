@@ -178,10 +178,10 @@
         };
 
         let restructureSchoolNames = function (id) {
-            let moveLabelLeft = function ($text) {
+            let moveLabelLeft = function ($text, margin) {
                 $tspan = $text.find('tspan');
                 let originalTextX = $text.attr('x');
-                let newTextX = originalTextX - 25;
+                let newTextX = originalTextX - margin;
                 $text.attr('x', newTextX);
                 $tspan.attr('x', newTextX);
                 return originalTextX;
@@ -222,12 +222,63 @@
                 $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
             };
 
+            let drawProgressScoreBox = function (originalTextX, $text, progressScore) {
+                let tick = $text.parent()[0];
+                let newTextX = originalTextX - 42;
+                let isMobile = $(window).width() <= 640;
+                let height = 18;
+                let width = 40;
+                if (isMobile) {
+                    height += 3;
+                }
+                let progressColour;
+                if (progressScore < -0.5) {
+                    progressColour = "#df3034";
+                }
+                else if (progressScore >= -0.5 && progressScore < -0.25) {
+                    progressColour = "#f47738";
+                }
+                else if (progressScore >= -0.25 && progressScore <= 0.25) {
+                    progressColour = "#ffbf47";
+                }
+                else if (progressScore > 0.25 && progressScore <= 0.5) {
+                    progressColour = "#85994b";
+                }
+                else if (progressScore > 0.5) {
+                    progressColour = "#006435";
+                }
+
+                d3.select(tick).append('rect')
+                    .classed("progress-svg", 1)
+                    .attr("stroke", progressColour)
+                    .attr("stroke-width", "4")
+                    .attr("fill", progressColour)
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("x", newTextX)
+                    .attr("y", 6);
+                d3.select(tick).append("text")
+                    .text(progressScore.toFixed(2))
+                    .attr("fill", "#FFFFFF")
+                    .attr("x", newTextX+7)
+                    .attr("y", 20);
+            };
+
             let texts = $("#" + id + " .c3-axis-x g.tick text");
             let chartData = $("#" + id).data('chart');
 
             texts.each(function () {
                 let schoolNameParts = $(this).find('tspan');
-                let schoolName = schoolNameParts[0].textContent + (schoolNameParts[1] ? ` ${schoolNameParts[1].textContent}` : '');
+                if (schoolNameParts.length === 0) {
+                    return;
+                }
+                let schoolName;
+                if (schoolNameParts[0]) {
+                    schoolName = schoolNameParts[0].textContent;
+                }
+                if (schoolNameParts[1]) {
+                    schoolName += ` ${schoolNameParts[1].textContent}`;
+                }
                 let schoolData = chartData.find(c => c.school === schoolName);
                 if (!schoolData) {
                     schoolData = chartData.find(c => c.school.startsWith(schoolName.replace('...', '')));
@@ -258,16 +309,27 @@
 
                 if (type === "MAT") {
                     if (schoolData.partialyearspresent) {
-                        let originalTextX = moveLabelLeft($(this));
+                        let originalTextX = moveLabelLeft($(this), 25);
                         drawExcIcon(originalTextX, $(this));
                     }
                 } else {
                     if (!schoolData.iscompleteyear) {
-                        let originalTextX = moveLabelLeft($(this));
+                        let originalTextX = moveLabelLeft($(this), 25);
                         drawExcIcon(originalTextX, $(this));
                     }
                 }
+
+                if ($('#ComparisonType').val() === 'BestInClass') {
+                    let originalTextX = moveLabelLeft($(this), 50);
+                    drawProgressScoreBox(originalTextX, $(this), schoolData.progressscore);
+                }
             });
+        };
+
+        let insertProgressLabel = function () {
+            var left = $("#chart_0")[0].getBoundingClientRect().width - $(".c3-event-rects.c3-event-rects-single")[0].getBoundingClientRect().width - 62;
+            $(".chart-scores-header").css("left", left);
+            $(".chart-scores-header").show();
         };
 
         showValue = showValue || "AbsoluteMoney";
@@ -275,6 +337,7 @@
         let axisLabel = $('#' + el.id).attr('data-axis-label');
         let yAxis, yFormat;
         let isMobile = $(window).width() <= 640;
+        let isBic = $("#ComparisonType").val() === "BestInClass";
         switch (showValue) {
             case "AbsoluteCount":
                 yAxis = {
@@ -476,11 +539,12 @@
             },
             padding: {
                 bottom: 10,
-                left: isMobile ? 140 : 310
+                left: isMobile ? (isBic ? 180 : 140) : (isBic ? 360 : 310)
             },
             onrendered: () => {
                 applyChartStyles(el);
                 restructureSchoolNames(el.id);
+                insertProgressLabel();
             }
         });
     }
@@ -764,13 +828,9 @@
         pptGenerator.writeCriteria();
 
         pptGenerator.writeContextData();
-
-        $("#BestInClass .tab-link").click();
-
-        setTimeout(() => {
-            pptGenerator.writeBicTable();                     
-            pptGenerator.save();
-        }, 500);          
+                
+        pptGenerator.save();
+         
     }
 
     DownloadPage() {
@@ -803,13 +863,8 @@
         pdfGenerator.writeCharts();
 
         pdfGenerator.writeCriteria().then(() => {
-            pdfGenerator.writeContextData().then(() => {                
-                $("#BestInClass .tab-link").click();
-                setTimeout(() => {
-                    pdfGenerator.writeBicTable().then(() => {
-                        pdfGenerator.save();
-                    });
-                }, 500);                
+            pdfGenerator.writeContextData().then(() => {
+                pdfGenerator.save();
             });
         });
     }
@@ -855,7 +910,7 @@
                 <button id='clip-button' class='button' type='button' data-clipboard-target='#saveUrl'>Copy link to clipboard</button>
                 <span id='clip-not-supported' class='error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
-            <a class='bold-xsmall' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
+            <a class='bold-xsmall email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
         </div>
         <div role='document' class='save-modal-js page-2' style='display: none'>
@@ -866,7 +921,7 @@
             </p>           
             <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ShowSaveModalOne()'>See more options to save</button>            
         </div>
-        <a href='#' id='js-modal-close-bottom' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
+        <a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLink' title='Close'>Close</a>
         </dialog>`;
 
         $($modal_code).insertAfter($page);
@@ -1094,16 +1149,6 @@ class PptGenerator {
             this.slide.addText($('#contextExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
 
             this.pptWriteTable('#contextDataTable', 1);
-        }
-    }
-
-    writeBicTable() {
-        if ($('#ProgressScoresTable').length > 0) {
-            this.slide = this.doc.addNewSlide();
-            this.yOffset = 0.2;
-            this.slide.addText($('#ProgressScoresTableHeading').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
-
-            this.pptWriteTable('#ProgressScoresTable', 1);
         }
     }
 
@@ -1345,21 +1390,6 @@ class PdfGenerator {
                 this.pdfAddNewPage();
                 this.pdfWriteLine('H2', $('#contextExp').get(0).innerText);
                 this.pdfGenerateImage('#contextDataTable').then((canvas) => {
-                    this.pdfAddImage(canvas);
-                    resolve();
-                });
-            } else {
-                resolve();
-            }
-        });
-    }
-
-    writeBicTable() {
-        return new Promise((resolve, reject) => {
-            if ($('#ProgressScoresTable').length > 0 ) {
-                this.pdfAddNewPage();
-                this.pdfWriteLine('H2', $('#ProgressScoresTableHeading').get(0).innerText);
-                this.pdfGenerateImage('#ProgressScoresTable').then((canvas) => {
                     this.pdfAddImage(canvas);
                     resolve();
                 });

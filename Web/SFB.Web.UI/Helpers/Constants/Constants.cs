@@ -15,6 +15,7 @@
         public const string SEARCH_BY_TRUST_NAME_ID = "search-by-trust-name-id";
         public const string SEARCH_BY_LOCATION = "search-by-location";
         public const string SEARCH_BY_LA_CODE_NAME = "search-by-la-code-name";
+        public const string SEARCH_BY_MAT = "search-by-mat";
     }
 
     public class ChartHistory

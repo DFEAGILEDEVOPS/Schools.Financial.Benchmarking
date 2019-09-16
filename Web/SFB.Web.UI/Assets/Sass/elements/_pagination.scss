@@ -44,6 +44,20 @@ category: Components
 .pagination-container {
     padding: $gutter-half 0;
 
+    .pagination-page-link {
+        padding-right: 4px;
+        padding-left: 4px;
+
+        @include media(mobile) {
+            padding-right: 8px;
+            padding-left: 8px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+        }
+    }
+
     .pagination-links {
         @include media(desktop) {
             text-align: right;
@@ -51,6 +65,11 @@ category: Components
 
         @include media(tablet) {
             float: right;
+        }
+
+        @include media(mobile) {
+            display: block;
+            margin-top: 10px;
         }
 
         .next-page {

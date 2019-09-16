@@ -36,11 +36,11 @@
 <h1 class="heading-xlarge page-heading">Trust's Schools</h1>
 
 <div id="trust-screen-reader-result-list" class="visuallyhidden">
-    <span class="bold trust-screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
+    <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
 </div>
 
 <div class="grid-row js-live-search-results-block">
-    @Html.Partial("Partials/ResultBlock")
+    @Html.Partial("Partials/Search/ResultBlock")
 </div>
 
 <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
@@ -48,17 +48,6 @@
 @section ViewScripts{
     <script src="~/node_modules/lodash/lodash.min.js"></script>
     <script>
-        GOVUK.Modal.Load();
-
         DfE.Views.SchoolsResultsViewModel = new SchoolsResultsViewModel('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
-
-        $(function() {
-            if ($(window).width() <= 640) {
-                $('details').removeAttr('open');
-            }
-
-            GOVUK.LiveSearch.displaceSchoolCount();
-
-        });
     </script>
 }
