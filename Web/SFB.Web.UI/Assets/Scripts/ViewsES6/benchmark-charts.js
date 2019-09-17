@@ -222,7 +222,7 @@
                 $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
             };
 
-            let drawProgressScoreBox = function (originalTextX, $text, progressScore) {
+            let drawProgressScoreBox = function (originalTextX, $text, progressScore, overallPhase) {
                 let tick = $text.parent()[0];
                 let newTextX = originalTextX - 42;
                 let isMobile = $(window).width() <= 640;
@@ -231,21 +231,40 @@
                 if (isMobile) {
                     height += 3;
                 }
+
                 let progressColour;
-                if (progressScore < -0.5) {
-                    progressColour = "#df3034";
-                }
-                else if (progressScore >= -0.5 && progressScore < -0.25) {
-                    progressColour = "#f47738";
-                }
-                else if (progressScore >= -0.25 && progressScore <= 0.25) {
-                    progressColour = "#ffbf47";
-                }
-                else if (progressScore > 0.25 && progressScore <= 0.5) {
-                    progressColour = "#85994b";
-                }
-                else if (progressScore > 0.5) {
-                    progressColour = "#006435";
+                if (overallPhase === 'Secondary') {
+                    if (progressScore < -0.5) {
+                        progressColour = "#df3034";
+                    }
+                    else if (progressScore >= -0.5 && progressScore < -0.25) {
+                        progressColour = "#f47738";
+                    }
+                    else if (progressScore >= -0.25 && progressScore <= 0.25) {
+                        progressColour = "#ffbf47";
+                    }
+                    else if (progressScore > 0.25 && progressScore <= 0.5) {
+                        progressColour = "#85994b";
+                    }
+                    else if (progressScore > 0.5) {
+                        progressColour = "#006435";
+                    }
+                } else {
+                    if (progressScore < -3) {
+                        progressColour = "#df3034";
+                    }
+                    else if (progressScore >= -3 && progressScore < -2) {
+                        progressColour = "#f47738";
+                    }
+                    else if (progressScore >= -2 && progressScore <= 2) {
+                        progressColour = "#ffbf47";
+                    }
+                    else if (progressScore > 2 && progressScore <= 3) {
+                        progressColour = "#85994b";
+                    }
+                    else if (progressScore > 3) {
+                        progressColour = "#006435";
+                    }
                 }
 
                 d3.select(tick).append('rect')
@@ -321,7 +340,7 @@
 
                 if ($('#ComparisonType').val() === 'BestInClass') {
                     let originalTextX = moveLabelLeft($(this), 50);
-                    drawProgressScoreBox(originalTextX, $(this), schoolData.progressscore);
+                    drawProgressScoreBox(originalTextX, $(this), schoolData.progressscore, $("[name='bicCriteria.OverallPhase']").val());
                 }
             });
         };
