@@ -4,7 +4,7 @@
 <div id="EditSearchCollapse" aria-expanded="true">
     
     @{ 
-        var action = ViewBag.SearchMethod == "Manual" ? "ManualSearch" :
+        var action = ViewBag.SearchMethod == "Manual" ? "ManualComparison" :
             Model.SearchType == SearchTypes.SEARCH_BY_MAT ? "TrustSchoolSearch" : "SchoolSearch";
     }
 

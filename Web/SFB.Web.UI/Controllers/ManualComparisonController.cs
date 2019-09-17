@@ -54,7 +54,7 @@ namespace SFB.Web.UI.Controllers
             return View("Index",vm);
         }
 
-        public async Task<ActionResult> ManualSearch(
+        public async Task<ActionResult> Search(
         string nameId,
         string searchType,
         string suggestionUrn,
@@ -92,7 +92,7 @@ namespace SFB.Web.UI.Controllers
                             if (exactMatch != null)
                             {
                                 laCodeName = exactMatch.id;
-                                return await ManualSearch(nameId, searchType, suggestionUrn, locationorpostcode,
+                                return await Search(nameId, searchType, suggestionUrn, locationorpostcode,
                                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
                             TempData["SearchMethod"] = "Manual";
@@ -182,7 +182,7 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        [Route("ManualSearch/Search-js")]
+        [Route("ManualComparison/Search-js")]
         public async Task<PartialViewResult> ManualSearchJS(string nameId, string searchType, string suggestionurn,
         string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, 
         decimal? radius, bool openOnly = false, string orderby = "", int page = 1)
@@ -207,7 +207,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Search/SchoolResults", vm);
         }
 
-        [Route("ManualSearch/Search-json")]
+        [Route("ManualComparison/Search-json")]
         public async Task<JsonResult> ManualSearchJson(string nameId, string searchType, string suggestionurn,
     string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
     int? companyNo, bool openOnly = false, string orderby = "", int page = 1)
