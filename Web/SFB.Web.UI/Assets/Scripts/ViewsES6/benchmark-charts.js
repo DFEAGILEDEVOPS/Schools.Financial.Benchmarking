@@ -267,6 +267,43 @@
                     }
                 }
 
+                let fontColour = "#FFFFFF";
+                if (overallPhase === 'Secondary') {
+                    if (progressScore < -0.5) {
+                        progressColour = "#df3034";
+                    }
+                    else if (progressScore >= -0.5 && progressScore < -0.25) {
+                        progressColour = "#f47738";
+                    }
+                    else if (progressScore >= -0.25 && progressScore <= 0.25) {
+                        progressColour = "#ffbf47";
+                        fontColour = "#000000";
+                    }
+                    else if (progressScore > 0.25 && progressScore <= 0.5) {
+                        progressColour = "#85994b";
+                    }
+                    else if (progressScore > 0.5) {
+                        progressColour = "#006435";
+                    }
+                } else {
+                    if (progressScore < -3) {
+                        progressColour = "#df3034";
+                    }
+                    else if (progressScore >= -3 && progressScore < -2) {
+                        progressColour = "#f47738";
+                    }
+                    else if (progressScore >= -2 && progressScore <= 2) {
+                        progressColour = "#ffbf47";
+                        fontColour = "#000000";
+                    }
+                    else if (progressScore > 2 && progressScore <= 3) {
+                        progressColour = "#85994b";
+                    }
+                    else if (progressScore > 3) {
+                        progressColour = "#006435";
+                    }
+                }
+
                 d3.select(tick).append('rect')
                     .classed("progress-svg", 1)
                     .attr("stroke", progressColour)
@@ -278,7 +315,7 @@
                     .attr("y", 6);
                 d3.select(tick).append("text")
                     .text(progressScore.toFixed(2))
-                    .attr("fill", "#FFFFFF")
+                    .attr("fill", fontColour)
                     .attr("x", newTextX+7)
                     .attr("y", 20);
             };
