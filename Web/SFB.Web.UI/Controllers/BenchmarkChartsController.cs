@@ -113,7 +113,7 @@ namespace SFB.Web.UI.Controllers
             
             if (urnList != null)
             {
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+                EmptyBenchmarkList();
 
                 AddSchoolDataObjectsToBasket(comparison, urnList);
 
@@ -176,7 +176,7 @@ namespace SFB.Web.UI.Controllers
 
             var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
 
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+            EmptyBenchmarkList();
 
             AddSchoolsToBenchmarkList(comparisonResult);
 
@@ -243,7 +243,10 @@ namespace SFB.Web.UI.Controllers
                         : decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
 
                 };
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
+                try { 
+                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
+                }
+                catch (ApplicationException) { }
             }
 
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
@@ -356,7 +359,7 @@ namespace SFB.Web.UI.Controllers
                 case BenchmarkListOverwriteStrategy.Overwrite:
                     var result = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, excludePartial, 30);
 
-                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+                    EmptyBenchmarkList();
 
                     AddSchoolsToBenchmarkList(result);
 
