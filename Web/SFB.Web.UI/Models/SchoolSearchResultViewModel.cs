@@ -54,8 +54,6 @@ namespace SFB.Web.UI.Models
 
         public string Phase => GetString(EdubaseDBFieldNames.PHASE_OF_EDUCATION);
 
-        public bool IsSixthForm => this.Phase == "16 plus";
-
         public string Status => GetString(EdubaseDBFieldNames.ESTAB_STATUS);
 
         public string SchoolWebSite

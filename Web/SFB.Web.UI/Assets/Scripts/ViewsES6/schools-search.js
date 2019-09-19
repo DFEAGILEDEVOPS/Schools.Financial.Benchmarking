@@ -171,8 +171,7 @@
                 if (!suggestionSource.data) { console.log("suggestionSource.data is null"); return; }
                 if (!suggestionSource.name) { console.log("suggestionSource.name is null"); return; }
                 if (!suggestionSource.value) { console.log("suggestionSource.value is null"); return; }
-                console.log("suggestionSource.data has " + suggestionSource.data.length + " items");
-
+                
                 minChars = 2;
                 field = suggestionSource.name;
                 value = suggestionSource.value;
@@ -235,7 +234,7 @@
                         break;
                     case 'FindSchoolManuallyByLaCodeName':
                         // convert it to an la code search, which is the same as if they'd submitted.
-                        url = '/ManualComparison/ManualSearch?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
+                        url = '/ManualComparison/Search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
@@ -252,7 +251,7 @@
                         break;
                     case 'FindSchoolManuallyByTown':
                         $('#LocationCoordinates').val(suggestion['Location']);
-                        url = '/ManualComparison/ManualSearch?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
+                        url = '/ManualComparison/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }

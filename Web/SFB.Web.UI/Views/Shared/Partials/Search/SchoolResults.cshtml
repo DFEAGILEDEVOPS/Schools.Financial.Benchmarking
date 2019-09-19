@@ -1,100 +1,171 @@
 ﻿@using SFB.Web.UI.Models
+@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
-<div id="result-list">
-    <div id="js-search-results-info">
-        <div class="result-info">
-            <p class="summary count-summary font-xsmall">
-                <span class="bold-xsmall result-count">@(Model.Pagination.Total)</span> schools found
-            </p>
-        </div>
-    </div>
-</div>
+<div id="schoolResults">
 
-@if (Model.ModelList.Count > 0)
-{
-    <ul>
-        @foreach (var school in Model.ModelList)
-        {
-            <li class="school-document">
-                <div class="grid-row">
-                    <div class="column-two-thirds">
-                        <a href="/school/detail?urn=@school.Id" class="bold-small">
-                            @school.Name
-                        @if (school.Status == "Closed")
-                        {
-                            <span> (Closed)</span>
-                        }
-                        </a>
-                        <div class="school-document__add-to-compare-button school-document__add-to-compare-button--add-remove-mobile">
-                            @AddRemoveButton(school, "mobile")
-                        </div>
-                        <ul class="metadata">
-                            <li>@school.Address</li>
-                            <li>@school.OverallPhase<span> (@school.TotalPupils pupils)</span></li>
-                            <li>@school.Type</li>
-                            @if (!string.IsNullOrEmpty(school.OfstedRatingText))
-                            {
-                                <li>Ofsted rating: <span class="rating rating-@school.OfstedRating"><span class="rating-text">@school.OfstedRating</span></span> @school.OfstedRatingText</li>
-                            }
-                        </ul>
+    @Html.Partial("Partials/Pagination", Model.Pagination)
+
+    @if (ViewBag.SearchMethod != "Manual")
+    {
+        <div class="add-all-wrapper" style="display: none">
+            <button class='add-remove button add-all' onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to basket</button>
+        </div>
+    }
+    @*<div id="schoolCountPlaceHolder" class="no-padding inline-block"></div>*@
+    @if (ViewBag.SearchMethod == "Manual")
+    {
+        <div class="manual-button" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")">
+            <a id="manualButton" class="manual-button__button button font-xsmall" href="OverwriteStrategy">Continue to benchmarking charts</a>
+        </div>
+    }
+    <div class="result-controllers">
+        <div class="column-half no-padding view-map">
+            <nav class="navigation-links" role="navigation">
+                <div class="olist" role="tablist">
+                    <div class="litem navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
+                        <button class="map-button no-padding">
+                            <img src="~/public/assets/images/icons/icon-map.png" alt="" />View on map
+                            <span class="visuallyhidden"> click to expand.</span>
+                        </button>
                     </div>
-                    <div class="school-document__add-to-compare-button school-document__add-to-compare-button--add-remove-desktop">
-                        @AddRemoveButton(school, "desktop")
+                    <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
+                        <button class="map-button no-padding">
+                            <img src="~/public/assets/images/icons/icon-list.png" alt="" />View as list
+                            <span class="visuallyhidden"> click to expand.</span>
+                        </button>
                     </div>
                 </div>
-            </li>
-        }
-    </ul>
+            </nav>
+        </div>
+        <div class="column-half no-padding">
+            <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
+                <div class="filter">
+                    @if (Model.SearchType == SearchTypes.SEARCH_BY_NAME_ID || Model.SearchType == SearchTypes.SEARCH_BY_LA_CODE_NAME || Model.SearchType == SearchTypes.SEARCH_BY_MAT)
+                    {
+                        if (Model.ModelList.Count > 1)
+                        {
+                            <div class="filter-box">
+                                <label class="legend" for="OrderByControl">Sorted by</label>
+                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                    <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
+                                </select>
+                            </div>
+                        }
+                    }
+                    else if (Model.SearchType == SearchTypes.SEARCH_BY_LOCATION)
+                    {
+                        if (Model.ModelList.Count > 1)
+                        {
+                            <div class="filter-box">
+                                <label class="legend" for="OrderByControl">Sorted by</label>
+                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                    <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="" @(string.IsNullOrEmpty(Model.OrderBy) ? "selected" : "")>distance</option>
+                                </select>
+                            </div>
+                        }
+                    }
+                </div>
+                <button type="submit" class="hidden" value="hidden">hidden</button>
+            </form>
+        </div>
+    </div>
 
-        @Html.Partial("Partials/Pagination", Model.Pagination)
-}
-else
-{
-    <p class="bold-small" style="margin-top: 22px;">Please try:</p>
-        <p class="indent">
-            • <a href="/">searching again</a> using different spelling or words
-        </p>
-        <p class="indent">
-            • removing your filters
-        </p>
-}
+    <div class="tabs">
+        <div class="list @(ViewBag.tab != "map" ? "active" : string.Empty)">
 
-<input type="hidden" id="SearchMethod" value="@ViewBag.SearchMethod" />
+            @if (Model.ModelList.Count > 0)
+            {
+                <ul>
+                    @foreach (var school in Model.ModelList)
+                    {
+                        <li class="school-document">
+                            <div class="grid-row">
+                                <div class="column-two-thirds">
+                                    <a href="/school/detail?urn=@school.Id" class="bold-small">
+                                        @school.Name
+                                        @if (school.Status == "Closed")
+                                        {
+                                            <span> (Closed)</span>
+                                        }
+                                    </a>
+                                    <div class="school-document__add-to-compare-button school-document__add-to-compare-button--add-remove-mobile">
+                                        @AddRemoveButton(school, "mobile")
+                                    </div>
+                                    <ul class="metadata">
+                                        <li>@school.Address</li>
+                                        <li>@school.OverallPhase<span> (@school.TotalPupils pupils)</span></li>
+                                        <li>@school.Type</li>
+                                        @if (!string.IsNullOrEmpty(school.OfstedRatingText))
+                                        {
+                                            <li>Ofsted rating: <span class="rating rating-@school.OfstedRating"><span class="rating-text">@school.OfstedRating</span></span> @school.OfstedRatingText</li>
+                                        }
+                                    </ul>
+                                </div>
+                                <div class="school-document__add-to-compare-button school-document__add-to-compare-button--add-remove-desktop">
+                                    @AddRemoveButton(school, "desktop")
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
 
-@helper AddRemoveButton(SchoolSearchResultViewModel school, string device)
-{
-    if (!school.IsSixthForm)
+                @Html.Partial("Partials/Pagination", Model.Pagination)
+            }
+            else
+            {
+                <p class="bold-small" style="margin-top: 22px;">Please try:</p>
+                <p class="indent">
+                    • <a href="/">searching again</a> using different spelling or words
+                </p>
+                <p class="indent">
+                    • removing your filters
+                </p>
+            }
+
+            <input type="hidden" id="SearchMethod" value="@ViewBag.SearchMethod" />
+
+        </div>
+        <div class="map @(ViewBag.tab == "map" ? "active" : string.Empty)">
+            <div id="azuremap" class="results-map" title="An Azure map of the school locations" aria-label="An Azure map of the school locations"></div>
+        </div>
+    </div>
+
+</div>
+
+    @helper AddRemoveButton(SchoolSearchResultViewModel school, string device)
     {
         string status = school.Status == "Open" ? "" : "Closed";
         string deviceLabel = device == "desktop" ? "" : "mobile";
-<div id="@school.Id@device" data-urn="@school.Id">
-    @if (ViewBag.SearchMethod == "Manual")
-    {
-        <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</button>
-        <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</button>              
-        <a class="hidden-goto-basket" href="/manualcomparison/overwritestrategy" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")" aria-label="Continue to benchmark charts with @ViewBag.manualCount schools selected">Continue to benchmark charts</a>       
+        <div id="@school.Id@device" data-urn="@school.Id">
+            @if (ViewBag.SearchMethod == "Manual")
+            {
+                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</button>
+                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</button>
+                <a class="hidden-goto-basket" href="/manualcomparison/overwritestrategy" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")" aria-label="Continue to benchmark charts with @ViewBag.manualCount schools selected">Continue to benchmark charts</a>
+            }
+            else
+            {
+                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</button>
+                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</button>
+                <a class="hidden-goto-basket" href="/benchmarklist">Go to your benchmark basket</a>
+            }
+        </div>
     }
-    else
-    {
-        <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from basket @deviceLabel">Remove</button>
-        <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to basket @deviceLabel">Add</button>
-        <a class="hidden-goto-basket" href="/benchmarklist">Go to your benchmark basket</a>
-    }
-</div>
-    }
-}
 
-@helper DisplayStyle(bool display)
-{
-if (display)
-{
-        @Html.Raw("style=\"display: inline-block\"");
-    }
-    else
+    @helper DisplayStyle(bool display)
     {
-        @Html.Raw("style=\"display: none\"");
+        if (display)
+        {
+            @Html.Raw("style=\"display: inline-block\"");
+        }
+        else
+        {
+            @Html.Raw("style=\"display: none\"");
+        }
     }
-}
 
 

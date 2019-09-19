@@ -38,7 +38,6 @@ namespace SFB.Web.UI.Controllers
 
         [Route("TrustSchoolSearch/Search-js")]
         public async Task<PartialViewResult> SearchJS(int companyNo, string matName, string orderBy = "", int page = 1)
-
         {
             var searchResults = await _schoolSearchService.SearchSchoolByCompanyNo(companyNo,
                 (page - 1) * SearchDefaults.TRUST_SCHOOLS_PER_PAGE, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, orderBy,
@@ -47,13 +46,13 @@ namespace SFB.Web.UI.Controllers
             ViewBag.CompanyNo = companyNo;
             ViewBag.MatName = matName;
 
-            return PartialView("Partials/SchoolResults", GetSchoolViewModelList(searchResults, orderBy, page));
+            return PartialView("Partials/Search/SchoolResults", GetSchoolViewModelList(searchResults, orderBy, page));
         }
 
         private SearchedSchoolListViewModel GetSchoolViewModelList(dynamic response, string orderBy, int page)
         {
             var schoolListVm = new List<SchoolSearchResultViewModel>();
-            var vm = new SearchedSchoolListViewModel(schoolListVm, null, null,null, null,null, orderBy);
+            var vm = new SearchedSchoolListViewModel(schoolListVm, null, SearchTypes.SEARCH_BY_MAT, null, null,null, orderBy);
             if (response != null)
             {
                 foreach (var result in response.Results)

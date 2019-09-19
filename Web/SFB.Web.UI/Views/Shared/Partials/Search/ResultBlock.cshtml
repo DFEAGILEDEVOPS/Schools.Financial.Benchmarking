@@ -1,6 +1,4 @@
-﻿@using SFB.Web.Common
-@using SFB.Web.UI.Helpers.Constants
-@model SFB.Web.UI.Models.SearchedSchoolListViewModel
+﻿@model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
 <div class="column-one-third">
     <div class="filter-form">
@@ -12,86 +10,6 @@
         </details>
     </div>
 </div>
-
 <div class="column-two-thirds">
-    @if (ViewBag.SearchMethod != "Manual")
-    {
-        <div>
-            <button class='add-remove button addall' style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to basket</button>
-        </div>
-    }
-    <div id="schoolCountPlaceHolder" class="no-padding inline-block"></div>
-    @if (ViewBag.SearchMethod == "Manual")
-    {
-        <div id="manualSchoolCountPlaceHolder" class="no-padding inline-block font-xsmall">- <span id="manualCount" class="bold-xsmall">@(ViewBag.manualCount ?? 0)</span> selected (max. 30)</div>
-        
-        <div class="manual-button" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")">
-            <a id="manualButton" class="button font-xsmall" href="OverwriteStrategy">Continue to benchmarking charts</a>
-        </div>        
-    }
-    <div class="result-controllers">
-        <div class="column-half no-padding view-map">
-            <nav class="navigation-links" role="navigation">
-                <div class="olist" role="tablist">
-                    <div class="litem navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
-                        <button class="map-button no-padding">
-                            <img src="~/public/assets/images/icons/icon-map.png" alt="" />View on map
-                            <span class="visuallyhidden"> click to expand.</span>
-                        </button>
-                    </div>
-                    <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
-                        <button class="map-button no-padding">
-                            <img src="~/public/assets/images/icons/icon-list.png" alt="" />View as list
-                            <span class="visuallyhidden"> click to expand.</span>
-                        </button>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <div class="column-half no-padding">
-            <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
-                <div class="filter">
-                    @if (Model.SearchType == SearchTypes.SEARCH_BY_NAME_ID || Model.SearchType == SearchTypes.SEARCH_BY_LA_CODE_NAME)
-                    {
-                        if (Model.ModelList.Count > 1)
-                        {
-                            <div class="filter-box">
-                                <label class="legend" for="OrderByControl">Sorted by</label>
-                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
-                                    <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
-                                </select>
-                            </div>
-                        }
-                    }
-                    else if (Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_LOCATION)
-                    {
-                        if (Model.ModelList.Count > 1)
-                        {
-                            <div class="filter-box">
-                                <label class="legend" for="OrderByControl">Sorted by</label>
-                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
-                                    <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
-                                    <option value="" @(string.IsNullOrEmpty(Model.OrderBy) ? "selected" : "")>distance</option>
-                                </select>
-                            </div>
-                        }
-                    }
-                </div>
-                <button type="submit" class="hidden" value="hidden">hidden</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="tabs">
-        <div class="list @(ViewBag.tab != "map" ? "active" : string.Empty)">
-            <div id="schoolResults">
-                @(Html.Partial("Partials/Search/SchoolResults", Model))
-            </div>
-        </div>
-        <div class="map @(ViewBag.tab == "map" ? "active" : string.Empty)">
-            <div id="azuremap" class="results-map" title="An Azure map of the school locations" aria-label="An Azure map of the school locations"></div>
-        </div>
-    </div>
+    @(Html.Partial("Partials/Search/SchoolResults", Model))
 </div>

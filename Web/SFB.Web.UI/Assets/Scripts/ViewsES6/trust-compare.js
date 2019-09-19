@@ -12,6 +12,16 @@
     }
 
     validateForm() {
+        $.validator.methods.maxGreaterThanMin = (value, element) => {
+            let minValue = $(element.parentNode.parentNode).find(".min-js").val();
+            return minValue === "" || parseFloat(value) >= parseFloat(minValue);
+        };
+
+        $.validator.methods.minLowerThanMax = (value, element) => {
+            let maxValue = $(element.parentNode.parentNode).find(".max-js").val();
+            return maxValue === "" || parseFloat(value) <= parseFloat(maxValue);
+        };
+
         $('#criteriaForm').
             validate({
                 errorPlacement: function (error, element) {
@@ -28,6 +38,14 @@
                     }
                 }
             });
+
+        $(".max-js").each((index, element) => $(element).rules("add", {
+            maxGreaterThanMin: ""
+        }));
+
+        $(".min-js").each((index, element) => $(element).rules("add", {
+            minLowerThanMax: ""
+        }));
     }
 
     bindCriteriaEvents() {
@@ -130,6 +148,20 @@
 
         $(".js-clear-criteria").click(() => {
             this.clear();
+        });
+
+        $(".min-js").focusout((event) => {
+            let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
+            if (!maxInput[0].validity.valueMissing) {
+                maxInput.valid();
+            }
+        });
+
+        $(".max-js").focusout((event) => {
+            let minInput = $(event.target.parentNode.parentNode).find(".min-js");
+            if (!minInput[0].validity.valueMissing) {
+                minInput.valid();
+            }
         });
 
         $("#EnterManually").click(() => {

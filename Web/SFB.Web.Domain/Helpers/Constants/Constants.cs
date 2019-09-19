@@ -50,6 +50,7 @@
         public const int GF_DEFAULT_MARGIN = 20;
         public const int MAX_TRY_LIMIT = 10;
         public const int MAX_BIC_TRY_LIMIT = 15;
+        public const decimal QC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP = 30M;
         public const decimal BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP = 30M;
         public const decimal BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP = 100M;
         public const decimal BIC_DEFAULT_CONSTANT_FSM_TOPUP = 3M;

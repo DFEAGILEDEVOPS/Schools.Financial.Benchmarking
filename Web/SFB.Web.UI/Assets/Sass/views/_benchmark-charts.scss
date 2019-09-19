@@ -434,34 +434,18 @@
         vertical-align: top;
     }
 
-    .chart-wrapper.bic {
-        width: 95%;
-        float: left;
-
-        @include media(mobile) {
-            width: 85%;
-        }
-    }
-
-    .chart-scores-wrapper {
-        width: 5%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        /*float: right;*/
-        top: -5px;
-        position: relative;
-
-        @include media(mobile) {
-            width: 15%;
-            top: -25px;
-        }
-    }
-
     .chart-scores-header {
+        display: none;
         font-size: 1.4rem;
         padding: 0;
         line-height: 1.4rem;
+        max-width: 75px;
+        top: 20px;
+        position: relative;
+
+        @include media(mobile) {
+            top: 0
+        }
     }
 
     .one-click-charts .accordion {
@@ -571,16 +555,6 @@
 
     .bic-chart-wrapper {
         margin-top: 10px;
-
-        .chart-wrapper {
-            @include media(tablet) {
-                max-width: 678px;
-            }
-
-            @include media(desktop) {
-                max-width: 920px;
-            }
-        }
     }
 
     .chart-wrapper {
@@ -593,7 +567,7 @@
         }
     }
 
-    .chart-table-wrapper{
+    .chart-table-wrapper {
         padding: 0 15px;
     }
 }

@@ -7,16 +7,16 @@
         <div class="column-full">
             @if (ViewBag.BicComparisonOverallPhase == "Secondary")
             {
-                <h2 class="heading-small">Overall Progress 8 - all pupils</h2>
+                <h2 class="heading-small" id="ProgressScoresTableHeading">Overall Progress 8 - all pupils</h2>
             }
             else
             {
-                <h2 class="heading-small">Overall key stage 2 progress - all pupils</h2>
+                <h2 class="heading-small" id="ProgressScoresTableHeading">Overall key stage 2 progress - all pupils</h2>
             }
 
             <p class="no-margin mt-1">Showing <span class="bold-xsmall">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>
 
-            <table class="tablesorter data-table-js">
+            <table class="tablesorter data-table-js" id="ProgressScoresTable">
                 <thead>
                     <tr>
                         <th nowrap scope="col" class="school-column">School</th>

@@ -19,6 +19,7 @@ using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.ApiWrappers;
 using SFB.Web.UI.Attributes;
 using SFB.Web.Domain.Services;
+using System;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -160,14 +161,18 @@ namespace SFB.Web.UI.Controllers
             {
                 var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
 
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add,
-                    new BenchmarkSchoolModel()
-                    {
-                        Name = benchmarkSchool.Name,
-                        Urn = benchmarkSchool.Id.ToString(),
-                        Type = benchmarkSchool.Type,
-                        EstabType = benchmarkSchool.EstablishmentType.ToString()
-                    });
+                try
+                {
+                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add,
+                        new BenchmarkSchoolModel()
+                        {
+                            Name = benchmarkSchool.Name,
+                            Urn = benchmarkSchool.Id.ToString(),
+                            Type = benchmarkSchool.Type,
+                            EstabType = benchmarkSchool.EstablishmentType.ToString()
+                        });
+                }
+                catch (ApplicationException) { }
             }
 
             return PartialView("Partials/BenchmarkListBanner",

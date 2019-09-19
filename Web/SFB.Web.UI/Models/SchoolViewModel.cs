@@ -73,8 +73,6 @@ namespace SFB.Web.UI.Models
 
         public string Phase => ContextDataModel.PhaseOfEducation;
 
-        public bool IsSixthForm => this.Phase == "16 plus";
-
         public string SchoolWebSite
         {
             get {

@@ -3,22 +3,21 @@
     @include highlighting;
 
     .manual-button {
+        @include media(tablet) {
+            margin-bottom: 50px;
 
-        position: relative;
-        bottom: 10px;
-
-        @include media(desktop) {
-            float: right;
+            &__button {
+                float: right;
+            }
         }
     }
-
-
-    .schools-in{
+    
+    .schools-in {
         margin-bottom: 1.5em;
     }
 
-    .back-to-manual-compare{
-        @include media(tablet){
+    .back-to-manual-compare {
+        @include media(tablet) {
             float: right;
         }
     }
@@ -138,7 +137,11 @@
         @include grey-button;
     }
 
-    .button.addall {
+    .add-all-wrapper{
+        margin-bottom:45px;
+    }
+
+    .add-all {
         @include grey-button;
         float: right;
     }

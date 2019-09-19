@@ -369,8 +369,6 @@ namespace SFB.Web.DAL.Repositories
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
-            query = Exclude6Forms(query);
-
             if(excludePartial)
             {
                 query = ExcludePartials(query);
@@ -466,8 +464,6 @@ namespace SFB.Web.DAL.Repositories
 
             var query = BuildQueryFromBenchmarkCriteria(criteria);
 
-            query = Exclude6Forms(query);
-
             if (excludePartial)
             {
                 query = ExcludePartials(query);
@@ -508,15 +504,6 @@ namespace SFB.Web.DAL.Repositories
         private string ExcludeSAMATs(string query)
         {
             return $"{query} AND c.{SchoolTrustFinanceDBFieldNames.MEMBER_COUNT} > 1";
-        }
-
-        private string Exclude6Forms(string query)
-        {
-            if(string.IsNullOrEmpty(query))
-            {
-                return $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'] != 'Free 16-19'";
-            }
-            return $"{query} AND c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'] != 'Free 16-19'";
         }
 
         private string ExcludePartials(string query)

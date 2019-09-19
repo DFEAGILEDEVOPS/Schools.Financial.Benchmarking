@@ -17,8 +17,6 @@
         $(function () {
             if ($(window).width() <= 640)
                 $('details').removeAttr('open');
-
-            GOVUK.LiveSearch.displaceSchoolCount();
         });
     }
 
@@ -38,7 +36,6 @@
         });
 
         window.addEventListener("load", this.load.bind(this));
-        this.bindTracking();
     }
 
     getTabName() {
@@ -46,8 +43,8 @@
     }
 
     load() {
-        this.trackRadiusSearch();
         this.initTabs();
+        this.initSort();
         this.addAllVisibility();
     }
 
@@ -65,28 +62,12 @@
         });
     }
 
-    trackRadiusSearch() {
-        var item = $("#DistanceRadius option:selected");
-        if (item.length > 0) this.trackFilter("Radius: " + item.text().trim());
-    }
-
-    trackFilter(label) {
-        DfE.Util.Analytics.TrackEvent('search-results', label.trim(), 'filter');
-    }
-
-    bindTracking() {
-        var self = this;
-        $("#DistanceRadius").change(this.trackRadiusSearch.bind(this));
-        $(".js-live-search-results-block input[type=checkbox]").change(function () {
-            if ($(this).is(":checked")) {
-                var facetLabel = $(this).parent().text();
-                var facetGroupName = $(this).closest("div.govuk-option-select").find("div.option-select-label")
-                    .text();
-                self.trackFilter(facetGroupName.trim() + "/" + facetLabel.trim());
-            }
+    initSort() {
+        $("#OrderByControl").change((e) => {
+            this.liveSearch.formChange();            
         });
     }
-
+       
     bindEditSearchButton() {
         GOVUK.Collapsible.bindElements("#EditSearchCollapsible.js-collapsible");
     }
@@ -105,10 +86,12 @@
             $("nav.navigation-links .olist .litem." + tabName + ", div.tabs>div." + tabName).addClass("active");
             $("nav.navigation-links .olist .litem.active a").focus();
             this.currentTabName = tabName;
+
             this.bindAzureMap(this.mapApiKey);
             this.liveSearch.disabled = (tabName === "map");
             if (tabName === "list") {
                 this.liveSearch.updateResults.bind(this.liveSearch).call(null);
+                this.mapLoaded = false;
             }
             this.liveSearch.tabChange(suppressAddHistory);
 
@@ -119,7 +102,6 @@
     onRefresh() {
         this.bindEditSearchButton();
         this.bindFilterCollapseButtons();
-        this.bindTracking();
         this.mapLoaded = false;
         this.initTabs();
     }
@@ -158,7 +140,7 @@
                 this.map.renderMapPinsForAzureMap(this.cache[serialisedState]);
             }
             else {
-                var searchController = $("#SearchMethod").val() === "Manual" ? "ManualSearch" : "SchoolSearch";
+                var searchController = $("#SearchMethod").val() === "Manual" ? "ManualComparison" : "SchoolSearch";
                 return $.ajax({
                     url: `/${searchController}/search-json`,
                     data: serialisedState
@@ -177,7 +159,7 @@
         $("span.result-count").html(count);
         $("span.screen-reader-result-count").html("Filtering results");
         setTimeout(function () {
-            $("span.screen-reader-result-count").html(count + " schools found");
+            $("span.screen-reader-result-count").html($('#result-list .summary').html());
         }, 1000);
 
         this.liveSearch.getSummaryBlock().css("visibility", "visible");
@@ -250,9 +232,9 @@
         let schoolsToAddCount = $addButtons.length;
         let comparisonListCount = DfE.Util.ComparisonList.count();
         if (schoolsToAddCount <= 1 || comparisonListCount + schoolsToAddCount > 30) {
-            $(".addall").hide();
+            $(".add-all-wrapper").hide();
         } else {
-            $(".addall").show();
+            $(".add-all-wrapper").show();
         }
     }
 
