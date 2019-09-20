@@ -33,7 +33,7 @@
                 {
                     if (Model.HasPreviousPage())
                     {
-                        <a class="pagination-page-link" aria-label="Go to previous page of results" href="@(Model.ConstructPageUrl(Model.CurrentPage - 1))">Previous</a>
+                        <button class="pagination-page-link link-button font-xsmall" aria-label="Go to previous page of results" onclick="DfE.Views.SchoolsResultsViewModel.switchPageFromPagingWidget(@(Model.CurrentPage - 1))">Previous</button>
                     }
 
                     var pageCount = Math.Min(Model.PageCount, SearchDefaults.LINKS_PER_PAGE);
@@ -47,13 +47,14 @@
                         }
                         else
                         {
-                            <a class="pagination-page-link" aria-label="Go to page @i of results" href="@(Model.ConstructPageUrl(i))">@i</a>
+                            <button class="pagination-page-link link-button font-xsmall" aria-label="Go to page @i of results" onclick="DfE.Views.SchoolsResultsViewModel.switchPageFromPagingWidget(@i)">@i</button>
                         }
                     }
 
                     if (Model.HasMorePages())
                     {
-                        <a class="pagination-page-link" aria-label="Go to next page of results" href="@(Model.ConstructPageUrl(Model.CurrentPage + 1))">Next</a>
+
+                        <button class="pagination-page-link link-button font-xsmall" aria-label="Go to next page of results" onclick="DfE.Views.SchoolsResultsViewModel.switchPageFromPagingWidget(@(Model.CurrentPage + 1))">Next</button>
                     }
                 }
             </div>

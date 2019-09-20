@@ -263,5 +263,23 @@
         $('#' + form).find('#' + field).val(value);
     }
 
+    switchPageFromPagingWidget(pageNo) {
+        let pagingUrl = window.location.href.replace('Search?', 'Search-js?').replace('search?', 'search-js?');
+        pagingUrl += '&page=' + pageNo;
+        $.ajax({
+            url: pagingUrl,
+            datatype: 'json',
+            beforeSend: () => {
+                DfE.Util.LoadingMessage.display("#schoolResults", "Updating schools");
+            },
+            success: (data) => {
+                $("#schoolResults").html(data);
+                this.initTabs();
+                this.initSort();
+                this.liveSearch.updateSchoolCount();
+            }
+        });
+    }
+
 }//class
 
