@@ -1,10 +1,7 @@
 ﻿@using SFB.Web.UI.Controllers
 @{
     Layout = "../../govuk/layouts/template.cshtml";
-    var version = "1.0.0.0";
-    #if !DEBUG
-        version = typeof(HomeController).Assembly.GetName().Version.ToString();
-    #endif
+    var version = typeof(HomeController).Assembly.GetName().Version.ToString();
 }
 
 @section Head {
