@@ -158,4 +158,12 @@
     .guidance .heading-medium{
         margin-top: 1em;
     }
+
+    .tab-content--inactive{
+        display: none;
+    }
+
+    .tab-content--active{
+        display: block;
+    }
 }

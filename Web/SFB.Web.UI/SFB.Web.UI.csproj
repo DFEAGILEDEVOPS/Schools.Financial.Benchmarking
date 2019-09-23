@@ -767,6 +767,8 @@
     <Content Include="Views\ManualComparison\ManualSearchResults.cshtml" />
     <Content Include="Views\Shared\EmptyManualLocationResult.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\SchoolTab.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\TrustTab.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

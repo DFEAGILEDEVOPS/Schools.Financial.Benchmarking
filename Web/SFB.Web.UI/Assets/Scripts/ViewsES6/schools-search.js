@@ -274,6 +274,12 @@
             });
         }
 
+    TabChange(tabId) {
+        $('.tabs li').removeClass('active');
+        $('#' + tabId).addClass('active');
+        $('.tab-content').hide();
+        $('#' + tabId + 'Content').show();
+    }
 }
 
 
