@@ -1,4 +1,4 @@
-﻿@model SFB.Web.UI.Models.SchoolSearchViewModel
+﻿@model SFB.Web.UI.Models.SearchViewModel
 
 @{
     ViewBag.Title = "Schools financial benchmarking";
@@ -54,24 +54,20 @@
         <hr class="home-school-section-divider" />
     }
 
-    <div class="finder-section" id="finderSection">        
+    <div class="finder-section" id="finderSection">
         <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
-            <form method="get" action="/SchoolSearch/Search" autocomplete="off">
-                <div class="form-group">
-                    <nav id="tabs" class="tabs" role="navigation">
-                        <ol role="tablist">
-                            <li class="@ViewHelpers.SchoolTabActive(Model.SearchType) hide-in-print" role="tab" id="SchoolTab">
-                                <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('SchoolTab')">Find a school</button>
-                            </li>
-                            <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="tab" id="TrustTab">
-                                <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')">Find a multi-academy trust</button>
-                            </li>
-                        </ol>
-                    </nav>
-                    @Html.Partial("Partials/Search/SchoolTab")
-                    @Html.Partial("Partials/Search/TrustTab")
-                </div>
-            </form>
+            <nav id="tabs" class="tabs" role="navigation">
+                <ol role="tablist">
+                    <li class="@ViewHelpers.SchoolTabActive(Model.SearchType) hide-in-print" role="tab" id="SchoolTab">
+                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('SchoolTab')">Find a school</button>
+                    </li>
+                    <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="tab" id="TrustTab">
+                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')">Find a multi-academy trust</button>
+                    </li>
+                </ol>
+            </nav>
+            @Html.Partial("Partials/Search/SchoolTab")
+            @Html.Partial("Partials/Search/TrustTab")
         </div>
     </div>
 </div>

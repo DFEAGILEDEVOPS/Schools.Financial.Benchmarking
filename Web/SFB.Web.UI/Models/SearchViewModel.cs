@@ -1,12 +1,12 @@
 ﻿namespace SFB.Web.UI.Models
 {
-    public class SchoolSearchViewModel : ViewModelBase
+    public class SearchViewModel : ViewModelBase
     {
-        public SchoolSearchViewModel()
+        public SearchViewModel()
         {
             
         }
-        public SchoolSearchViewModel(SchoolComparisonListModel comparisonList, string queryKey)
+        public SearchViewModel(SchoolComparisonListModel comparisonList, string queryKey)
         {
             base.ComparisonList = comparisonList;
             this.QueryKey = queryKey;
@@ -20,7 +20,7 @@
 
         public string TrustSuggestionUrl
         {
-            get { return "/schoolsearch/suggesttrust"; }
+            get { return "/trustsearch/suggest"; }
         }
 
         public dynamic Authorities { get; internal set; }

@@ -1,10 +1,16 @@
-﻿<fieldset>
-    <legend class="visuallyhidden">Select a search type option</legend>
-    <div id="TrustTabContent" class="tab-content tab-content--@ViewHelpers.TrustTabActive(Model.SearchType)">
-        <h2 class="form-group heading-small bold-small mb-1">
-            Search by:
-        </h2>
+﻿<form method="get" action="/TrustSearch/Search" autocomplete="off">
+    <div class="form-group">
+        <fieldset>
+            <legend class="visuallyhidden">Select a search type option</legend>
+            <div id="TrustTabContent" class="tab-content tab-content--@ViewHelpers.TrustTabActive(Model.SearchType)">
+                <h2 class="form-group heading-small bold-small mb-1">
+                    Search by:
+                </h2>
 
-        @Html.Partial("Partials/Search/TrustSearchOption")
+                @Html.Partial("Partials/Search/TrustNameSearchOption")
+                @Html.Partial("Partials/Search/TrustLocationSearchOption")
+                @Html.Partial("Partials/Search/TrustLaSearchOption")
+            </div>
+        </fieldset>
     </div>
-</fieldset>
+</form>

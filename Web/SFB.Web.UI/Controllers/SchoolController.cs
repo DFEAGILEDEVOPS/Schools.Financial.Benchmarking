@@ -81,7 +81,7 @@ namespace SFB.Web.UI.Controllers
 
             if (schoolDetailsFromEdubase == null)
             {
-                return View("EmptyResult", new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
+                return View("EmptyResult", new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
             }
 
             SchoolViewModel schoolVM = await BuildSchoolVMAsync(tab, chartGroup, financing, schoolDetailsFromEdubase);

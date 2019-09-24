@@ -12,15 +12,17 @@ using System.Web.Mvc;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class SchoolSearchBaseController : Controller
+    public class SearchBaseController : Controller
     {
         protected readonly ISchoolSearchService _schoolSearchService;
+        protected readonly ITrustSearchService _trustSearchService;
         protected readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
         protected readonly IFilterBuilder _filterBuilder;
 
-        public SchoolSearchBaseController(ISchoolSearchService schoolSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFilterBuilder filterBuilder)
+        public SearchBaseController(ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFilterBuilder filterBuilder)
         {
             _schoolSearchService = schoolSearchService;
+            _trustSearchService = trustSearchService;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
             _filterBuilder = filterBuilder;
         }
@@ -64,6 +66,12 @@ namespace SFB.Web.UI.Controllers
                         string.IsNullOrEmpty(orderby) ? "EstablishmentName" : orderby,
                         Request.QueryString) as QueryResultsModel;
                     break;
+
+                case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
+                    response = await _trustSearchService.SearchTrustByName(nameId, 
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, 
+                        SearchDefaults.RESULTS_PER_PAGE, orderby, Request?.QueryString);
+                    break;
             }
 
             OrderFacetFilters(response);
@@ -73,7 +81,7 @@ namespace SFB.Web.UI.Controllers
 
         protected void OrderFacetFilters(QueryResultsModel results)
         {
-            if (results.Facets != null)
+            if (results?.Facets != null)
             {
                 var orderedFacetFilters = new Dictionary<string, FacetResult[]>();
                 foreach (var facet in results.Facets)

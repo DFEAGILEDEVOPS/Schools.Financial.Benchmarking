@@ -1,0 +1,26 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.SearchViewModel
+
+<div id="TrustLaCodeNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME))" aria-controls="TrustSearchByLaCodeNameFieldset">
+    <input id="TrustLaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)) />
+    <label for="TrustLaCodeName">Local authority of schools in multi-academy trust</label>
+</div>
+<div id="TrustSearchByLaCodeNameFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME))">
+    <label class="search-types__optional-section__label" for="FindTrustByLaCodeName">
+        <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
+    </label>
+    @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME))
+    {
+        <span class="error-message">@Model.ErrorMessage</span>
+    }
+    <div>
+        <input id="FindTrustByLaCodeName"
+               class="form-control search-input"
+               name="lacodename"
+               maxlength="100"
+               type="text" />
+        <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />
+        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME">Search</button>
+    </div>
+</div>
+

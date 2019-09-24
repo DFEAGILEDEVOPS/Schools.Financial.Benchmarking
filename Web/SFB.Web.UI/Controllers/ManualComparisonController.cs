@@ -18,7 +18,7 @@ using System.Web.Mvc;
 namespace SFB.Web.UI.Controllers
 {
     [CustomAuthorize]
-    public class ManualComparisonController : SchoolSearchBaseController
+    public class ManualComparisonController : SearchBaseController
     {
         private readonly ILocalAuthoritiesService _laService;
         private readonly IContextDataService _contextDataService;
@@ -29,7 +29,7 @@ namespace SFB.Web.UI.Controllers
         public ManualComparisonController(IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ILocalAuthoritiesService laService, 
             IContextDataService contextDataService, IValidationService valService, ILocationSearchService locationSearchService, 
             ISchoolSearchService schoolSearchService, IFilterBuilder filterBuilder, ILaSearchService laSearchService)
-            : base(schoolSearchService, benchmarkBasketCookieManager, filterBuilder)
+            : base(schoolSearchService, null, benchmarkBasketCookieManager, filterBuilder)
         {
             _laService = laService;
             _laSearchService = laSearchService;
@@ -41,7 +41,7 @@ namespace SFB.Web.UI.Controllers
         public ActionResult Index()
         {
             var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var vm = new SchoolSearchViewModel(schoolComparisonListModel, "");
+            var vm = new SearchViewModel(schoolComparisonListModel, "");
             vm.Authorities = _laService.GetLocalAuthorities();
             _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null);
             _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel()
@@ -100,7 +100,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var svm = new SchoolSearchViewModel(comparisonList, searchType)
+                            var svm = new SearchViewModel(comparisonList, searchType)
                             {
                                 SearchType = searchType,
                                 Authorities = _laService.GetLocalAuthorities(),
@@ -119,7 +119,7 @@ namespace SFB.Web.UI.Controllers
                             int resultCount = searchResp.NumberOfResults;
                             if (resultCount == 0)
                             {
-                                return View("EmptyResult", new SchoolSearchViewModel(comparisonList, searchType));
+                                return View("EmptyResult", new SearchViewModel(comparisonList, searchType));
                             }
                             else
                             {
@@ -129,7 +129,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var svm = new SchoolSearchViewModel(comparisonList, searchType)
+                            var svm = new SearchViewModel(comparisonList, searchType)
                             {
                                 SearchType = searchType,
                                 Authorities = _laService.GetLocalAuthorities(),
@@ -150,7 +150,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 case 0:
                                     return View("EmptyManualLocationResult",
-                                        new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
+                                        new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 default:
                                     TempData["LocationResults"] = result;
                                     TempData["SearchMethod"] = "Manual";
@@ -163,7 +163,7 @@ namespace SFB.Web.UI.Controllers
 
                             if (searchResp.NumberOfResults == 0)
                             {
-                                return View("EmptyManualLocationResult", new SchoolSearchViewModel(comparisonList, searchType));
+                                return View("EmptyManualLocationResult", new SearchViewModel(comparisonList, searchType));
                             }
                             ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
                             return View("ManualSearchResults", GetSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
@@ -171,7 +171,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        var svm = new SchoolSearchViewModel(comparisonList, searchType)
+                        var svm = new SearchViewModel(comparisonList, searchType)
                         {
                             SearchType = searchType,
                             Authorities = _laService.GetLocalAuthorities(),

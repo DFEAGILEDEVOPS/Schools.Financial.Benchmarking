@@ -33,7 +33,9 @@
             $js_modal.remove();
             $js_modal_overlay.remove();
             $($focus_back).focus();
-            event.preventDefault();
+            if (event) {
+                event.preventDefault();
+            }
         },
         focusTabIndex: function (event) {
             $('#js-modal-close').focus();

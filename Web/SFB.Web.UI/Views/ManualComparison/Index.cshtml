@@ -1,4 +1,4 @@
-﻿@model SFB.Web.UI.Models.SchoolSearchViewModel
+﻿@model SFB.Web.UI.Models.SearchViewModel
 
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
@@ -52,13 +52,13 @@
                             <div>
                                 <ul style="list-style-type: none; padding-left: 0">
                                     <li>
-                                        @Html.Partial("Partials/Search/ManualSchoolSearchOption")
+                                        @Html.Partial("Partials/Search/ManualSchoolNameSearchOption")
                                     </li>
                                     <li>
-                                        @Html.Partial("Partials/Search/ManualLocationSearchOption")
+                                        @Html.Partial("Partials/Search/ManualSchoolLocationSearchOption")
                                     </li>
                                     <li>
-                                        @Html.Partial("Partials/Search/ManualLaSearchOption")
+                                        @Html.Partial("Partials/Search/ManualSchoolLaSearchOption")
                                     </li>
                                 </ul>
                             </div>

@@ -20,28 +20,26 @@ using SFB.Web.Common.DataObjects;
 namespace SFB.Web.UI.Controllers
 {
     [CustomAuthorize]
-    public class SchoolSearchController : SchoolSearchBaseController
+    public class SchoolSearchController : SearchBaseController
     {
         private readonly ILocalAuthoritiesService _laService;
         private readonly ILaSearchService _laSearchService;
         private readonly ILocationSearchService _locationSearchService;
         private readonly IValidationService _valService;
         private readonly IContextDataService _contextDataService;
-        private readonly ITrustSearchService _trustSearchService;
 
         public SchoolSearchController(ILocalAuthoritiesService laService, 
             ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
-            ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService,
+            ISchoolSearchService schoolSearchService,
             IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
-            : base(schoolSearchService, benchmarkBasketCookieManager, filterBuilder)
+            : base(schoolSearchService, null, benchmarkBasketCookieManager, filterBuilder)
         {
             _laService = laService;
             _laSearchService = laSearchService;
             _locationSearchService = locationSearchService;
             _valService = valService;
             _contextDataService = contextDataService;
-            _trustSearchService = trustSearchService;
         }
 
         public async Task<ActionResult> Search(
@@ -81,7 +79,7 @@ namespace SFB.Web.UI.Controllers
                                     searchResp = _contextDataService.GetSchoolDataObjectByLaEstab(nameIdSanitized, openOnly);
                                     if (searchResp.Count == 0)
                                     {
-                                        return View("EmptyResult", new SchoolSearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_NAME_ID));
+                                        return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_NAME_ID));
                                     }
                                     else if(searchResp.Count == 1)
                                     {                                         
@@ -100,12 +98,12 @@ namespace SFB.Web.UI.Controllers
                             }
                             catch(Exception)
                             {
-                                return View("EmptyResult", new SchoolSearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_NAME_ID));
+                                return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_NAME_ID));
                             }                                                     
                         }
                         else
                         {
-                            var searchVM = new SchoolSearchViewModel(schoolComparisonList, searchType)
+                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
@@ -135,7 +133,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var searchVM = new SchoolSearchViewModel(schoolComparisonList, searchType)
+                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
@@ -147,51 +145,6 @@ namespace SFB.Web.UI.Controllers
                     }
                     break;
 
-                case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
-                    if(IsNumeric(trustNameId))
-                    {
-                        errorMessage = _valService.ValidateCompanyNoParameter(trustNameId);
-                        if (string.IsNullOrEmpty(errorMessage))
-                        {
-                            return RedirectToAction("Index", "Trust", new { companyNo = trustNameId });
-                        }
-                        else
-                        {
-                            var searchVM = new SchoolSearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
-                        }
-                    }
-                    else
-                    {
-                        errorMessage = _valService.ValidateTrustNameParameter(trustNameId);
-                        if (string.IsNullOrEmpty(errorMessage))
-                        {
-                            searchResp = await _trustSearchService.SearchTrustByName(trustNameId, 0, SearchDefaults.RESULTS_PER_PAGE, "", Request?.QueryString);
-                            if (searchResp.NumberOfResults == 0)
-                            {
-                                return RedirectToActionPermanent("SuggestTrust", "Trust",
-                                    new RouteValueDictionary { { "trustNameId", trustNameId } });
-                            }
-                            return RedirectToAction("Search", "Trust", new { name = trustNameId });
-                        }
-                        else
-                        {
-                            var searchVM = new SchoolSearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
-                        }
-                    }
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
                     {
@@ -210,7 +163,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var searchVM = new SchoolSearchViewModel(schoolComparisonList, searchType)
+                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
@@ -232,7 +185,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 case 0:
                                     return View("EmptyResult",
-                                        new SchoolSearchViewModel(schoolComparisonList, searchType));
+                                        new SearchViewModel(schoolComparisonList, searchType));
                                 case 1:
                                     return RedirectToAction("Detail", "School",
                                         new
@@ -243,7 +196,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var searchVM = new SchoolSearchViewModel(schoolComparisonList, searchType)
+                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
                             {
                                 SearchType = searchType,
                                 ErrorMessage = errorMessage,
@@ -267,7 +220,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 case 0:
                                     return View("EmptyLocationResult",
-                                        new SchoolSearchViewModel(schoolComparisonList, searchType));
+                                        new SearchViewModel(schoolComparisonList, searchType));
                                 default:
                                     TempData["LocationResults"] = result;
                                     TempData["SearchMethod"] = "Random";
@@ -283,7 +236,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 case 0:
                                     return View("EmptyLocationResult",
-                                        new SchoolSearchViewModel(schoolComparisonList, searchType));
+                                        new SearchViewModel(schoolComparisonList, searchType));
                                 case 1:
                                     return RedirectToAction("Detail", "School",
                                         new { urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"] });
@@ -292,7 +245,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        var searchVM = new SchoolSearchViewModel(schoolComparisonList, searchType)
+                        var searchVM = new SearchViewModel(schoolComparisonList, searchType)
                         {
                             SearchType = searchType,
                             ErrorMessage = errorMessage,
@@ -311,7 +264,7 @@ namespace SFB.Web.UI.Controllers
         public ActionResult AddSchools()
         {
             var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var vm = new SchoolSearchViewModel(schoolComparisonListModel, "");
+            var vm = new SearchViewModel(schoolComparisonListModel, "");
             vm.Authorities = _laService.GetLocalAuthorities();
 
             return View(vm);
@@ -354,14 +307,6 @@ namespace SFB.Web.UI.Controllers
                 json = JsonConvert.SerializeObject(response);
             }
 
-            return Content(json, "application/json");
-        }
-
-        public async Task<ActionResult> SuggestTrust(string name)
-        {
-            dynamic response = await _trustSearchService.SuggestTrustByName(name);
-
-            var json = JsonConvert.SerializeObject(response);
             return Content(json, "application/json");
         }
 

@@ -21,7 +21,7 @@ namespace SFB.Web.UI.Controllers
 
         public ActionResult Index()
         {
-            var vm = new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), null);
+            var vm = new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), null);
             vm.Authorities = _laService.GetLocalAuthorities();
             return View(vm);
         }

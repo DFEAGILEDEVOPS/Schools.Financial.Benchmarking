@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "search-results";
+}
+
+@section BMListBannerContent{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<div id="schoolResults">
+    <h1 class="heading-xlarge page-heading">Trusts</h1>
+
+    <div class="grid-row js-live-search-results-block">
+        @Html.Partial("Partials/Search/TrustResultBlock")
+    </div>
+
+    @section ViewScripts{
+        <script src="~/node_modules/lodash/lodash.min.js"></script>
+        <script>
+        DfE.Views.SchoolsResultsViewModel = new SchoolsResultsViewModel('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+        </script>
+    }
+</div>

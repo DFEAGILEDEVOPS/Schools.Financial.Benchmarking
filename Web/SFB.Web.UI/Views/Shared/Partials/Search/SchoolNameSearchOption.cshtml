@@ -1,5 +1,5 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
-@model SFB.Web.UI.Models.SchoolSearchViewModel
+@model SFB.Web.UI.Models.SearchViewModel
 
 <div id="SchoolOrCollegeNameIdAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_NAME_ID))" aria-controls="SearchByNameIdFieldset">
     <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID)) />

@@ -209,7 +209,6 @@
     };
 
     LiveSearch.prototype.displayResults = function displayResults(results, action) {
-        debugger;
         if (this.onDisplayResults) this.onDisplayResults(this.state);
         if (this.disabled) return;
         // As search is asynchronous, check that the action associated with these results is
