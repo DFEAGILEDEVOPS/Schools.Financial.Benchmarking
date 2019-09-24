@@ -73,7 +73,7 @@ namespace SFB.Web.UI.UnitTests
                 _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
             controller.ControllerContext = new ControllerContext(_rc, controller);
  
-            var result = await controller.Search("Test", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null);
+            var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("SchoolSearch", (result as RedirectToRouteResult).RouteValues["Controller"]);
@@ -107,7 +107,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
  
-            var result = await controller.Search(null, "", SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, "Test", null, false, null, 0);
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, "Test", null, false, null, 0);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("La", (result as RedirectToRouteResult).RouteValues["Controller"]);
@@ -125,7 +125,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search(null, "", SearchTypes.SEARCH_BY_LOCATION, null, "Test", null, null, null, false, null, 0);
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_LOCATION, null, "Test", null, null, null, false, null, 0);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Location", (result as RedirectToRouteResult).RouteValues["Controller"]);
@@ -160,7 +160,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("Test", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+            var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
 
             var filters = ((result as ViewResult).Model as SearchedSchoolListViewModel).Filters;
 
@@ -197,7 +197,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("Test", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+            var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
 
             var filters = ((result as ViewResult).Model as SearchedSchoolListViewModel).Filters;
 
@@ -235,7 +235,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("Test", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+            var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
 
             var filters = ((result as ViewResult).Model as SearchedSchoolListViewModel).Filters;
 
@@ -283,7 +283,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search(null, "", SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, "Test", null, false, null);
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, "Test", null, false, null);
 
             Assert.IsTrue(result is ViewResult);
             Assert.AreEqual("SearchResults", (result as ViewResult).ViewName);
@@ -299,7 +299,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("" , "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
+            var result = await controller.Search("" , SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("../home/index", (result as ViewResult).ViewName);            
@@ -311,7 +311,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
 
-            var result = await controller.Search("", "", SearchTypes.SEARCH_BY_NAME_ID, "123456", null, null, null, null, false, null, 0);
+            var result = await controller.Search("", SearchTypes.SEARCH_BY_NAME_ID, "123456", null, null, null, null, false, null, 0);
 
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
@@ -329,7 +329,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
 
-            var result = await controller.Search("123456", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+            var result = await controller.Search("123456", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
@@ -349,7 +349,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("1234567", null, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
+            var result = await controller.Search("1234567", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
@@ -389,7 +389,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("1234567", null, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+            var result = await controller.Search("1234567", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
             
             Assert.IsTrue(result is ViewResult);
             Assert.AreEqual("SearchResults", (result as ViewResult).ViewName);
@@ -423,7 +423,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("1234567", null, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+            var result = await controller.Search("1234567", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
 
             Assert.IsTrue(result is ViewResult);
             Assert.AreEqual("EmptyResult", (result as ViewResult).ViewName);
@@ -441,7 +441,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("123-4567", null, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
+            var result = await controller.Search("123-4567", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
@@ -461,7 +461,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("123/4567", null, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
+            var result = await controller.Search("123/4567", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 0);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
@@ -487,7 +487,7 @@ namespace SFB.Web.UI.UnitTests
                 _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("Test", "", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, string.Empty, 2);
+            var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, string.Empty, 2);
 
             _mockSchoolSearchService.Verify(req => req.SearchSchoolByName("Test", 50, 50, string.Empty, null), Times.Once());
         }

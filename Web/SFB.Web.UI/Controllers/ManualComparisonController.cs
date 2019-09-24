@@ -124,7 +124,7 @@ namespace SFB.Web.UI.Controllers
                             else
                             {
                                 ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
-                                return View("ManualSearchResults", GetSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
+                                return View("ManualSearchResults", GetSearchedSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
                             }
                         }
                         else
@@ -166,7 +166,7 @@ namespace SFB.Web.UI.Controllers
                                 return View("EmptyManualLocationResult", new SearchViewModel(comparisonList, searchType));
                             }
                             ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
-                            return View("ManualSearchResults", GetSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
+                            return View("ManualSearchResults", GetSearchedSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
                         }
                     }
                     else
@@ -200,7 +200,7 @@ namespace SFB.Web.UI.Controllers
             {
                 searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
-            var vm = GetSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
+            var vm = GetSearchedSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
 
             ViewBag.SearchMethod = "Manual";
             ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();

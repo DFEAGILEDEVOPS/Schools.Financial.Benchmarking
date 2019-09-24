@@ -772,11 +772,11 @@
     <Content Include="Views\Shared\Partials\Search\TrustTab.cshtml" />
     <Content Include="Views\Shared\Partials\Search\TrustLocationSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\TrustLaSearchOption.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\TrustResults.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
     <Content Include="Views\Trust\Partials\ValueSelect.cshtml" />
-    <Content Include="Views\Shared\Partials\Search\TrustResults.cshtml" />
     <Content Include="Views\Shared\Partials\Search\TrustResultBlock.cshtml" />
     <Content Include="Views\Trust\Partials\TrustCentralFinancing.cshtml" />
     <Content Include="Views\TrustComparison\Index.cshtml" />
@@ -784,8 +784,8 @@
     <Content Include="Views\TrustSchools\SearchResults.cshtml" />
     <Content Include="Views\Trust\Partials\GeneralCharacteristics.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
-    <Content Include="Views\Trust\SuggestTrust.cshtml" />
-    <Content Include="Views\Trust\NotFound.cshtml" />
+    <Content Include="Views\TrustSearch\NotFound.cshtml" />
+    <Content Include="Views\TrustSearch\SearchResults.cshtml" />
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>

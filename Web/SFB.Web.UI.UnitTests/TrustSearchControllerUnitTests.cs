@@ -10,11 +10,8 @@ using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Services;
-using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -69,13 +66,13 @@ namespace SFB.Web.UI.UnitTests
                 return results;
             });
 
-            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.RESULTS_PER_PAGE, "", null))
+            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
                 .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search("", "TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
+            var result = await controller.Search("TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
 
             Assert.AreEqual("TrustSearch", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("SuggestTrust", (result as RedirectToRouteResult).RouteValues["action"]);
@@ -83,7 +80,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchActionReturnsToTrustSearchResultsViewIfValidTrustNameProvided()
+        public async Task SearchActionReturnsTrustSearchResultsViewIfValidTrustNameProvided()
         {
             Task<dynamic> task = Task.Run(() =>
             {
@@ -95,24 +92,24 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("EstablishmentStatus", new FacetResult[] { new FacetResult() { Value = "Open", Count = 2 }, new FacetResult() { Value = "Closed", Count = 1 } });
 
                 var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
+                matchedResults.Add("CompanyNumber", "132");
+                matchedResults.Add("TrustOrCompanyName", "test");
                 var matches = new List<Dictionary<string, object>>();
                 matches.Add(matchedResults);
                 dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
                 return results;
             });
 
-            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.RESULTS_PER_PAGE, "", null))
+            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
                 .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search("", "TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 1);
+            var result = await controller.Search("TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 1);
 
             Assert.IsTrue(result is ViewResult);
-            Assert.AreEqual("TrustResults", (result as ViewResult).ViewName);
+            Assert.AreEqual("SearchResults", (result as ViewResult).ViewName);
         }
 
         [Test]
@@ -127,7 +124,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search(null, "6182612", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
+            var result = await controller.Search("6182612", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);

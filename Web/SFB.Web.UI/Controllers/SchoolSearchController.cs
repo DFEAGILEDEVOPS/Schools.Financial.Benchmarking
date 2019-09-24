@@ -44,7 +44,6 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> Search(
             string nameId,
-            string trustNameId,
             string searchType,
             string suggestionUrn,
             string locationorpostcode,
@@ -58,7 +57,7 @@ namespace SFB.Web.UI.Controllers
             string referrer = "home/index")
         {
             dynamic searchResp = null;
-            string errorMessage;
+            string errorMessage = string.Empty;
             ViewBag.tab = tab;
 
             var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
@@ -101,17 +100,6 @@ namespace SFB.Web.UI.Controllers
                                 return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_NAME_ID));
                             }                                                     
                         }
-                        else
-                        {
-                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
-                        }
                     }
                     else
                     {
@@ -131,17 +119,6 @@ namespace SFB.Web.UI.Controllers
                                     new RouteValueDictionary {{"nameId", nameId}, { "openOnly", openOnly} });
                             }
                         }
-                        else
-                        {
-                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
-                        }
                     }
                     break;
 
@@ -155,7 +132,7 @@ namespace SFB.Web.UI.Controllers
                             if (exactMatch != null)
                             {
                                 laCodeName = exactMatch.id;
-                                return await Search(nameId, trustNameId, searchType, suggestionUrn, locationorpostcode,
+                                return await Search(nameId, searchType, suggestionUrn, locationorpostcode,
                                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
                             TempData["SearchMethod"] = "Random";
@@ -194,19 +171,7 @@ namespace SFB.Web.UI.Controllers
                                         });
                             }
                         }
-                        else
-                        {
-                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
-                        }
                     }
-
                     break;
 
                 case SearchTypes.SEARCH_BY_LOCATION:
@@ -243,22 +208,22 @@ namespace SFB.Web.UI.Controllers
                             }
                         }
                     }
-                    else
-                    {
-                        var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                        {
-                            SearchType = searchType,
-                            ErrorMessage = errorMessage,
-                            Authorities = _laService.GetLocalAuthorities()
-                        };
-
-                        return View("../" + referrer, searchVM);
-                    }
                     break;
             }
 
-            var laName = _laService.GetLaName(laCodeName);
-            return View("SearchResults", GetSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laName));
+            if(!string.IsNullOrEmpty(errorMessage))
+            {
+                var searchVM = new SearchViewModel(schoolComparisonList, searchType)
+                {
+                    SearchType = searchType,
+                    ErrorMessage = errorMessage,
+                    Authorities = _laService.GetLocalAuthorities()
+                };
+
+                return View("../" + referrer, searchVM);
+            }
+
+            return View("SearchResults", GetSearchedSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
         }
 
         public ActionResult AddSchools()
@@ -327,7 +292,7 @@ namespace SFB.Web.UI.Controllers
             {
                 searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
-            var vm = GetSchoolViewModelList(searchResponse, schoolComparisonList, orderby,page, searchType, nameId, locationorpostcode, laCodeName);
+            var vm = GetSearchedSchoolViewModelList(searchResponse, schoolComparisonList, orderby,page, searchType, nameId, locationorpostcode, laCodeName);
 
             return PartialView("Partials/Search/SchoolResults", vm);
         }

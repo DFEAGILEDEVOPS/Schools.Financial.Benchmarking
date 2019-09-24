@@ -1,27 +1,18 @@
-﻿@{
-    ViewBag.Title = "Schools Financial Benchmarking";
-    ViewBag.pageClass = "search-results";
-}
-
-@section BMListBannerContent{
-    @Html.Partial("Partials/BenchmarkListBanner")
-}
-
-@section BackButtonContent{
-    @Html.Partial("Partials/BackToHomeLink")
-}
+﻿@model SFB.Web.UI.Models.TrustListViewModel
 
 <div id="schoolResults">
-    <h1 class="heading-xlarge page-heading">Trusts</h1>
 
-    <div class="grid-row js-live-search-results-block">
-        @Html.Partial("Partials/Search/TrustResultBlock")
-    </div>
+    @Html.Partial("Partials/Pagination", Model.Pagination)
 
-    @section ViewScripts{
-        <script src="~/node_modules/lodash/lodash.min.js"></script>
-        <script>
-        DfE.Views.SchoolsResultsViewModel = new SchoolsResultsViewModel('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
-        </script>
-    }
+    <ul>
+        @foreach (var trust in Model.ModelList)
+        {
+            <li class="document">
+                <a href="/trust/index?companyNo=@trust.CompanyNo" class="bold-small">@trust.Name</a>
+            </li>
+        }
+    </ul>
+
+    @Html.Partial("Partials/Pagination", Model.Pagination)
+
 </div>

@@ -149,7 +149,7 @@ namespace SFB.Web.UI.Controllers
                 $"{(ofstedExpanded ? "1" : "0")},{(schoolTypeExpanded ? "1" : "0")},{(religiousCharacterExpanded ? "1" : "0")},{(statusExpanded ? "1" : "0")}";
         }
 
-        protected SearchedSchoolListViewModel GetSchoolViewModelList(dynamic response, SchoolComparisonListModel schoolComparisonListModel, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
+        protected SearchedSchoolListViewModel GetSearchedSchoolViewModelList(dynamic response, SchoolComparisonListModel schoolComparisonListModel, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             var schoolListVm = new List<SchoolSearchResultViewModel>();
             var vm = new SearchedSchoolListViewModel(schoolListVm, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);

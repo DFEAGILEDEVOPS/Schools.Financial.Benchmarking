@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
@@ -39,7 +40,6 @@ namespace SFB.Web.UI.Controllers
         }
 
         public async Task<ActionResult> Search(
-        string nameId,
         string trustNameId,
         string searchType,
         string suggestionUrn,
@@ -54,10 +54,8 @@ namespace SFB.Web.UI.Controllers
         string referrer = "home/index")
         {
             dynamic searchResp = null;
-            string errorMessage;
+            string errorMessage = string.Empty;
             ViewBag.tab = tab;
-
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
             switch (searchType)
             {
@@ -69,48 +67,21 @@ namespace SFB.Web.UI.Controllers
                         {
                             return RedirectToAction("Index", "Trust", new { companyNo = trustNameId });
                         }
-                        else
-                        {
-                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
-                        }
                     }
                     else
                     {
                         errorMessage = _valService.ValidateTrustNameParameter(trustNameId);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await _trustSearchService.SearchTrustByName(trustNameId, 0, SearchDefaults.RESULTS_PER_PAGE, "", Request?.QueryString);
+                            searchResp = await GetSearchResults(trustNameId, SearchTypes.SEARCH_BY_TRUST_NAME_ID, searchType, locationCoordinates, laCodeName, radius, openOnly, orderby, 1);
                             if (searchResp.NumberOfResults == 0)
                             {
                                 return RedirectToActionPermanent("SuggestTrust", "TrustSearch",
                                     new RouteValueDictionary { { "trustNameId", trustNameId } });
                             }
-
-                            var response = await GetSearchResults(trustNameId, SearchTypes.SEARCH_BY_TRUST_NAME_ID, searchType, locationCoordinates, laCodeName, radius, openOnly, orderby, 1);
-
-                            TrustListViewModel vm = GetTrustViewModelList(response, orderby, page);
-
-                            return View("Partials/Search/TrustResults", vm);
-                        }
-                        else
-                        {
-                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
                         }
                     }
+                    break;
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
                     {
@@ -121,22 +92,11 @@ namespace SFB.Web.UI.Controllers
                             if (exactMatch != null)
                             {
                                 laCodeName = exactMatch.id;
-                                return await Search(nameId, trustNameId, searchType, suggestionUrn, locationorpostcode,
+                                return await Search(trustNameId, searchType, suggestionUrn, locationorpostcode,
                                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
                             TempData["SearchMethod"] = "Random";
                             return RedirectToAction("Search", "La", new { name = laCodeName, openOnly = openOnly });
-                        }
-                        else
-                        {
-                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
                         }
                     }
                     else
@@ -144,14 +104,14 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             int resultCount = searchResp.NumberOfResults;
                             switch (resultCount)
                             {
                                 case 0:
                                     return View("EmptyResult",
-                                        new SearchViewModel(schoolComparisonList, searchType));
+                                        new SearchViewModel(null, searchType));
                                 case 1:
                                     return RedirectToAction("Detail", "School",
                                         new
@@ -160,19 +120,7 @@ namespace SFB.Web.UI.Controllers
                                         });
                             }
                         }
-                        else
-                        {
-                            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                            {
-                                SearchType = searchType,
-                                ErrorMessage = errorMessage,
-                                Authorities = _laService.GetLocalAuthorities()
-                            };
-
-                            return View("../" + referrer, searchVM);
-                        }
                     }
-
                     break;
 
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
@@ -186,7 +134,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 case 0:
                                     return View("EmptyLocationResult",
-                                        new SearchViewModel(schoolComparisonList, searchType));
+                                        new SearchViewModel(null, searchType));
                                 default:
                                     TempData["LocationResults"] = result;
                                     TempData["SearchMethod"] = "Random";
@@ -195,36 +143,36 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             int resultCnt = searchResp.NumberOfResults;
                             switch (resultCnt)
                             {
                                 case 0:
                                     return View("EmptyLocationResult",
-                                        new SearchViewModel(schoolComparisonList, searchType));
+                                        new SearchViewModel(null, searchType));
                                 case 1:
                                     return RedirectToAction("Detail", "School",
                                         new { urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"] });
                             }
                         }
                     }
-                    else
-                    {
-                        var searchVM = new SearchViewModel(schoolComparisonList, searchType)
-                        {
-                            SearchType = searchType,
-                            ErrorMessage = errorMessage,
-                            Authorities = _laService.GetLocalAuthorities()
-                        };
-
-                        return View("../" + referrer, searchVM);
-                    }
                     break;
             }
 
-            var laName = _laService.GetLaName(laCodeName);
-            return View("SearchResults", GetSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laName));
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                var searchVM = new SearchViewModel(null, searchType)
+                {
+                    SearchType = searchType,
+                    ErrorMessage = errorMessage,
+                    Authorities = _laService.GetLocalAuthorities()
+                };
+
+                return View("../" + referrer, searchVM);
+            }
+
+            return View("SearchResults", GetTrustViewModelList(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
         }
 
         [Route("TrustSearch/Search-js")]
@@ -244,7 +192,7 @@ namespace SFB.Web.UI.Controllers
             {
                 searchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
-            var vm = GetTrustViewModelList(searchResponse, orderby, page);
+            var vm = GetTrustViewModelList(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
 
             return PartialView("Partials/Search/TrustResults", vm);
         }
@@ -267,19 +215,24 @@ namespace SFB.Web.UI.Controllers
             return View("NotFound", vm);
         }
 
-        private TrustListViewModel GetTrustViewModelList(dynamic response, string orderBy, int page)
+        private TrustListViewModel GetTrustViewModelList(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             var trustListVm = new List<TrustViewModel>();
-            var vm = new TrustListViewModel(trustListVm, orderBy);
+            var vm = new TrustListViewModel(trustListVm, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);
             if (response != null)
             {
                 foreach (var result in response.Results)
                 {
-                    var trustVm = new TrustViewModel(int.Parse(result["CompanyNumber"]), result["TrustOrCompanyName"], null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    var academiesList = new List<AcademiesContextualDataObject>();
+                    var trustVm = new TrustViewModel(int.Parse(result["CompanyNumber"]), result["TrustOrCompanyName"], academiesList, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
                     trustListVm.Add(trustVm);
                 }
 
                 vm.SchoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+
+                //var filters = _filterBuilder.ConstructSchoolSearchFilters(Request.QueryString, response.Facets);
+                //vm.Filters = filters;
+                //vm.FilterSelectionState = DetermineSelectionState(filters);
 
                 vm.Pagination = new Pagination
                 {
