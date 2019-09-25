@@ -24,7 +24,7 @@ namespace SFB.Web.UI.Models
             this.Name = name;            
         }
 
-        public TrustViewModel(int companyNo, string name, List<AcademiesContextualDataObject> academiesList, SchoolComparisonListModel comparisonList)
+        public TrustViewModel(int companyNo, string name, List<AcademiesContextualDataObject> academiesList, SchoolComparisonListModel comparisonList = null)
             : this(companyNo, name)
         {            
             this.AcademiesList = academiesList;

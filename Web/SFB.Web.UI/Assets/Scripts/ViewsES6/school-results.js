@@ -140,7 +140,8 @@
                 this.map.renderMapPinsForAzureMap(this.cache[serialisedState]);
             }
             else {
-                var searchController = $("#SearchMethod").val() === "Manual" ? "ManualComparison" : "SchoolSearch";
+                var searchController = $("#SearchMethod").val() === "Manual" ? "ManualComparison"
+                    : $("#SearchMethod").val() === "MAT" ? "TrustSearch" : "SchoolSearch";
                 return $.ajax({
                     url: `/${searchController}/search-json`,
                     data: serialisedState

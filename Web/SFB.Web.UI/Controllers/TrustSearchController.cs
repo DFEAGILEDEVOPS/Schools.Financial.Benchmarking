@@ -30,9 +30,9 @@ namespace SFB.Web.UI.Controllers
         public TrustSearchController(ILocalAuthoritiesService laService,
             ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
-            ITrustSearchService trustSearchService,
+            ITrustSearchService trustSearchService, ISchoolSearchService schoolSearchService,
             IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFinancialDataService financialDataService)
-            : base(null, trustSearchService, benchmarkBasketCookieManager, filterBuilder)
+            : base(schoolSearchService, trustSearchService, benchmarkBasketCookieManager, filterBuilder)
         {
             _laService = laService;
             _laSearchService = laSearchService;
@@ -59,7 +59,8 @@ namespace SFB.Web.UI.Controllers
             dynamic searchResp = null;
             string errorMessage = string.Empty;
             ViewBag.tab = tab;
-
+            ViewBag.SearchMethod = "MAT";
+            
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
@@ -180,24 +181,38 @@ namespace SFB.Web.UI.Controllers
 
         [Route("TrustSearch/Search-js")]
         public async Task<PartialViewResult> SearchJS(string trustNameId, string searchType, string trustSuggestionUrn,
-    string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, bool openOnly = false,
-    string orderby = "", int page = 1)
-
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, 
+            bool openOnly = false, string orderby = "", int page = 1)
         {
-            dynamic searchResponse;
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            dynamic searchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
-            if (IsLaEstab(trustNameId))
-            {
-                searchResponse = await GetSearchResults(trustNameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
-            }
-            else
-            {
-                searchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
-            }
             var vm = GetTrustViewModelList(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
 
+            ViewBag.SearchMethod = "MAT";
             return PartialView("Partials/TrustResults", vm);
+        }
+
+        [Route("TrustSearch/Search-json")]
+        public async Task<JsonResult> SearchJson(string trustNameId, string searchType, string trustSuggestionUrn,
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
+            bool openOnly = false, string orderby = "", int page = 1)
+        {
+            dynamic trustSearchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+
+            TrustListViewModel trusts = GetTrustViewModelList(trustSearchResponse, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
+
+            var results = new List<SchoolSummaryViewModel>();
+            foreach (var trust in trusts.ModelList)
+            {
+                var schoolSearchResponse = await _schoolSearchService.SearchSchoolByCompanyNo(trust.CompanyNo, 0, 1000, null, null);
+                foreach (var school in schoolSearchResponse.Results)
+                {
+                    var schoolVm = new SchoolSummaryViewModel(school);
+                    results.Add(schoolVm);
+                }
+            }
+
+            return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> Suggest(string name)
@@ -226,8 +241,10 @@ namespace SFB.Web.UI.Controllers
             {
                 foreach (var result in response.Results)
                 {
-                    var academiesList = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), int.Parse(result["CompanyNumber"]));
-                    var trustVm = new TrustViewModel(int.Parse(result["CompanyNumber"]), result["TrustOrCompanyName"], academiesList, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    var companyNo = int.Parse(result["CompanyNumber"]);
+                    var companyName = result["TrustOrCompanyName"];
+                    var academiesList = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo);
+                    var trustVm = new TrustViewModel(companyNo, companyName, academiesList);
                     trustListVm.Add(trustVm);
                 }
 

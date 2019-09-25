@@ -72,7 +72,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object, _mockFinancialDataService.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockFinancialDataService.Object);
 
             var result = await controller.Search("TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
 
@@ -106,7 +106,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object, _mockFinancialDataService.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockFinancialDataService.Object);
 
             var result = await controller.Search("TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 1);
 
@@ -122,7 +122,7 @@ namespace SFB.Web.UI.UnitTests
             _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567", false)).Returns((string urn, bool openOnly) => testResult);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockCookieManager.Object, _mockFinancialDataService.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockFinancialDataService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 

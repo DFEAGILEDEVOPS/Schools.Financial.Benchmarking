@@ -3,49 +3,111 @@
 <div id="schoolResults">
 
     @Html.Partial("Partials/Pagination", Model.Pagination)
-
-
-    @foreach (var trust in Model.ModelList)
-    {
-    <div class="school-document">
-        <div>
-            <a href="/trust/index?companyNo=@trust.CompanyNo" class="bold-small">@trust.Name</a>
+    
+    <div class="result-controllers">
+        <div class="column-half no-padding view-map">
+            <nav class="navigation-links" role="navigation">
+                <div class="olist" role="tablist">
+                    <div class="litem navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
+                        <button class="map-button no-padding">
+                            <img src="~/public/assets/images/icons/icon-map.png" alt="" />View on map
+                            <span class="visuallyhidden"> click to expand.</span>
+                        </button>
+                    </div>
+                    <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
+                        <button class="map-button no-padding">
+                            <img src="~/public/assets/images/icons/icon-list.png" alt="" />View as list
+                            <span class="visuallyhidden"> click to expand.</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
         </div>
-        <div class="font-xsmall">
-            <div>
-                Companies House number:
-                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/0@(trust.CompanyNo)">0@(trust.CompanyNo)</a>
-            </div>
-            <div>
-                Schools in trust: @trust.AcademiesList.Count
-            </div>
-        </div>
-        <details>
-            <summary class="hide-in-print">
-                <span class="summary font-xsmall">View trust's schools</span>
-            </summary>
-            <div class="panel panel-border-narrow">
-                <table class="school-table">
-                    <thead>
-                        <tr>
-                            <th colspan="2" scope="colgroup">Schools</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var academy in trust.AcademiesList)
+        @*<div class="column-half no-padding">
+            <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
+                <div class="filter">
+                    @if (Model.SearchType == SearchTypes.SEARCH_BY_NAME_ID || Model.SearchType == SearchTypes.SEARCH_BY_LA_CODE_NAME || Model.SearchType == SearchTypes.SEARCH_BY_MAT)
+                    {
+                        if (Model.ModelList.Count > 1)
                         {
-                            <tr>
-                                <td><a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a></td>
-                                <td>@academy.OverallPhase</td>
-                            </tr>
+                            <div class="filter-box">
+                                <label class="legend" for="OrderByControl">Sorted by</label>
+                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                    <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
+                                </select>
+                            </div>
                         }
-                    </tbody>
-                </table>
-            </div>
-        </details>        
+                    }
+                    else if (Model.SearchType == SearchTypes.SEARCH_BY_LOCATION)
+                    {
+                        if (Model.ModelList.Count > 1)
+                        {
+                            <div class="filter-box">
+                                <label class="legend" for="OrderByControl">Sorted by</label>
+                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                    <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="" @(string.IsNullOrEmpty(Model.OrderBy) ? "selected" : "")>distance</option>
+                                </select>
+                            </div>
+                        }
+                    }
+                </div>
+                <button type="submit" class="hidden" value="hidden">hidden</button>
+            </form>
+        </div>*@
     </div>
-    }
-
+    <div class="tabs">
+        <div class="list @(ViewBag.tab != "map" ? "active" : string.Empty)">
+            <ul>
+                @foreach (var trust in Model.ModelList)
+                {
+                    <li class="school-document">
+                        <div>
+                            <a href="/trust/index?companyNo=@trust.CompanyNo" class="bold-small">@trust.Name</a>
+                        </div>
+                        <div class="font-xsmall">
+                            <div>
+                                Companies House number:
+                                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/0@(trust.CompanyNo)">0@(trust.CompanyNo)</a>
+                            </div>
+                            <div>
+                                Schools in trust: @trust.AcademiesList.Count
+                            </div>
+                        </div>
+                        <details>
+                            <summary class="hide-in-print">
+                                <span class="summary font-xsmall">View trust's schools</span>
+                            </summary>
+                            <div class="panel panel-border-narrow">
+                                <table class="school-table">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="2" scope="colgroup">Schools</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var academy in trust.AcademiesList)
+                                        {
+                                            <tr>
+                                                <td><a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a></td>
+                                                <td>@academy.OverallPhase</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </li>
+                }
+            </ul>
+            <input type="hidden" id="SearchMethod" value="@ViewBag.SearchMethod" />
+        </div>
+        <div class="map @(ViewBag.tab == "map" ? "active" : string.Empty)">
+            <div id="azuremap" class="results-map" title="An Azure map of the school locations" aria-label="An Azure map of the school locations"></div>
+        </div>
+    </div>
 
     @Html.Partial("Partials/Pagination", Model.Pagination)
 

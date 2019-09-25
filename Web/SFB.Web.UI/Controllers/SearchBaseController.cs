@@ -66,7 +66,6 @@ namespace SFB.Web.UI.Controllers
                         string.IsNullOrEmpty(orderby) ? "EstablishmentName" : orderby,
                         Request.QueryString) as QueryResultsModel;
                     break;
-
                 case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
                     response = await _trustSearchService.SearchTrustByName(nameId, 
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, 
