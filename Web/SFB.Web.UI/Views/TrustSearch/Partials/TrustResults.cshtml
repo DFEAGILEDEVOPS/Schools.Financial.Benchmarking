@@ -1,0 +1,52 @@
+﻿@model SFB.Web.UI.Models.TrustListViewModel
+
+<div id="schoolResults">
+
+    @Html.Partial("Partials/Pagination", Model.Pagination)
+
+
+    @foreach (var trust in Model.ModelList)
+    {
+    <div class="school-document">
+        <div>
+            <a href="/trust/index?companyNo=@trust.CompanyNo" class="bold-small">@trust.Name</a>
+        </div>
+        <div class="font-xsmall">
+            <div>
+                Companies House number:
+                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/0@(trust.CompanyNo)">0@(trust.CompanyNo)</a>
+            </div>
+            <div>
+                Schools in trust: @trust.AcademiesList.Count
+            </div>
+        </div>
+        <details>
+            <summary class="hide-in-print">
+                <span class="summary font-xsmall">View trust's schools</span>
+            </summary>
+            <div class="panel panel-border-narrow">
+                <table class="school-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2" scope="colgroup">Schools</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var academy in trust.AcademiesList)
+                        {
+                            <tr>
+                                <td><a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a></td>
+                                <td>@academy.OverallPhase</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </details>        
+    </div>
+    }
+
+
+    @Html.Partial("Partials/Pagination", Model.Pagination)
+
+</div>

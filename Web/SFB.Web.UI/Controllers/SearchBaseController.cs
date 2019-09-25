@@ -172,7 +172,8 @@ namespace SFB.Web.UI.Controllers
                     Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
                     Total = response.NumberOfResults,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
-                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE
+                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
+                    PagedEntityType = Common.PagedEntityType.School
                 };
             }
 

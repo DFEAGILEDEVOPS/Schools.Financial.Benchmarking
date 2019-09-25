@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SFB.Web.Common;
 using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
@@ -24,12 +25,13 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocationSearchService _locationSearchService;
         private readonly IValidationService _valService;
         private readonly IContextDataService _contextDataService;
+        private readonly IFinancialDataService _financialDataService;
 
         public TrustSearchController(ILocalAuthoritiesService laService,
             ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
             ITrustSearchService trustSearchService,
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFinancialDataService financialDataService)
             : base(null, trustSearchService, benchmarkBasketCookieManager, filterBuilder)
         {
             _laService = laService;
@@ -37,6 +39,7 @@ namespace SFB.Web.UI.Controllers
             _locationSearchService = locationSearchService;
             _valService = valService;
             _contextDataService = contextDataService;
+            _financialDataService = financialDataService;
         }
 
         public async Task<ActionResult> Search(
@@ -194,7 +197,7 @@ namespace SFB.Web.UI.Controllers
             }
             var vm = GetTrustViewModelList(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
 
-            return PartialView("Partials/Search/TrustResults", vm);
+            return PartialView("Partials/TrustResults", vm);
         }
 
         public async Task<ActionResult> Suggest(string name)
@@ -223,7 +226,7 @@ namespace SFB.Web.UI.Controllers
             {
                 foreach (var result in response.Results)
                 {
-                    var academiesList = new List<AcademiesContextualDataObject>();
+                    var academiesList = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), int.Parse(result["CompanyNumber"]));
                     var trustVm = new TrustViewModel(int.Parse(result["CompanyNumber"]), result["TrustOrCompanyName"], academiesList, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
                     trustListVm.Add(trustVm);
                 }
@@ -239,11 +242,18 @@ namespace SFB.Web.UI.Controllers
                     Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
                     Total = response.NumberOfResults,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
-                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE
+                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
+                    PagedEntityType = Common.PagedEntityType.MAT
                 };
             }
 
             return vm;
+        }
+
+        private string LatestMATTerm()
+        {
+            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
+            return FormatHelpers.FinancialTermFormatAcademies(latestYear);
         }
     }
 }

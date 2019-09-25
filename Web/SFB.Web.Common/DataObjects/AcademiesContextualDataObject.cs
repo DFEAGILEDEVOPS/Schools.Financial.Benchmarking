@@ -15,7 +15,10 @@ namespace SFB.Web.Common.DataObjects
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN)]
         public int PeriodCoveredByReturn;
-        
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE)]
+        public string OverallPhase;
+
         public bool HasIncompleteFinancialData => PeriodCoveredByReturn != 12;
     }
 }

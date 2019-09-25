@@ -30,7 +30,8 @@ namespace SFB.Web.UI.Controllers
                     Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
                     Total = filteredResults.Count,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
-                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE
+                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
+                    PagedEntityType = Common.PagedEntityType.LA
                 };
 
             return View(vm);

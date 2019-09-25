@@ -39,6 +39,13 @@ namespace SFB.Web.Common
         Tables
     }
 
+    public enum PagedEntityType
+    {
+        School,
+        MAT,
+        LA
+    }
+
     public enum ComparisonArea
     {
         All,
