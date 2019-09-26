@@ -149,16 +149,12 @@ namespace SFB.Web.UI.Controllers
                         {
                             searchResp = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
-                            int resultCnt = searchResp.NumberOfResults;
-                            switch (resultCnt)
+                            if(searchResp.NumberOfResults == 0)
                             {
-                                case 0:
-                                    return View("EmptyLocationResult",
-                                        new SearchViewModel(null, searchType));
-                                case 1:
-                                    return RedirectToAction("Detail", "School",
-                                        new { urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"] });
+                                return View("EmptyLocationResult", new SearchViewModel(null, searchType));
                             }
+
+                            return View("SearchResults", BuildTrustViewModelListFromSchools(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
                         }
                     }
                     break;
@@ -265,6 +261,56 @@ namespace SFB.Web.UI.Controllers
             }
 
             return vm;
+        }
+
+        private TrustListViewModel BuildTrustViewModelListFromSchools(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
+        {
+            TrustListViewModel tvm = null;
+
+            if (response != null)
+            {
+                var trustList = new List<TrustViewModel>();
+                foreach (var result in response.Results)
+                {
+                    int companyNo;
+                    if (int.TryParse(result["CompanyNumber"], out companyNo))
+                    {                        
+                        var companyName = result["TrustOrCompanyName"];
+                        if (!trustList.Any(t => t.CompanyNo == companyNo))
+                        {
+                            var academiesList = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo);
+                            var trustVm = new TrustViewModel(companyNo, companyName, academiesList);
+                            trustList.Add(trustVm);
+                        }
+                        else
+                        {
+                            var trust = trustList.Find(t => t.CompanyNo == companyNo);
+                            var academy = trust.AcademiesList.Find(a => a.URN == int.Parse(result["URN"]));
+                            if (academy != null)
+                            {
+                                academy.InsideSearchArea = true;
+                            }
+                        }
+                    }
+                }
+
+                tvm = new TrustListViewModel(trustList, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);
+
+                //var filters = _filterBuilder.ConstructSchoolSearchFilters(Request.QueryString, response.Facets);
+                //vm.Filters = filters;
+                //vm.FilterSelectionState = DetermineSelectionState(filters);
+
+                tvm.Pagination = new Pagination
+                {
+                    Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
+                    Total = response.NumberOfResults,
+                    PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
+                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
+                    PagedEntityType = Common.PagedEntityType.MAT
+                };
+            }
+
+            return tvm;
         }
 
         private string LatestMATTerm()

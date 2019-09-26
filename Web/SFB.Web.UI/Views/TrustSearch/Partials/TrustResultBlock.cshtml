@@ -3,46 +3,46 @@
 
 <form id="SearchFacetsForm" method="get" action="/TrustSearch/Search" class="js-live-search-form">
     @*<div class="grid-row mvs pvl filter-header">
-        <div class="column-full">
-            <nav>Filter by:</nav>
+            <div class="column-full">
+                <nav>Filter by:</nav>
+            </div>
         </div>
-    </div>
-    @if (Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_LOCATION)
-    {
-        var distanceRadius = new[] { 1, 3, 5, 10, 15, 20, 25 };
+        @if (Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_LOCATION)
+        {
+            var distanceRadius = new[] { 1, 3, 5, 10, 15, 20, 25 };
 
-        <div class="filter">
-            <div class="form-group filter-box">
-                <label class="legend" for="DistanceRadius">Within a radius of <span class="visuallyhidden">- changing the selection will refresh the results</span></label>
-                <select id="DistanceRadius" name="radius" aria-controls="js-search-results-info" class="select">
-                    @foreach (var radius in distanceRadius)
-                    {
-                        <option @((Request.QueryString["radius"] == radius.ToString() || (Request.QueryString["radius"] == null && radius == SearchDefaults.LOCATION_SEARCH_DISTANCE)) ? "selected" : "") value="@(radius)">
-                            @(radius) @(radius == 1 ? "mile" : "miles")
-                        </option>
-                    }
-                </select>
+            <div class="filter">
+                <div class="form-group filter-box">
+                    <label class="legend" for="DistanceRadius">Within a radius of <span class="visuallyhidden">- changing the selection will refresh the results</span></label>
+                    <select id="DistanceRadius" name="radius" aria-controls="js-search-results-info" class="select">
+                        @foreach (var radius in distanceRadius)
+                        {
+                            <option @((Request.QueryString["radius"] == radius.ToString() || (Request.QueryString["radius"] == null && radius == SearchDefaults.LOCATION_SEARCH_DISTANCE)) ? "selected" : "") value="@(radius)">
+                                @(radius) @(radius == 1 ? "mile" : "miles")
+                            </option>
+                        }
+                    </select>
+                </div>
+
             </div>
 
-        </div>
-
-        <div class="filter-divider"></div>
-    }
-    @if (Model.Filters != null)
-    {
-        foreach (var filter in Model.Filters)
-        {
-            @Html.Partial("Partials/Search/OptionSelect", filter)
             <div class="filter-divider"></div>
         }
-    }*@
+        @if (Model.Filters != null)
+        {
+            foreach (var filter in Model.Filters)
+            {
+                @Html.Partial("Partials/Search/OptionSelect", filter)
+                <div class="filter-divider"></div>
+            }
+        }*@
 
 
     @if (Request.QueryString["trustnameid"] != null)
     {
         <input type="hidden" name="trustNameId" value="@(Request.QueryString["trustnameid"])" />
-    }    
-    
+    }
+
     @if (Request.QueryString["searchtype"] != null)
     {
         <input type="hidden" name="searchtype" value="@(Request.QueryString["searchtype"])" />

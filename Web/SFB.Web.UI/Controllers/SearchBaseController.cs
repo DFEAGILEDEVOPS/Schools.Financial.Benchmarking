@@ -54,6 +54,7 @@ namespace SFB.Web.UI.Controllers
                         Request.QueryString) as QueryResultsModel;
                     break;
                 case SearchTypes.SEARCH_BY_LOCATION:
+                case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     var latLng = locationCoordinates.Split(',');
                     response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.LOCATION_SEARCH_DISTANCE) * 1.6m,
