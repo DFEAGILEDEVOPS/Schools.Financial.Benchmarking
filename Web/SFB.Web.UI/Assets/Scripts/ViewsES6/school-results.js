@@ -86,13 +86,19 @@
             $("nav.navigation-links .olist .litem." + tabName + ", div.tabs>div." + tabName).addClass("active");
             $("nav.navigation-links .olist .litem.active a").focus();
             this.currentTabName = tabName;
+            if (this.currentTabName === "map") {
+                $(".filter").hide();
+            }
+            else {
+                $(".filter").show();
+            }
 
             this.bindAzureMap(this.mapApiKey);
             this.liveSearch.disabled = (tabName === "map");
             if (tabName === "list") {
                 this.liveSearch.updateResults.bind(this.liveSearch).call(null);
                 this.mapLoaded = false;
-            }
+            } 
             this.liveSearch.tabChange(suppressAddHistory);
 
             this.addAllVisibility();
