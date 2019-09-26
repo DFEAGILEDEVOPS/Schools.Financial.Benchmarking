@@ -91,6 +91,10 @@
         var info = data[i];
         var html = "<div class=\"infowindow-school-summary\">                    \n                        <a href =\"/school/detail?urn=".concat(info.Id, "\">").concat(info.Name, "</a>\n                        <p>").concat(info.Address, "</p>\n                        <p>").concat(info.EducationPhases, "</p>\n                        <p>").concat(info.NFType, "</p>\n                        <div id =\"").concat(info.Id, "\" data-urn=\"").concat(info.Id, "\">");
 
+        if (info.CompanyNumber !== "0") {
+          html += "<div class=\"mt-1\" style=\"font-style: italic\">Part of the </div>\n                    <div class=\"mb-1\"><a href=\"/trust/index?companyNo=".concat(info.CompanyNumber, "\">").concat(info.SponsorName, "</a></div>");
+        }
+
         if ($("#SearchMethod").val() === "Manual") {
           if (DfE.Util.ComparisonList.isInManualList(info.Id)) {
             html += "<div class=\"button add add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('").concat(info.Id, "','Remove')\">Remove</div>");

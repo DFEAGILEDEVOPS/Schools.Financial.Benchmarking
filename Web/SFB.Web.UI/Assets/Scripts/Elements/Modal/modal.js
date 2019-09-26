@@ -166,7 +166,9 @@
                 $js_modal.remove();
                 $js_modal_overlay.remove();
             }
-            $($focus_back)[0].focus();
+            if ($focus_back.length > 0) {
+                $($focus_back)[0].focus();
+            }
         },
         updateKeydownFocus: function (event) {
             // Space or Enter
@@ -185,7 +187,9 @@
                     $js_modal.remove();
                     $js_modal_overlay.remove();
                 }
-                $($focus_back)[0].focus();
+                if ($focus_back.length > 0) {
+                    $($focus_back)[0].focus();
+                }
 
             }
         }

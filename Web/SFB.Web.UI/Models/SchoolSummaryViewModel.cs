@@ -11,6 +11,9 @@ namespace SFB.Web.UI.Models
         public string Address { get; set; }
         public string EducationPhases { get; set; }
         public string NFType { get; set; }
+        public string FinanceType { get; set; }
+        public string SponsorName { get; set; }
+        public string CompanyNumber { get; set; }
 
         public SchoolSummaryViewModel(dynamic model)
         {
@@ -24,7 +27,9 @@ namespace SFB.Web.UI.Models
             Id = model["URN"];
             Address = String.Format("{0}, {1}, {2}", model["Street"], model["Town"], model["Postcode"]);
             EducationPhases = model["PhaseOfEducation"];
-            NFType = model["TypeOfEstablishment"];
+            NFType = model["TypeOfEstablishment"];            
+            SponsorName = model["TrustOrCompanyName"];
+            CompanyNumber = model["CompanyNumber"];
         }
     }
 }
