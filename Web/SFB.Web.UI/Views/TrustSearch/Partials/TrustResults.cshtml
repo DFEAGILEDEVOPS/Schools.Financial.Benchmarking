@@ -1,9 +1,11 @@
-﻿@model SFB.Web.UI.Models.TrustListViewModel
+﻿@using SFB.Web.UI.Models
+@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.TrustListViewModel
 
 <div id="schoolResults">
 
     @Html.Partial("Partials/Pagination", Model.Pagination)
-    
+
     <div class="result-controllers">
         <div class="column-half no-padding view-map">
             <nav class="navigation-links" role="navigation">
@@ -23,40 +25,34 @@
                 </div>
             </nav>
         </div>
-        @*<div class="column-half no-padding">
+        <div class="column-half no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
                 <div class="filter">
-                    @if (Model.SearchType == SearchTypes.SEARCH_BY_NAME_ID || Model.SearchType == SearchTypes.SEARCH_BY_LA_CODE_NAME || Model.SearchType == SearchTypes.SEARCH_BY_MAT)
+                    @if (Model.ModelList.Count > 1)
                     {
-                        if (Model.ModelList.Count > 1)
-                        {
-                            <div class="filter-box">
-                                <label class="legend" for="OrderByControl">Sorted by</label>
-                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
-                                    <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
-                                </select>
-                            </div>
-                        }
-                    }
-                    else if (Model.SearchType == SearchTypes.SEARCH_BY_LOCATION)
-                    {
-                        if (Model.ModelList.Count > 1)
-                        {
-                            <div class="filter-box">
-                                <label class="legend" for="OrderByControl">Sorted by</label>
-                                <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
-                                    <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
-                                    <option value="" @(string.IsNullOrEmpty(Model.OrderBy) ? "selected" : "")>distance</option>
-                                </select>
-                            </div>
-                        }
+                        <div class="filter-box">
+                            <label class="legend" for="OrderByControl">Sorted by</label>
+                            <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                <option value="TrustOrCompanyName asc" @(Model.OrderBy == "TrustOrCompanyName asc" ? "selected" : "")>alphabetical a - z</option>
+                                <option value="TrustOrCompanyName desc" @(Model.OrderBy == "TrustOrCompanyName desc" ? "selected" : "")>alphabetical z - a</option>
+
+                                @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
+                                {
+                                    <option value="MatSchoolNumber desc" @(Model.OrderBy == "MatSchoolNumber desc" ? "selected" : "")>Number of schools in multi-academy trust</option>
+                                }
+
+                                @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
+                                {
+                                    <option value="AreaSchoolNumber desc" @(Model.OrderBy == "AreaSchoolNumber desc" ? "selected" : "")>Number of schools in search area</option>
+                                    <option value="Distance desc" @(Model.OrderBy == "Distance desc" ? "selected" : "")>Distance</option>
+                                }
+                            </select>
+                        </div>
                     }
                 </div>
                 <button type="submit" class="hidden" value="hidden">hidden</button>
             </form>
-        </div>*@
+        </div>
     </div>
     <div class="tabs">
         <div class="list @(ViewBag.tab != "map" ? "active" : string.Empty)">
