@@ -8,25 +8,25 @@
                 <div class="result-info">
                     @if (@ViewBag.CompanyNo == null)
                     {
-                    <div class="summary count-summary font-xsmall ">
-                        @if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.School)
-                        {
-                            <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> schools</span>
-                        }
-                        else if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.MAT)
-                        {
-                            <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> multi-academy trusts</span>
-                        }
-                        else if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.LA)
-                        {
-                            <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> local authorities</span>
-                        }
+                        <div class="summary count-summary font-xsmall ">
+                            @if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.School)
+                            {
+                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> schools</span>
+                            }
+                            else if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.MAT)
+                            {
+                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> multi-academy trusts</span>
+                            }
+                            else if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.LA)
+                            {
+                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> local authorities</span>
+                            }
 
-                        @if (ViewBag.SearchMethod == "Manual")
-                        {
-                            <span id="manualSchoolCountPlaceHolder" class="no-padding inline-block font-xsmall">- <span id="manualCount" class="bold-xsmall">@(ViewBag.manualCount ?? 0)</span> selected (max. 30)</span>
-                        }
-                    </div>
+                            @if (ViewBag.SearchMethod == "Manual")
+                            {
+                                <span id="manualSchoolCountPlaceHolder" class="no-padding inline-block font-xsmall">- <span id="manualCount" class="bold-xsmall">@(ViewBag.manualCount ?? 0)</span> selected (max. 30)</span>
+                            }
+                        </div>
                     }
                     else
                     {

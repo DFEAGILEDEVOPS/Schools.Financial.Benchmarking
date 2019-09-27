@@ -313,6 +313,11 @@ namespace SFB.Web.Domain.Services.Search
             //queryFilter.Add("StatutoryHighAge ne '4'");
             //queryFilter.Add("StatutoryHighAge ne '5'");//Todo: Remove .Do not filter out nurseries.
 
+            if (parameters["searchtype"] != null && (parameters["searchtype"] == "search-by-trust-location" || parameters["searchtype"] == "search-by-trust-la-code-name"))
+            {
+                queryFilter.Add("FinanceType eq 'A' and CompanyNumber ne null");
+            }
+
             if (parameters["openOnly"] != null)
             {
                 var openOnly = false;

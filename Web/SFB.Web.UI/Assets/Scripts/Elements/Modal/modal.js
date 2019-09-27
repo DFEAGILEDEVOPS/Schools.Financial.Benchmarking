@@ -166,7 +166,7 @@
                 $js_modal.remove();
                 $js_modal_overlay.remove();
             }
-            if ($focus_back.length > 0) {
+            if ($($focus_back).length > 0) {
                 $($focus_back)[0].focus();
             }
         },

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SFB.Web.Common;
-using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
@@ -60,6 +59,7 @@ namespace SFB.Web.UI.Controllers
             string errorMessage = string.Empty;
             ViewBag.tab = tab;
             ViewBag.SearchMethod = "MAT";
+            ViewBag.SearchType = searchType;
             
             switch (searchType)
             {
@@ -80,12 +80,53 @@ namespace SFB.Web.UI.Controllers
                             searchResp = await GetSearchResults(trustNameId, SearchTypes.SEARCH_BY_TRUST_NAME_ID, searchType, locationCoordinates, laCodeName, radius, openOnly, orderby, 1);
                             if (searchResp.NumberOfResults == 0)
                             {
-                                return RedirectToActionPermanent("SuggestTrust", "TrustSearch",
-                                    new RouteValueDictionary { { "trustNameId", trustNameId } });
+                                return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", trustNameId } });
                             }
                         }
                     }
                     break;
+
+                case SearchTypes.SEARCH_BY_TRUST_LOCATION:
+                    errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
+                    if (string.IsNullOrEmpty(errorMessage))
+                    {
+                        if (string.IsNullOrEmpty(locationCoordinates))
+                        {
+                            var result = _locationSearchService.SuggestLocationName(locationorpostcode);
+                            switch (result.Matches.Count)
+                            {
+                                case 0:
+                                    return View("EmptyLocationResult", new SearchViewModel(null, searchType));
+                                default:
+                                    TempData["LocationResults"] = result;
+                                    TempData["SearchMethod"] = "MAT";
+                                    return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationorpostcode });
+                            }
+                        }
+                        else
+                        {
+                            var schoolLevelOrdering = orderby;
+                            if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
+                            {
+                                schoolLevelOrdering = "TrustOrCompanyName asc";
+                            }
+
+                            searchResp = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
+
+                            if (searchResp.NumberOfResults == 0)
+                            {
+                                return View("EmptyLocationResult", new SearchViewModel(null, searchType));
+                            }
+
+                            TrustListViewModel trustsVm = BuildTrustViewModelListFromSchools(searchResp, schoolLevelOrdering, page, searchType, trustNameId, locationorpostcode, null);
+
+                            TrustLevelOrdering(orderby, trustsVm);
+
+                            return View("SearchResults", trustsVm);
+                        }
+                    }
+                    break;
+
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
                     {
@@ -126,38 +167,6 @@ namespace SFB.Web.UI.Controllers
                         }
                     }
                     break;
-
-                case SearchTypes.SEARCH_BY_TRUST_LOCATION:
-                    errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
-                    if (string.IsNullOrEmpty(errorMessage))
-                    {
-                        if (string.IsNullOrEmpty(locationCoordinates))
-                        {
-                            var result = _locationSearchService.SuggestLocationName(locationorpostcode);
-                            switch (result.Matches.Count)
-                            {
-                                case 0:
-                                    return View("EmptyLocationResult",
-                                        new SearchViewModel(null, searchType));
-                                default:
-                                    TempData["LocationResults"] = result;
-                                    TempData["SearchMethod"] = "Random";
-                                    return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationorpostcode, openOnly = openOnly });
-                            }
-                        }
-                        else
-                        {
-                            searchResp = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
-
-                            if(searchResp.NumberOfResults == 0)
-                            {
-                                return View("EmptyLocationResult", new SearchViewModel(null, searchType));
-                            }
-
-                            return View("SearchResults", BuildTrustViewModelListFromSchools(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
-                        }
-                    }
-                    break;
             }
 
             if (!string.IsNullOrEmpty(errorMessage))
@@ -180,12 +189,30 @@ namespace SFB.Web.UI.Controllers
             string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, 
             bool openOnly = false, string orderby = "", int page = 1)
         {
-            dynamic searchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
-
-            var vm = GetTrustViewModelList(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
-
             ViewBag.SearchMethod = "MAT";
-            return PartialView("Partials/TrustResults", vm);
+            ViewBag.SearchType = searchType;
+
+            var schoolLevelOrdering = orderby;
+            if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
+            {
+                schoolLevelOrdering = "TrustOrCompanyName asc";
+            }
+
+            dynamic searchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
+
+            TrustListViewModel trustsVm;
+            if (searchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
+            {
+                trustsVm = GetTrustViewModelList(searchResponse, schoolLevelOrdering, page, searchType, trustNameId, locationorpostcode, null);
+            }
+            else
+            {
+                trustsVm = BuildTrustViewModelListFromSchools(searchResponse, schoolLevelOrdering, page, searchType, trustNameId, locationorpostcode, null);
+            }
+
+            TrustLevelOrdering(orderby, trustsVm);
+
+            return PartialView("Partials/TrustResults", trustsVm);
         }
 
         [Route("TrustSearch/Search-json")]
@@ -193,17 +220,34 @@ namespace SFB.Web.UI.Controllers
             string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
             bool openOnly = false, string orderby = "", int page = 1)
         {
-            dynamic trustSearchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
-
-            TrustListViewModel trusts = GetTrustViewModelList(trustSearchResponse, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
-
-            var results = new List<SchoolSummaryViewModel>();
-            foreach (var trust in trusts.ModelList)
+            var schoolLevelOrdering = orderby;
+            if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
             {
-                var schoolSearchResponse = await _schoolSearchService.SearchSchoolByCompanyNo(trust.CompanyNo, 0, 1000, null, null);
-                foreach (var school in schoolSearchResponse.Results)
+                schoolLevelOrdering = "TrustOrCompanyName asc";
+            }
+
+            dynamic searchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page, 1000);
+
+            TrustListViewModel trusts;
+            List<SchoolSummaryViewModel> results = new List<SchoolSummaryViewModel>();
+            if (searchType == SearchTypes.SEARCH_BY_NAME_ID)
+            {
+                trusts = GetTrustViewModelList(searchResponse, schoolLevelOrdering, page, searchType, trustNameId, locationorpostcode, null);
+                foreach (var trust in trusts.ModelList)
                 {
-                    var schoolVm = new SchoolSummaryViewModel(school);
+                    var schoolSearchResponse = await _schoolSearchService.SearchSchoolByCompanyNo(trust.CompanyNo, 0, 1000, null, null);
+                    foreach (var school in schoolSearchResponse.Results)
+                    {
+                        var schoolVm = new SchoolSummaryViewModel(school);
+                        results.Add(schoolVm);
+                    }
+                }
+            }
+            else
+            {                
+                foreach (var result in searchResponse.Results)
+                {
+                    var schoolVm = new SchoolSummaryViewModel(result);
                     results.Add(schoolVm);
                 }
             }
@@ -279,6 +323,11 @@ namespace SFB.Web.UI.Controllers
                         if (!trustList.Any(t => t.CompanyNo == companyNo))
                         {
                             var academiesList = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo);
+                            var academy = academiesList.Find(a => a.URN == int.Parse(result["URN"]));
+                            if (academy != null)
+                            {
+                                academy.InsideSearchArea = true;
+                            }
                             var trustVm = new TrustViewModel(companyNo, companyName, academiesList);
                             trustList.Add(trustVm);
                         }
@@ -303,7 +352,7 @@ namespace SFB.Web.UI.Controllers
                 tvm.Pagination = new Pagination
                 {
                     Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
-                    Total = response.NumberOfResults,
+                    Total = tvm.ModelList.Count,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
                     MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
                     PagedEntityType = Common.PagedEntityType.MAT
@@ -311,6 +360,21 @@ namespace SFB.Web.UI.Controllers
             }
 
             return tvm;
+        }
+
+        private void TrustLevelOrdering(string orderby, TrustListViewModel trustsVm)
+        {
+            if (orderby == "MatSchoolNumber")
+            {
+                trustsVm.ModelList = trustsVm.ModelList.OrderByDescending(t => t.AcademiesList.Count).ToList();
+                trustsVm.OrderBy = orderby;
+            }
+
+            if (orderby == "AreaSchoolNumber")
+            {
+                trustsVm.ModelList = trustsVm.ModelList.OrderByDescending(t => t.AcademiesList.Where(a => a.InsideSearchArea).ToList().Count).ToList();
+                trustsVm.OrderBy = orderby;
+            }
         }
 
         private string LatestMATTerm()
