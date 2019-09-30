@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFB.Web.Common;
+using System;
 
 namespace SFB.Web.UI.Models
 {
@@ -23,13 +24,13 @@ namespace SFB.Web.UI.Models
                 Latitude = location.coordinates[1];
                 Longitude = location.coordinates[0];
             }
-            Name = model["EstablishmentName"];
-            Id = model["URN"];
-            Address = String.Format("{0}, {1}, {2}", model["Street"], model["Town"], model["Postcode"]);
-            EducationPhases = model["PhaseOfEducation"];
-            NFType = model["TypeOfEstablishment"];            
-            SponsorName = model["TrustOrCompanyName"];
-            CompanyNumber = model["CompanyNumber"];
+            Name = model[EdubaseDBFieldNames.ESTAB_NAME];
+            Id = model[EdubaseDBFieldNames.URN];
+            Address = String.Format("{0}, {1}, {2}", model[EdubaseDBFieldNames.STREET], model[EdubaseDBFieldNames.TOWN], model[EdubaseDBFieldNames.POSTCODE]);
+            EducationPhases = model[EdubaseDBFieldNames.PHASE_OF_EDUCATION];
+            NFType = model[EdubaseDBFieldNames.TYPE_OF_ESTAB];            
+            SponsorName = model[EdubaseDBFieldNames.TRUSTS];
+            CompanyNumber = model[EdubaseDBFieldNames.COMPANY_NUMBER];
         }
     }
 }

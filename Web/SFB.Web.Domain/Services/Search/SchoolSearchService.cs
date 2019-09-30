@@ -315,7 +315,8 @@ namespace SFB.Web.Domain.Services.Search
 
             if (parameters["searchtype"] != null && (parameters["searchtype"] == "search-by-trust-location" || parameters["searchtype"] == "search-by-trust-la-code-name"))
             {
-                queryFilter.Add("FinanceType eq 'A' and CompanyNumber ne null");
+                queryFilter.Add("FinanceType eq 'A' and CompanyNumber ne null and CompanyNumber ne '0'");
+                //queryFilter.Add("FinanceType eq 'A' and CompanyNumber ne null and CompanyNumber ne '0' and MATNumber ne 'SAT'");
             }
 
             if (parameters["openOnly"] != null)

@@ -40,7 +40,7 @@
         </div>
         <div class="column-half no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
-                <div class="filter">
+                <div class="filter school @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
                     @if (Model.SearchType == SearchTypes.SEARCH_BY_NAME_ID || Model.SearchType == SearchTypes.SEARCH_BY_LA_CODE_NAME || Model.SearchType == SearchTypes.SEARCH_BY_MAT)
                     {
                         if (Model.ModelList.Count > 1)

@@ -1,7 +1,7 @@
 ﻿@using SFB.Web.UI.Helpers.Constants;
 @model SFB.Web.UI.Models.Pagination
 
-<div class="grid-row pagination-container">
+<div class="grid-row pagination-container @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
     <div class="column-full">
         <div id="result-list" class="inline-block">
             <div id="js-search-results-info">

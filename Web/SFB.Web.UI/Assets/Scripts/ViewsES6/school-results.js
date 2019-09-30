@@ -87,11 +87,11 @@
             $("nav.navigation-links .olist .litem.active a").focus();
             this.currentTabName = tabName;
             if (this.currentTabName === "map") {
-                $(".filter").hide();
+                $(".filter.school").hide();
                 $(".pagination-container").hide();
             }
             else {
-                $(".filter").show();
+                $(".filter.school").show();
                 $(".pagination-container").show();
             }
 

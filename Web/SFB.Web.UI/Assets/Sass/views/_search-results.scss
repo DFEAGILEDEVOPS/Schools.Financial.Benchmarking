@@ -306,4 +306,9 @@
             @include core-14;
         }
     }
+
+    .hidden-filter{
+        padding:0;
+        width: 0;
+    }
 }

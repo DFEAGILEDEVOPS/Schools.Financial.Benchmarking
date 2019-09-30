@@ -95,7 +95,7 @@ namespace SFB.Web.UI.UnitTests
 
                 var matchedResults = new Dictionary<string, object>();
                 matchedResults.Add("CompanyNumber", "132");
-                matchedResults.Add("TrustOrCompanyName", "test");
+                matchedResults.Add("Trusts", "test");
                 var matches = new List<Dictionary<string, object>>();
                 matches.Add(matchedResults);
                 dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);

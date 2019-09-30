@@ -4,8 +4,10 @@
     {
         public const int RESULTS_PER_PAGE = 50;
         public const int TRUST_SCHOOLS_PER_PAGE = 200;
+        public const int TRUST_SCHOOLS_TOTAL = 30000;
         public const int LINKS_PER_PAGE = 5;
         public const decimal LOCATION_SEARCH_DISTANCE = 3;
+        public const decimal TRUST_LOCATION_SEARCH_DISTANCE = 5;
     }
 
     public class SearchTypes

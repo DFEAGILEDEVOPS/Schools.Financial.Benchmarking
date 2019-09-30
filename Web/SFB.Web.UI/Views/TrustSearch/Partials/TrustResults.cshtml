@@ -1,5 +1,5 @@
-﻿@using SFB.Web.UI.Models
-@using SFB.Web.UI.Helpers.Constants
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.Common
 @model SFB.Web.UI.Models.TrustListViewModel
 
 <div id="schoolResults">
@@ -27,32 +27,32 @@
         </div>
         <div class="column-two-thirds no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
-                <div class="filter">
+                <div class="filter school @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
                     @if (Model.ModelList.Count > 1)
                     {
                         <div class="filter-box">
                             <label class="legend" for="OrderByControl">Sorted by</label>
                             <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
 
-                                @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
+                                @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
                                 {
-                                    <option value="TrustOrCompanyName asc" @(Model.OrderBy == "TrustOrCompanyName asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="TrustOrCompanyName desc" @(Model.OrderBy == "TrustOrCompanyName desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="@SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME asc" @(Model.OrderBy == $"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME desc" @(Model.OrderBy == $"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME} desc" ? "selected" : "")>alphabetical z - a</option>
                                 }
 
                                 @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                                 {
                                     <option value="" @(Model.OrderBy == "" ? "selected" : "")>distance</option>
-                                    <option value="TrustOrCompanyName asc" @(Model.OrderBy == "TrustOrCompanyName asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="TrustOrCompanyName desc" @(Model.OrderBy == "TrustOrCompanyName desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="@EdubaseDBFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@EdubaseDBFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
                                     <option value="AreaSchoolNumber" @(Model.OrderBy == "AreaSchoolNumber" ? "selected" : "")>number of schools in search area</option>
                                     <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in multi-academy trust</option>
                                 }
 
                                 @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
                                 {
-                                    <option value="TrustOrCompanyName asc" @(Model.OrderBy == "TrustOrCompanyName asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="TrustOrCompanyName desc" @(Model.OrderBy == "TrustOrCompanyName desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="@EdubaseDBFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@EdubaseDBFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
                                     <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in multi-academy trust</option>
                                 }
 
@@ -127,7 +127,7 @@
                                 }
                                 else
                                 {
-                                    <table>
+                                    <table class="school-table">
                                         <thead>
                                             <tr>
                                                 <th colspan="2" scope="colgroup">Schools</th>

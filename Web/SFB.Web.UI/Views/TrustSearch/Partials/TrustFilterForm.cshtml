@@ -1,0 +1,85 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.TrustListViewModel
+
+<form id="SearchFacetsForm" method="get" action="/TrustSearch/Search" class="js-live-search-form">
+    @if (Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_TRUST_LOCATION)
+    {
+        <div class="grid-row mvs pvl filter-header">
+            <div class="column-full">
+                <nav>Filter by:</nav>
+            </div>
+        </div>
+
+        var distanceRadius = new[] { 1, 3, 5, 10, 15, 25, 35, 50 };
+
+        <div class="filter trust">
+            <div class="form-group filter-box">
+                <label class="legend" for="DistanceRadius">Within a radius of <span class="visuallyhidden">- changing the selection will refresh the results</span></label>
+                <select id="DistanceRadius" name="radius" aria-controls="js-search-results-info" class="select">
+                    @foreach (var radius in distanceRadius)
+                    {
+                        <option @((Request.QueryString["radius"] == radius.ToString() || (Request.QueryString["radius"] == null && radius == SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE)) ? "selected" : "") value="@(radius)">
+                            @(radius) @(radius == 1 ? "mile" : "miles")
+                        </option>
+                    }
+                </select>
+            </div>
+
+        </div>
+
+        <div class="filter-divider"></div>
+    }
+
+    @*@if (Model.Filters != null)
+        {
+            foreach (var filter in Model.Filters)
+            {
+                @Html.Partial("Partials/Search/OptionSelect", filter)
+                <div class="filter-divider"></div>
+            }
+        }*@
+
+
+    @if (Request.QueryString["trustnameid"] != null)
+    {
+        <input type="hidden" name="trustNameId" value="@(Request.QueryString["trustnameid"])" />
+    }
+
+    @if (Request.QueryString["searchtype"] != null)
+    {
+        <input type="hidden" name="searchtype" value="@(Request.QueryString["searchtype"])" />
+    }
+
+    @if (Request.QueryString["LocationCoordinates"] != null)
+    {
+        <input type="hidden" name="LocationCoordinates" value="@(Request.QueryString["LocationCoordinates"])" />
+    }
+
+    @if (Request.QueryString["locationorpostcode"] != null)
+    {
+        <input type="hidden" name="locationorpostcode" value="@(Request.QueryString["locationorpostcode"])" />
+    }
+
+    @if (Request.QueryString["lacodename"] != null)
+    {
+        <input type="hidden" name="lacodename" value="@(Request.QueryString["lacodename"])" />
+    }
+
+    @if (Request.QueryString["companyNo"] != null)
+    {
+        <input type="hidden" name="companyNo" value="@(Request.QueryString["companyNo"])" />
+    }
+
+    @if (Request.QueryString["matname"] != null)
+    {
+        <input type="hidden" name="matname" value="@(Request.QueryString["matname"])" />
+    }
+
+    <input type="hidden" name="orderby" id="OrderBy" value="@(Request.QueryString["orderby"])">
+
+    <input type="hidden" name="openOnly" id="OpenOnly" value="@(Request.QueryString["openOnly"])">
+
+    <input type="hidden" name="selectionState" value="@(Model.FilterSelectionState)" />
+
+    <button type="submit" class="hidden" disabled="disabled">hidden</button>
+</form>

@@ -786,6 +786,7 @@
     <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
     <Content Include="Views\TrustSearch\NotFound.cshtml" />
     <Content Include="Views\TrustSearch\SearchResults.cshtml" />
+    <Content Include="Views\TrustSearch\Partials\TrustFilterForm.cshtml" />
     <None Include="Web.Base.config" />
   </ItemGroup>
   <ItemGroup>
