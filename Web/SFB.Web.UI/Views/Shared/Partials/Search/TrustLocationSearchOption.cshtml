@@ -3,7 +3,7 @@
 
 <div id="TrustTownOrCityAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_LOCATION))" aria-controls="TrustSearchByTownFieldset">
     <input id="TrustTownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_LOCATION)) />
-    <label for="TrustTownOrCity">Location of schools in multi-academy trust</label>
+    <label for="TrustTownOrCity">Location of schools in academy trust</label>
 </div>
 <div id="TrustSearchByTownFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_LOCATION))">
     <label class="search-types__optional-section__label" for="FindTrustByTown">

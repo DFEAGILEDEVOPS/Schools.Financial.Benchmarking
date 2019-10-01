@@ -36,7 +36,7 @@
     </h1>
 
     <p class="lede">Compare a school or trust's income and expenditure with similar establishments in England.</p>
-    <p class="homep">You can view your school or multi-academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
+    <p class="homep">You can view your school or academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
 
     @if (Model.ComparisonList.HomeSchoolUrn != null)
     {
@@ -62,7 +62,7 @@
                         <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('SchoolTab')">Find a school</button>
                     </li>
                     <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="tab" id="TrustTab">
-                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')">Find a multi-academy trust</button>
+                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')">Find a academy trust</button>
                     </li>
                 </ol>
             </nav>

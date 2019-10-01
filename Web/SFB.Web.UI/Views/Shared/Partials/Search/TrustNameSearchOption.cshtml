@@ -3,7 +3,7 @@
 
 <div id="TrustNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))" aria-controls="SearchByTrustNameFieldset">
     <input id="trustNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_NAME_ID)) />
-    <label for="trustNameId">Multi-academy trust name or Companies House number</label>
+    <label for="trustNameId">Academy trust name or Companies House number</label>
 </div>
 <div id="SearchByTrustNameFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))">
     <label class="search-types__optional-section__label form-label" for="FindByTrustName">

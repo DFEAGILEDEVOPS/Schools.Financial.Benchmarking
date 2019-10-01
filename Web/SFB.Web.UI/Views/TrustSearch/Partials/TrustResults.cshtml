@@ -46,14 +46,14 @@
                                     <option value="@EdubaseDBFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
                                     <option value="@EdubaseDBFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
                                     <option value="AreaSchoolNumber" @(Model.OrderBy == "AreaSchoolNumber" ? "selected" : "")>number of schools in search area</option>
-                                    <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in multi-academy trust</option>
+                                    <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in academy trust</option>
                                 }
 
                                 @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
                                 {
                                     <option value="@EdubaseDBFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
                                     <option value="@EdubaseDBFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
-                                    <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in multi-academy trust</option>
+                                    <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in academy trust</option>
                                 }
 
                             </select>

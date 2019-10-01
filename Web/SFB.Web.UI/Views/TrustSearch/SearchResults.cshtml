@@ -31,10 +31,10 @@
         <h1 class="heading-xlarge page-heading">Search results for "@Model.NameKeyword"</h1>
         break;
     case SearchTypes.SEARCH_BY_TRUST_LOCATION:
-        <h1 class="heading-xlarge page-heading">Multi-academy trust with schools operating in and near @Model.LocationKeyword</h1>
+        <h1 class="heading-xlarge page-heading">Academy trust with schools operating in and near @Model.LocationKeyword</h1>
         break;
     case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
-        <h1 class="heading-xlarge page-heading">Multi-academy trust with schools operating in @Model.LaKeyword</h1>
+        <h1 class="heading-xlarge page-heading">Academy trust with schools operating in @Model.LaKeyword</h1>
         break;
     default:
         <h1 class="heading-xlarge page-heading">Trust</h1>
@@ -42,7 +42,7 @@
 }
 
 <div id="screen-reader-result-list" class="visuallyhidden">
-    <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) multi-academy trusts found</span>
+    <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) academy trusts found</span>
 </div>
 
 <div class="grid-row js-live-search-results-block">
