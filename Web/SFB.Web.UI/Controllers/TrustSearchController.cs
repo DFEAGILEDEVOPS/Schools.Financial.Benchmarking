@@ -61,7 +61,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.tab = tab;
             ViewBag.SearchMethod = "MAT";
             ViewBag.SearchType = searchType;
-            
+
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
@@ -85,7 +85,14 @@ namespace SFB.Web.UI.Controllers
                             }
                         }
                     }
-                    break;
+
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        return ErrorView(searchType, referrer, errorMessage);
+                    }
+
+                    return View("SearchResults", GetTrustViewModelList(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
+
 
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
@@ -126,7 +133,11 @@ namespace SFB.Web.UI.Controllers
                             return View("SearchResults", trustsVm);
                         }
                     }
-                    break;
+                    else
+                    {
+                        return ErrorView(searchType, referrer, errorMessage);
+                    }
+
 
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
@@ -167,27 +178,21 @@ namespace SFB.Web.UI.Controllers
                             }
                         }
                     }
-                    break;
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        return ErrorView(searchType, referrer, errorMessage);
+                    }
+
+                    return View("SearchResults", GetTrustViewModelList(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
+
+                default:
+                    return ErrorView(searchType, referrer, errorMessage);
             }
-
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                var searchVM = new SearchViewModel(null, searchType)
-                {
-                    SearchType = searchType,
-                    ErrorMessage = errorMessage,
-                    Authorities = _laService.GetLocalAuthorities()
-                };
-
-                return View("../" + referrer, searchVM);
-            }
-
-            return View("SearchResults", GetTrustViewModelList(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
         }
 
         [Route("TrustSearch/Search-js")]
         public async Task<PartialViewResult> SearchJS(string trustNameId, string searchType, string trustSuggestionUrn,
-            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, 
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
             bool openOnly = false, string orderby = "", int page = 1)
         {
             ViewBag.SearchMethod = "MAT";
@@ -245,7 +250,7 @@ namespace SFB.Web.UI.Controllers
                 }
             }
             else
-            {                
+            {
                 foreach (var result in searchResponse.Results)
                 {
                     var schoolVm = new SchoolSummaryViewModel(result);
@@ -322,7 +327,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     int companyNo;
                     if (int.TryParse(result[EdubaseDBFieldNames.COMPANY_NUMBER], out companyNo))
-                    {                        
+                    {
                         var companyName = result[EdubaseDBFieldNames.TRUSTS];
                         if (!trustList.Any(t => t.CompanyNo == companyNo))
                         {
@@ -389,6 +394,18 @@ namespace SFB.Web.UI.Controllers
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
             return FormatHelpers.FinancialTermFormatAcademies(latestYear);
+        }
+
+        private ActionResult ErrorView(string searchType, string referrer, string errorMessage)
+        {
+            var searchVM = new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType)
+            {
+                SearchType = searchType,
+                ErrorMessage = errorMessage,
+                Authorities = _laService.GetLocalAuthorities()
+            };
+
+            return View("../" + referrer, searchVM);
         }
     }
 }
