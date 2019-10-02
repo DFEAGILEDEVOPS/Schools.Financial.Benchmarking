@@ -16,6 +16,8 @@ using System;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Attributes;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Models;
+using SFB.Web.Common;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -87,7 +89,7 @@ namespace SFB.Web.UI.Controllers
                                     }
                                     else
                                     {
-                                        searchResp = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, null, null, null, radius, openOnly, orderby, page);
+                                        searchResp = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, null, null, null, radius, openOnly, orderby, page);
                                     }
                                 }
                                 else
@@ -113,7 +115,7 @@ namespace SFB.Web.UI.Controllers
                         if (string.IsNullOrEmpty(errorMessage))
                         {
                             // first see if we get a match on the word
-                            searchResp = await GetSearchResults(nameId, searchType, null, null, null, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResultsAsync(nameId, searchType, null, null, null, radius, openOnly, orderby, page);
                             if (searchResp.NumberOfResults == 0)
                             {
                                 return RedirectToActionPermanent("SuggestSchool", "SchoolSearch",
@@ -156,7 +158,7 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             int resultCount = searchResp.NumberOfResults;
                             switch (resultCount)
@@ -195,7 +197,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             int resultCnt = searchResp.NumberOfResults;
                             switch (resultCnt)
@@ -241,11 +243,11 @@ namespace SFB.Web.UI.Controllers
 
             if (IsLaEstab(nameId))
             {
-                searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
             else
             {
-                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
             var vm = GetSearchedSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
 
@@ -265,12 +267,12 @@ namespace SFB.Web.UI.Controllers
             {
                 if (IsLaEstab(nameId))
                 {
-                    searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
+                    searchResponse = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
                         locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
                 }
                 else
                 {
-                    searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
+                    searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode,
                         locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
                 }
             }
@@ -288,6 +290,42 @@ namespace SFB.Web.UI.Controllers
             }
 
             return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
+        }
+
+        public override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
+        {
+            QueryResultsModel response = null;
+
+            switch (searchType)
+            {
+                case SearchTypes.SEARCH_BY_NAME_ID:
+                    response = await _schoolSearchService.SearchSchoolByName(nameId,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LA_ESTAB:
+                    response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LOCATION:
+                    var latLng = locationCoordinates.Split(',');
+                    response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+                        (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+                    response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
+                        string.IsNullOrEmpty(orderby) ? EdubaseDBFieldNames.ESTAB_NAME : orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+            }
+
+            OrderFacetFilters(response);
+
+            return response;
         }
 
         public ActionResult AddSchools()

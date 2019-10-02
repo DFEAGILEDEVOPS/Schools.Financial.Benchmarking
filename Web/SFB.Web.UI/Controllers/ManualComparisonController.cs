@@ -1,5 +1,7 @@
 ﻿using RedDog.Search.Model;
+using SFB.Web.Common;
 using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
@@ -114,7 +116,7 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             int resultCount = searchResp.NumberOfResults;
                             if (resultCount == 0)
@@ -159,7 +161,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             if (searchResp.NumberOfResults == 0)
                             {
@@ -194,11 +196,11 @@ namespace SFB.Web.UI.Controllers
 
             if (IsLaEstab(nameId))
             {
-                searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
             else
             {
-                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
             var vm = GetSearchedSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
 
@@ -209,19 +211,19 @@ namespace SFB.Web.UI.Controllers
 
         [Route("ManualComparison/Search-json")]
         public async Task<JsonResult> ManualSearchJson(string nameId, string searchType, string suggestionurn,
-    string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
-    int? companyNo, bool openOnly = false, string orderby = "", int page = 1)
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
+            int? companyNo, bool openOnly = false, string orderby = "", int page = 1)
 
         {
             dynamic searchResponse;
             if (IsLaEstab(nameId))
             {
-                searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
+                searchResponse = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
             }
             else
             {
-                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
+                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode,
                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
             }
 
@@ -233,6 +235,37 @@ namespace SFB.Web.UI.Controllers
             }
 
             return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
+        }
+
+        public override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
+        {
+            QueryResultsModel response = null;
+
+            switch (searchType)
+            {
+                case SearchTypes.SEARCH_BY_LA_ESTAB:
+                    response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LOCATION:
+                    var latLng = locationCoordinates.Split(',');
+                    response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+                        (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+                    response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
+                        string.IsNullOrEmpty(orderby) ? EdubaseDBFieldNames.ESTAB_NAME : orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+            }
+
+            OrderFacetFilters(response);
+
+            return response;
         }
 
         public ActionResult OverwriteStrategy()

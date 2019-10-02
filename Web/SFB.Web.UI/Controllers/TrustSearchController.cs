@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SFB.Web.Common;
 using SFB.Web.Common.DataObjects;
+using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
@@ -9,7 +10,9 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -56,6 +59,8 @@ namespace SFB.Web.UI.Controllers
         string tab = "list",
         string referrer = "home/index")
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             dynamic searchResp = null;
             string errorMessage = string.Empty;
             ViewBag.tab = tab;
@@ -78,7 +83,7 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateTrustNameParameter(trustNameId);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await GetSearchResults(trustNameId, SearchTypes.SEARCH_BY_TRUST_NAME_ID, searchType, locationCoordinates, laCodeName, radius, openOnly, orderby, 1);
+                            searchResp = await GetSearchResultsAsync(trustNameId, SearchTypes.SEARCH_BY_TRUST_NAME_ID, searchType, locationCoordinates, laCodeName, radius, openOnly, orderby, 1);
                             if (searchResp.NumberOfResults == 0)
                             {
                                 return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", trustNameId } });
@@ -90,6 +95,10 @@ namespace SFB.Web.UI.Controllers
                     {
                         return ErrorView(searchType, referrer, errorMessage);
                     }
+
+                    watch.Stop();
+                    var elapsedMs = watch.ElapsedMilliseconds;
+                    Debug.WriteLine("Exec time:" + elapsedMs);
 
                     return View("SearchResults", GetTrustViewModelList(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
 
@@ -119,7 +128,7 @@ namespace SFB.Web.UI.Controllers
                                 schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
                             }
 
-                            searchResp = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
+                            searchResp = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
 
                             if (searchResp.NumberOfResults == 0)
                             {
@@ -129,6 +138,10 @@ namespace SFB.Web.UI.Controllers
                             TrustListViewModel trustsVm = BuildTrustViewModelListFromSchools(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, null);
 
                             TrustLevelOrdering(orderby, trustsVm);
+
+                            watch.Stop();
+                            elapsedMs = watch.ElapsedMilliseconds;
+                            Debug.WriteLine("Exec time:" + elapsedMs);
 
                             return View("SearchResults", trustsVm);
                         }
@@ -161,7 +174,7 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             int resultCount = searchResp.NumberOfResults;
                             switch (resultCount)
@@ -204,7 +217,7 @@ namespace SFB.Web.UI.Controllers
                 schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
             }
 
-            dynamic searchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
+            dynamic searchResponse = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
 
             TrustListViewModel trustsVm;
             if (searchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
@@ -232,7 +245,7 @@ namespace SFB.Web.UI.Controllers
                 schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
             }
 
-            dynamic searchResponse = await GetSearchResults(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page, 1000);
+            dynamic searchResponse = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page, 1000);
 
             TrustListViewModel trusts;
             List<SchoolSummaryViewModel> results = new List<SchoolSummaryViewModel>();
@@ -259,6 +272,35 @@ namespace SFB.Web.UI.Controllers
             }
 
             return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
+        }
+
+        public override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
+        {
+            QueryResultsModel response = null;
+
+            switch (searchType)
+            {
+                case SearchTypes.SEARCH_BY_TRUST_LOCATION:
+                    var latLng = locationCoordinates.Split(',');
+                    response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+                        (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
+                        0, SearchDefaults.TRUST_SCHOOLS_MAX, orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
+                    response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
+                        string.IsNullOrEmpty(orderby) ? EdubaseDBFieldNames.ESTAB_NAME : orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
+                    response = await _trustSearchService.SearchTrustByName(nameId,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE,
+                        SearchDefaults.RESULTS_PER_PAGE, orderby, Request?.QueryString);
+                    break;
+            }
+
+            return response;
         }
 
         public async Task<ActionResult> Suggest(string name)
@@ -367,7 +409,7 @@ namespace SFB.Web.UI.Controllers
                     Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
                     Total = tvm.ModelList.Count,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
-                    MaxResultsPerPage = SearchDefaults.TRUST_SCHOOLS_TOTAL,
+                    MaxResultsPerPage = SearchDefaults.TRUST_SCHOOLS_MAX,
                     PagedEntityType = Common.PagedEntityType.MAT
                 };
             }
