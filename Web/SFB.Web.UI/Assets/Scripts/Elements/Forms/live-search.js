@@ -185,13 +185,13 @@
     };
 
     LiveSearch.prototype.toggleSortControl = function () {
-        if ($("span.result-count").text() > 1) {
+        if ($(".result-info .count-js").text() > 1) {
             $(".filter").show();
         } else {
             $(".filter").hide();
         }
 
-        if ($("span.result-count").text() > 0) {
+        if ($(".result-info .count-js").text() > 0) {
             $(".result-controllers").show();
         } else {
             $(".result-controllers").hide();

@@ -290,7 +290,7 @@ namespace SFB.Web.UI.Controllers
                     var companyNo = int.Parse(result[EdubaseDBFieldNames.COMPANY_NUMBER]);
                     var companyName = result[SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME];
                     List<AcademiesContextualDataObject> academiesList = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo);
-                    if (academiesList.Count > 1)
+                    if (academiesList.Count > 0)
                     {
                         var trustVm = new TrustViewModel(companyNo, companyName, academiesList);
                         trustListVm.Add(trustVm);
