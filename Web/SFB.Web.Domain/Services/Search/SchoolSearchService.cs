@@ -12,6 +12,7 @@ using RestSharp;
 using SFB.Web.Domain.Helpers;
 using SFB.Web.Domain.Models;
 using SFB.Web.Common;
+using System.Diagnostics;
 
 namespace SFB.Web.Domain.Services.Search
 {
@@ -205,6 +206,8 @@ namespace SFB.Web.Domain.Services.Search
         public async Task<QueryResultsModel> ExecuteGeoSpatialSearch(string index, string lat, string lon,
             decimal distance, string filter, string orderBy, int skip, int take)
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             const string search = "*";
             var latitude = double.Parse(lat);
             var longitude = double.Parse(lon);
@@ -247,6 +250,11 @@ namespace SFB.Web.Domain.Services.Search
                 QueryLat = latitude.ToString(),
                 QueryLong = longitude.ToString()
             };
+
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            Debug.WriteLine("Search Exec time:" + elapsedMs);
+
             return results;
         }
 

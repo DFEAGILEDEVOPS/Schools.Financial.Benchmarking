@@ -2,14 +2,14 @@
 
 namespace SFB.Web.UI.Models
 {
-    public class TrustListViewModel : ViewModelListBase<TrustViewModel>
+    public class TrustListViewModel : ViewModelListBase<AcademyTrustViewModel>
     {
         public string SearchType { get; }
         public string NameKeyword { get; }
         public string LocationKeyword { get; }
         public string LaKeyword { get; }
 
-        public TrustListViewModel(List<TrustViewModel> modelList, SchoolComparisonListModel comparisonList, string searchType, string nameKeyword, string locationKeyword, string laKeyword, string orderBy = "")
+        public TrustListViewModel(List<AcademyTrustViewModel> modelList, SchoolComparisonListModel comparisonList, string searchType, string nameKeyword, string locationKeyword, string laKeyword, string orderBy = "")
                         : base(modelList, null, orderBy)
         {
             SearchType = searchType;

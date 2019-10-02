@@ -219,12 +219,12 @@ namespace SFB.Web.UI.Controllers
             if (IsLaEstab(nameId))
             {
                 searchResponse = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
-                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, SearchDefaults.SEARCHED_SCHOOLS_MAX);
             }
             else
             {
                 searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode,
-                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, SearchDefaults.SEARCHED_SCHOOLS_MAX);
             }
 
             var results = new List<SchoolSummaryViewModel>();

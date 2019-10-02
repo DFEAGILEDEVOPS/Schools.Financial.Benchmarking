@@ -28,13 +28,12 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocationSearchService _locationSearchService;
         private readonly IValidationService _valService;
         private readonly IContextDataService _contextDataService;
-        private readonly IFinancialDataService _financialDataService;
 
         public TrustSearchController(ILocalAuthoritiesService laService,
             ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
             ITrustSearchService trustSearchService, ISchoolSearchService schoolSearchService,
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFinancialDataService financialDataService)
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
             : base(schoolSearchService, trustSearchService, benchmarkBasketCookieManager, filterBuilder)
         {
             _laService = laService;
@@ -42,7 +41,6 @@ namespace SFB.Web.UI.Controllers
             _locationSearchService = locationSearchService;
             _valService = valService;
             _contextDataService = contextDataService;
-            _financialDataService = financialDataService;
         }
 
         public async Task<ActionResult> Search(
@@ -96,11 +94,13 @@ namespace SFB.Web.UI.Controllers
                         return ErrorView(searchType, referrer, errorMessage);
                     }
 
+                    var trustVm = await GetTrustViewModelListAsync(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
+
                     watch.Stop();
                     var elapsedMs = watch.ElapsedMilliseconds;
                     Debug.WriteLine("Exec time:" + elapsedMs);
 
-                    return View("SearchResults", GetTrustViewModelList(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
+                    return View("SearchResults", trustVm);
 
 
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
@@ -135,7 +135,7 @@ namespace SFB.Web.UI.Controllers
                                 return View("EmptyLocationResult", new SearchViewModel(null, searchType));
                             }
 
-                            TrustListViewModel trustsVm = BuildTrustViewModelListFromSchools(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, null);
+                            var trustsVm = await BuildTrustViewModelListFromSchoolsAsync(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, null);
 
                             TrustLevelOrdering(orderby, trustsVm);
 
@@ -186,7 +186,7 @@ namespace SFB.Web.UI.Controllers
                                     return RedirectToAction("Detail", "School",
                                         new
                                         {
-                                            urn = ((Domain.Models.QueryResultsModel)searchResp).Results.First()["URN"]
+                                            urn = ((QueryResultsModel)searchResp).Results.First()["URN"]
                                         });
                             }
                         }
@@ -196,7 +196,7 @@ namespace SFB.Web.UI.Controllers
                         return ErrorView(searchType, referrer, errorMessage);
                     }
 
-                    return View("SearchResults", GetTrustViewModelList(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
+                    return View("SearchResults", await GetTrustViewModelListAsync(searchResp, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
 
                 default:
                     return ErrorView(searchType, referrer, errorMessage);
@@ -222,11 +222,11 @@ namespace SFB.Web.UI.Controllers
             TrustListViewModel trustsVm;
             if (searchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
             {
-                trustsVm = GetTrustViewModelList(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, null);
+                trustsVm = await GetTrustViewModelListAsync(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, null);
             }
             else
             {
-                trustsVm = BuildTrustViewModelListFromSchools(searchResponse, schoolLevelOrdering, page, searchType, trustNameId, locationorpostcode, null);
+                trustsVm = await BuildTrustViewModelListFromSchoolsAsync(searchResponse, schoolLevelOrdering, page, searchType, trustNameId, locationorpostcode, null);
             }
 
             TrustLevelOrdering(orderby, trustsVm);
@@ -245,16 +245,16 @@ namespace SFB.Web.UI.Controllers
                 schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
             }
 
-            dynamic searchResponse = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page, 1000);
+            dynamic searchResponse = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page, SearchDefaults.SEARCHED_SCHOOLS_MAX);
 
             TrustListViewModel trusts;
             List<SchoolSummaryViewModel> results = new List<SchoolSummaryViewModel>();
             if (searchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
             {
-                trusts = GetTrustViewModelList(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, null);
+                trusts = await GetTrustViewModelListAsync(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, null);
                 foreach (var trust in trusts.ModelList)
                 {
-                    var schoolSearchResponse = await _schoolSearchService.SearchSchoolByCompanyNo(trust.CompanyNo, 0, 1000, null, null);
+                    var schoolSearchResponse = await _schoolSearchService.SearchSchoolByCompanyNo(trust.CompanyNo, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null);
                     foreach (var school in schoolSearchResponse.Results)
                     {
                         var schoolVm = new SchoolSummaryViewModel(school);
@@ -284,7 +284,7 @@ namespace SFB.Web.UI.Controllers
                     var latLng = locationCoordinates.Split(',');
                     response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
-                        0, SearchDefaults.TRUST_SCHOOLS_MAX, orderby,
+                        0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
                         Request.QueryString) as QueryResultsModel;
                     break;
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
@@ -321,9 +321,9 @@ namespace SFB.Web.UI.Controllers
             return View("NotFound", vm);
         }
 
-        private TrustListViewModel GetTrustViewModelList(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
+        private async Task<TrustListViewModel> GetTrustViewModelListAsync(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
-            var trustListVm = new List<TrustViewModel>();
+            var trustListVm = new List<AcademyTrustViewModel>();
             var vm = new TrustListViewModel(trustListVm, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);
             if (response != null)
             {
@@ -331,19 +331,22 @@ namespace SFB.Web.UI.Controllers
                 {
                     var companyNo = int.Parse(result[EdubaseDBFieldNames.COMPANY_NUMBER]);
                     var companyName = result[SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME];
-                    List<AcademiesContextualDataObject> academiesList = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo);
-                    if (academiesList.Count > 0)
+                    var schoolSearchResponse = await _schoolSearchService.SearchSchoolByCompanyNo(companyNo, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null);
+                    if (schoolSearchResponse.NumberOfResults > 0)
                     {
-                        var trustVm = new TrustViewModel(companyNo, companyName, academiesList);
+                        var schoolResults = new List<SchoolSummaryViewModel>();
+                        foreach (var schoolResult in schoolSearchResponse.Results)
+                        {
+                            var schoolVm = new SchoolSummaryViewModel(schoolResult);
+                            schoolResults.Add(schoolVm);
+                        }
+
+                        var trustVm = new AcademyTrustViewModel(companyNo, companyName, schoolResults);
                         trustListVm.Add(trustVm);
                     }
                 }
 
                 vm.SchoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-
-                //var filters = _filterBuilder.ConstructSchoolSearchFilters(Request.QueryString, response.Facets);
-                //vm.Filters = filters;
-                //vm.FilterSelectionState = DetermineSelectionState(filters);
 
                 vm.Pagination = new Pagination
                 {
@@ -351,20 +354,20 @@ namespace SFB.Web.UI.Controllers
                     Total = trustListVm.Count,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
                     MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
-                    PagedEntityType = Common.PagedEntityType.MAT
+                    PagedEntityType = PagedEntityType.MAT
                 };
             }
 
             return vm;
         }
 
-        private TrustListViewModel BuildTrustViewModelListFromSchools(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
+        private async Task<TrustListViewModel> BuildTrustViewModelListFromSchoolsAsync(dynamic response, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             TrustListViewModel tvm = null;
 
             if (response != null)
             {
-                var trustList = new List<TrustViewModel>();
+                var trustList = new List<AcademyTrustViewModel>();
                 foreach (var result in response.Results)
                 {
                     int companyNo;
@@ -373,23 +376,30 @@ namespace SFB.Web.UI.Controllers
                         var companyName = result[EdubaseDBFieldNames.TRUSTS];
                         if (!trustList.Any(t => t.CompanyNo == companyNo))
                         {
-                            var academiesList = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo);
-                            if (academiesList.Count > 0)
+                            var schoolSearchResponse = await _schoolSearchService.SearchSchoolByCompanyNo(companyNo, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null);
+                            if (schoolSearchResponse.NumberOfResults > 0)
                             {
-                                var academy = academiesList.Find(a => a.URN == int.Parse(result["URN"]));
+                                var schoolResults = new List<SchoolSummaryViewModel>();
+                                foreach (var schoolResult in schoolSearchResponse.Results)
+                                {
+                                    var schoolVm = new SchoolSummaryViewModel(schoolResult);
+                                    schoolResults.Add(schoolVm);
+                                }
+
+                                var academy = schoolResults.Find(a => a.Id == result["URN"]);
                                 if (academy != null)
                                 {
                                     academy.InsideSearchArea = true;
                                 }
 
-                                var trustVm = new TrustViewModel(companyNo, companyName, academiesList);
+                                var trustVm = new AcademyTrustViewModel(companyNo, companyName, schoolResults);
                                 trustList.Add(trustVm);
                             }
                         }
                         else
                         {
                             var trust = trustList.Find(t => t.CompanyNo == companyNo);
-                            var academy = trust.AcademiesList.Find(a => a.URN == int.Parse(result["URN"]));
+                            var academy = trust.AcademiesList.Find(a => a.Id == result["URN"]);
                             if (academy != null)
                             {
                                 academy.InsideSearchArea = true;
@@ -400,17 +410,13 @@ namespace SFB.Web.UI.Controllers
 
                 tvm = new TrustListViewModel(trustList, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);
 
-                //var filters = _filterBuilder.ConstructSchoolSearchFilters(Request.QueryString, response.Facets);
-                //vm.Filters = filters;
-                //vm.FilterSelectionState = DetermineSelectionState(filters);
-
                 tvm.Pagination = new Pagination
                 {
                     Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
                     Total = tvm.ModelList.Count,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
-                    MaxResultsPerPage = SearchDefaults.TRUST_SCHOOLS_MAX,
-                    PagedEntityType = Common.PagedEntityType.MAT
+                    MaxResultsPerPage = SearchDefaults.SEARCHED_SCHOOLS_MAX,
+                    PagedEntityType = PagedEntityType.MAT
                 };
             }
 
@@ -430,12 +436,6 @@ namespace SFB.Web.UI.Controllers
                 trustsVm.ModelList = trustsVm.ModelList.OrderByDescending(t => t.AcademiesList.Where(a => a.InsideSearchArea).ToList().Count).ToList();
                 trustsVm.OrderBy = orderby;
             }
-        }
-
-        private string LatestMATTerm()
-        {
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
-            return FormatHelpers.FinancialTermFormatAcademies(latestYear);
         }
 
         private ActionResult ErrorView(string searchType, string referrer, string errorMessage)

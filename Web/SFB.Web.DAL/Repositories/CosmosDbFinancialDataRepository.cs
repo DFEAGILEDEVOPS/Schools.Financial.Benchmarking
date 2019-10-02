@@ -120,8 +120,7 @@ namespace SFB.Web.DAL.Repositories
             var query = $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], " +
                 $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'] as EstablishmentName, " +
                 $"c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'], " +
-                $"c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}'], " +
-                $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE}'] " +
+                $"c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}']" +
                 $"FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();

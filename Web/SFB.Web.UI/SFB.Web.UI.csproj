@@ -340,6 +340,7 @@
     <Compile Include="Models\SeriesData.cs" />
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
     <Compile Include="Models\TrustListViewModel.cs" />
+    <Compile Include="Models\AcademyTrustViewModel.cs" />
     <Compile Include="Models\TrustViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
     <Compile Include="Models\TrustCharacteristicsViewModel.cs" />

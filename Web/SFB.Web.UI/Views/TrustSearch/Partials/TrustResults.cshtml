@@ -104,7 +104,7 @@
                                             @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
                                             {
                                                 <tr>
-                                                    <td><a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a></td>
+                                                    <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                     <td>@academy.OverallPhase</td>
                                                 </tr>
                                             }
@@ -122,7 +122,7 @@
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
                                                     <tr>
-                                                        <td><a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a></td>
+                                                        <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                         <td>@academy.OverallPhase</td>
                                                     </tr>
                                                 }
@@ -142,7 +142,7 @@
                                             @foreach (var academy in trust.AcademiesList)
                                             {
                                                 <tr>
-                                                    <td><a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a></td>
+                                                    <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                     <td>@academy.OverallPhase</td>
                                                 </tr>
                                             }
