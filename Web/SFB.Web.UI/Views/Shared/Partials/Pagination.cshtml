@@ -11,11 +11,11 @@
                         <div class="summary count-summary font-xsmall ">
                             @if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.School)
                             {
-                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> schools</span>
+                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count count-js">@(Model.Total)</span> schools</span>
                             }
                             else if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.LA)
                             {
-                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> local authorities</span>
+                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count count-js">@(Model.Total)</span> local authorities</span>
                             }
 
                             @if (ViewBag.SearchMethod == "Manual")
@@ -27,7 +27,7 @@
                     else
                     {
                         <p class="summary">
-                            Showing <span class="bold result-count">@(Model.Total)</span> schools in <a href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
+                            Showing <span class="bold result-count count-js">@(Model.Total)</span> schools in <a href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
                         </p>
                     }
                 </div>
