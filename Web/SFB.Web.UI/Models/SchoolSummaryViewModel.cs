@@ -16,7 +16,6 @@ namespace SFB.Web.UI.Models
         public string FinanceType { get; set; }
         public string SponsorName { get; set; }
         public string CompanyNumber { get; set; }
-        public bool InsideSearchArea { get; set; }
 
         public SchoolSummaryViewModel(dynamic model)
         {

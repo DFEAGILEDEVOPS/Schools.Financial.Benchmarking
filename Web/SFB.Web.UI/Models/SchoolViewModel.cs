@@ -220,6 +220,8 @@ namespace SFB.Web.UI.Models
             }
         }
 
+        public bool InsideSearchArea { get; set; }
+
         public string Lat => GetCoordinates(1);
         public string Lng => GetCoordinates(0);
 

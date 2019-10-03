@@ -1,6 +1,8 @@
 ﻿using SFB.Web.Common;
 using SFB.Web.Common.DataObjects;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SFB.Web.UI.Models
 {
@@ -12,7 +14,9 @@ namespace SFB.Web.UI.Models
 
         public override string Name { get; set; }
 
-        public List<SchoolSummaryViewModel> AcademiesList {get; set;}
+        public List<SchoolViewModel> AcademiesList { get; set; }
+
+        public Task<IEnumerable<EdubaseDataObject>> AcademiesListBuilderTask { get; }
 
         public override string Type => "MAT";
 
@@ -24,11 +28,18 @@ namespace SFB.Web.UI.Models
             this.Name = name;            
         }
 
-        public AcademyTrustViewModel(int companyNo, string name, List<SchoolSummaryViewModel> academiesList, SchoolComparisonListModel comparisonList = null)
+        public AcademyTrustViewModel(int companyNo, string name, List<SchoolViewModel> academiesList, SchoolComparisonListModel comparisonList = null)
             : this(companyNo, name)
         {            
             this.AcademiesList = academiesList;
             base.ComparisonList = comparisonList;            
+        }
+
+        public AcademyTrustViewModel(int companyNo, string name, Task<IEnumerable<EdubaseDataObject>> academiesListBuilderTask, SchoolComparisonListModel comparisonList = null)
+            : this(companyNo, name)
+        {
+            this.AcademiesListBuilderTask = academiesListBuilderTask;
+            base.ComparisonList = comparisonList;
         }
 
     }

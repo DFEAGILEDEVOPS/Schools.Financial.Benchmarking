@@ -1,5 +1,6 @@
 ﻿using SFB.Web.Common.DataObjects;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -9,5 +10,6 @@ namespace SFB.Web.Domain.Services.DataAccess
         List<int> GetAllSchoolUrns();
         List<EdubaseDataObject> GetSchoolDataObjectByLaEstab(string laEstab, bool openOnly);        
         List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns);
+        Task<IEnumerable<EdubaseDataObject>> GetSchoolsByCompanyNumberAsync(int companyNo);
     }
 }
