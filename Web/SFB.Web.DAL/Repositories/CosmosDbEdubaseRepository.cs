@@ -90,37 +90,11 @@ namespace SFB.Web.DAL.Repositories
 
         public async Task<IEnumerable<EdubaseDataObject>> GetSchoolsByCompanyNoAsync(int companyNo)
         {
-            var parameters = new Dictionary<string, object>
-            {
-                {EdubaseDBFieldNames.COMPANY_NUMBER, companyNo}
-            };
-
-            return await GetSchoolDataObjectsByParameterAsync(parameters);
-        }
-
-        #region Private methods
-
-        private async Task<IEnumerable<EdubaseDataObject>> GetSchoolDataObjectsByParameterAsync(Dictionary<string, object> fields)
-        {
-            var sb = new StringBuilder();
-            foreach (var field in fields)
-            {
-                sb.Append($"c.{field.Key}=@{field.Key} AND ");
-            }
-
-            var where = sb.ToString().Substring(0, sb.ToString().Length - 5);
-
-            var query =
-                $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.PHASE_OF_EDUCATION}'], c['{EdubaseDBFieldNames.TYPE_OF_ESTAB}'], c['{EdubaseDBFieldNames.STREET}'], c['{EdubaseDBFieldNames.TOWN}'], c['{EdubaseDBFieldNames.LOCATION}'], c['{EdubaseDBFieldNames.POSTCODE}'], c['{EdubaseDBFieldNames.TRUSTS}'], c['{EdubaseDBFieldNames.MAT_NUMBER}'], c['{EdubaseDBFieldNames.COMPANY_NUMBER}']," +
-                $"c['{EdubaseDBFieldNames.LA_CODE}'], c['{EdubaseDBFieldNames.ESTAB_NO}'], c['{EdubaseDBFieldNames.TEL_NO}'], c['{EdubaseDBFieldNames.NO_PUPIL}'], c['{EdubaseDBFieldNames.STAT_LOW}'], c['{EdubaseDBFieldNames.STAT_HIGH}'], c['{EdubaseDBFieldNames.HEAD_FIRST_NAME}'], " +
-                $"c['{EdubaseDBFieldNames.HEAD_LAST_NAME}'], c['{EdubaseDBFieldNames.OFFICIAL_6_FORM}'], c['{EdubaseDBFieldNames.SCHOOL_WEB_SITE}'], c['{EdubaseDBFieldNames.OFSTED_RATING}'], c['{EdubaseDBFieldNames.OFSTE_LAST_INSP}'], udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE}, c['{EdubaseDBFieldNames.OPEN_DATE}'], c['{EdubaseDBFieldNames.CLOSE_DATE}'] FROM c WHERE {where}";
-
+            var query = $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.COMPANY_NUMBER}'] " +
+                $"FROM c WHERE c.{EdubaseDBFieldNames.COMPANY_NUMBER}=@CompanyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
-            foreach (var field in fields)
-            {
-                querySpec.Parameters.Add(new SqlParameter($"@{field.Key}", field.Value));
-            }
+            querySpec.Parameters.Add(new SqlParameter($"@CompanyNo", companyNo));
 
             try
             {
@@ -134,6 +108,8 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
         }
+
+        #region Private methods
 
         private List<EdubaseDataObject> GetSchoolDataObjectById(Dictionary<string, object> fields)
         {

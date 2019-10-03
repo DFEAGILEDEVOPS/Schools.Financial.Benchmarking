@@ -10,7 +10,6 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -122,11 +121,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var schoolLevelOrdering = orderby;
-                            if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
-                            {
-                                schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
-                            }
+                            var schoolLevelOrdering = OverwriteSchoolLevelOrdering(orderby);
 
                             searchResults = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
 
@@ -211,11 +206,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.SearchMethod = "MAT";
             ViewBag.SearchType = searchType;
 
-            var schoolLevelOrdering = orderby;
-            if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
-            {
-                schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
-            }
+            string schoolLevelOrdering = OverwriteSchoolLevelOrdering(orderby);
 
             dynamic searchResponse = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
 
@@ -239,13 +230,7 @@ namespace SFB.Web.UI.Controllers
             string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
             bool openOnly = false, string orderby = "", int page = 1)
         {
-            var schoolLevelOrdering = orderby;
-            if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
-            {
-                schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
-            }
-
-            dynamic searchResponse = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page, SearchDefaults.SEARCHED_SCHOOLS_MAX);
+            dynamic searchResponse = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, "", page, SearchDefaults.SEARCHED_SCHOOLS_MAX);
 
             TrustListViewModel trusts;
             List<SchoolSummaryViewModel> results = new List<SchoolSummaryViewModel>();
@@ -280,6 +265,11 @@ namespace SFB.Web.UI.Controllers
 
             switch (searchType)
             {
+                case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
+                    response = await _trustSearchService.SearchTrustByName(nameId,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE,
+                        SearchDefaults.RESULTS_PER_PAGE, orderby, Request?.QueryString);
+                    break;
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     var latLng = locationCoordinates.Split(',');
                     response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
@@ -292,11 +282,6 @@ namespace SFB.Web.UI.Controllers
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
                         string.IsNullOrEmpty(orderby) ? EdubaseDBFieldNames.ESTAB_NAME : orderby,
                         Request.QueryString) as QueryResultsModel;
-                    break;
-                case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
-                    response = await _trustSearchService.SearchTrustByName(nameId,
-                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE,
-                        SearchDefaults.RESULTS_PER_PAGE, orderby, Request?.QueryString);
                     break;
             }
 
@@ -331,7 +316,7 @@ namespace SFB.Web.UI.Controllers
                 var companyName = result[SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME];
                 IEnumerable<EdubaseDataObject> academiesOfTrust = await _contextDataService.GetSchoolsByCompanyNumberAsync(companyNo);
 
-                var academiesList = academiesOfTrust.Select(a => new SchoolViewModel(a)).ToList();
+                var academiesList = academiesOfTrust.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();                              
 
                 if (academiesList.Count > 0)
                 {
@@ -375,7 +360,7 @@ namespace SFB.Web.UI.Controllers
             foreach (var academyTrust in academyTrustList)
             {
                 var result = await academyTrust.AcademiesListBuilderTask;
-                academyTrust.AcademiesList = result.Select(a => new SchoolViewModel(a)).ToList();                
+                academyTrust.AcademiesList = result.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();                       
             }
 
             MarkAcademiesInsideSearchArea(academySearchResults, academyTrustList);
@@ -420,6 +405,17 @@ namespace SFB.Web.UI.Controllers
                 trustsVm.ModelList = trustsVm.ModelList.OrderByDescending(t => t.AcademiesList.Where(a => a.InsideSearchArea).ToList().Count).ToList();
                 trustsVm.OrderBy = orderby;
             }
+        }
+
+        private static string OverwriteSchoolLevelOrdering(string orderby)
+        {
+            var schoolLevelOrdering = orderby;
+            if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
+            {
+                schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
+            }
+
+            return schoolLevelOrdering;
         }
 
         private ActionResult ErrorView(string searchType, string referrer, string errorMessage)
