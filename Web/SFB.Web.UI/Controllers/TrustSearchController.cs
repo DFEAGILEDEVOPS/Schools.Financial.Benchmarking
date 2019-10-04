@@ -127,10 +127,6 @@ namespace SFB.Web.UI.Controllers
 
                             ApplyTrustLevelOrdering(orderby, trustsVm);
 
-                            watch.Stop();
-                            elapsedMs = watch.ElapsedMilliseconds;
-                            Debug.WriteLine("Exec time:" + elapsedMs);
-
                             return View("SearchResults", trustsVm);
                         }
                     }
@@ -261,7 +257,7 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
                     response = await _trustSearchService.SearchTrustByName(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE,
-                        SearchDefaults.RESULTS_PER_PAGE, orderby, Request?.QueryString);
+                        SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby, Request?.QueryString);
                     break;
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     var latLng = locationCoordinates.Split(',');
