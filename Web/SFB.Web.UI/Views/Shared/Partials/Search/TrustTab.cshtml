@@ -1,8 +1,8 @@
-﻿<form method="get" action="/TrustSearch/Search" autocomplete="off">
+﻿<form method="get" action="/TrustSearch/Search" autocomplete="off" class="tab-content tab-content--@ViewHelpers.TrustTabActive(Model.SearchType)" id="TrustTabContent">
     <div class="form-group">
         <fieldset>
             <legend class="visuallyhidden">Select a search type option</legend>
-            <div id="TrustTabContent" class="tab-content tab-content--@ViewHelpers.TrustTabActive(Model.SearchType)">
+            <div>
                 <h2 class="form-group heading-small bold-small mb-1">
                     Search by:
                 </h2>

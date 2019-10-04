@@ -120,10 +120,17 @@
     }
 
     .search-types {
+        display: inline-block;
+
         &__optional-section {
             &__label {
                 float: left;
                 width: 100%;
+
+                @include media(tablet) {
+                    min-width: 650px;
+                }
+
                 margin-bottom: 1em;
 
                 &.paragraph {
@@ -151,15 +158,15 @@
         }
     }
 
-    .guidance .heading-medium{
+    .guidance .heading-medium {
         margin-top: 1em;
     }
 
-    .tab-content--inactive{
+    .tab-content--inactive {
         display: none;
     }
 
-    .tab-content--active{
+    .tab-content--active {
         display: block;
     }
 }

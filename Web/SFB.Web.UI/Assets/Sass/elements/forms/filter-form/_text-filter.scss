@@ -133,10 +133,14 @@ category: Forms
     }
 }
 
-.result-controllers{
+.result-controllers {
     border-top: solid 1px #bfc1c3;
-    padding-bottom: 50px;    
     padding-top: 20px;
+    padding-bottom: 50px;
+
+    @include media(mobile) {
+        padding-bottom: 20px;
+    }
 }
 
 .filter-secondary-form {

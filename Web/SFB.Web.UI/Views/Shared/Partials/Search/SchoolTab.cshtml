@@ -1,8 +1,8 @@
-﻿<form method="get" action="/SchoolSearch/Search" autocomplete="off">
+﻿<form method="get" action="/SchoolSearch/Search" autocomplete="off" class="tab-content tab-content--@ViewHelpers.SchoolTabActive(Model.SearchType)" id="SchoolTabContent">
     <div class="form-group">
         <fieldset>
             <legend class="visuallyhidden">Select a search type option</legend>
-            <div id="SchoolTabContent" class="tab-content tab-content--@ViewHelpers.SchoolTabActive(Model.SearchType)">
+            <div>
                 <h2 class="form-group heading-small bold-small mb-1">
                     Search by:
                 </h2>
