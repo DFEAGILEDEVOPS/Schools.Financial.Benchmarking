@@ -35,7 +35,7 @@
     LiveSearch.prototype.updateSchoolCount = function () {
         $("span.screen-reader-result-count").html("Filtering results");
         setTimeout(function () {
-            $("span.screen-reader-result-count").html($('#result-list .summary').html());
+            $("span.screen-reader-result-count").html($('.result-info .summary').html());
         }, 1000);
     };
 

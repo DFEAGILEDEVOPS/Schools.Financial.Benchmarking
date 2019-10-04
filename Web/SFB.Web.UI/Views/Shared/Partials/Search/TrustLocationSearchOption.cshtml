@@ -2,7 +2,7 @@
 @model SFB.Web.UI.Models.SearchViewModel
 
 <div id="TrustTownOrCityAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_TRUST_LOCATION))" aria-controls="TrustSearchByTownFieldset">
-    <input id="TrustTownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_LOCATION)) />
+    <input id="TrustTownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_LOCATION)) aria-label="Search by Location of schools in academy trust" />
     <label for="TrustTownOrCity">Location of schools in academy trust</label>
 </div>
 <div id="TrustSearchByTownFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_LOCATION))">

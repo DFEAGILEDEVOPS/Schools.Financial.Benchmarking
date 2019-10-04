@@ -2,7 +2,7 @@
 @model SFB.Web.UI.Models.SearchViewModel
 
 <div id="LaCodeNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))" aria-controls="SearchByLaCodeNameFieldset">
-    <input id="LaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME)) />
+    <input id="LaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME)) aria-label="Search by local authority"/>
     <label for="LaCodeName">Local authority</label>
 </div>
 <div id="SearchByLaCodeNameFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">

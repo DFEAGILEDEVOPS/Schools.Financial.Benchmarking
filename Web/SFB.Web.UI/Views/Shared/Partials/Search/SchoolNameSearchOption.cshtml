@@ -2,7 +2,7 @@
 @model SFB.Web.UI.Models.SearchViewModel
 
 <div id="SchoolOrCollegeNameIdAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_NAME_ID))" aria-controls="SearchByNameIdFieldset">
-    <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID)) />
+    <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID)) aria-label="Search by School name, URN or LAESTAB code"/>
     <label for="SchoolOrCollegeNameId">School name, URN or LAESTAB code</label>
 </div>
 <div id="SearchByNameIdFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
