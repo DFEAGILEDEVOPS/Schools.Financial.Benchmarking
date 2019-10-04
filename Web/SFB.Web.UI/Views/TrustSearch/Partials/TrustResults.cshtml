@@ -3,8 +3,6 @@
 @model SFB.Web.UI.Models.TrustListViewModel
 
 <div id="schoolResults">
-
-
     <div class="result-controllers">
         <div class="column-one-third no-padding view-map">
             <nav class="navigation-links" role="navigation">
@@ -104,8 +102,8 @@
                                             @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
                                             {
                                                 <tr>
-                                                    <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                    <td>@academy.OverallPhase</td>
+                                                    <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td scope="col" class="phase">@academy.OverallPhase</td>
                                                 </tr>
                                             }
                                         </tbody>
@@ -122,8 +120,8 @@
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
                                                     <tr>
-                                                        <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                        <td>@academy.OverallPhase</td>
+                                                        <td  scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td  scope="col" class="phase">@academy.OverallPhase</td>
                                                     </tr>
                                                 }
                                             </tbody>
