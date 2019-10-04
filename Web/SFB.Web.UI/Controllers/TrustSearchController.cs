@@ -56,8 +56,6 @@ namespace SFB.Web.UI.Controllers
         string tab = "list",
         string referrer = "home/index")
         {
-            var watch = System.Diagnostics.Stopwatch.StartNew();
-
             dynamic searchResults = null;
             string errorMessage = string.Empty;
             ViewBag.tab = tab;
@@ -95,12 +93,7 @@ namespace SFB.Web.UI.Controllers
 
                     var trustVm = await GetTrustListViewModelAsync(searchResults, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
 
-                    watch.Stop();
-                    var elapsedMs = watch.ElapsedMilliseconds;
-                    Debug.WriteLine("Exec time:" + elapsedMs);
-
                     return View("SearchResults", trustVm);
-
 
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
