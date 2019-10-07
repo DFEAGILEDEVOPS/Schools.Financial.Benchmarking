@@ -18,6 +18,7 @@
         this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindTrustByTown', '#LocationCoordinatesForTrust', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
+        this.bindAutosuggest('#FindTrustByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindAutosuggest('#FindSchoolManuallyByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolManuallyByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindEnterKeysToButtons();
@@ -232,6 +233,10 @@
                         if (openSchoolsOnly) {
                             url += '&openOnly=true';
                         }
+                        break;
+                    case 'FindTrustByLaCodeName':
+                        // convert it to an la code search, which is the same as if they'd submitted.
+                        url = '/trustsearch/search?searchType=search-by-trust-la-code-name&orderby=Trusts+asc&laCodeName=' + suggestion['id'];
                         break;
                     case 'FindSchoolManuallyByLaCodeName':
                         // convert it to an la code search, which is the same as if they'd submitted.

@@ -120,8 +120,46 @@
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
                                                     <tr>
-                                                        <td  scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                        <td  scope="col" class="phase">@academy.OverallPhase</td>
+                                                        <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                }
+                                else if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
+                                {
+                                    <table class="school-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" scope="colgroup">Inside local authority</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
+                                            {
+                                                <tr>
+                                                    <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    if (trust.AcademiesList.Any(a => !a.InsideSearchArea))
+                                    {
+                                        <table class="school-table mt-1">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" scope="colgroup">Outside local authority</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
+                                                {
+                                                    <tr>
+                                                        <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td scope="col" class="phase">@academy.OverallPhase</td>
                                                     </tr>
                                                 }
                                             </tbody>

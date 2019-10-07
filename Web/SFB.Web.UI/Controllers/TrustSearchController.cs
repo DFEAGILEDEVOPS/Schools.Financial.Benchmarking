@@ -149,8 +149,12 @@ namespace SFB.Web.UI.Controllers
                                 return await Search(trustNameId, searchType, suggestionUrn, locationorpostcode,
                                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
-                            TempData["SearchMethod"] = "Random";
+                            TempData["SearchMethod"] = "MAT";
                             return RedirectToAction("Search", "La", new { name = laCodeName, openOnly = openOnly });
+                        }
+                        else
+                        {
+                            return ErrorView(searchType, referrer, errorMessage);
                         }
                     }
                     else
@@ -158,10 +162,11 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResults = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            var schoolLevelOrdering = OverwriteSchoolLevelOrdering(orderby);
 
-                            int resultCount = searchResults.NumberOfResults;
-                            switch (resultCount)
+                            searchResults = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
+
+                            switch (searchResults.NumberOfResults)
                             {
                                 case 0:
                                     return View("EmptyResult",
@@ -173,15 +178,18 @@ namespace SFB.Web.UI.Controllers
                                             urn = ((QueryResultsModel)searchResults).Results.First()["URN"]
                                         });
                             }
+
+                            var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
+
+                            ApplyTrustLevelOrdering(orderby, trustsVm);
+
+                            return View("SearchResults", trustsVm);
+                        }
+                        else
+                        {
+                            return ErrorView(searchType, referrer, errorMessage);
                         }
                     }
-                    if (!string.IsNullOrEmpty(errorMessage))
-                    {
-                        return ErrorView(searchType, referrer, errorMessage);
-                    }
-
-                    return View("SearchResults", await GetTrustListViewModelAsync(searchResults, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName)));
-
                 default:
                     return ErrorView(searchType, referrer, errorMessage);
             }
@@ -268,8 +276,7 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
-                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
-                        string.IsNullOrEmpty(orderby) ? EdubaseDBFieldNames.ESTAB_NAME : orderby,
+                        0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
                         Request.QueryString) as QueryResultsModel;
                     break;
             }

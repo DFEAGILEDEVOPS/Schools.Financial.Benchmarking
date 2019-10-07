@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 using RedDog.Search;
 using RedDog.Search.Http;
 using RedDog.Search.Model;
-using RestSharp;
 using SFB.Web.Domain.Helpers;
 using SFB.Web.Domain.Models;
 using SFB.Web.Common;
-using System.Diagnostics;
 
 namespace SFB.Web.Domain.Services.Search
 {
