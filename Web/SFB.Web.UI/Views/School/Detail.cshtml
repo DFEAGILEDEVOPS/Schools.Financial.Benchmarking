@@ -193,8 +193,8 @@ else
     </ol>
 </nav>
 <div class="sticky-div sticky-chart-controls">
-    @Html.Partial("Partials/ValueSelect", Model)
     @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+    @Html.Partial("Partials/ValueSelect", Model)
     @if (Model.EstablishmentType == EstablishmentType.Academies && Model.HistoricalFinancialDataModels.Last().IsMAT)
     {
         Html.RenderPartial("Partials/CentralFinancing");
