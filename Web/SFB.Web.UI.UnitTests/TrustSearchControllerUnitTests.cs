@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using RedDog.Search.Model;
+using SFB.Web.Common;
 using SFB.Web.Common.DataObjects;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
@@ -9,6 +10,7 @@ using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
+using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -58,7 +60,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchActionRedirectsToSuggestionViewIfNoTrustFound()
+        public async Task SearchByNameActionRedirectsToSuggestionViewIfNoTrustFound()
         {
             Task<dynamic> task = Task.Run(() =>
             {
@@ -82,17 +84,11 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchActionReturnsTrustSearchResultsViewIfValidTrustNameProvided()
+        public async Task SearchByNameActionReturnsTrustSearchResultsViewIfValidTrustNameProvided()
         {
             Task<dynamic> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResult[]>();
-                facets.Add("OverallPhase", new FacetResult[] { new FacetResult() { Value = "Primary", Count = 2 }, new FacetResult() { Value = "Secondary", Count = 1 }, new FacetResult() { Value = "All through", Count = 1 } });
-                facets.Add("TypeOfEstablishment", new FacetResult[] { new FacetResult() { Value = "Pupil Referral Unit", Count = 2 }, new FacetResult() { Value = "Nursery", Count = 1 }, new FacetResult() { Value = "Primary", Count = 1 } });
-                facets.Add("OfstedRating", new FacetResult[] { new FacetResult() { Value = "Outstanding", Count = 2 }, new FacetResult() { Value = "Good", Count = 1 }, new FacetResult() { Value = "Requires Improvement", Count = 1 } });
-                facets.Add("ReligiousCharacter", new FacetResult[] { new FacetResult() { Value = "Hindu", Count = 2 }, new FacetResult() { Value = "Church of England", Count = 1 }, new FacetResult() { Value = "Roman Catholic", Count = 1 } });
-                facets.Add("EstablishmentStatus", new FacetResult[] { new FacetResult() { Value = "Open", Count = 2 }, new FacetResult() { Value = "Closed", Count = 1 } });
-
                 var matchedResults = new Dictionary<string, object>();
                 matchedResults.Add("CompanyNumber", "132");
                 matchedResults.Add("Trusts", "test");
@@ -133,6 +129,253 @@ namespace SFB.Web.UI.UnitTests
             Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("6182612", (result as RedirectToRouteResult).RouteValues["companyNo"].ToString());
+        }
+
+        [Test]
+        public async Task SearchByNameReturnsErrorPageForInvalidCompanyNo()
+        {
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search("12345", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
+        }
+
+        [Test]
+        public async Task SearchByNameReturnsErrorPageForInvalidTrustName()
+        {
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search("te", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
+        }
+
+        [Test]
+        public async Task SearchByNameReturnsErrorPageForEmptyTrustName()
+        {
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
+        }
+
+        [Test]
+        public async Task SearchByLocationReturnsErrorPageForEmptyLocation()
+        {
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, null, null, null, null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
+        }
+
+        [Test]
+        public async Task SearchByLocationReturnsErrorPageForInvalidLocation()
+        {
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, "x", null, null, null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
+        }
+
+        [Test]
+        public async Task SearchByLocationReturnsEmptyLocationResultPageForNotFoundLocation()
+        {
+            _mockLocationSearchService.Setup(m => m.SuggestLocationName("sw12")).Returns(new SuggestionQueryResult(new List<Disambiguation>()));
+
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, "sw12", null, null, null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.AreEqual("EmptyLocationResult", (result as ViewResult).ViewName);
+        }
+
+        [Test]
+        public async Task SearchByLocationReturnsLocationSuggestViewForPossibleLocationsFound()
+        {
+            _mockLocationSearchService.Setup(m => m.SuggestLocationName("sw12")).Returns(new SuggestionQueryResult(new List<Disambiguation>() { new Disambiguation() { LatLon ="1,2", Text="test" } }));
+
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, "sw12", null, null, null, false, null, 0);
+
+            Assert.AreEqual("Location", (result as RedirectToRouteResult).RouteValues["controller"]);
+            Assert.AreEqual("Suggest", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("sw12", (result as RedirectToRouteResult).RouteValues["locationOrPostcode"]);
+        }
+
+        [Test]
+        public async Task SearchByLocationReturnsEmptyLocationResultPageForNotFoundLocationCoordinates()
+        {
+            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+
+            Task<dynamic> task = Task.Run(() =>
+            {
+                return edubaseSearchResponse;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+                .Returns(task);
+
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, "sw12", "1,2", null, null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.AreEqual("EmptyLocationResult", (result as ViewResult).ViewName);
+        }
+
+        [Test]
+        public async Task SchoolsAreOrderedAlphabeticallyWhenTrustsAreOrderedByTotalCountInLocationSearch()
+        {
+            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+
+            Task<dynamic> task = Task.Run(() =>
+            {
+                return edubaseSearchResponse;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null))
+                .Returns(task);
+
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, "sw12", "1,2", null, null, false, "AreaSchoolNumber", 0);
+
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null));    
+        }
+
+        [Test]
+        public async Task SearchByLaReturnsErrorPageForInvalidLaName()
+        {
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, null, "x", null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
+        }
+
+        [Test]
+        public async Task SearchByLaReturnsErrorPageForInvalidLaCode()
+        {
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, null, "1234", null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
+        }
+
+        [Test]
+        public async Task SearchesByLaCodeIfAValidLaNameIsProvided()
+        {
+            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+
+            Task<dynamic> task = Task.Run(() =>
+            {
+                return edubaseSearchResponse;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+                .Returns(task);
+
+            _mockLaSearchService.Setup(m => m.SearchExactMatch("Croydon")).Returns(new LaViewModel(){id= "319", LaName= "Croydon" });
+
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, null, "Croydon", null, false, null, 0);
+
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null));
+        }
+
+        [Test]
+        public async Task RedirectsToLaSearchIfAValidLaNameIsNotProvided()
+        {
+            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+
+            Task<dynamic> task = Task.Run(() =>
+            {
+                return edubaseSearchResponse;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+                .Returns(task);
+
+            _mockLaSearchService.Setup(m => m.SearchExactMatch("test")).Returns<LaViewModel>(null);
+
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, null, "test", null, false, null, 0);
+
+            Assert.AreEqual("La", (result as RedirectToRouteResult).RouteValues["controller"]);
+            Assert.AreEqual("Search", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("test", (result as RedirectToRouteResult).RouteValues["name"]);
+        }
+
+        [Test]
+        public async Task SearchLaEmptyLocationResultPageForNotFoundLaCodes()
+        {
+            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+
+            Task<dynamic> task = Task.Run(() =>
+            {
+                return edubaseSearchResponse;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("000", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+                .Returns(task);
+
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, null, "000", null, false, null, 0);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.AreEqual("EmptyResult", (result as ViewResult).ViewName);
+        }
+
+        [Test]
+        public async Task SchoolsAreOrderedAlphabeticallyWhenTrustsAreOrderedByTotalCountInLaSearch()
+        {
+            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+
+            Task<dynamic> task = Task.Run(() =>
+            {
+                return edubaseSearchResponse;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null))
+                .Returns(task);
+
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, null, "123", null, false, "AreaSchoolNumber", 0);
+
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCode("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null));
         }
     }
 }

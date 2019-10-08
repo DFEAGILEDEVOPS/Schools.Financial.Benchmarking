@@ -114,7 +114,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var schoolLevelOrdering = OverwriteSchoolLevelOrdering(orderby);
+                            var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
 
                             searchResults = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
 
@@ -134,7 +134,6 @@ namespace SFB.Web.UI.Controllers
                     {
                         return ErrorView(searchType, referrer, errorMessage);
                     }
-
 
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
@@ -162,21 +161,13 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            var schoolLevelOrdering = OverwriteSchoolLevelOrdering(orderby);
+                            var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
 
                             searchResults = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
 
-                            switch (searchResults.NumberOfResults)
+                            if (searchResults.NumberOfResults == 0)
                             {
-                                case 0:
-                                    return View("EmptyResult",
-                                        new SearchViewModel(null, searchType));
-                                case 1:
-                                    return RedirectToAction("Detail", "School",
-                                        new
-                                        {
-                                            urn = ((QueryResultsModel)searchResults).Results.First()["URN"]
-                                        });
+                                    return View("EmptyResult", new SearchViewModel(null, searchType));
                             }
 
                             var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
@@ -203,7 +194,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.SearchMethod = "MAT";
             ViewBag.SearchType = searchType;
 
-            string schoolLevelOrdering = OverwriteSchoolLevelOrdering(orderby);
+            string schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
 
             dynamic searchResponse = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
 
@@ -272,12 +263,12 @@ namespace SFB.Web.UI.Controllers
                     response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request?.QueryString) as QueryResultsModel;
                     break;
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request?.QueryString) as QueryResultsModel;
                     break;
             }
 
@@ -403,7 +394,7 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        private static string OverwriteSchoolLevelOrdering(string orderby)
+        private string DetermineSchoolLevelOrdering(string orderby)
         {
             var schoolLevelOrdering = orderby;
             if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
