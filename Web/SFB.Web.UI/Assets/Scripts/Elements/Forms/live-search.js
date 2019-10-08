@@ -35,7 +35,7 @@
     LiveSearch.prototype.updateSchoolCount = function () {
         $("span.screen-reader-result-count").html("Filtering results");
         setTimeout(function () {
-            $("span.screen-reader-result-count").html($('#result-list .summary').html());
+            $("span.screen-reader-result-count").html($('.result-info .summary').html());
         }, 1000);
     };
 
@@ -185,13 +185,13 @@
     };
 
     LiveSearch.prototype.toggleSortControl = function () {
-        if ($("span.result-count").text() > 1) {
+        if ($(".result-info .count-js").text() > 1) {
             $(".filter").show();
         } else {
             $(".filter").hide();
         }
 
-        if ($("span.result-count").text() > 0) {
+        if ($(".result-info .count-js").text() > 0) {
             $(".result-controllers").show();
         } else {
             $(".result-controllers").hide();
@@ -209,7 +209,6 @@
     };
 
     LiveSearch.prototype.displayResults = function displayResults(results, action) {
-        debugger;
         if (this.onDisplayResults) this.onDisplayResults(this.state);
         if (this.disabled) return;
         // As search is asynchronous, check that the action associated with these results is

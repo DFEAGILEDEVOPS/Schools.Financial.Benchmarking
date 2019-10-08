@@ -1,5 +1,4 @@
-﻿@using SFB.Web.UI.Helpers.Constants
-@model SFB.Web.UI.Models.SchoolSearchViewModel
+﻿@model SFB.Web.UI.Models.SearchViewModel
 
 @{
     ViewBag.Title = "Schools financial benchmarking";
@@ -36,14 +35,8 @@
         @ViewBag.Title
     </h1>
 
-    <p class="lede">Compare your school's income and expenditure with other schools in England.</p>
-    <p class="homep">You can:</p>
-    <ul class="search-options-list">
-        <li>view your school's financial data</li>
-        <li> see how similar schools manage their finances</li>
-        <li>use the information gathered to establish relationships with other schools</li>
-    </ul>
-
+    <p class="lede">Compare a school or trust's income and expenditure with similar establishments in England.</p>
+    <p class="homep">You can view your school or academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
 
     @if (Model.ComparisonList.HomeSchoolUrn != null)
     {
@@ -58,35 +51,23 @@
                 <a class="button" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.ComparisonList.HomeSchoolUrn">Compare with other schools</a>
             </div>
         </div>
-        <hr class="home-school-section-divider" />
     }
 
-    <div class="finder-section" id="finderSection">
-        <fieldset>
-            <legend class="visuallyhidden">Select a search type option</legend>
-            <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
-                <form method="get" action="/SchoolSearch/Search" autocomplete="off">
-                    <div class="form-group">
-                        <fieldset>
-                            <legend class="mt-1">Begin by finding a school or trust</legend>
-
-                            @Html.Partial("Partials/Search/SchoolSearchOption")
-
-                            @Html.Partial("Partials/Search/TrustSearchOption")
-
-                            <h2 class="form-group heading-small bold-small mb-1">
-                                Alternatively, search by area
-                            </h2>
-
-                            @Html.Partial("Partials/Search/LocationSearchOption")
-
-                            @Html.Partial("Partials/Search/LaSearchOption")
-
-                        </fieldset>
-                    </div>
-                </form>
-            </div>
-        </fieldset>
+    <div class="finder-section mt-1" id="finderSection">
+        <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
+            <nav id="tabs" class="tabs" role="navigation">
+                <ol role="tablist">
+                    <li class="@ViewHelpers.SchoolTabActive(Model.SearchType) hide-in-print" role="tab" id="SchoolTab">
+                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('SchoolTab')">Find a school</button>
+                    </li>
+                    <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="tab" id="TrustTab">
+                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')">Find an academy trust</button>
+                    </li>
+                </ol>
+            </nav>
+            @Html.Partial("Partials/Search/SchoolTab")
+            @Html.Partial("Partials/Search/TrustTab")
+        </div>
     </div>
 </div>
 

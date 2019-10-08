@@ -1,4 +1,5 @@
 ﻿@using SFB.Web.UI.Models
+@using SFB.Web.UI.Helpers.Constants
 
 @model LaListViewModel
 
@@ -7,7 +8,7 @@
     <div aria-live="assertive" id="js-search-results-info">
         <div class="result-info">
             <p class="summary" aria-live="assertive">
-                <span class="bold">@(Model.Pagination.Total)</span> local authorities found
+                <span class="bold count-js">@(Model.Pagination.Total)</span> local authorities found
             </p>
         </div>
     </div>
@@ -15,23 +16,29 @@
     {
         @Html.Partial("Partials/Pagination", Model.Pagination)
 
-        <ul>
-            @foreach (var laViewModel in Model.ModelList)
+    <ul>
+        @foreach (var laViewModel in Model.ModelList)
+        {
+            if (Model.SearchMethod == "Manual")
             {
-                if (Model.SearchMethod == "Manual")
-                {
-                    <li class="document">
-                        <a href="/ManualComparison/Search?searchtype=search-by-la-code-name&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="document">
-                        <a href="/SchoolSearch/Search?searchtype=search-by-la-code-name&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
-                    </li>
-                }
+                <li class="document">
+                    <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
+                </li>
             }
-        </ul>
+            else if (Model.SearchMethod == "MAT")
+            {
+                <li class="document">
+                    <a href="/TrustSearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME&lacodename=@laViewModel.id&orderby=Trusts+asc" class="bold-small">@laViewModel.LaName</a>
+                </li>
+            }
+            else
+            {
+                <li class="document">
+                    <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
+                </li>
+            }
+        }
+    </ul>
 
         @Html.Partial("Partials/Pagination", Model.Pagination)
     }

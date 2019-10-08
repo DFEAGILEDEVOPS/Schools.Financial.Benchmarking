@@ -4,17 +4,21 @@
     {
         public const int RESULTS_PER_PAGE = 50;
         public const int TRUST_SCHOOLS_PER_PAGE = 200;
+        public const int SEARCHED_SCHOOLS_MAX = 1000;
         public const int LINKS_PER_PAGE = 5;
         public const decimal LOCATION_SEARCH_DISTANCE = 3;
+        public const decimal TRUST_LOCATION_SEARCH_DISTANCE = 5;
     }
 
     public class SearchTypes
     {
         public const string SEARCH_BY_NAME_ID = "search-by-name-id";
         public const string SEARCH_BY_LA_ESTAB = "search-by-la-estab";
-        public const string SEARCH_BY_TRUST_NAME_ID = "search-by-trust-name-id";
         public const string SEARCH_BY_LOCATION = "search-by-location";
         public const string SEARCH_BY_LA_CODE_NAME = "search-by-la-code-name";
+        public const string SEARCH_BY_TRUST_NAME_ID = "search-by-trust-name-id";
+        public const string SEARCH_BY_TRUST_LOCATION = "search-by-trust-location";
+        public const string SEARCH_BY_TRUST_LA_CODE_NAME = "search-by-trust-la-code-name";
         public const string SEARCH_BY_MAT = "search-by-mat";
     }
 

@@ -12,68 +12,85 @@ using System.Web.Mvc;
 
 namespace SFB.Web.UI.Controllers
 {
-    public class SchoolSearchBaseController : Controller
+    public abstract class SearchBaseController : Controller
     {
         protected readonly ISchoolSearchService _schoolSearchService;
+        protected readonly ITrustSearchService _trustSearchService;
         protected readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
         protected readonly IFilterBuilder _filterBuilder;
 
-        public SchoolSearchBaseController(ISchoolSearchService schoolSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFilterBuilder filterBuilder)
+        public SearchBaseController(ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFilterBuilder filterBuilder)
         {
             _schoolSearchService = schoolSearchService;
+            _trustSearchService = trustSearchService;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
             _filterBuilder = filterBuilder;
         }
 
-        protected async Task<dynamic> GetSearchResults(
-            string nameId,
-            string searchType,
-            string locationorpostcode,
-            string locationCoordinates,
-            string laCode,
-            decimal? radius,
-            bool openOnly,
-            string orderby,
-            int page,
-            int take = SearchDefaults.RESULTS_PER_PAGE)
-        {
-            QueryResultsModel response = null;
+        public abstract Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, 
+            decimal? radius, bool openOnly, string orderby, int page, int take = SearchDefaults.RESULTS_PER_PAGE);
+        
+        //protected async Task<dynamic> GetSearchResults(
+        //    string nameId,
+        //    string searchType,
+        //    string locationorpostcode,
+        //    string locationCoordinates,
+        //    string laCode,
+        //    decimal? radius,
+        //    bool openOnly,
+        //    string orderby,
+        //    int page,
+        //    int take = SearchDefaults.RESULTS_PER_PAGE)
+        //{
+        //    QueryResultsModel response = null;
 
-            switch (searchType)
-            {
-                case SearchTypes.SEARCH_BY_NAME_ID:
-                    response = await _schoolSearchService.SearchSchoolByName(nameId,
-                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                        Request.QueryString) as QueryResultsModel;
-                    break;
-                case SearchTypes.SEARCH_BY_LA_ESTAB:
-                    response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
-                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                        Request.QueryString) as QueryResultsModel;
-                    break;
-                case SearchTypes.SEARCH_BY_LOCATION:
-                    var latLng = locationCoordinates.Split(',');
-                    response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
-                        (radius ?? SearchDefaults.LOCATION_SEARCH_DISTANCE) * 1.6m,
-                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                        Request.QueryString) as QueryResultsModel;
-                    break;
-                case SearchTypes.SEARCH_BY_LA_CODE_NAME:
-                    response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
-                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
-                        string.IsNullOrEmpty(orderby) ? "EstablishmentName" : orderby,
-                        Request.QueryString) as QueryResultsModel;
-                    break;
-            }
+        //    switch (searchType)
+        //    {
+        //        case SearchTypes.SEARCH_BY_NAME_ID:
+        //            response = await _schoolSearchService.SearchSchoolByName(nameId,
+        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+        //                Request.QueryString) as QueryResultsModel;
+        //            break;
+        //        case SearchTypes.SEARCH_BY_LA_ESTAB:
+        //            response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
+        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+        //                Request.QueryString) as QueryResultsModel;
+        //            break;
+        //        case SearchTypes.SEARCH_BY_LOCATION:
+        //            var latLng = locationCoordinates.Split(',');
+        //            response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+        //                (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
+        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+        //                Request.QueryString) as QueryResultsModel;
+        //            break;
+        //        case SearchTypes.SEARCH_BY_TRUST_LOCATION:
+        //            latLng = locationCoordinates.Split(',');
+        //            response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+        //                (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
+        //                0, SearchDefaults.TRUST_SCHOOLS_MAX, orderby,
+        //                Request.QueryString) as QueryResultsModel;
+        //            break;
+        //        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+        //            response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
+        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
+        //                string.IsNullOrEmpty(orderby) ? "EstablishmentName" : orderby,
+        //                Request.QueryString) as QueryResultsModel;
+        //            break;
+        //        case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
+        //            response = await _trustSearchService.SearchTrustByName(nameId, 
+        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, 
+        //                SearchDefaults.RESULTS_PER_PAGE, orderby, Request?.QueryString);
+        //            break;
+        //    }
 
-            OrderFacetFilters(response);
+        //    OrderFacetFilters(response);
 
-            return response;
-        }
+        //    return response;
+        //}
 
         protected void OrderFacetFilters(QueryResultsModel results)
         {
-            if (results.Facets != null)
+            if (results?.Facets != null)
             {
                 var orderedFacetFilters = new Dictionary<string, FacetResult[]>();
                 foreach (var facet in results.Facets)
@@ -141,7 +158,7 @@ namespace SFB.Web.UI.Controllers
                 $"{(ofstedExpanded ? "1" : "0")},{(schoolTypeExpanded ? "1" : "0")},{(religiousCharacterExpanded ? "1" : "0")},{(statusExpanded ? "1" : "0")}";
         }
 
-        protected SearchedSchoolListViewModel GetSchoolViewModelList(dynamic response, SchoolComparisonListModel schoolComparisonListModel, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
+        protected SearchedSchoolListViewModel GetSearchedSchoolViewModelList(dynamic response, SchoolComparisonListModel schoolComparisonListModel, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             var schoolListVm = new List<SchoolSearchResultViewModel>();
             var vm = new SearchedSchoolListViewModel(schoolListVm, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy);
@@ -164,7 +181,8 @@ namespace SFB.Web.UI.Controllers
                     Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
                     Total = response.NumberOfResults,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
-                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE
+                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
+                    PagedEntityType = Common.PagedEntityType.School
                 };
             }
 

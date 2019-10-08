@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using RedDog.Search;
 using RedDog.Search.Http;
 using RedDog.Search.Model;
-using RestSharp;
 using SFB.Web.Domain.Helpers;
 using SFB.Web.Domain.Models;
 using SFB.Web.Common;
@@ -113,7 +112,7 @@ namespace SFB.Web.Domain.Services.Search
             if (name.Length > 2)
             {
                 var facets = new[] {$"{EdubaseDBFieldNames.TYPE_OF_ESTAB}, count:25", $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDBFieldNames.OFSTED_RATING}"};
-                var exactMatches = await ExecuteSearch(_index, $"{name}", $"{EdubaseDBFieldNames.ESTAB_NAME}",
+                var exactMatches = await ExecuteSearchAsync(_index, $"{name}", $"{EdubaseDBFieldNames.ESTAB_NAME}",
                     ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
                 return exactMatches;
             }
@@ -124,7 +123,7 @@ namespace SFB.Web.Domain.Services.Search
         public async Task<dynamic> SearchSchoolByLaEstab(string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
             var facets = new[] { $"{EdubaseDBFieldNames.TYPE_OF_ESTAB}, count:25", $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDBFieldNames.OFSTED_RATING}" };
-            var exactMatches = await ExecuteSearch(_index, $"{laEstab}", $"{EdubaseDBFieldNames.LA_ESTAB}",
+            var exactMatches = await ExecuteSearchAsync(_index, $"{laEstab}", $"{EdubaseDBFieldNames.LA_ESTAB}",
                 ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
             return exactMatches;
         }
@@ -133,7 +132,7 @@ namespace SFB.Web.Domain.Services.Search
             NameValueCollection queryParams)
         {
             var facets = new[] { $"{EdubaseDBFieldNames.TYPE_OF_ESTAB}, count:25", $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDBFieldNames.OFSTED_RATING}" };
-            var exactMatches = await ExecuteSearch(_index, $"{laCode}", $"{EdubaseDBFieldNames.LA_CODE}", ConstructApiFilterParams(queryParams),
+            var exactMatches = await ExecuteSearchAsync(_index, $"{laCode}", $"{EdubaseDBFieldNames.LA_CODE}", ConstructApiFilterParams(queryParams),
                 orderby, skip, take, facets);
 
             return exactMatches;
@@ -146,10 +145,10 @@ namespace SFB.Web.Domain.Services.Search
             return await FindNearestSchools(lat, lon, distance, skip, take, orderby, queryParams);
         }
 
-        public async Task<dynamic> SearchSchoolByCompanyNo(int companyNo, int skip, int take, string @orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchSchoolByCompanyNoAsync(int companyNo, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
             var facets = new[] { $"{EdubaseDBFieldNames.OVERALL_PHASE}", $"{EdubaseDBFieldNames.OFSTED_RATING}", $"{EdubaseDBFieldNames.GENDER}" };
-            var exactMatches = await ExecuteSearch(_index, $"{companyNo}", $"{EdubaseDBFieldNames.COMPANY_NUMBER}",
+            var exactMatches = await ExecuteSearchAsync(_index, $"{companyNo}", $"{EdubaseDBFieldNames.COMPANY_NUMBER}",
                 ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
             return exactMatches;
         }
@@ -163,7 +162,7 @@ namespace SFB.Web.Domain.Services.Search
                 distance, ConstructApiFilterParams(queryParams), orderby, skip, take);
         }
 
-        private async Task<QueryResultsModel> ExecuteSearch(string index, string query, string searchFields,
+        private async Task<QueryResultsModel> ExecuteSearchAsync(string index, string query, string searchFields,
             string filter, string orderBy, int skip, int take, IEnumerable<string> facets)
         {
             var set = _aliases.FirstOrDefault(x => x.Any(a => AliasFound(query, a)));
@@ -247,6 +246,7 @@ namespace SFB.Web.Domain.Services.Search
                 QueryLat = latitude.ToString(),
                 QueryLong = longitude.ToString()
             };
+
             return results;
         }
 
@@ -285,33 +285,12 @@ namespace SFB.Web.Domain.Services.Search
 
             var queryFilter = new List<string>();
 
-            //queryFilter.Add("OverallPhase ne '0'");
-            //queryFilter.Add("EstablishmentStatus eq 'Open' or EstablishmentStatus eq 'Open, but proposed to close'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Higher Education Institutions'");
-            //queryFilter.Add("TypeOfEstablishment ne 'LA Nursery School'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Other Independent School'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Other Independent Special School'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Welsh Establishment'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Special Post 16 Institution'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Sixth Form Centres'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Service Childrens Education'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Secure Units'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Offshore Schools'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Institution funded by other Government Department'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Free Schools - 16-19'");
-            //queryFilter.Add("TypeOfEstablishment ne 'British Schools Overseas'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Academy 16-19 Sponsor Led'");
-            //queryFilter.Add("TypeOfEstablishment ne 'Academy 16-19 Converter'");
-            //queryFilter.Add("StatutoryLowAge ne '16'");
-            //queryFilter.Add("StatutoryLowAge ne '17'");
-            //queryFilter.Add("StatutoryLowAge ne '18'");
-            //queryFilter.Add("StatutoryLowAge ne '19'");
-
-            //queryFilter.Add("StatutoryHighAge ne '1'");
-            //queryFilter.Add("StatutoryHighAge ne '2'");
-            //queryFilter.Add("StatutoryHighAge ne '3'");
-            //queryFilter.Add("StatutoryHighAge ne '4'");
-            //queryFilter.Add("StatutoryHighAge ne '5'");//Todo: Remove .Do not filter out nurseries.
+            if (parameters["searchtype"] != null && (parameters["searchtype"] == "search-by-trust-location" || parameters["searchtype"] == "search-by-trust-la-code-name"))
+            {
+                queryFilter.Add($"{EdubaseDBFieldNames.FINANCE_TYPE} eq 'A'");
+                queryFilter.Add($"{EdubaseDBFieldNames.COMPANY_NUMBER} ne null and {EdubaseDBFieldNames.COMPANY_NUMBER} ne '0'");
+                queryFilter.Add($"{EdubaseDBFieldNames.ESTAB_STATUS} eq 'Open' or {EdubaseDBFieldNames.ESTAB_STATUS} eq 'Open, but proposed to close'");
+            }
 
             if (parameters["openOnly"] != null)
             {
@@ -359,6 +338,34 @@ namespace SFB.Web.Domain.Services.Search
                 string[] values = ExtractValues(parameters["establishmentStatus"]);
                 queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDBFieldNames.ESTAB_STATUS} eq '" + x + "'")));
             }
+
+            //queryFilter.Add("OverallPhase ne '0'");
+            //queryFilter.Add("EstablishmentStatus eq 'Open' or EstablishmentStatus eq 'Open, but proposed to close'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Higher Education Institutions'");
+            //queryFilter.Add("TypeOfEstablishment ne 'LA Nursery School'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Other Independent School'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Other Independent Special School'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Welsh Establishment'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Special Post 16 Institution'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Sixth Form Centres'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Service Childrens Education'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Secure Units'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Offshore Schools'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Institution funded by other Government Department'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Free Schools - 16-19'");
+            //queryFilter.Add("TypeOfEstablishment ne 'British Schools Overseas'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Academy 16-19 Sponsor Led'");
+            //queryFilter.Add("TypeOfEstablishment ne 'Academy 16-19 Converter'");
+            //queryFilter.Add("StatutoryLowAge ne '16'");
+            //queryFilter.Add("StatutoryLowAge ne '17'");
+            //queryFilter.Add("StatutoryLowAge ne '18'");
+            //queryFilter.Add("StatutoryLowAge ne '19'");
+
+            //queryFilter.Add("StatutoryHighAge ne '1'");
+            //queryFilter.Add("StatutoryHighAge ne '2'");
+            //queryFilter.Add("StatutoryHighAge ne '3'");
+            //queryFilter.Add("StatutoryHighAge ne '4'");
+            //queryFilter.Add("StatutoryHighAge ne '5'");//Todo: Remove .Do not filter out nurseries.
 
             return string.Join(" and ", queryFilter.Select(x => "(" + x + ")"));
         }

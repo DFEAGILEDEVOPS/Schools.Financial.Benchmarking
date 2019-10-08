@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SFB.Web.Common;
+using System;
 using System.Web;
 
 namespace SFB.Web.UI.Models
@@ -11,6 +12,7 @@ namespace SFB.Web.UI.Models
         public int Total { get; set; }
         public int MaxResultsPerPage { get; set; }
         public int PageLinksPerPage { get; set; }
+        public PagedEntityType PagedEntityType { get; set; }
 
         public int End
         {

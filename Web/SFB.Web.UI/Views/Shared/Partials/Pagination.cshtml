@@ -1,7 +1,7 @@
 ﻿@using SFB.Web.UI.Helpers.Constants;
 @model SFB.Web.UI.Models.Pagination
 
-<div class="grid-row pagination-container">
+<div class="grid-row pagination-container @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
     <div class="column-full">
         <div id="result-list" class="inline-block">
             <div id="js-search-results-info">
@@ -9,7 +9,15 @@
                     @if (@ViewBag.CompanyNo == null)
                     {
                         <div class="summary count-summary font-xsmall ">
-                            Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count">@(Model.Total)</span> schools
+                            @if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.School)
+                            {
+                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count count-js">@(Model.Total)</span> schools</span>
+                            }
+                            else if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.LA)
+                            {
+                                <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count count-js">@(Model.Total)</span> local authorities</span>
+                            }
+
                             @if (ViewBag.SearchMethod == "Manual")
                             {
                                 <span id="manualSchoolCountPlaceHolder" class="no-padding inline-block font-xsmall">- <span id="manualCount" class="bold-xsmall">@(ViewBag.manualCount ?? 0)</span> selected (max. 30)</span>
@@ -19,7 +27,7 @@
                     else
                     {
                         <p class="summary">
-                            Showing <span class="bold result-count">@(Model.Total)</span> schools in <a href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
+                            Showing <span class="bold result-count count-js">@(Model.Total)</span> schools in <a href="/Trust?companyNo=@ViewBag.CompanyNo&name=@ViewBag.MatName">@ViewBag.MatName</a>
                         </p>
                     }
                 </div>

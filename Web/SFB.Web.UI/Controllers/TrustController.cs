@@ -42,25 +42,6 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
-        public async Task<ActionResult> Search(string name, string orderby = "", int page = 1)
-        {
-            var response = await _trustSearchService.SearchTrustByName(name, (page - 1) * SearchDefaults.RESULTS_PER_PAGE, SearchDefaults.RESULTS_PER_PAGE, orderby, Request.QueryString);
-
-            TrustListViewModel vm = GetTrustViewModelList(response, orderby, page);
-
-            return View("TrustResults", vm);
-        }
-
-        public async Task<ActionResult> SuggestTrust(string trustNameId)
-        {
-            var vm = new SchoolNotFoundViewModel
-            {
-                SearchKey = trustNameId,
-                Suggestions = await _trustSearchService.SuggestTrustByName(trustNameId)
-            };
-            return View("NotFound", vm);
-        }
-
         public async Task<ActionResult> Index(int companyNo, UnitType unit = UnitType.AbsoluteMoney, RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
             ChartGroupType chartGroup;
@@ -84,7 +65,7 @@ namespace SFB.Web.UI.Controllers
 
             if(academies.Count == 0)
             {
-                return RedirectToActionPermanent("SuggestTrust", "Trust", new RouteValueDictionary { { "trustNameId", companyNo } });
+                return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", companyNo } });
             }
  
             var trustVM = await BuildTrustVMAsync(companyNo, academies.First().TrustName, academies, tab, chartGroup, financing);
@@ -151,32 +132,6 @@ namespace SFB.Web.UI.Controllers
             return File(Encoding.UTF8.GetBytes(csv),
                          "text/plain",
                          $"HistoricalData-{name}.csv");
-        }
-
-        private TrustListViewModel GetTrustViewModelList(dynamic response, string orderBy, int page)
-        {
-            var trustListVm = new List<TrustViewModel>();
-            var vm = new TrustListViewModel(trustListVm, orderBy);
-            if (response != null)
-            {
-                foreach (var result in response.Results)
-                {
-                    var trustVm = new TrustViewModel(int.Parse(result["CompanyNumber"]), result["TrustOrCompanyName"], null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-                    trustListVm.Add(trustVm);
-                }
-
-                vm.SchoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-
-                vm.Pagination = new Pagination
-                {
-                    Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
-                    Total = response.NumberOfResults,
-                    PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
-                    MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE
-                };
-            }
-
-            return vm;
         }
 
         private async Task<TrustViewModel> BuildTrustVMAsync(int companyNo, string name, List<AcademiesContextualDataObject> academiesList, RevenueGroupType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)

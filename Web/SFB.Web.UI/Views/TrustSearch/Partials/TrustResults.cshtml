@@ -1,0 +1,200 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.Common
+@model SFB.Web.UI.Models.TrustListViewModel
+
+<div id="schoolResults">
+    <div class="result-controllers">
+        <div class="column-one-third no-padding view-map">
+            <nav class="navigation-links" role="navigation">
+                <div class="olist" role="tablist">
+                    <div class="litem navigation-link no-margin list mb-1 @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
+                        <button class="map-button no-padding">
+                            <img src="~/public/assets/images/icons/icon-map.png" alt="" />View on map
+                            <span class="visuallyhidden"> click to expand.</span>
+                        </button>
+                    </div>
+                    <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
+                        <button class="map-button no-padding">
+                            <img src="~/public/assets/images/icons/icon-list.png" alt="" />View as list
+                            <span class="visuallyhidden"> click to expand.</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="column-two-thirds no-padding">
+            <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
+                <div class="filter school @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
+                    @if (Model.ModelList.Count > 1)
+                    {
+                        <div class="filter-box">
+                            <label class="legend" for="OrderByControl">Sorted by</label>
+                            <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" style="max-width:200px" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+
+                                @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
+                                {
+                                    <option value="@SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME asc" @(Model.OrderBy == $"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME desc" @(Model.OrderBy == $"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME} desc" ? "selected" : "")>alphabetical z - a</option>
+                                }
+
+                                @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
+                                {
+                                    <option value="" @(Model.OrderBy == "" ? "selected" : "")>distance</option>
+                                    <option value="@EdubaseDBFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@EdubaseDBFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="AreaSchoolNumber" @(Model.OrderBy == "AreaSchoolNumber" ? "selected" : "")>number of schools in search area</option>
+                                    <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in academy trust</option>
+                                }
+
+                                @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
+                                {
+                                    <option value="@EdubaseDBFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@EdubaseDBFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in academy trust</option>
+                                }
+
+                            </select>
+                        </div>
+                    }
+                </div>
+                <button type="submit" class="hidden" value="hidden">hidden</button>
+            </form>
+        </div>
+    </div>
+    <div class="tabs">
+        <div class="list @(ViewBag.tab != "map" ? "active" : string.Empty)">
+            <ul>
+                @foreach (var trust in Model.ModelList)
+                {
+                    <li class="school-document">
+                        <div>
+                            <a href="/trust/index?companyNo=@trust.CompanyNo" class="bold-small">@trust.Name</a>
+                        </div>
+                        <div class="font-xsmall">
+                            <div>
+                                Companies House number:
+                                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/0@(trust.CompanyNo)">0@(trust.CompanyNo)</a>
+                            </div>
+                            @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
+                            {
+                                <div class="inline mr-1">
+                                    Schools in search area: @trust.AcademiesList.Where(a => a.InsideSearchArea).ToList().Count
+                                </div>
+                            }
+                            <div class="inline">
+                                Schools in trust: @trust.AcademiesList.Count
+                            </div>
+                        </div>
+                        <details>
+                            <summary class="hide-in-print">
+                                <span class="summary font-xsmall">View trust's schools</span>
+                            </summary>
+                            <div class="panel panel-border-narrow">
+                                @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
+                                {
+                                    <table class="school-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" scope="colgroup">Inside search area</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
+                                            {
+                                                <tr>
+                                                    <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    if (trust.AcademiesList.Any(a => !a.InsideSearchArea))
+                                    {
+                                        <table class="school-table mt-1">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" scope="colgroup">Outside search area</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
+                                                {
+                                                    <tr>
+                                                        <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                }
+                                else if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
+                                {
+                                    <table class="school-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" scope="colgroup">Inside local authority</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
+                                            {
+                                                <tr>
+                                                    <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    if (trust.AcademiesList.Any(a => !a.InsideSearchArea))
+                                    {
+                                        <table class="school-table mt-1">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" scope="colgroup">Outside local authority</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
+                                                {
+                                                    <tr>
+                                                        <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    }
+                                }
+                                else
+                                {
+                                    <table class="school-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2" scope="colgroup">Schools</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var academy in trust.AcademiesList)
+                                            {
+                                                <tr>
+                                                    <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td>@academy.OverallPhase</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+                        </details>
+                    </li>
+                }
+            </ul>
+            <input type="hidden" id="SearchMethod" value="@ViewBag.SearchMethod" />
+        </div>
+        <div class="map @(ViewBag.tab == "map" ? "active" : string.Empty)">
+            <div id="azuremap" class="results-map" title="An Azure map of the school locations" aria-label="An Azure map of the school locations"></div>
+        </div>
+    </div>
+
+</div>

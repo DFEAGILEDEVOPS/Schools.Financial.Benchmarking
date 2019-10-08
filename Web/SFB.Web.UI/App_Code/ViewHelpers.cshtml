@@ -1,4 +1,5 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
 
 @helper GetAmountHeaderAriaLabel(string unit)
 {
@@ -134,5 +135,37 @@
         {
             @("well-above")
         }
+    }
+}
+
+@helper SchoolTabActive(string searchType)
+{
+    switch (searchType)
+    {
+        case SearchTypes.SEARCH_BY_NAME_ID:
+        case SearchTypes.SEARCH_BY_LA_ESTAB:
+        case SearchTypes.SEARCH_BY_LOCATION:
+        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+        case null:
+            @("active")
+            break;
+        default:
+            @("inactive")
+            break;
+    }
+}
+
+@helper TrustTabActive(string searchType)
+{
+    switch (searchType)
+    {
+        case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
+        case SearchTypes.SEARCH_BY_TRUST_LOCATION:
+        case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
+            @("active")
+            break;
+        default:
+            @("inactive")
+            break;
     }
 }

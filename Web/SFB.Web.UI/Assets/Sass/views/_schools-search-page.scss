@@ -7,10 +7,6 @@
         margin-bottom: 30px;
     }
 
-    .home-school-section-divider {
-        margin-bottom: 0;
-    }
-
     .search-options-list {
         list-style-type: disc;
         padding-left: 20px;
@@ -124,10 +120,17 @@
     }
 
     .search-types {
+        display: inline-block;
+
         &__optional-section {
             &__label {
                 float: left;
                 width: 100%;
+
+                @include media(tablet) {
+                    min-width: 650px;
+                }
+
                 margin-bottom: 1em;
 
                 &.paragraph {
@@ -155,7 +158,15 @@
         }
     }
 
-    .guidance .heading-medium{
+    .guidance .heading-medium {
         margin-top: 1em;
+    }
+
+    .tab-content--inactive {
+        display: none;
+    }
+
+    .tab-content--active {
+        display: block;
     }
 }

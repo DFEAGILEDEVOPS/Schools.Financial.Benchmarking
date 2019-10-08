@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using SFB.Web.DAL.Repositories;
 using SFB.Web.Common.DataObjects;
+using System.Threading.Tasks;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
@@ -31,6 +32,11 @@ namespace SFB.Web.Domain.Services.DataAccess
         public List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns)
         {
             return _edubaseRepository.GetMultipleSchoolDataObjectsByUrns(urns);
+        }
+
+        public async Task<IEnumerable<EdubaseDataObject>> GetSchoolsByCompanyNumberAsync(int companyNo)
+        {
+            return await _edubaseRepository.GetSchoolsByCompanyNoAsync(companyNo);
         }
     }
 }

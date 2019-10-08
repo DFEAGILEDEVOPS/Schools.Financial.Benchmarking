@@ -1,5 +1,7 @@
 ﻿using RedDog.Search.Model;
+using SFB.Web.Common;
 using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
@@ -18,7 +20,7 @@ using System.Web.Mvc;
 namespace SFB.Web.UI.Controllers
 {
     [CustomAuthorize]
-    public class ManualComparisonController : SchoolSearchBaseController
+    public class ManualComparisonController : SearchBaseController
     {
         private readonly ILocalAuthoritiesService _laService;
         private readonly IContextDataService _contextDataService;
@@ -29,7 +31,7 @@ namespace SFB.Web.UI.Controllers
         public ManualComparisonController(IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ILocalAuthoritiesService laService, 
             IContextDataService contextDataService, IValidationService valService, ILocationSearchService locationSearchService, 
             ISchoolSearchService schoolSearchService, IFilterBuilder filterBuilder, ILaSearchService laSearchService)
-            : base(schoolSearchService, benchmarkBasketCookieManager, filterBuilder)
+            : base(schoolSearchService, null, benchmarkBasketCookieManager, filterBuilder)
         {
             _laService = laService;
             _laSearchService = laSearchService;
@@ -41,7 +43,7 @@ namespace SFB.Web.UI.Controllers
         public ActionResult Index()
         {
             var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var vm = new SchoolSearchViewModel(schoolComparisonListModel, "");
+            var vm = new SearchViewModel(schoolComparisonListModel, "");
             vm.Authorities = _laService.GetLocalAuthorities();
             _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null);
             _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel()
@@ -100,7 +102,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var svm = new SchoolSearchViewModel(comparisonList, searchType)
+                            var svm = new SearchViewModel(comparisonList, searchType)
                             {
                                 SearchType = searchType,
                                 Authorities = _laService.GetLocalAuthorities(),
@@ -114,22 +116,22 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             int resultCount = searchResp.NumberOfResults;
                             if (resultCount == 0)
                             {
-                                return View("EmptyResult", new SchoolSearchViewModel(comparisonList, searchType));
+                                return View("EmptyResult", new SearchViewModel(comparisonList, searchType));
                             }
                             else
                             {
                                 ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
-                                return View("ManualSearchResults", GetSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
+                                return View("ManualSearchResults", GetSearchedSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
                             }
                         }
                         else
                         {
-                            var svm = new SchoolSearchViewModel(comparisonList, searchType)
+                            var svm = new SearchViewModel(comparisonList, searchType)
                             {
                                 SearchType = searchType,
                                 Authorities = _laService.GetLocalAuthorities(),
@@ -150,7 +152,7 @@ namespace SFB.Web.UI.Controllers
                             {
                                 case 0:
                                     return View("EmptyManualLocationResult",
-                                        new SchoolSearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
+                                        new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
                                 default:
                                     TempData["LocationResults"] = result;
                                     TempData["SearchMethod"] = "Manual";
@@ -159,19 +161,19 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            searchResp = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                            searchResp = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
 
                             if (searchResp.NumberOfResults == 0)
                             {
-                                return View("EmptyManualLocationResult", new SchoolSearchViewModel(comparisonList, searchType));
+                                return View("EmptyManualLocationResult", new SearchViewModel(comparisonList, searchType));
                             }
                             ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
-                            return View("ManualSearchResults", GetSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
+                            return View("ManualSearchResults", GetSearchedSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));
                         }
                     }
                     else
                     {
-                        var svm = new SchoolSearchViewModel(comparisonList, searchType)
+                        var svm = new SearchViewModel(comparisonList, searchType)
                         {
                             SearchType = searchType,
                             Authorities = _laService.GetLocalAuthorities(),
@@ -194,13 +196,13 @@ namespace SFB.Web.UI.Controllers
 
             if (IsLaEstab(nameId))
             {
-                searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
             else
             {
-                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
             }
-            var vm = GetSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
+            var vm = GetSearchedSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
 
             ViewBag.SearchMethod = "Manual";
             ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
@@ -209,20 +211,20 @@ namespace SFB.Web.UI.Controllers
 
         [Route("ManualComparison/Search-json")]
         public async Task<JsonResult> ManualSearchJson(string nameId, string searchType, string suggestionurn,
-    string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
-    int? companyNo, bool openOnly = false, string orderby = "", int page = 1)
+            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
+            int? companyNo, bool openOnly = false, string orderby = "", int page = 1)
 
         {
             dynamic searchResponse;
             if (IsLaEstab(nameId))
             {
-                searchResponse = await GetSearchResults(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
-                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                searchResponse = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_LA_ESTAB, locationorpostcode,
+                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, SearchDefaults.SEARCHED_SCHOOLS_MAX);
             }
             else
             {
-                searchResponse = await GetSearchResults(nameId, searchType, locationorpostcode,
-                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, 1000);
+                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode,
+                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, SearchDefaults.SEARCHED_SCHOOLS_MAX);
             }
 
             var results = new List<SchoolSummaryViewModel>();
@@ -233,6 +235,37 @@ namespace SFB.Web.UI.Controllers
             }
 
             return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
+        }
+
+        public override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
+        {
+            QueryResultsModel response = null;
+
+            switch (searchType)
+            {
+                case SearchTypes.SEARCH_BY_LA_ESTAB:
+                    response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LOCATION:
+                    var latLng = locationCoordinates.Split(',');
+                    response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+                        (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+                case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+                    response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
+                        (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
+                        string.IsNullOrEmpty(orderby) ? EdubaseDBFieldNames.ESTAB_NAME : orderby,
+                        Request.QueryString) as QueryResultsModel;
+                    break;
+            }
+
+            OrderFacetFilters(response);
+
+            return response;
         }
 
         public ActionResult OverwriteStrategy()

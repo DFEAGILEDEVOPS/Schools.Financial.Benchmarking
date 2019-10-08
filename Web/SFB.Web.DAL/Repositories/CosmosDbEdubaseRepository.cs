@@ -8,6 +8,7 @@ using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Common.DataObjects;
+using System.Threading.Tasks;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -78,8 +79,38 @@ namespace SFB.Web.DAL.Repositories
             return GetSchoolDataObjectById(parameters);
         }
 
+        public List<int> GetAllSchoolUrns()
+        {
+            var query = $"SELECT VALUE c.URN FROM c";
+
+            var result = _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
+
+            return result;
+        }
+
+        public async Task<IEnumerable<EdubaseDataObject>> GetSchoolsByCompanyNoAsync(int companyNo)
+        {
+            var query = $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.COMPANY_NUMBER}'] " +
+                $"FROM c WHERE c.{EdubaseDBFieldNames.COMPANY_NUMBER}=@CompanyNo";
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            querySpec.Parameters.Add(new SqlParameter($"@CompanyNo", companyNo));
+
+            try
+            {
+                var documentQuery = _client.CreateDocumentQuery<EdubaseDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec);
+                return await documentQuery.QueryAsync();
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                base.LogException(ex, errorMessage);
+                return null;
+            }
+        }
+
         #region Private methods
-       
+
         private List<EdubaseDataObject> GetSchoolDataObjectById(Dictionary<string, object> fields)
         {
 
@@ -153,16 +184,6 @@ namespace SFB.Web.DAL.Repositories
             }
             return result;
         }
-
-        public List<int> GetAllSchoolUrns()
-        {
-            var query = $"SELECT VALUE c.URN FROM c";
-
-            var result = _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), query).ToList();
-
-            return result;
-        }
-
 
         #endregion
     }

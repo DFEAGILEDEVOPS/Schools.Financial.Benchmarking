@@ -1,6 +1,5 @@
 ﻿using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers;
-using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace SFB.Web.UI.Controllers
             _locationSearchService = locationSearchService;
         }
         
-        public ActionResult Suggest(string locationOrPostcode, bool openOnly = true)
+        public ActionResult Suggest(string locationOrPostcode, bool openOnly = false)
         {
             var suggestions = TempData["LocationResults"] as SuggestionQueryResult;
             var searchMethod = TempData["SearchMethod"] as string;

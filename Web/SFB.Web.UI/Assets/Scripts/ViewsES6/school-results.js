@@ -86,13 +86,21 @@
             $("nav.navigation-links .olist .litem." + tabName + ", div.tabs>div." + tabName).addClass("active");
             $("nav.navigation-links .olist .litem.active a").focus();
             this.currentTabName = tabName;
+            if (this.currentTabName === "map") {
+                $(".filter.school").hide();
+                $(".pagination-container").hide();
+            }
+            else {
+                $(".filter.school").show();
+                $(".pagination-container").show();
+            }
 
             this.bindAzureMap(this.mapApiKey);
             this.liveSearch.disabled = (tabName === "map");
             if (tabName === "list") {
                 this.liveSearch.updateResults.bind(this.liveSearch).call(null);
                 this.mapLoaded = false;
-            }
+            } 
             this.liveSearch.tabChange(suppressAddHistory);
 
             this.addAllVisibility();
@@ -140,7 +148,8 @@
                 this.map.renderMapPinsForAzureMap(this.cache[serialisedState]);
             }
             else {
-                var searchController = $("#SearchMethod").val() === "Manual" ? "ManualComparison" : "SchoolSearch";
+                var searchController = $("#SearchMethod").val() === "Manual" ? "ManualComparison"
+                    : $("#SearchMethod").val() === "MAT" ? "TrustSearch" : "SchoolSearch";
                 return $.ajax({
                     url: `/${searchController}/search-json`,
                     data: serialisedState

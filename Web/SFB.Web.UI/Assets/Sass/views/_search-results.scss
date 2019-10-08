@@ -11,7 +11,7 @@
             }
         }
     }
-    
+
     .schools-in {
         margin-bottom: 1.5em;
     }
@@ -137,8 +137,8 @@
         @include grey-button;
     }
 
-    .add-all-wrapper{
-        margin-bottom:45px;
+    .add-all-wrapper {
+        margin-bottom: 45px;
     }
 
     .add-all {
@@ -295,5 +295,26 @@
 
     .js-container-head {
         padding: 0 0 5px 0 !important;
+    }
+
+    .school-table {
+        th {
+            @include bold-16;
+        }
+
+        td {
+            @include core-14;
+        }
+    }
+
+    .hidden-filter {
+        padding: 0;
+        width: 0;
+        display: none;
+    }
+
+    td.phase {
+        text-align: right;
+        padding-right: 30px
     }
 }
