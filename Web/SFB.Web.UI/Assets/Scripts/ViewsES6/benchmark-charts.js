@@ -451,11 +451,7 @@
                     }
                 };
                 yFormat = (d) => {
-                    if (d === null) {
-                        return "No pupil data";
-                    } else {
-                        return window.DfE.Util.Charting.ChartMoneyFormat(d);
-                    }
+                    return window.DfE.Util.Charting.ChartMoneyFormat(d);
                 };
                 break;
             case "PerTeacher":
@@ -476,11 +472,7 @@
                     }
                 };
                 yFormat = (d) => {
-                    if (d === null) {
-                        return "No teacher data";
-                    } else {
-                        return window.DfE.Util.Charting.ChartMoneyFormat(d);
-                    }
+                    return window.DfE.Util.Charting.ChartMoneyFormat(d);
                 };
                 break;
             case "PercentageOfTotal":
