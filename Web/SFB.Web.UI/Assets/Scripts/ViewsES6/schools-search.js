@@ -236,7 +236,7 @@
                         break;
                     case 'FindTrustByLaCodeName':
                         // convert it to an la code search, which is the same as if they'd submitted.
-                        url = '/trustsearch/search?searchType=search-by-trust-la-code-name&orderby=Trusts+asc&laCodeName=' + suggestion['id'];
+                        url = '/trustsearch/search?searchType=search-by-trust-la-code-name&laCodeName=' + suggestion['id'];
                         break;
                     case 'FindSchoolManuallyByLaCodeName':
                         // convert it to an la code search, which is the same as if they'd submitted.

@@ -161,6 +161,11 @@ namespace SFB.Web.UI.Controllers
                         errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
+                            if (string.IsNullOrEmpty(orderby))
+                            {
+                                orderby = $"{EdubaseDBFieldNames.TRUSTS} asc";
+                            }
+
                             var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
 
                             searchResults = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
