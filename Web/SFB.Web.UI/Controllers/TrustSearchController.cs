@@ -81,13 +81,13 @@ namespace SFB.Web.UI.Controllers
                         return await SearchByTrustLocationCoordinates(locationorpostcode, locationCoordinates, openOnly, orderby, page, referrer);
                     }
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
-                    if (!IsNumeric(laCodeName))
+                    if (IsNumeric(laCodeName))
                     {
-                        return await SearchByTrustLaName(laCodeName, tab, openOnly, orderby, page, referrer);
+                        return await SearchByTrustLaCode(laCodeName, openOnly, orderby, page, referrer);                        
                     }
                     else
                     {
-                        return await SearchByTrustLaCode(laCodeName, openOnly, orderby, page, referrer);
+                        return await SearchByTrustLaName(laCodeName, tab, openOnly, orderby, page, referrer);
                     }
                 default:
                     return ErrorView(searchType, referrer, errorMessage);
