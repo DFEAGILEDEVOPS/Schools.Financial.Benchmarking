@@ -78,11 +78,11 @@
                             @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                             {
                                 <div class="inline mr-1">
-                                    Schools in search area: @trust.AcademiesList.Where(a => a.InsideSearchArea).ToList().Count
+                                    Schools in search area: <span class="schoolsInArea">@trust.AcademiesList.Where(a => a.InsideSearchArea).ToList().Count</span> 
                                 </div>
                             }
                             <div class="inline">
-                                Schools in trust: @trust.AcademiesList.Count
+                                Schools in trust: <span class="schoolsInTrust">@trust.AcademiesList.Count</span> 
                             </div>
                         </div>
                         <details>
