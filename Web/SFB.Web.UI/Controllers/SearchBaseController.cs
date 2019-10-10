@@ -27,67 +27,9 @@ namespace SFB.Web.UI.Controllers
             _filterBuilder = filterBuilder;
         }
 
-        public abstract Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, 
+        protected abstract Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, 
             decimal? radius, bool openOnly, string orderby, int page, int take = SearchDefaults.RESULTS_PER_PAGE);
         
-        //protected async Task<dynamic> GetSearchResults(
-        //    string nameId,
-        //    string searchType,
-        //    string locationorpostcode,
-        //    string locationCoordinates,
-        //    string laCode,
-        //    decimal? radius,
-        //    bool openOnly,
-        //    string orderby,
-        //    int page,
-        //    int take = SearchDefaults.RESULTS_PER_PAGE)
-        //{
-        //    QueryResultsModel response = null;
-
-        //    switch (searchType)
-        //    {
-        //        case SearchTypes.SEARCH_BY_NAME_ID:
-        //            response = await _schoolSearchService.SearchSchoolByName(nameId,
-        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-        //                Request.QueryString) as QueryResultsModel;
-        //            break;
-        //        case SearchTypes.SEARCH_BY_LA_ESTAB:
-        //            response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
-        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-        //                Request.QueryString) as QueryResultsModel;
-        //            break;
-        //        case SearchTypes.SEARCH_BY_LOCATION:
-        //            var latLng = locationCoordinates.Split(',');
-        //            response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
-        //                (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
-        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-        //                Request.QueryString) as QueryResultsModel;
-        //            break;
-        //        case SearchTypes.SEARCH_BY_TRUST_LOCATION:
-        //            latLng = locationCoordinates.Split(',');
-        //            response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
-        //                (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
-        //                0, SearchDefaults.TRUST_SCHOOLS_MAX, orderby,
-        //                Request.QueryString) as QueryResultsModel;
-        //            break;
-        //        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
-        //            response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
-        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
-        //                string.IsNullOrEmpty(orderby) ? "EstablishmentName" : orderby,
-        //                Request.QueryString) as QueryResultsModel;
-        //            break;
-        //        case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
-        //            response = await _trustSearchService.SearchTrustByName(nameId, 
-        //                (page - 1) * SearchDefaults.RESULTS_PER_PAGE, 
-        //                SearchDefaults.RESULTS_PER_PAGE, orderby, Request?.QueryString);
-        //            break;
-        //    }
-
-        //    OrderFacetFilters(response);
-
-        //    return response;
-        //}
-
         protected void OrderFacetFilters(QueryResultsModel results)
         {
             if (results?.Facets != null)

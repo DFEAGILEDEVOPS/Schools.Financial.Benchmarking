@@ -45,7 +45,6 @@ namespace SFB.Web.UI.Controllers
         public async Task<ActionResult> Search(
         string trustNameId,
         string searchType,
-        string suggestionUrn,
         string locationorpostcode,
         string locationCoordinates,
         string laCodeName,
@@ -56,7 +55,6 @@ namespace SFB.Web.UI.Controllers
         string tab = "list",
         string referrer = "home/index")
         {
-            dynamic searchResults = null;
             string errorMessage = string.Empty;
             ViewBag.tab = tab;
             ViewBag.SearchMethod = "MAT";
@@ -67,124 +65,29 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
                     if (IsNumeric(trustNameId))
                     {
-                        errorMessage = _valService.ValidateCompanyNoParameter(trustNameId);
-                        if (string.IsNullOrEmpty(errorMessage))
-                        {
-                            return RedirectToAction("Index", "Trust", new { companyNo = trustNameId });
-                        }
+                        return SearchByTrustId(trustNameId, openOnly, orderby, page, referrer);
                     }
                     else
                     {
-                        errorMessage = _valService.ValidateTrustNameParameter(trustNameId);
-                        if (string.IsNullOrEmpty(errorMessage))
-                        {
-                            searchResults = await GetSearchResultsAsync(trustNameId, SearchTypes.SEARCH_BY_TRUST_NAME_ID, searchType, locationCoordinates, laCodeName, radius, openOnly, orderby, 1);
-                            if (searchResults.NumberOfResults == 0)
-                            {
-                                return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", trustNameId } });
-                            }
-                        }
+                        return await SearchByTrustName(trustNameId, openOnly, orderby, page, referrer);
                     }
-
-                    if (!string.IsNullOrEmpty(errorMessage))
-                    {
-                        return ErrorView(searchType, referrer, errorMessage);
-                    }
-
-                    var trustVm = await GetTrustListViewModelAsync(searchResults, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
-
-                    return View("SearchResults", trustVm);
-
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
-                    errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
-                    if (string.IsNullOrEmpty(errorMessage))
+                    if (string.IsNullOrEmpty(locationCoordinates))
                     {
-                        if (string.IsNullOrEmpty(locationCoordinates))
-                        {
-                            var result = _locationSearchService.SuggestLocationName(locationorpostcode);
-                            switch (result.Matches.Count)
-                            {
-                                case 0:
-                                    return View("EmptyLocationResult", new SearchViewModel(null, searchType));
-                                default:
-                                    TempData["LocationResults"] = result;
-                                    TempData["SearchMethod"] = "MAT";
-                                    return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationorpostcode });
-                            }
-                        }
-                        else
-                        {
-                            var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
-
-                            searchResults = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
-
-                            if (searchResults.NumberOfResults == 0)
-                            {
-                                return View("EmptyLocationResult", new SearchViewModel(null, searchType));
-                            }
-
-                            var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, searchType, trustNameId, locationorpostcode, null);
-
-                            ApplyTrustLevelOrdering(orderby, trustsVm);
-
-                            return View("SearchResults", trustsVm);
-                        }
+                        return SearchByTrustLocationOrPostcode(locationorpostcode, openOnly, orderby, page, referrer);
                     }
                     else
                     {
-                        return ErrorView(searchType, referrer, errorMessage);
+                        return await SearchByTrustLocationCoordinates(locationorpostcode, locationCoordinates, openOnly, orderby, page, referrer);
                     }
-
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
                     {
-                        errorMessage = _valService.ValidateLaNameParameter(laCodeName);
-                        if (string.IsNullOrEmpty(errorMessage))
-                        {
-                            var exactMatch = _laSearchService.SearchExactMatch(laCodeName);
-                            if (exactMatch != null)
-                            {
-                                laCodeName = exactMatch.id;
-                                return await Search(trustNameId, searchType, suggestionUrn, locationorpostcode,
-                                    locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
-                            }
-                            TempData["SearchMethod"] = "MAT";
-                            return RedirectToAction("Search", "La", new { name = laCodeName, openOnly = openOnly });
-                        }
-                        else
-                        {
-                            return ErrorView(searchType, referrer, errorMessage);
-                        }
+                        return await SearchByTrustLaName(laCodeName, tab, openOnly, orderby, page, referrer);
                     }
                     else
                     {
-                        errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
-                        if (string.IsNullOrEmpty(errorMessage))
-                        {
-                            if (string.IsNullOrEmpty(orderby))
-                            {
-                                orderby = $"{EdubaseDBFieldNames.TRUSTS} asc";
-                            }
-
-                            var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
-
-                            searchResults = await GetSearchResultsAsync(trustNameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, schoolLevelOrdering, page);
-
-                            if (searchResults.NumberOfResults == 0)
-                            {
-                                    return View("EmptyResult", new SearchViewModel(null, searchType));
-                            }
-
-                            var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, searchType, trustNameId, locationorpostcode, _laService.GetLaName(laCodeName));
-
-                            ApplyTrustLevelOrdering(orderby, trustsVm);
-
-                            return View("SearchResults", trustsVm);
-                        }
-                        else
-                        {
-                            return ErrorView(searchType, referrer, errorMessage);
-                        }
+                        return await SearchByTrustLaCode(laCodeName, openOnly, orderby, page, referrer);
                     }
                 default:
                     return ErrorView(searchType, referrer, errorMessage);
@@ -252,7 +155,7 @@ namespace SFB.Web.UI.Controllers
             return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
         }
 
-        public override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
+        protected override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
         {
             QueryResultsModel response = null;
 
@@ -308,7 +211,7 @@ namespace SFB.Web.UI.Controllers
                 var companyName = result[SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME];
                 IEnumerable<EdubaseDataObject> academiesOfTrust = await _contextDataService.GetSchoolsByCompanyNumberAsync(companyNo);
 
-                var academiesList = academiesOfTrust.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();                              
+                var academiesList = academiesOfTrust.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();
 
                 if (academiesList.Count > 0)
                 {
@@ -334,7 +237,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         private async Task<TrustListViewModel> BuildTrustViewModelListFromFoundAcademiesAsync(dynamic academySearchResults, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
-        {           
+        {
             var academyTrustList = new List<AcademyTrustViewModel>();
 
             foreach (var academySearchResult in academySearchResults.Results)
@@ -352,7 +255,7 @@ namespace SFB.Web.UI.Controllers
             foreach (var academyTrust in academyTrustList)
             {
                 var result = await academyTrust.AcademiesListBuilderTask;
-                academyTrust.AcademiesList = result.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();                       
+                academyTrust.AcademiesList = result.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();
             }
 
             MarkAcademiesInsideSearchArea(academySearchResults, academyTrustList);
@@ -420,6 +323,131 @@ namespace SFB.Web.UI.Controllers
             };
 
             return View("../" + referrer, searchVM);
+        }
+
+        private ActionResult SearchByTrustId(string trustNameId, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        {
+            var errorMessage = _valService.ValidateCompanyNoParameter(trustNameId);
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                return RedirectToAction("Index", "Trust", new { companyNo = trustNameId });
+            }
+            else
+            {
+                return ErrorView(SearchTypes.SEARCH_BY_TRUST_NAME_ID, referrer, errorMessage);
+            }
+        }
+
+        private async Task<ActionResult> SearchByTrustName(string trustName, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        {
+            var errorMessage = _valService.ValidateTrustNameParameter(trustName);
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                var searchResults = await GetSearchResultsAsync(trustName, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, openOnly, orderby, 1);
+                if (searchResults.NumberOfResults == 0)
+                {
+                    return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", trustName } });
+                }
+
+                var trustVm = await GetTrustListViewModelAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_NAME_ID, trustName, null, null);
+
+                return View("SearchResults", trustVm);
+            }
+            else
+            {
+                return ErrorView(SearchTypes.SEARCH_BY_TRUST_NAME_ID, referrer, errorMessage);
+            }
+        }
+
+        private ActionResult SearchByTrustLocationOrPostcode(string locationOrPostCode, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        {
+            var errorMessage = _valService.ValidateLocationParameter(locationOrPostCode);
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                var result = _locationSearchService.SuggestLocationName(locationOrPostCode);
+                switch (result.Matches.Count)
+                {
+                    case 0:
+                        return View("EmptyLocationResult", new SearchViewModel(null, SearchTypes.SEARCH_BY_TRUST_LOCATION));
+                    default:
+                        TempData["LocationResults"] = result;
+                        TempData["SearchMethod"] = "MAT";
+                        return RedirectToAction("Suggest", "Location", new { locationOrPostcode = locationOrPostCode });
+                }
+            }
+            else
+            {
+                return ErrorView(SearchTypes.SEARCH_BY_TRUST_LOCATION, referrer, errorMessage);
+            }
+        }
+
+        private async Task<ActionResult> SearchByTrustLocationCoordinates(string locationOrPostcode, string locationCoordinates, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        {
+            var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
+
+            var searchResults = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, locationCoordinates, null, null, openOnly, schoolLevelOrdering, page);
+
+            if (searchResults.NumberOfResults == 0)
+            {
+                return View("EmptyLocationResult", new SearchViewModel(null, SearchTypes.SEARCH_BY_TRUST_LOCATION));
+            }
+
+            var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, locationOrPostcode, null);
+
+            ApplyTrustLevelOrdering(orderby, trustsVm);
+
+            return View("SearchResults", trustsVm);
+        }
+
+        private async Task<ActionResult> SearchByTrustLaName(string laName, string tab, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        {
+            var errorMessage = _valService.ValidateLaNameParameter(laName);
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                var exactMatch = _laSearchService.SearchExactMatch(laName);
+                if (exactMatch != null)
+                {
+                    laName = exactMatch.id;
+                    return await Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, laName, null, openOnly, orderby, page, tab);
+                }
+                TempData["SearchMethod"] = "MAT";
+                return RedirectToAction("Search", "La", new { name = laName, openOnly = openOnly });
+            }
+            else
+            {
+                return ErrorView(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, referrer, errorMessage);
+            }
+        }
+
+        private async Task<ActionResult> SearchByTrustLaCode(string laCode, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        {
+            var errorMessage = _valService.ValidateLaCodeParameter(laCode);
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                if (string.IsNullOrEmpty(orderby))
+                {
+                    orderby = $"{EdubaseDBFieldNames.TRUSTS} asc";
+                }
+
+                var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
+
+                var searchResults = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, laCode, null, openOnly, schoolLevelOrdering, page);
+
+                if (searchResults.NumberOfResults == 0)
+                {
+                    return View("EmptyResult", new SearchViewModel(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME));
+                }
+
+                var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, _laService.GetLaName(laCode));
+
+                ApplyTrustLevelOrdering(orderby, trustsVm);
+
+                return View("SearchResults", trustsVm);
+            }
+            else
+            {
+                return ErrorView(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, referrer, errorMessage);
+            }
         }
     }
 }

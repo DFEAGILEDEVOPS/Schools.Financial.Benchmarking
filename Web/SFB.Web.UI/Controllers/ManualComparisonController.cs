@@ -237,7 +237,7 @@ namespace SFB.Web.UI.Controllers
             return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
         }
 
-        public override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
+        protected override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
         {
             QueryResultsModel response = null;
 
