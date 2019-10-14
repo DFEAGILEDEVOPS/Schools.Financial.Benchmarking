@@ -5,7 +5,7 @@
         private bool _perPupilAvailable = true;
         private bool _perTeacherAvailable = true;
         private bool _percentageAvailable = true;
-        private bool _absoluteMoneyAvailable = true;
+        private bool _absoluteMoneyAvailable = true;           
 
         public string Name { get; set; }
 
@@ -52,5 +52,8 @@
 
         public bool NumberOfPupilsPerMeasureAvailable { get; set; }
         public bool NumberOfPupilsPerMeasureSelected { get; set; }
+
+        public bool PercentageTeachersAvailable { get; set; }
+        public bool PercentageTeachersSelected { get; set; }
     }
 }

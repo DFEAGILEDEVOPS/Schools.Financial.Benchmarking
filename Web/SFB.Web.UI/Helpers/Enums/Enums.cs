@@ -38,6 +38,7 @@ namespace SFB.Web.UI.Helpers.Enums
         AllExcludingSchoolPerf,
         AllIncludingSchoolPerf,
         Workforce,
+        Salary,
         Custom
     }
 
@@ -67,7 +68,9 @@ namespace SFB.Web.UI.Helpers.Enums
         [Description("Percentage of workforce")]
         FTERatioToTotalFTE,
         [Description("Number of pupils per measure")]
-        NoOfPupilsPerMeasure
+        NoOfPupilsPerMeasure,
+        [Description("Percentage")]
+        PercentageTeachers
     }
 
     public enum ChartGroupType
@@ -88,6 +91,7 @@ namespace SFB.Web.UI.Helpers.Enums
         All,
         SP,
         Workforce,
+        Salary,
         Custom
     }
 

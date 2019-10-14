@@ -104,6 +104,10 @@
                                                 <input id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
                                                 <label for="sel_{{$parent.$index}}_{{$index}}_8" aria-label="{{chart.Name}} pupils per measure">Pupils per measure</label>
                                             </div>
+                                            <div class="multiple-choice" ng-show="chart.PercentageTeachersAvailable">
+                                                <input id="sel_{{$parent.$index}}_{{$index}}_9" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageTeachersSelected">
+                                                <label for="sel_{{$parent.$index}}_{{$index}}_9" aria-label="{{chart.Name}} pupils per measure">Percentage</label>
+                                            </div>
                                         </div>
                                         <hr class="tablet-divider" />
                                     </div>

@@ -2,7 +2,7 @@
 @using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Helpers.Enums
 
-<div class="column-third chart-filter @IsWorkforceTab()">
+<div class="column-third chart-filter @IsIrrelevantTab()">
     <div class="form-group">
         <label class="form-label" for="CentralFinancing">Academy values</label>
         <select name="CentralFinancing" id="CentralFinancing" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.RebuildCharts()">
@@ -12,9 +12,9 @@
     </div>
 </div>
 
-@helper IsWorkforceTab()
+@helper IsIrrelevantTab()
 {
-    if (ViewBag.Tab == RevenueGroupType.Workforce)
+    if (ViewBag.Tab == RevenueGroupType.Workforce || ViewBag.Tab == RevenueGroupType.Salary)
     {
         <text>hidden</text>
     }

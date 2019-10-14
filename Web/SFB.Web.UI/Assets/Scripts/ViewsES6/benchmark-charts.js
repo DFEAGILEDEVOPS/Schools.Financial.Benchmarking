@@ -85,6 +85,11 @@
                                                 ? showRemoveLink(self)
                                                 : showAddLink(self);
                                             break;
+                                        case 'PercentageTeachers':
+                                            selection.PercentageTeachersSelected
+                                                ? showRemoveLink(self)
+                                                : showAddLink(self);
+                                            break;
                                     }
                                 }
                             });
@@ -128,6 +133,9 @@
                                 break;
                             case 'NoOfPupilsPerMeasure':
                                 selection.NumberOfPupilsPerMeasureSelected = checked;
+                                break;
+                            case 'PercentageTeachers':
+                                selection.PercentageTeachersSelected = checked;
                                 break;
                         }
                     }
@@ -394,6 +402,7 @@
         let yAxis, yFormat;
         let isMobile = $(window).width() <= 640;
         let isBic = $("#ComparisonType").val() === "BestInClass";
+
         switch (showValue) {
             case "AbsoluteCount":
                 yAxis = {
@@ -477,6 +486,7 @@
                 break;
             case "PercentageOfTotal":
             case "FTERatioToTotalFTE":
+            case "PercentageTeachers":
                 yAxis = {
                     tick: {
                         format: (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); },
@@ -633,7 +643,9 @@
             }
         });
 
-        new Accordion(document.getElementById('bm-charts-accordion'));
+        if (document.getElementById('bm-charts-accordion')){
+            new Accordion(document.getElementById('bm-charts-accordion'));
+        }
     }
 
     SelectGrouping(grouping, parentGrouping) {
