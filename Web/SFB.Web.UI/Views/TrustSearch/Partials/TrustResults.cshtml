@@ -73,7 +73,7 @@
                         <div class="font-xsmall">
                             <div>
                                 Companies House number:
-                                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/0@(trust.CompanyNo)">0@(trust.CompanyNo)</a>
+                                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(trust.CompanyNo.ToString("D8"))">@(trust.CompanyNo)</a>
                             </div>
                             @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                             {

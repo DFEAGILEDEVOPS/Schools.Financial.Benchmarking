@@ -68,7 +68,7 @@
     }
     <div class="column-full mt-2">
         Companies House number:
-        <a class="ml-05" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/0@(Model.CompanyNo)">0@(Model.CompanyNo)</a>
+        <a class="ml-05" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(Model.CompanyNo.ToString("D8"))">@(Model.CompanyNo)</a>
     </div>
 </div>
 
