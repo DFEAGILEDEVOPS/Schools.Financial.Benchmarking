@@ -5,8 +5,21 @@
         "Find out how to use the schools financial benchmarking site.";
 }
 
+
 @section BackButtonContent{
-    @Html.Partial("Partials/BackToHomeLink")
+    @if (ViewBag.referrer == null || ViewBag.referrer == "/")
+    {
+        Html.RenderPartial("Partials/BackToHomeLink");
+    }
+    else
+    {
+        <a class="home-link" href="@ViewBag.referrer" aria-label="Back to previous page">
+            <i class="icon icon-back">
+                <span class="visually-hidden">Back to previous page</span>
+            </i>
+            <span class="back-link">Back to previous page</span>
+        </a>
+    }
 }
 
 

@@ -111,6 +111,11 @@
     };
 
     window.DfE.Util.ModalRenderer = {
+
+        GetQueryString: function () {
+            return encodeURIComponent(window.location.pathname + window.location.search);
+        },
+
         RenderAdditionalGrantModal: function () {
             var $body = $('body');
             var $page = $('#js-modal-page');
@@ -145,10 +150,10 @@
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLinkText' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>New feature</h1>" +
                 "<p id = 'modal-content'>A new article has been added to the News Page that could help your schools financial benchmarking experience. " +
-                "<a href='/news'>Go to the news page</a> to view the article or find the News link in the 'News and Guidance' section on the homepage.</p>" +
+                "<a href='/news?referrer=" + window.DfE.Util.ModalRenderer.GetQueryString() + "'>Go to the news page</a> to view the article or find the News link in the 'News and Guidance' section on the homepage.</p>" +
                 "<div class='grid-row modal-form-buttons'>"+
-                "<div class='column-half'>"+
-                    "<a class='button next-button' href='/news'>Go to news page</a>"+
+                "<div class='column-half'>" +
+                "<a class='button next-button' href='/news?referrer=" + window.DfE.Util.ModalRenderer.GetQueryString() + "'>Go to news page</a>" +
                     "<button type='button' class='back-button link-button' value='Cancel' onclick='GOVUK.Modal.prototype.closeAccessibleModal()'>Cancel</button>"+
                 "</div>"+                
                 "</div></div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLinkText' title='Close'>Close</a></dialog>";

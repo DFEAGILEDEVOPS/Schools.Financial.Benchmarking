@@ -9,8 +9,9 @@ namespace SFB.Web.UI.Controllers
     public class NewsController : Controller
     {
         // GET: News
-        public ActionResult Index()
+        public ActionResult Index(string referrer)
         {
+            ViewBag.referrer = referrer;
             return View();
         }
     }
