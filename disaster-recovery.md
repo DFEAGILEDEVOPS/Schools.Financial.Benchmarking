@@ -22,7 +22,7 @@ Open schema/datasource/search.json and schema/datasource/search-trust.json and u
 
 Open a terminal instance and from the `deploy/azure-search/app` directory execute `node index.js search` and then `node index.js search-trust`. If this is the first time you are running, run `npm install` prior to that.  This will rebuild the search indexes, datasources and indexers.  Finally it will schedule the indexer to run immediately.  If the program reports back that the indexer cannot be run at this time("cannot be used while offline" error message), wait a few minutes for the search index to catch up with the datasource and re-run the commands above.
 
-##Flush Redis cache
+## Flush Redis cache
 In Azure Portal, go to sfb-prod instance of Azure Cache for Redis and open the console. Type "flushall" and press enter. Wait for the "OK" message. Alternatively from your local, install and configure "stunnel" then run "flush-redis-cache.bat" under 'deploy/redis' directory. This will purge the cached data (including output cache for school details pages).
 
 ## Domain name configuration
