@@ -759,7 +759,7 @@
     <Content Include="Views\BenchmarkCharts\ReplaceWithSavedBasket.cshtml" />
     <Content Include="Views\Help\DataQueries.cshtml" />
     <Content Include="Views\Help\DataQueryConfirmation.cshtml" />
-    <Content Include="Views\Shared\Partials\Search\ManualSchoolSearchOption.cshtml" />
+    <Content Include="Views\Shared\Partials\Search\ManualNameSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\ManualLocationSearchOption.cshtml" />
     <Content Include="Views\Shared\Partials\Search\ManualLaSearchOption.cshtml" />
     <Content Include="Views\ManualComparison\AddSchoolsManually.cshtml" />
