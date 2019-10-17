@@ -78,7 +78,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        return await SearchByTrustLocationCoordinates(locationorpostcode, locationCoordinates, openOnly, orderby, page, referrer);
+                        return await SearchByTrustLocationCoordinates(locationorpostcode, locationCoordinates, radius, openOnly, orderby, page, referrer);
                     }
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     if (IsNumeric(laCodeName))
@@ -381,11 +381,11 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        private async Task<ActionResult> SearchByTrustLocationCoordinates(string locationOrPostcode, string locationCoordinates, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        private async Task<ActionResult> SearchByTrustLocationCoordinates(string locationOrPostcode, string locationCoordinates, decimal? radius, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
             var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
 
-            var searchResults = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, locationCoordinates, null, null, openOnly, schoolLevelOrdering, page);
+            var searchResults = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, locationCoordinates, null, radius, openOnly, schoolLevelOrdering, page);
 
             if (searchResults.NumberOfResults == 0)
             {
