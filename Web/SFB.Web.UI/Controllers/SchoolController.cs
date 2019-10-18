@@ -12,7 +12,6 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
 using System.Threading.Tasks;
-using SFB.Web.DAL;
 using SFB.Web.Domain.Models;
 using System.Web.UI;//Do not remove. Required in release mode build
 using SFB.Web.Common.DataObjects;
@@ -269,9 +268,8 @@ namespace SFB.Web.UI.Controllers
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
                 var resultDataObject = taskResult?.FirstOrDefault();
-                var dataGroup = estabType.ToDataGroup(cFinance);
 
-                if (dataGroup == DataGroups.MATAllocs && resultDataObject == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
+                if (estabType == EstablishmentType.Academies && cFinance == CentralFinancingType.Include && resultDataObject == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
                 {
                     resultDataObject = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();

@@ -13,7 +13,6 @@ using SFB.Web.Domain.Models;
 using SFB.Web.UI.Helpers.Enums;
 using System.Threading.Tasks;
 using SFB.Web.Common;
-using SFB.Web.DAL;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
@@ -890,14 +889,8 @@ namespace SFB.Web.UI.Controllers
                 var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
                 var taskResult = await taskList[i];
                 var resultDocument = taskResult?.FirstOrDefault();
-                var dataGroup = schools[i].EstabType;
 
-                if (estabType == EstablishmentType.Academies)
-                {
-                    dataGroup = (centralFinancing == CentralFinancingType.Include) ? DataGroups.MATAllocs : DataGroups.Academies;
-                }
-
-                if (dataGroup == DataGroups.MATAllocs && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
+                if (estabType == EstablishmentType.Academies && centralFinancing == CentralFinancingType.Include && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
                 {
                     resultDocument = (await _financialDataService.GetSchoolFinancialDataObjectAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
                         ?.FirstOrDefault();

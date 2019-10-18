@@ -812,7 +812,7 @@
       <Name>SFB.Web.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFB.Web.DAL\SFB.Web.DAL.csproj">
-      <Project>{933AECEE-A499-482D-B09B-A8864140B332}</Project>
+      <Project>{933aecee-a499-482d-b09b-a8864140b332}</Project>
       <Name>SFB.Web.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFB.Web.Domain\SFB.Web.Domain.csproj">
