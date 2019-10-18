@@ -97,6 +97,9 @@
     <Compile Include="ApiWrappers\ApiRequest.cs" />
     <Compile Include="ApiWrappers\ApiResponse.cs" />
     <Compile Include="ApiWrappers\IApiRequest.cs" />
+    <Compile Include="DataAccessInterfaces\IDataCollectionManager.cs" />
+    <Compile Include="DataAccessInterfaces\IEdubaseRepository.cs" />
+    <Compile Include="DataAccessInterfaces\IFinancialDataRepository.cs" />
     <Compile Include="Helpers\Constants\Constants.cs" />
     <Compile Include="Helpers\Constants\Dictionaries.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
@@ -145,10 +148,6 @@
     <ProjectReference Include="..\SFB.Web.Common\SFB.Web.Common.csproj">
       <Project>{D1DDD6B9-2AC9-4261-B4EF-F67AE3213164}</Project>
       <Name>SFB.Web.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SFB.Web.DAL\SFB.Web.DAL.csproj">
-      <Project>{933AECEE-A499-482D-B09B-A8864140B332}</Project>
-      <Name>SFB.Web.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

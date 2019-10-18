@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SFB.Web.Common;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
@@ -207,8 +207,8 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var result in trustSearchResults.Results)
             {
-                var companyNo = int.Parse(result[EdubaseDBFieldNames.COMPANY_NUMBER]);
-                var companyName = result[SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME];
+                var companyNo = int.Parse(result[EdubaseDataFieldNames.COMPANY_NUMBER]);
+                var companyName = result[SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME];
                 IEnumerable<EdubaseDataObject> academiesOfTrust = await _contextDataService.GetSchoolsByCompanyNumberAsync(companyNo);
 
                 var academiesList = academiesOfTrust.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();
@@ -242,11 +242,11 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var academySearchResult in academySearchResults.Results)
             {
-                if (int.TryParse(academySearchResult[EdubaseDBFieldNames.COMPANY_NUMBER], out int companyNo))
+                if (int.TryParse(academySearchResult[EdubaseDataFieldNames.COMPANY_NUMBER], out int companyNo))
                 {
                     if (!academyTrustList.Any(t => t.CompanyNo == companyNo))
                     {
-                        var academyTrust = new AcademyTrustViewModel(companyNo, academySearchResult[EdubaseDBFieldNames.TRUSTS], _contextDataService.GetSchoolsByCompanyNumberAsync(companyNo));
+                        var academyTrust = new AcademyTrustViewModel(companyNo, academySearchResult[EdubaseDataFieldNames.TRUSTS], _contextDataService.GetSchoolsByCompanyNumberAsync(companyNo));
                         academyTrustList.Add(academyTrust);
                     }
                 }
@@ -279,7 +279,7 @@ namespace SFB.Web.UI.Controllers
         {
             foreach (var academySearchResult in academySearchResults.Results)
             {
-                var schoolMatch = trustList.SelectMany(t => t.AcademiesList).Where(a => a.Id.ToString() == academySearchResult[EdubaseDBFieldNames.URN]).FirstOrDefault();
+                var schoolMatch = trustList.SelectMany(t => t.AcademiesList).Where(a => a.Id.ToString() == academySearchResult[EdubaseDataFieldNames.URN]).FirstOrDefault();
                 if (schoolMatch != null)
                 {
                     schoolMatch.InsideSearchArea = true;
@@ -307,7 +307,7 @@ namespace SFB.Web.UI.Controllers
             var schoolLevelOrdering = orderby;
             if (orderby == "AreaSchoolNumber" || orderby == "MatSchoolNumber")
             {
-                schoolLevelOrdering = $"{EdubaseDBFieldNames.TRUSTS} asc";
+                schoolLevelOrdering = $"{EdubaseDataFieldNames.TRUSTS} asc";
             }
 
             return schoolLevelOrdering;
@@ -426,7 +426,7 @@ namespace SFB.Web.UI.Controllers
             {
                 if (string.IsNullOrEmpty(orderby))
                 {
-                    orderby = $"{EdubaseDBFieldNames.TRUSTS} asc";
+                    orderby = $"{EdubaseDataFieldNames.TRUSTS} asc";
                 }
 
                 var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);

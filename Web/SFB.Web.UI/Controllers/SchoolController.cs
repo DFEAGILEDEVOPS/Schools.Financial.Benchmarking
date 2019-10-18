@@ -14,7 +14,7 @@ using SFB.Web.Domain.Services.DataAccess;
 using System.Threading.Tasks;
 using SFB.Web.Domain.Models;
 using System.Web.UI;//Do not remove. Required in release mode build
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.ApiWrappers;
 using SFB.Web.UI.Attributes;
 using SFB.Web.Domain.Services;

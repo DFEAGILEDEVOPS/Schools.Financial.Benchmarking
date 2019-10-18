@@ -7,6 +7,7 @@ using System.Web.Caching;
 using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json.Linq;
 using SFB.Web.Common;
+using SFB.Web.Domain.DataAccessInterfaces;
 
 namespace SFB.Web.DAL.Helpers
 {

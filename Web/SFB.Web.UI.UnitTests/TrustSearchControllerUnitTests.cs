@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using RedDog.Search.Model;
 using SFB.Web.Common;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.DataAccess;
@@ -252,7 +252,7 @@ namespace SFB.Web.UI.UnitTests
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -260,7 +260,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, "AreaSchoolNumber", 0);
 
-            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null));    
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));    
         }
 
         [Test]
@@ -297,7 +297,7 @@ namespace SFB.Web.UI.UnitTests
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
             _mockLaSearchService.Setup(m => m.SearchExactMatch("Croydon")).Returns(new LaViewModel(){id= "319", LaName= "Croydon" });
@@ -307,7 +307,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "Croydon", null, false, null, 0);
 
-            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null));
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));
         }
 
         [Test]
@@ -345,7 +345,7 @@ namespace SFB.Web.UI.UnitTests
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("000", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("000", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -367,7 +367,7 @@ namespace SFB.Web.UI.UnitTests
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -375,7 +375,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "123", null, false, "AreaSchoolNumber", 0);
 
-            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCode("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDBFieldNames.TRUSTS} asc", null));
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCode("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));
         }
     }
 }

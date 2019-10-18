@@ -16,7 +16,7 @@ using SFB.Web.Common;
 using SFB.Web.Domain.Helpers.Constants;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Attributes;
 using System.Net;

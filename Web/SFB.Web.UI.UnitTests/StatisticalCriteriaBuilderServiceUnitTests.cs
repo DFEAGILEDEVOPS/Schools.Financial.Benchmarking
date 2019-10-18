@@ -8,7 +8,7 @@ using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
 using SFB.Web.Domain.Services.Comparison;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Helpers.Constants;
 
 namespace SFB.Web.UI.UnitTests

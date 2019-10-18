@@ -15,6 +15,7 @@ using SFB.Web.UI.Services;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.DAL.Repositories;
 using SFB.Web.Domain.Services.Comparison;
+using SFB.Web.Domain.DataAccessInterfaces;
 
 namespace SFB.Web.UI
 {

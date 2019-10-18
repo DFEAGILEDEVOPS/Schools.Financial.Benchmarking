@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFB.Web.Common;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 
-namespace SFB.Web.DAL.Repositories
+namespace SFB.Web.Domain.DataAccessInterfaces
 {
     public interface IFinancialDataRepository
     {

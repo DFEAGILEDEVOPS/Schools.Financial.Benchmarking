@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SFB.Web.Common;
 
-namespace SFB.Web.DAL.Helpers
+namespace SFB.Web.Domain.DataAccessInterfaces
 {
     public interface IDataCollectionManager
     {

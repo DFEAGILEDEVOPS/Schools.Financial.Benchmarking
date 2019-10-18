@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFB.Web.Common;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Models;
 
 namespace SFB.Web.Domain.Services.DataAccess

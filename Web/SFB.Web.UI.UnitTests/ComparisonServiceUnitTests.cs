@@ -7,7 +7,7 @@ using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services.Comparison;
 using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 
 namespace SFB.Web.UI.UnitTests
 {

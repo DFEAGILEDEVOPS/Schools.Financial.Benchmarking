@@ -1,5 +1,5 @@
 ﻿using SFB.Web.Common;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using System.Collections.Generic;
 
 namespace SFB.Web.UI.Models

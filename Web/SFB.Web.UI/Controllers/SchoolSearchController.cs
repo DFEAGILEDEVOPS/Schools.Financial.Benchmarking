@@ -15,7 +15,7 @@ using SFB.Web.UI.Services;
 using System;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Attributes;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Models;
 using SFB.Web.Common;
 
@@ -186,7 +186,7 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
-                        string.IsNullOrEmpty(orderby) ? EdubaseDBFieldNames.ESTAB_NAME : orderby,
+                        string.IsNullOrEmpty(orderby) ? EdubaseDataFieldNames.ESTAB_NAME : orderby,
                         Request.QueryString) as QueryResultsModel;
                     break;
             }

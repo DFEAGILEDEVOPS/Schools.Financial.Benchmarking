@@ -7,7 +7,7 @@ using System.Linq;
 using SFB.Web.Common;
 using SFB.Web.Domain.Services;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.Services
@@ -157,7 +157,7 @@ namespace SFB.Web.UI.Services
                             }
                             break;
                     case UnitType.FTERatioToTotalFTE:                        
-                        total = GetFinancialDataValueForChartField(SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);                        
+                        total = GetFinancialDataValueForChartField(SchoolTrustFinanceDataFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);                        
                         rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                             if (rawAmount == null)
                             {
@@ -368,7 +368,7 @@ namespace SFB.Web.UI.Services
                     }
                     break;
                 case UnitType.FTERatioToTotalFTE:
-                    total = GetFinancialDataValueForChartField(SchoolTrustFinanceDBFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);
+                    total = GetFinancialDataValueForChartField(SchoolTrustFinanceDataFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);
                     rawAmount = GetFinancialDataValueForChartField(fieldName, schoolData.FinancialDataObjectModel);
                     if (rawAmount == null)
                     {

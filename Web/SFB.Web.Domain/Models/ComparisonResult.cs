@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using SFB.Web.Common;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 
 namespace SFB.Web.Domain.Models
 {

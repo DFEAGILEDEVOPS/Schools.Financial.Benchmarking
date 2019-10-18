@@ -15,7 +15,7 @@ using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using SFB.Web.Domain.ApiWrappers;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain;
 using SFB.Web.Domain.Services;
 

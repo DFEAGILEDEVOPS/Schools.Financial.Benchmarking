@@ -13,7 +13,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using System;
 using SFB.Web.UI.Attributes;
 using System.Web.Routing;

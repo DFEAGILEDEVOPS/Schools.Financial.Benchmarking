@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFB.Web.Common;
-using SFB.Web.DAL.Helpers;
-using SFB.Web.DAL.Repositories;
-using SFB.Web.DAL;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Helpers;
 using System.Linq;
+using SFB.Web.Domain.DataAccessInterfaces;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {

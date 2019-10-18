@@ -258,7 +258,7 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
-                        string.IsNullOrEmpty(orderby) ? EdubaseDBFieldNames.ESTAB_NAME : orderby,
+                        string.IsNullOrEmpty(orderby) ? EdubaseDataFieldNames.ESTAB_NAME : orderby,
                         Request.QueryString) as QueryResultsModel;
                     break;
             }

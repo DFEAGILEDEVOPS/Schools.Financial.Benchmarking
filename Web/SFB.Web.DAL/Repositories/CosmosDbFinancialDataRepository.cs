@@ -10,7 +10,8 @@ using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
 using SFB.Web.Common.Attributes;
 using SFB.Web.DAL.Helpers;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
+using SFB.Web.Domain.DataAccessInterfaces;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -44,7 +45,7 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
 
-            var query = $"SELECT * FROM c WHERE c.{SchoolTrustFinanceDBFieldNames.URN}=@URN";
+            var query = $"SELECT * FROM c WHERE c.{SchoolTrustFinanceDataFieldNames.URN}=@URN";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
@@ -85,7 +86,7 @@ namespace SFB.Web.DAL.Repositories
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
-            var query = $"SELECT * FROM c WHERE c.{SchoolTrustFinanceDBFieldNames.URN}=@URN";
+            var query = $"SELECT * FROM c WHERE c.{SchoolTrustFinanceDataFieldNames.URN}=@URN";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@URN", urn));
@@ -117,11 +118,11 @@ namespace SFB.Web.DAL.Repositories
                 _dataCollectionManager.GetActiveCollectionsByDataGroup(DataGroups.Academies)
                     .SingleOrDefault(sod => sod.Split('-').Last() == term.Split(' ').Last());
 
-            var query = $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], " +
-                $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'] as EstablishmentName, " +
-                $"c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'], " +
-                $"c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}']" +
-                $"FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
+            var query = $"SELECT c['{SchoolTrustFinanceDataFieldNames.URN}'], " +
+                $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_NAME}'] as EstablishmentName, " +
+                $"c['{SchoolTrustFinanceDataFieldNames.PERIOD_COVERED_BY_RETURN}'], " +
+                $"c['{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}']" +
+                $"FROM c WHERE c['{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}']=@companyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@companyNo", companyNo));
@@ -154,7 +155,7 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
 
-            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}']=@companyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@companyNo", companyNo));
@@ -198,7 +199,7 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
 
-            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}'] in ({string.Join(",", companyNoList)})";
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}'] in ({string.Join(",", companyNoList)})";
 
             var results = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName), query);
 
@@ -237,7 +238,7 @@ namespace SFB.Web.DAL.Repositories
                 return null;
             }
 
-            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}']=@matName";
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}']=@matName";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@matName", matName));
@@ -276,7 +277,7 @@ namespace SFB.Web.DAL.Repositories
 
             var collectionName = _dataCollectionManager.GetCollectionIdByTermByDataGroup(term, dataGroup);
 
-            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}']=@companyNo";
+            var query = $"SELECT * FROM c WHERE c['{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}']=@companyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@companyNo", companyNo));
@@ -390,32 +391,32 @@ namespace SFB.Web.DAL.Repositories
                 {
                     result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], " +
-                        $"'{DataGroups.Academies}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_PHASE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP}'] " +
+                        $"SELECT c['{SchoolTrustFinanceDataFieldNames.URN}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_NAME}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_TYPE}'], " +
+                        $"'{DataGroups.Academies}' AS {SchoolTrustFinanceDataFieldNames.FINANCE_TYPE}, " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.NO_PUPILS}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_PHASE}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.KS2_PROGRESS}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.PROGRESS_8_MEASURE}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.TOTAL_EXP_PP}'] " +
                         $"FROM c WHERE {query}");
                 }
                 else
                 {
                     result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                         UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                        $"SELECT c['{SchoolTrustFinanceDBFieldNames.URN}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_NAME}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_TYPE}'], " +
-                        $"'{DataGroups.Maintained}' AS {SchoolTrustFinanceDBFieldNames.FINANCE_TYPE}, " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.NO_PUPILS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_PHASE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.SCHOOL_OVERALL_PHASE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.KS2_PROGRESS}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.PROGRESS_8_MEASURE}'], " +
-                        $"c['{SchoolTrustFinanceDBFieldNames.TOTAL_EXP_PP}'] " +
+                        $"SELECT c['{SchoolTrustFinanceDataFieldNames.URN}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_NAME}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_TYPE}'], " +
+                        $"'{DataGroups.Maintained}' AS {SchoolTrustFinanceDataFieldNames.FINANCE_TYPE}, " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.NO_PUPILS}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_PHASE}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.KS2_PROGRESS}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.PROGRESS_8_MEASURE}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.TOTAL_EXP_PP}'] " +
                         $"FROM c WHERE {query}");
                 }
             }
@@ -448,7 +449,7 @@ namespace SFB.Web.DAL.Repositories
             {
                 result = _client.CreateDocumentQuery<SchoolTrustFinancialDataObject>(
                    UriFactory.CreateDocumentCollectionUri(DatabaseId, collectionName),
-                   $"SELECT c['{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}'], c['{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}'] FROM c WHERE {query}");
+                   $"SELECT c['{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}'], c['{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}'] FROM c WHERE {query}");
             }
             catch (Exception ex)
             {
@@ -506,16 +507,16 @@ namespace SFB.Web.DAL.Repositories
 
         private string ExcludeSAMATs(string query)
         {
-            return $"{query} AND c.{SchoolTrustFinanceDBFieldNames.MEMBER_COUNT} > 1";
+            return $"{query} AND c.{SchoolTrustFinanceDataFieldNames.MEMBER_COUNT} > 1";
         }
 
         private string ExcludePartials(string query)
         {
             if(string.IsNullOrEmpty(query))
             {
-                return $"c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] = 12";
+                return $"c['{SchoolTrustFinanceDataFieldNames.PERIOD_COVERED_BY_RETURN}'] = 12";
             }
-            return $"{query} AND c['{SchoolTrustFinanceDBFieldNames.PERIOD_COVERED_BY_RETURN}'] = 12";
+            return $"{query} AND c['{SchoolTrustFinanceDataFieldNames.PERIOD_COVERED_BY_RETURN}'] = 12";
         }
 
         private string BuildQueryFromBenchmarkCriteria(BenchmarkCriteria criteria)

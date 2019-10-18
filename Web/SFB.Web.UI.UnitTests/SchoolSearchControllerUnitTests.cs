@@ -15,7 +15,7 @@ using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.Domain.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Services;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using RedDog.Search.Model;
 using System.Linq;
 

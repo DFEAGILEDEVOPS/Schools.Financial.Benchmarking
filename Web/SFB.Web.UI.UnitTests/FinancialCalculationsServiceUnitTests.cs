@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using SFB.Web.Common;
 using SFB.Web.Domain.Models;
 using SFB.Web.Domain.Services;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Services.DataAccess;
 
 namespace SFB.Web.UI.UnitTests

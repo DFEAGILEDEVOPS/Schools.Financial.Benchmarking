@@ -20,7 +20,7 @@
                             <span>
                                 @Model[i].Name
                             </span>
-                            @if (Model[i].ChartType != ChartType.OneClick || Model[i].FieldName != SchoolTrustFinanceDBFieldNames.TEACHERS_TOTAL)//exception #31821
+                            @if (Model[i].ChartType != ChartType.OneClick || Model[i].FieldName != SchoolTrustFinanceDataFieldNames.TEACHERS_TOTAL)//exception #31821
                             {
                                 <span class="not-bold">
                                     @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")

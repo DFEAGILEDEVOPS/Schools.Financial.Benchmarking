@@ -33,17 +33,17 @@ namespace SFB.Web.Domain.Services.Search
             Func<SuggestionResultRecord, ExpandoObject> processResult = r =>
             {
                 dynamic retVal = new ExpandoObject();
-                retVal.Id = r.Properties[$"{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}"]?.ToString();
-                retVal.Text = r.Properties[$"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}"] as string;
+                retVal.Id = r.Properties[$"{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}"]?.ToString();
+                retVal.Text = r.Properties[$"{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}"] as string;
                 return retVal;
             };
 
             var response = await client.SuggestAsync(_index, new SuggestionQuery(name)
                 .SuggesterName("namesuggest")
                 .Fuzzy(false)
-                .Select($"{SchoolTrustFinanceDBFieldNames.COMPANY_NUMBER}")
-                .Select($"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}")
-                .SearchField($"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}")
+                .Select($"{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}")
+                .Select($"{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}")
+                .SearchField($"{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}")
                 .Top(10));
 
             if (!response.IsSuccess)
@@ -65,7 +65,7 @@ namespace SFB.Web.Domain.Services.Search
         {
             if (name.Length > 2)
             {
-                var exactMatches = await ExecuteSearch(_index, $"{name}", $"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME}", null, orderby, skip, take);
+                var exactMatches = await ExecuteSearch(_index, $"{name}", $"{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}", null, orderby, skip, take);
 
                 return exactMatches;
             }

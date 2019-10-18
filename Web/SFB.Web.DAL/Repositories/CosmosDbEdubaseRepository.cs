@@ -6,9 +6,9 @@ using System.Text;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using SFB.Web.Common;
-using SFB.Web.DAL.Helpers;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using System.Threading.Tasks;
+using SFB.Web.Domain.DataAccessInterfaces;
 
 namespace SFB.Web.DAL.Repositories
 {
@@ -55,25 +55,25 @@ namespace SFB.Web.DAL.Repositories
 
         public EdubaseDataObject GetSchoolDataObjectByUrn(int urn)
         {
-            return GetSchoolDataObjectById(new Dictionary<string, object> { { SchoolTrustFinanceDBFieldNames.URN, urn } }).FirstOrDefault();
+            return GetSchoolDataObjectById(new Dictionary<string, object> { { SchoolTrustFinanceDataFieldNames.URN, urn } }).FirstOrDefault();
         }
 
         public List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns)
         {
-            return GetMultipleSchoolDataObjetsByIds(SchoolTrustFinanceDBFieldNames.URN, urns);
+            return GetMultipleSchoolDataObjetsByIds(SchoolTrustFinanceDataFieldNames.URN, urns);
         }
 
         public List<EdubaseDataObject> GetSchoolsByLaEstab(string laEstab, bool openOnly)
         {
             var parameters = new Dictionary<string, object>
             {
-                {EdubaseDBFieldNames.LA_CODE, Int32.Parse(laEstab.Substring(0, 3))},
-                {EdubaseDBFieldNames.ESTAB_NO, Int32.Parse(laEstab.Substring(3))}
+                {EdubaseDataFieldNames.LA_CODE, Int32.Parse(laEstab.Substring(0, 3))},
+                {EdubaseDataFieldNames.ESTAB_NO, Int32.Parse(laEstab.Substring(3))}
             };
 
             if(openOnly)
             {
-                parameters.Add(EdubaseDBFieldNames.ESTAB_STATUS, "Open");
+                parameters.Add(EdubaseDataFieldNames.ESTAB_STATUS, "Open");
             }
 
             return GetSchoolDataObjectById(parameters);
@@ -90,8 +90,8 @@ namespace SFB.Web.DAL.Repositories
 
         public async Task<IEnumerable<EdubaseDataObject>> GetSchoolsByCompanyNoAsync(int companyNo)
         {
-            var query = $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.COMPANY_NUMBER}'] " +
-                $"FROM c WHERE c.{EdubaseDBFieldNames.COMPANY_NUMBER}=@CompanyNo";
+            var query = $"SELECT c['{EdubaseDataFieldNames.URN}'], c['{EdubaseDataFieldNames.ESTAB_NAME}'], c['{EdubaseDataFieldNames.OVERALL_PHASE}'], c['{EdubaseDataFieldNames.COMPANY_NUMBER}'] " +
+                $"FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@CompanyNo", companyNo));
@@ -123,9 +123,9 @@ namespace SFB.Web.DAL.Repositories
             var where = sb.ToString().Substring(0, sb.ToString().Length - 5);
 
             var query =
-                $"SELECT c['{EdubaseDBFieldNames.URN}'], c['{EdubaseDBFieldNames.ESTAB_NAME}'], c['{EdubaseDBFieldNames.OVERALL_PHASE}'], c['{EdubaseDBFieldNames.PHASE_OF_EDUCATION}'], c['{EdubaseDBFieldNames.TYPE_OF_ESTAB}'], c['{EdubaseDBFieldNames.STREET}'], c['{EdubaseDBFieldNames.TOWN}'], c['{EdubaseDBFieldNames.LOCATION}'], c['{EdubaseDBFieldNames.POSTCODE}'], c['{EdubaseDBFieldNames.TRUSTS}'], c['{EdubaseDBFieldNames.MAT_NUMBER}'], c['{EdubaseDBFieldNames.COMPANY_NUMBER}']," +
-                $"c['{EdubaseDBFieldNames.LA_CODE}'], c['{EdubaseDBFieldNames.ESTAB_NO}'], c['{EdubaseDBFieldNames.TEL_NO}'], c['{EdubaseDBFieldNames.NO_PUPIL}'], c['{EdubaseDBFieldNames.STAT_LOW}'], c['{EdubaseDBFieldNames.STAT_HIGH}'], c['{EdubaseDBFieldNames.HEAD_FIRST_NAME}'], " +
-                $"c['{EdubaseDBFieldNames.HEAD_LAST_NAME}'], c['{EdubaseDBFieldNames.OFFICIAL_6_FORM}'], c['{EdubaseDBFieldNames.SCHOOL_WEB_SITE}'], c['{EdubaseDBFieldNames.OFSTED_RATING}'], c['{EdubaseDBFieldNames.OFSTE_LAST_INSP}'], udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE}, c['{EdubaseDBFieldNames.OPEN_DATE}'], c['{EdubaseDBFieldNames.CLOSE_DATE}'] FROM c WHERE {where}";
+                $"SELECT c['{EdubaseDataFieldNames.URN}'], c['{EdubaseDataFieldNames.ESTAB_NAME}'], c['{EdubaseDataFieldNames.OVERALL_PHASE}'], c['{EdubaseDataFieldNames.PHASE_OF_EDUCATION}'], c['{EdubaseDataFieldNames.TYPE_OF_ESTAB}'], c['{EdubaseDataFieldNames.STREET}'], c['{EdubaseDataFieldNames.TOWN}'], c['{EdubaseDataFieldNames.LOCATION}'], c['{EdubaseDataFieldNames.POSTCODE}'], c['{EdubaseDataFieldNames.TRUSTS}'], c['{EdubaseDataFieldNames.MAT_NUMBER}'], c['{EdubaseDataFieldNames.COMPANY_NUMBER}']," +
+                $"c['{EdubaseDataFieldNames.LA_CODE}'], c['{EdubaseDataFieldNames.ESTAB_NO}'], c['{EdubaseDataFieldNames.TEL_NO}'], c['{EdubaseDataFieldNames.NO_PUPIL}'], c['{EdubaseDataFieldNames.STAT_LOW}'], c['{EdubaseDataFieldNames.STAT_HIGH}'], c['{EdubaseDataFieldNames.HEAD_FIRST_NAME}'], " +
+                $"c['{EdubaseDataFieldNames.HEAD_LAST_NAME}'], c['{EdubaseDataFieldNames.OFFICIAL_6_FORM}'], c['{EdubaseDataFieldNames.SCHOOL_WEB_SITE}'], c['{EdubaseDataFieldNames.OFSTED_RATING}'], c['{EdubaseDataFieldNames.OFSTE_LAST_INSP}'], udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDataFieldNames.FINANCE_TYPE}']) AS {EdubaseDataFieldNames.FINANCE_TYPE}, c['{EdubaseDataFieldNames.OPEN_DATE}'], c['{EdubaseDataFieldNames.CLOSE_DATE}'] FROM c WHERE {where}";
 
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
@@ -156,16 +156,16 @@ namespace SFB.Web.DAL.Repositories
             var sb = new StringBuilder();
             ids.ForEach(u => sb.Append(u + ","));
 
-            var query = $"SELECT c['{EdubaseDBFieldNames.URN}'], " +
-                $"c['{EdubaseDBFieldNames.ESTAB_NAME}'], " +
-                $"c['{EdubaseDBFieldNames.OVERALL_PHASE}'], " +
-                $"c['{EdubaseDBFieldNames.TYPE_OF_ESTAB}'], " +
-                $"c['{EdubaseDBFieldNames.STREET}'], " +
-                $"c['{EdubaseDBFieldNames.TOWN}'], " +
-                $"c['{EdubaseDBFieldNames.POSTCODE}'], " +
-                $"c['{EdubaseDBFieldNames.LA_CODE}'], " +
-                $"c['{EdubaseDBFieldNames.NO_PUPIL}'], " +
-                $"udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDBFieldNames.FINANCE_TYPE}']) AS {EdubaseDBFieldNames.FINANCE_TYPE} " +
+            var query = $"SELECT c['{EdubaseDataFieldNames.URN}'], " +
+                $"c['{EdubaseDataFieldNames.ESTAB_NAME}'], " +
+                $"c['{EdubaseDataFieldNames.OVERALL_PHASE}'], " +
+                $"c['{EdubaseDataFieldNames.TYPE_OF_ESTAB}'], " +
+                $"c['{EdubaseDataFieldNames.STREET}'], " +
+                $"c['{EdubaseDataFieldNames.TOWN}'], " +
+                $"c['{EdubaseDataFieldNames.POSTCODE}'], " +
+                $"c['{EdubaseDataFieldNames.LA_CODE}'], " +
+                $"c['{EdubaseDataFieldNames.NO_PUPIL}'], " +
+                $"udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDataFieldNames.FINANCE_TYPE}']) AS {EdubaseDataFieldNames.FINANCE_TYPE} " +
                 $"FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd(',')})";
 
             List<EdubaseDataObject> result = null;

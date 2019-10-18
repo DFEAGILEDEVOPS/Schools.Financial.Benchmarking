@@ -25,14 +25,14 @@ namespace SFB.Web.UI.Models
                 Latitude = location.coordinates[1];
                 Longitude = location.coordinates[0];
             }
-            Name = model[EdubaseDBFieldNames.ESTAB_NAME];
-            Id = model[EdubaseDBFieldNames.URN];
-            Address = String.Format("{0}, {1}, {2}", model[EdubaseDBFieldNames.STREET], model[EdubaseDBFieldNames.TOWN], model[EdubaseDBFieldNames.POSTCODE]);
-            EducationPhases = model[EdubaseDBFieldNames.PHASE_OF_EDUCATION];
-            OverallPhase = model[EdubaseDBFieldNames.OVERALL_PHASE];
-            NFType = model[EdubaseDBFieldNames.TYPE_OF_ESTAB];            
-            SponsorName = model[EdubaseDBFieldNames.TRUSTS];
-            CompanyNumber = model[EdubaseDBFieldNames.COMPANY_NUMBER];
+            Name = model[EdubaseDataFieldNames.ESTAB_NAME];
+            Id = model[EdubaseDataFieldNames.URN];
+            Address = String.Format("{0}, {1}, {2}", model[EdubaseDataFieldNames.STREET], model[EdubaseDataFieldNames.TOWN], model[EdubaseDataFieldNames.POSTCODE]);
+            EducationPhases = model[EdubaseDataFieldNames.PHASE_OF_EDUCATION];
+            OverallPhase = model[EdubaseDataFieldNames.OVERALL_PHASE];
+            NFType = model[EdubaseDataFieldNames.TYPE_OF_ESTAB];            
+            SponsorName = model[EdubaseDataFieldNames.TRUSTS];
+            CompanyNumber = model[EdubaseDataFieldNames.COMPANY_NUMBER];
         }
     }
 }

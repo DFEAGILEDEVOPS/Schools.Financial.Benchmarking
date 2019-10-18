@@ -10,8 +10,9 @@ using SFB.Web.Common;
 using SFB.Web.DAL.Helpers;
 using SFB.Web.Domain.Services.DataAccess;
 using SFB.Web.UI.Helpers;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using SFB.Web.Domain.Services.Comparison;
+using SFB.Web.Domain.DataAccessInterfaces;
 
 namespace SFB.Web.UI.UnitTests
 {

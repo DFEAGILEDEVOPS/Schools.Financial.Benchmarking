@@ -18,7 +18,7 @@ using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 
 namespace SFB.Web.UI.UnitTests
 {

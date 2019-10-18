@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using SFB.Web.DAL.Repositories;
-using SFB.Web.Common.DataObjects;
+using SFB.Web.Common.Entities;
 using System.Threading.Tasks;
+using SFB.Web.Domain.DataAccessInterfaces;
 
 namespace SFB.Web.Domain.Services.DataAccess
 {
