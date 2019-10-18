@@ -1,5 +1,6 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
-@using SFB.Web.Common
+@using SFB.Web.ApplicationCore.Helpers.Constants
+@using SFB.Web.ApplicationCore.Helpers.Enums
 @model SFB.Web.UI.Models.TrustListViewModel
 
 <div id="schoolResults">
@@ -33,23 +34,23 @@
 
                                 @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
                                 {
-                                    <option value="@SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME asc" @(Model.OrderBy == $"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME} asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="@SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME desc" @(Model.OrderBy == $"{SchoolTrustFinanceDBFieldNames.TRUST_COMPANY_NAME} desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="@SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME asc" @(Model.OrderBy == $"{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME desc" @(Model.OrderBy == $"{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME} desc" ? "selected" : "")>alphabetical z - a</option>
                                 }
 
                                 @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                                 {
                                     <option value="" @(Model.OrderBy == "" ? "selected" : "")>distance</option>
-                                    <option value="@EdubaseDBFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="@EdubaseDBFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="@EdubaseDataFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDataFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@EdubaseDataFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDataFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
                                     <option value="AreaSchoolNumber" @(Model.OrderBy == "AreaSchoolNumber" ? "selected" : "")>number of schools in search area</option>
                                     <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in academy trust</option>
                                 }
 
                                 @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
                                 {
-                                    <option value="@EdubaseDBFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
-                                    <option value="@EdubaseDBFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDBFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
+                                    <option value="@EdubaseDataFieldNames.TRUSTS asc" @(Model.OrderBy == $"{EdubaseDataFieldNames.TRUSTS} asc" ? "selected" : "")>alphabetical a - z</option>
+                                    <option value="@EdubaseDataFieldNames.TRUSTS desc" @(Model.OrderBy == $"{EdubaseDataFieldNames.TRUSTS} desc" ? "selected" : "")>alphabetical z - a</option>
                                     <option value="MatSchoolNumber" @(Model.OrderBy == "MatSchoolNumber" ? "selected" : "")>number of schools in academy trust</option>
                                 }
 
@@ -78,11 +79,11 @@
                             @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                             {
                                 <div class="inline mr-1">
-                                    Schools in search area: <span class="schoolsInArea">@trust.AcademiesList.Where(a => a.InsideSearchArea).ToList().Count</span> 
+                                    Schools in search area: <span class="schoolsInArea">@trust.AcademiesList.Where(a => a.InsideSearchArea).ToList().Count</span>
                                 </div>
                             }
                             <div class="inline">
-                                Schools in trust: <span class="schoolsInTrust">@trust.AcademiesList.Count</span> 
+                                Schools in trust: <span class="schoolsInTrust">@trust.AcademiesList.Count</span>
                             </div>
                         </div>
                         <details>

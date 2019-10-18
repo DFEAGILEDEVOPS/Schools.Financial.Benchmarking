@@ -6,10 +6,11 @@ using System.Web;
 using System.Web.Caching;
 using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json.Linq;
-using SFB.Web.Common;
-using SFB.Web.Domain.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
-namespace SFB.Web.DAL.Helpers
+namespace SFB.Web.Infrastructure.Helpers
 {
     public class DataCollectionManager : IDataCollectionManager
     {

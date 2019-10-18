@@ -7,16 +7,17 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
-using SFB.Web.Common;
-using SFB.Web.Domain.Models;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Domain.Services.Search;
-using SFB.Web.Common.Entities;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.Search;
+using SFB.Web.ApplicationCore.Entities;
 using System;
 using SFB.Web.UI.Attributes;
 using System.Web.Routing;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {

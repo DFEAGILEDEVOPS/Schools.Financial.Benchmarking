@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SFB.Web.Domain.Models
+namespace SFB.Web.ApplicationCore.Models
 {
     public class ResultModel
     {

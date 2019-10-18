@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SFB.Web.Common;
-using SFB.Web.Common.Entities;
-using SFB.Web.Domain.Models;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
-namespace SFB.Web.Domain.Services.DataAccess
+namespace SFB.Web.ApplicationCore.Services.DataAccess
 {
     public interface IFinancialDataService : ITermYearDataService
     {

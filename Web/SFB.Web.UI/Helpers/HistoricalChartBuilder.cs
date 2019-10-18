@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SFB.Web.Common;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 

@@ -6,14 +6,15 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
-using SFB.Web.Domain.Helpers;
+using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Common;
+using SFB.Web.ApplicationCore;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Attributes;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -120,9 +121,9 @@ namespace SFB.Web.UI.Controllers
             var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
             var financialDataObject = _financialDataService.GetTrustFinancialDataObject(benchmarkTrust.CompanyNo, term, MatFinancingType.TrustAndAcademies);
 
-            benchmarkTrust.HistoricalFinancialDataModels = new List<Domain.Models.FinancialDataModel>
+            benchmarkTrust.HistoricalFinancialDataModels = new List<ApplicationCore.Models.FinancialDataModel>
             {
-                new Domain.Models.FinancialDataModel(benchmarkTrust.CompanyNo.ToString(), term, financialDataObject, EstablishmentType.MAT)
+                new ApplicationCore.Models.FinancialDataModel(benchmarkTrust.CompanyNo.ToString(), term, financialDataObject, EstablishmentType.MAT)
             };
         }
     }

@@ -1,14 +1,16 @@
 ﻿using System;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Models;
+using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Linq;
-using SFB.Web.Common;
-using SFB.Web.Domain.Services;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Common.Entities;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.Services
 {

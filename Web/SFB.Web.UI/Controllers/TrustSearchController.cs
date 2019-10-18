@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using SFB.Web.Common;
-using SFB.Web.Common.Entities;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services;
-using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Domain.Services.Search;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Attributes;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
@@ -16,6 +16,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {

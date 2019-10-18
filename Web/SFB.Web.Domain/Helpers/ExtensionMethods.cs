@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace SFB.Web.Domain.Helpers
+namespace SFB.Web.ApplicationCore.Helpers
 {
     public static class ExtensionMethods
     {

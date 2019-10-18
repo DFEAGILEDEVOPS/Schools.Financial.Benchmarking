@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SFB.Web.Domain.Models
+namespace SFB.Web.ApplicationCore.Models
 {
     public class BenchmarkChartData
     {

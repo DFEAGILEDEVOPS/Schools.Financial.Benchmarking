@@ -4,12 +4,13 @@ using SFB.Web.UI.Services;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
-using SFB.Web.Common;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services;
-using SFB.Web.Domain.Services.Comparison;
-using SFB.Web.Common.Entities;
-using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services;
+using SFB.Web.ApplicationCore.Services.Comparison;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.UnitTests
 {

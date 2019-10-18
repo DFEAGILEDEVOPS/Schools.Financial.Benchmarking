@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFB.Web.Common.Attributes
+namespace SFB.Web.ApplicationCore.Attributes
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class PrettyNameAttribute : Attribute

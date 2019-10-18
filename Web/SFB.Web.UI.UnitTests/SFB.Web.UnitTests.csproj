@@ -119,17 +119,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFB.Web.Common\SFB.Web.Common.csproj">
-      <Project>{D1DDD6B9-2AC9-4261-B4EF-F67AE3213164}</Project>
-      <Name>SFB.Web.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SFB.Web.DAL\SFB.Web.DAL.csproj">
+    <ProjectReference Include="..\SFB.Web.DAL\SFB.Web.Infrastructure.csproj">
       <Project>{933AECEE-A499-482D-B09B-A8864140B332}</Project>
-      <Name>SFB.Web.DAL</Name>
+      <Name>SFB.Web.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFB.Web.Domain\SFB.Web.Domain.csproj">
+    <ProjectReference Include="..\SFB.Web.Domain\SFB.Web.ApplicationCore.csproj">
       <Project>{C7D71B89-D508-43FA-8130-1266BAA6DDA9}</Project>
-      <Name>SFB.Web.Domain</Name>
+      <Name>SFB.Web.ApplicationCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFB.Web.UI\SFB.Web.UI.csproj">
       <Project>{f32e2a2e-6782-4293-b533-284ff1b17ff6}</Project>

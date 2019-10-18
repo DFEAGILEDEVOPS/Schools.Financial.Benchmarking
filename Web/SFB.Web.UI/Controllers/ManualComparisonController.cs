@@ -1,10 +1,10 @@
 ﻿using RedDog.Search.Model;
-using SFB.Web.Common;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services;
-using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Domain.Services.Search;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Attributes;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;

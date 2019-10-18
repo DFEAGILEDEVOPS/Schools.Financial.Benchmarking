@@ -5,9 +5,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents.Linq;
 using Newtonsoft.Json.Linq;
-using SFB.Web.Common;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore;
 
-namespace SFB.Web.DAL
+namespace SFB.Web.Infrastructure
 {
     public static class ExtensionMethods
     {

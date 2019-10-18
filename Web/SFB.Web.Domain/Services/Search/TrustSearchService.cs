@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using RedDog.Search;
 using RedDog.Search.Http;
 using RedDog.Search.Model;
-using SFB.Web.Domain.Models;
-using SFB.Web.Common;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore;
 
-namespace SFB.Web.Domain.Services.Search
+namespace SFB.Web.ApplicationCore.Services.Search
 {
     public class TrustSearchService : ITrustSearchService
     {

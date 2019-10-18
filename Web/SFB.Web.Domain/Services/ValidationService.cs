@@ -1,7 +1,7 @@
-﻿using SFB.Web.Domain.Helpers.Constants;
+﻿using SFB.Web.ApplicationCore.Helpers.Constants;
 using System;
 
-namespace SFB.Web.Domain.Services
+namespace SFB.Web.ApplicationCore.Services
 {
     public class ValidationService : IValidationService
     {

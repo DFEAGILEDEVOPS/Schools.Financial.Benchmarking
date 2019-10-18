@@ -4,22 +4,22 @@ using System.Linq;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers;
 using System.Collections.Generic;
-using SFB.Web.Domain.Services;
+using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Models;
+using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers.Enums;
 using System.Threading.Tasks;
-using SFB.Web.Common;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Services.Comparison;
-using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Common.Entities;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Services.Comparison;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Attributes;
 using System.Net;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {

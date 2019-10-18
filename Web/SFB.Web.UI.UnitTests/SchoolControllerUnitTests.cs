@@ -5,19 +5,21 @@ using System.Web.Routing;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using SFB.Web.Common;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
-using SFB.Web.Domain.ApiWrappers;
-using SFB.Web.Common.Entities;
-using SFB.Web.Domain;
-using SFB.Web.Domain.Services;
+using SFB.Web.ApplicationCore.ApiWrappers;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Services;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.UnitTests
 {

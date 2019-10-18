@@ -1,4 +1,6 @@
-﻿using SFB.Web.Common;
+﻿using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore;
 using System.Collections.Generic;
 using System.Linq;
 

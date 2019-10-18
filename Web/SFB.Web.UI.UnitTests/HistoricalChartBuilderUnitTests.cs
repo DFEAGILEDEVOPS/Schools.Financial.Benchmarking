@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
-using SFB.Web.Common;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 

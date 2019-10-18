@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using SFB.Web.Common;
-using SFB.Web.Common.Entities;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Entities;
 using System.Threading.Tasks;
-using SFB.Web.Domain.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
-namespace SFB.Web.DAL.Repositories
+namespace SFB.Web.Infrastructure.Repositories
 {
     public class CosmosDbEdubaseRepository : AppInsightsLoggable, IEdubaseRepository
     {

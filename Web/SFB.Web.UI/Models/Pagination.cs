@@ -1,4 +1,5 @@
-﻿using SFB.Web.Common;
+﻿using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore;
 using System;
 using System.Web;
 

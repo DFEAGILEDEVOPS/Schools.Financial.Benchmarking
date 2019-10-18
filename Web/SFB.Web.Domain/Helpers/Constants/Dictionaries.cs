@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SFB.Web.Domain.Helpers.Constants
+namespace SFB.Web.ApplicationCore.Helpers.Constants
 {
     public class Dictionaries
     {

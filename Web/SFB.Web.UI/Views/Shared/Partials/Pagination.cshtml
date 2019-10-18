@@ -9,11 +9,11 @@
                     @if (@ViewBag.CompanyNo == null)
                     {
                         <div class="summary count-summary font-xsmall ">
-                            @if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.School)
+                            @if (Model.PagedEntityType == SFB.Web.ApplicationCore.Helpers.Enums.PagedEntityType.School)
                             {
                                 <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count count-js">@(Model.Total)</span> schools</span>
                             }
-                            else if (Model.PagedEntityType == SFB.Web.Common.PagedEntityType.LA)
+                            else if (Model.PagedEntityType == SFB.Web.ApplicationCore.Helpers.Enums.PagedEntityType.LA)
                             {
                                 <span>Showing @(Model.Start) - @(Model.End) of <span class="bold-xsmall result-count count-js">@(Model.Total)</span> local authorities</span>
                             }

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using SFB.Web.Common;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.Helpers
 {

@@ -1,22 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.Dynamic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moq;
 using NUnit.Framework;
-using SFB.Web.Common;
-using SFB.Web.DAL;
-using SFB.Web.DAL.Helpers;
-using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Domain.Services.Search;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
-using SFB.Web.Common.Entities;
-using SFB.Web.Domain.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.UnitTests
 {

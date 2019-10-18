@@ -1,5 +1,5 @@
 ﻿using RestSharp;
-using SFB.Web.Domain.Models;
+using SFB.Web.ApplicationCore.Models;
 using System.Collections.Generic;
 using System.Web.Configuration;
 

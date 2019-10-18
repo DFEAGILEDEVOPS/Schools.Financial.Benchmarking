@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
-namespace SFB.Web.Common.Entities
+namespace SFB.Web.ApplicationCore.Entities
 {
     public class AcademiesContextualDataObject
     {

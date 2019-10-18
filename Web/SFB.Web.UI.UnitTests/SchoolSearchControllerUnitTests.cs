@@ -1,6 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
-using SFB.Web.Domain.Services;
+using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Domain.Services.Search;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Services;
-using SFB.Web.Common.Entities;
+using SFB.Web.ApplicationCore.Entities;
 using RedDog.Search.Model;
 using System.Linq;
 

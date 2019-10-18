@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using SFB.Web.Common;
-using SFB.Web.Common.Entities;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Entities;
 
-namespace SFB.Web.Domain.Models
+namespace SFB.Web.ApplicationCore.Models
 {
     public class ComparisonResult
     {

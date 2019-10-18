@@ -3,6 +3,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using SFB.Web.UI.Helpers;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -31,7 +32,7 @@ namespace SFB.Web.UI.Controllers
                     Total = filteredResults.Count,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
                     MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
-                    PagedEntityType = Common.PagedEntityType.LA
+                    PagedEntityType = PagedEntityType.LA
                 };
 
             return View(vm);

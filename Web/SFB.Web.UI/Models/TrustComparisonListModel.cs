@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using SFB.Web.Common;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore;
 
 namespace SFB.Web.UI.Models
 {

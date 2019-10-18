@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Threading.Tasks;
 
-namespace SFB.Web.Domain.Services.Search
+namespace SFB.Web.ApplicationCore.Services.Search
 {
     public interface ITrustSearchService
     {

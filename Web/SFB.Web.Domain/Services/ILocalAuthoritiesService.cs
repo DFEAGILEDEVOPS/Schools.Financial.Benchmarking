@@ -1,4 +1,4 @@
-﻿namespace SFB.Web.Domain.Services
+﻿namespace SFB.Web.ApplicationCore.Services
 {
     public interface ILocalAuthoritiesService
     {

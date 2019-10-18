@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using SFB.Web.Common;
-using SFB.Web.Domain.Helpers.Constants;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
-namespace SFB.Web.Domain.Services.Comparison
+namespace SFB.Web.ApplicationCore.Services.Comparison
 {
     public class ComparisonService : IComparisonService
     {

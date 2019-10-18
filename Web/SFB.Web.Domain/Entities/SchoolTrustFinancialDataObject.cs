@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 using System.Collections.Generic;
 
-namespace SFB.Web.Common.Entities
+namespace SFB.Web.ApplicationCore.Entities
 {
     //TODO: some of these probably don't need to be decimal. Can be changed to double.
     //Also we need to decide if these fields can be non-nullable

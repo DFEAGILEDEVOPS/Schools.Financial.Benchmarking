@@ -1,4 +1,4 @@
-﻿using SFB.Web.Domain.Models;
+﻿using SFB.Web.ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

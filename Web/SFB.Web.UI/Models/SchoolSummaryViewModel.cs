@@ -1,4 +1,5 @@
-﻿using SFB.Web.Common;
+﻿using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore;
 using System;
 
 namespace SFB.Web.UI.Models

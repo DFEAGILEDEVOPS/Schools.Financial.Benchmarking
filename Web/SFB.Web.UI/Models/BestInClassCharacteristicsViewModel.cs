@@ -1,4 +1,4 @@
-﻿using SFB.Web.Domain.Models;
+﻿using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Models
 {

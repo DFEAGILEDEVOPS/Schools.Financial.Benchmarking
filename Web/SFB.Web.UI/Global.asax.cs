@@ -7,7 +7,7 @@ using System.Web.Routing;
 using Microsoft.ApplicationInsights.Extensibility;
 using Autofac.Integration.Mvc;
 using Autofac;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 
 namespace SFB.Web.UI
 {

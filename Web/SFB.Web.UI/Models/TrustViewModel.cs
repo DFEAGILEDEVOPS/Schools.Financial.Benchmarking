@@ -1,5 +1,5 @@
-﻿using SFB.Web.Common;
-using SFB.Web.Common.Entities;
+﻿using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Entities;
 using System.Collections.Generic;
 
 namespace SFB.Web.UI.Models

@@ -4,18 +4,18 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using SFB.Web.UI.Utils;
-using SFB.Web.Domain;
-using SFB.Web.Domain.Services;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Helpers;
 using System.Web.Configuration;
-using SFB.Web.Domain.ApiWrappers;
-using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Domain.Services.Search;
+using SFB.Web.ApplicationCore.ApiWrappers;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Services;
-using SFB.Web.DAL.Helpers;
-using SFB.Web.DAL.Repositories;
-using SFB.Web.Domain.Services.Comparison;
-using SFB.Web.Domain.DataAccessInterfaces;
+using SFB.Web.Infrastructure.Helpers;
+using SFB.Web.Infrastructure.Repositories;
+using SFB.Web.ApplicationCore.Services.Comparison;
+using SFB.Web.ApplicationCore.DataAccessInterfaces;
 
 namespace SFB.Web.UI
 {

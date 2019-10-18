@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Common;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.UnitTests
 {

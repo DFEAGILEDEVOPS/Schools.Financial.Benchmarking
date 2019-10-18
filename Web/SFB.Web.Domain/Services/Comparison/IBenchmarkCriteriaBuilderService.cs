@@ -1,7 +1,7 @@
-﻿using SFB.Web.Common;
-using SFB.Web.Domain.Models;
+﻿using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Models;
 
-namespace SFB.Web.Domain.Services.Comparison
+namespace SFB.Web.ApplicationCore.Services.Comparison
 {
     public interface IBenchmarkCriteriaBuilderService
     {

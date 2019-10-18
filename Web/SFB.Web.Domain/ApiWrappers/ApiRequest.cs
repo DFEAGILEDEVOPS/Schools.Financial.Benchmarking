@@ -6,9 +6,9 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using SFB.Web.Domain.ApiWrappers;
+using SFB.Web.ApplicationCore.ApiWrappers;
 
-namespace SFB.Web.Domain
+namespace SFB.Web.ApplicationCore
 {
     public class ApiRequest : IApiRequest
     {

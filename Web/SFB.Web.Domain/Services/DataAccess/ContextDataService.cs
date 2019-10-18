@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using SFB.Web.Common.Entities;
+using SFB.Web.ApplicationCore.Entities;
 using System.Threading.Tasks;
-using SFB.Web.Domain.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.DataAccessInterfaces;
 
-namespace SFB.Web.Domain.Services.DataAccess
+namespace SFB.Web.ApplicationCore.Services.DataAccess
 {
     public class ContextDataService : IContextDataService
     {

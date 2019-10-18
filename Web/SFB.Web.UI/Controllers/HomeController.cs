@@ -1,7 +1,7 @@
 ﻿
 using SFB.Web.UI.Models;
 using System.Web.Mvc;
-using SFB.Web.Domain.Services;
+using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Attributes;
 

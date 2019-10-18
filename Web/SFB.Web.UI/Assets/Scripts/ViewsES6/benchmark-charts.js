@@ -168,7 +168,7 @@
             let svg = $("#" + el.id + " svg");
             svg.css('font-size', '14px');
 
-            let axisLines = $("#" + el.id + " .domain");
+            let axisLines = $("#" + el.id + " .ApplicationCore");
             axisLines.css('fill', 'none');
             axisLines.css('stroke', '#000');
 

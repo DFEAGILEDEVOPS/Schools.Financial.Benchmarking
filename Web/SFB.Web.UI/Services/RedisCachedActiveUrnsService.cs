@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;

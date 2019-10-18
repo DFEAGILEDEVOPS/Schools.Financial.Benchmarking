@@ -3,11 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using SFB.Web.Common;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services.Comparison;
-using SFB.Web.Domain.Services.DataAccess;
-using SFB.Web.Common.Entities;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services.Comparison;
+using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.UnitTests
 {

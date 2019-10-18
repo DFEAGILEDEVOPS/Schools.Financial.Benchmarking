@@ -6,7 +6,7 @@ using System.Web.Caching;
 using System.Web.Hosting;
 using Newtonsoft.Json;
 
-namespace SFB.Web.Domain.Services
+namespace SFB.Web.ApplicationCore.Services
 {
     public class AspNetCachedLocalAuthoritiesService : ILocalAuthoritiesService
     {

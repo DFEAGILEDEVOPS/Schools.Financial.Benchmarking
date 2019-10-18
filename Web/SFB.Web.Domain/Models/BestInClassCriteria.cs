@@ -1,7 +1,8 @@
-﻿using SFB.Web.Common;
+﻿using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore;
 using System;
 
-namespace SFB.Web.Domain.Models
+namespace SFB.Web.ApplicationCore.Models
 {
     public class BestInClassCriteria : IEquatable<BestInClassCriteria>
     {

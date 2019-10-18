@@ -2,7 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using SFB.Web.Domain.Services.Search;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Attributes;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
@@ -73,7 +74,7 @@ namespace SFB.Web.UI.Controllers
                     Total = response.NumberOfResults,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
                     MaxResultsPerPage = SearchDefaults.TRUST_SCHOOLS_PER_PAGE,
-                    PagedEntityType = Common.PagedEntityType.School
+                    PagedEntityType = PagedEntityType.School
                 };
             }
 

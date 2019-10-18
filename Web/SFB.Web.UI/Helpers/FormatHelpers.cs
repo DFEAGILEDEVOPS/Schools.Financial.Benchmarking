@@ -1,4 +1,4 @@
-﻿using SFB.Web.Domain.Helpers;
+﻿using SFB.Web.ApplicationCore.Helpers;
 using System;
 using System.Linq;
 

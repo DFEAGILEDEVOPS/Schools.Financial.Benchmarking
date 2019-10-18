@@ -1,6 +1,7 @@
 ﻿using RedDog.Search.Model;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services.Search;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
@@ -124,7 +125,7 @@ namespace SFB.Web.UI.Controllers
                     Total = response.NumberOfResults,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
                     MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
-                    PagedEntityType = Common.PagedEntityType.School
+                    PagedEntityType = PagedEntityType.School
                 };
             }
 

@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using SFB.Web.Common;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Attributes;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {

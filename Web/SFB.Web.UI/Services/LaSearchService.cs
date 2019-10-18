@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using SFB.Web.Domain.Services;
+using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Models;
 
 namespace SFB.Web.UI.Services

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace SFB.Web.Common
+namespace SFB.Web.ApplicationCore.Helpers.Enums
 {
     public enum EstablishmentType
     {

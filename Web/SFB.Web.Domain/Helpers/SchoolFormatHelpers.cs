@@ -1,4 +1,4 @@
-﻿namespace SFB.Web.Domain.Helpers
+﻿namespace SFB.Web.ApplicationCore.Helpers
 {
     public static class SchoolFormatHelpers
     {

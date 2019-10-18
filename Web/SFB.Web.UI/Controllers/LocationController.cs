@@ -1,4 +1,4 @@
-﻿using SFB.Web.Domain.Models;
+﻿using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;

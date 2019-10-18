@@ -1,11 +1,12 @@
 ﻿using Microsoft.ApplicationInsights;
-using SFB.Web.Common;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore;
 using System;
 using System.Diagnostics;
 using System.Web;
 using System.Web.Configuration;
 
-namespace SFB.Web.DAL.Repositories
+namespace SFB.Web.Infrastructure.Repositories
 {
     public abstract class AppInsightsLoggable
     {

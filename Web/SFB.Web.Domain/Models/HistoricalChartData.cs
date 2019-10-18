@@ -3,7 +3,7 @@ using System;
 using System.Web.UI.WebControls;
 
 
-namespace SFB.Web.Domain.Models
+namespace SFB.Web.ApplicationCore.Models
 {
     public class HistoricalChartData : ICloneable
     {

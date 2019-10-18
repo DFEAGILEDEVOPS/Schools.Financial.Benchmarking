@@ -7,13 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using SFB.Web.Common;
-using SFB.Web.Common.Attributes;
-using SFB.Web.DAL.Helpers;
-using SFB.Web.Common.Entities;
-using SFB.Web.Domain.DataAccessInterfaces;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Attributes;
+using SFB.Web.Infrastructure.Helpers;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Models;
 
-namespace SFB.Web.DAL.Repositories
+namespace SFB.Web.Infrastructure.Repositories
 {
     public class CosmosDbFinancialDataRepository : AppInsightsLoggable, IFinancialDataRepository
     {

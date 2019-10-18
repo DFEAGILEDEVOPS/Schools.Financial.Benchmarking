@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace SFB.Web.Domain
+namespace SFB.Web.ApplicationCore
 {
     public class ApiResponse
     {

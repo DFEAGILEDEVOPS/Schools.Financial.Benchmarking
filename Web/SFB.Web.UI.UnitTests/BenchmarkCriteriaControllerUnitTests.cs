@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Common;
-using SFB.Web.DAL.Helpers;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
-using SFB.Web.Common.Entities;
-using SFB.Web.Domain.Services.Comparison;
-using SFB.Web.Domain.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Services.Comparison;
+using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.UnitTests
 {

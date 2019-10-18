@@ -1,20 +1,19 @@
 ﻿using System;
-using SFB.Web.Domain.Services;
-using SFB.Web.Domain.Helpers;
+using SFB.Web.ApplicationCore.Services;
+using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.ApplicationInsights;
-using SFB.Web.Common;
-using SFB.Web.Domain.Helpers.Constants;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.Domain.Models;
-using SFB.Web.Domain.Services.DataAccess;
+using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Services;
-using SFB.Web.Domain.Services.Comparison;
+using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.UI.Attributes;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.Controllers
 {

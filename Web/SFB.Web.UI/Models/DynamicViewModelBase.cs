@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using SFB.Web.Common.Entities;
+using SFB.Web.ApplicationCore.Entities;
 
 namespace SFB.Web.UI.Models
 {

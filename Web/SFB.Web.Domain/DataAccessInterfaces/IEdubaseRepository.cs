@@ -1,8 +1,8 @@
-﻿using SFB.Web.Common.Entities;
+﻿using SFB.Web.ApplicationCore.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SFB.Web.Domain.DataAccessInterfaces
+namespace SFB.Web.ApplicationCore.DataAccessInterfaces
 {
     public interface IEdubaseRepository
     {
