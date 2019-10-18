@@ -271,6 +271,10 @@ namespace SFB.Web.UI.Controllers
                 || (benchmarkList.BenchmarkSchools.Count == 1 && benchmarkList.BenchmarkSchools[0].Urn != benchmarkList.HomeSchoolUrn))
             {
                 criteria.ComparisonList = benchmarkList;
+                if(criteria.AdvancedCriteria == null)
+                {
+                    criteria.AdvancedCriteria = new BenchmarkCriteria();
+                }
                 return View(criteria);
             }
             else
