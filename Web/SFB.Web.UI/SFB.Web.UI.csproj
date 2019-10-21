@@ -807,13 +807,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFB.Web.DAL\SFB.Web.Infrastructure.csproj">
-      <Project>{933aecee-a499-482d-b09b-a8864140b332}</Project>
-      <Name>SFB.Web.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SFB.Web.Domain\SFB.Web.ApplicationCore.csproj">
+    <ProjectReference Include="..\SFB.Web.ApplicationCore\SFB.Web.ApplicationCore.csproj">
       <Project>{c7d71b89-d508-43fa-8130-1266baa6dda9}</Project>
       <Name>SFB.Web.ApplicationCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFB.Web.Infrastructure\SFB.Web.Infrastructure.csproj">
+      <Project>{933aecee-a499-482d-b09b-a8864140b332}</Project>
+      <Name>SFB.Web.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

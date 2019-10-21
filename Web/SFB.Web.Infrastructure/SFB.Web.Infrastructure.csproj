@@ -135,7 +135,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFB.Web.Domain\SFB.Web.ApplicationCore.csproj">
+    <ProjectReference Include="..\SFB.Web.ApplicationCore\SFB.Web.ApplicationCore.csproj">
       <Project>{c7d71b89-d508-43fa-8130-1266baa6dda9}</Project>
       <Name>SFB.Web.ApplicationCore</Name>
     </ProjectReference>
