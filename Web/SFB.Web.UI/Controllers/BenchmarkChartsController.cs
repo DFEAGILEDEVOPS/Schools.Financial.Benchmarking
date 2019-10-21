@@ -68,93 +68,135 @@ namespace SFB.Web.UI.Controllers
 
             if (overwriteStrategy == null)
             {
-                var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+                if (urnList != null)
+                {
+                    var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
-                if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count <= ComparisonListLimit.LIMIT)
-                {
-                    return Redirect($"SaveOverwriteStrategy?savedUrns={urns}");
+                    if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count <= ComparisonListLimit.LIMIT)
+                    {
+                        return Redirect($"SaveOverwriteStrategy?savedUrns={urns}");
+                    }
+                    if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count > ComparisonListLimit.LIMIT)
+                    {
+                        return Redirect($"ReplaceWithSavedBasket?savedUrns={urns}");
+                    }
                 }
-                if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count > ComparisonListLimit.LIMIT)
+                else if (companyNoList != null)
                 {
-                    return Redirect($"ReplaceWithSavedBasket?savedUrns={urns}");
+                    var trustComparisonList = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie();
+
+                    if (trustComparisonList?.Trusts?.Count > 0 && trustComparisonList.Trusts.Count + companyNoList.Count <= ComparisonListLimit.MAT_LIMIT)
+                    {
+                        return Redirect($"SaveOverwriteStrategy?savedCompanyNos={companyNumbers}");
+                    }
+                    if (trustComparisonList?.Trusts?.Count > 0 && trustComparisonList.Trusts.Count + companyNoList.Count > ComparisonListLimit.MAT_LIMIT)
+                    {
+                        return Redirect($"ReplaceWithSavedBasket?savedCompanyNos={companyNumbers}");
+                    }
                 }
             }
-
-            if (overwriteStrategy == BenchmarkListOverwriteStrategy.Add)
+            else if (overwriteStrategy.GetValueOrDefault() == BenchmarkListOverwriteStrategy.Add)
             {
-                var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-
-                if (comparisonList.BenchmarkSchools.Count + urnList.Count > ComparisonListLimit.LIMIT)
+                if (urnList != null)
                 {
-                    var vm = new SaveOverwriteViewModel()
-                    {
-                        ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
-                        SavedUrns = urns,
-                        ErrorMessage = ErrorMessages.BMBasketLimitExceed
-                    };
+                    var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
-                    return View("SaveOverwriteStrategy", vm);
+                    if (comparisonList.BenchmarkSchools.Count + urnList.Count > ComparisonListLimit.LIMIT)
+                    {
+                        var vm = new SaveOverwriteViewModel()
+                        {
+                            ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
+                            SavedUrns = urns,
+                            ErrorMessage = ErrorMessages.BMBasketLimitExceed
+                        };
+
+                        return View("SaveOverwriteStrategy", vm);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            AddSchoolDataObjectsToBasket(comparison, urnList);
+                        }
+                        catch (ApplicationException)
+                        {
+                            //ignore double addition attempts
+                        }
+
+                        return await Index(null, null, null, null, comparison);
+                    }
                 }
-                else
+                else if (companyNoList != null)
                 {
-                    try
+                    var trustDataObjects = _financialDataService.GetMultipleTrustDataObjectsByCompanyNumbers(companyNoList);
+
+                    foreach (var trustData in trustDataObjects)
                     {
-                        AddSchoolDataObjectsToBasket(comparison, urnList);
+                        try
+                        {
+                            _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, trustData.CompanyNumber, trustData.TrustOrCompanyName);
+                        }
+                        catch (ApplicationException)
+                        {
+                            //ignore double addition attempts
+                        }
+
                     }
-                    catch (ApplicationException)
-                    {
-                        //ignore double addition attempts
-                    }
+
+                    return Mats();
+                }
+            }
+            else if (overwriteStrategy.GetValueOrDefault() == BenchmarkListOverwriteStrategy.Overwrite)
+            {
+                if (urnList != null)
+                {
+                    EmptyBenchmarkList();
+
+                    AddSchoolDataObjectsToBasket(comparison, urnList);
 
                     return await Index(null, null, null, null, comparison);
                 }
-            }
-            
-            if (urnList != null)
-            {
-                EmptyBenchmarkList();
-
-                AddSchoolDataObjectsToBasket(comparison, urnList);
-
-                return await Index(null, null, null, null, comparison);
-            }
-
-            else if (companyNoList != null)
-            {
-                var trustDataObjects = _financialDataService.GetMultipleTrustDataObjectsByCompanyNumbers(companyNoList);
-
-                _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.RemoveAll, null);
-
-                foreach (var trustData in trustDataObjects)
+                else if (companyNoList != null)
                 {
-                    _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, trustData.CompanyNumber, trustData.TrustOrCompanyName);
-                }
+                    var trustDataObjects = _financialDataService.GetMultipleTrustDataObjectsByCompanyNumbers(companyNoList);
 
-                return Mats();
+                    _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.RemoveAll, null);
+
+                    foreach (var trustData in trustDataObjects)
+                    {
+                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, trustData.CompanyNumber, trustData.TrustOrCompanyName);
+                    }
+
+                    return Mats();
+                }
             }
 
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         [HttpGet]
-        public ActionResult SaveOverwriteStrategy(string savedUrns)
+        public ActionResult SaveOverwriteStrategy(string savedUrns, string savedCompanyNos)
         {
             var vm = new SaveOverwriteViewModel()
             {
+                TrustComparisonList = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie(),
                 ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
-                SavedUrns = savedUrns
+                SavedUrns = savedUrns,
+                SavedCompanyNos = savedCompanyNos
             };
 
             return View("SaveOverwriteStrategy", vm);
         }
 
         [HttpGet]
-        public ActionResult ReplaceWithSavedBasket(string savedUrns)
+        public ActionResult ReplaceWithSavedBasket(string savedUrns, string savedCompanyNos)
         {
             var vm = new SaveOverwriteViewModel()
             {
+                TrustComparisonList = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie(),
                 ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
-                SavedUrns = savedUrns
+                SavedUrns = savedUrns,
+                SavedCompanyNos = savedCompanyNos
             };
 
             return View("ReplaceWithSavedBasket", vm);

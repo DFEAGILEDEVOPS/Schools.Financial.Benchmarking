@@ -7,14 +7,30 @@
 
 <h1 class="heading-xlarge page-heading">Replace current benchmark basket</h1>
 
-<p>
-    You have <span class="bold">@Model.ComparisonListCount</span> schools in your current benchmarking basket. If you choose to view this saved basket it will remove the schools in your current basket and replace them with the schools saved in the link.
-</p>
+@if (Model.SavedUrns != null)
+{
+    <p>
+        You have <span class="bold">@Model.ComparisonListCount</span> schools in your current benchmarking basket. If you choose to view this saved basket it will remove the schools in your current basket and replace them with the schools saved in the link.
+    </p>
+}
+else
+{
+    <p>
+        You have <span class="bold">@Model.TrustComparisonList.Trusts.Count</span> schools in your current benchmarking basket. If you choose to view this saved basket it will remove the schools in your current basket and replace them with the schools saved in the link.
+    </p>
+}
 
 <form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
 
     <input type="hidden" id="overwriteStrategy" name="overwriteStrategy" value="overwrite" />
-    <input type="hidden" id="urns" name="urns" value="@Model.SavedUrns" />
+    @if (!string.IsNullOrEmpty(Model.SavedUrns))
+    {
+        <input type="hidden" id="urns" name="urns" value="@Model.SavedUrns" />
+    }
+    @if (!string.IsNullOrEmpty(Model.SavedCompanyNos))
+    {
+        <input type="hidden" id="companyNumbers" name="companyNumbers" value="@Model.SavedCompanyNos" />
+    }
 
     <div class="grid-row font-xsmall mt-2">
         <div class="column-half">

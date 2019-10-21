@@ -376,6 +376,7 @@
     <Content Include="Assets\Sass\views\_data-queries.scss" />
     <Content Include="Assets\Sass\elements\_excicon.scss" />
     <Content Include="Assets\Sass\views\_add-schools-manually.scss" />
+    <Content Include=".editorconfig" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
