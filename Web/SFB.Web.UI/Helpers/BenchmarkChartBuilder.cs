@@ -30,6 +30,8 @@ namespace SFB.Web.UI.Helpers
                     chartList = chartList.Where(c =>
                             c.ChartSchoolType == ChartSchoolType.Academy || c.ChartSchoolType == ChartSchoolType.Both)
                         .ToList();
+
+                    chartList.ForEach(c => c.TableColumns = c.TableColumns?.Where(s => s.ChartSchoolType == ChartSchoolType.Academy || s.ChartSchoolType == ChartSchoolType.Both).ToList());
                 }
                 else
                 {
@@ -37,6 +39,8 @@ namespace SFB.Web.UI.Helpers
                             c.ChartSchoolType == ChartSchoolType.Maintained ||
                             c.ChartSchoolType == ChartSchoolType.Both)
                         .ToList();
+
+                    chartList.ForEach(c => c.TableColumns = c.TableColumns?.Where(s => s.ChartSchoolType == ChartSchoolType.Maintained || s.ChartSchoolType == ChartSchoolType.Both).ToList());
                 }
             }
 
@@ -58,6 +62,8 @@ namespace SFB.Web.UI.Helpers
                                     c.ChartSchoolType == ChartSchoolType.Academy ||
                                     c.ChartSchoolType == ChartSchoolType.Both)
                             .ToList();
+
+                    chartList.ForEach(c => c.TableColumns = c.TableColumns?.Where(s => s.ChartSchoolType == ChartSchoolType.Academy || s.ChartSchoolType == ChartSchoolType.Both).ToList());
                 }
                 else
                 {
@@ -67,6 +73,7 @@ namespace SFB.Web.UI.Helpers
                                     c.ChartSchoolType == ChartSchoolType.Maintained ||
                                     c.ChartSchoolType == ChartSchoolType.Both)
                             .ToList();
+                    chartList.ForEach(c => c.TableColumns = c.TableColumns?.Where(s => s.ChartSchoolType == ChartSchoolType.Maintained || s.ChartSchoolType == ChartSchoolType.Both).ToList());
                 }
             }
             return chartList;

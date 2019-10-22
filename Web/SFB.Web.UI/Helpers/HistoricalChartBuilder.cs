@@ -2,7 +2,6 @@
 using System.Linq;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Helpers.Enums;
-using SFB.Web.ApplicationCore;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 
@@ -12,8 +11,7 @@ namespace SFB.Web.UI.Helpers
     {
         List<ChartViewModel> Build(RevenueGroupType revenueGroup, EstablishmentType estabType);
 
-        List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup,
-            EstablishmentType estabType, UnitType unit = UnitType.AbsoluteCount);
+        List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup, EstablishmentType estabType, UnitType unit = UnitType.AbsoluteCount);
     }
 
     public class HistoricalChartBuilder : IHistoricalChartBuilder
@@ -23,21 +21,11 @@ namespace SFB.Web.UI.Helpers
             var chartList = Build(revenueGroup);
             if (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT)
             {
-                chartList =
-                    chartList.Where(
-                            c =>
-                                c.ChartSchoolType == ChartSchoolType.Academy ||
-                                c.ChartSchoolType == ChartSchoolType.Both)
-                        .ToList();
+                chartList = FilterAcademyOnlyCharts(chartList);
             }
             else
             {
-                chartList =
-                    chartList.Where(
-                            c =>
-                                c.ChartSchoolType == ChartSchoolType.Maintained ||
-                                c.ChartSchoolType == ChartSchoolType.Both)
-                        .ToList();
+                chartList = FilterMaintainedOnlyCharts(chartList);
             }
             return chartList;
         }
@@ -51,25 +39,16 @@ namespace SFB.Web.UI.Helpers
 
             if (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT)
             {
-                chartList =
-                    chartList.Where(
-                            c =>
-                                c.ChartSchoolType == ChartSchoolType.Academy ||
-                                c.ChartSchoolType == ChartSchoolType.Both)
-                        .ToList();
+                chartList = FilterAcademyOnlyCharts(chartList);
             }
             else
             {
-                chartList =
-                    chartList.Where(
-                            c =>
-                                c.ChartSchoolType == ChartSchoolType.Maintained ||
-                                c.ChartSchoolType == ChartSchoolType.Both)
-                        .ToList();
+                chartList = FilterMaintainedOnlyCharts(chartList);
             }
+
             return chartList;
         }
-
+               
         private void RemoveIrrelevantCharts(UnitType unit, List<ChartViewModel> chartList)
         {
             switch (unit)
@@ -109,6 +88,32 @@ namespace SFB.Web.UI.Helpers
                                             || ((revenueGroup == RevenueGroupType.AllExcludingSchoolPerf && c.RevenueGroup != RevenueGroupType.AllIncludingSchoolPerf) && (chartGroup == ChartGroupType.All || c.ChartGroup == chartGroup))
                                       )
                     .ToList();
+            return chartList;
+        }
+
+        private List<ChartViewModel> FilterMaintainedOnlyCharts(List<ChartViewModel> chartList)
+        {
+            chartList =
+                chartList.Where(
+                        c =>
+                            c.ChartSchoolType == ChartSchoolType.Maintained ||
+                            c.ChartSchoolType == ChartSchoolType.Both)
+                    .ToList();
+
+            chartList.ForEach(c => c.SubCharts = c.SubCharts?.Where(s => s.ChartSchoolType == ChartSchoolType.Maintained || s.ChartSchoolType == ChartSchoolType.Both).ToList());
+            return chartList;
+        }
+
+        private List<ChartViewModel> FilterAcademyOnlyCharts(List<ChartViewModel> chartList)
+        {
+            chartList =
+                chartList.Where(
+                        c =>
+                            c.ChartSchoolType == ChartSchoolType.Academy ||
+                            c.ChartSchoolType == ChartSchoolType.Both)
+                    .ToList();
+
+            chartList.ForEach(c => c.SubCharts = c.SubCharts?.Where(s => s.ChartSchoolType == ChartSchoolType.Academy || s.ChartSchoolType == ChartSchoolType.Both).ToList());
             return chartList;
         }
 
@@ -677,15 +682,15 @@ namespace SFB.Web.UI.Helpers
                                 <li>the cost of maintenance and improvement of special facilities or community-focused facilities</li>
                                 </ul>"
                         },
-                        new ChartViewModel
-                        {
-                            Name = "Building and Grounds maintenance and improvement",
-                            FieldName = SchoolTrustFinanceDataFieldNames.BUILDING_GROUNDS,
-                            RevenueGroup = RevenueGroupType.Expenditure,
-                            ChartGroup = ChartGroupType.Premises,
-                            ChartSchoolType = ChartSchoolType.Academy,
-                            MoreInfo = @""
-                        },
+                        //new ChartViewModel
+                        //{
+                        //    Name = "Building and Grounds maintenance and improvement",
+                        //    FieldName = SchoolTrustFinanceDataFieldNames.BUILDING_GROUNDS,
+                        //    RevenueGroup = RevenueGroupType.Expenditure,
+                        //    ChartGroup = ChartGroupType.Premises,
+                        //    ChartSchoolType = ChartSchoolType.Academy,
+                        //    MoreInfo = @""
+                        //},
                     }
                 },
                 new ChartViewModel()
