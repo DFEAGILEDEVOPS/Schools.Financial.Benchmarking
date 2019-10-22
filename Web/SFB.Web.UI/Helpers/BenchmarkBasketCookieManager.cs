@@ -24,11 +24,22 @@ namespace SFB.Web.UI.Helpers
 
         public SchoolComparisonListModel ExtractSchoolComparisonListFromCookie()
         {
-            SchoolComparisonListModel comparisonList = new SchoolComparisonListModel();
+            var comparisonList = new SchoolComparisonListModel();
             var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
             if (cookie != null)
             {
                 comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+            return comparisonList;
+        }
+
+        public TrustComparisonListModel ExtractTrustComparisonListFromCookie()
+        {
+            var comparisonList = new TrustComparisonListModel(); ;
+            var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
+            if (cookie != null)
+            {
+                comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
             }
             return comparisonList;
         }
@@ -107,17 +118,6 @@ namespace SFB.Web.UI.Helpers
             {                
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
-        }
-
-        public TrustComparisonListModel ExtractTrustComparisonListFromCookie()
-        {
-            TrustComparisonListModel comparisonList = null;
-            var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
-            if (cookie != null)
-            {
-                comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
-            }
-            return comparisonList;
         }
 
         public TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, int? companyNo = null, string matName = null)

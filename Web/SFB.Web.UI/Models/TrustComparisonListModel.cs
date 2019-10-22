@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using SFB.Web.ApplicationCore.Helpers.Enums;
-using SFB.Web.ApplicationCore;
 
 namespace SFB.Web.UI.Models
 {
@@ -17,6 +16,11 @@ namespace SFB.Web.UI.Models
 
         [JsonProperty(PropertyName = "T")]
         public List<BenchmarkTrustModel> Trusts { get; set; }
+
+        public TrustComparisonListModel()
+        {
+            this.Trusts = new List<BenchmarkTrustModel>();
+        }
 
         public TrustComparisonListModel(int defaultTrustCompanyNo, string defaultTrustName)
         {

@@ -71,12 +71,15 @@ namespace SFB.Web.UI.Controllers
                 if (urnList != null)
                 {
                     var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-
-                    if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count <= ComparisonListLimit.LIMIT)
+                    if(comparisonList?.BenchmarkSchools?.Count == 0)
+                    {
+                        return await GenerateFromSavedBasket(urns, companyNumbers, BenchmarkListOverwriteStrategy.Add, comparison);
+                    }
+                    else if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count <= ComparisonListLimit.LIMIT)
                     {
                         return Redirect($"SaveOverwriteStrategy?savedUrns={urns}");
                     }
-                    if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count > ComparisonListLimit.LIMIT)
+                    else if (comparisonList?.BenchmarkSchools?.Count > 0 && comparisonList.BenchmarkSchools.Count + urnList.Count > ComparisonListLimit.LIMIT)
                     {
                         return Redirect($"ReplaceWithSavedBasket?savedUrns={urns}");
                     }
@@ -85,11 +88,15 @@ namespace SFB.Web.UI.Controllers
                 {
                     var trustComparisonList = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie();
 
-                    if (trustComparisonList?.Trusts?.Count > 0 && trustComparisonList.Trusts.Count + companyNoList.Count <= ComparisonListLimit.MAT_LIMIT)
+                    if (trustComparisonList?.Trusts?.Count == 0)
+                    {
+                        return await GenerateFromSavedBasket(urns, companyNumbers, BenchmarkListOverwriteStrategy.Add, comparison);
+                    }
+                    else if (trustComparisonList?.Trusts?.Count > 0 && trustComparisonList.Trusts.Count + companyNoList.Count <= ComparisonListLimit.MAT_LIMIT)
                     {
                         return Redirect($"SaveOverwriteStrategy?savedCompanyNos={companyNumbers}");
                     }
-                    if (trustComparisonList?.Trusts?.Count > 0 && trustComparisonList.Trusts.Count + companyNoList.Count > ComparisonListLimit.MAT_LIMIT)
+                    else if (trustComparisonList?.Trusts?.Count > 0 && trustComparisonList.Trusts.Count + companyNoList.Count > ComparisonListLimit.MAT_LIMIT)
                     {
                         return Redirect($"ReplaceWithSavedBasket?savedCompanyNos={companyNumbers}");
                     }
