@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SFB.Web.UI.Services
+namespace SFB.Web.ApplicationCore.Services
 {
     public interface IActiveUrnsService
     {

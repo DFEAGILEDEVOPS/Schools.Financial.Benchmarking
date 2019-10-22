@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 
-namespace SFB.Web.UI.Services
+namespace SFB.Web.ApplicationCore.Services
 {
     /// <summary>
     /// This class should be registered as singleton.    

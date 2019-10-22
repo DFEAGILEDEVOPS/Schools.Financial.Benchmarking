@@ -1,4 +1,4 @@
-﻿@using SFB.Web.ApplicationCore.Helpers
+﻿@using SFB.Web.UI.Helpers
 @using SFB.Web.UI.Helpers.Enums
 @using SFB.Web.ApplicationCore.Helpers.Enums
 
@@ -106,23 +106,23 @@
 
 @helper ChartLabelForCentralFinance()
 {
-if (ViewBag.EstablishmentType == EstablishmentType.MAT)
-{
-    if (ViewBag.Financing != null)
+    if (ViewBag.EstablishmentType == EstablishmentType.MAT)
     {
-        var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.Financing.ToString());
-            <text>(@matFinance.GetDescription())</text>
-    }
-}
-else
-{
-    if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
-    {
-        if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSAT && ViewBag.Financing != null)
+        if (ViewBag.Financing != null)
         {
-            var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
-                <text>(@centralFinance.GetDescription())</text>
+            var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.Financing.ToString());
+            <text>(@matFinance.GetDescription())</text>
         }
     }
-}
+    else
+    {
+        if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+        {
+            if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSAT && ViewBag.Financing != null)
+            {
+                var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                <text>(@centralFinance.GetDescription())</text>
+            }
+        }
+    }
 }

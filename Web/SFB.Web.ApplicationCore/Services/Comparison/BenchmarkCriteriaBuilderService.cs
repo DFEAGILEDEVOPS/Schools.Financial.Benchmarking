@@ -1,5 +1,4 @@
-﻿using SFB.Web.ApplicationCore;
-using SFB.Web.ApplicationCore.Helpers.Constants;
+﻿using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.ApplicationCore.Services.Comparison

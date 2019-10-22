@@ -1,5 +1,5 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
-@using SFB.Web.ApplicationCore.Helpers
+@using SFB.Web.UI.Helpers
 @using SFB.Web.UI.Helpers.Enums
 @using SFB.Web.UI.Models
 @model EstablishmentViewModelBase
@@ -17,46 +17,46 @@
 
                 if (historicalChart.DrillInto != null)
                 {
-            <div class="charts-section__chart-container__chart-header">
-                <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
-                @if (historicalChart.HelpTooltip != null)
-                {
-                    <span class="help-icon help-chart hide-in-print">
-                        <span class="icon dark-blue">
-                            <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                <span class="visuallyhidden">Open more info text for @historicalChart.Name opens a popup</span>
-                            </a>
-                        </span>
-                    </span>
-                }
-                <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto','@historicalChart.RevenueGroupName.ToLower()')">
-                    @if (ViewBag.ChartFormat == ChartFormat.Charts)
-                    {
-                        <span class="view-more">All @historicalChart.Name.Replace("total", "").ToLower() charts</span>
-                    }
-                    else
-                    {
-                        <span class="view-more">View more tables</span>
-                    }
-                    <span class="visuallyhidden"> for @historicalChart.Name</span>
-                </button>
-            </div>
+                    <div class="charts-section__chart-container__chart-header">
+                        <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
+                        @if (historicalChart.HelpTooltip != null)
+                        {
+                            <span class="help-icon help-chart hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                        <span class="visuallyhidden">Open more info text for @historicalChart.Name opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        }
+                        <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto','@historicalChart.RevenueGroupName.ToLower()')">
+                            @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                            {
+                                <span class="view-more">All @historicalChart.Name.Replace("total", "").ToLower() charts</span>
+                            }
+                            else
+                            {
+                                <span class="view-more">View more tables</span>
+                            }
+                            <span class="visuallyhidden"> for @historicalChart.Name</span>
+                        </button>
+                    </div>
                 }
                 else
                 {
-            <div class="charts-section__chart-container__chart-header">
-                <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
-                @if (historicalChart.HelpTooltip != null)
-                {
-                    <span class="help-icon help-chart hide-in-print">
-                        <span class="icon dark-blue">
-                            <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                <span class="visuallyhidden">Open more info text for @historicalChart.Name opens a popup</span>
-                            </a>
-                        </span>
-                    </span>
-                }
-            </div>
+                    <div class="charts-section__chart-container__chart-header">
+                        <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
+                        @if (historicalChart.HelpTooltip != null)
+                        {
+                            <span class="help-icon help-chart hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                        <span class="visuallyhidden">Open more info text for @historicalChart.Name opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        }
+                    </div>
                 }
 
                 @Html.Partial("Partials/HistoricalChart", historicalChart)
@@ -115,7 +115,7 @@
 }
 
 @helper FormatFinancialYear(string year, EstablishmentType schoolType)
-{ @( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-')) }
+{@( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))}
 
 @helper ChartLabelForCentralFinance()
 {
@@ -124,16 +124,16 @@
         if (ViewBag.Financing != null)
         {
             var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.Financing.ToString());
-                <text>(@matFinance.GetDescription())</text>
-    }
-    else
-    {
-        if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+            <text>(@matFinance.GetDescription())</text>
+        }
+        else
         {
-            if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSAT && ViewBag.Financing != null)
+            if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
             {
-                var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
-                        <text>(@centralFinance.GetDescription())</text>
+                if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSAT && ViewBag.Financing != null)
+                {
+                    var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                    <text>(@centralFinance.GetDescription())</text>
                 }
             }
         }
