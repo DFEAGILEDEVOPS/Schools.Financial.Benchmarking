@@ -7,7 +7,6 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
-using SFB.Web.ApplicationCore;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Services.DataAccess;
@@ -15,11 +14,11 @@ using System.Threading.Tasks;
 using SFB.Web.ApplicationCore.Models;
 using System.Web.UI;//Do not remove. Required in release mode build
 using SFB.Web.ApplicationCore.Entities;
-using SFB.Web.ApplicationCore.ApiWrappers;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Services;
 using System;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Services.SptReport;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -32,13 +31,13 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
-        private readonly IApiRequest _apiRequest;
+        private readonly ISptReportService _sptReportService;
         private readonly ILocalAuthoritiesService _laSearchService;
         private readonly IActiveUrnsService _activeUrnsService;
 
         public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IApiRequest apiRequest, ILocalAuthoritiesService laSearchService,
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ISptReportService sptReportService, ILocalAuthoritiesService laSearchService,
             IActiveUrnsService activeUrnsService)
         {
             _historicalChartBuilder = historicalChartBuilder;
@@ -47,7 +46,7 @@ namespace SFB.Web.UI.Controllers
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
-            _apiRequest = apiRequest;
+            _sptReportService = sptReportService;
             _laSearchService = laSearchService;
             _activeUrnsService = activeUrnsService;
         }
@@ -289,7 +288,7 @@ namespace SFB.Web.UI.Controllers
 
         private bool SptReportExists(int urn)
         {
-            return _apiRequest.Head("/estab-details/", new List<string> { urn.ToString() }).statusCode == HttpStatusCode.OK;
+            return _sptReportService.SptReportExists(urn);
         }
     }
 }

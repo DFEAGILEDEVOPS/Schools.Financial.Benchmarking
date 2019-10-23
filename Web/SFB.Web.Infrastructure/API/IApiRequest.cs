@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using SFB.Web.ApplicationCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SFB.Web.ApplicationCore.ApiWrappers
+namespace SFB.Web.Infrastructure.ApiWrappers
 {
     public interface IApiRequest
     {

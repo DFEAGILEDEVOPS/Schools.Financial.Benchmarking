@@ -139,9 +139,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiWrappers\ApiRequest.cs" />
-    <Compile Include="ApiWrappers\ApiResponse.cs" />
-    <Compile Include="ApiWrappers\IApiRequest.cs" />
+    <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="DataAccessInterfaces\IDataCollectionManager.cs" />
     <Compile Include="DataAccessInterfaces\IEdubaseRepository.cs" />
     <Compile Include="DataAccessInterfaces\IFinancialDataRepository.cs" />
@@ -188,6 +186,7 @@
     <Compile Include="Services\Search\ISchoolSearchService.cs" />
     <Compile Include="Services\Search\ITrustSearchService.cs" />
     <Compile Include="Services\Search\TrustSearchService.cs" />
+    <Compile Include="Services\SptReport\ISptReportService.cs" />
     <Compile Include="Services\Validation\ValidationService.cs" />
     <Compile Include="Services\Validation\IValidationService.cs" />
   </ItemGroup>

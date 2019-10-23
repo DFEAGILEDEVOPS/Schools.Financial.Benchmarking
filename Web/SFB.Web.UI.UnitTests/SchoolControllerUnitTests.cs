@@ -13,11 +13,12 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
-using SFB.Web.ApplicationCore.ApiWrappers;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.Infrastructure.ApiWrappers;
+using SFB.Web.ApplicationCore.Services.SptReport;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -74,7 +75,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var mockApiRequest = new Mock<IApiRequest>();
+            var mockApiRequest = new Mock<ISptReportService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
@@ -123,7 +124,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var mockApiRequest = new Mock<IApiRequest>();
+            var mockApiRequest = new Mock<ISptReportService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
@@ -172,7 +173,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var mockApiRequest = new Mock<IApiRequest>();
+            var mockApiRequest = new Mock<ISptReportService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
@@ -221,7 +222,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var mockApiRequest = new Mock<IApiRequest>();
+            var mockApiRequest = new Mock<ISptReportService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
@@ -270,15 +271,15 @@ namespace SFB.Web.UI.UnitTests
 
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var mockApiRequest = new Mock<IApiRequest>();
+            var mockApiRequest = new Mock<ISptReportService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
             var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
             mockApiRequest
-                .Setup(ar => ar.Head(It.IsAny<string>(), It.IsAny<List<string>>()))
-                .Returns((string endpoint, List<string> parameters) => new ApiResponse(System.Net.HttpStatusCode.OK, null));
+                .Setup(ar => ar.SptReportExists(It.IsAny<int>()))
+                .Returns((int urn) => true);
 
             var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
                 mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object, mockActiveUrnsService.Object);
@@ -320,13 +321,13 @@ namespace SFB.Web.UI.UnitTests
 
             var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
-            var mockApiRequest = new Mock<IApiRequest>();
+            var mockApiRequest = new Mock<ISptReportService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
             mockApiRequest
-                .Setup(ar => ar.Head(It.IsAny<string>(), It.IsAny<List<string>>()))
-                .Returns((string endpoint, List<string> parameters) => new ApiResponse(System.Net.HttpStatusCode.NotFound, null));
+                .Setup(ar => ar.SptReportExists(It.IsAny<int>()))
+                .Returns((int urn) => false);
 
             var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
                 mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object, mockActiveUrnsService.Object);

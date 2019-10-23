@@ -160,6 +160,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\ApiRequest.cs" />
+    <Compile Include="API\IApiRequest.cs" />
+    <Compile Include="API\SptReportService.cs" />
     <Compile Include="Helpers\DataCollectionManager.cs" />
     <Compile Include="Repositories\CosmosDbEdubaseRepository.cs" />
     <Compile Include="Repositories\CosmosDbFinancialDataRepository.cs" />
