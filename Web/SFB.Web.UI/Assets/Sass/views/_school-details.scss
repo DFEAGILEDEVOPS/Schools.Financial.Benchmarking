@@ -59,6 +59,7 @@
 
         &__column-full {
             margin-bottom: 20px;
+            padding: 0 15px;
         }
 
         &__button--removefrom, &__button--addto {
@@ -253,7 +254,6 @@
             vertical-align: middle;
             padding: 5px;
         }
-
     }
 
     .print img.icon, .download img.icon {
@@ -282,7 +282,6 @@
         }
 
         @include media(tablet) {
-            
             height: 93px;
 
             .chart-filter:first-of-type {
