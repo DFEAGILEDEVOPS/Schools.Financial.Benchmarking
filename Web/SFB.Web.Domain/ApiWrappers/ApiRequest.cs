@@ -101,6 +101,10 @@ namespace SFB.Web.Domain
             }
             catch (WebException ex)
             {
+                if(ex.Response == null)
+                {
+                    return new ApiResponse(HttpStatusCode.InternalServerError, null);
+                }
                 return new ApiResponse(((HttpWebResponse)ex.Response).StatusCode, null);
             }
             finally
