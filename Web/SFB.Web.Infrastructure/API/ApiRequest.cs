@@ -103,9 +103,9 @@ namespace SFB.Web.Infrastructure.ApiWrappers
             {
                 if (ex.Response != null)
                 {
-                    return new ApiResponse(((HttpWebResponse)ex.Response).StatusCode, null);
+                    return new ApiResponse(HttpStatusCode.InternalServerError, null);
                 }
-                return new ApiResponse(new HttpStatusCode(), null);
+                return new ApiResponse(((HttpWebResponse)ex.Response).StatusCode, null);
             }
             finally
             {
