@@ -101,7 +101,7 @@ namespace SFB.Web.Infrastructure.ApiWrappers
             }
             catch (WebException ex)
             {
-                if (ex.Response != null)
+                if (ex.Response == null)
                 {
                     return new ApiResponse(HttpStatusCode.InternalServerError, null);
                 }
