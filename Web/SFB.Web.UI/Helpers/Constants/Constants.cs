@@ -53,6 +53,7 @@
         public const string EXPENDITURE = "Expenditure";
         public const string BALANCE = "Balance";
         public const string WORKFORCE = "Workforce";
+        public const string SALARY = "Teacher pay scale";
         public const string CUSTOM = "Your charts";
     }
 

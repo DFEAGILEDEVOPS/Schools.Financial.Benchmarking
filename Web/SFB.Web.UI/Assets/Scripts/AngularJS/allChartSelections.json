@@ -1129,6 +1129,74 @@
           "NumberOfPupilsPerMeasureSelected": false
         }
       ]
+    },
+    {
+      "GroupName": "Salary",
+      "Charts": [
+        {
+          "Name": "Percentage of teachers on main pay scale",
+          "PerPupilAvailable": false,
+          "PerPupilSelected": false,
+          "PerTeacherAvailable": false,
+          "PerTeacherSelected": false,
+          "PercentageAvailable": false,
+          "PercentageSelected": false,
+          "AbsoluteMoneyAvailable": false,
+          "AbsoluteMoneySelected": false,
+          "AbsoluteCountAvailable": false,
+          "AbsoluteCountSelected": false,
+          "HeadCountPerFTEAvailable": false,
+          "HeadCountPerFTESelected": false,
+          "PercentageOfWorkforceAvailable": false,
+          "PercentageOfWorkforceSelected": false,
+          "NumberOfPupilsPerMeasureAvailable": false,
+          "NumberOfPupilsPerMeasureSelected": false,
+          "PercentageTeachersAvailable": true,
+          "PercentageTeachersSelected": false
+        },
+        {
+          "Name": "Percentage of teachers on upper pay scale",
+          "PerPupilAvailable": false,
+          "PerPupilSelected": false,
+          "PerTeacherAvailable": false,
+          "PerTeacherSelected": false,
+          "PercentageAvailable": false,
+          "PercentageSelected": false,
+          "AbsoluteMoneyAvailable": false,
+          "AbsoluteMoneySelected": false,
+          "AbsoluteCountAvailable": false,
+          "AbsoluteCountSelected": false,
+          "HeadCountPerFTEAvailable": false,
+          "HeadCountPerFTESelected": false,
+          "PercentageOfWorkforceAvailable": false,
+          "PercentageOfWorkforceSelected": false,
+          "NumberOfPupilsPerMeasureAvailable": false,
+          "NumberOfPupilsPerMeasureSelected": false,
+          "PercentageTeachersAvailable": true,
+          "PercentageTeachersSelected": false
+        },
+        {
+          "Name": "Percentage of teachers on leadership pay scale",
+          "PerPupilAvailable": false,
+          "PerPupilSelected": false,
+          "PerTeacherAvailable": false,
+          "PerTeacherSelected": false,
+          "PercentageAvailable": false,
+          "PercentageSelected": false,
+          "AbsoluteMoneyAvailable": false,
+          "AbsoluteMoneySelected": false,
+          "AbsoluteCountAvailable": false,
+          "AbsoluteCountSelected": false,
+          "HeadCountPerFTEAvailable": false,
+          "HeadCountPerFTESelected": false,
+          "PercentageOfWorkforceAvailable": false,
+          "PercentageOfWorkforceSelected": false,
+          "NumberOfPupilsPerMeasureAvailable": false,
+          "NumberOfPupilsPerMeasureSelected": false,
+          "PercentageTeachersAvailable": true,
+          "PercentageTeachersSelected": false
+        }
+      ]
     }
   ]
 }

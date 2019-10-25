@@ -72,7 +72,7 @@
                     });
                 };
 
-                self.groupSelectCount = function(group) {
+                self.groupSelectCount = function (group) {                    
                     var count = _.reduce(group.Charts,
                         function(sum, ch) {
                             return sum +
@@ -83,7 +83,8 @@
                                 (ch.AbsoluteCountSelected ? 1 : 0) +
                                 (ch.HeadCountPerFTESelected ? 1 : 0) +
                                 (ch.PercentageOfWorkforceSelected ? 1 : 0) +
-                                (ch.NumberOfPupilsPerMeasureSelected ? 1 : 0);
+                                (ch.NumberOfPupilsPerMeasureSelected ? 1 : 0)+
+                                (ch.PercentageTeachersSelected ? 1 : 0);
                         },
                         0);
 

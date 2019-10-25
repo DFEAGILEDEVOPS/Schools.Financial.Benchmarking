@@ -404,6 +404,7 @@ namespace SFB.Web.UI.Services
             switch (unit)
             {
                 case UnitType.AbsoluteMoney:
+                case UnitType.PercentageTeachers:
                     return rawAmount;
                 case UnitType.PerTeacher:
                     return (teacherCount == 0) ? null : (rawAmount / (decimal) teacherCount);

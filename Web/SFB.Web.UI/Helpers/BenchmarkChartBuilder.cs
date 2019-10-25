@@ -1945,6 +1945,41 @@ namespace SFB.Web.UI.Helpers
                     ShowValue = UnitType.AbsoluteCount
                 },
 
+                //Salary                
+                new ChartViewModel()
+                {
+                    Name = "Percentage of teachers on main pay scale",
+                    FieldName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS,
+                    RevenueGroup = RevenueGroupType.Salary,
+                    ChartGroup = ChartGroupType.Salary,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.Total,
+                    Downloadable = true,
+                    ShowValue = UnitType.PercentageTeachers
+                },
+                new ChartViewModel()
+                {
+                    Name = "Percentage of teachers on upper pay scale",
+                    FieldName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN,
+                    RevenueGroup = RevenueGroupType.Salary,
+                    ChartGroup = ChartGroupType.Salary,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.Total,
+                    Downloadable = true,
+                    ShowValue = UnitType.PercentageTeachers
+                },
+                new ChartViewModel()
+                {
+                    Name = "Percentage of teachers on leadership pay scale",
+                    FieldName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_FSM,
+                    RevenueGroup = RevenueGroupType.Salary,
+                    ChartGroup = ChartGroupType.Salary,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.Total,
+                    Downloadable = true,
+                    ShowValue = UnitType.PercentageTeachers
+                },
+
                 //School performance (for download only)
                 new ChartViewModel()
                 {

@@ -509,14 +509,27 @@ namespace SFB.Web.UI.Controllers
                 case RevenueGroupType.Workforce:
                     chartGroup = ChartGroupType.Workforce;
                     break;
+                case RevenueGroupType.Salary:
+                    chartGroup = ChartGroupType.Salary;
+                    break;
                 default:
                     chartGroup = ChartGroupType.All;
                     break;
             }
 
-            var defaultUnitType = tab == RevenueGroupType.Workforce ?
-                UnitType.AbsoluteCount :
-                comparisonType == ComparisonType.BestInClass ? UnitType.PerPupil : UnitType.AbsoluteMoney;
+            UnitType defaultUnitType;
+            switch (tab)
+            {
+                case RevenueGroupType.Workforce:
+                    defaultUnitType = UnitType.AbsoluteCount;
+                    break;
+                case RevenueGroupType.Salary:
+                    defaultUnitType = UnitType.PercentageTeachers;
+                    break;
+                default:
+                    defaultUnitType = comparisonType == ComparisonType.BestInClass ? UnitType.PerPupil : UnitType.AbsoluteMoney;
+                    break;
+            }
             var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(tab, chartGroup, defaultUnitType, financing);
             var establishmentType = DetectEstablishmentType(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
@@ -624,6 +637,9 @@ namespace SFB.Web.UI.Controllers
                 case RevenueGroupType.Workforce:
                     chartGroup = ChartGroupType.Workforce;
                     break;
+                case RevenueGroupType.Salary:
+                    chartGroup = ChartGroupType.Salary;
+                    break;
                 default:
                     chartGroup = ChartGroupType.All;
                     break;
@@ -637,6 +653,9 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case RevenueGroupType.Balance:
                     unitType = showValue == UnitType.AbsoluteMoney || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher ? showValue : UnitType.AbsoluteMoney;
+                    break;
+                case RevenueGroupType.Salary:
+                    unitType = UnitType.PercentageTeachers;
                     break;
                 default:
                     unitType = showValue;
@@ -824,6 +843,17 @@ namespace SFB.Web.UI.Controllers
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.NoOfPupilsPerMeasure;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
+                }
+
+                if (selection.PercentageTeachersSelected)
+                {
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.PercentageTeachers;
                         customChart.ChartType = ChartType.CustomReport;
                         customChartList.Add(customChart);
                     }
