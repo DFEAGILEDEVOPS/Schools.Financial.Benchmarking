@@ -4,7 +4,7 @@
 
 <div class="charts-section">
     <div class="grid-row">
-        <div class="sticky-div sticky-chart-controls">
+        <div class="sticky-div sticky-chart-controls @ViewBag.Tab">
             @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
             @if (ViewBag.Tab == RevenueGroupType.Salary)
             {

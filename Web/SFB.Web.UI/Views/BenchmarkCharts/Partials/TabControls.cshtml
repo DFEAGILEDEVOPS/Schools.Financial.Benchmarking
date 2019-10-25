@@ -21,11 +21,11 @@
                 <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>
             </li>
         }
-        <li id="@RevenueGroupType.Salary" class="hide-in-print" role="tab">
-            <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Salary')">@RevenueGroupNames.SALARY <span class="bmtab visually-hidden"></span></a>
-        </li>
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
+            <li id="@RevenueGroupType.Salary" class="hide-in-print" role="tab">
+                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Salary')">@RevenueGroupNames.SALARY <span class="bmtab visually-hidden"></span></a>
+            </li>
             <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
                 @*<span class="visually-hidden">@RevenueGroupNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
                 <a class="tab-link custom" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')" ng-click="ctrl.displayCustomReport()">
@@ -33,7 +33,7 @@
                     <span class="bmtab visually-hidden">tab</span>
                 </a>
                 <a class="helpLink hide-in-print" href="#" id="renderYourChartsInfo" onclick="DfE.Util.ModalRenderer.RenderYourChartsInfoModal()">
-                    <img src="/public/assets/images/help-icon.png" alt="Your charts - more information"/>
+                    <img src="/public/assets/images/help-icon.png" alt="Your charts - more information" />
                 </a>
             </li>
         }

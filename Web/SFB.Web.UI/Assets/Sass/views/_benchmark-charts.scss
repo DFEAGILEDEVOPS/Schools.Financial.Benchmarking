@@ -535,6 +535,11 @@
             height: 75px;
         }
 
+        &.Salary {
+            height: 0;
+            border-bottom: 0;
+        }
+
         @include media(tablet) {
             margin: 0 15px;
             height: 93px;

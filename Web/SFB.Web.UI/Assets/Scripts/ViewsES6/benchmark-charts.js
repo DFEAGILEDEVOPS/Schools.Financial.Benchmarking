@@ -814,8 +814,8 @@
                     $("#downloadLinkContainer").show();
                     $("#PrintLinkText").text(" Print page");
                     $("#PdfLinkText").text(" Download page");
-                    let stickyDivHtml = $(data).find(".sticky-div").html();
-                    $("#tabsSection .sticky-chart-controls").html(stickyDivHtml);
+                    let stickyDivHtml = $(data).find(".sticky-div")[0];
+                    $("#tabsSection .sticky-chart-controls").replaceWith(stickyDivHtml);
                     let formHtml = $(data).find("form").html();
                     $("#tabsSection form").html(formHtml);
                     $("#tabsSection form").show();

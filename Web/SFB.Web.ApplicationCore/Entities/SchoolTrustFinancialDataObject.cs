@@ -463,5 +463,14 @@ namespace SFB.Web.ApplicationCore.Entities
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.TOTAL_EXP_PP)]
         public decimal? PerPupilTotalExpenditure { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.TEACHERS_MAIN_PAY)]
+        public decimal? PerTeachersOnMainPay { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.TEACHERS_UPPER_LEADING_PAY)]
+        public decimal? PerTeachersOnUpperOrLeadingPay { get; set; }
+
+        [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.TEACHERS_LEADERSHIP_PAY)]
+        public decimal? PerTeachersOnLeadershipPay { get; set; }
     }
 }

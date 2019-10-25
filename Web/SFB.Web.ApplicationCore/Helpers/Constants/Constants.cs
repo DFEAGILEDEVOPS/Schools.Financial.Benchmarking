@@ -201,6 +201,9 @@
         public const string RR_TO_INCOME = "PercentRevenueReserveOfTotalIncome";
         public const string GRANT_FUNDING_PP = "PerPupilGrantFunding";
         public const string TOTAL_EXP_PP = "PerPupilTotalExpenditure";
+        public const string TEACHERS_MAIN_PAY = "AllClassroomTeachersOnMainPayRangePercent";
+        public const string TEACHERS_UPPER_LEADING_PAY = "AllClassroomTeachersOnUpperPayRangeAndOrLeadingPractionersPayRangePercent";
+        public const string TEACHERS_LEADERSHIP_PAY = "AllTeachersOnTheLeadershipPayRangePercent";
 
     }
 

@@ -1134,7 +1134,7 @@
       "GroupName": "Salary",
       "Charts": [
         {
-          "Name": "Percentage of teachers on main pay scale",
+          "Name": "Classroom teachers on main pay range (%)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -1155,7 +1155,7 @@
           "PercentageTeachersSelected": false
         },
         {
-          "Name": "Percentage of teachers on upper pay scale",
+          "Name": "Classroom teachers on upper and/or leading pay range",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,
@@ -1176,7 +1176,7 @@
           "PercentageTeachersSelected": false
         },
         {
-          "Name": "Percentage of teachers on leadership pay scale",
+          "Name": "All teachers on leadership pay range (%)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,

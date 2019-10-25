@@ -658,7 +658,7 @@ namespace SFB.Web.UI.Controllers
                     unitType = UnitType.PercentageTeachers;
                     break;
                 default:
-                    unitType = showValue;
+                    unitType = showValue == UnitType.AbsoluteMoney || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher || showValue == UnitType.PercentageOfTotal ? showValue : UnitType.AbsoluteMoney;
                     break;
             }
 

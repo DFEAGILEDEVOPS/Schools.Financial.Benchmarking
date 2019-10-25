@@ -115,6 +115,7 @@
                         switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
                         {
                             case UnitType.PercentageOfTotal:
+                            case UnitType.PercentageTeachers:
                             case UnitType.FTERatioToTotalFTE:
                                 @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
                                 break;

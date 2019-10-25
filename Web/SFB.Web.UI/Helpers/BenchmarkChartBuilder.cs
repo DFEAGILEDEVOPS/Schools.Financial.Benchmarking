@@ -1948,8 +1948,8 @@ namespace SFB.Web.UI.Helpers
                 //Salary                
                 new ChartViewModel()
                 {
-                    Name = "Percentage of teachers on main pay scale",
-                    FieldName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_QUALIFIED_TEACHERS,
+                    Name = "Classroom teachers on main pay range (%)",
+                    FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_MAIN_PAY,
                     RevenueGroup = RevenueGroupType.Salary,
                     ChartGroup = ChartGroupType.Salary,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1959,8 +1959,8 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Percentage of teachers on upper pay scale",
-                    FieldName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_OF_PUPILS_WITH_SEN,
+                    Name = "Classroom teachers on upper and/or leading pay range",
+                    FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_UPPER_LEADING_PAY,
                     RevenueGroup = RevenueGroupType.Salary,
                     ChartGroup = ChartGroupType.Salary,
                     ChartSchoolType = ChartSchoolType.Both,
@@ -1970,8 +1970,8 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Percentage of teachers on leadership pay scale",
-                    FieldName = SchoolTrustFinanceDBFieldNames.PERCENTAGE_FSM,
+                    Name = "All teachers on leadership pay range (%)",
+                    FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_LEADERSHIP_PAY,
                     RevenueGroup = RevenueGroupType.Salary,
                     ChartGroup = ChartGroupType.Salary,
                     ChartSchoolType = ChartSchoolType.Both,
