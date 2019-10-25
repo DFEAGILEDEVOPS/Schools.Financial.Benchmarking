@@ -145,13 +145,13 @@ else
             </div>
         </details>
         @*<div class="govuk-box-highlight">
-            <h3 class="heading-large mt-0 pt-0">
-                <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">Deals for schools<span class="visuallyhidden"> Opens in a new window</span></a>
-            </h3>
-            <p class="font-xsmall pb-0 mb-0">
-                Find a range of cost-saving deals for schools assessed for compliance with procurement regulations and ease of use by the DfE
-            </p>
-        </div>*@
+                <h3 class="heading-large mt-0 pt-0">
+                    <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">Deals for schools<span class="visuallyhidden"> Opens in a new window</span></a>
+                </h3>
+                <p class="font-xsmall pb-0 mb-0">
+                    Find a range of cost-saving deals for schools assessed for compliance with procurement regulations and ease of use by the DfE
+                </p>
+            </div>*@
     </div>
     <div id="post-map-content" class="column-full hide-in-print">
         <div class="column-one-third no-padding">
@@ -252,11 +252,8 @@ else
 {
     <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
     <dd class="metadata-school-detail__dd bold">
-        @if (ViewBag.SptReportExists)
-        {
-            <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">School performance tables<span class="visuallyhidden"> Opens in a new window</span></a>
-            <span class="seperator" aria-hidden="true">&nbsp; | &nbsp;</span>
-        }
+        <a rel="external noopener noreferrer" class="font16-ext-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">School performance tables<span class="visuallyhidden"> Opens in a new window</span></a>
+        <span class="seperator spt_link_js" aria-hidden="true">&nbsp; | &nbsp;</span>
         <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
     </dd>
 }

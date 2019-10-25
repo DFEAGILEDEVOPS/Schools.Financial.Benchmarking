@@ -51,7 +51,6 @@ namespace SFB.Web.UI
         private static void RegisterTypes(ContainerBuilder builder)
         {
             RegisterServices(builder);
-            RegisterWrappers(builder);
         }
 
         private static void RegisterServices(ContainerBuilder builder)
@@ -69,7 +68,6 @@ namespace SFB.Web.UI
             builder.RegisterType<CosmosDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
             builder.RegisterType<CosmosDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
-            builder.RegisterType<SptReportService>().As<ISptReportService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();
             builder.RegisterType<BenchmarkBasketCookieManager>().As<IBenchmarkBasketCookieManager>();
             builder.RegisterType<BenchmarkCriteriaBuilderService>().As<IBenchmarkCriteriaBuilderService>();
@@ -79,12 +77,6 @@ namespace SFB.Web.UI
             builder.RegisterInstance(new TrustSearchService(ConfigurationManager.AppSettings["SearchInstance"],ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
             builder.RegisterType<AspNetCachedLocalAuthoritiesService>().As<ILocalAuthoritiesService>();
             builder.RegisterType<RedisCachedActiveUrnsService>().As<IActiveUrnsService>().SingleInstance();
-        }
-
-        private static void RegisterWrappers(ContainerBuilder builder)
-        {
-           builder.RegisterType<RequestContextWrapper>().As<IRequestContext>();
-           builder.Register(c => new ApiRequest(WebConfigurationManager.AppSettings["SptApiUrl"], WebConfigurationManager.AppSettings["SptApiUserName"], WebConfigurationManager.AppSettings["SptApiPassword"])).As<IApiRequest>();
         }
     }
 }

@@ -31,13 +31,12 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
-        private readonly ISptReportService _sptReportService;
         private readonly ILocalAuthoritiesService _laSearchService;
         private readonly IActiveUrnsService _activeUrnsService;
 
         public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ISptReportService sptReportService, ILocalAuthoritiesService laSearchService,
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ILocalAuthoritiesService laSearchService,
             IActiveUrnsService activeUrnsService)
         {
             _historicalChartBuilder = historicalChartBuilder;
@@ -46,7 +45,6 @@ namespace SFB.Web.UI.Controllers
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
-            _sptReportService = sptReportService;
             _laSearchService = laSearchService;
             _activeUrnsService = activeUrnsService;
         }
@@ -109,7 +107,6 @@ namespace SFB.Web.UI.Controllers
             ViewBag.IsSAT = schoolVM.IsSAT;
             ViewBag.EstablishmentType = schoolVM.EstablishmentType;
             ViewBag.ChartFormat = format;
-            ViewBag.SptReportExists = SptReportExists(schoolVM.Id);
 
             return View("Detail", schoolVM);
         }
@@ -284,11 +281,6 @@ namespace SFB.Web.UI.Controllers
             }
             
             return models;
-        }
-
-        private bool SptReportExists(int urn)
-        {
-            return _sptReportService.SptReportExists(urn);
         }
     }
 }
