@@ -1,10 +1,6 @@
 ﻿.benchmark-list {
 
-    .button {
-        @include core-16;
-    }
-
-    .button.view-benchmark {
+   .button.view-benchmark {
         margin-bottom: 0;
         float: right;
     }

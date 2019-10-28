@@ -13,6 +13,13 @@
     }
 }
 
+a.button {
+    font-size: 19px;
+    @include media(mobile){
+        font-size: 16px;
+    }
+}
+
 .header-content {
     padding-top: 10px;
 
@@ -48,7 +55,6 @@
             right: 20px;
             top: 30px;
             width: 120px;
-            font-size: 16px;
             text-align: right;
 
             @include media(mobile) {
@@ -148,6 +154,10 @@
 
         @include media(mobile) {
             margin-top: 1em;
+        }
+
+        .button{
+            font-size: 16px;
         }
     }
 }
@@ -429,8 +439,12 @@ dialog {
         font-size: 16px;
     }
 
-    button{
-        font-size: 16px;
+    .button {
+        font-size: 19px;
+
+        @include media(mobile) {
+            font-size: 16px;
+        }
     }
 
     .form-group{
@@ -703,8 +717,14 @@ abbr[title]{
 
 
     @include media(mobile) {
-        margin-top:25px;
+        margin-top: 25px;
         padding-left: 0;
+    }
+
+    font-size: 19px;
+
+    @include media(mobile) {
+        font-size: 16px;
     }
 }
 
