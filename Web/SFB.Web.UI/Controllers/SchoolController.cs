@@ -113,6 +113,8 @@ namespace SFB.Web.UI.Controllers
 
         [HttpHead]
         [AllowAnonymous]
+
+        [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]
         public ActionResult Status(int urn)
         {
             try
