@@ -7,7 +7,6 @@ namespace SFB.Web.ApplicationCore.Services.Search
     {
         Task<dynamic> SuggestTrustByName(string name);
 
-        Task<dynamic> SearchTrustByName(string name, int skip, int take, string @orderby,
-            NameValueCollection queryParams);
+        Task<dynamic> SearchTrustByName(string name, int skip, int take, string @orderby, NameValueCollection queryParams);
     }
 }

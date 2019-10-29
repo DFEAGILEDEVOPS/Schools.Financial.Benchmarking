@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Device.Location;
 
-namespace SFB.Web.ApplicationCore.Models
+namespace SFB.Web.ApplicationCore.Helpers
 {
     public static class GeoCodeCalc
     {

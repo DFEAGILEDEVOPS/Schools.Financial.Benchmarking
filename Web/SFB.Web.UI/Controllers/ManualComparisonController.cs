@@ -1,5 +1,4 @@
 ﻿using RedDog.Search.Model;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;

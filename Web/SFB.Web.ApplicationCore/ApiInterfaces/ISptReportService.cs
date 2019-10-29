@@ -1,4 +1,4 @@
-﻿namespace SFB.Web.ApplicationCore.Services.SptReport
+﻿namespace SFB.Web.ApplicationCore.Services
 {
     public interface ISptReportService
     {

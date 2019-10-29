@@ -8,7 +8,7 @@ using Microsoft.Azure.Documents.Client;
 using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Entities;
 using System.Threading.Tasks;
-using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.Infrastructure.Repositories

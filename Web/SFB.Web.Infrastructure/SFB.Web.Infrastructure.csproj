@@ -163,6 +163,9 @@
     <Compile Include="API\ApiRequest.cs" />
     <Compile Include="API\IApiRequest.cs" />
     <Compile Include="API\SptReportService.cs" />
+    <Compile Include="Caching\AspNetCachedLocalAuthoritiesService.cs" />
+    <Compile Include="Caching\RedisCachedActiveUrnsService.cs" />
+    <Compile Include="Email\NotifyEmailSendingService.cs" />
     <Compile Include="Helpers\DataCollectionManager.cs" />
     <Compile Include="Repositories\CosmosDbEdubaseRepository.cs" />
     <Compile Include="Repositories\CosmosDbFinancialDataRepository.cs" />

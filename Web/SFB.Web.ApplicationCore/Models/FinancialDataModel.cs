@@ -1,7 +1,6 @@
 ﻿using System;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Helpers.Enums;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Entities;
 
 namespace SFB.Web.ApplicationCore.Models

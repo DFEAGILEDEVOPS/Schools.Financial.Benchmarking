@@ -5,7 +5,6 @@ using System.Web.Routing;
 using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Controllers;
@@ -17,8 +16,6 @@ using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Constants;
-using SFB.Web.Infrastructure.ApiWrappers;
-using SFB.Web.ApplicationCore.Services.SptReport;
 
 namespace SFB.Web.UI.UnitTests
 {

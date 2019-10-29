@@ -1,7 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
 using RedDog.Search.Model;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;

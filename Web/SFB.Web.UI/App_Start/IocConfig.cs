@@ -3,19 +3,17 @@ using System.Reflection;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
-using SFB.Web.UI.Utils;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Helpers;
-using System.Web.Configuration;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Services;
 using SFB.Web.Infrastructure.Helpers;
 using SFB.Web.Infrastructure.Repositories;
 using SFB.Web.ApplicationCore.Services.Comparison;
-using SFB.Web.ApplicationCore.DataAccessInterfaces;
-using SFB.Web.ApplicationCore.Services.SptReport;
-using SFB.Web.Infrastructure.ApiWrappers;
+using SFB.Web.ApplicationCore.DataAccess;
+using SFB.Web.Infrastructure.Email;
+using SFB.Web.Infrastructure.Caching;
 
 namespace SFB.Web.UI
 {

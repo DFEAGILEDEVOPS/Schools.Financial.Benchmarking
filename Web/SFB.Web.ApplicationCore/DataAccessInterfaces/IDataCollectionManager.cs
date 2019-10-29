@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 
-namespace SFB.Web.ApplicationCore.DataAccessInterfaces
+namespace SFB.Web.ApplicationCore.DataAccess
 {
     public interface IDataCollectionManager
     {

@@ -14,8 +14,7 @@ namespace SFB.Web.ApplicationCore.Models
             foreach (var item in apiResult.Matches)
             {
                 Urns.Add(item.Id.ToString());
-            }        
-                
+            }               
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using SFB.Web.ApplicationCore.Helpers.Enums;
-using SFB.Web.ApplicationCore;
 using System;
 
 namespace SFB.Web.ApplicationCore.Models
@@ -45,6 +44,7 @@ namespace SFB.Web.ApplicationCore.Models
                 && this.PerPupilExpMin == other.PerPupilExpMin
                 && this.PerPupilExpMax == other.PerPupilExpMax
                 && this.UREnabled == other.UREnabled
+                && this.SENEnabled == other.SENEnabled
                 && this.LondonWeighting == other.LondonWeighting;
         }
     }

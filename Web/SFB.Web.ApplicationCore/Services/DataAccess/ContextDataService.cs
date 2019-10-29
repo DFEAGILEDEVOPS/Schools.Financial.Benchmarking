@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using SFB.Web.ApplicationCore.Entities;
 using System.Threading.Tasks;
-using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.DataAccess;
 
 namespace SFB.Web.ApplicationCore.Services.DataAccess
 {

@@ -11,7 +11,7 @@ using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Attributes;
 using SFB.Web.Infrastructure.Helpers;
 using SFB.Web.ApplicationCore.Entities;
-using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;

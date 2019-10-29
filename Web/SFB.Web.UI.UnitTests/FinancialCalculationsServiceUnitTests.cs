@@ -4,11 +4,9 @@ using System.Collections.Generic;
 using SFB.Web.UI.Services;
 using Moq;
 using Newtonsoft.Json;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Entities;
-using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 
 namespace SFB.Web.UI.UnitTests

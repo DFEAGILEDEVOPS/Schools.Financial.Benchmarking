@@ -17,7 +17,6 @@ using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Models;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.Controllers

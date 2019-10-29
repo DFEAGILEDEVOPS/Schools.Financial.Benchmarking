@@ -11,7 +11,7 @@ using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Services.Comparison;
-using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
 

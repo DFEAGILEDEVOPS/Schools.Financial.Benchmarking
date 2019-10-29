@@ -11,7 +11,6 @@ using RedDog.Search.Model;
 using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
-using SFB.Web.ApplicationCore;
 
 namespace SFB.Web.ApplicationCore.Services.Search
 {

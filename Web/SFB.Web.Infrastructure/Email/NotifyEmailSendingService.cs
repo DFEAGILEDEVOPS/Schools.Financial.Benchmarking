@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Notify.Models.Responses;
 using System.Configuration;
+using SFB.Web.ApplicationCore.Services;
 
-namespace SFB.Web.UI.Services
+namespace SFB.Web.Infrastructure.Email
 {
     public class NotifyEmailSendingService : IEmailSendingService
     {

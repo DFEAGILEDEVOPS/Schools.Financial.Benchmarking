@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;
@@ -11,7 +10,6 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;

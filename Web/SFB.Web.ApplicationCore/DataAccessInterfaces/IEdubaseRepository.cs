@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SFB.Web.ApplicationCore.DataAccessInterfaces
+namespace SFB.Web.ApplicationCore.DataAccess
 {
     public interface IEdubaseRepository
     {

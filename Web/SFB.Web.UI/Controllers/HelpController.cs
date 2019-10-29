@@ -1,6 +1,6 @@
 ﻿using Microsoft.ApplicationInsights;
+using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Models;
-using SFB.Web.UI.Services;
 using System;
 using System.Collections.Generic;
 using System.Web.Configuration;

@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Entities;
 
-namespace SFB.Web.ApplicationCore.DataAccessInterfaces
+namespace SFB.Web.ApplicationCore.DataAccess
 {
     public interface IFinancialDataRepository
     {

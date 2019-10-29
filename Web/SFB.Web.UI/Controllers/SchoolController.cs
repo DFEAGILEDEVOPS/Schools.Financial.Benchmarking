@@ -18,7 +18,6 @@ using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Services;
 using System;
 using SFB.Web.ApplicationCore.Helpers.Enums;
-using SFB.Web.ApplicationCore.Services.SptReport;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -113,7 +112,6 @@ namespace SFB.Web.UI.Controllers
 
         [HttpHead]
         [AllowAnonymous]
-
         [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]
         public ActionResult Status(int urn)
         {

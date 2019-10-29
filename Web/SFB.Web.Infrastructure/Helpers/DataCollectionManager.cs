@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Caching;
 using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json.Linq;
-using SFB.Web.ApplicationCore.DataAccessInterfaces;
+using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 
