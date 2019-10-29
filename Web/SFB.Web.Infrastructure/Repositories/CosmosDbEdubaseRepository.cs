@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Entities;
 using System.Threading.Tasks;
 using SFB.Web.ApplicationCore.DataAccess;

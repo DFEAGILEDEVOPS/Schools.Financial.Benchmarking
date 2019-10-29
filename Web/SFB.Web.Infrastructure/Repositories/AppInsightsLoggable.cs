@@ -1,6 +1,5 @@
 ﻿using Microsoft.ApplicationInsights;
 using SFB.Web.ApplicationCore.Helpers.Constants;
-using SFB.Web.ApplicationCore;
 using System;
 using System.Diagnostics;
 using System.Web;

@@ -14,7 +14,7 @@ using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.ApplicationCore.Services.Search
 {
-    public class SchoolSearchService : ISchoolSearchService
+    public class AzureSchoolSearchService : ISchoolSearchService
     {
         private readonly string _key;
         private readonly string _searchInstance;
@@ -30,7 +30,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
 
         private const string GeoDistanceLocationOrderFormat = "geo.distance(Location,geography'POINT({1} {0})') asc";
 
-        public SchoolSearchService(string searchInstance, string key, string index)
+        public AzureSchoolSearchService(string searchInstance, string key, string index)
         {
             this._searchInstance = searchInstance;
             this._key = key;

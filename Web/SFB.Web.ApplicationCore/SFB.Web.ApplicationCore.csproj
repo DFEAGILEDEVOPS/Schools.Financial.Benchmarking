@@ -47,10 +47,6 @@
     </Reference>
     <Reference Include="RedDog.Search, Version=0.5.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RedDog.Search.0.5.3-pre\lib\net45\RedDog.Search.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="RestSharp, Version=106.6.10.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.106.6.10\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -172,14 +168,11 @@
     <Compile Include="Services\Comparison\IComparisonService.cs" />
     <Compile Include="EmailInterfaces\IEmailSendingService.cs" />
     <Compile Include="CachingInterfaces\ILocalAuthoritiesService.cs" />
-    <Compile Include="Services\Search\ILocationSearchService.cs" />
-    <Compile Include="Services\Search\LocationSearchService.cs" />
-    <Compile Include="Services\Search\SchoolSearchService.cs" />
+    <Compile Include="SearchInterfaces\ILocationSearchService.cs" />
     <Compile Include="Services\DataAccess\IFinancialDataService.cs" />
     <Compile Include="Services\DataAccess\IContextDataService.cs" />
-    <Compile Include="Services\Search\ISchoolSearchService.cs" />
-    <Compile Include="Services\Search\ITrustSearchService.cs" />
-    <Compile Include="Services\Search\TrustSearchService.cs" />
+    <Compile Include="SearchInterfaces\ISchoolSearchService.cs" />
+    <Compile Include="SearchInterfaces\ITrustSearchService.cs" />
     <Compile Include="ApiInterfaces\ISptReportService.cs" />
     <Compile Include="Services\Validation\ValidationService.cs" />
     <Compile Include="Services\Validation\IValidationService.cs" />

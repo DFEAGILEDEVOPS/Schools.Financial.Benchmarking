@@ -9,17 +9,16 @@ using RedDog.Search.Http;
 using RedDog.Search.Model;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
-using SFB.Web.ApplicationCore;
 
 namespace SFB.Web.ApplicationCore.Services.Search
 {
-    public class TrustSearchService : ITrustSearchService
+    public class AzureTrustSearchService : ITrustSearchService
     {
         private readonly string _key;
         private readonly string _searchInstance;
         private readonly string _index;
 
-        public TrustSearchService(string searchInstance, string key, string index)
+        public AzureTrustSearchService(string searchInstance, string key, string index)
         {
             _key = key;
             _searchInstance = searchInstance;

@@ -1,11 +1,12 @@
 ﻿using RestSharp;
 using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services;
 using System.Collections.Generic;
 using System.Web.Configuration;
 
 namespace SFB.Web.UI.Services
 {
-    public class LocationSearchService : ILocationSearchService
+    public class AzureMapsLocationSearchService : ILocationSearchService
     {
         private const string AzureGeocodingUrl = "https://atlas.microsoft.com";
 
