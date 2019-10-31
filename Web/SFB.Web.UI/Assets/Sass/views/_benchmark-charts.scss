@@ -414,16 +414,19 @@
 
         &.comparison-tab {
             background-color: $govuk-blue;
-            float: right;
+
+            @include media(desktop) {
+                float: right;
+
+                &.active {
+                    a {
+                        color: $text-colour;
+                    }
+                }
+            }
 
             a {
                 color: $page-colour;
-            }
-
-            &.active {
-                a {
-                    color: $text-colour;
-                }
             }
         }
     }
