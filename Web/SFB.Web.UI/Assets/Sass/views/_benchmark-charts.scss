@@ -388,6 +388,46 @@
         padding-top: 25px;
     }
 
+    nav.tabs ol li {
+        max-width: 140px;
+        height: 55px;
+
+        button, a {
+            height: $tabheight + 10;
+            padding-right: 15px;
+            padding-left: 15px;
+
+            @include media(tablet) {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+            }
+        }
+
+        &.active {
+            button, a {
+                @include media(desktop) {
+                    height: $tabheight + 20;
+                }
+            }
+        }
+
+        &.comparison-tab {
+            background-color: $govuk-blue;
+            float: right;
+
+            a {
+                color: $page-colour;
+            }
+
+            &.active {
+                a {
+                    color: $text-colour;
+                }
+            }
+        }
+    }
+
     nav.tabs ol li a.helpLink {
         border: none;
         text-decoration: unset;

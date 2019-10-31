@@ -28,19 +28,25 @@
             </li>
             <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
                 @*<span class="visually-hidden">@RevenueGroupNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
-                <a class="tab-link custom" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')" ng-click="ctrl.displayCustomReport()">
+                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')" ng-click="ctrl.displayCustomReport()">
                     <span>@RevenueGroupNames.CUSTOM <span style="display: inline-block"> (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span></span>
                     <span class="bmtab visually-hidden">tab</span>
                 </a>
-                <a class="helpLink hide-in-print" href="#" id="renderYourChartsInfo" onclick="DfE.Util.ModalRenderer.RenderYourChartsInfoModal()">
+                @*<a class="helpLink hide-in-print" href="#" id="renderYourChartsInfo" onclick="DfE.Util.ModalRenderer.RenderYourChartsInfoModal()">
                     <img src="/public/assets/images/help-icon.png" alt="Your charts - more information" />
-                </a>
+                </a>*@
             </li>
         }
         @if (Model.ComparisonType == ComparisonType.BestInClass)
         {
-            <li id="BestInClass" class="hide-in-print" role="tab">
-                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
+            <li id="BestInClass" class="comparison-tab hide-in-print" role="tab">
+                <a class="tab-link comp" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
+            </li>
+        }
+        else
+        {
+            <li id="ComparisonSchools" class="comparison-tab hide-in-print" role="tab">
+                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('ComparisonSchools')">Comparison schools</a>
             </li>
         }
     </ol>
