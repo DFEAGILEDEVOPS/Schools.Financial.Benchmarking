@@ -558,11 +558,11 @@ namespace SFB.Web.UI.Controllers
 
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
-            var bicComparisonSchools = PopulateBicSchoolsForBestInBreedTab(comparisonType, comparisonList);
+            var comparisonSchools = PopulateSchoolsListForComparisonTable(comparisonList);
 
             var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, advancedCriteria, simpleCriteria, 
                 bicCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, 
-                laCode, urn.GetValueOrDefault(), basketSize, null, bicComparisonSchools, excludePartial);
+                laCode, urn.GetValueOrDefault(), basketSize, null, comparisonSchools, excludePartial);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -572,7 +572,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BicComparisonOverallPhase = bicComparisonSchools?.FirstOrDefault()?.OverallPhaseInFinancialSubmission;
+            ViewBag.BicComparisonOverallPhase = comparisonSchools?.FirstOrDefault()?.OverallPhaseInFinancialSubmission;
 
             return View("Index", vm);
         }
@@ -743,22 +743,18 @@ namespace SFB.Web.UI.Controllers
                          "BenchmarkData.csv");
         }
 
-        private List<SchoolViewModel> PopulateBicSchoolsForBestInBreedTab(ComparisonType comparisonType, SchoolComparisonListModel comparisonList)
+        private List<SchoolViewModel> PopulateSchoolsListForComparisonTable(SchoolComparisonListModel comparisonList)
         {
-            if (comparisonType == ComparisonType.BestInClass)
+            var comparisonSchools = new List<SchoolViewModel>();
+
+            foreach (var school in comparisonList.BenchmarkSchools)
             {
-                var bicSchools = new List<SchoolViewModel>();
-
-                foreach (var school in comparisonList.BenchmarkSchools)
-                {
-                    var bicSchool = InstantiateBenchmarkSchool(int.Parse(school.Urn));
-                    bicSchool.LaName = _laService.GetLaName(bicSchool.La.ToString());
-                    bicSchools.Add(bicSchool);
-                }
-
-                return bicSchools;
+                var bmSchool = InstantiateBenchmarkSchool(int.Parse(school.Urn));
+                bmSchool.LaName = _laService.GetLaName(bmSchool.La.ToString());
+                comparisonSchools.Add(bmSchool);
             }
-            return null;
+
+            return comparisonSchools;
         }
 
         private List<ChartViewModel> ConvertSelectionListToChartList(List<HierarchicalChartViewModel> customChartSelection)

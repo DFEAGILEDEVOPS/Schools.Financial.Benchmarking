@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Enums;
@@ -20,7 +19,7 @@ namespace SFB.Web.UI.Models
         public EstablishmentType EstablishmentType { get; set; }
         public EstablishmentType SearchedEstablishmentType { get; set; }
         public TrustComparisonListModel TrustComparisonList { get; set; }
-        public List<SchoolViewModel> BicComparisonSchools { get; set; }
+        public List<SchoolViewModel> ComparisonSchools { get; set; }
         public bool ExcludePartial { get; set; }
         public string LatestTermAcademies { get; set; }
         public string LatestTermMaintained { get; set; }
@@ -65,7 +64,7 @@ namespace SFB.Web.UI.Models
             ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, BestInClassCriteria bicCriteria, 
             FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, 
             string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, int urn, int basketSize, 
-            TrustComparisonListModel trustComparisonList = null, List<SchoolViewModel> bicSchools = null, bool excludePartial = false)
+            TrustComparisonListModel trustComparisonList = null, List<SchoolViewModel> comparisonSchools = null, bool excludePartial = false)
             :base(modelList, comparisonList)
         {
             this.ChartGroups = chartGroups;
@@ -85,7 +84,7 @@ namespace SFB.Web.UI.Models
             this.LaCode = laCode;
             this.URN = urn;
             this.BasketSize = basketSize;
-            this.BicComparisonSchools = bicSchools;
+            this.ComparisonSchools = comparisonSchools;
             this.ExcludePartial = excludePartial;
         }
     }
