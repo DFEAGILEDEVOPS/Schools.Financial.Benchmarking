@@ -10,7 +10,7 @@
                 { sortList: [[7, 1]] }
             );
             $("#comparisonSchoolsTabSection table.data-table-js").tablesorter(
-
+                { sortList: [[0, 0]] }
             );
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();

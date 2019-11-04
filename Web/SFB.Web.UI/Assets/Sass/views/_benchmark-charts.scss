@@ -700,6 +700,23 @@
     }
 }
 
+table.comp-school-table {
+    tbody tr td, thead tr th {
+        text-align: left;
+    }
+}
+
+th.comp-school-table {
+    &__ks-col {
+        max-width: 100px;
+        text-align: center!important;
+    }
+
+    &__phase-col {
+        max-width: 100px;
+    }
+}
+
 .chart-table__score__text, .chart__score__text {
     vertical-align: sub;
 }

@@ -3,23 +3,23 @@
 <div id="comparisonSchoolsTabSection" style="display: none">
     <div class="grid-row">
         <div class="column-full">
-            <div class="font-xsmall latest-year-message column-full">
+            <div class="font-xsmall latest-year-message mt-2 mb-2">
                <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
             </div>
-            <table class="tablesorter data-table-js" id="ComparisonSchoolsTable">
+            <table class="tablesorter data-table-js comp-school-table" id="ComparisonSchoolsTable">
                 <thead>
                     <tr>
-                        <th nowrap scope="col" class="school-column">School</th>
-                        <th nowrap class="numeric" scope="col">Pupils</th>
-                        <th nowrap class="numeric" scope="col">Phase of education</th>
+                        <th class="school-column" scope="col">School</th>
+                        <th class="numeric" scope="col">Pupils</th>
+                        <th class="numeric numeric comp-school-table__phase-col" scope="col">Phase of education</th>
                         <th nowrap class="numeric" scope="col">Ofsted rating</th>
-                        <th class="numeric" scope="col">
+                        <th class="numeric comp-school-table__ks-col" scope="col">
                             Key stage 2 progress
                             <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
                                 <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
                             </button>
                         </th>
-                        <th nowrap class="numeric" scope="col">
+                        <th class="numeric comp-school-table__ks-col" scope="col">
                             Progress 8
                             <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
                                 <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
@@ -38,7 +38,7 @@
                         </td>
                         <td class="numeric" scope="col">@bicSchool.TotalPupils</td>
                         <td class="numeric" scope="col">@bicSchool.OverallPhase</td>
-                        <td class="numeric" scope="col">@bicSchool.OfstedRating @bicSchool.OfstedRatingText</td>
+                        <td class="numeric" scope="col"><span class="rating rating-@bicSchool.OfstedRating">@bicSchool.OfstedRating</span>  @bicSchool.OfstedRatingText</td>
                         <td class="numeric no-padding" scope="col">
                             <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
                                 <div class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</div>
