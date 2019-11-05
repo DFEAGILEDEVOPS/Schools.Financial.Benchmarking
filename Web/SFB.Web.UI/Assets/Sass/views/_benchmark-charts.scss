@@ -657,6 +657,11 @@
 
     &.na {
         background-color: $panel-colour;
+        min-height: 34px;
+
+        div {
+            padding-top: 8%;
+        }
     }
 }
 
@@ -712,7 +717,7 @@ table.comp-school-table {
 
 th.comp-school-table {
     &__ks-col {
-        max-width: 100px;
+        max-width: 110px;
         text-align: center!important;
     }
 
