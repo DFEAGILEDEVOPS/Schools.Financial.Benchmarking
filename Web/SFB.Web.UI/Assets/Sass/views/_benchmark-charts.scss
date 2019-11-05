@@ -654,6 +654,10 @@
         background-color: #006435;
         color: #fff;
     }
+
+    &.na {
+        background-color: $panel-colour;
+    }
 }
 
 .modal__score {

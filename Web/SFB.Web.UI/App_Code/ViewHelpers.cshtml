@@ -88,53 +88,61 @@
     }
 }
 
-@helper ScoreColorCode(decimal score, string bicComparisonOverallPhase)
+@helper ScoreColorCode(decimal? score, string bicComparisonOverallPhase)
 {
-    if (bicComparisonOverallPhase == "Secondary")
+    if (score.HasValue)
     {
-        if (score < -0.5m)
+
+        if (bicComparisonOverallPhase == "Secondary")
         {
-            @("well-below")
+            if (score < -0.5m)
+            {
+                @("well-below")
+            }
+            else if (score >= -0.5m && score < -0.25m)
+            {
+                @("below")
+            }
+            else if (score >= -0.25m && score <= 0.25m)
+            {
+                @("average")
+            }
+            else if (score > 0.25m && score <= 0.5m)
+            {
+                @("above")
+            }
+            else if (score > 0.5m)
+            {
+                @("well-above")
+            }
         }
-        else if (score >= -0.5m && score < -0.25m)
+        else
         {
-            @("below")
-        }
-        else if (score >= -0.25m && score <= 0.25m)
-        {
-            @("average")
-        }
-        else if (score > 0.25m && score <= 0.5m)
-        {
-            @("above")
-        }
-        else if (score > 0.5m)
-        {
-            @("well-above")
+            if (score < -3m)
+            {
+                @("well-below")
+            }
+            else if (score >= -3m && score < -2m)
+            {
+                @("below")
+            }
+            else if (score >= -2m && score <= 2m)
+            {
+                @("average")
+            }
+            else if (score > 2m && score <= 3m)
+            {
+                @("above")
+            }
+            else if (score > 3m)
+            {
+                @("well-above")
+            }
         }
     }
     else
     {
-        if (score < -3m)
-        {
-            @("well-below")
-        }
-        else if (score >= -3m && score < -2m)
-        {
-            @("below")
-        }
-        else if (score >= -2m && score <= 2m)
-        {
-            @("average")
-        }
-        else if (score > 2m && score <= 3m)
-        {
-            @("above")
-        }
-        else if (score > 3m)
-        {
-            @("well-above")
-        }
+        @("na")
     }
 }
 

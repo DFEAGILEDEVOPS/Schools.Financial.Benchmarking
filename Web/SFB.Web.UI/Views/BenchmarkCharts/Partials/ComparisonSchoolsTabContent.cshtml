@@ -28,27 +28,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var bicSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
+                    @foreach (var cSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                     {
                     <tr>
                         <td scope="col" class="school-column">
-                            <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a>
-                            @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
-                            <div>@bicSchool.Address</div>
+                            <a href="/school/detail?Urn=@cSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")"><span>@cSchool.Name</span></a>
+                            @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                            <div>@cSchool.Address</div>
                         </td>
-                        <td class="numeric" scope="col">@bicSchool.TotalPupils</td>
-                        <td class="numeric" scope="col">@bicSchool.OverallPhase</td>
-                        <td class="numeric" scope="col"><span class="rating rating-@bicSchool.OfstedRating">@bicSchool.OfstedRating</span>  @bicSchool.OfstedRatingText</td>
+                        <td class="numeric" scope="col">@cSchool.TotalPupils</td>
+                        <td class="numeric" scope="col">@cSchool.OverallPhase</td>
+                        <td class="numeric" scope="col"><span class="rating rating-@cSchool.OfstedRating">@cSchool.OfstedRating</span>  @cSchool.OfstedRatingText</td>
                         <td class="numeric no-padding" scope="col">
-                            <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
-                                <div class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</div>
-                                <div class="no-wrap">@ScoreText(bicSchool.ProgressScore.GetValueOrDefault())</div>
+                            <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, ViewBag.BicComparisonOverallPhase)">
+                                <div class="font-xsmall">@cSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2")</div>
+                                <div class="no-wrap">@ScoreText(cSchool.KS2ProgressScore.GetValueOrDefault())</div>
                             </div>
                         </td>
                         <td class="numeric no-padding" scope="col">
-                            <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
-                                <div class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</div>
-                                <div class="no-wrap">@ScoreText(bicSchool.ProgressScore.GetValueOrDefault())</div>
+                            <div class="score @ViewHelpers.ScoreColorCode(cSchool.P8ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
+                                <div class="font-xsmall">@cSchool.P8ProgressScore.GetValueOrDefault().ToString("F2")</div>
+                                <div class="no-wrap">@ScoreText(cSchool.P8ProgressScore.GetValueOrDefault())</div>
                             </div>
                         </td>
                     </tr>
