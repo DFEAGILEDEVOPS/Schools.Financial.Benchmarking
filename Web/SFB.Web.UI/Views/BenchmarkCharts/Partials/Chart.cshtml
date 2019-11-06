@@ -302,36 +302,6 @@
                                             <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
                                                 <div id="chart_@i" class="chart" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
                                             </div>
-                                            @*@if (ViewBag.ComparisonType == ComparisonType.BestInClass)
-        {
-            <div class="chart-scores-wrapper" style="height:@(Model[i].BenchmarkData.Count * 30)px; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "flex")">
-                @if (ViewBag.BicComparisonOverallPhase == "Secondary")
-                {
-                    <div class="chart-scores-header">
-                        Progress 8
-                        <button class="helpLink link-button no-padding hide-in-print" id="renderP8Info_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
-                            <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
-                        </button>
-                    </div>
-                }
-                else
-                {
-                    <div class="chart-scores-header">
-                        <span>KS2</span>
-                        <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
-                            <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
-                        </button>
-                        <span class="show-in-desktop">progress</span>
-                    </div>
-                }
-                @foreach (var bData in Model[i].BenchmarkData)
-                {
-                    <div class="score chart__score @ViewHelpers.ScoreColorCode(bData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
-                        <span class="chart__score__text">@bData.ProgressScore</span>
-                    </div>
-                }
-            </div>
-        }*@
                                             <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
                                                 @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                                 {

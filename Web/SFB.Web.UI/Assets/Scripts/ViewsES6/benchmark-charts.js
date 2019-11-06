@@ -9,6 +9,9 @@
             $("#bestInClassTabSection table.data-table-js").tablesorter(
                 { sortList: [[7, 1]] }
             );
+            $("#comparisonSchoolsTabSection table.data-table-js").tablesorter(
+                { sortList: [[0, 0]] }
+            );
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
             $('.save-as-image').show();
@@ -765,7 +768,20 @@
             $("#PdfLinkText").text(" Download page");
             $("#bestInClassTabSection").show();
             $("#tabsSection").hide();
-        } else {
+        }
+        else if (tab === "ComparisonSchools") {
+            $(".tabs li").removeClass("active");
+            $(".tabs li a span.bmtab").text("");
+            $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
+            $("#customTabSection").hide();
+            $("#downloadLinkContainer").show();
+            $("#PrintLinkText").text(" Print page");
+            $("#PdfLinkText").text(" Download page");
+            $("#comparisonSchoolsTabSection").show();
+            $("#tabsSection").hide();
+        }
+        else {
             let unitParameter = $("#ShowValue").val();
             let financingParameter = $("#CentralFinancing").val();
             let trustFinancingParameter = $("#TrustCentralFinancing").val();
@@ -801,6 +817,7 @@
                 datatype: 'json',
                 beforeSend: () => {
                     $("#bestInClassTabSection").hide();
+                    $("#comparisonSchoolsTabSection").hide();
                     $("#customTabSection").hide();
                     $("#tabsSection").show();
                     DfE.Util.LoadingMessage.display(".sticky-chart-controls", "Updating charts");

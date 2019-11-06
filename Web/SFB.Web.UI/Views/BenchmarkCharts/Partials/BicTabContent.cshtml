@@ -1,6 +1,4 @@
-﻿@using SFB.Web.UI.Helpers.Constants
-
-@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+﻿@model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
 <div id="bestInClassTabSection" style="display: none">
     <div class="grid-row">
@@ -47,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var bicSchool in Model.BicComparisonSchools.OrderByDescending(s => s.ProgressScore))
+                    @foreach (var bicSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                     {
                         <tr>
                             <td scope="col" class="school-column">

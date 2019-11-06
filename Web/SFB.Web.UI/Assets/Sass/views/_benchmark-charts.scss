@@ -388,6 +388,49 @@
         padding-top: 25px;
     }
 
+    nav.tabs ol li {
+        max-width: 140px;
+        height: 55px;
+
+        button, a {
+            height: $tabheight + 10;
+            padding-right: 15px;
+            padding-left: 15px;
+
+            @include media(tablet) {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+            }
+        }
+
+        &.active {
+            button, a {
+                @include media(desktop) {
+                    height: $tabheight + 20;
+                }
+            }
+        }
+
+        &.comparison-tab {
+            background-color: $govuk-blue;
+
+            @include media(desktop) {
+                float: right;
+
+                &.active {
+                    a {
+                        color: $text-colour;
+                    }
+                }
+            }
+
+            a {
+                color: $page-colour;
+            }
+        }
+    }
+
     nav.tabs ol li a.helpLink {
         border: none;
         text-decoration: unset;
@@ -611,6 +654,15 @@
         background-color: #006435;
         color: #fff;
     }
+
+    &.na {
+        background-color: $panel-colour;
+        min-height: 34px;
+
+        div {
+            padding-top: 8%;
+        }
+    }
 }
 
 .modal__score {
@@ -654,6 +706,23 @@
         padding: 0.09em .2em;
         line-height: 2.7rem;
         margin: 0.23em 0;
+    }
+}
+
+table.comp-school-table {
+    tbody tr td, thead tr th {
+        text-align: left;
+    }
+}
+
+th.comp-school-table {
+    &__ks-col {
+        max-width: 110px;
+        text-align: center!important;
+    }
+
+    &__phase-col {
+        max-width: 100px;
     }
 }
 

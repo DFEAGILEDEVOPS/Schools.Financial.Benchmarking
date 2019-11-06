@@ -198,6 +198,12 @@ namespace SFB.Web.UI.Models
                         LatestYearFinancialData.P8Mea
                         : decimal.Round(LatestYearFinancialData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
 
+        public decimal? KS2ProgressScore => LatestYearFinancialData.Ks2Progress.HasValue ?
+            (decimal?)decimal.Round(LatestYearFinancialData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) :
+            null;
+
+        public decimal? P8ProgressScore => LatestYearFinancialData.P8Mea;
+
         public bool HasCoordinates
         {
             get
