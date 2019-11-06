@@ -1155,7 +1155,7 @@
           "PercentageTeachersSelected": false
         },
         {
-          "Name": "Classroom teachers on upper and/or leading pay range",
+          "Name": "Classroom teachers on upper and/or leading pay range (%)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
           "PerTeacherAvailable": false,

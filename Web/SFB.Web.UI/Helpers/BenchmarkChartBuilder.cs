@@ -1959,7 +1959,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
-                    Name = "Classroom teachers on upper and/or leading pay range",
+                    Name = "Classroom teachers on upper and/or leading pay range (%)",
                     FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_UPPER_LEADING_PAY,
                     RevenueGroup = RevenueGroupType.Salary,
                     ChartGroup = ChartGroupType.Salary,
