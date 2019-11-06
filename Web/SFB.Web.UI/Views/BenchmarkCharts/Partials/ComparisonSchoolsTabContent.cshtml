@@ -42,21 +42,21 @@
                         <td class="numeric" scope="col">@cSchool.OverallPhase <span class="visually-hidden">phase</span></td>
                         <td class="numeric" scope="col"><span class="rating rating-@cSchool.OfstedRating">@cSchool.OfstedRating</span>  @cSchool.OfstedRatingText <span class="visually-hidden">ofsted rating</span></td>
                         <td class="numeric no-padding" scope="col">
-                            <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, ViewBag.BicComparisonOverallPhase)">
+                            <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, cSchool.OverallPhase)">
                                 <div class="font-xsmall">@(cSchool.KS2ProgressScore.HasValue ? cSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                 @if (cSchool.KS2ProgressScore.HasValue)
                                 {
-                                    <div class="no-wrap">@ScoreText(cSchool.KS2ProgressScore.GetValueOrDefault())</div>
+                                    <div class="no-wrap">@ViewHelpers.ScoreText(cSchool.KS2ProgressScore.GetValueOrDefault(), cSchool.OverallPhase)</div>
                                 }
                                 <span class="visually-hidden">Key stage 2 progress score</span>
                             </div>
                         </td>
                         <td class="numeric no-padding" scope="col">
-                            <div class="score @ViewHelpers.ScoreColorCode(cSchool.P8ProgressScore, ViewBag.BicComparisonOverallPhase)">
+                            <div class="score @ViewHelpers.ScoreColorCode(cSchool.P8ProgressScore, cSchool.OverallPhase)">
                                 <div class="font-xsmall">@(cSchool.P8ProgressScore.HasValue ? cSchool.P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                 @if (cSchool.P8ProgressScore.HasValue)
                                 {
-                                    <div class="no-wrap">@ScoreText(cSchool.P8ProgressScore.GetValueOrDefault())</div>
+                                    <div class="no-wrap">@ViewHelpers.ScoreText(cSchool.P8ProgressScore.GetValueOrDefault(), cSchool.OverallPhase)</div>
                                 }
                                 <span class="visually-hidden">Progress 8 score</span>
                             </div>
@@ -69,53 +69,5 @@
     </div>
 </div>
 
-@helper ScoreText(decimal score)
-{
-    if (ViewBag.BicComparisonOverallPhase == "Secondary")
-    {
-        if (score < -0.5m)
-        {
-            @("Well below average")
-        }
-        else if (score >= -0.5m && score < -0.25m)
-        {
-            @("Below average")
-        }
-        else if (score >= -0.25m && score <= 0.25m)
-        {
-            @("Average")
-        }
-        else if (score > 0.25m && score <= 0.5m)
-        {
-            @("Above average")
-        }
-        else if (score > 0.5m)
-        {
-            @("Well above average")
-        }
-    }
-    else
-    {
-        if (score < -3m)
-        {
-            @("Well below average")
-        }
-        else if (score >= -3m && score < -2m)
-        {
-            @("Below average")
-        }
-        else if (score >= -2m && score <= 2m)
-        {
-            @("Average")
-        }
-        else if (score > 2m && score <= 3m)
-        {
-            @("Above average")
-        }
-        else if (score > 3m)
-        {
-            @("Well above average")
-        }
-    }
-}
+
 

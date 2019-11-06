@@ -88,12 +88,62 @@
     }
 }
 
-@helper ScoreColorCode(decimal? score, string bicComparisonOverallPhase)
+@helper ScoreText(decimal score, string overallPhase)
+{
+    if (overallPhase == "Secondary")
+    {
+        if (score < -0.5m)
+        {
+            @("Well below average")
+        }
+        else if (score >= -0.5m && score < -0.25m)
+        {
+            @("Below average")
+        }
+        else if (score >= -0.25m && score <= 0.25m)
+        {
+            @("Average")
+        }
+        else if (score > 0.25m && score <= 0.5m)
+        {
+            @("Above average")
+        }
+        else if (score > 0.5m)
+        {
+            @("Well above average")
+        }
+    }
+    else
+    {
+        if (score < -3m)
+        {
+            @("Well below average")
+        }
+        else if (score >= -3m && score < -2m)
+        {
+            @("Below average")
+        }
+        else if (score >= -2m && score <= 2m)
+        {
+            @("Average")
+        }
+        else if (score > 2m && score <= 3m)
+        {
+            @("Above average")
+        }
+        else if (score > 3m)
+        {
+            @("Well above average")
+        }
+    }
+}
+
+@helper ScoreColorCode(decimal? score, string overallPhase)
 {
     if (score.HasValue)
     {
 
-        if (bicComparisonOverallPhase == "Secondary")
+        if (overallPhase == "Secondary")
         {
             if (score < -0.5m)
             {

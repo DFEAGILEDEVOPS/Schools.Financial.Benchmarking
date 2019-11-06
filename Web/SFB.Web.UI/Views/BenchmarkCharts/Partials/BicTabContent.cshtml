@@ -61,7 +61,7 @@
                             <td class="numeric no-padding" scope="col">
                                 <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
                                     <div class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</div>
-                                    <div class="no-wrap">@ScoreText(bicSchool.ProgressScore.GetValueOrDefault())</div>
+                                    <div class="no-wrap">@ViewHelpers.ScoreText(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)</div>
                                 </div>
                             </td>
                         </tr>
@@ -72,52 +72,3 @@
     </div>
 </div>
 
-@helper ScoreText(decimal score)
-{
-    if (ViewBag.BicComparisonOverallPhase == "Secondary")
-    {
-        if (score < -0.5m)
-        {
-            @("Well below average")
-        }
-        else if (score >= -0.5m && score < -0.25m)
-        {
-            @("Below average")
-        }
-        else if (score >= -0.25m && score <= 0.25m)
-        {
-            @("Average")
-        }
-        else if (score > 0.25m && score <= 0.5m)
-        {
-            @("Above average")
-        }
-        else if (score > 0.5m)
-        {
-            @("Well above average")
-        }
-    }
-    else
-    {
-        if (score < -3m)
-        {
-            @("Well below average")
-        }
-        else if (score >= -3m && score < -2m)
-        {
-            @("Below average")
-        }
-        else if (score >= -2m && score <= 2m)
-        {
-            @("Average")
-        }
-        else if (score > 2m && score <= 3m)
-        {
-            @("Above average")
-        }
-        else if (score > 3m)
-        {
-            @("Well above average")
-        }
-    }
-}
