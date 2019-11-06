@@ -52,16 +52,17 @@
                                 <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a>
                                 @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
                             </td>
-                            <td scope="col">@bicSchool.LaName</td>
-                            <td class="numeric" scope="col">@bicSchool.TotalPupils</td>
-                            <td class="numeric" scope="col">@bicSchool.FSM</td>
-                            <td class="numeric" scope="col">@bicSchool.SEN</td>
-                            <td class="numeric" scope="col">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
+                            <td scope="col">@bicSchool.LaName <span class="visually-hidden">local authority</span></td>
+                            <td class="numeric" scope="col">@bicSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
+                            <td class="numeric" scope="col">@bicSchool.FSM% <span class="visually-hidden">Percentage Of Eligible Free School Meals</span></td>
+                            <td class="numeric" scope="col">@bicSchool.SEN% <span class="visually-hidden">Percentage Of pupil with special education needs</span></td>
+                            <td class="numeric" scope="col">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C") <span class="visually-hidden">expenditure per pupil</span></td>
                             <td class="numeric" scope="col">@bicSchool.UrbanRural</td>
                             <td class="numeric no-padding" scope="col">
                                 <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
                                     <div class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</div>
                                     <div class="no-wrap">@ViewHelpers.ScoreText(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)</div>
+                                    <span class="visually-hidden">Progress score</span>
                                 </div>
                             </td>
                         </tr>
