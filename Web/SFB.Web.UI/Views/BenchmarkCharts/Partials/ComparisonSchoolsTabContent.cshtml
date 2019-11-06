@@ -32,7 +32,9 @@
                     {
                     <tr>
                         <td scope="col" class="school-column">
-                            <a href="/school/detail?Urn=@cSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")"><span>@cSchool.Name</span></a>
+                            <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
+                                <span>@cSchool.Name</span>
+                            </a>
                             @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
                             <div>@cSchool.Address</div>
                         </td>
