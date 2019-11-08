@@ -8,7 +8,7 @@ namespace SFB.Web.UI.Models
 {
     public class ChartViewModel : ViewModelBase, ICloneable
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string FieldName { get; set; }
         public ChartSchoolType ChartSchoolType { get; set;}

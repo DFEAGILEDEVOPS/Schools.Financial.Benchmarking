@@ -5,6 +5,7 @@
       "GroupName": "Total expenditure",
       "Charts": [
         {
+          "Id":  1,
           "Name": "Total expenditure",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -29,6 +30,7 @@
       "GroupName": "Staff",
       "Charts": [
         {
+          "Id": 2,
           "Name": "Staff total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -48,6 +50,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 3,
           "Name": "Teaching staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -67,6 +70,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  4,
           "Name": "Supply staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -86,6 +90,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  5,
           "Name": "Education support staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -105,6 +110,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id" : 6,
           "Name": "Administrative and clerical staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -124,6 +130,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 7,
           "Name": "Other staff costs",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -148,6 +155,7 @@
       "GroupName": "Premises",
       "Charts": [
         {
+          "Id":  8,
           "Name": "Premises total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -167,6 +175,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 9,
           "Name": "Premises staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -186,6 +195,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 10,
           "Name": "Cleaning and caretaking",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -205,6 +215,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 11,
           "Name": "Maintenance and improvement",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -224,6 +235,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  12,
           "Name": "PFI charges",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -248,6 +260,7 @@
       "GroupName": "Occupation",
       "Charts": [
         {
+          "Id":  13,
           "Name": "Occupation total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -267,6 +280,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  14,
           "Name": "Energy",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -286,6 +300,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  15,
           "Name": "Water and sewerage",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -305,6 +320,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  16,
           "Name": "Rates",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -324,6 +340,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  17,
           "Name": "Other occupation costs",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -343,6 +360,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 18,
           "Name": "Other insurance premiums",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -362,6 +380,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 19,
           "Name": "Catering expenditure",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -381,6 +400,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 20,
           "Name": "Rent and rates",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -405,6 +425,7 @@
       "GroupName": "Supplies and services",
       "Charts": [
         {
+          "Id": 21,
           "Name": "Supplies and services total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -424,6 +445,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  22,
           "Name": "Administrative supplies",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -443,6 +465,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  23,
           "Name": "Educational supplies",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -462,6 +485,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  24,
           "Name": "Bought-in professional services",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -486,6 +510,7 @@
       "GroupName": "Special facilities",
       "Charts": [
         {
+          "Id":  26,
           "Name": "Special facilities total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -510,6 +535,7 @@
       "GroupName": "Cost of finance",
       "Charts": [
         {
+          "Id":  27,
           "Name": "Cost of finance total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -529,6 +555,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  28,
           "Name": "Loan interest",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -548,6 +575,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  29,
           "Name": "Direct revenue financing (revenue contributions to capital)",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -572,6 +600,7 @@
       "GroupName": "Community",
       "Charts": [
         {
+          "Id": 30,
           "Name": "Community expenditure total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -591,6 +620,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 31,
           "Name": "Community focused school staff",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -610,6 +640,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  32,
           "Name": "Community focused school costs",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -634,6 +665,7 @@
       "GroupName": "Total income",
       "Charts": [
         {
+          "Id": 33,
           "Name": "Total income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -658,6 +690,7 @@
       "GroupName": "Grant funding",
       "Charts": [
         {
+          "Id":  34,
           "Name": "Grant funding total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -677,6 +710,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  35,
           "Name": "Direct grants",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -696,6 +730,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  36,
           "Name": "Community grants",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -715,6 +750,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  37,
           "Name": "Targeted grants",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -739,6 +775,7 @@
       "GroupName": "Self generated",
       "Charts": [
         {
+          "Id":  38,
           "Name": "Self-generated funding total",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -758,6 +795,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  39,
           "Name": "Community focused school facilities income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -777,6 +815,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id": 40,
           "Name": "Income from facilities and services",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -796,6 +835,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  41,
           "Name": "Income from catering",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -815,6 +855,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  42,
           "Name": "Donations and/or voluntary funds",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -834,6 +875,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  43,
           "Name": "Income from contributions to visits",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -853,6 +895,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  44,
           "Name": "Receipts from supply teacher insurance claims",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -872,6 +915,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  45,
           "Name": "Receipts from other insurance claims",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -891,6 +935,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  46,
           "Name": "Investment income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -910,6 +955,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  47,
           "Name": "Other self-generated income",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -934,6 +980,7 @@
       "GroupName": "Balance",
       "Charts": [
         {
+          "Id": 48,
           "Name": "In-year balance",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -953,6 +1000,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  49,
           "Name": "Revenue reserve",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
@@ -977,6 +1025,7 @@
       "GroupName": "Workforce",
       "Charts": [
         {
+          "Id":  50,
           "Name": "School workforce (Full Time Equivalent)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -996,6 +1045,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  51,
           "Name": "Total number of teachers (Full Time Equivalent)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1015,6 +1065,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  52,
           "Name": "Teachers with Qualified Teacher Status (%)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1034,6 +1085,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  53,
           "Name": "Senior leadership (Full Time Equivalent)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1053,6 +1105,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  54,
           "Name": "Teaching assistants (Full Time Equivalent)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1072,6 +1125,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  55,
           "Name": "Non-classroom support staff - excluding auxiliary staff  (Full Time Equivalent)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1091,6 +1145,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  56,
           "Name": "Auxiliary staff (Full Time Equivalent)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1110,6 +1165,7 @@
           "NumberOfPupilsPerMeasureSelected": false
         },
         {
+          "Id":  57,
           "Name": "School workforce (headcount)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1134,6 +1190,7 @@
       "GroupName": "Teacher pay scales",
       "Charts": [
         {
+          "Id":  58,
           "Name": "Classroom teachers on main pay range (%)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1155,6 +1212,7 @@
           "PercentageTeachersSelected": false
         },
         {
+          "Id": 59,
           "Name": "Classroom teachers on upper and/or leading pay range (%)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,
@@ -1176,6 +1234,7 @@
           "PercentageTeachersSelected": false
         },
         {
+          "Id":  60,
           "Name": "All teachers on leadership pay range (%)",
           "PerPupilAvailable": false,
           "PerPupilSelected": false,

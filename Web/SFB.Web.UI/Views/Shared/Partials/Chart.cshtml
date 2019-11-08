@@ -8,7 +8,6 @@
     @for (var index = 0; index < Model.HistoricalCharts.Count; index++)
     {
         var historicalChart = Model.HistoricalCharts[index];
-        historicalChart.Id = index.ToString();
         ViewBag.FinancialYear = Model.EstablishmentType == EstablishmentType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
 
         <div class="charts-section__chart-container index-@index column-full no-padding" data-group="@historicalChart.ChartGroup">
@@ -88,7 +87,6 @@
                                 for (var i = 0; i < historicalChart.SubCharts.Count; i++)
                                 {
                                     ChartViewModel subChart = historicalChart.SubCharts[i];
-                                    subChart.Id = $"{index}_{i}";
                                     <h2 class="charts-section__chart-container__chart-header__h2">@subChart.Name</h2>
                                     @Html.Partial("Partials/HistoricalChart", subChart)
                                 }

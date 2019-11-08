@@ -765,7 +765,7 @@ namespace SFB.Web.UI.Controllers
             {
                 if (selection.AbsoluteMoneySelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.AbsoluteMoney;
@@ -775,7 +775,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.PerPupilSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.PerPupil;
@@ -785,7 +785,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.PerTeacherSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.PerTeacher;
@@ -795,7 +795,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.PercentageSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.PercentageOfTotal;
@@ -805,7 +805,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.AbsoluteCountSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.AbsoluteCount;
@@ -815,7 +815,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.HeadCountPerFTESelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.HeadcountPerFTE;
@@ -825,7 +825,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.PercentageOfWorkforceSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.FTERatioToTotalFTE;
@@ -835,7 +835,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 if (selection.NumberOfPupilsPerMeasureSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.NoOfPupilsPerMeasure;
@@ -846,7 +846,7 @@ namespace SFB.Web.UI.Controllers
 
                 if (selection.PercentageTeachersSelected)
                 {
-                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Name == selection.Name)?.Clone();
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
                         customChart.ShowValue = UnitType.PercentageTeachers;
@@ -909,20 +909,20 @@ namespace SFB.Web.UI.Controllers
             switch (unit)
             {
                 case UnitType.PercentageOfTotal:
-                    chartList.RemoveAll(c => c.Name == "Total expenditure");
-                    chartList.RemoveAll(c => c.Name == "Total income");
+                    chartList.RemoveAll(c => c.Id == 1);//Total Expenditure
+                    chartList.RemoveAll(c => c.Id == 33);//Total Income
                     break;
                 case UnitType.HeadcountPerFTE:
-                    chartList.RemoveAll(c => c.Name == "School workforce (headcount)");
-                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
+                    chartList.RemoveAll(c => c.Id == 57);//School workforce (headcount)
+                    chartList.RemoveAll(c => c.Id == 52);//Teachers with Qualified Teacher Status (%)
                     break;
                 case UnitType.FTERatioToTotalFTE:
-                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
-                    chartList.RemoveAll(c => c.Name == "School workforce (Full Time Equivalent)");
-                    chartList.RemoveAll(c => c.Name == "School workforce (headcount)");
+                    chartList.RemoveAll(c => c.Id == 52);//Teachers with Qualified Teacher Status (%)
+                    chartList.RemoveAll(c => c.Id == 50);//School workforce (Full Time Equivalent)
+                    chartList.RemoveAll(c => c.Id == 57);//School workforce (headcount)
                     break;
                 case UnitType.NoOfPupilsPerMeasure:
-                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
+                    chartList.RemoveAll(c => c.Id == 52);//Teachers with Qualified Teacher Status (%)
                     break;
             }
         }

@@ -7,13 +7,14 @@
                 self.format = "Charts";
 
                 self.loadData = function (resolve) {
-                    if (localStorage.CustomCharts) {
-                        $scope.selectionList = JSON.parse(localStorage.CustomCharts);
+                    localStorage.removeItem('CustomCharts');
+                    if (localStorage.YourCharts) {
+                        $scope.selectionList = JSON.parse(localStorage.YourCharts);
                         resolve();
                     } else {
                         $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function (response) {
                             $scope.selectionList = response.data;
-                            localStorage.CustomCharts = JSON.stringify($scope.selectionList);
+                            localStorage.YourCharts = JSON.stringify($scope.selectionList);
                             resolve();
                         });
                     }
@@ -28,7 +29,7 @@
 
                 self.persist = function () {
                     setTimeout(function () {
-                        localStorage.CustomCharts = JSON.stringify($scope.selectionList);
+                        localStorage.YourCharts = JSON.stringify($scope.selectionList);
                     }, 500);
                 };
 
@@ -56,7 +57,7 @@
                         type: "POST",
                         url: "/benchmarkcharts/CustomReport",
                         datatype: "json",
-                        data: { "json": localStorage.CustomCharts, "format": self.format },
+                        data: { "json": localStorage.YourCharts, "format": self.format },
                         beforeSend: function () {
                             $('#CustomReportContentPlaceHolder').html(' ');
                             $('#spinner-place-holder').show();
