@@ -168,7 +168,7 @@
                 }
                 <div class="grid-row">
                     <div class="column-full no-padding @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic-chart-wrapper" : "")">
-                        @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
+                        @if (ViewBag.ComparisonType == ComparisonType.BestInClass && ViewBag.ChartFormat == ChartFormat.Charts)
                         {
                             <div class="chart-scores-wrapper">
                                 @if (ViewBag.BicComparisonOverallPhase == "Secondary")

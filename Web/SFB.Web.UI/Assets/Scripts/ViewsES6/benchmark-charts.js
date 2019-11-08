@@ -929,11 +929,14 @@
 
         pdfGenerator.writeLastYearMessage();
 
-        pdfGenerator.writeCharts();
+        pdfGenerator.writeComparisonSchools().then(() => {
 
-        pdfGenerator.writeCriteria().then(() => {
-            pdfGenerator.writeContextData().then(() => {
-                pdfGenerator.save();
+            pdfGenerator.writeCharts();
+
+            pdfGenerator.writeCriteria().then(() => {
+                pdfGenerator.writeContextData().then(() => {
+                    pdfGenerator.save();
+                });
             });
         });
     }
@@ -1366,7 +1369,7 @@ class PdfGenerator {
         this.pdfWriteLine('H2', $('#BCHeader').get(0).innerText);
 
         if ($('#comparing-text').length > 0) {
-            this.pdfWriteLine('H3', $('#comparing-text').get(0).innerText);
+            this.pdfWriteLine('H4', $('#comparing-text').get(0).innerText);
         }
     }
 
@@ -1382,7 +1385,7 @@ class PdfGenerator {
 
     writeTabs() {
 
-        this.offset += 30;
+        this.offset += 10;
 
         if ($('.tabs li.active').length > 0) {
             if ($('.tabs li.active').get(0).innerText.indexOf('Your') < 0) {
@@ -1402,14 +1405,30 @@ class PdfGenerator {
 
     writeLastYearMessage() {
         this.pdfAddHorizontalLine();
-        if ($('.latest-year-message').length > 0) {
+        if ($('.latest-year-message:visible').length > 0) {
             this.pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
         }
 
     }
 
+    writeComparisonSchools() {
+        return new Promise((resolve, reject) => {
+            if ($('#ProgressScoresTable').length > 0 && $('#ProgressScoresTable').is(":visible")) {
+                //this.pdfAddNewPage();
+                this.pdfWriteLine('H4', $('#ProgressScoresTableHeading').get(0).innerText);                
+                //this.pdfWriteLine('Normal', $('.show-count-js').get(0).innerText);                
+                this.pdfGenerateImage('#ProgressScoresTable').then((canvas) => {
+                    this.pdfAddImage(canvas);
+                    resolve();
+                });
+            } else {
+                resolve();
+            }
+        });
+    }
+
     writeCharts() {
-        let charts = $('.chart-container');
+        let charts = $('.chart-container:visible');
         let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
         let chartPerPage = Math.ceil(12 / yValuesCount);
 
