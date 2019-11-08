@@ -46,14 +46,14 @@
                 function () {
                     $(".customActions").each(function () {
                         let self = this;
-                        let chartName = $(self).attr("data-fn");
+                        let chartId = Number($(self).attr("data-fn"));
                         let showValue = $(self).attr("data-sv");
 
                         _.forEach(scope.selectionList.HierarchicalCharts,
                             function (group) {
                                 let selection = _.find(group.Charts,
                                     function (c) {
-                                        return c.Name === chartName;
+                                        return c.Id === chartId;
                                     });
 
                                 if (selection) {
@@ -74,24 +74,16 @@
                                             selection.AbsoluteCountSelected ? showRemoveLink(self) : showAddLink(self);
                                             break;
                                         case 'HeadcountPerFTE':
-                                            selection.HeadCountPerFTESelected
-                                                ? showRemoveLink(self)
-                                                : showAddLink(self);
+                                            selection.HeadCountPerFTESelected ? showRemoveLink(self) : showAddLink(self);
                                             break;
                                         case 'FTERatioToTotalFTE':
-                                            selection.PercentageOfWorkforceSelected
-                                                ? showRemoveLink(self)
-                                                : showAddLink(self);
+                                            selection.PercentageOfWorkforceSelected ? showRemoveLink(self) : showAddLink(self);
                                             break;
                                         case 'NoOfPupilsPerMeasure':
-                                            selection.NumberOfPupilsPerMeasureSelected
-                                                ? showRemoveLink(self)
-                                                : showAddLink(self);
+                                            selection.NumberOfPupilsPerMeasureSelected ? showRemoveLink(self) : showAddLink(self);
                                             break;
                                         case 'PercentageTeachers':
-                                            selection.PercentageTeachersSelected
-                                                ? showRemoveLink(self)
-                                                : showAddLink(self);
+                                            selection.PercentageTeachersSelected ? showRemoveLink(self) : showAddLink(self);
                                             break;
                                     }
                                 }
@@ -102,13 +94,13 @@
     }
 
     //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
-    AddRemoveYourCharts(chartName, showValue, checked, element) {
+    AddRemoveYourCharts(chartId, showValue, checked, element) {
         let scope = angular.element($("#listCtrl")).scope();
         scope.$apply(() => {
             _.forEach(scope.selectionList.HierarchicalCharts,
                 (group) => {
                     let selection = group.Charts.find((c) => {
-                        return c.Name === chartName;
+                        return c.Id === chartId;
                     });
 
                     if (selection) {

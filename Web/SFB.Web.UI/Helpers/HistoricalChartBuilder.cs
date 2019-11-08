@@ -48,26 +48,26 @@ namespace SFB.Web.UI.Helpers
 
             return chartList;
         }
-               
+
         private void RemoveIrrelevantCharts(UnitType unit, List<ChartViewModel> chartList)
         {
             switch (unit)
             {
                 case UnitType.PercentageOfTotal:
-                    chartList.RemoveAll(c => c.Name == "Total expenditure");
-                    chartList.RemoveAll(c => c.Name == "Total income");
+                    chartList.RemoveAll(c => c.Id == 1);//Total expenditure
+                    chartList.RemoveAll(c => c.Id == 33);//Total income
                     break;
                 case UnitType.HeadcountPerFTE:
-                    chartList.RemoveAll(c => c.Name == "School workforce (headcount)");
-                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
+                    chartList.RemoveAll(c => c.Id == 57);//School workforce (headcount)
+                    chartList.RemoveAll(c => c.Id == 52);//Teachers with Qualified Teacher Status (%)
                     break;
                 case UnitType.FTERatioToTotalFTE:
-                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
-                    chartList.RemoveAll(c => c.Name == "School workforce (Full Time Equivalent)");
-                    chartList.RemoveAll(c => c.Name == "School workforce (headcount)");
+                    chartList.RemoveAll(c => c.Id == 52);//Teachers with Qualified Teacher Status (%)
+                    chartList.RemoveAll(c => c.Id == 50);//School workforce (Full Time Equivalent)
+                    chartList.RemoveAll(c => c.Id == 57);//School workforce (headcount)
                     break;
                 case UnitType.NoOfPupilsPerMeasure:
-                    chartList.RemoveAll(c => c.Name == "Teachers with Qualified Teacher Status (%)");
+                    chartList.RemoveAll(c => c.Id == 52);//Teachers with Qualified Teacher Status (%)
                     break;
             }
         }
@@ -124,6 +124,7 @@ namespace SFB.Web.UI.Helpers
                 //Total Expenditure
                 new ChartViewModel()
                 {
+                    Id = 1,
                     Name = "Total expenditure",
                     FieldName = SchoolTrustFinanceDataFieldNames.TOTAL_EXP,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -135,6 +136,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 2,
                     Name = "Staff total",
                     FieldName = SchoolTrustFinanceDataFieldNames.STAFF_TOTAL,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -147,6 +149,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 8,
                     Name = "Premises total",
                     FieldName = SchoolTrustFinanceDataFieldNames.PREMISES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -159,6 +162,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 13,
                     Name = "Occupation total",
                     FieldName = SchoolTrustFinanceDataFieldNames.OCCUPATION,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -172,6 +176,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 21,
                     Name = "Supplies and services total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SUPPLIES_SERVICES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -184,6 +189,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 27,
                     Name = "Cost of finance total",
                     FieldName = SchoolTrustFinanceDataFieldNames.COST_OF_FINANCE,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -196,6 +202,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 30,
                     Name = "Community expenditure total",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_EXP,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -219,6 +226,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 26,
                     Name = "Special facilities total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SPECIAL_FACILITIES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -256,6 +264,7 @@ namespace SFB.Web.UI.Helpers
                 //Staff
                 new ChartViewModel()
                 {
+                    Id = 2,
                     Name = "Staff total",
                     FieldName = SchoolTrustFinanceDataFieldNames.STAFF_TOTAL,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -266,6 +275,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 3,
                     Name = "Teaching staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.TEACHING_STAFF,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -287,6 +297,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 4,
                     Name = "Supply staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.SUPPLY_STAFF,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -302,6 +313,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel()
                         {
+                            Id = 41001,
                             Name = "Supply teaching staff",
                             FieldName = SchoolTrustFinanceDataFieldNames.SUPPLY_TEACHING_STAFF,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -327,6 +339,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel()
                         {
+                            Id = 41002,
                             Name = "Supply teacher insurance",
                             FieldName = SchoolTrustFinanceDataFieldNames.SUPPLY_TEACHER_INSURANCE,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -351,6 +364,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel()
                         {
+                            Id = 41003,
                             Name = "Agency supply teaching staff",
                             FieldName = SchoolTrustFinanceDataFieldNames.AGENCY_TEACH_STAFF,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -374,6 +388,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 5,
                     Name = "Education support staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.EDUCATION_SUPPORT_STAFF,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -409,6 +424,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 6,
                     Name = "Administrative and clerical staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.ADMIN_CLERIC_STAFF,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -440,6 +456,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 7,
                     Name = "Other staff costs",
                     FieldName = SchoolTrustFinanceDataFieldNames.OTHER_STAFF_COSTS,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -456,6 +473,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel()
                         {
+                            Id = 71001,
                             Name = "Other staff",
                             FieldName = SchoolTrustFinanceDataFieldNames.OTHER_STAFF,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -486,6 +504,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel()
                         {
+                            Id = 71002,
                             Name = "Indirect employee expenses",
                             FieldName = SchoolTrustFinanceDataFieldNames.INDIRECT_EMPLOYEE_EXPENSES,
                             ChartSchoolType = ChartSchoolType.Both,
@@ -515,6 +534,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel()
                         {
+                            Id = 71003,
                             Name = "Staff development and training",
                             FieldName = SchoolTrustFinanceDataFieldNames.STAFF_DEV,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -535,6 +555,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel()
                         {
+                            Id = 71004,
                             Name = "Staff related insurance",
                             FieldName = SchoolTrustFinanceDataFieldNames.STAFF_INSURANCE,
                             ChartSchoolType = ChartSchoolType.Both,
@@ -564,6 +585,7 @@ namespace SFB.Web.UI.Helpers
                 //Premises
                 new ChartViewModel()
                 {
+                    Id = 8,
                     Name = "Premises total",
                     FieldName = SchoolTrustFinanceDataFieldNames.PREMISES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -574,6 +596,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 9,
                     Name = "Premises staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.PREMISES_STAFF,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -603,6 +626,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 10,
                     Name = "Cleaning and caretaking",
                     FieldName = SchoolTrustFinanceDataFieldNames.CLEANING,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -624,6 +648,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 11,
                     Name = "Maintenance and improvement",
                     FieldName = SchoolTrustFinanceDataFieldNames.MAINTENANCE_IMPROVEMENT,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -638,6 +663,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel
                         {
+                            Id = 11001,
                             Name = "Grounds maintenance and improvement",
                             FieldName = SchoolTrustFinanceDataFieldNames.GROUNDS_MAINTENANCE_IMPROVEMENT,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -659,6 +685,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 11002,
                             Name = "Building maintenance and improvement",
                             FieldName = SchoolTrustFinanceDataFieldNames.BUILDING_MAINTENANCE_IMPROVEMENT,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -695,6 +722,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 12,
                     Name = "PFI charges",
                     FieldName = SchoolTrustFinanceDataFieldNames.PFI_CHARGES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -706,6 +734,7 @@ namespace SFB.Web.UI.Helpers
                 //Occupation
                 new ChartViewModel()
                 {
+                    Id = 13,
                     Name = "Occupation total",
                     FieldName = SchoolTrustFinanceDataFieldNames.OCCUPATION,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -717,6 +746,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 14,
                     Name = "Energy",
                     FieldName = SchoolTrustFinanceDataFieldNames.ENERGY,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -737,6 +767,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 15,
                     Name = "Water and sewerage",
                     FieldName = SchoolTrustFinanceDataFieldNames.WATER_SEWERAGE,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -754,6 +785,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 16,
                     Name = "Rates",
                     FieldName = SchoolTrustFinanceDataFieldNames.RATES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -770,6 +802,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 17,
                     Name = "Other occupation costs",
                     FieldName = SchoolTrustFinanceDataFieldNames.OTHER_OCCUPATION,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -796,6 +829,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 18,
                     Name = "Other insurance premiums",
                     FieldName = SchoolTrustFinanceDataFieldNames.OTHER_INSURANCE,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -820,6 +854,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 19,
                     Name = "Catering expenditure",
                     FieldName = SchoolTrustFinanceDataFieldNames.CATERING_EXP,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -830,6 +865,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel()
                         {
+                            Id = 19001,
                             Name = "Catering staff",
                             FieldName = SchoolTrustFinanceDataFieldNames.CATERING_STAFF,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -853,6 +889,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel()
                         {
+                            Id = 19002,
                             Name = "Catering supplies",
                             FieldName = SchoolTrustFinanceDataFieldNames.CATERING_SUPPLIES,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -884,6 +921,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 20,
                     Name = "Rent and rates",
                     FieldName = SchoolTrustFinanceDataFieldNames.RENT_RATES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -914,6 +952,7 @@ namespace SFB.Web.UI.Helpers
                 //Supplies and Services
                 new ChartViewModel()
                 {
+                    Id = 21,
                     Name = "Supplies and services total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SUPPLIES_SERVICES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -924,6 +963,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 22,
                     Name = "Administrative supplies",
                     FieldName = SchoolTrustFinanceDataFieldNames.ADMIN_SUPPLIES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -957,6 +997,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 23,
                     Name = "Educational supplies",
                     FieldName = SchoolTrustFinanceDataFieldNames.EDUCATIONAL_SUPPLIES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -972,6 +1013,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel
                         {
+                            Id = 23001,
                             Name = "ICT learning resources",
                             FieldName = SchoolTrustFinanceDataFieldNames.ICT_LEARNING_RESOURCES,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -998,6 +1040,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 23002,
                             Name = "Learning resources",
                             FieldName = SchoolTrustFinanceDataFieldNames.LEARNING_RESOURCES,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -1034,6 +1077,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 23003,
                             Name = "Examination fees",
                             FieldName = SchoolTrustFinanceDataFieldNames.EXAM_FEES,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -1056,6 +1100,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 24,
                     Name = "Bought-in professional services",
                     FieldName = SchoolTrustFinanceDataFieldNames.BROUGHT_IN_SERVICES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -1072,6 +1117,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel
                         {
+                            Id = 24001,
                             Name = "Educational consultancy",
                             FieldName = SchoolTrustFinanceDataFieldNames.EDUCATIONAL_CONSULTANCY,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -1081,6 +1127,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 24002,
                             Name = "Bought in professional services - other",
                             FieldName = SchoolTrustFinanceDataFieldNames.BOUGHT_IN_OTHER,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -1112,6 +1159,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 24003,
                             Name = "Legal and professional",
                             FieldName = SchoolTrustFinanceDataFieldNames.LEGAL_PROFESSIONAL,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -1140,6 +1188,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 24004,
                             Name = "Auditor costs",
                             FieldName = SchoolTrustFinanceDataFieldNames.AUDITOR_COSTS,
                             RevenueGroup = RevenueGroupType.Expenditure,
@@ -1153,6 +1202,7 @@ namespace SFB.Web.UI.Helpers
                 //Special Facilities
                 new ChartViewModel()
                 {
+                    Id = 26,
                     Name = "Special facilities total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SPECIAL_FACILITIES,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -1189,6 +1239,7 @@ namespace SFB.Web.UI.Helpers
                 //Cost of Finance
                 new ChartViewModel()
                 {
+                    Id = 27,
                     Name = "Cost of finance total",
                     FieldName = SchoolTrustFinanceDataFieldNames.COST_OF_FINANCE,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -1197,49 +1248,52 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"",
                     ChartType = ChartType.Total
                 },
-                                        new ChartViewModel
-                        {
-                            Name = "Loan interest",
-                            FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_CHARGES,
-                            RevenueGroup = RevenueGroupType.Expenditure,
-                            ChartGroup = ChartGroupType.CostOfFinance,
-                            ChartSchoolType = ChartSchoolType.Both,
-                            MoreInfo = @"<p>This includes:</p>
-
-                                        <ul>
-                                        <li>interest paid on overdrafts and other liabilities</li>
-                                        </ul>
-
-                                        <p>It excludes:</p>
-                                        <ul>
-                                        <li>interest received</li>
-                                        </ul>"
-                        },
-                        new ChartViewModel
-                        {
-                            Name = "Direct revenue financing (revenue contributions to capital)",
-                            FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE,
-                            RevenueGroup = RevenueGroupType.Expenditure,
-                            ChartGroup = ChartGroupType.CostOfFinance,
-                            ChartSchoolType = ChartSchoolType.Both,
-                            MoreInfo = @"<p>This includes:</p>
+                new ChartViewModel
+                {
+                    Id = 28,
+                    Name = "Loan interest",
+                    FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_CHARGES,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.CostOfFinance,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This includes:</p>
 
                                 <ul>
-                                <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11 </li>
-                                <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
-                                <li>any repayment of principal on a capital loan from the local authority</li>
+                                <li>interest paid on overdrafts and other liabilities</li>
                                 </ul>
 
-                                <p>It excludes: </p>
-
+                                <p>It excludes:</p>
                                 <ul>
-                                <li>funds specifically provided for capital purposes</li>
+                                <li>interest received</li>
                                 </ul>"
-                        },
+                },
+                new ChartViewModel
+                {
+                    Id = 29,
+                    Name = "Direct revenue financing (revenue contributions to capital)",
+                    FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE,
+                    RevenueGroup = RevenueGroupType.Expenditure,
+                    ChartGroup = ChartGroupType.CostOfFinance,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This includes:</p>
+
+                        <ul>
+                        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11 </li>
+                        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
+                        <li>any repayment of principal on a capital loan from the local authority</li>
+                        </ul>
+
+                        <p>It excludes: </p>
+
+                        <ul>
+                        <li>funds specifically provided for capital purposes</li>
+                        </ul>"
+                },
 
                 //Community
                 new ChartViewModel()
                 {
+                    Id = 30,
                     Name = "Community expenditure total",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_EXP,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -1250,6 +1304,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel
                 {
+                    Id = 31,
                     Name = "Community focused school staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_FOCUSED,
                     RevenueGroup = RevenueGroupType.Expenditure,
@@ -1272,6 +1327,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel
                 {
+                    Id = 32,
                     Name = "Community focused school costs",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMM_FOCUSED_SCHOOL,
                     ChartSchoolType = ChartSchoolType.Maintained,
@@ -1294,6 +1350,7 @@ namespace SFB.Web.UI.Helpers
                 //Total Income
                 new ChartViewModel()
                 {
+                    Id = 33,
                     Name = "Total income",
                     FieldName = SchoolTrustFinanceDataFieldNames.TOTAL_INCOME,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1305,6 +1362,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 34,
                     Name = "Grant funding total",
                     FieldName = SchoolTrustFinanceDataFieldNames.GRANT_FUNDING,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1317,6 +1375,7 @@ namespace SFB.Web.UI.Helpers
 
                 new ChartViewModel()
                 {
+                    Id = 38,
                     Name = "Self-generated funding total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SELF_GENERATED_FUNDING,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1330,6 +1389,7 @@ namespace SFB.Web.UI.Helpers
                 //In-Year Balance
                 new ChartViewModel()
                 {
+                    Id = 48,
                     Name = "In-year balance",
                     FieldName = SchoolTrustFinanceDataFieldNames.IN_YEAR_BALANCE,
                     RevenueGroup = RevenueGroupType.Balance,
@@ -1340,6 +1400,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 49,
                     Name = "Revenue reserve",
                     FieldName = SchoolTrustFinanceDataFieldNames.REVENUE_RESERVE,
                     RevenueGroup = RevenueGroupType.Balance,
@@ -1360,6 +1421,7 @@ namespace SFB.Web.UI.Helpers
                 //Grant Funding
                 new ChartViewModel()
                 {
+                    Id = 34,
                     Name = "Grant funding total",
                     FieldName = SchoolTrustFinanceDataFieldNames.GRANT_FUNDING,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1370,6 +1432,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 35,
                     Name = "Direct grants",
                     FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_GRANT,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1388,6 +1451,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel
                         {
+                            Id = 35001,
                             Name = "Pre-16 funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.PRE_16_FUNDING,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1398,6 +1462,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 35002,
                             Name = "Funding for sixth-form students",
                             FieldName = SchoolTrustFinanceDataFieldNames.POST_16_FUNDING,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1422,6 +1487,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 35003,
                             Name = "Other DfE/EFA revenue grants",
                             FieldName = SchoolTrustFinanceDataFieldNames.OTHER_DFE_GRANTS,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1431,6 +1497,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 35004,
                             Name = "Other income (local authority and other government grants)",
                             FieldName = SchoolTrustFinanceDataFieldNames.OTHER_INCOME_GRANTS,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1456,6 +1523,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 35005,
                             Name = "Government source (non-grant)",
                             FieldName = SchoolTrustFinanceDataFieldNames.GOVERNMENT_SOURCE,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1467,6 +1535,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 36,
                     Name = "Community grants",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_GRANTS,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1484,6 +1553,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel
                         {
+                            Id = 36001, 
                             Name = "Academies",
                             FieldName = SchoolTrustFinanceDataFieldNames.ACADEMIES,
                             ChartSchoolType = ChartSchoolType.Academy,
@@ -1497,6 +1567,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 36002,
                             Name = "Non-government",
                             FieldName = SchoolTrustFinanceDataFieldNames.NON_GOVERNMENT,
                             ChartSchoolType = ChartSchoolType.Academy,
@@ -1510,6 +1581,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 36003,
                             Name = "Other Funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.OTHER_INCOME,
                             ChartSchoolType = ChartSchoolType.Academy,
@@ -1518,6 +1590,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 36004,
                             Name = "Community focussed school funding and/or grants",
                             FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_FOCUSED,
                             ChartSchoolType = ChartSchoolType.Maintained,
@@ -1530,6 +1603,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 36005,
                             Name = "Additional grant for schools",
                             FieldName = SchoolTrustFinanceDataFieldNames.ADDITIONAL_GRANT,
                             ChartSchoolType = ChartSchoolType.Maintained,
@@ -1552,6 +1626,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 37,
                     Name = "Targeted grants",
                     FieldName = SchoolTrustFinanceDataFieldNames.TARGETED_GRANTS,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1569,6 +1644,7 @@ namespace SFB.Web.UI.Helpers
                     {
                         new ChartViewModel
                         {
+                            Id = 37001,
                             Name = "Pupil focused extended school funding and/or grants",
                             FieldName = SchoolTrustFinanceDataFieldNames.PUPIL_FOCUSED_FUNDING,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1590,6 +1666,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 37002,
                             Name = "Pupil premium",
                             FieldName = SchoolTrustFinanceDataFieldNames.PUPIL_PREMIUM,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1612,6 +1689,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 377003,
                             Name = "ESG",
                             FieldName = SchoolTrustFinanceDataFieldNames.ESG,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1622,6 +1700,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 37004,
                             Name = "High needs top-up funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.SEN,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1648,6 +1727,7 @@ namespace SFB.Web.UI.Helpers
                         },
                         new ChartViewModel
                         {
+                            Id = 37005,
                             Name = "Funding for minority ethnic pupils",
                             FieldName = SchoolTrustFinanceDataFieldNames.FUNDING_MINORITY,
                             RevenueGroup = RevenueGroupType.Income,
@@ -1675,6 +1755,7 @@ namespace SFB.Web.UI.Helpers
                 //Self Generated
                 new ChartViewModel()
                 {
+                    Id = 38,
                     Name = "Self-generated funding total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SELF_GENERATED_FUNDING,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1685,6 +1766,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 39,
                     Name = "Community focused school facilities income",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMM_FOCUSED_SCHOOL_FACILITIES,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1699,6 +1781,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 40,
                     Name = "Income from facilities and services",
                     FieldName = SchoolTrustFinanceDataFieldNames.INCOME_FROM_FACILITIES,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1734,6 +1817,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 41,
                     Name = "Income from catering",
                     FieldName = SchoolTrustFinanceDataFieldNames.INCOME_FROM_CATERING,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1756,6 +1840,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 42,
                     Name = "Donations and/or voluntary funds",
                     FieldName = SchoolTrustFinanceDataFieldNames.DONATIONS,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1781,6 +1866,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 43,
                     Name = "Income from contributions to visits",
                     FieldName = SchoolTrustFinanceDataFieldNames.CONTRIBUTIONS_TO_VISITS,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1801,6 +1887,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 44,
                     Name = "Receipts from supply teacher insurance claims",
                     FieldName = SchoolTrustFinanceDataFieldNames.RECEIPTS_FROM_SUPPLY,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1821,6 +1908,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 45,
                     Name = "Receipts from other insurance claims",
                     FieldName = SchoolTrustFinanceDataFieldNames.RECEIPTS_FROM_OTHER,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1830,6 +1918,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 46,
                     Name = "Investment income",
                     FieldName = SchoolTrustFinanceDataFieldNames.INVESTMENT_INCOME,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1845,6 +1934,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 47,
                     Name = "Other self-generated income",
                     FieldName = SchoolTrustFinanceDataFieldNames.OTHER_SELF_GENERATED,
                     RevenueGroup = RevenueGroupType.Income,
@@ -1864,6 +1954,7 @@ namespace SFB.Web.UI.Helpers
                 //Workforce
                 new ChartViewModel()
                 {
+                    Id = 50,
                     Name = "School workforce (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.WORKFORCE_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
@@ -1882,6 +1973,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 51,
                     Name = "Total number of teachers (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_TOTAL,
                     RevenueGroup = RevenueGroupType.Workforce,
@@ -1892,6 +1984,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 52,
                     Name = "Teachers with Qualified Teacher Status (%)",
                     FieldName = SchoolTrustFinanceDataFieldNames.PERCENTAGE_QUALIFIED_TEACHERS,
                     RevenueGroup = RevenueGroupType.Workforce,
@@ -1903,6 +1996,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 53,
                     Name = "Senior leadership (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_LEADER,
                     RevenueGroup = RevenueGroupType.Workforce,
@@ -1920,6 +2014,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 54,
                     Name = "Teaching assistants (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.FULL_TIME_TA,
                     RevenueGroup = RevenueGroupType.Workforce,
@@ -1953,6 +2048,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 56,
                     Name = "Auxiliary staff (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.AUX_STAFF,
                     RevenueGroup = RevenueGroupType.Workforce,
@@ -1969,6 +2065,7 @@ namespace SFB.Web.UI.Helpers
                 },
                 new ChartViewModel()
                 {
+                    Id = 57,
                     Name = "School workforce (headcount)",
                     FieldName = SchoolTrustFinanceDataFieldNames.WORKFORCE_HEADCOUNT,
                     RevenueGroup = RevenueGroupType.Workforce,

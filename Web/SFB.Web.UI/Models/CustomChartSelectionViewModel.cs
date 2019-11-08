@@ -5,7 +5,9 @@
         private bool _perPupilAvailable = true;
         private bool _perTeacherAvailable = true;
         private bool _percentageAvailable = true;
-        private bool _absoluteMoneyAvailable = true;           
+        private bool _absoluteMoneyAvailable = true;
+
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
