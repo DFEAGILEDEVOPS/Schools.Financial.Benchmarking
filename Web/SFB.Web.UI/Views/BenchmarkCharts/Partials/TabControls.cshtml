@@ -36,19 +36,21 @@
                     <img src="/public/assets/images/help-icon.png" alt="Your charts - more information" />
                 </a>*@
             </li>
+
+            if (Model.ComparisonType == ComparisonType.BestInClass)
+            {
+                <li id="BestInClass" class="comparison-tab hide-in-print" role="tab">
+                    <a class="tab-link comp" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
+                </li>
+            }
+            else
+            {
+                <li id="ComparisonSchools" class="comparison-tab hide-in-print" role="tab">
+                    <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('ComparisonSchools')">Comparison schools</a>
+                </li>
+            }
         }
-        @if (Model.ComparisonType == ComparisonType.BestInClass)
-        {
-            <li id="BestInClass" class="comparison-tab hide-in-print" role="tab">
-                <a class="tab-link comp" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
-            </li>
-        }
-        else
-        {
-            <li id="ComparisonSchools" class="comparison-tab hide-in-print" role="tab">
-                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('ComparisonSchools')">Comparison schools</a>
-            </li>
-        }
+
     </ol>
 </nav>
 <span role="status" class="visually-hidden">{{ctrl.totalSelectCount()}} selected in Your Charts</span>
