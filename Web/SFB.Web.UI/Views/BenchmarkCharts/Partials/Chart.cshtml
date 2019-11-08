@@ -91,7 +91,7 @@
                 }
                 @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                 {
-                    <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].Name" data-sv="@Model[i].ShowValue">
+                    <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].Id" data-sv="@Model[i].ShowValue">
                         @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                         {
                             <div class="column-half font-xsmall no-padding custom-action-mobile">
@@ -105,13 +105,13 @@
                             </div>
                             <div class="column-half font-xsmall no-padding float-to-right your-chart-controls custom-action-mobile">
                                 <div class="float-to-right">
-                                    <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
+                                    <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
                                         <i class="icon icon-bookmark">
                                             <span class="visually-hidden">Bookmark</span>
                                         </i>
                                         <span>Add to your charts</span>
                                     </button>
-                                    <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
+                                    <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
                                         <i class="icon icon-bookmark">
                                             <span class="visually-hidden">Bookmark</span>
                                         </i>
@@ -239,7 +239,7 @@
                                 }
                                 @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                                 {
-                                    <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].Name" data-sv="@Model[i].ShowValue">
+                                    <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].Id" data-sv="@Model[i].ShowValue">
                                         @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                                         {
                                             <div class="your-chart-controls">
@@ -253,11 +253,11 @@
 
                                                 <div class="column-half font-xsmall no-padding float-to-right custom-action-mobile">
                                                     <div class="float-to-right">
-                                                        <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', true, this);">
+                                                        <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
                                                             <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
                                                             <span>Add to your charts</span>
                                                         </button>
-                                                        <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts('@Model[i].Name','@Model[i].ShowValue', false, this);">
+                                                        <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
                                                             <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
                                                             <span>Remove from your charts</span>
                                                         </button>
