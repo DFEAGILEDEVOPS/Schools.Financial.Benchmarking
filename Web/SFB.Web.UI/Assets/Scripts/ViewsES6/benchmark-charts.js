@@ -881,6 +881,16 @@
         $table.find('.detail').toggle(200);
     }
 
+    DownloadPage() {
+
+        let downloadFormat = $("input:radio[name='downloadFormat']:checked").val();
+        if (downloadFormat === "pdf") {
+            this.PdfPage();
+        } else {
+            this.PptPage();
+        }
+    }
+
     PptPage() {        
 
         $('#criteria-details.criteria-details').attr('open', 'true');
@@ -900,22 +910,11 @@
 
         pptGenerator.writeCriteria();
 
-        pptGenerator.writeComparisonSchools();
-
-        pptGenerator.writeContextData();
-                
-        pptGenerator.save();
-         
-    }
-
-    DownloadPage() {
-
-        let downloadFormat = $("input:radio[name='downloadFormat']:checked").val();
-        if (downloadFormat === "pdf") {
-            this.PdfPage();
-        } else {
-            this.PptPage();
-        }        
+        pptGenerator.writeComparisonSchools().then(() => {
+            pptGenerator.writeContextData().then(() => {
+                pptGenerator.save();
+            });
+        });        
     }
 
     PdfPage() {
@@ -1221,25 +1220,36 @@ class PptGenerator {
     }
 
     writeComparisonSchools() {
-        if ($('#ProgressScoresTable:visible').length > 0)
-        {
-            this.slide = this.doc.addNewSlide();
-            this.yOffset = 0.2;
-            this.slide.addText($('#ProgressScoresTableHeading').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
-                        
-            //this.pdfWriteLine('Normal', $('.show-count-js').get(0).innerText);                
-            this.pptWriteTable('#ProgressScoresTable', 1);
-        }
+        return new Promise((resolve, reject) => {
+            if ($('#ProgressScoresTable:visible').length > 0) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0.1;
+                this.slide.addText($('#ProgressScoresTableHeading').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 10 });
+
+                this.pptGenerateImage('#ProgressScoresTable').then((canvas) => {
+                    let img = canvas.toDataURL("image/png");
+                    let ratio = canvas.width / canvas.height;
+                    this.yOffset += 0.3;
+                    this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: 4.0, h: 4 / ratio } );
+                    resolve();
+                });
+            }else {
+                resolve();
+            }
+        });
     }
 
     writeContextData() {
-        if ($('#contextDataTable:visible').length > 0) {
-            this.slide = this.doc.addNewSlide();
-            this.yOffset = 0.2;
-            this.slide.addText($('#contextExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+        return new Promise((resolve, reject) => {
+            if ($('#contextDataTable:visible').length > 0) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0.2;
+                this.slide.addText($('#contextExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
 
-            this.pptWriteTable('#contextDataTable', 1);
-        }
+                this.pptWriteTable('#contextDataTable', 1);
+            }
+            resolve();
+        });
     }
 
     save() {
@@ -1279,6 +1289,18 @@ class PptGenerator {
         rows = rows.concat(data);
         this.yOffset += 0.5;
         this.slide.addTable(rows, { x: 0.5, y: this.yOffset, fontSize: 10, w: 9.0, color: '363636', autoPage: tablePerPage === 1 });
+    }
+
+    pptGenerateImage(element) {
+
+        function getCanvas(element) {
+            return html2canvas($(element), {
+                imageTimeout: 2000,
+                removeContainer: true
+            });
+        }
+
+        return getCanvas(element);
     }
 }
 
