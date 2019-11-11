@@ -745,6 +745,8 @@
             $("#tabsSection").hide();
             $("#customTabSection").show();
             $("#downloadLinkContainer").hide();
+            $("#comparisonSchoolsTabSection").hide();
+            $("#bestInClassTabSection").hide();
             $("#PrintLinkText").text(" Print report");
             $("#PdfLinkText").text(" Download report");
             let scope = angular.element($("#listCtrl")).scope();
@@ -755,6 +757,7 @@
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
+            $("#comparisonSchoolsTabSection").hide();
             $("#downloadLinkContainer").show();
             $("#PrintLinkText").text(" Print page");
             $("#PdfLinkText").text(" Download page");
@@ -767,10 +770,11 @@
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
+            $("#bestInClassTabSection").hide();
+            $("#comparisonSchoolsTabSection").show();
             $("#downloadLinkContainer").show();
             $("#PrintLinkText").text(" Print page");
             $("#PdfLinkText").text(" Download page");
-            $("#comparisonSchoolsTabSection").show();
             $("#tabsSection").hide();
         }
         else {
@@ -895,6 +899,8 @@
         pptGenerator.writeCharts();
 
         pptGenerator.writeCriteria();
+
+        pptGenerator.writeComparisonSchools();
 
         pptGenerator.writeContextData();
                 
@@ -1165,14 +1171,14 @@ class PptGenerator {
     writeLastYearMessage() {
         this.yOffset += 0.5;
         this.slide.addText('', { x: 0.2, y: this.yOffset, fontSize: 12, line: { pt: '2', color: 'A9A9A9' }, w: '95%' });
-        if ($('.latest-year-message').length > 0) {
+        if ($('.latest-year-message:visible').length > 0) {
             this.yOffset += 0.2;
             this.slide.addText($('.latest-year-message').get(0).innerText, { x: 0.2, y: this.yOffset, fontSize: 12, w: '95%' });
         }
     }
 
     writeCharts() {
-        let charts = $('.chart-container');
+        let charts = $('.chart-container:visible');
         let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
         let chartPerPage = Math.ceil(5 / yValuesCount);
 
@@ -1214,8 +1220,20 @@ class PptGenerator {
             }
     }
 
+    writeComparisonSchools() {
+        if ($('#ProgressScoresTable:visible').length > 0)
+        {
+            this.slide = this.doc.addNewSlide();
+            this.yOffset = 0.2;
+            this.slide.addText($('#ProgressScoresTableHeading').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+                        
+            //this.pdfWriteLine('Normal', $('.show-count-js').get(0).innerText);                
+            this.pptWriteTable('#ProgressScoresTable', 1);
+        }
+    }
+
     writeContextData() {
-        if ($('#contextDataTable').length > 0 && $('#contextDataTable').is(":visible")) {
+        if ($('#contextDataTable:visible').length > 0) {
             this.slide = this.doc.addNewSlide();
             this.yOffset = 0.2;
             this.slide.addText($('#contextExp').get(0).innerText, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });

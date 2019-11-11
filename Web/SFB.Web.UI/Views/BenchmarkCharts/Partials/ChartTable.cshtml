@@ -108,7 +108,7 @@
 
                 <td class="detail" data-header="Local authority">@schoolBenchmarkData.La</td>
                 <td class="detail" data-header="School type">@schoolBenchmarkData.Type</td>
-                <td class="detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount <span class="visually-hidden">pupils</span></td>
+                <td class="detail" data-header="Number of pupils" aria-label="@schoolBenchmarkData.PupilCount pupils">@schoolBenchmarkData.PupilCount</td>
                 <td data-header="Amount">
                     @if (schoolBenchmarkData.Amount.HasValue)
                     {
