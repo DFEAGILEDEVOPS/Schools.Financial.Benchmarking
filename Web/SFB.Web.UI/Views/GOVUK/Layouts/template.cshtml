@@ -74,7 +74,7 @@
 
     @RenderSection("Head", required: false)
 </head>
-<body class="@(ViewBag.bodyClasses)" onbeforeunload="$('select').prop('selectedIndex', -1);">
+<body class="@(ViewBag.bodyClasses)" onbeforeunload="DfE.Util.clearDropdowns(event)">
 <!-- Google Tag Manager (noscript) -->
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=@System.Configuration.ConfigurationManager.AppSettings["GoogleTagManagerId"]"

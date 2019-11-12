@@ -29,6 +29,12 @@
         location.href = '#' + elementId;
     };
 
+    window.DfE.Util.clearDropdowns = function (event) {
+        if (event.target.activeElement.id !== "DownloadLink") {
+            $('select').prop('selectedIndex', -1);
+        }
+    };
+
     window.DfE.Util.QueryString = {
         get: function (name, url) {
             if (!url) url = window.location.href;
