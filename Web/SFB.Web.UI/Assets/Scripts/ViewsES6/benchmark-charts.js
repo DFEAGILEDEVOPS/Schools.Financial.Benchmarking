@@ -911,8 +911,10 @@
         pptGenerator.writeCriteria();
 
         pptGenerator.writeComparisonSchools().then(() => {
-            pptGenerator.writeContextData().then(() => {
-                pptGenerator.save();
+            pptGenerator.writeBicSchools().then(() => {
+                pptGenerator.writeContextData().then(() => {
+                    pptGenerator.save();
+                });
             });
         });        
     }
@@ -1172,7 +1174,7 @@ class PptGenerator {
         this.slide.addText('', { x: 0.2, y: this.yOffset, fontSize: 12, line: { pt: '2', color: 'A9A9A9' }, w: '95%' });
         if ($('.latest-year-message:visible').length > 0) {
             this.yOffset += 0.2;
-            this.slide.addText($('.latest-year-message').get(0).innerText, { x: 0.2, y: this.yOffset, fontSize: 12, w: '95%' });
+            this.slide.addText($('.latest-year-message:visible').get(0).innerText, { x: 0.2, y: this.yOffset, fontSize: 12, w: '95%' });
         }
     }
 
@@ -1219,7 +1221,7 @@ class PptGenerator {
             }
     }
 
-    writeComparisonSchools() {
+    writeBicSchools() {
         return new Promise((resolve, reject) => {
             if ($('#ProgressScoresTable:visible').length > 0) {
                 this.slide = this.doc.addNewSlide();
@@ -1234,6 +1236,31 @@ class PptGenerator {
                     resolve();
                 });
             }else {
+                resolve();
+            }
+        });
+    }
+
+    writeComparisonSchools() {
+        return new Promise((resolve, reject) => {
+            if ($('#ComparisonSchoolsTable:visible').length > 0) {
+                this.slide = this.doc.addNewSlide();
+                this.yOffset = 0.1;
+
+                this.pptGenerateImage('#ComparisonSchoolsTable').then((canvas) => {
+                    let img = canvas.toDataURL("image/png");
+                    let ratio = canvas.width / canvas.height;
+                    this.yOffset += 0.3;
+                    let width = 4.5;
+                    let height = 4.5 / ratio;
+                    if (height > 5) {
+                        height = 5;
+                        width = height * ratio;
+                    }
+                    this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: width, h: height });
+                    resolve();
+                });
+            } else {
                 resolve();
             }
         });
