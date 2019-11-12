@@ -1492,8 +1492,8 @@ class PdfGenerator {
                         let ratio = canvas.width / canvas.height;
                         let height = 880;
                         let width = 880 * ratio;
-                        if (width > 700) {
-                            width = 700;
+                        if (width > 550) {
+                            width = 550;
                             height = width / ratio;
                         }
                         this.pdfAddImage(canvas, width, height);
