@@ -937,12 +937,12 @@
         pdfGenerator.writeLastYearMessage();
 
         pdfGenerator.writeComparisonSchools().then(() => {
-
-            pdfGenerator.writeCharts();
-
-            pdfGenerator.writeCriteria().then(() => {
-                pdfGenerator.writeContextData().then(() => {
-                    pdfGenerator.save();
+            pdfGenerator.writeBicSchools().then(() => {
+                pdfGenerator.writeCharts();
+                pdfGenerator.writeCriteria().then(() => {
+                    pdfGenerator.writeContextData().then(() => {
+                        pdfGenerator.save();
+                    });
                 });
             });
         });
@@ -1351,9 +1351,13 @@ class PdfGenerator {
         return getCanvas(element);
     }
 
-    pdfAddImage(canvas) {
+    pdfAddImage(canvas, width, height) {
         let img = canvas.toDataURL("image/png");
-        this.doc.addImage(img, 'JPEG', this.MARGIN_LEFT, this.offset);
+        if (width && height) {
+            this.doc.addImage(img, 'JPEG', this.MARGIN_LEFT, this.offset, width, height);
+        } else {
+            this.doc.addImage(img, 'JPEG', this.MARGIN_LEFT, this.offset);
+        }
     }
 
     pdfWriteLine(type, text) {
@@ -1473,12 +1477,38 @@ class PdfGenerator {
     writeLastYearMessage() {
         this.pdfAddHorizontalLine();
         if ($('.latest-year-message:visible').length > 0) {
-            this.pdfWriteLine('Info', $('.latest-year-message').get(0).innerText);
+            this.pdfWriteLine('Info', $('.latest-year-message:visible').get(0).innerText);
         }
 
     }
 
     writeComparisonSchools() {
+        return new Promise((resolve, reject) => {
+            if ($('#ComparisonSchoolsTable:visible').length > 0) {   
+                this.pdfGenerateImage('#ComparisonSchoolsTable').then((canvas) => {
+                    if (canvas.height > 1060) {
+                        this.pdfAddNewPage();
+                        this.offset = 0;
+                        let ratio = canvas.width / canvas.height;
+                        let height = 880;
+                        let width = 880 * ratio;
+                        if (width > 700) {
+                            width = 700;
+                            height = width / ratio;
+                        }
+                        this.pdfAddImage(canvas, width, height);
+                    } else {
+                        this.pdfAddImage(canvas);
+                    }
+                    resolve();
+                });
+            } else {
+                resolve();
+            }
+        });
+    }
+
+    writeBicSchools() {
         return new Promise((resolve, reject) => {
             if ($('#ProgressScoresTable').length > 0 && $('#ProgressScoresTable').is(":visible")) {
                 //this.pdfAddNewPage();
