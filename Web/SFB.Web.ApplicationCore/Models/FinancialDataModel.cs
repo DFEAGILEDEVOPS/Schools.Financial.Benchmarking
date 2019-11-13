@@ -234,7 +234,7 @@ namespace SFB.Web.ApplicationCore.Models
 
         public string Gender => FinancialDataObjectModel.Gender;
 
-        public string SchoolOverallPhase => FinancialDataObjectModel.OverallPhase;
+        public string SchoolOverallPhase => FinancialDataObjectModel?.OverallPhase;
 
         public string SchoolPhase => FinancialDataObjectModel?.Phase;
 
@@ -286,11 +286,32 @@ namespace SFB.Web.ApplicationCore.Models
 
         public decimal? Ks2Actual => FinancialDataObjectModel.Ks2Actual;
 
-        public decimal? Ks2Progress => FinancialDataObjectModel.Ks2Progress.HasValue ? decimal.Round(FinancialDataObjectModel.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) : (decimal?)null;
+        public decimal? Ks2Progress
+        {
+            get
+            {
+                if(FinancialDataObjectModel == null)
+                {
+                    return null;
+                }
+                return FinancialDataObjectModel.Ks2Progress.HasValue ? decimal.Round(FinancialDataObjectModel.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) : (decimal?)null;
+            }
+        }
 
         public decimal? AvAtt8 => FinancialDataObjectModel.AverageAttainment;
 
-        public decimal? P8Mea => FinancialDataObjectModel.Progress8Measure;
+        public decimal? P8Mea
+        {
+            get
+            {
+                if (FinancialDataObjectModel == null)
+                {
+                    return null;
+                }
+                return FinancialDataObjectModel.Progress8Measure.HasValue ? decimal.Round(FinancialDataObjectModel.Progress8Measure.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) : (decimal?)null;
+
+            }
+        }
 
         public string OfstedRating => FinancialDataObjectModel.OfstedRatingName;
 

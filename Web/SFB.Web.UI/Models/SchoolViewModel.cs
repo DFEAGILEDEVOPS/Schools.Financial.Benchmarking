@@ -195,12 +195,10 @@ namespace SFB.Web.UI.Models
         public bool HasProgressScore => LatestYearFinancialData.Ks2Progress.HasValue || LatestYearFinancialData.P8Mea.HasValue;
 
         public decimal? ProgressScore => PhaseInFinancialSubmission == "Secondary" ?
-                        LatestYearFinancialData.P8Mea
-                        : decimal.Round(LatestYearFinancialData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                        LatestYearFinancialData.P8Mea : 
+                        LatestYearFinancialData.Ks2Progress;
 
-        public decimal? KS2ProgressScore => LatestYearFinancialData.Ks2Progress.HasValue ?
-            (decimal?)decimal.Round(LatestYearFinancialData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero) :
-            null;
+        public decimal? KS2ProgressScore => LatestYearFinancialData.Ks2Progress;
 
         public decimal? P8ProgressScore => LatestYearFinancialData.P8Mea;
 
