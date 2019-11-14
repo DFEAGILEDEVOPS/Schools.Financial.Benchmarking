@@ -1013,10 +1013,12 @@ body.print-mode .hide-in-print {
 }
 
 nav.tabs ol li {
-    @include media(mobile) {
+    @include media-down(tablet) {
         background-color: $grey-3;
-        border-color: $grey-1;
+        border-color: $border-colour;
         border-width: 1px;
+        margin-right: 5px;
+        margin-bottom: 5px;
 
         button, &.active button {
             border: none;

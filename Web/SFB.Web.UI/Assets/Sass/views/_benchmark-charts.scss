@@ -393,11 +393,11 @@
         height: 55px;
 
         button, a {
-            height: $tabheight + 10;
+            height: $tabheight + 15;
             padding-right: 15px;
             padding-left: 15px;
 
-            @include media(tablet) {
+            @include media(desktop) {
                 display: table-cell;
                 vertical-align: middle;
                 text-align: center;
@@ -406,6 +406,11 @@
 
         &.active {
             button, a {
+                @include media-down(tablet)
+                {
+                    border: none;
+                }
+
                 @include media(desktop) {
                     height: $tabheight + 20;
                 }

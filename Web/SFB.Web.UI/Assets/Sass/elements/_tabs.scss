@@ -27,10 +27,16 @@ nav.tabs {
             height: $tabheight;
             text-align: center;
 
-            @include media(mobile) {
+            @include media-down(tablet) {
                 line-height: 1.1428571429;
                 min-width: 0;
                 width: 47%;
+            }
+
+            @include media(mobile) {
+                button, a {
+                    font-size: 14px;
+                }
             }
 
             &:hover {
@@ -42,7 +48,7 @@ nav.tabs {
                 background-color: $white;
                 cursor: default;
 
-                @include media(mobile) {
+                @include media-down(tablet) {
                     background-color: $grey-3;
                 }
 
@@ -56,12 +62,12 @@ nav.tabs {
 
                 button, a {
                     color: $black;
-                    border: 1px solid $grey-2;
+                    border: 1px solid $border-colour;
                     margin: 0 0 -2px -1px;
                     display: block;
                     text-decoration: none;
 
-                    @include media(mobile) {
+                    @include media-down(tablet) {
                         border-color: $grey-1;
                     }
 
@@ -86,7 +92,7 @@ nav.tabs {
                 padding: 10px 23px 0 23px;
                 white-space: nowrap;
 
-                @include media(mobile) {
+                @include media-down(tablet) {
                     padding: 10px 10px 0 10px;
                 }
                 /*&:focus {                    

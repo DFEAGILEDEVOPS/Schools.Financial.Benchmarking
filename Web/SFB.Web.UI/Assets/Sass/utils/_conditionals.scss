@@ -14,7 +14,7 @@ $is-ie: false !default;
         @content;
       }
     } @else if $size == tablet {
-      @media (max-width: 800px){
+      @media (max-width: 770px){
         @content;
       }
     }
