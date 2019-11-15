@@ -388,50 +388,82 @@
         padding-top: 25px;
     }
 
-    nav.tabs ol li {
-        max-width: 140px;
-        height: 55px;
-
-        button, a {
-            height: $tabheight + 15;
-            padding-right: 15px;
-            padding-left: 15px;
-
-            @include media(desktop) {
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
-            }
+    nav.tabs ol {
+        @include media-down(tablet) {
+            justify-content: flex-start;
         }
 
-        &.active {
-            button, a {
-                @include media-down(tablet)
-                {
-                    border: none;
+        li {
+
+            @include media(desktop) {
+                max-width: 110px;
+
+                a, button, a span {
+                    font-size: 14px;
                 }
+            }
+
+            @media (min-width: 920px) {
+                max-width: 140px;
+
+                a, button {
+                    font-size: 16px;
+                }
+            }
+
+            @include media-down(tablet) {
+                flex-basis: 32%;
+                width: 32%;
+            }
+
+            @include media(mobile) {
+                flex-basis: 47%;
+                width: 47%;
+            }
+
+            height: 55px;
+
+            button, a {
+                height: $tabheight + 15;
+                padding-right: 15px;
+                padding-left: 15px;
 
                 @include media(desktop) {
-                    height: $tabheight + 20;
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
                 }
             }
-        }
 
-        &.comparison-tab {
-            background-color: $govuk-blue;
+            &.active {
+                button, a {
+                    @include media-down(tablet) {
+                        border: none;
+                    }
 
-            @include media(desktop) {
-                float: right;
-
-                &.active {
-                    a {
-                        color: $text-colour;
+                    @include media(desktop) {
+                        height: $tabheight + 20;
                     }
                 }
             }
 
-            a {
-                color: $page-colour;
+            &.comparison-tab {
+                background-color: $govuk-blue;
+
+                @include media(desktop) {
+                    float: right;
+                    margin-left: auto;
+
+                    &.active {
+                        a {
+                            color: $text-colour;
+                        }
+                    }
+                }
+
+                a {
+                    color: $page-colour;
+                }
             }
         }
     }

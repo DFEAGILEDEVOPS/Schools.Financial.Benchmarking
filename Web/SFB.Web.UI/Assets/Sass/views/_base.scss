@@ -240,15 +240,6 @@ main {
     }
 }
 
-nav.tabs ol li {
-    max-width: 255px;
-    text-align: left;
-
-    a {
-        white-space: normal;
-    }
-}
-
 .charts-section {
     margin-top: 15px;
 }
@@ -1013,12 +1004,21 @@ body.print-mode .hide-in-print {
 }
 
 nav.tabs ol li {
+    text-align: center;
+
+    a {
+        white-space: normal;
+    }
+
     @include media-down(tablet) {
         background-color: $grey-3;
         border-color: $border-colour;
         border-width: 1px;
         margin-right: 5px;
         margin-bottom: 5px;
+        &:last-child{
+            margin-right: 0;
+        }
 
         button, &.active button {
             border: none;

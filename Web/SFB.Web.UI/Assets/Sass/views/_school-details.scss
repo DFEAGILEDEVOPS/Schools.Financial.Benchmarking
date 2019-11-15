@@ -312,7 +312,22 @@
         }
     }
 
-    nav.tabs ol li {
-        max-width: 170px;
+    nav.tabs ol {
+        @include media-down(tablet) {
+            justify-content: flex-start;
+
+            li {
+
+                @include media-down(tablet) {
+                    flex-basis: 32%;
+                    width: 32%;
+                }
+
+                @include media(mobile) {
+                    flex-basis: 47%;
+                    width: 47%;
+                }
+            }
+        }
     }
 }
