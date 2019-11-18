@@ -20,6 +20,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Attributes;
 using System.Net;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using System.Web.UI;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -234,6 +235,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 28800, VaryByParam = "urn", Location = OutputCacheLocation.Server, NoStore = true)]
         public async Task<ActionResult> GenerateFromBicCriteria(int urn)
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
@@ -303,6 +305,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
+        [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]        
         public async Task<ViewResult> OneClickReport(int urn)
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
