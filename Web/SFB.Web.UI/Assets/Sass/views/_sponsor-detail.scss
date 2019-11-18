@@ -228,4 +228,16 @@
             margin-left: 1em;
         }
     }
+
+    .column-quarter.balance-wrapper-mobile--inactive {
+        @include media(mobile) {
+            display: none;
+        }
+    }
+
+    .column-quarter.balance-wrapper-mobile--active {
+        @include media(mobile) {
+            display: block;
+        }
+    }
 }
