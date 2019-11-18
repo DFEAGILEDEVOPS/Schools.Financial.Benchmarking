@@ -904,7 +904,9 @@ table .hide-show-button.show {
 }
 
 .view-charts-tables {
-    float: right;
+    @include media(desktop){
+        float: right;
+    }
     margin-bottom: 20px;
 }
 
