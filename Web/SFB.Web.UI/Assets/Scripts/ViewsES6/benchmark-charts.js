@@ -881,6 +881,12 @@
         $table.find('.detail').toggle(200);
     }
 
+    HideShowDetailsMobile(element) {
+        let $tableWrapper = $(element).closest('.chart-table-wrapper');
+        $tableWrapper.find('.detail').toggle(200);
+        $tableWrapper.find('.chart-table--mobile-only-view').toggle(200);
+    }
+
     DownloadPage() {
 
         let downloadFormat = $("input:radio[name='downloadFormat']:checked").val();

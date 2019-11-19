@@ -704,6 +704,22 @@ abbr[title]{
     }
 }
 
+.chart-table--mobile-only-view {
+    display: none;
+
+    @include media(mobile) {
+        display: table;
+    }
+}
+
+.chart-table--mobile-above-view {
+    display: none;
+
+    @include media(tablet) {
+        display: table;
+    }
+}
+
 .back-button {
     margin-top: 2%;
 
@@ -901,6 +917,14 @@ table .hide-show-button.show {
     @include media(tablet) {
         margin-right: 30px;
     }
+}
+
+.mobile-hide-show-button.hide {
+    float: left;
+}
+
+.mobile-hide-show-button.show {
+    float: right;
 }
 
 .view-charts-tables {
