@@ -533,6 +533,15 @@
     }
 
     nav.tabs ol li, nav.tabs ol li a {
+
+        &.tab-vertical-align {
+            margin-top: 9px;
+
+            @include media(desktop) {
+                margin-top: 0;
+            }
+        }
+
         @include media(mobile) {
             height: 50px;
         }

@@ -7,29 +7,29 @@
 <nav class="tabs" role="navigation">
     <ol role="tablist">
         <li id="@RevenueGroupType.Expenditure" class="hide-in-print active" role="tab">
-            <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE <span class="bmtab visually-hidden"> selected</span></a>
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE <span class="bmtab visually-hidden"> selected</span></a>
         </li>
         <li id="@RevenueGroupType.Income" class="hide-in-print" role="tab">
-            <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME <span class="bmtab visually-hidden"></span></a>
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME <span class="bmtab visually-hidden"></span></a>
         </li>
         <li id="@RevenueGroupType.Balance" class="hide-in-print" role="tab">
-            <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE <span class="bmtab visually-hidden"></span></a>
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE <span class="bmtab visually-hidden"></span></a>
         </li>
         @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@RevenueGroupType.Workforce" class="hide-in-print" role="tab">
-                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>
+                <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>
             </li>
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@RevenueGroupType.Salary" class="hide-in-print" role="tab">
-                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Salary')">@RevenueGroupNames.SALARY <span class="bmtab visually-hidden"></span></a>
+                <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Salary')">@RevenueGroupNames.SALARY <span class="bmtab visually-hidden"></span></a>
             </li>
             <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
                 @*<span class="visually-hidden">@RevenueGroupNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
                 <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')" ng-click="ctrl.displayCustomReport()">
-                    <span>@RevenueGroupNames.CUSTOM <span style="display: inline-block"> (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span></span>
+                    <span>@RevenueGroupNames.CUSTOM<br /><span style="display: inline-block"> (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span></span>
                     <span class="bmtab visually-hidden">tab</span>
                 </a>
                 @*<a class="helpLink hide-in-print" href="#" id="renderYourChartsInfo" onclick="DfE.Util.ModalRenderer.RenderYourChartsInfoModal()">
@@ -40,13 +40,13 @@
             if (Model.ComparisonType == ComparisonType.BestInClass)
             {
                 <li id="BestInClass" class="comparison-tab hide-in-print" role="tab">
-                    <a class="tab-link comp" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
+                    <a class="tab-link comp tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
                 </li>
             }
             else
             {
                 <li id="ComparisonSchools" class="comparison-tab hide-in-print" role="tab">
-                    <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('ComparisonSchools')">Comparison schools</a>
+                    <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('ComparisonSchools')">Comparison schools</a>
                 </li>
             }
         }
