@@ -13,6 +13,11 @@
     }
 }
 
+.font-xxxsmall {
+    font-size: 10px;
+    line-height: 1;
+}
+
 a.button {
     font-size: 19px;
     @include media(mobile){

@@ -702,6 +702,7 @@
         .col-header {
             white-space: nowrap;
             font-weight: bold;
+            font-size: 14px;
         }
     }
 }
@@ -748,6 +749,9 @@
     &.na {
         background-color: $panel-colour;
         min-height: 34px;
+        @include media(mobile){
+            min-height: unset;
+        }
 
         div {
             padding-top: 8%;
