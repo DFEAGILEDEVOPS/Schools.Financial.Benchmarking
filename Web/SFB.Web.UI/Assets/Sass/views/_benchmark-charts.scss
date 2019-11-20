@@ -29,6 +29,10 @@
         line-height: 1.8em;
         font-weight: bold;
 
+        @include media(mobile){
+            padding: 4px 6px;
+        }
+
         &.index-highlight {
             background-color: $pink_contrast;
         }
@@ -664,6 +668,42 @@
     .chart-table-wrapper {
         padding: 0 15px;
     }
+
+    .chart-table--mobile-only-view {
+        display: none;
+
+        @include media(mobile) {
+            display: table;
+        }
+    }
+
+    .chart-table--mobile-above-view {
+        display: none;
+
+        @include media(tablet) {
+            display: table;
+        }
+    }
+
+    table.chart-table--detail-view.chart-table--mobile-only-view {
+        tbody tr td {
+            text-align: left;
+        }
+    }
+    
+    .chart-table--detail-view{
+        margin-top: 5px;
+    }
+
+    .chart-table--detail-view__body {
+        border-top: 1px double black;
+        border-bottom: 1px double black;
+
+        .col-header {
+            white-space: nowrap;
+            font-weight: bold;
+        }
+    }
 }
 
 .score {
@@ -676,6 +716,10 @@
     padding: .6em;
     line-height: 14px;
     margin: 0 0 0 1em;
+
+    @include media(mobile){
+        margin: 0;
+    }
 
     &.well-below {
         background-color: #df3034;

@@ -704,22 +704,6 @@ abbr[title]{
     }
 }
 
-.chart-table--mobile-only-view {
-    display: none;
-
-    @include media(mobile) {
-        display: table;
-    }
-}
-
-.chart-table--mobile-above-view {
-    display: none;
-
-    @include media(tablet) {
-        display: table;
-    }
-}
-
 .back-button {
     margin-top: 2%;
 
@@ -847,6 +831,11 @@ abbr.summary{
 .skip-map, .hidden-button {
     color: white !important;
     font-size: 16px;
+
+    @include media(mobile) {
+        font-size: 12px;
+        font-weight: normal;
+    }
 
     &:focus {
         height: auto;
