@@ -14,7 +14,71 @@
 
             <p class="show-count-js no-margin mt-1">Showing <span class="bold-xsmall">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>
 
-            <table class="tablesorter data-table-js" id="ProgressScoresTable">
+            <table class="tablesorter data-table-js chart-table--mobile-only-view chart-table--detail-view" id="ProgressScoresTableMobile">
+                @foreach (var bicSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
+                {
+                <tbody class="chart-table--detail-view__body">
+                    <tr>
+                        <th scope="row" class="col-header">School name</th>
+                        <td aria-label="@bicSchool.Name @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "index school" : "")">
+                            <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="col-header">Local authority</th>
+                        <td aria-label="@bicSchool.LaName local authority">@bicSchool.LaName</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="col-header">Pupils</th>
+                        <td aria-label="@bicSchool.TotalPupils pupils">@bicSchool.TotalPupils</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="col-header">FSM</th>
+                        <td aria-label="@bicSchool.FSM% Percentage of Eligible Free School Meals">@bicSchool.FSM%</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="col-header">EHCP</th>
+                        <td aria-label="@bicSchool.SEN% Percentage of pupil with special education needs">@bicSchool.SEN%</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="col-header">Expenditure per pupil</th>
+                        <td aria-label="@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C") Expenditure per pupil">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="col-header">Urban/rural description</th>
+                        <td>@bicSchool.UrbanRural</td>
+                    </tr>
+                    <tr>
+                        @if (ViewBag.BicComparisonOverallPhase == "Secondary")
+                        {
+                            <th scope="row" class="col-header">
+                                Progress 8
+                                <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
+                                    <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
+                                </button>
+                            </th>
+                        }
+                        else
+                        {
+                            <th scope="row" class="col-header">
+                                Key stage 2 progress
+                                <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
+                                    <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
+                                </button>
+                            </th>
+                        }
+                        <td class="no-padding" aria-label="@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2") @ViewHelpers.ScoreText(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase) Progress score">
+                            <div class="score @ViewHelpers.ScoreColorCode(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
+                                <span class="font-xsmall">@bicSchool.ProgressScore.GetValueOrDefault().ToString("F2")</span>
+                                <span class="no-wrap ml-1 font-xxxsmall">@ViewHelpers.ScoreText(bicSchool.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                }
+            </table>
+
+            <table class="tablesorter data-table-js chart-table--mobile-above-view" id="ProgressScoresTable">
                 <thead>
                     <tr>
                         <th nowrap scope="col" class="school-column">School</th>
