@@ -751,6 +751,7 @@
             $("#PdfLinkText").text(" Download report");
             let scope = angular.element($("#listCtrl")).scope();
             scope.ctrl.displayCustomReport();
+            $('.sticky-div').Stickyfill();  
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
             $(".tabs li a span.bmtab").text("");

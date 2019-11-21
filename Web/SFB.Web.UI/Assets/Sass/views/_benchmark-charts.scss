@@ -29,7 +29,7 @@
         line-height: 1.8em;
         font-weight: bold;
 
-        @include media(mobile){
+        @include media(mobile) {
             padding: 4px 6px;
         }
 
@@ -613,6 +613,33 @@
         }
     }
 
+    .sticky-custom-controls {
+        margin: 0;
+        background-color: $page-colour;
+        border-bottom: 1px solid $border-colour;
+        
+        .chart-filter {
+            height: 75px;
+        }
+
+        @include media(tablet) {
+            margin: 0 15px;
+            height: 93px;
+
+            .chart-filter:first-of-type {
+                padding-left: 0;
+            }
+
+            .chart-filter:last-of-type {
+                padding-right: 0;
+            }
+
+            .form-group {
+                padding-bottom: 20px;
+            }
+        }
+    }
+
     .sticky-chart-controls {
         margin: 0;
         background-color: $page-colour;
@@ -690,8 +717,8 @@
             text-align: left;
         }
     }
-    
-    .chart-table--detail-view{
+
+    .chart-table--detail-view {
         margin-top: 5px;
     }
 
