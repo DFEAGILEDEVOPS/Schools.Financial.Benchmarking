@@ -36,10 +36,11 @@ namespace SFB.Web.UI.Controllers
         private readonly IBenchmarkCriteriaBuilderService _benchmarkCriteriaBuilderService;
         private readonly IComparisonService _comparisonService;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IBicComparisonResultCachingService _bicComparisonResultCachingService;
 
         public BenchmarkChartsController(IBenchmarkChartBuilder benchmarkChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ILocalAuthoritiesService laService, IDownloadCSVBuilder csvBuilder,
             IContextDataService contextDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService, IComparisonService comparisonService,
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IBicComparisonResultCachingService bicComparisonResultCachingService)
         {
             _benchmarkChartBuilder = benchmarkChartBuilder;
             _financialDataService = financialDataService;
@@ -50,6 +51,7 @@ namespace SFB.Web.UI.Controllers
             _benchmarkCriteriaBuilderService = benchmarkCriteriaBuilderService;
             _comparisonService = comparisonService;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _bicComparisonResultCachingService = bicComparisonResultCachingService;
         }
 
 
@@ -234,8 +236,6 @@ namespace SFB.Web.UI.Controllers
             return await Index(urn, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
 
-        [HttpGet]
-        [OutputCache(Duration = 28800, VaryByParam = "urn", Location = OutputCacheLocation.Server, NoStore = true)]
         public async Task<ActionResult> GenerateFromBicCriteria(int urn)
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
@@ -272,11 +272,15 @@ namespace SFB.Web.UI.Controllers
 
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(benchmarkSchool.LatestYearFinancialData, bicCriteria);
 
-            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithBestInClassComparisonAsync(
-                bicCriteria.EstablishmentType,
-                benchmarkCriteria,
-                bicCriteria,
-                benchmarkSchool.LatestYearFinancialData);
+            var comparisonResult = _bicComparisonResultCachingService.GetBicComparisonResultByUrn(urn);
+
+            if (comparisonResult == null)
+            {
+                comparisonResult = await _comparisonService.GenerateBenchmarkListWithBestInClassComparisonAsync(bicCriteria.EstablishmentType, benchmarkCriteria,
+                                                                         bicCriteria, benchmarkSchool.LatestYearFinancialData);
+
+                _bicComparisonResultCachingService.StoreBicComparisonResultByUrn(urn, comparisonResult);
+            }
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
 

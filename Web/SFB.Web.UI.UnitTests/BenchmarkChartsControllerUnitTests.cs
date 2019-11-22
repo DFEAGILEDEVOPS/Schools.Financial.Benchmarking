@@ -106,7 +106,9 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";            
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object);
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
+            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -181,8 +183,10 @@ namespace SFB.Web.UI.UnitTests
                 .Setup(m => m.BuildFromSimpleComparisonCriteria(It.IsAny<FinancialDataModel>(), It.IsAny<SimpleCriteria>(), 0))
                 .Returns(new BenchmarkCriteria());
 
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null,
-                mockEdubaseDataService.Object, mockBenchmarkCriteriaBuilderService.Object, mockComparisonService.Object, mockCookieManager.Object);
+                mockEdubaseDataService.Object, mockBenchmarkCriteriaBuilderService.Object, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -255,8 +259,10 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, 
-                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object);
+                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -331,8 +337,10 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null,
-                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object);
+                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -372,8 +380,10 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, 
-                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object);
+                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -416,8 +426,10 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, 
-                mockEdubaseDataService.Object, benchmarkCriteriaBuilderService, mockComparisonService.Object, mockCookieManager.Object);
+                mockEdubaseDataService.Object, benchmarkCriteriaBuilderService, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -462,9 +474,10 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, 
-                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object);
+                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -511,8 +524,10 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, 
-                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object);
+                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -546,10 +561,12 @@ namespace SFB.Web.UI.UnitTests
             }
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
             var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object, 
                 new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object, 
                 new Mock<ILocalAuthoritiesService>().Object, null,
-                new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object, mockCookieManager.Object);
+                new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -580,10 +597,12 @@ namespace SFB.Web.UI.UnitTests
             }
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
 
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
             var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object,
                 new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object,
                 new Mock<ILocalAuthoritiesService>().Object, null,
-                new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object, mockCookieManager.Object);
+                new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
