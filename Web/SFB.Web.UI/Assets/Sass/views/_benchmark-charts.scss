@@ -617,7 +617,7 @@
         margin: 0;
         background-color: $page-colour;
         border-bottom: 1px solid $border-colour;
-        
+
         .chart-filter {
             height: 75px;
         }
@@ -661,7 +661,6 @@
         }
 
         @include media(tablet) {
-            margin: 0 15px;
             height: 93px;
 
             .chart-filter:first-of-type {
@@ -683,6 +682,7 @@
     }
 
     .chart-wrapper {
+
         @include media(tablet) {
             max-width: 708px;
         }

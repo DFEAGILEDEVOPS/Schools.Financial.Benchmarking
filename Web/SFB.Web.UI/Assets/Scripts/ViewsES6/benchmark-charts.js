@@ -641,6 +641,8 @@
         if (document.getElementById('bm-charts-accordion')){
             new Accordion(document.getElementById('bm-charts-accordion'));
         }
+        new Accordion(document.getElementById('controls-accordion'));
+
     }
 
     SelectGrouping(grouping, parentGrouping) {
