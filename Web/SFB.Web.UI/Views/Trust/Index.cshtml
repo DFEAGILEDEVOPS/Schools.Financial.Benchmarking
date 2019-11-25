@@ -61,7 +61,7 @@
 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 <div class="grid-row">
     @if (!Model.IsReturnsDNS)
-    { 
+    {
         <div class="column-third">
             <a class="button" href="/TrustComparison?companyNo=@Model.CompanyNo&matName=@Model.Name">Compare with other trusts</a>
         </div>
@@ -180,10 +180,23 @@
 </nav>
 
 <div class="sticky-div sticky-chart-controls">
-    @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-    @Html.Partial("Partials/ValueSelect")
-    @Html.Partial("Partials/TrustCentralFinancing")
+    <div id="controls-accordion" class="accordion mobile-only-accordion">
+        <div class="accordion-section">
+            <fieldset role="group">
+                <legend class="visually-hidden">Filters</legend>
+                <div class="accordion-section-header">
+                    <h2 class="heading-medium">Filters</h2>
+                </div>
+                <div class="accordion-section-body">
+                    @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                    @Html.Partial("Partials/ValueSelect")
+                    @Html.Partial("Partials/TrustCentralFinancing")
+                </div>
+            </fieldset>
+        </div>
+    </div>
 </div>
+
 <div class="charts-section">
     <div class="grid-row">
         <div autocomplete="off">
