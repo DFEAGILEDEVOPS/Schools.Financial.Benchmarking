@@ -592,7 +592,8 @@
             },
             padding: {
                 bottom: 10,
-                left: isMobile ? (isBic ? 180 : 140) : (isBic ? 360 : 310)
+                left: isMobile ? (isBic ? 180 : 140) : (isBic ? 360 : 310),
+                right: 15
             },
             onrendered: () => {
                 applyChartStyles(el);
