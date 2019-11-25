@@ -54,7 +54,7 @@
                 }
             </div>
         </div>
-        <div class="chart-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
+        <div class="chart-wrapper" style="padding-right: 15px; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
             <div class="chart-wrapper__inner column-three-quarters">
                 <div id="chart_@Model.Id" class="chart" data-axis-label="@Model.ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model.DataJson'></div>
             </div>
