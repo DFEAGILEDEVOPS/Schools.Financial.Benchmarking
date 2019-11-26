@@ -28,7 +28,7 @@
             </li>
             <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
                 @*<span class="visually-hidden">@RevenueGroupNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
-                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')" ng-click="ctrl.displayCustomReport()">
+                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">
                     <span>@RevenueGroupNames.CUSTOM<br /><span style="display: inline-block"> (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span></span>
                     <span class="bmtab visually-hidden">tab</span>
                 </a>

@@ -3,19 +3,31 @@
 
 <div class="charts-section">
     <div class="grid-row">
-        <div class="sticky-div sticky-custom-controls">
-            <div class="column-one-third chart-filter">
-                <div class="form-group">
-                    <label class="form-label" for="CFinancing">Academy values</label>
-                    <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
-                        <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
-                        <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
-                    </select>
+        <div class="column-full">
+            <div class="sticky-div sticky-custom-controls">
+                <div id="custom-controls-accordion" class="accordion mobile-only-accordion">
+                    <div class="accordion-section">
+                        <fieldset role="group">
+                            <legend class="visually-hidden">Filters</legend>
+                            <div class="accordion-section-header">
+                                <h2 class="heading-medium">Filters</h2>
+                            </div>
+                            <div class="accordion-section-body">
+                                <div class="column-one-third chart-filter">
+                                    <div class="form-group">
+                                        <label class="form-label" for="CFinancing">Academy values</label>
+                                        <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
+                                            <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
+                                            <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="column-full">
             <div class="column-full no-padding mt-1">
                 <div class="font-xsmall chartTable hide-in-print">
                     <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
@@ -118,33 +130,33 @@
                     </div>
                 </div>
             </details>
-        </div>
 
-        <div id="CustomReportContentPlaceHolder" class="column-full"></div>
+            <div id="CustomReportContentPlaceHolder"></div>
 
-        <div class="column-full" id="contextTable" ng-cloak ng-show="ctrl.anySelected()">
-            <h2 class="heading-medium" id="contextExp">School context data</h2>
-            <table id="contextDataTable" class="tablesorter context-table">
-                <thead>
-                    <tr>
-                        <th scope="col" class="school-column">School name</th>
-                        <th scope="col">Local authority</th>
-                        <th scope="col">School type</th>
-                        <th scope="col">Number of pupils</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="school in schoolChartData">
-                        <td class="school-column">
-                            <span ng-class="{'bold-xsmall' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
-                            <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
-                        </td>
-                        <td>{{school.la}}</td>
-                        <td>{{school.type}}</td>
-                        <td>{{school.pupilCount}}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="contextTable" ng-cloak ng-show="ctrl.anySelected()">
+                <h2 class="heading-medium" id="contextExp">School context data</h2>
+                <table id="contextDataTable" class="tablesorter context-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="school-column">School name</th>
+                            <th scope="col">Local authority</th>
+                            <th scope="col">School type</th>
+                            <th scope="col">Number of pupils</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="school in schoolChartData">
+                            <td class="school-column">
+                                <span ng-class="{'bold-xsmall' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
+                                <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
+                            </td>
+                            <td>{{school.la}}</td>
+                            <td>{{school.type}}</td>
+                            <td>{{school.pupilCount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

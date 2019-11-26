@@ -113,7 +113,6 @@ a.button {
         @include media(mobile){
             margin-top: 0;
             margin-bottom: 0;
-            padding-top: 0;
             padding-bottom: 0;
 
             .chart-filter{
@@ -123,91 +122,95 @@ a.button {
     }
 }
 
-    .banner {
-        @extend %banner-box;
+.latest-year-message{
+    clear: both;
+}
 
-        &__comparison-list-info-panel {
-            @include core-16;
-            background-color: #D9ECE2;
-            padding: 20px;
+.banner {
+    @extend %banner-box;
 
-            .message {
-                display: block;
-                margin-bottom: 10px;
+    &__comparison-list-info-panel {
+        @include core-16;
+        background-color: #D9ECE2;
+        padding: 20px;
 
-                @include media(desktop) {
-                    display: inline-block;
-                    margin-bottom: 0;
-                }
+        .message {
+            display: block;
+            margin-bottom: 10px;
+
+            @include media(desktop) {
+                display: inline-block;
+                margin-bottom: 0;
             }
+        }
 
-            &__count {
-                font-weight: bold;
-            }
+        &__count {
+            font-weight: bold;
+        }
 
-            &__edit-basket {
-                margin-left: 0;
-                width: 100%;
+        &__edit-basket {
+            margin-left: 0;
+            width: 100%;
 
-                @include media(desktop) {
-                    margin-left: 15px;
-                    width: auto;
-                }
-            }
-
-            &__clear-criteria {
-                margin-right: 15px;
+            @include media(desktop) {
                 margin-left: 15px;
-
-                @include media(mobile) {
-                    margin-left: 0;
-                    margin-top: 10px;
-                    display: block;
-                }
-            }
-
-            .add-schools {
-                display: block;
-                margin-top: 10px;
-
-                @include media(tablet) {
-                    display: inline-block;
-                    float: right;
-                    margin-top: 0;
-                }
-            }
-
-            @include media(mobile) {
-                padding: 10px;
+                width: auto;
             }
         }
 
-        .button.view-benchmark {
-            float: right;
-            bottom: 5px;
-        }
-
-        div.view-benchmark-charts-wrapper {
-            float: right;
-            top: -5px;
-            position: relative;
-
-            @media (max-width: 1024px) {
-                float: none;
-                bottom: 0;
-                display: block;
-                margin-top: 10px;
-            }
+        &__clear-criteria {
+            margin-right: 15px;
+            margin-left: 15px;
 
             @include media(mobile) {
-                margin-top: 1em;
+                margin-left: 0;
+                margin-top: 10px;
+                display: block;
             }
+        }
 
-            .button {
-                font-size: 16px;
+        .add-schools {
+            display: block;
+            margin-top: 10px;
+
+            @include media(tablet) {
+                display: inline-block;
+                float: right;
+                margin-top: 0;
             }
+        }
+
+        @include media(mobile) {
+            padding: 10px;
         }
     }
+
+    .button.view-benchmark {
+        float: right;
+        bottom: 5px;
+    }
+
+    div.view-benchmark-charts-wrapper {
+        float: right;
+        top: -5px;
+        position: relative;
+
+        @media (max-width: 1024px) {
+            float: none;
+            bottom: 0;
+            display: block;
+            margin-top: 10px;
+        }
+
+        @include media(mobile) {
+            margin-top: 1em;
+        }
+
+        .button {
+            font-size: 16px;
+        }
+    }
+}
 
     .js-enabled {
 

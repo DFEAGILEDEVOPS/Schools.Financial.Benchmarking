@@ -12,6 +12,10 @@
             $("#comparisonSchoolsTabSection table.data-table-js").tablesorter(
                 { sortList: [[0, 0]] }
             );
+
+            new Accordion(document.getElementById('controls-accordion'));
+            new Accordion(document.getElementById('custom-controls-accordion'));
+
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
             $('.save-as-image').show();
@@ -25,7 +29,6 @@
 
         GOVUK.Modal.Load();
     }
-
 
     //This function is accessing to the scope of the AngularJS controller to retrieve the chart selections model and update the buttons accordingly in other tabs.
     RefreshAddRemoveLinks() {
@@ -642,8 +645,6 @@
         if (document.getElementById('bm-charts-accordion')){
             new Accordion(document.getElementById('bm-charts-accordion'));
         }
-        new Accordion(document.getElementById('controls-accordion'));
-
     }
 
     SelectGrouping(grouping, parentGrouping) {
@@ -833,6 +834,9 @@
                     $("#PdfLinkText").text(" Download page");
                     let stickyDivHtml = $(data).find(".sticky-div")[0];
                     $("#tabsSection .sticky-chart-controls").replaceWith(stickyDivHtml);
+                    if (document.getElementById('controls-accordion')) {
+                        new Accordion(document.getElementById('controls-accordion'));
+                    }
                     let formHtml = $(data).find("form").html();
                     $("#tabsSection form").html(formHtml);
                     $("#tabsSection form").show();
@@ -841,7 +845,7 @@
                     let unitParameter = $("#ShowValue").val();
                     this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
-                    this.GenerateCharts(unitParameter);                  
+                    this.GenerateCharts(unitParameter);    
                 }
             });
         }

@@ -613,34 +613,7 @@
         }
     }
 
-    .sticky-custom-controls {
-        margin: 0;
-        background-color: $page-colour;
-        border-bottom: 1px solid $border-colour;
-
-        .chart-filter {
-            height: 75px;
-        }
-
-        @include media(tablet) {
-            margin: 0 15px;
-            height: 93px;
-
-            .chart-filter:first-of-type {
-                padding-left: 0;
-            }
-
-            .chart-filter:last-of-type {
-                padding-right: 0;
-            }
-
-            .form-group {
-                padding-bottom: 20px;
-            }
-        }
-    }
-
-    .sticky-chart-controls {
+    .sticky-chart-controls, .sticky-custom-controls {
         margin: 0;
         background-color: $page-colour;
         border-bottom: 1px solid $border-colour;
@@ -656,8 +629,7 @@
         }
 
         &.Salary {
-            height: 0;
-            border-bottom: 0;
+            display:none;
         }
 
         @include media(tablet) {
