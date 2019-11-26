@@ -979,7 +979,7 @@ a.button {
         margin-bottom: 20px;
     }
     /* table sorter */
-    table.tablesorter thead tr .header {
+    table.tablesorter thead tr .tablesorter-header {
         //background-image: url(/public/assets/images/bg.gif);
         background-repeat: no-repeat;
         background-position: center right;
@@ -990,16 +990,17 @@ a.button {
         text-decoration: underline;
     }
 
-    table.tablesorter thead tr .headerSortUp {
+    table.tablesorter thead tr .tablesorter-headerDesc {
         background-image: url(/public/assets/images/asc.gif);
         font-weight: bold;
     }
 
-    table.tablesorter thead tr .headerSortDown {
+    table.tablesorter thead tr .tablesorter-headerAsc {
         background-image: url(/public/assets/images/desc.gif);
         font-weight: bold;
     }
     /* table sorter */
+
     /*chart table*/
     body.print-mode .hide-in-print {
         display: none !important;
