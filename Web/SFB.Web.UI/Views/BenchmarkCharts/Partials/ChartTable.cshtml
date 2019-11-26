@@ -4,7 +4,7 @@
 <button onclick="DfE.Util.focusTo('post-table-@Model.Name.Replace(" ","")')" class="hidden-button a-button">Skip the table @Model.Name</button>
 <button aria-hidden="True" class="mobile-hide-show-button show detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)">&#9664; Show details</button>
 <button aria-hidden="True" class="mobile-hide-show-button hide detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)" style="display: none">Hide details&nbsp;&#9654;</button>
-<table class="tablesorter chart-table chart-table--mobile-only-view chart-table--summary-view">
+<table class="tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--summary-view">
     <thead>
         <tr>
             <th class="school-column" scope="col" data-header="School name">
@@ -101,7 +101,7 @@
         }
     </tbody>
 </table>
-<table class="tablesorter chart-table chart-table--mobile-only-view chart-table--detail-view" style="display: none">
+<table class="tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--detail-view" style="display: none">
     @for (int i = 0; i < Model.BenchmarkData.Count; i++)
     {
         <tbody class="chart-table--detail-view__body">
@@ -235,7 +235,7 @@
 
 </table>
 
-<table class="tablesorter chart-table chart-table--mobile-above-view">
+<table class="tablesorter data-table-js chart-table chart-table--mobile-above-view">
     <thead>
         <tr>
             <th class="school-column" scope="col" data-header="School name">

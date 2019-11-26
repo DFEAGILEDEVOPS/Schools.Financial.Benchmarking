@@ -7,14 +7,30 @@
         $(document).ready(() => {
             $("#benchmarkChartsList table.data-table-js").tablesorter();
             $("#bestInClassTabSection table.data-table-js").tablesorter(
-                { sortList: [[7, 1]] }
-            );
-            $("#comparisonSchoolsTabSection table.data-table-js").tablesorter(
-                { sortList: [[0, 0]] }
+                {
+                    sortList: [[7, 1]],
+                    headers: {
+                        7: { sorter: "digit", string: "bottom" },  // non-numeric content is treated as a bottom value
+                    }
+                }
             );
 
-            new Accordion(document.getElementById('controls-accordion'));
-            new Accordion(document.getElementById('custom-controls-accordion'));
+            $("#comparisonSchoolsTabSection table.data-table-js").tablesorter(
+                {
+                    sortList: [[0, 0]],
+                    headers: {
+                        4: { sorter: "digit", string: "bottom" },  // non-numeric content is treated as a bottom value
+                        5: { sorter: "digit", string: "bottom" }  // non-numeric content is treated as a bottom value
+                    }}
+            );
+
+            if (document.getElementById('controls-accordion')) {
+                new Accordion(document.getElementById('controls-accordion'));
+            }
+
+            if (document.getElementById('custom-controls-accordion')) {
+                new Accordion(document.getElementById('custom-controls-accordion'));
+            }
 
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
