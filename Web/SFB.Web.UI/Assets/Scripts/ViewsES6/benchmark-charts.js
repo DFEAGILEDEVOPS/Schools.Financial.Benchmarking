@@ -4,6 +4,16 @@
 
         sessionStorage.chartFormat = 'Charts';
 
+        if (document.getElementById('controls-accordion')) {
+            new Accordion(document.getElementById('controls-accordion'));
+            $("#controls-accordion").show();
+        }
+
+        if (document.getElementById('custom-controls-accordion')) {
+            new Accordion(document.getElementById('custom-controls-accordion'));
+            $("#custom-controls-accordion").show();
+        }
+
         $(document).ready(() => {
             $("#benchmarkChartsList table.data-table-js").tablesorter();
             $("#bestInClassTabSection table.data-table-js").tablesorter(
@@ -23,14 +33,6 @@
                         5: { sorter: "digit", string: "bottom" }  // non-numeric content is treated as a bottom value
                     }}
             );
-
-            if (document.getElementById('controls-accordion')) {
-                new Accordion(document.getElementById('controls-accordion'));
-            }
-
-            if (document.getElementById('custom-controls-accordion')) {
-                new Accordion(document.getElementById('custom-controls-accordion'));
-            }
 
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
@@ -852,6 +854,7 @@
                     $("#tabsSection .sticky-chart-controls").replaceWith(stickyDivHtml);
                     if (document.getElementById('controls-accordion')) {
                         new Accordion(document.getElementById('controls-accordion'));
+                        $("#controls-accordion").show();
                     }
                     let formHtml = $(data).find("form").html();
                     $("#tabsSection form").html(formHtml);
