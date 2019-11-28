@@ -29,7 +29,8 @@
                 {
                     sortList: [[0, 0]],
                     headers: {
-                        4: { sorter: "digit", string: "bottom" },  // non-numeric content is treated as a bottom value
+                        3: { sorter: "digit", string: "bottom" }, 
+                        4: { sorter: "digit", string: "bottom" }, 
                         5: { sorter: "digit", string: "bottom" }  // non-numeric content is treated as a bottom value
                     }}
             );
