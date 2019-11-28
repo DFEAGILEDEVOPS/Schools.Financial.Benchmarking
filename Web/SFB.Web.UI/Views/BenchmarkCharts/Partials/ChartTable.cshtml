@@ -181,7 +181,7 @@
                         </td>
                     }
                     <td>
-                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
+                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" ? "P8" : "KS2")">
                             <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                         </div>
                     </td>
@@ -332,7 +332,7 @@
                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                 {
                     <td class="detail" data-header="Progress Score">
-                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase)">
+                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" ? "P8" : "KS2")">
                             <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                         </div>
                     </td>

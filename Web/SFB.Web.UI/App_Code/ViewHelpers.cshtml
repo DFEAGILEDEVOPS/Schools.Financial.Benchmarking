@@ -88,9 +88,9 @@
     }
 }
 
-@helper ScoreText(decimal score, string overallPhase)
+@helper ScoreText(decimal score, string progressScoreType)
 {
-    if (overallPhase == "Secondary")
+    if (progressScoreType == "P8")
     {
         if (score < -0.5m)
         {
@@ -113,7 +113,7 @@
             @("Well above average")
         }
     }
-    else
+    else if (progressScoreType == "KS2")
     {
         if (score < -3m)
         {
@@ -136,14 +136,18 @@
             @("Well above average")
         }
     }
+    else
+    {
+        @("na")
+    }
 }
 
-@helper ScoreColorCode(decimal? score, string overallPhase)
+@helper ScoreColorCode(decimal? score, string progressScoreType)
 {
     if (score.HasValue)
     {
 
-        if (overallPhase == "Secondary")
+        if (progressScoreType == "P8")
         {
             if (score < -0.5m)
             {
@@ -166,7 +170,7 @@
                 @("well-above")
             }
         }
-        else
+        else if (progressScoreType == "KS2")
         {
             if (score < -3m)
             {
@@ -188,6 +192,10 @@
             {
                 @("well-above")
             }
+        }
+        else
+        {
+            @("na")
         }
     }
     else

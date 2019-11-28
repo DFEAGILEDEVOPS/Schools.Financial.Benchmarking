@@ -192,9 +192,24 @@ namespace SFB.Web.UI.Models
 
         public string OverallPhaseInFinancialSubmission => LatestYearFinancialData.SchoolOverallPhase;
 
+        public string BicProgressScoreType
+        {
+            get {
+                switch (OverallPhaseInFinancialSubmission)
+                {
+                    case "Primary":
+                        return "KS2";
+                    case "Secondary":
+                        return "P8";
+                    default:
+                        return "na";
+                }
+            }
+        }
+
         public bool HasProgressScore => LatestYearFinancialData.Ks2Progress.HasValue || LatestYearFinancialData.P8Mea.HasValue;
 
-        public decimal? ProgressScore => PhaseInFinancialSubmission == "Secondary" ?
+        public decimal? ProgressScore => BicProgressScoreType== "P8" ?
                         LatestYearFinancialData.P8Mea : 
                         LatestYearFinancialData.Ks2Progress;
 

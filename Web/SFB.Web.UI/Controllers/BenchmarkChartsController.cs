@@ -292,7 +292,7 @@ namespace SFB.Web.UI.Controllers
                     Type = schoolData.Type,
                     EstabType = schoolData.FinanceType,
                     Urn = schoolData.URN.ToString(),
-                    ProgressScore = schoolData.OverallPhase == "Secondary" ?
+                    ProgressScore = benchmarkSchool.BicProgressScoreType== "P8" ?
                         schoolData.Progress8Measure
                         : decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
 
@@ -348,7 +348,6 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartFormat = ChartFormat.Charts;
             ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
             ViewBag.Financing = CentralFinancingType.Include;
-
 
             return View(vm);
         }
@@ -725,7 +724,6 @@ namespace SFB.Web.UI.Controllers
             ViewBag.TrustFinancing = trustCentralFinancing;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BicComparisonOverallPhase = bicComparisonOverallPhase;
 
             return PartialView("Partials/Chart", benchmarkCharts);
         }
