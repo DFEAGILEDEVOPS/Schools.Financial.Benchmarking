@@ -13,13 +13,13 @@
                         <th class="numeric" scope="col">Pupils</th>
                         <th class="numeric numeric comp-school-table__phase-col" scope="col">Phase of education</th>
                         <th nowrap class="numeric" scope="col">Ofsted rating</th>
-                        <th class="numeric comp-school-table__ks-col" scope="col">
+                        <th class="numeric comp-school-table__ks-col th-ks2-js" scope="col">
                             Key stage 2 progress
                             <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
                                 <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
                             </button>
                         </th>
-                        <th class="numeric comp-school-table__ks-col" scope="col">
+                        <th class="numeric comp-school-table__ks-col th-p8-js" scope="col">
                             Progress 8
                             <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
                                 <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
@@ -48,7 +48,7 @@
                                 @cSchool.OfstedRatingText <span class="visually-hidden">ofsted rating</span>
                                 <br><span class="font-xxsmall not-bold">Inspected @cSchool.OfstedInspectionDate</span>
                             </td>
-                            <td class="numeric no-padding" scope="col">
+                            <td class="numeric no-padding td-ks2-js" scope="col">
                                 <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, "KS2")">
                                     <div class="font-xsmall">@(cSchool.KS2ProgressScore.HasValue ? cSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                     @if (cSchool.KS2ProgressScore.HasValue)
@@ -58,7 +58,7 @@
                                     <span class="visually-hidden">Key stage 2 progress score</span>
                                 </div>
                             </td>
-                            <td class="numeric no-padding" scope="col">
+                            <td class="numeric no-padding td-p8-js" scope="col">
                                 <div class="score @ViewHelpers.ScoreColorCode(cSchool.P8ProgressScore, "P8")">
                                     <div class="font-xsmall">@(cSchool.P8ProgressScore.HasValue ? cSchool.P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                     @if (cSchool.P8ProgressScore.HasValue)

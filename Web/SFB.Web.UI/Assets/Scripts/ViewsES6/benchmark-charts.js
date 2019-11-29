@@ -15,6 +15,8 @@
         }
 
         $(document).ready(() => {
+            this.hideNaProgressScores();
+
             $("#benchmarkChartsList table.data-table-js").tablesorter();
             $("#bestInClassTabSection table.data-table-js").tablesorter(
                 {
@@ -34,7 +36,7 @@
                         5: { sorter: "digit", string: "bottom" }  // non-numeric content is treated as a bottom value
                     }}
             );
-
+            
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
             $('.save-as-image').show();
@@ -737,6 +739,27 @@
                 $("table.data-table-js").tablesorter();
             }
         });
+    }
+
+    hideNaProgressScores() {
+        if ($("#ComparisonSchoolsTable").length > 0) {
+            let rowCount = $("#ComparisonSchoolsTable tbody tr").length;
+            let naKs2Count = $("#ComparisonSchoolsTable tbody tr .td-ks2-js .score.na").length;
+            let naP8Count = $("#ComparisonSchoolsTable tbody tr .td-p8-js .score.na").length;
+            if (rowCount === naKs2Count) {
+                let naKs2th = $("#ComparisonSchoolsTable thead tr th.th-ks2-js");
+                let naKs2td = $("#ComparisonSchoolsTable tbody tr .td-ks2-js");
+                naKs2th.hide();
+                naKs2td.hide();
+            }
+
+            if (rowCount === naP8Count) {
+                let naP8th = $("#ComparisonSchoolsTable thead tr .th-p8-js");
+                let naP8td = $("#ComparisonSchoolsTable tbody tr .td-p8-js");
+                naP8th.hide();
+                naP8td.hide();
+            }
+        }
     }
 
     saveAsImage(name, id) {
