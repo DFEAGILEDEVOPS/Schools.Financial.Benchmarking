@@ -46,6 +46,7 @@
                                     <span class="rating rating-@cSchool.OfstedRating">@cSchool.OfstedRating</span>
                                 }
                                 @cSchool.OfstedRatingText <span class="visually-hidden">ofsted rating</span>
+                                <br><span class="font-xxsmall not-bold">Inspected @cSchool.OfstedInspectionDate</span>
                             </td>
                             <td class="numeric no-padding" scope="col">
                                 <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, "KS2")">
@@ -99,8 +100,10 @@
                         </tr>
                         <tr>
                             <th scope="row" class="col-header">Ofsted rating</th>
-                            <td><span class="rating rating-@cSchool.OfstedRating">@cSchool.OfstedRating</span>  @cSchool.OfstedRatingText <span class="visually-hidden">ofsted rating</span></td>
-
+                            <td>
+                                <span class="rating rating-@cSchool.OfstedRating">@cSchool.OfstedRating</span>  @cSchool.OfstedRatingText <span class="visually-hidden">ofsted rating</span>
+                                <br><span class="font-xxsmall not-bold">Inspected @cSchool.OfstedInspectionDate</span>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row" class="col-header">
