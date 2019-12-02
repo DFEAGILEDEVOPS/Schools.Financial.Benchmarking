@@ -93,19 +93,19 @@
 
         if (info.CompanyNumber !== "0") {
           html += "<div class=\"mt-1\" style=\"font-style: italic\">Part of the </div>\n                    <div class=\"mb-1\"><a href=\"/trust/index?companyNo=".concat(info.CompanyNumber, "\">").concat(info.SponsorName, "</a></div>");
-        }
-
-        if ($("#SearchMethod").val() === "Manual") {
-          if (DfE.Util.ComparisonList.isInManualList(info.Id)) {
-            html += "<div class=\"button add add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('").concat(info.Id, "','Remove')\">Remove</div>");
-          } else {
-            html += "<div class=\"button add add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('").concat(info.Id, "','Remove')\">Remove</div>");
-          }
         } else {
-          if (DfE.Util.ComparisonList.isInList(info.Id)) {
-            html += "<div class=\"button add add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
+          if ($("#SearchMethod").val() === "Manual") {
+            if (DfE.Util.ComparisonList.isInManualList(info.Id)) {
+              html += "<div class=\"button add add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('").concat(info.Id, "','Remove')\">Remove</div>");
+            } else {
+              html += "<div class=\"button add add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateManualBasket('").concat(info.Id, "','Remove')\">Remove</div>");
+            }
           } else {
-            html += "<div class=\"button add add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
+            if (DfE.Util.ComparisonList.isInList(info.Id)) {
+              html += "<div class=\"button add add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
+            } else {
+              html += "<div class=\"button add add-remove\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('".concat(info.Id, "','Add')\">Add</div>\n                            <div class=\"button remove add-remove\" style=\"display: none\" onclick=\"DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('").concat(info.Id, "','Remove')\">Remove</div>");
+            }
           }
         }
 
