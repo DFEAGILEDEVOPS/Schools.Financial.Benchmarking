@@ -1037,9 +1037,9 @@
         var $modal_code = `<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'>
         <div role='document' class='save-modal-js page-1' style='display: block'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
-            <h1 id='modal-title' class='modal-title'>Save benchmarking basket</h1>
-            <p id='modal-content'>
-                Save your basket by copying the link below and saving it as a bookmark or in a document. Alternatively you can email the link to yourself or share with others.
+            <h1 id='modal-title' class='modal-title'>Save or share benchmark</h1>
+            <p id='modal-content' class='font-small'>
+                Save your benchmark by copying the link below and saving it as a bookmark or in a document. Alternatively you can email the link to yourself or share with others.
             </p>
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
