@@ -46,7 +46,10 @@
                                     <span class="rating rating-@cSchool.OfstedRating">@cSchool.OfstedRating</span>
                                 }
                                 @cSchool.OfstedRatingText <span class="visually-hidden">ofsted rating</span>
-                                <br><span class="font-xxsmall not-bold">Inspected @cSchool.OfstedInspectionDate</span>
+                                @if (cSchool.OfstedRatingText != "Not rated" && cSchool.OfstedInspectionDate != null)
+                                {
+                                    <br><span class="font-xxsmall not-bold">Inspected @cSchool.OfstedInspectionDate</span>
+                                }
                             </td>
                             <td class="numeric no-padding td-ks2-js" scope="col">
                                 <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, "KS2")">
@@ -101,8 +104,15 @@
                         <tr>
                             <th scope="row" class="col-header">Ofsted rating</th>
                             <td>
-                                <span class="rating rating-@cSchool.OfstedRating">@cSchool.OfstedRating</span>  @cSchool.OfstedRatingText <span class="visually-hidden">ofsted rating</span>
-                                <br><span class="font-xxsmall not-bold">Inspected @cSchool.OfstedInspectionDate</span>
+                                @if (cSchool.OfstedRating != "0")
+                                {
+                                    <span class="rating rating-@cSchool.OfstedRating">@cSchool.OfstedRating</span>
+                                }
+                                @cSchool.OfstedRatingText <span class="visually-hidden">ofsted rating</span>
+                                @if (cSchool.OfstedRatingText != "Not rated" && cSchool.OfstedInspectionDate != null)
+                                {
+                                    <br><span class="font-xxsmall not-bold">Inspected @cSchool.OfstedInspectionDate</span>
+                                }
                             </td>
                         </tr>
                         <tr>
