@@ -25,6 +25,11 @@ namespace SFB.Web.ApplicationCore.Services.Comparison
                 LondonWeighting = bicCriteria.LondonWeighting
             };
 
+            if(bicCriteria.OverallPhase == "All-through")
+            {
+                bmCriteria.SchoolPhase = new[] { "All-through" };
+            }
+
             if (bicCriteria.SENEnabled)
             {
                 bmCriteria.MinPerSEN = WithinPercentLimits(bicCriteria.PercentageSENMin - (bicCriteria.PercentageSENMin * percentageMargin / 100));

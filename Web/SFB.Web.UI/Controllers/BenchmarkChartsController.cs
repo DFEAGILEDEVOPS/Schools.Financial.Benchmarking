@@ -238,28 +238,27 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> GenerateFromBicCriteria(int urn)
         {
-            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
-            var bmFinancialData = benchmarkSchool.LatestYearFinancialData;
+            var benchmarkSchool = InstantiateBenchmarkSchool(urn);            
 
             var bicCriteria = new BestInClassCriteria()
             {
                 EstablishmentType = EstablishmentType.All,
                 OverallPhase = benchmarkSchool.OverallPhase,
-                UrbanRural = bmFinancialData.UrbanRural,
-                NoPupilsMin = WithinPositiveLimits((bmFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
-                NoPupilsMax = (bmFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
+                UrbanRural = benchmarkSchool.LatestYearFinancialData.UrbanRural,
+                NoPupilsMin = WithinPositiveLimits((benchmarkSchool.LatestYearFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
+                NoPupilsMax = (benchmarkSchool.LatestYearFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
                 PerPupilExpMin = 0,
-                PerPupilExpMax = bmFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP,
-                PercentageFSMMin = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
-                PercentageFSMMax = WithinPercentLimits(bmFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
-                PercentageSENMin = bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
-                PercentageSENMax = WithinPercentLimits(bmFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
-                Ks2ProgressScoreMin = bmFinancialData.SchoolOverallPhase == "Secondary" ? (decimal?)null : 0,
-                Ks2ProgressScoreMax = bmFinancialData.SchoolOverallPhase == "Secondary" ? (decimal?)null : 20,
-                Ks4ProgressScoreMin = bmFinancialData.SchoolOverallPhase == "Secondary" ? 0 : (decimal?)null,
-                Ks4ProgressScoreMax = bmFinancialData.SchoolPhase == "Secondary" ? +5 : (decimal?)null,
+                PerPupilExpMax = benchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_EXP_PP_TOPUP,
+                PercentageFSMMin = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                PercentageFSMMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
+                PercentageSENMin = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
+                PercentageSENMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
+                Ks2ProgressScoreMin = benchmarkSchool.BicProgressScoreType == "P8" ? (decimal?)null : 0,
+                Ks2ProgressScoreMax = benchmarkSchool.BicProgressScoreType == "P8" ? (decimal?)null : 20,
+                Ks4ProgressScoreMin = benchmarkSchool.BicProgressScoreType == "P8" ? 0 : (decimal?)null,
+                Ks4ProgressScoreMax = benchmarkSchool.BicProgressScoreType == "P8" ? +5 : (decimal?)null,
                 RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD,
-                LondonWeighting = bmFinancialData.LondonWeighting == "Neither" ? new[] { "Neither" } : new[] { "Inner", "Outer" }
+                LondonWeighting = benchmarkSchool.LatestYearFinancialData.LondonWeighting == "Neither" ? new[] { "Neither" } : new[] { "Inner", "Outer" }
             };
 
             return await GenerateFromBicCriteria(urn, bicCriteria);

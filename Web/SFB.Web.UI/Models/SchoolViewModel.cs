@@ -200,15 +200,14 @@ namespace SFB.Web.UI.Models
                     case "Primary":
                         return "KS2";
                     case "Secondary":
+                    case "All-through":
                         return "P8";
                     default:
                         return "na";
                 }
             }
         }
-
-        public bool HasProgressScore => LatestYearFinancialData.Ks2Progress.HasValue || LatestYearFinancialData.P8Mea.HasValue;
-
+        
         public decimal? ProgressScore => BicProgressScoreType== "P8" ?
                         LatestYearFinancialData.P8Mea : 
                         LatestYearFinancialData.Ks2Progress;

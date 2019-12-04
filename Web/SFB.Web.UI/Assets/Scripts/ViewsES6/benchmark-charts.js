@@ -20,7 +20,7 @@
             $("#benchmarkChartsList table.data-table-js").tablesorter();
             $("#bestInClassTabSection table.data-table-js").tablesorter(
                 {
-                    sortList: [[7, 1]],
+                    sortList: [[8, 1], [7, 1]],
                     headers: {
                         7: { sorter: "digit", string: "bottom" },  // non-numeric content is treated as a bottom value
                     }
@@ -260,42 +260,9 @@
                 }
 
                 let progressColour;
-                if (overallPhase === 'Secondary') {
-                    if (progressScore < -0.5) {
-                        progressColour = "#df3034";
-                    }
-                    else if (progressScore >= -0.5 && progressScore < -0.25) {
-                        progressColour = "#f47738";
-                    }
-                    else if (progressScore >= -0.25 && progressScore <= 0.25) {
-                        progressColour = "#ffbf47";
-                    }
-                    else if (progressScore > 0.25 && progressScore <= 0.5) {
-                        progressColour = "#85994b";
-                    }
-                    else if (progressScore > 0.5) {
-                        progressColour = "#006435";
-                    }
-                } else {
-                    if (progressScore < -3) {
-                        progressColour = "#df3034";
-                    }
-                    else if (progressScore >= -3 && progressScore < -2) {
-                        progressColour = "#f47738";
-                    }
-                    else if (progressScore >= -2 && progressScore <= 2) {
-                        progressColour = "#ffbf47";
-                    }
-                    else if (progressScore > 2 && progressScore <= 3) {
-                        progressColour = "#85994b";
-                    }
-                    else if (progressScore > 3) {
-                        progressColour = "#006435";
-                    }
-                }
-
                 let fontColour = "#FFFFFF";
-                if (overallPhase === 'Secondary') {
+
+                if (overallPhase === 'Secondary' || overallPhase === 'All-through') {
                     if (progressScore < -0.5) {
                         progressColour = "#df3034";
                     }

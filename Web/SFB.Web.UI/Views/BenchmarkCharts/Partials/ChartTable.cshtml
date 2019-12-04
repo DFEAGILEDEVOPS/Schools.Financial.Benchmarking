@@ -162,7 +162,22 @@
             <tr>
                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                 {
-                    if (ViewBag.BicComparisonOverallPhase == "Secondary")
+                    if (ViewBag.BicComparisonOverallPhase == "Primary")
+                    {
+                        <th scope="row" class="col-header">
+                            KS2 progress
+                            <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
+                                <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
+                            </button>
+                        </th>
+                        <td>
+                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), "KS2")">
+                                <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
+                            </div>
+                        </td>
+
+                    }
+                    else if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                     {
                         <th scope="row" class="col-header">
                             Progress 8
@@ -170,21 +185,12 @@
                                 <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
                             </button>
                         </th>
-                    }
-                    else
-                    {
-                        <td class="col-header">
-                            KS2 progress
-                            <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
-                                <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
-                            </button>
+                        <td>
+                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), "P8")">
+                                <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
+                            </div>
                         </td>
                     }
-                    <td>
-                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" ? "P8" : "KS2")">
-                            <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
-                        </div>
-                    </td>
                 }
             </tr>
             <tr>
@@ -244,7 +250,7 @@
             </th>
             @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
             {
-                if (ViewBag.BicComparisonOverallPhase == "Secondary")
+                if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                 {
                     <th class="detail" scope="col" data-header="Progress Score">
                         Progress 8
@@ -253,7 +259,7 @@
                         </button>
                     </th>
                 }
-                else
+                else if(ViewBag.BicComparisonOverallPhase == "Primary")
                 {
                     <th class="detail" scope="col" data-header="Progress Score">
                         KS2 progress
@@ -332,7 +338,7 @@
                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                 {
                     <td class="detail" data-header="Progress Score">
-                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" ? "P8" : "KS2")">
+                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? "P8" : "KS2")">
                             <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                         </div>
                     </td>
