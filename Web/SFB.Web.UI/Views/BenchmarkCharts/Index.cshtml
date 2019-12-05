@@ -275,7 +275,7 @@ else
 
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
         <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />
-        <input type="hidden" id="BicComparisonOverallPhase" name="Type" value="@(Model.BenchmarkSchoolData?.SchoolPhase)" />
+        <input type="hidden" id="BicComparisonOverallPhase" name="Type" value="@(Model.BenchmarkSchoolData?.SchoolOverallPhase)" />
         <input type="hidden" id="HomeSchoolName" name="HomeSchoolName" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
         <input type="hidden" id="HomeSchoolURN" name="HomeSchoolURN" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustCompanyNo.ToString() : Model.SchoolComparisonList.HomeSchoolUrn)" />
     }
