@@ -122,6 +122,13 @@ a.button {
     }
 }
 
+.no-border{
+    border-bottom: none!important;
+    border-top: none!important;
+    border-right: none!important;
+    border-left: none!important;
+}
+
 .latest-year-message{
     margin-top: 15px;
 }
@@ -572,6 +579,7 @@ a.button {
 
     .back-to-main-chart-group-button {
         @include a-button;
+        margin-top: 1em;
         margin-bottom: 1em;
         display: none;
     }
