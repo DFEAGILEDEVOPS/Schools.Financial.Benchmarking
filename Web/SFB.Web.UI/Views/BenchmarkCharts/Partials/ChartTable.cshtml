@@ -7,10 +7,10 @@
 <table class="tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--summary-view">
     <thead>
         <tr>
-            <th class="school-column" scope="col" data-header="School name">
+            <th class="school-column sortInitialOrder-asc" scope="col" data-header="School name">
                 School name
             </th>
-            <th scope="col" data-header="Amount">
+            <th class="sortInitialOrder-desc" scope="col" data-header="Amount">
                 <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
             </th>
         </tr>
@@ -244,7 +244,7 @@
 <table class="tablesorter data-table-js chart-table chart-table--mobile-above-view">
     <thead>
         <tr>
-            <th class="school-column" scope="col" data-header="School name">
+            <th class="school-column sortInitialOrder-asc" scope="col" data-header="School name">
                 School name
                 <button aria-hidden="True" class="hide-show-button hide detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&nbsp;&#9654;</button>
             </th>
@@ -252,7 +252,7 @@
             {
                 if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                 {
-                    <th class="detail" scope="col" data-header="Progress Score">
+                    <th class="detail sortInitialOrder-desc" scope="col" data-header="Progress Score">
                         Progress 8
                         <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
                             <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
@@ -261,7 +261,7 @@
                 }
                 else if(ViewBag.BicComparisonOverallPhase == "Primary")
                 {
-                    <th class="detail" scope="col" data-header="Progress Score">
+                    <th class="detail sortInitialOrder-desc" scope="col" data-header="Progress Score">
                         KS2 progress
                         <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
                             <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
@@ -269,10 +269,10 @@
                     </th>
                 }
             }
-            <th class="detail" scope="col" data-header="Local authority">Local authority</th>
-            <th class="detail" scope="col" data-header="School type">School type</th>
-            <th class="detail" scope="col" data-header="Number of pupils">Number of pupils</th>
-            <th scope="col" data-header="Amount">
+            <th class="detail sortInitialOrder-asc" scope="col" data-header="Local authority">Local authority</th>
+            <th class="detail sortInitialOrder-asc" scope="col" data-header="School type">School type</th>
+            <th class="detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Number of pupils</th>
+            <th class="sortInitialOrder-desc" scope="col" data-header="Amount">
                 <button aria-hidden="True" class="hide-show-button show detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664; Show details</button>
                 <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
             </th>
