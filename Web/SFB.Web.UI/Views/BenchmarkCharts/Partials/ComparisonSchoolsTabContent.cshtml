@@ -9,17 +9,17 @@
             <table class="tablesorter data-table-js comp-school-table chart-table--mobile-above-view" id="ComparisonSchoolsTable">
                 <thead>
                     <tr>
-                        <th class="school-column" scope="col">School</th>
-                        <th class="numeric" scope="col">Pupils</th>
-                        <th class="numeric numeric comp-school-table__phase-col" scope="col">Phase of education</th>
-                        <th nowrap class="numeric" scope="col">Ofsted rating</th>
-                        <th class="numeric comp-school-table__ks-col th-ks2-js" scope="col">
+                        <th class="school-column sortInitialOrder-asc" scope="col">School</th>
+                        <th class="numeric sortInitialOrder-desc" scope="col">Pupils</th>
+                        <th class="numeric sortInitialOrder-asc numeric comp-school-table__phase-col" scope="col">Phase of education</th>
+                        <th nowrap class="numeric sortInitialOrder-asc" scope="col">Ofsted rating</th>
+                        <th class="numeric sortInitialOrder-desc string-min sorter-digit comp-school-table__ks-col th-ks2-js" scope="col">
                             Key stage 2 progress
                             <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
                                 <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
                             </button>
                         </th>
-                        <th class="numeric comp-school-table__ks-col th-p8-js" scope="col">
+                        <th class="numeric sortInitialOrder-desc string-min sorter-digit comp-school-table__ks-col th-p8-js" scope="col">
                             Progress 8
                             <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
                                 <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">

@@ -18,24 +18,8 @@
             this.hideNaProgressScores();
 
             $("#benchmarkChartsList table.data-table-js").tablesorter();
-            $("#bestInClassTabSection table.data-table-js").tablesorter(
-                {
-                    sortList: [[8, 1], [7, 1]],
-                    headers: {
-                        7: { sorter: "digit", string: "bottom" },  // non-numeric content is treated as a bottom value
-                    }
-                }
-            );
-
-            $("#comparisonSchoolsTabSection table.data-table-js").tablesorter(
-                {
-                    sortList: [[0, 0]],
-                    headers: {
-                        3: { sorter: "digit", string: "bottom" }, 
-                        4: { sorter: "digit", string: "bottom" }, 
-                        5: { sorter: "digit", string: "bottom" }  // non-numeric content is treated as a bottom value
-                    }}
-            );
+            $("#bestInClassTabSection table.data-table-js").tablesorter();
+            $("#comparisonSchoolsTabSection table.data-table-js").tablesorter();
             
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();

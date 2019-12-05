@@ -89,16 +89,16 @@
             <table class="tablesorter data-table-js chart-table--mobile-above-view" id="ProgressScoresTable">
                 <thead>
                     <tr>
-                        <th nowrap scope="col" class="school-column">School</th>
-                        <th nowrap scope="col">Local authority</th>
-                        <th nowrap class="numeric" scope="col">Pupils</th>
-                        <th nowrap scope="col">FSM</th>
-                        <th nowrap scope="col">EHCP</th>
-                        <th scope="col">Expenditure per pupil</th>
-                        <th scope="col">Urban/rural description</th>
+                        <th nowrap class="school-column sortInitialOrder-asc" scope="col">School</th>
+                        <th nowrap class="sortInitialOrder-asc" scope="col">Local authority</th>
+                        <th nowrap class="numeric sortInitialOrder-desc" scope="col">Pupils</th>
+                        <th class="sortInitialOrder-desc" nowrap scope="col">FSM</th>
+                        <th class="sortInitialOrder-desc" nowrap scope="col">EHCP</th>
+                        <th class="sortInitialOrder-desc" cope="col">Expenditure per pupil</th>
+                        <th class="sortInitialOrder-asc" scope="col">Urban/rural description</th>
                         @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th class="numeric" scope="col">
+                            <th class="numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
                                 Key stage 2 progress
                                 <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
                                     <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
@@ -107,7 +107,7 @@
                         }
                         @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th nowrap class="numeric" scope="col">
+                            <th nowrap class="numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
                                 Progress 8
                                 <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
                                     <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
