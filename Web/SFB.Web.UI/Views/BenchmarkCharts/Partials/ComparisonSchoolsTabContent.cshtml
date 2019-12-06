@@ -52,21 +52,21 @@
                                 }
                             </td>
                             <td class="numeric no-padding td-ks2-js" scope="col">
-                                <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, "KS2")">
+                                <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, "KS2", cSchool.P8Banding.GetValueOrDefault())">
                                     <div class="font-xsmall">@(cSchool.KS2ProgressScore.HasValue ? cSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                     @if (cSchool.KS2ProgressScore.HasValue)
                                     {
-                                        <div class="no-wrap">@ViewHelpers.ScoreText(cSchool.KS2ProgressScore.GetValueOrDefault(), "KS2")</div>
+                                        <div class="no-wrap">@ViewHelpers.ScoreText(cSchool.KS2ProgressScore.GetValueOrDefault(), "KS2", cSchool.P8Banding.GetValueOrDefault())</div>
                                     }
                                     <span class="visually-hidden">Key stage 2 progress score</span>
                                 </div>
                             </td>
                             <td class="numeric no-padding td-p8-js" scope="col">
-                                <div class="score @ViewHelpers.ScoreColorCode(cSchool.P8ProgressScore, "P8")">
+                                <div class="score @ViewHelpers.ScoreColorCode(cSchool.P8ProgressScore, "P8", cSchool.P8Banding.GetValueOrDefault())">
                                     <div class="font-xsmall">@(cSchool.P8ProgressScore.HasValue ? cSchool.P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                     @if (cSchool.P8ProgressScore.HasValue)
                                     {
-                                        <div class="no-wrap">@ViewHelpers.ScoreText(cSchool.P8ProgressScore.GetValueOrDefault(), "P8")</div>
+                                        <div class="no-wrap">@ViewHelpers.ScoreText(cSchool.P8ProgressScore.GetValueOrDefault(), "P8", cSchool.P8Banding.GetValueOrDefault())</div>
                                     }
                                     <span class="visually-hidden">Progress 8 score</span>
                                 </div>
@@ -123,11 +123,11 @@
                                 </button>
                             </th>
                             <td class="no-padding">
-                                <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, "KS2")">
+                                <div class="score @ViewHelpers.ScoreColorCode(cSchool.KS2ProgressScore, "KS2", cSchool.P8Banding.GetValueOrDefault())">
                                     <span class="font-xsmall">@(cSchool.KS2ProgressScore.HasValue ? cSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
                                     @if (cSchool.KS2ProgressScore.HasValue)
                                     {
-                                        <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText(cSchool.KS2ProgressScore.GetValueOrDefault(), "KS2")</span>
+                                        <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText(cSchool.KS2ProgressScore.GetValueOrDefault(), "KS2", cSchool.P8Banding.GetValueOrDefault())</span>
                                     }
                                     <span class="visually-hidden">Key stage 2 progress score</span>
                                 </div>
@@ -141,11 +141,11 @@
                                 </button>
                             </th>
                             <td class="no-padding">
-                                <div class="score @ViewHelpers.ScoreColorCode(cSchool.P8ProgressScore, "P8")">
+                                <div class="score @ViewHelpers.ScoreColorCode(cSchool.P8ProgressScore, "P8", cSchool.P8Banding.GetValueOrDefault())">
                                     <span class="font-xsmall">@(cSchool.P8ProgressScore.HasValue ? cSchool.P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
                                     @if (cSchool.P8ProgressScore.HasValue)
                                     {
-                                        <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText(cSchool.P8ProgressScore.GetValueOrDefault(), "P8")</span>
+                                        <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText(cSchool.P8ProgressScore.GetValueOrDefault(), "P8", cSchool.P8Banding.GetValueOrDefault())</span>
                                     }
                                     <span class="visually-hidden">Progress 8 score</span>
                                 </div>

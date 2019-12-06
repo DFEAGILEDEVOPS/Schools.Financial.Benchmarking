@@ -292,7 +292,8 @@ namespace SFB.Web.UI.Services
                     IsWFDataPresent = dataModel.WorkforceDataPresent,
                     PartialYearsPresentInSubSchools = dataModel.PartialYearsPresentInSubSchools,
                     Unit = unit.ToString(),
-                    ProgressScore = school is BenchmarkSchoolModel ? (school as BenchmarkSchoolModel).ProgressScore : null
+                    ProgressScore = dataModel.ProgressScore,
+                    P8Banding = dataModel.P8Banding
                 });
             }
 

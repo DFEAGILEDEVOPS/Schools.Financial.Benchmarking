@@ -207,14 +207,14 @@ namespace SFB.Web.UI.Models
                 }
             }
         }
-        
-        public decimal? ProgressScore => BicProgressScoreType== "P8" ?
-                        LatestYearFinancialData.P8Mea : 
-                        LatestYearFinancialData.Ks2Progress;
+
+        public decimal? ProgressScore => LatestYearFinancialData.ProgressScore;
 
         public decimal? KS2ProgressScore => LatestYearFinancialData.Ks2Progress;
 
         public decimal? P8ProgressScore => LatestYearFinancialData.P8Mea;
+
+        public decimal? P8Banding => LatestYearFinancialData.P8Banding;
 
         public bool HasCoordinates
         {

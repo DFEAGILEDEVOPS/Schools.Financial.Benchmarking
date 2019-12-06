@@ -1082,9 +1082,7 @@ namespace SFB.Web.UI.Controllers
                 if (comparison == ComparisonType.BestInClass)
                 {
                     var schoolFinancialData = _financialDataService.GetSchoolsLatestFinancialDataModel(int.Parse(benchmarkSchoolToAdd.Urn), (EstablishmentType)Enum.Parse(typeof(EstablishmentType), benchmarkSchoolToAdd.EstabType));
-                    benchmarkSchoolToAdd.ProgressScore = schoolFinancialData.SchoolOverallPhase == "Secondary" ? 
-                        schoolFinancialData.P8Mea : 
-                        schoolFinancialData.Ks2Progress;
+                    benchmarkSchoolToAdd.ProgressScore = schoolFinancialData.ProgressScore;
                 }
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }

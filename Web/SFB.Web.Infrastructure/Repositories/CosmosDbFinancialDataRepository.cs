@@ -401,6 +401,7 @@ namespace SFB.Web.Infrastructure.Repositories
                         $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE}'], " +
                         $"c['{SchoolTrustFinanceDataFieldNames.KS2_PROGRESS}'], " +
                         $"c['{SchoolTrustFinanceDataFieldNames.PROGRESS_8_MEASURE}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.PROGRESS_8_BANDING}'], " +
                         $"c['{SchoolTrustFinanceDataFieldNames.TOTAL_EXP_PP}'] " +
                         $"FROM c WHERE {query}");
                 }
@@ -417,6 +418,7 @@ namespace SFB.Web.Infrastructure.Repositories
                         $"c['{SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE}'], " +
                         $"c['{SchoolTrustFinanceDataFieldNames.KS2_PROGRESS}'], " +
                         $"c['{SchoolTrustFinanceDataFieldNames.PROGRESS_8_MEASURE}'], " +
+                        $"c['{SchoolTrustFinanceDataFieldNames.PROGRESS_8_BANDING}'], " +
                         $"c['{SchoolTrustFinanceDataFieldNames.TOTAL_EXP_PP}'] " +
                         $"FROM c WHERE {query}");
                 }

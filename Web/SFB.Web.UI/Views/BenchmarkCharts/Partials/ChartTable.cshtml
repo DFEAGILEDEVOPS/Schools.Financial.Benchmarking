@@ -171,7 +171,7 @@
                             </button>
                         </th>
                         <td>
-                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), "KS2")">
+                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), "KS2", schoolBenchmarkData.P8Banding.GetValueOrDefault())">
                                 <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                             </div>
                         </td>
@@ -186,7 +186,7 @@
                             </button>
                         </th>
                         <td>
-                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), "P8")">
+                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), "P8", schoolBenchmarkData.P8Banding.GetValueOrDefault())">
                                 <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                             </div>
                         </td>
@@ -338,7 +338,7 @@
                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                 {
                     <td class="detail" data-header="Progress Score">
-                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? "P8" : "KS2")">
+                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? "P8" : "KS2", schoolBenchmarkData.P8Banding.GetValueOrDefault())">
                             <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                         </div>
                     </td>
