@@ -39,6 +39,11 @@ namespace SFB.Web.ApplicationCore.Helpers.Enums
         Tables
     }
 
+    public enum BicProgressScoreType {
+        KS2,
+        P8
+    }
+    
     public enum PagedEntityType
     {
         School,

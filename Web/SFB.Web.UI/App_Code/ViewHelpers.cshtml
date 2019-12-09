@@ -1,5 +1,6 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
 @using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.ApplicationCore.Helpers.Enums
 
 @helper GetAmountHeaderAriaLabel(string unit)
 {
@@ -88,9 +89,9 @@
     }
 }
 
-@helper ScoreText(decimal score, string progressScoreType)
+@helper ScoreText(decimal score, BicProgressScoreType progressScoreType)
 {
-    if (progressScoreType == "P8")
+    if (progressScoreType == BicProgressScoreType.P8)
     {
         if (score < -0.5m)
         {
@@ -113,7 +114,7 @@
             @("Well above average")
         }
     }
-    else if (progressScoreType == "KS2")
+    else if (progressScoreType == BicProgressScoreType.KS2)
     {
         if (score < -3m)
         {
@@ -142,12 +143,12 @@
     }
 }
 
-@helper ScoreColorCode(decimal? score, string progressScoreType)
+@helper ScoreColorCode(decimal? score, BicProgressScoreType progressScoreType)
 {
     if (score.HasValue)
     {
 
-        if (progressScoreType == "P8")
+        if (progressScoreType == BicProgressScoreType.P8)
         {
             if (score < -0.5m)
             {
@@ -170,7 +171,7 @@
                 @("well-above")
             }
         }
-        else if (progressScoreType == "KS2")
+        else if (progressScoreType == BicProgressScoreType.KS2)
         {
             if (score < -3m)
             {

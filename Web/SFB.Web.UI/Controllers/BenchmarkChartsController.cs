@@ -254,10 +254,10 @@ namespace SFB.Web.UI.Controllers
                 PercentageFSMMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
                 PercentageSENMin = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
                 PercentageSENMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
-                Ks2ProgressScoreMin = benchmarkSchool.BicProgressScoreType == "P8" ? (decimal?)null : 0,
-                Ks2ProgressScoreMax = benchmarkSchool.BicProgressScoreType == "P8" ? (decimal?)null : 20,
-                Ks4ProgressScoreMin = benchmarkSchool.BicProgressScoreType == "P8" ? 0 : (decimal?)null,
-                Ks4ProgressScoreMax = benchmarkSchool.BicProgressScoreType == "P8" ? +5 : (decimal?)null,
+                Ks2ProgressScoreMin = benchmarkSchool.BicProgressScoreType == BicProgressScoreType.P8 ? (decimal?)null : 0,
+                Ks2ProgressScoreMax = benchmarkSchool.BicProgressScoreType == BicProgressScoreType.P8 ? (decimal?)null : 20,
+                Ks4ProgressScoreMin = benchmarkSchool.BicProgressScoreType == BicProgressScoreType.P8 ? 0 : (decimal?)null,
+                Ks4ProgressScoreMax = benchmarkSchool.BicProgressScoreType == BicProgressScoreType.P8 ? +5 : (decimal?)null,
                 RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD,
                 LondonWeighting = benchmarkSchool.LatestYearFinancialData.LondonWeighting == "Neither" ? new[] { "Neither" } : new[] { "Inner", "Outer" }
             };
@@ -292,7 +292,7 @@ namespace SFB.Web.UI.Controllers
                     Type = schoolData.Type,
                     EstabType = schoolData.FinanceType,
                     Urn = schoolData.URN.ToString(),
-                    ProgressScore = benchmarkSchool.BicProgressScoreType== "P8" ?
+                    ProgressScore = benchmarkSchool.BicProgressScoreType== BicProgressScoreType.P8 ?
                         decimal.Round(schoolData.Progress8Measure.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
                         : decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
 
