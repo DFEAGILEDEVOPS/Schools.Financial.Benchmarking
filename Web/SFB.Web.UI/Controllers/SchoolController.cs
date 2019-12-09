@@ -18,6 +18,7 @@ using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Services;
 using System;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Helpers;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -244,7 +245,7 @@ namespace SFB.Web.UI.Controllers
         private string LatestTerm(EstablishmentType type)
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(type);
-            return FormatHelpers.FinancialTermFormatAcademies(latestYear);
+            return SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
         }
 
         private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
@@ -255,14 +256,14 @@ namespace SFB.Web.UI.Controllers
             var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
+                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var task = _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, cFinance);
                 taskList.Add(task);
             }
 
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
+                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
                 var resultDataObject = taskResult?.FirstOrDefault();
 

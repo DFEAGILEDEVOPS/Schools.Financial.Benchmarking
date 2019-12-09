@@ -7,6 +7,7 @@ using System.Linq;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using System;
 
 namespace SFB.Web.ApplicationCore.Services.DataAccess
 {
@@ -119,6 +120,46 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
         public List<AcademiesContextualDataObject> GetAcademiesByCompanyNumber(string term, int companyNo)
         {
             return _financialDataRepository.GetAcademiesContextualDataObject(term, companyNo);
+        }
+
+        public async Task<List<FinancialDataModel>> GetFinancialDataForSchoolsAsync(List<SchoolSearchModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Include)
+        {
+            var models = new List<FinancialDataModel>();
+
+            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
+            foreach (var school in schools)
+            {
+                var estabType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), school.EstabType);
+                var latestYear = this.GetLatestDataYearPerEstabType(estabType);
+                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+
+                var task = this.GetSchoolFinancialDataObjectAsync(Int32.Parse(school.Urn), term, estabType, centralFinancing);
+                taskList.Add(task);
+            }
+
+            for (var i = 0; i < schools.Count; i++)
+            {
+                var estabType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), schools[i].EstabType);
+                var latestYear = this.GetLatestDataYearPerEstabType(estabType);
+                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+                var taskResult = await taskList[i];
+                var resultDocument = taskResult?.FirstOrDefault();
+
+                if (estabType == EstablishmentType.Academies && centralFinancing == CentralFinancingType.Include && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
+                {
+                    resultDocument = (await this.GetSchoolFinancialDataObjectAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
+                        ?.FirstOrDefault();
+                }
+
+                if (resultDocument != null && resultDocument.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
+                {
+                    resultDocument = null;
+                }
+
+                models.Add(new FinancialDataModel(schools[i].Urn, term, resultDocument, (EstablishmentType)Enum.Parse(typeof(EstablishmentType), schools[i].EstabType)));
+            }
+
+            return models;
         }
     }
 }

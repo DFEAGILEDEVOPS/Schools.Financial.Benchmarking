@@ -13,16 +13,6 @@ namespace SFB.Web.UI.Helpers
             public bool IsExternal { get; set; }
         }
 
-        public static string FinancialTermFormatAcademies(int endYear)
-        {
-            return SchoolFormatHelpers.FinancialTermFormatAcademies(endYear);
-        }
-
-        public static string FinancialTermFormatMaintained(int endYear)
-        {
-            return SchoolFormatHelpers.FinancialTermFormatMaintained(endYear);
-        }
-
         public static string GrammarCase(string[] stringList)
         {
             string result = "";

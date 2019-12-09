@@ -158,6 +158,7 @@
     <Compile Include="Models\QueryResultsModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\FinancialDataModel.cs" />
+    <Compile Include="Models\SchoolModel.cs" />
     <Compile Include="Models\SimpleCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CachingInterfaces\IActiveUrnsService.cs" />

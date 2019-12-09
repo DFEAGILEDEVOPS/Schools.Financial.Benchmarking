@@ -18,6 +18,7 @@ using System;
 using SFB.Web.UI.Attributes;
 using System.Web.Routing;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Helpers;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -119,7 +120,7 @@ namespace SFB.Web.UI.Controllers
         public async Task<ActionResult> Download(int companyNo, string name)
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
 
             var response = _financialDataService.GetAcademiesByCompanyNumber(term, companyNo);
 
@@ -163,14 +164,14 @@ namespace SFB.Web.UI.Controllers
             var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
+                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var task = _financialDataService.GetTrustFinancialDataObjectAsync(companyNo, term, matFinancing);
                 taskList.Add(task);
             }
 
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
+                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
                 var resultObject = taskResult?.FirstOrDefault();
 
@@ -190,7 +191,7 @@ namespace SFB.Web.UI.Controllers
         private string LatestMATTerm()
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
-            return FormatHelpers.FinancialTermFormatAcademies(latestYear);
+            return SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
         }
     }
 }

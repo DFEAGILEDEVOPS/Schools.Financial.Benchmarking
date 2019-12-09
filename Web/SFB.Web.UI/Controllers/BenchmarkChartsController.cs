@@ -21,6 +21,7 @@ using SFB.Web.UI.Attributes;
 using System.Net;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Web.UI;
+using SFB.Web.ApplicationCore.Helpers;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -292,7 +293,7 @@ namespace SFB.Web.UI.Controllers
                     EstabType = schoolData.FinanceType,
                     Urn = schoolData.URN.ToString(),
                     ProgressScore = benchmarkSchool.BicProgressScoreType== "P8" ?
-                        schoolData.Progress8Measure
+                        decimal.Round(schoolData.Progress8Measure.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
                         : decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
 
                 };
@@ -339,8 +340,8 @@ namespace SFB.Web.UI.Controllers
                 benchmarkSchool.EstablishmentType,
                 EstablishmentType.All,
                 null, null,
-                FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies)),
-                FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained)),
+                SchoolFormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies)),
+                SchoolFormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained)),
                 ComparisonArea.All, null, urn,
                 ComparisonListLimit.ONE_CLICK);
 
@@ -472,8 +473,8 @@ namespace SFB.Web.UI.Controllers
             var financialDataModels = await this.GetFinancialDataForSchoolsAsync(comparisonList.BenchmarkSchools, (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), customSelection.CentralFinance));
             _fcService.PopulateBenchmarkChartsWithFinancialData(customCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonList.HomeSchoolUrn, null);
 
-            var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
-            var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
+            var academiesTerm = SchoolFormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
+            var maintainedTerm = SchoolFormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
             var vm = new BenchmarkChartListViewModel(customCharts, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), null,
                 ComparisonType.Manual, null, null, null, null, EstablishmentType.All, EstablishmentType.All, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, ComparisonListLimit.DEFAULT);
@@ -558,8 +559,8 @@ namespace SFB.Web.UI.Controllers
                 schoolArea = _laService.GetLaName(benchmarkSchoolData.LaNumber.ToString());
             }
 
-            var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
-            var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
+            var academiesTerm = SchoolFormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
+            var maintainedTerm = SchoolFormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
@@ -605,8 +606,8 @@ namespace SFB.Web.UI.Controllers
             var benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, UnitType.AbsoluteMoney, financing);
             var chartGroups = _benchmarkChartBuilder.Build(tab, EstablishmentType.MAT).DistinctBy(c => c.ChartGroup).ToList();
 
-            var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
-            var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
+            var academiesTerm = SchoolFormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
+            var maintainedTerm = SchoolFormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
             var vm = new BenchmarkChartListViewModel(benchmarkCharts, null, chartGroups, ComparisonType.Manual, null, null, null, null, EstablishmentType.MAT, 
                 EstablishmentType.MAT, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, ComparisonListLimit.DEFAULT, 
@@ -678,8 +679,8 @@ namespace SFB.Web.UI.Controllers
             }
             var chartGroups = _benchmarkChartBuilder.Build(tab, EstablishmentType.All).DistinctBy(c => c.ChartGroup).ToList();
 
-            var academiesTerm = FormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
-            var maintainedTerm = FormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
+            var academiesTerm = SchoolFormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
+            var maintainedTerm = SchoolFormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
             var vm = new BenchmarkChartListViewModel(benchmarkCharts, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), chartGroups, 
                 ComparisonType.Manual, null, null, null, null, type, type, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, 
@@ -948,42 +949,8 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<List<FinancialDataModel>> GetFinancialDataForSchoolsAsync(List<BenchmarkSchoolModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Include)
         {
-            var models = new List<FinancialDataModel>();
-
-            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
-            foreach (var school in schools)
-            {
-                var estabType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), school.EstabType);
-                var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-
-                var task = _financialDataService.GetSchoolFinancialDataObjectAsync(Int32.Parse(school.Urn), term, estabType, centralFinancing);
-                taskList.Add(task);
-            }
-
-            for (var i = 0; i < schools.Count; i++)
-            {
-                var estabType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), schools[i].EstabType);
-                var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
-                var taskResult = await taskList[i];
-                var resultDocument = taskResult?.FirstOrDefault();
-
-                if (estabType == EstablishmentType.Academies && centralFinancing == CentralFinancingType.Include && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
-                {
-                    resultDocument = (await _financialDataService.GetSchoolFinancialDataObjectAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
-                        ?.FirstOrDefault();
-                }
-
-                if (resultDocument != null && resultDocument.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
-                {
-                    resultDocument = null;
-                }
-
-                models.Add(new FinancialDataModel(schools[i].Urn, term, resultDocument, (EstablishmentType)Enum.Parse(typeof(EstablishmentType), schools[i].EstabType)));
-            }
-
-            return models;
+            var schoolSearchModels = schools.Select(s => new SchoolSearchModel(s.Urn, s.EstabType)).ToList();
+            return await _financialDataService.GetFinancialDataForSchoolsAsync(schoolSearchModels, centralFinancing);
         }
 
         private SchoolViewModel InstantiateBenchmarkSchool(int urn)

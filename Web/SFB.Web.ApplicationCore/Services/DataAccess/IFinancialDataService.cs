@@ -21,7 +21,8 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
         Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial);
         Task<int> SearchSchoolsCountByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial = false);
         Task<int> SearchTrustCountByCriteriaAsync(BenchmarkCriteria criteria);
-        Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType);        
+        Task<int> GetEstablishmentRecordCountAsync(string term, EstablishmentType estType);
+        Task<List<FinancialDataModel>> GetFinancialDataForSchoolsAsync(List<SchoolSearchModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Include);
     }
 
     public interface ITermYearDataService

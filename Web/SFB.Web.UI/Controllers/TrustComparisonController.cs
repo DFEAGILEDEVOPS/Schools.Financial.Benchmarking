@@ -10,6 +10,7 @@ using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Helpers;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -113,7 +114,7 @@ namespace SFB.Web.UI.Controllers
         private void LoadFinancialDataOfLatestYear(TrustViewModel benchmarkTrust)
         {
             var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
-            var term = FormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
             var financialDataObject = _financialDataService.GetTrustFinancialDataObject(benchmarkTrust.CompanyNo, term, MatFinancingType.TrustAndAcademies);
 
             benchmarkTrust.HistoricalFinancialDataModels = new List<ApplicationCore.Models.FinancialDataModel>

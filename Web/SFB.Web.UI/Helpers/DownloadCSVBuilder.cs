@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
@@ -34,7 +35,7 @@ namespace SFB.Web.UI.Helpers
 
             for (int i = 0; i < ChartHistory.YEARS_OF_HISTORY; i++)
             {
-                var term = FormatHelpers.FinancialTermFormatAcademies(latestYear - i);
+                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
                 var termFormatted = FormatTerm(term, estabVM.EstablishmentType);
                 var valuesLine = new StringBuilder();
                 var data = estabVM.HistoricalCharts.First().HistoricalData.Find(d => d.Year == term);
