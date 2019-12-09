@@ -313,6 +313,21 @@ namespace SFB.Web.ApplicationCore.Models
             }
         }
 
+        public decimal? ProgressScore
+        {
+            get
+            {
+                if(this.SchoolOverallPhase == "Secondary" || this.SchoolOverallPhase == "All-through")
+                {
+                    return this.P8Mea;
+                }
+                else
+                {
+                    return this.Ks2Progress;
+                }
+            }
+        }
+
         public string OfstedRating => FinancialDataObjectModel.OfstedRatingName;
 
         public decimal? SpecificLearningDifficulty => FinancialDataObjectModel.SpecificLearningDiff;
