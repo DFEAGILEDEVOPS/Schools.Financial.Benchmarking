@@ -350,8 +350,6 @@
     </Compile>
     <Compile Include="Services\FinancialCalculationsService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
-    <Compile Include="Services\ILaSearchService.cs" />
-    <Compile Include="Services\LaSearchService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utils\IRequestContext.cs" />
     <Compile Include="Utils\RequestContextWrapper.cs" />

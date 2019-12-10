@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;
-using SFB.Web.UI.Models;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 
 namespace SFB.Web.UI.Services
 {
@@ -15,26 +16,26 @@ namespace SFB.Web.UI.Services
             _laService = laService;
         }
 
-        public List<LaViewModel> SearchContains(string name)
+        public List<LaModel> SearchContains(string name)
         {
             var localAuthorities =
                 (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
 
             var filteredResults = localAuthorities
                 .Where(la => la.LANAME.ToString().ToLowerInvariant().Contains(name.ToLowerInvariant()))
-                .Select(la => new LaViewModel() { id = la.id, LaName = la.LANAME })
+                .Select(la => new LaModel() { Id = la.id, LaName = la.LANAME })
                 .ToList();
             return filteredResults;
         }
 
-        public LaViewModel SearchExactMatch(string name)
+        public LaModel SearchExactMatch(string name)
         {
             var localAuthorities =
                 (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
 
             var filteredResult = localAuthorities
                 .Where(la => la.LANAME.ToString().ToLowerInvariant().Equals(name.ToLowerInvariant()))
-                .Select(la => new LaViewModel() { id = la.id, LaName = la.LANAME })
+                .Select(la => new LaModel() { Id = la.id, LaName = la.LANAME })
                 .FirstOrDefault();
             return filteredResult;
         }

@@ -14,6 +14,7 @@ using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.Infrastructure.Email;
 using SFB.Web.Infrastructure.Caching;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 
 namespace SFB.Web.UI
 {

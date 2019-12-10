@@ -13,6 +13,7 @@ using SFB.Web.UI.Services;
 using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -156,7 +157,7 @@ namespace SFB.Web.UI.Controllers
                 var exactLaMatch = _laSearchService.SearchExactMatch(laNameText);
                 if (exactLaMatch != null)
                 {
-                    lacode = Int32.Parse(exactLaMatch.id);
+                    lacode = Int32.Parse(exactLaMatch.Id);
                 }
             }
 

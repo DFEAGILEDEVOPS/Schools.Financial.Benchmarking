@@ -155,6 +155,7 @@
     <Compile Include="Models\ComparisonResult.cs" />
     <Compile Include="Helpers\GeoCodeCalc.cs" />
     <Compile Include="Models\HistoricalChartData.cs" />
+    <Compile Include="Models\LaModel.cs" />
     <Compile Include="Models\QueryResultsModel.cs" />
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\FinancialDataModel.cs" />
@@ -176,6 +177,8 @@
     <Compile Include="SearchInterfaces\ISchoolSearchService.cs" />
     <Compile Include="SearchInterfaces\ITrustSearchService.cs" />
     <Compile Include="ApiInterfaces\ISptReportService.cs" />
+    <Compile Include="Services\LocalAuthorities\ILaSearchService.cs" />
+    <Compile Include="Services\LocalAuthorities\LaSearchService.cs" />
     <Compile Include="Services\Validation\ValidationService.cs" />
     <Compile Include="Services\Validation\IValidationService.cs" />
   </ItemGroup>

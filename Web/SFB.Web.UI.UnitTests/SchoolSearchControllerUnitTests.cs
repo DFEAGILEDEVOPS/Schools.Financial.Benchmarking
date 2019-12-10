@@ -18,6 +18,7 @@ using SFB.Web.UI.Services;
 using SFB.Web.ApplicationCore.Entities;
 using RedDog.Search.Model;
 using System.Linq;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -266,7 +267,7 @@ namespace SFB.Web.UI.UnitTests
 
             _mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
 
-            _mockLaSearchService.Setup(m => m.SearchExactMatch("Test")).Returns(() => new LaViewModel(){ id="123", LaName = "Test"});
+            _mockLaSearchService.Setup(m => m.SearchExactMatch("Test")).Returns(() => new LaModel(){ Id="123", LaName = "Test"});
 
             var testDictionary = new Dictionary<string, object>();
             testDictionary.Add("URN", "654321");

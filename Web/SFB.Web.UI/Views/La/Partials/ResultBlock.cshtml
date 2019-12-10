@@ -22,19 +22,19 @@
             if (Model.SearchMethod == "Manual")
             {
                 <li class="document">
-                    <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
+                    <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.Id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
                 </li>
             }
             else if (Model.SearchMethod == "MAT")
             {
                 <li class="document">
-                    <a href="/TrustSearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME&lacodename=@laViewModel.id" class="bold-small">@laViewModel.LaName</a>
+                    <a href="/TrustSearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME&lacodename=@laViewModel.Id" class="bold-small">@laViewModel.LaName</a>
                 </li>
             }
             else
             {
                 <li class="document">
-                    <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
+                    <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.Id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
                 </li>
             }
         }

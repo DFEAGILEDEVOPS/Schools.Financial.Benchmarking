@@ -2,6 +2,7 @@
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Attributes;
 using SFB.Web.UI.Helpers;
@@ -91,7 +92,7 @@ namespace SFB.Web.UI.Controllers
                             var exactMatch = _laSearchService.SearchExactMatch(laCodeName);
                             if (exactMatch != null)
                             {
-                                laCodeName = exactMatch.id;
+                                laCodeName = exactMatch.Id;
                                 return await Search(nameId, searchType, suggestionUrn, locationorpostcode,
                                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }

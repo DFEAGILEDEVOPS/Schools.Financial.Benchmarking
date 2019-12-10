@@ -4,6 +4,8 @@ using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using SFB.Web.UI.Helpers;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
+using System.Linq;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -22,14 +24,15 @@ namespace SFB.Web.UI.Controllers
         {
             var searchMethod = TempData["SearchMethod"] as string;
 
-            var filteredResults = _laService.SearchContains(name);
+            var laModels = _laService.SearchContains(name);
+            var laViewModels = laModels.Select(la => new LaViewModel(la.Id, la.LaName)).ToList();
 
-            var vm = new LaListViewModel(filteredResults, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), orderby, openOnly, searchMethod);
+            var vm = new LaListViewModel(laViewModels, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), orderby, openOnly, searchMethod);
             
             vm.Pagination = new Pagination
                 {
                     Start = (SearchDefaults.RESULTS_PER_PAGE * (page - 1)) + 1,
-                    Total = filteredResults.Count,
+                    Total = laModels.Count,
                     PageLinksPerPage = SearchDefaults.LINKS_PER_PAGE,
                     MaxResultsPerPage = SearchDefaults.RESULTS_PER_PAGE,
                     PagedEntityType = PagedEntityType.LA

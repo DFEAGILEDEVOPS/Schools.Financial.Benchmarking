@@ -18,6 +18,7 @@ using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -336,7 +337,7 @@ namespace SFB.Web.UI.Controllers
                 var exactMatch = _laSearchService.SearchExactMatch(laName);
                 if (exactMatch != null)
                 {
-                    laName = exactMatch.id;
+                    laName = exactMatch.Id;
                     return await Search(null, SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, laName, null, openOnly, orderby, page, tab);
                 }
                 TempData["SearchMethod"] = "Random";

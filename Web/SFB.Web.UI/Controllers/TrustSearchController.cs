@@ -16,6 +16,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -407,7 +408,7 @@ namespace SFB.Web.UI.Controllers
                 var exactMatch = _laSearchService.SearchExactMatch(laName);
                 if (exactMatch != null)
                 {
-                    laName = exactMatch.id;
+                    laName = exactMatch.Id;
                     return await Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, laName, null, openOnly, orderby, page, tab);
                 }
                 TempData["SearchMethod"] = "MAT";

@@ -18,6 +18,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -300,7 +301,7 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
-            _mockLaSearchService.Setup(m => m.SearchExactMatch("Croydon")).Returns(new LaViewModel(){id= "319", LaName= "Croydon" });
+            _mockLaSearchService.Setup(m => m.SearchExactMatch("Croydon")).Returns(new LaModel(){Id= "319", LaName= "Croydon" });
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
