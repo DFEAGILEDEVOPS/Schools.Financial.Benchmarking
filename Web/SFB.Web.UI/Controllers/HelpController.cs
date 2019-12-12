@@ -58,7 +58,7 @@ namespace SFB.Web.UI.Controllers
                 try
                 {
                     var userEmailResponse = await _emailSender.SendUserEmailAsync(dataQuery.Email, placeholders);
-                    var dfeEmailResponse = await _emailSender.SendDfEEmailAsync("school.resourcemanagement@education.gov.uk", placeholders);
+                    await _emailSender.SendDfEEmailAsync("school.resourcemanagement@education.gov.uk", placeholders);
                 }
                 catch (Exception exception)
                 {

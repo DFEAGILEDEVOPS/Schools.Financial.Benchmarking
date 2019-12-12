@@ -1,5 +1,4 @@
-﻿using Notify.Models.Responses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,7 +6,7 @@ namespace SFB.Web.ApplicationCore.Services
 {
     public interface IEmailSendingService
     {
-        Task<EmailNotificationResponse> SendUserEmailAsync(string toAddress, Dictionary<String, dynamic> placeholders);
-        Task<EmailNotificationResponse> SendDfEEmailAsync(string toAddress, Dictionary<String, dynamic> placeholders);
+        Task<string> SendUserEmailAsync(string toAddress, Dictionary<String, dynamic> placeholders);
+        Task<string> SendDfEEmailAsync(string toAddress, Dictionary<String, dynamic> placeholders);
     }
 }

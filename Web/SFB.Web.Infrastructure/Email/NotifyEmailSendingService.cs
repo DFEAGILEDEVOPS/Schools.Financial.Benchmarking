@@ -9,17 +9,17 @@ namespace SFB.Web.Infrastructure.Email
 {
     public class NotifyEmailSendingService : IEmailSendingService
     {
-        public async Task<EmailNotificationResponse> SendUserEmailAsync(string toAddress, Dictionary<string, dynamic> placeholders)
+        public async Task<string> SendUserEmailAsync(string toAddress, Dictionary<string, dynamic> placeholders)
         {
             return await SendEmail(toAddress, ConfigurationManager.AppSettings["UserEmailTemplateId"], placeholders);
         }
 
-        public async Task<EmailNotificationResponse> SendDfEEmailAsync(string toAddress, Dictionary<string, dynamic> placeholders)
+        public async Task<string> SendDfEEmailAsync(string toAddress, Dictionary<string, dynamic> placeholders)
         {
             return await SendEmail(toAddress, ConfigurationManager.AppSettings["DfEEmailTemplateId"], placeholders);
         }
 
-        private async Task<EmailNotificationResponse> SendEmail(string toAddress, string templateId, Dictionary<string, dynamic> placeholders)
+        private async Task<string> SendEmail(string toAddress, string templateId, Dictionary<string, dynamic> placeholders)
         {
             var apiKey = ConfigurationManager.AppSettings["NotifyAPIKey"];            
             var client = new NotificationClient(apiKey);
@@ -30,7 +30,7 @@ namespace SFB.Web.Infrastructure.Email
                                 personalisation: placeholders
                                 );
 
-            return response;
+            return response.reference;
         }
     }
 }
