@@ -28,7 +28,7 @@
                                 </span>
                             </span>
                         }
-                        <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto','@historicalChart.RevenueGroupName.ToLower()')">
+                        <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto','@historicalChart.TabName.ToLower()')">
                             @if (ViewBag.ChartFormat == ChartFormat.Charts)
                             {
                                 <span class="view-more">All @historicalChart.Name.Replace("total", "").ToLower() charts</span>

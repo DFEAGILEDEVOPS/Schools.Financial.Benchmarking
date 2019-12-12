@@ -13,7 +13,7 @@
             </span>
         </span>
         <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('school')">
-            @if (Model.Tab == RevenueGroupType.Workforce)
+            @if (Model.Tab == TabType.Workforce)
             {
                 <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>
                 <option value="@UnitType.HeadcountPerFTE">@ChartShowValues.PERCENTAGE_FTE</option>
@@ -31,14 +31,14 @@
                 {
                     <option value="@UnitType.PerTeacher" @IsUnitTypeSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
                 }
-                if (Model.Tab == RevenueGroupType.Expenditure)
-                {
-                    <option value="@UnitType.PercentageOfTotalExpenditure" @IsUnitTypeSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>
-                }
-                if (Model.Tab == RevenueGroupType.Income)
-                {
-                    <option value="@UnitType.PercentageOfTotalIncome" @IsUnitTypeSelected(UnitType.PercentageOfTotalIncome)>@ChartShowValues.PERCENTAGE_TOTAL_INCOME</option>
-                }
+            }
+            @if (Model.Tab == TabType.Expenditure)
+            {
+                <option value="@UnitType.PercentageOfTotalExpenditure" @IsUnitTypeSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>
+            }
+            @if (Model.Tab == TabType.Income)
+            {
+                <option value="@UnitType.PercentageOfTotalIncome" @IsUnitTypeSelected(UnitType.PercentageOfTotalIncome)>@ChartShowValues.PERCENTAGE_TOTAL_INCOME</option>
             }
         </select>
     </div>

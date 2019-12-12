@@ -58,7 +58,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns(new List<string> {"2015"});
 
             mockHistoricalChartBuilder
-                .Setup(m => m.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
+                .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
             var controller = new TrustController(mockHistoricalChartBuilder.Object, 
@@ -111,7 +111,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns(new List<string> { "2015" });
 
             mockHistoricalChartBuilder
-                .Setup(m => m.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
+                .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
             var controller = new TrustController(mockHistoricalChartBuilder.Object,

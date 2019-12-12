@@ -1,24 +1,20 @@
 ﻿using SFB.Web.UI.Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
-using Microsoft.Ajax.Utilities;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Services.DataAccess;
-using System.Threading.Tasks;
-using SFB.Web.ApplicationCore.Models;
 using System.Web.UI;//Do not remove. Required in release mode build
-using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Services;
 using System;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers;
+using System.Threading.Tasks;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -33,11 +29,12 @@ namespace SFB.Web.UI.Controllers
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
         private readonly ILocalAuthoritiesService _laSearchService;
         private readonly IActiveUrnsService _activeUrnsService;
+        private readonly ISchoolVMBuilder _schoolVMBuilder;
 
         public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
             IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ILocalAuthoritiesService laSearchService,
-            IActiveUrnsService activeUrnsService)
+            IActiveUrnsService activeUrnsService, ISchoolVMBuilder schoolVMBuilder)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
@@ -47,68 +44,72 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
             _laSearchService = laSearchService;
             _activeUrnsService = activeUrnsService;
+            _schoolVMBuilder = schoolVMBuilder;
         }
 
         #if !DEBUG
         [OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
-        public async Task<ActionResult> Detail(int urn, UnitType unit = UnitType.AbsoluteMoney, CentralFinancingType financing = CentralFinancingType.Include, RevenueGroupType tab = RevenueGroupType.Expenditure, ChartFormat format = ChartFormat.Charts)
+        public async Task<ActionResult> Detail(
+            int urn, 
+            UnitType unit = UnitType.AbsoluteMoney, 
+            CentralFinancingType financing = CentralFinancingType.Include, 
+            TabType tab = TabType.Expenditure, 
+            ChartFormat format = ChartFormat.Charts)
         {
-            ChartGroupType chartGroup;
-            switch (tab)
-            {
-                case RevenueGroupType.Expenditure:
-                    chartGroup = ChartGroupType.TotalExpenditure;
-                    break;
-                case RevenueGroupType.Income:
-                    chartGroup = ChartGroupType.TotalIncome;
-                    break;
-                case RevenueGroupType.Balance:
-                    chartGroup = ChartGroupType.InYearBalance;
-                    break;
-                case RevenueGroupType.Workforce:
-                    chartGroup = ChartGroupType.Workforce;
-                    break;
-                default:
-                    chartGroup = ChartGroupType.All;
-                    break;
-            }
+            OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolDataObjectByUrn(urn);
+            _schoolVMBuilder.BuildCore(urn);
+            await _schoolVMBuilder.AddHistoricalChartsAsync(tab, DetectDefaultChartGroupFromTabType(tab), financing, unit);
+            _schoolVMBuilder.AssignLaName();
+            var schoolVM = _schoolVMBuilder.GetResult();
 
-            if (schoolDetailsFromEdubase == null)
+            if (schoolVM.ContextDataModel == null)
             {
                 return View("EmptyResult", new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
             }
 
-            SchoolViewModel schoolVM = await BuildSchoolVMAsync(tab, chartGroup, financing, schoolDetailsFromEdubase);
-            schoolVM.LaName = _laSearchService.GetLaName(schoolVM.La.ToString());
-
-            UnitType unitType;
-            switch (tab)
-            {
-                case RevenueGroupType.Workforce:
-                    unitType = UnitType.AbsoluteCount;
-                    break;
-                case RevenueGroupType.Balance:
-                    unitType = unit == UnitType.AbsoluteMoney || unit == UnitType.PerPupil || unit == UnitType.PerTeacher ? unit : UnitType.AbsoluteMoney;
-                    break;
-                default:
-                    unitType = unit;
-                    break;
-            }
-
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, LatestTerm(schoolVM.EstablishmentType), tab, unitType, schoolVM.EstablishmentType);
-
             ViewBag.Tab = tab;
-            ViewBag.ChartGroup = chartGroup;
-            ViewBag.UnitType = unitType;
+            ViewBag.ChartGroup = schoolVM.HistoricalCharts.First().ChartGroup;
+            ViewBag.UnitType = schoolVM.HistoricalCharts.First().ShowValue;
             ViewBag.Financing = financing;
             ViewBag.IsSAT = schoolVM.IsSAT;
             ViewBag.EstablishmentType = schoolVM.EstablishmentType;
             ViewBag.ChartFormat = format;
 
             return View("Detail", schoolVM);
+        }
+
+        public async Task<PartialViewResult> GetCharts(
+        int urn,
+        TabType revGroup,
+        ChartGroupType chartGroup,
+        UnitType unit,
+        CentralFinancingType financing = CentralFinancingType.Include,
+        ChartFormat format = ChartFormat.Charts)
+        {
+            _schoolVMBuilder.BuildCore(urn);
+            await _schoolVMBuilder.AddHistoricalChartsAsync(revGroup, chartGroup, financing, unit);
+            var schoolVM = _schoolVMBuilder.GetResult();
+
+            ViewBag.ChartFormat = format;
+            ViewBag.Financing = financing;
+            ViewBag.IsSat = schoolVM.IsSAT;
+            ViewBag.ChartGroup = chartGroup;
+            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
+
+            return PartialView("Partials/Chart", schoolVM);
+        }
+
+        public async Task<ActionResult> Download(int urn)
+        {
+            _schoolVMBuilder.BuildCore(urn);
+            await _schoolVMBuilder.AddHistoricalChartsAsync(TabType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, UnitType.AbsoluteMoney);
+            var schoolVM = _schoolVMBuilder.GetResult();
+            
+            var csv = _csvBuilder.BuildCSVContentHistorically(schoolVM, _financialDataService.GetLatestDataYearPerEstabType(schoolVM.EstablishmentType));
+
+            return File(Encoding.UTF8.GetBytes(csv), "text/plain", $"HistoricalData-{urn}.csv");
         }
 
         [HttpHead]
@@ -186,60 +187,17 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
-        public async Task<PartialViewResult> GetCharts(int urn, RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType unit, CentralFinancingType financing = CentralFinancingType.Include, ChartFormat format = ChartFormat.Charts)
+        private void OverwriteDefaultUnitTypeForSelectedTab(TabType tabType, ref UnitType unitType)
         {
-            financing = revGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : financing;
-
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolDataObjectByUrn(urn);
-
-            SchoolViewModel schoolVM = await BuildSchoolVMAsync(revGroup, chartGroup, financing, schoolDetailsFromEdubase, unit);
-
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, LatestTerm(schoolVM.EstablishmentType), revGroup, unit, schoolVM.EstablishmentType);
-
-            ViewBag.ChartFormat = format;
-            ViewBag.Financing = financing;
-            ViewBag.IsSat = schoolVM.IsSAT;
-            ViewBag.ChartGroup = chartGroup;
-            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
-
-            return PartialView("Partials/Chart", schoolVM);
-        }
-
-        public async Task<ActionResult> Download(int urn)
-        {
-            var schoolDetailsFromEdubase = _contextDataService.GetSchoolDataObjectByUrn(urn);
-
-            SchoolViewModel schoolVM = await BuildSchoolVMAsync(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, schoolDetailsFromEdubase);
-                        
-            _fcService.PopulateHistoricalChartsWithSchoolData(schoolVM.HistoricalCharts, schoolVM.HistoricalFinancialDataModels, LatestTerm(schoolVM.EstablishmentType), RevenueGroupType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, schoolVM.EstablishmentType);
-
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(schoolVM.EstablishmentType);
-
-            var csv = _csvBuilder.BuildCSVContentHistorically(schoolVM, latestYear);
-
-            return File(Encoding.UTF8.GetBytes(csv),
-                         "text/plain",
-                         $"HistoricalData-{urn}.csv");
-        }
-
-        private async Task<SchoolViewModel> BuildSchoolVMAsync(RevenueGroupType revenueGroup, ChartGroupType chartGroup, CentralFinancingType cFinance, EdubaseDataObject schoolDetailsData, UnitType unit = UnitType.AbsoluteCount)
-        {
-            var schoolVM = new SchoolViewModel(schoolDetailsData, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-
-            schoolVM.HistoricalCharts = _historicalChartBuilder.Build(revenueGroup, chartGroup, schoolVM.EstablishmentType, unit);
-            schoolVM.ChartGroups = _historicalChartBuilder.Build(revenueGroup, schoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
-            schoolVM.LatestTerm = LatestTerm(schoolVM.EstablishmentType);
-            schoolVM.Tab = revenueGroup;
-
-            cFinance = revenueGroup == RevenueGroupType.Workforce ? CentralFinancingType.Exclude : cFinance;//TODO: Remove this rule after WF data is distributed
-
-            schoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(schoolVM.Id, schoolVM.EstablishmentType, cFinance);
-
-            schoolVM.TotalRevenueIncome = schoolVM.HistoricalFinancialDataModels.Last().TotalIncome;
-            schoolVM.TotalRevenueExpenditure = schoolVM.HistoricalFinancialDataModels.Last().TotalExpenditure;
-            schoolVM.InYearBalance = schoolVM.HistoricalFinancialDataModels.Last().InYearBalance;
-
-            return schoolVM;
+            switch (tabType)
+            {
+                case TabType.Workforce:
+                    unitType = UnitType.AbsoluteCount;
+                    break;
+                case TabType.Balance:
+                    unitType = unitType == UnitType.PerPupil || unitType == UnitType.PerTeacher ? unitType : UnitType.AbsoluteMoney;
+                    break;
+            }
         }
 
         private string LatestTerm(EstablishmentType type)
@@ -248,40 +206,29 @@ namespace SFB.Web.UI.Controllers
             return SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
         }
 
-        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
+        private ChartGroupType DetectDefaultChartGroupFromTabType(TabType tab)
         {
-            var models = new List<FinancialDataModel>();
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
-            
-            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
-            for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
+            ChartGroupType chartGroup;
+            switch (tab)
             {
-                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, cFinance);
-                taskList.Add(task);
+                case TabType.Expenditure:
+                    chartGroup = ChartGroupType.TotalExpenditure;
+                    break;
+                case TabType.Income:
+                    chartGroup = ChartGroupType.TotalIncome;
+                    break;
+                case TabType.Balance:
+                    chartGroup = ChartGroupType.InYearBalance;
+                    break;
+                case TabType.Workforce:
+                    chartGroup = ChartGroupType.Workforce;
+                    break;
+                default:
+                    chartGroup = ChartGroupType.All;
+                    break;
             }
 
-            for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
-            {
-                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
-                var resultDataObject = taskResult?.FirstOrDefault();
-
-                if (estabType == EstablishmentType.Academies && cFinance == CentralFinancingType.Include && resultDataObject == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
-                {
-                    resultDataObject = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude))
-                        ?.FirstOrDefault();
-                }
-                
-                if (resultDataObject != null && resultDataObject.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
-                {
-                    resultDataObject = null;
-                }
-
-                models.Add(new FinancialDataModel(urn.ToString(), term, resultDataObject, estabType));
-            }
-            
-            return models;
+            return chartGroup;
         }
     }
 }

@@ -17,17 +17,17 @@ namespace SFB.Web.UI.Models
 
         public List<ChartViewModel> HistoricalCharts { get; set; }
 
-        public RevenueGroupType Tab { get; set; }
+        public TabType Tab { get; set; }
 
         public List<ChartViewModel> ChartGroups { get; set; }
 
         public string LatestTerm { get; set; }
 
-        public decimal? TotalRevenueIncome { get; set; }
+        public decimal? TotalRevenueIncome => this.HistoricalFinancialDataModels.Last().TotalIncome;
 
-        public decimal? TotalRevenueExpenditure { get; set; }
+        public decimal? TotalRevenueExpenditure => this.HistoricalFinancialDataModels.Last().TotalExpenditure;
 
-        public decimal? InYearBalance { get; set; }
+        public decimal? InYearBalance => this.HistoricalFinancialDataModels.Last().InYearBalance;
 
         public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 

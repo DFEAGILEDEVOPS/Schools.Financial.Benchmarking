@@ -9,16 +9,16 @@ namespace SFB.Web.UI.Helpers
 {
     public interface IHistoricalChartBuilder
     {
-        List<ChartViewModel> Build(RevenueGroupType revenueGroup, EstablishmentType estabType);
+        List<ChartViewModel> Build(TabType tabType, EstablishmentType estabType);
 
-        List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup, EstablishmentType estabType, UnitType unit = UnitType.AbsoluteCount);
+        List<ChartViewModel> Build(TabType tabType, ChartGroupType chartGroup, EstablishmentType estabType, UnitType unit = UnitType.AbsoluteCount);
     }
 
     public class HistoricalChartBuilder : IHistoricalChartBuilder
     {
-        public List<ChartViewModel> Build(RevenueGroupType revenueGroup, EstablishmentType estabType)
+        public List<ChartViewModel> Build(TabType tabType, EstablishmentType estabType)
         {
-            var chartList = Build(revenueGroup);
+            var chartList = Build(tabType);
             if (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT)
             {
                 chartList = FilterAcademyOnlyCharts(chartList);
@@ -30,10 +30,10 @@ namespace SFB.Web.UI.Helpers
             return chartList;
         }
 
-        public List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup,
+        public List<ChartViewModel> Build(TabType tabType, ChartGroupType chartGroup,
             EstablishmentType estabType, UnitType unit)
         {
-            var chartList = Build(revenueGroup, chartGroup);
+            var chartList = Build(tabType, chartGroup);
 
             RemoveIrrelevantCharts(unit, chartList);
 
@@ -74,20 +74,20 @@ namespace SFB.Web.UI.Helpers
             }
         }
 
-        private List<ChartViewModel> Build(RevenueGroupType revenueGroup)
+        private List<ChartViewModel> Build(TabType tabType)
         {
             return
                 BuildChartList()
-                    .Where(c => (revenueGroup == RevenueGroupType.AllIncludingSchoolPerf || c.RevenueGroup == revenueGroup)
-                                 || (revenueGroup == RevenueGroupType.AllExcludingSchoolPerf && c.RevenueGroup != RevenueGroupType.AllIncludingSchoolPerf))
+                    .Where(c => (tabType == TabType.AllIncludingSchoolPerf || c.TabType == tabType)
+                                 || (tabType == TabType.AllExcludingSchoolPerf && c.TabType != TabType.AllIncludingSchoolPerf))
                     .ToList();
         }
 
-        private List<ChartViewModel> Build(RevenueGroupType revenueGroup, ChartGroupType chartGroup)
+        private List<ChartViewModel> Build(TabType tabType, ChartGroupType chartGroup)
         {
             var chartList =
-                BuildChartList().Where(c => ((revenueGroup == RevenueGroupType.AllIncludingSchoolPerf || c.RevenueGroup == revenueGroup) && (chartGroup == ChartGroupType.All || c.ChartGroup == chartGroup))
-                                            || ((revenueGroup == RevenueGroupType.AllExcludingSchoolPerf && c.RevenueGroup != RevenueGroupType.AllIncludingSchoolPerf) && (chartGroup == ChartGroupType.All || c.ChartGroup == chartGroup))
+                BuildChartList().Where(c => ((tabType == TabType.AllIncludingSchoolPerf || c.TabType == tabType) && (chartGroup == ChartGroupType.All || c.ChartGroup == chartGroup))
+                                            || ((tabType == TabType.AllExcludingSchoolPerf && c.TabType != TabType.AllIncludingSchoolPerf) && (chartGroup == ChartGroupType.All || c.ChartGroup == chartGroup))
                                       )
                     .ToList();
             return chartList;
@@ -129,7 +129,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 1,
                     Name = "Total expenditure",
                     FieldName = SchoolTrustFinanceDataFieldNames.TOTAL_EXP,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
@@ -141,7 +141,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 2,
                     Name = "Staff total",
                     FieldName = SchoolTrustFinanceDataFieldNames.STAFF_TOTAL,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
@@ -154,7 +154,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 8,
                     Name = "Premises total",
                     FieldName = SchoolTrustFinanceDataFieldNames.PREMISES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -167,7 +167,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 13,
                     Name = "Occupation total",
                     FieldName = SchoolTrustFinanceDataFieldNames.OCCUPATION,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -181,7 +181,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 21,
                     Name = "Supplies and services total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SUPPLIES_SERVICES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -194,7 +194,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 27,
                     Name = "Cost of finance total",
                     FieldName = SchoolTrustFinanceDataFieldNames.COST_OF_FINANCE,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -207,7 +207,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 30,
                     Name = "Community expenditure total",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_EXP,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     MoreInfo = @"",
@@ -215,23 +215,12 @@ namespace SFB.Web.UI.Helpers
                     DrillInto = ChartGroupType.Community
                 },
 
-                //new ChartViewModel()
-                //{
-                //    Name = "Other total",
-                //    FieldName = "Other",
-                //    RevenueGroup = RevenueGroupType.Expenditure,
-                //    ChartGroup = ChartGroupType.TotalExpenditure,
-                //    ChartSchoolType = ChartSchoolType.Academy,
-                //    MoreInfo = @"",
-                //    ChartType = ChartType.Total
-                //},
-
                 new ChartViewModel()
                 {
                     Id = 26,
                     Name = "Special facilities total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SPECIAL_FACILITIES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes: </p>
@@ -269,7 +258,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 2,
                     Name = "Staff total",
                     FieldName = SchoolTrustFinanceDataFieldNames.STAFF_TOTAL,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
@@ -280,7 +269,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 3,
                     Name = "Teaching staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.TEACHING_STAFF,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is expenditure on teaching staff. </p>
@@ -302,7 +291,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 4,
                     Name = "Supply staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.SUPPLY_STAFF,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -318,7 +307,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 41001,
                             Name = "Supply teaching staff",
                             FieldName = SchoolTrustFinanceDataFieldNames.SUPPLY_TEACHING_STAFF,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Staff,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo =
@@ -344,7 +333,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 41002,
                             Name = "Supply teacher insurance",
                             FieldName = SchoolTrustFinanceDataFieldNames.SUPPLY_TEACHER_INSURANCE,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Staff,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes:</p>
@@ -369,7 +358,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 41003,
                             Name = "Agency supply teaching staff",
                             FieldName = SchoolTrustFinanceDataFieldNames.AGENCY_TEACH_STAFF,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Staff,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"
@@ -393,7 +382,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 5,
                     Name = "Education support staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.EDUCATION_SUPPORT_STAFF,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo =
@@ -429,7 +418,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 6,
                     Name = "Administrative and clerical staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.ADMIN_CLERIC_STAFF,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo =
@@ -461,7 +450,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 7,
                     Name = "Other staff costs",
                     FieldName = SchoolTrustFinanceDataFieldNames.OTHER_STAFF_COSTS,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -478,7 +467,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 71001,
                             Name = "Other staff",
                             FieldName = SchoolTrustFinanceDataFieldNames.OTHER_STAFF,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Staff,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo =
@@ -510,7 +499,7 @@ namespace SFB.Web.UI.Helpers
                             Name = "Indirect employee expenses",
                             FieldName = SchoolTrustFinanceDataFieldNames.INDIRECT_EMPLOYEE_EXPENSES,
                             ChartSchoolType = ChartSchoolType.Both,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Staff,
                             MoreInfo = @"<p>This includes: </p>
 
@@ -539,7 +528,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 71003,
                             Name = "Staff development and training",
                             FieldName = SchoolTrustFinanceDataFieldNames.STAFF_DEV,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Staff,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes:</p>
@@ -561,7 +550,7 @@ namespace SFB.Web.UI.Helpers
                             Name = "Staff related insurance",
                             FieldName = SchoolTrustFinanceDataFieldNames.STAFF_INSURANCE,
                             ChartSchoolType = ChartSchoolType.Both,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Staff,
                             MoreInfo = @"<p>This includes:</p>
 
@@ -569,9 +558,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>cover for non-teaching staff absence including unqualified cover supervisors</li>
                                 <li>employee related insurance for accident and liability, assault, fidelity guarantee, libel and slander</li>
                                 <li>sums de-delegated by the local authority for centrally managed schemes for nonteaching staff supply cover (long-term sickness, maternity, trade union and public duties) </li>
-                                </ul>                    RevenueGroup = RevenueGroupType.Expenditure,
-                    ChartGroup = ChartGroupType.Staff,
-
+                                </ul>                    
                                 <p>It excludes:</p>
                                 <ul>
                                 <li>insurance premiums paid to cover teaching absence for staff directly employed by the school</li>
@@ -590,7 +577,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 8,
                     Name = "Premises total",
                     FieldName = SchoolTrustFinanceDataFieldNames.PREMISES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -601,7 +588,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 9,
                     Name = "Premises staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.PREMISES_STAFF,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"
@@ -631,7 +618,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 10,
                     Name = "Cleaning and caretaking",
                     FieldName = SchoolTrustFinanceDataFieldNames.CLEANING,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes: </p>
@@ -653,7 +640,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 11,
                     Name = "Maintenance and improvement",
                     FieldName = SchoolTrustFinanceDataFieldNames.MAINTENANCE_IMPROVEMENT,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -668,7 +655,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 11001,
                             Name = "Grounds maintenance and improvement",
                             FieldName = SchoolTrustFinanceDataFieldNames.GROUNDS_MAINTENANCE_IMPROVEMENT,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Premises,
                             ChartSchoolType = ChartSchoolType.Maintained,
                             MoreInfo = @"<p>This includes:</p>
@@ -690,7 +677,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 11002,
                             Name = "Building maintenance and improvement",
                             FieldName = SchoolTrustFinanceDataFieldNames.BUILDING_MAINTENANCE_IMPROVEMENT,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Premises,
                             ChartSchoolType = ChartSchoolType.Maintained,
                             MoreInfo = @"<p>This includes:</p>
@@ -711,15 +698,6 @@ namespace SFB.Web.UI.Helpers
                                 <li>the cost of maintenance and improvement of special facilities or community-focused facilities</li>
                                 </ul>"
                         },
-                        //new ChartViewModel
-                        //{
-                        //    Name = "Building and Grounds maintenance and improvement",
-                        //    FieldName = SchoolTrustFinanceDataFieldNames.BUILDING_GROUNDS,
-                        //    RevenueGroup = RevenueGroupType.Expenditure,
-                        //    ChartGroup = ChartGroupType.Premises,
-                        //    ChartSchoolType = ChartSchoolType.Academy,
-                        //    MoreInfo = @""
-                        //},
                     }
                 },
                 new ChartViewModel()
@@ -727,7 +705,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 12,
                     Name = "PFI charges",
                     FieldName = SchoolTrustFinanceDataFieldNames.PFI_CHARGES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
                     ChartSchoolType = ChartSchoolType.Academy,
                     MoreInfo = @""
@@ -739,7 +717,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 13,
                     Name = "Occupation total",
                     FieldName = SchoolTrustFinanceDataFieldNames.OCCUPATION,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -751,7 +729,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 14,
                     Name = "Energy",
                     FieldName = SchoolTrustFinanceDataFieldNames.ENERGY,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -772,7 +750,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 15,
                     Name = "Water and sewerage",
                     FieldName = SchoolTrustFinanceDataFieldNames.WATER_SEWERAGE,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -790,7 +768,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 16,
                     Name = "Rates",
                     FieldName = SchoolTrustFinanceDataFieldNames.RATES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     MoreInfo = @"
@@ -807,7 +785,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 17,
                     Name = "Other occupation costs",
                     FieldName = SchoolTrustFinanceDataFieldNames.OTHER_OCCUPATION,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -834,7 +812,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 18,
                     Name = "Other insurance premiums",
                     FieldName = SchoolTrustFinanceDataFieldNames.OTHER_INSURANCE,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes: </p>
@@ -859,7 +837,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 19,
                     Name = "Catering expenditure",
                     FieldName = SchoolTrustFinanceDataFieldNames.CATERING_EXP,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -870,7 +848,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 19001,
                             Name = "Catering staff",
                             FieldName = SchoolTrustFinanceDataFieldNames.CATERING_STAFF,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Occupation,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo =
@@ -894,7 +872,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 19002,
                             Name = "Catering supplies",
                             FieldName = SchoolTrustFinanceDataFieldNames.CATERING_SUPPLIES,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.Occupation,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"
@@ -926,7 +904,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 20,
                     Name = "Rent and rates",
                     FieldName = SchoolTrustFinanceDataFieldNames.RENT_RATES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Academy,
                     MoreInfo = @"<p>This includes the amount incurred for:</p>
@@ -937,19 +915,6 @@ namespace SFB.Web.UI.Helpers
                                 </ul>
                                 "
                 },
-                //new ChartViewModel()
-                //{
-                //    Name = "Catering costs",
-                //    FieldName = "Catering costs",
-                //    RevenueGroup = RevenueGroupType.Expenditure,
-                //    ChartGroup = ChartGroupType.Occupation,
-                //    ChartSchoolType = ChartSchoolType.Academy,
-                //    MoreInfo = @"<p>This includes:</p>
-                //                <ul>
-                //                <li>catering staff</li>
-                //                <li>catering supplies</li>
-                //                </ul>"
-                //},
 
                 //Supplies and Services
                 new ChartViewModel()
@@ -957,7 +922,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 21,
                     Name = "Supplies and services total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SUPPLIES_SERVICES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -968,7 +933,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 22,
                     Name = "Administrative supplies",
                     FieldName = SchoolTrustFinanceDataFieldNames.ADMIN_SUPPLIES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -1002,7 +967,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 23,
                     Name = "Educational supplies",
                     FieldName = SchoolTrustFinanceDataFieldNames.EDUCATIONAL_SUPPLIES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -1018,7 +983,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 23001,
                             Name = "ICT learning resources",
                             FieldName = SchoolTrustFinanceDataFieldNames.ICT_LEARNING_RESOURCES,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes:</p>
@@ -1045,7 +1010,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 23002,
                             Name = "Learning resources",
                             FieldName = SchoolTrustFinanceDataFieldNames.LEARNING_RESOURCES,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes:</p>
@@ -1082,7 +1047,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 23003,
                             Name = "Examination fees",
                             FieldName = SchoolTrustFinanceDataFieldNames.EXAM_FEES,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes:</p>
@@ -1105,7 +1070,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 24,
                     Name = "Bought-in professional services",
                     FieldName = SchoolTrustFinanceDataFieldNames.BROUGHT_IN_SERVICES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.SuppliesAndServices,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -1122,7 +1087,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 24001,
                             Name = "Educational consultancy",
                             FieldName = SchoolTrustFinanceDataFieldNames.EDUCATIONAL_CONSULTANCY,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This covers professional consultancy and advice to staff and governors.</p>"
@@ -1132,7 +1097,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 24002,
                             Name = "Bought in professional services - other",
                             FieldName = SchoolTrustFinanceDataFieldNames.BOUGHT_IN_OTHER,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Maintained,
                             MoreInfo =
@@ -1164,7 +1129,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 24003,
                             Name = "Legal and professional",
                             FieldName = SchoolTrustFinanceDataFieldNames.LEGAL_PROFESSIONAL,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Academy,
                             MoreInfo = @"
@@ -1193,7 +1158,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 24004,
                             Name = "Auditor costs",
                             FieldName = SchoolTrustFinanceDataFieldNames.AUDITOR_COSTS,
-                            RevenueGroup = RevenueGroupType.Expenditure,
+                            TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Academy,
                             MoreInfo = @"<p>This covers expenditure for any audit costs. </p>"
@@ -1207,7 +1172,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 26,
                     Name = "Special facilities total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SPECIAL_FACILITIES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.SpecialFacilities,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes: </p>
@@ -1244,7 +1209,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 27,
                     Name = "Cost of finance total",
                     FieldName = SchoolTrustFinanceDataFieldNames.COST_OF_FINANCE,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.CostOfFinance,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -1255,7 +1220,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 28,
                     Name = "Loan interest",
                     FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_CHARGES,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.CostOfFinance,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -1274,7 +1239,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 29,
                     Name = "Direct revenue financing (revenue contributions to capital)",
                     FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.CostOfFinance,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -1298,7 +1263,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 30,
                     Name = "Community expenditure total",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_EXP,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Community,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     ChartType = ChartType.Total,
@@ -1309,7 +1274,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 31,
                     Name = "Community focused school staff",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_FOCUSED,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Community,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     MoreInfo =
@@ -1333,7 +1298,7 @@ namespace SFB.Web.UI.Helpers
                     Name = "Community focused school costs",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMM_FOCUSED_SCHOOL,
                     ChartSchoolType = ChartSchoolType.Maintained,
-                    RevenueGroup = RevenueGroupType.Expenditure,
+                    TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Community,
                     MoreInfo = @"
                         <p>This includes:</p>
@@ -1355,7 +1320,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 33,
                     Name = "Total income",
                     FieldName = SchoolTrustFinanceDataFieldNames.TOTAL_INCOME,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.TotalIncome,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
@@ -1367,7 +1332,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 34,
                     Name = "Grant funding total",
                     FieldName = SchoolTrustFinanceDataFieldNames.GRANT_FUNDING,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.TotalIncome,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
@@ -1380,7 +1345,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 38,
                     Name = "Self-generated funding total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SELF_GENERATED_FUNDING,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.TotalIncome,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
@@ -1394,7 +1359,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 48,
                     Name = "In-year balance",
                     FieldName = SchoolTrustFinanceDataFieldNames.IN_YEAR_BALANCE,
-                    RevenueGroup = RevenueGroupType.Balance,
+                    TabType = TabType.Balance,
                     ChartGroup = ChartGroupType.InYearBalance,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -1405,7 +1370,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 49,
                     Name = "Revenue reserve",
                     FieldName = SchoolTrustFinanceDataFieldNames.REVENUE_RESERVE,
-                    RevenueGroup = RevenueGroupType.Balance,
+                    TabType = TabType.Balance,
                     ChartGroup = ChartGroupType.InYearBalance,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"
@@ -1426,7 +1391,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 34,
                     Name = "Grant funding total",
                     FieldName = SchoolTrustFinanceDataFieldNames.GRANT_FUNDING,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.GrantFunding,
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
@@ -1437,7 +1402,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 35,
                     Name = "Direct grants",
                     FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_GRANT,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.GrantFunding,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>Where there is funding, this includes:</p>
@@ -1456,7 +1421,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 35001,
                             Name = "Pre-16 funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.PRE_16_FUNDING,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo =
@@ -1467,7 +1432,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 35002,
                             Name = "Funding for sixth-form students",
                             FieldName = SchoolTrustFinanceDataFieldNames.POST_16_FUNDING,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes:</p> 
@@ -1492,7 +1457,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 35003,
                             Name = "Other DfE/EFA revenue grants",
                             FieldName = SchoolTrustFinanceDataFieldNames.OTHER_DFE_GRANTS,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @""
@@ -1502,7 +1467,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 35004,
                             Name = "Other income (local authority and other government grants)",
                             FieldName = SchoolTrustFinanceDataFieldNames.OTHER_INCOME_GRANTS,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"
@@ -1528,7 +1493,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 35005,
                             Name = "Government source (non-grant)",
                             FieldName = SchoolTrustFinanceDataFieldNames.GOVERNMENT_SOURCE,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Academy,
                             MoreInfo = @""
@@ -1540,7 +1505,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 36,
                     Name = "Community grants",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_GRANTS,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.GrantFunding,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>Where there is funding, this includes:</p>
@@ -1559,7 +1524,7 @@ namespace SFB.Web.UI.Helpers
                             Name = "Academies",
                             FieldName = SchoolTrustFinanceDataFieldNames.ACADEMIES,
                             ChartSchoolType = ChartSchoolType.Academy,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             MoreInfo = @"<p>This includes:</p>
                                 <ul>
@@ -1573,7 +1538,7 @@ namespace SFB.Web.UI.Helpers
                             Name = "Non-government",
                             FieldName = SchoolTrustFinanceDataFieldNames.NON_GOVERNMENT,
                             ChartSchoolType = ChartSchoolType.Academy,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             MoreInfo = @"<p>This includes:</p>
                                 <ul>
@@ -1587,7 +1552,7 @@ namespace SFB.Web.UI.Helpers
                             Name = "Other Funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.OTHER_INCOME,
                             ChartSchoolType = ChartSchoolType.Academy,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                         },
                         new ChartViewModel
@@ -1596,7 +1561,7 @@ namespace SFB.Web.UI.Helpers
                             Name = "Community focussed school funding and/or grants",
                             FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_FOCUSED,
                             ChartSchoolType = ChartSchoolType.Maintained,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             MoreInfo = @"<p>This includes: </p>
                                         <ul><li>sources of funding for community-focused activities </li></ul>
@@ -1609,7 +1574,7 @@ namespace SFB.Web.UI.Helpers
                             Name = "Additional grant for schools",
                             FieldName = SchoolTrustFinanceDataFieldNames.ADDITIONAL_GRANT,
                             ChartSchoolType = ChartSchoolType.Maintained,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             MoreInfo = @"<p>This includes:</p>
                                 <ul>
@@ -1631,7 +1596,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 37,
                     Name = "Targeted grants",
                     FieldName = SchoolTrustFinanceDataFieldNames.TARGETED_GRANTS,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.GrantFunding,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>Where there is funding, this includes:</p>
@@ -1649,7 +1614,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 37001,
                             Name = "Pupil focused extended school funding and/or grants",
                             FieldName = SchoolTrustFinanceDataFieldNames.PUPIL_FOCUSED_FUNDING,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Maintained,
                             MoreInfo = @"<p>This includes: </p>
@@ -1671,7 +1636,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 37002,
                             Name = "Pupil premium",
                             FieldName = SchoolTrustFinanceDataFieldNames.PUPIL_PREMIUM,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This includes: </p>
@@ -1694,7 +1659,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 377003,
                             Name = "ESG",
                             FieldName = SchoolTrustFinanceDataFieldNames.ESG,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Academy,
                             MoreInfo =
@@ -1705,7 +1670,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 37004,
                             Name = "High needs top-up funding",
                             FieldName = SchoolTrustFinanceDataFieldNames.SEN,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This is funding outside the school budget share. </p>
@@ -1732,7 +1697,7 @@ namespace SFB.Web.UI.Helpers
                             Id = 37005,
                             Name = "Funding for minority ethnic pupils",
                             FieldName = SchoolTrustFinanceDataFieldNames.FUNDING_MINORITY,
-                            RevenueGroup = RevenueGroupType.Income,
+                            TabType = TabType.Income,
                             ChartGroup = ChartGroupType.GrantFunding,
                             ChartSchoolType = ChartSchoolType.Maintained,
                             MoreInfo =
@@ -1760,7 +1725,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 38,
                     Name = "Self-generated funding total",
                     FieldName = SchoolTrustFinanceDataFieldNames.SELF_GENERATED_FUNDING,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
@@ -1771,7 +1736,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 39,
                     Name = "Community focused school facilities income",
                     FieldName = SchoolTrustFinanceDataFieldNames.COMM_FOCUSED_SCHOOL_FACILITIES,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     MoreInfo = @"
@@ -1786,7 +1751,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 40,
                     Name = "Income from facilities and services",
                     FieldName = SchoolTrustFinanceDataFieldNames.INCOME_FROM_FACILITIES,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -1822,7 +1787,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 41,
                     Name = "Income from catering",
                     FieldName = SchoolTrustFinanceDataFieldNames.INCOME_FROM_CATERING,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes: </p>
@@ -1845,7 +1810,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 42,
                     Name = "Donations and/or voluntary funds",
                     FieldName = SchoolTrustFinanceDataFieldNames.DONATIONS,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo =
@@ -1871,7 +1836,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 43,
                     Name = "Income from contributions to visits",
                     FieldName = SchoolTrustFinanceDataFieldNames.CONTRIBUTIONS_TO_VISITS,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     MoreInfo = @"<p>This includes: </p>
@@ -1892,7 +1857,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 44,
                     Name = "Receipts from supply teacher insurance claims",
                     FieldName = SchoolTrustFinanceDataFieldNames.RECEIPTS_FROM_SUPPLY,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
@@ -1913,7 +1878,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 45,
                     Name = "Receipts from other insurance claims",
                     FieldName = SchoolTrustFinanceDataFieldNames.RECEIPTS_FROM_OTHER,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     MoreInfo = @""
@@ -1923,7 +1888,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 46,
                     Name = "Investment income",
                     FieldName = SchoolTrustFinanceDataFieldNames.INVESTMENT_INCOME,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Academy,
                     MoreInfo = @"<p>This includes:</p>
@@ -1939,7 +1904,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 47,
                     Name = "Other self-generated income",
                     FieldName = SchoolTrustFinanceDataFieldNames.OTHER_SELF_GENERATED,
-                    RevenueGroup = RevenueGroupType.Income,
+                    TabType = TabType.Income,
                     ChartGroup = ChartGroupType.SelfGenerated,
                     ChartSchoolType = ChartSchoolType.Academy,
                     MoreInfo = @"<p>This includes income as a result of:</p>
@@ -1959,7 +1924,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 50,
                     Name = "School workforce (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.WORKFORCE_TOTAL,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    TabType = TabType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent (Full Time Equivalent) of the total school workforce.</p>
@@ -1978,7 +1943,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 51,
                     Name = "Total number of teachers (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_TOTAL,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    TabType = TabType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of all classroom and leadership teachers.</p>",
@@ -1989,7 +1954,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 52,
                     Name = "Teachers with Qualified Teacher Status (%)",
                     FieldName = SchoolTrustFinanceDataFieldNames.PERCENTAGE_QUALIFIED_TEACHERS,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    TabType = TabType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo =
@@ -2001,7 +1966,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 53,
                     Name = "Senior leadership (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_LEADER,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    TabType = TabType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of senior leadership roles.</p>
@@ -2019,7 +1984,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 54,
                     Name = "Teaching assistants (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.FULL_TIME_TA,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    TabType = TabType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of teaching assistants.</p>
@@ -2036,7 +2001,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Non-classroom support staff - excluding auxiliary staff (Full Time Equivalent)",
                     FieldName =SchoolTrustFinanceDataFieldNames.FULL_TIME_OTHER,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    TabType = TabType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of non-classroom-based support staff.</p>
@@ -2053,7 +2018,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 56,
                     Name = "Auxiliary staff (Full Time Equivalent)",
                     FieldName = SchoolTrustFinanceDataFieldNames.AUX_STAFF,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    TabType = TabType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the full-time equivalent of full and part-time auxiliary staff.</p>
@@ -2070,7 +2035,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 57,
                     Name = "School workforce (headcount)",
                     FieldName = SchoolTrustFinanceDataFieldNames.WORKFORCE_HEADCOUNT,
-                    RevenueGroup = RevenueGroupType.Workforce,
+                    TabType = TabType.Workforce,
                     ChartGroup = ChartGroupType.Workforce,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This is the total headcount of the school workforce.</p>
@@ -2089,7 +2054,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Key Stage 2 attainment",
                     FieldName = SchoolTrustFinanceDataFieldNames.KS2_ACTUAL,
-                    RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
+                    TabType = TabType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
                 },
@@ -2098,7 +2063,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Key Stage 2 progress",
                     FieldName = SchoolTrustFinanceDataFieldNames.KS2_PROGRESS,
-                    RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
+                    TabType = TabType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
                 },
@@ -2107,7 +2072,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Average attainment",
                     FieldName = SchoolTrustFinanceDataFieldNames.AVERAGE_ATTAINMENT,
-                    RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
+                    TabType = TabType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
                 },
@@ -2116,7 +2081,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Progress 8 measure",
                     FieldName = SchoolTrustFinanceDataFieldNames.PROGRESS_8_MEASURE,
-                    RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
+                    TabType = TabType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
                 },
@@ -2125,7 +2090,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Name = "Ofsted rating",
                     FieldName = SchoolTrustFinanceDataFieldNames.OFSTED_RATING,
-                    RevenueGroup = RevenueGroupType.AllIncludingSchoolPerf,
+                    TabType = TabType.AllIncludingSchoolPerf,
                     ChartGroup = ChartGroupType.SP,
                     ChartSchoolType = ChartSchoolType.Both,
                 }

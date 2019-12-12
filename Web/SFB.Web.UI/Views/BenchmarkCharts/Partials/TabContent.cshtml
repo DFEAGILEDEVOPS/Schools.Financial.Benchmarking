@@ -15,7 +15,7 @@
                             </div>
                             <div class="accordion-section-body">
                                 @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
-                                @if (ViewBag.Tab == RevenueGroupType.Salary)
+                                @if (ViewBag.Tab == TabType.Salary)
                                 {
                                     <input type="hidden" id="ShowValue" name="ShowValue" value="@UnitType.PercentageTeachers">
                                 }

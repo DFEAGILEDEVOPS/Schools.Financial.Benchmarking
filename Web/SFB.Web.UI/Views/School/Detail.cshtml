@@ -178,17 +178,17 @@ else
 <a name="charts"></a>
 <nav id="tabs" class="tabs" role="navigation">
     <ol role="tablist">
-        <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE</button>
+        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="tab">
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Expenditure')">@TabNames.EXPENDITURE</button>
         </li>
-        <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Income')">@RevenueGroupNames.INCOME</button>
+        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="tab">
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')">@TabNames.INCOME</button>
         </li>
-        <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE</button>
+        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="tab">
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')">@TabNames.BALANCE</button>
         </li>
-        <li class="@(ViewBag.Tab == RevenueGroupType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE</button>
+        <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="tab">
+            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Workforce')">@TabNames.WORKFORCE</button>
         </li>
     </ol>
 </nav>

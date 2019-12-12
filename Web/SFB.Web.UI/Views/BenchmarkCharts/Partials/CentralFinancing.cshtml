@@ -14,7 +14,7 @@
 
 @helper IsIrrelevantTab()
 {
-    if (ViewBag.Tab == RevenueGroupType.Workforce || ViewBag.Tab == RevenueGroupType.Salary)
+    if (ViewBag.Tab == TabType.Workforce || ViewBag.Tab == TabType.Salary)
     {
         <text>hidden</text>
     }

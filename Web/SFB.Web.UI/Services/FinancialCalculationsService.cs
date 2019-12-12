@@ -21,8 +21,8 @@ namespace SFB.Web.UI.Services
             _localAuthoritiesService = localAuthoritiesService;
         }
 
-        public void PopulateHistoricalChartsWithSchoolData(List<ChartViewModel> historicalCharts,
-            List<FinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
+        public void PopulateHistoricalChartsWithFinancialData(List<ChartViewModel> historicalCharts,
+            List<FinancialDataModel> SchoolFinancialDataModels, string term, TabType revgroup, UnitType unit,
             EstablishmentType estabType)
         {
             foreach (var chart in historicalCharts)
@@ -50,7 +50,7 @@ namespace SFB.Web.UI.Services
                     .GetValue(dataObject);
         }
 
-        private void BuildChart(List<FinancialDataModel> SchoolFinancialDataModels, string term, RevenueGroupType revgroup, UnitType unit,
+        private void BuildChart(List<FinancialDataModel> SchoolFinancialDataModels, string term, TabType revgroup, UnitType unit,
             EstablishmentType estabType, ChartViewModel chart)
         {
             var historicalChartData = new List<HistoricalChartData>();
@@ -104,13 +104,13 @@ namespace SFB.Web.UI.Services
                             }
                             switch (revgroup)
                             {
-                                case RevenueGroupType.Expenditure:
+                                case TabType.Expenditure:
                                     total = schoolData.TotalExpenditure;
                                     break;
-                                case RevenueGroupType.Income:
+                                case TabType.Income:
                                     total = schoolData.TotalIncome;
                                     break;
-                                case RevenueGroupType.Balance:
+                                case TabType.Balance:
                                     total = schoolData.InYearBalance;
                                     break;
                             }
@@ -224,7 +224,7 @@ namespace SFB.Web.UI.Services
                 if (!string.IsNullOrEmpty(chart.FieldName))
                 {
                     var benchmarkChart = BuildBenchmarkChartModel(chart.FieldName, bmEntities, financialDataModels, chartUnit,
-                        chart.RevenueGroup, homeSchoolId);
+                        chart.TabType, homeSchoolId);
                     chart.BenchmarkData = benchmarkChart.ChartData;
                     chart.DataJson = JsonConvert.SerializeObject(benchmarkChart.ChartData);
                     chart.BenchmarkSchoolIndex = benchmarkChart.BenchmarkSchoolIndex;
@@ -241,7 +241,7 @@ namespace SFB.Web.UI.Services
                                 bmEntities,
                                 financialDataModels,
                                 chartUnit,
-                                chart.RevenueGroup,
+                                chart.TabType,
                                 homeSchoolId).ChartData;
                     }
                 }
@@ -249,7 +249,7 @@ namespace SFB.Web.UI.Services
         }
         
         private BenchmarkChartModel BuildBenchmarkChartModel(string fieldName, IEnumerable<CompareEntityBase> bmSchools,
-            List<FinancialDataModel> financialDataModels, UnitType unit, RevenueGroupType revGroup, string homeSchoolId)
+            List<FinancialDataModel> financialDataModels, UnitType unit, TabType revGroup, string homeSchoolId)
         {
             var chartDataList = new List<BenchmarkChartData>();
             foreach (var school in bmSchools)
@@ -258,19 +258,19 @@ namespace SFB.Web.UI.Services
                 decimal? total = 0;
                 switch (revGroup)
                 {
-                    case RevenueGroupType.Expenditure:
+                    case TabType.Expenditure:
                         total = dataModel.TotalExpenditure;
                         break;
-                    case RevenueGroupType.Income:
+                    case TabType.Income:
                         total = dataModel.TotalIncome;
                         break;
-                    case RevenueGroupType.Balance:
+                    case TabType.Balance:
                         total = dataModel.InYearBalance;
                         break;
                 }
 
                 decimal? amountPerUnit = null;
-                if (revGroup == RevenueGroupType.Workforce)
+                if (revGroup == TabType.Workforce)
                 {
                     amountPerUnit = CalculateWFAmount(dataModel, fieldName, unit);
                 }
@@ -306,7 +306,7 @@ namespace SFB.Web.UI.Services
             var incompleteFinanceDataIndex = new List<int>();
             var incompleteWorkforceDataIndex = new List<int>();
 
-            if (revGroup == RevenueGroupType.Workforce)
+            if (revGroup == TabType.Workforce)
             {
                 var incompleteWorkForce = sortedChartData.FindAll(s => !s.IsWFDataPresent);
                 incompleteWorkForce.ForEach(i => incompleteWorkforceDataIndex.Add(sortedChartData.IndexOf(i)));

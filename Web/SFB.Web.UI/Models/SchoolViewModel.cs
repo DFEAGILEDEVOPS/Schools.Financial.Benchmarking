@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using SFB.Web.ApplicationCore;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.ApplicationCore.Entities;
 using System.Globalization;
@@ -10,7 +9,8 @@ namespace SFB.Web.UI.Models
 {
     public class SchoolViewModel : EstablishmentViewModelBase
     {
-        private EdubaseDataObject ContextDataModel { get; set; }
+        public EdubaseDataObject ContextDataModel { get; set; }
+
         public SchoolComparisonListModel ManualComparisonList { get; set; }
 
         public SchoolViewModel(EdubaseDataObject contextDataModel)

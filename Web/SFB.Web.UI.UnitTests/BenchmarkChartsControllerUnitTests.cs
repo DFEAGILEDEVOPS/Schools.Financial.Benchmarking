@@ -90,8 +90,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>(){ new ChartViewModel(){ChartGroup = ChartGroupType.Staff}});
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>(){ new ChartViewModel(){ChartGroup = ChartGroupType.Staff}});
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -159,8 +159,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -240,8 +240,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -318,8 +318,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -362,8 +362,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -387,7 +387,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.TabChange(EstablishmentType.Maintained, UnitType.PerPupil, RevenueGroupType.Income);
+            controller.TabChange(EstablishmentType.Maintained, UnitType.PerPupil, TabType.Income);
             
             financialCalculationsService.Verify(f=> f.PopulateBenchmarkChartsWithFinancialData(
                 null,
@@ -406,8 +406,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -433,7 +433,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.TabChange(EstablishmentType.Maintained, UnitType.PerPupil, RevenueGroupType.Balance);
+            controller.TabChange(EstablishmentType.Maintained, UnitType.PerPupil, TabType.Balance);
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 null,
@@ -453,12 +453,12 @@ namespace SFB.Web.UI.UnitTests
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
 
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(),It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroup ,EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { Name = "Staff", ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(),It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, ChartGroupType chartGroup ,EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { Name = "Staff", ChartGroup = ChartGroupType.Staff } });
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -481,7 +481,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.TabChange(EstablishmentType.Maintained, UnitType.PercentageOfTotalExpenditure, RevenueGroupType.Balance);
+            controller.TabChange(EstablishmentType.Maintained, UnitType.PercentageOfTotalExpenditure, TabType.Balance);
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 It.IsAny<List<ChartViewModel>>(),
@@ -502,12 +502,12 @@ namespace SFB.Web.UI.UnitTests
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
 
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { Name = "Staff", ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, ChartGroupType chartGroup, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { Name = "Staff", ChartGroup = ChartGroupType.Staff } });
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -531,7 +531,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.TabChange(EstablishmentType.Maintained, UnitType.AbsoluteMoney, RevenueGroupType.Workforce);
+            controller.TabChange(EstablishmentType.Maintained, UnitType.AbsoluteMoney, TabType.Workforce);
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 It.IsAny<List<ChartViewModel>>(),

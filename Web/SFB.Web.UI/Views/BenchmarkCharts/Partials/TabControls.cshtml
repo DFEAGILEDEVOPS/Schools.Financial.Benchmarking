@@ -6,30 +6,30 @@
 
 <nav class="tabs" role="navigation">
     <ol role="tablist">
-        <li id="@RevenueGroupType.Expenditure" class="hide-in-print active" role="tab">
-            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Expenditure')">@RevenueGroupNames.EXPENDITURE <span class="bmtab visually-hidden"> selected</span></a>
+        <li id="@TabType.Expenditure" class="hide-in-print active" role="tab">
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Expenditure')">@TabNames.EXPENDITURE <span class="bmtab visually-hidden"> selected</span></a>
         </li>
-        <li id="@RevenueGroupType.Income" class="hide-in-print" role="tab">
-            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Income')">@RevenueGroupNames.INCOME <span class="bmtab visually-hidden"></span></a>
+        <li id="@TabType.Income" class="hide-in-print" role="tab">
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Income')">@TabNames.INCOME <span class="bmtab visually-hidden"></span></a>
         </li>
-        <li id="@RevenueGroupType.Balance" class="hide-in-print" role="tab">
-            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Balance')">@RevenueGroupNames.BALANCE <span class="bmtab visually-hidden"></span></a>
+        <li id="@TabType.Balance" class="hide-in-print" role="tab">
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Balance')">@TabNames.BALANCE <span class="bmtab visually-hidden"></span></a>
         </li>
         @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
         {
-            <li id="@RevenueGroupType.Workforce" class="hide-in-print" role="tab">
-                <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Workforce')">@RevenueGroupNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>
+            <li id="@TabType.Workforce" class="hide-in-print" role="tab">
+                <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Workforce')">@TabNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>
             </li>
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
-            @*<li id="@RevenueGroupType.Salary" class="hide-in-print" role="tab">
-                <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Salary')">@RevenueGroupNames.SALARY <span class="bmtab visually-hidden"></span></a>
+            @*<li id="@TabType.Salary" class="hide-in-print" role="tab">
+                <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Salary')">@TabNames.SALARY <span class="bmtab visually-hidden"></span></a>
             </li>*@
-            <li id="@RevenueGroupType.Custom" class="hide-in-print" role="tab">
-                @*<span class="visually-hidden">@RevenueGroupNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
-                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@RevenueGroupType.Custom')">
-                    <span>@RevenueGroupNames.CUSTOM<br /><span style="display: inline-block"> (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span></span>
+            <li id="@TabType.Custom" class="hide-in-print" role="tab">
+                @*<span class="visually-hidden">@TabNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
+                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Custom')">
+                    <span>@TabNames.CUSTOM<br /><span style="display: inline-block"> (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span></span>
                     <span class="bmtab visually-hidden">tab</span>
                 </a>
                 @*<a class="helpLink hide-in-print" href="#" id="renderYourChartsInfo" onclick="DfE.Util.ModalRenderer.RenderYourChartsInfoModal()">

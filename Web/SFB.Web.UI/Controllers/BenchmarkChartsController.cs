@@ -326,7 +326,7 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
-            var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(RevenueGroupType.Custom, ChartGroupType.Custom, null, CentralFinancingType.Include);
+            var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(TabType.Custom, ChartGroupType.Custom, null, CentralFinancingType.Include);
 
             var vm = new BenchmarkChartListViewModel(
                 benchmarkCharts,
@@ -497,25 +497,25 @@ namespace SFB.Web.UI.Controllers
             ComparisonArea areaType = ComparisonArea.All,
             string laCode = null,
             bool excludePartial = false,
-            RevenueGroupType tab = RevenueGroupType.Expenditure,
+            TabType tab = TabType.Expenditure,
             CentralFinancingType financing = CentralFinancingType.Include)
         {
             ChartGroupType chartGroup;
             switch (tab)
             {
-                case RevenueGroupType.Expenditure:
+                case TabType.Expenditure:
                     chartGroup = ChartGroupType.TotalExpenditure;
                     break;
-                case RevenueGroupType.Income:
+                case TabType.Income:
                     chartGroup = ChartGroupType.TotalIncome;
                     break;
-                case RevenueGroupType.Balance:
+                case TabType.Balance:
                     chartGroup = ChartGroupType.InYearBalance;
                     break;
-                case RevenueGroupType.Workforce:
+                case TabType.Workforce:
                     chartGroup = ChartGroupType.Workforce;
                     break;
-                case RevenueGroupType.Salary:
+                case TabType.Salary:
                     chartGroup = ChartGroupType.Salary;
                     break;
                 default:
@@ -526,10 +526,10 @@ namespace SFB.Web.UI.Controllers
             UnitType defaultUnitType;
             switch (tab)
             {
-                case RevenueGroupType.Workforce:
+                case TabType.Workforce:
                     defaultUnitType = UnitType.AbsoluteCount;
                     break;
-                case RevenueGroupType.Salary:
+                case TabType.Salary:
                     defaultUnitType = UnitType.PercentageTeachers;
                     break;
                 default:
@@ -583,18 +583,18 @@ namespace SFB.Web.UI.Controllers
             return View("Index", vm);
         }
 
-        public ActionResult Mats(RevenueGroupType tab = RevenueGroupType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
+        public ActionResult Mats(TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
         {
             ChartGroupType chartGroup;
             switch (tab)
             {
-                case RevenueGroupType.Expenditure:
+                case TabType.Expenditure:
                     chartGroup = ChartGroupType.TotalExpenditure;
                     break;
-                case RevenueGroupType.Income:
+                case TabType.Income:
                     chartGroup = ChartGroupType.TotalIncome;
                     break;
-                case RevenueGroupType.Balance:
+                case TabType.Balance:
                     chartGroup = ChartGroupType.InYearBalance;
                     break;
                 default:
@@ -602,7 +602,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            var defaultUnitType = tab == RevenueGroupType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
+            var defaultUnitType = tab == TabType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
             var benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, UnitType.AbsoluteMoney, financing);
             var chartGroups = _benchmarkChartBuilder.Build(tab, EstablishmentType.MAT).DistinctBy(c => c.ChartGroup).ToList();
 
@@ -623,7 +623,7 @@ namespace SFB.Web.UI.Controllers
             return View("Index", vm);
         }
 
-        public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, RevenueGroupType tab = RevenueGroupType.Expenditure,
+        public async Task<PartialViewResult> TabChange(EstablishmentType type, UnitType showValue, TabType tab = TabType.Expenditure,
             CentralFinancingType financing = CentralFinancingType.Include, MatFinancingType trustFinancing = MatFinancingType.TrustAndAcademies,
             ChartFormat format = ChartFormat.Charts, ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonOverallPhase = "Primary",
             bool excludePartial = false)
@@ -631,19 +631,19 @@ namespace SFB.Web.UI.Controllers
             ChartGroupType chartGroup;
             switch (tab)
             {
-                case RevenueGroupType.Expenditure:
+                case TabType.Expenditure:
                     chartGroup = ChartGroupType.TotalExpenditure;
                     break;
-                case RevenueGroupType.Income:
+                case TabType.Income:
                     chartGroup = ChartGroupType.TotalIncome;
                     break;
-                case RevenueGroupType.Balance:
+                case TabType.Balance:
                     chartGroup = ChartGroupType.InYearBalance;
                     break;
-                case RevenueGroupType.Workforce:
+                case TabType.Workforce:
                     chartGroup = ChartGroupType.Workforce;
                     break;
-                case RevenueGroupType.Salary:
+                case TabType.Salary:
                     chartGroup = ChartGroupType.Salary;
                     break;
                 default:
@@ -654,13 +654,13 @@ namespace SFB.Web.UI.Controllers
             UnitType unitType;
             switch (tab)
             {
-                case RevenueGroupType.Workforce:
+                case TabType.Workforce:
                     unitType = UnitType.AbsoluteCount;
                     break;
-                case RevenueGroupType.Balance:
+                case TabType.Balance:
                     unitType = showValue == UnitType.AbsoluteMoney || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher ? showValue : UnitType.AbsoluteMoney;
                     break;
-                case RevenueGroupType.Salary:
+                case TabType.Salary:
                     unitType = UnitType.PercentageTeachers;
                     break;
                 default:
@@ -700,7 +700,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/TabContent", vm);
         }
 
-        public async Task<PartialViewResult> GetCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue,
+        public async Task<PartialViewResult> GetCharts(TabType revGroup, ChartGroupType chartGroup, UnitType showValue,
             CentralFinancingType centralFinancing = CentralFinancingType.Include, MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,
             EstablishmentType type = EstablishmentType.All, ChartFormat format = ChartFormat.Charts,
             ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonOverallPhase = "Primary")
@@ -734,12 +734,12 @@ namespace SFB.Web.UI.Controllers
             string csv = null;
             if (type == EstablishmentType.MAT)
             {
-                benchmarkCharts = BuildTrustBenchmarkCharts(RevenueGroupType.AllExcludingSchoolPerf, ChartGroupType.All, UnitType.AbsoluteMoney, MatFinancingType.TrustAndAcademies);
+                benchmarkCharts = BuildTrustBenchmarkCharts(TabType.AllExcludingSchoolPerf, ChartGroupType.All, UnitType.AbsoluteMoney, MatFinancingType.TrustAndAcademies);
                 csv = _csvBuilder.BuildCSVContentForTrusts(_benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie(), benchmarkCharts);
             }
             else
             {
-                benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(RevenueGroupType.AllIncludingSchoolPerf, ChartGroupType.All, null, CentralFinancingType.Exclude);
+                benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(TabType.AllIncludingSchoolPerf, ChartGroupType.All, null, CentralFinancingType.Exclude);
                 csv = _csvBuilder.BuildCSVContentForSchools(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), benchmarkCharts);
             }
 
@@ -765,7 +765,7 @@ namespace SFB.Web.UI.Controllers
         private List<ChartViewModel> ConvertSelectionListToChartList(List<HierarchicalChartViewModel> customChartSelection)
         {
             List<ChartViewModel> customChartList = new List<ChartViewModel>();
-            var allAvailableCharts = _benchmarkChartBuilder.Build(RevenueGroupType.AllExcludingSchoolPerf, ChartGroupType.All, EstablishmentType.All);
+            var allAvailableCharts = _benchmarkChartBuilder.Build(TabType.AllExcludingSchoolPerf, ChartGroupType.All, EstablishmentType.All);
             foreach (var selection in customChartSelection.SelectMany(ccs => ccs.Charts))
             {
                 if (selection.AbsoluteMoneySelected)
@@ -874,7 +874,7 @@ namespace SFB.Web.UI.Controllers
             return customChartList;
         }
 
-        private async Task<List<ChartViewModel>> BuildSchoolBenchmarkChartsAsync(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType? showValue, CentralFinancingType cFinancing)
+        private async Task<List<ChartViewModel>> BuildSchoolBenchmarkChartsAsync(TabType revGroup, ChartGroupType chartGroup, UnitType? showValue, CentralFinancingType cFinancing)
         {
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
             var establishmentType = DetectEstablishmentType(comparisonList);
@@ -910,7 +910,7 @@ namespace SFB.Web.UI.Controllers
             return establishmentType;
         }
 
-        private List<ChartViewModel> BuildTrustBenchmarkCharts(RevenueGroupType revGroup, ChartGroupType chartGroup, UnitType showValue, MatFinancingType mFinancing)
+        private List<ChartViewModel> BuildTrustBenchmarkCharts(TabType revGroup, ChartGroupType chartGroup, UnitType showValue, MatFinancingType mFinancing)
         {
             var comparisonList = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie();
             var benchmarkCharts = _benchmarkChartBuilder.Build(revGroup, chartGroup, EstablishmentType.MAT);

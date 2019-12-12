@@ -53,20 +53,20 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public RevenueGroupType RevenueGroup { get; set; }
+        public TabType TabType { get; set; }
 
-        public string RevenueGroupName
+        public string TabName
         {
             get
             {
-                switch (RevenueGroup)
+                switch (TabType)
                 {
-                    case RevenueGroupType.Expenditure:
-                        return RevenueGroupNames.EXPENDITURE;
-                    case RevenueGroupType.Income:
-                        return RevenueGroupNames.INCOME;
-                    case RevenueGroupType.Balance:
-                        return RevenueGroupNames.BALANCE;
+                    case TabType.Expenditure:
+                        return TabNames.EXPENDITURE;
+                    case TabType.Income:
+                        return TabNames.INCOME;
+                    case TabType.Balance:
+                        return TabNames.BALANCE;
                     default:
                         return null;
                 }
@@ -124,7 +124,7 @@ namespace SFB.Web.UI.Models
                 ChartSchoolType = this.ChartSchoolType,
                 ChartType = this.ChartType,
                 ChartGroup = this.ChartGroup,
-                RevenueGroup = this.RevenueGroup,
+                TabType = this.TabType,
                 ShowValue = this.ShowValue,
                 MoreInfo = this.MoreInfo,
                 LastYear = this.LastYear,

@@ -47,7 +47,7 @@
         }
     }
 
-    public class RevenueGroupNames
+    public class TabNames
     {
         public const string INCOME = "Income";
         public const string EXPENDITURE = "Expenditure";

@@ -167,14 +167,14 @@
 <a name="charts"></a>
 <nav id="tabs" class="tabs" role="navigation">
     <ol role="tablist">
-        <li class="@(ViewBag.Tab == RevenueGroupType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Expenditure")'>@RevenueGroupNames.EXPENDITURE</button>
+        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="tab">
+            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</button>
         </li>
-        <li class="@(ViewBag.Tab == RevenueGroupType.Income ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Income")'>@RevenueGroupNames.INCOME</button>
+        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="tab">
+            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</button>
         </li>
-        <li class="@(ViewBag.Tab == RevenueGroupType.Balance ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@RevenueGroupType.Balance")'>@RevenueGroupNames.BALANCE</button>
+        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="tab">
+            <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</button>
         </li>
     </ol>
 </nav>

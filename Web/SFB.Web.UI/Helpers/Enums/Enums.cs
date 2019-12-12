@@ -30,7 +30,7 @@ namespace SFB.Web.UI.Helpers.Enums
         OneClick
     }
 
-    public enum RevenueGroupType
+    public enum TabType
     {
         Expenditure,
         Income,        

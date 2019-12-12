@@ -56,12 +56,12 @@ namespace SFB.Web.UI.UnitTests
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
-                .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+                .Returns((TabType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
@@ -76,20 +76,21 @@ namespace SFB.Web.UI.UnitTests
 
             var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
+            var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
+
             var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
-                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object);
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
+                mockSchoolVMBuilder.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Income);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Income);
 
-            financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
-                It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<FinancialDataModel>>(),
-                It.IsAny<string>(),
-                It.IsAny<RevenueGroupType>(),
-                UnitType.PerPupil,
-                It.IsAny<EstablishmentType>()));
+            mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
+                It.IsAny<TabType>(),
+                It.IsAny<ChartGroupType>(),
+                It.IsAny<CentralFinancingType>(),
+                UnitType.PerPupil));
         }
 
         [Test]
@@ -103,12 +104,12 @@ namespace SFB.Web.UI.UnitTests
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
-                .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+                .Returns((TabType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
@@ -123,20 +124,21 @@ namespace SFB.Web.UI.UnitTests
 
             var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
+            var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
+
             var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
-                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object);
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
+                mockSchoolVMBuilder.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Balance);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Balance);
 
-            financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
-                It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<FinancialDataModel>>(),
-                It.IsAny<string>(),
-                It.IsAny<RevenueGroupType>(),
-                UnitType.PerPupil,
-                It.IsAny<EstablishmentType>()));
+            mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
+                It.IsAny<TabType>(),
+                It.IsAny<ChartGroupType>(),
+                It.IsAny<CentralFinancingType>(),
+                UnitType.PerPupil));
         }
 
         [Test]
@@ -150,12 +152,12 @@ namespace SFB.Web.UI.UnitTests
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
-                .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+                .Returns((TabType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
@@ -170,20 +172,21 @@ namespace SFB.Web.UI.UnitTests
 
             var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
+            var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
+
             var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
-                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object);
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
+                mockSchoolVMBuilder.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PercentageOfTotalExpenditure, CentralFinancingType.Exclude, RevenueGroupType.Balance);
+            controller.Detail(123, UnitType.PercentageOfTotalExpenditure, CentralFinancingType.Exclude, TabType.Balance);
 
-            financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
-                It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<FinancialDataModel>>(),
-                It.IsAny<string>(),
-                It.IsAny<RevenueGroupType>(),
-                UnitType.AbsoluteMoney,
-                It.IsAny<EstablishmentType>()));
+            mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
+                It.IsAny<TabType>(),
+                It.IsAny<ChartGroupType>(),
+                It.IsAny<CentralFinancingType>(),
+                UnitType.AbsoluteMoney));
         }
 
         [Test]
@@ -197,12 +200,12 @@ namespace SFB.Web.UI.UnitTests
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
-                .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+                .Returns((TabType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
             mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-                .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns((TabType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
@@ -217,20 +220,21 @@ namespace SFB.Web.UI.UnitTests
 
             var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
+            var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
+
             var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
-                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object);
+                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
+                mockSchoolVMBuilder.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Workforce);
+            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Workforce);
 
-            financialCalculationsService.Verify(f => f.PopulateHistoricalChartsWithSchoolData(
-                It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<FinancialDataModel>>(),
-                It.IsAny<string>(),
-                It.IsAny<RevenueGroupType>(),
-                UnitType.AbsoluteCount,
-                It.IsAny<EstablishmentType>()));
+            mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
+                It.IsAny<TabType>(),
+                It.IsAny<ChartGroupType>(),
+                It.IsAny<CentralFinancingType>(),
+                UnitType.AbsoluteCount));
         }
 
         //[Test]
@@ -244,12 +248,12 @@ namespace SFB.Web.UI.UnitTests
 
         //    var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
         //    mockHistoricalChartBuilder
-        //        .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
-        //        .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+        //        .Setup(cb => cb.Build(It.IsAny<TabNamesType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+        //        .Returns((TabNamesType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
         //    mockHistoricalChartBuilder
-        //        .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-        //        .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+        //        .Setup(cb => cb.Build(It.IsAny<TabNamesType>(), It.IsAny<EstablishmentType>()))
+        //        .Returns((TabNamesType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
 
         //    var financialCalculationsService = new Mock<IFinancialCalculationsService>();
@@ -275,7 +279,7 @@ namespace SFB.Web.UI.UnitTests
 
         //    controller.ControllerContext = new ControllerContext(_rc, controller);
 
-        //    var view = controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Workforce);
+        //    var view = controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabNamesType.Workforce);
         //    view.Wait();
             
         //    Assert.AreEqual(((ViewResult)view.Result).ViewBag.SptReportExists, true);
@@ -292,12 +296,12 @@ namespace SFB.Web.UI.UnitTests
 
         //    var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
         //    mockHistoricalChartBuilder
-        //        .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
-        //        .Returns((RevenueGroupType revenueGroup, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+        //        .Setup(cb => cb.Build(It.IsAny<TabNamesType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+        //        .Returns((TabNamesType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
         //    mockHistoricalChartBuilder
-        //        .Setup(cb => cb.Build(It.IsAny<RevenueGroupType>(), It.IsAny<EstablishmentType>()))
-        //        .Returns((RevenueGroupType revenueGroup, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+        //        .Setup(cb => cb.Build(It.IsAny<TabNamesType>(), It.IsAny<EstablishmentType>()))
+        //        .Returns((TabNamesType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
 
         //    var financialCalculationsService = new Mock<IFinancialCalculationsService>();
@@ -323,7 +327,7 @@ namespace SFB.Web.UI.UnitTests
 
         //    controller.ControllerContext = new ControllerContext(_rc, controller);
 
-        //    var view = controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, RevenueGroupType.Workforce);
+        //    var view = controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabNamesType.Workforce);
         //    view.Wait();
 
         //    Assert.AreEqual(((ViewResult)view.Result).ViewBag.SptReportExists, false);
