@@ -22,8 +22,9 @@
                 <span class="bold">@ViewBag.FinancialYear</span>
             </div>
             <div class="charts-section__chart-container__lastYearBalance">
-                @if (Model.ShowValue == UnitType.PercentageOfTotal ||
-                     Model.ShowValue == UnitType.FTERatioToTotalFTE)
+                @if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure ||
+                    Model.ShowValue == UnitType.PercentageOfTotalIncome ||
+                    Model.ShowValue == UnitType.FTERatioToTotalFTE)
                 {
                     @Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("0.#") + "%")
                 }
@@ -63,7 +64,8 @@
                     <span class="bold">@ViewBag.FinancialYear</span>
                 </div>
                 <div class="charts-section__chart-container__lastYearBalance">
-                    @if (Model.ShowValue == UnitType.PercentageOfTotal ||
+                    @if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure ||
+                        Model.ShowValue == UnitType.PercentageOfTotalIncome ||
                          Model.ShowValue == UnitType.FTERatioToTotalFTE)
                     {
                         @Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("0.#") + "%")

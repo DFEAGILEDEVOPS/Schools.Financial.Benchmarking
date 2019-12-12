@@ -1,4 +1,5 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.ApplicationCore.Helpers.Enums
 @model SFB.Web.UI.Models.ChartViewModel
 
 <button onclick="DfE.Util.focusTo('post-table-@Model.Name.Replace(" ","")')" class="hidden-button a-button">Skip the table @Model.Name</button>
@@ -76,7 +77,8 @@
                     {
                         switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
                         {
-                            case UnitType.PercentageOfTotal:
+                            case UnitType.PercentageOfTotalExpenditure:
+                            case UnitType.PercentageOfTotalIncome:
                             case UnitType.PercentageTeachers:
                             case UnitType.FTERatioToTotalFTE:
                                 @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
@@ -171,7 +173,7 @@
                             </button>
                         </th>
                         <td>
-                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), "KS2")">
+                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2)">
                                 <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                             </div>
                         </td>
@@ -186,7 +188,7 @@
                             </button>
                         </th>
                         <td>
-                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), "P8")">
+                            <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8)">
                                 <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                             </div>
                         </td>
@@ -214,7 +216,8 @@
                     {
                         switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
                         {
-                            case UnitType.PercentageOfTotal:
+                            case UnitType.PercentageOfTotalExpenditure:
+                            case UnitType.PercentageOfTotalIncome:
                             case UnitType.PercentageTeachers:
                             case UnitType.FTERatioToTotalFTE:
                                 @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
@@ -338,7 +341,7 @@
                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                 {
                     <td class="detail" data-header="Progress Score">
-                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? "P8" : "KS2")">
+                        <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? BicProgressScoreType.P8 : BicProgressScoreType.KS2)">
                             <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                         </div>
                     </td>
@@ -352,7 +355,8 @@
                     {
                         switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
                         {
-                            case UnitType.PercentageOfTotal:
+                            case UnitType.PercentageOfTotalExpenditure:
+                            case UnitType.PercentageOfTotalIncome:
                             case UnitType.PercentageTeachers:
                             case UnitType.FTERatioToTotalFTE:
                                 @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>

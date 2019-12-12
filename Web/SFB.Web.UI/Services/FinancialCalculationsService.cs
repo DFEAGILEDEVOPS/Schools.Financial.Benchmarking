@@ -94,7 +94,8 @@ namespace SFB.Web.UI.Services
                                 amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
                             }
                             break;
-                        case UnitType.PercentageOfTotal:
+                        case UnitType.PercentageOfTotalExpenditure:
+                        case UnitType.PercentageOfTotalIncome:
                         decimal? total = 0;
                         rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                             if (rawAmount == null)
@@ -410,7 +411,8 @@ namespace SFB.Web.UI.Services
                     return (teacherCount == 0) ? null : (rawAmount / (decimal) teacherCount);
                 case UnitType.PerPupil:
                     return (pupilCount == 0) ? null : (rawAmount / (decimal) pupilCount);
-                case UnitType.PercentageOfTotal:
+                case UnitType.PercentageOfTotalExpenditure:
+                case UnitType.PercentageOfTotalIncome:
                     return (total == 0) ? 0 : ((rawAmount / total) * 100);
                 default:
                     return rawAmount;

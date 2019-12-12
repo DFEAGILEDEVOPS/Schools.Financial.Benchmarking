@@ -53,8 +53,10 @@ namespace SFB.Web.UI.Helpers
         {
             switch (unit)
             {
-                case UnitType.PercentageOfTotal:
+                case UnitType.PercentageOfTotalExpenditure:
                     chartList.RemoveAll(c => c.Id == 1);//Total expenditure
+                    break;
+                case UnitType.PercentageOfTotalIncome:
                     chartList.RemoveAll(c => c.Id == 33);//Total income
                     break;
                 case UnitType.HeadcountPerFTE:

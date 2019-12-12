@@ -6,8 +6,11 @@
 {
     switch ((UnitType)Enum.Parse(typeof(UnitType), unit))
     {
-        case UnitType.PercentageOfTotal:
-            <text>Percentage of total</text>;
+        case UnitType.PercentageOfTotalIncome:
+            <text>Percentage of total income</text>;
+            break;
+        case UnitType.PercentageOfTotalExpenditure:
+            <text>Percentage of total expenditure</text>;
             break;
         case UnitType.PerTeacher:
             <text>Amount per teacher</text>
@@ -37,8 +40,11 @@
 {
     switch ((UnitType)Enum.Parse(typeof(UnitType), unit))
     {
-        case UnitType.PercentageOfTotal:
-            <text>Percentage of @chartName to total</text>;
+        case UnitType.PercentageOfTotalExpenditure:
+            <text>Percentage of @chartName to total expenditure</text>;
+            break;
+        case UnitType.PercentageOfTotalIncome:
+            <text>Percentage of @chartName to total income</text>;
             break;
         case UnitType.PerTeacher:
             <text>Per teacher @chartName</text>
@@ -68,7 +74,8 @@
 {
     switch ((UnitType)Enum.Parse(typeof(UnitType), unit))
     {
-        case UnitType.PercentageOfTotal:
+        case UnitType.PercentageOfTotalExpenditure:
+        case UnitType.PercentageOfTotalIncome:
             <text>Percentage</text>;
             break;
         case UnitType.AbsoluteCount:

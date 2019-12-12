@@ -4,7 +4,8 @@
     {
         private bool _perPupilAvailable = true;
         private bool _perTeacherAvailable = true;
-        private bool _percentageAvailable = true;
+        private bool _percentageExpenditureAvailable = true;
+        private bool _percentageIncomeAvailable = true;
         private bool _absoluteMoneyAvailable = true;
 
         public int Id { get; set; }
@@ -27,13 +28,20 @@
 
         public bool PerTeacherSelected { get; set; }
 
-        public bool PercentageAvailable
+        public bool PercentageExpenditureAvailable
         {
-            get { return _percentageAvailable; }
-            set { _percentageAvailable = value; }
+            get { return _percentageExpenditureAvailable; }
+            set { _percentageExpenditureAvailable = value; }
         }
 
-        public bool PercentageSelected { get; set; }
+        public bool PercentageIncomeAvailable
+        {
+            get { return _percentageIncomeAvailable; }
+            set { _percentageIncomeAvailable = value; }
+        }
+
+        public bool PercentageExpenditureSelected { get; set; }
+        public bool PercentageIncomeSelected { get; set; }
 
         public bool AbsoluteMoneyAvailable
         {

@@ -31,9 +31,13 @@
                 {
                     <option value="@UnitType.PerTeacher" @IsUnitTypeSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
                 }
-                if (Model.Tab != RevenueGroupType.Balance)
+                if (Model.Tab == RevenueGroupType.Expenditure)
                 {
-                    <option value="@UnitType.PercentageOfTotal" @IsUnitTypeSelected(UnitType.PercentageOfTotal)>@ChartShowValues.PERCENTAGE_TOTAL</option>
+                    <option value="@UnitType.PercentageOfTotalExpenditure" @IsUnitTypeSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>
+                }
+                if (Model.Tab == RevenueGroupType.Income)
+                {
+                    <option value="@UnitType.PercentageOfTotalIncome" @IsUnitTypeSelected(UnitType.PercentageOfTotalIncome)>@ChartShowValues.PERCENTAGE_TOTAL_INCOME</option>
                 }
             }
         </select>

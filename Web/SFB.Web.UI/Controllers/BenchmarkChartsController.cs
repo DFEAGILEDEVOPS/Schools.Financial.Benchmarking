@@ -664,7 +664,7 @@ namespace SFB.Web.UI.Controllers
                     unitType = UnitType.PercentageTeachers;
                     break;
                 default:
-                    unitType = showValue == UnitType.AbsoluteMoney || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher || showValue == UnitType.PercentageOfTotal ? showValue : UnitType.AbsoluteMoney;
+                    unitType = showValue == UnitType.AbsoluteMoney || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher || showValue == UnitType.PercentageOfTotalExpenditure || showValue == UnitType.PercentageOfTotalIncome ? showValue : UnitType.AbsoluteMoney;
                     break;
             }
 
@@ -798,12 +798,22 @@ namespace SFB.Web.UI.Controllers
                         customChartList.Add(customChart);
                     }
                 }
-                if (selection.PercentageSelected)
+                if (selection.PercentageExpenditureSelected)
                 {
                     var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
                     if (customChart != null)
                     {
-                        customChart.ShowValue = UnitType.PercentageOfTotal;
+                        customChart.ShowValue = UnitType.PercentageOfTotalExpenditure;
+                        customChart.ChartType = ChartType.CustomReport;
+                        customChartList.Add(customChart);
+                    }
+                }
+                if (selection.PercentageIncomeSelected)
+                {
+                    var customChart = (ChartViewModel)allAvailableCharts.FirstOrDefault(c => c.Id == selection.Id)?.Clone();
+                    if (customChart != null)
+                    {
+                        customChart.ShowValue = UnitType.PercentageOfTotalIncome;
                         customChart.ChartType = ChartType.CustomReport;
                         customChartList.Add(customChart);
                     }
@@ -913,8 +923,10 @@ namespace SFB.Web.UI.Controllers
         {
             switch (unit)
             {
-                case UnitType.PercentageOfTotal:
+                case UnitType.PercentageOfTotalExpenditure:
                     chartList.RemoveAll(c => c.Id == 1);//Total Expenditure
+                    break;
+                case UnitType.PercentageOfTotalIncome:
                     chartList.RemoveAll(c => c.Id == 33);//Total Income
                     break;
                 case UnitType.HeadcountPerFTE:

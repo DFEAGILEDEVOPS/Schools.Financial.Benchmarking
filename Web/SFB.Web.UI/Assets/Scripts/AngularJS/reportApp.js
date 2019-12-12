@@ -79,7 +79,8 @@
                             return sum +
                                 (ch.PerPupilSelected ? 1 : 0) +
                                 (ch.PerTeacherSelected ? 1 : 0) +
-                                (ch.PercentageSelected ? 1 : 0) +
+                                (ch.PercentageExpenditureSelected ? 1 : 0) +
+                                (ch.PercentageIncomeSelected ? 1 : 0) +
                                 (ch.AbsoluteMoneySelected ? 1 : 0) +
                                 (ch.AbsoluteCountSelected ? 1 : 0) +
                                 (ch.HeadCountPerFTESelected ? 1 : 0) +

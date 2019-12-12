@@ -48,7 +48,7 @@
                     @foreach (var column in Model.TableColumns)
                     {
                         var amount = column.BenchmarkData.FirstOrDefault(b => b.School == school.School).Amount;
-                        if (Model.ShowValue == UnitType.PercentageOfTotal)
+                        if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure || Model.ShowValue == UnitType.PercentageOfTotalIncome)
                         {
                             if (amount.HasValue)
                             {

@@ -10,7 +10,7 @@
         <div class="chart-container index-@i column-full no-padding" data-group="@Model[i].ChartGroup">
             @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
             {
-                if (Model[i].ShowValue != UnitType.PercentageOfTotal || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
+                if (Model[i].ShowValue != UnitType.PercentageOfTotalExpenditure || Model[i].ShowValue != UnitType.PercentageOfTotalIncome || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
                 {
             <div>
                 @if (Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)

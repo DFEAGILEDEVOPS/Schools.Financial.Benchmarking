@@ -80,7 +80,8 @@
         public const string TOTAL = "Total";
         public const string PER_TEACHER = "Per teacher";
         public const string PER_PUPIL = "Per pupil";
-        public const string PERCENTAGE_TOTAL = "Percentage of total";
+        public const string PERCENTAGE_TOTAL_INCOME = "Percentage of total income";
+        public const string PERCENTAGE_TOTAL_EXPENDITURE = "Percentage of total expenditure";
         public const string PERCENTAGE_FTE = "Headcount per FTE";
         public const string PERCENTAGE_WORKFORCE = "Percentage of workforce";
         public const string NO_PUPILS_PER_MEASURE = "Pupils per measure";

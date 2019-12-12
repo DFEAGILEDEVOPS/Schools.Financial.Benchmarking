@@ -90,7 +90,8 @@
                     max: max
                 };
                 break;
-            case "PercentageOfTotal":
+            case "PercentageOfTotalExpenditure":
+            case "PercentageOfTotalIncome":
             case "FTERatioToTotalFTE":
                 yAxis = {
                     tick: {

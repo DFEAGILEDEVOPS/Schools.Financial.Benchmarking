@@ -10,21 +10,21 @@ namespace SFB.Web.UI.UnitTests
     public class HistoricalChartBuilderUnitTests
     {
         [Test]
-        public void TotalExpenditureChartShouldNotBeInPercentageOfTotalMetricCharts()
+        public void TotalExpenditureChartShouldNotBeInPercentageOfTotalExpenditureMetricCharts()
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Expenditure, ChartGroupType.All, EstablishmentType.Academies, UnitType.PercentageOfTotal);
+            var chartVMs = builder.Build(RevenueGroupType.Expenditure, ChartGroupType.All, EstablishmentType.Academies, UnitType.PercentageOfTotalExpenditure);
 
             Assert.False(chartVMs.Any(c => c.Name == "Total expenditure"));
         }
 
         [Test]
-        public void TotalIncomeChartShouldNotBeInPercentageOfTotalMetricCharts()
+        public void TotalIncomeChartShouldNotBeInPercentageOfTotalIncomeMetricCharts()
         {
             var builder = new HistoricalChartBuilder();
 
-            var chartVMs = builder.Build(RevenueGroupType.Income, ChartGroupType.All, EstablishmentType.Academies, UnitType.PercentageOfTotal);
+            var chartVMs = builder.Build(RevenueGroupType.Income, ChartGroupType.All, EstablishmentType.Academies, UnitType.PercentageOfTotalIncome);
 
             Assert.False(chartVMs.Any(c => c.Name == "Total income"));
         }

@@ -91,9 +91,13 @@
                                                     <input id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerTeacherSelected">
                                                     <label for="sel_{{$parent.$index}}_{{$index}}_2" aria-label="{{chart.Name}} per teacher">Per teacher</label>
                                                 </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total</label>
+                                                <div class="multiple-choice" ng-show="chart.PercentageExpenditureAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageExpenditureSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total expenditure</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.PercentageIncomeAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageIncomeSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total income</label>
                                                 </div>
                                                 <div class="multiple-choice" ng-show="chart.AbsoluteMoneyAvailable">
                                                     <input id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteMoneySelected">

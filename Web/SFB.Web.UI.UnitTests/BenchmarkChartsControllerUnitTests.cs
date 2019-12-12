@@ -481,7 +481,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.TabChange(EstablishmentType.Maintained, UnitType.PercentageOfTotal, RevenueGroupType.Balance);
+            controller.TabChange(EstablishmentType.Maintained, UnitType.PercentageOfTotalExpenditure, RevenueGroupType.Balance);
 
             financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
                 It.IsAny<List<ChartViewModel>>(),

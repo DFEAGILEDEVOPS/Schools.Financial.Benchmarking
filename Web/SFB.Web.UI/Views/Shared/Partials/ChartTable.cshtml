@@ -24,7 +24,8 @@
                     {
                         switch ((UnitType) Enum.Parse(typeof(UnitType), schoolHistoricalData.Unit))
                         {
-                            case UnitType.PercentageOfTotal:
+                            case UnitType.PercentageOfTotalExpenditure:
+                            case UnitType.PercentageOfTotalIncome:
                             case UnitType.FTERatioToTotalFTE:
                                 @schoolHistoricalData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
                                 break;

@@ -72,8 +72,11 @@
                                         case 'PerTeacher':
                                             selection.PerTeacherSelected ? showRemoveLink(self) : showAddLink(self);
                                             break;
-                                        case 'PercentageOfTotal':
-                                            selection.PercentageSelected ? showRemoveLink(self) : showAddLink(self);
+                                        case 'PercentageOfTotalExpenditure':
+                                            selection.PercentageExpenditureSelected ? showRemoveLink(self) : showAddLink(self);
+                                            break;
+                                        case 'PercentageOfTotalIncome':
+                                            selection.PercentageIncomeSelected ? showRemoveLink(self) : showAddLink(self);
                                             break;
                                         case 'AbsoluteMoney':
                                             selection.AbsoluteMoneySelected ? showRemoveLink(self) : showAddLink(self);
@@ -119,8 +122,11 @@
                             case 'PerTeacher':
                                 selection.PerTeacherSelected = checked;
                                 break;
-                            case 'PercentageOfTotal':
-                                selection.PercentageSelected = checked;
+                            case 'PercentageOfTotalExpenditure':
+                                selection.PercentageExpenditureSelected = checked;
+                                break;
+                            case 'PercentageOfTotalIncome':
+                                selection.PercentageIncomeSelected = checked;
                                 break;
                             case 'AbsoluteMoney':
                                 selection.AbsoluteMoneySelected = checked;
@@ -454,7 +460,8 @@
                     return window.DfE.Util.Charting.ChartMoneyFormat(d);
                 };
                 break;
-            case "PercentageOfTotal":
+            case "PercentageOfTotalIncome":
+            case "PercentageOfTotalExpenditure":
             case "FTERatioToTotalFTE":
             case "PercentageTeachers":
                 yAxis = {

@@ -59,8 +59,10 @@ namespace SFB.Web.UI.Helpers.Enums
         PerTeacher,
         [Description("Per pupil")]
         PerPupil,
-        [Description("Percentage of total")]
-        PercentageOfTotal,
+        [Description("Percentage of total income")]
+        PercentageOfTotalIncome,
+        [Description("Percentage of total expenditure")]
+        PercentageOfTotalExpenditure,
         [Description("Total")]
         AbsoluteCount,
         [Description("Headcount per FTE")]

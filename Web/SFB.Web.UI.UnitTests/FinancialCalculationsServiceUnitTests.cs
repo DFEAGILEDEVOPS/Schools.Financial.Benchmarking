@@ -172,7 +172,7 @@ namespace SFB.Web.UI.UnitTests
 
             var service = new FinancialCalculationsService(mockLaService.Object);
 
-            service.PopulateHistoricalChartsWithSchoolData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.RevenueGroupType.Expenditure, Helpers.Enums.UnitType.PercentageOfTotal, EstablishmentType.Academies);
+            service.PopulateHistoricalChartsWithSchoolData(historicalCharts, dataModels, "2014 / 2015", Helpers.Enums.RevenueGroupType.Expenditure, Helpers.Enums.UnitType.PercentageOfTotalExpenditure, EstablishmentType.Academies);
 
             Assert.AreEqual(20, historicalCharts[0].LastYearBalance);
             Assert.AreEqual(40, historicalCharts[1].LastYearBalance);
