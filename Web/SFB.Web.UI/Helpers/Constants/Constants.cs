@@ -147,7 +147,6 @@
     {
         public const string EducationalSupplies = "For information on centrally negotiated deals for books and related materials , including education software";
         public const string Premises = "For information on centrally negotiated deals for facilities management and estates";
-        //public const string IctLearningResources = "For information on centrally negotiated deals for ICT";
         public const string BoughtInProfessionalServices = "For information on centrally negotiated deals for legal and professional services";
         public const string OccupationCosts = "For information on centrally negotiated deals for energy and utilities";
         public const string OtherInsurancePremium = "For information on centrally negotiated deals for insurance and other financial services";

@@ -311,7 +311,6 @@
     <Compile Include="Helpers\FormatHelpers.cs" />
     <Compile Include="Helpers\BenchmarkChartBuilder.cs" />
     <Compile Include="Helpers\IFilterBuilder.cs" />
-    <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="Models\DataTableColumnViewModel.cs" />
     <Compile Include="Models\BenchmarkChartListViewModel.cs" />
     <Compile Include="Models\BenchmarkCriteriaVM.cs" />
@@ -351,8 +350,6 @@
     <Compile Include="Services\FinancialCalculationsService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Utils\IRequestContext.cs" />
-    <Compile Include="Utils\RequestContextWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Sass\utils\_accordion.scss" />
