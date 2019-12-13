@@ -1,5 +1,4 @@
-﻿using RedDog.Search.Model;
-using SFB.Web.ApplicationCore.Helpers.Enums;
+﻿using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Helpers;
@@ -35,7 +34,7 @@ namespace SFB.Web.UI.Controllers
         {
             if (results?.Facets != null)
             {
-                var orderedFacetFilters = new Dictionary<string, FacetResult[]>();
+                var orderedFacetFilters = new Dictionary<string, FacetResultModel[]>();
                 foreach (var facet in results.Facets)
                 {
                     if (facet.Key == "OverallPhase")

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using RedDog.Search.Model;
+using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
 
@@ -270,7 +270,7 @@ namespace SFB.Web.UI.Helpers
             var filterSelected = (queryParams?[queryParamForOfstedRating] != null);
 
             var ofstedRatingFacets = facets["OfstedRating"];
-            var ofstedRatingFacetsOrdered = ((FacetResult[]) ofstedRatingFacets).ToList().OrderBy(o => o.Value);
+            var ofstedRatingFacetsOrdered = ((FacetResultModel[]) ofstedRatingFacets).ToList().OrderBy(o => o.Value);
             var metadata = new List<OptionSelect>();
 
             foreach (var facet in ofstedRatingFacetsOrdered)

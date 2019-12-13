@@ -197,7 +197,9 @@ namespace SFB.Web.ApplicationCore.Services.Search
                     $"Edubase school search error {response.Error.Code}: {response.Error.Message}");
             }
 
-            return new QueryResultsModel(response.Body.Count, response.Body.Facets,
+            var facetsModel = MapResponseFacetsToFacetsModel(response);
+
+            return new QueryResultsModel(response.Body.Count, facetsModel,
                 response.Body.Records.Select(x => x.Properties), take, skip);
         }
 
@@ -240,7 +242,9 @@ namespace SFB.Web.ApplicationCore.Services.Search
                 Console.WriteLine("{0}: {1}", response.Error.Code, response.Error.Message);
             }
 
-            var results = new QueryResultsModel(response.Body.Count, response.Body.Facets,
+            var facetsModel = MapResponseFacetsToFacetsModel(response);
+
+            var results = new QueryResultsModel(response.Body.Count, facetsModel,
                 CalcDistance(response.Body.Records.Select(x => x.Properties), lat, lon), take, skip)
             {
                 QueryLat = latitude.ToString(),
@@ -380,6 +384,17 @@ namespace SFB.Web.ApplicationCore.Services.Search
             {
                 return commaSeparatedValues.Split(',');
             }
+        }
+
+        private Dictionary<string, FacetResultModel[]> MapResponseFacetsToFacetsModel(IApiResponse<SearchQueryResult> response)
+        {
+            var facetsModel = new Dictionary<string, FacetResultModel[]>();
+            foreach (var facet in response.Body.Facets)
+            {
+                facetsModel.Add(facet.Key, facet.Value.Select(fv => new FacetResultModel(fv.Value, fv.From, fv.To, fv.Count)).ToArray());
+            }
+
+            return facetsModel;
         }
 
     }

@@ -1,6 +1,5 @@
 ﻿using Moq;
 using NUnit.Framework;
-using RedDog.Search.Model;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;
@@ -65,7 +64,7 @@ namespace SFB.Web.UI.UnitTests
         {
             Task<dynamic> task = Task.Run(() =>
             {
-                var facets = new Dictionary<string, FacetResult[]>();
+                var facets = new Dictionary<string, FacetResultModel[]>();
                 var matches = new List<Dictionary<string, object>>();
                 dynamic results = new QueryResultsModel(0, facets, matches, 0, 0);
                 return results;
@@ -89,7 +88,7 @@ namespace SFB.Web.UI.UnitTests
         {
             Task<dynamic> task = Task.Run(() =>
             {
-                var facets = new Dictionary<string, FacetResult[]>();
+                var facets = new Dictionary<string, FacetResultModel[]>();
                 var matchedResults = new Dictionary<string, object>();
                 matchedResults.Add("CompanyNumber", "132");
                 matchedResults.Add("Trusts", "test");
