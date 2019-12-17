@@ -99,16 +99,18 @@ namespace SFB.Web.ApplicationCore.Services.Search
             }
 
             var facetsModel = MapResponseFacetsToFacetsModel(response);
-
             return new QueryResultsModel(response.Body.Count, facetsModel, response.Body.Records.Select(x => x.Properties), take, skip);
         }
 
         private Dictionary<string, FacetResultModel[]> MapResponseFacetsToFacetsModel(IApiResponse<SearchQueryResult> response)
         {
             var facetsModel = new Dictionary<string, FacetResultModel[]>();
-            foreach (var facet in response.Body.Facets)
+            if (response.Body.Facets != null)
             {
-                facetsModel.Add(facet.Key, facet.Value.Select(fv => new FacetResultModel(fv.Value, fv.From, fv.To, fv.Count)).ToArray());
+                foreach (var facet in response.Body.Facets)
+                {
+                    facetsModel.Add(facet.Key, facet.Value.Select(fv => new FacetResultModel(fv.Value, fv.From, fv.To, fv.Count)).ToArray());
+                }
             }
 
             return facetsModel;
