@@ -490,10 +490,6 @@
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-black-12x12.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-black-24x24.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link.png" />
-    <Content Include="public\govuk_template\assets\stylesheets\fonts-ie8.css" />
-    <Content Include="public\govuk_template\assets\stylesheets\fonts.css" />
-    <Content Include="public\govuk_template\assets\stylesheets\govuk-template-ie6.css" />
-    <Content Include="public\govuk_template\assets\stylesheets\govuk-template-ie7.css" />
     <Content Include="public\govuk_template\assets\stylesheets\govuk-template-ie8.css" />
     <Content Include="public\govuk_template\assets\stylesheets\govuk-template-print.css" />
     <Content Include="public\govuk_template\assets\stylesheets\govuk-template.css" />
@@ -565,9 +561,6 @@
     <Content Include="Assets\Sass\elements\_reset.scss" />
     <Content Include="Assets\Sass\elements\_tables.scss" />
     <Content Include="Assets\Sass\elements\_tabs.scss" />
-    <Content Include="Assets\Sass\main-ie6.scss" />
-    <Content Include="Assets\Sass\main-ie7.scss" />
-    <Content Include="Assets\Sass\main-ie8.scss" />
     <Content Include="Assets\Sass\main.scss" />
     <Content Include="Assets\Sass\prism.scss" />
     <Content Include="Assets\Sass\styleguide\_colours.scss" />
@@ -594,10 +587,6 @@
     <Content Include="Assets\Sass\views\_detailed-report.scss" />
     <Content Include="Assets\Sass\views\_summary-report.scss" />
     <Content Include="Assets\Sass\views\_schools-search-page.scss" />
-    <Content Include="Assets\Sass\elements-page-ie6.scss" />
-    <Content Include="Assets\Sass\elements-page-ie7.scss" />
-    <Content Include="Assets\Sass\elements-page-ie8.scss" />
-    <Content Include="Assets\Sass\elements-page.scss" />
     <Content Include="Assets\Sass\views\_school-details.scss" />
     <Content Include="Assets\Sass\views\_sponsor-detail.scss" />
     <Content Include="Assets\Sass\views\_benchmark-list.scss" />
