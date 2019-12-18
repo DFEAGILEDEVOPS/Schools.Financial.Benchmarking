@@ -223,9 +223,22 @@
         margin-bottom: 0;
     }
 
-    .tabs {
-        @include media(mobile) {
-            margin-left: 1em;
+    nav.tabs ol {
+        @include media-down(tablet) {
+            justify-content: flex-start;
+
+            li {
+
+                @include media-down(tablet) {
+                    flex-basis: 32%;
+                    width: 32%;
+                }
+
+                @include media(mobile) {
+                    flex-basis: 47%;
+                    width: 47%;
+                }
+            }
         }
     }
 
