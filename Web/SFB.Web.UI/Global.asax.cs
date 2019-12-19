@@ -30,7 +30,9 @@ namespace SFB.Web.UI
         protected void Application_BeginRequest(object sender, EventArgs e)
         {          
 
-            if (!Request.Path.Contains("/BenchmarkCharts/"))
+            if (!Request.Path.Contains("/BenchmarkCharts/") 
+                && Request.CurrentExecutionFilePathExtension != ".css"
+                && Request.CurrentExecutionFilePathExtension != ".map")
             {
                 //Response.Cache.SetCacheability(HttpCacheability.Server); //Caches the pages unnecessarily when auth enabled. Therefore commented out.
                 Response.Cache.AppendCacheExtension("no-store, must-revalidate");

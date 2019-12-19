@@ -6,7 +6,7 @@ module.exports = function () {
       },
       options: {
         includePaths: ['node_modules/govuk_frontend_toolkit/stylesheets', 'node_modules/govuk_frontend_toolkit/stylesheets/design-patterns'],
-        outputStyle: 'expanded',
+        outputStyle: 'compressed',
         imagePath: '../images',
         sourceMap: true
       }
