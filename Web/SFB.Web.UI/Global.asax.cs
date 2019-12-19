@@ -8,6 +8,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Autofac.Integration.Mvc;
 using Autofac;
 using SFB.Web.ApplicationCore.Services.DataAccess;
+using System.Linq;
 
 namespace SFB.Web.UI
 {
@@ -28,11 +29,14 @@ namespace SFB.Web.UI
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
-        {          
-
-            if (!Request.Path.Contains("/BenchmarkCharts/") 
-                && Request.CurrentExecutionFilePathExtension != ".css"
-                && Request.CurrentExecutionFilePathExtension != ".map")
+        {
+            var staticExtensions = new[] { ".png", ".ico", ".css", ".map", ".js" };
+            if (staticExtensions.Contains(Request.CurrentExecutionFilePathExtension))
+            {
+                Response.Cache.AppendCacheExtension("pre-check=31536000");
+                Response.AppendHeader("Cache-Control", "max-age=31536000");
+            }
+            else
             {
                 //Response.Cache.SetCacheability(HttpCacheability.Server); //Caches the pages unnecessarily when auth enabled. Therefore commented out.
                 Response.Cache.AppendCacheExtension("no-store, must-revalidate");

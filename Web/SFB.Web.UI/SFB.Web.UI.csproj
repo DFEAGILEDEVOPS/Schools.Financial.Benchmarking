@@ -519,6 +519,7 @@
     <Content Include="public\scripts\jquery-tablesorter\jquery.tablesorter.uk.currency.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\canvg.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\rgbcolor.js" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPngCombined.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPng.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\StackBlur.js" />
     <Content Include="public\scripts\termi\Element.details.ajax.js" />

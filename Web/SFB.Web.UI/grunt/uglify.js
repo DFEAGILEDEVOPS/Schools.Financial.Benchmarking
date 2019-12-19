@@ -4,9 +4,9 @@
         "bundle-elements-dev": {
             options: {
                 sourceMap: true,
-                beautify: true,
+                beautify: false,
                 compress: false,
-                mangle: false
+                mangle: true
             },
             src: [
               // couldn't use /**/*.js as govuk/analytics/error-tracking.js causes an error with GOVUK undefined
