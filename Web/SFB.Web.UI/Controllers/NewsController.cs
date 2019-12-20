@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using System.Web.UI;
 
 namespace SFB.Web.UI.Controllers
 {
     public class NewsController : Controller
     {
-        // GET: News
+        [OutputCache (Duration=28800, VaryByParam= "referrer", Location = OutputCacheLocation.Server, NoStore=true)]
         public ActionResult Index(string referrer)
         {
             ViewBag.referrer = referrer;
