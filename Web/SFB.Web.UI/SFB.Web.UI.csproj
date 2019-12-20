@@ -521,6 +521,7 @@
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\rgbcolor.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPngCombined.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPng.js" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPngCombined.min.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\StackBlur.js" />
     <Content Include="public\scripts\termi\Element.details.ajax.js" />
     <Content Include="public\scripts\termi\Element.details.ie8.js" />

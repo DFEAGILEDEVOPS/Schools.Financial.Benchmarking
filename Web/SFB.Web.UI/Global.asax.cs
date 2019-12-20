@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Configuration;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.ApplicationInsights.Extensibility;
-using Autofac.Integration.Mvc;
-using Autofac;
-using SFB.Web.ApplicationCore.Services.DataAccess;
 using System.Linq;
 
 namespace SFB.Web.UI
@@ -30,7 +26,7 @@ namespace SFB.Web.UI
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            var staticExtensions = new[] { ".png", ".ico", ".css", ".map", ".js" };
+            var staticExtensions = new[] { ".png", ".ico", ".gif", ".css", ".map", ".js" };
             if (staticExtensions.Contains(Request.CurrentExecutionFilePathExtension))
             {
                 Response.Cache.AppendCacheExtension("pre-check=31536000");
