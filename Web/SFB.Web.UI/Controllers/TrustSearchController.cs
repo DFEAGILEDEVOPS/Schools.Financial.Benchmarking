@@ -443,6 +443,7 @@ namespace SFB.Web.UI.Controllers
 
                 ApplyTrustLevelOrdering(orderby, trustsVm);
 
+                ViewBag.LaCodeName = laCode;
                 return View("SearchResults", trustsVm);
             }
             else

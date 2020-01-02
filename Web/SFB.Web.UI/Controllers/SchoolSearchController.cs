@@ -362,6 +362,7 @@ namespace SFB.Web.UI.Controllers
                     return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_LA_CODE_NAME));
                 }
 
+                ViewBag.LaCodeName = laCode;
                 return View("SearchResults", GetSearchedSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, _laService.GetLaName(laCode)));
             }
             else

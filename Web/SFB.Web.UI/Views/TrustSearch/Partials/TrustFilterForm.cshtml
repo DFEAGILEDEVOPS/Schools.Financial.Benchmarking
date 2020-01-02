@@ -60,9 +60,9 @@
         <input type="hidden" name="locationorpostcode" value="@(Request.QueryString["locationorpostcode"])" />
     }
 
-    @if (Request.QueryString["lacodename"] != null)
+    @if (ViewBag.LaCodeName != null)
     {
-        <input type="hidden" name="lacodename" value="@(Request.QueryString["lacodename"])" />
+        <input type="hidden" name="lacodename" value="@ViewBag.LaCodeName" />
     }
 
     @if (Request.QueryString["companyNo"] != null)
