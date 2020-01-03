@@ -56,7 +56,7 @@
                     </label>
                 </div>
 
-                @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase))
+                @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
                 {
                     <p style="clear:left; padding: 0.8em 0 0 0">or</p>
                     <div class="multiple-choice">
