@@ -197,6 +197,12 @@ namespace SFB.Web.UI.Controllers
                 case TabType.Balance:
                     unitType = unitType == UnitType.PerPupil || unitType == UnitType.PerTeacher ? unitType : UnitType.AbsoluteMoney;
                     break;
+                case TabType.Income:
+                    unitType = unitType == UnitType.PercentageOfTotalExpenditure ? UnitType.PercentageOfTotalIncome : unitType;
+                    break;
+                case TabType.Expenditure:
+                    unitType = unitType == UnitType.PercentageOfTotalIncome ? UnitType.PercentageOfTotalExpenditure : unitType;
+                    break;
             }
         }
 
