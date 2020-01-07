@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.ApplicationCore.Services.DataAccess;
-using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Attributes;
 using System.Net;
@@ -500,42 +499,9 @@ namespace SFB.Web.UI.Controllers
             TabType tab = TabType.Expenditure,
             CentralFinancingType financing = CentralFinancingType.Include)
         {
-            ChartGroupType chartGroup;
-            switch (tab)
-            {
-                case TabType.Expenditure:
-                    chartGroup = ChartGroupType.TotalExpenditure;
-                    break;
-                case TabType.Income:
-                    chartGroup = ChartGroupType.TotalIncome;
-                    break;
-                case TabType.Balance:
-                    chartGroup = ChartGroupType.InYearBalance;
-                    break;
-                case TabType.Workforce:
-                    chartGroup = ChartGroupType.Workforce;
-                    break;
-                case TabType.Salary:
-                    chartGroup = ChartGroupType.Salary;
-                    break;
-                default:
-                    chartGroup = ChartGroupType.All;
-                    break;
-            }
+            var chartGroup = DetermineDefaultChartGroup(tab);
 
-            UnitType defaultUnitType;
-            switch (tab)
-            {
-                case TabType.Workforce:
-                    defaultUnitType = UnitType.AbsoluteCount;
-                    break;
-                case TabType.Salary:
-                    defaultUnitType = UnitType.PercentageTeachers;
-                    break;
-                default:
-                    defaultUnitType = comparisonType == ComparisonType.BestInClass ? UnitType.PerPupil : UnitType.AbsoluteMoney;
-                    break;
-            }
+            var defaultUnitType = DetermineDefaultUnitType(comparisonType, tab);
             var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(tab, chartGroup, defaultUnitType, financing);
             var establishmentType = DetectEstablishmentType(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
@@ -566,8 +532,8 @@ namespace SFB.Web.UI.Controllers
 
             var comparisonSchools = PopulateSchoolsListForComparisonTable(comparisonList);
 
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, advancedCriteria, simpleCriteria, 
-                bicCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType, 
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, advancedCriteria, simpleCriteria,
+                bicCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType,
                 laCode, urn.GetValueOrDefault(), basketSize, null, comparisonSchools, excludePartial);
 
             ViewBag.Tab = tab;
@@ -585,24 +551,8 @@ namespace SFB.Web.UI.Controllers
 
         public ActionResult Mats(TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
         {
-            ChartGroupType chartGroup;
-            switch (tab)
-            {
-                case TabType.Expenditure:
-                    chartGroup = ChartGroupType.TotalExpenditure;
-                    break;
-                case TabType.Income:
-                    chartGroup = ChartGroupType.TotalIncome;
-                    break;
-                case TabType.Balance:
-                    chartGroup = ChartGroupType.InYearBalance;
-                    break;
-                default:
-                    chartGroup = ChartGroupType.All;
-                    break;
-            }
-
-            var defaultUnitType = tab == TabType.Workforce ? UnitType.AbsoluteCount : UnitType.AbsoluteMoney;
+            var chartGroup = DetermineDefaultChartGroup(tab);
+            var defaultUnitType = DetermineDefaultUnitType(ComparisonType.Basic, tab);
             var benchmarkCharts = BuildTrustBenchmarkCharts(tab, chartGroup, UnitType.AbsoluteMoney, financing);
             var chartGroups = _benchmarkChartBuilder.Build(tab, EstablishmentType.MAT).DistinctBy(c => c.ChartGroup).ToList();
 
@@ -628,51 +578,9 @@ namespace SFB.Web.UI.Controllers
             ChartFormat format = ChartFormat.Charts, ComparisonType comparisonType = ComparisonType.Manual, string bicComparisonOverallPhase = "Primary",
             bool excludePartial = false)
         {
-            ChartGroupType chartGroup;
-            switch (tab)
-            {
-                case TabType.Expenditure:
-                    chartGroup = ChartGroupType.TotalExpenditure;
-                    break;
-                case TabType.Income:
-                    chartGroup = ChartGroupType.TotalIncome;
-                    break;
-                case TabType.Balance:
-                    chartGroup = ChartGroupType.InYearBalance;
-                    break;
-                case TabType.Workforce:
-                    chartGroup = ChartGroupType.Workforce;
-                    break;
-                case TabType.Salary:
-                    chartGroup = ChartGroupType.Salary;
-                    break;
-                default:
-                    chartGroup = ChartGroupType.All;
-                    break;
-            }
+            var chartGroup = DetermineDefaultChartGroup(tab);
 
-            UnitType unitType;
-            switch (tab)
-            {
-                case TabType.Workforce:
-                    unitType = UnitType.AbsoluteCount;
-                    break;
-                case TabType.Balance:
-                    unitType = showValue == UnitType.AbsoluteMoney || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher ? showValue : UnitType.AbsoluteMoney;
-                    break;
-                case TabType.Salary:
-                    unitType = UnitType.PercentageTeachers;
-                    break;
-                case TabType.Income:
-                    unitType = showValue == UnitType.PercentageOfTotalExpenditure ? UnitType.PercentageOfTotalIncome : showValue;
-                    break;
-                case TabType.Expenditure:
-                    unitType = showValue == UnitType.PercentageOfTotalIncome ? UnitType.PercentageOfTotalExpenditure : showValue;
-                    break;
-                default:
-                    unitType = UnitType.AbsoluteMoney;
-                    break;
-            }
+            var unitType = DetermineUnitTypeWhenTabChanged(showValue, tab);
 
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
@@ -688,8 +596,8 @@ namespace SFB.Web.UI.Controllers
             var academiesTerm = SchoolFormatHelpers.FinancialTermFormatAcademies(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Academies));
             var maintainedTerm = SchoolFormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), chartGroups, 
-                ComparisonType.Manual, null, null, null, null, type, type, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, 
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), chartGroups,
+                ComparisonType.Manual, null, null, null, null, type, type, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0,
                 ComparisonListLimit.DEFAULT, _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie(), null, excludePartial);
 
             ViewBag.Tab = tab;
@@ -1071,6 +979,82 @@ namespace SFB.Web.UI.Controllers
                 }
                 _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, benchmarkSchoolToAdd);
             }
+        }
+
+        private UnitType DetermineDefaultUnitType(ComparisonType comparisonType, TabType tab)
+        {
+            UnitType defaultUnitType;
+            switch (tab)
+            {
+                case TabType.Workforce:
+                    defaultUnitType = UnitType.AbsoluteCount;
+                    break;
+                case TabType.Salary:
+                    defaultUnitType = UnitType.PercentageTeachers;
+                    break;
+                default:
+                    defaultUnitType = comparisonType == ComparisonType.BestInClass ? UnitType.PerPupil : UnitType.AbsoluteMoney;
+                    break;
+            }
+
+            return defaultUnitType;
+        }
+
+        private UnitType DetermineUnitTypeWhenTabChanged(UnitType showValue, TabType tab)
+        {
+            UnitType unitType;
+            switch (tab)
+            {
+                case TabType.Workforce:
+                    unitType = UnitType.AbsoluteCount;
+                    break;
+                case TabType.Balance:
+                    unitType = showValue == UnitType.AbsoluteMoney || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher ? showValue : UnitType.AbsoluteMoney;
+                    break;
+                case TabType.Salary:
+                    unitType = UnitType.PercentageTeachers;
+                    break;
+                case TabType.Income:
+                    unitType = showValue == UnitType.PercentageOfTotalExpenditure ? UnitType.PercentageOfTotalIncome : showValue;
+                    break;
+                case TabType.Expenditure:
+                    unitType = showValue == UnitType.PercentageOfTotalIncome ? UnitType.PercentageOfTotalExpenditure : showValue;
+                    break;
+                default:
+                    unitType = UnitType.AbsoluteMoney;
+                    break;
+            }
+
+            return unitType;
+        }
+
+
+        private ChartGroupType DetermineDefaultChartGroup(TabType tab)
+        {
+            ChartGroupType chartGroup;
+            switch (tab)
+            {
+                case TabType.Expenditure:
+                    chartGroup = ChartGroupType.TotalExpenditure;
+                    break;
+                case TabType.Income:
+                    chartGroup = ChartGroupType.TotalIncome;
+                    break;
+                case TabType.Balance:
+                    chartGroup = ChartGroupType.InYearBalance;
+                    break;
+                case TabType.Workforce:
+                    chartGroup = ChartGroupType.Workforce;
+                    break;
+                case TabType.Salary:
+                    chartGroup = ChartGroupType.Salary;
+                    break;
+                default:
+                    chartGroup = ChartGroupType.All;
+                    break;
+            }
+
+            return chartGroup;
         }
     }
 }
