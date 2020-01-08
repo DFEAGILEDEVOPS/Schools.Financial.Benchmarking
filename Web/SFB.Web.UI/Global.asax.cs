@@ -35,7 +35,7 @@ namespace SFB.Web.UI
             else
             {
                 //Response.Cache.SetCacheability(HttpCacheability.Server); //Caches the pages unnecessarily when auth enabled. Therefore commented out.
-                Response.Cache.AppendCacheExtension("no-store, must-revalidate");
+                Response.Cache.AppendCacheExtension("no-cache, no-store, must-revalidate");
                 Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
                 Response.AppendHeader("Expires", "0"); // Proxies.
             }
