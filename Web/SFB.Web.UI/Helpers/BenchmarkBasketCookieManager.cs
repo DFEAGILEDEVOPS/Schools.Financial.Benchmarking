@@ -193,6 +193,7 @@ namespace SFB.Web.UI.Helpers
             {
                 cookie.Value = JsonConvert.SerializeObject(comparisonList, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                 cookie.Expires = DateTime.MaxValue;
+                cookie.HttpOnly = false;
                 HttpContext.Current.Response.Cookies.Add(cookie);
                 return comparisonList;
             }
@@ -282,6 +283,7 @@ namespace SFB.Web.UI.Helpers
                 cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
             }
 
+            cookie.HttpOnly = false;            
             return cookie;
         }
 
@@ -335,6 +337,7 @@ namespace SFB.Web.UI.Helpers
                 cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
             }
 
+            cookie.HttpOnly = false;
             return cookie;
         }
     }
