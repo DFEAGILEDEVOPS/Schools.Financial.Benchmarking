@@ -200,6 +200,7 @@ namespace SFB.Web.UI.Controllers
         /// </summary>
         /// <param name="urn"></param>
         /// <returns></returns>
+        [ValidateAntiForgeryToken]
         public ActionResult BestInClassCharacteristics(int urn, BestInClassCriteria bicCriteria)
         {                                
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
@@ -243,6 +244,7 @@ namespace SFB.Web.UI.Controllers
         /// <param name="schoolName"></param>
         /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult OverwriteStrategy(int urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, 
             ComparisonArea areaType, int? lacode, string schoolName, bool excludePartial = false)
         {

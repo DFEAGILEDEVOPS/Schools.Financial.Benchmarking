@@ -32,6 +32,7 @@
 </p>
 
 <form action="ReplaceAdd" method="post">
+    @Html.AntiForgeryToken()
     <div class="form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "form-group-error")">
 
         <fieldset>
@@ -63,7 +64,7 @@
             </div>
             <div class="column-one-third back-button">
                 <a href="@ViewBag.referrer">Back</a>
-                <input type="hidden" name="referrer" value="@ViewBag.referrer"/>
+                <input type="hidden" name="referrer" value="@ViewBag.referrer" />
             </div>
         </div>
     </div>

@@ -55,6 +55,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> GenerateListFromManualCriteria(BenchmarkCriteriaVM criteria)
         {
             if (!ModelState.IsValid)

@@ -2,18 +2,19 @@
 
 @if (Model != null)
 {
-    <form id="advancedCriteria" method="post" action="~/BenchmarkCriteria/SimpleCharacteristics">
+<form id="advancedCriteria" method="post" action="~/BenchmarkCriteria/SimpleCharacteristics">
 
-        <input type="hidden" name="SimpleCriteria.IncludeEal" value="@Model.SimpleCriteria.IncludeEal.GetValueOrDefault().ToString()"/>
-        <input type="hidden" name="SimpleCriteria.IncludeFsm" value="@Model.SimpleCriteria.IncludeFsm.GetValueOrDefault().ToString()"/>
-        <input type="hidden" name="SimpleCriteria.IncludeLa" value="@Model.SimpleCriteria.IncludeLa.GetValueOrDefault().ToString()"/>
-        <input type="hidden" name="SimpleCriteria.IncludeSen" value="@Model.SimpleCriteria.IncludeSen.GetValueOrDefault().ToString()"/>
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="SimpleCriteria.IncludeEal" value="@Model.SimpleCriteria.IncludeEal.GetValueOrDefault().ToString()" />
+    <input type="hidden" name="SimpleCriteria.IncludeFsm" value="@Model.SimpleCriteria.IncludeFsm.GetValueOrDefault().ToString()" />
+    <input type="hidden" name="SimpleCriteria.IncludeLa" value="@Model.SimpleCriteria.IncludeLa.GetValueOrDefault().ToString()" />
+    <input type="hidden" name="SimpleCriteria.IncludeSen" value="@Model.SimpleCriteria.IncludeSen.GetValueOrDefault().ToString()" />
 
-        <input type="hidden" name="Urn" value="@Model.URN">
-        <input type="hidden" name="ComparisonType" value="@Model.ComparisonType">
-        <input type="hidden" name="EstType" value="@Model.EstablishmentType">
-        <input type="hidden" name="BasketSize" value="@Model.BasketSize">
-        
-        <span id="criteriaExp">This benchmark was created using the following criteria.</span>
+    <input type="hidden" name="Urn" value="@Model.URN">
+    <input type="hidden" name="ComparisonType" value="@Model.ComparisonType">
+    <input type="hidden" name="EstType" value="@Model.EstablishmentType">
+    <input type="hidden" name="BasketSize" value="@Model.BasketSize">
+
+    <span id="criteriaExp">This benchmark was created using the following criteria.</span>
 </form>
 }

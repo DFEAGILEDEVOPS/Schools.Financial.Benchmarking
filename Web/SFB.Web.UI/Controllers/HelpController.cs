@@ -38,6 +38,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<ActionResult> DataQuerySubmission(DataQueryViewModel dataQuery)
         {
             ViewBag.ModelState = ModelState;

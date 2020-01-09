@@ -20,27 +20,26 @@ else
     </p>
 }
 
-<form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
+    <form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
+        <input type="hidden" id="overwriteStrategy" name="overwriteStrategy" value="overwrite" />
+        @if (!string.IsNullOrEmpty(Model.SavedUrns))
+        {
+            <input type="hidden" id="urns" name="urns" value="@Model.SavedUrns" />
+        }
+        @if (!string.IsNullOrEmpty(Model.SavedCompanyNos))
+        {
+            <input type="hidden" id="companyNumbers" name="companyNumbers" value="@Model.SavedCompanyNos" />
+        }
 
-    <input type="hidden" id="overwriteStrategy" name="overwriteStrategy" value="overwrite" />
-    @if (!string.IsNullOrEmpty(Model.SavedUrns))
-    {
-        <input type="hidden" id="urns" name="urns" value="@Model.SavedUrns" />
-    }
-    @if (!string.IsNullOrEmpty(Model.SavedCompanyNos))
-    {
-        <input type="hidden" id="companyNumbers" name="companyNumbers" value="@Model.SavedCompanyNos" />
-    }
-
-    <div class="grid-row mt-2">
-        <div class="column-half">
-            <div class="column-two-thirds next-button">
-                <button type="submit" class="button">View new benchmark basket</button>
-            </div>
-            <div class="column-one-third back-button">
-                <a href="/">Cancel</a>
+        <div class="grid-row mt-2">
+            <div class="column-half">
+                <div class="column-two-thirds next-button">
+                    <button type="submit" class="button">View new benchmark basket</button>
+                </div>
+                <div class="column-one-third back-button">
+                    <a href="/">Cancel</a>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 

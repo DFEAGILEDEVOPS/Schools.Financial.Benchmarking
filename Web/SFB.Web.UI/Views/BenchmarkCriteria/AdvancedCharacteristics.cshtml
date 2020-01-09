@@ -74,6 +74,7 @@
         <div class="grid-row">
             <div class="column-three-quarters">
                 <form action="OverwriteStrategy" method="post" id="criteriaForm" autocomplete="off">
+                    @Html.AntiForgeryToken()
                     <div class="criteria-questions">
                         <div id="characteristics-accordion" class="accordion">
                             @Html.Partial("Partials/GeneralCharacteristics")

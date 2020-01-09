@@ -47,6 +47,7 @@
 <section class="section">
     <div id="BasketSizeAccordion" class="search-types" aria-live="polite">
         <form action="/BenchmarkCriteria/SelectSchoolType">
+            @Html.AntiForgeryToken()
             <div class="form-group">
                 <fieldset>
                     <legend>How many schools would you like in your benchmark basket?</legend>

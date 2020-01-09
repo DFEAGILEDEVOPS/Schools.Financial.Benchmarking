@@ -46,6 +46,7 @@
     <p>Suggested characteristics:</p>
 
     <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="post" id="criteriaForm">
+        @Html.AntiForgeryToken()
         <div class="form-group">
             <div class="multiple-choice">
                 <input id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true"

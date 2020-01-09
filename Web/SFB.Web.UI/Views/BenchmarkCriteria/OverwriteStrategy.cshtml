@@ -34,6 +34,7 @@
 </p>
 
 <form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post">
+    @Html.AntiForgeryToken()
     <div class="form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "form-group-error")">
 
         <fieldset>

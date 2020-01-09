@@ -3,7 +3,7 @@
 @if (Model != null && Model.BicCriteria != null)
 {
 <form id="advancedCriteria" method="post" action="~/BenchmarkCriteria/BestInClassCharacteristics">
-
+    @Html.AntiForgeryToken()
     <input type="hidden" name="bicCriteria.EstablishmentType" value="@Model.BicCriteria.EstablishmentType.ToString()" />
     <input type="hidden" name="bicCriteria.OverallPhase" value="@Model.BicCriteria.OverallPhase" />
     <input type="hidden" name="bicCriteria.UrbanRural" value="@Model.BicCriteria.UrbanRural" />
