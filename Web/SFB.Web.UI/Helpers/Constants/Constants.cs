@@ -84,7 +84,7 @@
         public const string PERCENTAGE_TOTAL_EXPENDITURE = "Percentage of total expenditure";
         public const string PERCENTAGE_FTE = "Headcount per FTE";
         public const string PERCENTAGE_WORKFORCE = "Percentage of workforce";
-        public const string NO_PUPILS_PER_MEASURE = "Pupils per measure";
+        public const string NO_PUPILS_PER_MEASURE = "Pupils per staff role";
     }
 
     public class CMSelection
@@ -133,7 +133,7 @@
         public const string AdditionalGrantForSchoolsHelp = "This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.";
         public const string OccupationChartHelp = "These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering.";
         public const string ShowValueHelp = "<p>This controls the chart value. To change it, select the relevant option from the dropdown. You can choose from the values listed below.</p>" +
-            "<ul><li>Headcount per FTE is the number of staff employed per full time position. The higher the figure, the more part time staff and job sharing.</li><li>Percentage of workforce is the percentage of the total workforce the chart grouping represents in the school. For example, teachers might make up 60% of the total school workforce.</li><li>Pupils per measure is the ratio of pupils to staff for that particular chart group – 22 pupils per total number of teachers, for example.</li></ul>";
+            "<ul><li>Headcount per FTE is the number of staff employed per full time position. The higher the figure, the more part time staff and job sharing.</li><li>Percentage of workforce is the percentage of the total workforce the chart grouping represents in the school. For example, teachers might make up 60% of the total school workforce.</li><li>Pupils per staff role is the ratio of pupils to staff for that particular chart group – 22 pupils per total number of teachers, for example.</li></ul>";
         public const string BestInClassHelp = "This allows you to compare your school with the 15 most efficient similar schools, as identified by the Department's <a rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.gov.uk/government/publications/schools-financial-efficiency-metric-tool\">school efficiency metric<span class=\"visuallyhidden\"> Opens in a new window</span></a> tool. <p>These are statistically similar in terms of the proportion of pupils:</p>" +
             "<ul><li>who have been eligible for free school meals in the last 6 years</li><li>with a statement of special educational needs, or an education, health and care (EHC) plan</li></ul>" +
             "<p>The efficiency metric is calculated based on pupil attainment and the money a school receives for its pupils. It is just one indication of efficiency.</p>";

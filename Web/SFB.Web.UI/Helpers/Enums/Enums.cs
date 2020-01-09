@@ -69,7 +69,7 @@ namespace SFB.Web.UI.Helpers.Enums
         HeadcountPerFTE,
         [Description("Percentage of workforce")]
         FTERatioToTotalFTE,
-        [Description("Number of pupils per measure")]
+        [Description("Number of pupils per staff role")]
         NoOfPupilsPerMeasure,
         [Description("Percentage")]
         PercentageTeachers
