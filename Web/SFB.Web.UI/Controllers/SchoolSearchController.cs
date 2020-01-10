@@ -82,7 +82,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        return await SearchSchoolByLocationCoordinates(locationorpostcode, locationCoordinates, openOnly, orderby, page, referrer);
+                        return await SearchSchoolByLocationCoordinates(locationorpostcode, locationCoordinates, radius, openOnly, orderby, page, referrer);
                     }
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     if (IsNumeric(laCodeName))
@@ -395,11 +395,11 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        private async Task<ActionResult> SearchSchoolByLocationCoordinates(string locationOrPostCode, string locationCoordinates, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        private async Task<ActionResult> SearchSchoolByLocationCoordinates(string locationOrPostCode, string locationCoordinates, decimal? radius, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
             var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
 
-            var searchResp = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_LOCATION, null, locationCoordinates, null, null, openOnly, orderby, page);
+            var searchResp = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_LOCATION, null, locationCoordinates, null, radius, openOnly, orderby, page);
 
             if (searchResp.NumberOfResults == 0)
             {
