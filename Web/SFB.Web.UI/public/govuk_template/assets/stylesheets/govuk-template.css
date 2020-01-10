@@ -11,6 +11,22 @@
     font-weight: bold;
 }
 
+@font-face {
+    font-family: "GDS Transport";
+    src: url("/public/govuk_template/assets/stylesheets/fonts/light-94a07e06a1-v2.woff2") format("woff2"),url("/public/govuk_template/assets/stylesheets/fonts/light-f591b13f7d-v2.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: fallback
+}
+
+@font-face {
+    font-family: "GDS Transport";
+    src: url("/public/govuk_template/assets/stylesheets/fonts/bold-b542beb274-v2.woff2") format("woff2"),url("/public/govuk_template/assets/stylesheets/fonts/bold-affa96571d-v2.woff") format("woff");
+    font-weight: bold;
+    font-style: normal;
+    font-display: fallback
+}
+
 /* govuk_frontend_toolkit includes */
 #global-header .header-wrapper:after, #global-header .header-wrapper .header-global:after, #global-header .header-wrapper .header-global .header-logo:after, #global-header .header-proposition #proposition-link:after,
 #global-header .header-proposition #proposition-links:after, #footer .footer-meta:after {
@@ -633,3 +649,45 @@ button:focus {
         @media (min-width: 641px) {
           #footer .footer-meta .copyright a {
             text-align: right; } }
+
+
+/*govuk-frontend*/
+.govuk-heading-xl {
+    color: #0b0c0c;
+    font-family: GDS Transport, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.09375;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+@media (min-width:40.0625em) {
+    .govuk-heading-xl {
+        font-size: 48px;
+        line-height: 1.04167;
+        margin-bottom: 50px;
+    }
+}
+
+.govuk-caption-xl {
+    font-family: GDS Transport, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.11111;
+    display: block;
+    margin-bottom: 5px;
+    color: #626a6e;
+}
+
+@media (min-width:40.0625em) {
+    .govuk-caption-xl {
+        font-size: 27px;
+        line-height: 1.11111;
+    }
+}
