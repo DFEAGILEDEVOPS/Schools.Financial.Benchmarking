@@ -76,7 +76,7 @@
 <div class="grid-row">
     <div class="column-full">
         <div class="result-list-summary">
-            This trust is made up of <span class="bold">@Model.AcademiesList.Count</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
+            As of @Model.LatestTerm this trust is made up of <span class="bold">@Model.AcademiesContextualCount</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. We hold finance for <span class="bold">@Model.AcademiesList.Count</span> of them. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
             <a href="/TrustSchools?companyNo=@Model.CompanyNo&matname=@Model.Name">Select schools to compare</a>
         </div>
     </div>

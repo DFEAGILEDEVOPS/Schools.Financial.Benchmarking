@@ -30,6 +30,7 @@ namespace SFB.Web.UI.UnitTests
             var mockFCService = new Mock<IFinancialCalculationsService>();
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
 
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var context = new Mock<HttpContextBase>(MockBehavior.Strict);
@@ -64,7 +65,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustController(mockHistoricalChartBuilder.Object, 
                 mockFinancialDataService.Object,
                 mockFCService.Object,
-                mockTrustSearchService.Object, 
+                mockEdubaseDataService.Object, 
                 null,
                 mockCookieManager.Object);
 
@@ -84,6 +85,7 @@ namespace SFB.Web.UI.UnitTests
             var mockFCService = new Mock<IFinancialCalculationsService>();
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
 
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var context = new Mock<HttpContextBase>(MockBehavior.Strict);
@@ -117,7 +119,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustController(mockHistoricalChartBuilder.Object,
                 mockFinancialDataService.Object,
                 mockFCService.Object,
-                mockTrustSearchService.Object,
+                mockEdubaseDataService.Object,
                 null,
                 mockCookieManager.Object);
 

@@ -25,21 +25,21 @@ namespace SFB.Web.UI.Controllers
     [CustomAuthorize]
     public class TrustController : Controller
     {
-        private readonly ITrustSearchService _trustSearchService;
         private readonly IFinancialDataService _financialDataService;
+        private readonly IContextDataService _contexDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
         public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
-            IFinancialCalculationsService fcService, ITrustSearchService trustSearchService, IDownloadCSVBuilder csvBuilder,
+            IFinancialCalculationsService fcService, IContextDataService contexDataService, IDownloadCSVBuilder csvBuilder,
             IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
+            _contexDataService = contexDataService;
             _fcService = fcService;
-            _trustSearchService = trustSearchService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
@@ -72,9 +72,6 @@ namespace SFB.Web.UI.Controllers
  
             var trustVM = await BuildTrustVMAsync(companyNo, academies.First().TrustName, academies, tab, chartGroup, financing);
 
-            List<string> terms = _financialDataService.GetActiveTermsForMatCentral();
-            var latestTerm = terms.First();
-
             UnitType unitType;
             switch (tab)
             {
@@ -89,7 +86,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, latestTerm, tab, unitType, EstablishmentType.Academies);
+            _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, trustVM.LatestTerm, tab, unitType, EstablishmentType.Academies);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -144,6 +141,7 @@ namespace SFB.Web.UI.Controllers
             trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);
             trustVM.ChartGroups = _historicalChartBuilder.Build(tab, trustVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
             trustVM.LatestTerm = LatestMATTerm();
+            trustVM.AcademiesContextualCount = await _contexDataService.GetSchoolsCounyByCompanyNumberAsync(companyNo);
 
             trustVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(trustVM.CompanyNo, matFinancing);
 

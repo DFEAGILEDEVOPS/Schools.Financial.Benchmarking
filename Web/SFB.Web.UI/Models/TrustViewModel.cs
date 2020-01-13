@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace SFB.Web.UI.Models
 {
     public class TrustViewModel : EstablishmentViewModelBase
-    {
+    {        
         public int Code { get; set; }
 
         public int CompanyNo { get; set; }
@@ -17,6 +17,8 @@ namespace SFB.Web.UI.Models
         public override string Type => "MAT";
 
         public override EstablishmentType EstablishmentType => EstablishmentType.MAT;
+
+        public int AcademiesContextualCount { get; set; }
 
         public TrustViewModel(int companyNo, string name)
         {

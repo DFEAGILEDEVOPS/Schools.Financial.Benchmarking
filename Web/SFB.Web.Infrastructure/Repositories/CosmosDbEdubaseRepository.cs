@@ -109,6 +109,26 @@ namespace SFB.Web.Infrastructure.Repositories
             }
         }
 
+        public async Task<int> GetSchoolsCountByCompanyNoAsync(int companyNo)
+        {
+            var query = $"SELECT VALUE COUNT(c) FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo";
+            SqlQuerySpec querySpec = new SqlQuerySpec(query);
+            querySpec.Parameters = new SqlParameterCollection();
+            querySpec.Parameters.Add(new SqlParameter($"@CompanyNo", companyNo));
+
+            try
+            {
+                var documentQuery = _client.CreateDocumentQuery<int>(UriFactory.CreateDocumentCollectionUri(DatabaseId, _collectionName), querySpec);
+                return (await documentQuery.QueryAsync()).First();
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = $"{_collectionName} could not be loaded! : {ex.Message} : {querySpec.Parameters[0].Name} = {querySpec.Parameters[0].Value}";
+                base.LogException(ex, errorMessage);
+                return 0;
+            }
+        }
+
         #region Private methods
 
         private List<EdubaseDataObject> GetSchoolDataObjectById(Dictionary<string, object> fields)
