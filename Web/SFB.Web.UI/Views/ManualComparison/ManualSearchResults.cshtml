@@ -26,7 +26,11 @@
 @using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
-<h1 class="heading-xlarge page-heading">Manual comparison</h1>
+<div class="steps">
+    <span class="govuk-caption-xl">Step 2 of 2</span>
+</div>
+
+<h1 class="govuk-heading-xl">Manual comparison</h1>
 
 <div class="grid-row home-school section">
     <div class="column-three-quarters">
@@ -40,11 +44,7 @@
     </div>
 </div>
 
-<div class="steps">
-    <span>Step 2 of 2</span>
-</div>
-
-<div class="schools-in">
+<div class="schools-in mt-1">
     @switch (Model.SearchType)
     {
         case SearchTypes.SEARCH_BY_LOCATION:

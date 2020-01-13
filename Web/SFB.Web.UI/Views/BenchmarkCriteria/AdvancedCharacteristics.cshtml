@@ -15,7 +15,11 @@
     @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
-<h1 class="heading-xlarge page-heading">Detailed comparison</h1>
+<div class="steps">
+    <span class="govuk-caption-xl">Step 3 of 3</span>
+</div>
+
+<h1 class="govuk-heading-xl">Detailed comparison</h1>
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
@@ -28,10 +32,6 @@
         </div>
     </div>
 }
-
-<div class="steps">
-    <span>Step 3 of 3</span>
-</div>
 
 <section class="section" aria-labelledby="mainQuestion">
     <div class="criteria-section">

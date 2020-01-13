@@ -14,13 +14,24 @@
     @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
+<div class="steps">
+    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+    {
+        <span class="govuk-caption-xl">Step 1 of 3</span>
+    }
+    else
+    {
+        <span class="govuk-caption-xl">Step 2 of 3</span>
+    }
+</div>
+
 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
 {
-    <h1 class="heading-xlarge page-heading">Detailed comparison</h1>
+    <h1 class="govuk-heading-xl">Detailed comparison</h1>
 }
 else
 {
-    <h1 class="heading-xlarge page-heading">Quick comparison</h1>
+    <h1 class="govuk-heading-xl">Quick comparison</h1>
 }
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
@@ -34,17 +45,6 @@ else
         </div>
     </div>
 }
-
-<div class="steps">
-    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-    {
-        <span>Step 1 of 3</span>
-    }
-    else
-    {
-        <span>Step 2 of 3</span>
-    }
-</div>
 
 <section class="section" aria-labelledby="fieldset-legend">
     <div id="SchoolTypesAccordion" class="search-types" aria-live="polite">
