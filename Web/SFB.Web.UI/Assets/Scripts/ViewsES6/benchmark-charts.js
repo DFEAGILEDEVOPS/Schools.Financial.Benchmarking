@@ -1448,11 +1448,26 @@ class PdfGenerator {
         });
     }
 
-    pdfWriteTable(id) {
-        let headers = $(id + ' th').toArray().map((th) => {
-            return th.attributes['data-header'].value;
+    pdfWriteTable(id, index, chartPerPage, element) {
+        if (index % chartPerPage === 0) {
+            this.pdfAddNewPage();
+        } else {
+            this.offset += (800 / chartPerPage);
+        }
+        let header = $(element).find('h2').get(0).innerText;
+        if (header.length < 60) {
+            this.pdfWriteLine('H3', header);
+        } else {
+            let header1 = header.substring(0, header.lastIndexOf('('));
+            let header2 = header.substring(header.lastIndexOf('('));
+            this.pdfWriteLine('H3', header1);
+            this.pdfWriteLine('H3', header2);
+        }
+
+        let headers = $(id + ' th:visible').toArray().map((th) => {
+             return th.attributes['data-header'].value;
         });
-        let data = $(id + ' tbody tr').toArray().map((tr) => {
+        let data = $(id + ' tbody tr:visible').toArray().map((tr) => {
             let trObj = {};
             $(tr).children('td').toArray().map((td) => {
                 trObj[td.attributes['data-header'].value] = td.textContent.trim();
@@ -1558,7 +1573,7 @@ class PdfGenerator {
         });
     }
 
-    async writeCharts() {        
+    writeCharts() {        
         return new Promise((resolve) => {
             let charts = $('.chart-container:visible');
             let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
@@ -1570,18 +1585,22 @@ class PdfGenerator {
                     if (sessionStorage.chartFormat === 'Charts') {
                         chartImageResults.push(await this.pdfWriteChart(i, chartPerPage, charts[i]));
                     } else {
-                        this.pdfWriteTable('#table_for_chart_' + index);
+                        this.pdfWriteTable('#table_for_chart_' + i, i, chartPerPage, charts[i]);
                     }
                 }
             })();
 
-            var intervalId = setInterval(checkFinished, 100);
-            function checkFinished() {
-                if (chartImageResults.length === charts.length) {
-                    clearInterval(intervalId);
-                    resolve();
+            if (sessionStorage.chartFormat === 'Charts') {
+                var intervalId = setInterval(checkFinished, 100);
+                function checkFinished() {
+                    if (chartImageResults.length === charts.length) {
+                        clearInterval(intervalId);
+                        resolve();
+                    }
                 }
-            }            
+            } else {
+                resolve();
+            }         
         });
     }
 
