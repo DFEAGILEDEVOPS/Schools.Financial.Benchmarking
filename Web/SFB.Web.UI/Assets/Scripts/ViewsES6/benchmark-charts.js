@@ -921,17 +921,17 @@
 
         pptGenerator.writeLastYearMessage();
 
-        pptGenerator.writeCharts();
-
-        pptGenerator.writeCriteria();
-
-        pptGenerator.writeComparisonSchools().then(() => {
-            pptGenerator.writeBicSchools().then(() => {
-                pptGenerator.writeContextData().then(() => {
-                    pptGenerator.save();
+        pptGenerator.writeCharts().then(() => {
+            pptGenerator.writeCriteria();
+            pptGenerator.writeComparisonSchools().then(() => {
+                pptGenerator.writeBicSchools().then(() => {
+                    pptGenerator.writeContextData().then(() => {
+                        debugger;
+                        pptGenerator.save();
+                    });
                 });
-            });
-        });        
+            }); 
+        });       
     }
 
     PdfPage() {
@@ -1195,34 +1195,52 @@ class PptGenerator {
     }
 
     writeCharts() {
-        let charts = $('.chart-container:visible');
-        let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
-        let chartPerPage = Math.ceil(5 / yValuesCount);
+        return new Promise((resolve) => {
+            let charts = $('.chart-container:visible');
+            let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
+            let chartPerPage = Math.ceil(5 / yValuesCount);
 
-        charts.each((index, element) => {
-            if (index % chartPerPage === 0) {
-                this.slide = this.doc.addNewSlide();
-                this.yOffset = 0;
-            } else {
-                this.yOffset += (4 / chartPerPage);
-            }
-            let header = $(element).find('h2').get(0).innerText;
-            if (header.length < 60) {
-                this.yOffset += 0.2;
-                this.slide.addText(header, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
-            } else {
-                let header1 = header.substring(0, header.lastIndexOf('('));
-                let header2 = header.substring(header.lastIndexOf('('));
-                this.yOffset += 0.2;
-                this.slide.addText(header1, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
-                this.yOffset += 0.2;
-                this.slide.addText(header2, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
-            }
+            let chartImageResults = [];
+            (async () => {
+                for (var index = 0; index < charts.length; index++) {
+                    if (index % chartPerPage === 0) {
+                        this.slide = this.doc.addNewSlide();
+                        this.yOffset = 0;
+                    } else {
+                        this.yOffset += (4 / chartPerPage);
+                    }
+                    let header = $(charts[index]).find('h2').get(0).innerText;
+                    if (header.length < 60) {
+                        this.yOffset += 0.2;
+                        this.slide.addText(header, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+                    } else {
+                        let header1 = header.substring(0, header.lastIndexOf('('));
+                        let header2 = header.substring(header.lastIndexOf('('));
+                        this.yOffset += 0.2;
+                        this.slide.addText(header1, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+                        this.yOffset += 0.2;
+                        this.slide.addText(header2, { x: 0.4, y: this.yOffset, fontSize: 16, bold: true });
+                    }
+                    if (sessionStorage.chartFormat === 'Charts') {
+                        chartImageResults.push(await this.pptWriteChart(`#chart_${index}`, chartPerPage));
+                    } else {
+                        this.pptWriteTable(`#table_for_chart_${index}`, chartPerPage);
+                    }
+                }
+            })();
+            
             if (sessionStorage.chartFormat === 'Charts') {
-                this.pptWriteChart(`#chart_${index}`, chartPerPage);
+                var intervalId = setInterval(checkFinished, 100);
+                function checkFinished() {
+                    if (chartImageResults.length === charts.length) {
+                        clearInterval(intervalId);
+                        debugger;
+                        resolve();
+                    }
+                }
             } else {
-                this.pptWriteTable(`#table_for_chart_${index}`, chartPerPage);
-            }
+                resolve();
+            } 
         });
     }
 
@@ -1300,19 +1318,24 @@ class PptGenerator {
     }
 
     pptWriteChart(chartId, chartPerPage) {
-        let svg = $(chartId).find('svg')[0];
-        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
-            (img) => {
-                this.yOffset += 0.5;
-                let ratio = svg.clientWidth / svg.clientHeight;
-                let height = 4 / chartPerPage;
-                let width = height * ratio;
-                if (width > 8) { //not to overflow horizontally
-                    width = 8;
-                    height = width / ratio;
-                }
-                this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: width, h: height });
-            });
+        debugger;
+        return new Promise((resolve) => {
+            let svg = $(chartId).find('svg')[0];
+            saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+                (img) => {
+                    this.yOffset += 0.5;
+                    let ratio = svg.clientWidth / svg.clientHeight;
+                    let height = 4 / chartPerPage;
+                    let width = height * ratio;
+                    if (width > 8) { //not to overflow horizontally
+                        width = 8;
+                        height = width / ratio;
+                    }
+                    debugger;
+                    this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: width, h: height });
+                    resolve('done');
+                });
+        });
     }
 
     pptWriteTable(tableId, tablePerPage) {
