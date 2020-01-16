@@ -934,7 +934,7 @@
         });        
     }
 
-    async PdfPage() {
+    PdfPage() {
 
         //$('#PdfLink .download-icon').toggle();
         //$('#PdfLink .spin-icon').toggle();
@@ -953,16 +953,13 @@
 
         pdfGenerator.writeComparisonSchools().then(() => {
             pdfGenerator.writeBicSchools().then(() => {
-                const write = async () => {
-                    await pdfGenerator.writeCharts().then(() => {
-                        pdfGenerator.writeCriteria().then(() => {
-                            pdfGenerator.writeContextData().then(() => {
-                                pdfGenerator.save();
-                            });
+                pdfGenerator.writeCharts().then(() => {
+                    pdfGenerator.writeCriteria().then(() => {
+                        pdfGenerator.writeContextData().then(() => {
+                            pdfGenerator.save();
                         });
                     });
-                };
-                write();
+                });
             });
         });
     }
@@ -1568,20 +1565,17 @@ class PdfGenerator {
             let chartPerPage = Math.ceil(12 / yValuesCount);
 
             let chartImageResults = [];
-            charts.each((index, element) => {
-                setTimeout(() => {
+            (async () => {
+                for (var i = 0; i < charts.length; i++) {
                     if (sessionStorage.chartFormat === 'Charts') {
-                        const write = async () => {
-                            chartImageResults.push(await this.pdfWriteChart(index, chartPerPage, element));
-                        };
-                        write();
+                        chartImageResults.push(await this.pdfWriteChart(i, chartPerPage, charts[i]));
                     } else {
                         this.pdfWriteTable('#table_for_chart_' + index);
-                    } 
-                }, index * 100);              
-            });
+                    }
+                }
+            })();
 
-            var intervalId = setInterval(checkFinished, 1000);
+            var intervalId = setInterval(checkFinished, 100);
             function checkFinished() {
                 if (chartImageResults.length === charts.length) {
                     clearInterval(intervalId);
