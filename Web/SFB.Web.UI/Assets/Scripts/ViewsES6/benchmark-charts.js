@@ -934,7 +934,7 @@
         });        
     }
 
-    PdfPage() {
+    async PdfPage() {
 
         //$('#PdfLink .download-icon').toggle();
         //$('#PdfLink .spin-icon').toggle();
@@ -953,12 +953,16 @@
 
         pdfGenerator.writeComparisonSchools().then(() => {
             pdfGenerator.writeBicSchools().then(() => {
-                pdfGenerator.writeCharts();
-                pdfGenerator.writeCriteria().then(() => {
-                    pdfGenerator.writeContextData().then(() => {
-                        pdfGenerator.save();
+                const write = async () => {
+                    await pdfGenerator.writeCharts().then(() => {
+                        pdfGenerator.writeCriteria().then(() => {
+                            pdfGenerator.writeContextData().then(() => {
+                                pdfGenerator.save();
+                            });
+                        });
                     });
-                });
+                };
+                write();
             });
         });
     }
@@ -1421,12 +1425,30 @@ class PdfGenerator {
         this.offset = 70;
     }
 
-    pdfWriteChart(index) {
-        let svg = $('#chart_' + index).find('svg')[0];
-        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
-            (img) => {
-                this.doc.addImage(img, 'JPEG', 0, this.offset);
-            });
+    pdfWriteChart(index, chartPerPage, element) {
+        return new Promise((resolve) => {
+            let svg = $('#chart_' + index).find('svg')[0];
+            saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+                (img) => {
+                    if (index % chartPerPage === 0) {
+                        this.pdfAddNewPage();
+                    } else {
+                        this.offset += (800 / chartPerPage);
+                    }
+                    let header = $(element).find('h2').get(0).innerText;
+                    if (header.length < 60) {
+                        this.pdfWriteLine('H3', header);
+                    } else {
+                        let header1 = header.substring(0, header.lastIndexOf('('));
+                        let header2 = header.substring(header.lastIndexOf('('));
+                        this.pdfWriteLine('H3', header1);
+                        this.pdfWriteLine('H3', header2);
+                    }
+
+                    this.doc.addImage(img, 'JPEG', 0, this.offset);
+                    resolve('done');
+                });
+        });
     }
 
     pdfWriteTable(id) {
@@ -1539,31 +1561,33 @@ class PdfGenerator {
         });
     }
 
-    writeCharts() {
-        let charts = $('.chart-container:visible');
-        let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
-        let chartPerPage = Math.ceil(12 / yValuesCount);
+    async writeCharts() {        
+        return new Promise((resolve) => {
+            let charts = $('.chart-container:visible');
+            let yValuesCount = JSON.parse($(".chart").first().attr('data-chart')).length;
+            let chartPerPage = Math.ceil(12 / yValuesCount);
 
-        charts.each((index, element) => {
-            if (index % chartPerPage === 0) {
-                this.pdfAddNewPage();
-            } else {
-                this.offset += (800 / chartPerPage);
-            }
-            let header = $(element).find('h2').get(0).innerText;
-            if (header.length < 60) {
-                this.pdfWriteLine('H3', header);
-            } else {
-                let header1 = header.substring(0, header.lastIndexOf('('));
-                let header2 = header.substring(header.lastIndexOf('('));
-                this.pdfWriteLine('H3', header1);
-                this.pdfWriteLine('H3', header2);
-            }
-            if (sessionStorage.chartFormat === 'Charts') {
-                this.pdfWriteChart(index);
-            } else {
-                this.pdfWriteTable('#table_for_chart_' + index);
-            }
+            let chartImageResults = [];
+            charts.each((index, element) => {
+                setTimeout(() => {
+                    if (sessionStorage.chartFormat === 'Charts') {
+                        const write = async () => {
+                            chartImageResults.push(await this.pdfWriteChart(index, chartPerPage, element));
+                        };
+                        write();
+                    } else {
+                        this.pdfWriteTable('#table_for_chart_' + index);
+                    } 
+                }, index * 100);              
+            });
+
+            var intervalId = setInterval(checkFinished, 1000);
+            function checkFinished() {
+                if (chartImageResults.length === charts.length) {
+                    clearInterval(intervalId);
+                    resolve();
+                }
+            }            
         });
     }
 
