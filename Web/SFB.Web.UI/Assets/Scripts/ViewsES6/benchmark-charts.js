@@ -926,7 +926,6 @@
             pptGenerator.writeComparisonSchools().then(() => {
                 pptGenerator.writeBicSchools().then(() => {
                     pptGenerator.writeContextData().then(() => {
-                        debugger;
                         pptGenerator.save();
                     });
                 });
@@ -1234,7 +1233,6 @@ class PptGenerator {
                 function checkFinished() {
                     if (chartImageResults.length === charts.length) {
                         clearInterval(intervalId);
-                        debugger;
                         resolve();
                     }
                 }
@@ -1318,7 +1316,6 @@ class PptGenerator {
     }
 
     pptWriteChart(chartId, chartPerPage) {
-        debugger;
         return new Promise((resolve) => {
             let svg = $(chartId).find('svg')[0];
             saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
@@ -1331,7 +1328,6 @@ class PptGenerator {
                         width = 8;
                         height = width / ratio;
                     }
-                    debugger;
                     this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: width, h: height });
                     resolve('done');
                 });
@@ -1341,10 +1337,10 @@ class PptGenerator {
     pptWriteTable(tableId, tablePerPage) {
         let rows = [];
         let headers = [];
-        $(`${tableId} th`).toArray().map((th) => {
+        $(`${tableId} th:visible`).toArray().map((th) => {
             headers.push({ text: th.attributes['data-header'] === undefined ? th.textContent : th.attributes['data-header'].value, options: { bold: true } });
         });
-        let data = $(`${tableId} tbody tr`).toArray().map((tr) => {
+        let data = $(`${tableId} tbody tr:visible`).toArray().map((tr) => {
             let trArr = [];
             $(tr).children('td').toArray().map((td) => {
                 trArr.push(td.textContent.trim());
