@@ -1,5 +1,4 @@
-﻿@using SFB.Web.ApplicationCore.Helpers.Enums
-@using SFB.Web.UI.Helpers.Enums
+﻿@using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
@@ -8,10 +7,13 @@
 
 @section BackButtonContent{
     @{
-        ViewBag.HomeSchoolId = Model.Id.ToString();
-        ViewBag.HomeSchoolName = Model.Name;
-    }
-    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
+        if (Model != null)
+        {
+            ViewBag.HomeSchoolId = Model.Id.ToString();
+            ViewBag.HomeSchoolName = Model.Name;
+            Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        }
+    }    
 }
 
 <div class="steps">
@@ -34,7 +36,7 @@ else
     <h1 class="govuk-heading-xl">Quick comparison</h1>
 }
 
-@if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
+@if (!string.IsNullOrEmpty(Model?.ComparisonList.HomeSchoolName))
 {
     <div class="grid-row">
         <div class="column-full">
@@ -114,13 +116,20 @@ else
                     <button type="submit" class="button">Continue</button>
                 </div>
                 <div class="column-one-third back-button">
-                    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                    @if (ViewBag.URN == null)
                     {
-                        <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
+                        <a href="/">Back</a>
                     }
                     else
                     {
-                        <a href="SelectBasketSize?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
+                        if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                        {
+                            <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
+                        }
+                        else
+                        {
+                            <a href="SelectBasketSize?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
+                        }
                     }
                 </div>
             </div>
@@ -153,7 +162,7 @@ else
 
     <script>
         $().ready(function () {
-            var defaultInput = $('#@Model.EstablishmentType');
+            var defaultInput = $('#@Model?.EstablishmentType');
             defaultInput.click();
         });
     </script>

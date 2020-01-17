@@ -243,3 +243,16 @@
             break;
     }
 }
+
+@helper NoDefaultTabActive(string searchType)
+{
+    switch (searchType)
+    {
+        case SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL:
+            @("active")
+            break;
+        default:
+            @("inactive")
+            break;
+    }
+}

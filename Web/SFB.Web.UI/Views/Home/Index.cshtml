@@ -63,11 +63,15 @@
                     <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="tab" id="TrustTab">
                         <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')">Find an academy trust</button>
                     </li>
+                    <li class="@ViewHelpers.NoDefaultTabActive(Model.SearchType) hide-in-print" role="tab" id="NoDefaultTab">
+                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('NoDefaultTab')">Compare with no default school</button>
+                    </li>
                 </ol>
             </nav>
             <div class="search-tab-content">
                 @Html.Partial("Partials/Search/SchoolTab")
                 @Html.Partial("Partials/Search/TrustTab")
+                @Html.Partial("Partials/Search/NoDefaultTab")
             </div>
         </div>
     </div>

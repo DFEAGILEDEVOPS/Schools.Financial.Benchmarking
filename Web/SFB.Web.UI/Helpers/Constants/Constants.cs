@@ -20,6 +20,7 @@
         public const string SEARCH_BY_TRUST_LOCATION = "search-by-trust-location";
         public const string SEARCH_BY_TRUST_LA_CODE_NAME = "search-by-trust-la-code-name";
         public const string SEARCH_BY_MAT = "search-by-mat";
+        public const string COMPARE_WITHOUT_DEFAULT_SCHOOL = "compare-without-default-school";
     }
 
     public class ChartHistory
@@ -117,6 +118,7 @@
         public const string DuplicateSchool = "Please select a school which is not already in your list";
         public const string DuplicateTrust = "Please select a trust which is not already in your list";
         public const string BMBasketLimitExceed = "Combined basket exceeds 30 schools, either replace current basket or go back and reduce new basket size";
+        public const string SelectComparisonType = "Please select a comparison type";
     }
 
     public class MoreInfoText

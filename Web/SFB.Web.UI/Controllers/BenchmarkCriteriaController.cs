@@ -13,6 +13,7 @@ using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
+using SFB.Web.UI.Helpers.Constants;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -62,19 +63,22 @@ namespace SFB.Web.UI.Controllers
             return View(benchmarkSchool);
         }
 
-        public ActionResult StepOne(int urn, ComparisonType comparisonType)
+        public ActionResult StepOne(int? urn, ComparisonType? comparisonType)
         {
             switch (comparisonType)
             {
                 case ComparisonType.BestInClass:
-                    return HighestProgressSchoolsBenchmarking(urn);
+                    return HighestProgressSchoolsBenchmarking(urn.Value);
                 case ComparisonType.Basic:
-                    return SelectBasketSize(urn, comparisonType);
+                    return SelectBasketSize(urn.Value, comparisonType.Value);
                 case ComparisonType.Manual:
                     return RedirectToAction("Index", "ManualComparison");
                 case ComparisonType.Advanced:
+                    return SelectSchoolType(urn, comparisonType.Value, null, null);
+                case null:
                 default:
-                    return SelectSchoolType(urn, comparisonType, null, null);
+                    return ErrorView(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL, null, ErrorMessages.SelectComparisonType, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+
             }
         }
 
@@ -101,19 +105,28 @@ namespace SFB.Web.UI.Controllers
         /// <param name="comparisonType"></param>
         /// <param name="estType"></param>
         /// <returns></returns>
-        public ViewResult SelectSchoolType(int urn, ComparisonType comparisonType, EstablishmentType? estType, int? basketSize)
+        public ViewResult SelectSchoolType(int? urn, ComparisonType comparisonType, EstablishmentType? estType, int? basketSize)
         {
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
             ViewBag.BasketSize = basketSize;
 
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+            SchoolViewModel benchmarkSchool = null;
 
-            if ((ViewBag.ComparisonType == ComparisonType.Basic) && ((!basketSize.HasValue) || (basketSize.Value < 5 || basketSize.Value > 30)))
+            if (urn.HasValue)
             {
-                benchmarkSchool.ErrorMessage = "Please enter a number between 5 and 30";
-                return View("SelectBasketSize", benchmarkSchool);
+                benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+
+                if ((ViewBag.ComparisonType == ComparisonType.Basic) && ((!basketSize.HasValue) || (basketSize.Value < 5 || basketSize.Value > 30)))
+                {
+                    benchmarkSchool.ErrorMessage = "Please enter a number between 5 and 30";
+                    return View("SelectBasketSize", benchmarkSchool);
+                }
+            }
+            else
+            {
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null);
             }
 
             return View("SelectSchoolType", benchmarkSchool);
@@ -359,6 +372,19 @@ namespace SFB.Web.UI.Controllers
                 return 0;
             }
             else return value;
+        }
+
+
+        private ActionResult ErrorView(string searchType, string referrer, string errorMessage, SchoolComparisonListModel schoolComparisonList)
+        {
+            var searchVM = new SearchViewModel(schoolComparisonList, searchType)
+            {
+                SearchType = searchType,
+                ErrorMessage = errorMessage,
+                Authorities = _laService.GetLocalAuthorities()
+            };
+
+            return View("~/Views/Home/index.cshtml", searchVM);
         }
     }
 }
