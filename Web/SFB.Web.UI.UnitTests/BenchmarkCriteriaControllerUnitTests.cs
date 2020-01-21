@@ -82,5 +82,25 @@ namespace SFB.Web.UI.UnitTests
             Assert.AreEqual("GenerateNewFromAdvancedCriteria", (result as RedirectToRouteResult).RouteValues["Action"]);
         }
 
+        [Test]
+        public void SelectSchoolTypeActionClearsBaseSchoolWhenAdvancedComparisonWithoutBaseSchool()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+
+            var _mockDocumentDbService = new Mock<IFinancialDataService>();
+
+            var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
+
+            var _mockEdubaseDataService = new Mock<IContextDataService>();
+
+            var mockComparisonService = new Mock<IComparisonService>();
+
+            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+
+            var result = controller.SelectSchoolType(null, ComparisonType.Advanced, EstablishmentType.Maintained, 15);
+
+            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null));
+        }
+
     }
 }
