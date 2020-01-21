@@ -9,7 +9,12 @@
 
 @section BackButtonContent{
     @{
-        if (!String.IsNullOrEmpty(Model.ComparisonList.HomeSchoolUrn))
+
+        if (String.IsNullOrEmpty(Model.ComparisonList.HomeSchoolUrn))
+        {
+            Html.RenderPartial("Partials/BackToHomeLink");
+        }
+        else
         {
             ViewBag.HomeSchoolId = Model.ComparisonList.HomeSchoolUrn;
             ViewBag.HomeSchoolName = Model.ComparisonList.HomeSchoolName;

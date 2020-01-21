@@ -7,7 +7,11 @@
 
 @section BackButtonContent{
     @{
-        if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
+        if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
+        {
+            Html.RenderPartial("Partials/BackToHomeLink");
+        }
+        else
         {
             ViewBag.HomeSchoolId = Model.Id.ToString();
             ViewBag.HomeSchoolName = Model.Name;
