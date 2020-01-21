@@ -355,11 +355,11 @@ namespace SFB.Web.UI.Controllers
         [HttpGet]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
-            int urn;
+            int? urn;
             BenchmarkCriteria usedCriteria;
             try
             {
-                urn = (int)TempData["URN"];
+                urn = (int?)TempData["URN"];
                 usedCriteria = TempData["BenchmarkCriteria"] as BenchmarkCriteria;
             }
             catch (Exception)
