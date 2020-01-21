@@ -9,10 +9,13 @@
 
 @section BackButtonContent{
     @{
-        ViewBag.HomeSchoolId = Model.ComparisonList.HomeSchoolUrn;
-        ViewBag.HomeSchoolName = Model.ComparisonList.HomeSchoolName;
+        if (!String.IsNullOrEmpty(Model.ComparisonList.HomeSchoolUrn))
+        {
+            ViewBag.HomeSchoolId = Model.ComparisonList.HomeSchoolUrn;
+            ViewBag.HomeSchoolName = Model.ComparisonList.HomeSchoolName;
+            Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        }
     }
-    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
 <div class="steps">

@@ -7,13 +7,27 @@
 
 @section BackButtonContent{
     @{
-        if (Model != null)
+        if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
         {
             ViewBag.HomeSchoolId = Model.Id.ToString();
             ViewBag.HomeSchoolName = Model.Name;
             Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
         }
-    }    
+    }
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There are errors on this page that require attention.
+        </h1>
+        <ul class="error-summary-list">
+            <li>
+                <a href="#finderSection">@Model.ErrorMessage</a>
+            </li>
+        </ul>
+    </div>
 }
 
 <div class="steps">
@@ -36,7 +50,7 @@ else
     <h1 class="govuk-heading-xl">Quick comparison</h1>
 }
 
-@if (!string.IsNullOrEmpty(Model?.ComparisonList.HomeSchoolName))
+@if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
 {
     <div class="grid-row">
         <div class="column-full">
@@ -70,7 +84,7 @@ else
                 {
                     <div id="MaintainedFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
-                            <input id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled/>
+                            <input id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled />
                             <label for="excludePartialMaintained">
                                 Exclude maintained schools that don't have a complete set of financial data
                             </label>
@@ -85,7 +99,7 @@ else
                 {
                     <div id="AcademiesFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
-                            <input id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled/>
+                            <input id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled />
                             <label for="excludePartialAcademies">
                                 Exclude academies that don't have a complete set of financial data
                             </label>
@@ -101,7 +115,7 @@ else
                 {
                     <div id="AllFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
-                            <input id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled/>
+                            <input id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled />
                             <label for="excludePartialAll">
                                 Exclude schools that don't have a complete set of financial data
                             </label>
@@ -116,7 +130,7 @@ else
                     <button type="submit" class="button">Continue</button>
                 </div>
                 <div class="column-one-third back-button">
-                    @if (ViewBag.URN == null)
+                    @if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
                     {
                         <a href="/">Back</a>
                     }
@@ -162,7 +176,8 @@ else
 
     <script>
         $().ready(function () {
-            var defaultInput = $('#@Model?.EstablishmentType');
+            var estType = '@(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool ? "None" : Model.EstablishmentType.ToString())';
+            var defaultInput = $('#' + estType);
             defaultInput.click();
         });
     </script>

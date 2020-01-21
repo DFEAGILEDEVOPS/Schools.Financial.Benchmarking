@@ -257,4 +257,15 @@ namespace SFB.Web.UI.Models
             return string.Empty;
         }
     }
+
+    public class SchoolViewModelWithNoDefaultSchool : SchoolViewModel
+    {
+        public SchoolViewModelWithNoDefaultSchool() : base(null)
+        {
+        }
+
+        public override string Name { get => null; }
+
+        public override string Type => null;
+    }
 }

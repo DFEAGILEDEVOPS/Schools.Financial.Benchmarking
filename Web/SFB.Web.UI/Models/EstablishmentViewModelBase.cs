@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Enums;
@@ -31,7 +30,7 @@ namespace SFB.Web.UI.Models
 
         public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 
-        public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels.Last();
+        public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels?.Last();
 
         public bool IsReturnsComplete => LatestYearFinancialData.IsReturnsComplete;
 

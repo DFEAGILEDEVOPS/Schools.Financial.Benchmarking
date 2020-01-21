@@ -20,7 +20,10 @@
                     }
                     else
                     {
-                        <span>No value was supplied for @Model.HomeSchoolName</span>
+                        if (!@Model.HomeSchoolName.IsEmpty())
+                        {
+                            <span>No value was supplied for @Model.HomeSchoolName</span>
+                        }
                     }
                 }
             </div>

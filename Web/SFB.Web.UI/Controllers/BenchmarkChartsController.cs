@@ -403,11 +403,19 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int urn, ComparisonArea areaType, 
+        public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int? urn, ComparisonArea areaType, 
             BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite, bool excludePartial = false)
         {
             criteria.LocalAuthorityCode = lacode;
-            var benchmarkSchool = InstantiateBenchmarkSchool(urn);
+            SchoolViewModel benchmarkSchoolVM;
+            if (urn.HasValue)
+            {
+                benchmarkSchoolVM = InstantiateBenchmarkSchool(urn.Value);
+            }
+            else
+            {
+                benchmarkSchoolVM = new SchoolViewModelWithNoDefaultSchool();
+            }
 
             switch (overwriteStrategy)
             {
@@ -459,10 +467,13 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            AddDefaultBenchmarkSchoolToList(benchmarkSchool);
+            if (!(benchmarkSchoolVM is SchoolViewModelWithNoDefaultSchool))
+            {
+                AddDefaultBenchmarkSchoolToList(benchmarkSchoolVM);
+            }
 
             return await Index(urn, null, criteria, null, ComparisonType.Advanced, ComparisonListLimit.DEFAULT, 
-                benchmarkSchool.LatestYearFinancialData, estType, areaType, lacode.ToString(), excludePartial);
+                benchmarkSchoolVM.LatestYearFinancialData, estType, areaType, lacode.ToString(), excludePartial);
         }
 
         public async Task<PartialViewResult> CustomReport(string json, ChartFormat format)
@@ -478,7 +489,7 @@ namespace SFB.Web.UI.Controllers
             var maintainedTerm = SchoolFormatHelpers.FinancialTermFormatMaintained(_financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.Maintained));
 
             var vm = new BenchmarkChartListViewModel(customCharts, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), null,
-                ComparisonType.Manual, null, null, null, null, EstablishmentType.All, EstablishmentType.All, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, ComparisonListLimit.DEFAULT);
+                ComparisonType.Manual, null, null, null, null, EstablishmentType.All, EstablishmentType.All, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, null, ComparisonListLimit.DEFAULT);
 
             ViewBag.ChartFormat = format;
             ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
@@ -536,7 +547,7 @@ namespace SFB.Web.UI.Controllers
 
             var vm = new BenchmarkChartListViewModel(benchmarkCharts, comparisonList, chartGroups, comparisonType, advancedCriteria, simpleCriteria,
                 bicCriteria, benchmarkSchoolData, establishmentType, searchedEstabType, schoolArea, selectedArea, academiesTerm, maintainedTerm, areaType,
-                laCode, urn.GetValueOrDefault(), basketSize, null, comparisonSchools, excludePartial);
+                laCode, urn, basketSize, null, comparisonSchools, excludePartial);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;

@@ -12,86 +12,112 @@
     <thead>
     <tr>
         <th scope="col">Characteristic</th>
-        <th scope="col">Default school value</th>
+        @if (Model.BenchmarkSchoolData != null)
+        {
+            <th scope="col">Default school value</th>
+        }
         <th scope="col">Comparison criteria</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>Finance type</td>
-        @if (Model.BenchmarkSchoolData.EstabType == EstablishmentType.Academies)
-        {
-            <td>Academy</td>
-        }
-        else
-        {
-            <td>Maintained</td>
-        }
-        <td>@Model.SearchedEstablishmentType</td>
-    </tr>
-    <tr>
-        <td>Area</td>
-        <td>@Model.SchoolArea</td>
-        <td>@Model.SelectedArea</td>
-    </tr>
-    @foreach (var property in (typeof(BenchmarkCriteria)).GetProperties())
-    {
-        var dbAttribute = property.GetCustomAttributes(typeof(DBFieldAttribute)).FirstOrDefault();
-        var uiNameAttribute = property.GetCustomAttributes(typeof(PrettyNameAttribute)).FirstOrDefault();
-
-        if (dbAttribute != null && dbAttribute is DBFieldAttribute)
-        {
-            var fieldValue = Model.AdvancedCriteria.GetType().GetProperty(property.Name).GetValue(Model.AdvancedCriteria, null);
-            if (fieldValue != null)
+        <tr>
+            <td>Finance type</td>
+            @if (Model.BenchmarkSchoolData != null && Model.BenchmarkSchoolData.EstabType == EstablishmentType.Academies)
             {
-                @Html.Raw("<tr>")
-                
-                var fieldName = (dbAttribute as DBFieldAttribute).Name;
-                var fieldType = (dbAttribute as DBFieldAttribute).Type;
-                var criteriaValue = typeof(SchoolTrustFinancialDataObject).GetProperties().First(p => (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).First() as JsonPropertyAttribute).PropertyName == fieldName).GetValue(Model.BenchmarkSchoolData.FinancialDataObjectModel);
-                var uiName = (uiNameAttribute as PrettyNameAttribute).Name;
-                if (!uiName.IsNullOrWhiteSpace())
-                {
-                    switch (fieldType)
-                    {
-                        case CriteriaFieldComparisonTypes.MIN:
-                            @Html.Raw($"<td>{uiName} (minimum)</td>")
-                            @Html.Raw($"<td>{criteriaValue}</td>")
-                            @Html.Raw($"<td>{fieldValue}</td>")
-                            break;
-                        case CriteriaFieldComparisonTypes.MAX:
-                            @Html.Raw($"<td>{uiName} (maximum)</td>")
-                            @Html.Raw($"<td>{criteriaValue}</td>")
-                            @Html.Raw($"<td>{fieldValue}</td>")
-                            break;
-                        case CriteriaFieldComparisonTypes.EQUALTO:
-                            if (fieldValue is string)
-                            {
-                                @Html.Raw($"<td>{uiName}</td>")
-                                @Html.Raw($"<td>{criteriaValue}</td>")
-                                @Html.Raw($"<td>{fieldValue}</td>")
-                            }
-                            else if (fieldValue is int)
-                            {
-                                @Html.Raw($"<td>{uiName}</td>")
-                                @Html.Raw($"<td>{criteriaValue}</td>")
-                                @Html.Raw($"<td>{fieldValue}</td>")
-                            }
-                            else if (fieldValue is Array)
-                            {
-                                @Html.Raw($"<td>{uiName}</td>")
-                                @Html.Raw($"<td>{criteriaValue}</td>")
-                                @Html.Raw("<td>")
-                                @Html.Raw(string.Join(", ", fieldValue as string[]))
-                                @Html.Raw("</td>")
-                            }
-                            break;
-                    }
+                <td>Academy</td>
+            }
+            else if (Model.BenchmarkSchoolData != null && Model.BenchmarkSchoolData.EstabType == EstablishmentType.Maintained)
+            {
+                <td>Maintained</td>
+            }
+            <td>@Model.SearchedEstablishmentType</td>
+        </tr>
+        <tr>
+            <td>Area</td>
+            @if (Model.BenchmarkSchoolData != null)
+            {
+                <td>@Model.SchoolArea</td>
+            }
+            <td>@Model.SelectedArea</td>
+        </tr>
+        @foreach (var property in (typeof(BenchmarkCriteria)).GetProperties())
+        {
+            var dbAttribute = property.GetCustomAttributes(typeof(DBFieldAttribute)).FirstOrDefault();
+            var uiNameAttribute = property.GetCustomAttributes(typeof(PrettyNameAttribute)).FirstOrDefault();
 
-                    @Html.Raw("</tr>")
+            if (dbAttribute != null && dbAttribute is DBFieldAttribute)
+            {
+                var fieldValue = Model.AdvancedCriteria.GetType().GetProperty(property.Name).GetValue(Model.AdvancedCriteria, null);
+                if (fieldValue != null)
+                {
+                    @Html.Raw("<tr>")
+
+                    var fieldName = (dbAttribute as DBFieldAttribute).Name;
+                    var fieldType = (dbAttribute as DBFieldAttribute).Type;
+
+                    object criteriaValue = null;
+                    if (Model.BenchmarkSchoolData != null)
+                    {
+                        criteriaValue = typeof(SchoolTrustFinancialDataObject).GetProperties().First(p => (p.GetCustomAttributes(typeof(JsonPropertyAttribute), false).First() as JsonPropertyAttribute).PropertyName == fieldName).GetValue(Model.BenchmarkSchoolData.FinancialDataObjectModel);
+                    }
+                    var uiName = (uiNameAttribute as PrettyNameAttribute).Name;
+                    if (!uiName.IsNullOrWhiteSpace())
+                    {
+                        switch (fieldType)
+                        {
+                            case CriteriaFieldComparisonTypes.MIN:
+                                @Html.Raw($"<td>{uiName} (minimum)</td>")
+                                if (criteriaValue != null)
+                                {
+                                    @Html.Raw($"<td>{criteriaValue}</td>")
+                                }
+                                @Html.Raw($"<td>{fieldValue}</td>")
+                                break;
+                            case CriteriaFieldComparisonTypes.MAX:
+                                @Html.Raw($"<td>{uiName} (maximum)</td>")
+                                if (criteriaValue != null)
+                                {
+                                    @Html.Raw($"<td>{criteriaValue}</td>")
+                                }
+                                @Html.Raw($"<td>{fieldValue}</td>")
+                                break;
+                            case CriteriaFieldComparisonTypes.EQUALTO:
+                                if (fieldValue is string)
+                                {
+                                    @Html.Raw($"<td>{uiName}</td>")
+                                    if (criteriaValue != null)
+                                    {
+                                        @Html.Raw($"<td>{criteriaValue}</td>")
+                                    }
+                                    @Html.Raw($"<td>{fieldValue}</td>")
+                                }
+                                else if (fieldValue is int)
+                                {
+                                    @Html.Raw($"<td>{uiName}</td>")
+                                    if (criteriaValue != null)
+                                    {
+                                        @Html.Raw($"<td>{criteriaValue}</td>")
+                                    }
+                                    @Html.Raw($"<td>{fieldValue}</td>")
+                                }
+                                else if (fieldValue is Array)
+                                {
+                                    @Html.Raw($"<td>{uiName}</td>")
+                                    if (criteriaValue != null)
+                                    {
+                                        @Html.Raw($"<td>{criteriaValue}</td>")
+                                    }
+                                    @Html.Raw("<td>")
+                                    @Html.Raw(string.Join(", ", fieldValue as string[]))
+                                    @Html.Raw("</td>")
+                                }
+                                break;
+                        }
+
+                        @Html.Raw("</tr>")
+                    }
                 }
             }
         }
-    }
     </tbody>
 </table>

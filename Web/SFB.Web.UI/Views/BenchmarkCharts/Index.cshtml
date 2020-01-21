@@ -100,9 +100,15 @@ else
 }
 else
 {
-    if (Model.SchoolComparisonList != null && !string.IsNullOrEmpty(Model.SchoolComparisonList.HomeSchoolName))
+    if (Model.SchoolComparisonList != null)
     {
-        if (Model.BmSchoolInList())
+        if (Model.ComparisonType == ComparisonType.Advanced && Model.SchoolComparisonList.HomeSchoolName.IsEmpty())
+        {
+            <div id="comparing-text" class="font-xsmall">
+                <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+            </div>
+        }
+        else if (Model.BmSchoolInList())
         {
             <div class="grid-row">
                 <div class="column-full" id="comparing">
@@ -147,6 +153,7 @@ else
                 </div>
             </div>
         }
+
         if ((Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass) && Model.AdvancedCriteria != null)
         {
             <div class="grid-row">
