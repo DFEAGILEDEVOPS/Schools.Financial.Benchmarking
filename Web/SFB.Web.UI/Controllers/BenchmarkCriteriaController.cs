@@ -72,7 +72,14 @@ namespace SFB.Web.UI.Controllers
                 case ComparisonType.Basic:
                     return SelectBasketSize(urn.Value, comparisonType.Value);
                 case ComparisonType.Manual:
-                    return RedirectToAction("Index", "ManualComparison");
+                    if (urn.HasValue)
+                    {
+                        return RedirectToAction("Index", "ManualComparison");
+                    }
+                    else
+                    {
+                        return RedirectToAction("WithoutBaseSchool", "ManualComparison");
+                    }
                 case ComparisonType.Advanced:
                     return SelectSchoolType(urn, comparisonType.Value, null, null);
                 case null:

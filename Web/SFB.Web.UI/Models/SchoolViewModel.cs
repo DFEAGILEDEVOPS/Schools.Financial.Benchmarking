@@ -264,6 +264,10 @@ namespace SFB.Web.UI.Models
         {
         }
 
+        public SchoolViewModelWithNoDefaultSchool(SchoolComparisonListModel manualComparisonList) : base(null, null, manualComparisonList)
+        {
+        }
+
         public override string Name { get => null; }
 
         public override string Type => null;

@@ -1,4 +1,5 @@
-﻿using SFB.Web.ApplicationCore.Helpers.Constants;
+﻿using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Services.DataAccess;
@@ -55,6 +56,17 @@ namespace SFB.Web.UI.Controllers
             return View("Index",vm);
         }
 
+        public ActionResult WithoutBaseSchool()
+        {
+            var vm = new SearchViewModel(null, "")
+            {
+                Authorities = _laService.GetLocalAuthorities()
+            };
+            _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null);
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null);
+            return View("Index", vm);
+        }
+
         public async Task<ActionResult> Search(
         string nameId,
         string searchType,
@@ -74,15 +86,29 @@ namespace SFB.Web.UI.Controllers
 
             var comparisonList = base._benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();            
             var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
-            var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+
+            EdubaseDataObject contextDataObject = null;
+            if (!string.IsNullOrEmpty(nameId))
+            {
+                _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+            }
+
             dynamic searchResp = null;
             string errorMessage;
 
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_NAME_ID:
-                    var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
-                    return View("AddSchoolsManually", vm);
+                    if (string.IsNullOrEmpty(nameId))
+                    {
+                        var vm = new SchoolViewModelWithNoDefaultSchool(manualComparisonList);
+                        return View("AddSchoolsManually", vm);
+                    }
+                    else
+                    {
+                        var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
+                        return View("AddSchoolsManually", vm);
+                    }
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
                     {
