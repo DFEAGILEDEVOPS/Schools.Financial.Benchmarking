@@ -80,7 +80,14 @@
                         <div class="grid-row">
                             <div class="column-one-third no-padding">
                                 <div class="column-one-third back-button">
-                                    <a href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.ComparisonList?.HomeSchoolUrn">Back</a>
+                                    @if (Model.ComparisonList?.HomeSchoolUrn == null)
+                                    {
+                                        <a href="/">Back</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/BenchmarkCriteria/ComparisonStrategy?urn=@(Model.ComparisonList?.HomeSchoolUrn)">Back</a>
+                                    }
                                 </div>
                             </div>
                         </div>

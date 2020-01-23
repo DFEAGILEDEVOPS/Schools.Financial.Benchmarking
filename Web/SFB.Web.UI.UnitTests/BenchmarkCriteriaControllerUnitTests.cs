@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.ApplicationCore.Entities;

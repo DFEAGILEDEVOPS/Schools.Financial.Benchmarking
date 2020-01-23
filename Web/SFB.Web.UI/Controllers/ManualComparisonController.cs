@@ -63,6 +63,7 @@ namespace SFB.Web.UI.Controllers
                 Authorities = _laService.GetLocalAuthorities()
             };
             _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null);
+            _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.UnsetDefault, null);
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null);
             return View("Index", vm);
         }
@@ -299,10 +300,19 @@ namespace SFB.Web.UI.Controllers
             var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
             if (comparisonList?.BenchmarkSchools?.Count > 0 && !comparisonList.BenchmarkSchools.All(s => s.Urn == comparisonList.HomeSchoolUrn))
             {
-                var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
-                var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
-                ViewBag.referrer = Request.UrlReferrer;
-                return View(vm);
+                if (comparisonList.HomeSchoolUrn == null)
+                {
+                    var vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
+                    ViewBag.referrer = Request.UrlReferrer;
+                    return View(vm);
+                }
+                else
+                {
+                    var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                    var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
+                    ViewBag.referrer = Request.UrlReferrer;
+                    return View(vm);
+                }
             }
             else
             {

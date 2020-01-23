@@ -276,7 +276,7 @@ namespace SFB.Web.UI.Helpers
                 listCookie.HomeSchoolName = benchmarkSchool.Name;
                 listCookie.HomeSchoolType = benchmarkSchool.Type;
                 listCookie.HomeSchoolFinancialType = benchmarkSchool.EstabType;
-                if (listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT && listCookie.BenchmarkSchools.All(s => s.Urn != benchmarkSchool.Urn))
+                if (benchmarkSchool.Urn != null && listCookie.BenchmarkSchools.Count < ComparisonListLimit.LIMIT && listCookie.BenchmarkSchools.All(s => s.Urn != benchmarkSchool.Urn))
                 {
                     listCookie.BenchmarkSchools.Add(benchmarkSchool);
                 }

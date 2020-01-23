@@ -10,8 +10,11 @@
         if (ViewBag.HomeSchoolId != null)
         {
             ViewBag.HomeSchoolId = ViewBag.URN;
-            ViewBag.HomeSchoolName = ViewBag.HomeSchoolName;
             Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        }
+        else
+        {
+            Html.RenderPartial("Partials/BackToHomeLink");
         }
     }
 }

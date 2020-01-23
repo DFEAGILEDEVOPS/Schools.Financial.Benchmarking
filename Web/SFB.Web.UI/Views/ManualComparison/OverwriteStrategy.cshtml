@@ -3,12 +3,19 @@
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "overwrite-strategy";
-    ViewBag.HomeSchoolId = Model.ComparisonList.HomeSchoolUrn;
-    ViewBag.HomeSchoolName = Model.ComparisonList.HomeSchoolName;
+    ViewBag.HomeSchoolId = Model.ComparisonList?.HomeSchoolUrn;
+    ViewBag.HomeSchoolName = Model.ComparisonList?.HomeSchoolName;
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
+    @if (ViewBag.HomeSchoolId != null)
+    {
+        Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+    }
+    else
+    {
+        Html.RenderPartial("Partials/BackToHomeLink");
+    }
 }
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
