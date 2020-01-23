@@ -6,7 +6,12 @@
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
+    @if (ViewBag.HomeSchoolId == null) {
+        Html.RenderPartial("Partials/BackToHomeLink");
+    } else
+    {
+        Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+    }
 }
 
 @section InsideHead{
@@ -33,15 +38,22 @@
 <h1 class="govuk-heading-xl">Manual comparison</h1>
 
 <div class="grid-row home-school section">
-    <div class="column-three-quarters">
-        <span class="font-xsmall">Comparing to</span>
-        <div class="highlight">
-            <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span>
+    @if (ViewBag.HomeSchoolId != null)
+    {
+        <div class="column-three-quarters">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span>
+            </div>
+            <div class="column-quarter">
+                <a class="font-xsmall back-to-manual-compare" href="/ManualComparison">Back</a>
+            </div>
         </div>
-    </div>
-    <div class="column-quarter">
-        <a class="font-xsmall back-to-manual-compare" href="/ManualComparison">Back</a>
-    </div>
+    }
+    else
+    {
+        <a class="font-xsmall back-to-manual-compare" href="/ManualComparison/WithoutBaseSchool">Back</a>
+    }
 </div>
 
 <div class="schools-in mt-1">
