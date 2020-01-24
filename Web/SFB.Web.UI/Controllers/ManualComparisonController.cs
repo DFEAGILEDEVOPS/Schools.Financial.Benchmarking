@@ -89,7 +89,7 @@ namespace SFB.Web.UI.Controllers
             var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
 
             EdubaseDataObject contextDataObject = null;
-            if (!string.IsNullOrEmpty(nameId))
+            if (!string.IsNullOrEmpty(comparisonList.HomeSchoolUrn))
             {
                 _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
             }
@@ -100,7 +100,7 @@ namespace SFB.Web.UI.Controllers
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_NAME_ID:
-                    if (string.IsNullOrEmpty(nameId))
+                    if (string.IsNullOrEmpty(comparisonList.HomeSchoolUrn))
                     {
                         var vm = new SchoolViewModelWithNoDefaultSchool(manualComparisonList);
                         return View("AddSchoolsManually", vm);
