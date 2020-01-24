@@ -298,7 +298,7 @@
                     .attr("x", newTextX)
                     .attr("y", 6);
                 d3.select(tick).append("text")
-                    .text(progressScore.toFixed(2))
+                    .text(progressScore ? progressScore.toFixed(2) : "N/A")
                     .attr("fill", fontColour)
                     .attr("x", newTextX+7)
                     .attr("y", 20);

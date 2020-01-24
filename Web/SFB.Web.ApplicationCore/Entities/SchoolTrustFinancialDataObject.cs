@@ -407,6 +407,9 @@ namespace SFB.Web.ApplicationCore.Entities
         [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.PROGRESS_8_MEASURE)]
         public decimal? Progress8Measure { get; set; }
 
+        [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.PROGRESS_8_BANDING)]
+        public decimal? Progress8Banding { get; set; }
+
         [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.OFSTED_RATING_NAME)]
         public string OfstedRatingName { get; set; }
 

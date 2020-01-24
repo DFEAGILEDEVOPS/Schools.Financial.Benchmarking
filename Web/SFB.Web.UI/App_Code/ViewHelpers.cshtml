@@ -96,27 +96,27 @@
     }
 }
 
-@helper ScoreText(decimal score, BicProgressScoreType progressScoreType)
+@helper ScoreText(decimal score, BicProgressScoreType progressScoreType, decimal p8Banding)
 {
     if (progressScoreType == BicProgressScoreType.P8)
     {
-        if (score < -0.5m)
+        if (p8Banding == 5)
         {
             @("Well below average")
         }
-        else if (score >= -0.5m && score < -0.25m)
+        else if (p8Banding == 4)
         {
             @("Below average")
         }
-        else if (score >= -0.25m && score <= 0.25m)
+        else if (p8Banding == 3)
         {
             @("Average")
         }
-        else if (score > 0.25m && score <= 0.5m)
+        else if (p8Banding == 2)
         {
             @("Above average")
         }
-        else if (score > 0.5m)
+        else if (p8Banding == 1)
         {
             @("Well above average")
         }
@@ -150,30 +150,30 @@
     }
 }
 
-@helper ScoreColorCode(decimal? score, BicProgressScoreType progressScoreType)
+@helper ScoreColorCode(decimal? score, BicProgressScoreType progressScoreType, decimal p8Banding)
 {
     if (score.HasValue)
     {
 
         if (progressScoreType == BicProgressScoreType.P8)
         {
-            if (score < -0.5m)
+            if (p8Banding == 5)
             {
                 @("well-below")
             }
-            else if (score >= -0.5m && score < -0.25m)
+            if (p8Banding == 4)
             {
                 @("below")
             }
-            else if (score >= -0.25m && score <= 0.25m)
+            if (p8Banding == 3)
             {
                 @("average")
             }
-            else if (score > 0.25m && score <= 0.5m)
+            if (p8Banding == 2)
             {
                 @("above")
             }
-            else if (score > 0.5m)
+            if (p8Banding == 1)
             {
                 @("well-above")
             }

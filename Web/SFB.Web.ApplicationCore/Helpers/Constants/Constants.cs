@@ -48,6 +48,7 @@
         public const string OFSTED_RATING = "OfstedRating";
         public const string KS2_PROGRESS = "KS2 Progress";
         public const string PROGRESS_8_MEASURE = "P8MEA";
+        public const string PROGRESS_8_BANDING = "P8_BANDING";
         public const string AVERAGE_ATTAINMENT = "ATT8SCR";
         public const string OFSTED_RATING_NAME = "OfstedRatingName";
         public const string KS2_ACTUAL = "PTRWM_EXP";

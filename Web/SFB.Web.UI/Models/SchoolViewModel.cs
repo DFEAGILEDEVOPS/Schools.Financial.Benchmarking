@@ -213,6 +213,8 @@ namespace SFB.Web.UI.Models
 
         public decimal? P8ProgressScore => LatestYearFinancialData.P8Mea;
 
+        public decimal? P8Banding => LatestYearFinancialData.P8Banding;
+
         public bool HasCoordinates
         {
             get

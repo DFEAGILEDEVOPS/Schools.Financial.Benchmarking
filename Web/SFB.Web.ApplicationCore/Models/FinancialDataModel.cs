@@ -313,6 +313,8 @@ namespace SFB.Web.ApplicationCore.Models
             }
         }
 
+        public decimal? P8Banding => FinancialDataObjectModel?.Progress8Banding;
+        
         public decimal? ProgressScore
         {
             get
