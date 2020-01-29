@@ -575,7 +575,8 @@
             padding: {
                 bottom: 10,
                 left: isMobile ? (isBic ? 180 : 140) : (isBic ? 360 : 310),
-                right: 15
+                right: 15,
+                top: 20
             },
             onrendered: () => {
                 applyChartStyles(el);
@@ -722,7 +723,17 @@
 
     saveAsImage(name, id) {
         let svg = $('#' + id).find('svg')[0];
-        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' });
+        d3.select(svg)
+            .append('text')
+            .attr('y', 17)
+            .attr('text-anchor', 'start')
+            .style('font-size', '24px')
+            .style('font-weight', 'bold')
+            .classed("title", true)
+            .text($('#' + id).data("chart-title"));
+        saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white'});
+
+        d3.selectAll('#' + id + ' svg .title').remove(); 
     }
 
     PrintPage() {
