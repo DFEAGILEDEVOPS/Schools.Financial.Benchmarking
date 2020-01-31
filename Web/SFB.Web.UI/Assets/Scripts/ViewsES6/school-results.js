@@ -209,7 +209,7 @@
                     $(".manual-button").hide();
                     $(".hidden-goto-basket").hide();
                 }
-                $("#manualCount").text(data); 
+                $(".manualCount-js").text(data); 
                 $("div[data-urn='" + urn + "']>.add-remove").toggle();                                
             });
     }
