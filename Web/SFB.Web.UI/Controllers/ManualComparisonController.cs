@@ -340,11 +340,21 @@ namespace SFB.Web.UI.Controllers
                 case BenchmarkListOverwriteStrategy.Add:
                     if (comparisonList.BenchmarkSchools.Count + manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn).Count()  > ComparisonListLimit.LIMIT)
                     {
-                        var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
-                        var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
-                        vm.ErrorMessage = ErrorMessages.BMBasketLimitExceed;
-                        ViewBag.referrer = referrer;
-                        return View("OverwriteStrategy", vm);
+                        if (comparisonList.HomeSchoolUrn == null)
+                        {
+                            var vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
+                            vm.ErrorMessage = ErrorMessages.BMBasketLimitExceed;
+                            ViewBag.referrer = referrer;
+                            return View("OverwriteStrategy", vm);
+                        }
+                        else
+                        {
+                            var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                            var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
+                            vm.ErrorMessage = ErrorMessages.BMBasketLimitExceed;
+                            ViewBag.referrer = referrer;
+                            return View("OverwriteStrategy", vm);
+                        }
                     }
                     else
                     {
