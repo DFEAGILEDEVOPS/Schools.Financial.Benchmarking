@@ -1540,7 +1540,11 @@ class PdfGenerator {
         let data = $(id + ' tbody tr:visible').toArray().map((tr) => {
             let trObj = {};
             $(tr).children('td').toArray().map((td) => {
-                trObj[td.attributes['data-header'].value] = td.textContent.trim();
+                if (td.children.length > 0) {
+                    trObj[td.attributes['data-header'].value] = td.children[0].textContent.trim();
+                } else {
+                    trObj[td.attributes['data-header'].value] = td.textContent.trim();
+                }
             });
             return trObj;
         });

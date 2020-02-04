@@ -351,31 +351,33 @@
                 <td class="detail" data-header="School type">@schoolBenchmarkData.Type</td>
                 <td class="detail" data-header="Number of pupils" aria-label="@schoolBenchmarkData.PupilCount pupils">@schoolBenchmarkData.PupilCount</td>
                 <td data-header="Amount">
-                    @if (schoolBenchmarkData.Amount.HasValue)
-                    {
-                        switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
+                    <span>
+                        @if (schoolBenchmarkData.Amount.HasValue)
                         {
-                            case UnitType.PercentageOfTotalExpenditure:
-                            case UnitType.PercentageOfTotalIncome:
-                            case UnitType.PercentageTeachers:
-                            case UnitType.FTERatioToTotalFTE:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
-                                break;
-                            case UnitType.HeadcountPerFTE:
-                            case UnitType.AbsoluteCount:
-                            case UnitType.NoOfPupilsPerMeasure:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault()
-                                break;
-                            default:
-                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
-                                break;
+                            switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
+                            {
+                                case UnitType.PercentageOfTotalExpenditure:
+                                case UnitType.PercentageOfTotalIncome:
+                                case UnitType.PercentageTeachers:
+                                case UnitType.FTERatioToTotalFTE:
+                                    @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                    break;
+                                case UnitType.HeadcountPerFTE:
+                                case UnitType.AbsoluteCount:
+                                case UnitType.NoOfPupilsPerMeasure:
+                                    @schoolBenchmarkData.Amount.GetValueOrDefault()
+                                    break;
+                                default:
+                                    @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                                    break;
+                            }
+                            <span aria-label="@ViewHelpers.GetAmountCellAriaLabel(schoolBenchmarkData.Unit, Model.Name)"></span>
                         }
-                        <span aria-label="@ViewHelpers.GetAmountCellAriaLabel(schoolBenchmarkData.Unit, Model.Name)"></span>
-                    }
-                    else
-                    {
-                        <text>Not applicable</text>
-                    }
+                        else
+                        {
+                            <text>Not applicable</text>
+                        }
+                    </span>
                 </td>
             </tr>
         }
