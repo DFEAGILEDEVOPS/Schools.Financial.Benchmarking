@@ -13,6 +13,8 @@ using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
+using SFB.Web.ApplicationCore.Services;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -99,6 +101,35 @@ namespace SFB.Web.UI.UnitTests
             var result = controller.SelectSchoolType(null, ComparisonType.Advanced, EstablishmentType.Maintained, 15);
 
             mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null));
+        }
+
+        [Test]
+        public void AdvancedCharacteristicsShouldReturnErrorIfLaCodeIsNotFound()
+        {
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+
+            var _mockDocumentDbService = new Mock<IFinancialDataService>();
+
+            var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
+
+            var _mockEdubaseDataService = new Mock<IContextDataService>();
+
+            var mockComparisonService = new Mock<IComparisonService>();
+
+            var mockLaSearchService = new Mock<ILaSearchService>();
+
+            var mockLaService = new Mock<ILocalAuthoritiesService>();
+
+            mockLaSearchService.Setup(m => m.LaCodesContain(123)).Returns(false);
+
+            var controller = new BenchmarkCriteriaController(mockLaService.Object, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, mockLaSearchService.Object, mockCookieManager.Object, mockComparisonService.Object);
+
+            var response = controller.AdvancedCharacteristics(null, ComparisonType.Advanced, EstablishmentType.All, ComparisonArea.LaCode, 123, "", null);
+
+            Assert.IsNotNull(response);
+            Assert.IsNotNull((response as ViewResult).Model);
+            Assert.IsTrue(((response as ViewResult).Model as SchoolViewModel).HasError());
+            Assert.AreEqual("Please enter a valid Local authority code", ((response as ViewResult).Model as SchoolViewModel).ErrorMessage);
         }
 
     }

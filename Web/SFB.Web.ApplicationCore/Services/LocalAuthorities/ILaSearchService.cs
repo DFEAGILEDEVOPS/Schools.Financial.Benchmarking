@@ -7,5 +7,6 @@ namespace SFB.Web.ApplicationCore.Services.LocalAuthorities
     {
         List<LaModel> SearchContains(string name);
         LaModel SearchExactMatch(string name);
+        bool LaCodesContain(int laCode);
     }
 }

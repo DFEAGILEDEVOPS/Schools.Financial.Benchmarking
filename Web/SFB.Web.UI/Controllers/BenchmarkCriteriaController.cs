@@ -194,6 +194,12 @@ namespace SFB.Web.UI.Controllers
                 {
                     lacode = Int32.Parse(exactLaMatch.Id);
                 }
+            }else if(areaType == ComparisonArea.LaCode && lacode != null)
+            {
+                if (!_laSearchService.LaCodesContain(lacode.Value))
+                {
+                    lacode = null;
+                }
             }
 
             ViewBag.URN = urn;

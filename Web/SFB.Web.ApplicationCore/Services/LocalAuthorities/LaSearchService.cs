@@ -39,5 +39,13 @@ namespace SFB.Web.UI.Services
                 .FirstOrDefault();
             return filteredResult;
         }
+
+        public bool LaCodesContain(int laCode)
+        {
+            var localAuthorities =
+                (List<dynamic>)JsonConvert.DeserializeObject<List<dynamic>>(_laService.GetLocalAuthorities());
+                        
+            return localAuthorities.Any(la => la.id == laCode);
+        }
     }
 }
