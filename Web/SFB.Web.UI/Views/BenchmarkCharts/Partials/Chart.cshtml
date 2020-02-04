@@ -192,7 +192,7 @@
                             </div>
                         }
                         <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
-                            <div id="chart_@i" class="chart" data-chart-title="@Model[i].Name"  data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
+                            <div id="chart_@i" class="chart" data-chart-title="@Model[i].Name"  data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson' data-img=''></div>
                         </div>
                         <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
                             @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
@@ -300,7 +300,7 @@
                                     <div class="grid-row">
                                         <div class="column-full">
                                             <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
-                                                <div id="chart_@i" class="chart" data-chart-title="@Model[i].Name" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson'></div>
+                                                <div id="chart_@i" class="chart" data-chart-title="@Model[i].Name" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson' data-img=''></div>
                                             </div>
                                             <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
                                                 @if (ViewBag.EstablishmentType != EstablishmentType.MAT)

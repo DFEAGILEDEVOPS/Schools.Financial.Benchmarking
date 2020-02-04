@@ -32,7 +32,20 @@
             });
         });
 
-        GOVUK.Modal.Load();
+        GOVUK.Modal.Load();     
+    }
+
+    GenerateImageDataURIsOfVisibleCharts() {
+        let charts = $('.chart-container:visible');
+        for (let i = 0; i < charts.length; i++) {
+            if (sessionStorage.chartFormat === 'Charts') {
+                let svg = $('#chart_' + i).find('svg')[0];
+                saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+                    (img) => {
+                        $('#chart_' + i).attr("data-img", img);                                  
+                    });
+            }
+        }        
     }
 
     //This function is accessing to the scope of the AngularJS controller to retrieve the chart selections model and update the buttons accordingly in other tabs.
@@ -625,6 +638,8 @@
         if (document.getElementById('bm-charts-accordion')){
             new Accordion(document.getElementById('bm-charts-accordion'));
         }
+
+        setTimeout(() => this.GenerateImageDataURIsOfVisibleCharts(), 2000);   
     }
 
     SelectGrouping(grouping, parentGrouping) {
@@ -1328,21 +1343,34 @@ class PptGenerator {
 
     pptWriteChart(chartId, chartPerPage) {
         return new Promise((resolve) => {
+            let img = $(chartId).data('img');
             let svg = $(chartId).find('svg')[0];
-            saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
-                (img) => {
-                    this.yOffset += 0.5;
-                    let ratio = svg.clientWidth / svg.clientHeight;
-                    let height = 4 / chartPerPage;
-                    let width = height * ratio;
-                    if (width > 8) { //not to overflow horizontally
-                        width = 8;
-                        height = width / ratio;
-                    }
-                    this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: width, h: height });
-                    resolve('done');
-                });
+            if (img) {
+                console.log("Using already generated image for chart exporting");
+                this.pptWriteChartWithRatio(svg.clientWidth, svg.clientHeight, chartPerPage, img);
+                resolve('done');
+            }
+            else {
+                saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+                    (img) => {
+                        console.log("Generating new image for chart exporting");
+                        this.pptWriteChartWithRatio(svg.clientWidth, svg.clientHeight, chartPerPage, img);
+                        resolve('done');
+                    });
+            }
         });
+    }
+
+    pptWriteChartWithRatio(clientWidth, clientHeight, chartPerPage, img) {
+        this.yOffset += 0.5;
+        let ratio = clientWidth / clientHeight;
+        let height = 4 / chartPerPage;
+        let width = height * ratio;
+        if (width > 8) { //not to overflow horizontally
+            width = 8;
+            height = width / ratio;
+        }
+        this.slide.addImage({ data: img, x: 0.5, y: this.yOffset, w: width, h: height });
     }
 
     pptWriteTable(tableId, tablePerPage) {
@@ -1454,28 +1482,40 @@ class PdfGenerator {
 
     pdfWriteChart(index, chartPerPage, element) {
         return new Promise((resolve) => {
+            let img = $('#chart_' + index).data('img');
             let svg = $('#chart_' + index).find('svg')[0];
-            saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
-                (img) => {
-                    if (index % chartPerPage === 0) {
-                        this.pdfAddNewPage();
-                    } else {
-                        this.offset += (800 / chartPerPage);
-                    }
-                    let header = $(element).find('h2').get(0).innerText;
-                    if (header.length < 60) {
-                        this.pdfWriteLine('H3', header);
-                    } else {
-                        let header1 = header.substring(0, header.lastIndexOf('('));
-                        let header2 = header.substring(header.lastIndexOf('('));
-                        this.pdfWriteLine('H3', header1);
-                        this.pdfWriteLine('H3', header2);
-                    }
-
-                    this.doc.addImage(img, 'JPEG', 0, this.offset);
-                    resolve('done');
-                });
+            if (img) {
+                console.log("Using already generated image for chart exporting");
+                this.pdfWriteChartWithHeaders(index, chartPerPage, element, img);
+                resolve('done');
+            }
+            else {
+                saveSvgAsPng(svg, name + '.png', { canvg: canvg, backgroundColor: 'white' },
+                    (img) => {
+                        console.log("Generating new image for chart exporting");
+                        this.pdfWriteChartWithHeaders(index, chartPerPage, element, img);
+                        resolve('done');
+                    });
+            }
         });
+    }
+
+    pdfWriteChartWithHeaders(index, chartPerPage, element, img) {
+        if (index % chartPerPage === 0) {
+            this.pdfAddNewPage();
+        } else {
+            this.offset += (800 / chartPerPage);
+        }
+        let header = $(element).find('h2').get(0).innerText;
+        if (header.length < 60) {
+            this.pdfWriteLine('H3', header);
+        } else {
+            let header1 = header.substring(0, header.lastIndexOf('('));
+            let header2 = header.substring(header.lastIndexOf('('));
+            this.pdfWriteLine('H3', header1);
+            this.pdfWriteLine('H3', header2);
+        }
+        this.doc.addImage(img, 'JPEG', 0, this.offset);
     }
 
     pdfWriteTable(id, index, chartPerPage, element) {
