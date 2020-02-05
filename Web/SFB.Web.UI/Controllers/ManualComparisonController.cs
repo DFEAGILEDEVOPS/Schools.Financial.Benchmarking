@@ -84,6 +84,7 @@ namespace SFB.Web.UI.Controllers
         {
             ViewBag.OpenOnly = openOnly;
             ViewBag.SearchMethod = "Manual";
+            ViewBag.LaCodeName = laCodeName;
 
             var comparisonList = base._benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();            
             var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
