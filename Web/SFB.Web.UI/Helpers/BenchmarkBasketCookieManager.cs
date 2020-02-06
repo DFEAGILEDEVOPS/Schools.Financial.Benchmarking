@@ -117,6 +117,7 @@ namespace SFB.Web.UI.Helpers
             if (cookie != null)
             {
                 cookie.HttpOnly = false;
+                cookie.Secure = HttpContext.Current.Request.IsSecureConnection;
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
         }
@@ -195,6 +196,7 @@ namespace SFB.Web.UI.Helpers
                 cookie.Value = JsonConvert.SerializeObject(comparisonList, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
                 cookie.Expires = DateTime.MaxValue;
                 cookie.HttpOnly = false;
+                cookie.Secure = HttpContext.Current.Request.IsSecureConnection;
                 HttpContext.Current.Response.Cookies.Add(cookie);
                 return comparisonList;
             }
@@ -284,7 +286,8 @@ namespace SFB.Web.UI.Helpers
                 cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
             }
 
-            cookie.HttpOnly = false;            
+            cookie.HttpOnly = false;
+            cookie.Secure = HttpContext.Current.Request.IsSecureConnection;
             return cookie;
         }
 
@@ -339,6 +342,7 @@ namespace SFB.Web.UI.Helpers
             }
 
             cookie.HttpOnly = false;
+            cookie.Secure = HttpContext.Current.Request.IsSecureConnection;
             return cookie;
         }
     }
