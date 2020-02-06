@@ -252,7 +252,7 @@
                 $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
             };
 
-            let drawProgressScoreBox = function (originalTextX, $text, progressScore, overallPhase) {
+            let drawProgressScoreBox = function (originalTextX, $text, progressScoreType, progressScore, p8binding) {
                 let tick = $text.parent()[0];
                 let newTextX = originalTextX - 42;
                 let isMobile = $(window).width() <= 640;
@@ -265,40 +265,45 @@
                 let progressColour;
                 let fontColour = "#FFFFFF";
 
-                if (overallPhase === 'Secondary' || overallPhase === 'All-through') {
-                    if (progressScore < -0.5) {
-                        progressColour = "#df3034";
-                    }
-                    else if (progressScore >= -0.5 && progressScore < -0.25) {
-                        progressColour = "#f47738";
-                    }
-                    else if (progressScore >= -0.25 && progressScore <= 0.25) {
-                        progressColour = "#ffbf47";
-                        fontColour = "#000000";
-                    }
-                    else if (progressScore > 0.25 && progressScore <= 0.5) {
-                        progressColour = "#85994b";
-                    }
-                    else if (progressScore > 0.5) {
-                        progressColour = "#006435";
+                if (progressScore) {
+                    if (progressScoreType === "p8") {
+                        if (p8binding === 5) {
+                            progressColour = "#df3034";
+                        }
+                        else if (p8binding === 4) {
+                            progressColour = "#f47738";
+                        }
+                        else if (p8binding === 3) {
+                            progressColour = "#ffbf47";
+                            fontColour = "#000000";
+                        }
+                        else if (p8binding === 2) {
+                            progressColour = "#85994b";
+                        }
+                        else if (p8binding === 1) {
+                            progressColour = "#006435";
+                        }
+                    } else {
+                        if (progressScore < -3) {
+                            progressColour = "#df3034";
+                        }
+                        else if (progressScore >= -3 && progressScore < -2) {
+                            progressColour = "#f47738";
+                        }
+                        else if (progressScore >= -2 && progressScore <= 2) {
+                            progressColour = "#ffbf47";
+                            fontColour = "#000000";
+                        }
+                        else if (progressScore > 2 && progressScore <= 3) {
+                            progressColour = "#85994b";
+                        }
+                        else if (progressScore > 3) {
+                            progressColour = "#006435";
+                        }
                     }
                 } else {
-                    if (progressScore < -3) {
-                        progressColour = "#df3034";
-                    }
-                    else if (progressScore >= -3 && progressScore < -2) {
-                        progressColour = "#f47738";
-                    }
-                    else if (progressScore >= -2 && progressScore <= 2) {
-                        progressColour = "#ffbf47";
-                        fontColour = "#000000";
-                    }
-                    else if (progressScore > 2 && progressScore <= 3) {
-                        progressColour = "#85994b";
-                    }
-                    else if (progressScore > 3) {
-                        progressColour = "#006435";
-                    }
+                    progressColour = "#DEE0E2";
+                    fontColour = "#0B0C0C";
                 }
 
                 d3.select(tick).append('rect')
@@ -374,7 +379,7 @@
 
                 if ($('#ComparisonType').val() === 'BestInClass') {
                     let originalTextX = moveLabelLeft($(this), 50);
-                    drawProgressScoreBox(originalTextX, $(this), schoolData.progressscore, $("[name='bicCriteria.OverallPhase']").val());
+                    drawProgressScoreBox(originalTextX, $(this), schoolData.progressscoretype, schoolData.progressscore, schoolData.p8banding, $("[name='bicCriteria.OverallPhase']").val());
                 }
             });
         };

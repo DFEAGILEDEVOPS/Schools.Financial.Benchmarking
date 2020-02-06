@@ -45,5 +45,8 @@ namespace SFB.Web.ApplicationCore.Models
 
         [JsonProperty(PropertyName = "p8banding")]
         public decimal? P8Banding { get; set; }
+
+        [JsonProperty(PropertyName = "progressscoretype")]
+        public string ProgressScoreType { get; set; }
     }
 }

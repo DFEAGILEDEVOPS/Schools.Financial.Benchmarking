@@ -294,7 +294,8 @@ namespace SFB.Web.UI.Services
                     PartialYearsPresentInSubSchools = dataModel.PartialYearsPresentInSubSchools,
                     Unit = unit.ToString(),
                     ProgressScore = dataModel.ProgressScore,
-                    P8Banding = dataModel.P8Banding
+                    P8Banding = dataModel.P8Banding,
+                    ProgressScoreType = dataModel.SchoolOverallPhase == "Primary" ? "ks2" : "p8"
                 });
             }
 
