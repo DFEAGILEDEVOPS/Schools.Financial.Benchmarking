@@ -115,7 +115,8 @@ namespace SFB.Web.UI.Helpers
             }
 
             if (cookie != null)
-            {                
+            {
+                cookie.HttpOnly = false;
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
         }
