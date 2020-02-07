@@ -173,11 +173,10 @@
 
     nav.tabs ol {
         @include media-down(tablet) {
-            justify-content: center;
+            justify-content: flex-start;
 
             li {
-                flex-basis: 48%;
-                width: 48%;
+                flex-basis: 98%;
             }
         }
     }
