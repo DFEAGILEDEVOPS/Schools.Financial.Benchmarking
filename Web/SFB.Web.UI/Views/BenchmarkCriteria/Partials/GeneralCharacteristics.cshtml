@@ -33,12 +33,12 @@
                      elementName: "SchoolOverallPhase",
                      options: new List<OptionVM>
                      {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase)
+                        new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase)
                      }
                      )
                  )
@@ -52,14 +52,14 @@
                      elementName: "SchoolOverallPhase",
                      options: new List<OptionVM>
                      {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("16 plus", "16 plus", Model.BenchmarkCriteria.SchoolPhase)
-                     }
+                        new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("16 plus", "16 plus", Model.BenchmarkCriteria.SchoolOverallPhase)
+                         }
                      )
                  )
                     break;
@@ -72,20 +72,20 @@
                      elementName: "SchoolOverallPhase",
                      options: new List<OptionVM>
                      {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("16 plus", "16 plus", Model.BenchmarkCriteria.SchoolPhase)
+                        new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
+                        new OptionVM("16 plus", "16 plus", Model.BenchmarkCriteria.SchoolOverallPhase)
                      }
                      )
                  )
                     break;
             }
 
-            @switch ((EstablishmentType)ViewBag.EstType)
+            @*@switch ((EstablishmentType)ViewBag.EstType)
             {
                 case EstablishmentType.Maintained:
                     @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
@@ -157,7 +157,7 @@
                 )
             )
                     break;
-            }
+            }*@
 
             @switch ((EstablishmentType)ViewBag.EstType)
             {
