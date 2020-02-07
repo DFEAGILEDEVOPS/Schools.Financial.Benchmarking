@@ -31,8 +31,48 @@
                         options: new List<OptionVM>
                         {
                                 new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
-                                new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                                new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
+                                new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase,
+                                    subMultipleChoiceOptions: new SubOptionsVM<BenchmarkCriteriaMultipleChoiceVM>
+                                    {
+                                        Name = "PrimarySubOptions",
+                                        SubOptions =  new List<BenchmarkCriteriaMultipleChoiceVM>
+                                        {
+                                            new BenchmarkCriteriaMultipleChoiceVM(
+                                                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
+                                                homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
+                                                homeSchoolName: Model.BenchmarkSchool.Name,
+                                                elementName: "SchoolPhase",
+                                                options: new List<OptionVM>
+                                                {
+                                                    new OptionVM("Infant and junior", "Infant and junior", Model.BenchmarkCriteria.SchoolPhase),
+                                                    new OptionVM("Infant", "Infant", Model.BenchmarkCriteria.SchoolPhase),
+                                                    new OptionVM("Junior", "Junior", Model.BenchmarkCriteria.SchoolPhase),
+                                                    new OptionVM("Middle deemed primary", "Middle deemed primary", Model.BenchmarkCriteria.SchoolPhase)
+                                                }
+                                            )
+                                        }
+                                    }
+                                ),
+                                new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase,
+                                    subMultipleChoiceOptions: new SubOptionsVM<BenchmarkCriteriaMultipleChoiceVM>
+                                    {
+                                        Name = "SecondarySubOptions",
+                                        SubOptions =  new List<BenchmarkCriteriaMultipleChoiceVM>
+                                        {
+                                            new BenchmarkCriteriaMultipleChoiceVM(
+                                                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
+                                                homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
+                                                homeSchoolName: Model.BenchmarkSchool.Name,
+                                                elementName: "SchoolPhase",
+                                                options: new List<OptionVM>
+                                                {
+                                                    new OptionVM("Middle deemed secondary", "Middle deemed secondary", Model.BenchmarkCriteria.SchoolPhase),
+                                                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolPhase)
+                                                }
+                                            )
+                                        }
+                                    }
+                                ),
                                 new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
                                 new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
                                 new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase)
