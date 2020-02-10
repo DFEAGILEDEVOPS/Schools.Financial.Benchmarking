@@ -261,25 +261,33 @@ namespace SFB.Web.UI.Controllers
                 LondonWeighting = benchmarkSchool.LatestYearFinancialData.LondonWeighting == "Neither" ? new[] { "Neither" } : new[] { "Inner", "Outer" }
             };
 
-            return await GenerateFromBicCriteria(urn, bicCriteria);
+            return await GenerateFromBicCriteria(urn, bicCriteria, false);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GenerateFromBicCriteria(int urn, BestInClassCriteria bicCriteria)
+        public async Task<ActionResult> GenerateFromBicCriteria(int urn, BestInClassCriteria bicCriteria, bool isEditedCriteria = true)
         {
             var benchmarkSchool = InstantiateBenchmarkSchool(urn);
 
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(benchmarkSchool.LatestYearFinancialData, bicCriteria);
 
-            var comparisonResult = _bicComparisonResultCachingService.GetBicComparisonResultByUrn(urn);
+            ComparisonResult comparisonResult = null;
+
+            if (!isEditedCriteria)
+            {
+                comparisonResult = _bicComparisonResultCachingService.GetBicComparisonResultByUrn(urn);
+            }
 
             if (comparisonResult == null)
             {
                 comparisonResult = await _comparisonService.GenerateBenchmarkListWithBestInClassComparisonAsync(bicCriteria.EstablishmentType, benchmarkCriteria,
                                                                          bicCriteria, benchmarkSchool.LatestYearFinancialData);
 
-                _bicComparisonResultCachingService.StoreBicComparisonResultByUrn(urn, comparisonResult);
+                if (!isEditedCriteria)
+                {
+                    _bicComparisonResultCachingService.StoreBicComparisonResultByUrn(urn, comparisonResult);
+                }
             }
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
