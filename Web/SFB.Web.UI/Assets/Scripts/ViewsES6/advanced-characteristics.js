@@ -4,6 +4,7 @@
 
         this.jqxhr = null;
         this.questionCheckBoxSelector = ".multiple-choice.question > input";
+        this.subQuestionCheckBoxSelector = ".multiple-choice.subQuestion > input";
 
         new Accordion(document.getElementById('characteristics-accordion'));
 
@@ -109,6 +110,8 @@
     }
 
     clear() {
+        debugger;
+        $(this.subQuestionCheckBoxSelector + ":checked").click();
         $(this.questionCheckBoxSelector + ":checked").click();
     }
 
@@ -142,14 +145,17 @@
     bindEvents() {
         $(this.questionCheckBoxSelector).change(
             (event) => {
-                let $panel = $(event.target).parent().next();
+                let $panel = $(event.target).parent().next(".panel");
                 $panel.toggle();
-                $panel.find("input").prop('disabled', (i, v) => { return !v; });
+                $panel.find("input:visible").prop('disabled', false);
+                $panel.find("input:hidden").prop('disabled', true);
                 if (!event.target.checked) {
                     $panel.removeClass("error");
                     $panel.find("input.error").removeClass("error");
                     $panel.find("label.error").css("display", "none");
                 }
+
+                $panel.find(".panel").hide();
                 $panel.find("input[type='number']:disabled").val(null);
                 $panel.find("input[type='checkbox']:disabled").prop('checked', false);
                 $panel.find("input[type='radio']:disabled").prop('checked', false);

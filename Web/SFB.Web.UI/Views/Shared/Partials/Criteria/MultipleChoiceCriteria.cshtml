@@ -34,17 +34,18 @@
                         <legend class="visually-hidden">@Model.Question</legend>
                         @foreach (var option in Model.Options)
                         {
-                            <div class="multiple-choice">
+                            <div class="multiple-choice question">
                                 <input type="checkbox" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName.@option.Name" value="@option.Value" class="criteria-checkbox"
                                        required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
                                 <label for="@Model.ElementName.@option.Name">@option.Name</label>
                             </div>
                             if (option.SubMultipleChoiceOptions != null)
                             {
-                                <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
+                                var subOptionsActivated = option.SubMultipleChoiceOptions.SubOptions.SelectMany(so => so.Options).Any(o => o.Selected);
+                                <div class="panel panel-border-narrow" style="display: @Html.Raw(subOptionsActivated ? "block": "none")">
                                     @foreach (var subOption in option.SubMultipleChoiceOptions.SubOptions)
                                     {
-                                        @Html.Partial("Partials/Criteria/MultipleChoiceCriteria", subOption)
+                                        @Html.Partial("Partials/Criteria/MultipleChoiceSubCriteria", subOption)
                                     }
                                 </div>
                             }
