@@ -537,7 +537,7 @@
                 }
             },
             size: {
-                height: (barCount > 3 ? barCount + 1 : barCount + 2) * 30 * (isMobile ? 1.3 : 1)
+                height: (barCount > 4 ? barCount + 1 : barCount + 2) * 30 * (isMobile ? 1.3 : 1)
             },
             bar: {
                 width: 20 * (isMobile ? 1.4 : 1)
