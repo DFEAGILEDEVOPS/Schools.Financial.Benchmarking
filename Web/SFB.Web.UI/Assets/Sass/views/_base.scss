@@ -39,7 +39,7 @@ a.button {
 
         &__copy {
             margin-right: 115px;
-            font-size: 16px;
+            font-size: 1em;
 
             b, strong {
                 font-weight: bold;
@@ -51,6 +51,7 @@ a.button {
 
             @include media(mobile) {
                 margin-right: 0;
+                font-size: 14px;
             }
         }
 
@@ -69,6 +70,7 @@ a.button {
                 top: auto;
                 right: auto;
                 margin-top: 10px;
+                font-size: 14px;
             }
         }
     }
