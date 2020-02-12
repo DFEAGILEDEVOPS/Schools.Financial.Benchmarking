@@ -4,6 +4,7 @@
 
         this.jqxhr = null;
         this.questionCheckBoxSelector = ".multiple-choice.question > input";
+        this.optionCheckBoxSelector = ".multiple-choice.option > input";
         this.subQuestionCheckBoxSelector = ".multiple-choice.subQuestion > input";
 
         new Accordion(document.getElementById('characteristics-accordion'));
@@ -81,7 +82,6 @@
             });
     }
 
-
     updateCounter(element) {
         var $counterElement = $(element).parents(".accordion-section").find(".selection-counter");
         var count = $counterElement.text();
@@ -110,8 +110,8 @@
     }
 
     clear() {
-        debugger;
         $(this.subQuestionCheckBoxSelector + ":checked").click();
+        $(this.optionCheckBoxSelector + ":checked").click();
         $(this.questionCheckBoxSelector + ":checked").click();
     }
 
@@ -142,38 +142,41 @@
 
     }
 
+    checkBoxChecked(event) {
+        let $panel = $(event.target).parent().next(".panel");
+        $panel.toggle();
+        $panel.find("input:visible").prop('disabled', false);
+        $panel.find(".subQuestion input[type='checkbox']").prop('checked', true);
+        $panel.find("input:hidden").prop('disabled', true);
+        if (!event.target.checked) {
+            $panel.removeClass("error");
+            $panel.find("input.error").removeClass("error");
+            $panel.find("label.error").css("display", "none");
+        }
+
+        $panel.find(".panel").hide();
+        $panel.find("input[type='number']:disabled").val(null);
+        $panel.find("input[type='checkbox']:disabled").prop('checked', false);
+        $panel.find("input[type='radio']:disabled").prop('checked', false);
+        if ($(this.questionCheckBoxSelector + ":checked").length > 0) {
+            $("#liveCountBar").show();
+            $("#comparisonListInfoPanelResults").show();
+            $("#comparisonListInfoPanelResultsEmpty").hide();
+        } else {
+            $("#liveCountBar").show();
+            $("#comparisonListInfoPanelResultsEmpty").show();
+            $("#comparisonListInfoPanelResults").hide();
+        }
+
+        this.updateCounter(event.target);
+        if (!event.target.checked) {
+            this.updateResultCount();
+        }
+    }
+
     bindEvents() {
-        $(this.questionCheckBoxSelector).change(
-            (event) => {
-                let $panel = $(event.target).parent().next(".panel");
-                $panel.toggle();
-                $panel.find("input:visible").prop('disabled', false);
-                $panel.find("input:hidden").prop('disabled', true);
-                if (!event.target.checked) {
-                    $panel.removeClass("error");
-                    $panel.find("input.error").removeClass("error");
-                    $panel.find("label.error").css("display", "none");
-                }
-
-                $panel.find(".panel").hide();
-                $panel.find("input[type='number']:disabled").val(null);
-                $panel.find("input[type='checkbox']:disabled").prop('checked', false);
-                $panel.find("input[type='radio']:disabled").prop('checked', false);
-                if ($(this.questionCheckBoxSelector + ":checked").length > 0) {
-                    $("#liveCountBar").show();
-                    $("#comparisonListInfoPanelResults").show();
-                    $("#comparisonListInfoPanelResultsEmpty").hide();
-                } else {
-                    $("#liveCountBar").show();
-                    $("#comparisonListInfoPanelResultsEmpty").show();
-                    $("#comparisonListInfoPanelResults").hide();
-                }
-
-                this.updateCounter(event.target);
-                if (!event.target.checked) {
-                    this.updateResultCount();
-                }
-            });
+        $(this.questionCheckBoxSelector).change((event) => this.checkBoxChecked(event));
+        $(this.optionCheckBoxSelector).change((event) => this.checkBoxChecked(event));
 
         $("input.criteria-input").keyup((e) => {
             let code = e.keyCode || e.which;

@@ -25,7 +25,7 @@
             </div>
         </div>
         <div>
-            <span class="error-message"></span>
+            <span class="error-message for-question"></span>
         </div>
         <div class="column-full">
             <div class="form-group">
@@ -34,7 +34,7 @@
                         <legend class="visually-hidden">@Model.Question</legend>
                         @foreach (var option in Model.Options)
                         {
-                            <div class="multiple-choice question">
+                            <div class="multiple-choice option">
                                 <input type="checkbox" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName.@option.Name" value="@option.Value" class="criteria-checkbox"
                                        required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
                                 <label for="@Model.ElementName.@option.Name">@option.Name</label>
