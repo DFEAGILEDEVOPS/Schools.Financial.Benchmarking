@@ -21,7 +21,7 @@ namespace SFB.Web.ApplicationCore.Models
 
         [PrettyName(SchoolCharacteristicsQuestions.GENDER_OF_PUPILS)]
         [DBField(name: SchoolTrustFinanceDataFieldNames.GENDER, type: CriteriaFieldComparisonTypes.EQUALTO)]
-        public string[] Gender { get; set; }        
+        public string[] Gender { get; set; }
 
         [PrettyName(SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE)]
         [DBField(name: SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE, type: CriteriaFieldComparisonTypes.EQUALTO)]

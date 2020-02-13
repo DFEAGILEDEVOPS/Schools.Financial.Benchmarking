@@ -12,7 +12,7 @@ namespace SFB.Web.UI.Models
         public List<SchoolCharacteristic> SchoolCharacteristics { get; set; }
 
         public BenchmarkCriteriaRangeVM NumberOfPupilsCriteriaRangeVm { get; set; }
-        public BenchmarkCriteriaMultipleChoiceVM SchoolOverallPhaseMultipleChoiceVM { get; set; }
+        public BenchmarkCriteriaMultipleChoiceVM SchoolPhaseMultipleChoiceVM { get; set; }
         public BenchmarkCriteriaMultipleChoiceVM TypeOfEstabMaintainedMultipleChoiceVM { get; set; }
         public BenchmarkCriteriaMultipleChoiceVM TypeOfEstabAcademiesMultipleChoiceVM { get; set; }
         public BenchmarkCriteriaMultipleChoiceVM TypeOfEstabAllMultipleChoiceVM { get; set; }
@@ -66,59 +66,23 @@ namespace SFB.Web.UI.Models
                         minValue: BenchmarkCriteria.MinNoPupil,
                         maxValue: BenchmarkCriteria.MaxNoPupil);
 
-            SchoolOverallPhaseMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
+            SchoolPhaseMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
                         question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
                         homeSchoolValue: this[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
                         homeSchoolName: BenchmarkSchool.Name,
                         elementName: "SchoolPhase",
                         options: new List<OptionVM>
                         {
-                                new OptionVM("Nursery", "Nursery", BenchmarkCriteria.SchoolPhase),
-                                new OptionVM("Primary", "Primary", BenchmarkCriteria.SchoolPhase,
-                                    subMultipleChoiceOptions: new SubOptionsVM<BenchmarkCriteriaMultipleChoiceVM>
-                                    {
-                                        Name = "PrimarySubOptions",
-                                        SubOptions =  new List<BenchmarkCriteriaMultipleChoiceVM>
-                                        {
-                                            new BenchmarkCriteriaMultipleChoiceVM(
-                                                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
-                                                homeSchoolValue: this[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
-                                                homeSchoolName: BenchmarkSchool.Name,
-                                                elementName: "SchoolPhase",
-                                                options: new List<OptionVM>
-                                                {
-                                                    new OptionVM("Infant and junior", "Infant and junior", BenchmarkCriteria.SchoolPhase),
-                                                    new OptionVM("Infant", "Infant", BenchmarkCriteria.SchoolPhase),
-                                                    new OptionVM("Junior", "Junior", BenchmarkCriteria.SchoolPhase),
-                                                    new OptionVM("Middle deemed primary", "Middle deemed primary", BenchmarkCriteria.SchoolPhase)
-                                                }
-                                            )
-                                        }
-                                    }
-                                ),
-                                new OptionVM("Secondary", "Secondary", BenchmarkCriteria.SchoolPhase,
-                                    subMultipleChoiceOptions: new SubOptionsVM<BenchmarkCriteriaMultipleChoiceVM>
-                                    {
-                                        Name = "SecondarySubOptions",
-                                        SubOptions =  new List<BenchmarkCriteriaMultipleChoiceVM>
-                                        {
-                                            new BenchmarkCriteriaMultipleChoiceVM(
-                                                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
-                                                homeSchoolValue: this[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
-                                                homeSchoolName: BenchmarkSchool.Name,
-                                                elementName: "SchoolPhase",
-                                                options: new List<OptionVM>
-                                                {
-                                                    new OptionVM("Middle deemed secondary", "Middle deemed secondary", BenchmarkCriteria.SchoolPhase),
-                                                    new OptionVM("Secondary", "Secondary", BenchmarkCriteria.SchoolPhase)
-                                                }
-                                            )
-                                        }
-                                    }
-                                ),
-                                new OptionVM("Special", "Special", BenchmarkCriteria.SchoolOverallPhase),
-                                new OptionVM("Pupil referral unit", "Pupil referral unit", BenchmarkCriteria.SchoolOverallPhase),
-                                new OptionVM("All-through", "All-through", BenchmarkCriteria.SchoolOverallPhase)
+                            new OptionVM("Nursery", "Nursery", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("Infant and junior", "Infant and junior", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("Infant", "Infant", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("Junior", "Junior", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("Middle deemed primary", "Middle deemed primary", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("Middle deemed secondary", "Middle deemed secondary", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("Secondary", "Secondary", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("Special", "Special", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("Pupil referral unit", "Pupil referral unit", BenchmarkCriteria.SchoolPhase),
+                            new OptionVM("All-through", "All-through", BenchmarkCriteria.SchoolPhase)
                         });
 
             TypeOfEstabMaintainedMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
@@ -341,15 +305,13 @@ namespace SFB.Web.UI.Models
                 elementName: "AdmPolicy",
                 options: new List<OptionVM>
                 {
-                new OptionVM("Comprehensive", "Comprehensive", BenchmarkCriteria.AdmPolicy),
-                new OptionVM("Selective", "Selective", BenchmarkCriteria.AdmPolicy),
-                new OptionVM("Modern", "Modern", BenchmarkCriteria.AdmPolicy),
-                new OptionVM("Non-selective", "Non-selective", BenchmarkCriteria.AdmPolicy),
-                new OptionVM("N/A", "N/A", BenchmarkCriteria.AdmPolicy),
+                    new OptionVM("Comprehensive", "Comprehensive", BenchmarkCriteria.AdmPolicy),
+                    new OptionVM("Selective", "Selective", BenchmarkCriteria.AdmPolicy),
+                    new OptionVM("Modern", "Modern", BenchmarkCriteria.AdmPolicy),
+                    new OptionVM("Non-selective", "Non-selective", BenchmarkCriteria.AdmPolicy),
+                    new OptionVM("N/A", "N/A", BenchmarkCriteria.AdmPolicy),
                 }
             );
-
-
         }
 
         private List<SchoolCharacteristic> BuildSchoolCharacteristics(SchoolViewModel schoolVM)
@@ -358,8 +320,8 @@ namespace SFB.Web.UI.Models
             var list = new List<SchoolCharacteristic>();
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS, Value = latestSchoolData == null ? null : latestSchoolData?.PupilCount + " pupils" });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.GENDER_OF_PUPILS, Value = latestSchoolData?.Gender });
-            //list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_PHASE, Value = latestSchoolData?.SchoolPhase });
-            list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE, Value = latestSchoolData?.SchoolOverallPhase });
+            list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_PHASE, Value = latestSchoolData?.SchoolPhase });
+            //list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE, Value = latestSchoolData?.SchoolOverallPhase });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT, Value = latestSchoolData?.SchoolType });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.URBAN_RURAL, Value = latestSchoolData?.UrbanRural });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE, Value = latestSchoolData?.GovernmentOfficeRegion });

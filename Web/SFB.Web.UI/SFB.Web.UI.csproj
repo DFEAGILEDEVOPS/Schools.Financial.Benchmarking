@@ -771,7 +771,6 @@
     <Content Include="public\govuk_template\assets\stylesheets\fonts\light-94a07e06a1-v2.woff2" />
     <Content Include="public\govuk_template\assets\stylesheets\fonts\light-f591b13f7d-v2.woff" />
     <Content Include="Views\Shared\Partials\Search\NoDefaultTab.cshtml" />
-    <Content Include="Views\Shared\Partials\Criteria\MultipleChoiceSubCriteria.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

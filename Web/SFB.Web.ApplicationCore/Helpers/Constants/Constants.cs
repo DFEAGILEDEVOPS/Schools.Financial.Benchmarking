@@ -230,7 +230,7 @@
         public const string GENDER_OF_PUPILS = "Gender of pupils";
         public const string SCHOOL_PHASE = "School phase";
         public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
-        public const string SCHOOL_OVERALL_PHASE = "School phase";
+        public const string SCHOOL_OVERALL_PHASE = "School overall phase";
         public const string TYPEOF_ESTABLISHMENT = "School type";
         public const string URBAN_RURAL = "Urban/rural schools";
         public const string GOVERNMENT_OFFICE = "Government office region";
