@@ -11,12 +11,23 @@ namespace SFB.Web.UI.Models
         public BenchmarkCriteria BenchmarkCriteria { get; set; }
         public List<SchoolCharacteristic> SchoolCharacteristics { get; set; }
 
+        public BenchmarkCriteriaRangeVM NumberOfPupilsCriteriaRangeVm { get; set; }
+        public BenchmarkCriteriaMultipleChoiceVM SchoolOverallPhaseMultipleChoiceVM { get; set; }
+        public BenchmarkCriteriaMultipleChoiceVM TypeOfEstabMaintainedMultipleChoiceVM { get; set; }
+        public BenchmarkCriteriaMultipleChoiceVM TypeOfEstabAcademiesMultipleChoiceVM { get; set; }
+        public BenchmarkCriteriaMultipleChoiceVM TypeOfEstabAllMultipleChoiceVM { get; set; }
+        public BenchmarkCriteriaRangeVM PercEligibleSchoolMealsRangeVm { get; set; }
+        public BenchmarkCriteriaRangeVM PercPupilsSenRegisterRangeVm { get; set; }
+        public BenchmarkCriteriaRangeVM PercPupilsWithSenRangeVm { get; set; }
+        public BenchmarkCriteriaRangeVM PercPupilsWithEalRangeVm { get; set; }
+
         public SchoolCharacteristicsViewModel(SchoolViewModel school, SchoolComparisonListModel comparisonList, BenchmarkCriteria benchmarkCriteria)
         {
             base.ComparisonList = comparisonList;
             this.BenchmarkSchool = school;
             this.SchoolCharacteristics = BuildSchoolCharacteristics(school);
             this.BenchmarkCriteria = benchmarkCriteria;
+            this.BuildCriteriaVMs();
         }
 
         public SchoolCharacteristicsViewModel(SchoolViewModelWithNoDefaultSchool school, SchoolComparisonListModel comparisonList, BenchmarkCriteria benchmarkCriteria)
@@ -24,15 +35,194 @@ namespace SFB.Web.UI.Models
             base.ComparisonList = comparisonList;
             this.SchoolCharacteristics = BuildSchoolCharacteristics(school);
             this.BenchmarkCriteria = benchmarkCriteria;
+            this.BuildCriteriaVMs();
         }
 
-        public string this[string question] 
+        public string this[string question]
         {
             get
             {
-                return SchoolCharacteristics.Find(s => s.Question == question).Value; 
+                return SchoolCharacteristics.Find(s => s.Question == question).Value;
             }
-        }  
+        }
+
+        private void BuildCriteriaVMs()
+        {
+            NumberOfPupilsCriteriaRangeVm = new BenchmarkCriteriaRangeVM(
+                        question: SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS,
+                        homeSchoolValue: this[SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS],
+                        homeSchoolName: BenchmarkSchool.Name,
+                        elementName: "NoPupil",
+                        minValue: BenchmarkCriteria.MinNoPupil,
+                        maxValue: BenchmarkCriteria.MaxNoPupil);
+
+            SchoolOverallPhaseMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
+                        question: SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE,
+                        homeSchoolValue: this[SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE],
+                        homeSchoolName: BenchmarkSchool.Name,
+                        elementName: "SchoolOverallPhase",
+                        options: new List<OptionVM>
+                        {
+                                new OptionVM("Nursery", "Nursery", BenchmarkCriteria.SchoolOverallPhase),
+                                new OptionVM("Primary", "Primary", BenchmarkCriteria.SchoolOverallPhase,
+                                    subMultipleChoiceOptions: new SubOptionsVM<BenchmarkCriteriaMultipleChoiceVM>
+                                    {
+                                        Name = "PrimarySubOptions",
+                                        SubOptions =  new List<BenchmarkCriteriaMultipleChoiceVM>
+                                        {
+                                            new BenchmarkCriteriaMultipleChoiceVM(
+                                                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
+                                                homeSchoolValue: this[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
+                                                homeSchoolName: BenchmarkSchool.Name,
+                                                elementName: "SchoolPhase",
+                                                options: new List<OptionVM>
+                                                {
+                                                    new OptionVM("Infant and junior", "Infant and junior", BenchmarkCriteria.SchoolPhase),
+                                                    new OptionVM("Infant", "Infant", BenchmarkCriteria.SchoolPhase),
+                                                    new OptionVM("Junior", "Junior", BenchmarkCriteria.SchoolPhase),
+                                                    new OptionVM("Middle deemed primary", "Middle deemed primary", BenchmarkCriteria.SchoolPhase)
+                                                }
+                                            )
+                                        }
+                                    }
+                                ),
+                                new OptionVM("Secondary", "Secondary", BenchmarkCriteria.SchoolOverallPhase,
+                                    subMultipleChoiceOptions: new SubOptionsVM<BenchmarkCriteriaMultipleChoiceVM>
+                                    {
+                                        Name = "SecondarySubOptions",
+                                        SubOptions =  new List<BenchmarkCriteriaMultipleChoiceVM>
+                                        {
+                                            new BenchmarkCriteriaMultipleChoiceVM(
+                                                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
+                                                homeSchoolValue: this[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
+                                                homeSchoolName: BenchmarkSchool.Name,
+                                                elementName: "SchoolPhase",
+                                                options: new List<OptionVM>
+                                                {
+                                                    new OptionVM("Middle deemed secondary", "Middle deemed secondary", BenchmarkCriteria.SchoolPhase),
+                                                    new OptionVM("Secondary", "Secondary", BenchmarkCriteria.SchoolPhase)
+                                                }
+                                            )
+                                        }
+                                    }
+                                ),
+                                new OptionVM("Special", "Special", BenchmarkCriteria.SchoolOverallPhase),
+                                new OptionVM("Pupil referral unit", "Pupil referral unit", BenchmarkCriteria.SchoolOverallPhase),
+                                new OptionVM("All-through", "All-through", BenchmarkCriteria.SchoolOverallPhase)
+                        });
+
+            TypeOfEstabMaintainedMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
+                question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "TypeOfEstablishment",
+                options: new List<OptionVM>
+                {
+                    new OptionVM("Nursery", "Nursery", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Community", "Community school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Community special", "Community special", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Foundation", "Foundation school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Foundation special", "Foundation special", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Voluntary aided", "Voluntary aided school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Voluntary controlled", "Voluntary controlled", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Pupil referral unit", "Pupil referral unit", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Miscellaneous", "Miscellaneous", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Studio school", "Studio school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy converter", "Academy converter", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy special converter", "Academy special converter", BenchmarkCriteria.TypeOfEstablishment),
+                }
+                );
+
+            TypeOfEstabAcademiesMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
+                question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "TypeOfEstablishment",
+                options: new List<OptionVM>
+                {
+                    new OptionVM("Academy converter", "Academy converter", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy special converter", "Academy special converter", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy special sponsor led", "Academy special sponsor led", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy sponsor led", "Academy sponsor led", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("City technology college", "City technology college", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Free school", "Free school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("University technical college", "University technical college", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Studio school", "Studio school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Free school special", "Free school special", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Free school - alternative provision", "Free school alternative provision", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Pupil referral unit", "Pupil referral unit", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy alternative provision converter", "Academy alternative provision converter", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy alternative provision sponsor led", "Academy alternative provision sponsor led", BenchmarkCriteria.TypeOfEstablishment)
+                }
+                );
+
+            TypeOfEstabAllMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
+                question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "TypeOfEstablishment",
+                options: new List<OptionVM>
+                {
+                    new OptionVM("Nursery", "Nursery", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Community", "Community school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Community special", "Community special", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Foundation", "Foundation school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Foundation special", "Foundation special", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Voluntary aided", "Voluntary aided school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Voluntary controlled", "Voluntary controlled", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Pupil referral unit", "Pupil referral unit", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy converter", "Academy converter", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy special converter", "Academy special converter", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy sponsor led", "Academy sponsor led", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy special sponsor led", "Academy special sponsor led", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("City technology college", "City technology college", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Free school", "Free school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("University technical college", "University technical college", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Studio school", "Studio school", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Free school special", "Free school special", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy special sponsor led", "Academy special sponsor led", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Free school - alternative provision", "Free school alternative provision", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy alternative provision converter", "Academy alternative provision converter", BenchmarkCriteria.TypeOfEstablishment),
+                    new OptionVM("Academy alternative provision sponsor led", "Academy alternative provision sponsor led", BenchmarkCriteria.TypeOfEstablishment),
+                }
+                );
+
+            PercEligibleSchoolMealsRangeVm = new BenchmarkCriteriaRangeVM(
+                question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "PerFSM",
+                minValue: BenchmarkCriteria.MinPerFSM,
+                maxValue: BenchmarkCriteria.MaxPerFSM
+                );
+
+            PercPupilsSenRegisterRangeVm = new BenchmarkCriteriaRangeVM(
+                question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "PerSENReg",
+                minValue: BenchmarkCriteria.MinPerSENReg,
+                maxValue: BenchmarkCriteria.MaxPerSENReg
+                );
+
+            PercPupilsWithSenRangeVm = new BenchmarkCriteriaRangeVM(
+                question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "PerSEN",
+                minValue: BenchmarkCriteria.MinPerSEN,
+                maxValue: BenchmarkCriteria.MaxPerSEN
+                );
+
+            PercPupilsWithEalRangeVm = new BenchmarkCriteriaRangeVM(
+                question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "PerEAL",
+                minValue: BenchmarkCriteria.MinPerEAL,
+                maxValue: BenchmarkCriteria.MaxPerEAL
+                );
+        }
 
         private List<SchoolCharacteristic> BuildSchoolCharacteristics(SchoolViewModel schoolVM)
         {
