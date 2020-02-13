@@ -26,6 +26,7 @@ namespace SFB.Web.UI.Models
         public string Name { get; set; }
         public string Value { get; set; }
         public bool Selected { get; }
+        public bool HasSubOptions { get { return (SubMultipleChoiceOptions != null || SubRangeOptions != null); } }
         public SubOptionsVM<BenchmarkCriteriaRangeVM> SubRangeOptions { get; set; }
         public SubOptionsVM<BenchmarkCriteriaMultipleChoiceVM> SubMultipleChoiceOptions { get; set; }
 

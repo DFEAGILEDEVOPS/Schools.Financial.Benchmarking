@@ -35,7 +35,7 @@
                         @foreach (var option in Model.Options)
                         {
                             <div class="multiple-choice option">
-                                <input type="checkbox" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName.@option.Name" value="@option.Value" class="criteria-checkbox"
+                                <input type="checkbox" name="@Html.Raw(option.HasSubOptions ? "" : "AdvancedCriteria."+Model.ElementName)" id="@Model.ElementName.@option.Name" value="@option.Value" class="criteria-checkbox"
                                        required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
                                 <label for="@Model.ElementName.@option.Name">@option.Name</label>
                             </div>
