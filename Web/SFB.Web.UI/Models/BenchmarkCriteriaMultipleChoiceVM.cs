@@ -29,6 +29,18 @@ namespace SFB.Web.UI.Models
         {
             return Options.Find(o => o.Name == name).Selected;
         }
+
+        public bool GetAnyOptionSelected(string[] names)
+        {
+            foreach (var name in names)
+            {
+                if(Options.Find(o => o.Name == name).Selected)
+                {
+                    return true;
+                }                
+            }
+            return false;           
+        }
     }
 
     public class OptionVM

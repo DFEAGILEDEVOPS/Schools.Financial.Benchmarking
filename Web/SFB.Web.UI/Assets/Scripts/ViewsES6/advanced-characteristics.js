@@ -169,6 +169,36 @@
                 }
             });
 
+        $("#PrimaryOverallPhase").change(
+            (event) => {
+                debugger;
+                let $panel = $(event.target).parent().next();
+                $panel.toggle();
+                $panel.find("input").prop('disabled', (i, v) => { return !v; });
+                if (!event.target.checked) {
+                    $panel.removeClass("error");
+                    $panel.find("input.error").removeClass("error");
+                    $panel.find("label.error").css("display", "none");
+                }
+                $panel.find("input[type='number']:disabled").val(null);
+                $panel.find("input[type='checkbox']:disabled").prop('checked', false);
+                $panel.find("input[type='radio']:disabled").prop('checked', false);
+                if ($(this.questionCheckBoxSelector + ":checked").length > 0) {
+                    $("#liveCountBar").show();
+                    $("#comparisonListInfoPanelResults").show();
+                    $("#comparisonListInfoPanelResultsEmpty").hide();
+                } else {
+                    $("#liveCountBar").show();
+                    $("#comparisonListInfoPanelResultsEmpty").show();
+                    $("#comparisonListInfoPanelResults").hide();
+                }
+
+                this.updateCounter(event.target);
+                if (!event.target.checked) {
+                    this.updateResultCount();
+                }
+            });
+
         $("input.criteria-input").keyup((e) => {
             let code = e.keyCode || e.which;
             if (code !== 9) {
