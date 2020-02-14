@@ -1,0 +1,68 @@
+﻿@model SFB.Web.UI.Models.BenchmarkCriteriaMultipleChoiceVM
+
+@{
+    var activated = Model.Options.Any(o => o.Selected);
+}
+
+<div class="question">
+    <div class="multiple-choice question">
+        <input id="checkbox-OverallPhase" type="checkbox" @Html.Raw(activated ? "checked" : "")>
+        <label id="label-OverallPhase" for="checkbox-OverallPhase">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
+    </div>
+    <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
+        <div class="column-full">
+            <div class="benchmark-school-value">
+                @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
+                {
+                    if (!@Model.HomeSchoolName.IsEmpty())
+                    {
+                        <span>No value was supplied for @Model.HomeSchoolName</span>
+                    }
+                }
+                else
+                {
+                    <span>The value for @Model.HomeSchoolName is <span class="bold-small">@Model.HomeSchoolValue</span></span>
+                }
+            </div>
+        </div>
+        <div>
+            <span class="error-message"></span>
+        </div>
+        <div class="column-full">
+            <div class="form-group">
+                <div class="column-full">
+                    <fieldset role="group" aria-label="@Model.Question">
+                        <legend class="visually-hidden">@Model.Question</legend>
+
+                        <div class="multiple-choice">
+                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Nursery" value="@Model.GetOptionValue("Nursery")" class="criteria-checkbox"
+                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Nursery") ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
+                            <label for="SchoolPhase.Nursery">Nursery</label>
+                        </div>
+
+                        <div class="multiple-choice">
+                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Special" value="@Model.GetOptionValue("Special")" class="criteria-checkbox"
+                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Special") ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
+                            <label for="SchoolPhase.Special">Special</label>
+                        </div>
+
+                        <div class="multiple-choice">
+                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.PRU" value="@Model.GetOptionValue("Pupil referral unit")" class="criteria-checkbox"
+                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Pupil referral unit") ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
+                            <label for="SchoolPhase.PRU">Pupil referral unit</label>
+                        </div>
+
+                        <div class="multiple-choice">
+                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.AT" value="@Model.GetOptionValue("All-through")" class="criteria-checkbox"
+                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("All-through") ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
+                            <label for="SchoolPhase.AT">All-through</label>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

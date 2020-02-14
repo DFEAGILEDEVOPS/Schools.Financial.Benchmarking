@@ -19,6 +19,16 @@ namespace SFB.Web.UI.Models
             ElementName = elementName;
             Options = options;
         }
+
+        public string GetOptionValue(string name)
+        {
+            return Options.Find(o => o.Name == name).Value;
+        }
+
+        public bool GetOptionSelected(string name)
+        {
+            return Options.Find(o => o.Name == name).Selected;
+        }
     }
 
     public class OptionVM
