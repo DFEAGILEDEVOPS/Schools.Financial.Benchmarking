@@ -4,6 +4,7 @@
 
         this.jqxhr = null;
         this.questionCheckBoxSelector = ".multiple-choice.question > input";
+        this.subQuestionCheckBoxSelector = ".multiple-choice.subQuestion > input";
 
         new Accordion(document.getElementById('characteristics-accordion'));
 
@@ -109,6 +110,7 @@
     }
 
     clear() {
+        $(this.subQuestionCheckBoxSelector + ":checked").click();
         $(this.questionCheckBoxSelector + ":checked").click();
     }
 
@@ -139,13 +141,42 @@
 
     }
 
+    parentPhaseClicked(event) {
+        let $panel = $(event.target).parent().next();
+        $panel.toggle();
+        $panel.find("input").prop('disabled', (i, v) => { return !v; });
+        if (!event.target.checked) {
+            $panel.removeClass("error");
+            $panel.find("input.error").removeClass("error");
+            $panel.find("label.error").css("display", "none");
+        }
+        $panel.find("input[type='checkbox']:disabled").prop('checked', false);
+        $panel.find("input[type='checkbox']:enabled").click();
+        if ($(this.questionCheckBoxSelector + ":checked").length > 0) {
+            $("#liveCountBar").show();
+            $("#comparisonListInfoPanelResults").show();
+            $("#comparisonListInfoPanelResultsEmpty").hide();
+        } else {
+            $("#liveCountBar").show();
+            $("#comparisonListInfoPanelResultsEmpty").show();
+            $("#comparisonListInfoPanelResults").hide();
+        }
+
+    this.updateCounter(event.target);
+    if (!event.target.checked) {
+        this.updateResultCount();
+    }
+}
+
     bindEvents() {
         $(this.questionCheckBoxSelector).change(
             (event) => {
                 let $panel = $(event.target).parent().next();
                 $panel.toggle();
-                $panel.find("input").prop('disabled', (i, v) => { return !v; });
+                $panel.find("input:visible").prop('disabled', false);
+                $panel.find("input:hidden").prop('disabled', true);
                 if (!event.target.checked) {
+                    $panel.find(".panel").hide();
                     $panel.removeClass("error");
                     $panel.find("input.error").removeClass("error");
                     $panel.find("label.error").css("display", "none");
@@ -171,32 +202,12 @@
 
         $("#PrimaryOverallPhase").change(
             (event) => {
-                debugger;
-                let $panel = $(event.target).parent().next();
-                $panel.toggle();
-                $panel.find("input").prop('disabled', (i, v) => { return !v; });
-                if (!event.target.checked) {
-                    $panel.removeClass("error");
-                    $panel.find("input.error").removeClass("error");
-                    $panel.find("label.error").css("display", "none");
-                }
-                $panel.find("input[type='number']:disabled").val(null);
-                $panel.find("input[type='checkbox']:disabled").prop('checked', false);
-                $panel.find("input[type='radio']:disabled").prop('checked', false);
-                if ($(this.questionCheckBoxSelector + ":checked").length > 0) {
-                    $("#liveCountBar").show();
-                    $("#comparisonListInfoPanelResults").show();
-                    $("#comparisonListInfoPanelResultsEmpty").hide();
-                } else {
-                    $("#liveCountBar").show();
-                    $("#comparisonListInfoPanelResultsEmpty").show();
-                    $("#comparisonListInfoPanelResults").hide();
-                }
+                this.parentPhaseClicked(event);                
+            });
 
-                this.updateCounter(event.target);
-                if (!event.target.checked) {
-                    this.updateResultCount();
-                }
+        $("#SecondaryOverallPhase").change(
+            (event) => {
+                this.parentPhaseClicked(event);
             });
 
         $("input.criteria-input").keyup((e) => {
