@@ -5,23 +5,23 @@
 }
 <div class="question">
     <div class="multiple-choice question">
-        <input id="checkbox-@Model.ElementName" type="checkbox" @Html.Raw(activated ? "checked": "")>
+        <input id="checkbox-@Model.ElementName" type="checkbox" @Html.Raw(activated ? "checked" : "")>
         <label id="label-@Model.ElementName" for="checkbox-@Model.ElementName">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
     <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
         <div class="column-full">
             <div class="benchmark-school-value">
-            @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
-            {
-                if (!@Model.HomeSchoolName.IsEmpty())
+                @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
                 {
-                    <span>No value was supplied for @Model.HomeSchoolName</span>
+                    if (!@Model.HomeSchoolName.IsEmpty())
+                    {
+                        <span>No value was supplied for @Model.HomeSchoolName</span>
+                    }
                 }
-            }
-            else
-            {
-                <span>The value for @Model.HomeSchoolName is <span class="bold-small">@Model.HomeSchoolValue</span></span>
-            }
+                else
+                {
+                    <span>The value for @Model.HomeSchoolName is <span class="bold-small">@Model.HomeSchoolValue</span></span>
+                }
             </div>
         </div>
         <div>
@@ -36,7 +36,7 @@
                         {
                             <div class="multiple-choice">
                                 <input type="checkbox" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName.@option.Name" value="@option.Value" class="criteria-checkbox"
-                                       required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option."/>
+                                       required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
                                 <label for="@Model.ElementName.@option.Name">@option.Name</label>
                             </div>
                         }

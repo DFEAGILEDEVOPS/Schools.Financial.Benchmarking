@@ -19,6 +19,28 @@ namespace SFB.Web.UI.Models
             ElementName = elementName;
             Options = options;
         }
+
+        public string GetOptionValue(string name)
+        {
+            return Options.Find(o => o.Name == name).Value;
+        }
+
+        public bool GetOptionSelected(string name)
+        {
+            return Options.Find(o => o.Name == name).Selected;
+        }
+
+        public bool GetAnyOptionSelected(string[] names)
+        {
+            foreach (var name in names)
+            {
+                if(Options.Find(o => o.Name == name).Selected)
+                {
+                    return true;
+                }                
+            }
+            return false;           
+        }
     }
 
     public class OptionVM
@@ -26,7 +48,7 @@ namespace SFB.Web.UI.Models
         public string Name { get; set; }
         public string Value { get; set; }
         public bool Selected { get; }
-        public SubOptionsVM SubOptions { get; set; }
+        public SubOptionsVM<BenchmarkCriteriaRangeVM> SubRangeOptions { get; set; }
 
         public OptionVM(string name, string value, string[] selectedOptions)
         {
@@ -35,15 +57,15 @@ namespace SFB.Web.UI.Models
             Selected = (selectedOptions != null) && selectedOptions.Contains(Value);
         }
 
-        public OptionVM(string name, string value, string[] selectedOptions, SubOptionsVM subOptions): this(name, value, selectedOptions)
+        public OptionVM(string name, string value, string[] selectedOptions, SubOptionsVM<BenchmarkCriteriaRangeVM> subRangeOptions): this(name, value, selectedOptions)
         {
-            SubOptions = subOptions;
+            SubRangeOptions = subRangeOptions;
         }
     }
 
-    public class SubOptionsVM
+    public class SubOptionsVM<T>
     {
         public string Name { get; set; }
-        public List<BenchmarkCriteriaRangeVM> SubOptions { get; set; }
+        public List<T> SubOptions { get; set; }
     }
 }

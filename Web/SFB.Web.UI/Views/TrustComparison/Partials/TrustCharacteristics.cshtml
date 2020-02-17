@@ -49,7 +49,7 @@
                     new OptionVM("Alternative provision", "Alternative provision", Model.BenchmarkCriteria.SchoolOverallPhase),
                     new OptionVM("All through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
                     new OptionVM("Cross phase", "Cross Overall Phase", Model.BenchmarkCriteria.SchoolOverallPhase,
-                    subOptions: new SubOptionsVM{
+                    subRangeOptions: new SubOptionsVM<BenchmarkCriteriaRangeVM>{
                       Name = "SchoolOverallPhaseCrossPhase",
                       SubOptions = new List<BenchmarkCriteriaRangeVM>{
                             new BenchmarkCriteriaRangeVM(

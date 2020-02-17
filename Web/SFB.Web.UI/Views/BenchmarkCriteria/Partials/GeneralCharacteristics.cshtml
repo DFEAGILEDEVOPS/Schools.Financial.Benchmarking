@@ -1,5 +1,4 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
-@using SFB.Web.ApplicationCore.Helpers.Constants
 @using SFB.Web.UI.Models
 @model SchoolCharacteristicsViewModel
 
@@ -12,439 +11,50 @@
 
         <div class="accordion-section-body">
 
-            @Html.Partial("Partials/Criteria/RangeCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "NoPupil",
-        minValue: Model.BenchmarkCriteria.MinNoPupil,
-        maxValue: Model.BenchmarkCriteria.MaxNoPupil
-        ))
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.NumberOfPupilsCriteriaRangeVm)
 
-            @switch ((EstablishmentType)ViewBag.EstType)
-            {
-                case EstablishmentType.Maintained:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-                 new BenchmarkCriteriaMultipleChoiceVM(
-                     question: SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE,
-                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE],
-                     homeSchoolName: Model.BenchmarkSchool.Name,
-                     elementName: "SchoolOverallPhase",
-                     options: new List<OptionVM>
-                     {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase)
-                     }
-                     )
-                 )
-                    break;
-                case EstablishmentType.Academies:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-                 new BenchmarkCriteriaMultipleChoiceVM(
-                     question: SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE,
-                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE],
-                     homeSchoolName: Model.BenchmarkSchool.Name,
-                     elementName: "SchoolOverallPhase",
-                     options: new List<OptionVM>
-                     {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("16 plus", "16 plus", Model.BenchmarkCriteria.SchoolPhase)
-                     }
-                     )
-                 )
-                    break;
-                case EstablishmentType.All:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-                 new BenchmarkCriteriaMultipleChoiceVM(
-                     question: SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE,
-                     homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE],
-                     homeSchoolName: Model.BenchmarkSchool.Name,
-                     elementName: "SchoolOverallPhase",
-                     options: new List<OptionVM>
-                     {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Primary", "Primary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolOverallPhase),
-                    new OptionVM("16 plus", "16 plus", Model.BenchmarkCriteria.SchoolPhase)
-                     }
-                     )
-                 )
-                    break;
-            }
+        @Html.Partial("Partials/Criteria/PhaseCriteria", Model.SchoolPhaseMultipleChoiceVM)
 
-            @switch ((EstablishmentType)ViewBag.EstType)
-            {
-                case EstablishmentType.Maintained:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-            new BenchmarkCriteriaMultipleChoiceVM(
-                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
-                homeSchoolName: Model.BenchmarkSchool.Name,
-                elementName: "SchoolPhase",
-                options: new List<OptionVM>
-                {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Infant", "Infant", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Infant and junior", "Infant and junior", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Junior", "Junior", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Middle deemed primary", "Middle deemed primary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Middle deemed secondary", "Middle deemed secondary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolPhase)
-                }
-                )
-            )
-                    break;
-                case EstablishmentType.Academies:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-            new BenchmarkCriteriaMultipleChoiceVM(
-                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
-                homeSchoolName: Model.BenchmarkSchool.Name,
-                elementName: "SchoolPhase",
-                options: new List<OptionVM>
-                {
-                    new OptionVM("Infant", "Infant", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Infant and junior", "Infant and junior", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Junior", "Junior", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Middle deemed primary", "Middle deemed primary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Middle deemed secondary", "Middle deemed secondary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("16 plus", "16 plus", Model.BenchmarkCriteria.SchoolPhase)
-                }
-                )
-            )
-                    break;
-                case EstablishmentType.All:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-            new BenchmarkCriteriaMultipleChoiceVM(
-                question: SchoolCharacteristicsQuestions.SCHOOL_PHASE,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.SCHOOL_PHASE],
-                homeSchoolName: Model.BenchmarkSchool.Name,
-                elementName: "SchoolPhase",
-                options: new List<OptionVM>
-                {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Infant", "Infant", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Infant and junior", "Infant and junior", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Junior", "Junior", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Middle deemed primary", "Middle deemed primary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Middle deemed secondary", "Middle deemed secondary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Secondary", "Secondary", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Special", "Special", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("All-through", "All-through", Model.BenchmarkCriteria.SchoolPhase),
-                    new OptionVM("16 plus", "16 plus", Model.BenchmarkCriteria.SchoolPhase)
-                }
-                )
-            )
-                    break;
-            }
-
-            @switch ((EstablishmentType)ViewBag.EstType)
-            {
-                case EstablishmentType.Maintained:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-            new BenchmarkCriteriaMultipleChoiceVM(
-                question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
-                homeSchoolName: Model.BenchmarkSchool.Name,
-                elementName: "TypeOfEstablishment",
-                options: new List<OptionVM>
-                {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Community", "Community school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Community special", "Community special", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Foundation", "Foundation school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Foundation special", "Foundation special", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Voluntary aided", "Voluntary aided school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Voluntary controlled", "Voluntary controlled", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Miscellaneous", "Miscellaneous", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Studio school", "Studio school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy converter", "Academy converter", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy special converter", "Academy special converter", Model.BenchmarkCriteria.TypeOfEstablishment),
-                }
-                )
-            )
-                    break;
-                case EstablishmentType.Academies:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-            new BenchmarkCriteriaMultipleChoiceVM(
-                question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
-                homeSchoolName: Model.BenchmarkSchool.Name,
-                elementName: "TypeOfEstablishment",
-                options: new List<OptionVM>
-                {
-                    new OptionVM("Academy converter", "Academy converter", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy special converter", "Academy special converter", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy special sponsor led", "Academy special sponsor led", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy sponsor led", "Academy sponsor led", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("City technology college", "City technology college", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Free school", "Free school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("University technical college", "University technical college", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Studio school", "Studio school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Free school special", "Free school special", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Free school - alternative provision", "Free school alternative provision", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy alternative provision converter", "Academy alternative provision converter", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy alternative provision sponsor led", "Academy alternative provision sponsor led", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    //new OptionVM("Miscellaneous", "Miscellaneous", Model.BenchmarkCriteria.TypeOfEstablishment)
-                }
-                )
-            )
-                    break;
-                case EstablishmentType.All:
-                    @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-            new BenchmarkCriteriaMultipleChoiceVM(
-                question: SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT,
-                homeSchoolValue: Model[SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT],
-                homeSchoolName: Model.BenchmarkSchool.Name,
-                elementName: "TypeOfEstablishment",
-                options: new List<OptionVM>
-                {
-                    new OptionVM("Nursery", "Nursery", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Community", "Community school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Community special", "Community special", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Foundation", "Foundation school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Foundation special", "Foundation special", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Voluntary aided", "Voluntary aided school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Voluntary controlled", "Voluntary controlled", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Pupil referral unit", "Pupil referral unit", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy converter", "Academy converter", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy special converter", "Academy special converter", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy sponsor led", "Academy sponsor led", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy special sponsor led", "Academy special sponsor led", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("City technology college", "City technology college", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Free school", "Free school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("University technical college", "University technical college", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Studio school", "Studio school", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Free school special", "Free school special", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy special sponsor led", "Academy special sponsor led", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Free school - alternative provision", "Free school alternative provision", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy alternative provision converter", "Academy alternative provision converter", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy alternative provision sponsor led", "Academy alternative provision sponsor led", Model.BenchmarkCriteria.TypeOfEstablishment),
-                    //new OptionVM("Miscellaneous", "Miscellaneous", Model.BenchmarkCriteria.TypeOfEstablishment)
-                }
-                )
-            )
-                    break;
-            }
-
-            @Html.Partial("Partials/Criteria/PercentageCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_ELIGIBLE_FREE_SCHOOL_MEALS],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "PerFSM",
-        minValue: Model.BenchmarkCriteria.MinPerFSM,
-        maxValue: Model.BenchmarkCriteria.MaxPerFSM
-        ))
-
-            @Html.Partial("Partials/Criteria/PercentageCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_ON_SEN_REGISTER],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "PerSENReg",
-        minValue: Model.BenchmarkCriteria.MinPerSENReg,
-        maxValue: Model.BenchmarkCriteria.MaxPerSENReg
-        ))
-
-            @Html.Partial("Partials/Criteria/PercentageCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_STATEMENT_OF_SEN],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "PerSEN",
-        minValue: Model.BenchmarkCriteria.MinPerSEN,
-        maxValue: Model.BenchmarkCriteria.MaxPerSEN
-        ))
-
-
-            @Html.Partial("Partials/Criteria/PercentageCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_OF_PUPILS_WITH_EAL],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "PerEAL",
-        minValue: Model.BenchmarkCriteria.MinPerEAL,
-        maxValue: Model.BenchmarkCriteria.MaxPerEAL
-        ))
-
-            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-    new BenchmarkCriteriaMultipleChoiceVM(
-        question: SchoolCharacteristicsQuestions.URBAN_RURAL,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.URBAN_RURAL],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "UrbanRural",
-        options: new List<OptionVM>
+        @switch ((EstablishmentType)ViewBag.EstType)
         {
-            new OptionVM("Hamlet and isolated dwelling", "Hamlet and isolated dwelling", Model.BenchmarkCriteria.UrbanRural),
-            new OptionVM("Rural and village", "Rural and village", Model.BenchmarkCriteria.UrbanRural),
-            new OptionVM("Town and fringe", "Town and fringe", Model.BenchmarkCriteria.UrbanRural),
-            new OptionVM("Urban and city", "Urban and city", Model.BenchmarkCriteria.UrbanRural),
-            new OptionVM("Conurbation", "Conurbation", Model.BenchmarkCriteria.UrbanRural),
+            case EstablishmentType.Maintained:
+                @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.TypeOfEstabMaintainedMultipleChoiceVM)
+                break;
+            case EstablishmentType.Academies:
+                @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.TypeOfEstabAcademiesMultipleChoiceVM)
+                break;
+            case EstablishmentType.All:
+                @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.TypeOfEstabAllMultipleChoiceVM)
+                break;
         }
-        )
-    )
 
-            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-    new BenchmarkCriteriaMultipleChoiceVM(
-        question: SchoolCharacteristicsQuestions.LONDON_WEIGHTING,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.LONDON_WEIGHTING],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "LondonWeighting",
-        options: new List<OptionVM>
-        {
-            new OptionVM("Inner", "Inner", Model.BenchmarkCriteria.LondonWeighting),
-            new OptionVM("Outer", "Outer", Model.BenchmarkCriteria.LondonWeighting),
-            new OptionVM("Neither", "Neither", Model.BenchmarkCriteria.LondonWeighting)
-        }
-        )
-    )
+        @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercEligibleSchoolMealsRangeVm)
 
-            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-    new BenchmarkCriteriaMultipleChoiceVM(
-        question: SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.GOVERNMENT_OFFICE],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "GovernmentOffice",
-        options: new List<OptionVM>
-        {
-            new OptionVM("East Midlands", "East Midlands", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("East of England", "East of England", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("London", "London", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("North East", "North East", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("North West", "North West", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("South East", "South East", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("South West", "South West", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("West Midlands", "West Midlands", Model.BenchmarkCriteria.GovernmentOffice),
-            new OptionVM("Yorkshire and the Humber", "Yorkshire and the Humber", Model.BenchmarkCriteria.GovernmentOffice)
-        }
-        )
-    )
+        @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercPupilsSenRegisterRangeVm)
 
-            @Html.Partial("Partials/Criteria/RadioboxCriteria",
-    new BenchmarkCriteriaMultipleChoiceVM(
-        question: SchoolCharacteristicsQuestions.PFI,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PFI],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "Pfi",
-        options: new List<OptionVM>
-        {
-            new OptionVM("Part of PFI", "Part of PFI", Model.BenchmarkCriteria.Pfi),
-            new OptionVM("Not part of PFI", "Not Part Of PFI", Model.BenchmarkCriteria.Pfi)
-        }
-        )
-    )
+        @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercPupilsWithSenRangeVm)
+            
+        @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercPupilsWithEalRangeVm)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.NUMBER_IN6_FORM,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.NUMBER_IN6_FORM],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "NoSixthForm",
-        minValue: Model.BenchmarkCriteria.MinNoSixthForm,
-        maxValue: Model.BenchmarkCriteria.MaxNoSixthForm
-        ))
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.UrbanRuralMultipleChoiceVM)
 
-            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-    new BenchmarkCriteriaMultipleChoiceVM(
-        question: SchoolCharacteristicsQuestions.GENDER_OF_PUPILS,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.GENDER_OF_PUPILS],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "Gender",
-        options: new List<OptionVM>
-        {
-            new OptionVM("Boys", "Boys", Model.BenchmarkCriteria.Gender),
-            new OptionVM("Girls", "Girls", Model.BenchmarkCriteria.Gender),
-            new OptionVM("Mixed", "Mixed", Model.BenchmarkCriteria.Gender)
-        }
-        )
-    )
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.LondonWeightingMultipleChoiceVM)           
 
-            @*@Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-                new BenchmarkCriteriaMultipleChoiceVM(
-                    question: SchoolCharacteristicsQuestions.LONDON_BOROUGH,
-                    homeSchoolValue: Model[SchoolCharacteristicsQuestions.LONDON_BOROUGH],
-                    homeSchoolName: Model.BenchmarkSchool.Name,
-                    elementName: "LondonBorough",
-                    options: new List<OptionVM>
-                    {
-                        new OptionVM("Inner", "Inner", Model.BenchmarkCriteria.LondonBorough),
-                        new OptionVM("Outer", "Outer", Model.BenchmarkCriteria.LondonBorough),
-                        new OptionVM("Neither", "Neither", Model.BenchmarkCriteria.LondonBorough)
-                    }
-                    )
-                )*@
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.GovernmentOfficeMultipleChoiceVM)          
+            
+        @Html.Partial("Partials/Criteria/RadioboxCriteria", Model.PfiMultipleChoiceVM)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "LowestAgePupils",
-        minValue: Model.BenchmarkCriteria.MinLowestAgePupils,
-        maxValue: Model.BenchmarkCriteria.MaxLowestAgePupils
-        ))
+        @Html.Partial("Partials/Criteria/RangeCriteria",Model.NumberIn6FormRangeVm)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "HighestAgePupils",
-        minValue: Model.BenchmarkCriteria.MinHighestAgePupils,
-        maxValue: Model.BenchmarkCriteria.MaxHighestAgePupils
-        ))
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.GenderMultipleChoiceVM)                       
 
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.LowAgeRangeVm)
 
-            @Html.Partial("Partials/Criteria/PercentageCriteria",
-    new BenchmarkCriteriaRangeVM(
-        question: SchoolCharacteristicsQuestions.PERCENTAGE_BOARDERS,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.PERCENTAGE_BOARDERS],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "PerBoarders",
-        minValue: Model.BenchmarkCriteria.MinPerBoarders,
-        maxValue: Model.BenchmarkCriteria.MaxPerBoarders
-        ))
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.HighAgeRangeVm)
 
-            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria",
-    new BenchmarkCriteriaMultipleChoiceVM(
-        question: SchoolCharacteristicsQuestions.ADMISSIONS_POLICY,
-        homeSchoolValue: Model[SchoolCharacteristicsQuestions.ADMISSIONS_POLICY],
-        homeSchoolName: Model.BenchmarkSchool.Name,
-        elementName: "AdmPolicy",
-        options: new List<OptionVM>
-        {
-            new OptionVM("Comprehensive", "Comprehensive", Model.BenchmarkCriteria.AdmPolicy),
-            new OptionVM("Selective", "Selective", Model.BenchmarkCriteria.AdmPolicy),
-            new OptionVM("Modern", "Modern", Model.BenchmarkCriteria.AdmPolicy),
-            new OptionVM("Non-selective", "Non-selective", Model.BenchmarkCriteria.AdmPolicy),
-            new OptionVM("N/A", "N/A", Model.BenchmarkCriteria.AdmPolicy),
-        }
-        )
-    )
+        @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercBoardersRangeVm)
+
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.AdmissionMultipleChoiceVM)
 
         </div>
     </fieldset>
