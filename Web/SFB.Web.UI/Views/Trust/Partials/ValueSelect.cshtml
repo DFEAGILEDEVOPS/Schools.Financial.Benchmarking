@@ -15,14 +15,8 @@
             <option value="@UnitType.AbsoluteMoney" @IsSelected(UnitType.AbsoluteMoney)="selected">@ChartShowValues.ABSOLUTE</option>
             <option value="@UnitType.PerPupil" @IsSelected(UnitType.PerPupil)>@ChartShowValues.PER_PUPIL</option>
             <option value="@UnitType.PerTeacher" @IsSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
-            @if (ViewBag.Tab == TabType.Expenditure)
-            {
-                <option value="@UnitType.PercentageOfTotalExpenditure" @IsSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>
-            }
-            @if (ViewBag.Tab == TabType.Income )
-            {
-                <option value="@UnitType.PercentageOfTotalIncome" @IsSelected(UnitType.PercentageOfTotalIncome)>@ChartShowValues.PERCENTAGE_TOTAL_INCOME</option>
-            }
+            <option value="@UnitType.PercentageOfTotalExpenditure" @IsSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>
+            <option value="@UnitType.PercentageOfTotalIncome" @IsSelected(UnitType.PercentageOfTotalIncome)>@ChartShowValues.PERCENTAGE_TOTAL_INCOME</option>
         </select>
     </div>
 </div>

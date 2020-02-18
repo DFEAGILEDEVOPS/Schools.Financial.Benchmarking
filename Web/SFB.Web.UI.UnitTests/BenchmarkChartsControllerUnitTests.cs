@@ -443,54 +443,54 @@ namespace SFB.Web.UI.UnitTests
                 UnitType.PerPupil));
         }
 
-        [Test]
-        public void TabChangeShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
-        {
-            var mockDocumentDbService = new Mock<IFinancialDataService>();
+        //[Test]
+        //public void TabChangeShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
+        //{
+        //    var mockDocumentDbService = new Mock<IFinancialDataService>();
 
-            var mockEdubaseDataService = new Mock<IContextDataService>();
+        //    var mockEdubaseDataService = new Mock<IContextDataService>();
 
-            var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
+        //    var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
 
-            mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
-                .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+        //    mockBenchmarkChartBuilder
+        //        .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+        //        .Returns((TabType TabNames, EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
-            mockBenchmarkChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(),It.IsAny<EstablishmentType>()))
-                .Returns((TabType TabNames, ChartGroupType chartGroup ,EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { Name = "Staff", ChartGroup = ChartGroupType.Staff } });
+        //    mockBenchmarkChartBuilder
+        //        .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(),It.IsAny<EstablishmentType>()))
+        //        .Returns((TabType TabNames, ChartGroupType chartGroup ,EstablishmentType schoolType) => new List<ChartViewModel>() { new ChartViewModel() { Name = "Staff", ChartGroup = ChartGroupType.Staff } });
 
-            var financialCalculationsService = new Mock<IFinancialCalculationsService>();
+        //    var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockLaService = new Mock<ILocalAuthoritiesService>();
+        //    var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var mockComparisonService = new Mock<IComparisonService>();
+        //    var mockComparisonService = new Mock<IComparisonService>();
 
-            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
-            var fakeSchoolComparisonList = new SchoolComparisonListModel();
-            fakeSchoolComparisonList.HomeSchoolUrn = "123";
-            fakeSchoolComparisonList.HomeSchoolName = "test";
-            fakeSchoolComparisonList.HomeSchoolType = "test";
-            fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
-            fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
-            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+        //    var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+        //    var fakeSchoolComparisonList = new SchoolComparisonListModel();
+        //    fakeSchoolComparisonList.HomeSchoolUrn = "123";
+        //    fakeSchoolComparisonList.HomeSchoolName = "test";
+        //    fakeSchoolComparisonList.HomeSchoolType = "test";
+        //    fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
+        //    fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
+        //    mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+        //    var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
-            var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, 
-                mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
+        //    var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object, mockDocumentDbService.Object, financialCalculationsService.Object, mockLaService.Object, null, 
+        //        mockEdubaseDataService.Object, null, mockComparisonService.Object, mockCookieManager.Object, mockBicComparisonResultCachingService.Object);
 
-            controller.ControllerContext = new ControllerContext(_rc, controller);
+        //    controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.TabChange(EstablishmentType.Maintained, UnitType.PercentageOfTotalExpenditure, TabType.Balance);
+        //    controller.TabChange(EstablishmentType.Maintained, UnitType.PercentageOfTotalExpenditure, TabType.Balance);
 
-            financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
-                It.IsAny<List<ChartViewModel>>(),
-                It.IsAny<List<FinancialDataModel>>(),
-                It.IsAny<IEnumerable<CompareEntityBase>>(),
-                It.IsAny<string>(),
-                UnitType.AbsoluteMoney
-                ));
-        }
+        //    financialCalculationsService.Verify(f => f.PopulateBenchmarkChartsWithFinancialData(
+        //        It.IsAny<List<ChartViewModel>>(),
+        //        It.IsAny<List<FinancialDataModel>>(),
+        //        It.IsAny<IEnumerable<CompareEntityBase>>(),
+        //        It.IsAny<string>(),
+        //        UnitType.AbsoluteMoney
+        //        ));
+        //}
 
         [Test]
         public void TabChangeShouldResetUnitTypeBetweenExpenditureAndWorkforceTabs()

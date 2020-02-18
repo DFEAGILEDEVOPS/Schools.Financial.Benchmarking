@@ -141,53 +141,53 @@ namespace SFB.Web.UI.UnitTests
                 UnitType.PerPupil));
         }
 
-        [Test]
-        public void DetailCallShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
-        {
-            var mockEdubaseDataService = new Mock<IContextDataService>();
-            var testEduResult = new EdubaseDataObject();
-            testEduResult.URN = 123;
-            testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+        //[Test]
+        //public void DetailCallShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
+        //{
+        //    var mockEdubaseDataService = new Mock<IContextDataService>();
+        //    var testEduResult = new EdubaseDataObject();
+        //    testEduResult.URN = 123;
+        //    testEduResult.FinanceType = "Maintained";
+        //    mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
 
-            var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
-            mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
-                .Returns((TabType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+        //    var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
+        //    mockHistoricalChartBuilder
+        //        .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
+        //        .Returns((TabType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
-            mockHistoricalChartBuilder
-                .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
-                .Returns((TabType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
+        //    mockHistoricalChartBuilder
+        //        .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+        //        .Returns((TabType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
 
 
-            var financialCalculationsService = new Mock<IFinancialCalculationsService>();
+        //    var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
-            var mockFinancialDataService = new Mock<IFinancialDataService>();
+        //    var mockFinancialDataService = new Mock<IFinancialDataService>();
 
-            var mockDownloadCsvBuilder = new Mock<IDownloadCSVBuilder>();
+        //    var mockDownloadCsvBuilder = new Mock<IDownloadCSVBuilder>();
 
-            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+        //    var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
 
-            var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
+        //    var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
-            var mockActiveUrnsService = new Mock<IActiveUrnsService>();
+        //    var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
-            var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
+        //    var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
 
-            var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
-                mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
-                mockSchoolVMBuilder.Object);
+        //    var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
+        //        mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
+        //        mockSchoolVMBuilder.Object);
 
-            controller.ControllerContext = new ControllerContext(_rc, controller);
+        //    controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PercentageOfTotalExpenditure, CentralFinancingType.Exclude, TabType.Balance);
+        //    controller.Detail(123, UnitType.PercentageOfTotalExpenditure, CentralFinancingType.Exclude, TabType.Balance);
 
-            mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
-                It.IsAny<TabType>(),
-                It.IsAny<ChartGroupType>(),
-                It.IsAny<CentralFinancingType>(),
-                UnitType.AbsoluteMoney));
-        }
+        //    mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
+        //        It.IsAny<TabType>(),
+        //        It.IsAny<ChartGroupType>(),
+        //        It.IsAny<CentralFinancingType>(),
+        //        UnitType.AbsoluteMoney));
+        //}
 
         [Test]
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndWorkforceTabs()

@@ -95,38 +95,40 @@ namespace SFB.Web.UI.Services
                             }
                             break;
                         case UnitType.PercentageOfTotalExpenditure:
-                        case UnitType.PercentageOfTotalIncome:
-                        decimal? total = 0;
-                        rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
+                            rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                             if (rawAmount == null)
                             {
                                 break;
                             }
-                            switch (revgroup)
-                            {
-                                case TabType.Expenditure:
-                                    total = schoolData.TotalExpenditure;
-                                    break;
-                                case TabType.Income:
-                                    total = schoolData.TotalIncome;
-                                    break;
-                                case TabType.Balance:
-                                    total = schoolData.InYearBalance;
-                                    break;
-                            }
-
-                            if (total == 0)
+                            if (schoolData.TotalExpenditure == 0)
                             {
                                 amount = 0;
                             }
                             else
                             {
-                                amount = (total == 0) ? 0 : (rawAmount / total) * 100;
+                                amount = (schoolData.TotalExpenditure == 0) ? 0 : (rawAmount / schoolData.TotalExpenditure) * 100;
+                                amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
+                            }
+                            break;
+                        case UnitType.PercentageOfTotalIncome:
+                        rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
+                            if (rawAmount == null)
+                            {
+                                break;
+                            }
+                            if (schoolData.TotalIncome == 0)
+                            {
+                                amount = 0;
+                            }
+                            else
+                            {
+                                amount = (schoolData.TotalIncome == 0) ? 0 : (rawAmount / schoolData.TotalIncome) * 100;
                                 amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
                             }
                             break;
                         case UnitType.NoOfPupilsPerMeasure:
-                        rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
+                            decimal? total = 0;
+                            rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                             if (rawAmount == null || rawAmount == 0)
                             {
                                 break;
@@ -140,9 +142,9 @@ namespace SFB.Web.UI.Services
                         case UnitType.HeadcountPerFTE:
                             string fieldNameBase = chart.FieldName.Contains("FullTimeEquivalent")
                                 ? chart.FieldName.Substring(0, chart.FieldName.Length - 18)
-                            : chart.FieldName.Substring(0, chart.FieldName.Length - 9);                        
-                        total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);                                                
-                        rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);
+                            : chart.FieldName.Substring(0, chart.FieldName.Length - 9);
+                            total = GetFinancialDataValueForChartField(fieldNameBase + "Headcount", schoolData.FinancialDataObjectModel);
+                            rawAmount = GetFinancialDataValueForChartField(fieldNameBase + "FullTimeEquivalent", schoolData.FinancialDataObjectModel);
                             if (total == null || rawAmount == null || rawAmount == 0)
                             {
                                 break;
@@ -157,7 +159,7 @@ namespace SFB.Web.UI.Services
                                 amount = decimal.Round(amount.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero);
                             }
                             break;
-                    case UnitType.FTERatioToTotalFTE:                        
+                        case UnitType.FTERatioToTotalFTE:                        
                         total = GetFinancialDataValueForChartField(SchoolTrustFinanceDataFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);                        
                         rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
                             if (rawAmount == null)
@@ -255,19 +257,6 @@ namespace SFB.Web.UI.Services
             foreach (var school in bmSchools)
             {
                 var dataModel = financialDataModels.First(f => f.Id.ToString() == school.Id);
-                decimal? total = 0;
-                switch (revGroup)
-                {
-                    case TabType.Expenditure:
-                        total = dataModel.TotalExpenditure;
-                        break;
-                    case TabType.Income:
-                        total = dataModel.TotalIncome;
-                        break;
-                    case TabType.Balance:
-                        total = dataModel.InYearBalance;
-                        break;
-                }
 
                 decimal? amountPerUnit = null;
                 if (revGroup == TabType.Workforce)
@@ -276,7 +265,7 @@ namespace SFB.Web.UI.Services
                 }
                 else
                 {
-                    amountPerUnit = CalculateAmountPerUnit(dataModel, fieldName, unit, total);
+                    amountPerUnit = CalculateAmountPerUnit(dataModel, fieldName, unit);
                 }
 
                 chartDataList.Add(new BenchmarkChartData()
@@ -392,8 +381,7 @@ namespace SFB.Web.UI.Services
             return amount;
         }
 
-        private decimal? CalculateAmountPerUnit(FinancialDataModel dataModel, string fieldName, UnitType unit,
-            decimal? total)
+        private decimal? CalculateAmountPerUnit(FinancialDataModel dataModel, string fieldName, UnitType unit)
         {            
             var rawAmount = GetFinancialDataValueForChartField(fieldName, dataModel.FinancialDataObjectModel);
             var pupilCount = dataModel.PupilCount;
@@ -414,8 +402,9 @@ namespace SFB.Web.UI.Services
                 case UnitType.PerPupil:
                     return (pupilCount == 0) ? null : (rawAmount / (decimal) pupilCount);
                 case UnitType.PercentageOfTotalExpenditure:
+                    return (dataModel.TotalExpenditure == 0) ? 0 : ((rawAmount / dataModel.TotalExpenditure) * 100);
                 case UnitType.PercentageOfTotalIncome:
-                    return (total == 0) ? 0 : ((rawAmount / total) * 100);
+                    return (dataModel.TotalIncome == 0) ? 0 : ((rawAmount / dataModel.TotalIncome) * 100);
                 default:
                     return rawAmount;
             }

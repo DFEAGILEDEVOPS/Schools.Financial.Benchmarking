@@ -1030,16 +1030,16 @@ namespace SFB.Web.UI.Controllers
                     unitType = UnitType.AbsoluteCount;
                     break;
                 case TabType.Balance:
-                    unitType = showValue == UnitType.AbsoluteMoney || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher ? showValue : UnitType.AbsoluteMoney;
+                    unitType = showValue == UnitType.PercentageOfTotalIncome || showValue == UnitType.PercentageOfTotalExpenditure || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher ? showValue : UnitType.AbsoluteMoney;
                     break;
                 case TabType.Salary:
                     unitType = UnitType.PercentageTeachers;
                     break;
                 case TabType.Income:
-                    unitType = showValue == UnitType.PercentageOfTotalExpenditure ? UnitType.PercentageOfTotalIncome : showValue;
+                    unitType = showValue == UnitType.PercentageOfTotalExpenditure ? UnitType.PercentageOfTotalExpenditure : showValue;
                     break;
                 case TabType.Expenditure:
-                    unitType = showValue == UnitType.PercentageOfTotalIncome ? UnitType.PercentageOfTotalExpenditure : showValue;
+                    unitType = showValue == UnitType.PercentageOfTotalIncome ? UnitType.PercentageOfTotalIncome : showValue;
                     break;
                 default:
                     unitType = UnitType.AbsoluteMoney;

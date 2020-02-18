@@ -195,13 +195,13 @@ namespace SFB.Web.UI.Controllers
                     unitType = UnitType.AbsoluteCount;
                     break;
                 case TabType.Balance:
-                    unitType = unitType == UnitType.PerPupil || unitType == UnitType.PerTeacher ? unitType : UnitType.AbsoluteMoney;
+                    unitType = unitType == UnitType.PercentageOfTotalIncome || unitType == UnitType.PercentageOfTotalExpenditure || unitType == UnitType.PerPupil || unitType == UnitType.PerTeacher ? unitType : UnitType.AbsoluteMoney;
                     break;
                 case TabType.Income:
-                    unitType = unitType == UnitType.PercentageOfTotalExpenditure ? UnitType.PercentageOfTotalIncome : unitType;
+                    unitType = unitType == UnitType.PercentageOfTotalExpenditure ? UnitType.PercentageOfTotalExpenditure : unitType;
                     break;
                 case TabType.Expenditure:
-                    unitType = unitType == UnitType.PercentageOfTotalIncome ? UnitType.PercentageOfTotalExpenditure : unitType;
+                    unitType = unitType == UnitType.PercentageOfTotalIncome ? UnitType.PercentageOfTotalIncome : unitType;
                     break;
             }
         }
