@@ -8,7 +8,7 @@
 
                 self.loadData = function (resolve) {
                     localStorage.removeItem('CustomCharts');
-                    localStorage.removeItem('YourCharts');
+                    localStorage.removeItem('MyCharts');
                     if (localStorage.MyCharts) {
                         $scope.selectionList = JSON.parse(localStorage.YourCharts);
                         resolve();
