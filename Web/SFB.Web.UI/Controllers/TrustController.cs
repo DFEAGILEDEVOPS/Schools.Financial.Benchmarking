@@ -62,8 +62,8 @@ namespace SFB.Web.UI.Controllers
                     chartGroup = ChartGroupType.All;
                     break;
             }
-         
-            var academies = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo);
+
+            var academies = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo).OrderBy(a => a.EstablishmentName).ToList();
 
             if(academies.Count == 0)
             {
