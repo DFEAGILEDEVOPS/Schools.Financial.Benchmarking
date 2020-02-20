@@ -30,6 +30,30 @@ namespace SFB.Web.UI.Models
         public BenchmarkCriteriaRangeVM HighAgeRangeVm { get; set; }
         public BenchmarkCriteriaRangeVM PercBoardersRangeVm { get; set; }
         public BenchmarkCriteriaMultipleChoiceVM AdmissionMultipleChoiceVM { get; set; }
+        public BenchmarkCriteriaRangeVM SpecLearningDifRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM ModerateLearningDifRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM ProfLearningDifRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM SevereLearningDifRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM SocialHealthRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM SpeechNeedsRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM HearingImpairmentRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM VisualImpairmentRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM MultiSensoryImpairmentRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM PhysicalDisabilityRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM AutisticDisorderRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM OtherLearningDifRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM Ks2ActualRangeVm { get; private set; }
+        public BenchmarkCriteriaRangeVM Ks2ProgressRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM AverageAtt8RangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM Progress8MeasureRangeVM { get; private set; }
+        public BenchmarkCriteriaMultipleChoiceVM OfstedRatingMultipleChoiceVM { get; private set; }
+        public BenchmarkCriteriaRangeVM SchoolWorkforceRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM NumberOfTeachersFTERangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM PercQualifiedTeachersRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM SeniorLeadershipFTERangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM FulltimeTaRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM FulltimeOtherRangeVM { get; private set; }
+        public BenchmarkCriteriaRangeVM FulltimeAuxRangeVM { get; private set; }
 
         public SchoolCharacteristicsViewModel(SchoolViewModel school, SchoolComparisonListModel comparisonList, BenchmarkCriteria benchmarkCriteria)
         {
@@ -38,6 +62,9 @@ namespace SFB.Web.UI.Models
             this.SchoolCharacteristics = BuildSchoolCharacteristics(school);
             this.BenchmarkCriteria = benchmarkCriteria;
             this.BuildGeneralCriteriaVMs();
+            this.BuildSenCriteriaVMs();
+            this.BuildPerformanceCriteriaVMs();
+            this.BuildWorkforceCriteriaVMs();
         }
 
         public SchoolCharacteristicsViewModel(SchoolViewModelWithNoDefaultSchool school, SchoolComparisonListModel comparisonList, BenchmarkCriteria benchmarkCriteria)
@@ -46,6 +73,9 @@ namespace SFB.Web.UI.Models
             this.SchoolCharacteristics = BuildSchoolCharacteristics(school);
             this.BenchmarkCriteria = benchmarkCriteria;
             this.BuildGeneralCriteriaVMs();
+            this.BuildSenCriteriaVMs();
+            this.BuildPerformanceCriteriaVMs();
+            this.BuildWorkforceCriteriaVMs();
         }
 
         public string this[string question]
@@ -312,6 +342,245 @@ namespace SFB.Web.UI.Models
                     new OptionVM("N/A", "N/A", BenchmarkCriteria.AdmPolicy),
                 }
             );
+        }
+
+        private void BuildSenCriteriaVMs()
+        {
+            SpecLearningDifRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "SpecLearnDiff",
+                    minValue: BenchmarkCriteria.MinSpecLearnDiff,
+                    maxValue: BenchmarkCriteria.MaxSpecLearnDiff
+                    );
+
+            ModerateLearningDifRangeVM = new BenchmarkCriteriaRangeVM(
+                     question: SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY,
+                     homeSchoolValue: this[SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY],
+                     homeSchoolName: BenchmarkSchool.Name,
+                     elementName: "ModLearnDiff",
+                     minValue: BenchmarkCriteria.MinModLearnDiff,
+                     maxValue: BenchmarkCriteria.MaxModLearnDiff
+                     );
+
+            ProfLearningDifRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "ProfLearnDiff",
+                    minValue: BenchmarkCriteria.MinProfLearnDiff,
+                    maxValue: BenchmarkCriteria.MaxProfLearnDiff
+                    );
+
+            SevereLearningDifRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "SevLearnDiff",
+                    minValue: BenchmarkCriteria.MinSevLearnDiff,
+                    maxValue: BenchmarkCriteria.MaxSevLearnDiff
+                    );
+
+            SocialHealthRangeVM = new BenchmarkCriteriaRangeVM(
+                     question: SchoolCharacteristicsQuestions.SOCIAL_HEALTH,
+                     homeSchoolValue: this[SchoolCharacteristicsQuestions.SOCIAL_HEALTH],
+                     homeSchoolName: BenchmarkSchool.Name,
+                     elementName: "SocialHealth",
+                     minValue: BenchmarkCriteria.MinSocialHealth,
+                     maxValue: BenchmarkCriteria.MaxSocialHealth
+                     );
+
+            SpeechNeedsRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.SPEECH_NEEDS,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.SPEECH_NEEDS],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "SpeechNeeds",
+                    minValue: BenchmarkCriteria.MinSpeechNeeds,
+                    maxValue: BenchmarkCriteria.MaxSpeechNeeds
+                    );
+
+            HearingImpairmentRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "HearingImpairment",
+                    minValue: BenchmarkCriteria.MinHearingImpairment,
+                    maxValue: BenchmarkCriteria.MaxHearingImpairment
+                    );
+
+            VisualImpairmentRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "VisualImpairment",
+                    minValue: BenchmarkCriteria.MinVisualImpairment,
+                    maxValue: BenchmarkCriteria.MaxVisualImpairment
+                    );
+
+            MultiSensoryImpairmentRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "MSImpairment",
+                    minValue: BenchmarkCriteria.MinMSImpairment,
+                    maxValue: BenchmarkCriteria.MaxMSImpairment
+                    );
+
+            PhysicalDisabilityRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "PhysicalDisability",
+                    minValue: BenchmarkCriteria.MinPhysicalDisability,
+                    maxValue: BenchmarkCriteria.MaxPhysicalDisability
+                    );
+
+            AutisticDisorderRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.AUTISTIC_DISORDER,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.AUTISTIC_DISORDER],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "AutisticDisorder",
+                    minValue: BenchmarkCriteria.MinAutisticDisorder,
+                    maxValue: BenchmarkCriteria.MaxAutisticDisorder
+                    );
+
+            OtherLearningDifRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "OtherLearningDiff",
+                    minValue: BenchmarkCriteria.MinOtherLearningDiff,
+                    maxValue: BenchmarkCriteria.MaxOtherLearningDiff
+                    );
+        }
+
+        private void BuildPerformanceCriteriaVMs()
+        {
+            Ks2ActualRangeVm = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.KS2_ACTUAL,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.KS2_ACTUAL],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "Ks2Actual",
+                    minValue: BenchmarkCriteria.MinKs2Actual,
+                    maxValue: BenchmarkCriteria.MaxKs2Actual
+                    );
+
+            Ks2ProgressRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.KS2_PROGRESS,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.KS2_PROGRESS],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "Ks2Progress",
+                    minValue: BenchmarkCriteria.MinKs2Progress,
+                    maxValue: BenchmarkCriteria.MaxKs2Progress,
+                    minLimit: -20,
+                    maxLimit: 20,
+                    format: "F2"
+                    );
+
+            AverageAtt8RangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.AVERAGE_ATTAINMENT_8],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "AvAtt8",
+                    minValue: BenchmarkCriteria.MinAvAtt8,
+                    maxValue: BenchmarkCriteria.MaxAvAtt8,
+                    minLimit: -0,
+                    maxLimit: 100,
+                    format: "F1"
+                    );
+
+            Progress8MeasureRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.PROGRESS_8_MEASURE],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "P8Mea",
+                    minValue: BenchmarkCriteria.MinP8Mea,
+                    maxValue: BenchmarkCriteria.MaxP8Mea,
+                    minLimit: -5,
+                    maxLimit: 5
+                    );
+
+            OfstedRatingMultipleChoiceVM = new BenchmarkCriteriaMultipleChoiceVM(
+                    question: SchoolCharacteristicsQuestions.OFSTED_RATING,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.OFSTED_RATING],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "OfstedRating",
+                    options: new List<OptionVM>
+                    {
+                        new OptionVM("Outstanding", "Outstanding", BenchmarkCriteria.OfstedRating),
+                        new OptionVM("Good", "Good", BenchmarkCriteria.OfstedRating),
+                        new OptionVM("Requires improvement", "Requires improvement", BenchmarkCriteria.OfstedRating),
+                        new OptionVM("Inadequate", "Inadequate", BenchmarkCriteria.OfstedRating),
+                        new OptionVM("Not rated", "Not rated", BenchmarkCriteria.OfstedRating)
+                    }
+                    );
+        }
+
+        private void BuildWorkforceCriteriaVMs()
+        {
+            SchoolWorkforceRangeVM = new BenchmarkCriteriaRangeVM(
+                question: SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.SCHOOL_WORKFORCE_FTE],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "TotalSchoolWorkforceFullTimeEquivalent",
+                minValue: BenchmarkCriteria.MinTotalSchoolWorkforceFullTimeEquivalent,
+                maxValue: BenchmarkCriteria.MaxTotalSchoolWorkforceFullTimeEquivalent
+                );
+
+            NumberOfTeachersFTERangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.NUMBER_OF_TEACHERS_FTE],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "TotalNumberOfTeachersFullTimeEquivalent",
+                    minValue: BenchmarkCriteria.MinTotalNumberOfTeachersFullTimeEquivalent,
+                    maxValue: BenchmarkCriteria.MaxTotalNumberOfTeachersFullTimeEquivalent
+                    );
+
+            PercQualifiedTeachersRangeVM = new BenchmarkCriteriaRangeVM(
+                   question: SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS,
+                   homeSchoolValue: this[SchoolCharacteristicsQuestions.PERCENTAGE_QUALIFIED_TEACHERS],
+                   homeSchoolName: BenchmarkSchool.Name,
+                   elementName: "TeachersWithQualifiedTeacherStatus",
+                   minValue: BenchmarkCriteria.MinTeachersWithQualifiedTeacherStatus,
+                   maxValue: BenchmarkCriteria.MaxTeachersWithQualifiedTeacherStatus
+                   );
+
+            SeniorLeadershipFTERangeVM = new BenchmarkCriteriaRangeVM(
+                question: SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.SENIOR_LEADERSHIP_FTE],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "TotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent",
+                minValue: BenchmarkCriteria.MinTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent,
+                maxValue: BenchmarkCriteria.MaxTotalNumberOfTeachersInTheLeadershipGroupFullTimeEquivalent
+                );
+
+            FulltimeTaRangeVM = new BenchmarkCriteriaRangeVM(
+                question: SchoolCharacteristicsQuestions.FULL_TIME_TA,
+                homeSchoolValue: this[SchoolCharacteristicsQuestions.FULL_TIME_TA],
+                homeSchoolName: BenchmarkSchool.Name,
+                elementName: "TotalNumberOfTeachingAssistantsFullTimeEquivalent",
+                minValue: BenchmarkCriteria.MinTotalNumberOfTeachingAssistantsFullTimeEquivalent,
+                maxValue: BenchmarkCriteria.MaxTotalNumberOfTeachingAssistantsFullTimeEquivalent
+                );
+
+            FulltimeOtherRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.FULL_TIME_OTHER,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.FULL_TIME_OTHER],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "FullTimeOther",
+                    minValue: BenchmarkCriteria.MinFullTimeOther,
+                    maxValue: BenchmarkCriteria.MaxFullTimeOther
+                    );
+
+            FulltimeAuxRangeVM = new BenchmarkCriteriaRangeVM(
+                    question: SchoolCharacteristicsQuestions.FULL_TIME_AUX,
+                    homeSchoolValue: this[SchoolCharacteristicsQuestions.FULL_TIME_AUX],
+                    homeSchoolName: BenchmarkSchool.Name,
+                    elementName: "FullTimeAux",
+                    minValue: BenchmarkCriteria.MinFullTimeAux,
+                    maxValue: BenchmarkCriteria.MaxFullTimeAux
+                    );
         }
 
         private List<SchoolCharacteristic> BuildSchoolCharacteristics(SchoolViewModel schoolVM)
