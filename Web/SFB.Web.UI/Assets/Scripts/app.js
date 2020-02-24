@@ -488,6 +488,9 @@
     };
 
     $(function () {
+
+        manageCookies();
+
         $(document).on("click", "a,.js-track", window.DfE.Util.Analytics.TrackClick);
         $(document).on("click", ".expander > span,.label > a", function () {
             var $ele = $(this).closest(".expander");
@@ -500,24 +503,6 @@
             }
 
         });
-        var suppressDynamicHeaderCookie = GOVUK.cookie("suppress-dynamic-header");
-        if (suppressDynamicHeaderCookie === "yes") {
-            $(".header-content__dynamic-header ").hide();
-        } else {
-            $(".header-content__dynamic-header ").show();
-        }
-        $(".js-dismiss-dynamic-header").click(function () {
-            $(".header-content__dynamic-header ").hide();
-            GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
-        });
-
-        var isInNewsPage = window.location.href.toLowerCase().endsWith("/news");
-        var seenVersion = GOVUK.cookie("seen-news-for-version");
-        var lastVersion = $('#version').val();
-        if (seenVersion !== lastVersion && !isInNewsPage) {
-            DfE.Util.ModalRenderer.RenderNewsModal();
-            GOVUK.cookie("seen-news-for-version", lastVersion, { days: 10000 });
-        }
 
         $(".print-link a").click(function () { window.print(); });
         $(document).on("click", "a.button-view-comparison.zero", function ($e) {
@@ -535,3 +520,70 @@
         return Math.log(x) * Math.LOG10E;
     };
 }());
+
+function manageCookies() {
+    var cookiesPolicyCookie = GOVUK.cookie("cookies_policy");
+    if (!cookiesPolicyCookie) {
+        cookiesPolicyCookie = { "essential": true, "settings": false, "usage": false, "campaigns": false };
+        GOVUK.cookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 });
+    } else {
+        cookiesPolicyCookie = JSON.parse(cookiesPolicyCookie);
+    }
+    
+    manageDynamicHeaderAndCookie(cookiesPolicyCookie);
+    manageNewsModalAndCookie(cookiesPolicyCookie);
+    manageGACookies(cookiesPolicyCookie);
+    manageMSCookies(cookiesPolicyCookie);
+}
+
+function manageNewsModalAndCookie(cookiesPolicyCookie) {
+    if (cookiesPolicyCookie.settings) {
+        var isInNewsPage = window.location.href.toLowerCase().endsWith("/news");
+        var seenVersion = GOVUK.cookie("seen-news-for-version");
+        var lastVersion = $('#version').val();
+        if (seenVersion !== lastVersion && !isInNewsPage) {
+            DfE.Util.ModalRenderer.RenderNewsModal();
+            GOVUK.cookie("seen-news-for-version", lastVersion, { days: 10000 });
+        }
+    }
+    else {
+        GOVUK.cookie("seen-news-for-version", null);
+    }
+}
+
+function manageDynamicHeaderAndCookie(cookiesPolicyCookie) {
+    if (cookiesPolicyCookie.settings) {
+        var suppressDynamicHeaderCookie = GOVUK.cookie("suppress-dynamic-header");
+        if (suppressDynamicHeaderCookie === "yes") {
+            $(".header-content__dynamic-header ").hide();
+        }
+        else {
+            $(".header-content__dynamic-header ").show();
+        }
+        $(".js-dismiss-dynamic-header").click(function () {
+            $(".header-content__dynamic-header ").hide();
+            GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
+        });
+    }
+    else {
+        GOVUK.cookie("suppress-dynamic-header", null);
+    }
+}
+
+function manageGACookies(cookiesPolicyCookie) {
+    if (cookiesPolicyCookie.usage) {
+        //init GA
+    }
+    else {
+        GOVUK.cookie("_ga", null);
+        GOVUK.cookie("_gat", null);
+        GOVUK.cookie("_gid", null);
+    }
+}
+
+function manageMSCookies(cookiesPolicyCookie) {
+    if (!cookiesPolicyCookie.usage) {
+        GOVUK.cookie("MC1", null);
+        GOVUK.cookie("MS0", null);
+    }
+}
