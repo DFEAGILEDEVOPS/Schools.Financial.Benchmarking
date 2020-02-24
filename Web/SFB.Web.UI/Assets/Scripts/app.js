@@ -529,11 +529,19 @@ function manageCookies() {
     } else {
         cookiesPolicyCookie = JSON.parse(cookiesPolicyCookie);
     }
-    
+
+    manageCookiePreferencesCookies(cookiesPolicyCookie);
     manageDynamicHeaderAndCookie(cookiesPolicyCookie);
     manageNewsModalAndCookie(cookiesPolicyCookie);
     manageGACookies(cookiesPolicyCookie);
     manageMSCookies(cookiesPolicyCookie);
+}
+
+function manageCookiePreferencesCookies(cookiesPolicyCookie) {
+    if (!cookiesPolicyCookie.settings) {
+        GOVUK.cookie("cookies_preferences_set", null);
+        GOVUK.cookie("seen_cookie_message", null);
+    }
 }
 
 function manageNewsModalAndCookie(cookiesPolicyCookie) {
