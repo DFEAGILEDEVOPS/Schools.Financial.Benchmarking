@@ -76,6 +76,8 @@ $path: "/public/assets/images/";
 
 @import "elements/phase-banner";                  // Alpha and beta banners and tags
 
+@import "cookiesBanner";
+
 // Views
 // ==========================================================================
 @import "views/base";
@@ -172,3 +174,4 @@ $path: "/public/assets/images/";
 .no-top-margin {
     margin-top: 0;
 }
+

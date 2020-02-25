@@ -1,0 +1,131 @@
+﻿.gem-c-cookie-banner#global-cookie-message {
+    background-color: #f3f2f1;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+#global-cookie-message {
+    width: 100%;
+    background-color: #d5e8f3;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.govuk-heading-m {
+    color: #0b0c0c;
+    font-family: "GDS Transport", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 700;
+    font-size: 18px;
+    font-size: 1.125rem;
+    line-height: 1.1111111111;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+@media print {
+    .govuk-heading-m {
+        color: #000000;
+    }
+}
+
+@media print {
+    .govuk-heading-m {
+        font-family: sans-serif;
+    }
+}
+
+@media (min-width: 40.0625em) {
+    .govuk-heading-m {
+        font-size: 24px;
+        font-size: 1.5rem;
+        line-height: 1.25;
+    }
+}
+
+@media print {
+    .govuk-heading-m {
+        font-size: 18pt;
+        line-height: 1.15;
+    }
+}
+
+@media (min-width: 40.0625em) {
+    .govuk-heading-m {
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: 40.0625em) {
+    .govuk-heading-m {
+    font-size: 24px ;
+    line-height: 1.25 ;
+    }
+}
+
+@media (min-width: 40.0625em) {
+    .govuk-heading-m {
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width: 1020px) {
+    .govuk-width-container {
+        max-width: 960px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+.gem-c-cookie-banner__hide-button {
+    float: right;
+    display: inline-block;
+    margin-top: 0;
+    right: 5px;
+    font-size: 1em;
+}
+
+.gem-c-cookie-banner__confirmation-message{
+    display: inline;
+    max-width: 960px;
+}
+
+.gem-c-cookie-banner__button{
+    padding: 0;
+}
+
+.gem-c-cookie-banner__buttons {
+    font-size: 19px;
+    font-size: 1.1875rem;
+    line-height: 1.3157894737;
+}
+
+.gem-c-cookie-banner__message {
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.gem-c-button{
+   font-size: 19px;
+}
+
+.gem-c-cookie-banner {
+    font-size: 16px;
+    line-height: 1.25;
+}
+
+@media (min-width: 40.0625em) {
+    .gem-c-cookie-banner#global-cookie-message p {
+        font-size: 19px;        
+        line-height: 1.3157894737;
+    }
+}
+
+@media (min-width: 48.0625em) {
+    .gem-c-cookie-banner__button .govuk-button {
+        width: 90%;
+        text-align: center;
+    }
+}

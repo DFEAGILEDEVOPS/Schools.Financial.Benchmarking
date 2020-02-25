@@ -542,6 +542,12 @@ function manageCookiePreferencesCookies(cookiesPolicyCookie) {
         GOVUK.cookie("cookies_preferences_set", null);
         GOVUK.cookie("seen_cookie_message", null);
     }
+
+    if (!GOVUK.cookie("cookies_preferences_set")) {
+        $("#global-cookie-message").show();
+    } else {
+        $("#global-cookie-message").hide();
+    }
 }
 
 function manageNewsModalAndCookie(cookiesPolicyCookie) {
@@ -590,7 +596,7 @@ function manageGACookies(cookiesPolicyCookie) {
 }
 
 function manageMSCookies(cookiesPolicyCookie) {
-    if (!cookiesPolicyCookie.usage) {
+    if (!cookiesPolicyCookie.campaigns) {
         GOVUK.cookie("MC1", null);
         GOVUK.cookie("MS0", null);
     }
