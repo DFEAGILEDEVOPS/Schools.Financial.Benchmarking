@@ -282,7 +282,6 @@
     <Compile Include="Controllers\BenchmarkChartsController.cs" />
     <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
     <Compile Include="Controllers\BenchmarkListController.cs" />
-    <Compile Include="Controllers\CookiesController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
@@ -693,7 +692,7 @@
     <Content Include="Views\BenchmarkCharts\Partials\AdvancedHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\BasicHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\TabContent.cshtml" />
-    <Content Include="Views\Cookies\Index.cshtml" />
+    <Content Include="Views\Help\CookieDetails.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedBasicCriteria.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedAdvancedCriteria.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
@@ -773,6 +772,7 @@
     <Content Include="public\govuk_template\assets\stylesheets\fonts\light-f591b13f7d-v2.woff" />
     <Content Include="Views\Shared\Partials\Search\NoDefaultTab.cshtml" />
     <Content Include="Views\Shared\Partials\Criteria\PhaseCriteria.cshtml" />
+    <Content Include="Views\Help\Cookies.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

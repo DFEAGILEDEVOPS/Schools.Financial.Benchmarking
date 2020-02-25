@@ -37,6 +37,17 @@ namespace SFB.Web.UI.Controllers
             return View(new DataQueryViewModel());
         }
 
+        public ActionResult Cookies()
+        {
+            return View();
+        }
+
+        [Route("Help/cookie-details")]
+        public ActionResult CookieDetails()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<ActionResult> DataQuerySubmission(DataQueryViewModel dataQuery)

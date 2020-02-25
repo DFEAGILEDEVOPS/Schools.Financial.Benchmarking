@@ -34,14 +34,14 @@
   display: block;
   clear: both; }
 
-#global-header-bar, #global-cookie-message p, #footer .footer-wrapper {
+#global-header-bar,  #footer .footer-wrapper {
   max-width: 960px;
   margin: 0 15px; }
   @media (min-width: 641px) {
-    #global-header-bar, #global-cookie-message p, #footer .footer-wrapper {
+    #global-header-bar,  #footer .footer-wrapper {
       margin: 0 30px; } }
   @media (min-width: 1020px) {
-    #global-header-bar, #global-cookie-message p, #footer .footer-wrapper {
+    #global-header-bar,  #footer .footer-wrapper {
       margin: 0 auto; } }
 
 #global-header .header-wrapper:after, #global-header .header-wrapper .header-global:after, #global-header .header-wrapper .header-global .header-logo:after, #global-header .header-proposition #proposition-link:after,

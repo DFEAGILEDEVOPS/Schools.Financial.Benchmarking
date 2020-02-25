@@ -102,7 +102,7 @@
         </div>
     }
 
-    <div id="global-cookie-message" class="gem-c-cookie-banner govuk-clearfix" data-module="cookie-banner" role="region" aria-label="cookie banner" data-nosnippet="" style="display: block;">
+    <div id="global-cookie-message" class="gem-c-cookie-banner govuk-clearfix" role="region" aria-label="cookie banner" data-nosnippet="" style="display: none;">
         <div class="gem-c-cookie-banner__wrapper govuk-width-container">
             <div class="grid-row">
                 <div class="column-two-thirds">
@@ -112,10 +112,10 @@
                     </div>
                     <div class="gem-c-cookie-banner__buttons">
                         <div class="gem-c-cookie-banner__button gem-c-cookie-banner__button-accept column-half">
-                            <button class="button gem-c-button govuk-button gem-c-button--inline" type="submit" data-module="track-click" data-accept-cookies="true" data-track-category="cookieBanner" data-track-action="Cookie banner accepted">Accept all cookies</button>
+                            <button id="acceptAllCookies" class="button gem-c-button govuk-button gem-c-button--inline" type="submit">Accept all cookies</button>
                         </div>
                         <div class="gem-c-cookie-banner__button gem-c-cookie-banner__button-settings column-half">
-                            <a class="button gem-c-button govuk-button gem-c-button--inline" role="button" data-module="track-click" data-track-category="cookieBanner" data-track-action="Cookie banner settings clicked" href="/help/cookies">Set cookie preferences</a>
+                            <a class="button gem-c-button govuk-button gem-c-button--inline" role="button" href="/help/cookies">Set cookie preferences</a>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
             <p class="gem-c-cookie-banner__confirmation-message">
                 You’ve accepted all cookies. You can <a class="govuk-link" href="/help/cookies" data-module="track-click" data-track-category="cookieBanner" data-track-action="Cookie banner settings clicked from confirmation">change your cookie settings</a> at any time.
             </p>
-            <button class="link-button gem-c-cookie-banner__hide-button" data-hide-cookie-banner="true" data-module="track-click" data-track-category="cookieBanner" data-track-action="Hide cookie banner">Hide</button>
+            <button id="acceptAllCookiesHide" class="link-button gem-c-cookie-banner__hide-button">Hide</button>
         </div>
     </div>
 
@@ -191,7 +191,7 @@
                             <a href="/help/guidance">Help</a>
                         </li>
                         <li>
-                            <a href="/cookies">Cookies</a>
+                            <a href="/help/cookies">Cookies</a>
                         </li>
                         <li>
                             <a target="_blank" rel="noopener noreferrer" href="https://form.education.gov.uk/fillform.php?self=1&form_id=cCCNJ1xSfBE&noLoginPrompt=1">Contact<span class="visuallyhidden"> Opens in a new window</span></a>
