@@ -29,6 +29,17 @@
         location.href = '#' + elementId;
     };
 
+    window.DfE.Util.getFormData = function ($form) {
+        var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function (n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+    };
+
     window.DfE.Util.clearDropdowns = function (event) {
         if (event.target.activeElement.id !== "DownloadLink") {
             $('select').prop('selectedIndex', -1);
@@ -530,7 +541,7 @@ function manageCookies() {
         cookiesPolicyCookie = JSON.parse(cookiesPolicyCookie);
     }
 
-    manageCookiePreferencesCookies(cookiesPolicyCookie);
+    manageCookiePreferencesCookies();
     manageDynamicHeaderAndCookie(cookiesPolicyCookie);
     manageNewsModalAndCookie(cookiesPolicyCookie);
     manageGACookies(cookiesPolicyCookie);
@@ -550,13 +561,10 @@ function manageCookies() {
     });
 }
 
-function manageCookiePreferencesCookies(cookiesPolicyCookie) {
-    if (!cookiesPolicyCookie.settings) {
-        GOVUK.cookie("cookies_preferences_set", null);
-        GOVUK.cookie("seen_cookie_message", null);
-    }
+function manageCookiePreferencesCookies() {
+    GOVUK.cookie("seen_cookie_message", null); //legacy cookie
 
-    if (!GOVUK.cookie("cookies_preferences_set")) {
+    if (!GOVUK.cookie("cookies_preferences_set") && !window.location.href.toLowerCase().includes("/help/cookies")) {
         $("#global-cookie-message").show();
     } else {
         $("#global-cookie-message").hide();
@@ -582,14 +590,14 @@ function manageDynamicHeaderAndCookie(cookiesPolicyCookie) {
     if (cookiesPolicyCookie.settings) {
         var suppressDynamicHeaderCookie = GOVUK.cookie("suppress-dynamic-header");
         if (suppressDynamicHeaderCookie === "yes") {
-            $(".header-content__dynamic-header ").hide();
+            $(".header-content__dynamic-header").hide();
         }
     }
     else {
         GOVUK.cookie("suppress-dynamic-header", null);
         $(".header-content__dynamic-header ").show();
         $(".js-dismiss-dynamic-header").click(function () {
-            $(".header-content__dynamic-header ").hide();
+            $(".header-content__dynamic-header").hide();
             GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
         });
     }

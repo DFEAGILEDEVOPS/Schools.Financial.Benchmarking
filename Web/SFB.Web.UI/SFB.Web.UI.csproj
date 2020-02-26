@@ -308,6 +308,7 @@
     <Compile Include="Models\BenchmarkSchoolModel.cs" />
     <Compile Include="Models\BestInClassCharacteristicsViewModel.cs" />
     <Compile Include="Models\CompareEntityBase.cs" />
+    <Compile Include="Models\CookiePolicyModel.cs" />
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
     <Compile Include="Models\DataQueryViewModel.cs" />
@@ -380,6 +381,7 @@
     <Content Include="Assets\Sass\views\_add-schools-manually.scss" />
     <Content Include=".editorconfig" />
     <Content Include="Assets\Sass\_cookiesBanner.scss" />
+    <Content Include="Assets\Sass\views\_cookies-settings.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
@@ -604,7 +606,6 @@
     <Content Include="Assets\Sass\_variables.scss" />
     <Content Include="public\govuk_template\.bower.json" />
     <Content Include="public\govuk_template\VERSION" />
-    <Content Include="Assets\Sass\views\_employee-details.scss" />
     <Content Include="Assets\Sass\views\_search-results.scss" />
     <Content Include="Assets\Sass\views\_user-access.scss" />
     <Content Include="Assets\Sass\views\_dashboard.scss" />
@@ -627,7 +628,7 @@
     <Content Include="Assets\Sass\views\_simple-characteristics.scss" />
     <Content Include="Assets\Sass\elements\forms\_form-multiple-choice.scss" />
     <Content Include="Assets\Sass\views\_advanced-school-characteristics.scss" />
-    <Content Include="Assets\Sass\views\_cookies_page.scss" />
+    <Content Include="Assets\Sass\views\_cookies-page.scss" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>

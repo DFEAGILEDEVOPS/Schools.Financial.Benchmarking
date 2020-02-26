@@ -288,6 +288,7 @@
         public const string COMPARISON_LIST = "sfb_comparison_list";
         public const string COMPARISON_LIST_MAT = "sfb_comparison_list_mat";
         public const string COMPARISON_LIST_MANUAL = "sfb_comparison_list_manual";
+        public const string COOKIE_POLICY = "cookies_policy";
     }
 
     public struct DataGroups

@@ -81,7 +81,6 @@ $path: "/public/assets/images/";
 // Views
 // ==========================================================================
 @import "views/base";
-@import "views/employee-details";
 @import "views/search-results";
 @import "views/user-access";
 @import "views/dashboard";
@@ -101,7 +100,8 @@ $path: "/public/assets/images/";
 @import "views/simple-characteristics";
 @import "views/overwrite-strategy";
 @import "views/guidance";
-@import "views/cookies_page";
+@import "views/cookies-page";
+@import "views/cookies-settings";
 @import "views/trust-comparison";
 @import "views/bic-characteristics";
 @import "views/add-schools-manually";

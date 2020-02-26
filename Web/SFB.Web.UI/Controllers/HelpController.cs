@@ -1,4 +1,6 @@
 ﻿using Microsoft.ApplicationInsights;
+using Newtonsoft.Json;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Models;
 using System;
@@ -39,7 +41,15 @@ namespace SFB.Web.UI.Controllers
 
         public ActionResult Cookies()
         {
-            return View();
+            ViewBag.referrer = Request.UrlReferrer;
+
+            var cookiePolicy = new CookiePolicyModel() { Essential = true };
+            var cookie = System.Web.HttpContext.Current.Request.Cookies[CookieNames.COOKIE_POLICY];
+            if (cookie != null)
+            {
+                cookiePolicy = JsonConvert.DeserializeObject<CookiePolicyModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml });
+            }
+            return View(cookiePolicy);
         }
 
         [Route("Help/cookie-details")]

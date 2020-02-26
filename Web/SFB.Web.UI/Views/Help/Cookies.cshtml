@@ -1,1 +1,156 @@
-﻿Cookie Settings
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "cookies-settings";
+}
+
+@model SFB.Web.UI.Models.CookiePolicyModel
+
+<div class="grid-row">
+    <main id="content" role="main" class="group help-page cookie-settings column-two-thirds">
+        <div class="cookie-settings__confirmation" style="display:none">
+            <section class="gem-c-notice mb-3" aria-label="Notice" aria-live="polite" role="region">
+                <h2 class="heading-medium mt-0">Your cookie settings were saved</h2>
+
+                <p>Government services may set additional cookies and, if so, will have their own cookie policy and banner.</p>
+                <a class="govuk-link cookie-settings__prev-page" href="@ViewBag.referrer" data-module="track-click" data-track-category="cookieSettings" data-track-action="Back to previous page">
+                    Go back to the page you were looking at
+                </a>
+            </section>
+        </div>
+
+        <div>
+            <h1 class="heading-xlarge page-heading">
+                Cookies on GOV.UK
+            </h1>
+        </div>
+
+        <div>
+            <p>Cookies are files saved on your phone, tablet or computer when you visit a website.</p>
+            <p>We use cookies to store information about how you use the GOV.UK website, such as the pages you visit.</p>
+        </div>
+
+        <h2 class="heading-medium">Cookie settings</h2>
+
+        <div>
+            <p>We use 4 types of cookie. You can choose which cookies you're happy for us to use.</p>
+
+            <form id="cookie-settings-form">
+
+                <div class="form-group">
+                    <fieldset aria-describedby="hint-05e792cb" class="inline">
+
+                        <legend>Cookies that measure website use</legend>
+
+                        <div id="hint-05e792cb" class="mb-1 form-hint">
+                            We use Google Analytics to measure how you use the website so we can improve it based on user needs. Google Analytics sets cookies that store anonymised information about:
+                            <ul class="list list-bullet cookies-list-bullet">
+                                <li>how you got to the site</li>
+                                <li>the pages you visit on GOV.UK and government digital services, and how long you spend on each page</li>
+                                <li>what you click on while you're visiting the site</li>
+                            </ul>
+                            We do not allow Google to use or share the data about how you use this site.
+                        </div>
+
+                        <div>
+                            <div class="multiple-choice">
+                                <input type="radio" name="usage" id="radio-abcdd7c2-0" value="on" checked="@Model.Usage">
+                                <label for="radio-abcdd7c2-0">
+                                    <span>On</span>
+                                </label>
+                            </div>
+                            <div class="multiple-choice">
+                                <input type="radio" name="usage" id="radio-abcdd7c2-1" value="off" checked="@(!Model.Usage)">
+                                <label for="radio-abcdd7c2-1">
+                                    <span>Off</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <fieldset aria-describedby="hint-0da31e3d" class="inline">
+                        <legend>Cookies that help with our communications and marketing</legend>
+                        <div id="hint-0da31e3d" class="mb-1 form-hint">
+                            These cookies may be set by third party websites and do things like measure how you view YouTube videos that are on GOV.UK.
+                        </div>
+                        <div>
+                            <div class="multiple-choice">
+                                <input type="radio" name="campaigns" id="radio-d7c57257-0" value="on" checked="@Model.Campaigns">
+
+                                <label for="radio-d7c57257-0">
+                                    <span class="translation_missing">On</span>
+                                </label>
+                            </div>
+
+                            <div class="multiple-choice">
+                                <input type="radio" name="campaigns" id="radio-d7c57257-1" value="off" checked="@(!Model.Campaigns)">
+                                <label for="radio-d7c57257-1">
+                                    <span>Off</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="govuk-form-group">
+                    <fieldset aria-describedby="hint-b291b8f4" class="inline">
+                        <legend>Cookies that remember your settings</legend>
+
+                        <div id="hint-b291b8f4" class="mb-1 form-hint">
+                            These cookies do things like remember your preferences and the choices you make, to personalise your experience of using the site.
+                        </div>
+                        <div>
+                            <div class="multiple-choice">
+                                <input type="radio" name="settings" id="radio-209c3582-0" value="on" checked="@Model.Settings" />
+                                <label for="radio-209c3582-0">
+                                    <span>On</span>
+                                </label>
+                            </div>
+                            <div class="multiple-choice">
+                                <input type="radio" name="settings" id="radio-209c3582-1" value="off" checked="@(!Model.Settings)">
+                                <label for="radio-209c3582-1">
+                                    <span>Off</span>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="govuk-govspeak">
+                    <h2 class="heading-medium">Strictly necessary cookies</h2>
+                    <p>These essential cookies do things like remember your progress through a form (for example a licence application)</p>
+                    <p>They always need to be on.</p>
+                    <p>
+                        <a href="/help/cookie-details">
+                            Find out more about cookies on GOV.UK
+                        </a>
+                    </p>
+                </div>
+                <button class="button" type="submit" id="cookie-settings-button">Save changes</button>
+            </form>
+        </div>
+
+        <div class="cookie-settings__gov-services">
+            <h2 class="heading-medium">Government services</h2>
+            <p>Most services we link to are run by different government departments, for example DWP’s Universal Credit online, DVLA’s vehicle tax service, or HMRC’s webchat. These services may set additional cookies and, if so, will have their own cookie policy and banner linking to it.</p>
+        </div>
+    </main>
+
+</div>
+
+@section ViewScripts{
+    <script>
+        $("#cookie-settings-button").click(function (event) {
+            event.preventDefault();
+            var form = DfE.Util.getFormData($('#cookie-settings-form'));
+            var cookiesPolicyCookie = { "essential": true, "settings": form.settings === "on", "usage": form.usage === "on", "campaigns": form.campaigns === "on" };
+            GOVUK.cookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 });
+            GOVUK.cookie("cookies_preferences_set", "true", { days: 365 });
+            $(".cookie-settings__confirmation").show();
+            $("header").get(0).scrollIntoView();
+        });
+    </script>
+}
+
+
