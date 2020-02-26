@@ -524,7 +524,7 @@
 function manageCookies() {
     var cookiesPolicyCookie = GOVUK.cookie("cookies_policy");
     if (!cookiesPolicyCookie) {
-        cookiesPolicyCookie = { "essential": true, "settings": true, "usage": false, "campaigns": false };
+        cookiesPolicyCookie = { "essential": true, "settings": false, "usage": false, "campaigns": false };
         GOVUK.cookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 });
     } else {
         cookiesPolicyCookie = JSON.parse(cookiesPolicyCookie);
@@ -575,9 +575,6 @@ function manageNewsModalAndCookie(cookiesPolicyCookie) {
     }
     else {
         GOVUK.cookie("seen-news-for-version", null);
-        if (!isInNewsPage) {
-            DfE.Util.ModalRenderer.RenderNewsModal();
-        }
     }
 }
 
