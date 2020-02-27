@@ -545,7 +545,7 @@ function manageCookies() {
     manageDynamicHeaderAndCookie(cookiesPolicyCookie);
     manageNewsModalAndCookie(cookiesPolicyCookie);
     manageGACookies(cookiesPolicyCookie);
-    manageMSCookies(cookiesPolicyCookie);
+    //manageMSCookies(cookiesPolicyCookie);
 
     $("#acceptAllCookies").click(function () {
         var cookiesPolicyCookie = { "essential": true, "settings": true, "usage": true, "campaigns": true };
@@ -611,9 +611,9 @@ function manageGACookies(cookiesPolicyCookie) {
     }
 }
 
-function manageMSCookies(cookiesPolicyCookie) {
-    if (!cookiesPolicyCookie.campaigns) {
-        GOVUK.cookie("MC1", null);
-        GOVUK.cookie("MS0", null);
-    }
-}
+//function manageMSCookies(cookiesPolicyCookie) {
+//    if (!cookiesPolicyCookie.campaigns) {
+//        GOVUK.cookie("MC1", null);
+//        GOVUK.cookie("MS0", null);
+//    }
+//}
