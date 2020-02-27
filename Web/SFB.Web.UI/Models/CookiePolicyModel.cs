@@ -12,8 +12,5 @@ namespace SFB.Web.UI.Models
 
         [JsonProperty(PropertyName = "usage")]
         public bool Usage { get; set; }
-
-        [JsonProperty(PropertyName = "campaigns")]
-        public bool Campaigns { get; set; }
     }
 }

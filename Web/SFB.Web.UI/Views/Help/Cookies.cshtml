@@ -32,7 +32,7 @@
         <h2 class="heading-medium">Cookie settings</h2>
 
         <div>
-            <p>We use 4 types of cookie. You can choose which cookies you're happy for us to use.</p>
+            <p>We use 3 types of cookie. You can choose which cookies you're happy for us to use.</p>
 
             <form id="cookie-settings-form">
 
@@ -68,7 +68,7 @@
                     </fieldset>
                 </div>
 
-                <div class="form-group">
+                @*<div class="form-group">
                     <fieldset aria-describedby="hint-0da31e3d" class="inline">
                         <legend>Cookies that help with our communications and marketing</legend>
                         <div id="hint-0da31e3d" class="mb-1 form-hint">
@@ -91,7 +91,7 @@
                             </div>
                         </div>
                     </fieldset>
-                </div>
+                </div>*@
 
                 <div class="govuk-form-group">
                     <fieldset aria-describedby="hint-b291b8f4" class="inline">
@@ -119,24 +119,18 @@
 
                 <div class="govuk-govspeak">
                     <h2 class="heading-medium">Strictly necessary cookies</h2>
-                    <p>These essential cookies do things like remember your progress through a form (for example a licence application)</p>
+                    <p>These essential cookies do things like remembering your benchmark schools list between your page changes and your visits to our service, essential for using Schools Financial Benchmarking</p>
                     <p>They always need to be on.</p>
                     <p>
                         <a href="/help/cookie-details">
-                            Find out more about cookies on GOV.UK
+                            Find out more about cookies on Schools Financial Benchmarking
                         </a>
                     </p>
                 </div>
                 <button class="button" type="submit" id="cookie-settings-button">Save changes</button>
             </form>
         </div>
-
-        <div class="cookie-settings__gov-services">
-            <h2 class="heading-medium">Government services</h2>
-            <p>Most services we link to are run by different government departments, for example DWP’s Universal Credit online, DVLA’s vehicle tax service, or HMRC’s webchat. These services may set additional cookies and, if so, will have their own cookie policy and banner linking to it.</p>
-        </div>
     </div>
-
 </div>
 
 @section ViewScripts{
@@ -144,7 +138,7 @@
         $("#cookie-settings-button").click(function (event) {
             event.preventDefault();
             var form = DfE.Util.getFormData($('#cookie-settings-form'));
-            var cookiesPolicyCookie = { "essential": true, "settings": form.settings === "on", "usage": form.usage === "on", "campaigns": form.campaigns === "on" };
+            var cookiesPolicyCookie = { "essential": true, "settings": form.settings === "on", "usage": form.usage === "on" };
             GOVUK.cookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 });
             GOVUK.cookie("cookies_preferences_set", "true", { days: 365 });
             $(".cookie-settings__confirmation").show();
