@@ -301,17 +301,34 @@ namespace SFB.Web.UI.Controllers
             var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
             if (comparisonList?.BenchmarkSchools?.Count > 0 && !comparisonList.BenchmarkSchools.All(s => s.Urn == comparisonList.HomeSchoolUrn))
             {
-                if (comparisonList.HomeSchoolUrn == null)
+                SchoolViewModel vm;
+                if (comparisonList?.BenchmarkSchools?.Count + manualComparisonList.BenchmarkSchools.Count > ComparisonListLimit.LIMIT)
                 {
-                    var vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
-                    ViewBag.referrer = Request.UrlReferrer;
-                    return View(vm);
+                    if (comparisonList.HomeSchoolUrn == null)
+                    {
+                        vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
+                    }
+                    else
+                    {
+                        var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                        vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
+                    }
+                    ViewBag.referrer = Request?.UrlReferrer;
+                    return View("OverwriteReplace", vm);
                 }
                 else
                 {
-                    var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
-                    var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
-                    ViewBag.referrer = Request.UrlReferrer;
+                    if (comparisonList.HomeSchoolUrn == null)
+                    {
+                        vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
+                        return View(vm);
+                    }
+                    else
+                    {
+                        var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                        vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
+                    }
+                    ViewBag.referrer = Request?.UrlReferrer;
                     return View(vm);
                 }
             }
@@ -341,21 +358,20 @@ namespace SFB.Web.UI.Controllers
                 case BenchmarkListOverwriteStrategy.Add:
                     if (comparisonList.BenchmarkSchools.Count + manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn).Count()  > ComparisonListLimit.LIMIT)
                     {
+                        SchoolViewModel vm = null;
                         if (comparisonList.HomeSchoolUrn == null)
                         {
-                            var vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
-                            vm.ErrorMessage = ErrorMessages.BMBasketLimitExceed;
-                            ViewBag.referrer = referrer;
-                            return View("OverwriteStrategy", vm);
+                            vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
                         }
                         else
                         {
                             var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
-                            var vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
-                            vm.ErrorMessage = ErrorMessages.BMBasketLimitExceed;
-                            ViewBag.referrer = referrer;
-                            return View("OverwriteStrategy", vm);
+                            vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
                         }
+
+                        vm.ErrorMessage = ErrorMessages.BMBasketLimitExceed;
+                        ViewBag.referrer = referrer;
+                        return View("OverwriteStrategy", vm);
                     }
                     else
                     {

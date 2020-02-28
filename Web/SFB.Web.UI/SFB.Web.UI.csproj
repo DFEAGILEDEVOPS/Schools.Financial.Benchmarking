@@ -774,6 +774,7 @@
     <Content Include="Views\Shared\Partials\Search\NoDefaultTab.cshtml" />
     <Content Include="Views\Shared\Partials\Criteria\PhaseCriteria.cshtml" />
     <Content Include="Views\Help\Cookies.cshtml" />
+    <Content Include="Views\ManualComparison\OverwriteReplace.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
