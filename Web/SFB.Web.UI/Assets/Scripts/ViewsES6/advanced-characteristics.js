@@ -73,6 +73,7 @@
                     $('#spinnerPlaceHolder').hide();
                     $("#schoolCount").html(`<span id='countPart' class='bold-xsmall'>${count}</span><span id='rest'>${restHtml}</span>`);
                     $("#schoolCount").show();
+                    $("[name='BasketCount']").val(count);
                 }, 500);
 
 

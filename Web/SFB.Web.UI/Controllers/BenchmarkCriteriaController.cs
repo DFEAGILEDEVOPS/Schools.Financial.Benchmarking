@@ -296,7 +296,7 @@ namespace SFB.Web.UI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult OverwriteStrategy(int? urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, 
-            ComparisonArea areaType, int? lacode, string schoolName, bool excludePartial = false)
+            ComparisonArea areaType, int? lacode, string schoolName, int basketCount, bool excludePartial = false)
         {
             ViewBag.URN = urn;
             ViewBag.HomeSchoolName = schoolName;
@@ -327,15 +327,22 @@ namespace SFB.Web.UI.Controllers
                 }
             }
 
-            if ((benchmarkList.BenchmarkSchools.Count > 1) 
-                || (benchmarkList.BenchmarkSchools.Count == 1 && benchmarkList.BenchmarkSchools[0].Urn != benchmarkList.HomeSchoolUrn))
+            if ((benchmarkList.BenchmarkSchools.Count > 1) || 
+                (benchmarkList.BenchmarkSchools.Count == 1 && benchmarkList.BenchmarkSchools[0].Urn != benchmarkList.HomeSchoolUrn))
             {
                 criteria.ComparisonList = benchmarkList;
                 if(criteria.AdvancedCriteria == null)
                 {
                     criteria.AdvancedCriteria = new BenchmarkCriteria();
                 }
-                return View(criteria);
+                if (benchmarkList.BenchmarkSchools.Count + basketCount > ComparisonListLimit.LIMIT)
+                {
+                    return View("OverwriteReplace", criteria);
+                }
+                else
+                {
+                    return View(criteria);
+                }
             }
             else
             {
