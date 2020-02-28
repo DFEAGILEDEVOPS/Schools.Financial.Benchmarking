@@ -108,7 +108,7 @@ namespace SFB.Web.UI.Models
 
         public string IsPost16 => GetString(EdubaseDataFieldNames.OFFICIAL_6_FORM) == "Has a sixth form" ? "Yes" : "No";
 
-        public string HasNursery => GetInt(EdubaseDataFieldNames.STAT_LOW) <= 3 ? "Yes" : "No";
+        public string HasNursery => GetString(EdubaseDataFieldNames.HAS_NURSERY) == "Has Nursery Classes" ? "Yes" : "No";
 
         public string OpenDate
         {

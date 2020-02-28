@@ -65,6 +65,9 @@ namespace SFB.Web.ApplicationCore.Entities
         [JsonProperty(PropertyName = EdubaseDataFieldNames.HEAD_FIRST_NAME)]
         public string HeadFirstName;
 
+        [JsonProperty(PropertyName = EdubaseDataFieldNames.HAS_NURSERY)]
+        public string HasNursery;
+
         [JsonProperty(PropertyName = EdubaseDataFieldNames.HEAD_LAST_NAME)]
         public string HeadLastName;
 

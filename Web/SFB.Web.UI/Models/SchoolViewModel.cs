@@ -168,7 +168,7 @@ namespace SFB.Web.UI.Models
 
         public string IsPost16 => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
-        public string HasNursery => ContextDataModel.StatutoryLowAge <= 3  ?  "Yes" : "No";
+        public string HasNursery => ContextDataModel.HasNursery == "Has Nursery Classes" ?  "Yes" : "No";
 
         public string Address => $"{ContextDataModel.Street}, {ContextDataModel.Town}, {ContextDataModel.Postcode}";
 
