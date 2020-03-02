@@ -67,6 +67,11 @@ namespace SFB.Web.UI.Controllers
 
             var trustVM = await BuildTrustVMAsync(companyNo, academies, tab, chartGroup, financing);
 
+            if (!trustVM.HasLatestYearFinancialData)
+            {
+                return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", companyNo } });
+            }
+
             UnitType unitType;
             switch (tab)
             {
@@ -140,12 +145,6 @@ namespace SFB.Web.UI.Controllers
 
             trustVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(trustVM.CompanyNo, matFinancing);
 
-            //if (trustVM.HistoricalFinancialDataModels.Count > 0)
-            //{
-            //    trustVM.TotalRevenueIncome = trustVM.HistoricalFinancialDataModels.Last().TotalIncome;
-            //    trustVM.TotalRevenueExpenditure = trustVM.HistoricalFinancialDataModels.Last().TotalExpenditure;
-            //    trustVM.InYearBalance = trustVM.HistoricalFinancialDataModels.Last().InYearBalance;
-            //}
             return trustVM;
         }
 
