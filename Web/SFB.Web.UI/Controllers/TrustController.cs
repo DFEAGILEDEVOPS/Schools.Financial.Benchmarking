@@ -65,12 +65,7 @@ namespace SFB.Web.UI.Controllers
 
             var academies = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo).OrderBy(a => a.EstablishmentName).ToList();
 
-            if(academies.Count == 0)
-            {
-                return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", companyNo } });
-            }
- 
-            var trustVM = await BuildTrustVMAsync(companyNo, academies.First().TrustName, academies, tab, chartGroup, financing);
+            var trustVM = await BuildTrustVMAsync(companyNo, academies, tab, chartGroup, financing);
 
             UnitType unitType;
             switch (tab)
@@ -102,7 +97,7 @@ namespace SFB.Web.UI.Controllers
         {
             var dataResponse = _financialDataService.GetAcademiesByCompanyNumber(LatestMATTerm(), companyNo);
 
-            var trustVM = await BuildTrustVMAsync(companyNo, name, dataResponse, revGroup, chartGroup, financing);
+            var trustVM = await BuildTrustVMAsync(companyNo, dataResponse, revGroup, chartGroup, financing);
 
             _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, LatestMATTerm(), revGroup, unit, EstablishmentType.MAT);
 
@@ -121,7 +116,7 @@ namespace SFB.Web.UI.Controllers
 
             var response = _financialDataService.GetAcademiesByCompanyNumber(term, companyNo);
 
-            var trustVM = await BuildTrustVMAsync(companyNo, name, response, TabType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
+            var trustVM = await BuildTrustVMAsync(companyNo, response, TabType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
 
             var termsList = _financialDataService.GetActiveTermsForMatCentral();
             _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, termsList.First(), TabType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, EstablishmentType.MAT);
@@ -133,10 +128,10 @@ namespace SFB.Web.UI.Controllers
                          $"HistoricalData-{name}.csv");
         }
 
-        private async Task<TrustViewModel> BuildTrustVMAsync(int companyNo, string name, List<AcademiesContextualDataObject> academiesList, TabType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
+        private async Task<TrustViewModel> BuildTrustVMAsync(int companyNo, List<AcademiesContextualDataObject> academiesList, TabType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
         {
             var comparisonListVM = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var trustVM = new TrustViewModel(companyNo, name, academiesList, comparisonListVM);
+            var trustVM = new TrustViewModel(companyNo, academiesList, comparisonListVM);
             
             trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);
             trustVM.ChartGroups = _historicalChartBuilder.Build(tab, trustVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
