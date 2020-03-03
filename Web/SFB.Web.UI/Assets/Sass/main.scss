@@ -175,3 +175,9 @@ $path: "/public/assets/images/";
     margin-top: 0;
 }
 
+
+@include media(tablet) {
+     .aside {
+        margin: 0 -15px;
+    }
+}

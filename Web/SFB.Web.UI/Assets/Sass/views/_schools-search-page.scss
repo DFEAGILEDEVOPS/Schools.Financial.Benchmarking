@@ -2,6 +2,10 @@
 
     @include highlighting;
 
+    @include media(tablet) {
+        margin: 0 -15px;
+    }
+
     .home-school-section {
         margin-top: 30px;
         margin-bottom: 30px;
