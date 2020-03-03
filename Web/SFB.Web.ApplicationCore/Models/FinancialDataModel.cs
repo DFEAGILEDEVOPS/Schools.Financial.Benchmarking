@@ -366,7 +366,7 @@ namespace SFB.Web.ApplicationCore.Models
         {
             get
             {
-                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY))
+                if (FinancialDataObjectModel?.OverallPhaseBreakdown != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY))
                 {
                     return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRIMARY];
                 }
@@ -379,7 +379,7 @@ namespace SFB.Web.ApplicationCore.Models
         {
             get
             {
-                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY))
+                if (FinancialDataObjectModel?.OverallPhaseBreakdown != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY))
                 {
                     return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SECONDARY];
                 }
@@ -392,7 +392,7 @@ namespace SFB.Web.ApplicationCore.Models
         {
             get
             {
-                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL))
+                if (FinancialDataObjectModel?.OverallPhaseBreakdown != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL))
                 {
                     return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_SPECIAL];
                 }
@@ -405,7 +405,7 @@ namespace SFB.Web.ApplicationCore.Models
         {
             get
             {
-                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU))
+                if (FinancialDataObjectModel?.OverallPhaseBreakdown != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU))
                 {
                     return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_PRU];
                 }
@@ -418,7 +418,7 @@ namespace SFB.Web.ApplicationCore.Models
         {
             get
             {
-                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP))
+                if (FinancialDataObjectModel?.OverallPhaseBreakdown != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP))
                 {
                     return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AP];
                 }
@@ -431,7 +431,7 @@ namespace SFB.Web.ApplicationCore.Models
         {
             get
             {
-                if (FinancialDataObjectModel != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT))
+                if (FinancialDataObjectModel?.OverallPhaseBreakdown != null && FinancialDataObjectModel.OverallPhaseBreakdown.ContainsKey(SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT))
                 {
                     return FinancialDataObjectModel.OverallPhaseBreakdown[SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE_CROSS_AT];
                 }
