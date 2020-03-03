@@ -74,28 +74,57 @@
 </div>
 
 <div class="grid-row">
-    <div class="column-full">
-        <div class="result-list-summary">
-            As of @Model.LatestTerm this trust is made up of <span class="bold">@Model.AcademiesContextualCount</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. We hold finance for <span class="bold">@Model.AcademiesList.Count</span> of them. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
-            <a href="/TrustSchools?companyNo=@Model.CompanyNo&matname=@Model.Name">Select schools to compare</a>
+    @if (Model.AcademiesList.Count > 0)
+    {
+        <div class="column-full">
+            <div class="result-list-summary">
+                As of @Model.LatestTerm this trust is made up of <span class="bold">@Model.AcademiesContextualCount</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. We hold finance for <span class="bold">@Model.AcademiesList.Count</span> of them. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
+                <a href="/TrustSchools?companyNo=@Model.CompanyNo&matname=@Model.Name">Select schools to compare</a>
+            </div>
         </div>
-    </div>
-    <div class="column-full">
-        @if (Model.AcademiesList.Count > 10)
-        {
-            <details class="resultListPanel">
-                <summary class="hide-in-print">
-                    <span class="summary">View all academies</span>
-                </summary>
-                <div>
-                    <ul class="list two-columns resultListPanel__ul">
-                        @foreach (var academy in Model.AcademiesList)
+
+        <div class="column-full">
+            @if (Model.AcademiesList.Count > 10)
+            {
+                <details class="resultListPanel">
+                    <summary class="hide-in-print">
+                        <span class="summary">View all academies</span>
+                    </summary>
+                    <div>
+                        <ul class="list two-columns resultListPanel__ul">
+                            @foreach (var academy in Model.AcademiesList)
+                            {
+                                if (academy.HasIncompleteFinancialData)
+                                {
+                                    <li>
+                                        <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
+                                            @academy.EstablishmentName
+                                            <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </details>
+            }
+            else
+            {
+                <div class="resultListPanel">
+                    <ul class="list list-bullet resultListPanel__ul">
+                        @foreach (var school in Model.AcademiesList)
                         {
-                            if (academy.HasIncompleteFinancialData)
+                            if (school.HasIncompleteFinancialData)
                             {
                                 <li>
-                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
-                                        @academy.EstablishmentName
+                                    <a href="/school/detail?urn=@school.URN" class="highlight-warning">
+                                        @school.EstablishmentName
                                         <span class="visually-hidden"> has data from a period less than 12 months</span>
                                     </a>
                                 </li>
@@ -103,40 +132,15 @@
                             else
                             {
                                 <li>
-                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                    <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
                                 </li>
                             }
                         }
                     </ul>
                 </div>
-            </details>
-        }
-        else
-        {
-            <div class="resultListPanel">
-                <ul class="list list-bullet resultListPanel__ul">
-                    @foreach (var school in Model.AcademiesList)
-                    {
-                        if (school.HasIncompleteFinancialData)
-                        {
-                            <li>
-                                <a href="/school/detail?urn=@school.URN" class="highlight-warning">
-                                    @school.EstablishmentName
-                                    <span class="visually-hidden"> has data from a period less than 12 months</span>
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
-                            </li>
-                        }
-                    }
-                </ul>
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
     <div class="column-full mb-1 mt-1">
         <a href="~/Help/DataQueries">Do you have a query about this trust's data?</a>
     </div>
