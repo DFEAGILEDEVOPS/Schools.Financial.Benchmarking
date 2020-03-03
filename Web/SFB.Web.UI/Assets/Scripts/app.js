@@ -543,6 +543,7 @@ function manageCookies() {
 
     manageCookiePreferencesCookies();
     manageDynamicHeaderAndCookie(cookiesPolicyCookie);
+    manageRecruitmentBannerAndCookie(cookiesPolicyCookie);
     manageNewsModalAndCookie(cookiesPolicyCookie);
     manageGACookies(cookiesPolicyCookie);
     //manageMSCookies(cookiesPolicyCookie);
@@ -592,7 +593,7 @@ function manageDynamicHeaderAndCookie(cookiesPolicyCookie) {
         if (suppressDynamicHeaderCookie === "yes") {
             $(".header-content__dynamic-header").hide();
         } else {
-            $(".header-content__dynamic-header ").show();
+            //$(".header-content__dynamic-header").show();
             $(".js-dismiss-dynamic-header").click(function () {
                 $(".header-content__dynamic-header").hide();
                 GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
@@ -601,9 +602,31 @@ function manageDynamicHeaderAndCookie(cookiesPolicyCookie) {
     }
     else {
         GOVUK.cookie("suppress-dynamic-header", null);
-        $(".header-content__dynamic-header ").show();
+        //$(".header-content__dynamic-header").show();
         $(".js-dismiss-dynamic-header").click(function () {
             $(".header-content__dynamic-header").hide();
+        });
+    }
+}
+
+function manageRecruitmentBannerAndCookie(cookiesPolicyCookie) {
+    if (cookiesPolicyCookie.settings) {
+        var suppressRecruitmentBannerCookie = GOVUK.cookie("suppress-recruitment-banner");
+        if (suppressRecruitmentBannerCookie === "yes") {
+            $(".banner-content__recruitment-banner").hide();
+        } else {
+            $(".banner-content__recruitment-banner").show();
+            $(".js-dismiss-recruitment-banner").click(function () {
+                $(".banner-content__recruitment-banner").hide();
+                GOVUK.cookie("suppress-recruitment-banner", 'yes', { days: 180 });
+            });
+        }
+    }
+    else {
+        GOVUK.cookie("suppress-recruitment-banner", null);
+        $(".banner-content__recruitment-banner").show();
+        $(".js-dismiss-recruitment-banner").click(function () {
+            $(".banner-content__recruitment-banner").hide();
         });
     }
 }
