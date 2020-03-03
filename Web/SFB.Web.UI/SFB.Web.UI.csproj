@@ -312,6 +312,7 @@
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
     <Compile Include="Models\DataQueryViewModel.cs" />
+    <Compile Include="Models\GetInvolvedViewModel.cs" />
     <Compile Include="Models\HierarchicalChartViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LaListViewModel.cs" />
@@ -776,6 +777,8 @@
     <Content Include="Views\Help\Cookies.cshtml" />
     <Content Include="Views\ManualComparison\OverwriteReplace.cshtml" />
     <Content Include="Views\BenchmarkCriteria\OverwriteReplace.cshtml" />
+    <Content Include="Views\Help\GetInvolved.cshtml" />
+    <Content Include="Views\Help\GetInvolvedConfirmation.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

@@ -8,5 +8,6 @@ namespace SFB.Web.ApplicationCore.Services
     {
         Task<string> SendUserEmailAsync(string toAddress, Dictionary<String, dynamic> placeholders);
         Task<string> SendDfEEmailAsync(string toAddress, Dictionary<String, dynamic> placeholders);
+        Task<string> SendGetInvolvedEmailAsync(string toAddress, Dictionary<String, dynamic> placeholders);
     }
 }

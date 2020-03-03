@@ -1,7 +1,6 @@
 ﻿using Notify.Client;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Notify.Models.Responses;
 using System.Configuration;
 using SFB.Web.ApplicationCore.Services;
 
@@ -17,6 +16,16 @@ namespace SFB.Web.Infrastructure.Email
         public async Task<string> SendDfEEmailAsync(string toAddress, Dictionary<string, dynamic> placeholders)
         {
             return await SendEmail(toAddress, ConfigurationManager.AppSettings["DfEEmailTemplateId"], placeholders);
+        }
+
+        public Task<string> SendGetInvolvedEmailAsync(string toAddress, Dictionary<string, dynamic> placeholders)
+        {
+            //todo: call sendemal with correct template id
+            Task<string> task = Task.Run(() =>
+            {
+                return string.Empty;
+            });
+            return task;
         }
 
         private async Task<string> SendEmail(string toAddress, string templateId, Dictionary<string, dynamic> placeholders)

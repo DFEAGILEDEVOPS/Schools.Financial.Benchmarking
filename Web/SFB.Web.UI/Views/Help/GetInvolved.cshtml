@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "get-involved";
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+@model SFB.Web.UI.Models.GetInvolvedViewModel
+
+<div class="grid-row">    
+    <div class="column-two-thirds" id="getInvolvedContent">
+
+        @FormErrorSummary()
+
+        <h1 class="heading-xlarge page-heading">Help make schools financial benchmarking better</h1>
+
+        <p>
+            We are always looking to improve schools financial benchmarking for our users and by conducting usability testing we get to see how the service works in the real world.
+        </p>
+
+        <p>
+            We conduct the meetings either over the internet using software so we can share screen or in person with our user researcher visiting you.
+        </p> 
+        <p>
+            The test usually take no longer than an hour and involve us observing how you use our service, what you’re looking for from it and finding out how we can improve it.
+        </p>        
+        <p>
+            We also like to demo new features and improvements we are working on so will occasionally ask you use one of our prototypes to help their development.
+        </p>        
+        <p>
+            If you would be interested in helping us then please submit your details below and one of our researchers will get in touch with you.
+        </p>
+
+        <h2 class="heading-medium">Your details</h2>
+        <form action="GetInvolvedSubmission" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group @FormGroupErrorClass("getInvolved.Name")">
+                <label class="form-label" for="getInvolved.Name">Name</label>
+                @InputErrorMessage("getInvolved.Name")
+                <input class="form-control @FormControlErrorClass("getInvolved.Name")" id="getInvolved.Name" name="getInvolved.Name" type="text" value="@Model.Name">
+            </div>
+            <div class="form-group @FormGroupErrorClass("getInvolved.Email")">
+                <label class="form-label" for="getInvolved.Email">Email</label>
+                @InputErrorMessage("getInvolved.Email")
+                <input class="form-control @FormControlErrorClass("getInvolved.Email")" id="getInvolved.Email" name="getInvolved.Email" type="text" value="@Model.Email">
+            </div>
+            <button class="button" type="submit">Submit</button>
+        </form>
+
+    </div>
+</div>
+
+@helper FormErrorSummary()
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+
+    if (msDictionary != null && msDictionary.Count > 0)
+    {
+        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                There are errors on this page that require attention.
+            </h1>
+            <ul class="error-summary-list">
+                @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
+                {
+                    if (ms.Value.Errors.Count > 0)
+                    {
+                        <li>
+                            <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+}
+
+@helper FormGroupErrorClass(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        @("form-group-error")
+    }
+}
+
+
+@helper FormControlErrorClass(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        @("form-control-error")
+    }
+}
+
+@helper InputErrorMessage(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        <span class="error-message">
+            @ms.Errors.First().ErrorMessage
+        </span>
+    }
+}
+
