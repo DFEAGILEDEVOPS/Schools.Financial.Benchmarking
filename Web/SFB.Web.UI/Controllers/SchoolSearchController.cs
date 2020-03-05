@@ -314,12 +314,11 @@ namespace SFB.Web.UI.Controllers
             var errorMessage = _valService.ValidateNameParameter(nameId);
             if (string.IsNullOrEmpty(errorMessage))
             {
-                // first see if we get a match on the word
                 searchResp = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, openOnly, orderby, page);
-                if (searchResp.NumberOfResults == 0)
-                {
-                    return RedirectToActionPermanent("SuggestSchool", "SchoolSearch", new RouteValueDictionary { { "nameId", nameId }, { "openOnly", openOnly } });
-                }
+                //if (searchResp.NumberOfResults == 0)
+                //{
+                //    return RedirectToActionPermanent("SuggestSchool", "SchoolSearch", new RouteValueDictionary { { "nameId", nameId }, { "openOnly", openOnly } });
+                //}
                 return View("SearchResults", GetSearchedSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, SearchTypes.SEARCH_BY_NAME_ID, nameId, null, null));
             }
             else

@@ -111,6 +111,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
         {
             if (name.Length > 2)
             {
+                name += "*";
                 var facets = new[] {$"{EdubaseDataFieldNames.TYPE_OF_ESTAB}, count:25", $"{EdubaseDataFieldNames.OVERALL_PHASE}", $"{EdubaseDataFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDataFieldNames.OFSTED_RATING}"};
                 var exactMatches = await ExecuteSearchAsync(_index, $"{name}", $"{EdubaseDataFieldNames.ESTAB_NAME}",
                     ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
