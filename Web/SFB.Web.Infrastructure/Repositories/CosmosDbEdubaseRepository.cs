@@ -109,9 +109,11 @@ namespace SFB.Web.Infrastructure.Repositories
             }
         }
 
-        public async Task<int> GetSchoolsCountByCompanyNoAsync(int companyNo)
+        public async Task<int> GetOpenAcademiesCountByCompanyNoAsync(int companyNo)
         {
-            var query = $"SELECT VALUE COUNT(c) FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo";
+            var query = $"SELECT VALUE COUNT(c) FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo " +
+                $"and c.{EdubaseDataFieldNames.ESTAB_STATUS} = 'Open'" +
+                $"and c.{EdubaseDataFieldNames.FINANCE_TYPE} = 'A'";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@CompanyNo", companyNo));

@@ -56,29 +56,29 @@ namespace SFB.Web.UI.UnitTests
             _mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
         }
 
-        [Test]
-        public async Task SearchActionReturnsSchoolSuggestionsViewIfResultEmpty()
-        {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);            
+        //[Test]
+        //public async Task SearchActionReturnsSchoolSuggestionsViewIfResultEmpty()
+        //{
+        //    dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);            
 
-            Task<dynamic> task = Task.Run(() =>
-            {
-                return edubaseSearchResponse;
-            });
+        //    Task<dynamic> task = Task.Run(() =>
+        //    {
+        //        return edubaseSearchResponse;
+        //    });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+        //    _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
-                _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
-            controller.ControllerContext = new ControllerContext(_rc, controller);
+        //    var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
+        //        _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
+        //    controller.ControllerContext = new ControllerContext(_rc, controller);
  
-            var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null);
+        //    var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null);
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual("SchoolSearch", (result as RedirectToRouteResult).RouteValues["Controller"]);
-            Assert.AreEqual("SuggestSchool", (result as RedirectToRouteResult).RouteValues["Action"]);
-            Assert.AreEqual("Test", (result as RedirectToRouteResult).RouteValues["NameId"]);
-        }
+        //    Assert.IsNotNull(result);
+        //    Assert.AreEqual("SchoolSearch", (result as RedirectToRouteResult).RouteValues["Controller"]);
+        //    Assert.AreEqual("SuggestSchool", (result as RedirectToRouteResult).RouteValues["Action"]);
+        //    Assert.AreEqual("Test", (result as RedirectToRouteResult).RouteValues["NameId"]);
+        //}
 
         [Test]
         public async Task SearchActionReturnsSuggestionsViewIfSearchByLAName()
