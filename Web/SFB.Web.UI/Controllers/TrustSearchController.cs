@@ -136,7 +136,7 @@ namespace SFB.Web.UI.Controllers
                 trusts = await GetTrustListViewModelAsync(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, null);
                 foreach (var trust in trusts.ModelList)
                 {
-                    var schoolSearchResponse = await _schoolSearchService.SearchSchoolByCompanyNoAsync(trust.CompanyNo, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null);
+                    var schoolSearchResponse = await _schoolSearchService.SearchAcademiesByCompanyNoAsync(trust.CompanyNo, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null);
                     foreach (var school in schoolSearchResponse.Results)
                     {
                         var schoolVm = new SchoolSummaryViewModel(school);

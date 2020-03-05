@@ -11,6 +11,6 @@ namespace SFB.Web.ApplicationCore.DataAccess
         List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns);
         List<int> GetAllSchoolUrns();
         Task<IEnumerable<EdubaseDataObject>> GetSchoolsByCompanyNoAsync(int companyNo);
-        Task<int> GetOpenAcademiesCountByCompanyNoAsync(int companyNo);
+        Task<int> GetAcademiesCountByCompanyNoAsync(int companyNo);
     }
 }

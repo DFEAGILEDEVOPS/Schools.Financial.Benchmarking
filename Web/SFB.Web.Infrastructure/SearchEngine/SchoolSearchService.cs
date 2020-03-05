@@ -146,11 +146,13 @@ namespace SFB.Web.ApplicationCore.Services.Search
             return await FindNearestSchools(lat, lon, distance, skip, take, orderby, queryParams);
         }
 
-        public async Task<dynamic> SearchSchoolByCompanyNoAsync(int companyNo, int skip, int take, string @orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchAcademiesByCompanyNoAsync(int companyNo, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
+            var parameters = new NameValueCollection(queryParams);
+            parameters.Add("financeType", "A");
             var facets = new[] { $"{EdubaseDataFieldNames.OVERALL_PHASE}", $"{EdubaseDataFieldNames.OFSTED_RATING}", $"{EdubaseDataFieldNames.GENDER}" };
             var exactMatches = await ExecuteSearchAsync(_index, $"{companyNo}", $"{EdubaseDataFieldNames.COMPANY_NUMBER}",
-                ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
+                ConstructApiFilterParams(parameters), orderby, skip, take, facets);
             return exactMatches;
         }
 
@@ -342,6 +344,12 @@ namespace SFB.Web.ApplicationCore.Services.Search
             {
                 string[] values = ExtractValues(parameters["establishmentStatus"]);
                 queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDataFieldNames.ESTAB_STATUS} eq '" + x + "'")));
+            }
+
+            if (parameters["financeType"] != null)
+            {
+                string[] values = ExtractValues(parameters["financeType"]);
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDataFieldNames.FINANCE_TYPE} eq '" + x + "'")));
             }
 
             //queryFilter.Add("OverallPhase ne '0'");

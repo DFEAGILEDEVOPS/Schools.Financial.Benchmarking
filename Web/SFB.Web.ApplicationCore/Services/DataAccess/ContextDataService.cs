@@ -39,9 +39,9 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
             return await _edubaseRepository.GetSchoolsByCompanyNoAsync(companyNo);
         }
 
-        public async Task<int> GetOpenAcademiesCountByCompanyNumberAsync(int companyNo)
+        public async Task<int> GetAcademiesCountByCompanyNumberAsync(int companyNo)
         {
-            return await _edubaseRepository.GetOpenAcademiesCountByCompanyNoAsync(companyNo);
+            return await _edubaseRepository.GetAcademiesCountByCompanyNoAsync(companyNo);
         }
     }
 }

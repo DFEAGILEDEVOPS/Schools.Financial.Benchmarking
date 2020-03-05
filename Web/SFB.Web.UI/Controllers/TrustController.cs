@@ -141,7 +141,7 @@ namespace SFB.Web.UI.Controllers
             trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);
             trustVM.ChartGroups = _historicalChartBuilder.Build(tab, trustVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
             trustVM.LatestTerm = LatestMATTerm();
-            trustVM.AcademiesContextualCount = await _contexDataService.GetOpenAcademiesCountByCompanyNumberAsync(companyNo);
+            trustVM.AcademiesContextualCount = await _contexDataService.GetAcademiesCountByCompanyNumberAsync(companyNo);
 
             trustVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(trustVM.CompanyNo, matFinancing);
 
