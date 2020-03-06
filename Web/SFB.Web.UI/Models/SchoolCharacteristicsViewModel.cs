@@ -589,7 +589,7 @@ namespace SFB.Web.UI.Models
             var list = new List<SchoolCharacteristic>();
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS, Value = latestSchoolData == null ? null : latestSchoolData?.PupilCount + " pupils" });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.GENDER_OF_PUPILS, Value = latestSchoolData?.Gender });
-            list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_PHASE, Value = latestSchoolData?.SchoolPhase });
+            list.Add(BuildPhaseCharacteristic(latestSchoolData));
             //list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_OVERALL_PHASE, Value = latestSchoolData?.SchoolOverallPhase });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.TYPEOF_ESTABLISHMENT, Value = latestSchoolData?.SchoolType });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.URBAN_RURAL, Value = latestSchoolData?.UrbanRural });
@@ -633,6 +633,21 @@ namespace SFB.Web.UI.Models
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF, Value = latestSchoolData?.OtherLearningDifficulty.ToString() });
 
             return list;
+        }
+
+        private SchoolCharacteristic BuildPhaseCharacteristic(FinancialDataModel latestSchoolData)
+        {
+            var phaseText = string.Empty;
+
+            if ((latestSchoolData.SchoolOverallPhase == "Primary" || latestSchoolData.SchoolOverallPhase == "Secondary") && (latestSchoolData.SchoolOverallPhase != latestSchoolData.SchoolPhase))
+            {
+                phaseText = $"{latestSchoolData.SchoolOverallPhase} ({latestSchoolData.SchoolPhase})";
+            }
+            else
+            {
+                phaseText = latestSchoolData?.SchoolPhase;
+            }
+            return new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_PHASE, Value = phaseText };
         }
     }
 }
