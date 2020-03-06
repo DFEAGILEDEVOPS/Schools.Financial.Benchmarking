@@ -65,6 +65,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
         {
             if (name.Length > 2)
             {
+                name += "*";
                 var exactMatches = await ExecuteSearch(_index, $"{name}", $"{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}", null, orderby, skip, take);
 
                 return exactMatches;

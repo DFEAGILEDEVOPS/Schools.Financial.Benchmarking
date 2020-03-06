@@ -59,29 +59,29 @@ namespace SFB.Web.UI.UnitTests
             _mockFinancialDataService = new Mock<IFinancialDataService>();
         }
 
-        [Test]
-        public async Task SearchByNameActionRedirectsToSuggestionViewIfNoTrustFound()
-        {
-            Task<dynamic> task = Task.Run(() =>
-            {
-                var facets = new Dictionary<string, FacetResultModel[]>();
-                var matches = new List<Dictionary<string, object>>();
-                dynamic results = new QueryResultsModel(0, facets, matches, 0, 0);
-                return results;
-            });
+        //[Test]
+        //public async Task SearchByNameActionRedirectsToSuggestionViewIfNoTrustFound()
+        //{
+        //    Task<dynamic> task = Task.Run(() =>
+        //    {
+        //        var facets = new Dictionary<string, FacetResultModel[]>();
+        //        var matches = new List<Dictionary<string, object>>();
+        //        dynamic results = new QueryResultsModel(0, facets, matches, 0, 0);
+        //        return results;
+        //    });
 
-            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
-                .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
+        //    _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+        //        .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
 
-            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+        //    var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+        //        _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search("TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
+        //    var result = await controller.Search("TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
 
-            Assert.AreEqual("TrustSearch", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("SuggestTrust", (result as RedirectToRouteResult).RouteValues["action"]);
-            Assert.AreEqual("TestTrust", (result as RedirectToRouteResult).RouteValues["trustNameId"]);
-        }
+        //    Assert.AreEqual("TrustSearch", (result as RedirectToRouteResult).RouteValues["controller"]);
+        //    Assert.AreEqual("SuggestTrust", (result as RedirectToRouteResult).RouteValues["action"]);
+        //    Assert.AreEqual("TestTrust", (result as RedirectToRouteResult).RouteValues["trustNameId"]);
+        //}
 
         [Test]
         public async Task SearchByNameActionReturnsTrustSearchResultsViewIfValidTrustNameProvided()

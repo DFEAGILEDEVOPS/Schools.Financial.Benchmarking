@@ -192,16 +192,6 @@ namespace SFB.Web.UI.Controllers
             return Content(json, "application/json");
         }
 
-        public async Task<ActionResult> SuggestTrust(string trustNameId)
-        {
-            var vm = new SchoolNotFoundViewModel
-            {
-                SearchKey = trustNameId,
-                Suggestions = await _trustSearchService.SuggestTrustByName(trustNameId)
-            };
-            return View("NotFound", vm);
-        }
-
         private async Task<TrustListViewModel> GetTrustListViewModelAsync(dynamic trustSearchResults, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             var academyTrustList = new List<AcademyTrustViewModel>();
@@ -345,10 +335,6 @@ namespace SFB.Web.UI.Controllers
             if (string.IsNullOrEmpty(errorMessage))
             {
                 var searchResults = await GetSearchResultsAsync(trustName, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, openOnly, orderby, 1);
-                if (searchResults.NumberOfResults == 0)
-                {
-                    return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", trustName } });
-                }
 
                 var trustVm = await GetTrustListViewModelAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_NAME_ID, trustName, null, null);
 

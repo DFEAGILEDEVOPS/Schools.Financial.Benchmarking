@@ -223,16 +223,6 @@ namespace SFB.Web.UI.Controllers
                 new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
         }
 
-        public async Task<ActionResult> SuggestSchool(string nameId, bool openOnly = false)
-        {
-            var vm = new SchoolNotFoundViewModel
-            {
-                SearchKey = nameId,
-                Suggestions = await _schoolSearchService.SuggestSchoolByName(nameId, openOnly)
-            };
-            return View("NotFound", vm);
-        }
-
         public async Task<ActionResult> Suggest(string nameId, bool openOnly = false)
         {
             string json = null;
