@@ -34,9 +34,9 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
             return _edubaseRepository.GetMultipleSchoolDataObjectsByUrns(urns);
         }
 
-        public async Task<IEnumerable<EdubaseDataObject>> GetSchoolsByCompanyNumberAsync(int companyNo)
+        public async Task<IEnumerable<EdubaseDataObject>> GetAcademiesByCompanyNumberAsync(int companyNo)
         {
-            return await _edubaseRepository.GetSchoolsByCompanyNoAsync(companyNo);
+            return await _edubaseRepository.GetAcademiesByCompanyNoAsync(companyNo);
         }
 
         public async Task<int> GetAcademiesCountByCompanyNumberAsync(int companyNo)

@@ -88,10 +88,14 @@ namespace SFB.Web.Infrastructure.Repositories
             return result;
         }
 
-        public async Task<IEnumerable<EdubaseDataObject>> GetSchoolsByCompanyNoAsync(int companyNo)
+        public async Task<IEnumerable<EdubaseDataObject>> GetAcademiesByCompanyNoAsync(int companyNo)
         {
-            var query = $"SELECT c['{EdubaseDataFieldNames.URN}'], c['{EdubaseDataFieldNames.ESTAB_NAME}'], c['{EdubaseDataFieldNames.OVERALL_PHASE}'], c['{EdubaseDataFieldNames.COMPANY_NUMBER}'] " +
-                $"FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo";
+            var query = $"SELECT c['{EdubaseDataFieldNames.URN}'], " +
+                $"c['{EdubaseDataFieldNames.ESTAB_NAME}'], " +
+                $"c['{EdubaseDataFieldNames.OVERALL_PHASE}'], " +
+                $"c['{EdubaseDataFieldNames.COMPANY_NUMBER}'] " +
+                $"FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo " +
+                $"AND c.{EdubaseDataFieldNames.FINANCE_TYPE} = 'A'";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@CompanyNo", companyNo));
@@ -113,7 +117,7 @@ namespace SFB.Web.Infrastructure.Repositories
         {
             var query = $"SELECT VALUE COUNT(c) " +
                 $"FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo " +
-                $"and c.{EdubaseDataFieldNames.FINANCE_TYPE} = 'A'";
+                $"AND c.{EdubaseDataFieldNames.FINANCE_TYPE} = 'A'";
             SqlQuerySpec querySpec = new SqlQuerySpec(query);
             querySpec.Parameters = new SqlParameterCollection();
             querySpec.Parameters.Add(new SqlParameter($"@CompanyNo", companyNo));

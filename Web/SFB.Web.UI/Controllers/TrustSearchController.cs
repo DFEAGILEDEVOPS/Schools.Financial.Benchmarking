@@ -210,7 +210,7 @@ namespace SFB.Web.UI.Controllers
             {
                 var companyNo = int.Parse(result[EdubaseDataFieldNames.COMPANY_NUMBER]);
                 var companyName = result[SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME];
-                IEnumerable<EdubaseDataObject> academiesOfTrust = await _contextDataService.GetSchoolsByCompanyNumberAsync(companyNo);
+                IEnumerable<EdubaseDataObject> academiesOfTrust = await _contextDataService.GetAcademiesByCompanyNumberAsync(companyNo);
 
                 var academiesList = academiesOfTrust.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();
 
@@ -247,7 +247,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     if (!academyTrustList.Any(t => t.CompanyNo == companyNo))
                     {
-                        var academyTrust = new AcademyTrustViewModel(companyNo, academySearchResult[EdubaseDataFieldNames.TRUSTS], _contextDataService.GetSchoolsByCompanyNumberAsync(companyNo));
+                        var academyTrust = new AcademyTrustViewModel(companyNo, academySearchResult[EdubaseDataFieldNames.TRUSTS], _contextDataService.GetAcademiesByCompanyNumberAsync(companyNo));
                         academyTrustList.Add(academyTrust);
                     }
                 }
