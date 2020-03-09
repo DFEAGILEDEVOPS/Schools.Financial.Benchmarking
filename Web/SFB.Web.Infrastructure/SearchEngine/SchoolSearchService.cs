@@ -148,7 +148,11 @@ namespace SFB.Web.ApplicationCore.Services.Search
 
         public async Task<dynamic> SearchAcademiesByCompanyNoAsync(int companyNo, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
-            var parameters = new NameValueCollection(queryParams);
+            NameValueCollection parameters = new NameValueCollection();
+            if (queryParams != null)
+            {
+                parameters = new NameValueCollection(queryParams);
+            }
             parameters.Add("financeType", "A");
             var facets = new[] { $"{EdubaseDataFieldNames.OVERALL_PHASE}", $"{EdubaseDataFieldNames.OFSTED_RATING}", $"{EdubaseDataFieldNames.GENDER}" };
             var exactMatches = await ExecuteSearchAsync(_index, $"{companyNo}", $"{EdubaseDataFieldNames.COMPANY_NUMBER}",
