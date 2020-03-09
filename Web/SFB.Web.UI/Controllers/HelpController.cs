@@ -5,6 +5,7 @@ using SFB.Web.ApplicationCore.Services;
 using SFB.Web.UI.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
@@ -81,7 +82,7 @@ namespace SFB.Web.UI.Controllers
 
                 try
                 {
-                    await _emailSender.SendGetInvolvedEmailAsync(getInvolved.Email, placeholders);
+                    await _emailSender.SendGetInvolvedEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
                 }
                 catch (Exception exception)
                 {
@@ -128,7 +129,7 @@ namespace SFB.Web.UI.Controllers
                 try
                 {
                     await _emailSender.SendUserEmailAsync(dataQuery.Email, placeholders);
-                    await _emailSender.SendDfEEmailAsync("school.resourcemanagement@education.gov.uk", placeholders);
+                    await _emailSender.SendDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
                 }
                 catch (Exception exception)
                 {

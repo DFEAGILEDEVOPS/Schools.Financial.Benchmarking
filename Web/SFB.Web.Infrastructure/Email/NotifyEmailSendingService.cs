@@ -18,14 +18,9 @@ namespace SFB.Web.Infrastructure.Email
             return await SendEmail(toAddress, ConfigurationManager.AppSettings["DfEEmailTemplateId"], placeholders);
         }
 
-        public Task<string> SendGetInvolvedEmailAsync(string toAddress, Dictionary<string, dynamic> placeholders)
+        public async Task<string> SendGetInvolvedEmailAsync(string toAddress, Dictionary<string, dynamic> placeholders)
         {
-            //todo: call sendemal with correct template id
-            Task<string> task = Task.Run(() =>
-            {
-                return string.Empty;
-            });
-            return task;
+            return await SendEmail(toAddress, ConfigurationManager.AppSettings["RecruitmentEmailTemplateId"], placeholders);
         }
 
         private async Task<string> SendEmail(string toAddress, string templateId, Dictionary<string, dynamic> placeholders)
