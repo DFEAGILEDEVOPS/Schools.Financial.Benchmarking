@@ -38,16 +38,16 @@ namespace SFB.Web.UI.Helpers
             _laSearchService = laSearchService;
         }
 
-        public void BuildCore(int urn)
+        public async void BuildCoreAsync(int urn)
         {
-            SchoolVM = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+            SchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
         }
 
         public async Task<SchoolViewModel> AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType)
         {
             SchoolVM.HistoricalCharts = _historicalChartBuilder.Build(tabType, chartGroup, SchoolVM.EstablishmentType, unitType);
             SchoolVM.ChartGroups = _historicalChartBuilder.Build(tabType, SchoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
-            SchoolVM.LatestTerm = LatestTerm(SchoolVM.EstablishmentType);
+            SchoolVM.LatestTerm = await LatestTermAsync(SchoolVM.EstablishmentType);
             SchoolVM.Tab = tabType;
             
             SchoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(SchoolVM.Id, SchoolVM.EstablishmentType, SchoolVM.Tab == TabType.Workforce ? CentralFinancingType.Exclude : cFinance);
@@ -70,9 +70,9 @@ namespace SFB.Web.UI.Helpers
         private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var models = new List<FinancialDataModel>();
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(estabType);
+            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(estabType);
 
-            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
+            var taskList = new List<Task<SchoolTrustFinancialDataObject>>();
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
@@ -83,13 +83,11 @@ namespace SFB.Web.UI.Helpers
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var taskResult = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
-                var resultDataObject = taskResult?.FirstOrDefault();
+                var resultDataObject = await taskList[ChartHistory.YEARS_OF_HISTORY - 1 - i];
 
                 if (estabType == EstablishmentType.Academies && cFinance == CentralFinancingType.Include && resultDataObject == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    resultDataObject = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude))
-                        ?.FirstOrDefault();
+                    resultDataObject = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude));
                 }
 
                 if (resultDataObject != null && resultDataObject.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
@@ -103,9 +101,9 @@ namespace SFB.Web.UI.Helpers
             return models;
         }
 
-        private string LatestTerm(EstablishmentType type)
+        private async Task<string> LatestTermAsync(EstablishmentType type)
         {
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(type);
+            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(type);
             return SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
         }
     }

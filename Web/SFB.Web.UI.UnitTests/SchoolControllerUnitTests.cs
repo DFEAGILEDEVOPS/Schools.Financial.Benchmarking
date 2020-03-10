@@ -52,7 +52,7 @@ namespace SFB.Web.UI.UnitTests
             var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -100,7 +100,7 @@ namespace SFB.Web.UI.UnitTests
             var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -196,7 +196,7 @@ namespace SFB.Web.UI.UnitTests
             var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 123;
             testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => testEduResult);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder

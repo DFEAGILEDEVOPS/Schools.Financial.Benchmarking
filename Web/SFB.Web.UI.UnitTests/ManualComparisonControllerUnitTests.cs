@@ -65,7 +65,7 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new ManualComparisonController(mockCookieManager.Object, mockLaService.Object, mockEdubaseDataService.Object, null, null, null, null, null);
 
-            var result = controller.OverwriteStrategy();
+            var result = controller.OverwriteStrategyAsync();
 
              Assert.AreEqual("OverwriteReplace", (result as ViewResult).ViewName);
         }

@@ -33,7 +33,7 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new BenchmarkCriteriaController(null, null, null, null, mockCookieManager.Object, mockComparisonService.Object);
 
-            var response = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 10);
+            var response = controller.OverwriteStrategyAsync(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 10);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull((response as ViewResult).Model);
@@ -64,20 +64,20 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial) => task);
 
             var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
-            _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(It.IsAny<EstablishmentType>()))
+            _mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabTypeAsync(It.IsAny<EstablishmentType>()))
                 .Returns(2015);
 
             var _mockEdubaseDataService = new Mock<IContextDataService>();
             var testEduResult = new EdubaseDataObject();
             testEduResult.URN = 100;
             testEduResult.EstablishmentName = "test";
-            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(100)).Returns((string urn) => testEduResult);
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(100)).Returns((string urn) => testEduResult);
 
             var mockComparisonService = new Mock<IComparisonService>();
 
             var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
 
-            var result = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 10);
+            var result = controller.OverwriteStrategyAsync(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 10);
 
             Assert.AreEqual("BenchmarkCharts", (result as RedirectToRouteResult).RouteValues["Controller"]);
             Assert.AreEqual("GenerateNewFromAdvancedCriteria", (result as RedirectToRouteResult).RouteValues["Action"]);
@@ -96,7 +96,7 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new BenchmarkCriteriaController(null, null, null, null, mockCookieManager.Object, mockComparisonService.Object);
 
-            var response = controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 29);
+            var response = controller.OverwriteStrategyAsync(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 29);
 
             Assert.IsNotNull(response);
             Assert.AreEqual("OverwriteReplace", (response as ViewResult).ViewName);
@@ -117,7 +117,7 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
 
-            var result = controller.SelectSchoolType(null, ComparisonType.Advanced, EstablishmentType.Maintained, 15);
+            var result = controller.SelectSchoolTypeAsync(null, ComparisonType.Advanced, EstablishmentType.Maintained, 15);
 
             mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null));
         }
@@ -143,7 +143,7 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new BenchmarkCriteriaController(mockLaService.Object, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, mockLaSearchService.Object, mockCookieManager.Object, mockComparisonService.Object);
 
-            var response = controller.AdvancedCharacteristics(null, ComparisonType.Advanced, EstablishmentType.All, ComparisonArea.LaCode, 123, "", null);
+            var response = controller.AdvancedCharacteristicsAsync(null, ComparisonType.Advanced, EstablishmentType.All, ComparisonArea.LaCode, 123, "", null);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull((response as ViewResult).Model);

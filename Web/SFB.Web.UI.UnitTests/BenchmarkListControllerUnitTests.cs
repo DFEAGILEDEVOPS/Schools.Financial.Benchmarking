@@ -60,7 +60,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = controller.UpdateBenchmarkBasket(null, CookieActions.RemoveAll);
+            var result = controller.UpdateBenchmarkBasketAsync(null, CookieActions.RemoveAll);
 
             mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, It.IsAny<BenchmarkSchoolModel>()),Times.Once);
 

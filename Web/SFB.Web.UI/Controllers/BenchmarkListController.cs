@@ -24,11 +24,11 @@ namespace SFB.Web.UI.Controllers
             _financialDataService = financialDataService;
         }
 
-        public ActionResult Index()
+        public async System.Threading.Tasks.Task<ActionResult> Index()
         {
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
             
-            var benchmarkSchoolDataObjects = _contextDataService.GetMultipleSchoolDataObjectsByUrns(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
+            var benchmarkSchoolDataObjects = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
 
             comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
@@ -37,7 +37,7 @@ namespace SFB.Web.UI.Controllers
                 foreach (var benchmarkSchoolDataObject in benchmarkSchoolDataObjects)
                 {
                     var school = new SchoolViewModel(benchmarkSchoolDataObject);
-                    var financialDataModel = _financialDataService.GetSchoolsLatestFinancialDataModel(school.Id, school.EstablishmentType);
+                    var financialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(school.Id, school.EstablishmentType);
 
                     var benchmarkSchool = new BenchmarkSchoolModel()
                     {
@@ -60,11 +60,11 @@ namespace SFB.Web.UI.Controllers
             return View(comparisonList);
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int? urn, CookieActions withAction)
+        public async System.Threading.Tasks.Task<PartialViewResult> UpdateBenchmarkBasket(int? urn, CookieActions withAction)
         {
             if (urn.HasValue)
             {
-                var schoolDataObject = _contextDataService.GetSchoolDataObjectByUrn(urn.GetValueOrDefault());
+                var schoolDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault());
                 if (schoolDataObject != null)
                 {
                     var benchmarkSchool = new SchoolViewModel(schoolDataObject, null);

@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CachingInterfaces\IBicComparisonResultCachingService.cs" />
+    <Compile Include="DataAccessInterfaces\IEfficiencyMetricRepository.cs" />
+    <Compile Include="Entities\EfficiecyMetricDataObject.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="DataAccessInterfaces\IDataCollectionManager.cs" />
     <Compile Include="DataAccessInterfaces\IEdubaseRepository.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Models\BestInClassCriteria.cs" />
     <Compile Include="Models\ComparisonResult.cs" />
     <Compile Include="Helpers\GeoCodeCalc.cs" />
+    <Compile Include="Models\EfficiencyMetricModel.cs" />
     <Compile Include="Models\FacetResultModel.cs" />
     <Compile Include="Models\HistoricalChartData.cs" />
     <Compile Include="Models\LaModel.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="CachingInterfaces\IActiveUrnsService.cs" />
     <Compile Include="Services\Comparison\BenchmarkCriteriaBuilderService.cs" />
     <Compile Include="Services\Comparison\ComparisonService.cs" />
+    <Compile Include="Services\DataAccess\EfficiencyMetricDataService.cs" />
     <Compile Include="Services\DataAccess\FinancialDataService.cs" />
     <Compile Include="Services\DataAccess\ContextDataService.cs" />
     <Compile Include="Services\Comparison\IBenchmarkCriteriaBuilderService.cs" />
@@ -83,6 +87,7 @@
     <Compile Include="EmailInterfaces\IEmailSendingService.cs" />
     <Compile Include="CachingInterfaces\ILocalAuthoritiesService.cs" />
     <Compile Include="SearchInterfaces\ILocationSearchService.cs" />
+    <Compile Include="Services\DataAccess\IEfficiencyMetricDataService.cs" />
     <Compile Include="Services\DataAccess\IFinancialDataService.cs" />
     <Compile Include="Services\DataAccess\IContextDataService.cs" />
     <Compile Include="SearchInterfaces\ISchoolSearchService.cs" />

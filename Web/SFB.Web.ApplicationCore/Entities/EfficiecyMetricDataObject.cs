@@ -1,0 +1,13 @@
+﻿namespace SFB.Web.ApplicationCore.Entities
+{
+    public class EfficiencyMetricDataObject
+    {
+        public string laname, name, establishmenttypegroup, phase;
+        public decimal senpub, ever6pub, progress8, incomepp, efficiencydecileingroup;
+        public int neighbour1, neighbour2, neighbour3, neighbour4, neighbour5, neighbour6, neighbour7, neighbour8, neighbour9, neighbour10, neighbour11, neighbour12, neighbour13, neighbour14, neighbour15, neighbour16, neighbour17, neighbour18, neighbour19, neighbour20, neighbour21, neighbour22, neighbour23, neighbour24, neighbour25, neighbour26, neighbour27, neighbour28, neighbour29, neighbour30, neighbour31, neighbour32, neighbour33, neighbour34, neighbour35, neighbour36, neighbour37, neighbour38, neighbour39, neighbour40, neighbour41, neighbour42, neighbour43, neighbour44, neighbour45, neighbour46, neighbour47, neighbour48, neighbour49;
+        public int efficiencydecileneighbour1, efficiencydecileneighbour2, efficiencydecileneighbour3, efficiencydecileneighbour4, efficiencydecileneighbour5, efficiencydecileneighbour6, efficiencydecileneighbour7, efficiencydecileneighbour8, efficiencydecileneighbour9, efficiencydecileneighbour10, efficiencydecileneighbour11, efficiencydecileneighbour12, efficiencydecileneighbour13, efficiencydecileneighbour14, efficiencydecileneighbour15, efficiencydecileneighbour16, efficiencydecileneighbour17, efficiencydecileneighbour18, efficiencydecileneighbour19, efficiencydecileneighbour20, efficiencydecileneighbour21, efficiencydecileneighbour22, efficiencydecileneighbour23, efficiencydecileneighbour24, efficiencydecileneighbour25, efficiencydecileneighbour26, efficiencydecileneighbour27, efficiencydecileneighbour28, efficiencydecileneighbour29, efficiencydecileneighbour30, efficiencydecileneighbour31, efficiencydecileneighbour32, efficiencydecileneighbour33, efficiencydecileneighbour34, efficiencydecileneighbour35, efficiencydecileneighbour36, efficiencydecileneighbour37, efficiencydecileneighbour38, efficiencydecileneighbour39, efficiencydecileneighbour40, efficiencydecileneighbour41, efficiencydecileneighbour42, efficiencydecileneighbour43, efficiencydecileneighbour44, efficiencydecileneighbour45, efficiencydecileneighbour46, efficiencydecileneighbour47, efficiencydecileneighbour48, efficiencydecileneighbour49;
+        //VAimprovement1, VAimprovement2, VAimprovement3, VAimprovement4, Effscor2, Effscore 3, Effscore 3, VAimprovfig2capped, VAimprovfig3capped, VAimprovfig4capped, 
+        public int urn, la, laestab, national, fte;
+        public decimal efficiencyscore, SAstd_inc;
+    }
+}

@@ -22,69 +22,54 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
             _financialDataRepository = financialDataRepository;
         }
 
-        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetSchoolFinancialDataObjectAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
+        public async Task<SchoolTrustFinancialDataObject> GetSchoolFinancialDataObjectAsync(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance)
         {
             return await _financialDataRepository.GetSchoolFinanceDataObjectAsync(urn, term, schoolFinancialType, cFinance);
         }
 
-        public SchoolTrustFinancialDataObject GetSchoolFinancialDataObject(int urn, string term, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude)
+        public async Task<FinancialDataModel> GetSchoolsLatestFinancialDataModelAsync(int urn, EstablishmentType schoolFinancialType)
         {
-            return _financialDataRepository.GetSchoolFinancialDataObject(urn, term, schoolFinancialType, cFinance);
-        }
-
-        public FinancialDataModel GetSchoolsLatestFinancialDataModel(int urn, EstablishmentType schoolFinancialType)
-        {
-            var latestYear = GetLatestDataYearPerEstabType(schoolFinancialType);
+            var latestYear = await GetLatestDataYearPerEstabTypeAsync(schoolFinancialType);
             var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var schoolFinancialDataObject = _financialDataRepository.GetSchoolFinancialDataObject(urn, term, schoolFinancialType);
+            var schoolFinancialDataObject = await _financialDataRepository.GetSchoolFinancialDataObjectAsync(urn, term, schoolFinancialType);
             return new FinancialDataModel(urn.ToString(), term, schoolFinancialDataObject, schoolFinancialType);
         }
 
-        public SchoolTrustFinancialDataObject GetTrustFinancialDataObject(int companyNo, string term, MatFinancingType matFinance)
+        public async Task<List<SchoolTrustFinancialDataObject>> GetMultipleTrustDataObjectsByCompanyNumbersAsync(List<int> companyNos)
         {
-            return _financialDataRepository.GetTrustFinancialDataObject(companyNo, term, matFinance);
-        }
-
-        public List<SchoolTrustFinancialDataObject> GetMultipleTrustDataObjectsByCompanyNumbers(List<int> companyNos)
-        {
-            var term = GetActiveTermsForMatCentral().First();            
-            var trustList = _financialDataRepository.GetMultipleTrustFinancialDataObjects(companyNos, term, MatFinancingType.TrustOnly);
+            var term = (await GetActiveTermsForMatCentralAsync()).First();            
+            var trustList = await _financialDataRepository.GetMultipleTrustFinancialDataObjectsAsync(companyNos, term, MatFinancingType.TrustOnly);
             return trustList;
         }
 
-        public SchoolTrustFinancialDataObject GetTrustFinancialDataObjectByMatName(string matName, string term, MatFinancingType matFinance)
+        public async Task<SchoolTrustFinancialDataObject> GetTrustFinancialDataObjectByMatNameAsync(string matName, string term, MatFinancingType matFinance)
         {
-            return _financialDataRepository.GetTrustFinancialDataObjectByMatName(matName, term, matFinance);
+            return await _financialDataRepository.GetTrustFinancialDataObjectByMatNameAsync(matName, term, matFinance);
         }
 
-        public async Task<IEnumerable<SchoolTrustFinancialDataObject>> GetTrustFinancialDataObjectAsync(int companyNo, string term, MatFinancingType matFinance)
+        public async Task<int> GetLatestFinancialDataYearAsync()
         {
-            return await _financialDataRepository.GetTrustFinancialDataObjectAsync(companyNo, term, matFinance);
+            return await _dataCollectionManager.GetOverallLatestFinancialDataYearAsync();
         }
 
-        public int GetLatestFinancialDataYear()
+        public async Task<int> GetLatestDataYearPerEstabTypeAsync(EstablishmentType type)
         {
-            return _dataCollectionManager.GetOverallLatestFinancialDataYear();
+            return await _dataCollectionManager.GetLatestFinancialDataYearPerEstabTypeAsync(type);
         }
 
-        public int GetLatestDataYearPerEstabType(EstablishmentType type)
+        public async Task<List<string>> GetActiveTermsForMatCentralAsync()
         {
-            return _dataCollectionManager.GetLatestFinancialDataYearPerEstabType(type);
+            return await _dataCollectionManager.GetActiveTermsByDataGroupAsync(DataGroups.MATCentral);
         }
 
-        public List<string> GetActiveTermsForMatCentral()
+        public async Task<List<string>> GetActiveTermsForMaintainedAsync()
         {
-            return _dataCollectionManager.GetActiveTermsByDataGroup(DataGroups.MATCentral);
+            return await _dataCollectionManager.GetActiveTermsByDataGroupAsync(DataGroups.Maintained);
         }
 
-        public List<string> GetActiveTermsForMaintained()
+        public async Task<List<string>> GetActiveTermsForAcademiesAsync()
         {
-            return _dataCollectionManager.GetActiveTermsByDataGroup(DataGroups.Maintained);
-        }
-
-        public List<string> GetActiveTermsForAcademies()
-        {
-            return _dataCollectionManager.GetActiveTermsByDataGroup(DataGroups.Academies);
+            return await _dataCollectionManager.GetActiveTermsByDataGroupAsync(DataGroups.Academies);
         }
 
         public async Task<List<SchoolTrustFinancialDataObject>> SearchSchoolsByCriteriaAsync(BenchmarkCriteria criteria, EstablishmentType estType)
@@ -117,20 +102,20 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
             return await _financialDataRepository.GetEstablishmentRecordCountAsync(term, estType);
         }
 
-        public List<AcademiesContextualDataObject> GetAcademiesByCompanyNumber(string term, int companyNo)
+        public async Task<List<AcademiesContextualDataObject>> GetAcademiesByCompanyNumberAsync(string term, int companyNo)
         {
-            return _financialDataRepository.GetAcademiesContextualDataObject(term, companyNo);
+            return await _financialDataRepository.GetAcademiesContextualDataObjectAsync(term, companyNo);
         }
 
         public async Task<List<FinancialDataModel>> GetFinancialDataForSchoolsAsync(List<SchoolSearchModel> schools, CentralFinancingType centralFinancing = CentralFinancingType.Include)
         {
             var models = new List<FinancialDataModel>();
 
-            var taskList = new List<Task<IEnumerable<SchoolTrustFinancialDataObject>>>();
+            var taskList = new List<Task<SchoolTrustFinancialDataObject>>();
             foreach (var school in schools)
             {
                 var estabType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), school.EstabType);
-                var latestYear = this.GetLatestDataYearPerEstabType(estabType);
+                var latestYear = await this.GetLatestDataYearPerEstabTypeAsync(estabType);
                 var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
 
                 var task = this.GetSchoolFinancialDataObjectAsync(Int32.Parse(school.Urn), term, estabType, centralFinancing);
@@ -140,15 +125,13 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
             for (var i = 0; i < schools.Count; i++)
             {
                 var estabType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), schools[i].EstabType);
-                var latestYear = this.GetLatestDataYearPerEstabType(estabType);
+                var latestYear = await this.GetLatestDataYearPerEstabTypeAsync(estabType);
                 var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
-                var taskResult = await taskList[i];
-                var resultDocument = taskResult?.FirstOrDefault();
+                var resultDocument = await taskList[i];
 
                 if (estabType == EstablishmentType.Academies && centralFinancing == CentralFinancingType.Include && resultDocument == null)//if nothing found in -Allocs collection try to source it from (non-allocated) Academies data
                 {
-                    resultDocument = (await this.GetSchoolFinancialDataObjectAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude))
-                        ?.FirstOrDefault();
+                    resultDocument = (await this.GetSchoolFinancialDataObjectAsync(Int32.Parse(schools[i].Urn), term, estabType, CentralFinancingType.Exclude));
                 }
 
                 if (resultDocument != null && resultDocument.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
@@ -160,6 +143,11 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
             }
 
             return models;
+        }
+
+        public async Task<SchoolTrustFinancialDataObject> GetTrustFinancialDataObjectAsync(int companyNo, string term, MatFinancingType matFinance)
+        {
+            return await _financialDataRepository.GetTrustFinancialDataObjectAsync(companyNo, term, matFinance);
         }
     }
 }

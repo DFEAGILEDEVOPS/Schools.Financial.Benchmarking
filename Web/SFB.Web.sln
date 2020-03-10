@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFB.Web.Infrastructure", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFB.Web.ApplicationCore", "SFB.Web.ApplicationCore\SFB.Web.ApplicationCore.csproj", "{C7D71B89-D508-43FA-8130-1266BAA6DDA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFB.Web.Api", "SFB.Web.Api\SFB.Web.Api.csproj", "{791DC024-511A-47FA-B6E9-5A720670FD20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C7D71B89-D508-43FA-8130-1266BAA6DDA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7D71B89-D508-43FA-8130-1266BAA6DDA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7D71B89-D508-43FA-8130-1266BAA6DDA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{791DC024-511A-47FA-B6E9-5A720670FD20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{791DC024-511A-47FA-B6E9-5A720670FD20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{791DC024-511A-47FA-B6E9-5A720670FD20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{791DC024-511A-47FA-B6E9-5A720670FD20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

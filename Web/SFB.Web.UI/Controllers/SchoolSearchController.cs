@@ -206,9 +206,9 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)
+        public async Task<PartialViewResult> UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
+            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolModel()
@@ -259,7 +259,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     if (IsLaEstab(nameId))
                     {
-                        searchResp = _contextDataService.GetSchoolDataObjectByLaEstab(nameId, openOnly);
+                        searchResp = _contextDataService.GetSchoolDataObjectByLaEstabAsync(nameId, openOnly);
                         if (searchResp.Count == 0)
                         {
                             return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_LA_ESTAB));
@@ -276,7 +276,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        searchResp = _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(nameId));
+                        searchResp = _contextDataService.GetSchoolDataObjectByUrnAsync(Int32.Parse(nameId));
                         return RedirectToAction("Detail", "School", new { urn = searchResp.URN });
                     }
                 }

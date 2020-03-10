@@ -64,7 +64,7 @@ namespace SFB.Web.UI
             builder.RegisterType<FinancialDataService>().As<ITermYearDataService>().SingleInstance();
             builder.RegisterType<ContextDataService>().As<IContextDataService>().SingleInstance();
             builder.RegisterType<DataCollectionManager>().As<IDataCollectionManager>().SingleInstance();
-            builder.RegisterType<CosmosDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
+            builder.RegisterType<NewCosmosDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
             builder.RegisterType<CosmosDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();

@@ -43,19 +43,19 @@ namespace SFB.Web.UI.UnitTests
                 new AcademiesContextualDataObject()
             };
 
-            mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumber(It.IsAny<string>(), It.IsAny<int>()))
+            mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumberAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(result);
 
-            mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentral())
+            mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentralAsync())
                 .Returns(new List<string> { "2015" });
 
-            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabType(EstablishmentType.MAT))
+            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT))
                 .Returns(2015);
 
-            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT))
+            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabTypeAsync(EstablishmentType.MAT))
                 .Returns(2015);
 
-            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroup(DataGroups.MATCentral))
+            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroupAsync(DataGroups.MATCentral))
                 .Returns(new List<string> {"2015"});
 
             mockHistoricalChartBuilder

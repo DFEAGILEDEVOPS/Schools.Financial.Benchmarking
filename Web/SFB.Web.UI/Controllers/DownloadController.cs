@@ -25,10 +25,10 @@ namespace SFB.Web.UI.Controllers
             {
                 case EstablishmentType.Academies:
                 case EstablishmentType.MAT:
-                    ViewBag.Terms = _dataService.GetActiveTermsForAcademies();
+                    ViewBag.Terms = _dataService.GetActiveTermsForAcademiesAsync();
                     break;
                 default:
-                    ViewBag.Terms = _dataService.GetActiveTermsForMaintained();
+                    ViewBag.Terms = _dataService.GetActiveTermsForMaintainedAsync();
                     break;
             }
 

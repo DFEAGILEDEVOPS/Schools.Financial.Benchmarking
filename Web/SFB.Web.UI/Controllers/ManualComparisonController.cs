@@ -92,7 +92,7 @@ namespace SFB.Web.UI.Controllers
             EdubaseDataObject contextDataObject = null;
             if (!string.IsNullOrEmpty(comparisonList.HomeSchoolUrn))
             {
-                _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                _contextDataService.GetSchoolDataObjectByUrnAsync(int.Parse(comparisonList.HomeSchoolUrn));
             }
 
             dynamic searchResp = null;
@@ -295,7 +295,7 @@ namespace SFB.Web.UI.Controllers
             return response;
         }
 
-        public ActionResult OverwriteStrategy()
+        public async Task<ActionResult> OverwriteStrategy()
         {
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
             var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
@@ -310,7 +310,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                        var contextDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(int.Parse(comparisonList.HomeSchoolUrn));
                         vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
                     }
                     ViewBag.referrer = Request?.UrlReferrer;
@@ -325,7 +325,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                        var contextDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(int.Parse(comparisonList.HomeSchoolUrn));
                         vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
                     }
                     ViewBag.referrer = Request?.UrlReferrer;
@@ -348,7 +348,7 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ReplaceAdd(BenchmarkListOverwriteStrategy overwriteStrategy, string referrer)
+        public async Task<ActionResult> ReplaceAdd(BenchmarkListOverwriteStrategy overwriteStrategy, string referrer)
         {
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
             var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
@@ -365,7 +365,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else
                         {
-                            var contextDataObject = _contextDataService.GetSchoolDataObjectByUrn(int.Parse(comparisonList.HomeSchoolUrn));
+                            var contextDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(int.Parse(comparisonList.HomeSchoolUrn));
                             vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
                         }
 
@@ -401,9 +401,9 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        public PartialViewResult AddSchool(int urn)
+        public async Task<PartialViewResult> AddSchool(int urn)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
+            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
 
             try
             {
@@ -426,9 +426,9 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/SchoolsToAdd", vm.BenchmarkSchools.Where(s => s.Id != vm.HomeSchoolUrn).ToList());
         }
 
-        public PartialViewResult RemoveSchool(int urn)
+        public async Task<PartialViewResult> RemoveSchool(int urn)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
+            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
 
             _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.Remove, new BenchmarkSchoolModel()
             {
@@ -443,11 +443,11 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/SchoolsToAdd", vm.BenchmarkSchools.Where(s => s.Id != vm.HomeSchoolUrn).ToList());
         }
 
-        public JsonResult UpdateManualBasket(int? urn, CookieActions withAction)
+        public async Task<JsonResult> UpdateManualBasket(int? urn, CookieActions withAction)
         {
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn.GetValueOrDefault()), null);
+                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault()), null);
 
                 _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(withAction,
                     new BenchmarkSchoolModel()
