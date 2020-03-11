@@ -192,6 +192,16 @@ namespace SFB.Web.UI.Controllers
             return Content(json, "application/json");
         }
 
+        public async Task<ActionResult> SuggestTrust(string trustNameId)
+        {
+            var vm = new SchoolNotFoundViewModel
+            {
+                SearchKey = trustNameId,
+                Suggestions = await _trustSearchService.SuggestTrustByName(trustNameId)
+            };
+            return View("NotFound", vm);
+        }
+        
         private async Task<TrustListViewModel> GetTrustListViewModelAsync(dynamic trustSearchResults, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             var academyTrustList = new List<AcademyTrustViewModel>();
