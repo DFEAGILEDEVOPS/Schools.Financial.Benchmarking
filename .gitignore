@@ -213,3 +213,5 @@ Web/Web.UI.Automation/screenshots/*
 /Web/SFB.Web.DAL.Tests/App.config
 /Web/SFB.Web.UI/Assets/Scripts/Views/
 /Web/SFB.Web.UI/Assets/Scripts/Elements/SchoolMap/
+/Web/SFB.Web.Api/appsettings.Development.json
+/Web/SFB.Web.Api/appsettings.json

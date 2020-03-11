@@ -58,6 +58,8 @@ namespace SFB.Web.UI.Models
 
         public string Status => GetString(EdubaseDataFieldNames.ESTAB_STATUS);
 
+        public string StatusInYear => GetString(EdubaseDataFieldNames.ESTAB_STATUS_IN_YEAR);
+
         public string SchoolWebSite
         {
             get

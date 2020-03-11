@@ -30,6 +30,7 @@
         public const string OPEN_DATE = "OpenDate";
         public const string CLOSE_DATE = "CloseDate";
         public const string ESTAB_STATUS = "EstablishmentStatus";
+        public const string ESTAB_STATUS_IN_YEAR = "EstablishmentStatusInLatestAcademicYear";
         public const string PERIOD_COVERED_BY_RETURN = "Period covered by return";
         public const string LOCATION_TYPE = "type";
         public const string LOCATION_COORDINATES = "coordinates";
