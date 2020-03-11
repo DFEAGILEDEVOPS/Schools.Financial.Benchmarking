@@ -116,7 +116,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 } };
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => testResult);
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => Task.Run(()=> testResult));
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);

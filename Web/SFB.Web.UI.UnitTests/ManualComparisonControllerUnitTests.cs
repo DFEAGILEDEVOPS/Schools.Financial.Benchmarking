@@ -41,7 +41,7 @@ namespace SFB.Web.UI.UnitTests
 
 
         [Test]
-        public void OverwriteStrategyRendersReplaceBasketViewWhenOnlyOption()
+        public async System.Threading.Tasks.Task OverwriteStrategyRendersReplaceBasketViewWhenOnlyOptionAsync()
         {
             var fakeBMSchools = new List<BenchmarkSchoolModel>();
             for (int i = 0; i < 30; i++)
@@ -65,7 +65,7 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new ManualComparisonController(mockCookieManager.Object, mockLaService.Object, mockEdubaseDataService.Object, null, null, null, null, null);
 
-            var result = controller.OverwriteStrategyAsync();
+            var result = await controller.OverwriteStrategy();
 
              Assert.AreEqual("OverwriteReplace", (result as ViewResult).ViewName);
         }

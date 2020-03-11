@@ -259,7 +259,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     if (IsLaEstab(nameId))
                     {
-                        searchResp = _contextDataService.GetSchoolDataObjectByLaEstabAsync(nameId, openOnly);
+                        searchResp = await _contextDataService.GetSchoolDataObjectByLaEstabAsync(nameId, openOnly);
                         if (searchResp.Count == 0)
                         {
                             return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_LA_ESTAB));
@@ -276,7 +276,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        searchResp = _contextDataService.GetSchoolDataObjectByUrnAsync(Int32.Parse(nameId));
+                        searchResp = await _contextDataService.GetSchoolDataObjectByUrnAsync(Int32.Parse(nameId));
                         return RedirectToAction("Detail", "School", new { urn = searchResp.URN });
                     }
                 }

@@ -319,13 +319,13 @@ namespace SFB.Web.UI.UnitTests
 
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfUrnIsUsedAsId()
-        {            
-            var testResult = new EdubaseDataObject();
-            testResult.URN = 123456;
+        {
+             var GetSchoolDataObjectByUrnAsyncTask = Task.Run(()=> new EdubaseDataObject { URN = 123456 });
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123456)).Returns((int urn) => testResult);
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123456)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
+            var controller = new SchoolSearchController(_mockLaService.Object, 
+                _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
 
             var result = await controller.Search("123456", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
@@ -364,9 +364,15 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSearchViewIfLaEstabIsUsedAsIdAndMultipleResultsFound()
         {
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => task);
+            var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 }, new EdubaseDataObject() { URN = 1234568 } };
 
-            Task<dynamic> task = Task.Run(() =>
+            Task<List<EdubaseDataObject>> GetSchoolDataObjectByLaEstabAsyncTask = Task.Run(() =>
+            {
+                return testResult;
+            });
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => GetSchoolDataObjectByLaEstabAsyncTask);
+
+            Task<dynamic> SearchSchoolByLaEstabTask = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -384,7 +390,7 @@ namespace SFB.Web.UI.UnitTests
             });
 
             _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstab("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
-                .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
+                .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => SearchSchoolByLaEstabTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);

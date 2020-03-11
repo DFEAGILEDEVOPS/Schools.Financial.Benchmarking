@@ -16,6 +16,7 @@ using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using System.Threading.Tasks;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -46,13 +47,20 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public void DetailShouldKeepUnitTypeBetweenExpenditureAndIncomeTabs()
+        public async Task DetailShouldKeepUnitTypeBetweenExpenditureAndIncomeTabsAsync()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            var testEduResult = new EdubaseDataObject();
-            testEduResult.URN = 123;
-            testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => testEduResult);
+
+            var GetSchoolDataObjectByUrnAsyncTask = Task.Run(() =>
+            {
+                return new EdubaseDataObject
+                {
+                    URN = 123,
+                    FinanceType = "Maintained"
+                };
+            });
+
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -77,6 +85,7 @@ namespace SFB.Web.UI.UnitTests
             var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
             var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
+            mockSchoolVMBuilder.Setup(m => m.GetResult()).Returns(new SchoolViewModel(null));
 
             var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
                 mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
@@ -84,7 +93,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Income);
+            await controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Income);
 
             mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
                 It.IsAny<TabType>(),
@@ -94,13 +103,18 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public void DetailCallShouldKeepUnitTypeBetweenExpenditureAndBalanceTabsIfPossible()
+        public async Task DetailCallShouldKeepUnitTypeBetweenExpenditureAndBalanceTabsIfPossibleAsync()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            var testEduResult = new EdubaseDataObject();
-            testEduResult.URN = 123;
-            testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => testEduResult);
+            var GetSchoolDataObjectByUrnAsyncTask = Task.Run(() =>
+            {
+                return new EdubaseDataObject
+                {
+                    URN = 123,
+                    FinanceType = "Maintained"
+                };
+            });
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -125,14 +139,15 @@ namespace SFB.Web.UI.UnitTests
             var mockActiveUrnsService = new Mock<IActiveUrnsService>();
 
             var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
-
+            mockSchoolVMBuilder.Setup(m => m.GetResult()).Returns(new SchoolViewModel(null));
+            
             var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
                 mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
                 mockSchoolVMBuilder.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Balance);
+            await controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Balance);
 
             mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
                 It.IsAny<TabType>(),
@@ -140,63 +155,21 @@ namespace SFB.Web.UI.UnitTests
                 It.IsAny<CentralFinancingType>(),
                 UnitType.PerPupil));
         }
-
-        //[Test]
-        //public void DetailCallShouldResetUnitTypeBetweenExpenditureAndBalanceTabsWhenKeepingNotPossible()
-        //{
-        //    var mockEdubaseDataService = new Mock<IContextDataService>();
-        //    var testEduResult = new EdubaseDataObject();
-        //    testEduResult.URN = 123;
-        //    testEduResult.FinanceType = "Maintained";
-        //    mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
-
-        //    var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
-        //    mockHistoricalChartBuilder
-        //        .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<ChartGroupType>(), It.IsAny<EstablishmentType>(), It.IsAny<UnitType>()))
-        //        .Returns((TabType TabNames, ChartGroupType chartGroupType, EstablishmentType schoolFinancialType, UnitType unit) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
-
-        //    mockHistoricalChartBuilder
-        //        .Setup(cb => cb.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
-        //        .Returns((TabType TabNames, EstablishmentType schoolFinancialType) => new List<ChartViewModel>() { new ChartViewModel() { ChartGroup = ChartGroupType.Staff } });
-
-
-        //    var financialCalculationsService = new Mock<IFinancialCalculationsService>();
-
-        //    var mockFinancialDataService = new Mock<IFinancialDataService>();
-
-        //    var mockDownloadCsvBuilder = new Mock<IDownloadCSVBuilder>();
-
-        //    var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
-
-        //    var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
-
-        //    var mockActiveUrnsService = new Mock<IActiveUrnsService>();
-
-        //    var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
-
-        //    var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
-        //        mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockLaSearchService.Object, mockActiveUrnsService.Object,
-        //        mockSchoolVMBuilder.Object);
-
-        //    controller.ControllerContext = new ControllerContext(_rc, controller);
-
-        //    controller.Detail(123, UnitType.PercentageOfTotalExpenditure, CentralFinancingType.Exclude, TabType.Balance);
-
-        //    mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
-        //        It.IsAny<TabType>(),
-        //        It.IsAny<ChartGroupType>(),
-        //        It.IsAny<CentralFinancingType>(),
-        //        UnitType.AbsoluteMoney));
-        //}
 
         [Test]
         public void DetailCallShouldResetUnitTypeBetweenExpenditureAndWorkforceTabs()
         {
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            var testEduResult = new EdubaseDataObject();
-            testEduResult.URN = 123;
-            testEduResult.FinanceType = "Maintained";
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => testEduResult);
+            var GetSchoolDataObjectByUrnAsyncTask = Task.Run(() =>
+            {
+                return new EdubaseDataObject
+                {
+                    URN = 123,
+                    FinanceType = "Maintained"
+                };
+            });
+
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
