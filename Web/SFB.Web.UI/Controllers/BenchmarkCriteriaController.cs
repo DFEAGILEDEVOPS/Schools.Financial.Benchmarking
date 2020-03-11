@@ -63,7 +63,7 @@ namespace SFB.Web.UI.Controllers
             return View(benchmarkSchool);
         }
 
-        public async Task<ActionResult> StepOneAsync(int? urn, ComparisonType? comparisonType)
+        public async Task<ActionResult> StepOne(int? urn, ComparisonType? comparisonType)
         {
             switch (comparisonType)
             {
