@@ -103,7 +103,8 @@ namespace SFB.Web.Infrastructure.Repositories
                 $"c['{EdubaseDataFieldNames.OVERALL_PHASE}'], " +
                 $"c['{EdubaseDataFieldNames.COMPANY_NUMBER}'] " +
                 $"FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo " +
-                $"AND c.{EdubaseDataFieldNames.FINANCE_TYPE} = 'A'";
+                $"AND c.{EdubaseDataFieldNames.FINANCE_TYPE} = 'A' " +
+                $"AND c.{EdubaseDataFieldNames.ESTAB_STATUS_IN_YEAR} = 'Open'";
 
             var queryDefinition = new QueryDefinition(queryString)
                 .WithParameter($"@CompanyNo", companyNo);
@@ -138,7 +139,8 @@ namespace SFB.Web.Infrastructure.Repositories
 
             var queryString = $"SELECT VALUE COUNT(c) " +
                 $"FROM c WHERE c.{EdubaseDataFieldNames.COMPANY_NUMBER}=@CompanyNo " +
-                $"AND c.{EdubaseDataFieldNames.FINANCE_TYPE} = 'A'";
+                $"AND c.{EdubaseDataFieldNames.FINANCE_TYPE} = 'A' " +
+                $"AND c.{EdubaseDataFieldNames.ESTAB_STATUS_IN_YEAR} = 'Open'";
 
             var queryDefinition = new QueryDefinition(queryString)
                 .WithParameter($"@CompanyNo", companyNo);

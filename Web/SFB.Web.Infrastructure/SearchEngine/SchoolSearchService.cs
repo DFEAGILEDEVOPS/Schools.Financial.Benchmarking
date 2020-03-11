@@ -154,6 +154,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
                 parameters = new NameValueCollection(queryParams);
             }
             parameters.Add("financeType", "A");
+            parameters.Add("EstablishmentStatusInLatestAcademicYear", "Open");
             var facets = new[] { $"{EdubaseDataFieldNames.OVERALL_PHASE}", $"{EdubaseDataFieldNames.OFSTED_RATING}", $"{EdubaseDataFieldNames.GENDER}" };
             var exactMatches = await ExecuteSearchAsync(_index, $"{companyNo}", $"{EdubaseDataFieldNames.COMPANY_NUMBER}",
                 ConstructApiFilterParams(parameters), orderby, skip, take, facets);
@@ -348,6 +349,12 @@ namespace SFB.Web.ApplicationCore.Services.Search
             {
                 string[] values = ExtractValues(parameters["establishmentStatus"]);
                 queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDataFieldNames.ESTAB_STATUS} eq '" + x + "'")));
+            }
+
+            if (parameters["EstablishmentStatusInLatestAcademicYear"] != null)
+            {
+                string[] values = ExtractValues(parameters["EstablishmentStatusInLatestAcademicYear"]);
+                queryFilter.Add(string.Join(" or ", values.Select(x => $"{EdubaseDataFieldNames.ESTAB_STATUS_IN_YEAR} eq '" + x + "'")));
             }
 
             if (parameters["financeType"] != null)

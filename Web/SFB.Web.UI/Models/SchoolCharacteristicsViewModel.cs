@@ -639,13 +639,16 @@ namespace SFB.Web.UI.Models
         {
             var phaseText = string.Empty;
 
-            if ((latestSchoolData.SchoolOverallPhase == "Primary" || latestSchoolData.SchoolOverallPhase == "Secondary") && (latestSchoolData.SchoolOverallPhase != latestSchoolData.SchoolPhase))
+            if (latestSchoolData != null)
             {
-                phaseText = $"{latestSchoolData.SchoolOverallPhase} ({latestSchoolData.SchoolPhase})";
-            }
-            else
-            {
-                phaseText = latestSchoolData?.SchoolPhase;
+                if ((latestSchoolData.SchoolOverallPhase == "Primary" || latestSchoolData.SchoolOverallPhase == "Secondary") && (latestSchoolData.SchoolOverallPhase != latestSchoolData.SchoolPhase))
+                {
+                    phaseText = $"{latestSchoolData.SchoolOverallPhase} ({latestSchoolData.SchoolPhase})";
+                }
+                else
+                {
+                    phaseText = latestSchoolData.SchoolPhase;
+                }
             }
             return new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.SCHOOL_PHASE, Value = phaseText };
         }
