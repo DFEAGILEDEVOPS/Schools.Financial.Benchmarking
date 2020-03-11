@@ -125,7 +125,7 @@ namespace SFB.Web.UI.Controllers
                     {
                         try
                         {
-                            AddSchoolDataObjectsToBasketAsync(comparison, urnList);
+                            await AddSchoolDataObjectsToBasketAsync(comparison, urnList);
                         }
                         catch (ApplicationException)
                         {
@@ -161,7 +161,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     EmptyBenchmarkList();
 
-                    AddSchoolDataObjectsToBasketAsync(comparison, urnList);
+                    await AddSchoolDataObjectsToBasketAsync(comparison, urnList);
 
                     return await Index(null, null, null, null, comparison);
                 }

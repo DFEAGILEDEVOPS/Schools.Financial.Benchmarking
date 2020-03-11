@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Cosmos.Fluent;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.Infrastructure.Helpers;
@@ -24,8 +24,8 @@ namespace SFB.Web.Api
         public void ConfigureServices(IServiceCollection services)
         {
             string endPoint = Configuration.GetValue<string>("Values:endpoint");
-            string authKey = Configuration.GetValue<string>("Values:authkey");
-            string databaseId = Configuration.GetValue<string>("Values:database");
+            string authKey = Configuration.GetValue<string>("Values:authkey");                       
+            string databaseId = Configuration.GetValue<string>("Values:database");                       
 
             var cosmosClient = new CosmosClientBuilder(endPoint, authKey)
                                 .WithConnectionModeDirect()
@@ -41,27 +41,23 @@ namespace SFB.Web.Api
             services.AddSingleton<IEfficiencyMetricRepository>(new EfficiencyMetricRepository(cosmosClient, databaseId));
             services.AddSingleton<IDataCollectionManager>(new DataCollectionManager(cosmosClient, databaseId));
 
-            services.AddControllers();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseMvc();
         }
     }
 }

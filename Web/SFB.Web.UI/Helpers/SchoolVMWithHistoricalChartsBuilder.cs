@@ -38,12 +38,12 @@ namespace SFB.Web.UI.Helpers
             _laSearchService = laSearchService;
         }
 
-        public async void BuildCoreAsync(int urn)
+        public async Task BuildCoreAsync(int urn)
         {
             SchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
         }
 
-        public async Task<SchoolViewModel> AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType)
+        public async Task AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType)
         {
             SchoolVM.HistoricalCharts = _historicalChartBuilder.Build(tabType, chartGroup, SchoolVM.EstablishmentType, unitType);
             SchoolVM.ChartGroups = _historicalChartBuilder.Build(tabType, SchoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
@@ -53,8 +53,7 @@ namespace SFB.Web.UI.Helpers
             SchoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(SchoolVM.Id, SchoolVM.EstablishmentType, SchoolVM.Tab == TabType.Workforce ? CentralFinancingType.Exclude : cFinance);
             
             _fcService.PopulateHistoricalChartsWithFinancialData(SchoolVM.HistoricalCharts, SchoolVM.HistoricalFinancialDataModels, SchoolVM.LatestTerm, SchoolVM.Tab, unitType, SchoolVM.EstablishmentType);
-
-            return SchoolVM;
+           
         }
 
         public void AssignLaName()

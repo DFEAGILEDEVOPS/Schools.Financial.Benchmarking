@@ -1,15 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services.DataAccess;
+using System;
+using System.Threading.Tasks;
 
 namespace SFB.Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EfficiencyMetricController : ControllerBase
+    public class EfficiencyMetricController
     {
         private readonly IEfficiencyMetricDataService _efficiencyMetricDataService;
         private readonly IContextDataService _contextDataService;
@@ -20,7 +20,7 @@ namespace SFB.Web.Api.Controllers
             _contextDataService = contextDataService;
             _financialDataService = financialDataService;
             _efficiencyMetricDataService = efficiencyMetricDataService;
-
+            
         }
 
         // GET api/efficiencymetric/5
@@ -28,7 +28,7 @@ namespace SFB.Web.Api.Controllers
         public async Task<ActionResult<EfficiencyMetricModel>> GetAsync(int urn)
         {
             var model = new EfficiencyMetricModel();
-
+                
             model.EfficiencyMetricData = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
 
             model.ContextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);

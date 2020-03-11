@@ -59,7 +59,7 @@ namespace SFB.Web.UI.Controllers
         {
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 
-            _schoolVMBuilder.BuildCoreAsync(urn);
+            await _schoolVMBuilder.BuildCoreAsync(urn);
             await _schoolVMBuilder.AddHistoricalChartsAsync(tab, DetectDefaultChartGroupFromTabType(tab), financing, unit);
             _schoolVMBuilder.AssignLaName();
             var schoolVM = _schoolVMBuilder.GetResult();
@@ -88,7 +88,7 @@ namespace SFB.Web.UI.Controllers
         CentralFinancingType financing = CentralFinancingType.Include,
         ChartFormat format = ChartFormat.Charts)
         {
-            _schoolVMBuilder.BuildCoreAsync(urn);
+            await _schoolVMBuilder.BuildCoreAsync(urn);
             await _schoolVMBuilder.AddHistoricalChartsAsync(revGroup, chartGroup, financing, unit);
             var schoolVM = _schoolVMBuilder.GetResult();
 
@@ -103,7 +103,7 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> Download(int urn)
         {
-            _schoolVMBuilder.BuildCoreAsync(urn);
+            await _schoolVMBuilder.BuildCoreAsync(urn);
             await _schoolVMBuilder.AddHistoricalChartsAsync(TabType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, UnitType.AbsoluteMoney);
             var schoolVM = _schoolVMBuilder.GetResult();
             

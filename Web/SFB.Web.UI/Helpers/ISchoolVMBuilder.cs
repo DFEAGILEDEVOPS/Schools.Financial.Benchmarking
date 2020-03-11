@@ -7,8 +7,8 @@ namespace SFB.Web.UI.Helpers
 {
     public interface ISchoolVMBuilder
     {
-        void BuildCoreAsync(int urn);
-        Task<SchoolViewModel> AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType);
+        Task BuildCoreAsync(int urn);
+        Task AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType);
         void AssignLaName();
         SchoolViewModel GetResult();
     }

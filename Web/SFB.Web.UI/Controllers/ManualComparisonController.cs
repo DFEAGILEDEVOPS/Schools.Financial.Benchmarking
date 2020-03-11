@@ -92,7 +92,7 @@ namespace SFB.Web.UI.Controllers
             EdubaseDataObject contextDataObject = null;
             if (!string.IsNullOrEmpty(comparisonList.HomeSchoolUrn))
             {
-                _contextDataService.GetSchoolDataObjectByUrnAsync(int.Parse(comparisonList.HomeSchoolUrn));
+                await _contextDataService.GetSchoolDataObjectByUrnAsync(int.Parse(comparisonList.HomeSchoolUrn));
             }
 
             dynamic searchResp = null;

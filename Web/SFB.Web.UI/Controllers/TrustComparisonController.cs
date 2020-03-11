@@ -26,11 +26,11 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
-        public ActionResult Index(int companyNo)
+        public async Task<ActionResult> IndexAsync(int companyNo)
         {            
             var benchmarkTrust = new TrustViewModel(companyNo);
 
-            LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
+            await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
 
             var trustComparisonList = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.SetDefault, companyNo, benchmarkTrust.Name);
 
