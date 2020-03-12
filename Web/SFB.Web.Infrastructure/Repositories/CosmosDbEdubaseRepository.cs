@@ -235,21 +235,21 @@ namespace SFB.Web.Infrastructure.Repositories
                 $"udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDataFieldNames.FINANCE_TYPE}']) AS {EdubaseDataFieldNames.FINANCE_TYPE} " +
                 $"FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd(',')})";
 
-            List<EdubaseDataObject> result = null;
+            var results = new List<EdubaseDataObject>();
             try
             {
                 var query = container.GetItemQueryIterator<EdubaseDataObject>(new QueryDefinition(queryString));
-                var results = new List<EdubaseDataObject>();
                 while (query.HasMoreResults)
                 {
                     var response = await query.ReadNextAsync();
 
                     results.AddRange(response.ToList());
                 }
-                if (result.Count < ids.Count)
+                if (results.Count < ids.Count)
                 {
                     throw new Newtonsoft.Json.JsonSerializationException();
                 }
+                return results;
             }
             catch (Exception ex)
             {
@@ -257,7 +257,6 @@ namespace SFB.Web.Infrastructure.Repositories
                 base.LogException(ex, errorMessage);
                 throw new ApplicationException($"One or more documents could not be loaded from {collectionName} : URNs = {sb.ToString().TrimEnd(',')}");
             }
-            return result;
         }
 
         #endregion
