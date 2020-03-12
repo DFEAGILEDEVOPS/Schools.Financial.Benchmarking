@@ -11,9 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFB.Web.Infrastructure", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFB.Web.ApplicationCore", "SFB.Web.ApplicationCore\SFB.Web.ApplicationCore.csproj", "{C7D71B89-D508-43FA-8130-1266BAA6DDA9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFB.Web.Api2", "SFB.Web.Api2\SFB.Web.Api2.csproj", "{791DC024-511A-47FA-B6E9-5A720670FD20}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFB.Web.Api", "SFB.Web.Api\SFB.Web.Api.csproj", "{AA5925C8-8A53-4409-AC81-B98A383895BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFB.Web.Api", "SFB.Web.Api\SFB.Web.Api.csproj", "{AA5925C8-8A53-4409-AC81-B98A383895BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{C7D71B89-D508-43FA-8130-1266BAA6DDA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7D71B89-D508-43FA-8130-1266BAA6DDA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7D71B89-D508-43FA-8130-1266BAA6DDA9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{791DC024-511A-47FA-B6E9-5A720670FD20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{791DC024-511A-47FA-B6E9-5A720670FD20}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{791DC024-511A-47FA-B6E9-5A720670FD20}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{791DC024-511A-47FA-B6E9-5A720670FD20}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AA5925C8-8A53-4409-AC81-B98A383895BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA5925C8-8A53-4409-AC81-B98A383895BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA5925C8-8A53-4409-AC81-B98A383895BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
