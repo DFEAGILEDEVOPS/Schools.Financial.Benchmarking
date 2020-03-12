@@ -8,6 +8,7 @@ using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.Infrastructure.Helpers;
 using SFB.Web.Infrastructure.Repositories;
+using System.Runtime.Caching;
 
 namespace SFB.Web.Api
 {
@@ -31,16 +32,17 @@ namespace SFB.Web.Api
                                 .WithConnectionModeDirect()
                                 .Build();
 
-            var dataCollectionManager = new DataCollectionManager(cosmosClient, databaseId);
+
+            var dataCollectionManager = new DataCollectionManager(cosmosClient, databaseId, new NetCoreCachedActiveCollectionsService());
 
             services.AddSingleton<IEfficiencyMetricDataService, EfficiencyMetricDataService>();
             services.AddSingleton<IContextDataService, ContextDataService>();
             services.AddSingleton<IFinancialDataService, FinancialDataService>();
             services.AddSingleton<IFinancialDataRepository>(new CosmosDbFinancialDataRepository(dataCollectionManager, cosmosClient, databaseId));
-            services.AddSingleton<IEdubaseRepository>(new NewCosmosDbEdubaseRepository(dataCollectionManager, cosmosClient, databaseId));
+            services.AddSingleton<IEdubaseRepository>(new CosmosDbEdubaseRepository(dataCollectionManager, cosmosClient, databaseId));
             services.AddSingleton<IEfficiencyMetricRepository>(new EfficiencyMetricRepository(cosmosClient, databaseId));
-            services.AddSingleton<IDataCollectionManager>(new DataCollectionManager(cosmosClient, databaseId));
-
+            services.AddSingleton<IDataCollectionManager>(dataCollectionManager);
+            
             services.AddControllers();
         }
 

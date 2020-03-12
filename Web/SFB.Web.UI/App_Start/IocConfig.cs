@@ -64,7 +64,7 @@ namespace SFB.Web.UI
             builder.RegisterType<FinancialDataService>().As<ITermYearDataService>().SingleInstance();
             builder.RegisterType<ContextDataService>().As<IContextDataService>().SingleInstance();
             builder.RegisterType<DataCollectionManager>().As<IDataCollectionManager>().SingleInstance();
-            builder.RegisterType<NewCosmosDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
+            builder.RegisterType<CosmosDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
             builder.RegisterType<CosmosDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();
@@ -75,6 +75,7 @@ namespace SFB.Web.UI
             builder.RegisterType<NotifyEmailSendingService>().As<IEmailSendingService>();
             builder.RegisterType<AspNetCachedLocalAuthoritiesService>().As<ILocalAuthoritiesService>();
             builder.RegisterType<RedisCachedActiveUrnsService>().As<IActiveUrnsService>().SingleInstance();
+            builder.RegisterType<AspNetCachedActiveCollectionsService>().As<IActiveCollectionsService>().SingleInstance();
             builder.RegisterType<RedisCachedBicComparisonResultCachingService>().As<IBicComparisonResultCachingService>().SingleInstance();
             builder.RegisterInstance(new AzureSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();
             builder.RegisterInstance(new AzureTrustSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();

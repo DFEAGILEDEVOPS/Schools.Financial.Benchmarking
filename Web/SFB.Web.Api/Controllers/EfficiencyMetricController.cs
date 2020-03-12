@@ -29,14 +29,21 @@ namespace SFB.Web.Api.Controllers
         {
             var model = new EfficiencyMetricModel();
 
-            model.EfficiencyMetricData = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
-
             model.ContextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
 
-            var financeType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), model.ContextData.FinanceType);
-            model.FinancialData = (await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(urn, financeType)).FinancialDataObjectModel;
+            if (model.ContextData == null)
+            {
+                return NoContent();
+            }
+            else
+            {
+                var financeType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), model.ContextData.FinanceType);
+                model.FinancialData = (await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(urn, financeType)).FinancialDataObjectModel;
 
-            return model;
+                model.EfficiencyMetricData = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
+
+                return model;
+            }
         }
     }
 }

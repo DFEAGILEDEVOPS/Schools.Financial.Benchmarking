@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Services;
 
 namespace SFB.Web.Infrastructure.Helpers
 {
@@ -19,9 +20,12 @@ namespace SFB.Web.Infrastructure.Helpers
         private readonly string _databaseId;
         private static CosmosClient _client;
         private readonly Container _container;
+        private readonly IActiveCollectionsService _activeCollectionsService;
 
-        public DataCollectionManager()
+        public DataCollectionManager(IActiveCollectionsService activeCollectionsService)
         {
+            _activeCollectionsService = activeCollectionsService;
+
             var clientBuilder = new CosmosClientBuilder(ConfigurationManager.AppSettings["endpoint"],
                 ConfigurationManager.AppSettings["authKey"]);
 
@@ -34,13 +38,15 @@ namespace SFB.Web.Infrastructure.Helpers
             _container = _client.GetContainer(_databaseId, "fibre-directory");
         }
 
-        public DataCollectionManager(CosmosClient cosmosClient, string databaseId)
+        public DataCollectionManager(CosmosClient cosmosClient, string databaseId, IActiveCollectionsService activeCollectionsService)
         {          
             _client = cosmosClient;
 
             _databaseId = databaseId;
 
             _container = _client.GetContainer(_databaseId, "fibre-directory");
+
+            _activeCollectionsService = activeCollectionsService;
         }
 
         public async Task<List<string>> GetActiveCollectionsByDataGroupAsync(string dataGroup)
@@ -114,13 +120,11 @@ namespace SFB.Web.Infrastructure.Helpers
         }
 
         private async Task<List<JObject>> GetCachedActiveCollectionsAsync()
-        {
-            //TODO: Enable caching (perhaps with Redis) to allow .Net Core web api to use this
-            
-            //var docs = (List<JObject>)HttpContext.Current.Cache.Get("SFBActiveCollectionList");
+        {         
+            var docs = _activeCollectionsService.GetActiveCollectionsList();
 
-            //if (docs == null)
-            //{   
+            if (docs == null)
+            {
                 var queryString = $"SELECT * FROM c WHERE c['active'] = 'Y'";
 
                 var query = _container.GetItemQueryIterator<JObject>(new QueryDefinition(queryString));
@@ -133,10 +137,10 @@ namespace SFB.Web.Infrastructure.Helpers
                     results.AddRange(response.ToList());
                 }
 
-                var docs = results.Select(d => JObject.Parse(d.ToString())).Cast<JObject>().ToList();
-
-                //HttpContext.Current.Cache.Insert("SFBActiveCollectionList", docs, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(60));
-            //}
+                docs = results.Select(d => JObject.Parse(d.ToString())).Cast<JObject>().ToList();
+                
+                _activeCollectionsService.SetActiveCollectionsList(docs);
+            }
 
             return docs;
         }

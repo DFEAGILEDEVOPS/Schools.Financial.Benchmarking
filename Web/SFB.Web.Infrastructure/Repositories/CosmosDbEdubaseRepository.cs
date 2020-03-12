@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace SFB.Web.Infrastructure.Repositories
 {
-    public class NewCosmosDbEdubaseRepository : AppInsightsLoggable, IEdubaseRepository
+    public class CosmosDbEdubaseRepository : AppInsightsLoggable, IEdubaseRepository
     {
         private readonly string _databaseId;
         private static CosmosClient _client;
         private IDataCollectionManager _dataCollectionManager;
 
-        public NewCosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager)
+        public CosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager)
         {
             _dataCollectionManager = dataCollectionManager;
 
@@ -31,7 +31,7 @@ namespace SFB.Web.Infrastructure.Repositories
             //CreateUDFs();
         }
 
-        public NewCosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager, CosmosClient cosmosClient, string databaseId)
+        public CosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager, CosmosClient cosmosClient, string databaseId)
         {
             _dataCollectionManager = dataCollectionManager;
 

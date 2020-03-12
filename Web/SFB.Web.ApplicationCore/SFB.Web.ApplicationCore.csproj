@@ -42,6 +42,7 @@
     <Reference Include="System.Device" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CachingInterfaces\IActiveCollectionsService.cs" />
     <Compile Include="CachingInterfaces\IBicComparisonResultCachingService.cs" />
     <Compile Include="DataAccessInterfaces\IEfficiencyMetricRepository.cs" />
     <Compile Include="Entities\EfficiecyMetricDataObject.cs" />

@@ -70,6 +70,12 @@
     <Reference Include="Microsoft.Data.Services.Client, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.2\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.20\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
@@ -141,8 +147,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0-preview7.19362.9\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
@@ -209,13 +216,15 @@
     <Compile Include="API\ApiRequest.cs" />
     <Compile Include="API\IApiRequest.cs" />
     <Compile Include="API\SptReportService.cs" />
+    <Compile Include="Caching\AspNetCachedActiveCollectionsService.cs" />
     <Compile Include="Caching\AspNetCachedLocalAuthoritiesService.cs" />
+    <Compile Include="Caching\NetCoreCachedActiveCollectionsService.cs" />
     <Compile Include="Caching\RedisCachedActiveUrnsService.cs" />
     <Compile Include="Caching\RedisCachedBicComparisonResultCachingService.cs" />
     <Compile Include="Email\NotifyEmailSendingService.cs" />
     <Compile Include="Helpers\DataCollectionManager.cs" />
     <Compile Include="Repositories\EfficiencyMetricRepository.cs" />
-    <Compile Include="Repositories\NewCosmosDbEdubaseRepository.cs" />
+    <Compile Include="Repositories\CosmosDbEdubaseRepository.cs" />
     <Compile Include="SearchEngine\LocationSearchService.cs" />
     <Compile Include="Repositories\CosmosDbFinancialDataRepository.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
