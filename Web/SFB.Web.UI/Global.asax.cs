@@ -5,6 +5,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Microsoft.ApplicationInsights.Extensibility;
 using System.Linq;
+using System.Net;
 
 namespace SFB.Web.UI
 {
@@ -22,6 +23,11 @@ namespace SFB.Web.UI
 
             var enableAITelemetry = ConfigurationManager.AppSettings["EnableAITelemetry"];
             TelemetryConfiguration.Active.DisableTelemetry = enableAITelemetry == null || !bool.Parse(enableAITelemetry);
+
+            if (ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12) == false) 
+            {
+                ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
+            }
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
