@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
+using Microsoft.Azure.Cosmos.Scripts;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Helpers.Constants;
@@ -28,7 +29,7 @@ namespace SFB.Web.Infrastructure.Repositories
 
             _databaseId = ConfigurationManager.AppSettings["database"];
 
-            //CreateUDFs();
+            _ = CreateUDFsAsync();
         }
 
         public CosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager, CosmosClient cosmosClient, string databaseId)
@@ -39,7 +40,29 @@ namespace SFB.Web.Infrastructure.Repositories
 
             _databaseId = databaseId;
 
-            //CreateUDFs();
+            _ = CreateUDFsAsync();
+        }
+
+        private async Task CreateUDFsAsync()
+        {
+            var collectionName = await _dataCollectionManager.GetLatestActiveCollectionByDataGroupAsync(DataGroups.Edubase);
+
+            var container = _client.GetContainer(_databaseId, collectionName);
+
+            await container.Scripts.CreateUserDefinedFunctionAsync(new UserDefinedFunctionProperties
+            {
+                Id = "PARSE_FINANCIAL_TYPE_CODE",
+                Body = @"function(code) {
+                    switch (code) {
+                       case 'A':
+                           return 'Academies';
+                       case 'M':
+                           return 'Maintained';
+                       default:
+                           return 'Maintained';
+                        }
+                    }"
+            });
         }
 
         public async Task<EdubaseDataObject> GetSchoolDataObjectByUrnAsync(int urn)
@@ -76,7 +99,7 @@ namespace SFB.Web.Infrastructure.Repositories
             var collectionName = await _dataCollectionManager.GetLatestActiveCollectionByDataGroupAsync(DataGroups.Edubase);
 
             var container = _client.GetContainer(_databaseId, collectionName);
-
+            
             var query = container.GetItemQueryIterator<int>(new QueryDefinition(queryString));
 
             List<int> results = new List<int>();
