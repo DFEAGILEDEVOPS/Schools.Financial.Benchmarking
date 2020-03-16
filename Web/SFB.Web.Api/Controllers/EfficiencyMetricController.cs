@@ -38,8 +38,7 @@ namespace SFB.Web.Api.Controllers
             else
             {
                 var financeType = (EstablishmentType)Enum.Parse(typeof(EstablishmentType), model.ContextData.FinanceType);
-                model.FinancialData = (await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(urn, financeType)).FinancialDataObjectModel;
-
+                model.FinancialData = await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, financeType);
                 model.EfficiencyMetricData = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
 
                 return model;

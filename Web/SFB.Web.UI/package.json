@@ -12,7 +12,6 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.2.3",
-    "node-sass": "^4.13.0",
     "grunt": "^1.0.4",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-clean": "^0.7.0",
@@ -23,11 +22,12 @@
     "grunt-hologram": "0.0.7",
     "grunt-sass": "2.0.0",
     "load-grunt-config": "^0.19.2",
-    "load-grunt-tasks": "^3.5.2"
+    "load-grunt-tasks": "^3.5.2",
+    "node-sass": "^4.13.1"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
-    "angular": "^1.6.6",
+    "angular": "^1.7.9",
     "c3": "^0.4.18",
     "clipboard": "^2.0.4",
     "corejs-typeahead": "^1.1.1",

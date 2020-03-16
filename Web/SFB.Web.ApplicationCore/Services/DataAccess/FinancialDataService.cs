@@ -27,6 +27,13 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
             return await _financialDataRepository.GetSchoolFinanceDataObjectAsync(urn, term, schoolFinancialType, cFinance);
         }
 
+        public async Task<SchoolTrustFinancialDataObject> GetSchoolFinancialDataObjectAsync(int urn, EstablishmentType schoolFinancialType, CentralFinancingType cFinance = CentralFinancingType.Exclude)
+        {
+            var latestYear = await GetLatestDataYearPerEstabTypeAsync(schoolFinancialType);
+            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+            return await _financialDataRepository.GetSchoolFinancialDataObjectAsync(urn, term, schoolFinancialType, cFinance);
+        }
+
         public async Task<FinancialDataModel> GetSchoolsLatestFinancialDataModelAsync(int urn, EstablishmentType schoolFinancialType)
         {
             var latestYear = await GetLatestDataYearPerEstabTypeAsync(schoolFinancialType);
