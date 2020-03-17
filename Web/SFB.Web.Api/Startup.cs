@@ -24,9 +24,9 @@ namespace SFB.Web.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string endPoint = Configuration.GetValue<string>("Values:endpoint");
-            string authKey = Configuration.GetValue<string>("Values:authkey");
-            string databaseId = Configuration.GetValue<string>("Values:database");
+            string endPoint = Configuration.GetValue<string>("Secrets:endpoint");
+            string authKey = Configuration.GetValue<string>("Secrets:authkey");
+            string databaseId = Configuration.GetValue<string>("Secrets:database");
 
             var cosmosClient = new CosmosClientBuilder(endPoint, authKey)
                                 .WithConnectionModeDirect()
