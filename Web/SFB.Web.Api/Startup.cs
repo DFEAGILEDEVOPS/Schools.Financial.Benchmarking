@@ -32,15 +32,14 @@ namespace SFB.Web.Api
                                 .WithConnectionModeDirect()
                                 .Build();
 
-
             var dataCollectionManager = new DataCollectionManager(cosmosClient, databaseId, new NetCoreCachedActiveCollectionsService());
 
             services.AddSingleton<IEfficiencyMetricDataService, EfficiencyMetricDataService>();
             services.AddSingleton<IContextDataService, ContextDataService>();
             services.AddSingleton<IFinancialDataService, FinancialDataService>();
-            services.AddSingleton<IFinancialDataRepository>(new CosmosDbFinancialDataRepository(dataCollectionManager, cosmosClient, databaseId));
-            services.AddSingleton<IEdubaseRepository>(new CosmosDbEdubaseRepository(dataCollectionManager, cosmosClient, databaseId));
-            services.AddSingleton<IEfficiencyMetricRepository>(new EfficiencyMetricRepository(cosmosClient, databaseId));
+            services.AddSingleton<IFinancialDataRepository>(sp => new CosmosDbFinancialDataRepository(dataCollectionManager, cosmosClient, databaseId));
+            services.AddSingleton<IEdubaseRepository>(sp => new CosmosDbEdubaseRepository(dataCollectionManager, cosmosClient, databaseId));
+            services.AddSingleton<IEfficiencyMetricRepository>(sp => new EfficiencyMetricRepository(cosmosClient, databaseId));
             services.AddSingleton<IDataCollectionManager>(dataCollectionManager);
             
             services.AddControllers();
