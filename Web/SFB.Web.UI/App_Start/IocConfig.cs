@@ -15,6 +15,7 @@ using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.Infrastructure.Email;
 using SFB.Web.Infrastructure.Caching;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
+using SFB.Web.Infrastructure.Cookies;
 
 namespace SFB.Web.UI
 {
@@ -79,6 +80,7 @@ namespace SFB.Web.UI
             builder.RegisterType<RedisCachedBicComparisonResultCachingService>().As<IBicComparisonResultCachingService>().SingleInstance();
             builder.RegisterInstance(new AzureSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();
             builder.RegisterInstance(new AzureTrustSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
+            builder.RegisterInstance(new AspNetLogManager(ConfigurationManager.AppSettings["EnableAITelemetry"])).As<ILogManager>();
         }
     }
 }

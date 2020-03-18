@@ -13,6 +13,7 @@ using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
+using SFB.Web.Infrastructure.Cookies;
 
 namespace SFB.Web.Infrastructure.Repositories
 {
@@ -22,7 +23,7 @@ namespace SFB.Web.Infrastructure.Repositories
         private static CosmosClient _client;
         private readonly IDataCollectionManager _dataCollectionManager;
 
-        public CosmosDbFinancialDataRepository(IDataCollectionManager dataCollectionManager)
+        public CosmosDbFinancialDataRepository(IDataCollectionManager dataCollectionManager, ILogManager logManager) : base(logManager)
         {
             _dataCollectionManager = dataCollectionManager;
 
@@ -34,7 +35,7 @@ namespace SFB.Web.Infrastructure.Repositories
             _databaseId = ConfigurationManager.AppSettings["database"];
         }
 
-        public CosmosDbFinancialDataRepository(IDataCollectionManager dataCollectionManager, CosmosClient cosmosClient, string databaseId)
+        public CosmosDbFinancialDataRepository(IDataCollectionManager dataCollectionManager, CosmosClient cosmosClient, string databaseId, ILogManager logManager) : base(logManager)
         {
             _dataCollectionManager = dataCollectionManager;                      
 

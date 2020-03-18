@@ -4,6 +4,7 @@ using Microsoft.Azure.Cosmos.Scripts;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.Infrastructure.Cookies;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,7 +20,7 @@ namespace SFB.Web.Infrastructure.Repositories
         private static CosmosClient _client;
         private IDataCollectionManager _dataCollectionManager;
 
-        public CosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager)
+        public CosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager, ILogManager logManager) : base(logManager)
         {
             _dataCollectionManager = dataCollectionManager;
 
@@ -32,7 +33,7 @@ namespace SFB.Web.Infrastructure.Repositories
             _ = CreateUDFsAsync();
         }
 
-        public CosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager, CosmosClient cosmosClient, string databaseId)
+        public CosmosDbEdubaseRepository(IDataCollectionManager dataCollectionManager, CosmosClient cosmosClient, string databaseId, ILogManager logManager) : base(logManager)
         {
             _dataCollectionManager = dataCollectionManager;
 
