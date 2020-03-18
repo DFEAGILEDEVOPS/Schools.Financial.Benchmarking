@@ -48,6 +48,7 @@ namespace SFB.Web.Api.Controllers
 
             if (model.ContextData == null)
             {
+                _logger.LogWarning("No school found with URN: {urn}", urn);
                 return NoContent();
             }
             else
