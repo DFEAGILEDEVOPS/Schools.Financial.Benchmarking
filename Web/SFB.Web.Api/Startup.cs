@@ -8,7 +8,6 @@ using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.Infrastructure.Helpers;
 using SFB.Web.Infrastructure.Repositories;
-using System.Runtime.Caching;
 
 namespace SFB.Web.Api
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services.DataAccess;
@@ -15,11 +16,18 @@ namespace SFB.Web.Api.Controllers
         private readonly IContextDataService _contextDataService;
         private readonly IFinancialDataService _financialDataService;
 
-        public EfficiencyMetricController(IContextDataService contextDataService, IFinancialDataService financialDataService, IEfficiencyMetricDataService efficiencyMetricDataService)
+        private readonly ILogger _logger;
+
+        public EfficiencyMetricController(IContextDataService contextDataService, 
+            IFinancialDataService financialDataService, 
+            IEfficiencyMetricDataService efficiencyMetricDataService,
+            ILogger<EfficiencyMetricController> logger)
         {
             _contextDataService = contextDataService;
             _financialDataService = financialDataService;
             _efficiencyMetricDataService = efficiencyMetricDataService;
+
+            _logger = logger;
 
         }
 
@@ -29,7 +37,14 @@ namespace SFB.Web.Api.Controllers
         {
             var model = new EfficiencyMetricModel();
 
-            model.ContextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
+            try
+            {
+                model.ContextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
 
             if (model.ContextData == null)
             {
