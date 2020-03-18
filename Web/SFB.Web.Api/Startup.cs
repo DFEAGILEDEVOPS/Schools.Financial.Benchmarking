@@ -40,7 +40,9 @@ namespace SFB.Web.Api
             services.AddSingleton<IEdubaseRepository>(sp => new CosmosDbEdubaseRepository(dataCollectionManager, cosmosClient, databaseId));
             services.AddSingleton<IEfficiencyMetricRepository>(sp => new EfficiencyMetricRepository(cosmosClient, databaseId));
             services.AddSingleton<IDataCollectionManager>(dataCollectionManager);
-            
+
+            services.AddApplicationInsightsTelemetry();
+
             services.AddControllers();
         }
 
