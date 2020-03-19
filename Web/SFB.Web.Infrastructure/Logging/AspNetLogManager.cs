@@ -3,7 +3,7 @@ using SFB.Web.ApplicationCore.Helpers.Constants;
 using System;
 using System.Web;
 
-namespace SFB.Web.Infrastructure.Cookies
+namespace SFB.Web.Infrastructure.Logging
 {
     public class AspNetLogManager : ILogManager
     {

@@ -252,9 +252,9 @@
     <Compile Include="Caching\NetCoreCachedActiveCollectionsService.cs" />
     <Compile Include="Caching\RedisCachedActiveUrnsService.cs" />
     <Compile Include="Caching\RedisCachedBicComparisonResultCachingService.cs" />
-    <Compile Include="Cookies\AspNetLogManager.cs" />
-    <Compile Include="Cookies\ILogManager.cs" />
-    <Compile Include="Cookies\NetCoreLogManager.cs" />
+    <Compile Include="Logging\AspNetLogManager.cs" />
+    <Compile Include="Logging\ILogManager.cs" />
+    <Compile Include="Logging\NetCoreLogManager.cs" />
     <Compile Include="Email\NotifyEmailSendingService.cs" />
     <Compile Include="Helpers\DataCollectionManager.cs" />
     <Compile Include="Repositories\EfficiencyMetricRepository.cs" />

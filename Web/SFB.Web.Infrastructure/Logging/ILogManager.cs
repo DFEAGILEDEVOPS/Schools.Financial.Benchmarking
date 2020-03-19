@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFB.Web.Infrastructure.Cookies
+namespace SFB.Web.Infrastructure.Logging
 {
     public interface ILogManager
     {

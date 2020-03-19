@@ -3,7 +3,7 @@ using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Http;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 
-namespace SFB.Web.Infrastructure.Cookies
+namespace SFB.Web.Infrastructure.Logging
 {
     public class NetCoreLogManager : ILogManager
     {
