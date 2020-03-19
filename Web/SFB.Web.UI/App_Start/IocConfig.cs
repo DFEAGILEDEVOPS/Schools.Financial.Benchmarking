@@ -20,7 +20,7 @@ namespace SFB.Web.UI
 {
     public static class IocConfig
     {
-        public static void Register()
+        public static void Register() 
         {
             var builder = new ContainerBuilder();
 
