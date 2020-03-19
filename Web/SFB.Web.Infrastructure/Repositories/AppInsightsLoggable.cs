@@ -1,4 +1,4 @@
-﻿using SFB.Web.Infrastructure.Cookies;
+﻿using SFB.Web.Infrastructure.Logging;
 using System;
 using System.Diagnostics;
 

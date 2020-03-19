@@ -4,7 +4,7 @@ using Microsoft.Azure.Cosmos.Scripts;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Helpers.Constants;
-using SFB.Web.Infrastructure.Cookies;
+using SFB.Web.Infrastructure.Logging;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

@@ -7,8 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Services.DataAccess;
-using SFB.Web.Infrastructure.Cookies;
 using SFB.Web.Infrastructure.Helpers;
+using SFB.Web.Infrastructure.Logging;
 using SFB.Web.Infrastructure.Repositories;
 
 namespace SFB.Web.Api

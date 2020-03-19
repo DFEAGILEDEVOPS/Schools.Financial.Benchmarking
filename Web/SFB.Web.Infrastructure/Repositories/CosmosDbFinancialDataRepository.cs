@@ -13,7 +13,7 @@ using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Azure.Cosmos.Fluent;
-using SFB.Web.Infrastructure.Cookies;
+using SFB.Web.Infrastructure.Logging;
 
 namespace SFB.Web.Infrastructure.Repositories
 {
