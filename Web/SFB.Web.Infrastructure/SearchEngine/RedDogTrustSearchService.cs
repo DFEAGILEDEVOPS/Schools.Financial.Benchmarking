@@ -116,11 +116,5 @@ namespace SFB.Web.ApplicationCore.Services.Search
 
             return facetsModel;
         }
-
-        public dynamic SuggestTrustByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
     }
 }

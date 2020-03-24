@@ -6,8 +6,8 @@ using SFB.Web.ApplicationCore.Services.Search;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Dynamic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SFB.Web.Infrastructure.SearchEngine
@@ -39,11 +39,45 @@ namespace SFB.Web.Infrastructure.SearchEngine
             return new SearchResultsModel<TrustSearchResult>(0, null, new List<TrustSearchResult>(), 0, 0);
         }
 
-        public dynamic SuggestTrustByName(string name)
+        public async Task<dynamic> SuggestTrustByNameAsync(string name)
         {
-            var indexClient = new SearchIndexClient(_searchInstance, _index, new SearchCredentials(_key));
+            Func<SuggestResult<Document>, ExpandoObject> processResult = r =>
+            {
+                dynamic retVal = new ExpandoObject();
+                retVal.Id = r.Document[SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER]?.ToString();
+                retVal.Text = r.Document[SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME] as string;
+                return retVal;
+            };
 
-            throw new NotImplementedException();
+            var parameters = new SuggestParameters()
+            {
+                UseFuzzyMatching = false,
+                Top = 10,
+            };
+
+            try
+            {
+                var response = await _indexClient.Documents.SuggestAsync(name, "namesuggest", parameters);
+
+                var results = response.Results;
+                
+                var matches = results.Select(r =>
+                {
+                    dynamic retVal = new ExpandoObject();
+                    retVal.Id = r.Document[SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER]?.ToString();
+                    retVal.Text = r.Document[SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME] as string;
+                    return retVal;
+                });
+
+                dynamic ret = new ExpandoObject();
+                ret.Matches = matches;
+                return ret;
+
+            }
+            catch(Exception exc)
+            {
+                throw new ApplicationException($"Azure Search trust suggestion error: {exc.Message}");
+            }
         }
 
         private async Task<SearchResultsModel<TrustSearchResult>> ExecuteSearchAsync(string query, string searchFields, string filter, string orderBy, int skip, int take)
@@ -91,64 +125,5 @@ namespace SFB.Web.Infrastructure.SearchEngine
 
             return facetsModel;
         }
-
-        public Task<dynamic> SuggestTrustByNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        //private static void RunQueries(ISearchIndexClient indexClient)
-        //{
-        //    SearchParameters parameters;
-        //    DocumentSearchResult<dynamic> results;
-
-        //    Console.WriteLine("Search the entire index for the term 'motel' and return only the HotelName field:\n");
-
-        //    parameters =
-        //        new SearchParameters()
-        //        {
-        //            Select = new[] { "HotelName" }
-        //        };
-
-        //    results = indexClient.Documents.Search<dynamic>("motel", parameters);
-
-
-        //    Console.Write("Apply a filter to the index to find hotels with a room cheaper than $100 per night, ");
-        //    Console.WriteLine("and return the hotelId and description:\n");
-
-        //    parameters =
-        //        new SearchParameters()
-        //        {
-        //            Filter = "Rooms/any(r: r/BaseRate lt 100)",
-        //            Select = new[] { "HotelId", "Description" }
-        //        };
-
-        //    results = indexClient.Documents.Search<dynamic>("*", parameters);
-
-
-        //    Console.Write("Search the entire index, order by a specific field (lastRenovationDate) ");
-        //    Console.Write("in descending order, take the top two results, and show only hotelName and ");
-        //    Console.WriteLine("lastRenovationDate:\n");
-
-        //    parameters =
-        //        new SearchParameters()
-        //        {
-        //            OrderBy = new[] { "LastRenovationDate desc" },
-        //            Select = new[] { "HotelName", "LastRenovationDate" },
-        //            Top = 2
-        //        };
-
-        //    results = indexClient.Documents.Search<dynamic>("*", parameters);
-
-
-        //    Console.WriteLine("Search the hotel names for the term 'hotel':\n");
-
-        //    parameters = new SearchParameters()
-        //    {
-        //        SearchFields = new[] { "HotelName" }
-        //    };
-        //    results = indexClient.Documents.Search<dynamic>("hotel", parameters);
-
-        //}
     }
 }
