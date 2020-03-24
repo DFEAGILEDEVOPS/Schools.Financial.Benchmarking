@@ -5,8 +5,10 @@ namespace SFB.Web.ApplicationCore.Services.Search
 {
     public interface ITrustSearchService
     {
-        Task<dynamic> SuggestTrustByName(string name);
+        Task<dynamic> SuggestTrustByNameAsync(string name);
 
-        Task<dynamic> SearchTrustByName(string name, int skip, int take, string @orderby, NameValueCollection queryParams);
+        Task<dynamic> SearchTrustByNameAsync(string name, int skip, int take, string @orderby, NameValueCollection queryParams);
+
+        dynamic SuggestTrustByName(string name);
     }
 }

@@ -12,20 +12,20 @@ using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.ApplicationCore.Services.Search
 {
-    public class AzureTrustSearchService : ITrustSearchService
+    public class RedDogTrustSearchService : ITrustSearchService
     {
         private readonly string _key;
         private readonly string _searchInstance;
         private readonly string _index;
 
-        public AzureTrustSearchService(string searchInstance, string key, string index)
+        public RedDogTrustSearchService(string searchInstance, string key, string index)
         {
             _key = key;
             _searchInstance = searchInstance;
             _index = index;
         }
 
-        public async Task<dynamic> SuggestTrustByName(string name)
+        public async Task<dynamic> SuggestTrustByNameAsync(string name)
         {
             var connection = ApiConnection.Create(_searchInstance, _key);
             var client = new IndexQueryClient(connection);
@@ -61,7 +61,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
             return ret;
         }
 
-        public async Task<dynamic> SearchTrustByName(string name, int skip, int take, string @orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchTrustByNameAsync(string name, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
             if (name.Length > 2)
             {
@@ -116,5 +116,11 @@ namespace SFB.Web.ApplicationCore.Services.Search
 
             return facetsModel;
         }
+
+        public dynamic SuggestTrustByName(string name)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

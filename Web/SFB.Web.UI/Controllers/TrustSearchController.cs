@@ -158,35 +158,33 @@ namespace SFB.Web.UI.Controllers
 
         protected override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
         {
-            QueryResultsModel response = null;
-
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
-                    response = await _trustSearchService.SearchTrustByName(nameId,
+                    var response = await _trustSearchService.SearchTrustByNameAsync(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE,
                         SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby, Request?.QueryString);
-                    break;
+                    return response;
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     var latLng = locationCoordinates.Split(',');
                     response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
                         Request?.QueryString) as QueryResultsModel;
-                    break;
+                    return response;
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
                         Request?.QueryString) as QueryResultsModel;
-                    break;
+                    return response;
+                default:
+                    return null;
             }
-
-            return response;
         }
 
         public async Task<ActionResult> Suggest(string name)
         {
-            dynamic response = await _trustSearchService.SuggestTrustByName(name);
+            dynamic response = await _trustSearchService.SuggestTrustByNameAsync(name);
 
             var json = JsonConvert.SerializeObject(response);
             return Content(json, "application/json");
@@ -197,7 +195,7 @@ namespace SFB.Web.UI.Controllers
             var vm = new SchoolNotFoundViewModel
             {
                 SearchKey = trustNameId,
-                Suggestions = await _trustSearchService.SuggestTrustByName(trustNameId)
+                Suggestions = await _trustSearchService.SuggestTrustByNameAsync(trustNameId)
             };
             return View("NotFound", vm);
         }
@@ -208,8 +206,9 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var result in trustSearchResults.Results)
             {
-                var companyNo = int.Parse(result[EdubaseDataFieldNames.COMPANY_NUMBER]);
-                var companyName = result[SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME];
+                int companyNo = 0;
+                int.TryParse(result.CompanyNumber, out companyNo);
+                var companyName = result.TrustOrCompanyName;
                 IEnumerable<EdubaseDataObject> academiesOfTrust = await _contextDataService.GetAcademiesByCompanyNumberAsync(companyNo);
 
                 var academiesList = academiesOfTrust.Select(a => new SchoolViewModel(a)).OrderBy(a => a.Name).ToList();

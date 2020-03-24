@@ -99,7 +99,7 @@ namespace SFB.Web.UI.UnitTests
                 return results;
             });
 
-            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+            _mockTrustSearchService.Setup(m => m.SearchTrustByNameAsync("TestTrust", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
                 .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
