@@ -1,18 +1,32 @@
-﻿using RedDog.Search.Http;
+﻿using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services.Search;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Dynamic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SFB.Web.Infrastructure.SearchEngine
 {
     public class AzureSchoolSearchService : ISchoolSearchService
     {
+        private readonly string _key;
+        private readonly string _searchInstance;
+        private readonly string _index;
+        private readonly SearchIndexClient _indexClient;
+
+        public AzureSchoolSearchService(string searchInstance, string key, string index)
+        {
+            _key = key;
+            _searchInstance = searchInstance;
+            _index = index;
+            _indexClient = new SearchIndexClient(_searchInstance, _index, new SearchCredentials(_key));
+        }
+
         public Task<dynamic> SearchAcademiesByCompanyNoAsync(int companyNo, int skip, int take, string orderby, NameValueCollection queryParams)
         {
             throw new NotImplementedException();
@@ -38,9 +52,67 @@ namespace SFB.Web.Infrastructure.SearchEngine
             throw new NotImplementedException();
         }
 
-        public Task<dynamic> SuggestSchoolByName(string name, bool openOnly)
+        public async Task<dynamic> SuggestSchoolByName(string name, bool openOnly)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var parameters = new SuggestParameters()
+                {
+                    UseFuzzyMatching = false,
+                    Top = 10,
+                };
+
+                var response = await _indexClient.Documents.SuggestAsync(name, "nameSuggester", parameters);
+
+                IEnumerable<SuggestResult<Document>> results = response.Results;
+
+                if (openOnly)
+                {
+                    results = response.Results.Where(s => s.Document[EdubaseDataFieldNames.ESTAB_STATUS]?.ToString() != "Closed");
+                }
+
+                var matches =  results.Select (r =>
+                               {
+                                   dynamic retVal = new ExpandoObject();
+                                   var postCode = r.Document[EdubaseDataFieldNames.POSTCODE] as string;
+                                   var town = r.Document[EdubaseDataFieldNames.TOWN] as string;
+                                   var schoolName = r.Document[EdubaseDataFieldNames.ESTAB_NAME] as string;
+                                   retVal.Id = r.Document[EdubaseDataFieldNames.URN]?.ToString();
+
+                                   if (!string.IsNullOrWhiteSpace(postCode) && !string.IsNullOrWhiteSpace(town)) // town and postcode
+                                   {
+                                       retVal.Text = $"{schoolName} ({town}, {postCode})";
+                                   }
+                                   else if (!string.IsNullOrWhiteSpace(postCode) && string.IsNullOrWhiteSpace(town)) // just postcode
+                                   {
+                                       retVal.Text = $"{schoolName} ({postCode})";
+                                   }
+                                   else if (string.IsNullOrWhiteSpace(postCode) && !string.IsNullOrWhiteSpace(town)) // just town
+                                   {
+                                       retVal.Text = $"{schoolName} ({town})";
+                                   }
+                                   else if (string.IsNullOrWhiteSpace(postCode) && string.IsNullOrWhiteSpace(town)
+                                   ) // neither town nor post code
+                                   {
+                                       retVal.Text = schoolName;
+                                   }
+                                   if (r.Document[EdubaseDataFieldNames.ESTAB_STATUS]?.ToString() == "Closed")
+                                   {
+                                       retVal.Text += " (Closed)";
+                                   }
+
+                                   return retVal;
+                               });
+
+                dynamic ret = new ExpandoObject();
+                ret.Matches = matches;
+                return ret;
+            }
+            catch(Exception exc)
+            {
+                throw new ApplicationException(
+                    $"Edubase school suggestion error: {exc.Message}");
+            }
         }
 
         public async Task<QueryResultsModel> FindNearestSchools(string lat, string lon, decimal distance, int skip,

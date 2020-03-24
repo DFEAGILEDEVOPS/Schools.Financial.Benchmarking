@@ -49,14 +49,14 @@ namespace SFB.Web.Infrastructure.SearchEngine
                 return retVal;
             };
 
-            var parameters = new SuggestParameters()
-            {
-                UseFuzzyMatching = false,
-                Top = 10,
-            };
-
             try
             {
+                var parameters = new SuggestParameters()
+                {
+                    UseFuzzyMatching = false,
+                    Top = 10,
+                };
+
                 var response = await _indexClient.Documents.SuggestAsync(name, "namesuggest", parameters);
 
                 var results = response.Results;
