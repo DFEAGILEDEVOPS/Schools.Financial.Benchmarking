@@ -143,12 +143,9 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("OfstedRating", new FacetResultModel[] { new FacetResultModel() { Value = "Outstanding", Count = 2 }, new FacetResultModel() { Value = "Good", Count = 1 }, new FacetResultModel() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResultModel[] { new FacetResultModel() { Value = "Hindu", Count = 2 }, new FacetResultModel() { Value = "Church of England", Count = 1 }, new FacetResultModel() { Value = "Roman Catholic", Count = 1 } });
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matchedResults = new List<SchoolSearchResult>();
+                matchedResults.Add(new SchoolSearchResult());
+                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
@@ -180,12 +177,9 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("OfstedRating", new FacetResultModel[] { new FacetResultModel() { Value = "Outstanding", Count = 2 }, new FacetResultModel() { Value = "Good", Count = 1 }, new FacetResultModel() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResultModel[] { new FacetResultModel() { Value = "Hindu", Count = 2 }, new FacetResultModel() { Value = "Church of England", Count = 1 }, new FacetResultModel() { Value = "Roman Catholic", Count = 1 } });
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matchedResults = new List<SchoolSearchResult>();
+                matchedResults.Add(new SchoolSearchResult());
+                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
@@ -218,12 +212,9 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("ReligiousCharacter", new FacetResultModel[] { new FacetResultModel() { Value = "Hindu", Count = 2 }, new FacetResultModel() { Value = "Church of England", Count = 1 }, new FacetResultModel() { Value = "Roman Catholic", Count = 1 } });
                 facets.Add("EstablishmentStatus", new FacetResultModel[] { new FacetResultModel() { Value = "Open", Count = 2 }, new FacetResultModel() { Value = "Closed", Count = 1 } });
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matchedResults = new List<SchoolSearchResult>();
+                matchedResults.Add(new SchoolSearchResult());
+                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
@@ -267,9 +258,9 @@ namespace SFB.Web.UI.UnitTests
 
             _mockLaSearchService.Setup(m => m.SearchExactMatch("Test")).Returns(() => new LaModel(){ Id="123", LaName = "Test"});
 
-            var testDictionary = new Dictionary<string, object>();
-            testDictionary.Add("URN", "654321");
-            dynamic edubaseSearchResponse = new QueryResultsModel(2, null, new List<IDictionary<string, object>>() { testDictionary }, 50, 0);
+            var matchedResults = new List<SchoolSearchResult>();
+            matchedResults.Add(new SchoolSearchResult() { URN = "654321" });
+            dynamic edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(2, null, matchedResults, 50, 0);
             Task<dynamic> task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
@@ -380,12 +371,9 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("OfstedRating", new FacetResultModel[] { new FacetResultModel() { Value = "Outstanding", Count = 2 }, new FacetResultModel() { Value = "Good", Count = 1 }, new FacetResultModel() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResultModel[] { new FacetResultModel() { Value = "Hindu", Count = 2 }, new FacetResultModel() { Value = "Church of England", Count = 1 }, new FacetResultModel() { Value = "Roman Catholic", Count = 1 } });
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matches = new List<SchoolSearchResult>();
+                matches.Add(new SchoolSearchResult());
+                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
@@ -419,12 +407,9 @@ namespace SFB.Web.UI.UnitTests
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matches = new List<SchoolSearchResult>();
+                matches.Add(new SchoolSearchResult());
+                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
@@ -495,9 +480,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionCallsServiceWithPagingParams()
         {
-            var testDictionary = new Dictionary<string, object>();
-            testDictionary.Add("URN", "654321");
-            dynamic edubaseSearchResponse = new QueryResultsModel(1, null, new List<IDictionary<string, object>>() { testDictionary }, 50, 0);
+            var matches = new List<SchoolSearchResult>();
+            matches.Add(new SchoolSearchResult() { URN = "654321"});
+            dynamic edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(1, null, matches, 50, 0);
             Task<dynamic> task = Task.Run(() =>
             {
                 return edubaseSearchResponse;

@@ -170,12 +170,12 @@ namespace SFB.Web.UI.Controllers
                     response = await _schoolSearchService.SearchSchoolByLatLonAsync(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
-                        Request?.QueryString) as QueryResultsModel;
+                        Request?.QueryString);
                     return response;
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
                     response = await _schoolSearchService.SearchSchoolByLaCodeAsync(laCode,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
-                        Request?.QueryString) as QueryResultsModel;
+                        Request?.QueryString);
                     return response;
                 default:
                     return null;

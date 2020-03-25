@@ -89,13 +89,9 @@ namespace SFB.Web.UI.UnitTests
             Task<dynamic> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("CompanyNumber", "132");
-                matchedResults.Add("Trusts", "test");
-                matchedResults.Add("TrustOrCompanyName", "test name");
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matches = new List<TrustSearchResult>();
+                matches.Add(new TrustSearchResult());                
+                dynamic results = new SearchResultsModel<TrustSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
@@ -223,7 +219,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchByLocationReturnsEmptyLocationResultPageForNotFoundLocationCoordinates()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
 
             Task<dynamic> task = Task.Run(() =>
             {
@@ -245,7 +241,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SchoolsAreOrderedAlphabeticallyWhenTrustsAreOrderedByTotalCountInLocationSearch()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
 
             Task<dynamic> task = Task.Run(() =>
             {
@@ -290,7 +286,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchesByLaCodeIfAValidLaNameIsProvided()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
 
             Task<dynamic> task = Task.Run(() =>
             {
@@ -313,7 +309,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task RedirectsToLaSearchIfAValidLaNameIsNotProvided()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
 
             Task<dynamic> task = Task.Run(() =>
             {
@@ -338,7 +334,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchLaEmptyLocationResultPageForNotFoundLaCodes()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
 
             Task<dynamic> task = Task.Run(() =>
             {
@@ -360,7 +356,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SchoolsAreOrderedAlphabeticallyWhenTrustsAreOrderedByTotalCountInLaSearch()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
 
             Task<dynamic> task = Task.Run(() =>
             {
