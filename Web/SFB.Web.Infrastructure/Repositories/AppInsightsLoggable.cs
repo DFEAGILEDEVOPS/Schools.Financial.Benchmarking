@@ -12,7 +12,7 @@ namespace SFB.Web.Infrastructure.Repositories
             _logManager = logManager;
         }
 
-        internal virtual void LogException(Exception exception, string errorMessage)
+        protected virtual void LogException(Exception exception, string errorMessage)
         {
             Debugger.Break();
 

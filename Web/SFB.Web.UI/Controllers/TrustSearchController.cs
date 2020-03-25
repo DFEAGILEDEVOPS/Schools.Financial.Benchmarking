@@ -167,13 +167,13 @@ namespace SFB.Web.UI.Controllers
                     return response;
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     var latLng = locationCoordinates.Split(',');
-                    response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+                    response = await _schoolSearchService.SearchSchoolByLatLonAsync(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
                         Request?.QueryString) as QueryResultsModel;
                     return response;
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
-                    response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
+                    response = await _schoolSearchService.SearchSchoolByLaCodeAsync(laCode,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
                         Request?.QueryString) as QueryResultsModel;
                     return response;

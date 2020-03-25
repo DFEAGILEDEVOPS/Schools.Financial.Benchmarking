@@ -259,6 +259,7 @@
     <Compile Include="Repositories\CosmosDbEdubaseRepository.cs" />
     <Compile Include="SearchEngine\AzureSchoolSearchService.cs" />
     <Compile Include="SearchEngine\AzureTrustSearchService.cs" />
+    <Compile Include="SearchEngine\BaseSearchService.cs" />
     <Compile Include="SearchEngine\LocationSearchService.cs" />
     <Compile Include="Repositories\CosmosDbFinancialDataRepository.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />

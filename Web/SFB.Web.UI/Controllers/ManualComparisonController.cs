@@ -266,27 +266,27 @@ namespace SFB.Web.UI.Controllers
 
         protected override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
         {
-            QueryResultsModel response = null;
+            SearchResultsModel<SchoolSearchResult> response = null;
 
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_LA_ESTAB:
-                    response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
+                    response = await _schoolSearchService.SearchSchoolByLaEstabAsync(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request.QueryString);
                     break;
                 case SearchTypes.SEARCH_BY_LOCATION:
                     var latLng = locationCoordinates.Split(',');
-                    response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+                    response = await _schoolSearchService.SearchSchoolByLatLonAsync(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request.QueryString);
                     break;
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
-                    response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
+                    response = await _schoolSearchService.SearchSchoolByLaCodeAsync(laCode,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
                         string.IsNullOrEmpty(orderby) ? EdubaseDataFieldNames.ESTAB_NAME : orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request.QueryString);
                     break;
             }
 

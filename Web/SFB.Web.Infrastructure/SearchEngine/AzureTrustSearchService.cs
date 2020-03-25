@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SFB.Web.Infrastructure.SearchEngine
 {
-    public class AzureTrustSearchService : ITrustSearchService
+    public class AzureTrustSearchService : BaseSearchService<TrustSearchResult>, ITrustSearchService
     {
         private readonly string _key;
         private readonly string _searchInstance;
@@ -110,20 +110,6 @@ namespace SFB.Web.Infrastructure.SearchEngine
 
             var facetsModel = MapResponseFacetsToFacetsModel(results);
             return new SearchResultsModel<TrustSearchResult>((int)results.Count, null, results.Results.Select(r => r.Document), take, skip);
-        }
-
-        private Dictionary<string, FacetResultModel[]> MapResponseFacetsToFacetsModel(DocumentSearchResult<TrustSearchResult> response)
-        {
-            var facetsModel = new Dictionary<string, FacetResultModel[]>();
-            if (response.Facets != null)
-            {
-                foreach (var facet in response.Facets)
-                {
-                    facetsModel.Add(facet.Key, facet.Value.Select(fv => new FacetResultModel(fv.Value.ToString(), (long)fv.From, (long)fv.To, fv.Count.GetValueOrDefault())).ToArray());
-                }
-            }
-
-            return facetsModel;
         }
     }
 }

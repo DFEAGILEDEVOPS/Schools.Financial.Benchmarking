@@ -152,7 +152,7 @@ namespace SFB.Web.UI.UnitTests
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -189,7 +189,7 @@ namespace SFB.Web.UI.UnitTests
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -227,7 +227,7 @@ namespace SFB.Web.UI.UnitTests
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -275,7 +275,7 @@ namespace SFB.Web.UI.UnitTests
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("123", 0, 50, "EstablishmentName", null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCodeAsync("123", 0, 50, "EstablishmentName", null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, _mockContextDataService.Object, 
                 _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -389,7 +389,7 @@ namespace SFB.Web.UI.UnitTests
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstab("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstabAsync("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
                 .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => SearchSchoolByLaEstabTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
@@ -428,7 +428,7 @@ namespace SFB.Web.UI.UnitTests
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstab("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstabAsync("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
                 .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => schoolTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -503,7 +503,7 @@ namespace SFB.Web.UI.UnitTests
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 50, 50, It.IsAny<string>(), It.IsAny<NameValueCollection>()))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 50, 50, It.IsAny<string>(), It.IsAny<NameValueCollection>()))
                 .Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);            
             
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
@@ -512,7 +512,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, string.Empty, 2);
 
-            _mockSchoolSearchService.Verify(req => req.SearchSchoolByName("Test", 50, 50, string.Empty, null), Times.Once());
+            _mockSchoolSearchService.Verify(req => req.SearchSchoolByNameAsync("Test", 50, 50, string.Empty, null), Times.Once());
         }
       
     }

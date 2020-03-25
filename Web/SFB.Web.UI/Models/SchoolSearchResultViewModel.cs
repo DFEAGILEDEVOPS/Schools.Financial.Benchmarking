@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Linq;
-using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Helpers.Enums;
-using SFB.Web.ApplicationCore;
 using SFB.Web.UI.Helpers.Constants;
+using SFB.Web.ApplicationCore.Models;
+using System.Globalization;
 
 namespace SFB.Web.UI.Models
 {
-    public class SchoolSearchResultViewModel : DynamicViewModelBase
+    public class SchoolSearchResultViewModel :  ViewModelBase
     {
-        public SchoolSearchResultViewModel(dynamic contextDataModel)
+        private SchoolSearchResult ContextDataModel { get; set; }
+        public SchoolSearchResultViewModel(SchoolSearchResult contextDataModel)
         {
-            base.ContextDataModel = contextDataModel;
+            ContextDataModel = contextDataModel;
         }
 
-        public SchoolSearchResultViewModel(dynamic schoolContextDataModel, SchoolComparisonListModel comparisonList)
+        public SchoolSearchResultViewModel(SchoolSearchResult schoolContextDataModel, SchoolComparisonListModel comparisonList)
         {
-            base.ContextDataModel = schoolContextDataModel;
+            ContextDataModel = schoolContextDataModel;
             base.ComparisonList = comparisonList;
         }
 
@@ -28,43 +29,35 @@ namespace SFB.Web.UI.Models
                 {
                     return false;
                 }
-                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == GetString(EdubaseDataFieldNames.URN));
+                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == ContextDataModel.URN);
             }
         }
 
-        public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == GetString(EdubaseDataFieldNames.URN);
+        public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == ContextDataModel.URN;
 
-        public string Id => GetInt(EdubaseDataFieldNames.URN).ToString();
+        public string Id => ContextDataModel.URN.ToString();
 
-        public string LaEstab => $"{GetString(EdubaseDataFieldNames.LA_CODE)} {GetString(EdubaseDataFieldNames.ESTAB_NO)}";
+        public string LaEstab => $"{ContextDataModel.LACode} {ContextDataModel.EstablishmentNumber}";
 
-        public string Name
-        {
-            get
-            {
-                return GetString(EdubaseDataFieldNames.ESTAB_NAME);
-            }
+        public string Name => ContextDataModel.EstablishmentName;        
 
-            set { }
-        }
+        public int La => int.Parse(ContextDataModel.LACode);
 
-        public int La => GetInt(EdubaseDataFieldNames.LA_CODE);
+        public int Estab => int.Parse(ContextDataModel.EstablishmentNumber);
 
-        public int Estab => GetInt(EdubaseDataFieldNames.ESTAB_NO);
+        public string OverallPhase => ContextDataModel.OverallPhase;
 
-        public string OverallPhase => GetString(EdubaseDataFieldNames.OVERALL_PHASE);
+        public string Phase => ContextDataModel.PhaseOfEducation;
 
-        public string Phase => GetString(EdubaseDataFieldNames.PHASE_OF_EDUCATION);
+        public string Status => ContextDataModel.EstablishmentStatus;
 
-        public string Status => GetString(EdubaseDataFieldNames.ESTAB_STATUS);
-
-        public string StatusInYear => GetString(EdubaseDataFieldNames.ESTAB_STATUS_IN_YEAR);
+        public string StatusInYear => ContextDataModel.EstablishmentStatusInLatestAcademicYear;
 
         public string SchoolWebSite
         {
             get
             {
-                var url = GetString(EdubaseDataFieldNames.SCHOOL_WEB_SITE);
+                var url = ContextDataModel.SchoolWebsite;
                 if (url != null && url.ToLower().StartsWith("www"))
                 {
                     url = "http://" + url;
@@ -74,17 +67,17 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string AgeRange => $"{GetInt(EdubaseDataFieldNames.STAT_LOW)} to {GetInt(EdubaseDataFieldNames.STAT_HIGH)}";
+        public string AgeRange => $"{ContextDataModel.StatutoryLowAge} to {ContextDataModel.StatutoryHighAge}";
 
-        public string HeadTeachFullName => $"{GetString(EdubaseDataFieldNames.HEAD_FIRST_NAME)} {GetString(EdubaseDataFieldNames.HEAD_LAST_NAME)}";
+        public string HeadTeachFullName => $"{ContextDataModel.HeadFirstName} {ContextDataModel.HeadLastName}";
 
-        public string TrustName => GetString(EdubaseDataFieldNames.TRUSTS);
+        public string TrustName => ContextDataModel.Trusts;
 
-        public string PhoneNumber => GetString(EdubaseDataFieldNames.TEL_NO);
+        public string PhoneNumber => ContextDataModel.TelephoneNum;
 
-        public string OfstedRating => GetString(EdubaseDataFieldNames.OFSTED_RATING);
+        public string OfstedRating => ContextDataModel.OfstedRating;
 
-        public DateTime OfstedInspectionDate => GetDate(EdubaseDataFieldNames.OFSTE_LAST_INSP).GetValueOrDefault();
+        public DateTime OfstedInspectionDate => DateTime.Parse(ContextDataModel.OfstedLastInsp, CultureInfo.CurrentCulture, DateTimeStyles.None);
 
         public string OfstedRatingText
         {
@@ -106,17 +99,17 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public float TotalPupils => GetFloat(EdubaseDataFieldNames.NO_PUPIL);
+        public float TotalPupils => ContextDataModel.NumberOfPupils == null ? 0 : float.Parse(ContextDataModel.NumberOfPupils);
 
-        public string IsPost16 => GetString(EdubaseDataFieldNames.OFFICIAL_6_FORM) == "Has a sixth form" ? "Yes" : "No";
+        public string IsPost16 => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
-        public string HasNursery => GetString(EdubaseDataFieldNames.HAS_NURSERY) == "Has Nursery Classes" ? "Yes" : "No";
+        public string HasNursery => ContextDataModel.NurseryProvisionName == "Has Nursery Classes" ? "Yes" : "No";
 
         public string OpenDate
         {
             get
             {
-                var openDate = GetDateBinary(EdubaseDataFieldNames.OPEN_DATE);
+                var openDate = ContextDataModel == null ? null : (DateTime?) DateTime.ParseExact(ContextDataModel.OpenDate, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 if (openDate.HasValue && openDate >= new DateTime(2011, 1, 1))
                 {
                     return openDate.Value.ToLongDateString();
@@ -132,7 +125,7 @@ namespace SFB.Web.UI.Models
         {
             get
             {
-                var closeDate = GetDateBinary(EdubaseDataFieldNames.CLOSE_DATE);
+                var closeDate = ContextDataModel == null ? null : (DateTime?)DateTime.ParseExact(ContextDataModel.CloseDate, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 if (closeDate.HasValue && closeDate >= new DateTime(2011, 1, 1))
                 {
                     return closeDate.Value.ToLongDateString();
@@ -144,13 +137,13 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string Address => $"{GetString(EdubaseDataFieldNames.STREET)}, {GetString(EdubaseDataFieldNames.TOWN)}, {GetString(EdubaseDataFieldNames.POSTCODE)}";
+        public string Address => $"{ContextDataModel.Street}, {ContextDataModel.Town}, {ContextDataModel.Postcode}";
 
-        public string Type => GetString(EdubaseDataFieldNames.TYPE_OF_ESTAB);
+        public string Type => ContextDataModel.TypeOfEstablishment;
 
-        public bool HasIncompleteFinancialData => GetInt(EdubaseDataFieldNames.PERIOD_COVERED_BY_RETURN) != 12;
+        //public bool HasIncompleteFinancialData => GetInt(EdubaseDataFieldNames.PERIOD_COVERED_BY_RETURN) != 12;
 
-        public EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), GetString(EdubaseDataFieldNames.FINANCE_TYPE));
+        public EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
 
         public bool HasCoordinates
         {
@@ -158,10 +151,7 @@ namespace SFB.Web.UI.Models
             {
                 try
                 {
-                    var lat = GetCoordinates(1);
-                    var lng = GetCoordinates(0);
-
-                    if (lat == string.Empty || lng == string.Empty)
+                    if (Lat == string.Empty || Lng == string.Empty)
                     {
                         return false;
                     }
@@ -175,24 +165,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string Lat => GetCoordinates(1);
-        public string Lng => GetCoordinates(0);
-
-        private string GetCoordinates(int index)
-        {
-            var location = GetLocation();
-            if (location != null)
-            {
-                switch (index)
-                {
-                    case 0:
-                        return location.coordinates[0];
-                    case 1:
-                        return location.coordinates[1];
-                }
-            }
-            return string.Empty;
-        }
-
+        public string Lat => ContextDataModel.Location.Latitude.ToString();
+        public string Lng => ContextDataModel.Location.Longitude.ToString();
     }
 }

@@ -37,7 +37,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
             this._index = index;
         }
 
-        public async Task<dynamic> SuggestSchoolByName(string name, bool openOnly)
+        public async Task<dynamic> SuggestSchoolByNameAsync(string name, bool openOnly)
         {
             var connection = ApiConnection.Create(_searchInstance, _key);
             var client = new IndexQueryClient(connection);
@@ -106,7 +106,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
             return ret;
         }
 
-        public async Task<dynamic> SearchSchoolByName(string name, int skip, int take, string @orderby,
+        public async Task<dynamic> SearchSchoolByNameAsync(string name, int skip, int take, string @orderby,
             NameValueCollection queryParams)
         {
             if (name.Length > 2)
@@ -121,7 +121,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
             return new QueryResultsModel(0, null, new List<IDictionary<string, object>>(), 0, 0);
         }
 
-        public async Task<dynamic> SearchSchoolByLaEstab(string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchSchoolByLaEstabAsync(string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams)
         {
             var facets = new[] { $"{EdubaseDataFieldNames.TYPE_OF_ESTAB}, count:25", $"{EdubaseDataFieldNames.OVERALL_PHASE}", $"{EdubaseDataFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDataFieldNames.OFSTED_RATING}" };
             var exactMatches = await ExecuteSearchAsync(_index, $"{laEstab}", $"{EdubaseDataFieldNames.LA_ESTAB}",
@@ -129,7 +129,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
             return exactMatches;
         }
 
-        public async Task<dynamic> SearchSchoolByLaCode(string laCode, int skip, int take, string orderby,
+        public async Task<dynamic> SearchSchoolByLaCodeAsync(string laCode, int skip, int take, string orderby,
             NameValueCollection queryParams)
         {
             var facets = new[] { $"{EdubaseDataFieldNames.TYPE_OF_ESTAB}, count:25", $"{EdubaseDataFieldNames.OVERALL_PHASE}", $"{EdubaseDataFieldNames.RELIGIOUS_CHARACTER}", $"{EdubaseDataFieldNames.OFSTED_RATING}" };
@@ -139,7 +139,7 @@ namespace SFB.Web.ApplicationCore.Services.Search
             return exactMatches;
         }
 
-        public async Task<dynamic> SearchSchoolByLatLon(string lat, string lon, decimal distance, int skip, int take,
+        public async Task<dynamic> SearchSchoolByLatLonAsync(string lat, string lon, decimal distance, int skip, int take,
             string orderby,
             NameValueCollection queryParams)
         {

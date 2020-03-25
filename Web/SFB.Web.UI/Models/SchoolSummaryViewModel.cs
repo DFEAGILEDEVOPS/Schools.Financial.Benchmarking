@@ -1,6 +1,5 @@
-﻿using SFB.Web.ApplicationCore.Helpers.Constants;
-using SFB.Web.ApplicationCore;
-using System;
+﻿using System;
+using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Models
 {
@@ -18,22 +17,22 @@ namespace SFB.Web.UI.Models
         public string SponsorName { get; set; }
         public string CompanyNumber { get; set; }
 
-        public SchoolSummaryViewModel(dynamic model)
+        public SchoolSummaryViewModel(SchoolSearchResult model)
         {
-            var location = model["Location"];
-            if (location != null && location.coordinates != null)
+            var location = model.Location;
+            if (location != null)
             {
-                Latitude = location.coordinates[1];
-                Longitude = location.coordinates[0];
+                Latitude = location.Latitude;
+                Longitude = location.Longitude;
             }
-            Name = model[EdubaseDataFieldNames.ESTAB_NAME];
-            Id = model[EdubaseDataFieldNames.URN];
-            Address = String.Format("{0}, {1}, {2}", model[EdubaseDataFieldNames.STREET], model[EdubaseDataFieldNames.TOWN], model[EdubaseDataFieldNames.POSTCODE]);
-            EducationPhases = model[EdubaseDataFieldNames.PHASE_OF_EDUCATION];
-            OverallPhase = model[EdubaseDataFieldNames.OVERALL_PHASE];
-            NFType = model[EdubaseDataFieldNames.TYPE_OF_ESTAB];            
-            SponsorName = model[EdubaseDataFieldNames.TRUSTS];
-            CompanyNumber = model[EdubaseDataFieldNames.COMPANY_NUMBER];
+            Name = model.EstablishmentName;
+            Id = model.URN;
+            Address = String.Format("{0}, {1}, {2}", model.Street, model.Town, model.Postcode);
+            EducationPhases = model.PhaseOfEducation;
+            OverallPhase = model.OverallPhase;
+            NFType = model.TypeOfEstablishment;            
+            SponsorName = model.Trusts;
+            CompanyNumber = model.CompanyNumber;
         }
     }
 }
