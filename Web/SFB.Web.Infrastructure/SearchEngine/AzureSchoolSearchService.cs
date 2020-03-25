@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Dynamic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SFB.Web.Infrastructure.SearchEngine
@@ -38,19 +39,30 @@ namespace SFB.Web.Infrastructure.SearchEngine
             _indexClient = new SearchIndexClient(_searchInstance, _index, new SearchCredentials(_key));
         }
 
-        public Task<dynamic> SearchAcademiesByCompanyNoAsync(int companyNo, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchAcademiesByCompanyNoAsync(int companyNo, int skip, int take, string orderby, NameValueCollection queryParams)
         {
-            throw new NotImplementedException();
+            NameValueCollection parameters = new NameValueCollection();
+            if (queryParams != null)
+            {
+                parameters = new NameValueCollection(queryParams);
+            }
+            parameters.Add("financeType", "A");
+            parameters.Add("EstablishmentStatusInLatestAcademicYear", "Open");
+            var facets = new[] { EdubaseDataFieldNames.OVERALL_PHASE, EdubaseDataFieldNames.OFSTED_RATING, EdubaseDataFieldNames.GENDER };
+            var exactMatches = await ExecuteSearchAsync($"{companyNo}", $"{EdubaseDataFieldNames.COMPANY_NUMBER}", ConstructApiFilterParams(parameters), orderby, skip, take, facets);
+            return exactMatches;
         }
 
-        public Task<dynamic> SearchSchoolByLaCodeAsync(string laCode, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchSchoolByLaCodeAsync(string laCode, int skip, int take, string orderby, NameValueCollection queryParams)
         {
-            throw new NotImplementedException();
+            var facets = new[] { EdubaseDataFieldNames.TYPE_OF_ESTAB, EdubaseDataFieldNames.OVERALL_PHASE, EdubaseDataFieldNames.RELIGIOUS_CHARACTER, EdubaseDataFieldNames.OFSTED_RATING };
+            return await ExecuteSearchAsync(laCode, EdubaseDataFieldNames.LA_CODE, ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
         }
 
-        public Task<dynamic> SearchSchoolByLaEstabAsync(string laEstab, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<dynamic> SearchSchoolByLaEstabAsync(string laEstab, int skip, int take, string orderby, NameValueCollection queryParams)
         {
-            throw new NotImplementedException();
+            var facets = new[] { EdubaseDataFieldNames.TYPE_OF_ESTAB, EdubaseDataFieldNames.OVERALL_PHASE, EdubaseDataFieldNames.RELIGIOUS_CHARACTER, EdubaseDataFieldNames.OFSTED_RATING };
+            return await ExecuteSearchAsync(laEstab, EdubaseDataFieldNames.LA_ESTAB, ConstructApiFilterParams(queryParams), orderby, skip, take, facets);            
         }
 
         public async Task<dynamic> SearchSchoolByLatLonAsync(string lat, string lon, decimal distance, int skip, int take, string orderby, NameValueCollection queryParams)
@@ -63,7 +75,7 @@ namespace SFB.Web.Infrastructure.SearchEngine
             if (name.Length > 2)
             {
                 var facets = new[] { EdubaseDataFieldNames.TYPE_OF_ESTAB, EdubaseDataFieldNames.OVERALL_PHASE, EdubaseDataFieldNames.RELIGIOUS_CHARACTER, EdubaseDataFieldNames.OFSTED_RATING };
-                return await ExecuteSearchAsync(_index, $"{name}*", EdubaseDataFieldNames.ESTAB_NAME, ConstructApiFilterParams(queryParams), orderby, skip, take, facets);                
+                return await ExecuteSearchAsync($"{name}*", EdubaseDataFieldNames.ESTAB_NAME, ConstructApiFilterParams(queryParams), orderby, skip, take, facets);                
             }
 
             return new SearchResultsModel<SchoolSearchResult>(0, null, new List<SchoolSearchResult>(), 0, 0);
@@ -132,87 +144,89 @@ namespace SFB.Web.Infrastructure.SearchEngine
             }
         }
 
-        public async Task<QueryResultsModel> FindNearestSchools(string lat, string lon, decimal distance, int skip,
+        public async Task<SearchResultsModel<SchoolSearchResult>> FindNearestSchools(string lat, string lon, decimal distance, int skip,
             int take, string orderby, NameValueCollection queryParams)
         {
-            //var formattedLat = double.Parse(lat).ToString();
-            //var formattedLon = double.Parse(lon).ToString();
-            //return await ExecuteGeoSpatialSearch(_index, formattedLat, formattedLon,
-            //    distance, ConstructApiFilterParams(queryParams), orderby, skip, take);
-            return null;
+            return await ExecuteGeoSpatialSearch(lat, lon, distance, ConstructApiFilterParams(queryParams), orderby, skip, take);
         }
 
-        //    public async Task<QueryResultsModel> ExecuteGeoSpatialSearch(string index, string lat, string lon,
-        //decimal distance, string filter, string orderBy, int skip, int take)
-        //    {
-        //        const string search = "*";
-        //        var latitude = double.Parse(lat);
-        //        var longitude = double.Parse(lon);
+        public async Task<SearchResultsModel<SchoolSearchResult>> ExecuteGeoSpatialSearch(
+            string lat,
+            string lon,
+            decimal distance,
+            string filter,
+            string orderBy,
+            int skip,
+            int take)
+        {
+            const string search = "*";
+            var latitude = double.Parse(lat);
+            var longitude = double.Parse(lon);
 
-        //        var filterBuilder = new StringBuilder();
-        //        var orderByField = string.IsNullOrEmpty(orderBy)
-        //            ? string.Format(GeoDistanceLocationOrderFormat, latitude, longitude)
-        //            : orderBy;
+            var filterBuilder = new StringBuilder();
+            var orderByField = string.IsNullOrEmpty(orderBy)
+                ? string.Format(GeoDistanceLocationOrderFormat, latitude, longitude)
+                : orderBy;
 
-        //        filterBuilder.AppendFormat(GeoDistanceLocationSearchFormat, latitude, longitude, distance);
-        //        if (!string.IsNullOrEmpty(filter))
-        //        {
-        //            filterBuilder.AppendFormat(" and " + filter);
-        //        }
+            filterBuilder.AppendFormat(GeoDistanceLocationSearchFormat, latitude, longitude, distance);
+            if (!string.IsNullOrEmpty(filter))
+            {
+                filterBuilder.AppendFormat(" and " + filter);
+            }
 
-        //        var connection = ApiConnection.Create(_searchInstance, _key);
+            var facets = new[] { EdubaseDataFieldNames.TYPE_OF_ESTAB, EdubaseDataFieldNames.OVERALL_PHASE, EdubaseDataFieldNames.RELIGIOUS_CHARACTER, EdubaseDataFieldNames.OFSTED_RATING, EdubaseDataFieldNames.ESTAB_STATUS };
+            var parameters = new SearchParameters()
+            {
+                OrderBy = new[] { orderByField },                
+                Filter = filterBuilder.ToString(),
+                Skip = skip,
+                Top = take,
+                IncludeTotalResultCount = true,
+                Facets = facets.ToList()
+                //QueryType = QueryType.Full,
+                //SearchMode = SearchMode.Any
+            };
 
-        //        var client = new IndexQueryClient(connection);
+            DocumentSearchResult<SchoolSearchResult> response;
+            try
+            {
+                response = await _indexClient.Documents.SearchAsync<SchoolSearchResult>(search, parameters);
+            }
+            catch (Exception exc)
+            {
+                throw new ApplicationException(
+                    $"Edubase school search error: {exc.Message}");
+            }
 
-        //        var response = await client.SearchAsync(index, new SearchQuery(search)
-        //            .OrderBy(orderByField)
-        //            .Facet($"{EdubaseDataFieldNames.TYPE_OF_ESTAB}, count:25")
-        //            .Facet($"{EdubaseDataFieldNames.OVERALL_PHASE}")
-        //            .Facet($"{EdubaseDataFieldNames.RELIGIOUS_CHARACTER}")
-        //            .Facet($"{EdubaseDataFieldNames.OFSTED_RATING}")
-        //            .Facet($"{EdubaseDataFieldNames.ESTAB_STATUS}")
-        //            .Count(true)
-        //            .Filter(filterBuilder.ToString())
-        //            .Skip(skip)
-        //            .Top(take));
+            var facetsModel = MapResponseFacetsToFacetsModel(response);
 
-        //        if (!response.IsSuccess)
-        //        {
-        //            Console.WriteLine("{0}: {1}", response.Error.Code, response.Error.Message);
-        //        }
+            var results = new SearchResultsModel<SchoolSearchResult>((int)response.Count, facetsModel, response.Results.Select(r => r.Document), take, skip)
+            {
+                QueryLat = latitude.ToString(),
+                QueryLong = longitude.ToString()
+            };
 
-        //        var facetsModel = MapResponseFacetsToFacetsModel(response);
 
-        //        var results = new QueryResultsModel(response.Body.Count, facetsModel,
-        //            CalcDistance(response.Body.Records.Select(x => x.Properties), lat, lon), take, skip)
-        //        {
-        //            QueryLat = latitude.ToString(),
-        //            QueryLong = longitude.ToString()
-        //        };
+            return results;
+        }
 
-        //        return results;
-        //    }
+        private static IEnumerable<SchoolSearchResult> CalcDistance(
+            IEnumerable<SchoolSearchResult> results,
+            string lat,
+            string lng)
+        {            
+            foreach (var result in results)
+            {
+                    var location = result.Location;
+                    if (location != null)
+                    {                        
+                        result.DistanceInMeters = GeoCodeCalc.CalcDistance(location.Latitude.ToString(), location.Longitude.ToString(), lat, lng);
+                    }
+                
+            }
 
-        //    private static IEnumerable<IDictionary<string, object>> CalcDistance(
-        //IEnumerable<IDictionary<string, object>> results, string lat, string lng)
-        //    {
-        //        var calcDistance = results as IDictionary<string, object>[] ?? results.ToArray();
-        //        foreach (var result in calcDistance)
-        //        {
-        //            if (result.ContainsKey($"{EdubaseDataFieldNames.LOCATION}"))
-        //            {
-        //                dynamic location = result[$"{EdubaseDataFieldNames.LOCATION}"];
-        //                if (location != null)
-        //                {
-        //                    var coordinates = location.coordinates;
-        //                    result.Add("distanceInMeters",
-        //                        GeoCodeCalc.CalcDistance(coordinates[1].ToString(), coordinates[0].ToString(), lat, lng));
-        //                }
-        //            }
-        //        }
-
-        //        return calcDistance;
-        //    }
+            return results;
+        }
 
         private bool AliasFound(string query, string alias)
         {
@@ -338,7 +352,6 @@ namespace SFB.Web.Infrastructure.SearchEngine
         }
 
         private async Task<SearchResultsModel<SchoolSearchResult>> ExecuteSearchAsync(
-            string index, 
             string query, 
             string searchFields,
             string filter, 
@@ -361,7 +374,7 @@ namespace SFB.Web.Infrastructure.SearchEngine
 
             var parameters = new SearchParameters()
             {
-                OrderBy = new[] { $"{orderByField}" },
+                OrderBy = new[] { orderByField },
                 SearchFields = searchFieldsArray,
                 Filter = filter,
                 Skip = skip,

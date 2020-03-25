@@ -72,5 +72,7 @@ namespace SFB.Web.ApplicationCore.Models
         public string CompanyNumber { get; set; }
         public string NurseryProvisionName { get; set; }
         public GeographyPoint Location { get; set; }
+
+        public double DistanceInMeters;
     }
 }
