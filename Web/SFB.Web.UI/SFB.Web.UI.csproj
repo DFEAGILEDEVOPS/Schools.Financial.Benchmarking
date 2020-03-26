@@ -807,7 +807,6 @@
     <Content Include="Views\TrustComparison\Index.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustsToCompare.cshtml" />
     <Content Include="Views\TrustSchools\SearchResults.cshtml" />
-    <Content Include="Views\Trust\Partials\GeneralCharacteristics.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
     <Content Include="Views\TrustSearch\NotFound.cshtml" />
     <Content Include="Views\TrustSearch\SearchResults.cshtml" />
