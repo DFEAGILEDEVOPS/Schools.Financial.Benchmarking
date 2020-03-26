@@ -27,7 +27,7 @@ namespace SFB.Web.Infrastructure.SearchEngine
             _indexClient = new SearchIndexClient(_searchInstance, _index, new SearchCredentials(_key));
         }
 
-        public async Task<dynamic> SearchTrustByNameAsync(string name, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<SearchResultsModel<TrustSearchResult>> SearchTrustByNameAsync(string name, int skip, int take, string orderby, NameValueCollection queryParams)
         {
             if (name.Length > 2)
             {

@@ -86,12 +86,12 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchByNameActionReturnsTrustSearchResultsViewIfValidTrustNameProvided()
         {
-            Task<dynamic> task = Task.Run(() =>
+            Task<SearchResultsModel<TrustSearchResult>> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 var matches = new List<TrustSearchResult>();
                 matches.Add(new TrustSearchResult());                
-                dynamic results = new SearchResultsModel<TrustSearchResult>(5, facets, matches, 5, 0);
+                var results = new SearchResultsModel<TrustSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
@@ -219,9 +219,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchByLocationReturnsEmptyLocationResultPageForNotFoundLocationCoordinates()
         {
-            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
@@ -241,9 +241,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SchoolsAreOrderedAlphabeticallyWhenTrustsAreOrderedByTotalCountInLocationSearch()
         {
-            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
@@ -286,9 +286,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchesByLaCodeIfAValidLaNameIsProvided()
         {
-            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
@@ -309,9 +309,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task RedirectsToLaSearchIfAValidLaNameIsNotProvided()
         {
-            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
@@ -334,9 +334,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchLaEmptyLocationResultPageForNotFoundLaCodes()
         {
-            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
@@ -356,9 +356,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SchoolsAreOrderedAlphabeticallyWhenTrustsAreOrderedByTotalCountInLaSearch()
         {
-            dynamic edubaseSearchResponse = new SearchResultsModel<TrustSearchResult>(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });

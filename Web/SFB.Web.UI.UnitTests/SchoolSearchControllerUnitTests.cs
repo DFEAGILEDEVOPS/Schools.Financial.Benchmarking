@@ -135,7 +135,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForType ()
         {
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -145,7 +145,7 @@ namespace SFB.Web.UI.UnitTests
 
                 var matchedResults = new List<SchoolSearchResult>();
                 matchedResults.Add(new SchoolSearchResult());
-                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
@@ -169,7 +169,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForReligiousCharacter()
         {
-            Task<dynamic> task = Task.Run(() =>
+            Task<SearchResultsModel<SchoolSearchResult>> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -179,7 +179,7 @@ namespace SFB.Web.UI.UnitTests
 
                 var matchedResults = new List<SchoolSearchResult>();
                 matchedResults.Add(new SchoolSearchResult());
-                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
@@ -203,7 +203,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForPhase()
         {
-            Task<dynamic> task = Task.Run(() =>
+            Task<SearchResultsModel<SchoolSearchResult>> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -214,7 +214,7 @@ namespace SFB.Web.UI.UnitTests
 
                 var matchedResults = new List<SchoolSearchResult>();
                 matchedResults.Add(new SchoolSearchResult());
-                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
@@ -260,8 +260,8 @@ namespace SFB.Web.UI.UnitTests
 
             var matchedResults = new List<SchoolSearchResult>();
             matchedResults.Add(new SchoolSearchResult() { URN = "654321" });
-            dynamic edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(2, null, matchedResults, 50, 0);
-            Task<dynamic> task = Task.Run(() =>
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(2, null, matchedResults, 50, 0);
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
@@ -363,7 +363,7 @@ namespace SFB.Web.UI.UnitTests
             });
             _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => GetSchoolDataObjectByLaEstabAsyncTask);
 
-            Task<dynamic> SearchSchoolByLaEstabTask = Task.Run(() =>
+            var SearchSchoolByLaEstabTask = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -373,7 +373,7 @@ namespace SFB.Web.UI.UnitTests
 
                 var matches = new List<SchoolSearchResult>();
                 matches.Add(new SchoolSearchResult());
-                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matches, 5, 0);
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
@@ -403,13 +403,13 @@ namespace SFB.Web.UI.UnitTests
 
             _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => dataObjectTask);
 
-            Task<dynamic> schoolTask = Task.Run(() =>
+            var schoolTask = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
 
                 var matches = new List<SchoolSearchResult>();
                 matches.Add(new SchoolSearchResult());
-                dynamic results = new SearchResultsModel<SchoolSearchResult>(5, facets, matches, 5, 0);
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
@@ -482,8 +482,8 @@ namespace SFB.Web.UI.UnitTests
         {
             var matches = new List<SchoolSearchResult>();
             matches.Add(new SchoolSearchResult() { URN = "654321"});
-            dynamic edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(1, null, matches, 50, 0);
-            Task<dynamic> task = Task.Run(() =>
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(1, null, matches, 50, 0);
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });

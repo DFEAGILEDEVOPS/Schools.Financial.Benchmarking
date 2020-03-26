@@ -161,22 +161,19 @@ namespace SFB.Web.UI.Controllers
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
-                    var response = await _trustSearchService.SearchTrustByNameAsync(nameId,
+                   return await _trustSearchService.SearchTrustByNameAsync(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE,
                         SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby, Request?.QueryString);
-                    return response;
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     var latLng = locationCoordinates.Split(',');
-                    response = await _schoolSearchService.SearchSchoolByLatLonAsync(latLng[0], latLng[1],
+                    return await _schoolSearchService.SearchSchoolByLatLonAsync(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
                         Request?.QueryString);
-                    return response;
                 case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
-                    response = await _schoolSearchService.SearchSchoolByLaCodeAsync(laCode,
+                    return await _schoolSearchService.SearchSchoolByLaCodeAsync(laCode,
                         0, SearchDefaults.SEARCHED_SCHOOLS_MAX, orderby,
                         Request?.QueryString);
-                    return response;
                 default:
                     return null;
             }
@@ -236,17 +233,17 @@ namespace SFB.Web.UI.Controllers
             return trustListViewModel;
         }
 
-        private async Task<TrustListViewModel> BuildTrustViewModelListFromFoundAcademiesAsync(dynamic academySearchResults, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
+        private async Task<TrustListViewModel> BuildTrustViewModelListFromFoundAcademiesAsync(SearchResultsModel<SchoolSearchResult> academySearchResults, string orderBy, int page, string searchType, string nameKeyword, string locationKeyword, string laKeyword)
         {
             var academyTrustList = new List<AcademyTrustViewModel>();
 
             foreach (var academySearchResult in academySearchResults.Results)
             {
-                if (int.TryParse(academySearchResult[EdubaseDataFieldNames.COMPANY_NUMBER], out int companyNo))
+                if (int.TryParse(academySearchResult.CompanyNumber, out int companyNo))
                 {
                     if (!academyTrustList.Any(t => t.CompanyNo == companyNo))
                     {
-                        var academyTrust = new AcademyTrustViewModel(companyNo, academySearchResult[EdubaseDataFieldNames.TRUSTS], _contextDataService.GetAcademiesByCompanyNumberAsync(companyNo));
+                        var academyTrust = new AcademyTrustViewModel(companyNo, academySearchResult.Trusts, _contextDataService.GetAcademiesByCompanyNumberAsync(companyNo));
                         academyTrustList.Add(academyTrust);
                     }
                 }
@@ -275,11 +272,11 @@ namespace SFB.Web.UI.Controllers
             return trustListViewModel;
         }
 
-        private static void MarkAcademiesInsideSearchArea(dynamic academySearchResults, List<AcademyTrustViewModel> trustList)
+        private void MarkAcademiesInsideSearchArea(SearchResultsModel<SchoolSearchResult> academySearchResults, List<AcademyTrustViewModel> trustList)
         {
             foreach (var academySearchResult in academySearchResults.Results)
             {
-                var schoolMatch = trustList.SelectMany(t => t.AcademiesList).Where(a => a.Id.ToString() == academySearchResult[EdubaseDataFieldNames.URN]).FirstOrDefault();
+                var schoolMatch = trustList.SelectMany(t => t.AcademiesList).Where(a => a.Id.ToString() == academySearchResult.URN).FirstOrDefault();
                 if (schoolMatch != null)
                 {
                     schoolMatch.InsideSearchArea = true;
@@ -381,7 +378,7 @@ namespace SFB.Web.UI.Controllers
         {
             var schoolLevelOrdering = DetermineSchoolLevelOrdering(orderby);
 
-            var searchResults = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, locationCoordinates, null, radius, openOnly, schoolLevelOrdering, page);
+            SearchResultsModel<SchoolSearchResult> searchResults = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, locationCoordinates, null, radius, openOnly, schoolLevelOrdering, page);
 
             if (searchResults.NumberOfResults == 0)
             {

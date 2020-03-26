@@ -39,7 +39,7 @@ namespace SFB.Web.Infrastructure.SearchEngine
             _indexClient = new SearchIndexClient(_searchInstance, _index, new SearchCredentials(_key));
         }
 
-        public async Task<dynamic> SearchAcademiesByCompanyNoAsync(int companyNo, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<SearchResultsModel<SchoolSearchResult>> SearchAcademiesByCompanyNoAsync(int companyNo, int skip, int take, string orderby, NameValueCollection queryParams)
         {
             NameValueCollection parameters = new NameValueCollection();
             if (queryParams != null)
@@ -53,24 +53,24 @@ namespace SFB.Web.Infrastructure.SearchEngine
             return exactMatches;
         }
 
-        public async Task<dynamic> SearchSchoolByLaCodeAsync(string laCode, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<SearchResultsModel<SchoolSearchResult>> SearchSchoolByLaCodeAsync(string laCode, int skip, int take, string orderby, NameValueCollection queryParams)
         {
             var facets = new[] { EdubaseDataFieldNames.TYPE_OF_ESTAB, EdubaseDataFieldNames.OVERALL_PHASE, EdubaseDataFieldNames.RELIGIOUS_CHARACTER, EdubaseDataFieldNames.OFSTED_RATING };
             return await ExecuteSearchAsync(laCode, EdubaseDataFieldNames.LA_CODE, ConstructApiFilterParams(queryParams), orderby, skip, take, facets);
         }
 
-        public async Task<dynamic> SearchSchoolByLaEstabAsync(string laEstab, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<SearchResultsModel<SchoolSearchResult>> SearchSchoolByLaEstabAsync(string laEstab, int skip, int take, string orderby, NameValueCollection queryParams)
         {
             var facets = new[] { EdubaseDataFieldNames.TYPE_OF_ESTAB, EdubaseDataFieldNames.OVERALL_PHASE, EdubaseDataFieldNames.RELIGIOUS_CHARACTER, EdubaseDataFieldNames.OFSTED_RATING };
             return await ExecuteSearchAsync(laEstab, EdubaseDataFieldNames.LA_ESTAB, ConstructApiFilterParams(queryParams), orderby, skip, take, facets);            
         }
 
-        public async Task<dynamic> SearchSchoolByLatLonAsync(string lat, string lon, decimal distance, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<SearchResultsModel<SchoolSearchResult>> SearchSchoolByLatLonAsync(string lat, string lon, decimal distance, int skip, int take, string orderby, NameValueCollection queryParams)
         {
             return await FindNearestSchools(lat, lon, distance, skip, take, orderby, queryParams);
         }
 
-        public async Task<dynamic> SearchSchoolByNameAsync(string name, int skip, int take, string orderby, NameValueCollection queryParams)
+        public async Task<SearchResultsModel<SchoolSearchResult>> SearchSchoolByNameAsync(string name, int skip, int take, string orderby, NameValueCollection queryParams)
         {
             if (name.Length > 2)
             {
