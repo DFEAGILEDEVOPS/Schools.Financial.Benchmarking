@@ -534,7 +534,6 @@
     <Content Include="public\govuk_template\assets\images\opengraph-image.png" />
     <Content Include="public\govuk_template\assets\javascripts\govuk-template.js" />
     <Content Include="public\govuk_template\assets\javascripts\ie.js" />
-    <Content Include="public\govuk_template\assets\javascripts\vendor\goog\webfont-debug.js" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-white.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-24x24.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-black-12x12.png" />
@@ -816,6 +815,7 @@
     <Content Include="Views\TrustSearch\Partials\TrustFilterForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\govuk_template\assets\javascripts\vendor\" />
     <Folder Include="public\scripts\require\" />
     <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
