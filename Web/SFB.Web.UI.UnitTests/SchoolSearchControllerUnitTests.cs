@@ -135,7 +135,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForType ()
         {
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -143,16 +143,13 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("OfstedRating", new FacetResultModel[] { new FacetResultModel() { Value = "Outstanding", Count = 2 }, new FacetResultModel() { Value = "Good", Count = 1 }, new FacetResultModel() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResultModel[] { new FacetResultModel() { Value = "Hindu", Count = 2 }, new FacetResultModel() { Value = "Church of England", Count = 1 }, new FacetResultModel() { Value = "Roman Catholic", Count = 1 } });
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matchedResults = new List<SchoolSearchResult>();
+                matchedResults.Add(new SchoolSearchResult());
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -172,7 +169,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForReligiousCharacter()
         {
-            Task<dynamic> task = Task.Run(() =>
+            Task<SearchResultsModel<SchoolSearchResult>> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -180,16 +177,13 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("OfstedRating", new FacetResultModel[] { new FacetResultModel() { Value = "Outstanding", Count = 2 }, new FacetResultModel() { Value = "Good", Count = 1 }, new FacetResultModel() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResultModel[] { new FacetResultModel() { Value = "Hindu", Count = 2 }, new FacetResultModel() { Value = "Church of England", Count = 1 }, new FacetResultModel() { Value = "Roman Catholic", Count = 1 } });
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matchedResults = new List<SchoolSearchResult>();
+                matchedResults.Add(new SchoolSearchResult());
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -209,7 +203,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionReturnsAlphabeticalOrderedFacetFiltersForPhase()
         {
-            Task<dynamic> task = Task.Run(() =>
+            Task<SearchResultsModel<SchoolSearchResult>> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -218,16 +212,13 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("ReligiousCharacter", new FacetResultModel[] { new FacetResultModel() { Value = "Hindu", Count = 2 }, new FacetResultModel() { Value = "Church of England", Count = 1 }, new FacetResultModel() { Value = "Roman Catholic", Count = 1 } });
                 facets.Add("EstablishmentStatus", new FacetResultModel[] { new FacetResultModel() { Value = "Open", Count = 2 }, new FacetResultModel() { Value = "Closed", Count = 1 } });
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matchedResults = new List<SchoolSearchResult>();
+                matchedResults.Add(new SchoolSearchResult());
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matchedResults, 5, 0);
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 0, 50, null, null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, new FilterBuilder(),
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -267,15 +258,15 @@ namespace SFB.Web.UI.UnitTests
 
             _mockLaSearchService.Setup(m => m.SearchExactMatch("Test")).Returns(() => new LaModel(){ Id="123", LaName = "Test"});
 
-            var testDictionary = new Dictionary<string, object>();
-            testDictionary.Add("URN", "654321");
-            dynamic edubaseSearchResponse = new QueryResultsModel(2, null, new List<IDictionary<string, object>>() { testDictionary }, 50, 0);
-            Task<dynamic> task = Task.Run(() =>
+            var matchedResults = new List<SchoolSearchResult>();
+            matchedResults.Add(new SchoolSearchResult() { URN = "654321" });
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(2, null, matchedResults, 50, 0);
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("123", 0, 50, "EstablishmentName", null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCodeAsync("123", 0, 50, "EstablishmentName", null)).Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, _mockContextDataService.Object, 
                 _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -319,13 +310,13 @@ namespace SFB.Web.UI.UnitTests
 
         [Test]
         public async Task SearchActionRedirectsToSchoolViewIfUrnIsUsedAsId()
-        {            
-            var testResult = new EdubaseDataObject();
-            testResult.URN = 123456;
+        {
+             var GetSchoolDataObjectByUrnAsyncTask = Task.Run(()=> new EdubaseDataObject { URN = 123456 });
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrn(123456)).Returns((int urn) => testResult);
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123456)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
 
-            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
+            var controller = new SchoolSearchController(_mockLaService.Object, 
+                _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
 
             var result = await controller.Search("123456", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
@@ -341,7 +332,12 @@ namespace SFB.Web.UI.UnitTests
         {
             var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 } };
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567", false)).Returns((string urn, bool openOnly) => testResult);
+            Task<List<EdubaseDataObject>> task = Task.Run(() =>
+            {
+                return testResult;
+            });
+
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => task);
                        
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -359,11 +355,15 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToSearchViewIfLaEstabIsUsedAsIdAndMultipleResultsFound()
         {
-            var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 }, new EdubaseDataObject() { URN = 7654321 } };
+            var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 }, new EdubaseDataObject() { URN = 1234568 } };
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567", false)).Returns((string urn, bool openOnly) => testResult);
+            Task<List<EdubaseDataObject>> GetSchoolDataObjectByLaEstabAsyncTask = Task.Run(() =>
+            {
+                return testResult;
+            });
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => GetSchoolDataObjectByLaEstabAsyncTask);
 
-            Task<dynamic> task = Task.Run(() =>
+            var SearchSchoolByLaEstabTask = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
                 facets.Add("OverallPhase", new FacetResultModel[] { new FacetResultModel() { Value = "Primary", Count = 2 }, new FacetResultModel() { Value = "Secondary", Count = 1 }, new FacetResultModel() { Value = "All through", Count = 1 } });
@@ -371,17 +371,14 @@ namespace SFB.Web.UI.UnitTests
                 facets.Add("OfstedRating", new FacetResultModel[] { new FacetResultModel() { Value = "Outstanding", Count = 2 }, new FacetResultModel() { Value = "Good", Count = 1 }, new FacetResultModel() { Value = "Requires Improvement", Count = 1 } });
                 facets.Add("ReligiousCharacter", new FacetResultModel[] { new FacetResultModel() { Value = "Hindu", Count = 2 }, new FacetResultModel() { Value = "Church of England", Count = 1 }, new FacetResultModel() { Value = "Roman Catholic", Count = 1 } });
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matches = new List<SchoolSearchResult>();
+                matches.Add(new SchoolSearchResult());
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstab("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
-                .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstabAsync("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
+                .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => SearchSchoolByLaEstabTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -399,23 +396,25 @@ namespace SFB.Web.UI.UnitTests
         {
             var testResult = new List<EdubaseDataObject>() {  };
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567", false)).Returns((string urn, bool openOnly) => testResult);
+            Task<List<EdubaseDataObject>> dataObjectTask = Task.Run(() =>
+            {
+                return testResult;
+            });
 
-            Task<dynamic> task = Task.Run(() =>
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => dataObjectTask);
+
+            var schoolTask = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
 
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("test1", 1);
-                matchedResults.Add("test2", 2);
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matches = new List<SchoolSearchResult>();
+                matches.Add(new SchoolSearchResult());
+                var results = new SearchResultsModel<SchoolSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstab("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
-                .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaEstabAsync("1234567", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
+                .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => schoolTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -433,7 +432,12 @@ namespace SFB.Web.UI.UnitTests
         {
             var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 } };
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567", false)).Returns((string urn, bool openOnly) => testResult);
+            Task<List<EdubaseDataObject>> dataObjectTask = Task.Run(() =>
+            {
+                return testResult;
+            });
+
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => dataObjectTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, 
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -453,7 +457,12 @@ namespace SFB.Web.UI.UnitTests
         {
             var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 } };
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567", false)).Returns((string urn, bool openOnly) => testResult);
+            Task<List<EdubaseDataObject>> dataObjectTask = Task.Run(() =>
+            {
+                return testResult;
+            });
+
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => dataObjectTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -471,15 +480,15 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionCallsServiceWithPagingParams()
         {
-            var testDictionary = new Dictionary<string, object>();
-            testDictionary.Add("URN", "654321");
-            dynamic edubaseSearchResponse = new QueryResultsModel(1, null, new List<IDictionary<string, object>>() { testDictionary }, 50, 0);
-            Task<dynamic> task = Task.Run(() =>
+            var matches = new List<SchoolSearchResult>();
+            matches.Add(new SchoolSearchResult() { URN = "654321"});
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(1, null, matches, 50, 0);
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByName("Test", 50, 50, It.IsAny<string>(), It.IsAny<NameValueCollection>()))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 50, 50, It.IsAny<string>(), It.IsAny<NameValueCollection>()))
                 .Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);            
             
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
@@ -488,7 +497,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.Search("Test", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, string.Empty, 2);
 
-            _mockSchoolSearchService.Verify(req => req.SearchSchoolByName("Test", 50, 50, string.Empty, null), Times.Once());
+            _mockSchoolSearchService.Verify(req => req.SearchSchoolByNameAsync("Test", 50, 50, string.Empty, null), Times.Once());
         }
       
     }

@@ -26,11 +26,11 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
 
-        public ActionResult Index(int companyNo)
+        public async Task<ActionResult> Index(int companyNo)
         {            
             var benchmarkTrust = new TrustViewModel(companyNo);
 
-            LoadFinancialDataOfLatestYear(benchmarkTrust);
+            await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
 
             var trustComparisonList = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.SetDefault, companyNo, benchmarkTrust.Name);
 
@@ -112,11 +112,11 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }
 
-        private void LoadFinancialDataOfLatestYear(TrustViewModel benchmarkTrust)
+        private async Task LoadFinancialDataOfLatestYearAsync(TrustViewModel benchmarkTrust)
         {
-            var latestYear = _financialDataService.GetLatestDataYearPerEstabType(EstablishmentType.MAT);
+            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT);
             var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var financialDataObject = _financialDataService.GetTrustFinancialDataObject(benchmarkTrust.CompanyNo, term, MatFinancingType.TrustAndAcademies);
+            var financialDataObject = await _financialDataService.GetTrustFinancialDataObjectAsync(benchmarkTrust.CompanyNo, term, MatFinancingType.TrustAndAcademies);
 
             benchmarkTrust.HistoricalFinancialDataModels = new List<ApplicationCore.Models.FinancialDataModel>
             {

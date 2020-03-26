@@ -16,13 +16,14 @@ using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using System.Threading.Tasks;
 
 namespace SFB.Web.UI.UnitTests
 {
     public class TrustControllerUnitTests
     {
         [Test]
-        public void IndexMethodShouldBuildVMWithTrustAndAcademiesMatFinancingTypeByDefault()
+        public async Task IndexMethodShouldBuildVMWithTrustAndAcademiesMatFinancingTypeByDefaultAsync()
         {
             var mockTrustSearchService = new Mock<ITrustSearchService>();
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
@@ -43,20 +44,26 @@ namespace SFB.Web.UI.UnitTests
                 new AcademiesContextualDataObject()
             };
 
-            mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumber(It.IsAny<string>(), It.IsAny<int>()))
-                .Returns(result);
+            var GetAcademiesByCompanyNumberAsyncTask = Task.Run(() => result);
 
-            mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentral())
-                .Returns(new List<string> { "2015" });
+            mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumberAsync(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(GetAcademiesByCompanyNumberAsyncTask);
 
-            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabType(EstablishmentType.MAT))
-                .Returns(2015);
+            var GetActiveTermsForMatCentralAsyncTask = Task.Run(()=>  new List<string> { "2015" });
+            mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentralAsync())
+                .Returns(GetActiveTermsForMatCentralAsyncTask);
 
-            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT))
-                .Returns(2015);
+            var GetLatestDataYearPerEstabTypeAsyncTask = Task.Run(()=> 2015);
+            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT))
+                .Returns(GetLatestDataYearPerEstabTypeAsyncTask);
 
-            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroup(DataGroups.MATCentral))
-                .Returns(new List<string> {"2015"});
+            var GetLatestFinancialDataYearPerEstabTypeAsyncTask = Task.Run(() => 2015);
+            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabTypeAsync(EstablishmentType.MAT))
+                .Returns(GetLatestFinancialDataYearPerEstabTypeAsyncTask);
+
+            var GetActiveTermsByDataGroupAsyncTask = Task.Run(() => new List<string> { "2015" });
+            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroupAsync(DataGroups.MATCentral))
+                .Returns(GetActiveTermsByDataGroupAsyncTask);
 
             mockHistoricalChartBuilder
                 .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
@@ -71,7 +78,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            controller.Index(123);
+            await controller.Index(123);
 
             mockFinancialDataService.Verify(m => m.GetTrustFinancialDataObjectAsync(123, "2014 / 2015", MatFinancingType.TrustAndAcademies));
         }
@@ -94,24 +101,25 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var result = new List<AcademiesContextualDataObject>()
-            {
-            };
+            var GetAcademiesByCompanyNumberAsyncTask = Task.Run(() => new List<AcademiesContextualDataObject>());
+            mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumberAsync(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(GetAcademiesByCompanyNumberAsyncTask);
 
-            mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumber(It.IsAny<string>(), It.IsAny<int>()))
-                .Returns(result);
+            var GetActiveTermsForMatCentralAsyncTask = Task.Run(()=> new List<string> { "2015" });
+            mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentralAsync())
+                .Returns(GetActiveTermsForMatCentralAsyncTask);
 
-            mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentral())
-                .Returns(new List<string> { "2015" });
+            var GetLatestDataYearPerEstabTypeAsyncTask = Task.Run(() => 2015);
+            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT))
+                .Returns(GetLatestDataYearPerEstabTypeAsyncTask);
 
-            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabType(EstablishmentType.MAT))
-                .Returns(2015);
+            var GetLatestFinancialDataYearPerEstabTypeAsyncTask = Task.Run(() => 2015);
+            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabTypeAsync(EstablishmentType.MAT))
+                .Returns(GetLatestFinancialDataYearPerEstabTypeAsyncTask);
 
-            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabType(EstablishmentType.MAT))
-                .Returns(2015);
-
-            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroup(DataGroups.MATCentral))
-                .Returns(new List<string> { "2015" });
+            var GetActiveTermsByDataGroupAsyncTask = Task.Run(() => new List<string> { "2015" });
+            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroupAsync(DataGroups.MATCentral))
+                .Returns(GetActiveTermsByDataGroupAsyncTask);
 
             mockHistoricalChartBuilder
                 .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))

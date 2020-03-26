@@ -11,7 +11,6 @@ using System.Web.Routing;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Helpers.Constants;
-using SFB.Web.UI.Services;
 using System;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Attributes;
@@ -102,9 +101,16 @@ namespace SFB.Web.UI.Controllers
         /// Used by filtering and paging
         /// </summary>
         [Route("SchoolSearch/Search-js")]
-        public async Task<PartialViewResult> SearchJS(string nameId, string searchType, string suggestionurn,
-            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius, bool openOnly = false,
-            string orderby = "", int page = 1)
+        public async Task<PartialViewResult> SearchJS(
+            string nameId, 
+            string searchType, 
+            string locationorpostcode, 
+            string locationCoordinates, 
+            string laCodeName, 
+            decimal? radius, 
+            bool openOnly = false,
+            string orderby = "", 
+            int page = 1)
         {
             ViewBag.SearchMethod = "School";
             dynamic searchResponse;
@@ -127,9 +133,17 @@ namespace SFB.Web.UI.Controllers
         /// Used by the map widget
         /// </summary>
         [Route("SchoolSearch/Search-json")]
-        public async Task<JsonResult> SearchJson(string nameId, string searchType, string suggestionurn,
-            string locationorpostcode, string locationCoordinates, string laCodeName, string schoolId, decimal? radius,
-            int? companyNo, bool openOnly = false, string orderby = "", int page = 1)
+        public async Task<JsonResult> SearchJson(
+            string nameId, 
+            string searchType,
+            string locationorpostcode, 
+            string locationCoordinates, 
+            string laCodeName, 
+            decimal? radius, 
+            int? companyNo, 
+            bool openOnly = false, 
+            string orderby = "", 
+            int page = 1)
         {
             dynamic searchResponse;
             if (!companyNo.HasValue)
@@ -163,32 +177,32 @@ namespace SFB.Web.UI.Controllers
 
         protected override async Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, decimal? radius, bool openOnly, string orderby, int page, int take = 50)
         {
-            QueryResultsModel response = null;
+            SearchResultsModel<SchoolSearchResult> response = null;
 
             switch (searchType)
             {
                 case SearchTypes.SEARCH_BY_NAME_ID:
-                    response = await _schoolSearchService.SearchSchoolByName(nameId,
+                    response = await _schoolSearchService.SearchSchoolByNameAsync(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request.QueryString);
                     break;
                 case SearchTypes.SEARCH_BY_LA_ESTAB:
-                    response = await _schoolSearchService.SearchSchoolByLaEstab(nameId,
+                    response = await _schoolSearchService.SearchSchoolByLaEstabAsync(nameId,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request.QueryString);
                     break;
                 case SearchTypes.SEARCH_BY_LOCATION:
                     var latLng = locationCoordinates.Split(',');
-                    response = await _schoolSearchService.SearchSchoolByLatLon(latLng[0], latLng[1],
+                    response = await _schoolSearchService.SearchSchoolByLatLonAsync(latLng[0], latLng[1],
                         (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request.QueryString);
                     break;
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
-                    response = await _schoolSearchService.SearchSchoolByLaCode(laCode,
+                    response = await _schoolSearchService.SearchSchoolByLaCodeAsync(laCode,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take,
                         string.IsNullOrEmpty(orderby) ? EdubaseDataFieldNames.ESTAB_NAME : orderby,
-                        Request.QueryString) as QueryResultsModel;
+                        Request.QueryString);
                     break;
             }
 
@@ -206,9 +220,9 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
-        public PartialViewResult UpdateBenchmarkBasket(int urn, CookieActions withAction)
+        public async Task<PartialViewResult> UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(_contextDataService.GetSchoolDataObjectByUrn(urn), null);
+            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
 
             _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
                 new BenchmarkSchoolModel()
@@ -229,7 +243,7 @@ namespace SFB.Web.UI.Controllers
 
             if (!IsNumeric(nameId))
             {
-                dynamic response = await _schoolSearchService.SuggestSchoolByName(nameId, openOnly);
+                dynamic response = await _schoolSearchService.SuggestSchoolByNameAsync(nameId, openOnly);
                 json = JsonConvert.SerializeObject(response);
             }
 
@@ -259,7 +273,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     if (IsLaEstab(nameId))
                     {
-                        searchResp = _contextDataService.GetSchoolDataObjectByLaEstab(nameId, openOnly);
+                        searchResp = await _contextDataService.GetSchoolDataObjectByLaEstabAsync(nameId, openOnly);
                         if (searchResp.Count == 0)
                         {
                             return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_LA_ESTAB));
@@ -276,7 +290,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        searchResp = _contextDataService.GetSchoolDataObjectByUrn(Int32.Parse(nameId));
+                        searchResp = await _contextDataService.GetSchoolDataObjectByUrnAsync(Int32.Parse(nameId));
                         return RedirectToAction("Detail", "School", new { urn = searchResp.URN });
                     }
                 }
@@ -305,10 +319,6 @@ namespace SFB.Web.UI.Controllers
             if (string.IsNullOrEmpty(errorMessage))
             {
                 searchResp = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, openOnly, orderby, page);
-                //if (searchResp.NumberOfResults == 0)
-                //{
-                //    return RedirectToActionPermanent("SuggestSchool", "SchoolSearch", new RouteValueDictionary { { "nameId", nameId }, { "openOnly", openOnly } });
-                //}
                 return View("SearchResults", GetSearchedSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, SearchTypes.SEARCH_BY_NAME_ID, nameId, null, null));
             }
             else

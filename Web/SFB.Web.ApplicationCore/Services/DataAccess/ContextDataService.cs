@@ -14,24 +14,24 @@ namespace SFB.Web.ApplicationCore.Services.DataAccess
             _edubaseRepository = edubaseRepository;
         }
 
-        public EdubaseDataObject GetSchoolDataObjectByUrn(int urn)
+        public async Task<EdubaseDataObject> GetSchoolDataObjectByUrnAsync(int urn)
         {
-            return _edubaseRepository.GetSchoolDataObjectByUrn(urn);
+            return await _edubaseRepository.GetSchoolDataObjectByUrnAsync(urn);
         }
 
-        public List<int> GetAllSchoolUrns()
+        public async Task<List<int>> GetAllSchoolUrnsAsync()
         {
-            return _edubaseRepository.GetAllSchoolUrns();
+            return await _edubaseRepository.GetAllSchoolUrnsAsync();
         }
 
-        public List<EdubaseDataObject> GetSchoolDataObjectByLaEstab(string laEstab, bool openOnly)
+        public async Task<List<EdubaseDataObject>> GetSchoolDataObjectByLaEstabAsync(string laEstab, bool openOnly)
         {
-            return _edubaseRepository.GetSchoolsByLaEstab(laEstab, openOnly);
+            return await _edubaseRepository.GetSchoolsByLaEstabAsync(laEstab, openOnly);
         }
 
-        public List<EdubaseDataObject> GetMultipleSchoolDataObjectsByUrns(List<int> urns)
+        public async Task<List<EdubaseDataObject>> GetMultipleSchoolDataObjectsByUrnsAsync(List<int> urns)
         {
-            return _edubaseRepository.GetMultipleSchoolDataObjectsByUrns(urns);
+            return await _edubaseRepository.GetMultipleSchoolDataObjectsByUrnsAsync(urns);
         }
 
         public async Task<IEnumerable<EdubaseDataObject>> GetAcademiesByCompanyNumberAsync(int companyNo)

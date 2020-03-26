@@ -30,7 +30,7 @@ namespace SFB.Web.UI.Controllers
         protected abstract Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, 
             decimal? radius, bool openOnly, string orderby, int page, int take = SearchDefaults.RESULTS_PER_PAGE);
         
-        protected void OrderFacetFilters(QueryResultsModel results)
+        protected void OrderFacetFilters(SearchResultsModel<SchoolSearchResult> results)
         {
             if (results?.Facets != null)
             {

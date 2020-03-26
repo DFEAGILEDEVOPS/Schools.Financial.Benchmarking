@@ -1,35 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Microsoft.Azure.Documents.Linq;
 using Newtonsoft.Json.Linq;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Helpers.Enums;
-using SFB.Web.ApplicationCore;
+
 
 namespace SFB.Web.Infrastructure
 {
     public static class ExtensionMethods
     {
-        public static async Task<IEnumerable<T>> QueryAsync<T>(this IQueryable<T> query)
-        {
-            var docQuery = query.AsDocumentQuery();
-            var batches = new List<IEnumerable<T>>();
+        //public static async Task<IEnumerable<T>> QueryAsync<T>(this IQueryable<T> query)
+        //{
+        //    var docQuery = query.AsDocumentQuery();
+        //    var batches = new List<IEnumerable<T>>();
 
-            do
-            {
-                var batch = await docQuery.ExecuteNextAsync<T>();
+        //    do
+        //    {
+        //        var batch = await docQuery.ExecuteNextAsync<T>();
 
-                batches.Add(batch);
-            }
-            while (docQuery.HasMoreResults);
+        //        batches.Add(batch);
+        //    }
+        //    while (docQuery.HasMoreResults);
 
-            var docs = batches.SelectMany(b => b);
+        //    var docs = batches.SelectMany(b => b);
 
-            return docs;
-        }
+        //    return docs;
+        //}
 
         public static string GetDataGroup(this JObject json)
         {

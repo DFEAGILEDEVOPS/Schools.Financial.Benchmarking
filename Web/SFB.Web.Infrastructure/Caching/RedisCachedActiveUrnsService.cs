@@ -5,6 +5,7 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Threading.Tasks;
 
 namespace SFB.Web.Infrastructure.Caching
 {
@@ -38,7 +39,7 @@ namespace SFB.Web.Infrastructure.Caching
             }
         }
 
-        public List<int> GetAllActiveUrns()
+        public async Task<List<int>> GetAllActiveUrnsAsync()
         {
             var cache = Connection.GetDatabase();
             
@@ -48,7 +49,7 @@ namespace SFB.Web.Infrastructure.Caching
 
             if (serializedList.IsNull)
             {
-                deserializedList = _contextDataService.GetAllSchoolUrns();
+                deserializedList = await _contextDataService.GetAllSchoolUrnsAsync();
 
                 cache.StringSet("SFBActiveURNList", JsonConvert.SerializeObject(deserializedList));
             }

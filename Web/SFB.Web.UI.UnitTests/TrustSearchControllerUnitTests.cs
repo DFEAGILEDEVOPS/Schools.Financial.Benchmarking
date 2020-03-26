@@ -86,20 +86,16 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchByNameActionReturnsTrustSearchResultsViewIfValidTrustNameProvided()
         {
-            Task<dynamic> task = Task.Run(() =>
+            Task<SearchResultsModel<TrustSearchResult>> task = Task.Run(() =>
             {
                 var facets = new Dictionary<string, FacetResultModel[]>();
-                var matchedResults = new Dictionary<string, object>();
-                matchedResults.Add("CompanyNumber", "132");
-                matchedResults.Add("Trusts", "test");
-                matchedResults.Add("TrustOrCompanyName", "test name");
-                var matches = new List<Dictionary<string, object>>();
-                matches.Add(matchedResults);
-                dynamic results = new QueryResultsModel(5, facets, matches, 5, 0);
+                var matches = new List<TrustSearchResult>();
+                matches.Add(new TrustSearchResult());                
+                var results = new SearchResultsModel<TrustSearchResult>(5, facets, matches, 5, 0);
                 return results;
             });
 
-            _mockTrustSearchService.Setup(m => m.SearchTrustByName("TestTrust", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+            _mockTrustSearchService.Setup(m => m.SearchTrustByNameAsync("TestTrust", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
                 .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -116,7 +112,7 @@ namespace SFB.Web.UI.UnitTests
         {
             var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 } };
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstab("1234567", false)).Returns((string urn, bool openOnly) => testResult);
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => Task.Run(()=> testResult));
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
@@ -223,14 +219,14 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchByLocationReturnsEmptyLocationResultPageForNotFoundLocationCoordinates()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLonAsync("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -245,14 +241,14 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SchoolsAreOrderedAlphabeticallyWhenTrustsAreOrderedByTotalCountInLocationSearch()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLatLonAsync("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -260,7 +256,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, "AreaSchoolNumber", 0);
 
-            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLatLon("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));    
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLatLonAsync("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));    
         }
 
         [Test]
@@ -290,14 +286,14 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchesByLaCodeIfAValidLaNameIsProvided()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCodeAsync("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
             _mockLaSearchService.Setup(m => m.SearchExactMatch("Croydon")).Returns(new LaModel(){Id= "319", LaName= "Croydon" });
@@ -307,20 +303,20 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "Croydon", null, false, null, 0);
 
-            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCodeAsync("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));
         }
 
         [Test]
         public async Task RedirectsToLaSearchIfAValidLaNameIsNotProvided()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCodeAsync("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
                 .Returns(task);
 
             _mockLaSearchService.Setup(m => m.SearchExactMatch("test")).Returns<LaViewModel>(null);
@@ -338,14 +334,14 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchLaEmptyLocationResultPageForNotFoundLaCodes()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("000", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCodeAsync("000", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -360,14 +356,14 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SchoolsAreOrderedAlphabeticallyWhenTrustsAreOrderedByTotalCountInLaSearch()
         {
-            dynamic edubaseSearchResponse = new QueryResultsModel(0, null, null, 50, 0);
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
-            Task<dynamic> task = Task.Run(() =>
+            var task = Task.Run(() =>
             {
                 return edubaseSearchResponse;
             });
 
-            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCode("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCodeAsync("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null))
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
@@ -375,7 +371,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "123", null, false, "AreaSchoolNumber", 0);
 
-            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCode("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));
+            _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCodeAsync("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));
         }
     }
 }

@@ -10,7 +10,6 @@ using System.Web.Routing;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.UnitTests
@@ -18,7 +17,7 @@ namespace SFB.Web.UI.UnitTests
     public class BenchmarkListControllerUnitTests
     {
         [Test]
-        public void UpdateActionCallsCookieManagerWhenComparisonListCleared()
+        public async System.Threading.Tasks.Task UpdateActionCallsCookieManagerWhenComparisonListClearedAsync()
         {
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var response = new Mock<HttpResponseBase>(MockBehavior.Strict);
@@ -60,7 +59,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = controller.UpdateBenchmarkBasket(null, CookieActions.RemoveAll);
+            var result = await controller.UpdateBenchmarkBasket(null, CookieActions.RemoveAll);
 
             mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, It.IsAny<BenchmarkSchoolModel>()),Times.Once);
 

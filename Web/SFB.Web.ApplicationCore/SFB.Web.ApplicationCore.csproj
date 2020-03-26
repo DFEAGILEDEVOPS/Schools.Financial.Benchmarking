@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SFB.Web.ApplicationCore</RootNamespace>
     <AssemblyName>SFB.Web.ApplicationCore</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -32,17 +32,26 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Spatial, Version=7.5.3.21218, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Spatial.7.5.3\lib\portable-net45+win8+wpa81\Microsoft.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Device" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CachingInterfaces\IActiveCollectionsService.cs" />
     <Compile Include="CachingInterfaces\IBicComparisonResultCachingService.cs" />
+    <Compile Include="DataAccessInterfaces\IEfficiencyMetricRepository.cs" />
+    <Compile Include="Entities\EfficiecyMetricDataObject.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="DataAccessInterfaces\IDataCollectionManager.cs" />
     <Compile Include="DataAccessInterfaces\IEdubaseRepository.cs" />
@@ -64,6 +73,7 @@
     <Compile Include="Models\BestInClassCriteria.cs" />
     <Compile Include="Models\ComparisonResult.cs" />
     <Compile Include="Helpers\GeoCodeCalc.cs" />
+    <Compile Include="Models\EfficiencyMetricModel.cs" />
     <Compile Include="Models\FacetResultModel.cs" />
     <Compile Include="Models\HistoricalChartData.cs" />
     <Compile Include="Models\LaModel.cs" />
@@ -71,11 +81,13 @@
     <Compile Include="Models\ResultModel.cs" />
     <Compile Include="Models\FinancialDataModel.cs" />
     <Compile Include="Models\SchoolModel.cs" />
+    <Compile Include="Models\SearchResultsModel.cs" />
     <Compile Include="Models\SimpleCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CachingInterfaces\IActiveUrnsService.cs" />
     <Compile Include="Services\Comparison\BenchmarkCriteriaBuilderService.cs" />
     <Compile Include="Services\Comparison\ComparisonService.cs" />
+    <Compile Include="Services\DataAccess\EfficiencyMetricDataService.cs" />
     <Compile Include="Services\DataAccess\FinancialDataService.cs" />
     <Compile Include="Services\DataAccess\ContextDataService.cs" />
     <Compile Include="Services\Comparison\IBenchmarkCriteriaBuilderService.cs" />
@@ -83,6 +95,7 @@
     <Compile Include="EmailInterfaces\IEmailSendingService.cs" />
     <Compile Include="CachingInterfaces\ILocalAuthoritiesService.cs" />
     <Compile Include="SearchInterfaces\ILocationSearchService.cs" />
+    <Compile Include="Services\DataAccess\IEfficiencyMetricDataService.cs" />
     <Compile Include="Services\DataAccess\IFinancialDataService.cs" />
     <Compile Include="Services\DataAccess\IContextDataService.cs" />
     <Compile Include="SearchInterfaces\ISchoolSearchService.cs" />
@@ -97,9 +110,7 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
