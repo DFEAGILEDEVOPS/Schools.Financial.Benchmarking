@@ -580,7 +580,6 @@
     <Content Include="Config\beta\log4net.Release.config" />
     <Content Include="Config\dev\log4net.Release.config" />
     <Content Include="Config\stage\log4net.Release.config" />
-    <Content Include="ci\compile.cmd" />
     <Content Include="ci\unit-tests.cmd" />
     <Content Include="Assets\Sass\docs\resources.md" />
     <Content Include="Assets\Sass\elements\box\_box.scss" />
