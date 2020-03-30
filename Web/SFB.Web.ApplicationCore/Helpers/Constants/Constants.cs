@@ -207,6 +207,7 @@
         public const string TEACHERS_MAIN_PAY = "AllClassroomTeachersOnMainPayRangePercent";
         public const string TEACHERS_UPPER_LEADING_PAY = "AllClassroomTeachersOnUpperPayRangeAndOrLeadingPractionersPayRangePercent";
         public const string TEACHERS_LEADERSHIP_PAY = "AllTeachersOnTheLeadershipPayRangePercent";
+        public const string UID = "UID";
 
     }
 

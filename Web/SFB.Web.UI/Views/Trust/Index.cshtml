@@ -71,6 +71,12 @@
         Companies House number:
         <a class="ml-05" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(Model.CompanyNo.ToString("D8"))">@(Model.CompanyNo)</a>
     </div>
+    <div class="column-full mt-1">
+        Data from other services:
+        <a class="trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Multi academy trust performance link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Multi academy trust performance</a>
+        <span class="trust-ext-link-seperator">|</span>
+        <a class="trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get more information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get more information</a>
+    </div>
 </div>
 
 <div class="grid-row">

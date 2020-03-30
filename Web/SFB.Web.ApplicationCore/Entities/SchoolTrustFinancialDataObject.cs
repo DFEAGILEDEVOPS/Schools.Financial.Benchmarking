@@ -20,6 +20,9 @@ namespace SFB.Web.ApplicationCore.Entities
         [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER)]
         public int? CompanyNumber { get; set; }
 
+        [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.UID)]
+        public int? UID { get; set; }
+
         [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME)]
         public string TrustOrCompanyName { get; set; }
 

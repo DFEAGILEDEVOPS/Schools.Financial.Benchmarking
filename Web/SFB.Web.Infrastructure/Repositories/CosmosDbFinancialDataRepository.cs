@@ -497,7 +497,10 @@ namespace SFB.Web.Infrastructure.Repositories
 
             try
             {
-                var queryString = $"SELECT c['{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}'], c['{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}'] FROM c WHERE {query}";
+                var queryString = $"SELECT c['{SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER}'], " +
+                    $"c['{SchoolTrustFinanceDataFieldNames.UID}'], " +
+                    $"c['{SchoolTrustFinanceDataFieldNames.TRUST_COMPANY_NAME}'] " +
+                    $"FROM c WHERE {query}";
 
                 var queryDefinition = new QueryDefinition(queryString);
 

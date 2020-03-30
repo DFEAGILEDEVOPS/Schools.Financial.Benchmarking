@@ -13,6 +13,8 @@ namespace SFB.Web.UI.Models
 
         public int CompanyNo { get; set; }
 
+        public int? UID => LatestYearFinancialData?.FinancialDataObjectModel?.UID;
+
         public override string Name {
             get {
                 if(AcademiesList?.Count > 0)
