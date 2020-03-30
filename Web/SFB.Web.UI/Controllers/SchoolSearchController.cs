@@ -319,6 +319,10 @@ namespace SFB.Web.UI.Controllers
             if (string.IsNullOrEmpty(errorMessage))
             {
                 searchResp = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, openOnly, orderby, page);
+                if(searchResp.NumberOfResults == 0)
+                {
+                    return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_NAME_ID));
+                }
                 return View("SearchResults", GetSearchedSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, SearchTypes.SEARCH_BY_NAME_ID, nameId, null, null));
             }
             else

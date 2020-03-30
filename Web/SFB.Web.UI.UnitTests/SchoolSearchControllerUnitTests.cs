@@ -428,6 +428,31 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
+        public async Task SearchActionRedirectsToEmptyViewIfNameIsUsedAsIdAndNoResultsFound()
+        {
+            var schoolTask = Task.Run(() =>
+            {
+                var facets = new Dictionary<string, FacetResultModel[]>();
+                var matches = new List<SchoolSearchResult>();
+                var results = new SearchResultsModel<SchoolSearchResult>(0, facets, matches, 0, 0);
+                return results;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("abc", 0, SearchDefaults.RESULTS_PER_PAGE, null, null))
+                .Returns((string laEstab, int skip, int take, string @orderby, NameValueCollection queryParams) => schoolTask);
+
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = await controller.Search("abc", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.AreEqual("EmptyResult", (result as ViewResult).ViewName);
+        }
+
+        [Test]
         public async Task SearchActionRedirectsToSchoolViewIfLaEstabWithDashIsUsedAsId()
         {
             var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 } };
