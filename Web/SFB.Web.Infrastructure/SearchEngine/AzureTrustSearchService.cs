@@ -88,7 +88,7 @@ namespace SFB.Web.Infrastructure.SearchEngine
 
             parameters = new SearchParameters()
             {
-                OrderBy = new[] { $"{orderByField} asc" },
+                OrderBy = new[] { $"{orderByField}" },
                 SearchFields = searchFieldsArray,
                 Filter = filter,
                 Skip = skip,
