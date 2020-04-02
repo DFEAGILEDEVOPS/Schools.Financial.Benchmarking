@@ -94,8 +94,7 @@ namespace SFB.Web.Infrastructure.SearchEngine
                 Skip = skip,
                 Top = take,
                 IncludeTotalResultCount = true,
-                //QueryType = QueryType.Full,
-                //SearchMode = SearchMode.Any
+                SearchMode = SearchMode.All
             };
 
             DocumentSearchResult<TrustSearchResult> results;

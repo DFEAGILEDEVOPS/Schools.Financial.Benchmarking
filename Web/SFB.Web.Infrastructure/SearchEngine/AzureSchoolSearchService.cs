@@ -182,9 +182,8 @@ namespace SFB.Web.Infrastructure.SearchEngine
                 Skip = skip,
                 Top = take,
                 IncludeTotalResultCount = true,
-                Facets = facets.ToList()
-                //QueryType = QueryType.Full,
-                //SearchMode = SearchMode.Any
+                Facets = facets.ToList(),
+                SearchMode = SearchMode.All
             };
 
             DocumentSearchResult<SchoolSearchResult> response;
@@ -380,9 +379,8 @@ namespace SFB.Web.Infrastructure.SearchEngine
                 Skip = skip,
                 Top = take,
                 IncludeTotalResultCount = true,
-                Facets = facets.ToList()
-                //QueryType = QueryType.Full,
-                //SearchMode = SearchMode.Any
+                Facets = facets.ToList(),
+                SearchMode = SearchMode.All
             };
 
             DocumentSearchResult<SchoolSearchResult> results;
