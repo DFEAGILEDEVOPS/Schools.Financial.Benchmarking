@@ -139,6 +139,68 @@ namespace SFB.Web.UI.UnitTests
             action.Wait();
 
             Assert.IsInstanceOf(typeof(RedirectToRouteResult), action.Result);
+            Assert.AreEqual("TrustSearch", (action.Result as RedirectToRouteResult).RouteValues["Controller"]);
+            Assert.AreEqual("SuggestTrust", (action.Result as RedirectToRouteResult).RouteValues["Action"]);
+        }
+
+        [Test]
+        public void IndexMethodShouldRedirectToSchoolViewIfNoTrustFoundForCompanyNoButOneAcademyRelationIsFound()
+        {
+            var mockTrustSearchService = new Mock<ITrustSearchService>();
+            var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
+            var mockFinancialDataService = new Mock<IFinancialDataService>();
+            var mockFCService = new Mock<IFinancialCalculationsService>();
+            var mockDataCollectionManager = new Mock<IDataCollectionManager>();
+            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var mockEdubaseDataService = new Mock<IContextDataService>();
+
+            var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
+            var context = new Mock<HttpContextBase>(MockBehavior.Strict);
+            context.SetupGet(x => x.Request).Returns(request.Object);
+            var requestCookies = new HttpCookieCollection();
+            context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
+            var rc = new RequestContext(context.Object, new RouteData());
+
+            var GetAcademiesByCompanyNumberAsyncTask = Task.Run(() => new List<AcademiesContextualDataObject>() { new AcademiesContextualDataObject() });
+            mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumberAsync(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns(GetAcademiesByCompanyNumberAsyncTask);
+
+            var GetActiveTermsForMatCentralAsyncTask = Task.Run(() => new List<string> { "2015" });
+            mockFinancialDataService.Setup(m => m.GetActiveTermsForMatCentralAsync())
+                .Returns(GetActiveTermsForMatCentralAsyncTask);
+
+            var GetLatestDataYearPerEstabTypeAsyncTask = Task.Run(() => 2015);
+            mockFinancialDataService.Setup(m => m.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT))
+                .Returns(GetLatestDataYearPerEstabTypeAsyncTask);
+
+            var GetLatestFinancialDataYearPerEstabTypeAsyncTask = Task.Run(() => 2015);
+            mockDataCollectionManager.Setup(m => m.GetLatestFinancialDataYearPerEstabTypeAsync(EstablishmentType.MAT))
+                .Returns(GetLatestFinancialDataYearPerEstabTypeAsyncTask);
+
+            var GetActiveTermsByDataGroupAsyncTask = Task.Run(() => new List<string> { "2015" });
+            mockDataCollectionManager.Setup(m => m.GetActiveTermsByDataGroupAsync(DataGroups.MATCentral))
+                .Returns(GetActiveTermsByDataGroupAsyncTask);
+
+            mockHistoricalChartBuilder
+                .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
+                .Returns(new List<ChartViewModel>());
+
+            var controller = new TrustController(mockHistoricalChartBuilder.Object,
+                mockFinancialDataService.Object,
+                mockFCService.Object,
+                mockEdubaseDataService.Object,
+                null,
+                mockCookieManager.Object);
+
+            controller.ControllerContext = new ControllerContext(rc, controller);
+
+            var action = controller.Index(123);
+
+            action.Wait();
+
+            Assert.IsInstanceOf(typeof(RedirectToRouteResult), action.Result);
+            Assert.AreEqual("School", (action.Result as RedirectToRouteResult).RouteValues["Controller"]);
+            Assert.AreEqual("Detail", (action.Result as RedirectToRouteResult).RouteValues["Action"]);
         }
     }
 }

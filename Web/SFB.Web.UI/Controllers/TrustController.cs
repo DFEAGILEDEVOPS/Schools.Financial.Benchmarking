@@ -67,6 +67,15 @@ namespace SFB.Web.UI.Controllers
 
             var trustVM = await BuildTrustVMAsync(companyNo, academies, tab, chartGroup, financing);
 
+            if (!trustVM.HasLatestYearFinancialData)
+            {
+                if(trustVM.AcademiesList.Count == 1)
+                {
+                    return RedirectToActionPermanent("Detail", "School", new RouteValueDictionary { { "urn", trustVM.AcademiesList.First().URN } });
+                }
+                return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", companyNo } });
+            }
+
             UnitType unitType;
             switch (tab)
             {
