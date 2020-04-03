@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SFB.Web.ApplicationCore.Models
 {
@@ -9,13 +10,16 @@ namespace SFB.Web.ApplicationCore.Models
 
         public string Name { get; set; }
 
+        public string Phase { get; set; }
+
         public List<EfficiencyMetricNeighbourModel> NeighbourDataModels { get; set; }
 
-        public EfficiencyMetricModel(int urn, int rank, string name, List<EfficiencyMetricNeighbourModel> neighbourDataModels)
+        public EfficiencyMetricModel(int urn, int rank, string name, string phase, List<EfficiencyMetricNeighbourModel> neighbourDataModels)
         {
             URN = urn;
             Rank = rank;
             Name = name;
+            Phase = phase;
             NeighbourDataModels = neighbourDataModels;
         }
 

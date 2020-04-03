@@ -14,6 +14,7 @@ namespace SFB.Web.ApplicationCore.Entities
         private decimal fte;
         private string laname;
         private string name;
+        private string phase;
         private decimal senpub;
         private decimal ever6pub;
         private decimal progress8;
@@ -223,6 +224,7 @@ namespace SFB.Web.ApplicationCore.Entities
         public int Urn { get => urn; set => urn = value; }
         public string Laname { get => laname; set => laname = value; }
         public string Name { get => name; set => name = value; }
+        public string Phase { get => phase; set => phase = value; }
         public decimal Senpub { get => senpub; set => senpub = value; }
         public decimal Ever6pub { get => ever6pub; set => ever6pub = value; }
         public decimal Progress8 { get => progress8; set => progress8 = value; }

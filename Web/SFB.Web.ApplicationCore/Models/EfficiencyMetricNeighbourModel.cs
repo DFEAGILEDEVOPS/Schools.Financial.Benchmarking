@@ -19,6 +19,8 @@ namespace SFB.Web.ApplicationCore.Models
 
         public int Rank { get; set; }
 
+        public string OverallPhase => ContextData.OverallPhase;
+
         public string Name => EMData.Name;
 
         public int LA => EMData.La;
@@ -28,6 +30,7 @@ namespace SFB.Web.ApplicationCore.Models
         public decimal Pupils => EMData.Fte;
 
         public decimal Ever6 => EMData.Ever6pub;
+
         public decimal SEN => EMData.Senpub;
 
         public decimal IncomePP => EMData.Incomepp;

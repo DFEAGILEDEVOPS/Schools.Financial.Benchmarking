@@ -72,7 +72,7 @@ namespace SFB.Web.Api.Controllers
                     ));
             }
 
-            return new EfficiencyMetricModel(defaultSchoolEMData.Urn, defaultSchoolEMData.Efficiencydecileingroup, defaultSchoolEMData.Name, neighbourDataModels);            
+            return new EfficiencyMetricModel(defaultSchoolEMData.Urn, defaultSchoolEMData.Efficiencydecileingroup, defaultSchoolEMData.Name, defaultSchoolEMData.Phase, neighbourDataModels);            
         }
     }
 }
