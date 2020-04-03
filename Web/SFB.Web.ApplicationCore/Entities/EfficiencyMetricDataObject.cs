@@ -1,16 +1,19 @@
-﻿namespace SFB.Web.ApplicationCore.Entities
+﻿using System.Collections.Generic;
+
+namespace SFB.Web.ApplicationCore.Entities
 {
+    //TODO: refactor after DB schema optimization
     public class EfficiencyMetricDataObject
     {
-        private string phase;
-        private decimal efficiencydecileingroup;
+        #region private
+
+        private int urn;
+        private int efficiencydecileingroup;
         private int neighbour49;
         private int efficiencydecileneighbour49;
-        private int fte;
-        private decimal sAstd_inc;
+        private decimal fte;
         private string laname;
         private string name;
-        private string establishmenttypegroup;
         private decimal senpub;
         private decimal ever6pub;
         private decimal progress8;
@@ -111,23 +114,13 @@
         private int efficiencydecileneighbour46;
         private int efficiencydecileneighbour47;
         private int efficiencydecileneighbour48;
-        private int urn;
         private int la;
-        private int laestab;
-        private int national;
-        private decimal efficiencyscore;
+        private decimal? READPROG_supp;
+        private decimal? WRITPROG_supp;
+        private decimal? MATPROG_supp;
 
-        //VAimprovement1, VAimprovement2, VAimprovement3, VAimprovement4, Effscor2, Effscore 3, Effscore 3, VAimprovfig2capped, VAimprovfig3capped, VAimprovfig4capped, 
+        #endregion
 
-        public string Laname { get => laname; set => laname = value; }
-        public string Name { get => name; set => name = value; }
-        public string Establishmenttypegroup { get => establishmenttypegroup; set => establishmenttypegroup = value; }
-        public string Phase { get => phase; set => phase = value; }
-        public decimal Senpub { get => senpub; set => senpub = value; }
-        public decimal Ever6pub { get => ever6pub; set => ever6pub = value; }
-        public decimal Progress8 { get => progress8; set => progress8 = value; }
-        public decimal Incomepp { get => incomepp; set => incomepp = value; }
-        public decimal Efficiencydecileingroup { get => efficiencydecileingroup; set => efficiencydecileingroup = value; }
         public int Neighbour1 { get => neighbour1; set => neighbour1 = value; }
         public int Neighbour2 { get => neighbour2; set => neighbour2 = value; }
         public int Neighbour3 { get => neighbour3; set => neighbour3 = value; }
@@ -226,12 +219,90 @@
         public int Efficiencydecileneighbour47 { get => efficiencydecileneighbour47; set => efficiencydecileneighbour47 = value; }
         public int Efficiencydecileneighbour48 { get => efficiencydecileneighbour48; set => efficiencydecileneighbour48 = value; }
         public int Efficiencydecileneighbour49 { get => efficiencydecileneighbour49; set => efficiencydecileneighbour49 = value; }
+
         public int Urn { get => urn; set => urn = value; }
+        public string Laname { get => laname; set => laname = value; }
+        public string Name { get => name; set => name = value; }
+        public decimal Senpub { get => senpub; set => senpub = value; }
+        public decimal Ever6pub { get => ever6pub; set => ever6pub = value; }
+        public decimal Progress8 { get => progress8; set => progress8 = value; }
+        public decimal Incomepp { get => incomepp; set => incomepp = value; }
+        public int Efficiencydecileingroup { get => efficiencydecileingroup; set => efficiencydecileingroup = value; }
         public int La { get => la; set => la = value; }
-        public int Laestab { get => laestab; set => laestab = value; }
-        public int National { get => national; set => national = value; }
-        public int Fte { get => fte; set => fte = value; }
-        public decimal Efficiencyscore { get => efficiencyscore; set => efficiencyscore = value; }
-        public decimal SAstd_inc { get => sAstd_inc; set => sAstd_inc = value; }
+        public decimal Fte { get => fte; set => fte = value; }
+        public decimal? Writprog_supp { get => WRITPROG_supp; set => WRITPROG_supp = value; }
+        public decimal? Readprog_supp { get => READPROG_supp; set => READPROG_supp = value; }
+        public decimal? Matprog_supp { get => MATPROG_supp; set => MATPROG_supp = value; }
+
+        public List<EfficiencyMetricNeighbourListItemObject> NeighbourRecords
+        {
+            get
+            {
+                return new List<EfficiencyMetricNeighbourListItemObject>
+                {
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour1, Efficiencydecileneighbour1),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour2, Efficiencydecileneighbour2),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour3, Efficiencydecileneighbour3),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour4, Efficiencydecileneighbour4),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour5, Efficiencydecileneighbour5),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour6, Efficiencydecileneighbour6),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour7, Efficiencydecileneighbour7),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour8, Efficiencydecileneighbour8),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour9, Efficiencydecileneighbour9),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour10, Efficiencydecileneighbour10),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour11, Efficiencydecileneighbour11),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour12, Efficiencydecileneighbour12),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour13, Efficiencydecileneighbour13),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour14, Efficiencydecileneighbour14),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour15, Efficiencydecileneighbour15),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour16, Efficiencydecileneighbour16),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour17, Efficiencydecileneighbour17),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour18, Efficiencydecileneighbour18),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour19, Efficiencydecileneighbour19),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour20, Efficiencydecileneighbour20),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour21, Efficiencydecileneighbour21),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour22, Efficiencydecileneighbour22),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour23, Efficiencydecileneighbour23),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour24, Efficiencydecileneighbour24),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour25, Efficiencydecileneighbour25),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour26, Efficiencydecileneighbour26),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour27, Efficiencydecileneighbour27),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour28, Efficiencydecileneighbour28),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour29, Efficiencydecileneighbour29),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour30, Efficiencydecileneighbour30),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour31, Efficiencydecileneighbour31),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour32, Efficiencydecileneighbour32),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour33, Efficiencydecileneighbour33),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour34, Efficiencydecileneighbour34),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour35, Efficiencydecileneighbour35),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour36, Efficiencydecileneighbour36),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour37, Efficiencydecileneighbour37),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour38, Efficiencydecileneighbour38),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour39, Efficiencydecileneighbour39),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour40, Efficiencydecileneighbour40),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour41, Efficiencydecileneighbour41),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour42, Efficiencydecileneighbour42),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour43, Efficiencydecileneighbour43),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour44, Efficiencydecileneighbour44),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour45, Efficiencydecileneighbour45),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour46, Efficiencydecileneighbour46),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour47, Efficiencydecileneighbour47),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour48, Efficiencydecileneighbour48),
+                    new EfficiencyMetricNeighbourListItemObject(Neighbour49, Efficiencydecileneighbour49),
+                };
+            }
+        }
+    }
+
+    public class EfficiencyMetricNeighbourListItemObject
+    {
+        public EfficiencyMetricNeighbourListItemObject(int urn, int rank)
+        {
+            URN = urn;
+            Rank = rank;
+        }
+        public int URN { get; set; }
+
+        public int Rank { get; set; }
     }
 }

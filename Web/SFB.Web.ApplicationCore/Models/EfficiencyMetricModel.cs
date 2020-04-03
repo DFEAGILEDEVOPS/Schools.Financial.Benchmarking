@@ -1,15 +1,23 @@
-﻿using Newtonsoft.Json;
-using SFB.Web.ApplicationCore.Entities;
+﻿using System.Collections.Generic;
 
 namespace SFB.Web.ApplicationCore.Models
 {
     public class EfficiencyMetricModel
-    {
-        [JsonProperty]
-        public EfficiencyMetricDataObject EfficiencyMetricData { get; set; }
-        [JsonProperty]
-        public EdubaseDataObject ContextData { get; set; }
-        [JsonProperty]
-        public SchoolTrustFinancialDataObject FinancialData { get; set; }
+    {      
+        public int URN { get; set; }
+        public int Rank { get; set; }
+
+        public string Name { get; set; }
+
+        public List<EfficiencyMetricNeighbourModel> NeighbourDataModels { get; set; }
+
+        public EfficiencyMetricModel(int urn, int rank, string name, List<EfficiencyMetricNeighbourModel> neighbourDataModels)
+        {
+            URN = urn;
+            Rank = rank;
+            Name = name;
+            NeighbourDataModels = neighbourDataModels;
+        }
+
     }
 }

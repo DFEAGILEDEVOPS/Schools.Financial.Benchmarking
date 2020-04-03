@@ -51,7 +51,7 @@
     <Compile Include="CachingInterfaces\IActiveCollectionsService.cs" />
     <Compile Include="CachingInterfaces\IBicComparisonResultCachingService.cs" />
     <Compile Include="DataAccessInterfaces\IEfficiencyMetricRepository.cs" />
-    <Compile Include="Entities\EfficiecyMetricDataObject.cs" />
+    <Compile Include="Entities\EfficiencyMetricDataObject.cs" />
     <Compile Include="Models\ApiResponse.cs" />
     <Compile Include="DataAccessInterfaces\IDataCollectionManager.cs" />
     <Compile Include="DataAccessInterfaces\IEdubaseRepository.cs" />
@@ -74,6 +74,7 @@
     <Compile Include="Models\ComparisonResult.cs" />
     <Compile Include="Helpers\GeoCodeCalc.cs" />
     <Compile Include="Models\EfficiencyMetricModel.cs" />
+    <Compile Include="Models\EfficiencyMetricNeighbourModel.cs" />
     <Compile Include="Models\FacetResultModel.cs" />
     <Compile Include="Models\HistoricalChartData.cs" />
     <Compile Include="Models\LaModel.cs" />

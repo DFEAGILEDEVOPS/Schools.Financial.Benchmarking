@@ -39,10 +39,10 @@ namespace SFB.Web.Api
             services.AddSingleton<ILogManager>(container => new NetCoreLogManager(container.GetRequiredService<IHttpContextAccessor>(), enableAiTelemetry));
             services.AddSingleton<IEfficiencyMetricDataService, EfficiencyMetricDataService>();
             services.AddSingleton<IContextDataService, ContextDataService>();
-            services.AddSingleton<IFinancialDataService, FinancialDataService>();
-            services.AddSingleton<IFinancialDataRepository>(container => new CosmosDbFinancialDataRepository(dataCollectionManager, cosmosClient, databaseId, container.GetRequiredService<ILogManager>()));
+            //services.AddSingleton<IFinancialDataService, FinancialDataService>();
+            //services.AddSingleton<IFinancialDataRepository>(container => new CosmosDbFinancialDataRepository(dataCollectionManager, cosmosClient, databaseId, container.GetRequiredService<ILogManager>()));
             services.AddSingleton<IEdubaseRepository>(container => new CosmosDbEdubaseRepository(dataCollectionManager, cosmosClient, databaseId, container.GetRequiredService<ILogManager>()));
-            services.AddSingleton<IEfficiencyMetricRepository>(container => new EfficiencyMetricRepository(cosmosClient, databaseId));
+            services.AddSingleton<IEfficiencyMetricRepository>(container => new EfficiencyMetricRepository(cosmosClient, databaseId, container.GetRequiredService<ILogManager>()));
             services.AddSingleton<IDataCollectionManager>(dataCollectionManager);
 
             services.AddApplicationInsightsTelemetry();

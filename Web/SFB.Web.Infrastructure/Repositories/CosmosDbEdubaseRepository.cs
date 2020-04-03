@@ -254,6 +254,9 @@ namespace SFB.Web.Infrastructure.Repositories
                 $"c['{EdubaseDataFieldNames.STREET}'], " +
                 $"c['{EdubaseDataFieldNames.TOWN}'], " +
                 $"c['{EdubaseDataFieldNames.POSTCODE}'], " +
+                $"c['{EdubaseDataFieldNames.TEL_NO}'], " +
+                $"c['{EdubaseDataFieldNames.HEAD_FIRST_NAME}'], " +
+                $"c['{EdubaseDataFieldNames.HEAD_LAST_NAME}'], " +
                 $"c['{EdubaseDataFieldNames.LA_CODE}'], " +
                 $"c['{EdubaseDataFieldNames.NO_PUPIL}'], " +
                 $"udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDataFieldNames.FINANCE_TYPE}']) AS {EdubaseDataFieldNames.FINANCE_TYPE} " +
