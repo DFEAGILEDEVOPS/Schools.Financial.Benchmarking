@@ -58,11 +58,14 @@ namespace SFB.Web.Api.Controllers
 
         private async Task<EfficiencyMetricModel> BuildModelWithEMNeighbours(EfficiencyMetricDataObject defaultSchoolEMData)
         {
-            var neighbourContextDataList = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(defaultSchoolEMData.NeighbourRecords.Select(n => n.URN).ToList());
-            var neighbourEMDataList = await _efficiencyMetricDataService.GetMultipleSchoolDataObjectsByUrnsAsync(defaultSchoolEMData.NeighbourRecords.Select(n => n.URN).ToList());
+            var neighbourRecords = defaultSchoolEMData.NeighbourRecords;
+            neighbourRecords.Add(new EfficiencyMetricNeighbourListItemObject(defaultSchoolEMData.Urn, defaultSchoolEMData.Efficiencydecileingroup));
+            var neighbourUrns = neighbourRecords.Select(n => n.URN).ToList();
+            var neighbourContextDataList = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(neighbourUrns);
+            var neighbourEMDataList = await _efficiencyMetricDataService.GetMultipleSchoolDataObjectsByUrnsAsync(neighbourUrns);
 
             var neighbourDataModels = new List<EfficiencyMetricNeighbourModel>();
-            foreach (var neighbourRecord in defaultSchoolEMData.NeighbourRecords)
+            foreach (var neighbourRecord in neighbourRecords)
             {
                 neighbourDataModels.Add(new EfficiencyMetricNeighbourModel(
                     neighbourRecord.URN,
@@ -71,6 +74,8 @@ namespace SFB.Web.Api.Controllers
                     neighbourEMDataList.Find(em => em.Urn == neighbourRecord.URN)
                     ));
             }
+
+            neighbourDataModels = neighbourDataModels.OrderBy(n=> n.Rank).ToList();
 
             return new EfficiencyMetricModel(defaultSchoolEMData.Urn, defaultSchoolEMData.Efficiencydecileingroup, defaultSchoolEMData.Name, defaultSchoolEMData.Phase, neighbourDataModels);            
         }
