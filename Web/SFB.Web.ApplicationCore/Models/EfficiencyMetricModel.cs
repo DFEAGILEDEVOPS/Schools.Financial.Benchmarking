@@ -12,14 +12,17 @@ namespace SFB.Web.ApplicationCore.Models
 
         public string Phase { get; set; }
 
+        public string LocalAuthority { get; set; }
+
         public List<EfficiencyMetricNeighbourModel> NeighbourDataModels { get; set; }
 
-        public EfficiencyMetricModel(int urn, int rank, string name, string phase, List<EfficiencyMetricNeighbourModel> neighbourDataModels)
+        public EfficiencyMetricModel(int urn, int rank, string name, string phase, string localAuthority, List<EfficiencyMetricNeighbourModel> neighbourDataModels)
         {
             URN = urn;
             Rank = rank;
             Name = name;
             Phase = phase;
+            LocalAuthority = localAuthority;
             NeighbourDataModels = neighbourDataModels;
         }
 

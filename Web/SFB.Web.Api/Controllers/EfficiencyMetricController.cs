@@ -77,7 +77,7 @@ namespace SFB.Web.Api.Controllers
 
             neighbourDataModels = neighbourDataModels.OrderBy(n=> n.Rank).ToList();
 
-            return new EfficiencyMetricModel(defaultSchoolEMData.Urn, defaultSchoolEMData.Efficiencydecileingroup, defaultSchoolEMData.Name, defaultSchoolEMData.Phase, neighbourDataModels);            
+            return new EfficiencyMetricModel(defaultSchoolEMData.Urn, defaultSchoolEMData.Efficiencydecileingroup, defaultSchoolEMData.Name, defaultSchoolEMData.Phase, defaultSchoolEMData.Laname, neighbourDataModels);            
         }
     }
 }
