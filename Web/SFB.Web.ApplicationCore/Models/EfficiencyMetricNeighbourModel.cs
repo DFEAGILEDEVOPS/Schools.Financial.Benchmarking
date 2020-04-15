@@ -19,7 +19,7 @@ namespace SFB.Web.ApplicationCore.Models
 
         public int Rank { get; set; }
 
-        public string OverallPhase => ContextData.OverallPhase;
+        //public string OverallPhase => ContextData.OverallPhase;
 
         public string Name => EMData.Name;
 

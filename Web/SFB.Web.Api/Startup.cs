@@ -46,6 +46,15 @@ namespace SFB.Web.Api
             services.AddSingleton<IDataCollectionManager>(dataCollectionManager);
 
             services.AddApplicationInsightsTelemetry();
+            
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:4200");
+                    });
+            });
 
             services.AddControllers();
         }
@@ -65,6 +74,8 @@ namespace SFB.Web.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
