@@ -62,7 +62,7 @@
             padding: 0 15px;
         }
 
-        &__button--removefrom, &__button--addto {
+        &__button--removefrom, &__button--addto, &__button--em {
             @include grey-button;
 
             @include media(mobile) {
