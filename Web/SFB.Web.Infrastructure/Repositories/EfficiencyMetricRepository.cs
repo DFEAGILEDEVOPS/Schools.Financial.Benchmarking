@@ -1,9 +1,11 @@
 ﻿using Microsoft.Azure.Cosmos;
+using Microsoft.Azure.Cosmos.Fluent;
 using SFB.Web.ApplicationCore.DataAccess;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.Infrastructure.Logging;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,15 @@ namespace SFB.Web.Infrastructure.Repositories
     {
         private readonly string _databaseId;
         private static CosmosClient _client;
+
+        public EfficiencyMetricRepository(ILogManager logManager) : base(logManager)
+        {
+            var clientBuilder = new CosmosClientBuilder(ConfigurationManager.AppSettings["endpoint"], ConfigurationManager.AppSettings["authKey"]);
+
+            _client = clientBuilder.WithConnectionModeDirect().Build();
+
+            _databaseId = _databaseId = ConfigurationManager.AppSettings["database"];
+        }
 
         public EfficiencyMetricRepository(CosmosClient cosmosClient, string databaseId, ILogManager logManager) : base(logManager)
         {

@@ -64,10 +64,12 @@ namespace SFB.Web.UI
             builder.RegisterType<ValidationService>().As<IValidationService>();
             builder.RegisterType<FinancialDataService>().As<IFinancialDataService>().SingleInstance();
             builder.RegisterType<FinancialDataService>().As<ITermYearDataService>().SingleInstance();
+            builder.RegisterType<EfficiencyMetricDataService>().As<IEfficiencyMetricDataService>().SingleInstance();
             builder.RegisterType<ContextDataService>().As<IContextDataService>().SingleInstance();
             builder.RegisterType<DataCollectionManager>().As<IDataCollectionManager>().SingleInstance();
             builder.RegisterType<CosmosDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
             builder.RegisterType<CosmosDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
+            builder.RegisterType<EfficiencyMetricRepository>().As<IEfficiencyMetricRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();
             builder.RegisterType<SchoolVMWithHistoricalChartsBuilder>().As<ISchoolVMBuilder>();

@@ -322,6 +322,7 @@
     <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
     <Compile Include="Controllers\BenchmarkListController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
+    <Compile Include="Controllers\EmComparisonController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -833,6 +834,7 @@
   <ItemGroup>
     <Folder Include="public\govuk_template\assets\javascripts\vendor\" />
     <Folder Include="public\scripts\require\" />
+    <Folder Include="Views\EmComparison\" />
     <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
   <ItemGroup>
