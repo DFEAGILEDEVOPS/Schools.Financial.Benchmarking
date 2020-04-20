@@ -21,6 +21,7 @@ using System.Net;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Web.UI;
 using SFB.Web.ApplicationCore.Helpers;
+using SFB.Web.ApplicationCore.Entities;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -37,10 +38,20 @@ namespace SFB.Web.UI.Controllers
         private readonly IComparisonService _comparisonService;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
         private readonly IBicComparisonResultCachingService _bicComparisonResultCachingService;
+        private readonly IEfficiencyMetricDataService _efficiencyMetricDataService;
 
-        public BenchmarkChartsController(IBenchmarkChartBuilder benchmarkChartBuilder, IFinancialDataService financialDataService, IFinancialCalculationsService fcService, ILocalAuthoritiesService laService, IDownloadCSVBuilder csvBuilder,
-            IContextDataService contextDataService, IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService, IComparisonService comparisonService,
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IBicComparisonResultCachingService bicComparisonResultCachingService)
+        public BenchmarkChartsController(
+            IBenchmarkChartBuilder benchmarkChartBuilder, 
+            IFinancialDataService financialDataService, 
+            IFinancialCalculationsService fcService, 
+            ILocalAuthoritiesService laService, 
+            IDownloadCSVBuilder csvBuilder,
+            IContextDataService contextDataService, 
+            IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService, 
+            IComparisonService comparisonService,
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, 
+            IBicComparisonResultCachingService bicComparisonResultCachingService, 
+            IEfficiencyMetricDataService efficiencyMetricDataService)
         {
             _benchmarkChartBuilder = benchmarkChartBuilder;
             _financialDataService = financialDataService;
@@ -52,6 +63,7 @@ namespace SFB.Web.UI.Controllers
             _comparisonService = comparisonService;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
             _bicComparisonResultCachingService = bicComparisonResultCachingService;
+            _efficiencyMetricDataService = efficiencyMetricDataService;
         }
 
         public async Task<ActionResult> GenerateFromSavedBasket(string urns, string companyNumbers, BenchmarkListOverwriteStrategy? overwriteStrategy, ComparisonType comparison = ComparisonType.Manual)
@@ -358,6 +370,23 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = CentralFinancingType.Include;
 
             return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GenerateFromEfficiencyMetrics(int urn, ComparisonType comparisonType)
+        {
+            var defaultSchool = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
+            var neighbourSchools = (await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn)).NeighbourRecords;
+            neighbourSchools.Add(new EfficiencyMetricNeighbourListItemObject(defaultSchool.Urn, defaultSchool.Efficiencydecileingroup));
+            var topNeighbourSchoolURNs = neighbourSchools.OrderBy(s => s.Rank).Take(15).Select(n => n.URN).ToList();
+
+            EmptyBasket();
+
+            await AddSchoolDataObjectsToBasketAsync(ComparisonType.EfficiencyTop, topNeighbourSchoolURNs);
+
+            await SetDefaultSchoolInBasketAsync(urn);
+
+            return await Index(urn, null, null, comparisonType: comparisonType);            
         }
 
         [HttpGet]
@@ -1076,6 +1105,31 @@ namespace SFB.Web.UI.Controllers
             }
 
             return chartGroup;
+        }
+
+        private void EmptyBasket()
+        {
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+        }
+
+        private async Task SetDefaultSchoolInBasketAsync(int urn)
+        {
+            var benchmarkSchoolDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
+
+            var defaultBenchmarkSchool = new BenchmarkSchoolModel()
+            {
+                Name = benchmarkSchoolDataObject.EstablishmentName,
+                Type = benchmarkSchoolDataObject.TypeOfEstablishment,
+                EstabType = benchmarkSchoolDataObject.FinanceType,
+                Urn = benchmarkSchoolDataObject.URN.ToString()
+            };
+
+            try
+            {
+                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, defaultBenchmarkSchool);
+            }
+            catch { }
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.SetDefault, defaultBenchmarkSchool);
         }
     }
 }
