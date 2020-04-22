@@ -26,7 +26,7 @@
 }
 
 @section BackButtonContent{
-    @if (Model.ComparisonType == ComparisonType.EfficiencyTop)
+    @if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
     {
         ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
         ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
@@ -144,7 +144,7 @@ else
                             <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
                         </div>
                     }
-                    else if (Model.ComparisonType == ComparisonType.EfficiencyTop)
+                    else if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
                     {
                         <div id="comparing-text" class="font-xsmall">
                             <span>Comparing</span>

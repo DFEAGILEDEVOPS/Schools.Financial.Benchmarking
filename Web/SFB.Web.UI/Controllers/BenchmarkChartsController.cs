@@ -373,7 +373,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateFromEfficiencyMetrics(int urn, ComparisonType comparisonType)
+        public async Task<ActionResult> GenerateFromEfficiencyMetricsTop(int urn)
         {
             var defaultSchool = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
             var neighbourSchools = (await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn)).NeighbourRecords;
@@ -386,7 +386,21 @@ namespace SFB.Web.UI.Controllers
 
             await SetDefaultSchoolInBasketAsync(urn);
 
-            return await Index(urn, null, null, comparisonType: comparisonType);            
+            return await Index(urn, null, null, comparisonType: ComparisonType.EfficiencyTop);            
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> GenerateFromEfficiencyMetricsManual(int urn, string neighbourURNs)
+        {
+            var neighbourUrnList = neighbourURNs?.Split(',').Select(u => int.Parse(u)).ToList();
+
+            EmptyBasket();
+
+            await AddSchoolDataObjectsToBasketAsync(ComparisonType.EfficiencyManual, neighbourUrnList);
+
+            await SetDefaultSchoolInBasketAsync(urn);
+
+            return await Index(urn, null, null, comparisonType: ComparisonType.EfficiencyManual);
         }
 
         [HttpGet]
