@@ -91,5 +91,8 @@ namespace SFB.Web.ApplicationCore.Entities
 
         [JsonProperty(PropertyName = EdubaseDataFieldNames.CLOSE_DATE)]
         public string CloseDate { get; set; }
+
+        [JsonProperty(PropertyName = EdubaseDataFieldNames.RELIGIOUS_CHARACTER)]
+        public string ReligiousCharacter { get; set; }
     }
 }

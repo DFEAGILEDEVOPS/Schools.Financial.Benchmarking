@@ -15,7 +15,7 @@ namespace SFB.Web.ApplicationCore.Entities
         public string TrustName;
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.PERIOD_COVERED_BY_RETURN)]
-        public int PeriodCoveredByReturn;
+        public int? PeriodCoveredByReturn;
 
         [JsonProperty(PropertyName = SchoolTrustFinanceDataFieldNames.SCHOOL_OVERALL_PHASE)]
         public string OverallPhase;
