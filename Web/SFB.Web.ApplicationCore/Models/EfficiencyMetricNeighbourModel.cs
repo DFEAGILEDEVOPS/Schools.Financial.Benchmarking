@@ -54,5 +54,7 @@ namespace SFB.Web.ApplicationCore.Models
         public string ReligiousCharacter => ContextData.ReligiousCharacter;
 
         public string OverallPhase => ContextData.OverallPhase;
+
+        public LocationDataObject Location => ContextData.Location;
     }
 }

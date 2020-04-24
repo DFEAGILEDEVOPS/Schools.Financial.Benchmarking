@@ -261,6 +261,7 @@ namespace SFB.Web.Infrastructure.Repositories
                 $"c['{EdubaseDataFieldNames.NO_PUPIL}'], " +
                 $"c['{EdubaseDataFieldNames.RELIGIOUS_CHARACTER}'], " +
                 $"c['{EdubaseDataFieldNames.OFSTED_RATING}'], " +
+                $"c['{EdubaseDataFieldNames.LOCATION}'], "+
                 $"udf.PARSE_FINANCIAL_TYPE_CODE(c['{EdubaseDataFieldNames.FINANCE_TYPE}']) AS {EdubaseDataFieldNames.FINANCE_TYPE} " +
                 $"FROM c WHERE c.{fieldName} IN ({sb.ToString().TrimEnd(',')})";
 
