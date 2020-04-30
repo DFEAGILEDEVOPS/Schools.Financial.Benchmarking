@@ -321,7 +321,6 @@ namespace SFB.Web.UI.Controllers
                     if (comparisonList.HomeSchoolUrn == null)
                     {
                         vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
-                        return View(vm);
                     }
                     else
                     {
