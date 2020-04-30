@@ -16,7 +16,13 @@
 
         $("#displayNew").click((event) => {
             event.preventDefault();
-            this.DisplayNewSchoolElements();
+            this.DisplayNewSchoolElements();            
+        });
+
+        $("#manualButton").click((event) => {
+             if (!this.checkSchoolCount()) {
+                event.preventDefault();
+            }
         });
     }
 
@@ -104,6 +110,7 @@
                         $("#SchoolsToAdd").html(data);
                         this.bindManualEvents();
                         $("#AddButton a").focus();
+                        this.checkSchoolCount();
                     });
 
             });
@@ -131,12 +138,14 @@
         $("#AddButton").hide();
     }
 
-    checkResultCount() {
-        let count = $("#schoolCount").text().substring(0, $("#schoolCount").text().indexOf(' '));
-        if (count <= 20) {
-            $("#criteriaForm").submit();
+    checkSchoolCount() {
+        let count = $("#schoolCount").val();
+        if (count == 0) {
+            $(".error-summary").show();
+            return false;
         } else {
-            this.renderWarningModal(count);
+            $(".error-summary").hide();
+            return true;
         }
     }
 
