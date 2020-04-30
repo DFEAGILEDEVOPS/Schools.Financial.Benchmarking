@@ -1,7 +1,7 @@
 ﻿@using SFB.Web.UI.Helpers.Constants;
 @model SFB.Web.UI.Models.Pagination
 
-<div class="grid-row pagination-container @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
+<div class="grid-row pagination-container">
     <div class="column-full">
         <div id="result-list" class="inline-block">
             <div id="js-search-results-info">
@@ -36,7 +36,7 @@
 
         @if (Model.Total > SFB.Web.UI.Helpers.Constants.SearchDefaults.RESULTS_PER_PAGE)
         {
-            <div class="pagination-links no-padding font-xsmall inline-block">
+            <div class="pagination-links no-padding font-xsmall inline-block @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
                 @if (Model.PageCount > 1)
                 {
                     if (Model.HasPreviousPage())

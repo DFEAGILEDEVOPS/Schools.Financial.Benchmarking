@@ -88,11 +88,11 @@
             this.currentTabName = tabName;
             if (this.currentTabName === "map") {
                 $(".filter.school").hide();
-                $(".pagination-container").hide();
+                $(".pagination-links").hide();
             }
             else {
                 $(".filter.school").show();
-                $(".pagination-container").show();
+                $(".pagination-links").show();
             }
 
             this.bindAzureMap(this.mapApiKey);
