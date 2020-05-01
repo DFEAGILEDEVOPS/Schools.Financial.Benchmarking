@@ -144,6 +144,20 @@
         public const string BicComparisonHelp = "<p>This comparison generates a group of statistically similar schools using the following characteristics and progress data. This gives schools the opportunity to gauge their selected school's progress as well as see statistical data to help them improve their progress.</p>" +
             "<p>The following characteristics and keystage progress data is used:</p>" +
             "<ul><li>Number of pupils</li><li>Eligibility of free school meals</li><li>Total expenditure per pupil</li></ul>";
+        public const string QuickComparisonExplanation = "<p>This type of comparison generates a group of statistically similar schools using commonly chosen characteristics.</p>"+
+            "<p>The following characteristics are included as standard:</p>"+
+            "<ul>"+
+            "<li>Number of pupils</li>"+
+            "<li>School phase</li>"+
+            "<li>Urban/rural schools</li>"+
+            "</ul><br>"+
+            "<p>The following characteristics can be chosen:</p>"+
+            "<ul>"+
+            "<li>Pupils eligible for free school meals</li>"+
+            "<li>Pupils with special educational needs who have statements or education and health care plans</li>"+
+            "<li>Pupils with English as an additional language</li>"+
+            "<li>Schools within the local authority</li>"+
+            "</ul>";
     }
 
     public class DealsForSchoolsLinkText

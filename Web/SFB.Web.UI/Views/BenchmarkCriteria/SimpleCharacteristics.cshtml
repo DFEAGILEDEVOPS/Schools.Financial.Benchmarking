@@ -1,4 +1,6 @@
-﻿@model SFB.Web.UI.Models.SimpleCharacteristicsViewModel
+﻿@using SFB.Web.ApplicationCore.Helpers.Constants
+
+@model SFB.Web.UI.Models.SimpleCharacteristicsViewModel
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
     ViewBag.pageClass = "simple-characteristics";
@@ -12,13 +14,21 @@
     @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
 }
 
+<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        There are errors on this page that require attention.
+    </h1>
+    <ul class="error-summary-list">
+        <li><a href="#BasketSizeInput">Please enter a number between 5 and 30</a></li>
+    </ul>
+</div>
 
 <div class="steps">
-    <span class="govuk-caption-xl">Quick comparison 3 of 3</span>
+    <span class="govuk-caption-xl">Quick comparison 2 of 2</span>
 </div>
 
 <h1 class="govuk-heading-xl">
-    Choose comparison school characteristics
+    Refine your comparison results
 </h1>
 
 @if (!string.IsNullOrEmpty(Model.BenchmarkSchool.Name))
@@ -34,76 +44,132 @@
 }
 
 <section class="section">
-    <p>This type of comparison generates a group of statistically similar schools using commonly chosen characteristics.</p>
-    <div class="panel panel-border-wide" style="margin-bottom:40px">
-        <p class="bold-small">Included as standard:</p>
-        <ul class="list list-bullet">
-            <li>number of pupils</li>
-            <li>school phase</li>
-            <li>urban/rural schools</li>
-        </ul>
-    </div>
-
-    <p class="bold-small">To customise, choose from the characteristics below</p>
-    <p>Suggested characteristics:</p>
 
     <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="post" id="criteriaForm">
         @Html.AntiForgeryToken()
         <div class="form-group">
-            <div class="multiple-choice">
-                <input id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true"
-                       @Html.Raw(Model.SimpleCriteria.IncludeFsm.HasValue && !Model.SimpleCriteria.IncludeFsm.Value ? "" : "checked")>
-                <label for="fsm">Pupils eligible for free school meals</label>
-            </div>
-            <div class="multiple-choice">
-                <input id="sen" name="SimpleCriteria.IncludeSen" type="checkbox" value="true"
-                       @Html.Raw(Model.SimpleCriteria.IncludeSen.HasValue && !Model.SimpleCriteria.IncludeSen.Value ? "" : "checked")>
-                <label for="sen">Pupils with special educational needs who have statements or education and health care plans</label>
-            </div>
-            <div class="multiple-choice">
-                <input id="eal" name="SimpleCriteria.IncludeEal" type="checkbox" value="true"
-                       @Html.Raw(Model.SimpleCriteria.IncludeEal.HasValue && !Model.SimpleCriteria.IncludeEal.Value ? "" : "checked")>
-                <label for="eal">Pupils with English as an additional language</label>
-            </div>
-            <div class="location-char">
-                <span>Location characteristic (will produce fewer results if selected):</span>
-                <span class="help-icon hide-in-print">
-                    <span class="icon dark-blue">
-                        <a href="#" class="js-modal" data-modal-title="Within the local authority" data-modal-text="Choosing this characteristic will produce comparisons with schools that have fewer similarities with your default school." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                            <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
-                        </a>
-                    </span>
-                </span>
-            </div>
-            <div class="multiple-choice">
-                <input id="la" name="SimpleCriteria.IncludeLa" type="checkbox" value="true"
-                       @Html.Raw(Model.SimpleCriteria.IncludeLa.HasValue && Model.SimpleCriteria.IncludeLa.Value ? "checked" : "")>
-                <label for="la">Within the local authority</label>
-            </div>
+            <fieldset>
+                <legend class="bold-small">Find schools with a similar percentage of:</legend>
+                <div class="multiple-choice">
+                    <input id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true"
+                           @Html.Raw(Model.SimpleCriteria.IncludeFsm.HasValue && !Model.SimpleCriteria.IncludeFsm.Value ? "" : "checked")>
+                    <label for="fsm">Pupils eligible for free school meals</label>
+                </div>
+                <div class="multiple-choice">
+                    <input id="sen" name="SimpleCriteria.IncludeSen" type="checkbox" value="true"
+                           @Html.Raw(Model.SimpleCriteria.IncludeSen.HasValue && !Model.SimpleCriteria.IncludeSen.Value ? "" : "checked")>
+                    <label for="sen">Pupils with special educational needs who have statements or education and health care plans</label>
+                </div>
+                <div class="multiple-choice">
+                    <input id="eal" name="SimpleCriteria.IncludeEal" type="checkbox" value="true"
+                           @Html.Raw(Model.SimpleCriteria.IncludeEal.HasValue && !Model.SimpleCriteria.IncludeEal.Value ? "" : "checked")>
+                    <label for="eal">Pupils with English as an additional language</label>
+                </div>
+            </fieldset>
         </div>
+        <div class="form-group">
+            <fieldset>
+                <legend>
+                    <span class="bold-small">Location characteristic (will produce fewer results if selected):</span>
+                    <span class="help-icon hide-in-print">
+                        <span class="icon dark-blue">
+                            <a href="#" class="js-modal" data-modal-title="Within the local authority" data-modal-text="Choosing this characteristic will produce comparisons with schools that have fewer similarities with your default school." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
+                            </a>
+                        </span>
+                    </span>
+                </legend>
+                <div class="multiple-choice">
+                    <input id="la" name="SimpleCriteria.IncludeLa" type="checkbox" value="true"
+                           @Html.Raw(Model.SimpleCriteria.IncludeLa.HasValue && Model.SimpleCriteria.IncludeLa.Value ? "checked" : "")>
+                    <label for="la">Within the local authority</label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group" id="BasketSizeAccordion">
+            <fieldset>
+                <legend>
+                    <span class="bold-small">Number of schools in benchmark set:</span>
+                    <span class="help-icon hide-in-print">
+                        <span class="icon dark-blue">
+                            <a href="#" class="js-modal" data-modal-title="Benchmark basket" data-modal-text="A useful benchmark set should contain between <span class='bold-xsmall'>10</span> and <span class='bold-xsmall'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
+                            </a>
+                        </span>
+                    </span>
+                </legend>
 
+                <div id="DefaultSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize == ComparisonListLimit.DEFAULT ? "selected" : "")" aria-controls="DefaultBasketSizeFieldset">
+                    <input onclick="SetDefaultSize();" id="DefaultBasketSize" type="radio" value="@ComparisonListLimit.DEFAULT" @Html.Raw(ViewBag.BasketSize == ComparisonListLimit.DEFAULT ? "checked" : "")>
+                    <label id="DefaultAccordion" for="DefaultBasketSize">Use default (@ComparisonListLimit.DEFAULT)</label>
+                </div>
+
+                <div id="DefaultBasketSizeFieldset"></div>
+
+                <div id="CustomSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize != ComparisonListLimit.DEFAULT ? "selected" : "")" aria-controls="CustomBasketSizeFieldset">
+                    <input id="CustomBasketSize" type="radio" @Html.Raw(ViewBag.BasketSize != ComparisonListLimit.DEFAULT ? "checked" : "") />
+                    <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Choose your own basket size</label>
+                </div>
+
+                <div id="CustomBasketSizeFieldset" class="form-group optional-section">
+                    <p>
+                        A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
+                    </p>
+                    <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
+                    <span class="error-message" style="display: none">Please enter a number between 5 and 30</span>
+                    <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
+                </div>
+
+
+            </fieldset>
+        </div>
         <div class="grid-row">
             <div class="column-two-thirds">
                 <div class="column-two-thirds next-button">
-                    <button type="submit" class="button">Continue to benchmarking charts</button>
+                    <button type="submit" class="button" id="continue-button">Continue to benchmarking charts</button>
                 </div>
                 <div class="column-one-third back-button">
-                    <a href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType&basketsize=@ViewBag.BasketSize">Back</a>
+                    <a href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType">Back</a>
                 </div>
             </div>
         </div>
 
         <input type="hidden" name="Urn" value="@ViewBag.URN">
         <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
-        <input type="hidden" name="BasketSize" value="@ViewBag.BasketSize">
         <input type="hidden" name="EstType" value="@ViewBag.EstType">
 
     </form>
 </section>
 
 @section ViewScripts{
-
+    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
     <script>
+
+        function SetDefaultSize() {
+            $("#BasketSizeInput").val(15);
+        }
+
+        function checkBasketCount() {
+            let count = $("#BasketSizeInput").val();
+            if (count < 5 || count > 30) {
+                $(".error-summary").show();
+                $(".error-message").show();
+                return false;
+            } else {
+                $(".error-summary").hide();
+                $(".error-message").hide();
+                return true;
+            }
+        }
+
+        $("#continue-button").click((event) => {
+            if (!this.checkBasketCount()) {
+                event.preventDefault();
+            }
+        });
+
+        GOVUK.Accordion.bindElements("BasketSizeAccordion");
+
         GOVUK.Modal.Load();
     </script>
 }

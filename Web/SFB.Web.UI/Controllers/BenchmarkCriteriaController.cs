@@ -68,9 +68,7 @@ namespace SFB.Web.UI.Controllers
             switch (comparisonType)
             {
                 case ComparisonType.BestInClass:
-                    return HighestProgressSchoolsBenchmarking(urn.Value);
-                case ComparisonType.Basic:
-                    return await SelectBasketSize(urn.Value, comparisonType.Value);
+                    return HighestProgressSchoolsBenchmarking(urn.Value);                    
                 case ComparisonType.Manual:
                     if (urn.HasValue)
                     {
@@ -80,6 +78,7 @@ namespace SFB.Web.UI.Controllers
                     {
                         return RedirectToAction("WithoutBaseSchool", "ManualComparison");
                     }
+                case ComparisonType.Basic:
                 case ComparisonType.Advanced:
                     return await SelectSchoolType(urn, comparisonType.Value, null, null);
                 case null:
@@ -122,12 +121,6 @@ namespace SFB.Web.UI.Controllers
             if (urn.HasValue)
             {
                 var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-
-                if ((ViewBag.ComparisonType == ComparisonType.Basic) && ((!basketSize.HasValue) || (basketSize.Value < 5 || basketSize.Value > 30)))
-                {
-                    benchmarkSchool.ErrorMessage = "Please enter a number between 5 and 30";
-                    return View("SelectBasketSize", benchmarkSchool);
-                }
 
                 return View("SelectSchoolType", benchmarkSchool);
             }
@@ -269,12 +262,12 @@ namespace SFB.Web.UI.Controllers
         /// <param name="estType"></param>
         /// <param name="simpleCriteria"></param>
         /// <returns></returns>
-        public async Task<ActionResult> SimpleCharacteristics(int urn, ComparisonType comparisonType, int basketSize, EstablishmentType estType, SimpleCriteria SimpleCriteria)
+        public async Task<ActionResult> SimpleCharacteristics(int urn, ComparisonType comparisonType, EstablishmentType estType, SimpleCriteria SimpleCriteria)
         {
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BasketSize = basketSize;
             ViewBag.EstType = estType;
+            ViewBag.BasketSize = ComparisonListLimit.DEFAULT;
 
             var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 

@@ -718,7 +718,6 @@
     <Content Include="Views\BenchmarkCriteria\SelectSchoolType.cshtml" />
     <Content Include="Views\Shared\Partials\FinancialSummaryFields.cshtml" />
     <Content Include="Views\BenchmarkCriteria\ChooseRegion.cshtml" />
-    <Content Include="Views\BenchmarkCriteria\SelectBasketSize.cshtml" />
     <Content Include="Views\BenchmarkCriteria\SimpleCharacteristics.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\DataTable.cshtml" />
     <Content Include="Views\La\Search.cshtml" />

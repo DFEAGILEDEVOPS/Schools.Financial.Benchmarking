@@ -1,15 +1,9 @@
 ﻿.simple-characteristics {
     @include highlighting;
 
-    ul {
-        list-style-type: inherit;
-    }
-
-    .location-char {
+    legend {
         display: block;
         clear: left;
-        padding-top: 20px;
-        padding-bottom: 20px;
     }
 
     .help-icon.help-chart {
@@ -18,5 +12,9 @@
 
     .section {
         margin-top: 30px;
+    }
+
+    em{
+        font-weight: bold;
     }
 }
