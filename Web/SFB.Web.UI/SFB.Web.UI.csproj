@@ -422,6 +422,7 @@
     <Content Include=".editorconfig" />
     <Content Include="Assets\Sass\_cookiesBanner.scss" />
     <Content Include="Assets\Sass\views\_cookies-settings.scss" />
+    <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />

@@ -27,10 +27,10 @@
 }
 
 <div class="steps">
-    <span class="govuk-caption-xl">Step 1 of 3</span>
+    <span class="govuk-caption-xl">Quick comparison 1 of 3</span>
 </div>
 
-<h1 class="govuk-heading-xl">Quick comparison</h1>
+<h1 class="govuk-heading-xl">How many schools do you want to compare with?</h1>
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
@@ -50,7 +50,7 @@
             @Html.AntiForgeryToken()
             <div class="form-group">
                 <fieldset>
-                    <legend>How many schools would you like in your benchmark basket?</legend>
+                    <legend class="hidden">How many schools would you like in your benchmark basket?</legend>
                     <p>A useful benchmark set should contain between <span class="bold-small">10</span> and <span class="bold-small">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.</p>
 
                     <div id="DefaultSizeAccordion" class="multiple-choice js-accordion @Html.Raw(ViewBag.BasketSize == ComparisonListLimit.DEFAULT ? "selected" : "")" aria-controls="DefaultBasketSizeFieldset">

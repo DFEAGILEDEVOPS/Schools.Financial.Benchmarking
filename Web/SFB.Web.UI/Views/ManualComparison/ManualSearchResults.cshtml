@@ -32,10 +32,20 @@
 @model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
 <div class="steps">
-    <span class="govuk-caption-xl">Step 2 of 2</span>
+    <span class="govuk-caption-xl">Manual comparison 2 of 2</span>
 </div>
 
-<h1 class="govuk-heading-xl">Manual comparison</h1>
+<h1 class="govuk-heading-xl">
+    @switch (Model.SearchType)
+    {
+        case SearchTypes.SEARCH_BY_LOCATION:
+            <text>Schools in and near @Model.LocationKeyword</text>
+            break;
+        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+            <text>Schools in @Model.LaKeyword</text>
+            break;
+    }
+</h1>
 
 <div class="grid-row home-school section">
     @if (ViewBag.HomeSchoolId != null)
@@ -57,15 +67,7 @@
 </div>
 
 <div class="schools-in mt-1">
-    @switch (Model.SearchType)
-    {
-        case SearchTypes.SEARCH_BY_LOCATION:
-            <span class="bold-small">Schools in and near @Model.LocationKeyword</span>
-            break;
-        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
-            <span class="bold-small">Schools in @Model.LaKeyword</span>
-            break;
-    }
+
 </div>
 
 <div id="screen-reader-result-list" class="visuallyhidden">

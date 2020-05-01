@@ -42,10 +42,12 @@
 }
 
 <div class="steps">
-    <span class="govuk-caption-xl">Step 2 of 2</span>
+    <span class="govuk-caption-xl">Manual comparison 2 of 2</span>
 </div>
 
-<h1 class="govuk-heading-xl">Manual comparison</h1>
+<h1 class="govuk-heading-xl">
+    Enter schools by name
+</h1>
 
 @if (ViewBag.HomeSchoolId != null)
 {
@@ -60,10 +62,6 @@
 }
 
 <div class="column-three-quarters no-padding">
-    <div>
-        <span class="bold-small">Enter a school by name</span><span class="font-xsmall"> (max. 30)</span>
-    </div>
-
     <div id="SchoolsToAdd">
         @Html.Partial("Partials/SchoolsToAdd", Model.ManualComparisonList.BenchmarkSchools.Where(t => t.Urn != Model.ManualComparisonList.HomeSchoolUrn).ToList())
     </div>

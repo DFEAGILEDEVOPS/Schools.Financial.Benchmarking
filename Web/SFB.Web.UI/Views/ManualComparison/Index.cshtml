@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
-    ViewBag.pageClass = "schools-search-page";
+    ViewBag.pageClass = "manual-comparison-page";
     ViewBag.HomeSchoolId = Model.ComparisonList?.HomeSchoolUrn;
     ViewBag.HomeSchoolName = Model.ComparisonList?.HomeSchoolName;
 }
@@ -33,10 +33,12 @@
 }
 
 <div class="steps">
-    <span class="govuk-caption-xl">Step 1 of 2</span>
+    <span class="govuk-caption-xl">Manual comparison 1 of 2</span>
 </div>
 
-<h1 class="govuk-heading-xl">Manual comparison</h1>
+<h1 class="govuk-heading-xl">
+    How would you like to manually add schools?
+</h1>
 
 @if (Model.ComparisonList?.HomeSchoolUrn != null)
 {
@@ -58,7 +60,7 @@
                 <form method="get" action="/ManualComparison/Search" autocomplete="off">
                     <div class="form-group">
                         <fieldset>
-                            <legend>How do you like to manually add schools?</legend>
+                            <legend class="hidden">How do you like to manually add schools?</legend>
 
                             <div>
                                 <ul style="list-style-type: none; padding-left: 0">

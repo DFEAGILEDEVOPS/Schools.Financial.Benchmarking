@@ -37,22 +37,15 @@
 <div class="steps">
     @if (ViewBag.ComparisonType == ComparisonType.Advanced)
     {
-        <span class="govuk-caption-xl">Step 1 of 3</span>
+        <span class="govuk-caption-xl">Detailed comparison 1 of 3</span>
     }
     else
     {
-        <span class="govuk-caption-xl">Step 2 of 3</span>
+        <span class="govuk-caption-xl">Quick comparison 2 of 3</span>
     }
 </div>
 
-@if (ViewBag.ComparisonType == ComparisonType.Advanced)
-{
-    <h1 class="govuk-heading-xl">Detailed comparison</h1>
-}
-else
-{
-    <h1 class="govuk-heading-xl">Quick comparison</h1>
-}
+<h1 class="govuk-heading-xl">Which school type do you wish to compare with?</h1>
 
 @if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
 {
@@ -78,7 +71,7 @@ else
         }
         <div class="form-group">
             <fieldset role="radiogroup" id="RadioFieldSet">
-                <legend id="fieldset-legend">Which schools would you like to include?</legend>
+                <legend class="hidden">Which schools would you like to include?</legend>
 
                 <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
                     <input id="Maintained" type="radio" name="EstType" value="Maintained">

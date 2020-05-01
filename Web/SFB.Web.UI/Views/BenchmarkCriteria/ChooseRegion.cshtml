@@ -1,5 +1,5 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
-@using SFB.Web.UI.Helpers.Enums
+
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.Title = "Schools Financial Benchmarking";
@@ -36,17 +36,12 @@
 }
 
 <div class="steps">
-    <span class="govuk-caption-xl">Step 2 of 3</span>
+    <span class="govuk-caption-xl">Detailed comparison 2 of 3</span>
 </div>
 
-@if (ViewBag.ComparisonType == ComparisonType.Advanced)
-{
-    <h1 class="govuk-heading-xl">Detailed comparison</h1>
-}
-else
-{
-    <h1 class="govuk-heading-xl">Quick comparison</h1>
-}
+
+<h1 class="govuk-heading-xl">Where should comparison schools come from?</h1>
+
 
 @if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
 {
@@ -66,7 +61,7 @@ else
             <div class="form-group">
                 <fieldset role="radiogroup" id="RadioFieldSet">
 
-                    <legend id="legend">Which area are you interested in?</legend>
+                    <legend id="legend" class="hidden">Which area are you interested in?</legend>
 
                     <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
                         <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") aria-labelledby="legend" />
