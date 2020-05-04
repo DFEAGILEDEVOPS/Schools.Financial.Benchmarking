@@ -2,15 +2,15 @@
     <div>
         @{
             var link = Request.QueryString["referrer"] ?? "/";
-            if (link.Contains("oneclickreport"))
+            if (link.ToLower().Contains("/benchmarkcharts"))
             {
                 link = "/BenchmarkCharts";
             }
 
             <a class="home-link" href="@link" aria-label="Close basket">
-                <i class="icon icon-back">
+                @*<i class="icon icon-back">
                     <span class="visually-hidden">Close basket</span>
-                </i>
+                </i>*@
                 <span class="back-link">Close basket</span>
             </a>
         }
