@@ -110,9 +110,8 @@
                         $("#SchoolsToAdd").html(data);
                         this.bindManualEvents();
                         $("#AddButton a").focus();
-                        this.checkSchoolCount();
+     
                     });
-
             });
     }
 
@@ -141,10 +140,15 @@
     checkSchoolCount() {
         let count = $("#schoolCount").val();
         if (count == 0) {
-            $(".error-summary").show();
+            $(".error-summary.missing").show();
+            $(".error-message.missing").show();
+            $("#NewSchoolName").addClass("form-control-error");
+            $(".error-summary-list a").focus();
             return false;
         } else {
-            $(".error-summary").hide();
+            $(".error-summary.missing").hide();
+            $(".error-message.missing").hide();
+            $("#NewSchoolName").removeClass("form-control-error");
             return true;
         }
     }

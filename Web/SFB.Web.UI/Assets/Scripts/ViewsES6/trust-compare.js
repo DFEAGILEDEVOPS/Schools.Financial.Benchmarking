@@ -176,6 +176,28 @@
             $("#manualButton").hide();
         });
 
+        $("#manualButton").click((event) => {
+            if (!this.checkTrustCount()) {
+                event.preventDefault();
+            }
+        });
+
+    }
+
+    checkTrustCount() {
+        let count = $(".remove-trust").length;
+        if (count == 0) {
+            $(".error-summary.missing").show();
+            $(".error-message.missing").show();
+            $("#NewTrustName").addClass("form-control-error");
+            $(".error-summary-list a").focus();
+            return false;
+        } else {
+            $(".error-summary.missing").hide();
+            $(".error-message.missing").hide();
+            $("#NewTrustName").removeClass("form-control-error");
+            return true;
+        }
     }
 
     checkResultCount() {

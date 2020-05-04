@@ -11,7 +11,7 @@
         @{
             if (ViewBag.Error != null)
             {
-                <div id="error-summary" class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+                <div id="error-summary" class="error-summary duplicate" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
 
                     <h2 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
                         There are errors on this page that require attention.
@@ -75,10 +75,13 @@
                     <label class="form-label" for="NewTrustName">Trust 1</label>
                     @if (ViewBag.Error != null)
                     {
-                        <span class="error-message">
+                        <span class="error-message duplicate">
                             @ViewBag.Error
                         </span>
                     }
+                    <span class="error-message missing" style="display: none">
+                        Please enter a trust name to continue the comparison
+                    </span>
                     <input id="NewTrustName"
                            class="form-control"
                            name="trustname"
@@ -95,6 +98,7 @@
     <script>
         $('#ErrorSummaryPlaceHolder').empty();
         $('#error-summary').detach().appendTo('#ErrorSummaryPlaceHolder');
+        $(".error-summary.missing").hide();
         $('#trustCountMessage').text("Updating trust comparison list");
         setTimeout(function () {
             $('#trustCountMessage').text($("#trustCount").val() + " trusts in list");

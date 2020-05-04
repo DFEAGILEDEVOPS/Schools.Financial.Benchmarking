@@ -1,5 +1,4 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Constants
-@using SFB.Web.UI.Helpers.Constants
 @model List<SFB.Web.UI.Models.BenchmarkSchoolModel>
 
 <form autocomplete="off">
@@ -12,10 +11,6 @@
             if (ViewBag.Error != null)
             {
                 <div id="error-summary" class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-
-                    <h2 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
-                        There are errors on this page that require attention.
-                    </h2>
 
                     <ul class="error-summary-list">
                         <li>
@@ -75,10 +70,13 @@
                     <label class="form-label" for="NewSchoolName">School 1</label>
                     @if (ViewBag.Error != null)
                     {
-                        <span class="error-message">
+                        <span class="error-message duplicate">
                             @ViewBag.Error
                         </span>
                     }
+                    <span class="error-message missing" style="display: none">
+                        Please enter a school name to continue the comparison
+                    </span>
                     <input id="NewSchoolName"
                            class="form-control"
                            name="schoolname"

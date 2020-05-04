@@ -5,6 +5,17 @@
     ViewBag.pageClass = "trust-comparison";
 }
 
+    <div class="error-summary missing" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There are errors on this page that require attention.
+        </h1>
+        <ul class="error-summary-list">
+            <li>
+                <a href="#NewTrustName">Please enter a trust name to continue the comparison</a>
+            </li>
+        </ul>
+    </div>
+
 @section BMListBannerContent
 {
 <div class="banner sticky-div">
