@@ -139,6 +139,7 @@
         $(".remove-trust").click((event) => {
             event.preventDefault();
             this.RemoveTrust($(event.target).data('companyno'));
+            $(".error-summary.missing").hide();
         });
 
         $("#displayNew").click((event) => {
@@ -177,24 +178,32 @@
         });
 
         $("#manualButton").click((event) => {
-            if (!this.checkTrustCount()) {
+            if (!this.validate()) {
                 event.preventDefault();
             }
         });
 
+        $(".remove-new-trust").click((event) => {
+            event.preventDefault();
+            $("#NewTrust").hide();
+            $("#AddButton").show();
+            $(".error-summary").hide();
+            $(".error-message").hide();
+        });
+
     }
 
-    checkTrustCount() {
+    validate() {
         let count = $(".remove-trust").length;
-        if (count == 0) {
-            $(".error-summary.missing").show();
-            $(".error-message.missing").show();
+        if (count == 0 || $("#NewTrustName:visible").length > 0) {
+            $(".error-summary").show();
+            $(".error-message").show();
             $("#NewTrustName").addClass("form-control-error");
             $(".error-summary-list a").focus();
             return false;
         } else {
-            $(".error-summary.missing").hide();
-            $(".error-message.missing").hide();
+            $(".error-summary").hide();
+            $(".error-message").hide();
             $("#NewTrustName").removeClass("form-control-error");
             return true;
         }
@@ -368,6 +377,7 @@
     DisplayNewTrustElements() {
         $("#NewTrust").show();
         $("#NewTrustName").focus();
+        $("#NewTrustName").removeClass("form-control-error");
         $("#AddButton").hide();
     }
 }

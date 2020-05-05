@@ -49,11 +49,16 @@
                                 @ViewBag.Error
                             </span>
                         }
+                        <span class="error-message missing" style="display: none">
+                            Please enter a trust name to continue the comparison
+                        </span>
                         <input id="NewTrustName"
                                class="form-control"
                                name="trustname"
                                type="text"
-                               data-suggestion-url="/trustsearch/suggest"/>
+                               data-suggestion-url="/trustsearch/suggest" />
+                        <button class="remove-new-trust link-button font-xsmall" aria-label="Remove new trust addition">Remove</button>
+
                     </div>
                 </div>
                 <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">

@@ -14,7 +14,7 @@
 
     .twitter-typeahead {
         width: 100%;
-        float: left;
+        display: inline !important;
 
         @include media(mobile) {
             width: 80%;
@@ -26,6 +26,7 @@
     }
 
     .tt-menu {
+        width: 100%;
         background-color: white;
         z-index: 99 !important; // accessibility requirement
         .tt-suggestion {
@@ -49,6 +50,10 @@
         .tt-cursor {
             background-color: #f9f9f9;
         }
+    }
+
+    #NewSchoolName {
+        vertical-align: baseline !important;
     }
 
     .control-buttons {

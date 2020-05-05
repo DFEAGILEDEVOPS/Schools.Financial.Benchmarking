@@ -44,11 +44,15 @@
                                 @ViewBag.Error
                             </span>
                         }
+                        <span class="error-message missing" style="display: none">
+                            Please enter a school name to continue the comparison
+                        </span>
                         <input id="NewSchoolName"
                                class="form-control"
                                name="schoolname"
                                type="text"
                                data-suggestion-url="/schoolsearch/suggest" />
+                        <button class="remove-new-school link-button font-small" aria-label="Remove new school addition">Remove</button>
                     </div>
                 </div>
                 <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">

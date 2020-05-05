@@ -1,8 +1,13 @@
 ﻿class AddSchoolsManuallyViewModel {
 
     constructor() {
-        this.bindManualEvents();
         GOVUK.Modal.Load();
+        this.bindManualEvents();
+        $("#manualButton").click((event) => {
+            if (!this.validate()) {
+                event.preventDefault();
+            }
+        });
     }
 
     bindManualEvents() {
@@ -14,15 +19,18 @@
             this.RemoveSchool($(event.target).data('urn'));
         });
 
+
+        $(".remove-new-school").click((event) => {
+            event.preventDefault();
+            $("#NewSchool").hide();
+            $("#AddButton").show();
+            $(".error-summary").hide();
+            $(".error-message").hide();
+        });
+
         $("#displayNew").click((event) => {
             event.preventDefault();
             this.DisplayNewSchoolElements();            
-        });
-
-        $("#manualButton").click((event) => {
-             if (!this.checkSchoolCount()) {
-                event.preventDefault();
-            }
         });
     }
 
@@ -110,7 +118,7 @@
                         $("#SchoolsToAdd").html(data);
                         this.bindManualEvents();
                         $("#AddButton a").focus();
-     
+                        $(".error-summary.missing").hide();
                     });
             });
     }
@@ -119,6 +127,7 @@
         $.get("/manualcomparison/RemoveSchool?urn=" + urn,
             (data) => {
                 $("#SchoolsToAdd").html(data);
+                $(".error-summary").hide();
                 this.bindManualEvents();
             });
     }
@@ -134,20 +143,21 @@
     DisplayNewSchoolElements() {
         $("#NewSchool").show();
         $("#NewSchoolName").focus();
+        $("#NewSchoolName").removeClass("form-control-error");
         $("#AddButton").hide();
     }
 
-    checkSchoolCount() {
+    validate() {
         let count = $("#schoolCount").val();
-        if (count == 0) {
-            $(".error-summary.missing").show();
-            $(".error-message.missing").show();
+        if (count == 0 || $("#NewSchoolName:visible").length > 0) {
+            $(".error-summary").show();
+            $(".error-message").show();
             $("#NewSchoolName").addClass("form-control-error");
             $(".error-summary-list a").focus();
             return false;
         } else {
-            $(".error-summary.missing").hide();
-            $(".error-message.missing").hide();
+            $(".error-summary").hide();
+            $(".error-message").hide();
             $("#NewSchoolName").removeClass("form-control-error");
             return true;
         }
