@@ -124,6 +124,17 @@ namespace SFB.Web.UI.Controllers
                                 return await Search(nameId, searchType, suggestionUrn, locationorpostcode,
                                     locationCoordinates, laCodeName, radius, openOnly, orderby, page, tab);
                             }
+                            var similarMatch = _laSearchService.SearchContains(laCodeName);
+                            if(similarMatch.Count == 0)
+                            {
+                                var svm = new SearchViewModel(comparisonList, searchType)
+                                {
+                                    SearchType = searchType,
+                                    Authorities = _laService.GetLocalAuthorities(),
+                                    ErrorMessage = SearchErrorMessages.NO_LA_RESULTS
+                                };
+                                return View("Index", svm);
+                            }
                             TempData["SearchMethod"] = "Manual";
                             return RedirectToAction("Search", "La", new { name = laCodeName, openOnly = openOnly });
                         }
@@ -148,7 +159,13 @@ namespace SFB.Web.UI.Controllers
                             int resultCount = searchResp.NumberOfResults;
                             if (resultCount == 0)
                             {
-                                return View("EmptyResult", new SearchViewModel(comparisonList, searchType));
+                                var svm = new SearchViewModel(comparisonList, searchType)
+                                {
+                                    SearchType = searchType,
+                                    Authorities = _laService.GetLocalAuthorities(),
+                                    ErrorMessage = SearchErrorMessages.NO_LA_RESULTS
+                                };
+                                return View("Index", svm);
                             }
                             else
                             {
@@ -178,8 +195,13 @@ namespace SFB.Web.UI.Controllers
                             switch (result.Matches.Count)
                             {
                                 case 0:
-                                    return View("EmptyManualLocationResult",
-                                        new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), searchType));
+                                    var svm = new SearchViewModel(comparisonList, searchType)
+                                    {
+                                        SearchType = searchType,
+                                        Authorities = _laService.GetLocalAuthorities(),
+                                        ErrorMessage = SearchErrorMessages.NO_LOCATION_RESULTS
+                                    };
+                                    return View("Index", svm);
                                 default:
                                     TempData["LocationResults"] = result;
                                     TempData["SearchMethod"] = "Manual";
@@ -192,7 +214,13 @@ namespace SFB.Web.UI.Controllers
 
                             if (searchResp.NumberOfResults == 0)
                             {
-                                return View("EmptyManualLocationResult", new SearchViewModel(comparisonList, searchType));
+                                var svm = new SearchViewModel(comparisonList, searchType)
+                                {
+                                    SearchType = searchType,
+                                    Authorities = _laService.GetLocalAuthorities(),
+                                    ErrorMessage = SearchErrorMessages.NO_LOCATION_RESULTS
+                                };
+                                return View("Index", svm);
                             }
                             ViewBag.manualCount = manualComparisonList?.BenchmarkSchools?.Count();
                             return View("ManualSearchResults", GetSearchedSchoolViewModelList(searchResp, manualComparisonList, orderby, page, searchType, nameId, locationorpostcode, _laService.GetLaName(laCodeName)));

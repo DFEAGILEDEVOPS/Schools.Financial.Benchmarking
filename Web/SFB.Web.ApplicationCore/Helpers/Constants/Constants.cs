@@ -335,6 +335,10 @@
 
         public const string COMPANY_NO_ERR_MESSAGE =
             "Please enter the company number (7-8 characters) of the trust you're looking for";
+
+        public const string NO_LA_RESULTS = "We couldn't find any local authorities matching your search criteria";
+        
+        public const string NO_LOCATION_RESULTS = "We couldn't find any locations matching your search criteria";
     }
 
     public class SearchParameterValidLengths

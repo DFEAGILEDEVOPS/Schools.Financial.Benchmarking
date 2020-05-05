@@ -343,6 +343,11 @@ namespace SFB.Web.UI.Controllers
                     laName = exactMatch.Id;
                     return await Search(null, SearchTypes.SEARCH_BY_LA_CODE_NAME, null, null, null, laName, null, openOnly, orderby, page, tab);
                 }
+                var similarMatch = _laSearchService.SearchContains(laName);
+                if (similarMatch.Count == 0)
+                {
+                    return ErrorView(SearchTypes.SEARCH_BY_LA_CODE_NAME, referrer, SearchErrorMessages.NO_LA_RESULTS, schoolComparisonList);
+                }
                 TempData["SearchMethod"] = "Random";
                 return RedirectToAction("Search", "La", new { name = laName, openOnly = openOnly });
             }
@@ -362,7 +367,7 @@ namespace SFB.Web.UI.Controllers
 
                 if (searchResp.NumberOfResults == 0)
                 {
-                    return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_LA_CODE_NAME));
+                    return ErrorView(SearchTypes.SEARCH_BY_LA_CODE_NAME, referrer, SearchErrorMessages.NO_LA_RESULTS, schoolComparisonList);
                 }
 
                 ViewBag.LaCodeName = laCode;
@@ -384,8 +389,7 @@ namespace SFB.Web.UI.Controllers
                 switch (result.Matches.Count)
                 {
                     case 0:
-                        return View("EmptyLocationResult",
-                            new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_LOCATION));
+                        return ErrorView(SearchTypes.SEARCH_BY_LOCATION, referrer, SearchErrorMessages.NO_LOCATION_RESULTS, schoolComparisonList);
                     default:
                         TempData["LocationResults"] = result;
                         TempData["SearchMethod"] = "Random";
