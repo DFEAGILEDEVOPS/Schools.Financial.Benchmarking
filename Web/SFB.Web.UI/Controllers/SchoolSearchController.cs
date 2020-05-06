@@ -321,7 +321,7 @@ namespace SFB.Web.UI.Controllers
                 searchResp = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, openOnly, orderby, page);
                 if(searchResp.NumberOfResults == 0)
                 {
-                    return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_NAME_ID));
+                    return ErrorView(SearchTypes.SEARCH_BY_NAME_ID, referrer, SearchErrorMessages.NO_SCHOOL_NAME_RESULTS, schoolComparisonList);
                 }
                 return View("SearchResults", GetSearchedSchoolViewModelList(searchResp, schoolComparisonList, orderby, page, SearchTypes.SEARCH_BY_NAME_ID, nameId, null, null));
             }

@@ -342,6 +342,11 @@ namespace SFB.Web.UI.Controllers
             {
                 var searchResults = await GetSearchResultsAsync(trustName, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, openOnly, orderby, 1);
 
+                if (searchResults.NumberOfResults == 0)
+                {
+                    return ErrorView(SearchTypes.SEARCH_BY_NAME_ID, referrer, SearchErrorMessages.NO_TRUST_NAME_RESULTS);
+                }
+
                 var trustVm = await GetTrustListViewModelAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_NAME_ID, trustName, null, null);
 
                 return View("SearchResults", trustVm);
@@ -361,7 +366,7 @@ namespace SFB.Web.UI.Controllers
                 switch (result.Matches.Count)
                 {
                     case 0:
-                        return View("EmptyLocationResult", new SearchViewModel(null, SearchTypes.SEARCH_BY_TRUST_LOCATION));
+                        return ErrorView(SearchTypes.SEARCH_BY_LOCATION, referrer, SearchErrorMessages.NO_LOCATION_RESULTS);
                     default:
                         TempData["LocationResults"] = result;
                         TempData["SearchMethod"] = "MAT";
@@ -382,7 +387,7 @@ namespace SFB.Web.UI.Controllers
 
             if (searchResults.NumberOfResults == 0)
             {
-                return View("EmptyLocationResult", new SearchViewModel(null, SearchTypes.SEARCH_BY_TRUST_LOCATION));
+                return ErrorView(SearchTypes.SEARCH_BY_LOCATION, referrer, SearchErrorMessages.NO_LOCATION_RESULTS);
             }
 
             var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, locationOrPostcode, null);
@@ -402,6 +407,11 @@ namespace SFB.Web.UI.Controllers
                 {
                     laName = exactMatch.Id;
                     return await Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, laName, null, openOnly, orderby, page, tab);
+                }
+                var similarMatch = _laSearchService.SearchContains(laName);
+                if (similarMatch.Count == 0)
+                {
+                    return ErrorView(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, referrer, SearchErrorMessages.NO_LA_RESULTS);
                 }
                 TempData["SearchMethod"] = "MAT";
                 return RedirectToAction("Search", "La", new { name = laName, openOnly = openOnly });
@@ -428,7 +438,7 @@ namespace SFB.Web.UI.Controllers
 
                 if (searchResults.NumberOfResults == 0)
                 {
-                    return View("EmptyResult", new SearchViewModel(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME));
+                    return ErrorView(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, referrer, SearchErrorMessages.NO_LA_RESULTS);
                 }
 
                 var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, _laService.GetLaName(laCode));
