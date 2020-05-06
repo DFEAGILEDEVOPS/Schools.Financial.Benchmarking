@@ -66,7 +66,7 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
                     if (IsNumeric(trustNameId))
                     {
-                        return SearchByTrustId(trustNameId, openOnly, orderby, page, referrer);
+                        return await SearchByTrustIdAsync(trustNameId, openOnly, orderby, page, referrer);
                     }
                     else
                     {
@@ -322,11 +322,17 @@ namespace SFB.Web.UI.Controllers
             return View("../" + referrer, searchVM);
         }
 
-        private ActionResult SearchByTrustId(string trustNameId, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        private async Task<ActionResult> SearchByTrustIdAsync(string trustNameId, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
             var errorMessage = _valService.ValidateCompanyNoParameter(trustNameId);
             if (string.IsNullOrEmpty(errorMessage))
             {
+                var result = await _trustSearchService.SearchTrustByCompanyNoAsync(trustNameId, 0, 1, "", null);
+                if(result.NumberOfResults == 0)
+                {
+                    return ErrorView(SearchTypes.SEARCH_BY_TRUST_NAME_ID, referrer, SearchErrorMessages.NO_TRUST_NAME_RESULTS);
+                }
+
                 return RedirectToAction("Index", "Trust", new { companyNo = trustNameId });
             }
             else
@@ -344,7 +350,7 @@ namespace SFB.Web.UI.Controllers
 
                 if (searchResults.NumberOfResults == 0)
                 {
-                    return ErrorView(SearchTypes.SEARCH_BY_NAME_ID, referrer, SearchErrorMessages.NO_TRUST_NAME_RESULTS);
+                    return ErrorView(SearchTypes.SEARCH_BY_TRUST_NAME_ID, referrer, SearchErrorMessages.NO_TRUST_NAME_RESULTS);
                 }
 
                 var trustVm = await GetTrustListViewModelAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_NAME_ID, trustName, null, null);
@@ -366,7 +372,7 @@ namespace SFB.Web.UI.Controllers
                 switch (result.Matches.Count)
                 {
                     case 0:
-                        return ErrorView(SearchTypes.SEARCH_BY_LOCATION, referrer, SearchErrorMessages.NO_LOCATION_RESULTS);
+                        return ErrorView(SearchTypes.SEARCH_BY_TRUST_LOCATION, referrer, SearchErrorMessages.NO_LOCATION_RESULTS);
                     default:
                         TempData["LocationResults"] = result;
                         TempData["SearchMethod"] = "MAT";
@@ -387,7 +393,7 @@ namespace SFB.Web.UI.Controllers
 
             if (searchResults.NumberOfResults == 0)
             {
-                return ErrorView(SearchTypes.SEARCH_BY_LOCATION, referrer, SearchErrorMessages.NO_LOCATION_RESULTS);
+                return ErrorView(SearchTypes.SEARCH_BY_TRUST_LOCATION, referrer, SearchErrorMessages.NO_LOCATION_RESULTS);
             }
 
             var trustsVm = await BuildTrustViewModelListFromFoundAcademiesAsync(searchResults, orderby, page, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, locationOrPostcode, null);

@@ -39,6 +39,21 @@ namespace SFB.Web.Infrastructure.SearchEngine
             return new SearchResultsModel<TrustSearchResult>(0, null, new List<TrustSearchResult>(), 0, 0);
         }
 
+        public async Task<SearchResultsModel<TrustSearchResult>> SearchTrustByCompanyNoAsync(string companyNo, int skip, int take, string orderby, NameValueCollection queryParams)
+        {
+            var isNumber = int.TryParse(companyNo, out _);
+            if (!isNumber || companyNo.Length < SearchParameterValidLengths.COMPANY_NO_LENGTH_MIN || companyNo.Length > SearchParameterValidLengths.COMPANY_NO_LENGTH_MAX)
+            {
+                return new SearchResultsModel<TrustSearchResult>(0, null, new List<TrustSearchResult>(), 0, 0);
+            }
+            else
+            {
+                var exactMatches = await ExecuteSearchAsync($"{companyNo}*", SchoolTrustFinanceDataFieldNames.COMPANY_NUMBER, null, orderby, skip, take);
+                return exactMatches;
+            }
+
+        }
+
         public async Task<dynamic> SuggestTrustByNameAsync(string name)
         {
             Func<SuggestResult<Document>, ExpandoObject> processResult = r =>

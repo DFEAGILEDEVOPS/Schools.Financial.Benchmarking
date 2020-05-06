@@ -276,7 +276,7 @@ namespace SFB.Web.UI.Controllers
                         searchResp = await _contextDataService.GetSchoolDataObjectByLaEstabAsync(nameId, openOnly);
                         if (searchResp.Count == 0)
                         {
-                            return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_LA_ESTAB));
+                            return ErrorView(SearchTypes.SEARCH_BY_LA_ESTAB, referrer, SearchErrorMessages.NO_SCHOOL_NAME_RESULTS, schoolComparisonList);
                         }
                         else if (searchResp.Count == 1)
                         {
@@ -296,7 +296,7 @@ namespace SFB.Web.UI.Controllers
                 }
                 catch (Exception)
                 {
-                    return View("EmptyResult", new SearchViewModel(schoolComparisonList, SearchTypes.SEARCH_BY_NAME_ID));
+                    return ErrorView(SearchTypes.SEARCH_BY_LA_ESTAB, referrer, SearchErrorMessages.NO_SCHOOL_NAME_RESULTS, schoolComparisonList);
                 }
             }
             else
