@@ -7,7 +7,7 @@
 
     bindEvents() {
         GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
-        this.bindAutosuggest("#FindSchoolByLaName", "#SelectedLocalAuthorityId", { data: this.localAuthorities, name: "LANAME", value: "id" });
+        this.bindAutosuggest("#FindSchoolByLaCode", "#SelectedLocalAuthorityId", { data: this.localAuthorities, name: "LANAME", value: "id" });
     }
 
     accordionChangeHandler() {
@@ -79,7 +79,7 @@
             $(targetResolvedInputElementName).val(suggestion[value]);
             currentSuggestionName = suggestion[field];
             $("#FindSchoolByLaCode").val(suggestion["id"]);
-            window.location = `/BenchmarkCriteria/AdvancedCharacteristics?areaType=LACode&lacode=${suggestion["id"]}&Urn=${$("#Urn").val()}`
+            window.location = `/BenchmarkCriteria/AdvancedCharacteristics?areaType=LaCodeName&lacodename=${suggestion["id"]}&Urn=${$("#Urn").val()}`
                 + `&ComparisonType=${$("#ComparisonType").val()}&EstType=${$("#EstType").val()}&ExcludePartial=${$("#ExcludePartial").val()}`;
         });
 

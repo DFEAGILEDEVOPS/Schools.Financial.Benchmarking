@@ -54,9 +54,7 @@ namespace SFB.Web.ApplicationCore.Helpers.Enums
     public enum ComparisonArea
     {
         All,
-        LaCode,
-        LaName,
-        Location
+        LaCodeName
     }
 
     [Flags]

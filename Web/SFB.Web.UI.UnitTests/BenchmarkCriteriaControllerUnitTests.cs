@@ -31,7 +31,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockComparisonService = new Mock<IComparisonService>();
 
-            var controller = new BenchmarkCriteriaController(null, null, null, null, mockCookieManager.Object, mockComparisonService.Object);
+            var controller = new BenchmarkCriteriaController(null, null, null, null, mockCookieManager.Object, mockComparisonService.Object, new ValidationService());
 
             var response = await controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 10);
 
@@ -83,7 +83,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockComparisonService = new Mock<IComparisonService>();
 
-            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object, new ValidationService());
 
             var result = await controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 10);
 
@@ -102,7 +102,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockComparisonService = new Mock<IComparisonService>();
 
-            var controller = new BenchmarkCriteriaController(null, null, null, null, mockCookieManager.Object, mockComparisonService.Object);
+            var controller = new BenchmarkCriteriaController(null, null, null, null, mockCookieManager.Object, mockComparisonService.Object, new ValidationService());
 
             var response = await controller.OverwriteStrategy(10000, ComparisonType.Advanced, EstablishmentType.Maintained, new BenchmarkCriteriaVM(new BenchmarkCriteria() { Gender = new[] { "Boys" } }), ComparisonArea.All, 306, "test", 29);
 
@@ -123,7 +123,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockComparisonService = new Mock<IComparisonService>();
 
-            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object);
+            var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object, new ValidationService());
 
             var result = controller.SelectSchoolType(null, ComparisonType.Advanced, EstablishmentType.Maintained, 15);
 
@@ -149,9 +149,9 @@ namespace SFB.Web.UI.UnitTests
 
             mockLaSearchService.Setup(m => m.LaCodesContain(123)).Returns(false);
 
-            var controller = new BenchmarkCriteriaController(mockLaService.Object, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, mockLaSearchService.Object, mockCookieManager.Object, mockComparisonService.Object);
+            var controller = new BenchmarkCriteriaController(mockLaService.Object, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, mockLaSearchService.Object, mockCookieManager.Object, mockComparisonService.Object, new ValidationService());
 
-            var response = await controller.AdvancedCharacteristics(null, ComparisonType.Advanced, EstablishmentType.All, ComparisonArea.LaCode, 123, "", null);
+            var response = await controller.AdvancedCharacteristics(null, ComparisonType.Advanced, EstablishmentType.All, ComparisonArea.LaCodeName, "123", null);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull((response as ViewResult).Model);

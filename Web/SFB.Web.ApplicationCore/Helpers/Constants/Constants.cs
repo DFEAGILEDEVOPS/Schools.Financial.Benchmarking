@@ -325,10 +325,14 @@
             "Please enter the name of the trust you're looking for (minimum 3 characters)";
 
         public const string LOCATION_ERR_MESSAGE = "Please enter the name of a town or city (minimum 2 characters)";
+
         public const string LA_CODE_ERR_MESSAGE = "Please enter the LA code for the local authorithy (3 characters)";
 
         public const string LA_NAME_ERR_MESSAGE =
             "Please enter the name of the local authority you're looking for (minimum 2 characters)";
+
+        public const string LA_CODE_NAME_ERR_MESSAGE =
+            "Please enter a three-digit Local authority code or select a local authority from the auto-completed list";
 
         public const string SCHOOL_ID_ERR_MESSAGE =
             "Please enter the URN code (6 characters) or LAESTAB code (7 characters) of the school or college you're looking for";

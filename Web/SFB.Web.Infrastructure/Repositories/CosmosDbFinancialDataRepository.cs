@@ -538,12 +538,12 @@ namespace SFB.Web.Infrastructure.Repositories
                 query = ExcludePartials(query);
             }
 
+            var queryString = $"SELECT VALUE COUNT(c) FROM c WHERE {query}";
+
             if (string.IsNullOrEmpty(query))
             {
-                return 0;
-            }
-
-            var queryString = $"SELECT VALUE COUNT(c) FROM c WHERE {query}";
+                queryString = $"SELECT VALUE COUNT(c) FROM c";
+            }            
 
             var queryDefinition = new QueryDefinition(queryString);
 

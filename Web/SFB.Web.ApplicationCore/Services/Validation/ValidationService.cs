@@ -1,5 +1,5 @@
 ﻿using SFB.Web.ApplicationCore.Helpers.Constants;
-using System;
+using System.Text.RegularExpressions;
 
 namespace SFB.Web.ApplicationCore.Services
 {
@@ -44,11 +44,23 @@ namespace SFB.Web.ApplicationCore.Services
 
             return null;
         }
+
         public string ValidateLaNameParameter(string laName)
         {
             if (laName == null || laName.Length < SearchParameterValidLengths.LA_NAME_MIN_LENGTH)
             {
                 return SearchErrorMessages.LA_NAME_ERR_MESSAGE;
+            }
+
+            return null;
+        }
+
+        public string ValidateLaCodeNameParameter(string laCodeName)
+        {
+            if ((IsNumeric(laCodeName) && laCodeName.Length != SearchParameterValidLengths.LA_CODE_LENGTH)
+                || (!IsNumeric(laCodeName) && laCodeName.Length < SearchParameterValidLengths.LA_NAME_MIN_LENGTH))
+            {
+                return SearchErrorMessages.LA_CODE_NAME_ERR_MESSAGE;
             }
 
             return null;
@@ -76,5 +88,6 @@ namespace SFB.Web.ApplicationCore.Services
             return null;
         }
 
+        private bool IsNumeric(string field) => field != null ? Regex.IsMatch(field, @"^\d+$") : false;
     }
 }

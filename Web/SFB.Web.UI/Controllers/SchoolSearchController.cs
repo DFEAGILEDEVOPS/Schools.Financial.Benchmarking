@@ -31,8 +31,11 @@ namespace SFB.Web.UI.Controllers
         private readonly IContextDataService _contextDataService;
 
         public SchoolSearchController(ILocalAuthoritiesService laService,
-            ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
-            IValidationService valService, IContextDataService contextDataService,
+            ILaSearchService laSearchService, 
+            ILocationSearchService locationSearchService, 
+            IFilterBuilder filterBuilder,
+            IValidationService valService, 
+            IContextDataService contextDataService,
             ISchoolSearchService schoolSearchService,
             IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
             : base(schoolSearchService, null, benchmarkBasketCookieManager, filterBuilder)

@@ -14,6 +14,7 @@ using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.UI.Helpers.Constants;
+using System.Text.RegularExpressions;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -26,9 +27,16 @@ namespace SFB.Web.UI.Controllers
         private readonly ILaSearchService _laSearchService;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
         private readonly IComparisonService _comparisonService;
+        private readonly IValidationService _valService;
 
-        public BenchmarkCriteriaController(ILocalAuthoritiesService laService, IFinancialDataService financialDataService, 
-            IContextDataService contextDataService, ILaSearchService laSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IComparisonService comparisonService)
+        public BenchmarkCriteriaController(
+            ILocalAuthoritiesService laService, 
+            IFinancialDataService financialDataService, 
+            IContextDataService contextDataService, 
+            ILaSearchService laSearchService, 
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, 
+            IComparisonService comparisonService,
+            IValidationService valService)
         {
             _financialDataService = financialDataService;
             _laService = laService;
@@ -36,6 +44,7 @@ namespace SFB.Web.UI.Controllers
             _laSearchService = laSearchService;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
             _comparisonService = comparisonService;
+            _valService = valService;
         }
 
         /// <summary>
@@ -175,34 +184,60 @@ namespace SFB.Web.UI.Controllers
         /// <param name="estType"></param>
         /// <param name="comparisonType"></param>
         /// <param name="areaType"></param>
-        /// <param name="lacode"></param>
+        /// <param name="laCodeName"></param>
         /// <returns></returns>
-        public async Task<ActionResult> AdvancedCharacteristics(int? urn, ComparisonType comparisonType, EstablishmentType estType, ComparisonArea? areaType, int? lacode,
-            string laNameText, BenchmarkCriteria AdvancedCriteria, bool excludePartial = false)
+        public async Task<ActionResult> AdvancedCharacteristics(
+            int? urn, 
+            ComparisonType comparisonType, 
+            EstablishmentType estType, 
+            ComparisonArea? areaType, 
+            string laCodeName,
+            BenchmarkCriteria AdvancedCriteria, 
+            bool excludePartial = false)
         {
-            if (areaType == ComparisonArea.LaName && !string.IsNullOrEmpty(laNameText) && lacode == null)
+            int? laCode = null;
+
+            if (areaType == ComparisonArea.LaCodeName)
             {
-                var exactLaMatch = _laSearchService.SearchExactMatch(laNameText);
-                if (exactLaMatch != null)
+                string errorMessage = _valService.ValidateLaCodeNameParameter(laCodeName);
+                
+                if (string.IsNullOrEmpty(errorMessage))
                 {
-                    lacode = Int32.Parse(exactLaMatch.Id);
+                    if (IsNumeric(laCodeName))
+                    {
+                        laCode = int.Parse(laCodeName);
+                        if (!_laSearchService.LaCodesContain(laCode.Value))
+                        {
+                            errorMessage = SearchErrorMessages.NO_LA_RESULTS;
+                        }
+                    }
+                    else
+                    {
+                        var exactLaMatch = _laSearchService.SearchExactMatch(laCodeName);
+                        if (exactLaMatch == null)
+                        {
+                            errorMessage = SearchErrorMessages.NO_LA_RESULTS;
+                        }
+                        else
+                        {
+                            laCode = int.Parse(exactLaMatch.Id);
+                        }
+                    }
                 }
-            }else if(areaType == ComparisonArea.LaCode && lacode != null)
-            {
-                if (!_laSearchService.LaCodesContain(lacode.Value))
+
+                if (errorMessage != null)
                 {
-                    lacode = null;
+                    var vm = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    vm.ErrorMessage = errorMessage;
+                    ViewBag.Authorities = _laService.GetLocalAuthorities();
+                    ViewBag.URN = urn;
+                    ViewBag.ComparisonType = comparisonType;
+                    ViewBag.EstType = estType;
+                    ViewBag.AreaType = areaType;
+                    ViewBag.ExcludePartial = excludePartial.ToString();
+                    return View("ChooseRegion", vm);
                 }
             }
-
-            ViewBag.URN = urn;
-            ViewBag.ComparisonType = comparisonType;
-            ViewBag.EstType = estType;
-            ViewBag.EstTypeDescription = estType.GetDescription();
-            ViewBag.AreaType = areaType;
-            ViewBag.AreaTypeDescription = lacode == null ? "All of England" : string.IsNullOrEmpty(laNameText) ? _laService.GetLaName(lacode.ToString()) : laNameText;
-            ViewBag.LaCode = lacode;
-            ViewBag.ExcludePartial = excludePartial.ToString();
 
             SchoolViewModel benchmarkSchoolVM;
             if (urn.HasValue)
@@ -217,13 +252,17 @@ namespace SFB.Web.UI.Controllers
                 benchmarkSchoolVM = new SchoolViewModelWithNoDefaultSchool();
             }
 
-            if (!IsAreaFieldsValid(areaType, lacode, benchmarkSchoolVM))
-            {
-                ViewBag.Authorities = _laService.GetLocalAuthorities();
-                return View("ChooseRegion", benchmarkSchoolVM);
-            }
-
             var schoolCharsVM = new SchoolCharacteristicsViewModel(benchmarkSchoolVM, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), AdvancedCriteria);
+
+            ViewBag.URN = urn;
+            ViewBag.ComparisonType = comparisonType;
+            ViewBag.EstType = estType;
+            ViewBag.EstTypeDescription = estType.GetDescription();
+            ViewBag.ExcludePartial = excludePartial.ToString();
+            ViewBag.AreaType = areaType;
+            ViewBag.AreaTypeDescription = areaType == ComparisonArea.All ? "All of England" : _laService.GetLaName(laCode.ToString());
+            ViewBag.LaCode = laCode;
+
             return View(schoolCharsVM);
         }
 
@@ -366,30 +405,6 @@ namespace SFB.Web.UI.Controllers
             return result;
         }
 
-        private bool IsAreaFieldsValid(ComparisonArea? areaType, int? lacode, SchoolViewModel benchmarkSchool)
-        {
-            switch (areaType)
-            {
-                case ComparisonArea.LaCode:
-                    if (lacode == null)
-                    {
-                        benchmarkSchool.ErrorMessage = "Please enter a valid Local authority code";
-                    }
-                    break;
-                case ComparisonArea.LaName:
-                    if (lacode == null)
-                    {
-                        benchmarkSchool.ErrorMessage = "Please select a local authority from the auto-completed list";
-                    }
-                    break;
-                case null:
-                    benchmarkSchool.ErrorMessage = "Please select an area";
-                    break;
-            }
-
-            return !benchmarkSchool.HasError();
-        }
-
         private async Task<SchoolViewModel> InstantiateBenchmarkSchoolAsync(int urn)
         {
             var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
@@ -419,8 +434,7 @@ namespace SFB.Web.UI.Controllers
             }
             else return value;
         }
-
-
+        private bool IsNumeric(string field) => field != null ? Regex.IsMatch(field, @"^\d+$") : false;
         private ActionResult ErrorView(string searchType, string referrer, string errorMessage, SchoolComparisonListModel schoolComparisonList)
         {
             var searchVM = new SearchViewModel(schoolComparisonList, searchType)

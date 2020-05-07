@@ -577,9 +577,8 @@ namespace SFB.Web.UI.Controllers
                 case ComparisonArea.All:
                     selectedArea = "All England";
                     break;
-                case ComparisonArea.LaCode:
-                case ComparisonArea.LaName:
-                    selectedArea = _laService.GetLaName(laCode);
+                case ComparisonArea.LaCodeName:
+                     selectedArea = _laService.GetLaName(laCode);
                     break;
             }
 
