@@ -56,6 +56,13 @@
     }
 
     .compare-buttons-panel {
+        a.button {
+            font-size: 16px;
+
+            @include media(desktop) {
+                font-size: 19px;
+            }
+        }
 
         &__column-full {
             margin-bottom: 20px;
@@ -334,6 +341,16 @@
     .column-quarter.balance-wrapper-mobile--active {
         @include media(mobile) {
             display: block;
+        }
+    }
+
+    .analytics-links {
+        border-top: 2px solid $govuk-blue;
+        margin-top: 36px;
+
+        @include media(mobile) {
+            margin-top: 24px;
+            margin-bottom: 24px;
         }
     }
 }

@@ -2,19 +2,19 @@
 <div class="compare-buttons-panel compare-buttons-panel--set-unset">
     <div class="compare-buttons-panel__column-full">
             
-        <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-small no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
+        <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-xsmall no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
             <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt=""/>
             <span>Unset as default school<span class="visuallyhidden"> Opens in a new window</span></span>
         </button>
 
-        <button @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-small no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
+        <button @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-xsmall no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
             <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt="" />
             <span>Set as default school<span class="visuallyhidden"> Opens in a new window</span></span>
         </button>
 
         <a class="img-button no-underline compare-buttons-panel__button--auto sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]" aria-label="Automatic report. Opens in a new window.">
             <img class="icon" src="~/public/assets/images/icons/icon-file-download-small.png" alt="Opens in a new window" />
-            <span id="DownloadLinkText">View quick comparison report</span>                  
+            <span id="DownloadLinkText" class="bold-xsmall">View quick comparison report</span>                  
         </a>
         <span class="help-icon inline-block hide-in-print">
             <span class="icon dark-blue">
@@ -31,7 +31,7 @@
 
         <a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>
 
-        <a class="button compare-buttons-panel__button--em" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name">Efficiency Metric</a>
+        @*<a class="button compare-buttons-panel__button--em" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name">Efficiency Metric</a>*@
 
         <a @DisplayStyle(Model.IsInComparisonList) class="add-remove-js button compare-buttons-panel__button--removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Remove')")">Remove from benchmark basket</a>
 
