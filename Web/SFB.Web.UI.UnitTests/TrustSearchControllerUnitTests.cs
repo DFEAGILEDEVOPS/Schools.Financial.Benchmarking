@@ -110,9 +110,16 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionRedirectsToTrustViewIfCompanyNumberIsUsedAsId()
         {
-            var testResult = new List<EdubaseDataObject>() { new EdubaseDataObject() { URN = 1234567 } };
+            Task<SearchResultsModel<TrustSearchResult>> task = Task.Run(() =>
+            {
+                var facets = new Dictionary<string, FacetResultModel[]>();
+                var matches = new List<TrustSearchResult>();
+                matches.Add(new TrustSearchResult());
+                var results = new SearchResultsModel<TrustSearchResult>(5, facets, matches, 5, 0);
+                return results;
+            });
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByLaEstabAsync("1234567", false)).Returns((string urn, bool openOnly) => Task.Run(()=> testResult));
+            _mockTrustSearchService.Setup(m => m.SearchTrustByCompanyNoAsync("6182612", 0, 1, "", null)).Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
@@ -188,7 +195,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchByLocationReturnsEmptyLocationResultPageForNotFoundLocation()
+        public async Task SearchByLocationReturnsToViewWithErrorForNotFoundLocation()
         {
             _mockLocationSearchService.Setup(m => m.SuggestLocationName("sw12")).Returns(new SuggestionQueryResult(new List<Disambiguation>()));
 
@@ -217,7 +224,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchByLocationReturnsEmptyLocationResultPageForNotFoundLocationCoordinates()
+        public async Task SearchByLocationReturnsViewWithErrorForNotFoundLocationCoordinates()
         {
             var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
@@ -235,7 +242,7 @@ namespace SFB.Web.UI.UnitTests
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
-            Assert.AreEqual("EmptyLocationResult", (result as ViewResult).ViewName);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
         }
 
         [Test]
@@ -307,7 +314,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task RedirectsToLaSearchIfAValidLaNameIsNotProvided()
+        public async Task TReturnsViewWithErrorIfAValidLaNameIsNotProvided()
         {
             var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(0, null, null, 50, 0);
 
@@ -347,10 +354,12 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "000", null, false, null, 0);
+            var response = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "000", null, false, null, 0);
 
-            Assert.IsTrue(result is ViewResult);
-            Assert.AreEqual("EmptyResult", (result as ViewResult).ViewName);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull((response as ViewResult).Model);
+            Assert.IsTrue(((response as ViewResult).Model as SearchViewModel).HasError());
+            Assert.AreEqual(SearchErrorMessages.NO_LA_RESULTS, ((response as ViewResult).Model as SearchViewModel).ErrorMessage);
         }
 
         [Test]

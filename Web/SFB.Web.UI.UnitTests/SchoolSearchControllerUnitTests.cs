@@ -17,6 +17,7 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.ApplicationCore.Entities;
 using System.Linq;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -83,23 +84,20 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task SearchActionReturnsSuggestionsViewIfSearchByLAName()
         {
-            dynamic laSearchResponse = new List<dynamic>()
+            dynamic laSearchResponse = new List<LaModel>()
             {
-                new{
-                    id = "840",
-                    LANAME = "County Durham",
-                    REGION = "1",
-                    REGIONNAME = "North East A"
+                new LaModel{
+                    Id = "840",
+                    LaName = "County Durham"
                 },
-                new{
-                    id = "841",
-                    LANAME = "Darlington",
-                    REGION = "1",
-                    REGIONNAME = "North East A"
+                new LaModel{
+                    Id = "841",
+                    LaName = "Darlington"
                 }
             };            
 
             _mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => laSearchResponse);
+            _mockLaSearchService.Setup(m => m.SearchContains("Test")).Returns(() => laSearchResponse);
 
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -392,7 +390,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchActionRedirectsToEmptyViewIfLaEstabIsUsedAsIdAndNoResultsFound()
+        public async Task SearchActionReturnsViewWithErrorIfLaEstabIsUsedAsIdAndNoResultsFound()
         {
             var testResult = new List<EdubaseDataObject>() {  };
 
@@ -421,14 +419,16 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("1234567", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+            var response = await controller.Search("1234567", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
 
-            Assert.IsTrue(result is ViewResult);
-            Assert.AreEqual("EmptyResult", (result as ViewResult).ViewName);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull((response as ViewResult).Model);
+            Assert.IsTrue(((response as ViewResult).Model as SearchViewModel).HasError());
+            Assert.AreEqual(SearchErrorMessages.NO_SCHOOL_NAME_RESULTS, ((response as ViewResult).Model as SearchViewModel).ErrorMessage);
         }
 
         [Test]
-        public async Task SearchActionRedirectsToEmptyViewIfNameIsUsedAsIdAndNoResultsFound()
+        public async Task SearchActionReturnsViewWithErrorIfNameIsUsedAsIdAndNoResultsFound()
         {
             var schoolTask = Task.Run(() =>
             {
@@ -446,10 +446,12 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("abc", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
+            var response = await controller.Search("abc", SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, null, false, null, 1);
 
-            Assert.IsTrue(result is ViewResult);
-            Assert.AreEqual("EmptyResult", (result as ViewResult).ViewName);
+            Assert.IsNotNull(response);
+            Assert.IsNotNull((response as ViewResult).Model);
+            Assert.IsTrue(((response as ViewResult).Model as SearchViewModel).HasError());
+            Assert.AreEqual(SearchErrorMessages.NO_SCHOOL_NAME_RESULTS, ((response as ViewResult).Model as SearchViewModel).ErrorMessage);
         }
 
         [Test]

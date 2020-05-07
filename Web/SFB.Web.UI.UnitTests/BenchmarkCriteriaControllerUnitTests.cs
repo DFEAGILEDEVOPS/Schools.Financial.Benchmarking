@@ -15,6 +15,7 @@ using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.ApplicationCore.Services;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -134,12 +135,14 @@ namespace SFB.Web.UI.UnitTests
         public async Task AdvancedCharacteristicsShouldReturnErrorIfLaCodeIsNotFoundAsync()
         {
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            //mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(new SchoolComparisonListModel());
 
             var _mockDocumentDbService = new Mock<IFinancialDataService>();
 
             var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
 
             var _mockEdubaseDataService = new Mock<IContextDataService>();
+            //_mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123456)).Returns(Task.Run(() => new EdubaseDataObject()));
 
             var mockComparisonService = new Mock<IComparisonService>();
 
@@ -151,12 +154,12 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new BenchmarkCriteriaController(mockLaService.Object, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, mockLaSearchService.Object, mockCookieManager.Object, mockComparisonService.Object, new ValidationService());
 
-            var response = await controller.AdvancedCharacteristics(null, ComparisonType.Advanced, EstablishmentType.All, ComparisonArea.LaCodeName, "123", null);
+            var response = await controller.AdvancedCharacteristics(123456, ComparisonType.Advanced, EstablishmentType.All, ComparisonArea.LaCodeName, "123", null);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull((response as ViewResult).Model);
             Assert.IsTrue(((response as ViewResult).Model as SchoolViewModel).HasError());
-            Assert.AreEqual("Please enter a valid Local authority code", ((response as ViewResult).Model as SchoolViewModel).ErrorMessage);
+            Assert.AreEqual(SearchErrorMessages.NO_LA_RESULTS, ((response as ViewResult).Model as SchoolViewModel).ErrorMessage);
         }
 
     }
