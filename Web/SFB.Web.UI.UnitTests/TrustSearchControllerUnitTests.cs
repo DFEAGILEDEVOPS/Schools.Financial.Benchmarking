@@ -205,7 +205,7 @@ namespace SFB.Web.UI.UnitTests
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", null, null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
-            Assert.AreEqual("EmptyLocationResult", (result as ViewResult).ViewName);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
         }
 
         [Test]
@@ -326,16 +326,16 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService.Setup(m => m.SearchSchoolByLaCodeAsync("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null))
                 .Returns(task);
 
-            _mockLaSearchService.Setup(m => m.SearchExactMatch("test")).Returns<LaViewModel>(null);
+            _mockLaSearchService.Setup(m => m.SearchExactMatch("test")).Returns<LaModel>(null);
+            _mockLaSearchService.Setup(m => m.SearchContains("test")).Returns(new List<LaModel>());
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
             var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "test", null, false, null, 0);
 
-            Assert.AreEqual("La", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("Search", (result as RedirectToRouteResult).RouteValues["action"]);
-            Assert.AreEqual("test", (result as RedirectToRouteResult).RouteValues["name"]);
+            Assert.IsTrue(result is ViewResult);
+            Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
         }
 
         [Test]
