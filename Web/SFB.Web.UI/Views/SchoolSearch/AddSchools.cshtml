@@ -7,14 +7,29 @@
 
     <div style="margin: 0 15px">
         <div>
-            @if (Request.UrlReferrer.ToString().ToLower().Contains("/benchmarklist"))
-            {
-                <a class="home-link" href="@HttpUtility.ParseQueryString(Request.UrlReferrer.Query).Get("referrer")" aria-label="Close basket">Close basket</a>
+            @{ 
+                var referrer = Request.UrlReferrer.ToString().ToLower();
             }
-            else if (Request.UrlReferrer.ToString().ToLower().Contains("/benchmarkcharts"))
+            @if (referrer.Contains("/benchmarklist"))
+            {
+                if (referrer.Contains("generatefromsimplecriteria") 
+                    || referrer.Contains("generatefromefficiencymetricsmanual")
+                        || referrer.Contains("generatefromadvancedcriteria")
+                            || referrer.Contains("generatenewfromadvancedcriteria")
+                                || referrer.Contains("generatefrombiccriteria")
+                    )
+                {
+                    <a class="home-link" href="/BenchmarkCharts">Back to benchmarking charts</a>
+                }
+                else
+                {
+                    <a class="home-link" href="@HttpUtility.ParseQueryString(Request.UrlReferrer.Query).Get("referrer")" aria-label="Close basket">Close basket</a>
+                }
+            }
+            else if (referrer.Contains("/benchmarkcharts"))
             {
                 <span class="back-chevron" aria-hidden="true">&#9666;</span>
-                if (Request.UrlReferrer.ToString().ToLower().Contains("?"))
+                if (referrer.Contains("?"))
                 {
                     <a class="home-link" href="@Request.UrlReferrer.ToString()">Back to benchmarking charts</a>
                 }
