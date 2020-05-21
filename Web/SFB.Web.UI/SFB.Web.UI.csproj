@@ -159,6 +159,9 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="SFB.Web.ApplicationCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.3\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -850,10 +853,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFB.Web.ApplicationCore\SFB.Web.ApplicationCore.csproj">
-      <Project>{c7d71b89-d508-43fa-8130-1266baa6dda9}</Project>
-      <Name>SFB.Web.ApplicationCore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SFB.Web.Infrastructure\SFB.Web.Infrastructure.csproj">
       <Project>{933aecee-a499-482d-b09b-a8864140b332}</Project>
       <Name>SFB.Web.Infrastructure</Name>
