@@ -149,7 +149,7 @@
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Web.ApplicationCore, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.4\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
+      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.5\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFB.Web.Infrastructure.1.0.7\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
