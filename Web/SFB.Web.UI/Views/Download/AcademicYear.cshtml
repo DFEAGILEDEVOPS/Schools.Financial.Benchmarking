@@ -1,0 +1,48 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "download-academic-year";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+{
+    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There are errors on this page that require attention.
+        </h1>
+        <ul class="error-summary-list">
+            <li><a href="#year">@ViewBag.ErrorMessage</a></li>
+        </ul>
+    </div>
+}
+
+<h1 class="heading-xlarge page-heading">Dataset download generator</h1>
+
+<div class="steps">
+    <span>Step 1 of 2</span>
+</div>
+
+<form action="/Download/@ViewBag.Estab/DataSet" method="get" autocomplete="off">
+    <div class="form-group">
+        <label class="bold-form-label form-label" for="year">Select the financial year</label>
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <span class="error-message">@ViewBag.ErrorMessage</span>
+        }
+        <select class="form-control" id="year" name="year">
+            <option value="">Please select</option>
+            @foreach (var term in ViewBag.Terms)
+            {
+                <option value="@term.ToString().Substring(term.ToString().Length - 4)">@term</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="button">Continue</button>
+    </div>
+
+    <input type="hidden" value="@ViewBag.Estab" />
+</form>
+

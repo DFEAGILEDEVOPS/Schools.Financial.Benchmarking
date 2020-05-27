@@ -1,0 +1,77 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers;
+@model SFB.Web.UI.Models.EstablishmentViewModelBase
+
+<div class="grid-row" id="financialSummary">
+    <div class="column-third">
+        <div class="revenue-box">
+            <h2 class="heading-medium">Expenditure</h2>
+            <span class="heading-medium">
+                @if (Model.TotalRevenueExpenditure >= 10000 || Model.TotalRevenueExpenditure <= -10000)
+                {
+                    <abbr title="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("N0") pounds" class="exp-total summary">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</abbr>
+                }
+                else
+                {
+                    <span class="heading-medium">
+                        <span class="money exp-total">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</span>
+                    </span>
+                }
+            </span>
+            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+        </div>
+    </div>
+    <div class="column-third">
+        <div class="revenue-box">
+            <h2 class="heading-medium">Income</h2>
+            <span class="heading-medium">
+                @if (Model.TotalRevenueIncome >= 10000 || Model.TotalRevenueIncome <= -10000)
+                {
+                    <abbr title="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("N0") pounds" class="inc-total summary">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</abbr>
+                }else {
+                    <span class="heading-medium">
+                        <span class="money inc-total">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</span>
+                    </span>
+                }
+            </span>
+            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+        </div>
+    </div>
+    <div class="column-third">
+        <div class="revenue-box">
+            <h2 class="heading-medium">In-year balance</h2>
+            <span class="heading-medium">
+                @if (Model.InYearBalance < 0)
+                {
+                    if (Model.InYearBalance <= -10000)
+                    {
+                        <abbr class="negative-balance bal-total summary" title="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" aria-label="minus @Math.Abs(Model.InYearBalance.GetValueOrDefault()).ToString("N0") pounds">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                    }else {
+                        <span class="negative-balance">
+                            <span class="money bal-total" aria-label="minus @Math.Abs(Model.InYearBalance.GetValueOrDefault()).ToString("N0") pounds">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</span>
+                        </span>
+                    }
+
+                }
+                else
+                {
+                    if (Model.TotalRevenueIncome >= 10000)
+                    {
+                        <abbr class="bal-total summary" title="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" aria-label="@Model.InYearBalance.GetValueOrDefault().ToString("N0") pounds">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                    }else {
+                        <span class="heading-medium">
+                            <span class="money bal-total">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</span>
+                        </span>
+                    }
+                }
+            </span>
+            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+        </div>
+    </div>
+</div>
+
+@helper FormatFinancialYear(string year, EstablishmentType schoolType)
+{
+    @(schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))
+}
+

@@ -1,0 +1,114 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Constants
+@using SFB.Web.UI.Helpers.Constants
+@model List<SFB.Web.UI.Models.BenchmarkTrustModel>
+
+<form autocomplete="off">
+    <span id="trustCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count trusts in comparison list</span>
+    <input id="trustCount" type="hidden" value="@Model.Count"/>
+    <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
+    <fieldset>
+        <legend class="visuallyhidden">Choose a trust from auto completion list</legend>
+        @{
+            if (ViewBag.Error != null)
+            {
+                <div id="error-summary" class="error-summary duplicate" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+
+                    <h2 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+                        There are errors on this page that require attention.
+                    </h2>
+
+                    <ul class="error-summary-list">
+                        <li>
+                            <a href="#NewTrustName">@ViewBag.Error</a>
+                        </li>
+                    </ul>
+
+                </div>
+            }
+
+            int i = 0;
+            if (Model.Count > 0)
+            {
+                <div id="ExistingTrusts">
+                    @for (; i < Model.Count; i++)
+                    {
+                        <div class="grid-row trust-element">
+                            <label class="form-label" for="mat_@i">Trust @Html.Raw(i + 1)</label>
+                            <input class="form-control" style="width: 50%" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
+                            <button class="remove-trust link-button font-xsmall" data-companyno="@Model[i].CompanyNo" aria-label="Remove @Model[i].MatName">Remove</button>
+                        </div>
+                    }
+                </div>
+
+                <div id="NewTrust" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
+                    <div class="grid-row trust-element">
+                        <label class="form-label" for="NewTrustName">Trust @Html.Raw(i + 1)</label>
+                        @if (ViewBag.Error != null)
+                        {
+                            <span class="error-message">
+                                @ViewBag.Error
+                            </span>
+                        }
+                        <span class="error-message missing" style="display: none">
+                            Please enter a trust name to continue the comparison
+                        </span>
+                        <input id="NewTrustName"
+                               class="form-control"
+                               name="trustname"
+                               type="text"
+                               data-suggestion-url="/trustsearch/suggest" />
+                        <button class="remove-new-trust link-button font-xsmall" aria-label="Remove new trust addition">Remove</button>
+
+                    </div>
+                </div>
+                <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
+                    <div class="column-full">
+                        @if (Model.Count + 1 < ComparisonListLimit.MAT_LIMIT)
+                        {
+                            <button class="link-button font-xsmall" id="displayNew">Add another trust</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="link-button font-xsmall" onclick="DfE.Util.ComparisonList.RenderFullListWarningModalMat()">Add another trust</button>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="grid-row trust-element">
+                    <label class="form-label" for="NewTrustName">Trust 1</label>
+                    @if (ViewBag.Error != null)
+                    {
+                        <span class="error-message duplicate">
+                            @ViewBag.Error
+                        </span>
+                    }
+                    <span class="error-message missing" style="display: none">
+                        Please enter a trust name to continue the comparison
+                    </span>
+                    <input id="NewTrustName"
+                           class="form-control"
+                           name="trustname"
+                           type="text"
+                           data-suggestion-url="/trustsearch/suggest"/>
+                </div>
+            }
+        }
+    </fieldset>
+</form>
+
+@if (Request.IsAjaxRequest())
+{
+    <script>
+        $('#ErrorSummaryPlaceHolder').empty();
+        $('#error-summary').detach().appendTo('#ErrorSummaryPlaceHolder');
+        $(".error-summary.missing").hide();
+        $('#trustCountMessage').text("Updating trust comparison list");
+        setTimeout(function () {
+            $('#trustCountMessage').text($("#trustCount").val() + " trusts in list");
+        },2000);
+        
+
+    </script>
+}

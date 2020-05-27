@@ -1,0 +1,91 @@
+﻿@model SFB.Web.UI.Models.BenchmarkCriteriaVM
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "overwrite-strategy";
+}
+
+@section BackButtonContent{
+    @{
+        if (ViewBag.HomeSchoolId != null)
+        {
+            ViewBag.HomeSchoolId = ViewBag.URN;
+            Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        }
+        else
+        {
+            Html.RenderPartial("Partials/BackToHomeLink");
+        }
+    }
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There are errors on this page that require attention.
+        </h1>
+        <ul class="error-summary-list">
+            <li>
+                <a href="#radio-1">@Model.ErrorMessage</a>
+            </li>
+        </ul>
+    </div>
+}
+
+<h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
+
+<p>
+    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. You can replace them or retain them alongside those matching the characteristics you've just selected.
+</p>
+
+<form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "form-group-error")">
+
+        <fieldset>
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <span class="error-message">@Model.ErrorMessage</span>
+            }
+            <legend class="visually-hidden">Overwrite strategy</legend>
+            <div class="multiple-choice">
+                <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite" checked="checked">
+                <label class="selection-button-radio" for="radio-1">
+                    Replace current basket
+                </label>
+            </div>
+
+            <div class="multiple-choice">
+                <input id="radio-2" type="radio" name="overwriteStrategy" value="add">
+                <label class="selection-button-radio" for="radio-2">
+                    Add to existing basket
+                </label>
+            </div>
+
+        </fieldset>
+    </div>
+    <div class="grid-row">
+        <div class="column-half">
+            <div class="column-one-third next-button">
+                <button type="submit" class="button">Continue</button>
+            </div>
+            <div class="column-one-third back-button">
+                <input type="submit" class="link-button" formaction="/BenchmarkCriteria/AdvancedCharacteristics" value="Back">
+            </div>
+        </div>
+    </div>
+
+    <div id="criteria">
+
+        @Html.Partial("Partials/AdvancedCriteriaHiddenFields", Model.AdvancedCriteria)
+
+        <input type="hidden" name="Urn" value="@ViewBag.URN">
+        <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
+        <input type="hidden" name="EstType" value="@ViewBag.EstType">
+        <input type="hidden" name="AreaType" value="@ViewBag.AreaType">
+        <input type="hidden" name="LaCode" value="@ViewBag.LaCode">
+        <input type="hidden" name="ExcludePartial" value="@ViewBag.ExcludePartial">
+
+    </div>
+</form>

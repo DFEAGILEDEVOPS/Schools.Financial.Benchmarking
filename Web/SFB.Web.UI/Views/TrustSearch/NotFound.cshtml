@@ -1,0 +1,60 @@
+﻿@model SFB.Web.UI.Models.SchoolNotFoundViewModel
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "search-results";
+}
+
+@section BMListBannerContent{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<div class="grid-row">
+    <div class="column-full">
+        <section>
+            <p class="result-info">
+                @if (System.Linq.Enumerable.FirstOrDefault(Model.Suggestions.Matches) != null)
+                {
+                    <h1 class="heading-xlarge">
+                        We found no exact matches for "@Model.SearchKey"
+                    </h1>
+                <p>
+                    Did you mean one of the options below?
+                </p>
+            }
+            else
+            {
+                <h1 class="heading-xlarge">
+                    We found no matches for "@Model.SearchKey"
+                </h1>
+            }
+                </p>
+            </section>
+            <section>
+
+                <ul class="disambiguation-list">
+                    @foreach (var sugg in Model.Suggestions.Matches)
+                    {
+                        <li>
+                            <a href="/trust/index?companyNo=@sugg.Id">@sugg.Text</a>
+                        </li>
+                    }
+
+                </ul>
+            </section>
+            <section>
+                <p class="result-info">
+                    <span>You can </span>
+                    <a href="/">try searching again</a>
+                    <span>using a different spelling.</span>
+                </p>
+                <p class="result-info">
+                    Please note that this site only lets you search for trusts in England.
+                </p>
+            </section>
+        </div>
+    </div>
+

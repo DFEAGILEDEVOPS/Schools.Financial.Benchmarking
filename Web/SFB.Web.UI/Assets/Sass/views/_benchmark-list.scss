@@ -1,0 +1,119 @@
+﻿.benchmark-list {
+
+   .button.view-benchmark {
+        margin-bottom: 0;
+        float: right;
+    }
+
+    .edit-basket {
+    }
+
+    .benchmarkControlPanel {
+        @include core-16;
+        padding-bottom: 15px;
+    }
+
+    .benchmarkControls {
+        margin-left: 20px;
+        margin-right: 20px;
+        text-decoration: none;
+    }
+
+    li.document {
+        border-top: solid 1px $border-colour;
+        padding: $gutter-half 0;
+    }
+
+    .metadata {
+        margin: 0;
+
+        li {
+            @include core-14;
+            margin-left: 0;
+            padding: 0;
+        }
+    }
+
+    .document .remove-benchmark {
+        .button {
+            float: right;
+        }
+
+        .button.removefrom {
+            @include grey-button;
+            margin-right: 0;
+        }
+    }
+
+    .document .make-benchmark {
+        height: 75px;
+
+        @include media(mobile) {
+            height: 25px;
+        }
+
+        button {
+            @include media(mobile) {
+                float: left;
+            }
+        }
+    }
+
+    .document .default-benchmark button {
+        float: right;
+
+        @include media(mobile) {
+            float: left;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+    }
+
+    .document .highlight {
+        background-color: $pink_contrast;
+        display: inline;
+
+        a {
+            color: white;
+            padding: 8px;
+            line-height: 1.8em;
+        }
+    }
+
+    .document .highlight-warning {
+        background-color: $orange;
+        display: inline;
+
+        a {
+            color: white;
+            padding: 8px;
+            line-height: 1.8em;
+        }
+    }
+
+    .basket-control-buttons {
+        display: inline-block;
+
+        @include media(mobile) {
+            display: block;
+            margin-left: -20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .view-button-bottom {
+        border-top: solid 1px #bfc1c3;
+        padding: 15px 0;
+    }
+
+    .help-icon {
+        position: relative;
+        left: 2px;
+
+        @include media(mobile) {
+            top: 1px;
+            left: 0;
+        }
+    }
+}

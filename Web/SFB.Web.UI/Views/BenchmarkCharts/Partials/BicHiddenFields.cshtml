@@ -1,0 +1,38 @@
+﻿@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+@if (Model != null && Model.BicCriteria != null)
+{
+<form id="advancedCriteria" method="post" action="~/BenchmarkCriteria/BestInClassCharacteristics">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="bicCriteria.EstablishmentType" value="@Model.BicCriteria.EstablishmentType.ToString()" />
+    <input type="hidden" name="bicCriteria.OverallPhase" value="@Model.BicCriteria.OverallPhase" />
+    <input type="hidden" name="bicCriteria.UrbanRural" value="@Model.BicCriteria.UrbanRural" />
+    <input type="hidden" name="bicCriteria.Ks2ProgressScoreMax" value="@Model.BicCriteria.Ks2ProgressScoreMax" />
+    <input type="hidden" name="bicCriteria.Ks2ProgressScoreMin" value="@Model.BicCriteria.Ks2ProgressScoreMin" />
+    <input type="hidden" name="bicCriteria.Ks4ProgressScoreMax" value="@Model.BicCriteria.Ks4ProgressScoreMax" />
+    <input type="hidden" name="bicCriteria.Ks4ProgressScoreMin" value="@Model.BicCriteria.Ks4ProgressScoreMin" />
+    <input type="hidden" name="bicCriteria.NoPupilsMax" value="@Model.BicCriteria.NoPupilsMax" />
+    <input type="hidden" name="bicCriteria.NoPupilsMin" value="@Model.BicCriteria.NoPupilsMin" />
+    <input type="hidden" name="bicCriteria.PercentageFSMMax" value="@Model.BicCriteria.PercentageFSMMax" />
+    <input type="hidden" name="bicCriteria.PercentageFSMMin" value="@Model.BicCriteria.PercentageFSMMin" />
+    <input type="hidden" name="bicCriteria.PercentageSENMax" value="@Model.BicCriteria.PercentageSENMax" />
+    <input type="hidden" name="bicCriteria.PercentageSENMin" value="@Model.BicCriteria.PercentageSENMin" />
+    <input type="hidden" name="bicCriteria.PerPupilExpMin" value="@Model.BicCriteria.PerPupilExpMin" />
+    <input type="hidden" name="bicCriteria.PerPupilExpMax" value="@Model.BicCriteria.PerPupilExpMax" />
+    <input type="hidden" name="bicCriteria.UREnabled" value="@Model.BicCriteria.UREnabled.ToString()" />
+    <input type="hidden" name="bicCriteria.SENEnabled" value="@Model.BicCriteria.SENEnabled.ToString()" />
+    <input type="hidden" name="bicCriteria.RRPerIncomeMin" value="@Model.BicCriteria.RRPerIncomeMin" />
+
+    @if (Model.BicCriteria.LondonWeighting != null)
+    {
+        for (int i = 0; i < Model.BicCriteria.LondonWeighting.Length; i++)
+        {
+            @Html.HiddenFor(model => Model.BicCriteria.LondonWeighting[i])
+        }
+    }
+
+    <input type="hidden" name="Urn" value="@Model.URN">
+
+</form>
+}
+

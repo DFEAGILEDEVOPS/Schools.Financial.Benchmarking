@@ -1,0 +1,56 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+<nav class="tabs" role="navigation">
+    <ol role="tablist">
+        <li id="@TabType.Expenditure" class="hide-in-print active" role="tab">
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Expenditure')">@TabNames.EXPENDITURE <span class="bmtab visually-hidden"> selected</span></a>
+        </li>
+        <li id="@TabType.Income" class="hide-in-print" role="tab">
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Income')">@TabNames.INCOME <span class="bmtab visually-hidden"></span></a>
+        </li>
+        <li id="@TabType.Balance" class="hide-in-print" role="tab">
+            <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Balance')">@TabNames.BALANCE <span class="bmtab visually-hidden"></span></a>
+        </li>
+        @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
+        {
+            <li id="@TabType.Workforce" class="hide-in-print" role="tab">
+                <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Workforce')">@TabNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>
+            </li>
+        }
+        @if (Model.EstablishmentType != EstablishmentType.MAT)
+        {
+            @*<li id="@TabType.Salary" class="hide-in-print" role="tab">
+                <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Salary')">@TabNames.SALARY <span class="bmtab visually-hidden"></span></a>
+            </li>*@
+            <li id="@TabType.Custom" class="hide-in-print" role="tab">
+                @*<span class="visually-hidden">@TabNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
+                <a class="tab-link" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Custom')">
+                    <span>@TabNames.CUSTOM<br /><span style="display: inline-block"> (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span></span>
+                    <span class="bmtab visually-hidden">tab</span>
+                </a>
+                @*<a class="helpLink hide-in-print" href="#" id="renderYourChartsInfo" onclick="DfE.Util.ModalRenderer.RenderYourChartsInfoModal()">
+                    <img src="/public/assets/images/help-icon.png" alt="Your charts - more information" />
+                </a>*@
+            </li>
+
+            if (Model.ComparisonType == ComparisonType.BestInClass)
+            {
+                <li id="BestInClass" class="comparison-tab hide-in-print" role="tab">
+                    <a class="tab-link comp tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
+                </li>
+            }
+            else
+            {
+                <li id="ComparisonSchools" class="comparison-tab hide-in-print" role="tab">
+                    <a class="tab-link tab-vertical-align" onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('ComparisonSchools')">Comparison schools</a>
+                </li>
+            }
+        }
+
+    </ol>
+</nav>
+<span role="status" class="visually-hidden">{{ctrl.totalSelectCount()}} selected in Your Charts</span>

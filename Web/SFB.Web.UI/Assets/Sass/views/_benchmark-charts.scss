@@ -1,0 +1,820 @@
+﻿.benchmarking-charts {
+
+    @include highlighting;
+
+    .c3-text {
+        fill: $black !important;
+    }
+
+    .england-average-bar {
+        fill: $grey-2 !important;
+    }
+
+    .england-average-tick {
+        font-weight: bold;
+    }
+
+    .highlight-field {
+        background-color: $pink_contrast;
+        color: white;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-weight: bold;
+    }
+
+    .table-highlight {
+        display: inline;
+        color: white;
+        padding: 6px 8px 6px 8px;
+        line-height: 1.8em;
+        font-weight: bold;
+
+        @include media(mobile) {
+            padding: 4px 6px;
+        }
+
+        &.index-highlight {
+            background-color: $pink_contrast;
+        }
+
+        &.incompleteFinance-highlight, &.incompleteWorkforce-highlight {
+            background-color: $orange;
+        }
+    }
+
+    .charts-section {
+
+        .chart-container {
+            /*&.index-0 {
+                margin-top: 0.5em;
+            }*/
+
+            .chart-header {
+                margin-top: 1.5em;
+
+                .help-chart {
+                    margin-left: -25px;
+                    margin-right: 25px
+                }
+            }
+
+            h2 {
+                margin-top: 1em;
+            }
+
+            h2.inline {
+                display: inline;
+                margin-right: 25px;
+            }
+
+            a.inline, button.inline {
+                display: inline;
+                white-space: nowrap;
+
+                @include media(mobile) {
+                    display: block;
+                    margin-left: 0;
+                    margin-bottom: 5px;
+                }
+            }
+
+            .accordion-section-header h2 {
+                margin-top: 0;
+            }
+
+            &.column-full {
+                @include media(mobile) {
+                    padding: 0;
+                }
+            }
+        }
+
+        .chart-container:first-of-type {
+            margin-bottom: 15px !important;
+        }
+
+        .chart {
+            //margin-top: 20px;
+            margin-bottom: 20px;
+
+            .c3-axis-x g.tick text tspan {
+                fill: #005ea5;
+                cursor: pointer;
+            }
+
+            @include media(mobile) {
+                margin-top: 0;
+            }
+        }
+
+        .accordion-controls {
+            display: none;
+        }
+    }
+
+    .criteria-details {
+        .accordion-controls {
+            display: block;
+        }
+    }
+
+    .chart-accordion-header {
+        display: inline;
+    }
+
+    .chart-border {
+        border-top: solid 5px;
+        border-color: $govuk-blue;
+        padding-top: 15px;
+    }
+
+    .criteria-details {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        table {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        li {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+    }
+
+    .panel.criteria-detail {
+        @include media(mobile) {
+            border: none;
+            padding: 0;
+        }
+    }
+
+    .download {
+        img {
+            vertical-align: middle;
+        }
+
+        margin-top: 10px;
+    }
+
+    .not-bold {
+        font-weight: normal;
+    }
+
+    .selection-filters {
+        padding-top: 20px;
+
+        .form-control {
+            @include media(tablet) {
+                width: 80%;
+            }
+        }
+    }
+
+    .selection-controls {
+        padding-top: 30px;
+
+        .clear-link {
+            padding-top: 8px;
+
+            @include media(desktop) {
+                padding-left: 0;
+            }
+
+            @include media(mobile) {
+                padding-left: 0;
+                padding-top: 10px;
+            }
+
+            cursor: pointer;
+            color: $link-colour;
+        }
+    }
+
+    .selections {
+        padding-top: 60px;
+    }
+
+    details.selection-details {
+        padding-top: 10px;
+
+        @include media(desktop) {
+            border-bottom: 2px solid $grey-2;
+        }
+
+        &.hide-borders {
+            padding-top: 0;
+            border-bottom: none;
+        }
+    }
+
+    .search-results {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .chart-selection {
+        padding-top: 5px;
+        padding-bottom: 50px;
+        clear: left;
+
+        @include media(desktop) {
+
+            .multiple-choice-header {
+                display: inline;
+                float: left;
+            }
+
+            .multiple-choices {
+                display: inline;
+                float: left;
+            }
+
+            .multiple-choice {
+                display: inline;
+                float: none;
+                padding: 0;
+                left: 6px;
+                top: -1px;
+
+                [type=checkbox] + label::before {
+                    content: "";
+                    border: 2px solid;
+                    background: transparent;
+                    width: 25px;
+                    height: 25px;
+                    position: relative;
+                    top: -4px;
+                    left: 15px;
+                    float: left;
+                }
+
+                [type=checkbox] + label::after {
+                    float: left;
+                    position: relative;
+                    left: -10px;
+                    top: 2px;
+                }
+
+                label {
+                    font-size: 16px;
+                    padding: 0;
+                    padding-top: 10px;
+                }
+            }
+        }
+
+        hr.tablet-divider {
+            clear: left;
+
+            @include media(desktop) {
+                display: none;
+            }
+        }
+
+        .add-remove-links {
+            margin-top: 1.5em;
+
+            a {
+                @include core-16;
+                float: right
+            }
+
+            &.table {
+                margin-top: 0;
+            }
+        }
+    }
+
+    summary.hide-summary {
+        display: none;
+    }
+
+    div.show-details {
+        display: block;
+    }
+
+    .customAdd, .customRemove {
+        /*@include media(tablet) {
+            float: right;
+        }*/
+    }
+
+    .save-as-image {
+        @include media(tablet) {
+            float: right;
+        }
+    }
+
+    .customActions {
+        padding-left: 0;
+
+        a {
+            text-decoration: none;
+        }
+
+        @include media(tablet) {
+            margin-top: 1.5em;
+
+            a {
+                padding-left: 10px;
+            }
+            /*div {
+                float: right;
+            }*/
+        }
+
+        @media (max-width: 769px) {
+            //padding-bottom: 15px;
+            display: inline-block;
+            width: 100%;
+            margin-top: 0;
+
+            div, a {
+                width: 100%;
+                //float: left;
+                padding-left: 0;
+            }
+        }
+    }
+
+    .print img.icon, .download img.icon, .pdf img.icon, .save img.icon {
+        width: 24px;
+        height: 24px;
+        padding-right: 5px;
+    }
+
+    .download-link {
+        float: left;
+        margin-right: 32px;
+        padding-top: 1em;
+
+        a, span {
+            color: black;
+        }
+
+        @include media(mobile) {
+            width: 100%;
+            padding: 0;
+        }
+    }
+
+    table.bmc-rollover-table {
+        background-color: $page-colour;
+
+        td, th {
+            @include core-16;
+            border: 1px solid $grey-2;
+            padding: 8px;
+
+            &.bold {
+                font-weight: bold;
+            }
+        }
+
+        th {
+            background-color: $grey-3;
+
+            &.highlighted {
+                background-color: $pink-contrast;
+                font-weight: bold;
+                color: white;
+            }
+        }
+    }
+
+    .include-context-table {
+        padding-top: 25px;
+    }
+
+    nav.tabs ol {
+        @include media-down(tablet) {
+            justify-content: flex-start;
+        }
+
+        li {
+
+            @include media(desktop) {
+                max-width: 110px;
+
+                a, button, a span {
+                    font-size: 14px;
+                }
+            }
+
+            @media (min-width: 920px) {
+                max-width: 140px;
+
+                a, button, a span {
+                    font-size: 16px;
+                }
+            }
+
+            @include media-down(tablet) {
+                flex-basis: 32%;
+                width: 32%;
+            }
+
+            @include media(mobile) {
+                flex-basis: 47%;
+                width: 47%;
+            }
+
+            height: 55px;
+
+            button, a {
+                height: $tabheight + 15;
+                padding-right: 15px;
+                padding-left: 15px;
+
+                @include media(desktop) {
+                    display: table-cell;
+                    vertical-align: middle;
+                    text-align: center;
+                }
+            }
+
+            &.active {
+                button, a {
+                    @include media-down(tablet) {
+                        border: none;
+                    }
+
+                    @include media(desktop) {
+                        height: $tabheight + 20;
+                    }
+                }
+            }
+
+            &.comparison-tab {
+                background-color: $govuk-blue;
+
+                @include media(desktop) {
+                    float: right;
+                    margin-left: auto;
+
+                    &.active {
+                        a {
+                            color: $text-colour;
+                        }
+                    }
+                }
+
+                a {
+                    color: $page-colour;
+                }
+            }
+        }
+    }
+
+    nav.tabs ol li a.helpLink {
+        border: none;
+        text-decoration: unset;
+        height: auto;
+        -moz-box-sizing: unset;
+        -webkit-box-sizing: unset;
+        box-sizing: unset;
+        padding: inherit;
+        white-space: unset;
+        display: inline;
+        position: relative;
+        right: 25px;
+        top: 10px;
+        float: right;
+
+        @include media(mobile) {
+            top: -30px;
+        }
+    }
+
+    nav.tabs ol li a.custom, nav.tabs ol li button.custom {
+        display: inline-block;
+        padding-right: 30px
+    }
+
+    nav.tabs ol li.active a.custom, nav.tabs ol li.active button.custom {
+        padding-right: 45px;
+
+        @include media(tablet) {
+            padding-right: 40px;
+        }
+    }
+
+    .custom-report .chart-container {
+        padding-top: 20px;
+
+        hr {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .help-image {
+        vertical-align: top;
+    }
+
+    .chart-scores-header {
+        display: none;
+        font-size: 1.4rem;
+        padding: 0;
+        line-height: 1.4rem;
+        max-width: 75px;
+        top: 20px;
+        position: relative;
+
+        @include media(mobile) {
+            top: 0
+        }
+    }
+
+    .one-click-charts .accordion {
+        border: none;
+    }
+
+    nav.tabs ol li, nav.tabs ol li a {
+
+        &.tab-vertical-align {
+            margin-top: 9px;
+
+            @include media(desktop) {
+                margin-top: 0;
+            }
+        }
+
+        @include media(mobile) {
+            height: 50px;
+        }
+    }
+
+    .tab-link {
+        color: $link-colour;
+
+        @include media(mobile) {
+            font-size: 14px;
+        }
+    }
+
+    .custom-action-mobile {
+        @include media(mobile) {
+            width: unset !important;
+            display: inline;
+            float: left;
+            margin-right: 15px;
+        }
+    }
+
+    .ex-icon {
+        fill: none;
+        stroke: #FFFFFF !important;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+
+        &:hover {
+            cursor: pointer
+        }
+    }
+
+    .ex-icon-circle {
+        &:hover {
+            cursor: pointer
+        }
+    }
+
+    .ks2-help {
+        display: inline-block;
+
+        @include media(mobile) {
+            display: block;
+        }
+    }
+
+    .dfs-panel {
+        @include media(desktop) {
+            margin-bottom: 0;
+        }
+
+        @include media(mobile) {
+            margin-top: 0;
+        }
+    }
+
+
+    .one-click-charts {
+        .dfs-panel {
+            @include media(mobile) {
+                margin-top: 0.8em;
+            }
+        }
+    }
+
+    .sticky-chart-controls, .sticky-custom-controls {
+        margin: 0;
+        background-color: $page-colour;
+        border-bottom: 1px solid $border-colour;
+
+        .form-group {
+            margin-bottom: 0;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+
+        .chart-filter {
+            height: 75px;
+        }
+
+        &.Salary {
+            display:none;
+        }
+
+        @include media(tablet) {
+            height: 93px;
+
+            .chart-filter:first-of-type {
+                padding-left: 0;
+            }
+
+            .chart-filter:last-of-type {
+                padding-right: 0;
+            }
+
+            .form-group {
+                padding-bottom: 20px;
+            }
+        }
+    }
+
+    .bic-chart-wrapper {
+        margin-top: 10px;
+    }
+
+    .chart-wrapper {
+
+        @include media(tablet) {
+            max-width: 708px;
+        }
+
+        @include media(desktop) {
+            max-width: 960px;
+        }
+    }
+
+    .chart-table-wrapper {
+        padding: 0 15px;
+    }
+
+    .chart-table--mobile-only-view {
+        display: none;
+
+        @include media(mobile) {
+            display: table;
+        }
+    }
+
+    .chart-table--mobile-above-view {
+        display: none;
+
+        @include media(tablet) {
+            display: table;
+        }
+    }
+
+    table.chart-table--detail-view.chart-table--mobile-only-view {
+        tbody tr td {
+            text-align: left;
+        }
+    }
+
+    .chart-table--detail-view {
+        margin-top: 5px;
+    }
+
+    .chart-table--detail-view__body {
+        border-top: 1px double black;
+        border-bottom: 1px double black;
+
+        .col-header {
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    }
+}
+
+.score {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: .6em;
+    line-height: 14px;
+    margin: 0 0 0 1em;
+
+    @include media(mobile){
+        margin: 0;
+    }
+
+    &.well-below {
+        background-color: #df3034;
+        color: #fff;
+    }
+
+    &.below {
+        background-color: #f47738;
+        color: #fff;
+    }
+
+    &.average {
+        background-color: #ffbf47;
+    }
+
+    &.above {
+        background-color: #85994b;
+        color: #fff;
+    }
+
+    &.well-above {
+        background-color: #006435;
+        color: #fff;
+    }
+
+    &.na {
+        background-color: $panel-colour;
+        min-height: 34px;
+        @include media(mobile){
+            min-height: unset;
+        }
+
+        div {
+            padding-top: 8%;
+        }
+    }
+}
+
+.modal__score {
+    display: inline-block;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 18%;
+    margin-left: 0.6em;
+
+    .score {
+        font-size: 1.4rem;
+        padding: 1em 0.3em;
+        margin: 0.5em 0;
+    }
+}
+
+.modal__score:first-of-type {
+    margin-left: 0;
+}
+
+.chart-table__score {
+    font-size: 1.4rem;
+    padding: .4em .2em;
+    line-height: 1.4rem;
+    margin: 0;
+    width: 50%;
+    float: right;
+}
+
+.chart__score {
+    font-size: 1.4rem;
+    padding: .21em .2em;
+    line-height: 1.4rem;
+    margin-right: 0;
+    margin-left: 0;
+    display: block;
+    float: none;
+
+    @include media(mobile) {
+        font-size: 1.2rem;
+        padding: 0.09em .2em;
+        line-height: 2.7rem;
+        margin: 0.23em 0;
+    }
+}
+
+table.comp-school-table {
+    tbody tr td, thead tr th {
+        text-align: left;
+    }
+}
+
+th.comp-school-table {
+    &__ks-col {
+        max-width: 110px;
+        text-align: center!important;
+    }
+
+    &__phase-col {
+        max-width: 100px;
+    }
+}
+
+.chart-table__score__text, .chart__score__text {
+    vertical-align: sub;
+}

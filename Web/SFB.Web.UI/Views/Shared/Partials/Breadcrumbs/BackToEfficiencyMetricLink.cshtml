@@ -1,0 +1,31 @@
+﻿<div id="backLink" class="hide-in-print">
+        <div class="breadcrumb-item">
+            <a class="home-link" href="/">Home</a>
+            <span class="forward-chevron font-medium" aria-hidden="true">&#155;</span>
+        </div>
+        <div class="breadcrumb-item">
+            <a class="home-link" href="../../school/detail?urn=@ViewBag.HomeSchoolId" aria-label="Back to @ViewBag.HomeSchoolName">
+                <span class="back-link">@ViewBag.HomeSchoolName</span>
+            </a>
+            <span class="forward-chevron font-medium" aria-hidden="true">&#155;</span>
+        </div>
+        <div class="breadcrumb-item">
+            <a class="home-link" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@ViewBag.HomeSchoolId/@ViewBag.HomeSchoolName" aria-label="Introduction to the efficiency metric">
+                <span class="back-link">Introduction to the efficiency metric</span>
+            </a>
+            <span class="forward-chevron font-medium" aria-hidden="true">&#155;</span>
+
+        </div>
+        <div class="breadcrumb-item">
+            <a class="home-link" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/metric/@ViewBag.HomeSchoolId" aria-label="Efficiency metric ranking">
+                <span class="back-link">Efficiency metric ranking</span>
+            </a>
+            <span class="forward-chevron font-medium" aria-hidden="true">&#155;</span>
+        </div>
+        <div class="breadcrumb-item">
+            <a class="home-link" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/comparison-type/@ViewBag.HomeSchoolId/@ViewBag.HomeSchoolName" aria-label="Select comparison type">
+                <span class="back-link">Select comparison type</span>
+            </a>
+        </div>
+</div>
+

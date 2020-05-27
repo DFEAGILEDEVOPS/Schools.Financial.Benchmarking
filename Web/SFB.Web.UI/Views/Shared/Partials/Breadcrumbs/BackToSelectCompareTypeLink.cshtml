@@ -1,0 +1,19 @@
+﻿<div id="backLink" class="hide-in-print">
+    <div>
+        <div class="breadcrumb-item">
+            <a class="home-link" href="/">Home</a>
+            <span class="forward-chevron font-medium" aria-hidden="true">&#155;</span>
+        </div>
+        <div class="breadcrumb-item">
+            <a class="home-link" href="../../school/detail?urn=@ViewBag.HomeSchoolId" aria-label="Back to @ViewBag.HomeSchoolName" style="text-decoration: none">
+                <span class="back-link" style="text-decoration: underline">@ViewBag.HomeSchoolName</span>
+                <span class="forward-chevron font-medium" aria-hidden="true">&#155;</span>
+            </a>
+        </div>
+        <div class="breadcrumb-item">
+            <a class="home-link" href="../../BenchmarkCriteria/ComparisonStrategy?urn=@ViewBag.HomeSchoolId" aria-label="Back to Select Compare Type step">
+                <span class="back-link">Select compare type</span>
+            </a>
+        </div>
+    </div>
+</div>

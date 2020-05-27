@@ -1,0 +1,78 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+<p id="criteriaExp">
+    This comparison generates a group of statistically similar schools using the following characteristics and progress data.
+</p>
+<table id="criteriaTable">
+    <thead>
+        <tr>
+            <th scope="col">Characteristic</th>
+            <th scope="col">Default school value</th>
+            <th scope="col">Comparison criteria</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>School type</td>
+            @if (Model.BenchmarkSchoolData.EstabType == EstablishmentType.Academies)
+            {
+                <td>Academy</td>
+            }
+            else
+            {
+                <td>Maintained</td>
+            }
+            <td>@Model.SearchedEstablishmentType</td>
+        </tr>
+        <tr>
+            <td>School overall phase</td>
+            <td>@Model.BenchmarkSchoolData.SchoolOverallPhase</td>
+            <td>@Model.AdvancedCriteria.SchoolOverallPhase.FirstOrDefault()</td>
+        </tr>
+        <tr>
+            <td>Number of pupils</td>
+            <td>@Model.BenchmarkSchoolData.PupilCount</td>
+            <td>@Math.Ceiling((decimal)Model.AdvancedCriteria.MinNoPupil) - @Math.Floor((decimal)Model.AdvancedCriteria.MaxNoPupil)</td>
+        </tr>
+        <tr>
+            <td>Eligibility for free school meals</td>
+            <td>@decimal.Round(Model.BenchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+            <td>@decimal.Round(Model.AdvancedCriteria.MinPerFSM.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPerFSM.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+        </tr>
+
+        <tr>
+            <td>Expenditure per pupil</td>
+            <td>@Model.BenchmarkSchoolData.PerPupilTotalExpenditure.GetValueOrDefault().ToString("C")</td>
+            <td>@Model.AdvancedCriteria.MinPerPupilExp.GetValueOrDefault().ToString("C") - @Model.AdvancedCriteria.MaxPerPupilExp.GetValueOrDefault().ToString("C")</td>
+        </tr>
+
+        @if (Model.AdvancedCriteria.MinPerSEN.HasValue)
+        {
+            <tr>
+                <td>Pupils with <abbr title="Special Education Needs" aria-label="">SEN</abbr> who have statements or <abbr title="Education, health and care" aria-label="">EHC</abbr> plans</td>
+                <td>@decimal.Round(Model.BenchmarkSchoolData.PercentageOfPupilsWithSen.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td>@decimal.Round(Model.AdvancedCriteria.MinPerSEN.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPerSEN.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+            </tr>
+        }
+
+        @if (Model.AdvancedCriteria.UrbanRural != null)
+        {
+            <tr>
+                <td>Urban / rural location</td>
+                <td>@Model.BenchmarkSchoolData.UrbanRural</td>
+                <td>@string.Join(", ", Model.AdvancedCriteria.UrbanRural.ToArray())</td>
+            </tr>
+        }
+
+        @if (Model.AdvancedCriteria.LondonWeighting != null)
+        {
+            <tr>
+                <td>London Weighting</td>
+                <td>@Model.BenchmarkSchoolData.LondonWeighting</td>
+                <td>@string.Join(", ", Model.AdvancedCriteria.LondonWeighting.ToArray())</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

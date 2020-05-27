@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "search-results";
+}
+
+@section BMListBannerContent{
+    @Html.Partial("Partials/BenchmarkListBanner")    
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<h1 class="heading-xlarge page-heading">No schools found</h1>
+
+<div>
+    <p class="result-info">
+        We found no matches for the school name or number you provided.
+    </p>
+    <p>
+        <a href="/">Try searching again</a>
+        
+        <span>using different spelling or words</span>
+    </p>
+</div>

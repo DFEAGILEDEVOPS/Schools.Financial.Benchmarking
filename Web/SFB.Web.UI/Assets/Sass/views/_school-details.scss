@@ -1,0 +1,356 @@
+﻿.school-detail {
+    .metadata-school-detail {
+        overflow: hidden;
+
+        &__dl {
+            margin-bottom: 7px;
+        }
+
+        &__dt {
+            min-width: 150px;
+            display: block;
+            float: left;
+            clear: left;
+            padding-right: 15px;
+            text-align: right;
+            padding-bottom: 15px;
+
+            @include media(mobile) {
+                text-align: left;
+                min-width: unset;
+                width: 100px;
+            }
+        }
+
+        &__dd {
+            display: block;
+            float: left;
+            text-align: left;
+            padding-right: 5px;
+            padding-bottom: 3px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-bottom: 15px;
+
+            @include media(mobile) {
+                max-width: 165px;
+            }
+
+            @include media(tablet) {
+                max-width: 165px;
+            }
+
+            @include media(desktop) {
+                max-width: 250px;
+            }
+        }
+
+        a {
+            font-weight: initial;
+        }
+
+        .seperator {
+            top: 1px;
+            position: relative;
+        }
+    }
+
+    .compare-buttons-panel {
+        a.button {
+            font-size: 16px;
+
+            @include media(desktop) {
+                font-size: 19px;
+            }
+        }
+
+        &__column-full {
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        &__button--removefrom, &__button--addto, &__button--em {
+            @include grey-button;
+
+            @include media(mobile) {
+                margin-top: 10px;
+                margin-left: 0;
+            }
+
+            margin-left: 1em;
+        }
+
+        &__button--auto {
+            margin-left: 30px;
+
+            @include media(mobile) {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .chart-wrapper__inner {
+        @include media(mobile) {
+            padding: 0;
+        }
+    }
+
+    .charts-section {
+        &__chart-container {
+            &__chart-header {
+                margin-top: 1.5em;
+
+                &__h2 {
+                    @include bold-24();
+                    margin-top: 1em;
+                    margin-bottom: em(10, 20);
+
+                    @include media(tablet) {
+                        margin-top: em(45, 24);
+                        margin-bottom: em(20, 24);
+                    }
+
+                    &--inline {
+                        display: inline;
+                    }
+                }
+
+                &__a--inline {
+                    display: inline;
+                    margin-left: 25px;
+                    @include core-16;
+
+                    @include media(mobile) {
+                        display: block;
+                        margin-left: 0;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+
+            &__chart-header-show-value {
+                padding-top: 5px;
+            }
+
+            &__accordion-section-header__h2 {
+                margin-top: 0;
+            }
+
+            &__lastYearBalance {
+                @include core-36;
+                border-top: 1px solid $border-colour;
+                color: $turquoise;
+                padding-top: 12px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .chart {
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        .c3-line-amount {
+            stroke-width: 4px;
+            color: $turquoise;
+        }
+
+        .c3-axis-y path {
+            display: none;
+        }
+
+        .c3-axis-x {
+            path {
+                stroke-width: 2px;
+                stroke: $border-colour;
+            }
+        }
+    }
+
+    .school-location-map {
+        width: 100%;
+        height: 300px;
+    }
+
+    summary.map {
+        @include media(tablet) {
+            display: none;
+        }
+    }
+
+    .panel.map {
+        border: none;
+        padding: 0;
+    }
+
+    .column-quarter.mobile {
+        @media(min-width: 1000px) {
+            display: none;
+        }
+
+        @media(max-width: 1000px) {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .column-quarter.desktop {
+        @media(max-width: 1000px) {
+            display: none;
+        }
+
+        @media(min-width: 1000px) {
+            display: block;
+        }
+    }
+
+    .heading-medium {
+        abbr, .money {
+            font-size: 48px;
+            margin-bottom: 3px;
+            margin-top: 10px;
+        }
+    }
+
+    .revenue-box {
+        h2 {
+            margin-bottom: 5px;
+        }
+    }
+
+    .summary-year {
+        margin-top: 5px;
+    }
+
+    .chart-border {
+        border-top: solid 5px;
+        border-color: $govuk-blue;
+        padding-top: 15px;
+    }
+
+    .chart-accordion-header {
+        display: inline;
+    }
+
+    .accordion-controls {
+        display: none;
+    }
+
+    .ofsted-divider {
+        display: none;
+
+        @include media(desktop) {
+            display: inline;
+            padding: 4px;
+        }
+    }
+
+    .returns-incomplete {
+        .compare-buttons-panel--set-unset, .compare-buttons-panel__button--addto, .compare-buttons-panel__button--compare, .compare-buttons-panel--auto {
+            display: none !important;
+        }
+    }
+
+    .img-button {
+        display: inline-block;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+
+        img.icon {
+            vertical-align: middle;
+            padding: 5px;
+        }
+    }
+
+    .print img.icon, .download img.icon {
+        width: 24px;
+        height: 24px;
+        padding-right: 5px;
+    }
+
+    .post-map-content {
+        margin-bottom: 15px;
+    }
+
+    .sticky-chart-controls {
+        margin-top: 10px;
+        background-color: $page-colour;
+        border-bottom: 1px solid $border-colour;
+
+        .form-group {
+            margin-bottom: 0;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+
+        .chart-filter {
+            height: 75px;
+        }
+
+        @include media(tablet) {
+            height: 93px;
+
+            .chart-filter:first-of-type {
+                padding-left: 0;
+            }
+
+            .chart-filter:last-of-type {
+                padding-right: 0;
+            }
+
+            .form-group {
+                padding-bottom: 20px;
+            }
+        }
+    }
+
+    #historical-charts-accordion {
+        border: none;
+    }
+
+    .view-charts-tables {
+        margin-bottom: 0;
+    }
+
+    nav.tabs ol {
+        @include media-down(tablet) {
+            justify-content: flex-start;
+
+            li {
+
+                @include media-down(tablet) {
+                    flex-basis: 32%;
+                    width: 32%;
+                }
+
+                @include media(mobile) {
+                    flex-basis: 47%;
+                    width: 47%;
+                }
+            }
+        }
+    }
+
+    .column-quarter.balance-wrapper-mobile--inactive {
+        @include media(mobile) {
+            display: none;
+        }
+    }
+
+    .column-quarter.balance-wrapper-mobile--active {
+        @include media(mobile) {
+            display: block;
+        }
+    }
+
+    .analytics-links {
+        border-top: 2px solid $govuk-blue;
+        margin-top: 36px;
+
+        @include media(mobile) {
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+    }
+}

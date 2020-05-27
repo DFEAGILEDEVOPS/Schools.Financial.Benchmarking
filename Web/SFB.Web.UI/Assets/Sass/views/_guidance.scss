@@ -1,0 +1,23 @@
+﻿.guidance {
+    list-style-type: inherit;
+    //padding-left: 20px;
+    margin-bottom: 15px;
+
+    &__list {
+        list-style-type: none;
+        padding-left: 0;
+        line-height: 1em;
+
+        &__item {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+    }
+}
+
+.text {
+    @include media(tablet) {
+        margin-top: -25px;
+    }
+}

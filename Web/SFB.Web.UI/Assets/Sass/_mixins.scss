@@ -1,0 +1,44 @@
+﻿@mixin highlighting {
+    .highlight {
+        background-color: $pink_contrast;
+        display: inline;
+        padding: 5px 5px;
+
+        span {
+            color: white;
+            line-height: 1.8em;
+        }
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+                color: white;
+            }
+        }
+
+        @include media(mobile) {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+@mixin grey-button {
+    background-color: $grey-2;
+    color: $black;
+    -webkit-box-shadow: 0 2px 0 #7d8185;
+    box-shadow: 0 2px 0 #7d8185;
+}
+
+@mixin a-button {
+    background: none;
+    border: none;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    padding-left: 0;
+    padding-right: 0;
+    @include core-16;
+    font-weight: bold;
+}

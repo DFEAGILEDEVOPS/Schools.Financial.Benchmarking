@@ -1,0 +1,76 @@
+﻿.add-schools-manually {
+
+    @include highlighting;
+
+    .clear-bottom {
+        padding-left: 0;
+        margin-top: 10px;
+    }
+
+    .school-element {
+        margin: 20px 0;
+    }
+
+
+    .twitter-typeahead {
+        width: 100%;
+        display: inline !important;
+
+        @include media(mobile) {
+            width: 80%;
+        }
+
+        .form-control {
+            margin-bottom: -2px;
+        }
+    }
+
+    .tt-menu {
+        width: 100%;
+        background-color: white;
+        z-index: 99 !important; // accessibility requirement
+        .tt-suggestion {
+            a {
+                display: block;
+                padding: $gutter-one-quarter;
+                text-decoration: none;
+            }
+
+            a strong {
+                text-decoration: underline;
+            }
+
+            &:hover, a:hover {
+                background-color: $link-hover-colour;
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        .tt-cursor {
+            background-color: #f9f9f9;
+        }
+    }
+
+    #NewSchoolName {
+        vertical-align: baseline !important;
+    }
+
+    .control-buttons {
+        margin-top: 35px;
+    }
+
+    .search-types {
+        margin-bottom: 30px;
+    }
+
+    .error-message label {
+        border: none;
+        display: block;
+    }
+
+    .form-control.error {
+        -moz-box-shadow: none;
+        border: 4px solid #b10e1e;
+    }
+}

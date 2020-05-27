@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "guidance";
+    ViewBag.pageDescription =
+        "Find out how to use the schools financial benchmarking site.";
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+
+<div class="grid-row">
+
+    <div class="column-one-third contents">
+        <h3 class="heading-small">Contents</h3>
+        <ul class="list font-xsmall">
+            <li><a href="#question-one">How do I view financial data for a school or trust?</a></li>
+            <li><a href="#question-nine">Where can I get information about a school’s staffing structure?</a></li>
+            <li><a href="#question-two">What does having a default school do?</a></li>
+            <li><a href="#question-three">How do I compare a single school with others?</a></li>
+            <li><a href="#question-four">How do I compare a group of schools?</a></li>
+            <li><a href="#question-five">How do I choose characteristics?</a></li>
+            <li><a href="#question-thirteen">How does the comparison with high-performing schools work?</a></li>
+            <li><a href="#question-eleven">How do I find out more about the schools that appear on the benchmark charts page?</a></li>
+            <li><a href="#question-ten">Can I save charts so I can return to them or show them to others?</a></li>
+            <li><a href="#question-twelve">How do I compare a group of trusts?</a></li>
+            <li><a href="#question-six">Gaps in the data</a></li>
+            <li><a href="#question-seven">Interpreting the data</a></li>
+            <li><a href="#question-eight">Which types of schools can I get data for?</a></li>
+        </ul>
+    </div>
+    <div class="column-two-thirds text" id="helpContent">
+        <h1 class="heading-xlarge page-heading">Help using this site</h1>
+
+        <a id="question-one"></a>
+        <h2 class="heading-medium">How do I view financial data for a school or trust?</h2>
+        <p>
+            You can search for a school or trust on the homepage by name, location, local authority or unique reference number.
+
+            Once you’ve made your selection, you’ll be taken to a summary page showing income and expenditure in different areas.
+
+            There’s a range of financial data, which you can access using the dropdown menu beneath the appropriate tab.
+        </p>
+        <p>
+            If you want to download a CSV file with a full range of data, click the link next to ‘Download data URL’.
+        </p>
+
+        <a id="question-nine"></a>
+        <h2 class="heading-medium">Where can I get information about a school’s staffing structure?</h2>
+
+        This sits within the workforce tab on the school summary page. To find out what the different charts show, click on the ‘More info’ link beneath the chart heading.
+
+        You can alter the year covered and the values shown using the dropdowns beneath the tabs.
+
+        <a id="question-two"></a>
+        <h2 class="heading-medium">What does having a default school do?</h2>
+
+        If you choose to have a default school, this means the school’s data will be highlighted in any comparison charts you generate. You can set your default school on the school summary page by clicking ‘Set as default school’.
+
+        <a id="question-three"></a>
+        <h2 class="heading-medium">How do I compare a single school with others?</h2>
+
+        <p>There are two ways to do this:</p>
+
+        <ul class="list list-bullet">
+            <li>you can build a benchmark basket that includes a default school</li>
+            <li>you can go to a school summary page and select ‘Compare with other schools’</li>
+        </ul>
+
+        <a id="question-four"></a>
+        <h2 class="heading-medium">How do I compare a group of schools?</h2>
+
+        You can also compare a group of schools without using a single school as your starting point. To do this, go to the homepage and select the appropriate option under, 'Search by area'. When you get to a results page, you can filter your search by using the check boxes on the left of the screen, You can also add specific schools to your benchmarking basket by clicking on the individual ‘Add’ buttons next to each listed school. If you want to add all schools, then use the ‘Add all to basket’ button. You can view the benchmarking charts of your selected schools by selecting the green button at the top of the page.
+
+        <a id="question-five"></a>
+        <h2 class="heading-medium">How do I choose characteristics?</h2>
+
+        <p>If you use the ‘Compare with other schools’ feature, you have three options for choosing characteristics. You can:</p>
+        <p>
+            <ul class="list list-bullet">
+                <li>do a quick comparison using pre-selected characteristics</li>
+                <li>do a detailed comparison using criteria you choose</li>
+                <li>compare your school with the most efficient similar schools</li>
+            </ul>
+        </p>
+
+        <p>If you do a detailed comparison, you choose the characteristics you’re interested in using the tick boxes.</p>
+
+        <p>You’ll be given information about the school you’re comparing with, which should help if you’re asked to specify a range. It's important to choose parameters that don't generate a huge number of results.</p>
+
+        <p> There’s a counter at the top of the page that will show you how many schools match the criteria you’ve chosen.</p>
+
+        <p> Once you’ve added all the characteristics you want, click ‘Continue to benchmarking charts’.</p>
+
+        <p> If the number of schools found is greater than 30, you’ll be asked to refine the characteristics to reduce the size of the set. You can do this by narrowing the parameters used or selecting additional characteristics.</p>
+
+        <p> If you decide to do a quick comparison, the system can automatically reduce large sets of results.</p>
+
+        <a id="question-thirteen"></a>
+        <h2 class="heading-medium">How does the comparison with high-performing schools work?</h2>
+
+        This allows you to compare your school with the 15 most efficient similar schools, as identified by the Department's <a rel="external noopener noreferrer" target="_blank" href="https://www.gov.uk/government/publications/schools-financial-efficiency-metric-tool">school efficiency metric<span class="visuallyhidden"> Opens in a new window</span></a> tool. <p>These are statistically similar in terms of the proportion of pupils:</p>
+        <ul class="list list-bullet">
+            <li>who have been eligible for free school meals in the last 6 years</li>
+            <li>with a statement of special educational needs, or an education, health and care (EHC) plan</li>
+        </ul>
+        <p>The efficiency metric is calculated based on pupil attainment and the money a school receives for its pupils. It is just one indication of efficiency.</p>
+
+        <a id="question-ten"></a>
+
+        <h2 class="heading-medium">Can I save charts so I can return to them or show them to others?</h2>
+
+        Yes. From the benchmarking charts page, select the charts you want to save using either ‘Save as image’ or ‘Add to your charts’. To see your saved charts, go to the ‘Your charts’ tab. You can filter these results by name and add more by selecting further tick boxes. Once you view your selected charts, you can print a report from the top of the page.
+
+        <a id="question-twelve"></a>
+
+        <h2 class="heading-medium">How do I compare a group of trusts?</h2>
+
+        On the homepage, search for the name of the trust you’d like to benchmark. Once you get to the trust summary page, select ‘Compare with other trusts’. You can then choose whether to enter the names of trusts manually, or to generate a benchmark group of similar trusts by selecting characteristics you’re interested in. If you choose to use characteristics, you’ll need to enter values in the relevant fields to refine the size of the benchmark set. You can only view charts once the set has 20 or fewer trusts.
+
+        <a id="question-eleven"></a>
+
+        <h2 class="heading-medium">How do I find out more about the schools that appear on the benchmark charts page?</h2>
+
+        <p>If you hover over individual charts, you’ll see a pop-up giving information about the type of school, number of pupils, and the local authority the school belongs to.</p>
+
+        <a id="question-six"></a>
+
+        <h2 class="heading-medium">Gaps in the data</h2>
+
+        <p>You might find gaps in the data you view. This could be because:</p>
+
+        <ul class="list list-bullet">
+            <li>Data has been suppressed to protect privacy, or</li>
+            <li>data has not been returned by a school, or</li>
+            <li>data is not available because some metrics have been introduced recently. For example, Progress 8 and Attainment 8 data is only available from 2015 onward.</li>
+        </ul>
+
+        <a id="question-seven"></a>
+        <h2 class="heading-medium">Interpreting the data</h2>
+
+        <p>
+            You should take care when interpreting the data. It shows the position of a school relative to others; it doesn’t explain why this is. There may be good reasons for a school to have high or low figures. What’s important is that those involved in budget setting review the differences, and consider the reasons for them.
+
+            To find out more about understanding the data, see our <a href="~/Help/InterpretingCharts">guidance on interpreting the charts</a>.
+        </p>
+
+        <p>You might also like to look at the <a href="https://www.gov.uk/school-performance-tables" target="_blank" rel="external noopener noreferrer" class="font19-ext-link">school performance tables<span class="visuallyhidden"> Opens in a new window</span></a> site.</p>
+
+        <a id="question-eight"></a>
+        <h2 class="heading-medium">Which types of schools can I get data for?</h2>
+
+        The data on the site is for maintained schools and academies in England. It’s based on schools’ Consistent Financial Reporting (CFR) returns and academies’ accounting returns. You can also get data for multi-academy trusts (MATs).
+    </div>
+</div>

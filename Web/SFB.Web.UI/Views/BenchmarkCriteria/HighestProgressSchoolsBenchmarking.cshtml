@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "comparison-strategy";
+}
+
+<h1 class="heading-xlarge page-heading">How highest progress schools benchmarking works</h1>
+
+<div class="grid-row">
+    <div class="column-three-quarters float-to-right">
+        <h2 class="heading-medium">What you'll see on the benchmark pages</h2>
+        <p>
+            This comparison displays schools that are similar in terms of phase, size and number of pupils eligible for Free School Meals (FSM). These schools are achieving good pupil progress with similar or lower levels of per pupil expenditure.
+        </p>
+
+        <p>
+            This comparison will help you to identify the similar schools that are achieving the highest pupil progress. By comparing your school’s category spending with these schools, you should be able to identify potential areas for change. We also recommend that you contact one or more of these similar schools to determine what more can be learned about how they allocate resource in order to have a greater impact on pupil progress.
+        </p>
+    </div>
+    <div class="column-quarter">
+        <img class="mt-header w-100" src="~/public/assets/images/scores.png" alt="" />
+    </div>
+</div>
+
+<div class="grid-row">
+    <div class="column-three-quarters float-to-right">
+        <h2 class="heading-medium">Methodology</h2>
+        <p>The benchmarking tool algorithm looks for a group of 50 schools which are similar to the school in question based on:</p>
+        <ul class="list list-bullet pl-2">
+            <li><span class="bold">Phase </span><span>(e.g. primary, secondary etc)</span></li>
+            <li><span class="bold">Location </span><span>(schools in London and grouped together, schools outside of London are grouped together)</span></li>
+            <li><span class="bold">Number of pupils </span><span>(includes schools with pupil numbers 30 +20% higher and lower than the school in question)</span></li>
+            <li><span class="bold">Percentage of pupils eligible for FSM </span><span>(includes schools with FSM pupil percentages 3 + 10% higher and lower than the school in question)</span></li>
+            <li><span class="bold">Per pupil expenditure </span><span>(includes schools with similar or lower per pupil funding)</span></li>
+        </ul>
+        <p>
+            If less than 50 schools are found, the number of pupils, percentage of FSM pupils and per pupil expenditure fields are widened until 50 schools are available.
+        </p>
+        <p>
+            The schools with the highest per pupil scores are then returned in the comparison tables.
+        </p>
+    </div>
+    <div class="column-quarter">
+        <img class="mt-header w-100" src="~/public/assets/images/scores2.png" alt="" />
+    </div>
+</div>
+
+<div class="grid-row">
+    <div class="column-three-quarters  float-to-right">
+        <h2 class="heading-medium">Refine the search</h2>
+
+        <p>
+            If you believe that the schools returned in your comparison group are as similar to your school as you would like, you can view and change the range of the characteristics chosen. You can also perform a detailed comparison to select from a wide range of comparators to identify those schools that are similar in the characteristics which are most important to you.
+        </p>
+    </div>
+    <div class="column-quarter">
+        <img class="mt-header w-100" src="~/public/assets/images/scores3.png" alt="" />
+    </div>
+</div>
+
+<div class="grid-row mt-2">
+    <div class="column-three-quarters">
+        <div class="column-two-thirds next-button">
+            <a class="button" href="~/BenchmarkCharts/GenerateFromBicCriteria?Urn=@ViewBag.URN">Continue to higher progress school benchmark</a>
+        </div>
+        <div class="column-one-quarter bic-back-button no-padding">
+            <a href="~/BenchmarkCriteria/ComparisonStrategy?urn=@ViewBag.URN">Back</a>
+        </div>
+    </div>
+</div>

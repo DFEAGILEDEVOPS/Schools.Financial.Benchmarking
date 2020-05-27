@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "datasources";
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<div class="grid-row">
+    <div class="column-one-third contents">
+        <h3 class="heading-small">Contents</h3>
+        <ul class="list font-xsmall">
+            <li><a href="#question-one">Financial returns</a></li>
+            <li><a href="#question-three">Performance tables</a></li>
+            <li><a href="#question-four">Workforce census</a></li>
+            <li><a href="#question-five">Ofsted data</a></li>
+            <li><a href="#question-six">Special educational needs data</a></li>
+            <li><a href="#question-seven">School contextual information</a></li>
+        </ul>
+    </div>
+    <div class="column-two-thirds text" id="helpContent">
+        <h1 class="heading-xlarge page-heading">Data sources</h1>
+
+        <a id="question-one"></a>
+        <h2 class="heading-medium">Financial returns</h2>
+        <p>
+            This is based on schools’ Consistent Financial Reporting (CFR) returns for LA maintained schools and academies’ accounting returns (AARs).
+            
+            <h3 class="heading-small">LA Maintained Schools</h3>
+            <ul>
+                <li><a target="_blank" rel="external noopener noreferrer" class="font19-ext-link" href="https://sat1prsfb.blob.core.windows.net/sfb/School_total_spend_2018-19_Full_Data_Workbook.xlsx">CFR 2018-19<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+                <li><a target="_blank" rel="external noopener noreferrer" class="font19-ext-link" href="https://sat1prsfb.blob.core.windows.net/sfb/School_total_spend_2017-18_Full_Data_Workbook.xlsx">CFR 2017-18<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+                <li><a target="_blank" rel="external noopener noreferrer" class="font19-ext-link" href="https://sat1prsfb.blob.core.windows.net/sfb/School_total_spend_2016-17_Full_Data_Workbook.xlsx">CFR 2016-17<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+                <li><a target="_blank" rel="external noopener noreferrer" class="font19-ext-link" href="https://sat1prsfb.blob.core.windows.net/sfb/School_Total_Spend_2015-16_Full_Data_Workbook.xlsx">CFR 2015-16<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+                <li><a target="_blank" rel="external noopener noreferrer" class="font19-ext-link" href="https://sat1prsfb.blob.core.windows.net/sfb/School_Total_Spend_2014-15_Full_Data_Workbook.xlsx">CFR 2014-15<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+            </ul>
+            
+            <h3 class="heading-small">Academies</h3>
+            <ul>
+                <li><a target="_blank" rel="external noopener noreferrer" class="font19-ext-link sfb_gtm_csv_aar" href="https://sat1prsfb.blob.core.windows.net/sfb/SFB_Academies_2018-19_download.xlsx">AAR 2018/19<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+                <li><a target="_blank" rel="external noopener noreferrer" class="font19-ext-link sfb_gtm_csv_aar" href="https://sat1prsfb.blob.core.windows.net/sfb/SFB_Academies_2017-18_download.xlsx">AAR 2017/18<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+                <li><a target="_blank" rel="external noopener noreferrer" class="font19-ext-link sfb_gtm_csv_aar" href="https://sat1prsfb.blob.core.windows.net/sfb/SFB_Academies_2016-17_download.xlsx">AAR 2016/17<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+                <li><a target="_blank" rel="external noopener noreferrer" href="https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/633149/SFR32_2017_Main_Tables.xlsx">AAR 2015/16<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+                <li><a target="_blank" rel="external noopener noreferrer" href="https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/541057/SFR27_2016_Main_Tables.xlsx">AAR 2014/15<span class="visually-hidden"> link will open an Excel spreadsheet</span></a></li>
+            </ul>
+            
+        </p>
+      
+        <a id="question-three"></a>
+        <h2 class="heading-medium">Performance tables</h2>
+        <p>
+            This comes from <a target="_blank" rel="external noopener noreferrer" class="font19-ext-link" href="https://www.gov.uk/school-performance-tables">school performance tables<span class="visuallyhidden"> Opens in a new window</span></a>. The period covered matches the submissions for financial returns.
+        </p>
+
+        <a id="question-four"></a>
+        <h2 class="heading-medium">Workforce census</h2>
+        <p>
+            This comes from the <a rel="external noopener noreferrer" class="font19-ext-link" target="_blank" href="https://www.gov.uk/government/collections/statistics-school-workforce">school workforce census<span class="visuallyhidden"> Opens in a new window</span></a>. The period covered matches the submissions for financial returns.
+        </p>
+        
+        <a id="question-five"></a>
+        <h2 class="heading-medium">Ofsted data</h2>
+        <p>
+            This comes from <a rel="external noopener noreferrer" class="font19-ext-link" target="_blank" href="https://www.gov.uk/government/statistical-data-sets/monthly-management-information-ofsteds-school-inspections-outcomes">Ofsted school inspections<span class="visuallyhidden"> Opens in a new window</span></a>. Ratings reflect those received when financial data was uploaded.
+        </p>
+        
+        <a id="question-six"></a>
+        <h2 class="heading-medium">Special educational needs data</h2>
+        <p>
+            This comes from <a target="_blank" rel="external noopener noreferrer" class="font19-ext-link" href="https://www.gov.uk/government/collections/statistics-special-educational-needs-sen">special educational needs statistics<span class="visuallyhidden"> Opens in a new window</span></a>.
+        </p>
+        
+        <a id="question-seven"></a>
+        <h2 class="heading-large">School contextual information</h2>
+        <p>
+            This comes from the <a target="_blank" rel="external noopener noreferrer" class="font19-ext-link" href="https://www.get-information-schools.service.gov.uk/">Get Information About Schools<span class="visuallyhidden"> Opens in a new window</span></a> site.
+        </p>
+    </div>
+</div>

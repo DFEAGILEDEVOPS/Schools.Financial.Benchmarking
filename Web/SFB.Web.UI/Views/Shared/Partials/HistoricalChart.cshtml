@@ -1,0 +1,130 @@
+﻿@using SFB.Web.UI.Helpers
+@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.ApplicationCore.Helpers.Enums
+
+@model SFB.Web.UI.Models.ChartViewModel
+
+@if (!string.IsNullOrEmpty(Model.MoreInfo))
+{
+    <details class="mt-1">
+        <summary class="hide-in-print">
+            <span class="summary font-xsmall">More info</span>
+        </summary>
+        <div class="panel panel-border-narrow">
+            @Html.Raw(Model.MoreInfo)
+        </div>
+    </details>
+}
+<div class="grid-row">
+    <div class="column-full no-padding">
+        <div class="balance-wrapper-mobile column-quarter mobile">
+            <div>
+                <span class="bold">@ViewBag.FinancialYear</span>
+            </div>
+            <div class="charts-section__chart-container__lastYearBalance">
+                @if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure ||
+                    Model.ShowValue == UnitType.PercentageOfTotalIncome ||
+                    Model.ShowValue == UnitType.FTERatioToTotalFTE)
+                {
+                    @Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("0.#") + "%")
+                }
+                else if (Model.ShowValue == UnitType.AbsoluteCount ||
+                         Model.ShowValue == UnitType.NoOfPupilsPerMeasure ||
+                         Model.ShowValue == UnitType.HeadcountPerFTE)
+                {
+                    @Html.Raw(Model.LastYearBalance.GetValueOrDefault())
+                }
+                else
+                {
+                    if (Model.LastYearBalance >= 10000)
+                    {
+                        <abbr class="summary" title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")" aria-label="@Model.LastYearBalance.GetValueOrDefault().ToString("N0") pounds">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                    }
+                    else if (Model.LastYearBalance <= -10000)
+                    {
+                        <abbr class="summary" title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")" aria-label="minus @Math.Abs(Model.LastYearBalance.GetValueOrDefault()).ToString("N0") pounds">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                    }
+                    else if (Model.LastYearBalance < 0)
+                    {
+                        <span aria-label="minus @Html.Raw(Math.Abs(Model.LastYearBalance.GetValueOrDefault()).ToString("C0"))">@Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("C0"))</span>
+                    }
+                    else
+                    {
+                        <span>@Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("C0"))</span>
+                    }
+                }
+            </div>
+        </div>
+        <div class="chart-wrapper" style="padding-right: 15px; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
+            <div class="chart-wrapper__inner column-three-quarters">
+                <div id="chart_@Model.Id" class="chart" data-axis-label="@Model.ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model.DataJson'></div>
+            </div>
+            <div class="column-quarter desktop">
+                <div>
+                    <span class="bold">@ViewBag.FinancialYear</span>
+                </div>
+                <div class="charts-section__chart-container__lastYearBalance">
+                    @if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure ||
+                        Model.ShowValue == UnitType.PercentageOfTotalIncome ||
+                         Model.ShowValue == UnitType.FTERatioToTotalFTE)
+                    {
+                        @Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("0.#") + "%")
+                    }
+                    else if (Model.ShowValue == UnitType.AbsoluteCount ||
+                             Model.ShowValue == UnitType.NoOfPupilsPerMeasure ||
+                             Model.ShowValue == UnitType.HeadcountPerFTE)
+                    {
+                        @Html.Raw(Model.LastYearBalance.GetValueOrDefault())
+                    }
+                    else
+                    {
+                        if (Model.LastYearBalance >= 10000)
+                        {
+                            <abbr class="summary" title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")" aria-label="@Model.LastYearBalance.GetValueOrDefault().ToString("N0") pounds">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                        }
+                        else if (Model.LastYearBalance <= -10000)
+                        {
+                            <abbr class="summary" title="@Model.LastYearBalance.GetValueOrDefault().ToString("C0")" aria-label="minus @Math.Abs(Model.LastYearBalance.GetValueOrDefault()).ToString("N0") pounds">@Model.LastYearBalance.GetValueOrDefault().FormatMoney()</abbr>
+                        }
+                        else if (Model.LastYearBalance < 0)
+                        {
+                            <span aria-label="minus @Html.Raw(Math.Abs(Model.LastYearBalance.GetValueOrDefault()).ToString("C0"))">@Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("C0"))</span>
+                        }
+                        else
+                        {
+                            <span>@Html.Raw(Model.LastYearBalance.GetValueOrDefault().ToString("C0"))</span>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div id="table_for_chart_@Model.Id" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
+            <div class="column-full">
+                @Html.Partial("Partials/ChartTable", Model.HistoricalData)
+            </div>
+        </div>
+    </div>
+</div>
+
+@helper ChartLabelForCentralFinance()
+{
+    if (ViewBag.EstablishmentType == EstablishmentType.MAT)
+    {
+        if (ViewBag.Financing != null)
+        {
+            var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.Financing.ToString());
+            <text>(@matFinance.GetDescription())</text>
+        }
+    }
+    else
+    {
+        if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+        {
+            if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSAT && ViewBag.Financing != null)
+            {
+                var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                <text>(@centralFinance.GetDescription())</text>
+            }
+        }
+    }
+}

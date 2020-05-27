@@ -1,0 +1,184 @@
+// Path to assets for use with the file-url function
+// in the govuk frontend toolkit's url-helpers partial
+$path: "/public/assets/images/";
+
+@import "govuk-elements";
+
+
+// Colours
+@import "styleguide/colours";
+
+// vars
+@import "variables";
+
+// mixins
+@import "mixins";
+
+// utils
+@import "utils/conditionals";
+@import "utils/vendor-prefixes";
+@import "utils/clearfix-me";
+@import "utils/whitespace";
+@import "utils/border-radius";
+@import "utils/toggles";
+@import "utils/buttons";
+@import "utils/accordion";
+
+// prototype spacers
+@include whitespace((5px,10px,15px,20px), 4);
+
+// Helpers
+@import "elements/helpers";
+
+// Base
+// ==========================================================================
+
+
+// Layout
+@import "elements/footer";
+
+// Links
+@import "elements/links";
+
+// Boxes
+@import "elements/related-box";
+@import "elements/box/box";
+
+// Tabs
+@import "elements/_tabs";
+
+// Help icon
+@import "elements/_helpicon";
+@import "elements/_excicon";
+
+// Components
+// ==========================================================================
+
+// Forms
+@import "elements/forms/form-questions";
+
+@import "elements/forms/filter-form/text-filter";
+@import "elements/forms/filter-form/option-select";
+
+@import "elements/forms/feedback/feedback";
+
+// Collapsibles
+@import "elements/collapsible/collapsible";
+
+// Browse
+@import "elements/browse";
+
+// Rating
+@import "elements/rating/rating";
+
+// Pagination
+@import "elements/pagination";
+
+@import "elements/phase-banner";                  // Alpha and beta banners and tags
+
+@import "cookiesBanner";
+
+// Views
+// ==========================================================================
+@import "views/base";
+@import "views/search-results";
+@import "views/user-access";
+@import "views/dashboard";
+@import "views/detailed-report";
+@import "views/summary-report";
+@import "views/benchmark-list";
+@import "views/schools-search-page";
+@import "views/school-details";
+@import "views/sponsor-detail";
+@import "views/benchmark-charts";
+@import "views/school-characteristics";
+@import "views/advanced-school-characteristics";
+@import "views/comparison-strategy";
+@import "views/comparison-step-one";
+@import "views/comparison-step-two";
+@import "views/comparison-basket-size";
+@import "views/simple-characteristics";
+@import "views/overwrite-strategy";
+@import "views/guidance";
+@import "views/cookies-page";
+@import "views/cookies-settings";
+@import "views/trust-comparison";
+@import "views/bic-characteristics";
+@import "views/add-schools-manually";
+@import "views/data-queries";
+@import "views/manual-comparison";
+
+
+// ==========================================================================
+// Elements page styles
+// ==========================================================================
+
+// These are example styles, used only for the elements pages
+
+.elements-index {
+    // Reduce top and bottom margins
+    .heading-medium {
+        margin: 1em 0 0 0;
+    }
+    // Add spacing above
+    .divider {
+        margin-top: 4em;
+    }
+}
+
+.outdent-navigation {
+    @include media(tablet) {
+        margin-left: -25%;
+    }
+}
+
+// Increase spacing above headings
+.heading-xlarge {
+    @include media(tablet) {
+        margin-top: em(60, 48);
+        margin-bottom: em(30, 48);
+    }
+}
+
+// Page contents
+.heading-contents {
+    margin-top: 3em;
+}
+
+.list-contents li {
+    @include core-16;
+}
+
+// Use for paragraphs before lists
+.lead-in {
+    margin-bottom: 0;
+}
+
+// Lists
+.list-bullet {
+    margin-bottom: ($gutter*1.5);
+}
+
+.list-underline {
+    border-top: 1px solid #bfc1c3;
+}
+
+.list-underline li {
+    border-bottom: 1px solid #bfc1c3;
+    padding: 2px 0 3px 0;
+}
+
+.list-underline a {
+    text-decoration: none;
+}
+
+.no-top-margin {
+    margin-top: 0;
+}
+
+
+@include media(tablet) {
+     .aside {
+        margin: 0 -15px;
+    }
+}

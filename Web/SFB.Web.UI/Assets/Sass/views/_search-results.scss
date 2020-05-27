@@ -1,0 +1,320 @@
+.search-results {
+
+    @include highlighting;
+
+    .manual-button {
+        @include media(tablet) {
+            margin-bottom: 50px;
+
+            &__button {
+                float: right;
+            }
+        }
+    }
+
+    .schools-in {
+        margin-bottom: 1.5em;
+    }
+
+    .back-to-manual-compare {
+        @include media(tablet) {
+            float: right;
+        }
+    }
+
+    .filter-box {
+        float: none;
+    }
+
+    .school-document {
+        border-bottom: solid 1px $border-colour;
+        padding: $gutter-half 0;
+
+        .grid-row {
+            margin-right: 0;
+        }
+        /*&:first-child {
+            padding-top: 0;
+            margin-top: -2px;
+        }*/
+    }
+
+    .school-document__add-to-compare-button--add-remove-desktop {
+        @include media(tablet) {
+            display: block;
+        }
+
+        @include media(mobile) {
+            display: none;
+        }
+    }
+
+    .school-document__add-to-compare-button--add-remove-mobile {
+        @include media(mobile) {
+            display: block;
+        }
+
+        @include media(tablet) {
+            display: none;
+        }
+    }
+
+    .desktop-button {
+        float: right;
+        top: 40%;
+    }
+
+    .mobile-button {
+        width: 25%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        float: none;
+        top: 0;
+    }
+
+    .metadata {
+        margin: 0;
+
+        li {
+            @include core-14;
+            margin-left: 0;
+            padding: 0;
+        }
+
+        .rating-date {
+            @include core-14;
+            color: $grey-1;
+        }
+    }
+
+    .metadata-school-detail {
+
+        dt, dd {
+            @include core-14;
+            margin-left: 0;
+            padding-bottom: $gutter-one-third;
+
+            @media screen and (max-width: 768px) {
+                font-size: 16px;
+            }
+
+            @include media(desktop) {
+                padding: 0;
+                padding-bottom: $gutter-one-third/2;
+            }
+        }
+
+        dt {
+            float: left;
+            clear: left;
+            width: 40%;
+
+            @include media(tablet) {
+                width: 40%;
+            }
+        }
+
+        dd {
+            float: left;
+            width: 60%;
+
+            @include media(tablet) {
+                width: 60%;
+            }
+        }
+
+        a {
+            &:after, &:hover:after {
+                background-position: right 2px;
+                padding-left: 4px;
+            }
+
+            text-decoration: none;
+        }
+    }
+
+    .button.removefrom, .button.addto {
+        @include grey-button;
+    }
+
+    .add-all-wrapper {
+        margin-bottom: 45px;
+    }
+
+    .add-all {
+        @include grey-button;
+        float: right;
+    }
+
+    div.govuk-option-select.js-collapsible:focus {
+        outline: 3px solid #ffbf47;
+    }
+
+    nav.navigation-links {
+        display: block;
+        font-weight: bold;
+        float: left;
+        padding-top: 5px;
+
+        .olist {
+            list-style-type: none;
+
+            .litem {
+                display: none;
+            }
+
+            .litem.active {
+                list-style-type: none;
+                display: block;
+            }
+
+            .litem a {
+                text-decoration: none;
+            }
+
+            .litem img {
+                vertical-align: middle;
+                padding-bottom: 5px;
+                padding-right: 10px;
+            }
+        }
+
+        @include media(mobile) {
+            float: unset;
+        }
+    }
+
+    div.tabs {
+        > div {
+            display: none;
+        }
+
+        > div.active {
+            display: block;
+        }
+
+        > div.list {
+            padding-top: 10px;
+            border-top: solid 1px #bfc1c3;
+        }
+
+        > div.map {
+            div.form-group {
+                margin-top: 5px;
+
+                p {
+                    display: none;
+                }
+            }
+
+            div.form-group.lower {
+                margin-top: ($gutter / 2) + 5px;
+            }
+
+            div.form-group.upper {
+                margin-bottom: ($gutter / 2) + 5px;
+            }
+        }
+    }
+
+    div.results-map {
+        height: 600px;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+
+        @include media(mobile) {
+            height: 400px;
+        }
+    }
+
+    .infowindow-school-summary {
+        padding: 5px;
+
+        a {
+            font-weight: bold;
+            font-size: 15px;
+            color: $link-colour;
+        }
+
+        p {
+            margin: 0 0 1px 0;
+            font-size: 13px;
+        }
+
+        p.lastinsp {
+            color: #777;
+            font-size: 11.5px;
+        }
+
+        p.rating-text {
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        div.button {
+            background-color: #bfc1c3;
+            color: #0b0c0c;
+            -moz-box-shadow: 0 2px 0 #9aa0a6;
+            -webkit-box-shadow: 0 2px 0 #9aa0a6;
+            box-shadow: 0 2px 0 #9aa0a6;
+            margin-bottom: 5px;
+            margin-top: 5px;
+
+            &:active {
+                top: 0;
+                -moz-transform: translate(0,2px);
+                -ms-transform: translate(0,2px);
+                -o-transform: translate(0,2px);
+                -webkit-transform: translate(0,2px);
+                transform: translate(0,2px);
+            }
+        }
+
+        div.button.add {
+        }
+
+        div.button.remove {
+            background-color: #dee0e2;
+        }
+    }
+
+    .hidden-goto-basket {
+        float: right;
+        clear: right;
+        position: relative;
+        top: 10px;
+        color: $white;
+        cursor: default;
+        font-size: 16px;
+    }
+
+    .count-summary {
+        margin-top: 0;
+    }
+
+    .js-container-head {
+        padding: 0 0 5px 0 !important;
+    }
+
+    .school-table {
+        th {
+            @include bold-16;
+        }
+
+        td {
+            @include core-14;
+        }
+    }
+
+    .hidden-filter {
+        padding: 0;
+        width: 0;
+        display: none;
+    }
+
+    td.phase {
+        text-align: right;
+        padding-right: 30px
+    }
+}

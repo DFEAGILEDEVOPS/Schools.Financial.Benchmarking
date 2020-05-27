@@ -1,0 +1,361 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.ApplicationCore.Helpers.Constants
+@using SFB.Web.UI.Helpers
+@using SFB.Web.UI.Helpers.Enums
+@model List<SFB.Web.UI.Models.ChartViewModel>
+
+<div id="bm-charts-accordion" class="accordion no-border">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="chart-container index-@i column-full no-padding" data-group="@Model[i].ChartGroup">
+            @if (Model[i].ChartType == ChartType.Total || Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
+            {
+                if (Model[i].ShowValue != UnitType.PercentageOfTotalExpenditure || Model[i].ShowValue != UnitType.PercentageOfTotalIncome || !(Model[i].Name == "Total expenditure" || Model[i].Name == "Total income"))
+                {
+            <div>
+                @if (Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
+                {
+                    <div class="column-full no-padding">
+                        <h2 class="heading-medium inline">
+                            <span>
+                                @Model[i].Name
+                            </span>
+                            @if (Model[i].ChartType != ChartType.OneClick || Model[i].FieldName != SchoolTrustFinanceDataFieldNames.TEACHERS_TOTAL)//exception #31821
+                            {
+                                <span class="not-bold">
+                                    @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
+                                </span>
+                            }
+                        </h2>
+                        @if (Model[i].HelpTooltip != null)
+                        {
+                            <span class="help-icon help-chart hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                        <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="column-half no-padding">
+                        @if (Model[i].DrillInto != null)
+                        {
+                            <div class="chart-header">
+                                <h2 class="heading-medium inline">@Model[i].Name</h2>
+                                @if (Model[i].HelpTooltip != null)
+                                {
+                                    <span class="help-icon help-chart hide-in-print">
+                                        <span class="icon dark-blue">
+                                            <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                }
+                                <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto', '@Model[i].TabName.ToLower()')">
+                                    @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                                    {
+                                        <span class="view-more">All @Model[i].Name.Replace("total", "").ToLower() charts</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="view-more">View more tables</span>
+                                    }
+                                    <span class="visuallyhidden"> for @Model[i].Name</span>
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="chart-header">
+                                <h2 class="heading-medium inline">
+                                    @Model[i].Name
+                                </h2>
+                                @if (Model[i].HelpTooltip != null)
+                                {
+                                    <span class="help-icon help-chart hide-in-print">
+                                        <span class="icon dark-blue">
+                                            <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+                @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
+                {
+                    <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].Id" data-sv="@Model[i].ShowValue">
+                        @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                        {
+                            <div class="column-half font-xsmall no-padding custom-action-mobile">
+                                <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                        aria-label="Save image of @Model[i].FieldName">
+                                    <i class="icon icon-save-image">
+                                        <span class="visually-hidden">Save as image</span>
+                                    </i>
+                                    <span>Save as image</span>
+                                </button>
+                            </div>
+                            <div class="column-half font-xsmall no-padding float-to-right your-chart-controls custom-action-mobile">
+                                <div class="float-to-right">
+                                    <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
+                                        <i class="icon icon-bookmark">
+                                            <span class="visually-hidden">Bookmark</span>
+                                        </i>
+                                        <span>Add to your charts</span>
+                                    </button>
+                                    <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
+                                        <i class="icon icon-bookmark">
+                                            <span class="visually-hidden">Bookmark</span>
+                                        </i>
+                                        <span>Remove from your charts</span>
+                                    </button>
+                                    <div style="display:inline">
+                                        <span class="help-icon help-addremove hide-in-print">
+                                            <span class="icon dark-blue">
+                                                <a href="#" class="js-modal" data-modal-title="Add to your charts/remove from your charts" data-modal-text="If you want to download or print a customised report, you can save individual charts in the ‘Your charts’ tab. You can add or remove them by selecting ‘Add to your charts’ or ‘Remove from your charts’. Go to the 'Your charts' tab to see the ones you’ve chosen." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                    <span class="visuallyhidden">Open more info text for Add this chart to 'Your charts' opens a popup</span>
+                                                </a>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
+                                    <button aria-label="View Your Charts" class="a-button" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom')">
+                                        <i class="icon icon-report"></i>
+                                        <span>View your charts</span>
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="column-full font-xsmall no-padding">
+                                <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                        aria-label="Save image of @Model[i].FieldName">
+                                    <i class="icon icon-save-image">
+                                        <span class="visually-hidden">Save as image</span>
+                                    </i>
+                                    <span>Save as image</span>
+                                </button>
+                            </div>
+                        }
+                    </div>
+                }
+
+                @if (Model[i].DealsForSchoolsMessage != null)
+                {
+                <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
+                }
+
+                @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
+                {
+                    <details>
+                        <summary class="hide-in-print">
+                            <span class="summary font-xsmall">More info</span>
+                        </summary>
+                        <div class="panel panel-border-narrow">
+                            @Html.Raw(Model[i].MoreInfo)
+                        </div>
+                    </details>
+                }
+                <div class="grid-row">
+                    <div class="column-full no-padding @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic-chart-wrapper" : "")">
+                        @if (ViewBag.ComparisonType == ComparisonType.BestInClass && ViewBag.ChartFormat == ChartFormat.Charts)
+                        {
+                            <div class="chart-scores-wrapper">
+                                @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
+                                {
+                                    <div class="chart-scores-header" style="max-width: 60px;">
+                                        <span>Progress 8</span>
+                                        <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoChart_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
+                                            <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
+                                        </button>
+                                    </div>
+                                }
+                                else if(ViewBag.BicComparisonOverallPhase == "Primary")
+                                {
+                                    <div class="chart-scores-header">
+                                        <span>KS2 progress</span>
+                                        <button class="helpLink link-button no-padding hide-in-print ks2-help" id="renderKS2InfoChart_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
+                                            <img class="help-image" src="/public/assets/images/help-icon.png" alt="Help">
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
+                            <div id="chart_@i" class="chart" data-chart-title="@Model[i].Name"  data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson' data-img=''></div>
+                        </div>
+                        <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
+                            @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                            {
+                                @Html.Partial("Partials/ChartTable", Model[i])
+                            }
+                            else
+                            {
+                                @Html.Partial("Partials/ChartTableTrust", Model[i])
+                            }
+                        </div>
+
+                    </div>
+                </div>
+                <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)" />
+                <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)" />
+
+                @if (Model[i].TableColumns != null && Model[i].TableColumns.Count > 0)
+                {
+                    @Html.Partial("Partials/DataTable", Model[i])
+                }
+
+            </div>
+                    if (Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
+                    {
+                        <hr />
+                    }
+                }
+            }
+            else
+            {
+                        <div class="accordion-section">
+
+                            <legend class="visually-hidden">@Model[i].Name</legend>
+                            <div class="accordion-section-header">
+                                <h2 class="heading-medium chart-accordion-header" aria-label="@Model[i].Name Select to show section">@Model[i].Name</h2>
+                            </div>
+
+                            <div class="accordion-section-body">
+                                @if (Model[i].DealsForSchoolsMessage != null)
+                                {
+                                    <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
+                                }
+                                @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
+                                {
+                                    <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].Id" data-sv="@Model[i].ShowValue">
+                                        @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                        {
+                                            <div class="your-chart-controls">
+                                                <div class="column-half font-xsmall no-padding custom-action-mobile">
+                                                    <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                                            aria-label="Save image of @Model[i].FieldName">
+                                                        <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
+                                                        <span>Save as image</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="column-half font-xsmall no-padding float-to-right custom-action-mobile">
+                                                    <div class="float-to-right">
+                                                        <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
+                                                            <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                                            <span>Add to your charts</span>
+                                                        </button>
+                                                        <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
+                                                            <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                                            <span>Remove from your charts</span>
+                                                        </button>
+                                                    </div>
+                                                    <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
+                                                        <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom');">
+                                                            <i class="icon icon-report"></i>
+                                                            <span>View your charts</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="column-full font-xsmall no-padding">
+                                                <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
+                                                        aria-label="Save image of @Model[i].FieldName">
+                                                    <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
+                                                    <span>Save as image</span>
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+
+                                @if (Model[i].DataJson != null)
+                                {
+                                    if (!string.IsNullOrEmpty(Model[i].MoreInfo))
+                                    {
+                                        <details>
+                                            <summary class="hide-in-print">
+                                                <span class="summary font-xsmall">More info</span>
+                                            </summary>
+                                            <div class="panel panel-border-narrow">
+                                                @Html.Raw(Model[i].MoreInfo)
+                                            </div>
+                                        </details>
+                                    }
+                                    <div class="grid-row">
+                                        <div class="column-full">
+                                            <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">
+                                                <div id="chart_@i" class="chart" data-chart-title="@Model[i].Name" data-axis-label="@Model[i].ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model[i].DataJson' data-img=''></div>
+                                            </div>
+                                            <div id="table_for_chart_@i" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
+                                                @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
+                                                {
+                                                    @Html.Partial("Partials/ChartTable", Model[i])
+                                                }
+                                                else
+                                                {
+                                                    @Html.Partial("Partials/ChartTableTrust", Model[i])
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <input name="benchmarkSchoolIndex" type="hidden" value="@Model[i].BenchmarkSchoolIndex" />
+                                    <input name="incompleteFinanceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteFinanceDataIndex)" />
+                                    <input name="incompleteWorkforceDataIndex" type="hidden" value="@string.Join(",", Model[i].IncompleteWorkforceDataIndex)" />
+                                }
+                                @if (Model[i].TableColumns != null)
+                                {
+                                    @Html.Partial("Partials/DataTable", Model[i])
+                                }
+                            </div>
+                        </div>
+            }
+        </div>
+    }
+</div>
+
+@helper ChartLabelForCentralFinance()
+{
+    if (ViewBag.EstablishmentType == EstablishmentType.MAT)
+    {
+        if (ViewBag.TrustFinancing != null)
+        {
+            var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.TrustFinancing.ToString());
+            <text>(@matFinance.GetDescription())</text>
+        }
+    }
+    else
+    {
+        if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+        {
+            if (ViewBag.EstablishmentType != EstablishmentType.Maintained && ViewBag.Financing != null)
+            {
+                var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                <text>(@centralFinance.GetDescription())</text>
+            }
+        }
+
+    }
+}
+
+
+@if (Request.IsAjaxRequest() && (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge")))
+{
+    <script src="/public/scripts/termi/element.details.ajax.js"></script>
+}

@@ -1,0 +1,30 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+<div class="column-one-third chart-filter @IsWorkforceTab()">
+    <div class="form-group">
+        <label class="form-label" for="Financing">Central financing</label>
+        <select name="Financing" id="Financing" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('school')">
+            <option value="@CentralFinancingType.Include" @IsFinancingSelected(CentralFinancingType.Include)>@CentralFinancing.INCLUDE</option>
+            <option value="@CentralFinancingType.Exclude" @IsFinancingSelected(CentralFinancingType.Exclude)>@CentralFinancing.EXCLUDE</option>
+        </select>
+    </div>
+</div>
+
+
+@helper IsWorkforceTab()
+{
+    if (ViewBag.Tab == TabType.Workforce)
+    {
+        <text>hidden</text>
+    }
+}
+
+@helper IsFinancingSelected(CentralFinancingType option)
+{
+    if (option == Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString()))
+    {
+        <text>selected</text>
+    }
+}

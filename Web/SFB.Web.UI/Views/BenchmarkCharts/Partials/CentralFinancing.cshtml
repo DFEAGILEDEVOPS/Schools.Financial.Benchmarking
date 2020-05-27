@@ -1,0 +1,30 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+<div class="column-third chart-filter @IsIrrelevantTab()">
+    <div class="form-group">
+        <label class="form-label" for="CentralFinancing">Academy values</label>
+        <select name="CentralFinancing" id="CentralFinancing" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.RebuildCharts()">
+            <option value="@CentralFinancingType.Exclude" @IsSelected(CentralFinancingType.Exclude)>@BMFinancing.EXCLUDE</option>
+            <option value="@CentralFinancingType.Include" @IsSelected(CentralFinancingType.Include)>@BMFinancing.INCLUDE</option>
+        </select>
+    </div>
+</div>
+
+@helper IsIrrelevantTab()
+{
+    if (ViewBag.Tab == TabType.Workforce || ViewBag.Tab == TabType.Salary)
+    {
+        <text>hidden</text>
+    }
+}
+
+@helper IsSelected(CentralFinancingType option)
+{
+    if (option == Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString()))
+    {
+        <text>selected</text>
+    }
+}
+

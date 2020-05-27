@@ -1,0 +1,337 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "benchmarking-charts";
+}
+
+@section InsideHead{
+    <link href="~/node_modules/c3/c3.css" rel="stylesheet" type="text/css">
+    <link href="~/public/assets/print/bmc-print.css" media="print" rel="stylesheet" type="text/css">
+    <script src="~/node_modules/angular/angular.min.js"></script>
+    <script src="~/node_modules/jspdf/dist/jspdf.min.js"></script>
+    <script src="~/node_modules/clipboard/dist/clipboard.min.js"></script>
+    <script src="~/node_modules/pptxgenjs/dist/pptxgen.bundle.js"></script>
+}
+
+@section BMListBannerContent
+{
+    @if (Model.EstablishmentType != EstablishmentType.MAT)
+    {
+        @Html.Partial("Partials/BenchmarkListBanner")
+    }
+}
+
+@section BackButtonContent{
+    @if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
+    {
+        ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
+        ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
+
+        @Html.Partial("Partials/Breadcrumbs/BackToEfficiencyMetricLink")
+    }
+    else if (Model.ComparisonType != ComparisonType.Manual && Model.SchoolComparisonList.HomeSchoolUrn != null)
+    {
+        ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
+        ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
+
+        @Html.Partial("Partials/Breadcrumbs/BackToSelectCompareTypeLink")
+    }
+    else
+    {
+        @Html.Partial("Partials/BackToHomeLink")
+    }
+}
+
+
+<div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
+    <div class="column-full">
+        <span class="back-chevron" aria-hidden="true">&#9666;</span>
+        @*@if (Model.ComparisonType == ComparisonType.BestInClass)
+            {
+                <a class="home-link" href="@Request.Url.AbsolutePath?Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Back to benchmarking charts</a>
+            }
+            else
+            {
+                <button class="link-button font-xsmall home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
+            }*@
+
+        <button class="link-button font-xsmall home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
+    </div>
+</div>
+
+@if (Model.HasIncompleteFinancialData)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper hide-in-print">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            @if (Model.EstablishmentType == EstablishmentType.MAT)
+            {
+                <p>
+                    Some trusts don't have a complete set of financial data for this period
+                </p>
+            }
+            else
+            {
+                <p>
+                    Some schools don't have a complete set of financial data for this period
+                </p>
+            }
+        </div>
+    </div>
+}
+
+@if (Model.ComparisonType == ComparisonType.BestInClass)
+{
+    <h1 id="BCHeader" class="heading-xlarge page-heading">Highest progress schools benchmark</h1>
+}
+else
+{
+    <h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
+}
+
+@if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
+{
+    <div class="panel panel-border-wide orange-warning">
+        <p>
+            There are no schools in your benchmark basket, so no charts can be displayed.
+        </p>
+    </div>
+}
+else
+{
+    if (Model.SchoolComparisonList != null)
+    {
+        if (Model.ComparisonType == ComparisonType.Advanced && Model.SchoolComparisonList.HomeSchoolName.IsEmpty())
+        {
+            <div id="comparing-text" class="font-xsmall">
+                <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+            </div>
+        }
+        else if (Model.BmSchoolInList())
+        {
+            <div class="grid-row">
+                <div class="column-full" id="comparing">
+
+                    @if (Model.ComparisonType == ComparisonType.Advanced)
+                    {
+                        <div id="comparing-text" class="font-xsmall">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to schools</span>
+                            <span class="bold-xsmall"> with characteristics you've chosen. </span>
+                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+                        </div>
+                    }
+                    else if (Model.ComparisonType == ComparisonType.Basic)
+                    {
+                        <div id="comparing-text" class="font-xsmall">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to schools</span>
+                            <span class="bold-xsmall"> matching your chosen characteristics. </span>
+                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+                        </div>
+                    }
+                    else if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
+                    {
+                        <div id="comparing-text" class="font-xsmall">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;using</span>
+                            <span class="bold-xsmall"> efficiency metric characteristics. </span>
+                        </div>
+                    }
+                    else if (Model.ComparisonType == ComparisonType.BestInClass && Model.AdvancedCriteria != null)
+                    {
+                        <div id="comparing-text" class="font-xsmall">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span>&nbsp;to schools</span>
+                            <span class="bold-xsmall"> with the highest progress. </span>
+                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        }
+
+        if ((Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass) && Model.AdvancedCriteria != null)
+        {
+            <div class="grid-row">
+                <div class="column-full">
+                    <details id="criteria-details" class="criteria-details">
+                        <summary class="hide-in-print">
+                            <span class="summary font-xsmall">View characteristics used</span>
+                        </summary>
+                        @if (Model.ComparisonType == ComparisonType.Advanced)
+                        {
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/AdvancedHiddenFields")
+                                @Html.Partial("Partials/UsedAdvancedCriteria")
+                            </div>
+                        }
+                        else if (Model.ComparisonType == ComparisonType.Basic)
+                        {
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/BasicHiddenFields")
+                                @Html.Partial("Partials/UsedBasicCriteria")
+                            </div>
+                        }
+                        else if (Model.ComparisonType == ComparisonType.BestInClass && Model.BicCriteria != null)
+                        {
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @Html.Partial("Partials/BicHiddenFields")
+                                @Html.Partial("Partials/UsedBicCriteria")
+                            </div>
+                        }
+
+                    </details>
+                </div>
+            </div>
+        }
+
+    }
+
+    if (Model.EstablishmentType == EstablishmentType.MAT && Model.TrustComparisonList.Trusts.Any(t => t.CompanyNo == Model.TrustComparisonList.DefaultTrustCompanyNo))
+    {
+        <div class="grid-row">
+            <div class="column-full">
+                <span>Comparing</span>
+                <div class="highlight">
+                    <span class="bold-small">@Model.TrustComparisonList.DefaultTrustName</span>
+                </div>
+                <span>&nbsp;to selected trusts. You can </span>
+                <a href="/TrustComparison?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo&matName=@Model.TrustComparisonList.DefaultTrustName">view or edit these.</a>
+            </div>
+        </div>
+    }
+
+    if (Model.NoResultsForSimpleSearch)
+    {
+        <div class="panel panel-border-wide orange-warning">
+            <p>
+                No similar schools were found. Change the characteristics used or try the
+                <a href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Detailed comparison</a>.
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="download-links hide-in-print grid-row">
+            <div id="downloadLinkContainer" class="download-link">
+                <div class="download">
+                    <a id="DownloadLink" class="no-underline bold-xsmall sfb_gtm_csv_bm" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
+                        <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download data</span>
+                    </a>
+                </div>
+            </div>
+            <div class="download-link pdf-ppt">
+                <div class="pdf">
+                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.RenderDownloadModal(event)">
+                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
+                        @*<img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />*@
+                        <span id="PdfLinkText"> Download page</span>
+                    </button>
+                </div>
+            </div>
+            <div class="download-link">
+                <div class="print">
+                    <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()">
+                        <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
+                    </button>
+                </div>
+            </div>
+            <div class="download-link">
+                <div class="save">
+                    <button id="SaveLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.SaveBenchmarkBasketModal()">
+                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-save-list.png" alt="" />
+                        <span id="SaveLinkText"> Save or share benchmark</span>
+                    </button>
+                    <span class="help-icon no-margin hide-in-print">
+                        <span class="icon dark-blue">
+                            <a href="#" class="js-modal" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                <span class="visuallyhidden">Open more info text for Show Value opens a popup</span>
+                            </a>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div ng-app="reportApp">
+            <div id="listCtrl" ng-controller="ChartListController as ctrl">
+                <div>
+
+                    @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
+                    <div id="tabsSection">
+                        @Html.Partial("Partials/TabContent")
+                    </div>
+                    @if (Model.EstablishmentType != EstablishmentType.MAT)
+                    {
+                        <div id="customTabSection" style="display: none">
+                            @Html.Partial("Partials/CustomTabContent")
+                        </div>
+                        @Html.Partial("Partials/ComparisonSchoolsTabContent")
+                    }
+                    @if (Model.ComparisonType == ComparisonType.BestInClass)
+                    {
+                        @Html.Partial("Partials/BicTabContent")
+                    }
+                </div>
+            </div>
+        </div>
+        <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
+        <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
+        <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />
+        <input type="hidden" id="BicComparisonOverallPhase" name="Type" value="@(Model.BenchmarkSchoolData?.SchoolOverallPhase)" />
+        <input type="hidden" id="HomeSchoolName" name="HomeSchoolName" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustName : Model.SchoolComparisonList.HomeSchoolName)" />
+        <input type="hidden" id="HomeSchoolURN" name="HomeSchoolURN" value="@Html.Raw(Model.EstablishmentType == EstablishmentType.MAT ? Model.TrustComparisonList.DefaultTrustCompanyNo.ToString() : Model.SchoolComparisonList.HomeSchoolUrn)" />
+    }
+}
+
+
+
+@section AfterMain{
+    <div class="full-page-width-wrapper hide-in-print" role="region" aria-label="Feedback Question">
+        <div class="improve-this-page" data-module="improve-this-page">
+            <div class="improve-this-page__prompt js-prompt clearfix" tabindex="-1">
+                <span class="improve-this-page__is-useful-question bold">Are you satisfied with your visit today?</span>
+                <a rel="external noopener noreferrer" target="_blank" title="Feedback form will open in a new page" href="@System.Configuration.ConfigurationManager.AppSettings["BMSurveyUrl"]">Please rate this site</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section ViewScripts {
+
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+    <script src="~/public/scripts/jquery-tablesorter/jquery.tablesorter.min.js"></script>
+    <script src="~/public/scripts/saveSvgAsPng-gh-pages/saveSvgAsPngCombined.min.js"></script>
+    <script src="/Assets/Scripts/AngularJS/reportApp.js"></script>
+
+    <script>
+        DfE.Views.BenchmarkChartsViewModel = new BenchmarkChartsViewModel();
+    </script>
+
+}

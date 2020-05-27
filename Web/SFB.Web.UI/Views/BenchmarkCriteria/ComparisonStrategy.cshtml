@@ -1,0 +1,103 @@
+﻿@using SFB.Web.UI.Helpers.Constants;
+@using SFB.Web.ApplicationCore.Helpers.Constants;
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.SchoolViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "comparison-strategy";
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BreadCrumbs/BackToSchoolLink", Model)
+}
+
+<h1 class="heading-xlarge page-heading">Select comparison type</h1>
+
+@if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
+{
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+            </div>
+        </div>
+    </div>
+}
+
+<section class="section" aria-label="Select comparison type">
+    <form action="/BenchmarkCriteria/StepOne">
+        <div class="form-group">
+            <fieldset>
+                <legend class="hidden">How do you want to compare this school with others?</legend>
+
+                <p>We have some guidance on <a href="/help/guidance#question-five">choosing characteristics</a> if you are unsure which method suits you.</p>
+
+                <div class="multiple-choice">
+                    <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Basic" checked="checked">
+                    <label class="selection-button-radio" for="radio-1">
+                        Quick comparison using pre-selected characteristics (number of pupils, school phase, urban/rural)
+                        <span class="help-icon inline-block hide-in-print">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" data-modal-title="Quick comparison" data-modal-text="@HelpTooltipText.QuickComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
+                                    <span class="visuallyhidden">Open more info text for High progress school comparison opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="multiple-choice">
+                    <input id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
+                    <label class="selection-button-radio" for="radio-2">
+                        Detailed comparison using characteristics you choose
+                    </label>
+                </div>
+
+                <div class="multiple-choice">
+                    <input id="radio-4" type="radio" name="comparisonType" value="@ComparisonType.Manual">
+                    <label class="selection-button-radio" for="radio-4">
+                        Manual comparison by name or location
+                    </label>
+                </div>
+
+                @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
+                {
+                    <p style="clear:left; padding: 0.8em 0 0 0">or</p>
+                    <div class="multiple-choice">
+                        <input id="radio-3" type="radio" name="comparisonType" value="@ComparisonType.BestInClass">
+                        <label class="selection-button-radio" style="padding-right: 0" for="radio-3">
+                            Schools with the highest progress but similar characteristics (number of pupils, expenditure, <abbr title="Free school meals" aria-label="Free school meals">FSM</abbr>)
+                            <span class="help-icon inline-block hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" data-modal-title="High progress school comparison" data-modal-text="@HelpTooltipText.BicComparisonHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
+                                        <span class="visuallyhidden">Open more info text for High progress school comparison opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+                }
+            </fieldset>
+        </div>
+        <div class="grid-row">
+            <div class="column-half">
+                <div class="column-one-third next-button">
+                    <button type="submit" class="button">Continue</button>
+                </div>
+                <div class="column-one-third back-button">
+                    <a href="../../school/detail?urn=@Model.Id">Back</a>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="Urn" value="@ViewBag.URN">
+    </form>
+</section>
+
+@section ViewScripts {
+    <script>
+        GOVUK.Modal.Load();
+    </script>
+}

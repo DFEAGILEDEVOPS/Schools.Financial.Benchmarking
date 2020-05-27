@@ -1,0 +1,139 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers
+@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Models
+@model EstablishmentViewModelBase
+
+<div id="historical-charts-accordion" class="accordion">
+    @for (var index = 0; index < Model.HistoricalCharts.Count; index++)
+    {
+        var historicalChart = Model.HistoricalCharts[index];
+        ViewBag.FinancialYear = Model.EstablishmentType == EstablishmentType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
+
+        <div class="charts-section__chart-container index-@index column-full no-padding" data-group="@historicalChart.ChartGroup">
+            @if (historicalChart.ChartType == ChartType.Total)
+            {
+
+                if (historicalChart.DrillInto != null)
+                {
+                    <div class="charts-section__chart-container__chart-header">
+                        <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
+                        @if (historicalChart.HelpTooltip != null)
+                        {
+                            <span class="help-icon help-chart hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                        <span class="visuallyhidden">Open more info text for @historicalChart.Name opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        }
+                        <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto','@historicalChart.TabName.ToLower()')">
+                            @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                            {
+                                <span class="view-more">All @historicalChart.Name.Replace("total", "").ToLower() charts</span>
+                            }
+                            else
+                            {
+                                <span class="view-more">View more tables</span>
+                            }
+                            <span class="visuallyhidden"> for @historicalChart.Name</span>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="charts-section__chart-container__chart-header">
+                        <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
+                        @if (historicalChart.HelpTooltip != null)
+                        {
+                            <span class="help-icon help-chart hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                        <span class="visuallyhidden">Open more info text for @historicalChart.Name opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        }
+                    </div>
+                }
+
+                @Html.Partial("Partials/HistoricalChart", historicalChart)
+            }
+            else
+            {
+                <div class="accordion-section">
+                    <fieldset role="group">
+                        <legend class="visually-hidden">@historicalChart.Name</legend>
+                        <div class="accordion-section-header">
+                            <h2 class="heading-medium chart-accordion-header charts-section__chart-container__accordion-section-header_h2" aria-label="@historicalChart.Name Select to show section">@historicalChart.Name</h2>
+                            @if (historicalChart.HelpTooltip != null)
+                            {
+                                <span class="help-icon help-chart hide-in-print">
+                                    <span class="icon dark-blue">
+                                        <a href="#" class="js-modal" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                            <span class="visuallyhidden">Open more info text for @historicalChart.Name opens a popup</span>
+                                        </a>
+                                    </span>
+                                </span>
+                            }
+                        </div>
+
+
+                        <div class="accordion-section-body">
+                            @Html.Partial("Partials/HistoricalChart", historicalChart)
+                            @if (historicalChart.SubCharts != null)
+                            {
+                                for (var i = 0; i < historicalChart.SubCharts.Count; i++)
+                                {
+                                    ChartViewModel subChart = historicalChart.SubCharts[i];
+                                    <h2 class="charts-section__chart-container__chart-header__h2">@subChart.Name</h2>
+                                    @Html.Partial("Partials/HistoricalChart", subChart)
+                                }
+                            }
+                        </div>
+                    </fieldset>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<input type="hidden" id="expTotal" value="@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()" />
+<input type="hidden" id="expTotalAbbr" value="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("C0")" />
+<input type="hidden" id="incTotal" value="@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()" />
+<input type="hidden" id="incTotalAbbr" value="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" />
+<input type="hidden" id="balTotal" value="@Model.InYearBalance.GetValueOrDefault().FormatMoney()" />
+<input type="hidden" id="balTotalAbbr" value="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" />
+<input type="hidden" id="isPlaceholder" value="@Model.IsReturnsPlaceholder.ToString().ToLower()" />
+
+@if (Request.IsAjaxRequest() && (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge")))
+{
+    <script src="/public/scripts/termi/element.details.ajax.js"></script>
+}
+
+@helper FormatFinancialYear(string year, EstablishmentType schoolType)
+{@( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))}
+
+@helper ChartLabelForCentralFinance()
+{
+    if (ViewBag.EstablishmentType == EstablishmentType.MAT)
+    {
+        if (ViewBag.Financing != null)
+        {
+            var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.Financing.ToString());
+            <text>(@matFinance.GetDescription())</text>
+        }
+        else
+        {
+            if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+            {
+                if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSAT && ViewBag.Financing != null)
+                {
+                    var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                    <text>(@centralFinance.GetDescription())</text>
+                }
+            }
+        }
+    }
+}

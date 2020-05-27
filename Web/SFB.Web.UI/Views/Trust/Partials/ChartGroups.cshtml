@@ -1,0 +1,27 @@
+﻿@model List<SFB.Web.UI.Models.ChartViewModel>
+
+@if (Model.Count > 1)
+{
+    <div class="column-one-third chart-filter">
+        <div class="form-group">
+            <label class="form-label" for="ChartGroup">Show grouping</label>
+            <select name="ChartGroup" id="ChartGroup" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('trust')">
+                @foreach (var item in Model)
+                {
+                    if (ViewBag.ChartGroup == item.ChartGroup)
+                    {
+                        <option value="@item.ChartGroup" selected="selected">@item.ChartGroupName</option>
+                    }
+                    else
+                    {
+                        <option value="@item.ChartGroup">@item.ChartGroupName</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+}
+else
+{
+    <input type="hidden" name="ChartGroup" id="ChartGroup" value="@Model[0].ChartGroup">
+}

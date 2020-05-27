@@ -1,0 +1,97 @@
+﻿@using SFB.Web.UI.Models
+
+@model SchoolViewModel
+
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "add-schools-manually";
+    if (Model is SchoolViewModelWithNoDefaultSchool)
+    {
+        ViewBag.HomeSchoolId = null;
+        ViewBag.HomeSchoolName = null;
+    }
+    else
+    {
+        ViewBag.HomeSchoolId = Model.ComparisonList.HomeSchoolUrn;
+        ViewBag.HomeSchoolName = Model.ComparisonList.HomeSchoolName;
+    }
+}
+
+
+<div class="error-summary missing" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        There are errors on this page that require attention.
+    </h1>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#NewSchoolName">Please enter a school name to continue the comparison</a>
+        </li>
+    </ul>
+</div>
+
+
+@section BackButtonContent{
+    @if (ViewBag.HomeSchoolId == null)
+    {
+        Html.RenderPartial("Partials/BackToHomeLink");
+    }
+    else
+    {
+        Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+    }
+}
+
+<div class="steps">
+    <span class="govuk-caption-xl">Manual comparison 2 of 2</span>
+</div>
+
+<h1 class="govuk-heading-xl">
+    Enter schools by name
+</h1>
+
+@if (ViewBag.HomeSchoolId != null)
+{
+    <div class="grid-row home-school section">
+        <div class="column-full mb-1">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="column-three-quarters no-padding">
+    <div id="SchoolsToAdd">
+        @Html.Partial("Partials/SchoolsToAdd", Model.ManualComparisonList.BenchmarkSchools.Where(t => t.Urn != Model.ManualComparisonList.HomeSchoolUrn).ToList())
+    </div>
+</div>
+
+<div class="grid-row control-buttons font-xsmall">
+    <div class="column-half mt-1">
+        <div class="column-three-quarters next-button">
+            <a id="manualButton" class="button" href="OverwriteStrategy">Continue to benchmarking charts</a>
+        </div>
+        <div class="column-one-quarter no-padding back-button">
+            @if (ViewBag.HomeSchoolId == null)
+            {
+                <a href="/ManualComparison/WithoutBaseSchool">Back</a>
+            }
+            else
+            {
+                <a href="/ManualComparison">Back</a>
+            }
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="openOnly" value="@ViewBag.OpenOnly.ToString()" />
+
+@section ViewScripts {
+
+    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        DfE.Views.AddSchoolsManuallyViewModel = new AddSchoolsManuallyViewModel();
+    </script>
+}

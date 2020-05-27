@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "guidance";
+    ViewBag.pageDescription =
+        "Find out how to use the schools financial benchmarking site.";
+}
+
+
+@section BackButtonContent{
+    @if (ViewBag.referrer == null || ViewBag.referrer == "/")
+    {
+        Html.RenderPartial("Partials/BackToHomeLink");
+    }
+    else
+    {
+        <a class="home-link" href="@ViewBag.referrer" aria-label="Back to previous page">
+            <i class="icon icon-back">
+                <span class="visually-hidden">Back to previous page</span>
+            </i>
+            <span class="back-link">Back to previous page</span>
+        </a>
+    }
+}
+
+
+<div class="grid-row">
+
+    <div class="column-one-third contents">
+        <h3 class="heading-small">Contents</h3>
+        <ul class="list font-xsmall">
+            <li><a href="#service-update">Service update</a></li>
+        </ul>
+    </div>
+    <div class="column-two-thirds text" id="helpContent">
+        <h1 class="heading-xlarge page-heading">News</h1>
+
+        <a id="service-update"></a>
+        <h2 class="heading-medium">Service update</h2>
+        <h3 class="heading-small">18 May 2020</h3>
+        <p>
+            The Schools Financial Benchmarking service has been changed to reflect the following updated data and functionality improvements:
+        </p>
+        <p>
+            This release also includes the following:
+            <ul class="list list-bullet">
+                <li>Trust search improvements</li>
+                <li>Error message improvement for school searches</li>
+                <li>Trust page links to School and College Performance and Get Information About Schools</li>
+                <li>Improvements made to the comparison pages</li>
+                <li>Small amendments to the Maintained 18/19 data download file</li>
+                <li>Small amendments to the Academy 19/20 data download file</li>
+            </ul>
+        </p>
+
+        <p>
+            Further improvements will be added in future releases. You can comment on any changes in your experience by emailing
+            <a href="mailto:school.resourcemanagement@education.gov.uk" class="font16-ext-link" title="Will open the email client.">school.resourcemanagement@education.gov.uk</a>.
+            You can also use this email address to join our group of user experience testers and help us shape new features and the development of the service.
+        </p>
+
+    </div>
+ </div>

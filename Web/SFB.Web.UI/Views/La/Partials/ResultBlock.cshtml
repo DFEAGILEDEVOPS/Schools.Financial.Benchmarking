@@ -1,0 +1,61 @@
+﻿@using SFB.Web.UI.Models
+@using SFB.Web.UI.Helpers.Constants
+
+@model LaListViewModel
+
+<div class="column-two-thirds">
+
+    <div aria-live="assertive" id="js-search-results-info">
+        <div class="result-info">
+            <p class="summary" aria-live="assertive">
+                <span class="bold count-js">@(Model.Pagination.Total)</span> local authorities found
+            </p>
+        </div>
+    </div>
+    @if (Model.ModelList.Count > 0)
+    {
+        @Html.Partial("Partials/Pagination", Model.Pagination)
+
+    <ul>
+        @foreach (var laViewModel in Model.ModelList)
+        {
+            if (Model.SearchMethod == "Manual")
+            {
+                <li class="document">
+                    <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.Id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
+                </li>
+            }
+            else if (Model.SearchMethod == "MAT")
+            {
+                <li class="document">
+                    <a href="/TrustSearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME&lacodename=@laViewModel.Id" class="bold-small">@laViewModel.LaName</a>
+                </li>
+            }
+            else
+            {
+                <li class="document">
+                    <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.Id&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@laViewModel.LaName</a>
+                </li>
+            }
+        }
+    </ul>
+
+        @Html.Partial("Partials/Pagination", Model.Pagination)
+    }
+    else
+    {
+        <p class="bold-small" style="margin-top: 22px;">Please try:</p>
+        if (Model.SearchMethod == "Manual")
+        {
+            <p class="indent">
+                • <a href="/ManualComparison">searching again</a> using different spelling or words
+            </p>
+        }
+        else
+        {
+            <p class="indent">
+                • <a href="/">searching again</a> using different spelling or words
+            </p>
+        }
+    }
+</div>

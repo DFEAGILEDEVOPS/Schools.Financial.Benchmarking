@@ -1,0 +1,187 @@
+﻿.schools-search-page {
+
+    @include highlighting;
+
+    @include media(tablet) {
+        margin: 0 -15px;
+    }
+
+    .home-school-section {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    .search-options-list {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+
+    .error-summary-list {
+        list-style-type: none;
+    }
+
+    .twitter-typeahead {
+        width: 50%;
+        float: left;
+
+        @include media(mobile) {
+            width: 80%;
+        }
+
+        .form-control {
+            width: 100%;
+            margin-bottom: -2px;
+        }
+    }
+
+    .tt-menu {
+        background-color: white;
+        z-index: 99 !important; // accessibility requirement
+    }
+
+    .tt-suggestion {
+        a {
+            display: block;
+            padding: $gutter-one-quarter;
+            text-decoration: none;
+        }
+
+        a strong {
+            text-decoration: underline;
+        }
+
+        &:hover, a:hover {
+            background-color: $link-hover-colour;
+            color: white;
+            cursor: pointer;
+        }
+    }
+
+    .tt-cursor {
+        background-color: #f9f9f9;
+    }
+
+    .view-tables-legend, search-by-legend {
+        clear: left;
+        margin-top: 1em;
+        padding-top: 0.8em;
+    }
+
+    .search-legend {
+        margin-top: 0.25em;
+        margin-bottom: 0.5em;
+    }
+
+    .national-table-links {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    .search-input {
+        position: relative;
+        display: inline-block;
+        float: left;
+
+        @include media(mobile) {
+            width: 80%;
+        }
+    }
+
+    .search-button {
+        display: inline-block;
+        float: left;
+        position: relative;
+        box-sizing: border-box;
+        background: $button-colour url(../../../public/assets/images/magnifier.png) no-repeat 0 50%;
+        border: solid 2px $button-colour;
+        cursor: pointer;
+        overflow: hidden;
+        text-indent: -500px;
+        border-radius: 0;
+        width: 37px;
+        height: 37px;
+
+        @include media(mobile) {
+            background-position-x: -2px;
+        }
+    }
+
+    .tt-input, .search-input {
+        height: 37px;
+    }
+
+    .form-control {
+        width: 50%;
+        max-width: 471px;
+
+        @include media(mobile) {
+            width: 100%;
+        }
+    }
+
+    select {
+        margin-bottom: 14px;
+    }
+
+    .search-types {
+        display: inline-block;
+        width: 100%;
+
+        &__optional-section {
+            &__label {
+                float: left;
+                width: 100%;
+
+                @include media(tablet) {
+                    min-width: 650px;
+                }
+
+                margin-bottom: 1em;
+
+                &.paragraph {
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+
+    .search-legend {
+        margin-top: 0.25em;
+        margin-bottom: 0.5em;
+    }
+
+    .homep {
+        margin-bottom: 0.7em;
+    }
+
+    .contents-guidance {
+        border-top: 10px solid $govuk-blue;
+        margin-top: 36px;
+
+        h3 {
+            margin-top: 1em;
+        }
+    }
+
+    .guidance .heading-medium {
+        margin-top: 1em;
+    }
+
+    .tab-content--inactive {
+        display: none;
+    }
+
+    .tab-content--active {
+        display: block;
+    }
+
+    nav.tabs ol {
+        @include media-down(tablet) {
+            justify-content: flex-start;
+
+            li {
+                flex-basis: 98%;
+            }
+        }
+    }
+}

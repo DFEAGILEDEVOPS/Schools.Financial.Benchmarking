@@ -1,0 +1,166 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+
+<div class="charts-section">
+    <div class="grid-row">
+        <div class="column-full">
+            <div class="sticky-div sticky-custom-controls">
+                <div id="custom-controls-accordion" class="accordion mobile-only-accordion" style="display: none">
+                    <div class="accordion-section">
+                        <fieldset role="group">
+                            <legend class="visually-hidden">Filters</legend>
+                            <div class="accordion-section-header">
+                                <h2 class="heading-medium">Filters</h2>
+                            </div>
+                            <div class="accordion-section-body">
+                                <div class="column-one-third chart-filter">
+                                    <div class="form-group">
+                                        <label class="form-label" for="CFinancing">Academy values</label>
+                                        <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
+                                            <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
+                                            <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column-full no-padding mt-1">
+                <div class="font-xsmall chartTable hide-in-print">
+                    <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
+                    <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
+                </div>
+            </div>
+            <details class="criteria-details">
+                <summary class="hide-in-print">
+                    <span class="summary font-xsmall">Add or remove charts</span>
+                    <span id="spinner-place-holder" class="ml-1 font-xsmall">
+                        <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
+                        <span role="alert" aria-live="assertive" aria-label="Updating charts"></span>
+                        <span style="margin-left: 10px; color: black">Updating charts</span>
+                    </span>
+                </summary>
+                <div class="panel panel-border-narrow">
+                    <div class="selection-filters no-padding">
+                        <div class="column-full no-padding">
+                            <div class="column-half no-padding">
+                                <div class="form-group">
+                                    <label class="form-label" for="Filter">Filter by chart name</label>
+                                    <input id="Filter" class="form-control" ng-model="ctrl.query" ng-change="ctrl.openDetails()" />
+                                </div>
+                            </div>
+                            <div class="column-half no-padding">
+                                <div class="selection-controls column-one-third no-padding" ng-show="ctrl.anySelected()">
+                                    <div class="clear-link">
+                                        <a href="#" class="font-xsmall" ng-click="ctrl.clear()">Clear selections</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="selections">
+                        <fieldset>
+                            <legend class="visually-hidden">Selections</legend>
+                            <div id="custom-report-accordion" class="accordion">
+                                <div class="accordion-section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
+                                    <div class="accordion-section-header" ng-class="{'hide-summary': ctrl.query}">
+                                        <h2 class="heading-medium chart-accordion-header" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
+                                            {{group.GroupName}}
+                                            <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">
+                                                ({{ctrl.groupSelectCount(group)}} selected)
+                                            </span>
+                                            <span class="visuallyhidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
+                                        </h2>
+                                    </div>
+
+                                    <div class="accordion-section-body">
+                                        <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="chart-selection" ng-class="{'show-details': ctrl.query}">
+                                            <div class="multiple-choice-header column-quarter">
+                                                <span class="bold-xsmall">{{chart.Name}}</span>
+                                            </div>
+                                            <div class="multiple-choices column-three-quarters">
+                                                <div class="multiple-choice" ng-show="chart.PerPupilAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerPupilSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_1" aria-label="{{chart.Name}} per pupil">Per pupil</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.PerTeacherAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerTeacherSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_2" aria-label="{{chart.Name}} per teacher">Per teacher</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.PercentageExpenditureAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageExpenditureSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total expenditure</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.PercentageIncomeAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_31" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageIncomeSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_31" aria-label="{{chart.Name}} percentage of total">Percentage of total income</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.AbsoluteMoneyAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteMoneySelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_4" aria-label="{{chart.Name}} absolute total">Absolute total</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.AbsoluteCountAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteCountSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_5" aria-label="{{chart.Name}} total">Total</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.HeadCountPerFTEAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.HeadCountPerFTESelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_6" aria-label="{{chart.Name}} headcount per FTE">Headcount per FTE</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.PercentageOfWorkforceAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageOfWorkforceSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_7" aria-label="{{chart.Name}} percentage of workforce">Percentage of workforce</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.NumberOfPupilsPerMeasureAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_8" aria-label="{{chart.Name}} pupils per staff role">Pupils per staff role</label>
+                                                </div>
+                                                <div class="multiple-choice" ng-show="chart.PercentageTeachersAvailable">
+                                                    <input id="sel_{{$parent.$index}}_{{$index}}_9" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageTeachersSelected">
+                                                    <label for="sel_{{$parent.$index}}_{{$index}}_9" aria-label="{{chart.Name}} percentage">Percentage</label>
+                                                </div>
+                                            </div>
+                                            <hr class="tablet-divider" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </details>
+
+            <div id="CustomReportContentPlaceHolder"></div>
+
+            <div id="contextTable" ng-cloak ng-show="ctrl.anySelected()">
+                <h2 class="heading-medium" id="contextExp">School context data</h2>
+                <table id="contextDataTable" class="tablesorter data-table-js context-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="school-column">School name</th>
+                            <th scope="col">Local authority</th>
+                            <th scope="col">School type</th>
+                            <th scope="col">Number of pupils</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="school in schoolChartData">
+                            <td class="school-column">
+                                <span ng-class="{'bold-xsmall' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
+                                <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
+                            </td>
+                            <td>{{school.la}}</td>
+                            <td>{{school.type}}</td>
+                            <td>{{school.pupilCount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

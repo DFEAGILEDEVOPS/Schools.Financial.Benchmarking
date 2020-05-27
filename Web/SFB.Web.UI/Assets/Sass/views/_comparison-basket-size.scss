@@ -1,0 +1,48 @@
+﻿.comparison-basket-size {
+    div#BenchmarkBasketAccordion {
+        input[type=radio] {
+            display: none;
+        }
+
+        label.block-label {
+            padding-left: 24px;
+
+            &:hover {
+                border-color: #dee0e2;
+                cursor: default;
+            }
+        }
+    }
+
+   .benchmark-basket {
+        .optional-section {
+            label {
+                @include bold-19;
+                float: left;
+                width: 100%;
+                margin-bottom: 1em;
+
+                &.paragraph {
+                    font-weight: normal;
+                }
+            }
+        }
+    }
+}
+
+.js-enabled .comparison-basket-size {
+    div#BenchmarkBasketAccordion {
+        input[type=radio] {
+            display: inline-block;
+        }
+
+        label.block-label {
+            padding-left: 54px;
+
+            &:hover {
+                border-color: #0b0c0c;
+                cursor: pointer;
+            }
+        }
+    }
+}

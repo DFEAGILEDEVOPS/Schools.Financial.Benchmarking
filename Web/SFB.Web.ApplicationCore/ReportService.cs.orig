@@ -1,0 +1,146 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Web.Domain
+{
+    public class ReportService : IReportService
+    {
+        private const int DeadlineDay = 29;
+
+        private readonly IEntityRepository _entityRepository;
+
+        public ReportService(IEntityRepository entityRepository)
+        {
+            _entityRepository = entityRepository;
+        }
+
+        public IList<Action> GetRecentActionsForAll()
+        {
+            return _entityRepository
+                .GetRecentActions()
+                .Take(10)
+                .ToList();
+        }
+
+        public IList<Action> GetRecentActionsForLineManager(int lineManagerId)
+        {
+            return _entityRepository
+                .GetRecentActions()
+                .Where(x=>x.Employee.EmployeeNumber == lineManagerId)
+                .Take(10)
+                .ToList();
+        }
+
+        public Action SaveAction(Action action)
+        {
+            return _entityRepository.SaveAction(action);
+        }
+
+
+        public IList<Submission> GetUpcomingSubmissions(int employeeId)
+        {
+            var outstandingSavedActions = _entityRepository
+                .GetSubmissions()
+                .Where(x => x.ForEmployee.EmployeeNumber == employeeId)
+                .ToList();
+            
+            return GetOrGenerateOutstandingSubmissions(outstandingSavedActions, _entityRepository.GetEmployee(employeeId));
+        }
+
+        private IList<Submission> GetOrGenerateOutstandingSubmissions(List<Submission> outstandingSavedActions, Employee employee)
+        {
+            var actionOutstandingActions = new List<Submission>();
+            var currentMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DeadlineDay);
+
+            var outstandingSavedAction = outstandingSavedActions
+                    .SingleOrDefault(x => x.Deadline == currentMonth && x.ForEmployeeId == employee.EmployeeNumber) 
+                    ?? new Submission { Deadline = currentMonth, IsSaved = false, ForEmployeeId = employee.EmployeeNumber, ForEmployee = employee };
+
+<<<<<<< HEAD
+            if (!outstandingSavedAction.IsPublished)
+            {
+                actionOutstandingActions.Add(outstandingSavedAction);
+
+=======
+            if (outstandingSavedAction == null)
+            {
+                actionOutstandingActions.Add(new Submission { Deadline = currentMonth, IsSaved = false, ForEmployeeId = employee.EmployeeNumber, ForEmployee = employee });
+            }
+            else if (!outstandingSavedAction.IsPublished)
+            {
+                actionOutstandingActions.Add(outstandingSavedAction);
+>>>>>>> 02f30e98a10b1b60689b05e9321bae72f061df5a
+            }
+
+            return actionOutstandingActions;
+        }
+
+        public IList<Submission> GetUpcomingSubmissionsByLineManager(int lineManagerId)
+        {
+            var outstandingSavedActions = _entityRepository
+                .GetSubmissions()
+                .Where(x => x.ByEmployee.EmployeeNumber == lineManagerId)
+                .ToList();
+
+            var allSubmissions = new List<Submission>();
+
+            var lineManager = _entityRepository.GetEmployee(lineManagerId);
+
+            foreach (var employee in _entityRepository.GetEmployees().Where(x => x.SupervisorName == lineManager.FullName))
+            {
+                allSubmissions.AddRange(GetOrGenerateOutstandingSubmissions(outstandingSavedActions, employee));
+            }
+
+            return allSubmissions;
+        }
+
+        public IList<Submission> GetPublishedSubmissions(int employeeId)
+        {
+            return _entityRepository
+                .GetSubmissions()
+                .Where(x => x.ForEmployee.EmployeeNumber == employeeId && x.IsPublished)
+                .ToList();
+        }
+
+        public IList<Submission> GetSummaryReport(bool published, DateTime from, DateTime to, int lineManagerId = 0)
+        {
+            if (lineManagerId != 0)
+            {
+                return _entityRepository.GetSubmissions()
+                    .Where(
+                        x =>
+                            x.ByEmployee.EmployeeNumber == lineManagerId &&
+                            x.DatePublished >= from &&
+                            x.DatePublished <= to &&
+                            x.IsPublished == published)
+                    .ToList();
+            }
+
+            return _entityRepository.GetSubmissions()
+                    .Where(
+                        x =>
+                            x.DatePublished >= from && 
+                            x.DatePublished <= to &&
+                            x.IsPublished == published)
+                    .ToList();
+        } 
+
+        public Submission SaveSubmission(Submission submission)
+        {
+            return _entityRepository.SaveSubmission(submission);
+        }
+
+        public Submission PublishSubmission(Submission submission)
+        {
+            submission.DatePublished = DateTime.Now;
+            submission.IsPublished = true;
+            return _entityRepository.SaveSubmission(submission);
+        }
+
+        public Submission GetSubmission(int id)
+        {
+            return _entityRepository.GetSubmission(id);
+        }
+    }
+}

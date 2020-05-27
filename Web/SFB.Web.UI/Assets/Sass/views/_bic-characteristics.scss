@@ -1,0 +1,27 @@
+﻿.bic-characteristics {
+    .highlight {
+        @include bold-16();
+        background-color: $pink_contrast;
+        color: $white;
+        text-align: center;
+        padding: 5px;
+        display: inline;
+    }
+
+    .benchmark-school-value {
+        margin-bottom: 8px;
+        margin-top: 8px;
+        color: $grey-1;
+    }
+
+    .multiple-choice {
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+
+    @include media(desktop) {
+        .form-control {
+            width: 80%;
+        }
+    }
+}

@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "search-results";
+    ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
+    ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
+}
+
+@section BackButtonContent{
+    @if (ViewBag.HomeSchoolId == null) {
+        Html.RenderPartial("Partials/BackToHomeLink");
+    } else
+    {
+        Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+    }
+}
+
+@section InsideHead{
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+
+}
+
+@using SFB.Web.UI.Helpers.Constants
+@model SFB.Web.UI.Models.SearchedSchoolListViewModel
+
+<div class="steps">
+    <span class="govuk-caption-xl">Manual comparison 2 of 2</span>
+</div>
+
+<h1 class="govuk-heading-xl">
+    @switch (Model.SearchType)
+    {
+        case SearchTypes.SEARCH_BY_LOCATION:
+            <text>Schools in and near @Model.LocationKeyword</text>
+            break;
+        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+            <text>Schools in @Model.LaKeyword</text>
+            break;
+    }
+</h1>
+
+<div class="grid-row home-school section">
+    @if (ViewBag.HomeSchoolId != null)
+    {
+        <div class="column-three-quarters">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span>
+            </div>
+        </div>
+        <div class="column-quarter">
+            <a class="font-xsmall back-to-manual-compare" href="/ManualComparison">Back</a>
+        </div>
+    }
+    else
+    {
+        <a class="font-xsmall back-to-manual-compare" href="/ManualComparison/WithoutBaseSchool">Back</a>
+    }
+</div>
+
+<div class="schools-in mt-1">
+
+</div>
+
+<div id="screen-reader-result-list" class="visuallyhidden">
+    <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
+</div>
+
+<div class="grid-row js-live-search-results-block">
+    @Html.Partial("Partials/Search/ResultBlock")
+</div>
+
+<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
+@section ViewScripts{
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+    <script>
+        DfE.Views.SchoolsResultsViewModel = new SchoolsResultsViewModel('@(ViewBag.tab)', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+    </script>
+}

@@ -1,0 +1,173 @@
+﻿@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.SchoolViewModel
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "comparison-step-one";
+}
+
+@section BackButtonContent{
+    @{
+        if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
+        {
+            Html.RenderPartial("Partials/BackToHomeLink");
+        }
+        else
+        {
+            ViewBag.HomeSchoolId = Model.Id.ToString();
+            ViewBag.HomeSchoolName = Model.Name;
+            Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        }
+    }
+}
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There are errors on this page that require attention.
+        </h1>
+        <ul class="error-summary-list">
+            <li>
+                <a href="#finderSection">@Model.ErrorMessage</a>
+            </li>
+        </ul>
+    </div>
+}
+
+<div class="steps">
+    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+    {
+        <span class="govuk-caption-xl">Detailed comparison 1 of 3</span>
+    }
+    else
+    {
+        <span class="govuk-caption-xl">Quick comparison 1 of 2</span>
+    }
+</div>
+
+<h1 class="govuk-heading-xl">Which school type do you wish to compare with?</h1>
+
+@if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
+{
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+            </div>
+        </div>
+    </div>
+}
+
+<section class="section" aria-labelledby="fieldset-legend">
+    <div id="SchoolTypesAccordion" class="search-types" aria-live="polite">
+        @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+        {
+            Html.BeginForm("ChooseRegion", "BenchmarkCriteria", FormMethod.Get);
+        }
+        else
+        {
+            Html.BeginForm("SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get);
+        }
+        <div class="form-group">
+            <fieldset role="radiogroup" id="RadioFieldSet">
+                <legend class="hidden">Which schools would you like to include?</legend>
+
+                <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
+                    <input id="Maintained" type="radio" name="EstType" value="Maintained">
+                    <label class="selection-button-radio" for="Maintained">Maintained schools</label>
+                </div>
+                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                {
+                    <div id="MaintainedFieldset" class="form-group optional-section panel panel-border-narrow">
+                        <div class="multiple-choice" style="float:none">
+                            <input id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled />
+                            <label for="excludePartialMaintained">
+                                Exclude maintained schools that don't have a complete set of financial data
+                            </label>
+                        </div>
+                    </div>
+                }
+                <div id="AcademiesContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AcademiesFieldset">
+                    <input id="Academies" type="radio" name="EstType" value="Academies">
+                    <label class="selection-button-radio" for="Academies">Academies</label>
+                </div>
+                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                {
+                    <div id="AcademiesFieldset" class="form-group optional-section panel panel-border-narrow">
+                        <div class="multiple-choice" style="float:none">
+                            <input id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled />
+                            <label for="excludePartialAcademies">
+                                Exclude academies that don't have a complete set of financial data
+                            </label>
+                        </div>
+                    </div>
+                }
+
+                <div id="AllContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AllFieldset">
+                    <input id="All" type="radio" name="EstType" value="All">
+                    <label class="selection-button-radio" for="All">All schools</label>
+                </div>
+                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+                {
+                    <div id="AllFieldset" class="form-group optional-section panel panel-border-narrow">
+                        <div class="multiple-choice" style="float:none">
+                            <input id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled />
+                            <label for="excludePartialAll">
+                                Exclude schools that don't have a complete set of financial data
+                            </label>
+                        </div>
+                    </div>
+                }
+            </fieldset>
+        </div>
+        <div class="grid-row">
+            <div class="column-half">
+                <div class="column-one-third next-button">
+                    <button type="submit" class="button">Continue</button>
+                </div>
+                <div class="column-one-third back-button">
+                    @if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
+                    {
+                        <a href="/">Back</a>
+                    }
+                    else
+                    {
+                        <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="Urn" value="@ViewBag.URN">
+        <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
+        </form>
+    </div>
+</section>
+
+@section ViewScripts {
+
+    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
+    {
+        <script>
+            GOVUK.Accordion.bindElements("SchoolTypesAccordion");
+
+            $().ready(function () {
+                var inputs = $("#SchoolTypesAccordion .js-accordion");
+                inputs.click(function (event) {
+                    $("input:checkbox[name='excludePartial']").prop('disabled', true);
+                    $(event.currentTarget).next().find("input:checkbox[name='excludePartial']").prop('disabled', false);
+                });
+            });
+
+        </script>
+    }
+
+    <script>
+        $().ready(function () {
+            var estType = '@(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool ? "None" : Model.EstablishmentType.ToString())';
+            var defaultInput = $('#' + estType);
+            defaultInput.click();
+        });
+    </script>
+}
