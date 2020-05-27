@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /school/
-Disallow: /BenchmarkCharts/
-Disallow: /benchmarklist/
-Disallow: /cookies/
