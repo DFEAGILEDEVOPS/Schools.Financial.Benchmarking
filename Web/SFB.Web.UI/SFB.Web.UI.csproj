@@ -204,8 +204,8 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Notify, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Notify.2.7.0\lib\net462\Notify.dll</HintPath>
+    <Reference Include="Notify, Version=2.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Notify.2.8.0\lib\net462\Notify.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -219,8 +219,8 @@
     <Reference Include="SFB.Web.ApplicationCore, Version=1.0.162.50516, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.162.50516\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
     </Reference>
-    <Reference Include="SFB.Web.Infrastructure, Version=1.0.162.50517, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.162.50517\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
+    <Reference Include="SFB.Web.Infrastructure, Version=1.0.162.50534, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.162.50534\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.0.601\lib\net472\StackExchange.Redis.dll</HintPath>
