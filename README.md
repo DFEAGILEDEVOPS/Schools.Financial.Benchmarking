@@ -1,4 +1,4 @@
-# Schools Financial Benchmarking Application
+# Schools Financial Benchmarking
 
 [![Build Status](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_apis/build/status/SFB.Web.Application?branchName=master)](https://agilefactory.visualstudio.com/Financial%20Benchmarking/_build/latest?definitionId=471&branchName=master) ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/DFEAGILEDEVOPS/schools-financial-benchmarking?include_prereleases) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/DFEAGILEDEVOPS/schools-financial-benchmarking)
 
