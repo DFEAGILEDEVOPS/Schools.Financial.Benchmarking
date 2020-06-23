@@ -565,7 +565,7 @@ function manageCookies() {
     $("#acceptAllCookies").click(function () {
         var cookiesPolicyCookie = { "essential": true, "settings": true, "usage": true };
         GOVUK.cookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 });
-        GOVUK.cookie("cookies_preferences_set", "true", { days: 365 }); 
+        GOVUK.cookie("cookies_preferences_set", "true", { days: 365 });
 
         $(".gem-c-cookie-banner__wrapper").hide();
         $(".gem-c-cookie-banner__confirmation").show();
