@@ -541,6 +541,17 @@
     <Content Include="Assets\Scripts\ViewsES6\schools-search.js" />
     <Content Include="Assets\Scripts\ViewsES6\trust-compare.js" />
     <Content Include="Assets\Scripts\ViewsES6\trust-details.js" />
+    <Content Include="Assets\Scripts\Views\add-schools-manually.js" />
+    <Content Include="Assets\Scripts\Views\advanced-characteristics.js" />
+    <Content Include="Assets\Scripts\Views\benchmark-charts.js" />
+    <Content Include="Assets\Scripts\Views\benchmark-list.js" />
+    <Content Include="Assets\Scripts\Views\criteria-by-area.js" />
+    <Content Include="Assets\Scripts\Views\historical-charts.js" />
+    <Content Include="Assets\Scripts\Views\school-details.js" />
+    <Content Include="Assets\Scripts\Views\school-results.js" />
+    <Content Include="Assets\Scripts\Views\schools-search.js" />
+    <Content Include="Assets\Scripts\Views\trust-compare.js" />
+    <Content Include="Assets\Scripts\Views\trust-details.js" />
     <Content Include="browserconfig.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -637,6 +648,8 @@
     <Content Include="public\assets\images\separator.png" />
     <Content Include="public\assets\images\spinner.gif" />
     <Content Include="public\assets\print\bmc-print.css" />
+    <Content Include="public\assets\scripts\application.js" />
+    <Content Include="public\assets\stylesheets\main.css" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-120x120.png" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-152x152.png" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-60x60.png" />
@@ -911,6 +924,8 @@
     <Content Include="Views\Help\GetInvolved.cshtml" />
     <Content Include="Views\Help\GetInvolvedConfirmation.cshtml" />
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToEfficiencyMetricLink.cshtml" />
+    <Content Include="public\assets\scripts\application.js.map" />
+    <Content Include="public\assets\stylesheets\main.css.map" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
