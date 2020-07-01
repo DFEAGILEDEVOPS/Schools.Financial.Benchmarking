@@ -518,7 +518,7 @@
     <Content Include="Assets\Sass\views\_cookies-settings.scss" />
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
-    <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
+    <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
     <Content Include="Assets\Scripts\Behaviours\Accordion\accordion.js" />
