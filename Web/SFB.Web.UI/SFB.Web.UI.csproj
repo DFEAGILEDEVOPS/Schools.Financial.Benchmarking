@@ -629,10 +629,12 @@
     <Content Include="public\assets\images\icons\icon-pointer.png" />
     <Content Include="public\assets\images\icons\icon-print.png" />
     <Content Include="public\assets\images\icons\icon-report.png" />
+    <Content Include="public\assets\images\icons\icon-save-list.png" />
     <Content Include="public\assets\images\icons\icon-saveimage-2x.png" />
     <Content Include="public\assets\images\icons\icon-saveimage.png" />
     <Content Include="public\assets\images\icons\icon-search-2x.png" />
     <Content Include="public\assets\images\icons\icon-search.png" />
+    <Content Include="public\assets\images\icons\mag.png" />
     <Content Include="public\assets\images\icons\opengraph-image.png" />
     <Content Include="public\assets\images\magnifier.png" />
     <Content Include="public\assets\images\ofsted-logo-sm.jpeg" />
@@ -645,6 +647,9 @@
     <Content Include="public\assets\images\player-icon-play.png" />
     <Content Include="public\assets\images\player-icon-rewind.png" />
     <Content Include="public\assets\images\player-icon-volume.png" />
+    <Content Include="public\assets\images\scores.png" />
+    <Content Include="public\assets\images\scores2.png" />
+    <Content Include="public\assets\images\scores3.png" />
     <Content Include="public\assets\images\separator-2x.png" />
     <Content Include="public\assets\images\separator.png" />
     <Content Include="public\assets\images\spinner.gif" />
@@ -653,14 +658,23 @@
     <Content Include="public\assets\stylesheets\main.css" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-120x120.png" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-152x152.png" />
+    <Content Include="public\govuk_template\assets\images\apple-touch-icon-167x167.png" />
+    <Content Include="public\govuk_template\assets\images\apple-touch-icon-180x180.png" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-60x60.png" />
     <Content Include="public\govuk_template\assets\images\apple-touch-icon-76x76.png" />
+    <Content Include="public\govuk_template\assets\images\apple-touch-icon.png" />
     <Content Include="public\govuk_template\assets\images\favicon.ico" />
+    <Content Include="public\govuk_template\assets\images\gov.uk_logotype_crown.svg" />
     <Content Include="public\govuk_template\assets\images\gov.uk_logotype_crown_invert.png" />
     <Content Include="public\govuk_template\assets\images\gov.uk_logotype_crown_invert_trans.png" />
     <Content Include="public\govuk_template\assets\images\opengraph-image.png" />
+    <Content Include="public\govuk_template\assets\javascripts\cookie-bar.js" />
+    <Content Include="public\govuk_template\assets\javascripts\cookie-functions.js" />
+    <Content Include="public\govuk_template\assets\javascripts\core.js" />
     <Content Include="public\govuk_template\assets\javascripts\govuk-template.js" />
     <Content Include="public\govuk_template\assets\javascripts\ie.js" />
+    <Content Include="public\govuk_template\assets\javascripts\vendor\html5shiv-printshiv.js" />
+    <Content Include="public\govuk_template\assets\javascripts\vendor\json2.js" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-white.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-24x24.png" />
     <Content Include="public\govuk_template\assets\stylesheets\external-links\external-link-black-12x12.png" />
@@ -670,6 +684,8 @@
     <Content Include="public\govuk_template\assets\stylesheets\govuk-template-print.css" />
     <Content Include="public\govuk_template\assets\stylesheets\govuk-template.css" />
     <Content Include="public\govuk_template\assets\stylesheets\images\close.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\images\gov.uk_logotype_crown-1x.png" />
+    <Content Include="public\govuk_template\assets\stylesheets\images\gov.uk_logotype_crown.png" />
     <Content Include="public\govuk_template\assets\stylesheets\images\govuk-crest-2x.png" />
     <Content Include="public\govuk_template\assets\stylesheets\images\govuk-crest-ie.png" />
     <Content Include="public\govuk_template\assets\stylesheets\images\govuk-crest.png" />
@@ -692,7 +708,10 @@
     <Content Include="public\js-marker-clusterer\screenshot.png" />
     <Content Include="public\js-marker-clusterer\src\markerclusterer.js" />
     <Content Include="public\js-marker-clusterer\src\markerclusterer_compiled.js" />
+    <Content Include="public\scripts\jquery-tablesorter\jquery.tablesorter.js" />
+    <Content Include="public\scripts\jquery-tablesorter\jquery.tablesorter.min.js" />
     <Content Include="public\scripts\jquery-tablesorter\jquery.tablesorter.uk.currency.js" />
+    <Content Include="public\scripts\require\require.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\canvg.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\rgbcolor.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPngCombined.js" />
@@ -927,6 +946,9 @@
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToEfficiencyMetricLink.cshtml" />
     <Content Include="public\assets\scripts\application.js.map" />
     <Content Include="public\assets\stylesheets\main.css.map" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\LICENSE" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\package.json" />
+    <Content Include="public\scripts\saveSvgAsPng-gh-pages\README.md" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
@@ -942,8 +964,6 @@
     <Content Include="Views\TrustSearch\Partials\TrustFilterForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="public\govuk_template\assets\javascripts\vendor\" />
-    <Folder Include="public\scripts\require\" />
     <Folder Include="Views\EmComparison\" />
     <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
