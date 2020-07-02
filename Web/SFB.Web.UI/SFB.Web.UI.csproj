@@ -521,7 +521,6 @@
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="robots.txt" />
     <Content Include="z_App_Offline.htm" />
-    <Content Include="appSettings.deploy-template.config" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
     <Content Include="Assets\Scripts\Behaviours\Accordion\accordion.js" />
