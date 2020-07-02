@@ -518,7 +518,9 @@
     <Content Include="Assets\Sass\views\_cookies-settings.scss" />
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
-    <None Include="Assets\Scripts\AngularJS\allChartSelections.json" />
+    <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
+    <Content Include="robots.txt" />
+    <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
     <Content Include="Assets\Scripts\Behaviours\Accordion\accordion.js" />
@@ -802,6 +804,7 @@
     <Content Include="public\assets\print\school-print.css" />
     <Content Include="public\scripts\modernizr\modernizr-custom.js" />
     <Content Include="public\scripts\stickyfill\stickyfill.min.js" />
+    <Content Include="sitemap.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
