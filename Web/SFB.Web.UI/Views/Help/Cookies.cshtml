@@ -139,8 +139,8 @@
             event.preventDefault();
             var form = DfE.Util.getFormData($('#cookie-settings-form'));
             var cookiesPolicyCookie = { "essential": true, "settings": form.settings === "on", "usage": form.usage === "on" };
-            GOVUK.cookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 });
-            GOVUK.cookie("cookies_preferences_set", "true", { days: 365 });
+            GOVUK.setDomainCookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 }, '@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]');
+            GOVUK.setDomainCookie("cookies_preferences_set", "true", { days: 365 }, '@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]');
             $(".cookie-settings__confirmation").show();
             $("header").get(0).scrollIntoView();
         });
