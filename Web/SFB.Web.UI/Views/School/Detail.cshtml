@@ -88,9 +88,12 @@
                 <li>
                     <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name">Efficiency metric ranking</a>
                 </li>
-                <li>
-                    <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
-                </li>
+                @if (Model.HasLatestYearFinancialData && Model.CloseDate == null)
+                {
+                    <li>
+                        <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
+                    </li>
+                }
             </ul>
         </aside>
     </div>*@
