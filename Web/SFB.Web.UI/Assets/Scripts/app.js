@@ -127,6 +127,20 @@
         }
     };
 
+    window.DfE.Util.CookieOverlayRenderer = {
+        Render: function () {
+            var div = document.createElement("div");
+            div.className += "cookie-overlay";
+            document.getElementById('cookie-overlay-wrapper').appendChild(div);
+            window.onscroll = function () { window.scrollTo(0, 0); };
+        },
+
+        UnRender: function () {
+            document.getElementById('cookie-overlay-wrapper').removeChild(document.getElementById('cookie-overlay-wrapper').lastChild);
+            window.onscroll = null;
+        }
+    }
+
     window.DfE.Util.ModalRenderer = {
 
         GetQueryString: function () {
@@ -555,6 +569,7 @@ function manageCookies() {
 
         $(".gem-c-cookie-banner__wrapper").hide();
         $(".gem-c-cookie-banner__confirmation").show();
+        DfE.Util.CookieOverlayRenderer.UnRender();
     });
 
     $("#acceptAllCookiesHide").click(function () {
@@ -567,8 +582,10 @@ function manageCookiePreferencesCookies() {
 
     if (!GOVUK.cookie("cookies_preferences_set") && !window.location.href.toLowerCase().includes("/help/cookies")) {
         $("#global-cookie-message").show();
+        DfE.Util.CookieOverlayRenderer.Render();
     } else {
         $("#global-cookie-message").hide();
+        DfE.Util.CookieOverlayRenderer.UnRender();
     }
 }
 

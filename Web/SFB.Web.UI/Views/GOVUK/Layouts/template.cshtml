@@ -130,58 +130,59 @@
         </div>
     </div>
 
-    <header role="region" id="global-header" class="with-proposition" aria-labelledby="proposition-name">
-        <div class="header-wrapper">
-            <div class="header-global">
-                <div class="header-logo">
-                    <a href="https://www.gov.uk/" title="Go to the GOV.UK homepage" id="logo" class="content">
-                        <img src="@(ViewBag.assetsPath)/images/gov.uk_logotype_crown_invert_trans.png" width="35" height="31" alt=""> GOV.UK
-                    </a>
+    <div id="cookie-overlay-wrapper">
+        <header role="region" id="global-header" class="with-proposition" aria-labelledby="proposition-name">
+            <div class="header-wrapper">
+                <div class="header-global">
+                    <div class="header-logo">
+                        <a href="https://www.gov.uk/" title="Go to the GOV.UK homepage" id="logo" class="content">
+                            <img src="@(ViewBag.assetsPath)/images/gov.uk_logotype_crown_invert_trans.png" width="35" height="31" alt=""> GOV.UK
+                        </a>
+                    </div>
+                </div>
+                <div class="header-proposition">
+                    <div class="content">
+                        @*<a href="#proposition-links" class="js-header-toggle menu">Menu</a>*@
+                        <nav id="proposition-menu">
+                            <a href="/" id="proposition-name">@appTitle</a>
+                        </nav>
+                    </div>
                 </div>
             </div>
-            <div class="header-proposition">
-                <div class="content">
-                    @*<a href="#proposition-links" class="js-header-toggle menu">Menu</a>*@
-                    <nav id="proposition-menu">
-                        <a href="/" id="proposition-name">@appTitle</a>
-                    </nav>
+        </header>
+
+        <header role="banner" id="banner-header" class="banner-content__recruitment-banner" aria-label="Help develop Schools financial benchmarking banner" style="display: none">
+            <div class="header-wrapper">
+                <div class="header-wrapper__header-proposition">
+                    <span class="bold-small">Help develop Schools financial benchmarking</span>
+                    <a href="/help/get-involved" rel="external noopener noreferrer" target="_blank" title="Get involved form will open in a new page">Get involved in making this service better (opens in new tab or window)</a>
+                </div>
+                <div class="header-wrapper__hide-button-wrapper">
+                    <button class="link-button js-dismiss-recruitment-banner" href="">No thanks</button>
+                </div>
+            </div>
+        </header>
+
+        <div id="global-header-bar"></div>
+        <!--end header-->
+
+        @RenderSection("AfterHeader", required: false)
+
+        <div class="global-header-bar">
+        </div>
+        <!--end global-header-bar-->
+
+        <div class="side-width-wrapper hide-in-print">
+            <div class="grid-row">
+                <div class="column-full">
+                    <div class="phase-banner" role="banner">
+                        @(Html.Partial("../govuk/partials/phase/beta"))
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
 
-    <header role="banner" id="banner-header" class="banner-content__recruitment-banner" aria-label="Help develop Schools financial benchmarking banner" style="display: none">
-        <div class="header-wrapper">
-            <div class="header-wrapper__header-proposition">
-                <span class="bold-small">Help develop Schools financial benchmarking</span>
-                <a href="/help/get-involved" rel="external noopener noreferrer" target="_blank" title="Get involved form will open in a new page">Get involved in making this service better (opens in new tab or window)</a>
-            </div>
-            <div class="header-wrapper__hide-button-wrapper">
-                <button class="link-button js-dismiss-recruitment-banner" href="">No thanks</button>
-            </div>
-        </div>
-    </header>
-
-    <div id="global-header-bar"></div>
-    <!--end header-->
-
-    @RenderSection("AfterHeader", required: false)
-
-    <div class="global-header-bar">
-    </div>
-    <!--end global-header-bar-->
-
-    <div class="side-width-wrapper hide-in-print">
-        <div class="grid-row">
-            <div class="column-full">
-                <div class="phase-banner" role="banner">
-                    @(Html.Partial("../govuk/partials/phase/beta"))
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*<div class="side-width-wrapper">
+        @*<div class="side-width-wrapper">
             <div class="grid-row">
                 <div class="column-full">
                     <img class="top-logo" src="/public/assets/images/dfe-xsmall.png" />
@@ -189,49 +190,50 @@
             </div>
         </div>*@
 
-    @RenderBody()
+        @RenderBody()
 
-    <div class="global-header-bar">
-    </div>
-    <footer class="group js-footer" id="footer" role="contentinfo">
-        <div class="footer-wrapper">
-            <div class="footer-meta">
-                <div class="footer-meta-inner">
-                    <h2 class="visuallyhidden">Support links</h2>
-                    <ul>
-                        <li>
-                            <a href="/help/guidance">Help</a>
-                        </li>
-                        <li>
-                            <a href="/help/cookies">Cookies</a>
-                        </li>
-                        <li>
-                            <a target="_blank" rel="noopener noreferrer" href="https://form.education.gov.uk/fillform.php?self=1&form_id=cCCNJ1xSfBE&noLoginPrompt=1">Contact<span class="visuallyhidden"> Opens in a new window</span></a>
-                        </li>
-                        <li>
-                            <a href="/help/get-involved" rel="external noopener noreferrer" target="_blank" title="Get involved form will open in a new page">Help with usability testing</a>
-                        </li>
-                    </ul>
+        <div class="global-header-bar">
+        </div>
+        <footer class="group js-footer" id="footer" role="contentinfo">
+            <div class="footer-wrapper">
+                <div class="footer-meta">
+                    <div class="footer-meta-inner">
+                        <h2 class="visuallyhidden">Support links</h2>
+                        <ul>
+                            <li>
+                                <a href="/help/guidance">Help</a>
+                            </li>
+                            <li>
+                                <a href="/help/cookies">Cookies</a>
+                            </li>
+                            <li>
+                                <a target="_blank" rel="noopener noreferrer" href="https://form.education.gov.uk/fillform.php?self=1&form_id=cCCNJ1xSfBE&noLoginPrompt=1">Contact<span class="visuallyhidden"> Opens in a new window</span></a>
+                            </li>
+                            <li>
+                                <a href="/help/get-involved" rel="external noopener noreferrer" target="_blank" title="Get involved form will open in a new page">Help with usability testing</a>
+                            </li>
+                        </ul>
 
-                    <div class="open-government-licence">
-                        <p class="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence</a></p>
+                        <div class="open-government-licence">
+                            <p class="logo"><a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence</a></p>
 
-                        <p>All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated</p>
+                            <p>All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">Open Government Licence v3.0</a>, except where otherwise stated</p>
 
+                        </div>
+                    </div>
+                    <div class="copyright">
+                        <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">© Crown copyright</a>
                     </div>
                 </div>
-                <div class="copyright">
-                    <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/">© Crown copyright</a>
-                </div>
             </div>
-        </div>
-    </footer>
-    <!--end footer-->
+        </footer>
+        <!--end footer-->
 
-    <div id="global-app-error" class="app-error hidden"></div>
-    <script src="@(ViewBag.assetsPath)/javascripts/govuk-template.js?0.13.0" type="text/javascript"></script>
+        <div id="global-app-error" class="app-error hidden"></div>
+        <script src="@(ViewBag.assetsPath)/javascripts/govuk-template.js?0.13.0" type="text/javascript"></script>
 
-    @RenderSection("BodyEnd", required: false)
+        @RenderSection("BodyEnd", required: false)
+    </div>
 </body>
 
 </html>
