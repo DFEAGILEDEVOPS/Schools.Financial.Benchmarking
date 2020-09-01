@@ -30,7 +30,6 @@
     }
     };
     GOVUK.setDomainCookie = function (name, value, options, domain) {
-        debugger;
         if (typeof options === 'undefined') {
             options = {};
         }
