@@ -118,7 +118,7 @@ fieldset {
   padding: 0; }
 
 a:link {
-  color: #005ea5; }
+  color: #1D70B8; }
 
 a:visited {
   color: #4c2c92; }
@@ -487,7 +487,7 @@ button:focus {
 #banner-header {
     width: 100%;
     color: #FFFFFF;
-    background-color: #005EA5;
+    background-color: #1D70B8;
     padding: 10px 0;
 }
 
@@ -526,7 +526,7 @@ button:focus {
 /* Global header bar */
 #global-header-bar {
     height: 10px;
-    background-color: #005ea5;
+    background-color: #1D70B8;
 }
 
 /* Global cookie message */

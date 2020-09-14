@@ -193,7 +193,7 @@
             }
 
             let texts = $("#" + el.id + " .c3-axis-x g.tick text tspan");
-            texts.css('fill', '#005ea5');
+            texts.css('fill', '#1D70B8');
 
             let svg = $("#" + el.id + " svg");
             svg.css('font-size', '14px');
@@ -229,9 +229,9 @@
                 let isMAT = $("#Type").val() === "MAT";
                 d3.select(tick).append('circle')
                     .classed("ex-icon-circle", 1)
-                    .attr("stroke", "#005EA5")
+                    .attr("stroke", "#1D70B8")
                     .attr("stroke-width", "4")
-                    .attr("fill", "#005EA5")
+                    .attr("fill", "#1D70B8")
                     .attr("r", r)
                     .attr("cy", cy)
                     .attr("cx", newTextX);

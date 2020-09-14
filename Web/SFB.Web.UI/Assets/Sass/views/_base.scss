@@ -160,6 +160,7 @@ a.button {
         &__edit-basket {
             margin-left: 0;
             width: 100%;
+            color: #0C0C0C !important;
 
             @include media(desktop) {
                 margin-left: 15px;
@@ -181,6 +182,9 @@ a.button {
         .add-schools {
             display: block;
             margin-top: 10px;
+            color: #0C0C0C !important;
+            font-weight: bold;
+            text-decoration: none;
 
             @include media(tablet) {
                 display: inline-block;
@@ -336,7 +340,7 @@ a.button {
     }
 
     a.b-school-link:link {
-        fill: #005ea5;
+        fill: #1D70B8;
     }
 
     a.b-school-link:visited {
