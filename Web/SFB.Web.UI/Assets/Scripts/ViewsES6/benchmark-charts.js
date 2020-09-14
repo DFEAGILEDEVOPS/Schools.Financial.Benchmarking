@@ -272,13 +272,15 @@
                         }
                         else if (p8binding === 4) {
                             progressColour = "#f47738";
+                            fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 3) {
                             progressColour = "#ffbf47";
-                            fontColour = "#000000";
+                            fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 2) {
                             progressColour = "#85994b";
+                            fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 1) {
                             progressColour = "#006435";
@@ -289,13 +291,15 @@
                         }
                         else if (progressScore >= -3 && progressScore < -2) {
                             progressColour = "#f47738";
+                            fontColour = "#0C0C0C";
                         }
                         else if (progressScore >= -2 && progressScore <= 2) {
                             progressColour = "#ffbf47";
-                            fontColour = "#000000";
+                            fontColour = "#0C0C0C";
                         }
                         else if (progressScore > 2 && progressScore <= 3) {
                             progressColour = "#85994b";
+                            fontColour = "#0C0C0C";
                         }
                         else if (progressScore > 3) {
                             progressColour = "#006435";
