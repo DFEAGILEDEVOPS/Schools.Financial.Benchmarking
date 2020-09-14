@@ -94,6 +94,9 @@
                         <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
                     </li>
                 }
+                <li>
+                    <a class="font-xsmall" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic comparison report</a>
+                </li>
             </ul>
         </aside>
     </div>
