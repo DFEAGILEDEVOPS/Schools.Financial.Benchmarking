@@ -1,5 +1,5 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
-<div class="compare-buttons-panel compare-buttons-panel--set-unset">
+@*<div class="compare-buttons-panel compare-buttons-panel--set-unset">
     <div class="compare-buttons-panel__column-full">
             
         <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-xsmall no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
@@ -25,7 +25,7 @@
         </span>
 
     </div>
-</div>
+</div>*@
 <div class="compare-buttons-panel">
     <div class="compare-buttons-panel__column-full">
 
