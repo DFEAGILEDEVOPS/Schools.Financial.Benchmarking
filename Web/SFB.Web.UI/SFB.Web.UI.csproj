@@ -216,6 +216,12 @@
     <Reference Include="RestSharp, Version=106.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
+    <Reference Include="SFB.Web.ApplicationCore, Version=1.0.265.53254, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.265.53254\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
+    </Reference>
+    <Reference Include="SFB.Web.Infrastructure, Version=1.0.265.53268, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.265.53268\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.0.601\lib\net472\StackExchange.Redis.dll</HintPath>
     </Reference>
@@ -978,16 +984,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\SFB.Web.ApplicationCore\SFB.Web.ApplicationCore.csproj">
-      <Project>{c7d71b89-d508-43fa-8130-1266baa6dda9}</Project>
-      <Name>SFB.Web.ApplicationCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\SFB.Web.Infrastructure\SFB.Web.Infrastructure\SFB.Web.Infrastructure.csproj">
-      <Project>{933aecee-a499-482d-b09b-a8864140b332}</Project>
-      <Name>SFB.Web.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
