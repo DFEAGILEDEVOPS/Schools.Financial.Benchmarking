@@ -180,8 +180,8 @@
             var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLinkText' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>New feature</h1>" +
-                "<p id = 'modal-content'>A new article has been added to the News Page that could help your schools financial benchmarking experience. " +
-                "<a href='/news?referrer=" + window.DfE.Util.ModalRenderer.GetQueryString() + "'>Go to the news page</a> to view the article or find the News link in the 'News and Guidance' section on the homepage.</p>" +
+                "<p id = 'modal-content'>A new article has been added to the news page that could help your school's financial benchmarking experience. " +
+                "<a href='/news?referrer=" + window.DfE.Util.ModalRenderer.GetQueryString() + "'>Go to the news page</a> to view the article or find the news link in the 'News and Guidance' section on the homepage.</p>" +
                 "<div class='grid-row modal-form-buttons'>"+
                 "<div class='column-half'>" +
                 "<a class='button next-button' href='/news?referrer=" + window.DfE.Util.ModalRenderer.GetQueryString() + "'>Go to news page</a>" +

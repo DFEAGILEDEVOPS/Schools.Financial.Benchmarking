@@ -376,9 +376,8 @@ namespace SFB.Web.UI.Controllers
         public async Task<ActionResult> GenerateFromEfficiencyMetricsTop(int urn)
         {
             var defaultSchool = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
-            var neighbourSchools = (await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn)).NeighbourRecords;
-            neighbourSchools.Add(new EfficiencyMetricNeighbourListItemObject(defaultSchool.Urn, defaultSchool.Efficiencydecileingroup));
-            var topNeighbourSchoolURNs = neighbourSchools.OrderBy(s => s.Rank).Take(15).Select(n => n.URN).ToList();
+            var neighbourSchools = (await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn)).Neighbours;
+            var topNeighbourSchoolURNs = neighbourSchools.OrderBy(s => s.EfficiencyDecileNeighbour).Take(15).Select(n => n.Urn).ToList();
 
             EmptyBasket();
 

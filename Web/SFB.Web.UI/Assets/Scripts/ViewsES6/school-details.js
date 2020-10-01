@@ -29,6 +29,15 @@
             }
         });
 
+        $.ajax({
+            type: 'HEAD',
+            url: `https://${$("#SfbApiUrl").val()}/api/efficiencymetric/${modelId}`,
+            success: function () { $("#efficiencyMetricLink").show(); },
+            error: function (xhr, e) {
+                $("#efficiencyMetricLink").hide();
+            }
+        });
+
         sessionStorage.chartFormat = chartFormat;
 
         DfE.Views.HistoricalCharts = new HistoricalCharts();

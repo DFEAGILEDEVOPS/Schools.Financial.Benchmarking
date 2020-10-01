@@ -193,7 +193,7 @@
             }
 
             let texts = $("#" + el.id + " .c3-axis-x g.tick text tspan");
-            texts.css('fill', '#005ea5');
+            texts.css('fill', '#1D70B8');
 
             let svg = $("#" + el.id + " svg");
             svg.css('font-size', '14px');
@@ -229,9 +229,9 @@
                 let isMAT = $("#Type").val() === "MAT";
                 d3.select(tick).append('circle')
                     .classed("ex-icon-circle", 1)
-                    .attr("stroke", "#005EA5")
+                    .attr("stroke", "#1D70B8")
                     .attr("stroke-width", "4")
-                    .attr("fill", "#005EA5")
+                    .attr("fill", "#1D70B8")
                     .attr("r", r)
                     .attr("cy", cy)
                     .attr("cx", newTextX);
@@ -272,13 +272,15 @@
                         }
                         else if (p8binding === 4) {
                             progressColour = "#f47738";
+                            fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 3) {
                             progressColour = "#ffbf47";
-                            fontColour = "#000000";
+                            fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 2) {
                             progressColour = "#85994b";
+                            fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 1) {
                             progressColour = "#006435";
@@ -289,13 +291,15 @@
                         }
                         else if (progressScore >= -3 && progressScore < -2) {
                             progressColour = "#f47738";
+                            fontColour = "#0C0C0C";
                         }
                         else if (progressScore >= -2 && progressScore <= 2) {
                             progressColour = "#ffbf47";
-                            fontColour = "#000000";
+                            fontColour = "#0C0C0C";
                         }
                         else if (progressScore > 2 && progressScore <= 3) {
                             progressColour = "#85994b";
+                            fontColour = "#0C0C0C";
                         }
                         else if (progressScore > 3) {
                             progressColour = "#006435";

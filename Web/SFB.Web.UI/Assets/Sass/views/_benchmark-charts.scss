@@ -98,7 +98,7 @@
             margin-bottom: 20px;
 
             .c3-axis-x g.tick text tspan {
-                fill: #005ea5;
+                fill: #1D70B8;
                 cursor: pointer;
             }
 
@@ -713,7 +713,7 @@
     line-height: 14px;
     margin: 0 0 0 1em;
 
-    @include media(mobile){
+    @include media(mobile) {
         margin: 0;
     }
 
@@ -724,7 +724,7 @@
 
     &.below {
         background-color: #f47738;
-        color: #fff;
+        color: #0C0C0C;
     }
 
     &.average {
@@ -733,7 +733,7 @@
 
     &.above {
         background-color: #85994b;
-        color: #fff;
+        color: #0C0C0C;
     }
 
     &.well-above {
@@ -744,7 +744,8 @@
     &.na {
         background-color: $panel-colour;
         min-height: 34px;
-        @include media(mobile){
+
+        @include media(mobile) {
             min-height: unset;
         }
 

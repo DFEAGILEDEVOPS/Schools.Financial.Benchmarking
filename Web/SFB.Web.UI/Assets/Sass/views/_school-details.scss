@@ -55,7 +55,7 @@
         }
     }
 
-    .compare-buttons-panel {
+/*    .compare-buttons-panel {
         a.button {
             font-size: 16px;
 
@@ -87,7 +87,7 @@
                 margin-left: 0;
             }
         }
-    }
+    }*/
 
     .chart-wrapper__inner {
         @include media(mobile) {
@@ -249,6 +249,10 @@
         .compare-buttons-panel--set-unset, .compare-buttons-panel__button--addto, .compare-buttons-panel__button--compare, .compare-buttons-panel--auto {
             display: none !important;
         }
+    }
+
+    .compare-buttons-panel__button--compare{
+        margin-bottom: 10px;
     }
 
     .img-button {
