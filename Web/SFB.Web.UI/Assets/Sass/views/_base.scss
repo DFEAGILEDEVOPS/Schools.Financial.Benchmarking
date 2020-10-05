@@ -557,17 +557,17 @@ a.button {
         color: white !important;
     }
 
-    .link-button {
-        background: none;
-        border: none;
-        color: $link-colour;
-        text-decoration: underline;
-        cursor: pointer;
+.link-button {
+    background: none;
+    border: none;
+    color: #1D70B8;
+    text-decoration: underline;
+    cursor: pointer;
 
-        @include media(mobile) {
-            padding-left: 0;
-        }
+    @include media(mobile) {
+        padding-left: 0;
     }
+}
 
     .a-button {
         @include a-button;
@@ -580,7 +580,7 @@ a.button {
 
     .tabs {
         .a-button {
-            color: $link-colour;
+            color: #1D70B8;
             font-weight: normal;
         }
     }
@@ -912,7 +912,7 @@ a.button {
 
         &:focus {
             height: auto;
-            color: $link-colour;
+            color: #1D70B8;
         }
 
         &:hover {
