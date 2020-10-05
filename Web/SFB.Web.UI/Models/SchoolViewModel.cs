@@ -87,7 +87,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string AgeRange => $"{ContextDataModel.StatutoryLowAge} to {ContextDataModel.StatutoryHighAge}";
+        public string AgeRange => ContextDataModel.StatutoryLowAge == null ? null : $"{ContextDataModel.StatutoryLowAge} to {ContextDataModel.StatutoryHighAge}";
 
         public string HeadTeachFullName => $"{ContextDataModel.HeadFirstName} {ContextDataModel.HeadLastName}";
 
