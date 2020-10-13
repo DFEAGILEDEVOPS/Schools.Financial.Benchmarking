@@ -14,7 +14,7 @@
 }
 
 
-<div class="column-three-quarters">
+<div class="column-three-quarters mt-2">
     <div id="error-summary-placeholder">
         @if (!string.IsNullOrEmpty(Model.ErrorMessage))
         {
@@ -31,7 +31,7 @@
         }
     </div>
 
-    <h1 class="heading-xlarge page-heading">
+    <h1 class="govuk-heading-xl">
         @ViewBag.Title
     </h1>
 
@@ -80,50 +80,30 @@
 
 @section Aside {
     <div class="column-quarter aside">
-        <aside class="guidance">
-            <div class="header-bar"></div>
-            <h3 class="heading-medium">News and guidance</h3>
-            <ul class="guidance__list font-small">
-                <li class="guidance__list__item">
-                    <a class="guidance__list__link" href="News">News</a>
-                </li>
-                <li class="guidance__list__item">
-                    <a class="guidance__list__link" href="Help/Guidance">Help using this site</a>
-                </li>
-                <li class="guidance__list__item">
-                    <a class="guidance__list__link" href="Help/InterpretingCharts">Interpreting the charts</a>
-                </li>
-                <li class="guidance__list__item">
-                    <a class="guidance__list__link" href="Help/DataSources">Data sources</a>
-                </li>
-                <li class="guidance__list__item">
-                    <a class="guidance__list__link" href="~/Help/DataQueries">School or trust data query</a>
-                </li>
-            </ul>
+        <aside class="app-related-items mt-2">
+            <h2 class="govuk-heading-m" id="subsection-title">News and guidance</h2>
+            <nav role="navigation" aria-labelledby="subsection-title">
+                <ul class="list font-xsmall">
+                    <li>
+                        <a href="News">News</a>
+                    </li>
+                    <li>
+                        <a href="Help/Guidance">Help using this site</a>
+                    </li>
+                    <li>
+                        <a href="Help/InterpretingCharts">Interpreting the charts</a>
+                    </li>
+                    <li>
+                        <a href="Help/DataSources">Data sources</a>
+                    </li>
+                    <li>
+                        <a href="~/Help/DataQueries">School or trust data query</a>
+                    </li>
+                </ul>
+            </nav>
         </aside>
     </div>
-    @*<aside>
-            <div class="govuk-box-highlight">
-                <h3 class="heading-large mt-0 pt-0">
-                    <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">Deals for schools<span class="visuallyhidden"> Opens in a new window</span></a>
-                </h3>
-                <p class="font-xsmall pb-0 mb-0">Find a range of cost-saving deals for schools assessed for compliance with procurement regulations and ease of use by the DfE</p>
-            </div>
-        </aside>*@
-    @*<aside class="contents guidance">
-            <h3 class="heading-medium">Downloads</h3>
-            <ul class="font-small">
-                <li>
-                    <a href="Download/Maintained">Maintained schools</a>
-                </li>
-                <li>
-                    <a href="Download/Academy">Academies</a>
-                </li>
-                <li>
-                    <a href="Download/MAT">Trust</a>
-                </li>
-            </ul>
-        </aside>*@
+
 }
 
 @section ViewScripts {
