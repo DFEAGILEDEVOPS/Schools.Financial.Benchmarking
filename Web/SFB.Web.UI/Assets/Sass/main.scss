@@ -235,6 +235,15 @@ ul.list {
     }
 }
 
+.help-icon .icon {
+    background-image: url(/public/assets/images/icons/info.svg);
+ }
+
+.icon-table, .icon-chart, .icon-location {
+    width: 20px;
+    padding-right: 3px;
+}
+
 //* {
 //    font-family: "GDS Transport", Arial, sans-serif !important;
 //}

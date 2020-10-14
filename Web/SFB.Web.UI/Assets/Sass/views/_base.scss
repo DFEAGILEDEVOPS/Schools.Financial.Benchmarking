@@ -866,7 +866,7 @@ a.button {
         top: 5px;
         width: 20px;
         height: 22px;
-        background-image: url(/public/assets/images/icons/icon-bookmark.png);
+        background-image: url(/public/assets/images/icons/add.svg);
     }
 
     .icon-save-image {
@@ -874,7 +874,7 @@ a.button {
         top: 5px;
         width: 23px;
         height: 22px;
-        background-image: url(/public/assets/images/icons/icon-saveimage.png);
+        background-image: url(/public/assets/images/icons/image.svg);
     }
 
     .float-to-right {
@@ -1208,6 +1208,7 @@ a.button {
     .mag-icon {
         margin-right: 3px;
         vertical-align: middle;
+        width: 18px;
     }
 
     .download-link.pdf-ppt {
