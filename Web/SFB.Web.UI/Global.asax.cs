@@ -32,7 +32,7 @@ namespace SFB.Web.UI
 
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
-            var staticExtensions = new[] { ".png", ".ico", ".gif", ".css", ".map", ".js" };
+            var staticExtensions = new[] { ".svg", ".png", ".ico", ".gif", ".css", ".map", ".js" };
             if (staticExtensions.Contains(Request.CurrentExecutionFilePathExtension))
             {
                 Response.Cache.AppendCacheExtension("pre-check=31536000");
