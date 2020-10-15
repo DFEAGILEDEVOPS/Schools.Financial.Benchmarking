@@ -519,6 +519,17 @@
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
+    <Content Include="public\assets\images\icons\add.svg" />
+    <Content Include="public\assets\images\icons\download.svg" />
+    <Content Include="public\assets\images\icons\find.svg" />
+    <Content Include="public\assets\images\icons\find_button.svg" />
+    <Content Include="public\assets\images\icons\graph.svg" />
+    <Content Include="public\assets\images\icons\image.svg" />
+    <Content Include="public\assets\images\icons\info.svg" />
+    <Content Include="public\assets\images\icons\location.svg" />
+    <Content Include="public\assets\images\icons\print.svg" />
+    <Content Include="public\assets\images\icons\save.svg" />
+    <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="robots.txt" />
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
