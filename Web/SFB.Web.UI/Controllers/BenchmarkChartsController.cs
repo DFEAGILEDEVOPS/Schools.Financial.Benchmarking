@@ -391,15 +391,36 @@ namespace SFB.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> GenerateFromEfficiencyMetricsManual(int urn, string neighbourURNs)
         {
-            var neighbourUrnList = neighbourURNs?.Split(',').Select(u => int.Parse(u)).ToList();
+            var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            if (comparisonList?.BenchmarkSchools?.Count == 0)
+            {
+                var neighbourUrnList = neighbourURNs?.Split(',').Select(u => int.Parse(u)).ToList();
 
-            EmptyBasket();
+                //EmptyBasket();
 
-            await AddSchoolDataObjectsToBasketAsync(ComparisonType.EfficiencyManual, neighbourUrnList);
+                await AddSchoolDataObjectsToBasketAsync(ComparisonType.EfficiencyManual, neighbourUrnList);
 
-            await SetDefaultSchoolInBasketAsync(urn);
+                await SetDefaultSchoolInBasketAsync(urn);
 
-            return await Index(urn, null, null, comparisonType: ComparisonType.EfficiencyManual);
+                return await Index(urn, null, null, comparisonType: ComparisonType.EfficiencyManual);
+            }
+            else
+            {
+                return EmOverwriteStrategy(urn, neighbourURNs);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult EmOverwriteStrategy(int homeSchoolUrn, string neighbourURNs)
+        {
+            var vm = new SaveOverwriteViewModel()
+            {
+                ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(),
+                SavedUrns = neighbourURNs,
+            };
+
+            ViewBag.backUrl = $"{System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]}/manual-comparison/{homeSchoolUrn}";
+            return View("EmOverwriteStrategy", vm);
         }
 
         [HttpGet]

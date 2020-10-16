@@ -963,6 +963,7 @@
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\LICENSE" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\package.json" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\README.md" />
+    <Content Include="Views\BenchmarkCharts\EmOverwriteStrategy.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
