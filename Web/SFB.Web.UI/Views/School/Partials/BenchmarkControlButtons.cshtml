@@ -1,32 +1,4 @@
-﻿@using SFB.Web.UI.Helpers.Constants
-@*<div class="compare-buttons-panel compare-buttons-panel--set-unset">
-    <div class="compare-buttons-panel__column-full">
-            
-        <button @DisplayStyle(Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-xsmall no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'UnsetDefault')")">
-            <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt=""/>
-            <span>Unset as default school<span class="visuallyhidden"> Opens in a new window</span></span>
-        </button>
-
-        <button @DisplayStyle(!Model.IsDefaultBenchmark) class="img-button set-unset-default no-underline link-button font-xsmall no-padding" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'SetDefault')")">
-            <img class="icon" src="~/public/assets/images/icons/icon-bookmark.png" alt="" />
-            <span>Set as default school<span class="visuallyhidden"> Opens in a new window</span></span>
-        </button>
-
-        <a class="img-button no-underline compare-buttons-panel__button--auto sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]" aria-label="Basic comparison report. Opens in a new window.">
-            <img class="icon" src="~/public/assets/images/icons/icon-file-download-small.png" alt="Opens in a new window" />
-            <span id="DownloadLinkText" class="bold-xsmall">Basic comparison report</span>                  
-        </a>
-        <span class="help-icon inline-block hide-in-print">
-            <span class="icon dark-blue">
-                <a href="#" class="js-modal no-underline" data-modal-title="Quick comparison report" data-modal-text="@String.Format(HelpTooltipText.QuickComparisonHelp, Request.QueryString["urn"])" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
-                    <span class="visuallyhidden">Open more info text for Quick comparison report opens a popup</span>
-                </a>
-            </span>
-        </span>
-
-    </div>
-</div>*@
-<div class="compare-buttons-panel">
+﻿<div class="compare-buttons-panel">
     <div class="compare-buttons-panel__column-full">
 
         <a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>

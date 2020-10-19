@@ -9,21 +9,28 @@
 
 @model SFB.Web.UI.Models.DataQueryViewModel
 
-<div class="grid-row">
+<div class="grid-row mt-2">
     <div class="column-one-third contents">
-        <h3 class="heading-small">Contents</h3>
-        <ul class="list font-xsmall">
-            <li><a href="#school-information">School information</a></li>
-            <li><a href="#workforce-data">Workforce data</a></li>
-            <li><a href="#financial-data">Financial data</a></li>
-            <li><a href="#data-query">Data query</a></li>
-        </ul>
+        <aside class="app-related-items" role="complementary">
+            <h2 class="govuk-heading-m" id="subsection-title">
+                Contents
+            </h2>
+            <nav role="navigation" aria-labelledby="subsection-title">
+                <ul class="list font-xsmall">
+                    <li><a href="#school-information">School information</a></li>
+                    <li><a href="#workforce-data">Workforce data</a></li>
+                    <li><a href="#financial-data">Financial data</a></li>
+                    <li><a href="#data-query">Data query</a></li>
+                </ul>
+            </nav>
+        </aside>
     </div>
-    <div class="column-two-thirds text" id="helpContent">
+
+    <div class="column-two-thirds" id="helpContent">
 
         @FormErrorSummary()
 
-        <h1 class="heading-xlarge page-heading">Data queries</h1>
+        <h1 class="govuk-heading-xl">Data queries</h1>
 
         <p>
             Schools financial benchmarking uses data from multiple school data collections. We make every effort to ensure
@@ -86,8 +93,8 @@
             </div>
             <button class="button" type="submit">Submit</button>
         </form>
-
     </div>
+
 </div>
 
 @helper FormErrorSummary()
@@ -98,7 +105,7 @@
     {
         <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
             <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
-                There are errors on this page that require attention.
+                There is a problem
             </h1>
             <ul class="error-summary-list">
                 @foreach (KeyValuePair<string, ModelState> ms in msDictionary)

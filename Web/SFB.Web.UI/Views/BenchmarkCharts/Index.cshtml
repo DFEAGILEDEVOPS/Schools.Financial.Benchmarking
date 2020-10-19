@@ -112,7 +112,7 @@ else
         if (Model.ComparisonType == ComparisonType.Advanced && Model.SchoolComparisonList.HomeSchoolName.IsEmpty())
         {
             <div id="comparing-text" class="font-xsmall">
-                <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+                <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to school characteristics</button>
             </div>
         }
         else if (Model.BmSchoolInList())
@@ -129,7 +129,7 @@ else
                             </div>
                             <span>&nbsp;to schools</span>
                             <span class="bold-xsmall"> with characteristics you've chosen. </span>
-                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.Basic)
@@ -141,7 +141,7 @@ else
                             </div>
                             <span>&nbsp;to schools</span>
                             <span class="bold-xsmall"> matching your chosen characteristics. </span>
-                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Edit comparison</button>
+                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
@@ -238,14 +238,14 @@ else
             <div id="downloadLinkContainer" class="download-link">
                 <div class="download">
                     <a id="DownloadLink" class="no-underline bold-xsmall sfb_gtm_csv_bm" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
-                        <img class="icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" /><span id="DownloadLinkText"> Download data</span>
+                        <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" /><span id="DownloadLinkText"> Download data</span>
                     </a>
                 </div>
             </div>
             <div class="download-link pdf-ppt">
                 <div class="pdf">
                     <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.RenderDownloadModal(event)">
-                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-file-download.png" alt="" />
+                        <img class="icon download-icon" src="~/public/assets/images/icons/download.svg" alt="" />
                         @*<img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />*@
                         <span id="PdfLinkText"> Download page</span>
                     </button>
@@ -254,14 +254,14 @@ else
             <div class="download-link">
                 <div class="print">
                     <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()">
-                        <img class="icon" src="~/public/assets/images/icons/icon-print.png" alt="" /><span id="PrintLinkText"> Print page</span>
+                        <img class="icon" src="~/public/assets/images/icons/print.svg" alt="" /><span id="PrintLinkText"> Print page</span>
                     </button>
                 </div>
             </div>
             <div class="download-link">
                 <div class="save">
                     <button id="SaveLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.SaveBenchmarkBasketModal()">
-                        <img class="icon download-icon" src="~/public/assets/images/icons/icon-save-list.png" alt="" />
+                        <img class="icon download-icon" src="~/public/assets/images/icons/save.svg" alt="" />
                         <span id="SaveLinkText"> Save or share benchmark</span>
                     </button>
                     <span class="help-icon no-margin hide-in-print">

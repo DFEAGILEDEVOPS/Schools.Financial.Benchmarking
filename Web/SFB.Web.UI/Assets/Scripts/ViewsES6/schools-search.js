@@ -90,7 +90,7 @@
             }
             var html = `<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
                 <h1 id = "ErrorSummaryHeading" class="heading-medium error-summary-heading">
-                There are errors on this page that require attention.
+                There is a problem
                 </h1>
                 <ul class="error-summary-list">
                     <li>

@@ -88,7 +88,7 @@
         float: left;
         position: relative;
         box-sizing: border-box;
-        background: $button-colour url(../../../public/assets/images/magnifier.png) no-repeat 0 50%;
+        background: $button-colour url(../../../public/assets/images/icons/find_button.svg) no-repeat 0 50%;
         border: solid 2px $button-colour;
         cursor: pointer;
         overflow: hidden;
@@ -96,6 +96,7 @@
         border-radius: 0;
         width: 37px;
         height: 37px;
+        background-size: 32px 17px;
 
         @include media(mobile) {
             background-position-x: -2px;

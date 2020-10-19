@@ -179,7 +179,7 @@
         <div class="column-one-third no-padding">
             <div class="download">
                 <a class="no-underline bold-xsmall sfb_gtm_csv_school" href="/school/download?urn=@Model.Id" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
-                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/icon-file-download.png" />
+                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                     Download data for this school
                 </a>
             </div>
@@ -187,7 +187,7 @@
         <div class="column-one-third no-padding">
             <div class="print">
                 <button class="no-underline link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
-                    <img class="icon" alt="" src="~/public/assets/images/icons/icon-print.png" />
+                    <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                     Print page
                 </button>
             </div>
@@ -238,8 +238,8 @@
     <div class="grid-row">
         <div>
             <div class="column-full font-xsmall chartTable hide-in-print">
-                <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon" src="~/public/assets/images/icons/icon-chart.png" alt="" /><span> View as charts</span></button>
-                <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon" src="~/public/assets/images/icons/icon-list.png" alt="" /><span> View as tables</span></button>
+                <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables</span></button>
             </div>
             <div class="column-full font-xsmall hide-in-print">
                 <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
