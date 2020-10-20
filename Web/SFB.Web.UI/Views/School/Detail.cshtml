@@ -104,6 +104,33 @@
 
 <div class="grid-row">
     <div class="column-half">
+        @if (Model.Phase == "Special")
+        {
+            <details class="mb-1">
+                <summary>
+                    <span class="summary font-xsmall">This school's SEN characteristics</span>
+                </summary>
+                <div class="panel panel-border-narrow">
+                    <table class="sen-table">
+                        <tr>
+                            <th scope="col">SEN characteristic</th>
+                            <th scope="col" class="col-right">% of pupils</th>
+                        </tr>
+                        @foreach (var ch in Model.SenCharacteristics.OrderByDescending(c => c.Value))
+                        {
+                            if (ch.Value.GetValueOrDefault() > 0)
+                            {
+                            <tr>
+                                <td><span>@ch.Key</span></td>
+                                <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
+                            </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </details>
+        }
+
         <div class="metadata-school-detail font-xsmall">
             <dl class="metadata-school-detail__dl">
                 @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")

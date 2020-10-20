@@ -4,6 +4,8 @@ using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.ApplicationCore.Entities;
 using System.Globalization;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using System.Collections.Generic;
+using SFB.Web.ApplicationCore.Helpers.Constants;
 
 namespace SFB.Web.UI.Models
 {
@@ -191,6 +193,18 @@ namespace SFB.Web.UI.Models
         public string PhaseInFinancialSubmission => LatestYearFinancialData.SchoolPhase;
 
         public string OverallPhaseInFinancialSubmission => LatestYearFinancialData.SchoolOverallPhase;
+
+        public List<KeyValuePair<string, decimal?>> SenCharacteristics => new List<KeyValuePair<string, decimal?>>() { 
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.AUTISTIC_DISORDER, LatestYearFinancialData.AutisticDisorder),
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY, LatestYearFinancialData.ModerateLearningDifficulty),
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.SPEECH_NEEDS, LatestYearFinancialData.SpeechNeeds),
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY, LatestYearFinancialData.SevereLearningDifficulty),
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY, LatestYearFinancialData.PhysicalDisability),
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.SOCIAL_HEALTH, LatestYearFinancialData.SocialHealth),
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF, LatestYearFinancialData.OtherLearningDifficulty),
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY, LatestYearFinancialData.SpecificLearningDifficulty),
+            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY, LatestYearFinancialData.ProfLearningDifficulty)
+        };
 
         public BicProgressScoreType BicProgressScoreType
         {
