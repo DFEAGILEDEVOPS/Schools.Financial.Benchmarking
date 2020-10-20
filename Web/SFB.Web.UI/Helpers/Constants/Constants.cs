@@ -158,6 +158,13 @@
             "<li>Pupils with English as an additional language</li>"+
             "<li>Schools within the local authority</li>"+
             "</ul>";
+        public const string SpecialsComparisonExplanation = "<p>This type of comparison generates a group of statistically similar special or alternate provision schools.</p>"+
+          "<p>To do this we search nationally for all school funding types and for all size of schools.</p>"+
+          "<p>The following characteristics can be chosen:</p>"+
+          "<ul>"+
+            "<li>Special school, pupil referral unit or both</li>"+
+            "<li>Percentage of SEN characteristics</li>"+
+          "</ul>";
     }
 
     public class DealsForSchoolsLinkText
