@@ -244,6 +244,22 @@ ul.list {
     padding-right: 3px;
 }
 
+.sen-table {
+    tr, td, th {
+        font-size: 16px;
+    }
+
+    .col-right {
+        text-align: right;
+    }
+
+    caption {
+        text-align: left;
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+}
+
 //* {
 //    font-family: "GDS Transport", Arial, sans-serif !important;
 //}
