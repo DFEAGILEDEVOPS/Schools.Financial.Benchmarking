@@ -250,11 +250,11 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SpecialsComparison(int urn, bool similarPupils)
+        public async Task<ActionResult> SpecialsComparison(int urn, bool? similarPupils)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 
-            return await Index(urn, null, null, null, ComparisonType.BestInClass, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType);
+            return await Index(urn, null, null, null, ComparisonType.Specials, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType);
         }
 
         public async Task<ActionResult> GenerateFromBicCriteria(int urn)
@@ -1064,7 +1064,9 @@ namespace SFB.Web.UI.Controllers
                     defaultUnitType = UnitType.PercentageTeachers;
                     break;
                 default:
-                    defaultUnitType = comparisonType == ComparisonType.BestInClass ? UnitType.PerPupil : UnitType.AbsoluteMoney;
+                    defaultUnitType = comparisonType == ComparisonType.BestInClass || comparisonType == ComparisonType.Specials 
+                                      ? UnitType.PerPupil 
+                                      : UnitType.AbsoluteMoney;
                     break;
             }
 
