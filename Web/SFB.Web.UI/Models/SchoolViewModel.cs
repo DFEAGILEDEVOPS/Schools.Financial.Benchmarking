@@ -194,6 +194,7 @@ namespace SFB.Web.UI.Models
 
         public string OverallPhaseInFinancialSubmission => LatestYearFinancialData.SchoolOverallPhase;
 
+        public List<KeyValuePair<string, decimal?>> TopSenCharacteristics => SenCharacteristics.Where(c => c.Value > 10).OrderByDescending(c => c.Value).Take(3).ToList();
         public List<KeyValuePair<string, decimal?>> SenCharacteristics => new List<KeyValuePair<string, decimal?>>() { 
             new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.AUTISTIC_DISORDER, LatestYearFinancialData.AutisticDisorder),
             new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY, LatestYearFinancialData.ModerateLearningDifficulty),

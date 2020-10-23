@@ -38,7 +38,7 @@
                 <th scope="col">SEN characteristic</th>
                 <th scope="col" class="col-right">Your school's value</th>
             </tr>
-            @foreach (var ch in Model.SenCharacteristics.OrderByDescending(c => c.Value))
+            @foreach (var ch in Model.TopSenCharacteristics)
             {
                 if (ch.Value.GetValueOrDefault() > 0)
                 {

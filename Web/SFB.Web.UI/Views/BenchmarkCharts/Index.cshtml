@@ -144,6 +144,18 @@ else
                             <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
+                    else if (Model.ComparisonType == ComparisonType.Specials)
+                    {
+                        <div id="comparing-text" class="font-xsmall">
+                            <span>Comparing</span>
+                            <div class="highlight">
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                            </div>
+                            <span class="bold-xsmall">&nbsp;to special schools</span>
+                            <span> based on your SEN characteristics. </span>
+                            @*<button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to school characteristics</button>*@
+                        </div>
+                    }
                     else if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
                     {
                         <div id="comparing-text" class="font-xsmall">
@@ -172,7 +184,11 @@ else
             </div>
         }
 
-        if ((Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.Advanced || Model.ComparisonType == ComparisonType.BestInClass) && Model.AdvancedCriteria != null)
+        if ((Model.ComparisonType == ComparisonType.Basic 
+            || Model.ComparisonType == ComparisonType.Specials 
+            || Model.ComparisonType == ComparisonType.Advanced 
+            || Model.ComparisonType == ComparisonType.BestInClass) 
+            && Model.AdvancedCriteria != null)
         {
             <div class="grid-row">
                 <div class="column-full">
@@ -192,6 +208,13 @@ else
                             <div class="panel panel-border-narrow criteria-detail">
                                 @Html.Partial("Partials/BasicHiddenFields")
                                 @Html.Partial("Partials/UsedBasicCriteria")
+                            </div>
+                        }
+                        else if (Model.ComparisonType == ComparisonType.Specials)
+                        {
+                            <div class="panel panel-border-narrow criteria-detail">
+                                @*@Html.Partial("Partials/BasicHiddenFields")*@
+                                @Html.Partial("Partials/UsedAdvancedCriteria")
                             </div>
                         }
                         else if (Model.ComparisonType == ComparisonType.BestInClass && Model.BicCriteria != null)

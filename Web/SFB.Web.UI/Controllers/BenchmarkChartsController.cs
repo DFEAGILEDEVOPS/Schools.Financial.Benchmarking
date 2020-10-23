@@ -266,7 +266,7 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
-            return await Index(urn, null, null, null, ComparisonType.Specials, ComparisonListLimit.SPECIALS, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType);
+            return await Index(urn, null, comparisonResult.BenchmarkCriteria, null, ComparisonType.Specials, ComparisonListLimit.SPECIALS, benchmarkSchool.LatestYearFinancialData, EstablishmentType.All);
         }
 
         public async Task<ActionResult> GenerateFromBicCriteria(int urn)
