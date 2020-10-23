@@ -254,7 +254,19 @@ namespace SFB.Web.UI.Controllers
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 
-            return await Index(urn, null, null, null, ComparisonType.Specials, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType);
+            var specialCriteria = new SpecialCriteria() { SimilarPupils = similarPupils.GetValueOrDefault() };
+
+            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSpecialComparisonCriteria(benchmarkSchool.LatestYearFinancialData, specialCriteria);
+
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSpecialComparisonAsync(benchmarkCriteria, specialCriteria, benchmarkSchool.LatestYearFinancialData);
+
+            EmptyBenchmarkList();
+
+            AddSchoolsToBenchmarkList(comparisonResult);
+
+            AddDefaultBenchmarkSchoolToList(benchmarkSchool);
+
+            return await Index(urn, null, null, null, ComparisonType.Specials, ComparisonListLimit.SPECIALS, benchmarkSchool.LatestYearFinancialData, benchmarkSchool.EstablishmentType);
         }
 
         public async Task<ActionResult> GenerateFromBicCriteria(int urn)
@@ -303,7 +315,7 @@ namespace SFB.Web.UI.Controllers
             if (comparisonResult == null)
             {
                 comparisonResult = await _comparisonService.GenerateBenchmarkListWithBestInClassComparisonAsync(bicCriteria.EstablishmentType, benchmarkCriteria,
-                                                                         bicCriteria, benchmarkSchool.LatestYearFinancialData);
+                                         bicCriteria, benchmarkSchool.LatestYearFinancialData);
 
                 if (!isEditedCriteria)
                 {

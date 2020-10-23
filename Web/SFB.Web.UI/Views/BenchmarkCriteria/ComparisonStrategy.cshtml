@@ -35,7 +35,7 @@
 
                 <p>We have some guidance on <a href="/help/guidance#question-five">choosing characteristics</a> if you are unsure which method suits you.</p>
 
-                @if (Model.Phase == "Special")
+                @if (Model.OverallPhase == "Special")
                 {
                     <div class="multiple-choice">
                         <input id="radio-5" type="radio" name="comparisonType" value="@ComparisonType.Specials" checked="checked">
