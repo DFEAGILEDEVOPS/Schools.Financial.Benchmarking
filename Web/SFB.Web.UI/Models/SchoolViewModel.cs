@@ -6,6 +6,7 @@ using System.Globalization;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Collections.Generic;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Models
 {
@@ -101,13 +102,13 @@ namespace SFB.Web.UI.Models
 
         public string OfstedRating => ContextDataModel.OfstedRating;
 
-        public string OfstedInspectionDate 
+        public string OfstedInspectionDate
         {
             get
             {
                 try
                 {
-                    return DateTime.Parse(ContextDataModel.OfstedLastInsp, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();                    
+                    return DateTime.Parse(ContextDataModel.OfstedLastInsp, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
                 }
                 catch
                 {
@@ -170,7 +171,7 @@ namespace SFB.Web.UI.Models
 
         public string IsPost16 => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
-        public string HasNursery => ContextDataModel.HasNursery == "Has Nursery Classes" ?  "Yes" : "No";
+        public string HasNursery => ContextDataModel.HasNursery == "Has Nursery Classes" ? "Yes" : "No";
 
         public string Address => $"{ContextDataModel.Street}, {ContextDataModel.Town}, {ContextDataModel.Postcode}";
 
@@ -194,17 +195,35 @@ namespace SFB.Web.UI.Models
 
         public string OverallPhaseInFinancialSubmission => LatestYearFinancialData.SchoolOverallPhase;
 
-        public List<KeyValuePair<string, decimal?>> TopSenCharacteristics => SenCharacteristics.Where(c => c.Value > 10).OrderByDescending(c => c.Value).Take(3).ToList();
-        public List<KeyValuePair<string, decimal?>> SenCharacteristics => new List<KeyValuePair<string, decimal?>>() { 
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.AUTISTIC_DISORDER, LatestYearFinancialData.AutisticDisorder),
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY, LatestYearFinancialData.ModerateLearningDifficulty),
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.SPEECH_NEEDS, LatestYearFinancialData.SpeechNeeds),
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY, LatestYearFinancialData.SevereLearningDifficulty),
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY, LatestYearFinancialData.PhysicalDisability),
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.SOCIAL_HEALTH, LatestYearFinancialData.SocialHealth),
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF, LatestYearFinancialData.OtherLearningDifficulty),
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY, LatestYearFinancialData.SpecificLearningDifficulty),
-            new KeyValuePair<string, decimal?>(SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY, LatestYearFinancialData.ProfLearningDifficulty)
+        public List<SENCriteriaModel> TopSenCharacteristics {
+            get {
+                var aboveThresholdOnes = SenCharacteristics
+                    .Where(c => c.Value > CriteriaSearchConfig.SPECIALS_TOP_SEN_RATIO_THRESHOLD)
+                    .OrderByDescending(c => c.Value)
+                    .Take(CriteriaSearchConfig.SPECIALS_TOP_SEN_NUMBER).ToList();
+                if (aboveThresholdOnes.Count > 0) 
+                {
+                    return aboveThresholdOnes;
+                }
+                else
+                {
+                    var highestOnes = SenCharacteristics
+                    .OrderByDescending(c => c.Value)
+                    .Take(CriteriaSearchConfig.SPECIALS_TOP_SEN_NUMBER).ToList();
+                    return highestOnes;
+                }
+            }
+        }
+        public List<SENCriteriaModel> SenCharacteristics => new List<SENCriteriaModel>() { 
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.AUTISTIC_DISORDER, SchoolCharacteristicsQuestions.AUTISTIC_DISORDER,LatestYearFinancialData.AutisticDisorder),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.MODERATE_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY, LatestYearFinancialData.ModerateLearningDifficulty),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SPEECH_NEEDS, SchoolCharacteristicsQuestions.SPEECH_NEEDS, LatestYearFinancialData.SpeechNeeds),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SEVERE_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY, LatestYearFinancialData.SevereLearningDifficulty),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.PHYSICAL_DISABILITY, SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY, LatestYearFinancialData.PhysicalDisability),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SOCIAL_HEALTH , SchoolCharacteristicsQuestions.SOCIAL_HEALTH, LatestYearFinancialData.SocialHealth),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.OTHER_LEARNING_DIFF, SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF, LatestYearFinancialData.OtherLearningDifficulty),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SPECIFIC_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY, LatestYearFinancialData.SpecificLearningDifficulty),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.PROF_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY, LatestYearFinancialData.ProfLearningDifficulty)
         };
 
         public BicProgressScoreType BicProgressScoreType

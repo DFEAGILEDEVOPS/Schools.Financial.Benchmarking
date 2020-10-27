@@ -22,6 +22,7 @@ using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Web.UI;
 using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.ApplicationCore.Entities;
+using Microsoft.Win32;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -254,7 +255,14 @@ namespace SFB.Web.UI.Controllers
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 
-            var specialCriteria = new SpecialCriteria() { SimilarPupils = similarPupils.GetValueOrDefault() };
+            var specialCriteria = new SpecialCriteria();
+            specialCriteria.SimilarPupils = similarPupils.GetValueOrDefault();
+            specialCriteria.TopSenCriteria = new List<SenCriterion>();
+            for (int i=0; i<benchmarkSchool.TopSenCharacteristics.Count; i++)
+            {
+                var senCriterion = new SenCriterion(i, benchmarkSchool.TopSenCharacteristics[i].Definition, benchmarkSchool.TopSenCharacteristics[i].DataName, benchmarkSchool.TopSenCharacteristics[i].Value);
+                specialCriteria.TopSenCriteria.Add(senCriterion);
+            }
 
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSpecialComparisonCriteria(benchmarkSchool.LatestYearFinancialData, specialCriteria);
 
