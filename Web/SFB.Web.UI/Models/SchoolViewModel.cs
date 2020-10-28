@@ -221,9 +221,12 @@ namespace SFB.Web.UI.Models
             new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SEVERE_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY, LatestYearFinancialData.SevereLearningDifficulty),
             new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.PHYSICAL_DISABILITY, SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY, LatestYearFinancialData.PhysicalDisability),
             new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SOCIAL_HEALTH , SchoolCharacteristicsQuestions.SOCIAL_HEALTH, LatestYearFinancialData.SocialHealth),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.OTHER_LEARNING_DIFF, SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF, LatestYearFinancialData.OtherLearningDifficulty),
             new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SPECIFIC_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY, LatestYearFinancialData.SpecificLearningDifficulty),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.PROF_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY, LatestYearFinancialData.ProfLearningDifficulty)
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.PROF_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY, LatestYearFinancialData.ProfLearningDifficulty),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.VISUAL_IMPAIRMENT, SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT, LatestYearFinancialData.VisualImpairment),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.MULTI_SENSORY_IMPAIRMENT, SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT, LatestYearFinancialData.MultiSensoryImpairment),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.OTHER_LEARNING_DIFF, SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF, LatestYearFinancialData.OtherLearningDifficulty),
+            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.HEARING_IMPAIRMENT, SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT, LatestYearFinancialData.HearingImpairment)
         };
 
         public BicProgressScoreType BicProgressScoreType
