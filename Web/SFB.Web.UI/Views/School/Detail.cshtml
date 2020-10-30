@@ -28,6 +28,17 @@
 @section BackButtonContent{
     @Html.Partial("Partials/BackToHomeLink")
 }
+@if (Model.EstablishmentType == EstablishmentType.Maintained)
+{
+<div class="panel panel-border-wide blue-warning mt-1">
+    <div class="shared-icon-wrapper">
+        <i class="icon icon-important shared-icon">
+            <span class="visually-hidden">Warning</span>
+        </i>
+    </div>
+    Due to delays in collecting CFR data owing to Covid-19, publication of updated data for LA maintained schools will not occur until December 2020. We apologise for any inconvenience caused.
+</div>
+}
 
 @if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
 {
@@ -99,7 +110,7 @@
                 </ul>
             </aside>
         }
-        </div>
+    </div>
 </div>
 
 <div class="grid-row">
@@ -120,10 +131,10 @@
                         {
                             if (ch.Value.GetValueOrDefault() > 0)
                             {
-                            <tr>
-                                <td><span>@ch.Definition</span></td>
-                                <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
-                            </tr>
+                                <tr>
+                                    <td><span>@ch.Definition</span></td>
+                                    <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
+                                </tr>
                             }
                         }
                     </table>

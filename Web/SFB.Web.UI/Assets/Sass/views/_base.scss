@@ -624,6 +624,19 @@ a.button {
         }
     }
 
+    .blue-warning {
+        border-color: $govuk-blue;
+        background-color: rgba(210, 226, 241, 1);
+        margin-top: 15px;
+        display: inline-flex;
+
+        .shared-icon-wrapper {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        
+    }
+
     .no-padding {
         padding-left: 0;
         padding-right: 0;
