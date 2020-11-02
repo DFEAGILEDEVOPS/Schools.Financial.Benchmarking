@@ -91,7 +91,7 @@
                         <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name">Efficiency metric</a>
                     </li>
                     <li>
-                        <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
+                        <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
                     </li>
                     <li>
                         <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic comparison report</a>
