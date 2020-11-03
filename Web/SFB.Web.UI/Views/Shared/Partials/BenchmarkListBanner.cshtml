@@ -18,7 +18,7 @@
                     }
                     <a class="banner__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@System.Web.HttpUtility.UrlEncode(referrer)">Edit basket</a>
 
-                    @if (!((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts") && Model.ComparisonListCount >= 2)
+                    @if (!((RazorView)ViewContext.View).ViewPath.ToLower().Contains("benchmarkcharts") && Model.ComparisonListCount >= 2)
                     {
                         <div class="view-benchmark-charts-wrapper">
                             <a class="button" href="/BenchmarkCharts">View benchmark charts</a>
