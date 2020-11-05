@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using System.Globalization;
 
 namespace SFB.Web.UI.Helpers
 {
@@ -28,7 +29,7 @@ namespace SFB.Web.UI.Helpers
             var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST];
             if (cookie != null)
             {
-                comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
             return comparisonList;
         }
@@ -39,7 +40,7 @@ namespace SFB.Web.UI.Helpers
             var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MAT];
             if (cookie != null)
             {
-                comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
             return comparisonList;
         }
@@ -50,7 +51,7 @@ namespace SFB.Web.UI.Helpers
             var cookie = HttpContext.Current.Request.Cookies[CookieNames.COMPARISON_LIST_MANUAL];
             if (cookie != null)
             {
-                comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
             return comparisonList;
         }
@@ -139,7 +140,7 @@ namespace SFB.Web.UI.Helpers
                     }
                     else
                     {
-                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                         comparisonList.DefaultTrustCompanyNo = companyNo.GetValueOrDefault();
                         comparisonList.DefaultTrustName = matName;
                         if (comparisonList.Trusts.All(s => s.CompanyNo != companyNo))
@@ -160,7 +161,7 @@ namespace SFB.Web.UI.Helpers
                     }
                     else
                     {
-                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                         if (comparisonList.Trusts.Any(s => s.CompanyNo == companyNo))
                         {
                             throw new ApplicationException(ErrorMessages.DuplicateTrust);                            
@@ -172,18 +173,18 @@ namespace SFB.Web.UI.Helpers
                     }
                     break;
                 case CookieActions.Remove:
-                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                     comparisonList.Trusts.Remove(new BenchmarkTrustModel(companyNo.GetValueOrDefault()));
                     break;
                 case CookieActions.RemoveAll:
                     if (cookie != null)
                     {
-                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                        comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                         comparisonList.Trusts.Clear();
                     }
                     break;
                 case CookieActions.AddDefaultToList:
-                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                    comparisonList = JsonConvert.DeserializeObject<TrustComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                     if (comparisonList.Trusts.All(s => comparisonList.DefaultTrustCompanyNo != companyNo))
                     {
                         comparisonList.Trusts.Add(new BenchmarkTrustModel(comparisonList.DefaultTrustCompanyNo, comparisonList.DefaultTrustName));
@@ -193,7 +194,7 @@ namespace SFB.Web.UI.Helpers
 
             if (cookie != null)
             {
-                cookie.Value = JsonConvert.SerializeObject(comparisonList, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                cookie.Value = JsonConvert.SerializeObject(comparisonList, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                 cookie.Expires = DateTime.MaxValue;
                 cookie.HttpOnly = false;
                 cookie.Secure = HttpContext.Current.Request.IsSecureConnection;
@@ -214,7 +215,7 @@ namespace SFB.Web.UI.Helpers
             HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
             if (cookie != null)
             {
-                var comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                var comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                 if (comparisonList.BenchmarkSchools.All(s => s.Urn != comparisonList.HomeSchoolUrn))
                 {
                     AddSchoolToCookie(new BenchmarkSchoolModel() {
@@ -234,9 +235,9 @@ namespace SFB.Web.UI.Helpers
             HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
             if (cookie != null)
             {
-                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                 listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>();
-                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
 
             return cookie;
@@ -247,12 +248,12 @@ namespace SFB.Web.UI.Helpers
             HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
             if (cookie != null)
             {
-                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                 listCookie.HomeSchoolUrn = null;
                 listCookie.HomeSchoolName = null;
                 listCookie.HomeSchoolType = null;
                 listCookie.HomeSchoolFinancialType = null;
-                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
 
             return cookie;
@@ -270,11 +271,11 @@ namespace SFB.Web.UI.Helpers
                 listCookie.HomeSchoolType = benchmarkSchool.Type;
                 listCookie.HomeSchoolFinancialType = benchmarkSchool.EstabType;
                 listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
-                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
             else
             {
-                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                 listCookie.HomeSchoolUrn = benchmarkSchool.Urn;
                 listCookie.HomeSchoolName = benchmarkSchool.Name;
                 listCookie.HomeSchoolType = benchmarkSchool.Type;
@@ -283,7 +284,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     listCookie.BenchmarkSchools.Add(benchmarkSchool);
                 }
-                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture  });
             }
 
             cookie.HttpOnly = false;
@@ -296,7 +297,7 @@ namespace SFB.Web.UI.Helpers
             HttpCookie cookie = HttpContext.Current.Request.Cookies[cookieName];
             if (cookie != null)
             {
-                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                 listCookie.BenchmarkSchools.Remove(benchmarkSchool);
                 if (listCookie.HomeSchoolUrn == benchmarkSchool.Urn)
                 {
@@ -305,7 +306,7 @@ namespace SFB.Web.UI.Helpers
                     listCookie.HomeSchoolType = null;
                     listCookie.HomeSchoolFinancialType = null;
                 }
-                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
 
             return cookie;
@@ -319,11 +320,11 @@ namespace SFB.Web.UI.Helpers
                 cookie = new HttpCookie(cookieName);
                 var listCookie = new SchoolComparisonListModel();
                 listCookie.BenchmarkSchools = new List<BenchmarkSchoolModel>() { benchmarkSchool };
-                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
             else
             {
-                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                var listCookie = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
                 if (listCookie.BenchmarkSchools.Any(s => s.Id == benchmarkSchool.Id))
                 {
                     throw new ApplicationException(ErrorMessages.DuplicateSchool);
@@ -338,7 +339,7 @@ namespace SFB.Web.UI.Helpers
                     listCookie.BenchmarkSchools.Add(benchmarkSchool);
 
                 }
-                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii });
+                cookie.Value = JsonConvert.SerializeObject(listCookie, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeHtml & StringEscapeHandling.EscapeNonAscii, Culture = CultureInfo.InvariantCulture });
             }
 
             cookie.HttpOnly = false;
