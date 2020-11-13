@@ -75,6 +75,11 @@
             <input type="hidden" name="companyNo" value="@(Request.QueryString["companyNo"])" />
         }
 
+        @if (Request.QueryString["uid"] != null)
+        {
+            <input type="hidden" name="uid" value="@(Request.QueryString["uid"])" />
+        }
+
         @if (Request.QueryString["matname"] != null)
         {
             <input type="hidden" name="matname" value="@(Request.QueryString["matname"])" />

@@ -163,7 +163,7 @@ namespace SFB.Web.UI.Controllers
                 }
             }
             else
-            {
+            {               
                 searchResponse = await _schoolSearchService.SearchAcademiesByCompanyNoAsync(companyNo.GetValueOrDefault(),
                     0, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, "", Request.QueryString);
             }

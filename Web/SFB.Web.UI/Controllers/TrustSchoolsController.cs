@@ -25,9 +25,9 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
         }
         
-        public async Task<ActionResult> Index(int companyNo, string matName, string orderBy = "", int page = 1)
+        public async Task<ActionResult> Index(int uid, int companyNo, string matName, string orderBy = "", int page = 1)
         {
-            var searchResults = await _schoolSearchService.SearchAcademiesByCompanyNoAsync(companyNo,
+            var searchResults = await _schoolSearchService.SearchAcademiesByUIDAsync(uid,
                 (page - 1) * SearchDefaults.TRUST_SCHOOLS_PER_PAGE, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, orderBy,
                 Request.QueryString);
 
@@ -38,9 +38,9 @@ namespace SFB.Web.UI.Controllers
         }
 
         [Route("TrustSchoolSearch/Search-js")]
-        public async Task<PartialViewResult> SearchJS(int companyNo, string matName, string orderBy = "", int page = 1)
+        public async Task<PartialViewResult> SearchJS(int uid, int companyNo, string matName, string orderBy = "", int page = 1)
         {
-            var searchResults = await _schoolSearchService.SearchAcademiesByCompanyNoAsync(companyNo,
+            var searchResults = await _schoolSearchService.SearchAcademiesByUIDAsync(uid,
                 (page - 1) * SearchDefaults.TRUST_SCHOOLS_PER_PAGE, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, orderBy,
                 Request.QueryString);
 
