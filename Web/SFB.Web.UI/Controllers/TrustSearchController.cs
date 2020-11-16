@@ -136,7 +136,7 @@ namespace SFB.Web.UI.Controllers
                 trusts = await GetTrustListViewModelAsync(searchResponse, orderby, page, searchType, trustNameId, locationorpostcode, null);
                 foreach (var trust in trusts.ModelList)
                 {
-                    var schoolSearchResponse = await _schoolSearchService.SearchAcademiesByCompanyNoAsync(trust.CompanyNo, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null);
+                    var schoolSearchResponse = await _schoolSearchService.SearchAcademiesByUIDAsync(trust.Uid, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, null, null);
                     foreach (var school in schoolSearchResponse.Results)
                     {
                         var schoolVm = new SchoolSummaryViewModel(school);
@@ -203,8 +203,8 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var result in trustSearchResults.Results)
             {
-                int companyNo = 0;
-                int.TryParse(result.CompanyNumber, out companyNo);
+                int.TryParse(result.CompanyNumber, out int companyNo);
+                int.TryParse(result.Uid, out int uid);
                 var companyName = result.TrustOrCompanyName;
                 IEnumerable<EdubaseDataObject> academiesOfTrust = await _contextDataService.GetAcademiesByCompanyNumberAsync(companyNo);
 
@@ -212,7 +212,7 @@ namespace SFB.Web.UI.Controllers
 
                 if (academiesList.Count > 0)
                 {
-                    academyTrustList.Add(new AcademyTrustViewModel(companyNo, companyName, academiesList));
+                    academyTrustList.Add(new AcademyTrustViewModel(uid, companyNo, companyName, academiesList));
                 }
             }
 
@@ -239,11 +239,12 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var academySearchResult in academySearchResults.Results)
             {
-                if (int.TryParse(academySearchResult.CompanyNumber, out int companyNo))
+                if (int.TryParse(academySearchResult.UID, out int uid))
                 {
-                    if (!academyTrustList.Any(t => t.CompanyNo == companyNo))
+                    if (!academyTrustList.Any(t => t.Uid == uid))
                     {
-                        var academyTrust = new AcademyTrustViewModel(companyNo, academySearchResult.Trusts, _contextDataService.GetAcademiesByCompanyNumberAsync(companyNo));
+                        int.TryParse(academySearchResult.CompanyNumber, out int companyNo);
+                        var academyTrust = new AcademyTrustViewModel(uid, companyNo, academySearchResult.Trusts, _contextDataService.GetAcademiesByUidAsync(uid));
                         academyTrustList.Add(academyTrust);
                     }
                 }
