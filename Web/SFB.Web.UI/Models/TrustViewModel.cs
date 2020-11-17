@@ -13,13 +13,24 @@ namespace SFB.Web.UI.Models
 
         public int CompanyNo { get; set; }
 
-        public int? UID => LatestYearFinancialData?.FinancialDataObjectModel?.UID;
+        public int? _uid;
+        public int? UID
+        {
+            set { _uid = value; }
+            get {
+                if (_uid.HasValue)
+                {
+                    return _uid;
+                }
+                return LatestYearFinancialData?.FinancialDataObjectModel?.UID; 
+            }
+        }
 
         public override string Name {
             get {
-                if(AcademiesList?.Count > 0)
+                if(AcademiesInFinanceList?.Count > 0)
                 {
-                    return AcademiesList.FirstOrDefault().TrustName;
+                    return AcademiesInFinanceList.FirstOrDefault().TrustName;
                 }
                 else if (LatestYearFinancialData?.FinancialDataObjectModel != null)
                 {
@@ -33,23 +44,34 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public List<AcademiesContextualDataObject> AcademiesList {get; set;}
+        public List<AcademySummaryDataObject> AcademiesInFinanceList {get; set;}
+
+        public List<EdubaseDataObject> AcademiesInContextList {get; set;}
 
         public override string Type => "MAT";
 
         public override EstablishmentType EstablishmentType => EstablishmentType.MAT;
 
-        public int AcademiesContextualCount { get; set; }
-
         public TrustViewModel(int companyNo)
-        {
+        {            
             this.CompanyNo = companyNo;
         }
 
-        public TrustViewModel(int companyNo, List<AcademiesContextualDataObject> academiesList, SchoolComparisonListModel comparisonList = null)
-            : this(companyNo)
+        public TrustViewModel(int uid, int companyNo):
+            this(companyNo)
+        {
+            this.UID = uid;
+        }
+
+        public TrustViewModel(int companyNo, SchoolComparisonListModel comparisonList = null)
+        : this(companyNo)
+        {
+            base.ComparisonList = comparisonList;
+        }
+
+        public TrustViewModel(int uid, int companyNo,  SchoolComparisonListModel comparisonList = null)
+            : this(uid, companyNo)
         {            
-            this.AcademiesList = academiesList;
             base.ComparisonList = comparisonList;            
         }
 

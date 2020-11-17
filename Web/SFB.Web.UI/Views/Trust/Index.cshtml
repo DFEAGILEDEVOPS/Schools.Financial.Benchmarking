@@ -23,7 +23,7 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
-@if (Model.IsReturnsDNS || Model.AcademiesList.Any(m => m.HasIncompleteFinancialData) || Model.IsReturnsPlaceholder)
+@if (Model.IsReturnsDNS || Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData) || Model.IsReturnsPlaceholder)
 {
     <div class="panel panel-border-wide orange-warning mt-1">
         <div class="shared-icon-wrapper hide-in-print">
@@ -40,7 +40,7 @@
             }
             else
             {
-                if (Model.AcademiesList.Any(m => m.HasIncompleteFinancialData))
+                if (Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData))
                 {
                     <p>
                         Some of this trust's schools have data from a period less than 12 months
@@ -80,25 +80,62 @@
 </div>
 
 <div class="grid-row">
-    @if (Model.AcademiesList.Count > 0)
+    @if (Model.AcademiesInContextList.Count > 0)
     {
         <div class="column-full">
-            <div class="result-list-summary">
-                As of @Model.LatestTerm this trust is made up of <span class="bold">@Model.AcademiesContextualCount</span> academies that were in scope for financial benchmarking at the time of the last financial submissions. We hold finance for <span class="bold">@Model.AcademiesList.Count</span> of them. Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
-                <a href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Select schools to compare</a>
+            <div>
+                <h2 class="heading-medium">Schools</h2>
+                This trust is made up of <span class="bold">@Model.AcademiesInContextList.Count</span> of schools.
+                At the time of <span class="bold">@Model.LatestTerm</span> financial submission there were <span class="bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
+                Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
+                <a href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
             </div>
         </div>
 
         <div class="column-full">
-            @if (Model.AcademiesList.Count > 10)
+            @if (Model.AcademiesInContextList.Count > 10)
             {
                 <details class="resultListPanel">
                     <summary class="hide-in-print">
-                        <span class="summary">View all academies</span>
+                        <span class="summary">Schools in this trust</span>
                     </summary>
                     <div>
                         <ul class="list two-columns resultListPanel__ul">
-                            @foreach (var academy in Model.AcademiesList)
+                            @foreach (var academy in Model.AcademiesInContextList)
+                            {
+                                <li>
+                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </details>
+            }
+            else
+            {
+                <div class="resultListPanel">
+                    <ul class="list list-bullet resultListPanel__ul">
+                        @foreach (var school in Model.AcademiesInContextList)
+                        {
+                            <li>
+                                <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+
+        <div class="column-full">
+            @if (Model.AcademiesInFinanceList.Count > 10)
+            {
+                <details class="resultListPanel">
+                    <summary class="hide-in-print">
+                        <span class="summary">Schools in this trust's @Model.LatestTerm submission</span>
+                    </summary>
+                    <div>
+                        <ul class="list two-columns resultListPanel__ul">
+                            @foreach (var academy in Model.AcademiesInFinanceList)
                             {
                                 if (academy.HasIncompleteFinancialData)
                                 {
@@ -124,7 +161,7 @@
             {
                 <div class="resultListPanel">
                     <ul class="list list-bullet resultListPanel__ul">
-                        @foreach (var school in Model.AcademiesList)
+                        @foreach (var school in Model.AcademiesInFinanceList)
                         {
                             if (school.HasIncompleteFinancialData)
                             {
@@ -146,7 +183,9 @@
                 </div>
             }
         </div>
+
     }
+
     <div class="column-full mb-1 mt-1">
         <a href="~/Help/DataQueries">Do you have a query about this trust's data?</a>
     </div>

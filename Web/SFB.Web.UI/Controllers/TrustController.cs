@@ -7,14 +7,11 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Services;
 using System.Text;
 using Microsoft.Ajax.Utilities;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Services.DataAccess;
-using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.ApplicationCore.Entities;
-using System;
 using SFB.Web.UI.Attributes;
 using System.Web.Routing;
 using SFB.Web.ApplicationCore.Helpers.Enums;
@@ -63,15 +60,13 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            var academies = (await _financialDataService.GetAcademiesByCompanyNumberAsync(await LatestMATTermAsync(), companyNo)).OrderBy(a => a.EstablishmentName).ToList();
-
-            var trustVM = await BuildTrustVMAsync(companyNo, academies, tab, chartGroup, financing);
+            var trustVM = await BuildFullTrustVMAsync(companyNo, tab, chartGroup, financing);
 
             if (!trustVM.HasLatestYearFinancialData)
             {
-                if(trustVM.AcademiesList.Count == 1)
+                if(trustVM.AcademiesInFinanceList.Count == 1)
                 {
-                    return RedirectToActionPermanent("Detail", "School", new RouteValueDictionary { { "urn", trustVM.AcademiesList.First().URN } });
+                    return RedirectToActionPermanent("Detail", "School", new RouteValueDictionary { { "urn", trustVM.AcademiesInFinanceList.First().URN } });
                 }
                 return RedirectToActionPermanent("SuggestTrust", "TrustSearch", new RouteValueDictionary { { "trustNameId", companyNo } });
             }
@@ -102,11 +97,9 @@ namespace SFB.Web.UI.Controllers
             return View(trustVM);
         }
 
-        public async Task<PartialViewResult> GetCharts(int companyNo, string name, TabType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
+        public async Task<PartialViewResult> GetCharts(int companyNo, TabType revGroup, ChartGroupType chartGroup, UnitType unit, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
-            var dataResponse = await _financialDataService.GetAcademiesByCompanyNumberAsync(await LatestMATTermAsync(), companyNo);
-
-            var trustVM = await BuildTrustVMAsync(companyNo, dataResponse, revGroup, chartGroup, financing);
+            var trustVM = await BuildFinancialTrustVMAsync(companyNo, revGroup, chartGroup, financing);
 
             _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, await LatestMATTermAsync(), revGroup, unit, EstablishmentType.MAT);
 
@@ -121,11 +114,8 @@ namespace SFB.Web.UI.Controllers
         public async Task<ActionResult> Download(int companyNo, string name)
         {
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT);
-            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
 
-            var response = await _financialDataService.GetAcademiesByCompanyNumberAsync(term, companyNo);
-
-            var trustVM = await BuildTrustVMAsync(companyNo, response, TabType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
+            var trustVM = await BuildFinancialTrustVMAsync(companyNo, TabType.AllExcludingSchoolPerf, ChartGroupType.All, MatFinancingType.TrustOnly);
 
             var termsList = await _financialDataService.GetActiveTermsForMatCentralAsync();
             _fcService.PopulateHistoricalChartsWithFinancialData(trustVM.HistoricalCharts, trustVM.HistoricalFinancialDataModels, termsList.First(), TabType.AllExcludingSchoolPerf, UnitType.AbsoluteMoney, EstablishmentType.MAT);
@@ -137,17 +127,27 @@ namespace SFB.Web.UI.Controllers
                          $"HistoricalData-{name}.csv");
         }
 
-        private async Task<TrustViewModel> BuildTrustVMAsync(int companyNo, List<AcademiesContextualDataObject> academiesList, TabType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
+        private async Task<TrustViewModel> BuildFinancialTrustVMAsync(int companyNo, TabType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
         {
             var comparisonListVM = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var trustVM = new TrustViewModel(companyNo, academiesList, comparisonListVM);
+            var trustVM = new TrustViewModel(companyNo, comparisonListVM);
             
             trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);
             trustVM.ChartGroups = _historicalChartBuilder.Build(tab, trustVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
-            trustVM.LatestTerm = await LatestMATTermAsync();
-            trustVM.AcademiesContextualCount = await _contexDataService.GetAcademiesCountByCompanyNumberAsync(companyNo);
+            trustVM.LatestTerm = await LatestMATTermAsync();            
 
             trustVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(trustVM.CompanyNo, matFinancing);
+
+            trustVM.AcademiesInFinanceList = (await _financialDataService.GetAcademiesByCompanyNumberAsync(await LatestMATTermAsync(), companyNo)).OrderBy(a => a.EstablishmentName).ToList();
+
+            return trustVM;
+        }
+
+        private async Task<TrustViewModel> BuildFullTrustVMAsync(int companyNo, TabType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
+        {
+            var trustVM = await BuildFinancialTrustVMAsync(companyNo, tab, chartGroup, matFinancing);
+
+            trustVM.AcademiesInContextList = (await _contexDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
 
             return trustVM;
         }
