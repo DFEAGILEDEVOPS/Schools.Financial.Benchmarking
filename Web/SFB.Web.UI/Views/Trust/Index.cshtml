@@ -90,26 +90,36 @@
                 Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
                 <a href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
             </div>
+
+            <nav id="tabs" class="tabs" role="navigation">
+                <ol role="tablist">
+                    <li class="context-list-button-js hide-in-print active" role="tab">
+                        <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.SchoolsTabChange("Current")'>Schools currently in this list</button>
+                    </li>
+                    <li class="finance-list-button-js hide-in-print" role="tab">
+                        <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.SchoolsTabChange("LastFinance")'>Schools in this trust's @Model.LatestTerm submission</button>
+                    </li>
+                    <li class="history-list-button-js hide-in-print" role="tab">
+                        <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.SchoolsTabChange("History")'>Trust history</button>
+                    </li>
+                </ol>
+            </nav>
+
         </div>
 
-        <div class="column-full">
+        <div class="context-list-js column-full sponsor-detail">
             @if (Model.AcademiesInContextList.Count > 10)
             {
-                <details class="resultListPanel">
-                    <summary class="hide-in-print">
-                        <span class="summary">Schools in this trust</span>
-                    </summary>
-                    <div>
-                        <ul class="list two-columns resultListPanel__ul">
-                            @foreach (var academy in Model.AcademiesInContextList)
-                            {
-                                <li>
-                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </details>
+                <div class="resultListPanel">
+                    <ul class="list two-columns resultListPanel__ul">
+                        @foreach (var academy in Model.AcademiesInContextList)
+                        {
+                            <li>
+                                <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
             }
             else
             {
@@ -126,36 +136,31 @@
             }
         </div>
 
-        <div class="column-full">
+        <div class="finance-list-js column-full sponsor-detail">
             @if (Model.AcademiesInFinanceList.Count > 10)
             {
-                <details class="resultListPanel">
-                    <summary class="hide-in-print">
-                        <span class="summary">Schools in this trust's @Model.LatestTerm submission</span>
-                    </summary>
-                    <div>
-                        <ul class="list two-columns resultListPanel__ul">
-                            @foreach (var academy in Model.AcademiesInFinanceList)
+                <div class="resultListPanel">
+                    <ul class="list two-columns resultListPanel__ul">
+                        @foreach (var academy in Model.AcademiesInFinanceList)
+                        {
+                            if (academy.HasIncompleteFinancialData)
                             {
-                                if (academy.HasIncompleteFinancialData)
-                                {
-                                    <li>
-                                        <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
-                                            @academy.EstablishmentName
-                                            <span class="visually-hidden"> has data from a period less than 12 months</span>
-                                        </a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li>
-                                        <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
-                                    </li>
-                                }
+                                <li>
+                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
+                                        @academy.EstablishmentName
+                                        <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                    </a>
+                                </li>
                             }
-                        </ul>
-                    </div>
-                </details>
+                            else
+                            {
+                                <li>
+                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
             }
             else
             {
@@ -182,6 +187,12 @@
                     </ul>
                 </div>
             }
+        </div>
+
+        <div class="history-list-js column-full sponsor-detail">
+            <div class="resultListPanel">
+                Trust history
+            </div>
         </div>
 
     }
