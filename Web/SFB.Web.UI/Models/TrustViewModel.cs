@@ -2,6 +2,7 @@
 using SFB.Web.ApplicationCore.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Models
 {
@@ -51,6 +52,8 @@ namespace SFB.Web.UI.Models
         public override string Type => "MAT";
 
         public override EstablishmentType EstablishmentType => EstablishmentType.MAT;
+
+        public TrustHistoryModel TrustHistory { get; internal set; }
 
         public TrustViewModel(int companyNo)
         {            

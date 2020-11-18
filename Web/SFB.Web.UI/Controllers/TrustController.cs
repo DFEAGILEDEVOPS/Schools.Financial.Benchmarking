@@ -26,12 +26,13 @@ namespace SFB.Web.UI.Controllers
         private readonly IContextDataService _contexDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
+        private readonly ITrustHistoryService _trustHistoryService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
 
         public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contexDataService, IDownloadCSVBuilder csvBuilder,
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ITrustHistoryService trustHistoryService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
@@ -39,6 +40,7 @@ namespace SFB.Web.UI.Controllers
             _fcService = fcService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _trustHistoryService = trustHistoryService;
         }
 
         public async Task<ActionResult> Index(int companyNo, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
@@ -148,6 +150,8 @@ namespace SFB.Web.UI.Controllers
             var trustVM = await BuildFinancialTrustVMAsync(companyNo, tab, chartGroup, matFinancing);
 
             trustVM.AcademiesInContextList = (await _contexDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
+
+            trustVM.TrustHistory = await _trustHistoryService.GetTrustHistoryModelAsync(trustVM.UID.GetValueOrDefault());
 
             return trustVM;
         }

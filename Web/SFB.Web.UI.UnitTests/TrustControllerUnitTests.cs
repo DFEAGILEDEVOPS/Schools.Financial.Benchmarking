@@ -32,6 +32,7 @@ namespace SFB.Web.UI.UnitTests
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
             var mockEdubaseDataService = new Mock<IContextDataService>();
+            var mockTrustHistoryService = new Mock<ITrustHistoryService>();
 
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var context = new Mock<HttpContextBase>(MockBehavior.Strict);
@@ -40,8 +41,8 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var result = new List<AcademiesContextualDataObject>() {
-                new AcademiesContextualDataObject()
+            var result = new List<AcademySummaryDataObject>() {
+                new AcademySummaryDataObject()
             };
 
             var GetAcademiesByCompanyNumberAsyncTask = Task.Run(() => result);
@@ -74,7 +75,8 @@ namespace SFB.Web.UI.UnitTests
                 mockFCService.Object,
                 mockEdubaseDataService.Object, 
                 null,
-                mockCookieManager.Object);
+                mockCookieManager.Object,
+                mockTrustHistoryService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
@@ -93,6 +95,7 @@ namespace SFB.Web.UI.UnitTests
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
             var mockEdubaseDataService = new Mock<IContextDataService>();
+            var mockTrustHistoryService = new Mock<ITrustHistoryService>();
 
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var context = new Mock<HttpContextBase>(MockBehavior.Strict);
@@ -101,7 +104,7 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var GetAcademiesByCompanyNumberAsyncTask = Task.Run(() => new List<AcademiesContextualDataObject>());
+            var GetAcademiesByCompanyNumberAsyncTask = Task.Run(() => new List<AcademySummaryDataObject>());
             mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumberAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(GetAcademiesByCompanyNumberAsyncTask);
 
@@ -130,7 +133,8 @@ namespace SFB.Web.UI.UnitTests
                 mockFCService.Object,
                 mockEdubaseDataService.Object,
                 null,
-                mockCookieManager.Object);
+                mockCookieManager.Object,
+                mockTrustHistoryService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
@@ -153,6 +157,7 @@ namespace SFB.Web.UI.UnitTests
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
             var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
             var mockEdubaseDataService = new Mock<IContextDataService>();
+            var mockTrustHistoryService = new Mock<ITrustHistoryService>();
 
             var request = new Mock<HttpRequestBase>(MockBehavior.Strict);
             var context = new Mock<HttpContextBase>(MockBehavior.Strict);
@@ -161,7 +166,7 @@ namespace SFB.Web.UI.UnitTests
             context.SetupGet(x => x.Request.Cookies).Returns(requestCookies);
             var rc = new RequestContext(context.Object, new RouteData());
 
-            var GetAcademiesByCompanyNumberAsyncTask = Task.Run(() => new List<AcademiesContextualDataObject>() { new AcademiesContextualDataObject() });
+            var GetAcademiesByCompanyNumberAsyncTask = Task.Run(() => new List<AcademySummaryDataObject>() { new AcademySummaryDataObject() });
             mockFinancialDataService.Setup(m => m.GetAcademiesByCompanyNumberAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(GetAcademiesByCompanyNumberAsyncTask);
 
@@ -190,7 +195,8 @@ namespace SFB.Web.UI.UnitTests
                 mockFCService.Object,
                 mockEdubaseDataService.Object,
                 null,
-                mockCookieManager.Object);
+                mockCookieManager.Object,
+                mockTrustHistoryService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
