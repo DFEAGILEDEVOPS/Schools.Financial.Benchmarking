@@ -84,13 +84,12 @@
     {
         <div class="column-full">
 
-            <div class="mb-1">
-                <h2 class="heading-medium">Schools</h2>
+            <p class="mb-1 mt-1">
                 This trust is made up of <span class="bold">@Model.AcademiesInContextList.Count</span> of schools.
                 At the time of <span class="bold">@Model.LatestTerm</span> financial submission there were <span class="bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
                 Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
                 <a href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
-            </div>
+            </p>
 
             <div id="schools-in-trust-accordion" class="accordion mb-1">
 
