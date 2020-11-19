@@ -191,7 +191,36 @@
 
         <div class="history-list-js column-full sponsor-detail" style="display: none">
             <div class="resultListPanel">
-                Trust history
+                <table class="history-table">
+                    <tr>
+                        <th scope="col">School year</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Event</th>
+                        <th scope="col">Organisation</th>
+                    </tr>
+                    @for (int i = 0; i < Model.TrustHistory.Events.Count; i++)
+                    {
+                        if (i > 0 && Model.TrustHistory.Events[i].SchoolYear == Model.TrustHistory.Events[i - 1].SchoolYear)
+                        {
+                            <tr>
+                                <td class="school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
+                                <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
+                                <td>@Model.TrustHistory.Events[i].Event</td>
+                                <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="new-row">
+                                <td class="school-year-column">@Model.TrustHistory.Events[i].SchoolYear</td>
+                                <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
+                                <td>@Model.TrustHistory.Events[i].Event</td>
+                                <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                            </tr>
+                        }
+
+                    }
+                </table>
             </div>
         </div>
 
