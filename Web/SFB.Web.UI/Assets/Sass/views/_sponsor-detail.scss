@@ -12,6 +12,12 @@
             -webkit-columns: 2;
             -moz-columns: 2;
             line-height: 1.5em;
+
+            @include media(mobile) {
+                columns: 1;
+                -webkit-columns: 1;
+                -moz-columns: 1;
+            }
         }
 
         a {
@@ -276,6 +282,10 @@
     .history-table {
         th, td {
             font-size: 16px;
+
+            @include media(mobile) {
+                font-size: 14px;
+            }
         }
 
         .school-year-column {
@@ -284,9 +294,19 @@
         }
 
         .new-row {
-            td{
+            td {
                 border-top: 1px double $black;
-            }            
+            }
+        }
+    }
+
+    nav.tabs ol {
+        @include media-down(tablet) {
+            justify-content: flex-start;
+
+            li {
+                flex-basis: 98%;
+            }
         }
     }
 }
