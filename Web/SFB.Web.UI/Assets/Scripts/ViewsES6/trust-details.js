@@ -10,6 +10,7 @@
 
         new Accordion(document.getElementById('historical-charts-accordion'));
         new Accordion(document.getElementById('controls-accordion'));
+        new Accordion(document.getElementById('schools-in-trust-accordion'));
 
         $(document).ready(function () {
             var tab = DfE.Util.QueryString.get('tab');
@@ -49,36 +50,6 @@
             '#financialSummary';
 
         window.location = queryString;
-    }
-
-    SchoolsTabChange(tab) {
-        switch (tab) {
-            case "Current":
-                $(".context-list-js").show();
-                $(".context-list-button-js").addClass("active");
-                $(".finance-list-js").hide();
-                $(".finance-list-button-js").removeClass("active");
-                $(".history-list-js").hide();
-                $(".history-list-button-js").removeClass("active");
-                break;
-            case "LastFinance":
-                $(".finance-list-js").show();
-                $(".finance-list-button-js").addClass("active");
-                $(".context-list-js").hide();
-                $(".context-list-button-js").removeClass("active");
-                $(".history-list-js").hide();
-                $(".history-list-button-js").removeClass("active");
-                break;
-            case "History":
-                $(".history-list-js").show();
-                $(".history-list-button-js").addClass("active");
-                $(".finance-list-js").hide();
-                $(".finance-list-button-js").removeClass("active");
-                $(".context-list-js").hide();
-                $(".context-list-button-js").removeClass("active");
-                break;
-            default:
-        }
     }
 
     ToggleChartsTables(mode) {
