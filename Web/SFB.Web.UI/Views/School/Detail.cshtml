@@ -115,7 +115,7 @@
 
 <div class="grid-row">
     <div class="column-half">
-        @if (Model.Phase == "Special")
+        @if (Model.Phase == "Special" && Model.SenCharacteristics.Any(c=>c.Value != null))
         {
             <details class="mb-1">
                 <summary>
