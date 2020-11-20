@@ -143,7 +143,8 @@ namespace SFB.Web.UI.Controllers
             string locationCoordinates, 
             string laCodeName, 
             decimal? radius, 
-            int? companyNo, 
+            int? companyNo,
+            int? uid,
             bool openOnly = false, 
             string orderby = "", 
             int page = 1)
@@ -163,8 +164,8 @@ namespace SFB.Web.UI.Controllers
                 }
             }
             else
-            {
-                searchResponse = await _schoolSearchService.SearchAcademiesByCompanyNoAsync(companyNo.GetValueOrDefault(),
+            {               
+                searchResponse = await _schoolSearchService.SearchAcademiesByUIDAsync(uid.GetValueOrDefault(),
                     0, SearchDefaults.TRUST_SCHOOLS_PER_PAGE, "", Request.QueryString);
             }
 

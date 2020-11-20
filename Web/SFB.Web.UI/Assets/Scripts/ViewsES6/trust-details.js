@@ -10,6 +10,7 @@
 
         new Accordion(document.getElementById('historical-charts-accordion'));
         new Accordion(document.getElementById('controls-accordion'));
+        new Accordion(document.getElementById('schools-in-trust-accordion'));
 
         $(document).ready(function () {
             var tab = DfE.Util.QueryString.get('tab');
