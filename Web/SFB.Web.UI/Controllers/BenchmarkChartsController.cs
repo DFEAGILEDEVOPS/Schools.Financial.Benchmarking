@@ -225,13 +225,6 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult GenerateFromSimpleCriteria()
-        {
-            return new RedirectResult("/Errors/InvalidRequest");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> GenerateFromSimpleCriteria(int urn, int basketSize, EstablishmentType estType, SimpleCriteria simpleCriteria)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
