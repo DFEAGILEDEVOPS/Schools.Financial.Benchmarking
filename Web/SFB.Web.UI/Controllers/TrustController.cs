@@ -151,7 +151,10 @@ namespace SFB.Web.UI.Controllers
 
             trustVM.AcademiesInContextList = (await _contexDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
 
-            trustVM.TrustHistory = await _trustHistoryService.GetTrustHistoryModelAsync(trustVM.UID.GetValueOrDefault());
+            if (trustVM.UID != null)
+            {
+                trustVM.TrustHistory = await _trustHistoryService.GetTrustHistoryModelAsync(trustVM.UID.GetValueOrDefault());
+            }
 
             return trustVM;
         }
