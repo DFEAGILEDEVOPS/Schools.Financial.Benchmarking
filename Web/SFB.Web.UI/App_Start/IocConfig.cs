@@ -17,6 +17,9 @@ using SFB.Web.Infrastructure.Caching;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.Infrastructure.Logging;
 using SFB.Web.Infrastructure.SearchEngine;
+using System;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Identity;
 
 namespace SFB.Web.UI
 {
@@ -84,7 +87,16 @@ namespace SFB.Web.UI
             builder.RegisterType<TrustHistoryService>().As<ITrustHistoryService>().SingleInstance();
             builder.RegisterType<RedisCachedBicComparisonResultCachingService>().As<IBicComparisonResultCachingService>().SingleInstance();
             //builder.RegisterInstance(new RedDogSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
-            builder.RegisterInstance(new AzureSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
+
+            var kvUri = "https://kv-t1dv-sfb.vault.azure.net";
+
+            var client = new SecretClient(new Uri(kvUri), new DefaultAzureCredential());
+
+            KeyVaultSecret secret = client.GetSecret("SearchInstance");
+
+            string secretValue = secret.Value;
+
+            builder.RegisterInstance(new AzureSchoolSearchService(secretValue, ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
             builder.RegisterInstance(new AzureTrustSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
             builder.RegisterInstance(new AspNetLogManager(ConfigurationManager.AppSettings["EnableAITelemetry"])).As<ILogManager>();
         }
