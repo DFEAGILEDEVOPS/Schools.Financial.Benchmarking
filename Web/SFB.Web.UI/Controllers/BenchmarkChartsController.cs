@@ -242,8 +242,7 @@ namespace SFB.Web.UI.Controllers
             return await Index(urn, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<ActionResult> SpecialsComparison(int urn, bool? similarPupils)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
