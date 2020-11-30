@@ -22,6 +22,7 @@ using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Web.UI;
 using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.ApplicationCore.Entities;
+using Microsoft.Win32;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -224,13 +225,6 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult GenerateFromSimpleCriteria()
-        {
-            return new RedirectResult("/Errors/InvalidRequest");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> GenerateFromSimpleCriteria(int urn, int basketSize, EstablishmentType estType, SimpleCriteria simpleCriteria)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
@@ -246,6 +240,33 @@ namespace SFB.Web.UI.Controllers
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
             return await Index(urn, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> SpecialsComparison(int urn, bool? similarPupils)
+        {
+            var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
+
+            var specialCriteria = new SpecialCriteria();
+            specialCriteria.SimilarPupils = similarPupils.GetValueOrDefault();
+            specialCriteria.TopSenCriteria = new List<SenCriterion>();
+            for (int i=0; i<benchmarkSchool.TopSenCharacteristics.Count; i++)
+            {
+                var senCriterion = new SenCriterion(i, benchmarkSchool.TopSenCharacteristics[i].Definition, benchmarkSchool.TopSenCharacteristics[i].DataName, benchmarkSchool.TopSenCharacteristics[i].Value);
+                specialCriteria.TopSenCriteria.Add(senCriterion);
+            }
+
+            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSpecialComparisonCriteria(benchmarkSchool.LatestYearFinancialData, specialCriteria);
+
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSpecialComparisonAsync(benchmarkCriteria, specialCriteria, benchmarkSchool.LatestYearFinancialData);
+
+            EmptyBenchmarkList();
+
+            AddSchoolsToBenchmarkList(comparisonResult);
+
+            AddDefaultBenchmarkSchoolToList(benchmarkSchool);
+
+            return await Index(urn, null, comparisonResult.BenchmarkCriteria, null, ComparisonType.Specials, ComparisonListLimit.SPECIALS, benchmarkSchool.LatestYearFinancialData, EstablishmentType.All);
         }
 
         public async Task<ActionResult> GenerateFromBicCriteria(int urn)
@@ -294,7 +315,7 @@ namespace SFB.Web.UI.Controllers
             if (comparisonResult == null)
             {
                 comparisonResult = await _comparisonService.GenerateBenchmarkListWithBestInClassComparisonAsync(bicCriteria.EstablishmentType, benchmarkCriteria,
-                                                                         bicCriteria, benchmarkSchool.LatestYearFinancialData);
+                                         bicCriteria, benchmarkSchool.LatestYearFinancialData);
 
                 if (!isEditedCriteria)
                 {
@@ -1055,7 +1076,9 @@ namespace SFB.Web.UI.Controllers
                     defaultUnitType = UnitType.PercentageTeachers;
                     break;
                 default:
-                    defaultUnitType = comparisonType == ComparisonType.BestInClass ? UnitType.PerPupil : UnitType.AbsoluteMoney;
+                    defaultUnitType = comparisonType == ComparisonType.BestInClass || comparisonType == ComparisonType.Specials 
+                                      ? UnitType.PerPupil 
+                                      : UnitType.AbsoluteMoney;
                     break;
             }
 

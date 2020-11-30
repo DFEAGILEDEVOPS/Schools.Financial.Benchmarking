@@ -152,7 +152,7 @@
 
                 @if (Model[i].DealsForSchoolsMessage != null)
                 {
-                <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
+                <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
                 }
 
                 @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
@@ -235,7 +235,7 @@
                             <div class="accordion-section-body">
                                 @if (Model[i].DealsForSchoolsMessage != null)
                                 {
-                                    <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
+                                    <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
                                 }
                                 @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                                 {

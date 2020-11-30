@@ -1,0 +1,74 @@
+﻿@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.SchoolViewModel
+@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "comparison-step-one";
+}
+
+@section BackButtonContent{
+    @{
+        ViewBag.HomeSchoolId = Model.Id.ToString();
+        ViewBag.HomeSchoolName = Model.Name;
+        Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+    }
+}
+
+<div class="steps">
+    <span class="govuk-caption-xl">
+        Quick comparison for special schools
+    </span>
+</div>
+
+<h1 class="govuk-heading-xl">How we calculate the comparison</h1>
+
+<div class="grid-row">
+    <div class="column-full">
+        <span class="font-xsmall">Comparing to</span>
+        <div class="highlight">
+            <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+        </div>
+    </div>
+</div>
+
+<div class="grid-row">
+    <div class="column-three-quarters">
+        <table class="sen-table mt-1">
+            <caption class="font-small bold">We will find schools with a similar percentage of SEN characteristics to yours:</caption>
+            <tr>
+                <th scope="col">SEN characteristic</th>
+                <th scope="col" class="col-right">Your school's value</th>
+            </tr>
+            @foreach (var ch in Model.TopSenCharacteristics)
+            {
+                if (ch.Value.GetValueOrDefault() > 0)
+                {
+                    <tr>
+                        <td><span>@ch.Definition</span></td>
+                        <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
+                    </tr>
+                }
+            }
+        </table>
+
+        <form action="/BenchmarkCharts/SpecialsComparison" method="get" class="mt-2" id="scForm">
+            <div class="form-group">
+                <fieldset>
+                    <legend>Pupil age characteristics (this may expand the SEN range):</legend>
+                    <div class="multiple-choice">
+                        <input id="similarPupils" name="similarPupils" type="checkbox" value="true">
+                        <label for="similarPupils">Schools with similar aged pupils</label>
+                    </div>
+                </fieldset>
+                <input type="hidden" id="urn" name="urn" value="@ViewBag.URN" />
+            </div>
+            <div class="grid-row">
+                <div class="column-half">
+                    <button class="button" type="submit">Continue to benchmarking charts</button>
+                </div>
+                <div class="column-half back-button">
+                    <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -10,6 +10,8 @@ namespace SFB.Web.UI.Models
         public int Code { get; set; }
 
         public int CompanyNo { get; set; }
+        
+        public int Uid { get; set; }
 
         public override string Name { get; set; }
 
@@ -21,21 +23,22 @@ namespace SFB.Web.UI.Models
 
         public override EstablishmentType EstablishmentType => EstablishmentType.MAT;
 
-        public AcademyTrustViewModel(int companyNo, string name)
+        public AcademyTrustViewModel(int uid, int companyNo, string name)
         {
+            this.Uid = uid;
             this.CompanyNo = companyNo;
             this.Name = name;            
         }
 
-        public AcademyTrustViewModel(int companyNo, string name, List<SchoolViewModel> academiesList, SchoolComparisonListModel comparisonList = null)
-            : this(companyNo, name)
+        public AcademyTrustViewModel(int uid, int companyNo, string name, List<SchoolViewModel> academiesList, SchoolComparisonListModel comparisonList = null)
+            : this(uid, companyNo, name)
         {            
             this.AcademiesList = academiesList;
             base.ComparisonList = comparisonList;            
         }
 
-        public AcademyTrustViewModel(int companyNo, string name, Task<IEnumerable<EdubaseDataObject>> academiesListBuilderTask, SchoolComparisonListModel comparisonList = null)
-            : this(companyNo, name)
+        public AcademyTrustViewModel(int uid, int companyNo, string name, Task<IEnumerable<EdubaseDataObject>> academiesListBuilderTask, SchoolComparisonListModel comparisonList = null)
+            : this(uid, companyNo, name)
         {
             this.AcademiesListBuilderTask = academiesListBuilderTask;
             base.ComparisonList = comparisonList;

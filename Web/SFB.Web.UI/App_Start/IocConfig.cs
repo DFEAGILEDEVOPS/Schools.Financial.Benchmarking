@@ -70,6 +70,7 @@ namespace SFB.Web.UI
             builder.RegisterType<CosmosDbEdubaseRepository>().As<IEdubaseRepository>().SingleInstance();
             builder.RegisterType<CosmosDbFinancialDataRepository>().As<IFinancialDataRepository>().SingleInstance();
             builder.RegisterType<CosmosDBEfficiencyMetricRepository>().As<IEfficiencyMetricRepository>().SingleInstance();
+            builder.RegisterType<CosmosDbTrustHistoryRepository>().As<ITrustHistoryRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();
             builder.RegisterType<SchoolVMWithHistoricalChartsBuilder>().As<ISchoolVMBuilder>();
@@ -80,6 +81,7 @@ namespace SFB.Web.UI
             builder.RegisterType<AspNetCachedLocalAuthoritiesService>().As<ILocalAuthoritiesService>();
             builder.RegisterType<RedisCachedActiveUrnsService>().As<IActiveUrnsService>().SingleInstance();
             builder.RegisterType<AspNetCachedActiveCollectionsService>().As<IActiveCollectionsService>().SingleInstance();
+            builder.RegisterType<TrustHistoryService>().As<ITrustHistoryService>().SingleInstance();
             builder.RegisterType<RedisCachedBicComparisonResultCachingService>().As<IBicComparisonResultCachingService>().SingleInstance();
             //builder.RegisterInstance(new RedDogSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
             builder.RegisterInstance(new AzureSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            

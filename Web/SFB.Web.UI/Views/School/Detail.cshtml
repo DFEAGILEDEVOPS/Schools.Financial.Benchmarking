@@ -28,7 +28,7 @@
 @section BackButtonContent{
     @Html.Partial("Partials/BackToHomeLink")
 }
-@if (Model.EstablishmentType == EstablishmentType.Maintained)
+@*@if (Model.EstablishmentType == EstablishmentType.Maintained)
 {
 <div class="panel panel-border-wide blue-warning mt-1">
     <div class="shared-icon-wrapper">
@@ -38,7 +38,7 @@
     </div>
     Due to delays in collecting CFR data owing to Covid-19, publication of updated data for LA maintained schools will not occur until December 2020. We apologise for any inconvenience caused.
 </div>
-}
+}*@
 
 @if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
 {
@@ -99,7 +99,7 @@
                 <h2 class="heading-small">Tools for governors and school business professionals</h2>
                 <ul class="list">
                     @*<li id="efficiencyMetricLink" style="display: none">
-                        <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name">Efficiency metric</a>
+                        <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name.Replace("(", "%28").Replace(")","%29").Replace("&","%26")">Efficiency metric</a>
                     </li>*@
                     <li>
                         <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
@@ -110,10 +110,37 @@
                 </ul>
             </aside>
         }
-  </div>
+    </div>
 
 <div class="grid-row">
     <div class="column-half">
+        @if (Model.Phase == "Special" && Model.SenCharacteristics.Any(c=>c.Value != null))
+        {
+            <details class="mb-1">
+                <summary>
+                    <span class="summary font-xsmall">This school's SEN characteristics</span>
+                </summary>
+                <div class="panel panel-border-narrow">
+                    <table class="sen-table">
+                        <tr>
+                            <th scope="col">SEN characteristic</th>
+                            <th scope="col" class="col-right">% of pupils</th>
+                        </tr>
+                        @foreach (var ch in Model.SenCharacteristics.OrderByDescending(c => c.Value))
+                        {
+                            if (ch.Value.GetValueOrDefault() > 0)
+                            {
+                                <tr>
+                                    <td><span>@ch.Definition</span></td>
+                                    <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </details>
+        }
+
         <div class="metadata-school-detail font-xsmall">
             <dl class="metadata-school-detail__dl">
                 @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")

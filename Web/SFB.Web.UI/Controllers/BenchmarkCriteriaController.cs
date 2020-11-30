@@ -90,11 +90,22 @@ namespace SFB.Web.UI.Controllers
                 case ComparisonType.Basic:
                 case ComparisonType.Advanced:
                     return await SelectSchoolType(urn, comparisonType.Value, null, null);
+                case ComparisonType.Specials:
+                    return await HowWeCalculateSpecials(urn.GetValueOrDefault());
                 case null:
                 default:
                     return ErrorView(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL, null, ErrorMessages.SelectComparisonType, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
             }
+        }
+
+        private async Task<ViewResult> HowWeCalculateSpecials(int urn)
+        {
+            ViewBag.URN = urn;
+
+            var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
+
+            return View("HowWeCalculateSpecials", benchmarkSchool);           
         }
 
         /// <summary>
