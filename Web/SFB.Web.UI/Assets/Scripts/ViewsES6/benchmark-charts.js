@@ -788,9 +788,10 @@
             $("#bestInClassTabSection").hide();
             $("#PrintLinkText").text(" Print report");
             $("#PdfLinkText").text(" Download report");
+            $(".js-show-value-help").hide();
             let scope = angular.element($("#listCtrl")).scope();
             scope.ctrl.displayCustomReport();
-            $('.sticky-div').Stickyfill();  
+            $('.sticky-div').Stickyfill();
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
             $(".tabs li a span.bmtab").text("");
@@ -803,6 +804,7 @@
             $("#PdfLinkText").text(" Download page");
             $("#bestInClassTabSection").show();
             $("#tabsSection").hide();
+            $(".js-show-value-help").hide();
         }
         else if (tab === "ComparisonSchools") {
             $(".tabs li").removeClass("active");
@@ -816,6 +818,7 @@
             $("#PrintLinkText").text(" Print page");
             $("#PdfLinkText").text(" Download page");
             $("#tabsSection").hide();
+            $(".js-show-value-help").hide();
         }
         else {
             let unitParameter = $("#ShowValue").val();
@@ -881,6 +884,9 @@
                     let unitParameter = $("#ShowValue").val();
                     this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
+                    if (tab === "Workforce") {
+                        $(".js-show-value-help").show();
+                    }
                     this.GenerateCharts(unitParameter);    
                 }
             });
