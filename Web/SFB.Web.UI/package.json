@@ -39,7 +39,7 @@
     "leaflet": "^1.4.0",
     "leaflet-fullscreen": "^1.0.2",
     "leaflet.markercluster": "^1.4.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pptxgenjs": "^2.5.0"
   },
   "-vs-binding": {
