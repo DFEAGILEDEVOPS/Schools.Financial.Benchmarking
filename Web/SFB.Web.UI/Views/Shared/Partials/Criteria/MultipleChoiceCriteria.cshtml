@@ -36,7 +36,7 @@
                         {
                             <div class="multiple-choice">
                                 <input type="checkbox" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName.@option.Name" value="@option.Value" class="criteria-checkbox"
-                                       required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option." />
+                                       required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="This characteristic needs data" />
                                 <label for="@Model.ElementName.@option.Name">@option.Name</label>
                             </div>
                         }

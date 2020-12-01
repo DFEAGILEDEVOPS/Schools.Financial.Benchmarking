@@ -114,7 +114,7 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_LA_CODE_NAME:
                     if (!IsNumeric(laCodeName))
                     {
-                        errorMessage = _valService.ValidateLaNameParameter(laCodeName);
+                        errorMessage = _valService.ValidateLaNameParameterForComparison(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
                             var exactMatch = _laSearchService.SearchExactMatch(laCodeName);
@@ -151,7 +151,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        errorMessage = _valService.ValidateLaCodeParameter(laCodeName);
+                        errorMessage = _valService.ValidateLaCodeParameterForComparison(laCodeName);
                         if (string.IsNullOrEmpty(errorMessage))
                         {
                             searchResp = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
@@ -186,7 +186,7 @@ namespace SFB.Web.UI.Controllers
                     }
                 case SearchTypes.SEARCH_BY_LOCATION:
                 default:
-                    errorMessage = _valService.ValidateLocationParameter(locationorpostcode);
+                    errorMessage = _valService.ValidateLocationParameterForComparison(locationorpostcode);
                     if (string.IsNullOrEmpty(errorMessage))
                     {
                         if (string.IsNullOrEmpty(locationCoordinates))

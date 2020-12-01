@@ -7,7 +7,7 @@
 <div class="question">
     <div class="multiple-choice question">
         <input id="checkbox-@Model.MinElementName" type="checkbox" @Html.Raw(activated ? "checked" : "")>
-        <label for="checkbox-@Model.MinElementName">@Model.Question <span class="visuallyhidden">Please enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
+        <label for="checkbox-@Model.MinElementName">@Model.Question <span class="visuallyhidden">Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
     <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
         <div class="column-full">
@@ -21,7 +21,7 @@
                 }
                 else
                 {
-                    <span>Please enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is </span>
+                    <span>Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is </span>
 
                     decimal homeValueDecimal;
                     if (!string.IsNullOrEmpty(Model.Format) && decimal.TryParse(Model.HomeSchoolValue, out homeValueDecimal))
@@ -43,13 +43,13 @@
                 <div class="column-half">
                     <label class="form-label" for="@Model.MinElementName">From</label>
                     <input value="@Model.MinValue" type="number" name="AdvancedCriteria.@Model.MinElementName" id="@Model.MinElementName" class="form-control criteria-input min-js"
-                           required min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled") data-msg-required="Please fill in both boxes if you want this characteristic to be included in the search."
+                           required min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled") data-msg-required="Fill in both boxes if you want this characteristic to be included in the search."
                            data-msg-minLowerThanMax="'From' value can not be greater than the 'To' value">
                 </div>
                 <div class="column-half">
                     <label class="form-label" for="@Model.MaxElementName">To</label>
                     <input value="@Model.MaxValue" type="number" name="AdvancedCriteria.@Model.MaxElementName" id="@Model.MaxElementName" class="form-control criteria-input max-js"
-                           required min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled") data-msg-required="Please fill in both boxes if you want this characteristic to be included in the search."
+                           required min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled") data-msg-required="Fill in both boxes if you want this characteristic to be included in the search."
                            data-msg-maxGreaterThanMin="'To' value can not be lower than the 'From' value">
                 </div>
             </div>

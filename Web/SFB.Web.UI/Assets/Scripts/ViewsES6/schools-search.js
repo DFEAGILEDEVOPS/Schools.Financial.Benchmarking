@@ -77,7 +77,7 @@
                     msg = "Unable to find your location";
                     break;
                 case err.PERMISSION_DENIED:
-                    msg = "Your location is blocked by your browser, please enter your location manually";
+                    msg = "Your location is blocked by your browser, enter your location manually";
                     break;
                 case err.POSITION_UNAVAILABLE:
                     msg = "Your location is currently unknown";

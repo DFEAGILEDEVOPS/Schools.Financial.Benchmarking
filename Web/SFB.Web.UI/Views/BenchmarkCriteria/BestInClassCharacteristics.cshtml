@@ -48,7 +48,7 @@
             <div class="column-full no-padding">
                 <div class="bold-small">Number of pupils</div>
                 <div class="benchmark-school-value">
-                    <span>Please enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
+                    <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@Model.BenchmarkSchool.LatestYearFinancialData.PupilCount pupils</span>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="column-full no-padding">
                 <div class="bold-small">Eligibility for free school meals (% of pupils)</div>
                 <div class="benchmark-school-value">
-                    <span>Please enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
+                    <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault().ToString("F2"))%</span>
                 </div>
             </div>
@@ -107,7 +107,7 @@
             </div>
             <div class="panel panel-border-wide" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
                 <div class="benchmark-school-value">
-                    <span>Please enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
+                    <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
                 </div>
                 <div class="form-group no-padding">
@@ -132,7 +132,7 @@
                     Total expenditure in £ per pupil
                 </div>
                 <div class="benchmark-school-value">
-                    <span>Please enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
+                    <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault().ToString("C"))</span>
                 </div>
             </div>
