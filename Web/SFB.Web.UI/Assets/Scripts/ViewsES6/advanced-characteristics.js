@@ -20,7 +20,7 @@
 
 
     validateForm() {
-        debugger;
+        
         jQuery.extend(jQuery.validator.messages, {
             max: jQuery.validator.format("Enter a value less than or equal to {0}"),
             min: jQuery.validator.format("Enter a value greater than or equal to {0}")
