@@ -116,7 +116,7 @@ namespace SFB.Web.UI.Controllers
         {
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT);
             var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var financialDataObject = await _financialDataService.GetTrustFinancialDataObjectAsync(benchmarkTrust.CompanyNo, term, MatFinancingType.TrustAndAcademies);
+            var financialDataObject = await _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(benchmarkTrust.CompanyNo, term, MatFinancingType.TrustAndAcademies);
 
             benchmarkTrust.HistoricalFinancialDataModels = new List<ApplicationCore.Models.FinancialDataModel>
             {

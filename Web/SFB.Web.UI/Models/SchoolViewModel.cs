@@ -95,8 +95,13 @@ namespace SFB.Web.UI.Models
         public string HeadTeachFullName => $"{ContextDataModel.HeadFirstName} {ContextDataModel.HeadLastName}";
 
         public string TrustName => ContextDataModel.Trusts;
+        public string TrustNameInLatestFinance => LatestYearFinancialData.TrustName;
 
         public int? CompanyNo => ContextDataModel.CompanyNumber;
+        
+        public int? CompanyNoInLatestFinance => LatestYearFinancialData.CompanyNo;
+        
+        public int? UID => ContextDataModel.UID;
 
         public string PhoneNumber => ContextDataModel.TelephoneNum;
 
@@ -179,9 +184,9 @@ namespace SFB.Web.UI.Models
 
         public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
 
-        public bool IsSAT => LatestYearFinancialData.IsSAT;
+        public bool IsSATinLatestFinance => LatestYearFinancialData.IsSAT;
 
-        public bool IsMAT => LatestYearFinancialData.IsMAT;
+        public bool IsMATinLatestFinance => LatestYearFinancialData.IsMAT;
 
         public decimal? FSM => LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals;
 

@@ -128,7 +128,7 @@
         {
             if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
             {
-                if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSAT && ViewBag.Financing != null)
+                if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSATinLatestFinance && ViewBag.Financing != null)
                 {
                     var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
                     <text>(@centralFinance.GetDescription())</text>

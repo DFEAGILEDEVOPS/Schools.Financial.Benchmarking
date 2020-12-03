@@ -7,13 +7,17 @@
         }
 
         &__dt {
-            min-width: 150px;
             display: block;
             float: left;
             clear: left;
             padding-right: 15px;
             text-align: right;
             padding-bottom: 15px;
+            width: 140px;
+
+            @include media(desktop) {
+                width: 190px;
+            }
 
             @include media(mobile) {
                 text-align: left;

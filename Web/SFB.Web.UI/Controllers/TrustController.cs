@@ -43,7 +43,7 @@ namespace SFB.Web.UI.Controllers
             _trustHistoryService = trustHistoryService;
         }
 
-        public async Task<ActionResult> Index(int companyNo, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
+        public async Task<ActionResult> Index(int? companyNo, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts, int? uid = null)
         {
             ChartGroupType chartGroup;
             switch (tab)
@@ -62,7 +62,13 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            var trustVM = await BuildFullTrustVMAsync(companyNo, tab, chartGroup, financing);
+            if (companyNo == null && uid.HasValue)
+            {               
+                var trustFinance = await _financialDataService.GetTrustFinancialDataObjectByUidAsync(uid.GetValueOrDefault(), await LatestMATTermAsync());
+                companyNo = trustFinance.CompanyNumber;
+            }
+
+            var trustVM = await BuildFullTrustVMAsync(companyNo.GetValueOrDefault(), tab, chartGroup, financing);
 
             if (!trustVM.HasLatestYearFinancialData)
             {
@@ -168,7 +174,7 @@ namespace SFB.Web.UI.Controllers
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetTrustFinancialDataObjectAsync(companyNo, term, matFinancing);
+                var task = _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(companyNo, term, matFinancing);
                 taskList.Add(task);
             }
 
