@@ -966,6 +966,7 @@
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\README.md" />
     <Content Include="Views\BenchmarkCriteria\HowWeCalculateSpecials.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedSpecialsCriteria.cshtml" />
+    <Content Include="Views\Help\SadGuidance.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
