@@ -168,7 +168,7 @@ namespace SFB.Web.UI.Controllers
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetTrustFinancialDataObjectAsync(companyNo, term, matFinancing);
+                var task = _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(companyNo, term, matFinancing);
                 taskList.Add(task);
             }
 
