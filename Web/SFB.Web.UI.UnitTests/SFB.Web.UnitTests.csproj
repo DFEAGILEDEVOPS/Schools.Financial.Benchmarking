@@ -63,8 +63,8 @@
     <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="SFB.Web.ApplicationCore, Version=1.0.323.54823, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.323.54823\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
+    <Reference Include="SFB.Web.ApplicationCore, Version=1.0.338.55186, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.338.55186\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
