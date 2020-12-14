@@ -181,10 +181,27 @@
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
+
                 @if (Model.IsMAT)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
+                    if (Model.UID != null)
+                    {
+                        @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?uid={0}\">{1}</a>", Server.UrlEncode(Model.UID.ToString()), Model.SponsorName)
+                    }
+                    else
+                    {
+                        @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
+                    }
                 }
+
+                @if (Model.IsMATinLatestFinance)
+                {
+                    if (Model.CompanyNo == null || Model.CompanyNo != Model.CompanyNoInLatestFinance)
+                    {
+                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                    }
+                }
+
                 @DataSourcesField()
 
             </dl>
@@ -264,7 +281,7 @@
                 <div class="accordion-section-body">
                     @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
                     @Html.Partial("Partials/ValueSelect", Model)
-                    @if (Model.EstablishmentType == EstablishmentType.Academies && Model.HistoricalFinancialDataModels.Last().IsMAT)
+                    @if (Model.EstablishmentType == EstablishmentType.Academies && Model.IsMATinLatestFinance)
                     {
                         Html.RenderPartial("Partials/CentralFinancing");
                     }
