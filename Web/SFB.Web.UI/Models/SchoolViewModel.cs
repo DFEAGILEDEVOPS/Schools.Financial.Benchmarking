@@ -93,8 +93,10 @@ namespace SFB.Web.UI.Models
         public string AgeRange => ContextDataModel.StatutoryLowAge == null ? null : $"{ContextDataModel.StatutoryLowAge} to {ContextDataModel.StatutoryHighAge}";
 
         public string HeadTeachFullName => $"{ContextDataModel.HeadFirstName} {ContextDataModel.HeadLastName}";
-
         public string TrustName => ContextDataModel.Trusts;
+
+        public string SponsorName => ContextDataModel.SponsorName;
+
         public string TrustNameInLatestFinance => LatestYearFinancialData.TrustName;
 
         public int? CompanyNo => ContextDataModel.CompanyNumber;
@@ -183,6 +185,10 @@ namespace SFB.Web.UI.Models
         public override string Type => ContextDataModel.TypeOfEstablishment;
 
         public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
+
+        public bool IsSAT => ContextDataModel.MatSat == "SAT";
+        
+        public bool IsMAT => ContextDataModel.MatSat == "MAT";
 
         public bool IsSATinLatestFinance => LatestYearFinancialData.IsSAT;
 

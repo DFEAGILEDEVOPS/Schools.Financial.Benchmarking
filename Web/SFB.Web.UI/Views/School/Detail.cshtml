@@ -182,18 +182,24 @@
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
 
-                @if (Model.CompanyNo == null)
+                @if (Model.IsMAT)
                 {
-                    @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?uid={0}\">{1}</a>", Server.UrlEncode(Model.UID.ToString()), Model.TrustName)
-                }
-                else
-                {
-                    @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
+                    if (Model.UID != null)
+                    {
+                        @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?uid={0}\">{1}</a>", Server.UrlEncode(Model.UID.ToString()), Model.SponsorName)
+                    }
+                    else
+                    {
+                        @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
+                    }
                 }
 
-                @if (Model.CompanyNo == null || Model.CompanyNo != Model.CompanyNoInLatestFinance)
+                @if (Model.IsMATinLatestFinance)
                 {
-                    @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                    if (Model.CompanyNo == null || Model.CompanyNo != Model.CompanyNoInLatestFinance)
+                    {
+                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                    }
                 }
 
                 @DataSourcesField()
