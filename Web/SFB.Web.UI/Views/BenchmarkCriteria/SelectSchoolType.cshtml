@@ -73,12 +73,13 @@
             <fieldset role="radiogroup" id="RadioFieldSet">
                 <legend class="hidden">Which schools would you like to include?</legend>
 
-                <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
-                    <input id="Maintained" type="radio" name="EstType" value="Maintained">
-                    <label class="selection-button-radio" for="Maintained">Maintained schools</label>
-                </div>
                 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                 {
+                    <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
+                        <input id="Maintained" type="radio" name="EstType" value="Maintained">
+                        <label class="selection-button-radio" for="Maintained">Maintained schools</label>
+                    </div>
+
                     <div id="MaintainedFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled />
@@ -87,13 +88,12 @@
                             </label>
                         </div>
                     </div>
-                }
-                <div id="AcademiesContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AcademiesFieldset">
-                    <input id="Academies" type="radio" name="EstType" value="Academies">
-                    <label class="selection-button-radio" for="Academies">Academies</label>
-                </div>
-                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-                {
+
+                    <div id="AcademiesContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AcademiesFieldset">
+                        <input id="Academies" type="radio" name="EstType" value="Academies">
+                        <label class="selection-button-radio" for="Academies">Academies</label>
+                    </div>
+
                     <div id="AcademiesFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled />
@@ -102,14 +102,12 @@
                             </label>
                         </div>
                     </div>
-                }
 
-                <div id="AllContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AllFieldset">
-                    <input id="All" type="radio" name="EstType" value="All">
-                    <label class="selection-button-radio" for="All">All schools</label>
-                </div>
-                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-                {
+                    <div id="AllContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AllFieldset">
+                        <input id="All" type="radio" name="EstType" value="All">
+                        <label class="selection-button-radio" for="All">All schools</label>
+                    </div>
+
                     <div id="AllFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled />
@@ -117,6 +115,23 @@
                                 Exclude schools that don't have a complete set of financial data
                             </label>
                         </div>
+                    </div>
+                }
+                else
+                {
+                    <div id="MaintainedContainer" class="multiple-choice">
+                        <input id="Maintained" type="radio" name="EstType" value="Maintained">
+                        <label class="selection-button-radio" for="Maintained">Maintained schools</label>
+                    </div>
+
+                    <div id="AcademiesContainer" class="multiple-choice">
+                        <input id="Academies" type="radio" name="EstType" value="Academies">
+                        <label class="selection-button-radio" for="Academies">Academies</label>
+                    </div>
+
+                    <div id="AllContainer" class="multiple-choice">
+                        <input id="All" type="radio" name="EstType" value="All">
+                        <label class="selection-button-radio" for="All">All schools</label>
                     </div>
                 }
             </fieldset>
