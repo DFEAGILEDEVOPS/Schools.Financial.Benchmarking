@@ -183,6 +183,10 @@
             var estType = '@(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool ? "None" : Model.EstablishmentType.ToString())';
             var defaultInput = $('#' + estType);
             defaultInput.click();
+            setTimeout(() => {
+                $(".skiplink").focus();
+                $(".skiplink").blur();
+            }, 100);
         });
     </script>
 }
