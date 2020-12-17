@@ -1,18 +1,16 @@
-﻿<div id="backLink" class="hide-in-print">
-    <div>
-        @{
-            var link = Request.QueryString["referrer"] ?? "/";
-            if (link.ToLower().Contains("/benchmarkcharts"))
-            {
-                link = "/BenchmarkCharts";
-            }
-
-            <a class="home-link" href="@link" aria-label="Close basket">
-                @*<i class="icon icon-back">
-                    <span class="visually-hidden">Close basket</span>
-                </i>*@
-                <span class="back-link">Close basket</span>
-            </a>
+﻿<div id="backLink" class="govuk-breadcrumbs hide-in-print">
+    @{
+        var link = Request.QueryString["referrer"] ?? "/";
+        if (link.ToLower().Contains("/benchmarkcharts"))
+        {
+            link = "/BenchmarkCharts";
         }
-    </div>
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link home-link" href="@link" aria-label="Close basket">
+                    <span class="back-link">Close basket</span>
+                </a>
+            </li>
+        </ol>
+    }
 </div>

@@ -929,12 +929,14 @@
     HideShowDetails(element) {
         let $table = $(element).closest('table');
         $table.find('.detail').toggle(200);
+        setTimeout(() => $table.find('.hide-show-button:visible').focus(), 300);        
     }
 
     HideShowDetailsMobile(element) {
         let $tableWrapper = $(element).closest('.chart-table-wrapper');
         $tableWrapper.find('.detail').toggle(200);
         $tableWrapper.find('.chart-table--mobile-only-view').toggle(200);
+        setTimeout(() => $tableWrapper.find('.mobile-hide-show-button:visible').focus(), 300);    
     }
 
     DownloadPage() {
@@ -1156,7 +1158,7 @@
                 </div>
             </div>
             </div>` +
-            "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
+            "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='PdfLinkText' title='Close'>Close</a></dialog>";
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');

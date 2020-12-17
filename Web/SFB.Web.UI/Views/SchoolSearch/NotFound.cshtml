@@ -1,6 +1,15 @@
 ﻿@model SFB.Web.UI.Models.SchoolNotFoundViewModel
+
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    if (System.Linq.Enumerable.FirstOrDefault(Model.Suggestions.Matches) != null)
+    {
+        ViewBag.Title = "We found no exact matches for \"" + Model.SearchKey + "\"";
+    }
+    else
+    {
+        ViewBag.Title = "We found no matches for \"" + Model.SearchKey + "\"";
+    }
+
     ViewBag.pageClass = "search-results";
 }
 
@@ -21,39 +30,39 @@
                     <h1 class="heading-xlarge">
                         We found no exact matches for "@Model.SearchKey"
                     </h1>
-                    <p>
-                        Did you mean one of the options below?
-                    </p>
-                }
-                else
-                {
-                    <h1 class="heading-xlarge">
-                        We found no matches for "@Model.SearchKey"
-                    </h1>
-                }
-            </p>
-        </section>
-        <section>
+                <p>
+                    Did you mean one of the options below?
+                </p>
+            }
+            else
+            {
+                <h1 class="heading-xlarge">
+                    We found no matches for "@Model.SearchKey"
+                </h1>
+            }
+                </p>
+            </section>
+            <section>
 
-            <ul class="disambiguation-list">
-                @foreach (var sugg in Model.Suggestions.Matches)
-                {
-                    <li>
-                        <a href="/school/detail?urn=@sugg.Id">@sugg.Text</a>
-                    </li>
-                }
+                <ul class="disambiguation-list">
+                    @foreach (var sugg in Model.Suggestions.Matches)
+                    {
+                        <li>
+                            <a href="/school/detail?urn=@sugg.Id">@sugg.Text</a>
+                        </li>
+                    }
 
-            </ul>
-        </section>
-        <section>
-            <p class="result-info">
-                <span>You can </span>
-                <a href="/">try searching again</a>
-                <span>using a different spelling.</span>
-            </p>
-            <p class="result-info">
-                Please note that this site only lets you search for schools in England.
-            </p>
-        </section>
+                </ul>
+            </section>
+            <section>
+                <p class="result-info">
+                    <span>You can </span>
+                    <a href="/">try searching again</a>
+                    <span>using a different spelling.</span>
+                </p>
+                <p class="result-info">
+                    Please note that this site only lets you search for schools in England.
+                </p>
+            </section>
+        </div>
     </div>
-</div>

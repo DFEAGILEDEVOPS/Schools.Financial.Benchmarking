@@ -1,7 +1,15 @@
 ﻿@model SFB.Web.UI.Models.SaveOverwriteViewModel
 
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    if (Model.SavedUrns != null)
+    {
+        ViewBag.Title = "Comparing similar schools";
+    }
+    else
+    {
+        ViewBag.Title = "Comparing similar trusts";
+    }
+
     ViewBag.pageClass = "overwrite-strategy";
 }
 
