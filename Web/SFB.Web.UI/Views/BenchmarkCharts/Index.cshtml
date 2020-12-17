@@ -4,7 +4,16 @@
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    if (Model.ComparisonType == ComparisonType.BestInClass)
+    {
+        ViewBag.Title = "Highest progress schools benchmark";
+    }
+    else
+    {
+        ViewBag.Title = "Benchmarking charts";
+    }
+
+
     ViewBag.pageClass = "benchmarking-charts";
 }
 
@@ -184,10 +193,10 @@ else
             </div>
         }
 
-        if ((Model.ComparisonType == ComparisonType.Basic 
-            || Model.ComparisonType == ComparisonType.Specials 
-            || Model.ComparisonType == ComparisonType.Advanced 
-            || Model.ComparisonType == ComparisonType.BestInClass) 
+        if ((Model.ComparisonType == ComparisonType.Basic
+            || Model.ComparisonType == ComparisonType.Specials
+            || Model.ComparisonType == ComparisonType.Advanced
+            || Model.ComparisonType == ComparisonType.BestInClass)
             && Model.AdvancedCriteria != null)
         {
             <div class="grid-row">

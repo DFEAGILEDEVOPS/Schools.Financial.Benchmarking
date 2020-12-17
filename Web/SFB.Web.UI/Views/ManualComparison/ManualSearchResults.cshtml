@@ -1,14 +1,25 @@
 ﻿@{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    @switch (Model.SearchType)
+    {
+        case SearchTypes.SEARCH_BY_LOCATION:
+            ViewBag.Title = "Schools in and near " + Model.LocationKeyword;
+            break;
+        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+            ViewBag.Title = "Schools in " + Model.LaKeyword;
+            break;
+    }
+
     ViewBag.pageClass = "search-results";
     ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
     ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
 }
 
 @section BackButtonContent{
-    @if (ViewBag.HomeSchoolId == null) {
+    @if (ViewBag.HomeSchoolId == null)
+    {
         Html.RenderPartial("Partials/BackToHomeLink");
-    } else
+    }
+    else
     {
         Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
     }

@@ -1,6 +1,13 @@
 ﻿@model SFB.Web.UI.Models.SchoolNotFoundViewModel
-@{
-    ViewBag.Title = "Schools Financial Benchmarking";
+@{    
+    if (System.Linq.Enumerable.FirstOrDefault(Model.Suggestions.Matches) != null)
+    {
+        ViewBag.Title = "We found no exact matches for \"" + Model.SearchKey + "\"";
+    }
+    else
+    {
+        ViewBag.Title = "We found no matches for \"" + Model.SearchKey + "\"";
+    }
     ViewBag.pageClass = "search-results";
 }
 
