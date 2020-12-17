@@ -262,7 +262,6 @@
 
         },
         RenderBicCriteriaKs2Modal: function (event) {
-
             event.stopPropagation();
 
             var $body = $('body');

@@ -1158,7 +1158,7 @@
                 </div>
             </div>
             </div>` +
-            "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
+            "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='PdfLinkText' title='Close'>Close</a></dialog>";
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');
