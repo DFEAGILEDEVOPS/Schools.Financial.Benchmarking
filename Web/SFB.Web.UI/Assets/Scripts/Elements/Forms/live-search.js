@@ -164,7 +164,8 @@
                 searchState: searchState,
                 beforeSend: function () {
                     if (!liveSearch.disabled) {
-                        DfE.Util.LoadingMessage.display("#schoolResults", "Updating schools");
+                        debugger;
+                        DfE.Util.LoadingMessage.display(".schoolResults", "Updating schools");
                     }
                 }
             }).done(function (response) {
