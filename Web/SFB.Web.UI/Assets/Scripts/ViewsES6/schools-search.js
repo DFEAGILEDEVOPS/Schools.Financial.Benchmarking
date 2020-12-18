@@ -18,7 +18,7 @@
         this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindTrustByTown', '#LocationCoordinatesForTrust', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
-        this.bindAutosuggest('#FindTrustByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
+        this.bindAutosuggest('#FindTrustByLaCodeName', '#SelectedLocalAuthorityIdTrust', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindAutosuggest('#FindSchoolManuallyByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolManuallyByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindEnterKeysToButtons();
