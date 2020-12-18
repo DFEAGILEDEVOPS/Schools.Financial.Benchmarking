@@ -30,7 +30,7 @@
                     {
                         <div class="filter-box">
                             <label class="legend" for="OrderByControl">Sorted by</label>
-                            <select name="orderbyControl" id="OrderByControl" aria-controls="js-search-results-info" class="select" style="max-width:200px" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                            <select name="orderbyControl" id="OrderByControl" class="select" style="max-width:200px" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
 
                                 @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
                                 {

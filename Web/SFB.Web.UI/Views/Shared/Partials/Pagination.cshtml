@@ -3,8 +3,8 @@
 
 <div class="grid-row pagination-container">
     <div class="column-full">
-        <div id="result-list" class="inline-block">
-            <div id="js-search-results-info">
+        <div class="result-list inline-block">
+            <div class="js-search-results-info">
                 <div class="result-info">
                     @if (@ViewBag.CompanyNo == null)
                     {
@@ -20,7 +20,7 @@
 
                             @if (ViewBag.SearchMethod == "Manual")
                             {
-                                <span id="manualSchoolCountPlaceHolder" class="no-padding inline-block font-xsmall">- <span id="manualCount" class="manualCount-js bold-xsmall">@(ViewBag.manualCount ?? 0)</span> selected (max. 30)</span>
+                                <span class="no-padding inline-block font-xsmall">- <span class="manualCount-js bold-xsmall">@(ViewBag.manualCount ?? 0)</span> selected (max. 30)</span>
                             }
                         </div>
                     }
