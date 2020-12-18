@@ -168,7 +168,7 @@
         $("span.result-count").html(count);
         $("span.screen-reader-result-count").html("Filtering results");
         setTimeout(function () {
-            $("span.screen-reader-result-count").html($('#result-list .summary').html());
+            $("span.screen-reader-result-count").html($('.result-list .summary').html());
         }, 1000);
 
         this.liveSearch.getSummaryBlock().css("visibility", "visible");

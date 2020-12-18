@@ -1,5 +1,5 @@
 ﻿@{
-    @switch (Model.SearchType)
+    switch (Model.SearchType)
     {
         case SearchTypes.SEARCH_BY_LOCATION:
             ViewBag.Title = "Schools in and near " + Model.LocationKeyword;
