@@ -100,15 +100,15 @@
                 </div>`;
             $("#error-summary-placeholder").empty();
             $("#error-summary-placeholder").append(html);
-            $("#location-error-message-placeholder").empty();
-            $("#location-error-message-placeholder").append(`<span class="error-message">${msg}</span>`);
+            $(".location-error-message-placeholder").empty();
+            $(".location-error-message-placeholder").append(`<span class="error-message">${msg}</span>`);
         }
 
         getCurrentPositionSuccessHandler (position) {
             let coords = position.coords || position.coordinate || position;
 
             $("#error-summary-placeholder").empty();
-            $("#location-error-message-placeholder").empty();
+            $(".location-error-message-placeholder").empty();
             $('#LocationCoordinates').val(coords.latitude + ',' + coords.longitude);
             $('#SearchByTownFieldset button[type="submit"]').removeAttr('disabled');
 
