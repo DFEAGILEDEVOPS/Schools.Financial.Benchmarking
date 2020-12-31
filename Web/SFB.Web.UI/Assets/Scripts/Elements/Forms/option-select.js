@@ -94,8 +94,8 @@
   };
 
   OptionSelect.prototype.open = function open(){
-    if (this.isClosed()) {
-      this.$optionSelect.find('.js-container-head').attr('aria-expanded', true);
+      if (this.isClosed()) {
+          this.$optionSelect.attr('aria-expanded', true);
       this.$optionSelect.removeClass('js-closed');
       if (!this.$optionsContainer.prop('style').height) {
         this.setupHeight();
@@ -105,7 +105,7 @@
 
   OptionSelect.prototype.close = function close(){
     this.$optionSelect.addClass('js-closed');
-    this.$optionSelect.find('.js-container-head').attr('aria-expanded', false);
+    this.$optionSelect.attr('aria-expanded', false);
   };
 
   OptionSelect.prototype.isClosed = function isClosed(){
