@@ -22,7 +22,7 @@
 
     bindEvents() {
         // Live Search Form (aka filter form)
-        let $results = $('#schoolResults');
+        let $results = $('.schoolResults');
         let $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0');
 
         this.liveSearch = new GOVUK.LiveSearch({
@@ -279,10 +279,11 @@
             url: pagingUrl,
             datatype: 'json',
             beforeSend: () => {
-                DfE.Util.LoadingMessage.display("#schoolResults", "Updating schools");
+                DfE.Util.LoadingMessage.display(".schoolResults", "Updating schools");
             },
             success: (data) => {
-                $("#schoolResults").html(data);
+                debugger;
+                $(".schoolResults").html(data);
                 this.initTabs();
                 this.initSort();
                 this.liveSearch.updateSchoolCount();

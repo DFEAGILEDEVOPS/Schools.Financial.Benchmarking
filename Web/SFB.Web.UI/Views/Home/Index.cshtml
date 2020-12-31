@@ -53,17 +53,17 @@
     }
 
     <div class="finder-section mt-1" id="finderSection">
-        <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
+        <div id="SearchTypesAccordion" class="search-types">
             <nav id="tabs" class="tabs" role="navigation">
                 <ol role="tablist">
-                    <li class="@ViewHelpers.SchoolTabActive(Model.SearchType) hide-in-print" role="tab" id="SchoolTab">
-                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('SchoolTab')">Find a school</button>
+                    <li class="@ViewHelpers.SchoolTabActive(Model.SearchType) hide-in-print" role="presentation" id="SchoolTab">
+                        <a href="javascript: DfE.Views.SchoolsSearchViewModel.TabChange('SchoolTab')" role="tab" aria-selected="true" class="a-button">Find a school</a>
                     </li>
-                    <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="tab" id="TrustTab">
-                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')">Find an academy trust</button>
+                    <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="presentation" id="TrustTab">
+                        <a href="javascript: DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')" role="tab" aria-selected="false" class="a-button">Find an academy trust</a>
                     </li>
-                    <li class="@ViewHelpers.NoDefaultTabActive(Model.SearchType) hide-in-print" role="tab" id="NoDefaultTab">
-                        <button type="button" class="a-button" onclick="DfE.Views.SchoolsSearchViewModel.TabChange('NoDefaultTab')">Compare with no default school</button>
+                    <li class="@ViewHelpers.NoDefaultTabActive(Model.SearchType) hide-in-print" role="presentation" id="NoDefaultTab">
+                        <a href="javascript: DfE.Views.SchoolsSearchViewModel.TabChange('NoDefaultTab')" role="tab" aria-selected="false" class="a-button">Compare with no default school</a>
                     </li>
                 </ol>
             </nav>

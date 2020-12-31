@@ -18,7 +18,7 @@
         this.bindAutosuggest('#FindSchoolByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindTrustByTown', '#LocationCoordinatesForTrust', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
-        this.bindAutosuggest('#FindTrustByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
+        this.bindAutosuggest('#FindTrustByLaCodeName', '#SelectedLocalAuthorityIdTrust', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindAutosuggest('#FindSchoolManuallyByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolManuallyByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindEnterKeysToButtons();
@@ -100,15 +100,15 @@
                 </div>`;
             $("#error-summary-placeholder").empty();
             $("#error-summary-placeholder").append(html);
-            $("#location-error-message-placeholder").empty();
-            $("#location-error-message-placeholder").append(`<span class="error-message">${msg}</span>`);
+            $(".location-error-message-placeholder").empty();
+            $(".location-error-message-placeholder").append(`<span class="error-message">${msg}</span>`);
         }
 
         getCurrentPositionSuccessHandler (position) {
             let coords = position.coords || position.coordinate || position;
 
             $("#error-summary-placeholder").empty();
-            $("#location-error-message-placeholder").empty();
+            $(".location-error-message-placeholder").empty();
             $('#LocationCoordinates').val(coords.latitude + ',' + coords.longitude);
             $('#SearchByTownFieldset button[type="submit"]').removeAttr('disabled');
 
@@ -289,7 +289,9 @@
 
     TabChange(tabId) {
         $('.tabs li').removeClass('active');
+        $('.tabs li a').attr('aria-selected', 'false');
         $('#' + tabId).addClass('active');
+        $('#' + tabId + ' a').attr('aria-selected', 'true');
         $('.tab-content').hide();
         $('#' + tabId + 'Content').show();
     }

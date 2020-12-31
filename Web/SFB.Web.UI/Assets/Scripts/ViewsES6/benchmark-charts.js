@@ -776,8 +776,10 @@
     ChangeTab(tab) {
         if (tab === "Custom") {
             $(".tabs li").removeClass("active");
+            $('.tabs li a').attr('aria-selected', 'false');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#tabsSection form").empty('');
             $("#tabsSection .sticky-chart-controls").empty('');
@@ -794,8 +796,10 @@
             $('.sticky-div').Stickyfill();
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
+            $('.tabs li a').attr('aria-selected', 'false');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
             $("#comparisonSchoolsTabSection").hide();
@@ -808,8 +812,10 @@
         }
         else if (tab === "ComparisonSchools") {
             $(".tabs li").removeClass("active");
+            $('.tabs li a').attr('aria-selected', 'false');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
             $("#bestInClassTabSection").hide();
@@ -864,8 +870,10 @@
                 },
                 success: (data) => {
                     $(".tabs li").removeClass("active");
+                    $('.tabs li a').attr('aria-selected', 'false');
                     $(".tabs li a span.bmtab").text("");
                     $(".tabs li#" + tab).addClass("active");
+                    $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $("#downloadLinkContainer").show();
                     $("#PrintLinkText").text(" Print page");
