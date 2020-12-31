@@ -275,7 +275,16 @@ ul.list {
     }
 }
 
-    //* {
-    //    font-family: "GDS Transport", Arial, sans-serif !important;
-    //}
+.help-icon.tb {
+    vertical-align: text-bottom;
+    margin-left: 10px;
+
+    @include media(desktop) {
+        margin-left: 0;
+    }
+}
+
+//* {
+//    font-family: "GDS Transport", Arial, sans-serif !important;
+//}
 
