@@ -256,17 +256,17 @@
 <a name="charts"></a>
 <nav id="tabs" class="tabs" role="navigation">
     <ol role="tablist">
-        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Expenditure')">@TabNames.EXPENDITURE</button>
+        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")" class="a-button" role="tab" href="javascript:DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Expenditure')">@TabNames.EXPENDITURE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')">@TabNames.INCOME</button>
+        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")" class="a-button" role="tab" href="javascript:DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')">@TabNames.INCOME</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')">@TabNames.BALANCE</button>
+        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")" class="a-button" role="tab" href="javascript:DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')">@TabNames.BALANCE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="tab">
-            <button class="a-button" onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Workforce')">@TabNames.WORKFORCE</button>
+        <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")" class="a-button" role="tab" href="javascript:DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Workforce')">@TabNames.WORKFORCE</a>
         </li>
     </ol>
 </nav>

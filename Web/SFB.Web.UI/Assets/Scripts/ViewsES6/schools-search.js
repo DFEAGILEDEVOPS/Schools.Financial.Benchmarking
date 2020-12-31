@@ -289,7 +289,9 @@
 
     TabChange(tabId) {
         $('.tabs li').removeClass('active');
+        $('.tabs li a').attr('aria-selected', 'false');
         $('#' + tabId).addClass('active');
+        $('#' + tabId + ' a').attr('aria-selected', 'true');
         $('.tab-content').hide();
         $('#' + tabId + 'Content').show();
     }
