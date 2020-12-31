@@ -235,8 +235,9 @@ AccordionSection.prototype.expanded = function() {
   return (this.element.getAttribute('aria-expanded') == 'true')
 }
 
-AccordionSection.prototype.setExpanded = function(expanded) {
+AccordionSection.prototype.setExpanded = function (expanded) {
     this.element.setAttribute('aria-expanded', expanded)
+    this.element.querySelector('.accordion-section-header').setAttribute('aria-expanded', expanded)
 
     var button = this.element.querySelector('.chart-accordion-header')
     if (button) {
