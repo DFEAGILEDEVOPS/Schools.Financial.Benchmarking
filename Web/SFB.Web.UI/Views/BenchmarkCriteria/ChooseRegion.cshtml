@@ -55,21 +55,21 @@
 </div>
 }
 
-<section class="section" aria-labelledby="legend" id="options">
+<section class="section" id="options">
     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
         <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
             <div class="form-group">
                 <fieldset role="radiogroup" id="RadioFieldSet">
 
-                    <legend id="legend" class="hidden">Which area are you interested in?</legend>
+                    <legend id="legend" class="visually-hidden">Where should comparison schools come from?</legend>
 
                     <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
-                        <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") aria-labelledby="legend" />
+                        <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") />
                         <label id="AllAccordion" for="All">All of England</label>
                     </div>
 
                     <div id="LaAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "selected" : "")" aria-controls="SearchByLaCodeFieldset">
-                        <input id="LaCodeRadio" type="radio" name="areaType" value="LACodeName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "checked" : "") aria-labelledby="legend" />
+                        <input id="LaCodeRadio" type="radio" name="areaType" value="LACodeName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "checked" : "") />
                         <label id="LaCodeAccordion" for="LaCodeRadio">
                             Local authority
                         </label>
