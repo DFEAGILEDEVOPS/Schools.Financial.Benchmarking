@@ -276,7 +276,7 @@
                             fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 3) {
-                            progressColour = "#ffbf47";
+                            progressColour = "#ffdd00";
                             fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 2) {
@@ -295,7 +295,7 @@
                             fontColour = "#0C0C0C";
                         }
                         else if (progressScore >= -2 && progressScore <= 2) {
-                            progressColour = "#ffbf47";
+                            progressColour = "#ffdd00";
                             fontColour = "#0C0C0C";
                         }
                         else if (progressScore > 2 && progressScore <= 3) {
