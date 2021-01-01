@@ -77,12 +77,14 @@ a.button {
 }
 
 .sticky-div {
-    position: -webkit-sticky; // required for Safari
-    position: sticky;
-    top: 0; // required as well.
-    z-index: 10000;
-    //margin-top: 10px;
+    @media (min-height: 480px) {
+        position: -webkit-sticky; // required for Safari
+        position: sticky;
+        top: 0; // required as well.
+        z-index: 10000;
+        //margin-top: 10px;
     }
+}
 
 .accordion.with-js.mobile-only-accordion {
     border-bottom: none;
@@ -934,8 +936,8 @@ a.button {
     }
 
     .hidden-button:focus {
-        background-color: #ffbf47;
-        outline: 3px solid #ffbf47;
+        background-color: #ffdd00;
+        outline: 3px solid #ffdd00;
     }
 
     .tt-menu.form-control.mtm {
