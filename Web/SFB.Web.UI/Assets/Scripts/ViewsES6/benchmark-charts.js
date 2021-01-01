@@ -20,6 +20,7 @@
             $("#benchmarkChartsList table.data-table-js").tablesorter();
             $("#bestInClassTabSection table.data-table-js").tablesorter();
             $("#comparisonSchoolsTabSection table.data-table-js").tablesorter();
+            $(".chart-table th").removeAttr("aria-label");
             
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();

@@ -3,8 +3,8 @@
 @model SFB.Web.UI.Models.ChartViewModel
 
 <button onclick="DfE.Util.focusTo('post-table-@Model.Name.Replace(" ","")')" class="hidden-button a-button">Skip the table @Model.Name</button>
-<button aria-hidden="True" class="mobile-hide-show-button show detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)">&#9664; Show details</button>
-<button aria-hidden="True" class="mobile-hide-show-button hide detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)" style="display: none">Hide details&nbsp;&#9654;</button>
+<button aria-label="Display @Model.Name table in detailed view" class="mobile-hide-show-button show detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)">&#9664; Show details</button>
+<button aria-label="Display @Model.Name table in summary view" class="mobile-hide-show-button hide detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)" style="display: none">Hide details&nbsp;&#9654;</button>
 <table class="tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--summary-view">
     <thead>
         <tr>
@@ -249,7 +249,7 @@
         <tr>
             <th class="school-column sortInitialOrder-asc" scope="col" data-header="School name">
                 School name
-                <button aria-hidden="True" class="hide-show-button hide detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&nbsp;&#9654;</button>
+                <button aria-label="Hide extra columns in @Model.Name table" class="hide-show-button hide detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Hide details&nbsp;&#9654;</button>
             </th>
             @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
             {
@@ -276,7 +276,7 @@
             <th class="detail sortInitialOrder-asc" scope="col" data-header="School type">School type</th>
             <th class="detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Number of pupils</th>
             <th class="sortInitialOrder-desc" scope="col" data-header="Amount">
-                <button aria-hidden="True" class="hide-show-button show detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664; Show details</button>
+                <button aria-label="Show extra columns in @Model.Name table" class="hide-show-button show detail hide-in-print a-button" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">&#9664; Show details</button>
                 <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
             </th>
         </tr>
