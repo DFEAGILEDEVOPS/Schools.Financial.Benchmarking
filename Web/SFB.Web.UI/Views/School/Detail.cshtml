@@ -196,7 +196,7 @@
 
                 @if (Model.IsMATinLatestFinance)
                 {
-                    if (Model.CompanyNo == null || Model.CompanyNo != Model.CompanyNoInLatestFinance)
+                    if ((Model.IsSAT &&  Model.IsMATinLatestFinance) || Model.CompanyNo != Model.CompanyNoInLatestFinance)
                     {
                         @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
                     }
