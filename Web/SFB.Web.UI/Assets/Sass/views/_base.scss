@@ -770,13 +770,13 @@ a.button {
         }
 
         @include media(tablet) {
-            display: none;
+            display: none!important;
         }
     }
 
     .hide-in-mobile {
         @include media(mobile) {
-            display: none;
+            display: none!important;
         }
     }
 
@@ -985,22 +985,13 @@ a.button {
         }
     }
 
-    table .hide-show-button.hide {
+    .hide-show-button {
         float: right;
     }
 
-    table .hide-show-button.show {
-        @include media(tablet) {
-            margin-right: 30px;
-        }
-    }
-
-    .mobile-hide-show-button.hide {
-        float: left;
-    }
-
-    .mobile-hide-show-button.show {
+    .mobile-hide-show-button {
         float: right;
+        margin-bottom:5px;
     }
 
     .view-charts-tables {
