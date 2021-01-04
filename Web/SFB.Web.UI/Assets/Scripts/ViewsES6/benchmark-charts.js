@@ -936,9 +936,9 @@
     }
 
     HideShowDetails(element) {
-        let $table = $(element).closest('table');
-        $table.find('.detail').toggle(200);
-        setTimeout(() => $table.find('.hide-show-button:visible').focus(), 300);        
+        let $tableWrapper = $(element).closest('.chart-table-wrapper');
+        $tableWrapper.find('.detail').toggle(200);
+        setTimeout(() => $tableWrapper.find('.hide-show-button:visible').focus(), 300);        
     }
 
     HideShowDetailsMobile(element) {
