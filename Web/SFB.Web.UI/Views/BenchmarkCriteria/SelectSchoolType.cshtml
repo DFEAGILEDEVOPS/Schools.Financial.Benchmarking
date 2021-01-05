@@ -9,13 +9,11 @@
     @{
         if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
         {
-            Html.RenderPartial("Partials/BackToHomeLink");
+            <a class="govuk-back-link hide-in-print" href="/">Back</a>
         }
         else
         {
-            ViewBag.HomeSchoolId = Model.Id.ToString();
-            ViewBag.HomeSchoolName = Model.Name;
-            Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+            <a class="govuk-back-link hide-in-print" href="../../BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Back</a>
         }
     }
 }
@@ -140,16 +138,6 @@
             <div class="column-half">
                 <div class="column-one-third next-button">
                     <button type="submit" class="button">Continue</button>
-                </div>
-                <div class="column-one-third back-button">
-                    @if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
-                    {
-                        <a href="/">Back</a>
-                    }
-                    else
-                    {
-                        <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
-                    }
                 </div>
             </div>
         </div>

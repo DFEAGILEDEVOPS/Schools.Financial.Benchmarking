@@ -967,6 +967,7 @@
     <Content Include="Views\BenchmarkCriteria\HowWeCalculateSpecials.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedSpecialsCriteria.cshtml" />
     <Content Include="Views\Help\SadGuidance.cshtml" />
+    <Content Include="Assets\Sass\_backLink.scss" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

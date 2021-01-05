@@ -2,14 +2,14 @@
 %banner-box {
     outline: none;
     max-width: 960px;
-    margin: 0 $gutter-half;
+    margin: 15px $gutter-half 0 $gutter-half;
 
     @include media(tablet) {
-        margin: 0 $gutter;
+        margin: 15px $gutter 0 $gutter;
     }
 
     @include media($min-width: ($site-width + $gutter * 2)) {
-        margin: 0 auto;
+        margin: 15px auto 0 auto;
     }
 }
 
@@ -26,7 +26,7 @@ a.button {
 }
 
 .header-content {
-    padding-top: 10px;
+    //padding-top: 10px;
 
     @extend %banner-box;
 
@@ -301,7 +301,7 @@ a.button {
 
     @media (min-width: 641px) {
         .page-heading {
-            margin-top: 0.75em !important;
+            margin-top: 30px !important;
         }
     }
 

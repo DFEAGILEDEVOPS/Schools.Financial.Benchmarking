@@ -282,7 +282,6 @@
                 DfE.Util.LoadingMessage.display(".schoolResults", "Updating schools");
             },
             success: (data) => {
-                debugger;
                 $(".schoolResults").html(data);
                 this.initTabs();
                 this.initSort();

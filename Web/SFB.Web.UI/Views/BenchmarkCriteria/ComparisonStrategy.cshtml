@@ -10,7 +10,7 @@
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BreadCrumbs/BackToSchoolLink", Model)
+     <a class="govuk-back-link hide-in-print" href="../../school/detail?urn=@Model.Id">Back</a>        
 }
 
 <h1 class="heading-xlarge page-heading">Select comparison type</h1>
@@ -105,9 +105,6 @@
             <div class="column-half">
                 <div class="column-one-third next-button">
                     <button type="submit" class="button">Continue</button>
-                </div>
-                <div class="column-one-third back-button">
-                    <a href="../../school/detail?urn=@Model.Id">Back</a>
                 </div>
             </div>
         </div>

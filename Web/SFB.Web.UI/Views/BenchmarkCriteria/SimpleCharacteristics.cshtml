@@ -7,11 +7,7 @@
 }
 
 @section BackButtonContent{
-    @{
-        ViewBag.HomeSchoolId = Model.BenchmarkSchool.Id.ToString();
-        ViewBag.HomeSchoolName = Model.BenchmarkSchool.Name;
-    }
-    @Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink")
+    <a class="govuk-back-link hide-in-print" href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType">Back</a>
 }
 
 <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
@@ -126,9 +122,6 @@
             <div class="column-two-thirds">
                 <div class="column-two-thirds next-button">
                     <button type="submit" class="button" id="continue-button">Continue to benchmarking charts</button>
-                </div>
-                <div class="column-one-third back-button">
-                    <a href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType">Back</a>
                 </div>
             </div>
         </div>

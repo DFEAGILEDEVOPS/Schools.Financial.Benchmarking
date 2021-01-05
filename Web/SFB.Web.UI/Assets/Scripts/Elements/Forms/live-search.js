@@ -164,7 +164,6 @@
                 searchState: searchState,
                 beforeSend: function () {
                     if (!liveSearch.disabled) {
-                        debugger;
                         DfE.Util.LoadingMessage.display(".schoolResults", "Updating schools");
                     }
                 }
