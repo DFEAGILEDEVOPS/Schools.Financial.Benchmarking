@@ -19,23 +19,22 @@
                                 || referrer.Contains("generatefrombiccriteria")
                     )
                 {
-                    <a class="home-link mb-1" href="/BenchmarkCharts">Back to benchmarking charts</a>
+                    <a class="govuk-back-link" href="/BenchmarkCharts">Back to benchmarking charts</a>
                 }
                 else
                 {
-                    <a class="home-link mb-1" href="@HttpUtility.ParseQueryString(Request.UrlReferrer.Query).Get("referrer")" aria-label="Close basket">Close basket</a>
+                    <a class="govuk-back-link" href="@HttpUtility.ParseQueryString(Request.UrlReferrer.Query).Get("referrer")" aria-label="Close basket">Back</a>
                 }
             }
             else if (referrer.Contains("/benchmarkcharts"))
-            {
-                <span class="back-chevron" aria-hidden="true">&#9666;</span>
+            {                
                 if (referrer.Contains("?"))
                 {
-                    <a class="home-link" href="@Request.UrlReferrer.ToString()">Back to benchmarking charts</a>
+                    <a class="govuk-back-link" href="@Request.UrlReferrer.ToString()">Back to benchmarking charts</a>
                 }
                 else
                 {
-                    <a class="home-link" href="/BenchmarkCharts">Back to benchmarking charts</a>
+                    <a class="govuk-back-link" href="/BenchmarkCharts">Back to benchmarking charts</a>
                 }
             }
         </div>

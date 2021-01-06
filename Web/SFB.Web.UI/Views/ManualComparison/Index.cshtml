@@ -14,7 +14,14 @@
     }
     else
     {
-        Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        if (Model.ComparisonList?.HomeSchoolUrn == null)
+        {
+            <a class="govuk-back-link hide-in-print" href="/">Back</a>
+        }
+        else
+        {
+            <a class="govuk-back-link hide-in-print" href="/BenchmarkCriteria/ComparisonStrategy?urn=@(Model.ComparisonList?.HomeSchoolUrn)">Back</a>
+        }
     }
 }
 
@@ -78,22 +85,6 @@
                         </fieldset>
                     </div>
 
-                    <div class="form-group">
-                        <div class="grid-row">
-                            <div class="column-one-third no-padding">
-                                <div class="column-one-third back-button">
-                                    @if (Model.ComparisonList?.HomeSchoolUrn == null)
-                                    {
-                                        <a href="/">Back</a>
-                                    }
-                                    else
-                                    {
-                                        <a href="/BenchmarkCriteria/ComparisonStrategy?urn=@(Model.ComparisonList?.HomeSchoolUrn)">Back</a>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>

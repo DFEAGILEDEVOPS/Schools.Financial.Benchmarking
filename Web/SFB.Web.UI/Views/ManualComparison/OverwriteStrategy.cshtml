@@ -10,11 +10,11 @@
 @section BackButtonContent{
     @if (ViewBag.HomeSchoolId != null)
     {
-        Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        <a class="govuk-back-link hide-in-print" href="../../school/detail?urn=@ViewBag.HomeSchoolId" aria-label="Back to @ViewBag.HomeSchoolName">Back</a>
     }
     else
     {
-        Html.RenderPartial("Partials/BackToHomeLink");
+        <a class="govuk-back-link hide-in-print" href="@ViewBag.referrer">Back</a>
     }
 }
 
@@ -69,8 +69,7 @@
             <div class="column-one-third next-button">
                 <button type="submit" class="button">Continue</button>
             </div>
-            <div class="column-one-third back-button">
-                <a href="@ViewBag.referrer">Back</a>
+            <div class="column-one-third">
                 <input type="hidden" name="referrer" value="@ViewBag.referrer" />
             </div>
         </div>

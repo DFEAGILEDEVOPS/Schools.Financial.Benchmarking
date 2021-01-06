@@ -3,6 +3,10 @@
     ViewBag.pageClass = "comparison-strategy";
 }
 
+@section BackButtonContent{
+    <a class="govuk-back-link hide-in-print" href="~/BenchmarkCriteria/ComparisonStrategy?urn=@ViewBag.URN">Back</a>
+}
+
 <h1 class="heading-xlarge page-heading">How highest progress schools benchmarking works</h1>
 
 <div class="grid-row">
@@ -61,9 +65,6 @@
     <div class="column-three-quarters">
         <div class="column-two-thirds next-button">
             <a class="button" href="~/BenchmarkCharts/GenerateFromBicCriteria?Urn=@ViewBag.URN">Continue to higher progress school benchmark</a>
-        </div>
-        <div class="column-one-quarter bic-back-button no-padding">
-            <a href="~/BenchmarkCriteria/ComparisonStrategy?urn=@ViewBag.URN">Back</a>
         </div>
     </div>
 </div>

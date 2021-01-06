@@ -22,16 +22,10 @@
 
 }
 
-<div id="searchSchoolsLink" class="grid-row hide-in-print">
-    <div class="column-full">
-        <a class="home-link" href="/Trust?companyNo=@ViewBag.CompanyNo" aria-label="Back to @ViewBag.MatName">
-            <i class="icon icon-back">
-                <span class="visually-hidden">Back</span>
-            </i>
-            <span class="back-link">Back to @ViewBag.MatName</span>
-        </a>
-    </div>
-</div>
+
+@section BackButtonContent{
+    <a class="govuk-back-link hide-in-print" href="/Trust?companyNo=@ViewBag.CompanyNo">Back to @ViewBag.MatName</a>
+}
 
 <h1 class="heading-xlarge page-heading">Trust's Schools</h1>
 

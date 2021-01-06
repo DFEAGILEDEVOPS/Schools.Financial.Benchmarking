@@ -10,13 +10,11 @@
     @{
         if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
         {
-            Html.RenderPartial("Partials/BackToHomeLink");
+            <a class="govuk-back-link hide-in-print" href="StepOne?comparisonType=Advanced">Back</a>
         }
         else
         {
-            ViewBag.HomeSchoolId = Model.Id.ToString();
-            ViewBag.HomeSchoolName = Model.Name;
-            Html.RenderPartial("Partials/Breadcrumbs/BackToSelectCompareTypeLink");
+            <a class="govuk-back-link hide-in-print" href="SelectSchoolType?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
         }
     }
 }
@@ -45,14 +43,14 @@
 
 @if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
 {
-<div class="grid-row">
-    <div class="column-full">
-        <span class="font-xsmall">Comparing to</span>
-        <div class="highlight">
-            <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+            </div>
         </div>
     </div>
-</div>
 }
 
 <section class="section" id="options">
@@ -95,9 +93,6 @@
                 <div class="column-half">
                     <div class="column-one-third next-button">
                         <button type="submit" class="button">Continue</button>
-                    </div>
-                    <div class="column-one-third back-button">
-                        <a href="SelectSchoolType?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
                     </div>
                 </div>
             </div>
