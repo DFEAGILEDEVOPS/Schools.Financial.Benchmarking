@@ -907,7 +907,6 @@
     <Content Include="Views\Download\DataSet.cshtml" />
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToSchoolLink.cshtml" />
     <Content Include="Views\Errors\InvalidRequest.cshtml" />
-    <Content Include="Views\Shared\Partials\Breadcrumbs\BackLink.cshtml" />
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToSelectCompareTypeLink.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\ChartTable.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\ChartTableTrust.cshtml" />
