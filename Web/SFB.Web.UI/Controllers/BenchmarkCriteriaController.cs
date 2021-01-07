@@ -72,6 +72,28 @@ namespace SFB.Web.UI.Controllers
             return View(benchmarkSchool);
         }
 
+        private async Task<ActionResult> ErrorViewForComparisonStrategy(int urn)
+        {
+            ViewBag.URN = urn;
+
+            var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
+
+            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.SetDefault,
+            new BenchmarkSchoolModel()
+            {
+                Name = benchmarkSchool.Name,
+                Urn = benchmarkSchool.Id.ToString(),
+                Type = benchmarkSchool.Type,
+                EstabType = benchmarkSchool.EstablishmentType.ToString(),
+            });
+
+            benchmarkSchool.ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            benchmarkSchool.ErrorMessage = ErrorMessages.SelectComparisonType;
+
+            return View("ComparisonStrategy", benchmarkSchool);
+        
+        }
+
         public async Task<ActionResult> StepOne(int? urn, ComparisonType? comparisonType)
         {
             switch (comparisonType)
@@ -94,7 +116,13 @@ namespace SFB.Web.UI.Controllers
                     return await HowWeCalculateSpecials(urn.GetValueOrDefault());
                 case null:
                 default:
-                    return ErrorView(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL, null, ErrorMessages.SelectComparisonType, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    if (urn.HasValue) {
+                        return await ErrorViewForComparisonStrategy(urn.Value);
+                    }
+                    else
+                    {
+                        return ErrorViewForHomePage(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL, ErrorMessages.SelectComparisonType, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    }
 
             }
         }
@@ -163,28 +191,41 @@ namespace SFB.Web.UI.Controllers
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
-            ViewBag.AreaType = ComparisonArea.All;
+            //ViewBag.AreaType = ComparisonArea.All;
             ViewBag.Authorities = _laService.GetLocalAuthorities();
             ViewBag.ExcludePartial = excludePartial.ToString();
 
             if (urn.HasValue)
             {
                 var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
-                return View("ChooseRegion", benchmarkSchool);
+
+                if (estType.HasValue)
+                {
+                    return View("ChooseRegion", benchmarkSchool);
+                }
+
+                benchmarkSchool.ErrorMessage = ErrorMessages.SelectSchoolType;
+
+                ViewBag.URN = urn;
+                ViewBag.ComparisonType = comparisonType;
+
+                return View("SelectSchoolType", benchmarkSchool);
+
             }
             else
             {
-                if (!estType.HasValue)
+                if (estType.HasValue)
                 {
-                    var bs = new SchoolViewModelWithNoDefaultSchool
-                    {
-                        ErrorMessage = ErrorMessages.SelectSchoolType
-                    };
-
-                    return View("SelectSchoolType", bs);
+                    return View("ChooseRegion", new SchoolViewModelWithNoDefaultSchool());
                 }
 
-                return View("ChooseRegion", new SchoolViewModelWithNoDefaultSchool());
+                var bs = new SchoolViewModelWithNoDefaultSchool
+                {
+                    ErrorMessage = ErrorMessages.SelectSchoolType
+                };
+
+                return View("SelectSchoolType", bs);
+
             }
         }
 
@@ -206,6 +247,28 @@ namespace SFB.Web.UI.Controllers
             BenchmarkCriteria AdvancedCriteria, 
             bool excludePartial = false)
         {
+
+            if (!areaType.HasValue)
+            {
+                SchoolViewModel vm = null;
+                if (urn.HasValue)
+                {
+                    vm = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                }
+                else
+                {
+                    vm = new SchoolViewModelWithNoDefaultSchool();
+                }
+                vm.ErrorMessage = ErrorMessages.SelectAreaType;
+                ViewBag.Authorities = _laService.GetLocalAuthorities();
+                ViewBag.URN = urn;
+                ViewBag.ComparisonType = comparisonType;
+                ViewBag.EstType = estType;
+                ViewBag.AreaType = areaType;
+                ViewBag.ExcludePartial = excludePartial.ToString();
+                return View("ChooseRegion", vm);
+            }
+
             int? laCode = null;
 
             if (areaType == ComparisonArea.LaCodeName)
@@ -238,7 +301,15 @@ namespace SFB.Web.UI.Controllers
 
                 if (errorMessage != null)
                 {
-                    var vm = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    SchoolViewModel vm = null;
+                    if (urn.HasValue)
+                    {
+                        vm = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    }
+                    else
+                    {
+                        vm = new SchoolViewModelWithNoDefaultSchool();
+                    }
                     vm.ErrorMessage = errorMessage;
                     ViewBag.Authorities = _laService.GetLocalAuthorities();
                     ViewBag.URN = urn;
@@ -312,17 +383,30 @@ namespace SFB.Web.UI.Controllers
         /// <param name="estType"></param>
         /// <param name="simpleCriteria"></param>
         /// <returns></returns>
-        public async Task<ActionResult> SimpleCharacteristics(int urn, ComparisonType comparisonType, EstablishmentType estType, SimpleCriteria SimpleCriteria)
+        public async Task<ActionResult> SimpleCharacteristics(int urn, ComparisonType comparisonType, EstablishmentType? estType, SimpleCriteria SimpleCriteria)
         {
-            ViewBag.URN = urn;
-            ViewBag.ComparisonType = comparisonType;
-            ViewBag.EstType = estType;
-            ViewBag.BasketSize = ComparisonListLimit.DEFAULT;
+            if (estType.HasValue)
+            {
+                ViewBag.URN = urn;
+                ViewBag.ComparisonType = comparisonType;
+                ViewBag.EstType = estType;
+                ViewBag.BasketSize = ComparisonListLimit.DEFAULT;
 
-            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
-            var schoolCharsVM = new SimpleCharacteristicsViewModel(benchmarkSchool, SimpleCriteria);
-            return View(schoolCharsVM);
+                var schoolCharsVM = new SimpleCharacteristicsViewModel(benchmarkSchool, SimpleCriteria);
+                return View(schoolCharsVM);
+            }
+            else
+            {
+                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                benchmarkSchool.ErrorMessage = ErrorMessages.SelectSchoolType;
+
+                ViewBag.URN = urn;
+                ViewBag.ComparisonType = comparisonType;
+
+                return View("SelectSchoolType", benchmarkSchool);
+            }
         }
 
         /// <summary>
@@ -446,7 +530,7 @@ namespace SFB.Web.UI.Controllers
             else return value;
         }
         private bool IsNumeric(string field) => field != null ? Regex.IsMatch(field, @"^\d+$") : false;
-        private ActionResult ErrorView(string searchType, string referrer, string errorMessage, SchoolComparisonListModel schoolComparisonList)
+        private ActionResult ErrorViewForHomePage(string searchType, string errorMessage, SchoolComparisonListModel schoolComparisonList)
         {
             var searchVM = new SearchViewModel(schoolComparisonList, searchType)
             {

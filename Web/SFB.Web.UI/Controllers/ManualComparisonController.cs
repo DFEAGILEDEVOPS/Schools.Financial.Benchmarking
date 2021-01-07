@@ -375,17 +375,31 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ReplaceAdd(BenchmarkListOverwriteStrategy overwriteStrategy, string referrer)
+        public async Task<ActionResult> ReplaceAdd(BenchmarkListOverwriteStrategy? overwriteStrategy, string referrer)
         {
             var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
             var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
 
             switch (overwriteStrategy)
-            {                              
+            {
+                case null:
+                    SchoolViewModel vm = null;
+                    if (comparisonList.HomeSchoolUrn == null)
+                    {
+                        vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);
+                    }
+                    else
+                    {
+                        var contextDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(int.Parse(comparisonList.HomeSchoolUrn));
+                        vm = new SchoolViewModel(contextDataObject, comparisonList, manualComparisonList);
+                    }
+
+                    vm.ErrorMessage = ErrorMessages.SelectOverwriteStrategy;
+                    ViewBag.referrer = referrer;
+                    return View("OverwriteStrategy", vm);
                 case BenchmarkListOverwriteStrategy.Add:
                     if (comparisonList.BenchmarkSchools.Count + manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn).Count()  > ComparisonListLimit.LIMIT)
                     {
-                        SchoolViewModel vm = null;
                         if (comparisonList.HomeSchoolUrn == null)
                         {
                             vm = new SchoolViewModelWithNoDefaultSchool(comparisonList, manualComparisonList);

@@ -5,6 +5,17 @@
     ViewBag.pageClass = "trust-comparison";
 }
 
+<div class="error-summary required" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        There is a problem
+    </h1>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#SelectTrustAccordion">Select an option to continue the comparison</a>
+        </li>
+    </ul>
+</div>
+
 <div class="error-summary missing" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
     <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
         There is a problem
@@ -78,7 +89,7 @@
 <div id="SelectTrustAccordion" class="search-types column-three-quarters no-padding" aria-live="polite">
 
     <div id="EnterManuallyAccordion" class="multiple-choice js-accordion column-full" aria-controls="EnterManuallyFieldset">
-        <input id="EnterManually" type="radio" checked />
+        <input id="EnterManually" type="radio" />
         <label id="EnterTrustManuallyAccordion" for="EnterManually">Enter one or more trusts for comparison</label>
     </div>
     <div id="EnterManuallyFieldset" class="form-group panel panel-border-narrow pb-0">

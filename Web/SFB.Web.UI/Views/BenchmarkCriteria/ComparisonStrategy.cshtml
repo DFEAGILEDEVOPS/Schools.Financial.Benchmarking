@@ -10,7 +10,19 @@
 }
 
 @section BackButtonContent{
-     <a class="govuk-back-link hide-in-print" href="../../school/detail?urn=@Model.Id">Back</a>        
+    <a class="govuk-back-link hide-in-print" href="../../school/detail?urn=@Model.Id">Back</a>
+}
+
+@if (Model.HasError())
+{
+    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There is a problem
+        </h1>
+        <ul class="error-summary-list">
+            <li><a href="#csLegend">@Model.ErrorMessage</a></li>
+        </ul>
+    </div>
 }
 
 <h1 class="heading-xlarge page-heading">Select comparison type</h1>
@@ -29,16 +41,22 @@
 
 <section class="section" aria-label="Select comparison type">
     <form action="/BenchmarkCriteria/StepOne">
-        <div class="form-group">
+        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
             <fieldset>
-                <legend class="visually-hidden">Select comparison type</legend>
+                <legend id="csLegend">
+                    <span class="visually-hidden">Select comparison type</span>
+                    <span class="error-message">
+                        @Model.ErrorMessage
+                    </span>
+                </legend>
 
                 <p>We have some guidance on <a href="/help/guidance#question-five">choosing characteristics</a> if you are unsure which method suits you.</p>
+
 
                 @if (Model.OverallPhase == "Special")
                 {
                     <div class="multiple-choice">
-                        <input id="radio-5" type="radio" name="comparisonType" value="@ComparisonType.Specials" checked="checked">
+                        <input id="radio-5" type="radio" name="comparisonType" value="@ComparisonType.Specials">
                         <label class="selection-button-radio" for="radio-5">
                             Quick comparison for special schools
                         </label>
@@ -54,7 +72,7 @@
                 else
                 {
                     <div class="multiple-choice">
-                        <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Basic" checked="checked">
+                        <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Basic">
                         <label class="selection-button-radio" for="radio-1">
                             Quick comparison using pre-selected characteristics (number of pupils, school phase, urban/rural)
                         </label>
