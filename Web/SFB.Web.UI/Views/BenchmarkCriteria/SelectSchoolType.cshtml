@@ -18,7 +18,7 @@
     }
 }
 
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+@if (Model.HasError())
 {
     <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
         <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
@@ -26,7 +26,7 @@
         </h1>
         <ul class="error-summary-list">
             <li>
-                <a href="#finderSection">@Model.ErrorMessage</a>
+                <a href="#sstLegend">@Model.ErrorMessage</a>
             </li>
         </ul>
     </div>
@@ -67,9 +67,12 @@
         {
             Html.BeginForm("SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get);
         }
-        <div class="form-group">
+        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
             <fieldset role="radiogroup" id="RadioFieldSet">
-                <legend class="hidden">Which schools would you like to include?</legend>
+                <legend id="sstLegend">
+                    <span class="visually-hidden">Which schools would you like to include?</span>
+                    <span class="error-message">@Model.ErrorMessage</span>
+                </legend>
 
                 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                 {
@@ -166,15 +169,5 @@
         </script>
     }
 
-    <script>
-        $().ready(function () {
-            var estType = '@(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool ? "None" : Model.EstablishmentType.ToString())';
-            var defaultInput = $('#' + estType);
-            defaultInput.click();
-            setTimeout(() => {
-                $(".skiplink").focus();
-                $(".skiplink").blur();
-            }, 100);
-        });
-    </script>
+
 }

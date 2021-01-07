@@ -19,7 +19,7 @@
     }
 }
 
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+@if (Model.HasError())
 {
     <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
         <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
@@ -27,7 +27,7 @@
         </h1>
         <ul class="error-summary-list">
             <li>
-                <a href="#options">@Model.ErrorMessage</a>
+                <a href="#legend">@Model.ErrorMessage</a>
             </li>
         </ul>
     </div>
@@ -56,10 +56,13 @@
 <section class="section" id="options">
     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
         <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
-            <div class="form-group">
+            <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
                 <fieldset role="radiogroup" id="RadioFieldSet">
 
-                    <legend id="legend" class="visually-hidden">Where should comparison schools come from?</legend>
+                    <legend id="legend">
+                        <span class="visually-hidden">Where should comparison schools come from?</span>
+                        <span class="error-message">@Model.ErrorMessage</span>
+                    </legend>
 
                     <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
                         <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") />
