@@ -1,6 +1,7 @@
 ﻿@model SFB.Web.UI.Models.TrustCharacteristicsViewModel
 
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Find and compare trusts";
     ViewBag.pageClass = "trust-comparison";
 }

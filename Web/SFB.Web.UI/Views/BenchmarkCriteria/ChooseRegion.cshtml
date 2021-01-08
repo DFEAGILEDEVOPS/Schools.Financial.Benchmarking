@@ -2,6 +2,7 @@
 
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Where should comparison schools come from?";
     ViewBag.pageClass = "comparison-step-two";
 }

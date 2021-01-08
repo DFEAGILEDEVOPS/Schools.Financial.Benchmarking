@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Cookies";
     ViewBag.pageClass = "cookies-page";
 }

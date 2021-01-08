@@ -1,6 +1,7 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Which school type do you wish to compare with?";
     ViewBag.pageClass = "comparison-step-one";
 }

@@ -2,9 +2,9 @@
     ViewBag.assetsPath = "/public/govuk_template/assets";
 
     var appTitle = "Schools financial benchmarking";
-    var documentTitle = !string.IsNullOrEmpty(ViewBag.Title) ? 
-        string.Format("{0} - {1}", ViewBag.Title, "Schools Financial Benchmarking - GOV.UK") :
-        "Schools Financial Benchmarking - GOV.UK";
+    var documentTitle = !string.IsNullOrEmpty(ViewBag.Title) ?
+        string.Format("{0}{1} - Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix?? "", ViewBag.Title) :
+        string.Format("{0}Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix?? "");
 }
 <!DOCTYPE html>
 <!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
