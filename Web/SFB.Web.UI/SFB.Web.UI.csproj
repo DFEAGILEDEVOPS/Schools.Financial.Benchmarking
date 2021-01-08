@@ -62,8 +62,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="JWT, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\JWT.5.0.1\lib\net46\JWT.dll</HintPath>
+    <Reference Include="JWT, Version=7.0.0.0, Culture=neutral, PublicKeyToken=6f98bca0f40f2ecf, processorArchitecture=MSIL">
+      <HintPath>..\packages\JWT.7.2.1\lib\net46\JWT.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -216,11 +216,11 @@
     <Reference Include="RestSharp, Version=106.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SFB.Web.ApplicationCore, Version=1.0.349.55437, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.349.55437\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
+    <Reference Include="SFB.Web.ApplicationCore, Version=1.0.7.55780, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.7.55780\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
     </Reference>
-    <Reference Include="SFB.Web.Infrastructure, Version=1.0.349.55439, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.349.55439\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
+    <Reference Include="SFB.Web.Infrastructure, Version=1.0.8.55792, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.8.55792\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.0.601\lib\net472\StackExchange.Redis.dll</HintPath>
