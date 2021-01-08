@@ -1,6 +1,7 @@
 ﻿@model SFB.Web.UI.Models.SearchViewModel
 
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Add schools";
     ViewBag.pageClass = "schools-search-page";
 }

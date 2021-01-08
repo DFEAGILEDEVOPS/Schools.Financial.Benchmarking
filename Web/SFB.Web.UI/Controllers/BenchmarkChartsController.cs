@@ -475,7 +475,7 @@ namespace SFB.Web.UI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int? urn, ComparisonArea areaType, 
-            BenchmarkListOverwriteStrategy overwriteStrategy = BenchmarkListOverwriteStrategy.Overwrite, bool excludePartial = false)
+            BenchmarkListOverwriteStrategy? overwriteStrategy, bool excludePartial = false)
         {
             criteria.LocalAuthorityCode = lacode;
             SchoolViewModel benchmarkSchoolVM;
@@ -490,6 +490,21 @@ namespace SFB.Web.UI.Controllers
 
             switch (overwriteStrategy)
             {
+                case null:
+                    var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+                    ViewBag.URN = urn;
+                    ViewBag.HomeSchoolName = comparisonList.HomeSchoolName;
+                    ViewBag.ComparisonType = ComparisonType.Advanced;
+                    ViewBag.EstType = estType;
+                    ViewBag.AreaType = areaType;
+                    ViewBag.LaCode = lacode;
+                    ViewBag.ExcludePartial = excludePartial.ToString();
+                    return View("~/Views/BenchmarkCriteria/OverwriteStrategy.cshtml",
+                        new BenchmarkCriteriaVM(criteria)
+                        {
+                            ComparisonList = comparisonList,
+                            ErrorMessage = ErrorMessages.SelectOverwriteStrategy
+                        });
                 case BenchmarkListOverwriteStrategy.Overwrite:
                     var result = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, excludePartial, 30);
 
@@ -499,7 +514,7 @@ namespace SFB.Web.UI.Controllers
 
                     break;
                 case BenchmarkListOverwriteStrategy.Add:
-                    var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+                    comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
                     var comparisonResult = await _comparisonService.GenerateBenchmarkListWithAdvancedComparisonAsync(criteria, estType, excludePartial, ComparisonListLimit.LIMIT - comparisonList.BenchmarkSchools.Count);
 
                     if (comparisonList.BenchmarkSchools.Count + comparisonResult.BenchmarkSchools.Count > ComparisonListLimit.LIMIT)

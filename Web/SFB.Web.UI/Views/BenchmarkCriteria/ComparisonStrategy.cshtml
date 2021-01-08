@@ -5,6 +5,7 @@
 @model SFB.Web.UI.Models.SchoolViewModel
 
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Select comparison type";
     ViewBag.pageClass = "comparison-strategy";
 }

@@ -1,6 +1,7 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
 @using SFB.Web.UI.Helpers.Constants
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Dataset file";
     ViewBag.pageClass = "download-academic-year";
 }

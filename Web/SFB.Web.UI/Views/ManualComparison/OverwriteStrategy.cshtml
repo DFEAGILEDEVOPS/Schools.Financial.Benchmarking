@@ -1,6 +1,7 @@
 ﻿@model SFB.Web.UI.Models.SchoolViewModel
 
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Comparing similar schools";
     ViewBag.pageClass = "overwrite-strategy";
     ViewBag.HomeSchoolId = Model.ComparisonList?.HomeSchoolUrn;

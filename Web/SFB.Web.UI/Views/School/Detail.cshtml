@@ -3,6 +3,7 @@
 @using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = Model.Name;
     ViewBag.pageClass = "school-detail";
 }

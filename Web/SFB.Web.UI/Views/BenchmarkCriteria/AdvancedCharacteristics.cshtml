@@ -3,6 +3,7 @@
 @model SFB.Web.UI.Models.SchoolCharacteristicsViewModel
 
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Choose comparison school characteristics";
     ViewBag.pageClass = "advanced-school-characteristics";
 }

@@ -3,6 +3,7 @@
 @model SchoolViewModel
 
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Enter schools by name";
     ViewBag.pageClass = "add-schools-manually";
     if (Model is SchoolViewModelWithNoDefaultSchool)

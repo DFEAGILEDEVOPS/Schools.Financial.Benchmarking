@@ -2,6 +2,7 @@
 
 @model SFB.Web.UI.Models.SimpleCharacteristicsViewModel
 @{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Refine your comparison results";
     ViewBag.pageClass = "simple-characteristics";
 }
