@@ -225,7 +225,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateFromSimpleCriteria(int urn, int basketSize, EstablishmentType estType, SimpleCriteria simpleCriteria)
+        public async Task<ActionResult> GenerateFromSimpleCriteria(int urn, EstablishmentType estType, SimpleCriteria simpleCriteria, int basketSize = ComparisonListLimit.DEFAULT)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 

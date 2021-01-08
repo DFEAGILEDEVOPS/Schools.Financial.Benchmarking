@@ -389,8 +389,7 @@ namespace SFB.Web.UI.Controllers
             {
                 ViewBag.URN = urn;
                 ViewBag.ComparisonType = comparisonType;
-                ViewBag.EstType = estType;
-                ViewBag.BasketSize = ComparisonListLimit.DEFAULT;
+                ViewBag.EstType = estType;                
 
                 var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
 
