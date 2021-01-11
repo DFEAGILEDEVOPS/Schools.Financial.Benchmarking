@@ -3,12 +3,12 @@
 @model SchoolCharacteristicsViewModel
 
 <div class="accordion-section">
-    <fieldset role="group" aria-labelledby="PerformanceHeader">
-        <legend class="visually-hidden">Performance characteristics</legend>
 
-        <div class="accordion-section-header">
-            <h2 id="PerformanceHeader" class="heading-medium">Performance characteristics <span class="font-small break-in-mobile"><span aria-hidden="true">(</span><span class="selection-counter">0</span> selected<span aria-hidden="true">)</span></span></h2>
-        </div>
+        <h2>
+            <a class="accordion-section-header" href="javascript:void(0)">
+                <span id="PerformanceHeader" class="heading-medium">Performance characteristics <span class="font-small break-in-mobile"><span aria-hidden="true">(</span><span class="selection-counter">0</span> selected<span aria-hidden="true">)</span></span></span>
+            </a>
+        </h2>
 
         <div class="accordion-section-body">
             <p>
@@ -25,5 +25,4 @@
 
             @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.OfstedRatingMultipleChoiceVM)
         </div>
-    </fieldset>
 </div>

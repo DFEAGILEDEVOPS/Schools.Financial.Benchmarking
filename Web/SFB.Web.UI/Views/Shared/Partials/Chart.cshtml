@@ -63,10 +63,9 @@
             else
             {
                 <div class="accordion-section">
-                    <fieldset role="group">
-                        <legend class="visually-hidden">@historicalChart.Name</legend>
-                        <div class="accordion-section-header">
-                            <h2 class="heading-medium chart-accordion-header charts-section__chart-container__accordion-section-header_h2" aria-label="@historicalChart.Name Select to show section">@historicalChart.Name</h2>
+                    <h2>
+                        <a class="accordion-section-header" href="javascript:void(0)">
+                            <span class="heading-medium chart-accordion-header charts-section__chart-container__accordion-section-header_h2" aria-label="@historicalChart.Name Select to show section">@historicalChart.Name</span>
                             @if (historicalChart.HelpTooltip != null)
                             {
                                 <span class="help-icon help-chart hide-in-print">
@@ -77,7 +76,8 @@
                                     </span>
                                 </span>
                             }
-                        </div>
+                        </a>
+                    </h2>
 
 
                         <div class="accordion-section-body">
@@ -92,7 +92,6 @@
                                 }
                             }
                         </div>
-                    </fieldset>
                 </div>
             }
         </div>

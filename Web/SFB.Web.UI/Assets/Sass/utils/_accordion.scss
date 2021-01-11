@@ -28,19 +28,31 @@
   border-top-style: solid;
 }
 
-.accordion.with-js h2 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
 .accordion.with-js .accordion-section-header {
-  cursor: pointer;
-  position: relative;
-  padding-top: 14px;
-  padding-bottom: 12px;
+    cursor: pointer;
+    position: relative;
+    padding-top: 14px;
+    padding-bottom: 12px;
+    display: block;
+
+    &:focus {
+        background-color: inherit;
+        outline: inherit;
+        text-decoration:underline;
+
+        .heading-medium {
+            background-color: #ffdd00;
+        }
+    }
+
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
-.accordion.with-js .accordion-section-header h2 {
+.accordion.with-js .accordion-section-header .heading-medium {
   color: #1D70B8;
 }
 
@@ -48,25 +60,29 @@
   background-color: #f8f8f8;
 }
 
-.accordion.with-js .icon.accordion-icon{
+.accordion.with-js .icon.accordion-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    height: 16px;
+    width: 16px;
+    margin-top: -8px;
+    /* PNG fallback for SVG */
+    background-image: url('../images/icons/icon-plus-minus.png');
+    /* SVG sprite */
+    background: url("../images/icons/icon-plus-minus.svg"), linear-gradient(transparent, transparent);
+    background-repeat: no-repeat;
+    background-position: 0 -16px;
 
-  position: absolute;
-  top: 50%;
-  right: 15px;
-
-  height: 16px;
-  width: 16px;
-  margin-top: -8px;
-
-  /* PNG fallback for SVG */
-  background-image: url('../images/icons/icon-plus-minus.png');
-
-  /* SVG sprite */
-  background: url("../images/icons/icon-plus-minus.svg"), linear-gradient(transparent, transparent);
-
-  background-repeat: no-repeat;
-  background-position: 0 -16px;
 }
+
+/*.accordion.with-js .icon.accordion-icon::before {
+    width: 100%;
+}
+
+.accordion.with-js .icon.accordion-icon::after {
+    width: 100%;
+}*/
 
 .accordion.with-js .accordion-section[aria-expanded="true"] .icon {
   background-position: 0 0;
