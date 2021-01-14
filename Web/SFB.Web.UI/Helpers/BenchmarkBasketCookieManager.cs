@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using SFB.Web.ApplicationCore;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers.Constants;
@@ -16,11 +15,8 @@ namespace SFB.Web.UI.Helpers
 {
     public class BenchmarkBasketCookieManager : IBenchmarkBasketCookieManager
     {
-        private readonly IFinancialDataService _financialDataService;
-
-        public BenchmarkBasketCookieManager(IFinancialDataService financialDataService)
+        public BenchmarkBasketCookieManager()
         {
-            _financialDataService = financialDataService;
         }
 
         public SchoolComparisonListModel ExtractSchoolComparisonListFromCookie()

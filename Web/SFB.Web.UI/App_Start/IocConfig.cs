@@ -72,6 +72,7 @@ namespace SFB.Web.UI
             builder.RegisterType<CosmosDBEfficiencyMetricRepository>().As<IEfficiencyMetricRepository>().SingleInstance();
             builder.RegisterType<CosmosDbTrustHistoryRepository>().As<ITrustHistoryRepository>().SingleInstance();
             builder.RegisterType<FinancialCalculationsService>().As<IFinancialCalculationsService>();
+            builder.RegisterType<BenchmarkBasketService>().As<IBenchmarkBasketService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();
             builder.RegisterType<SchoolVMWithHistoricalChartsBuilder>().As<ISchoolVMBuilder>();
             builder.RegisterType<BenchmarkBasketCookieManager>().As<IBenchmarkBasketCookieManager>();
