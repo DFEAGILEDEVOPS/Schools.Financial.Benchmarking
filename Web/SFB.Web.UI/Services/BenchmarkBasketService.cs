@@ -1,4 +1,5 @@
-﻿using SFB.Web.ApplicationCore.Helpers.Enums;
+﻿using SFB.Web.ApplicationCore.Helpers;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
@@ -59,6 +60,19 @@ namespace SFB.Web.UI.Services
             });
         }
 
+        public async Task SetTrustAsDefaultFromCompanyNoAsync(int companyNo)
+        {
+            var latestTerm = await LatestMATTermAsync();
+            var trustFinancialDataObject = await _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(companyNo, latestTerm, MatFinancingType.TrustOnly);
+
+            try
+            {
+                _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, companyNo, trustFinancialDataObject.TrustOrCompanyName);
+            }
+            catch { }
+            _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.SetDefault, companyNo, trustFinancialDataObject.TrustOrCompanyName);
+        }
+
         public async Task SetSchoolAsDefaultFromUrnAsync(int urn)
         {
             var benchmarkSchoolDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
@@ -94,7 +108,7 @@ namespace SFB.Web.UI.Services
             }
         }
 
-        public async Task AddSchoolsToBenchmarkListFromURNsAsync(ComparisonType comparison, List<int> urnList)
+        public async Task AddSchoolsToBenchmarkListFromUrnsAsync(ComparisonType comparison, List<int> urnList)
         {
             var benchmarkSchoolDataObjects = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(urnList);
 
@@ -116,12 +130,12 @@ namespace SFB.Web.UI.Services
             }
         }
 
-        public SchoolComparisonListModel ExtractSchoolComparisonListFromCookie()
+        public SchoolComparisonListModel GetSchoolComparisonList()
         {
             return _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
         }
 
-        public SchoolComparisonListModel ExtractManualComparisonListFromCookie()
+        public SchoolComparisonListModel GetManualComparisonList()
         {
             return _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
         }
@@ -136,7 +150,7 @@ namespace SFB.Web.UI.Services
             _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(withAction, benchmarkSchool);
         }
 
-        public TrustComparisonListModel ExtractTrustComparisonListFromCookie()
+        public TrustComparisonListModel GetTrustComparisonList()
         {
             return _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie();
         }
@@ -144,6 +158,12 @@ namespace SFB.Web.UI.Services
         public TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, int? companyNo = null, string matName = null)
         {
             return _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(withAction, companyNo, matName);
+        }
+
+        private async Task<string> LatestMATTermAsync()
+        {
+            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT);
+            return SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
         }
     }
 }

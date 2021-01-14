@@ -10,15 +10,19 @@ namespace SFB.Web.UI.Services
     {
         void AddDefaultSchoolToBenchmarkList(SchoolViewModel bmSchool);
         void AddSchoolsToBenchmarkListFromComparisonResult(ComparisonResult comparisonResult);
-        Task AddSchoolsToBenchmarkListFromURNsAsync(ComparisonType comparison, List<int> urnList);
+        Task AddSchoolsToBenchmarkListFromUrnsAsync(ComparisonType comparison, List<int> urnList);
         void EmptyBenchmarkList();
         Task SetSchoolAsDefaultFromUrnAsync(int urn);
+        Task SetTrustAsDefaultFromCompanyNoAsync(int companyNo);
         void SetSchoolAsDefaultFromViewModel(SchoolViewModel benchmarkSchool);
-        SchoolComparisonListModel ExtractSchoolComparisonListFromCookie();         
-        SchoolComparisonListModel ExtractManualComparisonListFromCookie();
+        SchoolComparisonListModel GetSchoolComparisonList();         
+        SchoolComparisonListModel GetManualComparisonList();
+        TrustComparisonListModel GetTrustComparisonList();
+
+        //TODO: Inherit from BenchmarkBasketCookieManager and leave these methods in BenchmarkBasketCookieManager. 
+        //Hide cookie implementation details in BenchmarkBasketCookieManager
         void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool);
         void UpdateManualComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool);
-        TrustComparisonListModel ExtractTrustComparisonListFromCookie();
         TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, int? companyNo = null, string matName = null);
 
     }

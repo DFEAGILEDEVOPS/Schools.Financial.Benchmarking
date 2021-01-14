@@ -122,7 +122,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";            
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -156,7 +156,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -259,7 +259,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockFinancialDataService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -360,7 +360,7 @@ namespace SFB.Web.UI.UnitTests
                     Urn = i.ToString(), Name = "test", EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -466,7 +466,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -523,7 +523,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -632,7 +632,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -679,7 +679,7 @@ namespace SFB.Web.UI.UnitTests
                     EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -701,6 +701,54 @@ namespace SFB.Web.UI.UnitTests
             result.Wait();
 
             Assert.AreEqual("ReplaceWithSavedBasket?savedUrns=123-456&default=123", (result.Result as RedirectResult).Url);
+
+            var resultWithNoDefault = controller.GenerateFromSavedBasket("123-456", null, null, null);
+
+            resultWithNoDefault.Wait();
+
+            Assert.AreEqual("ReplaceWithSavedBasket?savedUrns=123-456", (resultWithNoDefault.Result as RedirectResult).Url);
+        }
+
+        [Test]
+        public void GenerateFromSavedBasketReturnsWarningPageIfThereIsAnExistingListAndWouldReplaceTrustList()
+        {
+            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var fakeTrustComparisonList = new TrustComparisonListModel();
+            fakeTrustComparisonList.DefaultTrustCompanyNo = 123;
+            fakeTrustComparisonList.DefaultTrustName = "test";
+            for (int i = 0; i < 19; i++)
+            {
+                fakeTrustComparisonList.Trusts.Add(new BenchmarkTrustModel(i, "test"));
+            }
+
+            mockBenchmarkBasketService.Setup(m => m.GetTrustComparisonList()).Returns(fakeTrustComparisonList);
+
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
+            var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
+
+            var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object,
+                new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object,
+                new Mock<ILocalAuthoritiesService>().Object, null,
+                new Mock<IContextDataService>().Object, null,
+                new Mock<IComparisonService>().Object,
+                mockBicComparisonResultCachingService.Object,
+                mockEfficiencyMetricService.Object,
+                mockBenchmarkBasketService.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = controller.GenerateFromSavedBasket(null, "123-456", 123, null);
+
+            result.Wait();
+
+            Assert.AreEqual("ReplaceWithSavedBasket?savedCompanyNos=123-456&default=123", (result.Result as RedirectResult).Url);
+
+            var resultWithNoDefault = controller.GenerateFromSavedBasket(null, "123-456", null, null);
+
+            resultWithNoDefault.Wait();
+
+            Assert.AreEqual("ReplaceWithSavedBasket?savedCompanyNos=123-456", (resultWithNoDefault.Result as RedirectResult).Url);
         }
 
         [Test]
@@ -721,7 +769,7 @@ namespace SFB.Web.UI.UnitTests
                     EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -741,6 +789,51 @@ namespace SFB.Web.UI.UnitTests
             result.Wait();
 
             Assert.AreEqual("SaveOverwriteStrategy?savedUrns=123-456&default=123", (result.Result as RedirectResult).Url);
+
+            var resultWithNoDefault = controller.GenerateFromSavedBasket("123-456", null, null, null);
+
+            resultWithNoDefault.Wait();
+
+            Assert.AreEqual("SaveOverwriteStrategy?savedUrns=123-456", (resultWithNoDefault.Result as RedirectResult).Url);
+        }
+
+        [Test]
+        public void GenerateFromSavedBasketReturnsConfirmationPageIfThereIsAnExistingListAndCouldReplaceOrAddTrustList()
+        {
+            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var fakeTrustComparisonList = new TrustComparisonListModel();
+            fakeTrustComparisonList.DefaultTrustCompanyNo = 123;
+            fakeTrustComparisonList.DefaultTrustName = "test";
+            for (int i = 0; i < 5; i++)
+            {
+                fakeTrustComparisonList.Trusts.Add(new BenchmarkTrustModel(i, "test"));
+            }
+            mockBenchmarkBasketService.Setup(m => m.GetTrustComparisonList()).Returns(fakeTrustComparisonList);
+
+            var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
+
+            var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
+
+            var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object,
+                new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object,
+                new Mock<ILocalAuthoritiesService>().Object, null,
+                new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object,
+                mockBicComparisonResultCachingService.Object, mockEfficiencyMetricService.Object,
+                mockBenchmarkBasketService.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = controller.GenerateFromSavedBasket(null, "123-456", 123, null);
+
+            result.Wait();
+
+            Assert.AreEqual("SaveOverwriteStrategy?savedCompanyNos=123-456&default=123", (result.Result as RedirectResult).Url);
+
+            var resultWithNoDefault = controller.GenerateFromSavedBasket(null, "123-456", null, null);
+
+            resultWithNoDefault.Wait();
+
+            Assert.AreEqual("SaveOverwriteStrategy?savedCompanyNos=123-456", (resultWithNoDefault.Result as RedirectResult).Url);
         }
     }
 }

@@ -13,6 +13,7 @@ using System.Globalization;
 
 namespace SFB.Web.UI.Helpers
 {
+    //TODO: make this class abstract
     public class BenchmarkBasketCookieManager : IBenchmarkBasketCookieManager
     {
         public BenchmarkBasketCookieManager()
