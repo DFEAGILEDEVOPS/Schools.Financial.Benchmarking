@@ -182,7 +182,6 @@ namespace SFB.Web.UI.Models
                     new OptionVM("University technical college", "University technical college", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Studio school", "Studio school", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Free school special", "Free school special", BenchmarkCriteria.TypeOfEstablishment),
-                    new OptionVM("Academy special sponsor led", "Academy special sponsor led", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Free school - alternative provision", "Free school alternative provision", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Academy alternative provision converter", "Academy alternative provision converter", BenchmarkCriteria.TypeOfEstablishment),
                     new OptionVM("Academy alternative provision sponsor led", "Academy alternative provision sponsor led", BenchmarkCriteria.TypeOfEstablishment),
