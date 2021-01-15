@@ -23,7 +23,7 @@
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
-            <li id="@TabType.Salary" class="hide-in-print" role="presentation">
+            @*<li id="@TabType.Salary" class="hide-in-print" role="presentation">
                 <a aria-selected="false" class="tab-link tab-vertical-align" role="tab" href="javascript:DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Salary')">@TabNames.SALARY <span class="bmtab visually-hidden"></span></a>
             </li>*@
             <li id="@TabType.Custom" class="hide-in-print" role="presentation">
