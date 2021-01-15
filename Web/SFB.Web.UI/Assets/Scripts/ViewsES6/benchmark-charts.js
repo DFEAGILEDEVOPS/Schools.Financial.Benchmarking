@@ -1028,14 +1028,22 @@
             if (listCookie) {
                 let matList = JSON.parse(listCookie);
                 let cnoList = Array.from(matList.T, t => t.CN);
+                let defaultCompanyNo = matList.DTCN;
                 link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?companyNumbers=${cnoList.join('-')}`;
+                if (defaultCompanyNo) {
+                    link += `&default=${defaultCompanyNo}`;
+                }
             }
         } else {
             let listCookie = GOVUK.cookie("sfb_comparison_list");
             if (listCookie) {
                 let schoolList = JSON.parse(listCookie);
                 let urnList = Array.from(schoolList.BS, s => s.U);
+                let defaultUrn = schoolList.HSU;
                 link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?urns=${urnList.join('-')}`;
+                if (defaultUrn) {
+                    link += `&default=${defaultUrn}`;
+                }
             }
             let comparison = $('#ComparisonType').val();
             if (comparison === "BestInClass") {

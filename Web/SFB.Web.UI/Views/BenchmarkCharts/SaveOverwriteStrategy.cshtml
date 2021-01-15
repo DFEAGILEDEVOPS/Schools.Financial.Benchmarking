@@ -42,50 +42,54 @@ else
     </p>
 }
 
-    <form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
-        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
+<form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
+    <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
 
-            <fieldset>
-                <legend id="legend">
-                    <span class="visually-hidden">Overwrite strategy</span>
-                    @if (Model.HasError())
-                    {
-                        <span class="error-message">@Model.ErrorMessage</span>
-                    }
-                </legend>
-                <div class="multiple-choice">
-                    <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
-                    <label class="selection-button-radio" for="radio-1">
-                        Replace current basket
-                    </label>
-                </div>
+        <fieldset>
+            <legend id="legend">
+                <span class="visually-hidden">Overwrite strategy</span>
+                @if (Model.HasError())
+                {
+                    <span class="error-message">@Model.ErrorMessage</span>
+                }
+            </legend>
+            <div class="multiple-choice">
+                <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
+                <label class="selection-button-radio" for="radio-1">
+                    Replace current basket
+                </label>
+            </div>
 
-                <div class="multiple-choice">
-                    <input id="radio-2" type="radio" name="overwriteStrategy" value="add">
-                    <label class="selection-button-radio" for="radio-2">
-                        Add to existing basket
-                    </label>
-                </div>
+            <div class="multiple-choice">
+                <input id="radio-2" type="radio" name="overwriteStrategy" value="add">
+                <label class="selection-button-radio" for="radio-2">
+                    Add to existing basket
+                </label>
+            </div>
 
-            </fieldset>
-        </div>
-        @if (!string.IsNullOrEmpty(Model.SavedUrns))
-        {
-            <input type="hidden" id="urns" name="urns" value="@Model.SavedUrns" />
-        }
-        @if (!string.IsNullOrEmpty(Model.SavedCompanyNos))
-        {
-            <input type="hidden" id="companyNumbers" name="companyNumbers" value="@Model.SavedCompanyNos" />
-        }
+        </fieldset>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.SavedUrns))
+    {
+        <input type="hidden" id="urns" name="urns" value="@Model.SavedUrns" />
+    }
+    @if (!string.IsNullOrEmpty(Model.SavedCompanyNos))
+    {
+        <input type="hidden" id="companyNumbers" name="companyNumbers" value="@Model.SavedCompanyNos" />
+    }
+    @if (Model.DefaultUrn != 0)
+    {
+        <input type="hidden" id="default" name="default" value="@Model.DefaultUrn" />
+    }
 
-        <div class="grid-row">
-            <div class="column-half">
-                <div class="column-one-third next-button">
-                    <button type="submit" class="button">Continue</button>
-                </div>
-                <div class="column-one-third back-button">
-                    <a href="/">Cancel</a>
-                </div>
+    <div class="grid-row">
+        <div class="column-half">
+            <div class="column-one-third next-button">
+                <button type="submit" class="button">Continue</button>
+            </div>
+            <div class="column-one-third back-button">
+                <a href="/">Cancel</a>
             </div>
         </div>
-    </form>
+    </div>
+</form>

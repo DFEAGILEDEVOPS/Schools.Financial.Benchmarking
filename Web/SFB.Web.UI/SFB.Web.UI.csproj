@@ -500,7 +500,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\BenchmarkBasketService.cs" />
     <Compile Include="Services\FinancialCalculationsService.cs" />
+    <Compile Include="Services\IBenchmarkBasketService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
