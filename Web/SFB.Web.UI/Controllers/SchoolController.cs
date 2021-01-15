@@ -73,7 +73,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ChartGroup = schoolVM.HistoricalCharts.First().ChartGroup;
             ViewBag.UnitType = schoolVM.HistoricalCharts.First().ShowValue;
             ViewBag.Financing = financing;
-            ViewBag.IsSAT = schoolVM.IsSAT;
+            ViewBag.IsSATinLatestFinance = schoolVM.IsSATinLatestFinance;
             ViewBag.EstablishmentType = schoolVM.EstablishmentType;
             ViewBag.ChartFormat = format;
 
@@ -94,7 +94,7 @@ namespace SFB.Web.UI.Controllers
 
             ViewBag.ChartFormat = format;
             ViewBag.Financing = financing;
-            ViewBag.IsSat = schoolVM.IsSAT;
+            ViewBag.IsSatInLatestFinance = schoolVM.IsSATinLatestFinance;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.EstablishmentType = schoolVM.EstablishmentType;
 

@@ -93,10 +93,17 @@ namespace SFB.Web.UI.Models
         public string AgeRange => ContextDataModel.StatutoryLowAge == null ? null : $"{ContextDataModel.StatutoryLowAge} to {ContextDataModel.StatutoryHighAge}";
 
         public string HeadTeachFullName => $"{ContextDataModel.HeadFirstName} {ContextDataModel.HeadLastName}";
-
         public string TrustName => ContextDataModel.Trusts;
 
+        public string SponsorName => ContextDataModel.SponsorName;
+
+        public string TrustNameInLatestFinance => LatestYearFinancialData.TrustName;
+
         public int? CompanyNo => ContextDataModel.CompanyNumber;
+        
+        public int? CompanyNoInLatestFinance => LatestYearFinancialData.CompanyNo;
+        
+        public int? UID => ContextDataModel.UID;
 
         public string PhoneNumber => ContextDataModel.TelephoneNum;
 
@@ -179,9 +186,13 @@ namespace SFB.Web.UI.Models
 
         public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
 
-        public bool IsSAT => LatestYearFinancialData.IsSAT;
+        public bool IsSAT => ContextDataModel.MatSat == "SAT";
+        
+        public bool IsMAT => ContextDataModel.MatSat == "MAT";
 
-        public bool IsMAT => LatestYearFinancialData.IsMAT;
+        public bool IsSATinLatestFinance => LatestYearFinancialData.IsSAT;
+
+        public bool IsMATinLatestFinance => LatestYearFinancialData.IsMAT;
 
         public decimal? FSM => LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals;
 

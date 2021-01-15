@@ -43,8 +43,21 @@ namespace SFB.Web.UI.Controllers
             _trustHistoryService = trustHistoryService;
         }
 
-        public async Task<ActionResult> Index(int companyNo, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
+        public async Task<ActionResult> Index(int? companyNo, int? uid = null, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
+            if (companyNo == null && uid.HasValue)
+            {
+                var trustFinance = await _financialDataService.GetTrustFinancialDataObjectByUidAsync(uid.GetValueOrDefault(), await LatestMATTermAsync());
+                companyNo = trustFinance.CompanyNumber;
+                return RedirectToActionPermanent("Index", "Trust", new RouteValueDictionary { 
+                    { "companyNo", companyNo },
+                    { "unit",  unit},
+                    { "tab",  tab},
+                    { "financing", financing},
+                    { "format",  format}
+                });
+            }
+
             ChartGroupType chartGroup;
             switch (tab)
             {
@@ -62,7 +75,7 @@ namespace SFB.Web.UI.Controllers
                     break;
             }
 
-            var trustVM = await BuildFullTrustVMAsync(companyNo, tab, chartGroup, financing);
+            var trustVM = await BuildFullTrustVMAsync(companyNo.GetValueOrDefault(), tab, chartGroup, financing);
 
             if (!trustVM.HasLatestYearFinancialData)
             {
