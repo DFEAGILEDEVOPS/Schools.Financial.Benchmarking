@@ -198,6 +198,7 @@
 
             let svg = $("#" + el.id + " svg");
             svg.css('font-size', '14px');
+            svg.css('letter-spacing', 'initial');
 
             let axisLines = $("#" + el.id + " .ApplicationCore");
             axisLines.css('fill', 'none');
