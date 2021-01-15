@@ -3,17 +3,24 @@
 @model SchoolComparisonListModel
 
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.Title = "Benchmark basket";
     ViewBag.pageClass = "benchmark-list";
 }
 
 @section BackButtonContent{
-    @Html.Partial("Partials/BreadCrumbs/BackLink")
+    @{
+        var link = Request.QueryString["referrer"] ?? "/";
+        if (link.ToLower().Contains("/benchmarkcharts"))
+        {
+            link = "/BenchmarkCharts";
+        }
+        <a class="govuk-back-link hide-in-print" href="@link">Back</a>
+    }
 }
 
 @if (Model.HasIncompleteFinancialData)
 {
-        <div class="panel panel-border-wide orange-warning mt-1">
+    <div class="panel panel-border-wide orange-warning mt-1">
         <div class="shared-icon-wrapper hide-in-print">
             <i class="icon icon-important shared-icon">
                 <span class="visually-hidden">Warning</span>

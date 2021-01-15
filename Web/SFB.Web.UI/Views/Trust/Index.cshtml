@@ -4,7 +4,7 @@
 @model SFB.Web.UI.Models.TrustViewModel
 
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.Title = Model.Name;
     ViewBag.pageClass = "sponsor-detail";
 }
 
@@ -94,11 +94,11 @@
             <div id="schools-in-trust-accordion" class="accordion mb-1">
 
                 <div class="accordion-section current">
-                    <fieldset role="group" aria-labelledby="CurrentHeader">
-                        <legend class="visually-hidden">Schools currently in this trust</legend>
-                        <div class="accordion-section-header">
-                            <h2 id="CurrentHeader" class="heading-medium ">Schools currently in this trust</h2>
-                        </div>
+                    <h2>
+                        <a class="accordion-section-header" href="javascript:void(0)">
+                            <span id="CurrentHeader" class="heading-medium ">Schools currently in this trust</span>
+                        </a>
+                    </h2>
 
                         <div class="accordion-section-body">
                             <div class="sponsor-detail">
@@ -130,15 +130,14 @@
                                 }
                             </div>
                         </div>
-                    </fieldset>
                 </div>
 
                 <div class="accordion-section latest">
-                    <fieldset role="group" aria-labelledby="LatestTermHeader">
-                        <legend class="visually-hidden">Schools in this trust's @Model.LatestTerm submission</legend>
-                        <div class="accordion-section-header">
-                            <h2 id="LatestTermHeader" class="heading-medium ">Schools in this trust's @Model.LatestTerm submission</h2>
-                        </div>
+                    <h2>
+                        <a class="accordion-section-header" href="javascript:void(0)">
+                            <span id="LatestTermHeader" class="heading-medium ">Schools in this trust's @Model.LatestTerm submission</span>
+                        </a>
+                    </h2>
 
                         <div class="accordion-section-body">
                             <div class="sponsor-detail">
@@ -194,15 +193,14 @@
                                 }
                             </div>
                         </div>
-                    </fieldset>
                 </div>
 
                 @*<div class="accordion-section history">
-                    <fieldset role="group" aria-labelledby="HistoryTermHeader">
-                        <legend class="visually-hidden">Trust history</legend>
-                        <div class="accordion-section-header">
-                            <h2 id="HistoryTermHeader" class="heading-medium ">Trust history</h2>
-                        </div>
+                    <h2>
+                        <a class="accordion-section-header" href="javascript:void(0)">
+                            <span id="HistoryTermHeader" class="heading-medium ">Trust history</span>
+                        </a>
+                    </h2>
 
                         <div class="accordion-section-body">
                             <div class="sponsor-detail">
@@ -240,7 +238,6 @@
                                 </div>
                             </div>
                         </div>
-                    </fieldset>
                 </div>*@
 
             </div>
@@ -278,14 +275,14 @@
         <a name="charts"></a>
         <nav id="tabs" class="tabs" role="navigation">
             <ol role="tablist">
-                <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="tab">
-                    <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</button>
+                <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
+                    <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")" role="tab" class="a-button" href='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</a>
                 </li>
-                <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="tab">
-                    <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</button>
+                <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
+                    <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")" role="tab" class="a-button" href='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</a>
                 </li>
-                <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="tab">
-                    <button class="a-button" onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</button>
+                <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
+                    <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")" role="tab" class="a-button" href='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</a>
                 </li>
             </ol>
         </nav>
@@ -313,7 +310,7 @@
                 <div autocomplete="off">
                     <div class="column-full font-xsmall chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables</span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
                     <div class="column-full font-xsmall hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">

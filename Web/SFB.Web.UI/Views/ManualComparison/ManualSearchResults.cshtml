@@ -1,16 +1,27 @@
 ﻿@{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    switch (Model.SearchType)
+    {
+        case SearchTypes.SEARCH_BY_LOCATION:
+            ViewBag.Title = "Schools in and near " + Model.LocationKeyword;
+            break;
+        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+            ViewBag.Title = "Schools in " + Model.LaKeyword;
+            break;
+    }
+
     ViewBag.pageClass = "search-results";
     ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
     ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
 }
 
 @section BackButtonContent{
-    @if (ViewBag.HomeSchoolId == null) {
-        Html.RenderPartial("Partials/BackToHomeLink");
-    } else
+    @if (ViewBag.HomeSchoolId != null)
     {
-        Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        <a class="govuk-back-link hide-in-print" href="/ManualComparison">Back</a>
+    }
+    else
+    {
+        <a class="govuk-back-link hide-in-print" href="/ManualComparison/WithoutBaseSchool">Back</a>
     }
 }
 
@@ -56,13 +67,6 @@
                 <span class="bold-small">@Model.SchoolComparisonList.HomeSchoolName</span>
             </div>
         </div>
-        <div class="column-quarter">
-            <a class="font-xsmall back-to-manual-compare" href="/ManualComparison">Back</a>
-        </div>
-    }
-    else
-    {
-        <a class="font-xsmall back-to-manual-compare" href="/ManualComparison/WithoutBaseSchool">Back</a>
     }
 </div>
 

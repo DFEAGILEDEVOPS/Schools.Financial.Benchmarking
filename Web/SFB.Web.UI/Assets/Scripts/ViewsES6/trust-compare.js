@@ -200,6 +200,11 @@
     }
 
     validate() {
+        if ($("input[type=radio]:checked").length == 0) {
+            $(".error-summary.required").show();
+            $(".error-summary-list a").focus();
+            return false;
+        }
         let count = $(".remove-trust").length;
         if (count == 0 || $("#NewTrustName:visible").length > 0) {
             $(".error-summary").hide();

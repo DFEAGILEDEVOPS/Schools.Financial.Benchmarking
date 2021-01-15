@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.Title = "News";
     ViewBag.pageClass = "guidance";
     ViewBag.pageDescription =
         "Find out how to use the schools financial benchmarking site.";
@@ -13,12 +13,7 @@
     }
     else
     {
-        <a class="home-link" href="@ViewBag.referrer" aria-label="Back to previous page">
-            <i class="icon icon-back">
-                <span class="visually-hidden">Back to previous page</span>
-            </i>
-            <span class="back-link">Back to previous page</span>
-        </a>
+        <a class="govuk-back-link" href="@ViewBag.referrer" aria-label="Back to previous page">Back</a>
     }
 }
 

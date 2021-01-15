@@ -31,7 +31,7 @@
             <div class="column-full no-padding mt-1">
                 <div class="font-xsmall chartTable hide-in-print">
                     <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables</span></button>
+                    <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
             </div>
             <details class="criteria-details">
@@ -67,15 +67,17 @@
                             <legend class="visually-hidden">Selections</legend>
                             <div id="custom-report-accordion" class="accordion">
                                 <div class="accordion-section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
-                                    <div class="accordion-section-header" ng-class="{'hide-summary': ctrl.query}">
-                                        <h2 class="heading-medium chart-accordion-header" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
-                                            {{group.GroupName}}
-                                            <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">
-                                                ({{ctrl.groupSelectCount(group)}} selected)
+                                    <h2>
+                                        <a class="accordion-section-header" href="javascript:void(0)" ng-class="{'hide-summary': ctrl.query}">
+                                            <span class="heading-medium chart-accordion-header" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
+                                                {{group.GroupName}}
+                                                <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">
+                                                    ({{ctrl.groupSelectCount(group)}} selected)
+                                                </span>
+                                                <span class="visuallyhidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
                                             </span>
-                                            <span class="visuallyhidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
-                                        </h2>
-                                    </div>
+                                        </a>
+                                    </h2>
 
                                     <div class="accordion-section-body">
                                         <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="grid-row chart-selection" ng-class="{'show-details': ctrl.query}">

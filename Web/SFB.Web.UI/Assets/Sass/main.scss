@@ -78,6 +78,8 @@ $path: "/public/assets/images/";
 
 @import "cookiesBanner";
 
+@import "backLink";
+
 // Views
 // ==========================================================================
 @import "views/base";
@@ -269,7 +271,32 @@ ul.list {
     list-style-type: disc!important;
 }
 
-    //* {
-    //    font-family: "GDS Transport", Arial, sans-serif !important;
-    //}
+.helpLink {
+    .help-image {
+        width: 16px;
+    }
+}
 
+.help-icon.tb {
+    vertical-align: text-bottom;
+    margin-left: 10px;
+
+    @include media(desktop) {
+        margin-left: 0;
+    }
+}
+
+//* {
+//    font-family: "GDS Transport", Arial, sans-serif !important;
+//}
+
+//For accessibility test https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html
+/*body {
+    line-height: 1.5 !important;
+    letter-spacing: 0.2em !important;
+    word-spacing: 0.16em !important;
+
+    p {
+        margin-bottom: 2em !important;
+    }
+}*/

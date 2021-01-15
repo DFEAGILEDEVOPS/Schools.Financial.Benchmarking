@@ -1,5 +1,19 @@
-﻿@{
-    ViewBag.Title = "Schools Financial Benchmarking";
+﻿@{    
+    switch (Model.SearchType)
+    {
+        case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
+            ViewBag.Title = "Search results for \"" + Model.NameKeyword + "\"";
+            break;
+        case SearchTypes.SEARCH_BY_TRUST_LOCATION:
+            ViewBag.Title = "Academy trusts with schools operating in and near " + Model.LocationKeyword;
+            break;
+        case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
+            ViewBag.Title = "Academy trusts with schools operating in " + Model.LaKeyword;
+            break;
+        default:
+            ViewBag.Title = "Trust";
+            break;
+    }
     ViewBag.pageClass = "search-results";
 }
 

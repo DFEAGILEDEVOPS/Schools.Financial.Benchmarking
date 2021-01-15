@@ -2,7 +2,8 @@
 
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Where should comparison schools come from?";
     ViewBag.pageClass = "comparison-step-two";
 }
 
@@ -10,18 +11,16 @@
     @{
         if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
         {
-            Html.RenderPartial("Partials/BackToHomeLink");
+            <a class="govuk-back-link hide-in-print" href="StepOne?comparisonType=Advanced">Back</a>
         }
         else
         {
-            ViewBag.HomeSchoolId = Model.Id.ToString();
-            ViewBag.HomeSchoolName = Model.Name;
-            Html.RenderPartial("Partials/Breadcrumbs/BackToSelectCompareTypeLink");
+            <a class="govuk-back-link hide-in-print" href="SelectSchoolType?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
         }
     }
 }
 
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+@if (Model.HasError())
 {
     <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
         <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
@@ -29,7 +28,7 @@
         </h1>
         <ul class="error-summary-list">
             <li>
-                <a href="#options">@Model.ErrorMessage</a>
+                <a href="#legend">@Model.ErrorMessage</a>
             </li>
         </ul>
     </div>
@@ -45,31 +44,34 @@
 
 @if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
 {
-<div class="grid-row">
-    <div class="column-full">
-        <span class="font-xsmall">Comparing to</span>
-        <div class="highlight">
-            <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+    <div class="grid-row">
+        <div class="column-full">
+            <span class="font-xsmall">Comparing to</span>
+            <div class="highlight">
+                <span class="bold-small">@Model.ComparisonList.HomeSchoolName</span>
+            </div>
         </div>
     </div>
-</div>
 }
 
-<section class="section" aria-labelledby="legend" id="options">
+<section class="section" id="options">
     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
         <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
-            <div class="form-group">
+            <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
                 <fieldset role="radiogroup" id="RadioFieldSet">
 
-                    <legend id="legend" class="hidden">Which area are you interested in?</legend>
+                    <legend id="legend">
+                        <span class="visually-hidden">Where should comparison schools come from?</span>
+                        <span class="error-message">@Model.ErrorMessage</span>
+                    </legend>
 
                     <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
-                        <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") aria-labelledby="legend" />
+                        <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") />
                         <label id="AllAccordion" for="All">All of England</label>
                     </div>
 
                     <div id="LaAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "selected" : "")" aria-controls="SearchByLaCodeFieldset">
-                        <input id="LaCodeRadio" type="radio" name="areaType" value="LACodeName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "checked" : "") aria-labelledby="legend" />
+                        <input id="LaCodeRadio" type="radio" name="areaType" value="LACodeName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "checked" : "") />
                         <label id="LaCodeAccordion" for="LaCodeRadio">
                             Local authority
                         </label>
@@ -95,9 +97,6 @@
                 <div class="column-half">
                     <div class="column-one-third next-button">
                         <button type="submit" class="button">Continue</button>
-                    </div>
-                    <div class="column-one-third back-button">
-                        <a href="SelectSchoolType?urn=@ViewBag.URN&comparisonType=@ViewBag.ComparisonType">Back</a>
                     </div>
                 </div>
             </div>

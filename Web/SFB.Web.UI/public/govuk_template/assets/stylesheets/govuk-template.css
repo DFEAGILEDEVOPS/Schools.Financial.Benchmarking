@@ -237,8 +237,8 @@ a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3); }
 
 a:focus {
-  background-color: #ffbf47;
-  outline: 3px solid #ffbf47; }
+  background-color: #ffdd00;
+  outline: 3px solid #ffdd00; }
 
 /* Make links slightly darker when focused to improve contrast. */
 a:link:focus {
@@ -272,11 +272,11 @@ input:focus,
 textarea:focus,
 select:focus,
 button:focus {
-  outline: 3px solid #ffbf47;
+  outline: 3px solid #ffdd00;
   outline-offset: 0; }
 
 #global-header input[type=search]:focus {
-  outline: 3px solid #ffbf47;
+  outline: 3px solid #ffdd00;
   /* Focus appears inside the input */
   outline-offset: -2px; }
 #global-header h1 a:focus {

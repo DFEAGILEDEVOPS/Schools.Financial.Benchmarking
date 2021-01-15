@@ -20,6 +20,7 @@
             $("#benchmarkChartsList table.data-table-js").tablesorter();
             $("#bestInClassTabSection table.data-table-js").tablesorter();
             $("#comparisonSchoolsTabSection table.data-table-js").tablesorter();
+            $(".chart-table th").removeAttr("aria-label");
             
             this.GenerateCharts();
             this.RefreshAddRemoveLinks();
@@ -197,6 +198,7 @@
 
             let svg = $("#" + el.id + " svg");
             svg.css('font-size', '14px');
+            svg.css('letter-spacing', 'initial');
 
             let axisLines = $("#" + el.id + " .ApplicationCore");
             axisLines.css('fill', 'none');
@@ -275,7 +277,7 @@
                             fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 3) {
-                            progressColour = "#ffbf47";
+                            progressColour = "#ffdd00";
                             fontColour = "#0C0C0C";
                         }
                         else if (p8binding === 2) {
@@ -294,7 +296,7 @@
                             fontColour = "#0C0C0C";
                         }
                         else if (progressScore >= -2 && progressScore <= 2) {
-                            progressColour = "#ffbf47";
+                            progressColour = "#ffdd00";
                             fontColour = "#0C0C0C";
                         }
                         else if (progressScore > 2 && progressScore <= 3) {
@@ -776,8 +778,10 @@
     ChangeTab(tab) {
         if (tab === "Custom") {
             $(".tabs li").removeClass("active");
+            $('.tabs li a').attr('aria-selected', 'false');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#tabsSection form").empty('');
             $("#tabsSection .sticky-chart-controls").empty('');
@@ -794,8 +798,10 @@
             $('.sticky-div').Stickyfill();
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
+            $('.tabs li a').attr('aria-selected', 'false');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
             $("#comparisonSchoolsTabSection").hide();
@@ -808,8 +814,10 @@
         }
         else if (tab === "ComparisonSchools") {
             $(".tabs li").removeClass("active");
+            $('.tabs li a').attr('aria-selected', 'false');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
+            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
             $("#bestInClassTabSection").hide();
@@ -864,8 +872,10 @@
                 },
                 success: (data) => {
                     $(".tabs li").removeClass("active");
+                    $('.tabs li a').attr('aria-selected', 'false');
                     $(".tabs li a span.bmtab").text("");
                     $(".tabs li#" + tab).addClass("active");
+                    $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $("#downloadLinkContainer").show();
                     $("#PrintLinkText").text(" Print page");
@@ -927,14 +937,16 @@
     }
 
     HideShowDetails(element) {
-        let $table = $(element).closest('table');
-        $table.find('.detail').toggle(200);
+        let $tableWrapper = $(element).closest('.chart-table-wrapper');
+        $tableWrapper.find('.detail').toggle(200);
+        setTimeout(() => $tableWrapper.find('.hide-show-button:visible').focus(), 300);        
     }
 
     HideShowDetailsMobile(element) {
         let $tableWrapper = $(element).closest('.chart-table-wrapper');
         $tableWrapper.find('.detail').toggle(200);
         $tableWrapper.find('.chart-table--mobile-only-view').toggle(200);
+        setTimeout(() => $tableWrapper.find('.mobile-hide-show-button:visible').focus(), 300);    
     }
 
     DownloadPage() {
@@ -1156,7 +1168,7 @@
                 </div>
             </div>
             </div>` +
-            "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
+            "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='PdfLinkText' title='Close'>Close</a></dialog>";
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');

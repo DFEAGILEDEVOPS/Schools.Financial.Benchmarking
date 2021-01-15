@@ -1,7 +1,8 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Which school type do you wish to compare with?";
     ViewBag.pageClass = "comparison-step-one";
 }
 
@@ -9,18 +10,16 @@
     @{
         if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
         {
-            Html.RenderPartial("Partials/BackToHomeLink");
+            <a class="govuk-back-link hide-in-print" href="/">Back</a>
         }
         else
         {
-            ViewBag.HomeSchoolId = Model.Id.ToString();
-            ViewBag.HomeSchoolName = Model.Name;
-            Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+            <a class="govuk-back-link hide-in-print" href="../../BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Back</a>
         }
     }
 }
 
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+@if (Model.HasError())
 {
     <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
         <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
@@ -28,7 +27,7 @@
         </h1>
         <ul class="error-summary-list">
             <li>
-                <a href="#finderSection">@Model.ErrorMessage</a>
+                <a href="#sstLegend">@Model.ErrorMessage</a>
             </li>
         </ul>
     </div>
@@ -59,7 +58,7 @@
     </div>
 }
 
-<section class="section" aria-labelledby="fieldset-legend">
+<section class="section">
     <div id="SchoolTypesAccordion" class="search-types" aria-live="polite">
         @if (ViewBag.ComparisonType == ComparisonType.Advanced)
         {
@@ -69,16 +68,20 @@
         {
             Html.BeginForm("SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get);
         }
-        <div class="form-group">
+        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
             <fieldset role="radiogroup" id="RadioFieldSet">
-                <legend class="hidden">Which schools would you like to include?</legend>
+                <legend id="sstLegend">
+                    <span class="visually-hidden">Which schools would you like to include?</span>
+                    <span class="error-message">@Model.ErrorMessage</span>
+                </legend>
 
-                <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
-                    <input id="Maintained" type="radio" name="EstType" value="Maintained">
-                    <label class="selection-button-radio" for="Maintained">Maintained schools</label>
-                </div>
                 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                 {
+                    <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
+                        <input id="Maintained" type="radio" name="EstType" value="Maintained">
+                        <label class="selection-button-radio" for="Maintained">Maintained schools</label>
+                    </div>
+
                     <div id="MaintainedFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled />
@@ -87,13 +90,12 @@
                             </label>
                         </div>
                     </div>
-                }
-                <div id="AcademiesContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AcademiesFieldset">
-                    <input id="Academies" type="radio" name="EstType" value="Academies">
-                    <label class="selection-button-radio" for="Academies">Academies</label>
-                </div>
-                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-                {
+
+                    <div id="AcademiesContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AcademiesFieldset">
+                        <input id="Academies" type="radio" name="EstType" value="Academies">
+                        <label class="selection-button-radio" for="Academies">Academies</label>
+                    </div>
+
                     <div id="AcademiesFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled />
@@ -102,14 +104,12 @@
                             </label>
                         </div>
                     </div>
-                }
 
-                <div id="AllContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AllFieldset">
-                    <input id="All" type="radio" name="EstType" value="All">
-                    <label class="selection-button-radio" for="All">All schools</label>
-                </div>
-                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-                {
+                    <div id="AllContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AllFieldset">
+                        <input id="All" type="radio" name="EstType" value="All">
+                        <label class="selection-button-radio" for="All">All schools</label>
+                    </div>
+
                     <div id="AllFieldset" class="form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled />
@@ -119,22 +119,29 @@
                         </div>
                     </div>
                 }
+                else
+                {
+                    <div id="MaintainedContainer" class="multiple-choice">
+                        <input id="Maintained" type="radio" name="EstType" value="Maintained">
+                        <label class="selection-button-radio" for="Maintained">Maintained schools</label>
+                    </div>
+
+                    <div id="AcademiesContainer" class="multiple-choice">
+                        <input id="Academies" type="radio" name="EstType" value="Academies">
+                        <label class="selection-button-radio" for="Academies">Academies</label>
+                    </div>
+
+                    <div id="AllContainer" class="multiple-choice">
+                        <input id="All" type="radio" name="EstType" value="All">
+                        <label class="selection-button-radio" for="All">All schools</label>
+                    </div>
+                }
             </fieldset>
         </div>
         <div class="grid-row">
             <div class="column-half">
                 <div class="column-one-third next-button">
                     <button type="submit" class="button">Continue</button>
-                </div>
-                <div class="column-one-third back-button">
-                    @if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
-                    {
-                        <a href="/">Back</a>
-                    }
-                    else
-                    {
-                        <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
-                    }
                 </div>
             </div>
         </div>
@@ -163,11 +170,5 @@
         </script>
     }
 
-    <script>
-        $().ready(function () {
-            var estType = '@(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool ? "None" : Model.EstablishmentType.ToString())';
-            var defaultInput = $('#' + estType);
-            defaultInput.click();
-        });
-    </script>
+
 }

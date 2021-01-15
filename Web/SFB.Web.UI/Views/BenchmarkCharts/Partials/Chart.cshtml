@@ -159,7 +159,7 @@
                 {
                     <details>
                         <summary class="hide-in-print">
-                            <span class="summary font-xsmall">More info</span>
+                            <span class="summary font-xsmall">More info<span class="visuallyhidden"> on @Model[i].Name</span></span>
                         </summary>
                         <div class="panel panel-border-narrow">
                             @Html.Raw(Model[i].MoreInfo)
@@ -175,18 +175,18 @@
                                 {
                                     <div class="chart-scores-header" style="max-width: 60px;">
                                         <span>Progress 8</span>
-                                        <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoChart_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
+                                        @*<button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoChart_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
                                             <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
-                                        </button>
+                                        </button>*@
                                     </div>
                                 }
                                 else if(ViewBag.BicComparisonOverallPhase == "Primary")
                                 {
                                     <div class="chart-scores-header">
                                         <span>KS2 progress</span>
-                                        <button class="helpLink link-button no-padding hide-in-print ks2-help" id="renderKS2InfoChart_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
+                                        @*<button class="helpLink link-button no-padding hide-in-print ks2-help" id="renderKS2InfoChart_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
                                             <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
-                                        </button>
+                                        </button>*@
                                     </div>
                                 }
                             </div>
@@ -227,10 +227,11 @@
             {
                         <div class="accordion-section">
 
-                            <legend class="visually-hidden">@Model[i].Name</legend>
-                            <div class="accordion-section-header">
-                                <h2 class="heading-medium chart-accordion-header" aria-label="@Model[i].Name Select to show section">@Model[i].Name</h2>
-                            </div>
+                            <h2>
+                                <a class="accordion-section-header" href="javascript:void(0)">
+                                    <span class="heading-medium chart-accordion-header" aria-label="@Model[i].Name Select to show section">@Model[i].Name</span>
+                                </a>
+                            </h2>
 
                             <div class="accordion-section-body">
                                 @if (Model[i].DealsForSchoolsMessage != null)
@@ -290,7 +291,7 @@
                                     {
                                         <details>
                                             <summary class="hide-in-print">
-                                                <span class="summary font-xsmall">More info</span>
+                                                <span class="summary font-xsmall">More info<span class="visuallyhidden"> on @Model[i].Name</span></span>
                                             </summary>
                                             <div class="panel panel-border-narrow">
                                                 @Html.Raw(Model[i].MoreInfo)

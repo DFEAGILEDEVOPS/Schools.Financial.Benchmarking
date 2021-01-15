@@ -2,7 +2,8 @@
 
 @model SFB.Web.UI.Models.BestInClassCharacteristicsViewModel
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Edit characteristics";
     ViewBag.pageClass = "bic-characteristics";
 }
 
@@ -56,11 +57,14 @@
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="NoPupilsMin">From</label>
-                        <input type="number" name="BicCriteria.NoPupilsMin" id="NoPupilsMin" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMin.ToString("F2")">
+                        <input type="number" name="BicCriteria.NoPupilsMin" id="NoPupilsMin" class="form-control criteria-input" required="" 
+                           step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMin.ToString("F2")"
+                           aria-label="Minimum value for number of pupils">
                     </div>
                     <div class="column-half no-padding">
                         <label class="form-label" for="NoPupilsMax">To</label>
-                        <input type="number" name="BicCriteria.NoPupilsMax" id="NoPupilsMax" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMax.ToString("F2")">
+                        <input type="number" name="BicCriteria.NoPupilsMax" id="NoPupilsMax" class="form-control criteria-input" required="" step=".01" min="0" max="100000" value="@Model.BicCriteria.NoPupilsMax.ToString("F2")"
+                               aria-label="Maximum value for number of pupils">
                     </div>
                 </div>
             </div>
@@ -80,11 +84,13 @@
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="MinPerFSM">From</label>
-                        <input type="number" name="BicCriteria.PercentageFSMMin" id="MinPerFSM" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageFSMMin.ToString("F2")">
+                        <input type="number" name="BicCriteria.PercentageFSMMin" id="MinPerFSM" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageFSMMin.ToString("F2")"
+                               aria-label="Minimum value for Eligibility for free school meals (% of pupils)">
                     </div>
                     <div class="column-half no-padding">
                         <label class="form-label" for="MaxPerFSM">To</label>
-                        <input type="number" name="BicCriteria.PercentageFSMMax" id="MaxPerFSM" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageFSMMax.ToString("F2")">
+                        <input type="number" name="BicCriteria.PercentageFSMMax" id="MaxPerFSM" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageFSMMax.ToString("F2")"
+                               aria-label="Maximum value for Eligibility for free school meals (% of pupils)">
                     </div>
                 </div>
             </div>
@@ -113,11 +119,15 @@
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="MinPerSEN">From</label>
-                        <input type="number" name="BicCriteria.PercentageSENMin" id="MinPerSEN" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageSENMin.ToString("F2")">
+                        <input type="number" name="BicCriteria.PercentageSENMin" id="MinPerSEN" class="form-control criteria-input" required="" 
+                               step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageSENMin.ToString("F2")"
+                               aria-label="Minimum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
                     </div>
                     <div class="column-half no-padding">
                         <label class="form-label" for="MaxPerSEN">To</label>
-                        <input type="number" name="BicCriteria.PercentageSENMax" id="MaxPerSEN" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageSENMax.ToString("F2")">
+                        <input type="number" name="BicCriteria.PercentageSENMax" id="MaxPerSEN" class="form-control criteria-input" required="" 
+                               step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageSENMax.ToString("F2")"
+                               aria-label="Maximum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
                     </div>
                 </div>
             </div>
@@ -140,11 +150,15 @@
                 <div class="form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="MinPerSEN">From</label>
-                        <input type="number" name="BicCriteria.PerPupilExpMin" id="PerPupilExpMin" class="form-control criteria-input" required="" step=".01" min="0" value="@Model.BicCriteria.PerPupilExpMin.ToString("F2")">
+                        <input type="number" name="BicCriteria.PerPupilExpMin" id="PerPupilExpMin" class="form-control criteria-input" required="" 
+                               step=".01" min="0" value="@Model.BicCriteria.PerPupilExpMin.ToString("F2")"
+                               aria-label="Minimum value for Total expenditure in £ per pupil">
                     </div>
                     <div class="column-half no-padding">
                         <label class="form-label" for="MaxPerSEN">To</label>
-                        <input type="number" name="BicCriteria.PerPupilExpMax" id="PerPupilExpMax" class="form-control criteria-input" required="" step=".01" min="0" value="@Model.BicCriteria.PerPupilExpMax.ToString("F2")">
+                        <input type="number" name="BicCriteria.PerPupilExpMax" id="PerPupilExpMax" class="form-control criteria-input" required="" 
+                               step=".01" min="0" value="@Model.BicCriteria.PerPupilExpMax.ToString("F2")"
+                               aria-label="Maximum value for Total expenditure in £ per pupil">
                     </div>
                 </div>
             </div>

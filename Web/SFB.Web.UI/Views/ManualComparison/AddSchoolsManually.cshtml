@@ -3,7 +3,8 @@
 @model SchoolViewModel
 
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Enter schools by name";
     ViewBag.pageClass = "add-schools-manually";
     if (Model is SchoolViewModelWithNoDefaultSchool)
     {
@@ -44,11 +45,11 @@
 @section BackButtonContent{
     @if (ViewBag.HomeSchoolId == null)
     {
-        Html.RenderPartial("Partials/BackToHomeLink");
+        <a class="govuk-back-link hide-in-print" href="/ManualComparison/WithoutBaseSchool">Back</a>
     }
     else
     {
-        Html.Partial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+        <a class="govuk-back-link hide-in-print" href="/ManualComparison">Back</a>
     }
 }
 
@@ -82,16 +83,6 @@
     <div class="column-half mt-1">
         <div class="column-three-quarters next-button">
             <a id="manualButton" class="button" href="OverwriteStrategy">Continue to benchmarking charts</a>
-        </div>
-        <div class="column-one-quarter no-padding back-button">
-            @if (ViewBag.HomeSchoolId == null)
-            {
-                <a href="/ManualComparison/WithoutBaseSchool">Back</a>
-            }
-            else
-            {
-                <a href="/ManualComparison">Back</a>
-            }
         </div>
     </div>
 </div>

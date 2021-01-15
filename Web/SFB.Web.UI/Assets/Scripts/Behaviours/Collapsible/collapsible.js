@@ -107,7 +107,7 @@
       this.setExpanded("false");
     },
 
-    setExpanded: function (flag) {
+      setExpanded: function (flag) {
       if (this.hasAriaControls() == true) {
         var $ariaControlsElement = $(this.ariaControlsElement);
         if (flag == "true" || flag === true) {
@@ -115,12 +115,16 @@
           $ariaControlsElement.removeClass("js-collapsed");
           $ariaControlsElement.attr("aria-hidden", "false");
           $ariaControlsElement.attr("aria-expanded", "true");
+          var collapsible = this.getCollapsibleElement();
+          $(collapsible).find("input:radio").attr("aria-expanded", "true");
         }
         else {
           $ariaControlsElement.removeClass("js-expanded");
           $ariaControlsElement.addClass("js-collapsed");
           $ariaControlsElement.attr("aria-hidden", "true");
           $ariaControlsElement.attr("aria-expanded", "false");
+          var collapsible = this.getCollapsibleElement();
+          $(collapsible).find("input:radio").attr("aria-expanded", "false");
         }
       }
       var $collapsibleEl = $(this.getCollapsibleElement());

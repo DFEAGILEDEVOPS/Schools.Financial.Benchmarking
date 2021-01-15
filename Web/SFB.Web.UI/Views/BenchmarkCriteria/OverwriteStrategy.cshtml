@@ -1,7 +1,7 @@
 ﻿@model SFB.Web.UI.Models.BenchmarkCriteriaVM
 
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.Title = "Comparing similar schools";
     ViewBag.pageClass = "overwrite-strategy";
 }
 
@@ -14,7 +14,7 @@
         }
         else
         {
-            Html.RenderPartial("Partials/BackToHomeLink");
+            <a class="govuk-back-link hide-in-print" href="javascript: $('#gfac').attr('action','/BenchmarkCriteria/AdvancedCharacteristics'); $('#gfac').submit();" value="Back">Back</a>
         }
     }
 }
@@ -39,7 +39,7 @@
     You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. You can replace them or retain them alongside those matching the characteristics you've just selected.
 </p>
 
-<form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post">
+<form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post" id="gfac">
     @Html.AntiForgeryToken()
     <div class="form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "form-group-error")">
 
@@ -50,7 +50,7 @@
             }
             <legend class="visually-hidden">Overwrite strategy</legend>
             <div class="multiple-choice">
-                <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite" checked="checked">
+                <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
                 <label class="selection-button-radio" for="radio-1">
                     Replace current basket
                 </label>
@@ -69,9 +69,6 @@
         <div class="column-half">
             <div class="column-one-third next-button">
                 <button type="submit" class="button">Continue</button>
-            </div>
-            <div class="column-one-third back-button">
-                <input type="submit" class="link-button" formaction="/BenchmarkCriteria/AdvancedCharacteristics" value="Back">
             </div>
         </div>
     </div>

@@ -3,7 +3,8 @@
 @model SFB.Web.UI.Models.SchoolCharacteristicsViewModel
 
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Choose comparison school characteristics";
     ViewBag.pageClass = "advanced-school-characteristics";
 }
 
@@ -12,13 +13,11 @@
 
         if (String.IsNullOrEmpty(Model.ComparisonList.HomeSchoolUrn))
         {
-            Html.RenderPartial("Partials/BackToHomeLink");
+            <a class="govuk-back-link hide-in-print" href="ChooseRegion?EstType=All&excludePartial=true&Urn=&ComparisonType=Advanced">Back</a>
         }
         else
         {
-            ViewBag.HomeSchoolId = Model.ComparisonList.HomeSchoolUrn;
-            ViewBag.HomeSchoolName = Model.ComparisonList.HomeSchoolName;
-            Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
+            <a class="govuk-back-link hide-in-print" href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
         }
     }
 }
@@ -43,10 +42,10 @@
     </div>
 }
 
-<section class="section" aria-labelledby="mainQuestion">
+<section class="section">
     <div class="criteria-section">
         <div class="grid-row">
-            <div class="column-three-quarters">               
+            <div class="column-three-quarters">
                 <p>
                     Create a benchmark group of <span class="bold-small">1-30</span> schools with a recommended size of <span class="bold-small">15</span>.
                 </p>
@@ -102,9 +101,6 @@
                                 <div class="criteria-controls">
                                     <a href="#" class="clear-criteria js-clear-criteria">Clear all characteristics</a>
                                 </div>
-                                <div class="criteria-controls ml-2">
-                                    <a href="ChooseRegion?Urn=@ViewBag.URN&EstType=@ViewBag.EstType&ComparisonType=@ViewBag.ComparisonType">Back</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -121,7 +117,7 @@
             </div>
         </div>
     </div>
-    
+
 </section>
 
 @section ViewScripts {

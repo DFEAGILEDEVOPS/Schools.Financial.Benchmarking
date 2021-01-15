@@ -1,7 +1,8 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
 @using SFB.Web.UI.Helpers.Constants
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Dataset download generator";
     ViewBag.pageClass = "download-academic-year";
 }
 

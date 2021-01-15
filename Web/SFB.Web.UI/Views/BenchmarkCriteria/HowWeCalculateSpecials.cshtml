@@ -1,16 +1,13 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "How we calculate the comparison";
     ViewBag.pageClass = "comparison-step-one";
 }
 
-@section BackButtonContent{
-    @{
-        ViewBag.HomeSchoolId = Model.Id.ToString();
-        ViewBag.HomeSchoolName = Model.Name;
-        Html.RenderPartial("Partials/BreadCrumbs/BackToSelectCompareTypeLink");
-    }
+@section BackButtonContent{           
+     <a class="govuk-back-link hide-in-print" href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
 }
 
 <div class="steps">
@@ -64,9 +61,6 @@
             <div class="grid-row">
                 <div class="column-half">
                     <button class="button" type="submit">Continue to benchmarking charts</button>
-                </div>
-                <div class="column-half back-button">
-                    <a href="ComparisonStrategy?urn=@ViewBag.URN">Back</a>
                 </div>
             </div>
         </form>

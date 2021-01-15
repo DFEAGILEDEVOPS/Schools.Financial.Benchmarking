@@ -22,7 +22,7 @@
 
     bindEvents() {
         // Live Search Form (aka filter form)
-        let $results = $('#schoolResults');
+        let $results = $('.schoolResults');
         let $atomAutodiscoveryLink = $("link[type='application/atom+xml']").eq('0');
 
         this.liveSearch = new GOVUK.LiveSearch({
@@ -168,7 +168,7 @@
         $("span.result-count").html(count);
         $("span.screen-reader-result-count").html("Filtering results");
         setTimeout(function () {
-            $("span.screen-reader-result-count").html($('#result-list .summary').html());
+            $("span.screen-reader-result-count").html($('.result-list .summary').html());
         }, 1000);
 
         this.liveSearch.getSummaryBlock().css("visibility", "visible");
@@ -279,10 +279,10 @@
             url: pagingUrl,
             datatype: 'json',
             beforeSend: () => {
-                DfE.Util.LoadingMessage.display("#schoolResults", "Updating schools");
+                DfE.Util.LoadingMessage.display(".schoolResults", "Updating schools");
             },
             success: (data) => {
-                $("#schoolResults").html(data);
+                $(".schoolResults").html(data);
                 this.initTabs();
                 this.initSort();
                 this.liveSearch.updateSchoolCount();

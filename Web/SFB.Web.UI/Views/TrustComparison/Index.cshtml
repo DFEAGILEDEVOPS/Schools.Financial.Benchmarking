@@ -1,57 +1,68 @@
 ﻿@model SFB.Web.UI.Models.TrustCharacteristicsViewModel
 
 @{
-    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Find and compare trusts";
     ViewBag.pageClass = "trust-comparison";
 }
 
-    <div class="error-summary missing" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
-        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
-            There is a problem
-        </h1>
-        <ul class="error-summary-list">
-            <li>
-                <a href="#NewTrustName">Enter a trust name to continue the comparison</a>
-            </li>
-        </ul>
-    </div>
+<div class="error-summary required" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        There is a problem
+    </h1>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#SelectTrustAccordion">Select an option to continue the comparison</a>
+        </li>
+    </ul>
+</div>
 
-    <div class="error-summary not-found" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
-        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
-            There is a problem
-        </h1>
-        <ul class="error-summary-list">
-            <li>
-                <a href="#NewTrustName">We couldn't find any trusts matching your search criteria</a>
-            </li>
-        </ul>
-    </div>
+<div class="error-summary missing" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        There is a problem
+    </h1>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#NewTrustName">Enter a trust name to continue the comparison</a>
+        </li>
+    </ul>
+</div>
+
+<div class="error-summary not-found" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        There is a problem
+    </h1>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#NewTrustName">We couldn't find any trusts matching your search criteria</a>
+        </li>
+    </ul>
+</div>
 
 @section BMListBannerContent
 {
-<div class="banner sticky-div">
-    <div id="liveCountBar" role="region" aria-label="Trust results live counter" style="display: none">
-        <div class="grid-row">
-            <div class="column-full">
-                <div class="banner__comparison-list-info-panel" id="comparisonListInfoPanelResults">
-                    <span id="schoolCount" class="bold-small" aria-live="assertive">0 trusts found</span>
-                    <a class="banner__comparison-list-info-panel__clear-criteria js-clear-criteria" href="#">Clear all characteristics</a>
-                    <div class="view-benchmark-charts-wrapper">
-                        <button type="submit" class="button view-benchmark-charts submit">Continue to benchmarking charts</button>
+    <div class="banner sticky-div">
+        <div id="liveCountBar" role="region" aria-label="Trust results live counter" style="display: none">
+            <div class="grid-row">
+                <div class="column-full">
+                    <div class="banner__comparison-list-info-panel" id="comparisonListInfoPanelResults">
+                        <span id="schoolCount" class="bold-small" aria-live="assertive">0 trusts found</span>
+                        <a class="banner__comparison-list-info-panel__clear-criteria js-clear-criteria" href="#">Clear all characteristics</a>
+                        <div class="view-benchmark-charts-wrapper">
+                            <button type="submit" class="button view-benchmark-charts submit">Continue to benchmarking charts</button>
+                        </div>
                     </div>
-                </div>
-                <div class="banner__comparison-list-info-panel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
-                    <span role="alert" aria-live="assertive">No trusts found, select some more characteristics</span>
+                    <div class="banner__comparison-list-info-panel" id="comparisonListInfoPanelResultsEmpty" style="display: none">
+                        <span role="alert" aria-live="assertive">No trusts found, select some more characteristics</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 }
 
 @section BackButtonContent{
-
-    @Html.Partial("Partials/BackToHomeLink")
+    <a class="govuk-back-link hide-in-print" href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo">Back</a>
 }
 
 <div id="ErrorSummaryPlaceHolder"></div>
@@ -77,9 +88,9 @@
 
 
 <div id="SelectTrustAccordion" class="search-types column-three-quarters no-padding" aria-live="polite">
-    
+
     <div id="EnterManuallyAccordion" class="multiple-choice js-accordion column-full" aria-controls="EnterManuallyFieldset">
-        <input id="EnterManually" type="radio" checked/>
+        <input id="EnterManually" type="radio" />
         <label id="EnterTrustManuallyAccordion" for="EnterManually">Enter one or more trusts for comparison</label>
     </div>
     <div id="EnterManuallyFieldset" class="form-group panel panel-border-narrow pb-0">
@@ -113,10 +124,7 @@
                 <button type="submit" class="button view-benchmark-charts submit" style="display: none">Continue to benchmarking charts</button>
             </div>
             <div class="column-half no-padding">
-                <div class="column-one-third back-button">
-                    <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo">Back</a>
-                </div>
-                <div class="column-two-thirds back-button">
+                <div class="back-button">
                     <button id="removeAllTrusts" class="link-button font-small">Remove all trusts</button>
                 </div>
             </div>

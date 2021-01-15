@@ -197,13 +197,14 @@ Accordion.prototype.updateOpenAll = function() {
 
 }
 
-AccordionSection.prototype.setup = function() {
+AccordionSection.prototype.setup = function () {
   this.element.setAttribute('aria-expanded', 'false')
 
   var header = this.element.querySelector('.accordion-section-header')
   header.addEventListener('click', this.toggleExpanded.bind(this))
   header.addEventListener('keypress', this.keyPressed.bind(this))
-  header.setAttribute('tabindex', '0')
+  header.setAttribute('aria-expanded', 'false')
+  //header.setAttribute('tabindex', '0')
   //header.setAttribute('role', 'button')
 
   //var button = this.element.querySelector('.chart-accordion-header')
@@ -235,8 +236,9 @@ AccordionSection.prototype.expanded = function() {
   return (this.element.getAttribute('aria-expanded') == 'true')
 }
 
-AccordionSection.prototype.setExpanded = function(expanded) {
+AccordionSection.prototype.setExpanded = function (expanded) {
     this.element.setAttribute('aria-expanded', expanded)
+    this.element.querySelector('.accordion-section-header').setAttribute('aria-expanded', expanded)
 
     var button = this.element.querySelector('.chart-accordion-header')
     if (button) {
