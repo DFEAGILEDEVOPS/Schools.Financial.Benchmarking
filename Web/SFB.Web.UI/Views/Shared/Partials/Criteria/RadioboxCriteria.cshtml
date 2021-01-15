@@ -37,7 +37,7 @@
                         {
                             <div class="multiple-choice questionRadio">
                                 <input type="radio" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName@i" value="@Model.Options[i].Value" class="criteria-radio"
-                                       required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "") data-msg-required="Please deselect characteristic or check an option.">
+                                       required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "") data-msg-required="Choose an option to continue the comparison">
                                 <label class="selection-button-radio" for="@Model.ElementName@i">@Model.Options[i].Name</label>
                             </div>
                             if (Model.Options[i].SubRangeOptions != null)

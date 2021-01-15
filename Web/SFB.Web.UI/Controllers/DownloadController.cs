@@ -39,7 +39,7 @@ namespace SFB.Web.UI.Controllers
         {
             if (string.IsNullOrEmpty(year))
             {
-                ViewBag.ErrorMessage = "Please select an academic year";
+                ViewBag.ErrorMessage = "Select an academic year";
                 return AcademicYear(estab);
             }
 

@@ -115,11 +115,11 @@
 
     public class ErrorMessages
     {
-        public const string DuplicateSchool = "Please select a school which is not already in your list";
-        public const string DuplicateTrust = "Please select a trust which is not already in your list";
+        public const string DuplicateSchool = "Select a school which is not already in your list";
+        public const string DuplicateTrust = "Select a trust which is not already in your list";
         public const string BMBasketLimitExceed = "Combined basket exceeds 30 schools, either replace current basket or go back and reduce new basket size";
         public const string SelectComparisonType = "Please select a comparison type";
-        public const string SelectSchoolType = "Please select school type";
+        public const string SelectSchoolType = "Select school type";
     }
 
     public class MoreInfoText

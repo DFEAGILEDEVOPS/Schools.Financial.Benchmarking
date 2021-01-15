@@ -12,6 +12,12 @@
     }
 
     validateForm() {
+
+        jQuery.extend(jQuery.validator.messages, {
+            max: jQuery.validator.format("Enter a value less than or equal to {0}"),
+            min: jQuery.validator.format("Enter a value greater than or equal to {0}")
+        });
+
         $.validator.methods.maxGreaterThanMin = (value, element) => {
             let minValue = $(element.parentNode.parentNode).find(".min-js").val();
             return minValue === "" || parseFloat(value) >= parseFloat(minValue);
@@ -196,8 +202,15 @@
     validate() {
         let count = $(".remove-trust").length;
         if (count == 0 || $("#NewTrustName:visible").length > 0) {
-            $(".error-summary").show();
-            $(".error-message").show();
+            $(".error-summary").hide();
+            $(".error-message").hide();
+            if ($("#NewTrustName").val() === "") {
+                $(".error-summary.missing").show();
+                $(".error-message.missing").show();
+            } else {
+                $(".error-summary.not-found").show();
+                $(".error-message.not-found").show();
+            }
             $("#NewTrustName").addClass("form-control-error");
             $(".error-summary-list a").focus();
             return false;
