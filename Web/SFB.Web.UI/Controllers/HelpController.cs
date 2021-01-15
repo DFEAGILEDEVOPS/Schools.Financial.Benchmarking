@@ -26,6 +26,11 @@ namespace SFB.Web.UI.Controllers
             return View();
         }
 
+        public ActionResult SadGuidance()
+        {
+            return View();
+        }
+
         public ActionResult InterpretingCharts()
         {
             return View();

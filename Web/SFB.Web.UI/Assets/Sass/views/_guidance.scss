@@ -12,7 +12,26 @@
             padding-top: 8px;
             padding-bottom: 8px;
         }
+    }
 
+    .guidance-table {
+
+        margin-top:15px;
+
+        tr, td, th {
+            font-size: 16px;
+        }
+
+        .col-right {
+            text-align: right;
+        }
+
+        caption {
+            text-align: left;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
     }
 }
 
@@ -21,3 +40,6 @@
         margin-top: -25px;
     }
 }
+
+
+

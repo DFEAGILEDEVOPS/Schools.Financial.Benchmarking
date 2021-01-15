@@ -949,7 +949,7 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var trust in trusts)
             {
-                var financialDataModel = await _financialDataService.GetTrustFinancialDataObjectAsync(trust.CompanyNo, terms.First(), matFinancing);
+                var financialDataModel = await _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(trust.CompanyNo, terms.First(), matFinancing);
                 models.Add(new FinancialDataModel(trust.CompanyNo.ToString(), terms.First(), financialDataModel, EstablishmentType.MAT));
             }
 

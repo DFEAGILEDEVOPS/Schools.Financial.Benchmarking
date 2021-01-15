@@ -82,7 +82,7 @@ namespace SFB.Web.UI.UnitTests
 
             await controller.Index(123);
 
-            mockFinancialDataService.Verify(m => m.GetTrustFinancialDataObjectAsync(123, "2014 / 2015", MatFinancingType.TrustAndAcademies));
+            mockFinancialDataService.Verify(m => m.GetTrustFinancialDataObjectByCompanyNoAsync(123, "2014 / 2015", MatFinancingType.TrustAndAcademies));
         }
 
         [Test]
