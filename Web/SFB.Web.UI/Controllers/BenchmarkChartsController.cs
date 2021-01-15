@@ -239,6 +239,8 @@ namespace SFB.Web.UI.Controllers
 
             AddDefaultBenchmarkSchoolToList(benchmarkSchool);
 
+            SetSchoolAsDefault(benchmarkSchool);
+
             return await Index(urn, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
 
@@ -990,10 +992,10 @@ namespace SFB.Web.UI.Controllers
             var cookieObject = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
             var defaultBenchmarkSchool = new BenchmarkSchoolModel()
             {
-                Name = cookieObject.HomeSchoolName,
-                Type = cookieObject.HomeSchoolType,
-                EstabType = cookieObject.HomeSchoolFinancialType,
-                Urn = cookieObject.HomeSchoolUrn,
+                Name = bmSchool.Name,
+                Type = bmSchool.Type,
+                EstabType = bmSchool.EstablishmentType.ToString(),
+                Urn = bmSchool.Id.ToString(),
                 ProgressScore = bmSchool.ProgressScore
             };
             try
