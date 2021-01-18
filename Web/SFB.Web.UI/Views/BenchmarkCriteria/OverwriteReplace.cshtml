@@ -14,7 +14,7 @@
         }
         else
         {
-            Html.RenderPartial("Partials/BackToHomeLink");
+            <a class="govuk-back-link hide-in-print" href="javascript: $('#gfac').attr('action','/BenchmarkCriteria/AdvancedCharacteristics'); $('#gfac').submit();" value="Back">Back</a>
         }
     }
 }
@@ -25,7 +25,7 @@
     You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. By proceeding you will replace your current basket. If you wish to add to your basket go back and reduce your basket size.
 </p>
 
-<form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post">
+<form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post" id="gfac">
     @Html.AntiForgeryToken()
 
     <input type="hidden" name="overwriteStrategy" value="overwrite">
@@ -34,9 +34,6 @@
         <div class="column-half">
             <div class="column-two-thirds next-button">
                 <button type="submit" class="button">Replace current basket</button>
-            </div>
-            <div class="column-one-third back-button">
-                <input type="submit" class="link-button" formaction="/BenchmarkCriteria/AdvancedCharacteristics" value="Back">
             </div>
         </div>
     </div>
