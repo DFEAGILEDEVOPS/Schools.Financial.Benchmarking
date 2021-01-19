@@ -582,6 +582,14 @@
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
                         "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
 
+                    if (schoolData.phase === "Special") {
+                        tableHtml += "<tr><td style='max-width: 150px' class='bold'>Highest 3 primary need SEN characteristics</td><td>";
+                        schoolData.topsen.forEach(
+                            topsen => { tableHtml += `${topsen.Key}: ${topsen.Value}%<br/>`; }
+                        )
+                        tableHtml += "</td></tr>";
+                    }
+
                     if ($("#ComparisonType").val() === "BestInClass") {
                         tableHtml += "<tr><td class='bold'>Key stage progress</td><td>" + schoolData.progressscore + "</td></tr>";
                     }
