@@ -1273,7 +1273,7 @@ namespace SFB.Web.UI.Helpers
                 {
                     Id = 31,
                     Name = "Community focused school staff",
-                    FieldName = SchoolTrustFinanceDataFieldNames.COMMUNITY_FOCUSED,
+                    FieldName = SchoolTrustFinanceDataFieldNames.COMM_FOCUSED_STAFF,
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Community,
                     ChartSchoolType = ChartSchoolType.Maintained,
