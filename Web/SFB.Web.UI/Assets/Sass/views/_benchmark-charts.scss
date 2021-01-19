@@ -418,6 +418,13 @@
 
             height: auto;
 
+            @include media-down(tablet) {
+                a:focus {
+                    background-color: initial;
+                    outline: initial;
+                }
+            }
+
             button, a {
                 height: $tabheight + 15;
                 padding-right: 15px;

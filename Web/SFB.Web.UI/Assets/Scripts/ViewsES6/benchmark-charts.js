@@ -31,6 +31,8 @@
                     $(".c3-tooltip-container").hide();
                 }
             });
+
+            $('.tabs li').height($('.tabs li').height() - 5);
         });
 
         GOVUK.Modal.Load();     
