@@ -30,6 +30,10 @@ else
     {
         <input type="hidden" id="companyNumbers" name="companyNumbers" value="@Model.SavedCompanyNos" />
     }
+    @if (Model.DefaultUrn != 0)
+    {
+        <input type="hidden" id="default" name="default" value="@Model.DefaultUrn" />
+    }
 
     <div class="grid-row mt-2">
         <div class="column-half">

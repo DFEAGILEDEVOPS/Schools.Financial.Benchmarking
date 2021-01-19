@@ -284,8 +284,10 @@ namespace SFB.Web.UI.Services
                     Unit = unit.ToString(),
                     ProgressScore = dataModel.ProgressScore,
                     P8Banding = dataModel.P8Banding,
-                    ProgressScoreType = dataModel.SchoolOverallPhase == "Primary" ? "ks2" : "p8"
-                });
+                    ProgressScoreType = dataModel.SchoolOverallPhase == "Primary" ? "ks2" : "p8",
+                    TopSEN = dataModel.TopSenCharacteristics.Select(t => new KeyValuePair<string, decimal>(t.Definition, t.Value.GetValueOrDefault())).ToList(),
+                    Phase = dataModel.SchoolPhase
+                }); ;
             }
 
             var sortedChartData = chartDataList.OrderByDescending(a => a.Amount).ToList();
@@ -320,7 +322,7 @@ namespace SFB.Web.UI.Services
         private decimal? CalculateWFAmount(FinancialDataModel schoolData, string fieldName, UnitType unit)
         {
             decimal? amount = null;
-            decimal? rawAmount = null;
+            decimal? rawAmount;
             switch (unit)
             {
                 case UnitType.AbsoluteCount:                    

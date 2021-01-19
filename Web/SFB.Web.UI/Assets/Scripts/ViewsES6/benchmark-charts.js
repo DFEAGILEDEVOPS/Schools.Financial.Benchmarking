@@ -582,6 +582,14 @@
                         "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
                         "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
 
+                    if (schoolData.phase === "Special") {
+                        tableHtml += "<tr><td style='max-width: 150px' class='bold'>Highest 3 primary need SEN characteristics</td><td>";
+                        schoolData.topsen.forEach(
+                            topsen => { tableHtml += `${topsen.Key}: ${topsen.Value}%<br/>`; }
+                        )
+                        tableHtml += "</td></tr>";
+                    }
+
                     if ($("#ComparisonType").val() === "BestInClass") {
                         tableHtml += "<tr><td class='bold'>Key stage progress</td><td>" + schoolData.progressscore + "</td></tr>";
                     }
@@ -1028,14 +1036,22 @@
             if (listCookie) {
                 let matList = JSON.parse(listCookie);
                 let cnoList = Array.from(matList.T, t => t.CN);
+                let defaultCompanyNo = matList.DTCN;
                 link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?companyNumbers=${cnoList.join('-')}`;
+                if (defaultCompanyNo) {
+                    link += `&default=${defaultCompanyNo}`;
+                }
             }
         } else {
             let listCookie = GOVUK.cookie("sfb_comparison_list");
             if (listCookie) {
                 let schoolList = JSON.parse(listCookie);
                 let urnList = Array.from(schoolList.BS, s => s.U);
+                let defaultUrn = schoolList.HSU;
                 link = `${window.location.origin}/BenchmarkCharts/GenerateFromSavedBasket?urns=${urnList.join('-')}`;
+                if (defaultUrn) {
+                    link += `&default=${defaultUrn}`;
+                }
             }
             let comparison = $('#ComparisonType').val();
             if (comparison === "BestInClass") {

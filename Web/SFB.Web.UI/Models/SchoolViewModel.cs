@@ -206,39 +206,9 @@ namespace SFB.Web.UI.Models
 
         public string OverallPhaseInFinancialSubmission => LatestYearFinancialData.SchoolOverallPhase;
 
-        public List<SENCriteriaModel> TopSenCharacteristics {
-            get {
-                var aboveThresholdOnes = SenCharacteristics
-                    .Where(c => c.Value > CriteriaSearchConfig.SPECIALS_TOP_SEN_RATIO_THRESHOLD)
-                    .OrderByDescending(c => c.Value)
-                    .Take(CriteriaSearchConfig.SPECIALS_TOP_SEN_NUMBER).ToList();
-                if (aboveThresholdOnes.Count > 0) 
-                {
-                    return aboveThresholdOnes;
-                }
-                else
-                {
-                    var highestOnes = SenCharacteristics
-                    .OrderByDescending(c => c.Value)
-                    .Take(CriteriaSearchConfig.SPECIALS_TOP_SEN_NUMBER).ToList();
-                    return highestOnes;
-                }
-            }
-        }
-        public List<SENCriteriaModel> SenCharacteristics => new List<SENCriteriaModel>() { 
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.AUTISTIC_DISORDER, SchoolCharacteristicsQuestions.AUTISTIC_DISORDER,LatestYearFinancialData.AutisticDisorder),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.MODERATE_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY, LatestYearFinancialData.ModerateLearningDifficulty),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SPEECH_NEEDS, SchoolCharacteristicsQuestions.SPEECH_NEEDS, LatestYearFinancialData.SpeechNeeds),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SEVERE_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY, LatestYearFinancialData.SevereLearningDifficulty),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.PHYSICAL_DISABILITY, SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY, LatestYearFinancialData.PhysicalDisability),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SOCIAL_HEALTH , SchoolCharacteristicsQuestions.SOCIAL_HEALTH, LatestYearFinancialData.SocialHealth),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.SPECIFIC_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY, LatestYearFinancialData.SpecificLearningDifficulty),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.PROF_LEARNING_DIFFICULTY, SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY, LatestYearFinancialData.ProfLearningDifficulty),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.VISUAL_IMPAIRMENT, SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT, LatestYearFinancialData.VisualImpairment),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.MULTI_SENSORY_IMPAIRMENT, SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT, LatestYearFinancialData.MultiSensoryImpairment),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.OTHER_LEARNING_DIFF, SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF, LatestYearFinancialData.OtherLearningDifficulty),
-            new SENCriteriaModel(SchoolTrustFinanceDataFieldNames.HEARING_IMPAIRMENT, SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT, LatestYearFinancialData.HearingImpairment)
-        };
+        public List<SENCriteriaModel> TopSenCharacteristics => LatestYearFinancialData.TopSenCharacteristics;
+
+        public List<SENCriteriaModel> SenCharacteristics => LatestYearFinancialData.SenCharacteristics;
 
         public BicProgressScoreType BicProgressScoreType
         {
