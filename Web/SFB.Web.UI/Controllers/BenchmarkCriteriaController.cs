@@ -94,7 +94,7 @@ namespace SFB.Web.UI.Controllers
         
         }
 
-        public async Task<ActionResult> StepOne(int? urn, ComparisonType? comparisonType)
+        public async Task<ActionResult> StepOne(int? urn, ComparisonType? comparisonType, bool similarPupils = false)
         {
             switch (comparisonType)
             {
@@ -113,7 +113,7 @@ namespace SFB.Web.UI.Controllers
                 case ComparisonType.Advanced:
                     return await SelectSchoolType(urn, comparisonType.Value, null, null);
                 case ComparisonType.Specials:
-                    return await HowWeCalculateSpecials(urn.GetValueOrDefault());
+                    return await HowWeCalculateSpecials(urn.GetValueOrDefault(), similarPupils);
                 case null:
                 default:
                     if (urn.HasValue) {
@@ -127,9 +127,10 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        private async Task<ViewResult> HowWeCalculateSpecials(int urn)
+        private async Task<ViewResult> HowWeCalculateSpecials(int urn, bool similarPupils)
         {
             ViewBag.URN = urn;
+            ViewBag.SimilarPupils = similarPupils;
 
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 

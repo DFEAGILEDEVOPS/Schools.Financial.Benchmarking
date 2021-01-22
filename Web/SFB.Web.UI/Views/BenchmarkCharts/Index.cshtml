@@ -162,7 +162,7 @@ else
                             </div>
                             <span class="bold-xsmall">&nbsp;to special schools</span>
                             <span> based on your SEN characteristics. </span>
-                            @*<button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to school characteristics</button>*@
+                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
@@ -222,7 +222,7 @@ else
                         else if (Model.ComparisonType == ComparisonType.Specials)
                         {
                             <div class="panel panel-border-narrow criteria-detail">
-                                @*@Html.Partial("Partials/BasicHiddenFields")*@
+                                @Html.Partial("Partials/SpecialHiddenFields")
                                 @Html.Partial("Partials/UsedSpecialsCriteria")
                             </div>
                         }
