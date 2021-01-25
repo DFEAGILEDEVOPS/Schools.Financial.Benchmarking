@@ -286,6 +286,12 @@ ul.list {
     }
 }
 
+.help-trust-finance {
+    @include media(mobile) {
+        vertical-align:-webkit-baseline-middle
+    }
+}
+
 //* {
 //    font-family: "GDS Transport", Arial, sans-serif !important;
 //}
