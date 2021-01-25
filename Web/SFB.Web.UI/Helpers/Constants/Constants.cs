@@ -96,14 +96,14 @@
 
     public class BMFinancing
     {
-        public const string INCLUDE = "Include MAT central finance";
-        public const string EXCLUDE = "Exclude MAT central finance";
+        public const string INCLUDE = "Include share of trust finance";
+        public const string EXCLUDE = "Exclude share of trust finance";
     }
 
     public class CentralFinancing
     {
-        public const string INCLUDE = "Academy and trust proportion";
-        public const string EXCLUDE = "Academy only";
+        public const string INCLUDE = "Include share of trust finance";
+        public const string EXCLUDE = "Exclude share of trust finance";
     }
 
     public class MATFinancing

@@ -4,7 +4,7 @@
 
 <div class="column-one-third chart-filter @IsWorkforceTab()">
     <div class="form-group">
-        <label class="form-label" for="Financing">Central financing</label>
+        <label class="form-label" for="Financing">Trust finance</label>
         <select name="Financing" id="Financing" class="form-control" onchange="DfE.Views.HistoricalCharts.RebuildCharts('school')">
             <option value="@CentralFinancingType.Include" @IsFinancingSelected(CentralFinancingType.Include)>@CentralFinancing.INCLUDE</option>
             <option value="@CentralFinancingType.Exclude" @IsFinancingSelected(CentralFinancingType.Exclude)>@CentralFinancing.EXCLUDE</option>
