@@ -88,21 +88,16 @@
     }
 
     PrintPage() {
-        try {
-            $('details').attr('open', 'true');
-            let detailses = document.getElementsByTagName("details");
-            let details;
-            let i = -1;
-            while (details = detailses[++i]) {
-                //DOM API
-                details["open"] = true;
-            }
-
-            window.print();
-        } catch (exc) {
-            window.alert(exc);
+        $('details').attr('open', 'true');
+        let detailses = document.getElementsByTagName("details");
+        let details;
+        let i = -1;
+        while (details = detailses[++i]) {
+            //DOM API
+            details["open"] = true;
         }
-        
+
+        window.print();
     }
 
     TabChange(urn, tab) {
