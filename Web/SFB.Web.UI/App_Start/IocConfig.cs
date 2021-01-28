@@ -75,7 +75,7 @@ namespace SFB.Web.UI
             builder.RegisterType<BenchmarkBasketService>().As<IBenchmarkBasketService>();
             builder.RegisterType<ComparisonService>().As<IComparisonService>();
             builder.RegisterType<SchoolVMWithHistoricalChartsBuilder>().As<ISchoolVMBuilder>();
-            builder.RegisterType<BenchmarkBasketCookieManager>().As<IBenchmarkBasketCookieManager>();
+            builder.RegisterType<BenchmarkBasketService>().As<IBenchmarkBasketService>();
             builder.RegisterType<BenchmarkCriteriaBuilderService>().As<IBenchmarkCriteriaBuilderService>();
             builder.RegisterType<DownloadCSVBuilder>().As<IDownloadCSVBuilder>();
             builder.RegisterType<NotifyEmailSendingService>().As<IEmailSendingService>();

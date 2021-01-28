@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SFB.Web.ApplicationCore.Helpers.Constants;
-using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
@@ -8,13 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Globalization;
 
 namespace SFB.Web.UI.Helpers
 {
-    //TODO: make this class abstract
-    public class BenchmarkBasketCookieManager : IBenchmarkBasketCookieManager
+    public abstract class BenchmarkBasketCookieManager
     {
         public BenchmarkBasketCookieManager()
         {
@@ -53,7 +50,7 @@ namespace SFB.Web.UI.Helpers
             return comparisonList;
         }
 
-        public void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool)
+        public void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool = null)
         {
             HttpCookie cookie = null;
 
@@ -86,7 +83,7 @@ namespace SFB.Web.UI.Helpers
             }
         }
 
-        public void UpdateManualComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool)
+        public void UpdateManualComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool = null)
         {
             HttpCookie cookie = null;
 
@@ -200,11 +197,6 @@ namespace SFB.Web.UI.Helpers
             }
 
             return null;            
-        }
-
-        private string FormatTerm(string term, EstablishmentType estabType)
-        {
-            return estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT ? term : term.Replace('/', '-');
         }
 
         private HttpCookie AddDefaultSchoolToListInCookie(string cookieName)

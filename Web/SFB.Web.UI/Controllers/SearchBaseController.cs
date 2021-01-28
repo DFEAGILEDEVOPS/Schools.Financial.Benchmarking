@@ -4,6 +4,7 @@ using SFB.Web.ApplicationCore.Services.Search;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Models;
+using SFB.Web.UI.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,14 +17,14 @@ namespace SFB.Web.UI.Controllers
     {
         protected readonly ISchoolSearchService _schoolSearchService;
         protected readonly ITrustSearchService _trustSearchService;
-        protected readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        protected readonly IBenchmarkBasketService _benchmarkBasketService;
         protected readonly IFilterBuilder _filterBuilder;
 
-        public SearchBaseController(ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager, IFilterBuilder filterBuilder)
+        public SearchBaseController(ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService, IBenchmarkBasketService benchmarkBasketService, IFilterBuilder filterBuilder)
         {
             _schoolSearchService = schoolSearchService;
             _trustSearchService = trustSearchService;
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
             _filterBuilder = filterBuilder;
         }
 

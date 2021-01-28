@@ -432,7 +432,6 @@
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\Filters\DynamicHeaderMessageAttribute.cs" />
     <Compile Include="Helpers\HistoricalChartBuilder.cs" />
-    <Compile Include="Helpers\IBenchmarkBasketCookieManager.cs" />
     <Compile Include="Helpers\ISchoolVMBuilder.cs" />
     <Compile Include="Helpers\SchoolVMWithHistoricalChartsBuilder.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

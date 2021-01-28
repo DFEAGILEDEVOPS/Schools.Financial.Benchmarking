@@ -10,12 +10,12 @@ namespace SFB.Web.UI.Controllers
 {
     public class LocationController : Controller
     {
-        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IBenchmarkBasketService _benchmarkBasketService;
         private readonly ILocationSearchService _locationSearchService;
 
-        public LocationController(IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ILocationSearchService locationSearchService)
+        public LocationController(IBenchmarkBasketService benchmarkBasketService, ILocationSearchService locationSearchService)
         {
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
             _locationSearchService = locationSearchService;
         }
         
@@ -32,7 +32,7 @@ namespace SFB.Web.UI.Controllers
 
             suggestions.Matches.ForEach(item => result.Add(new LocationViewModel(item.Text, item.LatLon)));
 
-            var vm = new LocationListViewModel(result, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), locationOrPostcode, string.Empty, openOnly, searchMethod);
+            var vm = new LocationListViewModel(result, _benchmarkBasketService.GetSchoolBenchmarkList(), locationOrPostcode, string.Empty, openOnly, searchMethod);
 
             return View(vm);
         }

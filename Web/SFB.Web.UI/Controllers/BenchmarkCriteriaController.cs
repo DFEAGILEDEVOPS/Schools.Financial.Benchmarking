@@ -15,6 +15,7 @@ using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.UI.Helpers.Constants;
 using System.Text.RegularExpressions;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -25,7 +26,7 @@ namespace SFB.Web.UI.Controllers
         private readonly IContextDataService _contextDataService;
         private readonly ILocalAuthoritiesService _laService;
         private readonly ILaSearchService _laSearchService;
-        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IBenchmarkBasketService _benchmarkBasketService;
         private readonly IComparisonService _comparisonService;
         private readonly IValidationService _valService;
 
@@ -33,8 +34,8 @@ namespace SFB.Web.UI.Controllers
             ILocalAuthoritiesService laService, 
             IFinancialDataService financialDataService, 
             IContextDataService contextDataService, 
-            ILaSearchService laSearchService, 
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, 
+            ILaSearchService laSearchService,
+            IBenchmarkBasketService benchmarkBasketService, 
             IComparisonService comparisonService,
             IValidationService valService)
         {
@@ -42,7 +43,7 @@ namespace SFB.Web.UI.Controllers
             _laService = laService;
             _contextDataService = contextDataService;
             _laSearchService = laSearchService;
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
             _comparisonService = comparisonService;
             _valService = valService;
         }
@@ -58,16 +59,9 @@ namespace SFB.Web.UI.Controllers
 
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.SetDefault,            
-            new BenchmarkSchoolModel()
-            {
-                Name = benchmarkSchool.Name,
-                Urn = benchmarkSchool.Id.ToString(),
-                Type = benchmarkSchool.Type,
-                EstabType = benchmarkSchool.EstablishmentType.ToString()
-            });
+            _benchmarkBasketService.SetSchoolAsDefault(benchmarkSchool);            
             
-            benchmarkSchool.ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            benchmarkSchool.ComparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
                         
             return View(benchmarkSchool);
         }
@@ -78,16 +72,10 @@ namespace SFB.Web.UI.Controllers
 
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.SetDefault,
-            new BenchmarkSchoolModel()
-            {
-                Name = benchmarkSchool.Name,
-                Urn = benchmarkSchool.Id.ToString(),
-                Type = benchmarkSchool.Type,
-                EstabType = benchmarkSchool.EstablishmentType.ToString(),
-            });
+            _benchmarkBasketService.SetSchoolAsDefault(benchmarkSchool);
 
-            benchmarkSchool.ComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            benchmarkSchool.ComparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
+
             benchmarkSchool.ErrorMessage = ErrorMessages.SelectComparisonType;
 
             return View("ComparisonStrategy", benchmarkSchool);
@@ -121,7 +109,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        return ErrorViewForHomePage(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL, ErrorMessages.SelectComparisonType, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                        return ErrorViewForHomePage(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL, ErrorMessages.SelectComparisonType, _benchmarkBasketService.GetSchoolBenchmarkList());
                     }
 
             }
@@ -149,7 +137,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.ComparisonType = comparisonType;
             ViewBag.BasketSize = ComparisonListLimit.DEFAULT;
 
-            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
             return View("SelectBasketSize", benchmarkSchool);
         }
 
@@ -169,13 +157,13 @@ namespace SFB.Web.UI.Controllers
 
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
 
                 return View("SelectSchoolType", benchmarkSchool);
             }
             else
             {
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null);
+                _benchmarkBasketService.UnsetDefaultSchool();
                 return View("SelectSchoolType", new SchoolViewModelWithNoDefaultSchool());
             }
         }
@@ -198,7 +186,7 @@ namespace SFB.Web.UI.Controllers
 
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
 
                 if (estType.HasValue)
                 {
@@ -254,7 +242,7 @@ namespace SFB.Web.UI.Controllers
                 SchoolViewModel vm = null;
                 if (urn.HasValue)
                 {
-                    vm = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    vm = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
                 }
                 else
                 {
@@ -305,7 +293,7 @@ namespace SFB.Web.UI.Controllers
                     SchoolViewModel vm = null;
                     if (urn.HasValue)
                     {
-                        vm = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                        vm = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
                     }
                     else
                     {
@@ -325,7 +313,7 @@ namespace SFB.Web.UI.Controllers
             SchoolViewModel benchmarkSchoolVM;
             if (urn.HasValue)
             {
-                benchmarkSchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                benchmarkSchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
 
                 var schoolsLatestFinancialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(benchmarkSchoolVM.Id, benchmarkSchoolVM.EstablishmentType);
                 benchmarkSchoolVM.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
@@ -335,7 +323,7 @@ namespace SFB.Web.UI.Controllers
                 benchmarkSchoolVM = new SchoolViewModelWithNoDefaultSchool();
             }
 
-            var schoolCharsVM = new SchoolCharacteristicsViewModel(benchmarkSchoolVM, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), AdvancedCriteria);
+            var schoolCharsVM = new SchoolCharacteristicsViewModel(benchmarkSchoolVM, _benchmarkBasketService.GetSchoolBenchmarkList(), AdvancedCriteria);
 
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
@@ -392,14 +380,14 @@ namespace SFB.Web.UI.Controllers
                 ViewBag.ComparisonType = comparisonType;
                 ViewBag.EstType = estType;                
 
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
 
                 var schoolCharsVM = new SimpleCharacteristicsViewModel(benchmarkSchool, SimpleCriteria);
                 return View(schoolCharsVM);
             }
             else
             {
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
                 benchmarkSchool.ErrorMessage = ErrorMessages.SelectSchoolType;
 
                 ViewBag.URN = urn;
@@ -433,7 +421,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.LaCode = lacode;
             ViewBag.ExcludePartial = excludePartial.ToString();
 
-            var benchmarkList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var benchmarkList = _benchmarkBasketService.GetSchoolBenchmarkList();
 
             if (!ModelState.IsValid)
             {
@@ -502,7 +490,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<SchoolViewModel> InstantiateBenchmarkSchoolAsync(int urn)
         {
-            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
             var schoolsLatestFinancialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
             return benchmarkSchool;

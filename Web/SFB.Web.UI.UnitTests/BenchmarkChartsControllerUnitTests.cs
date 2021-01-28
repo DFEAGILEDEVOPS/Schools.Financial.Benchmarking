@@ -122,7 +122,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";            
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -144,7 +144,7 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            mockBenchmarkBasketService.Verify(m => m.AddSchoolsToBenchmarkListFromComparisonResult(It.IsAny<ComparisonResult>()), Times.Exactly(1));
+            mockBenchmarkBasketService.Verify(m => m.AddSchoolsToBenchmarkList(It.IsAny<ComparisonResult>()), Times.Exactly(1));
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -259,7 +259,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockFinancialDataService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -341,7 +341,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, 123, ComparisonArea.All, BenchmarkListOverwriteStrategy.Add);
 
-            mockBenchmarkBasketService.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.Add, It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(1));
+            mockBenchmarkBasketService.Verify(m => m.AddSchoolToBenchmarkList(It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(1));
 
         }
 
@@ -360,7 +360,7 @@ namespace SFB.Web.UI.UnitTests
                     Urn = i.ToString(), Name = "test", EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -466,7 +466,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -523,7 +523,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -632,7 +632,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -679,7 +679,7 @@ namespace SFB.Web.UI.UnitTests
                     EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -721,7 +721,7 @@ namespace SFB.Web.UI.UnitTests
                 fakeTrustComparisonList.Trusts.Add(new BenchmarkTrustModel(i, "test"));
             }
 
-            mockBenchmarkBasketService.Setup(m => m.GetTrustComparisonList()).Returns(fakeTrustComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetTrustBenchmarkList()).Returns(fakeTrustComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -769,7 +769,7 @@ namespace SFB.Web.UI.UnitTests
                     EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -808,7 +808,7 @@ namespace SFB.Web.UI.UnitTests
             {
                 fakeTrustComparisonList.Trusts.Add(new BenchmarkTrustModel(i, "test"));
             }
-            mockBenchmarkBasketService.Setup(m => m.GetTrustComparisonList()).Returns(fakeTrustComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetTrustBenchmarkList()).Returns(fakeTrustComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 

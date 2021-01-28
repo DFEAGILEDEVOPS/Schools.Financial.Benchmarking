@@ -28,10 +28,10 @@ namespace SFB.Web.UI.Controllers
         private readonly ILocationSearchService _locationSearchService;
         private readonly ILaSearchService _laSearchService;
 
-        public ManualComparisonController(IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ILocalAuthoritiesService laService, 
+        public ManualComparisonController(IBenchmarkBasketService benchmarkBasketService, ILocalAuthoritiesService laService, 
             IContextDataService contextDataService, IValidationService valService, ILocationSearchService locationSearchService, 
             ISchoolSearchService schoolSearchService, IFilterBuilder filterBuilder, ILaSearchService laSearchService)
-            : base(schoolSearchService, null, benchmarkBasketCookieManager, filterBuilder)
+            : base(schoolSearchService, null, benchmarkBasketService, filterBuilder)
         {
             _laService = laService;
             _laSearchService = laSearchService;
@@ -42,11 +42,11 @@ namespace SFB.Web.UI.Controllers
 
         public ActionResult Index()
         {
-            var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonListModel = _benchmarkBasketService.GetSchoolBenchmarkList();
             var vm = new SearchViewModel(schoolComparisonListModel, "");
             vm.Authorities = _laService.GetLocalAuthorities();
-            _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null);
-            _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel()
+            _benchmarkBasketService.ClearManualBenchmarkList();
+            _benchmarkBasketService.UpdateManualComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel()
             {
                 Name = schoolComparisonListModel.HomeSchoolName,
                 Urn = schoolComparisonListModel.HomeSchoolUrn,
@@ -62,9 +62,9 @@ namespace SFB.Web.UI.Controllers
             {
                 Authorities = _laService.GetLocalAuthorities()
             };
-            _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null);
-            _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.UnsetDefault, null);
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null);
+            _benchmarkBasketService.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null);
+            _benchmarkBasketService.UpdateManualComparisonListCookie(CookieActions.UnsetDefault, null);
+            _benchmarkBasketService.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null);
             return View("Index", vm);
         }
 
@@ -86,8 +86,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.SearchMethod = "Manual";
             ViewBag.LaCodeName = laCodeName;
 
-            var comparisonList = base._benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();            
-            var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+            var comparisonList = base._benchmarkBasketService.GetSchoolBenchmarkList();            
+            var manualComparisonList = _benchmarkBasketService.ExtractManualComparisonListFromCookie();
 
             EdubaseDataObject contextDataObject = null;
             if (!string.IsNullOrEmpty(comparisonList.HomeSchoolUrn))
@@ -246,8 +246,8 @@ namespace SFB.Web.UI.Controllers
         {
             dynamic searchResponse;
 
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
-            var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+            var schoolComparisonList = _benchmarkBasketService.ExtractManualComparisonListFromCookie();
+            var manualComparisonList = _benchmarkBasketService.ExtractManualComparisonListFromCookie();
 
             if (IsLaEstab(nameId))
             {
@@ -325,8 +325,8 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> OverwriteStrategy()
         {
-            var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+            var comparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
+            var manualComparisonList = _benchmarkBasketService.ExtractManualComparisonListFromCookie();
             if (comparisonList?.BenchmarkSchools?.Count > 0 && !comparisonList.BenchmarkSchools.All(s => s.Urn == comparisonList.HomeSchoolUrn))
             {
                 SchoolViewModel vm;
@@ -365,7 +365,7 @@ namespace SFB.Web.UI.Controllers
                 {
                     try
                     {
-                        _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, school);
+                        _benchmarkBasketService.UpdateSchoolComparisonListCookie(CookieActions.Add, school);
                     }
                     catch (ApplicationException) { }//ignoring duplicate add exceptions
                 }
@@ -377,8 +377,8 @@ namespace SFB.Web.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ReplaceAdd(BenchmarkListOverwriteStrategy? overwriteStrategy, string referrer)
         {
-            var comparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
-            var manualComparisonList = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+            var comparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
+            var manualComparisonList = _benchmarkBasketService.ExtractManualComparisonListFromCookie();
 
             switch (overwriteStrategy)
             {
@@ -420,19 +420,19 @@ namespace SFB.Web.UI.Controllers
                         {
                             try
                             {
-                                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, school);
+                                _benchmarkBasketService.UpdateSchoolComparisonListCookie(CookieActions.Add, school);
                             }catch(ApplicationException) { } //duplicate school adds will be ignored
                         }
                         return Redirect("/BenchmarkCharts");
                     }
                 case BenchmarkListOverwriteStrategy.Overwrite:                    
                 default:
-                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
+                    _benchmarkBasketService.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, null);
                     foreach (var school in manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn))
                     {
-                        _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add, school);
+                        _benchmarkBasketService.UpdateSchoolComparisonListCookie(CookieActions.Add, school);
                     }
-                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel() {
+                    _benchmarkBasketService.UpdateSchoolComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel() {
                         Urn = manualComparisonList.HomeSchoolUrn,
                         Name = manualComparisonList.HomeSchoolName,
                         Type = manualComparisonList.HomeSchoolType,
@@ -448,7 +448,7 @@ namespace SFB.Web.UI.Controllers
 
             try
             {
-                _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.Add,
+                _benchmarkBasketService.UpdateManualComparisonListCookie(CookieActions.Add,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
@@ -462,7 +462,7 @@ namespace SFB.Web.UI.Controllers
                 ViewBag.Error = ex.Message;
             }
 
-            var vm = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+            var vm = _benchmarkBasketService.ExtractManualComparisonListFromCookie();
 
             return PartialView("Partials/SchoolsToAdd", vm.BenchmarkSchools.Where(s => s.Id != vm.HomeSchoolUrn).ToList());
         }
@@ -471,7 +471,7 @@ namespace SFB.Web.UI.Controllers
         {
             var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
 
-            _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(CookieActions.Remove, new BenchmarkSchoolModel()
+            _benchmarkBasketService.UpdateManualComparisonListCookie(CookieActions.Remove, new BenchmarkSchoolModel()
             {
                 Name = benchmarkSchool.Name,
                 Urn = benchmarkSchool.Id.ToString(),
@@ -479,7 +479,7 @@ namespace SFB.Web.UI.Controllers
                 EstabType = benchmarkSchool.EstablishmentType.ToString()
             });
 
-            var vm = _benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie();
+            var vm = _benchmarkBasketService.ExtractManualComparisonListFromCookie();
 
             return PartialView("Partials/SchoolsToAdd", vm.BenchmarkSchools.Where(s => s.Id != vm.HomeSchoolUrn).ToList());
         }
@@ -490,7 +490,7 @@ namespace SFB.Web.UI.Controllers
             {
                 var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault()), null);
 
-                _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(withAction,
+                _benchmarkBasketService.UpdateManualComparisonListCookie(withAction,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
@@ -501,10 +501,10 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                _benchmarkBasketCookieManager.UpdateManualComparisonListCookie(withAction, null);
+                _benchmarkBasketService.UpdateManualComparisonListCookie(withAction, null);
             }
 
-            return Json(_benchmarkBasketCookieManager.ExtractManualComparisonListFromCookie().BenchmarkSchools.Count, JsonRequestBehavior.AllowGet);
+            return Json(_benchmarkBasketService.ExtractManualComparisonListFromCookie().BenchmarkSchools.Count, JsonRequestBehavior.AllowGet);
         }
     }
 }

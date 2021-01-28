@@ -21,26 +21,26 @@ namespace SFB.Web.UI.Helpers
         private readonly IFinancialDataService _financialDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
-        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IBenchmarkBasketService _benchmarkBasketService;
         private readonly ILocalAuthoritiesService _laSearchService;
 
         private SchoolViewModel SchoolVM { get; set; }
 
         public SchoolVMWithHistoricalChartsBuilder(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService,
             IFinancialCalculationsService fcService, IContextDataService contextDataService, 
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ILocalAuthoritiesService laSearchService)
+            IBenchmarkBasketService benchmarkBasketService, ILocalAuthoritiesService laSearchService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
             _contextDataService = contextDataService;
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
             _laSearchService = laSearchService;
         }
 
         public async Task BuildCoreAsync(int urn)
         {
-            SchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+            SchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
         }
 
         public async Task AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType)

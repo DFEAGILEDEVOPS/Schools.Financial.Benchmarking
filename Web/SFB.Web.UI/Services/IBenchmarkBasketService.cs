@@ -8,22 +8,22 @@ namespace SFB.Web.UI.Services
 {
     public interface IBenchmarkBasketService
     {
-        void AddDefaultSchoolToBenchmarkList(SchoolViewModel bmSchool);
-        void AddSchoolsToBenchmarkListFromComparisonResult(ComparisonResult comparisonResult);
-        Task AddSchoolsToBenchmarkListFromUrnsAsync(ComparisonType comparison, List<int> urnList);
-        void EmptyBenchmarkList();
-        Task SetSchoolAsDefaultFromUrnAsync(int urn);
-        Task SetTrustAsDefaultFromCompanyNoAsync(int companyNo);
-        void SetSchoolAsDefaultFromViewModel(SchoolViewModel benchmarkSchool);
-        SchoolComparisonListModel GetSchoolComparisonList();         
-        SchoolComparisonListModel GetManualComparisonList();
-        TrustComparisonListModel GetTrustComparisonList();
-
-        //TODO: Inherit from BenchmarkBasketCookieManager and leave these methods in BenchmarkBasketCookieManager. 
-        //Hide cookie implementation details in BenchmarkBasketCookieManager
-        void UpdateSchoolComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool);
-        void UpdateManualComparisonListCookie(CookieActions withAction, BenchmarkSchoolModel benchmarkSchool);
-        TrustComparisonListModel UpdateTrustComparisonListCookie(CookieActions withAction, int? companyNo = null, string matName = null);
-
+        Task AddSchoolToBenchmarkListAsync(int urn);
+        void AddSchoolToBenchmarkList(SchoolViewModel bmSchool);
+        void AddSchoolToBenchmarkList(BenchmarkSchoolModel bmSchool);
+        void AddSchoolsToBenchmarkList(ComparisonResult comparisonResult);
+        Task AddSchoolsToBenchmarkListAsync(ComparisonType comparison, List<int> urnList);
+        void AddTrustToBenchmarkList(int companyNumber, string trustOrCompanyName);
+        Task SetSchoolAsDefaultAsync(int urn);
+        void SetSchoolAsDefault(SchoolViewModel benchmarkSchool);        
+        void UnsetDefaultSchool();
+        Task SetTrustAsDefaultAsync(int companyNo);
+        SchoolComparisonListModel GetSchoolBenchmarkList();         
+        SchoolComparisonListModel GetManualBenchmarkList();
+        TrustComparisonListModel GetTrustBenchmarkList();
+        void ClearTrustBenchmarkList();
+        void ClearSchoolBenchmarkList();
+        void ClearManualBenchmarkList();
+        void RemoveSchoolFromBenchmarkList(int urn);
     }
 }

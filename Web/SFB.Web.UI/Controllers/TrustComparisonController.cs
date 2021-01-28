@@ -11,6 +11,7 @@ using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -18,12 +19,12 @@ namespace SFB.Web.UI.Controllers
     public class TrustComparisonController : Controller
     {
         private readonly IFinancialDataService _financialDataService;
-        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IBenchmarkBasketService _benchmarkBasketService;
 
-        public TrustComparisonController(IFinancialDataService financialDataService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+        public TrustComparisonController(IFinancialDataService financialDataService, IBenchmarkBasketService benchmarkBasketService)
         {
             _financialDataService = financialDataService;
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
         }
 
         public async Task<ActionResult> Index(int companyNo)
@@ -32,7 +33,7 @@ namespace SFB.Web.UI.Controllers
 
             await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
 
-            var trustComparisonList = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.SetDefault, companyNo, benchmarkTrust.Name);
+            var trustComparisonList = _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.SetDefault, companyNo, benchmarkTrust.Name);
 
             var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
 
@@ -66,14 +67,14 @@ namespace SFB.Web.UI.Controllers
 
             if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
             {
-                _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.RemoveAll);
-                _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.AddDefaultToList);
+                _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.RemoveAll);
+                _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.AddDefaultToList);
                 var trustDocs = await _financialDataService.SearchTrustsByCriteriaAsync(criteria.AdvancedCriteria);
                 foreach (var doc in trustDocs)
                 {
                     try
                     {
-                        _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, doc.CompanyNumber, doc.TrustOrCompanyName);
+                        _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.Add, doc.CompanyNumber, doc.TrustOrCompanyName);
                     }catch (ApplicationException)
                     {
                         //Default trust cannot be added twice. Do nothing.
@@ -88,10 +89,10 @@ namespace SFB.Web.UI.Controllers
             TrustComparisonListModel vm;
             try
             {
-                vm = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Add, companyNo, matName);
+                vm = _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.Add, companyNo, matName);
             }catch(ApplicationException ex)
             {
-                vm = _benchmarkBasketCookieManager.ExtractTrustComparisonListFromCookie();
+                vm = _benchmarkBasketService.ExtractTrustComparisonListFromCookie();
                 ViewBag.Error = ex.Message;
             }
 
@@ -100,14 +101,14 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult RemoveTrust(int companyNo)
         {
-            var vm = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.Remove, companyNo);
+            var vm = _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.Remove, companyNo);
 
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }
 
         public PartialViewResult RemoveAllTrusts()
         {
-            var vm = _benchmarkBasketCookieManager.UpdateTrustComparisonListCookie(CookieActions.RemoveAll);
+            var vm = _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.RemoveAll);
 
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }

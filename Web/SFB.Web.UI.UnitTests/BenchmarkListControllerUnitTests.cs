@@ -11,6 +11,7 @@ using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -46,7 +47,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockFinancialDataService = new Mock<IFinancialDataService>();
 
-            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var mockCookieManager = new Mock<IBenchmarkBasketService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
@@ -59,7 +60,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = await controller.UpdateBenchmarkBasket(null, CookieActions.RemoveAll);
+            var result = await controller.UpdateBenchmarkBasketAsync(null, CookieActions.RemoveAll);
 
             mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, It.IsAny<BenchmarkSchoolModel>()),Times.Once);
 

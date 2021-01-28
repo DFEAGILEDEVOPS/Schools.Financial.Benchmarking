@@ -8,6 +8,7 @@ using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
+using SFB.Web.UI.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -18,7 +19,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void WithoutBaseSchoolActionClearsBaseSchoolWhenManualComparisonWithoutBaseSchool()
         {
-            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var mockCookieManager = new Mock<IBenchmarkBasketService>();
 
             var _mockDocumentDbService = new Mock<IFinancialDataService>();
 
@@ -49,7 +50,7 @@ namespace SFB.Web.UI.UnitTests
                 fakeBMSchools.Add(new BenchmarkSchoolModel());
             }
 
-            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var mockCookieManager = new Mock<IBenchmarkBasketService>();
             mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
             mockCookieManager.Setup(m => m.ExtractManualComparisonListFromCookie()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
             

@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Services;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -10,17 +11,17 @@ namespace SFB.Web.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILocalAuthoritiesService _laService;
-        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IBenchmarkBasketService _benchmarkBasketService;
 
-        public HomeController(ILocalAuthoritiesService laService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+        public HomeController(ILocalAuthoritiesService laService, IBenchmarkBasketService benchmarkBasketService)
         {
             _laService = laService;
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
         }
 
         public ActionResult Index()
         {
-            var vm = new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), null);
+            var vm = new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), null);
             vm.Authorities = _laService.GetLocalAuthorities();
             return View(vm);
         }

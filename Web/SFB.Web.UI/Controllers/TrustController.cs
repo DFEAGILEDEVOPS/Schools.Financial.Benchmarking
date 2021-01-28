@@ -28,18 +28,18 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly ITrustHistoryService _trustHistoryService;
         private readonly IDownloadCSVBuilder _csvBuilder;
-        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IBenchmarkBasketService _benchmarkBasketService;
 
         public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contexDataService, IDownloadCSVBuilder csvBuilder,
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ITrustHistoryService trustHistoryService)
+            IBenchmarkBasketService benchmarkBasketService, ITrustHistoryService trustHistoryService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _contexDataService = contexDataService;
             _fcService = fcService;
             _csvBuilder = csvBuilder;
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
             _trustHistoryService = trustHistoryService;
         }
 
@@ -144,7 +144,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<TrustViewModel> BuildFinancialTrustVMAsync(int companyNo, TabType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
         {
-            var comparisonListVM = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var comparisonListVM = _benchmarkBasketService.GetSchoolBenchmarkList();
             var trustVM = new TrustViewModel(companyNo, comparisonListVM);
             
             trustVM.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, trustVM.EstablishmentType);

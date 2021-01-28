@@ -26,14 +26,14 @@ namespace SFB.Web.UI.Controllers
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
-        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly IBenchmarkBasketService _benchmarkBasketService;
         private readonly ILocalAuthoritiesService _laSearchService;
         private readonly IActiveUrnsService _activeUrnsService;
         private readonly ISchoolVMBuilder _schoolVMBuilder;
 
         public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager, ILocalAuthoritiesService laSearchService,
+            IBenchmarkBasketService benchmarkBasketService, ILocalAuthoritiesService laSearchService,
             IActiveUrnsService activeUrnsService, ISchoolVMBuilder schoolVMBuilder)
         {
             _historicalChartBuilder = historicalChartBuilder;
@@ -41,7 +41,7 @@ namespace SFB.Web.UI.Controllers
             _fcService = fcService;
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
             _laSearchService = laSearchService;
             _activeUrnsService = activeUrnsService;
             _schoolVMBuilder = schoolVMBuilder;
@@ -66,7 +66,7 @@ namespace SFB.Web.UI.Controllers
 
             if (schoolVM.ContextDataModel == null)
             {
-                return View("EmptyResult", new SearchViewModel(_benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), SearchTypes.SEARCH_BY_NAME_ID));
+                return View("EmptyResult", new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), SearchTypes.SEARCH_BY_NAME_ID));
             }
 
             ViewBag.Tab = tab;
@@ -135,7 +135,7 @@ namespace SFB.Web.UI.Controllers
             {
                 var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault()), null);
 
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
+                _benchmarkBasketService.UpdateSchoolComparisonListCookie(withAction,
                     new BenchmarkSchoolModel()
                     {
                         Name = benchmarkSchool.Name,
@@ -146,11 +146,11 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction, null);
+                _benchmarkBasketService.UpdateSchoolComparisonListCookie(withAction, null);
             }                       
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
+                new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));
         }
         
         public async Task<PartialViewResult> UpdateBenchmarkBasketAddMultiple(int[] urns)
@@ -161,7 +161,7 @@ namespace SFB.Web.UI.Controllers
 
                 try
                 {
-                    _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(CookieActions.Add,
+                    _benchmarkBasketService.UpdateSchoolComparisonListCookie(CookieActions.Add,
                         new BenchmarkSchoolModel()
                         {
                             Name = benchmarkSchool.Name,
@@ -174,17 +174,17 @@ namespace SFB.Web.UI.Controllers
             }
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
+                new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));
         }
 
         public PartialViewResult GetBenchmarkBasket()
         {
-            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));
         }
 
         public async Task<PartialViewResult> GetBenchmarkControls(int urn)
         {
-            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
+            return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList()));
         }
 
         private void OverwriteDefaultUnitTypeForSelectedTab(TabType tabType, ref UnitType unitType)
