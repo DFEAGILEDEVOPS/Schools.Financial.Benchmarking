@@ -29,7 +29,7 @@
 @section BackButtonContent{
     @Html.Partial("Partials/BackToHomeLink")
 }
-@if (Model.EstablishmentType == EstablishmentType.Maintained)
+@*@if (Model.EstablishmentType == EstablishmentType.Maintained)
 {
 <div class="panel panel-border-wide blue-warning mt-1">
     <div class="shared-icon-wrapper">
@@ -39,7 +39,7 @@
     </div>
     Due to delays in collecting CFR data owing to Covid-19, publication of updated data for LA maintained schools will not occur within its usual timescales. We apologise for any inconvenience caused.
 </div>
-}
+}*@
 
 @if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
 {
