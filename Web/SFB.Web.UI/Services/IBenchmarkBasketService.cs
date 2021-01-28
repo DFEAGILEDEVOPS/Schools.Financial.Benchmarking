@@ -11,19 +11,34 @@ namespace SFB.Web.UI.Services
         Task AddSchoolToBenchmarkListAsync(int urn);
         void AddSchoolToBenchmarkList(SchoolViewModel bmSchool);
         void AddSchoolToBenchmarkList(BenchmarkSchoolModel bmSchool);
+        void AddSchoolToManualBenchmarkList(SchoolViewModel benchmarkSchool);
+        Task AddSchoolToManualBenchmarkListAsync(int urn);
         void AddSchoolsToBenchmarkList(ComparisonResult comparisonResult);
         Task AddSchoolsToBenchmarkListAsync(ComparisonType comparison, List<int> urnList);
-        void AddTrustToBenchmarkList(int companyNumber, string trustOrCompanyName);
+        TrustComparisonListModel AddTrustToBenchmarkList(int companyNumber, string trustOrCompanyName);
+        
         Task SetSchoolAsDefaultAsync(int urn);
         void SetSchoolAsDefault(SchoolViewModel benchmarkSchool);        
-        void UnsetDefaultSchool();
+        void SetSchoolAsDefault(BenchmarkSchoolModel benchmarkSchool);
+        void SetSchoolAsDefaultInManualComparisonList(SchoolComparisonListModel schoolComparisonList);
         Task SetTrustAsDefaultAsync(int companyNo);
+        Task SetSchoolAsDefaultInManualComparisonList(int urn);
+
+        void UnsetDefaultSchool();
+        void UnsetDefaultSchoolInManualBenchmarkList();
+
         SchoolComparisonListModel GetSchoolBenchmarkList();         
         SchoolComparisonListModel GetManualBenchmarkList();
         TrustComparisonListModel GetTrustBenchmarkList();
-        void ClearTrustBenchmarkList();
+
+        TrustComparisonListModel ClearTrustBenchmarkList();
         void ClearSchoolBenchmarkList();
         void ClearManualBenchmarkList();
-        void RemoveSchoolFromBenchmarkList(int urn);
+
+        Task RemoveSchoolFromBenchmarkListAsync(int urn);
+        Task RemoveSchoolFromManualBenchmarkListAsync(int urn);
+        TrustComparisonListModel RemoveTrustFromBenchmarkList(int companyNo);
+
+        void AddDefaultTrustToBenchmarkList();
     }
 }

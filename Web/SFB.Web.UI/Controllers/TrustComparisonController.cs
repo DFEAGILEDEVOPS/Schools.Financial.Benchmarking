@@ -6,7 +6,6 @@ using SFB.Web.UI.Models;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
-using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Helpers.Enums;
@@ -33,7 +32,9 @@ namespace SFB.Web.UI.Controllers
 
             await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
 
-            var trustComparisonList = _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.SetDefault, companyNo, benchmarkTrust.Name);
+            await _benchmarkBasketService.SetTrustAsDefaultAsync(companyNo);
+
+            var trustComparisonList = _benchmarkBasketService.GetTrustBenchmarkList();
 
             var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
 
@@ -44,7 +45,6 @@ namespace SFB.Web.UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //Elmah.ErrorSignal.FromCurrentContext().Raise(new ApplicationException("Invalid criteria entered for advanced search! : " + criteria.ToString()));
                 return 0;
             }
 
@@ -67,14 +67,14 @@ namespace SFB.Web.UI.Controllers
 
             if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
             {
-                _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.RemoveAll);
-                _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.AddDefaultToList);
+                _benchmarkBasketService.ClearTrustBenchmarkList();
+                _benchmarkBasketService.AddDefaultTrustToBenchmarkList();
                 var trustDocs = await _financialDataService.SearchTrustsByCriteriaAsync(criteria.AdvancedCriteria);
                 foreach (var doc in trustDocs)
                 {
                     try
                     {
-                        _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.Add, doc.CompanyNumber, doc.TrustOrCompanyName);
+                        _benchmarkBasketService.AddTrustToBenchmarkList(doc.CompanyNumber.GetValueOrDefault(), doc.TrustOrCompanyName);
                     }catch (ApplicationException)
                     {
                         //Default trust cannot be added twice. Do nothing.
@@ -89,10 +89,10 @@ namespace SFB.Web.UI.Controllers
             TrustComparisonListModel vm;
             try
             {
-                vm = _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.Add, companyNo, matName);
+                vm = _benchmarkBasketService.AddTrustToBenchmarkList(companyNo, matName);
             }catch(ApplicationException ex)
             {
-                vm = _benchmarkBasketService.ExtractTrustComparisonListFromCookie();
+                vm = _benchmarkBasketService.GetTrustBenchmarkList();
                 ViewBag.Error = ex.Message;
             }
 
@@ -101,14 +101,14 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult RemoveTrust(int companyNo)
         {
-            var vm = _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.Remove, companyNo);
+            var vm = _benchmarkBasketService.RemoveTrustFromBenchmarkList(companyNo);
 
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }
 
         public PartialViewResult RemoveAllTrusts()
         {
-            var vm = _benchmarkBasketService.UpdateTrustComparisonListCookie(CookieActions.RemoveAll);
+            var vm = _benchmarkBasketService.ClearTrustBenchmarkList();
 
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }

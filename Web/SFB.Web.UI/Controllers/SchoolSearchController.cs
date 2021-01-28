@@ -227,16 +227,24 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<PartialViewResult> UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
-
-            _benchmarkBasketService.UpdateSchoolComparisonListCookie(withAction,
-                new BenchmarkSchoolModel()
-                {
-                    Name = benchmarkSchool.Name,
-                    Urn = benchmarkSchool.Id.ToString(),
-                    Type = benchmarkSchool.Type,
-                    EstabType = benchmarkSchool.EstablishmentType.ToString()
-                });
+            switch (withAction)
+            {
+                case CookieActions.SetDefault:
+                    await _benchmarkBasketService.SetSchoolAsDefaultAsync(urn);
+                    break;
+                case CookieActions.Add:
+                    await _benchmarkBasketService.AddSchoolToBenchmarkListAsync(urn);
+                    break;
+                case CookieActions.Remove:
+                    await _benchmarkBasketService.RemoveSchoolFromBenchmarkListAsync(urn);
+                    break;
+                case CookieActions.RemoveAll:
+                    _benchmarkBasketService.ClearSchoolBenchmarkList();
+                    break;
+                case CookieActions.UnsetDefault:
+                    _benchmarkBasketService.UnsetDefaultSchool();
+                    break;
+            }
 
             return PartialView("Partials/BenchmarkListBanner",
                 new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));

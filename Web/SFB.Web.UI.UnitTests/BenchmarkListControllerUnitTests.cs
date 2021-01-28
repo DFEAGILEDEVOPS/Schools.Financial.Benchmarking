@@ -54,7 +54,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockCookieManager.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var controller = new BenchmarkListController(mockEdubaseDataService.Object, mockCookieManager.Object, mockFinancialDataService.Object);
 
@@ -62,7 +62,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.UpdateBenchmarkBasketAsync(null, CookieActions.RemoveAll);
 
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, It.IsAny<BenchmarkSchoolModel>()),Times.Once);
+            mockCookieManager.Verify(m => m.ClearSchoolBenchmarkList(),Times.Once);
 
 
         }

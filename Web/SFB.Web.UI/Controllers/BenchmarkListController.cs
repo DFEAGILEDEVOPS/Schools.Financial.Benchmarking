@@ -74,7 +74,7 @@ namespace SFB.Web.UI.Controllers
                         await _benchmarkBasketService.AddSchoolToBenchmarkListAsync(urn.GetValueOrDefault());
                         break;
                     case CookieActions.Remove:
-                        _benchmarkBasketService.RemoveSchoolFromBenchmarkList(urn.GetValueOrDefault());
+                        await _benchmarkBasketService.RemoveSchoolFromBenchmarkListAsync(urn.GetValueOrDefault());
                         break;
                     case CookieActions.RemoveAll:
                         _benchmarkBasketService.ClearSchoolBenchmarkList();

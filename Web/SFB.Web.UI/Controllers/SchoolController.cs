@@ -133,20 +133,27 @@ namespace SFB.Web.UI.Controllers
         {          
             if (urn.HasValue)
             {
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault()), null);
-
-                _benchmarkBasketService.UpdateSchoolComparisonListCookie(withAction,
-                    new BenchmarkSchoolModel()
-                    {
-                        Name = benchmarkSchool.Name,
-                        Urn = benchmarkSchool.Id.ToString(),
-                        Type = benchmarkSchool.Type,
-                        EstabType = benchmarkSchool.EstablishmentType.ToString()
-                    });
+                switch (withAction)
+                {
+                    case CookieActions.SetDefault:
+                        await _benchmarkBasketService.SetSchoolAsDefaultAsync(urn.GetValueOrDefault());
+                        break;
+                    case CookieActions.Add:
+                        await _benchmarkBasketService.AddSchoolToBenchmarkListAsync(urn.GetValueOrDefault());
+                        break;
+                    case CookieActions.Remove:
+                        await _benchmarkBasketService.RemoveSchoolFromBenchmarkListAsync(urn.GetValueOrDefault());
+                        break;
+                    case CookieActions.UnsetDefault:
+                        _benchmarkBasketService.UnsetDefaultSchool();
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {
-                _benchmarkBasketService.UpdateSchoolComparisonListCookie(withAction, null);
+                _benchmarkBasketService.ClearSchoolBenchmarkList();
             }                       
 
             return PartialView("Partials/BenchmarkListBanner",
@@ -157,18 +164,9 @@ namespace SFB.Web.UI.Controllers
         {            
             foreach (var urn in urns)
             {
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
-
                 try
                 {
-                    _benchmarkBasketService.UpdateSchoolComparisonListCookie(CookieActions.Add,
-                        new BenchmarkSchoolModel()
-                        {
-                            Name = benchmarkSchool.Name,
-                            Urn = benchmarkSchool.Id.ToString(),
-                            Type = benchmarkSchool.Type,
-                            EstabType = benchmarkSchool.EstablishmentType.ToString()
-                        });
+                    await _benchmarkBasketService.AddSchoolToBenchmarkListAsync(urn);
                 }
                 catch (ApplicationException) { }
             }

@@ -5,8 +5,6 @@ using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Controllers;
-using SFB.Web.UI.Helpers;
-using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using System.Collections.Generic;
@@ -35,9 +33,9 @@ namespace SFB.Web.UI.UnitTests
 
             var result = controller.WithoutBaseSchool();
 
-            mockCookieManager.Verify(m => m.UpdateManualComparisonListCookie(CookieActions.UnsetDefault, null));
-            mockCookieManager.Verify(m => m.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null));
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null));
+            mockCookieManager.Verify(m => m.UnsetDefaultSchoolInManualBenchmarkList());
+            mockCookieManager.Verify(m => m.ClearManualBenchmarkList());
+            mockCookieManager.Verify(m => m.UnsetDefaultSchool());
         }
 
 
@@ -51,8 +49,8 @@ namespace SFB.Web.UI.UnitTests
             }
 
             var mockCookieManager = new Mock<IBenchmarkBasketService>();
-            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
-            mockCookieManager.Setup(m => m.ExtractManualComparisonListFromCookie()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
+            mockCookieManager.Setup(m => m.GetSchoolBenchmarkList()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
+            mockCookieManager.Setup(m => m.GetManualBenchmarkList()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
             
             var mockDocumentDbService = new Mock<IFinancialDataService>();
 

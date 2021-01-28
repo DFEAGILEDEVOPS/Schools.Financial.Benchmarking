@@ -29,7 +29,7 @@ namespace SFB.Web.UI.UnitTests
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
-            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockCookieManager.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockComparisonService = new Mock<IComparisonService>();
 
@@ -51,7 +51,7 @@ namespace SFB.Web.UI.UnitTests
             fakeSchoolComparisonList.HomeSchoolName = "home school";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test", Urn = "100" });
 
-            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockCookieManager.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var _mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -100,7 +100,7 @@ namespace SFB.Web.UI.UnitTests
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
-            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockCookieManager.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockComparisonService = new Mock<IComparisonService>();
 
@@ -129,7 +129,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = controller.SelectSchoolType(null, ComparisonType.Advanced, EstablishmentType.Maintained, 15);
 
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null));
+            mockCookieManager.Verify(m => m.UnsetDefaultSchool());
         }
 
         [Test]
