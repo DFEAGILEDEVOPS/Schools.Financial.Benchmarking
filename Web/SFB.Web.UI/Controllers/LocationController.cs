@@ -10,10 +10,10 @@ namespace SFB.Web.UI.Controllers
 {
     public class LocationController : Controller
     {
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
         private readonly ILocationSearchService _locationSearchService;
 
-        public LocationController(IBenchmarkBasketService benchmarkBasketService, ILocationSearchService locationSearchService)
+        public LocationController(ISchoolBenchmarkListService benchmarkBasketService, ILocationSearchService locationSearchService)
         {
             _benchmarkBasketService = benchmarkBasketService;
             _locationSearchService = locationSearchService;

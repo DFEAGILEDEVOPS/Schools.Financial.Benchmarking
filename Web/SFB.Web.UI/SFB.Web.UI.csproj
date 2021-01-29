@@ -480,6 +480,7 @@
     <Compile Include="Models\SchoolListViewModel.cs" />
     <Compile Include="Models\SchoolNotFoundViewModel.cs" />
     <Compile Include="Models\SchoolSearchResultViewModel.cs" />
+    <Compile Include="Models\SchoolViewModelWithNoDefaultSchool.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\SchoolSummaryViewModel.cs" />
     <Compile Include="Models\SchoolViewModel.cs" />
@@ -499,10 +500,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\BenchmarkBasketService.cs" />
+    <Compile Include="Services\ManualBenchmarkListService.cs" />
+    <Compile Include="Services\SchoolBenchmarkListService.cs" />
     <Compile Include="Services\FinancialCalculationsService.cs" />
-    <Compile Include="Services\IBenchmarkBasketService.cs" />
+    <Compile Include="Services\IManualBenchmarkListService.cs" />
+    <Compile Include="Services\ISchoolBenchmarkListService.cs" />
     <Compile Include="Services\IFinancialCalculationsService.cs" />
+    <Compile Include="Services\ITrustBenchmarkListService.cs" />
+    <Compile Include="Services\TrustBenchmarkListService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

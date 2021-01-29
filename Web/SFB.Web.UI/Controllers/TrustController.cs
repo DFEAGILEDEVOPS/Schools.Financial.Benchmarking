@@ -28,11 +28,11 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly ITrustHistoryService _trustHistoryService;
         private readonly IDownloadCSVBuilder _csvBuilder;
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
 
         public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contexDataService, IDownloadCSVBuilder csvBuilder,
-            IBenchmarkBasketService benchmarkBasketService, ITrustHistoryService trustHistoryService)
+            ISchoolBenchmarkListService benchmarkBasketService, ITrustHistoryService trustHistoryService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;

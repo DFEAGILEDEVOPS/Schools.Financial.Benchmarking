@@ -78,7 +78,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockDownloadCsvBuilder = new Mock<IDownloadCSVBuilder>();
 
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
@@ -132,7 +132,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockDownloadCsvBuilder = new Mock<IDownloadCSVBuilder>();
 
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
@@ -187,7 +187,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockDownloadCsvBuilder = new Mock<IDownloadCSVBuilder>();
 
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 

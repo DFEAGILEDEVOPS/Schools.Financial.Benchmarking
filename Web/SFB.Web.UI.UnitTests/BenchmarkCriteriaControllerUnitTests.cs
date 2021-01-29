@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Services.DataAccess;
-using SFB.Web.UI.Helpers;
 using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.ApplicationCore.DataAccess;
@@ -25,7 +24,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task AskForOverwriteStrategyIfMultipleSchoolsInComparisonListAsync()
         {
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
@@ -45,7 +44,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task DoNotAskForOverwriteStrategyIfOnlyBenchmarkSchoolInListAsync()
         {
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "100";
             fakeSchoolComparisonList.HomeSchoolName = "home school";
@@ -96,7 +95,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task DisplayReplaceViewIfBasketLimitExceedAsync()
         {
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel() { Name = "test" });
@@ -115,7 +114,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void SelectSchoolTypeActionClearsBaseSchoolWhenAdvancedComparisonWithoutBaseSchool()
         {
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
 
             var _mockDocumentDbService = new Mock<IFinancialDataService>();
 
@@ -135,7 +134,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task AdvancedCharacteristicsShouldReturnErrorIfLaCodeIsNotFoundAsync()
         {
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             //mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(new SchoolComparisonListModel());
 
             var _mockDocumentDbService = new Mock<IFinancialDataService>();

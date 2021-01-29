@@ -47,7 +47,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockFinancialDataService = new Mock<IFinancialDataService>();
 
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
@@ -60,7 +60,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
-            var result = await controller.UpdateBenchmarkBasketAsync(null, CookieActions.RemoveAll);
+            var result = await controller.UpdateBenchmarkBasket(null, CookieActions.RemoveAll);
 
             mockCookieManager.Verify(m => m.ClearSchoolBenchmarkList(),Times.Once);
 

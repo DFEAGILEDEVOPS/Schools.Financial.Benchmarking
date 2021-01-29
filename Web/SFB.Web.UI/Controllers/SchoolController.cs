@@ -26,14 +26,14 @@ namespace SFB.Web.UI.Controllers
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
         private readonly ILocalAuthoritiesService _laSearchService;
         private readonly IActiveUrnsService _activeUrnsService;
         private readonly ISchoolVMBuilder _schoolVMBuilder;
 
         public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
-            IBenchmarkBasketService benchmarkBasketService, ILocalAuthoritiesService laSearchService,
+            ISchoolBenchmarkListService benchmarkBasketService, ILocalAuthoritiesService laSearchService,
             IActiveUrnsService activeUrnsService, ISchoolVMBuilder schoolVMBuilder)
         {
             _historicalChartBuilder = historicalChartBuilder;
@@ -164,11 +164,7 @@ namespace SFB.Web.UI.Controllers
         {            
             foreach (var urn in urns)
             {
-                try
-                {
-                    await _benchmarkBasketService.AddSchoolToBenchmarkListAsync(urn);
-                }
-                catch (ApplicationException) { }
+                await _benchmarkBasketService.TryAddSchoolToBenchmarkListAsync(urn);
             }
 
             return PartialView("Partials/BenchmarkListBanner",

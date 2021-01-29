@@ -18,12 +18,12 @@ namespace SFB.Web.UI.Controllers
     public class TrustComparisonController : Controller
     {
         private readonly IFinancialDataService _financialDataService;
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ITrustBenchmarkListService _trustBenchmarkListService;
 
-        public TrustComparisonController(IFinancialDataService financialDataService, IBenchmarkBasketService benchmarkBasketService)
+        public TrustComparisonController(IFinancialDataService financialDataService, ITrustBenchmarkListService trustBenchmarkListService)
         {
             _financialDataService = financialDataService;
-            _benchmarkBasketService = benchmarkBasketService;
+            _trustBenchmarkListService = trustBenchmarkListService;
         }
 
         public async Task<ActionResult> Index(int companyNo)
@@ -32,9 +32,9 @@ namespace SFB.Web.UI.Controllers
 
             await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
 
-            await _benchmarkBasketService.SetTrustAsDefaultAsync(companyNo);
+            await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
 
-            var trustComparisonList = _benchmarkBasketService.GetTrustBenchmarkList();
+            var trustComparisonList = _trustBenchmarkListService.GetTrustBenchmarkList();
 
             var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
 
@@ -67,18 +67,12 @@ namespace SFB.Web.UI.Controllers
 
             if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
             {
-                _benchmarkBasketService.ClearTrustBenchmarkList();
-                _benchmarkBasketService.AddDefaultTrustToBenchmarkList();
+                _trustBenchmarkListService.ClearTrustBenchmarkList();
+                _trustBenchmarkListService.AddDefaultTrustToBenchmarkList();
                 var trustDocs = await _financialDataService.SearchTrustsByCriteriaAsync(criteria.AdvancedCriteria);
                 foreach (var doc in trustDocs)
                 {
-                    try
-                    {
-                        _benchmarkBasketService.AddTrustToBenchmarkList(doc.CompanyNumber.GetValueOrDefault(), doc.TrustOrCompanyName);
-                    }catch (ApplicationException)
-                    {
-                        //Default trust cannot be added twice. Do nothing.
-                    }
+                    _trustBenchmarkListService.TryAddTrustToBenchmarkList(doc.CompanyNumber.GetValueOrDefault(), doc.TrustOrCompanyName);
                 }
             }
             return Redirect("/BenchmarkCharts/Mats");
@@ -89,10 +83,10 @@ namespace SFB.Web.UI.Controllers
             TrustComparisonListModel vm;
             try
             {
-                vm = _benchmarkBasketService.AddTrustToBenchmarkList(companyNo, matName);
+                vm = _trustBenchmarkListService.AddTrustToBenchmarkList(companyNo, matName);
             }catch(ApplicationException ex)
             {
-                vm = _benchmarkBasketService.GetTrustBenchmarkList();
+                vm = _trustBenchmarkListService.GetTrustBenchmarkList();
                 ViewBag.Error = ex.Message;
             }
 
@@ -101,14 +95,14 @@ namespace SFB.Web.UI.Controllers
 
         public PartialViewResult RemoveTrust(int companyNo)
         {
-            var vm = _benchmarkBasketService.RemoveTrustFromBenchmarkList(companyNo);
+            var vm = _trustBenchmarkListService.RemoveTrustFromBenchmarkList(companyNo);
 
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }
 
         public PartialViewResult RemoveAllTrusts()
         {
-            var vm = _benchmarkBasketService.ClearTrustBenchmarkList();
+            var vm = _trustBenchmarkListService.ClearTrustBenchmarkList();
 
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }

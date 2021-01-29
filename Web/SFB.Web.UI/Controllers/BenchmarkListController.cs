@@ -15,17 +15,17 @@ namespace SFB.Web.UI.Controllers
     public class BenchmarkListController : Controller
     {
         private readonly IContextDataService _contextDataService;
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
         private readonly IFinancialDataService _financialDataService;
 
-        public BenchmarkListController(IContextDataService contextDataService, IBenchmarkBasketService benchmarkBasketService, IFinancialDataService financialDataService)
+        public BenchmarkListController(IContextDataService contextDataService, ISchoolBenchmarkListService benchmarkBasketService, IFinancialDataService financialDataService)
         {
             _contextDataService = contextDataService;
             _benchmarkBasketService = benchmarkBasketService;
             _financialDataService = financialDataService;
         }
 
-        public async System.Threading.Tasks.Task<ActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             var comparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
             
@@ -40,14 +40,9 @@ namespace SFB.Web.UI.Controllers
                     var school = new SchoolViewModel(benchmarkSchoolDataObject);
                     var financialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(school.Id, school.EstablishmentType);
 
-                    var benchmarkSchool = new BenchmarkSchoolModel()
+                    var benchmarkSchool = new BenchmarkSchoolModel(school)
                     {
                         Address = school.Address,
-                        Name = school.Name,
-                        Phase = school.OverallPhase,
-                        Type = school.Type,
-                        EstabType = school.EstablishmentType.ToString(),
-                        Urn = school.Id.ToString(),
                         IsReturnsComplete = financialDataModel.IsReturnsComplete,
                         WorkforceDataPresent = financialDataModel.WorkforceDataPresent
                     };
@@ -61,7 +56,7 @@ namespace SFB.Web.UI.Controllers
             return View(comparisonList);
         }
 
-        public async Task<PartialViewResult> UpdateBenchmarkBasketAsync(int? urn, CookieActions withAction)
+        public async Task<PartialViewResult> UpdateBenchmarkBasket(int? urn, CookieActions withAction)
         {
             if (urn.HasValue)
             {

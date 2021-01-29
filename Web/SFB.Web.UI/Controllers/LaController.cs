@@ -12,9 +12,9 @@ namespace SFB.Web.UI.Controllers
     public class LaController : Controller
     {
         private readonly ILaSearchService _laService;
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
 
-        public LaController(ILaSearchService laService, IBenchmarkBasketService benchmarkBasketService)
+        public LaController(ILaSearchService laService, ISchoolBenchmarkListService benchmarkBasketService)
         {
             _laService = laService;
             _benchmarkBasketService = benchmarkBasketService;

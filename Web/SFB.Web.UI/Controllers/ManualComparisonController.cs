@@ -27,10 +27,11 @@ namespace SFB.Web.UI.Controllers
         private readonly IValidationService _valService;
         private readonly ILocationSearchService _locationSearchService;
         private readonly ILaSearchService _laSearchService;
+        private readonly IManualBenchmarkListService _manualBenchmarkListService;
 
-        public ManualComparisonController(IBenchmarkBasketService benchmarkBasketService, ILocalAuthoritiesService laService, 
+        public ManualComparisonController(ISchoolBenchmarkListService benchmarkBasketService, ILocalAuthoritiesService laService, 
             IContextDataService contextDataService, IValidationService valService, ILocationSearchService locationSearchService, 
-            ISchoolSearchService schoolSearchService, IFilterBuilder filterBuilder, ILaSearchService laSearchService)
+            ISchoolSearchService schoolSearchService, IFilterBuilder filterBuilder, ILaSearchService laSearchService, IManualBenchmarkListService manualBenchmarkListService)
             : base(schoolSearchService, null, benchmarkBasketService, filterBuilder)
         {
             _laService = laService;
@@ -38,15 +39,16 @@ namespace SFB.Web.UI.Controllers
             _contextDataService = contextDataService;
             _valService = valService;
             _locationSearchService = locationSearchService;
+            _manualBenchmarkListService = manualBenchmarkListService;
         }
 
         public ActionResult Index()
         {
-            var schoolComparisonListModel = _benchmarkBasketService.GetSchoolBenchmarkList();
+            var schoolComparisonListModel = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             var vm = new SearchViewModel(schoolComparisonListModel, "");
             vm.Authorities = _laService.GetLocalAuthorities();
-            _benchmarkBasketService.ClearManualBenchmarkList();
-            _benchmarkBasketService.SetSchoolAsDefaultInManualComparisonList(schoolComparisonListModel);
+            _manualBenchmarkListService.ClearManualBenchmarkList();
+            _manualBenchmarkListService.SetSchoolAsDefaultInManualBenchmarkList(schoolComparisonListModel);
             return View("Index",vm);
         }
 
@@ -56,9 +58,9 @@ namespace SFB.Web.UI.Controllers
             {
                 Authorities = _laService.GetLocalAuthorities()
             };
-            _benchmarkBasketService.ClearManualBenchmarkList();
-            _benchmarkBasketService.UnsetDefaultSchoolInManualBenchmarkList();
-            _benchmarkBasketService.UnsetDefaultSchool();
+            _manualBenchmarkListService.ClearManualBenchmarkList();
+            _manualBenchmarkListService.UnsetDefaultSchoolInManualBenchmarkList();
+            _schoolBenchmarkListService.UnsetDefaultSchool();
             return View("Index", vm);
         }
 
@@ -80,8 +82,8 @@ namespace SFB.Web.UI.Controllers
             ViewBag.SearchMethod = "Manual";
             ViewBag.LaCodeName = laCodeName;
 
-            var comparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();            
-            var manualComparisonList = _benchmarkBasketService.GetManualBenchmarkList();
+            var comparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();            
+            var manualComparisonList = _manualBenchmarkListService.GetManualBenchmarkList();
 
             EdubaseDataObject contextDataObject = null;
             if (!string.IsNullOrEmpty(comparisonList.HomeSchoolUrn))
@@ -240,8 +242,8 @@ namespace SFB.Web.UI.Controllers
         {
             dynamic searchResponse;
 
-            var schoolComparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
-            var manualComparisonList = _benchmarkBasketService.GetManualBenchmarkList();
+            var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
+            var manualComparisonList = _manualBenchmarkListService.GetManualBenchmarkList();
 
             if (IsLaEstab(nameId))
             {
@@ -319,8 +321,8 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> OverwriteStrategy()
         {
-            var comparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
-            var manualComparisonList = _benchmarkBasketService.GetManualBenchmarkList();
+            var comparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
+            var manualComparisonList = _manualBenchmarkListService.GetManualBenchmarkList();
             if (comparisonList?.BenchmarkSchools?.Count > 0 && !comparisonList.BenchmarkSchools.All(s => s.Urn == comparisonList.HomeSchoolUrn))
             {
                 SchoolViewModel vm;
@@ -357,11 +359,7 @@ namespace SFB.Web.UI.Controllers
             {
                 foreach (var school in manualComparisonList.BenchmarkSchools)
                 {
-                    try
-                    {
-                        _benchmarkBasketService.AddSchoolToBenchmarkList(school);
-                    }
-                    catch (ApplicationException) { }//ignoring duplicate add exceptions
+                    _schoolBenchmarkListService.TryAddSchoolToBenchmarkList(school);
                 }
                 return Redirect("/BenchmarkCharts");
             }
@@ -371,8 +369,8 @@ namespace SFB.Web.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ReplaceAdd(BenchmarkListOverwriteStrategy? overwriteStrategy, string referrer)
         {
-            var comparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
-            var manualComparisonList = _benchmarkBasketService.GetManualBenchmarkList();
+            var comparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
+            var manualComparisonList = _manualBenchmarkListService.GetManualBenchmarkList();
 
             switch (overwriteStrategy)
             {
@@ -412,28 +410,20 @@ namespace SFB.Web.UI.Controllers
                     {
                         foreach (var school in manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn))
                         {
-                            try
-                            {
-                                _benchmarkBasketService.AddSchoolToBenchmarkList(school);
-                            }catch(ApplicationException) { } //duplicate school adds will be ignored
+                            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList(school);
                         }
                         return Redirect("/BenchmarkCharts");
                     }
                 case BenchmarkListOverwriteStrategy.Overwrite:                    
                 default:
-                    _benchmarkBasketService.ClearSchoolBenchmarkList();
+                    _schoolBenchmarkListService.ClearSchoolBenchmarkList();
                     foreach (var school in manualComparisonList.BenchmarkSchools.Where(s => s.Urn != manualComparisonList.HomeSchoolUrn))
                     {
-                        _benchmarkBasketService.AddSchoolToBenchmarkList(school);
+                        _schoolBenchmarkListService.AddSchoolToBenchmarkList(school);
                     }
-                    var benchmarkSchool = new BenchmarkSchoolModel()
-                    {
-                        Urn = manualComparisonList.HomeSchoolUrn,
-                        Name = manualComparisonList.HomeSchoolName,
-                        Type = manualComparisonList.HomeSchoolType,
-                        EstabType = manualComparisonList.HomeSchoolFinancialType
-                    };
-                    _benchmarkBasketService.SetSchoolAsDefault(benchmarkSchool);
+                    var benchmarkSchool = new BenchmarkSchoolModel(manualComparisonList);
+
+                    _schoolBenchmarkListService.SetSchoolAsDefault(benchmarkSchool);
                     return Redirect("/BenchmarkCharts");
             }
         }
@@ -444,23 +434,23 @@ namespace SFB.Web.UI.Controllers
 
             try
             {
-                _benchmarkBasketService.AddSchoolToManualBenchmarkList(benchmarkSchool);
+                _manualBenchmarkListService.AddSchoolToManualBenchmarkList(benchmarkSchool);
             }
             catch (ApplicationException ex)
             {
                 ViewBag.Error = ex.Message;
             }
 
-            var vm = _benchmarkBasketService.GetManualBenchmarkList();
+            var vm = _manualBenchmarkListService.GetManualBenchmarkList();
 
             return PartialView("Partials/SchoolsToAdd", vm.BenchmarkSchools.Where(s => s.Id != vm.HomeSchoolUrn).ToList());
         }
 
         public PartialViewResult RemoveSchool(int urn)
         {
-            _benchmarkBasketService.RemoveSchoolFromManualBenchmarkListAsync(urn);
+            _manualBenchmarkListService.RemoveSchoolFromManualBenchmarkListAsync(urn);
 
-            var vm = _benchmarkBasketService.GetManualBenchmarkList();
+            var vm = _manualBenchmarkListService.GetManualBenchmarkList();
 
             return PartialView("Partials/SchoolsToAdd", vm.BenchmarkSchools.Where(s => s.Id != vm.HomeSchoolUrn).ToList());
         }
@@ -472,25 +462,25 @@ namespace SFB.Web.UI.Controllers
                 switch (withAction)
                 {
                     case CookieActions.SetDefault:
-                        await _benchmarkBasketService.SetSchoolAsDefaultInManualComparisonList(urn.GetValueOrDefault());
+                        await _manualBenchmarkListService.SetSchoolAsDefaultInManualBenchmarkList(urn.GetValueOrDefault());
                         break;
                     case CookieActions.Add:
-                        await _benchmarkBasketService.AddSchoolToManualBenchmarkListAsync(urn.GetValueOrDefault());
+                        await _manualBenchmarkListService.AddSchoolToManualBenchmarkListAsync(urn.GetValueOrDefault());
                         break;
                     case CookieActions.Remove:
-                        await _benchmarkBasketService.RemoveSchoolFromManualBenchmarkListAsync(urn.GetValueOrDefault());
+                        await _manualBenchmarkListService.RemoveSchoolFromManualBenchmarkListAsync(urn.GetValueOrDefault());
                         break;
                     case CookieActions.UnsetDefault:
-                        _benchmarkBasketService.UnsetDefaultSchoolInManualBenchmarkList();
+                        _manualBenchmarkListService.UnsetDefaultSchoolInManualBenchmarkList();
                         break;
                 }
             }
             else
             {
-                _benchmarkBasketService.ClearManualBenchmarkList();
+                _manualBenchmarkListService.ClearManualBenchmarkList();
             }
 
-            return Json(_benchmarkBasketService.GetManualBenchmarkList().BenchmarkSchools.Count, JsonRequestBehavior.AllowGet);
+            return Json(_manualBenchmarkListService.GetManualBenchmarkList().BenchmarkSchools.Count, JsonRequestBehavior.AllowGet);
         }
     }
 }

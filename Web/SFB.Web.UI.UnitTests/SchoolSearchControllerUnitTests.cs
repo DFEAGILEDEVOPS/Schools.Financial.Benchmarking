@@ -35,7 +35,7 @@ namespace SFB.Web.UI.UnitTests
         private Mock<IContextDataService> _mockContextDataService;
         private Mock<ISchoolSearchService> _mockSchoolSearchService;
         private Mock<ITrustSearchService> _mockTrustSearchService;
-        private Mock<IBenchmarkBasketService> _mockCookieManager;
+        private Mock<ISchoolBenchmarkListService> _mockCookieManager;
 
         [SetUp]
         public void Setup()
@@ -55,7 +55,7 @@ namespace SFB.Web.UI.UnitTests
             _mockContextDataService = new Mock<IContextDataService>();
             _mockSchoolSearchService = new Mock<ISchoolSearchService>();
             _mockTrustSearchService = new Mock<ITrustSearchService>();
-            _mockCookieManager = new Mock<IBenchmarkBasketService>();
+            _mockCookieManager = new Mock<ISchoolBenchmarkListService>();
         }
 
         //[Test]

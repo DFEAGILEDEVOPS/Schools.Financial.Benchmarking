@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Models;
 using System;
 
 namespace SFB.Web.UI.Models
@@ -6,6 +8,41 @@ namespace SFB.Web.UI.Models
     [Serializable]
     public class BenchmarkSchoolModel : CompareEntityBase, IEquatable<BenchmarkSchoolModel>
     {
+        public BenchmarkSchoolModel() {}
+
+        public BenchmarkSchoolModel(SchoolViewModel schoolViewModel)
+        {
+            Name = schoolViewModel.Name;
+            Urn = schoolViewModel.Id.ToString();
+            Type = schoolViewModel.Type;
+            EstabType = schoolViewModel.EstablishmentType.ToString();
+            ProgressScore = schoolViewModel.ProgressScore;
+        }        
+        
+        public BenchmarkSchoolModel(EdubaseDataObject schoolContextData)
+        {
+            Name = schoolContextData.EstablishmentName;
+            Type = schoolContextData.TypeOfEstablishment;
+            EstabType = schoolContextData.FinanceType;
+            Urn = schoolContextData.URN.ToString();
+        }        
+        
+        public BenchmarkSchoolModel(SchoolTrustFinancialDataObject schoolFinanceData)
+        {
+            Name = schoolFinanceData.SchoolName;
+            Type = schoolFinanceData.Type;
+            EstabType = schoolFinanceData.FinanceType;
+            Urn = schoolFinanceData.URN.ToString();
+        }
+
+        public BenchmarkSchoolModel(SchoolComparisonListModel schoolComparisonList)
+        {
+            Urn = schoolComparisonList.HomeSchoolUrn;
+            Name = schoolComparisonList.HomeSchoolName;
+            Type = schoolComparisonList.HomeSchoolType;
+            EstabType = schoolComparisonList.HomeSchoolFinancialType;
+        }
+
         [JsonIgnore]
         public override string Id => Urn;
 

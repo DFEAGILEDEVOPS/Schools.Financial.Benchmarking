@@ -11,9 +11,9 @@ namespace SFB.Web.UI.Controllers
     public class HomeController : Controller
     {
         private readonly ILocalAuthoritiesService _laService;
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
 
-        public HomeController(ILocalAuthoritiesService laService, IBenchmarkBasketService benchmarkBasketService)
+        public HomeController(ILocalAuthoritiesService laService, ISchoolBenchmarkListService benchmarkBasketService)
         {
             _laService = laService;
             _benchmarkBasketService = benchmarkBasketService;

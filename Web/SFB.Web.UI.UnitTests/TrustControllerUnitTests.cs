@@ -30,7 +30,7 @@ namespace SFB.Web.UI.UnitTests
             var mockFinancialDataService = new Mock<IFinancialDataService>();
             var mockFCService = new Mock<IFinancialCalculationsService>();
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             var mockEdubaseDataService = new Mock<IContextDataService>();
             var mockTrustHistoryService = new Mock<ITrustHistoryService>();
 
@@ -93,7 +93,7 @@ namespace SFB.Web.UI.UnitTests
             var mockFinancialDataService = new Mock<IFinancialDataService>();
             var mockFCService = new Mock<IFinancialCalculationsService>();
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             var mockEdubaseDataService = new Mock<IContextDataService>();
             var mockTrustHistoryService = new Mock<ITrustHistoryService>();
 
@@ -155,7 +155,7 @@ namespace SFB.Web.UI.UnitTests
             var mockFinancialDataService = new Mock<IFinancialDataService>();
             var mockFCService = new Mock<IFinancialCalculationsService>();
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
-            var mockCookieManager = new Mock<IBenchmarkBasketService>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             var mockEdubaseDataService = new Mock<IContextDataService>();
             var mockTrustHistoryService = new Mock<ITrustHistoryService>();
 

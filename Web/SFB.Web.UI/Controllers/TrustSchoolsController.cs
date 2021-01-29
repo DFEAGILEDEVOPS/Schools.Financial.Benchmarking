@@ -17,9 +17,9 @@ namespace SFB.Web.UI.Controllers
     {
         private readonly ISchoolSearchService _schoolSearchService;
         private readonly IFilterBuilder _filterBuilder;
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
 
-        public TrustSchoolsController(IFilterBuilder filterBuilder, ISchoolSearchService schoolSearchService, IBenchmarkBasketService benchmarkBasketService)
+        public TrustSchoolsController(IFilterBuilder filterBuilder, ISchoolSearchService schoolSearchService, ISchoolBenchmarkListService benchmarkBasketService)
         {
             _filterBuilder = filterBuilder;
             _schoolSearchService = schoolSearchService;

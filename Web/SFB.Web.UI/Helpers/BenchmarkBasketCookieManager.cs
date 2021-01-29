@@ -207,12 +207,7 @@ namespace SFB.Web.UI.Helpers
                 var comparisonList = JsonConvert.DeserializeObject<SchoolComparisonListModel>(cookie.Value, new JsonSerializerSettings() { StringEscapeHandling = StringEscapeHandling.EscapeNonAscii, Culture = new CultureInfo("en-GB", true) });
                 if (comparisonList.BenchmarkSchools.All(s => s.Urn != comparisonList.HomeSchoolUrn))
                 {
-                    AddSchoolToCookie(new BenchmarkSchoolModel() {
-                        Urn = comparisonList.HomeSchoolUrn,
-                        Name = comparisonList.HomeSchoolName,
-                        Type = comparisonList.HomeSchoolType,
-                        EstabType = comparisonList.HomeSchoolFinancialType
-                    }, cookieName);
+                    AddSchoolToCookie(new BenchmarkSchoolModel(comparisonList), cookieName);
                 }
             }
 

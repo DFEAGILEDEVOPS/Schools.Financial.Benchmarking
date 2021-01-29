@@ -33,7 +33,7 @@ namespace SFB.Web.UI.Controllers
             ILaSearchService laSearchService, ILocationSearchService locationSearchService, IFilterBuilder filterBuilder,
             IValidationService valService, IContextDataService contextDataService,
             ITrustSearchService trustSearchService, ISchoolSearchService schoolSearchService,
-            IBenchmarkBasketService benchmarkBasketService)
+            ISchoolBenchmarkListService benchmarkBasketService)
             : base(schoolSearchService, trustSearchService, benchmarkBasketService, filterBuilder)
         {
             _laService = laService;
@@ -218,7 +218,7 @@ namespace SFB.Web.UI.Controllers
 
             var trustListViewModel = new TrustListViewModel(academyTrustList, null, searchType, nameKeyword, locationKeyword, laKeyword, orderBy)
             {
-                SchoolComparisonList = _benchmarkBasketService.GetSchoolBenchmarkList(),
+                SchoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList(),
 
                 Pagination = new Pagination
                 {
@@ -313,7 +313,7 @@ namespace SFB.Web.UI.Controllers
 
         private ActionResult ErrorView(string searchType, string referrer, string errorMessage)
         {
-            var searchVM = new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), searchType)
+            var searchVM = new SearchViewModel(_schoolBenchmarkListService.GetSchoolBenchmarkList(), searchType)
             {
                 SearchType = searchType,
                 ErrorMessage = errorMessage,

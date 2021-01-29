@@ -26,7 +26,7 @@ namespace SFB.Web.UI.Controllers
         private readonly IContextDataService _contextDataService;
         private readonly ILocalAuthoritiesService _laService;
         private readonly ILaSearchService _laSearchService;
-        private readonly IBenchmarkBasketService _benchmarkBasketService;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
         private readonly IComparisonService _comparisonService;
         private readonly IValidationService _valService;
 
@@ -35,7 +35,7 @@ namespace SFB.Web.UI.Controllers
             IFinancialDataService financialDataService, 
             IContextDataService contextDataService, 
             ILaSearchService laSearchService,
-            IBenchmarkBasketService benchmarkBasketService, 
+            ISchoolBenchmarkListService benchmarkBasketService, 
             IComparisonService comparisonService,
             IValidationService valService)
         {
