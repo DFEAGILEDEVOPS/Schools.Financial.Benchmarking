@@ -397,7 +397,7 @@ namespace SFB.Web.UI.Controllers
 
             _schoolBenchmarkListService.SetSchoolAsDefault(benchmarkSchool);
 
-            _schoolBenchmarkListService.AddSchoolToBenchmarkList(benchmarkSchool);
+            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList(benchmarkSchool);
 
             var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(TabType.Custom, ChartGroupType.Custom, null, CentralFinancingType.Include);
 
