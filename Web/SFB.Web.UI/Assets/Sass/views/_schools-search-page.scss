@@ -177,7 +177,7 @@
         display: block;
     }
 
-    nav.tabs ol {
+    div.custom.tabs ul {
         @include media-down(tablet) {
             justify-content: flex-start;
 

@@ -273,58 +273,80 @@
 
 
         <a name="charts"></a>
-        <nav id="tabs" class="tabs" role="navigation">
-            <ol role="tablist">
+        <div id="tabs" class="custom tabs">
+            <ul role="tablist">
                 <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
-                    <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")" role="tab" class="a-button" href='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</a>
+                    <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")" 
+                       tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")" 
+                       role="tab" 
+                       aria-controls="tabPanel"
+                       class="a-button" 
+                       href="javascript: void(0)"
+                       onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
+                       onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</a>
                 </li>
                 <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
-                    <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")" role="tab" class="a-button" href='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</a>
+                    <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")" 
+                       tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
+                       role="tab" 
+                       aria-controls="tabPanel"
+                       class="a-button" 
+                       href="javascript: void(0)"
+                       onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
+                       onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</a>
                 </li>
                 <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
-                    <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")" role="tab" class="a-button" href='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</a>
+                    <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")" 
+                       tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")" 
+                       role="tab" 
+                       aria-controls="tabPanel"
+                       class="a-button" 
+                       href="javascript: void(0)"
+                       onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
+                       onclick='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</a>
                 </li>
-            </ol>
-        </nav>
-
-        <div class="sticky-div sticky-chart-controls">
-            <div id="controls-accordion" class="accordion mobile-only-accordion">
-                <div class="accordion-section">
-                    <fieldset role="group">
-                        <legend class="visually-hidden">Filters</legend>
-                        <div class="accordion-section-header">
-                            <h2 class="heading-medium">Filters</h2>
-                        </div>
-                        <div class="accordion-section-body">
-                            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-                            @Html.Partial("Partials/ValueSelect")
-                            @Html.Partial("Partials/TrustCentralFinancing")
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
+            </ul>
         </div>
 
-        <div class="charts-section">
-            <div class="grid-row">
-                <div autocomplete="off">
-                    <div class="column-full font-xsmall chartTable hide-in-print">
-                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
-                    </div>
-                    <div class="column-full font-xsmall hide-in-print">
-                        <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
-                            <span><</span>
-                            <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
-                        </button>
+        <div id="tabPanel" role="tabpanel">
+            <div class="sticky-div sticky-chart-controls">
+                <div id="controls-accordion" class="accordion mobile-only-accordion">
+                    <div class="accordion-section">
+                        <fieldset role="group">
+                            <legend class="visually-hidden">Filters</legend>
+                            <div class="accordion-section-header">
+                                <h2 class="heading-medium">Filters</h2>
+                            </div>
+                            <div class="accordion-section-body">
+                                @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                                @Html.Partial("Partials/ValueSelect")
+                                @Html.Partial("Partials/TrustCentralFinancing")
+                            </div>
+                        </fieldset>
                     </div>
                 </div>
             </div>
-            <div class="historical-charts-list">
-                @Html.Partial("Partials/Chart", Model)
+
+            <div class="charts-section">
+                <div class="grid-row">
+                    <div autocomplete="off">
+                        <div class="column-full font-xsmall chartTable hide-in-print">
+                            <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                            <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                        </div>
+                        <div class="column-full font-xsmall hide-in-print">
+                            <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                                <span><</span>
+                                <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="historical-charts-list">
+                    @Html.Partial("Partials/Chart", Model)
+                </div>
             </div>
         </div>
-
         <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
         @section ViewScripts {
@@ -333,6 +355,6 @@
             <script src="~/node_modules/lodash/lodash.min.js"></script>
 
             <script>
-        DfE.Views.TrustDetailsViewModel = new TrustDetailsViewModel('@ViewBag.ChartFormat');
+                DfE.Views.TrustDetailsViewModel = new TrustDetailsViewModel('@ViewBag.ChartFormat');
             </script>
         }

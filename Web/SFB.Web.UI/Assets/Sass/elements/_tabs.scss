@@ -1,11 +1,11 @@
 
 $tabheight:40px;
 
-nav.tabs {
+.custom.tabs {
     background-color: white;
     z-index: 1000;
 
-    ol {
+    ul {
         margin-top: 14px;
         padding-left: 0;
         display: flex;

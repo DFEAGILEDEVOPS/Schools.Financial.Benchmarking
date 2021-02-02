@@ -1,6 +1,9 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
 
-<form action="/BenchmarkCriteria/StepOne" class="tab-content tab-content--@ViewHelpers.NoDefaultTabActive(Model.SearchType)" id="NoDefaultTabContent">
+<form action="/BenchmarkCriteria/StepOne" 
+      class="tab-content tab-content--@ViewHelpers.NoDefaultTabActive(Model.SearchType)" 
+      id="NoDefaultTabContent"
+      role="tabpanel">
     <div class="form-group">
         <fieldset>
 
@@ -28,7 +31,7 @@
     </div>
     <div class="grid-row mb-1">
         <div class="column-half">
-            <div class="column-one-third next-button">
+            <div class="column-half next-button">
                 <button type="submit" class="button">Continue</button>
             </div>
         </div>
