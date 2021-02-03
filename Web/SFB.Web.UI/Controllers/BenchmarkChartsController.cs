@@ -733,7 +733,8 @@ namespace SFB.Web.UI.Controllers
             CentralFinancingType centralFinancing = CentralFinancingType.Include, 
             MatFinancingType trustCentralFinancing = MatFinancingType.TrustAndAcademies,
             EstablishmentType type = EstablishmentType.All, ChartFormat format = ChartFormat.Charts,
-            ComparisonType comparisonType = ComparisonType.Manual)
+            ComparisonType comparisonType = ComparisonType.Manual,
+            string bicComparisonOverallPhase = "Primary")
         {
             List<ChartViewModel> benchmarkCharts;
             if (type == EstablishmentType.MAT)
@@ -754,6 +755,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.TrustFinancing = trustCentralFinancing;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.ComparisonType = comparisonType;
+            ViewBag.BicComparisonOverallPhase = bicComparisonOverallPhase;
 
             return PartialView("Partials/Chart", benchmarkCharts);
         }

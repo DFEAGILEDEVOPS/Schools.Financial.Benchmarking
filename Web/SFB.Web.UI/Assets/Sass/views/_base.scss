@@ -975,15 +975,25 @@ a.button {
         margin-bottom: 30px;
     }
 
-    table.tablesorter.chart-table th, table.tablesorter.context-table th {
-        color: $text-colour;
-        //white-space: nowrap;
-        @include bold-16();
+table.tablesorter.chart-table th, table.tablesorter.context-table th {
+    color: $text-colour;
+    @include bold-16();
 
-        a {
-            text-decoration: none;
+    &.tablesorter-header {
+        color: $link-colour;
+        font-weight: 500;
+
+        &.tablesorter-headerAsc, &.tablesorter-headerDesc {
+            font-weight: 700;
         }
     }
+
+    a {
+        text-decoration: none;
+    }
+}
+
+
 
     .hide-show-button {
         float: right;

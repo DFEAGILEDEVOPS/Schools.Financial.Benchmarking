@@ -17,9 +17,13 @@
         $(document).ready(() => {
             this.hideNaProgressScores();
 
-            $("#benchmarkChartsList table.data-table-js").tablesorter();
-            $("#bestInClassTabSection table.data-table-js").tablesorter();
-            $("#comparisonSchoolsTabSection table.data-table-js").tablesorter();
+            $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]]});
+            $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]]});
+            $("#benchmarkChartsList table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
+            $("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+            $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+            $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+
             $(".chart-table th").removeAttr("aria-label");
             
             this.GenerateCharts();
@@ -731,7 +735,14 @@
                 this.RefreshAddRemoveLinks();
                 $('.save-as-image').show();
                 this.GenerateCharts(unitParameter);
-                $("table.data-table-js").tablesorter();
+
+                $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                $("#benchmarkChartsList table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
+                $("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+
             }
         });
     }
@@ -912,7 +923,13 @@
                     $("#tabsSection form").html(formHtml);
                     $("#tabsSection form").show();
                     $('.sticky-div').Stickyfill();  
-                    $("table.data-table-js").tablesorter();
+                    $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                    $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                    $("#benchmarkChartsList table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
+                    $("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                    $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                    $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+
                     let unitParameter = $("#ShowValue").val();
                     this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
