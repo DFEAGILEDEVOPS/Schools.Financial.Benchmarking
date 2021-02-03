@@ -157,12 +157,11 @@
 
   };
 
-  OptionSelect.prototype.checkForSpecialKeys = function checkForSpecialKeys(e){
-    if(e.keyCode == 13) {
-
-      // keyCode 13 is the return key.
-      this.toggleOptionSelect();
-    }
+    OptionSelect.prototype.checkForSpecialKeys = function checkForSpecialKeys(e) {
+      if (e.keyCode == 13 || e.keyCode ==32) {      
+          this.toggleOptionSelect();
+          e.preventDefault();
+      }
   };
 
   GOVUK.OptionSelect = OptionSelect;
