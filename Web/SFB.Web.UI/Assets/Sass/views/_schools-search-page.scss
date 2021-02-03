@@ -52,13 +52,18 @@
 
         &:hover, a:hover {
             background-color: $link-hover-colour;
-            color: white;
+            color: white !important;
             cursor: pointer;
         }
     }
 
     .tt-cursor {
-        background-color: #f9f9f9;
+        background-color: $link-hover-colour;
+        color: white;
+
+        a {
+            color: white;
+        }
     }
 
     .view-tables-legend, search-by-legend {
