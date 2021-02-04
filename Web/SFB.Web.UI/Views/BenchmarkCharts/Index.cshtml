@@ -269,9 +269,10 @@ else
         <div class="download-links hide-in-print grid-row">
             <div id="downloadLinkContainer" class="download-link">
                 <div class="download">
-                    <a id="DownloadLink" class="no-underline bold-xsmall sfb_gtm_csv_bm" href="/BenchmarkCharts/Download?type=@Model.EstablishmentType">
-                        <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" /><span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
-                    </a>
+                    <button id="DownloadLink" class="link-button no-underline bold-xsmall sfb_gtm_csv_bm" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadData('@Model.EstablishmentType')">
+                        <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" />
+                        <span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
+                    </button>
                 </div>
             </div>
             <div class="download-link pdf-ppt">
@@ -341,7 +342,6 @@ else
 }
 
 
-
 @section AfterMain{
     <div class="full-page-width-wrapper hide-in-print" role="region" aria-label="Feedback Question">
         <div class="improve-this-page" data-module="improve-this-page">
@@ -367,3 +367,5 @@ else
     </script>
 
 }
+
+<iframe id="download_iframe" style="display:none;"></iframe>
