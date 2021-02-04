@@ -16,7 +16,7 @@
                     @{
                         var referrer = Request.IsAjaxRequest() ? Request.UrlReferrer.ToString() : Request.RawUrl;
                     }
-                    <a class="banner__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@System.Web.HttpUtility.UrlEncode(referrer)">Edit basket</a>
+                    <a class="banner__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@System.Web.HttpUtility.UrlEncode(referrer)">Edit benchmark basket</a>
 
                     @if (!((RazorView)ViewContext.View).ViewPath.ToLower().Contains("benchmarkcharts") && Model.ComparisonListCount >= 2)
                     {

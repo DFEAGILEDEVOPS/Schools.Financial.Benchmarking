@@ -1228,7 +1228,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     }
 
     .dfs-panel {
-        background-color: rgba(0, 94, 165, 0.0980392156862745);
+        background-color: #f1f1f1;
         border-color: $govuk-blue;
         margin-top: 0.8em;
         float: left;
@@ -1249,3 +1249,4 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     .strictmode .download-link.pdf-ppt {
         display: block;
     }
+
