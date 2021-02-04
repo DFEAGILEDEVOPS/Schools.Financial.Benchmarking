@@ -260,7 +260,7 @@
         <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
             <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
                tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")" 
-               class="a-button" 
+               class="tab-link" 
                role="tab"
                aria-controls="tabPanel"
                onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
@@ -270,7 +270,7 @@
         <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
             <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")" 
                tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
-               class="a-button" 
+               class="tab-link" 
                role="tab" 
                aria-controls="tabPanel"
                onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
@@ -280,7 +280,7 @@
         <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
             <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")" 
                tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")" 
-               class="a-button" 
+               class="tab-link" 
                role="tab" 
                aria-controls="tabPanel"
                onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
@@ -290,7 +290,7 @@
         <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
             <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")" 
                tabindex="@(ViewBag.Tab == TabType.Workforce ? "0" : "-1")" 
-               class="a-button" 
+               class="tab-link" 
                role="tab"
                aria-controls="tabPanel"
                onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"

@@ -916,8 +916,8 @@ a.button {
         text-decoration-style: dotted;
     }
 
-    .skip-map, .hidden-button {
-        color: white !important;
+    a.skip-map, .hidden-button {
+        color: white;
         font-size: 16px;
 
         @include media(mobile) {
@@ -927,7 +927,12 @@ a.button {
 
         &:focus {
             height: auto;
-            color: #1D70B8;
+            outline: 3px solid transparent;
+            color: #0b0c0c!important;
+            background-color: #fd0;
+            -webkit-box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+            box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+            text-decoration: none;
         }
 
         &:hover {
@@ -935,9 +940,19 @@ a.button {
         }
     }
 
-    .hidden-button:focus {
-        background-color: #ffdd00;
-        outline: 3px solid #ffdd00;
+   .tab-link {
+        color: #1D70B8;
+
+        @include media(mobile) {
+            font-size: 14px;
+        }
+
+        &:focus {
+            height: auto;
+            outline: 2px solid #fd0;
+            color: #0b0c0c!important;
+            text-decoration: none;
+        }
     }
 
     .tt-menu.form-control.mtm {

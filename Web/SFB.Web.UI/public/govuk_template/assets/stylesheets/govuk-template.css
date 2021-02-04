@@ -236,9 +236,15 @@ input[type="search"]::-webkit-search-decoration {
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.3); }
 
-a:focus {
-  background-color: #ffdd00;
-  outline: 3px solid #ffdd00; }
+    a:not(.button, .a-button, .tab-link, .js-modal, .accordion-section-header, .content):focus {
+        color: #0b0c0c !important;
+        background-color: #fd0;
+        -webkit-box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+        box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+        text-decoration: none;
+        outline: 3px solid transparent;
+    }
+
 
 /* Make links slightly darker when focused to improve contrast. */
 a:link:focus {
@@ -282,8 +288,6 @@ button:focus {
 #global-header h1 a:focus {
   background-color: transparent;
   outline: none; }
-#global-header a:focus {
-  color: #0b0c0c; }
 
 #global-header .header-wrapper:after, #global-header .header-wrapper .header-global:after, #global-header .header-wrapper .header-global .header-logo:after, #global-header .header-proposition #proposition-link:after,
 #global-header .header-proposition #proposition-links:after, #footer .footer-meta:after {
@@ -348,8 +352,9 @@ button:focus {
       vertical-align: bottom;
       visibility: hidden; }
     #global-header #logo:hover, #global-header #logo:focus {
-      text-decoration: none;
-      border-bottom-color: white; }
+        color: white;
+        outline: 3px solid #fd0;
+    }
   #global-header .header-proposition {
     padding-top: 10px; }
     @media (min-width: 769px) {

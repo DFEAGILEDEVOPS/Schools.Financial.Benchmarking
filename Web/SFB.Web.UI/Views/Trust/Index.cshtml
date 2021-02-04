@@ -280,7 +280,7 @@
                        tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")" 
                        role="tab" 
                        aria-controls="tabPanel"
-                       class="a-button" 
+                       class="tab-link" 
                        href="javascript: void(0)"
                        onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
                        onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</a>
@@ -290,7 +290,7 @@
                        tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
                        role="tab" 
                        aria-controls="tabPanel"
-                       class="a-button" 
+                       class="tab-link" 
                        href="javascript: void(0)"
                        onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
                        onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</a>
@@ -300,7 +300,7 @@
                        tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")" 
                        role="tab" 
                        aria-controls="tabPanel"
-                       class="a-button" 
+                       class="tab-link" 
                        href="javascript: void(0)"
                        onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
                        onclick='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</a>
