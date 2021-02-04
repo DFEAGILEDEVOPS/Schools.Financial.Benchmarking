@@ -270,7 +270,7 @@
 				// add namespace to table to allow bindings on extra elements to target
 				// the parent table (e.g. parser-input-select)
 				.addClass( ts.css.table + ' ' + c.tableClass + tmp + ' ' + c.namespace.slice(1) )
-				.attr( 'role', 'grid' );
+				//.attr( 'role', 'grid' );
 			c.$headers = $table.find( c.selectorHeaders );
 
 			c.$table.children().children( 'tr' ).attr( 'role', 'row' );
