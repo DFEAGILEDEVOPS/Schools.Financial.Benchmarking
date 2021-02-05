@@ -8,9 +8,9 @@
 
                 self.loadData = function (resolve) {
                     localStorage.removeItem('CustomCharts');
-                    localStorage.removeItem('MyCharts');
+                    localStorage.removeItem('YourCharts');
                     if (localStorage.MyCharts) {
-                        $scope.selectionList = JSON.parse(localStorage.YourCharts);
+                        $scope.selectionList = JSON.parse(localStorage.MyCharts);
                         resolve();
                     } else {
                         $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function (response) {
