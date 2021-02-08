@@ -11,6 +11,8 @@ using SFB.Web.UI.Attributes;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.UI.Services;
+using SFB.Web.UI.Helpers.Enums;
+using SFB.Web.UI.Helpers.Constants;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -26,19 +28,41 @@ namespace SFB.Web.UI.Controllers
             _trustBenchmarkListService = trustBenchmarkListService;
         }
 
-        public async Task<ActionResult> Index(int companyNo)
-        {            
-            var benchmarkTrust = new TrustViewModel(companyNo);
+        //public async Task<ActionResult> Index(int companyNo)
+        //{            
+        //    var benchmarkTrust = new TrustViewModel(companyNo);
 
-            await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
+        //    await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
 
-            await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
+        //    await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
 
-            var trustComparisonList = _trustBenchmarkListService.GetTrustBenchmarkList();
+        //    var trustComparisonList = _trustBenchmarkListService.GetTrustBenchmarkList();
 
-            var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
+        //    var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
 
-            return View(vm);
+        //    return View(vm);
+        //}
+
+        public ViewResult SelectType(int companyNo, string matName)
+        {
+            var model = new TrustViewModel(companyNo, matName);
+            return View(model);
+        }
+
+        public ActionResult StepOne(int companyNo, string matName, ComparisonType? comparisonType)
+        {
+            switch (comparisonType)
+            {
+                case ComparisonType.Advanced:
+                    return Redirect("/TrustComparison/Advanced?companyNo=" + companyNo);
+                case ComparisonType.Manual:
+                    return Redirect("/TrustComparison/Manual?companyNo=" + companyNo);
+                default:
+                    var model = new TrustViewModel(companyNo, matName);
+                    model.ErrorMessage = ErrorMessages.SelectComparisonType;
+                    return View("SelectType", model);
+            }
+ 
         }
 
         public async Task<int> GenerateCountFromAdvancedCriteria(BenchmarkCriteriaVM criteria)

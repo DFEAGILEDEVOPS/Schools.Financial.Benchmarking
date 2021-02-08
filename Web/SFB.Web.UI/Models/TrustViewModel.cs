@@ -60,6 +60,12 @@ namespace SFB.Web.UI.Models
             this.CompanyNo = companyNo;
         }
 
+        public TrustViewModel(int companyNo, string matName)
+        {
+            this.CompanyNo = companyNo;
+            this.Name = matName;
+        }
+
         public TrustViewModel(int uid, int companyNo):
             this(companyNo)
         {

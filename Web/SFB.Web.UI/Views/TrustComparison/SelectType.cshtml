@@ -1,0 +1,85 @@
+﻿@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.TrustViewModel
+
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Select comparison type";
+    ViewBag.pageClass = "comparison-strategy";
+}
+
+@section BackButtonContent{
+    <a class="govuk-back-link hide-in-print" href="/trust/index?companyNo=@ViewBag.CompanyNo">Back</a>
+}
+
+@if (Model.HasError())
+{
+    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There is a problem
+        </h1>
+        <ul class="error-summary-list">
+            <li><a href="#csLegend">@Model.ErrorMessage</a></li>
+        </ul>
+    </div>
+}
+
+<h1 class="heading-xlarge page-heading">Select comparison type</h1>
+
+
+<div class="grid-row">
+    <div class="column-full">
+        <span class="font-xsmall">Comparing to</span>
+        <div class="highlight">
+            <a href="/trust/index?companyNo=@Model.CompanyNo"><span class="bold-xsmall">@Model.Name</span></a>
+        </div>
+    </div>
+</div>
+
+
+<section class="section" aria-label="Select comparison type">
+    <form action="/TrustComparison/StepOne">
+        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
+            <fieldset>
+                <legend id="csLegend">
+                    <span>How do you want to compare this trust with others?</span>
+                    @if (Model.HasError())
+                    {
+                        <span class="error-message">
+                            Select a comparison type
+                        </span>
+                    }
+                </legend>
+
+                <p>We have some guidance on <a href="/help/guidance#question-five">choosing characteristics</a> if you are unsure which method suits you.</p>
+
+                <div class="multiple-choice">
+                    <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Manual">
+                    <label class="selection-button-radio" for="radio-1">
+                        Manually add trusts
+                    </label>
+                </div>
+
+                <div class="multiple-choice">
+                    <input id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
+                    <label class="selection-button-radio" for="radio-2">
+                        Select characteristics to find trusts (including location, number of schools, income)
+                    </label>
+                </div>
+
+            </fieldset>
+        </div>
+        <input type="hidden" value="@Model.CompanyNo" name="companyNo" />
+        <input type="hidden" value="@Model.Name" name="matName" />
+
+        <div class="grid-row">
+            <div class="column-half">
+                <div class="column-one-third next-button">
+                    <button type="submit" class="button">Continue</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</section>
+

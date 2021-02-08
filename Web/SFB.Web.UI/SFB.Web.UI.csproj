@@ -987,6 +987,7 @@
     <Content Include="Views\TrustSearch\NotFound.cshtml" />
     <Content Include="Views\TrustSearch\SearchResults.cshtml" />
     <Content Include="Views\TrustSearch\Partials\TrustFilterForm.cshtml" />
+    <Content Include="Views\TrustComparison\SelectType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />
