@@ -663,7 +663,7 @@ namespace SFB.Web.UI.Controllers
             return View("Index", vm);
         }
 
-        public async Task<ActionResult> Mats(TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
+        public async Task<ActionResult> Mats(TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ComparisonType? comparison = null)
         {
             var chartGroup = DetermineDefaultChartGroup(tab);
             var defaultUnitType = DetermineDefaultUnitType(ComparisonType.Basic, tab);
@@ -683,6 +683,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.HomeSchoolId = vm.TrustComparisonList.DefaultTrustCompanyNo;
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.TrustFinancing = financing;
+            ViewBag.Comparison = comparison;
 
             return View("Index", vm);
         }

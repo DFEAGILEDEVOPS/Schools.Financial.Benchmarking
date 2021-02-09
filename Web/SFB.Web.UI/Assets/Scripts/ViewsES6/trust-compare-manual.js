@@ -13,7 +13,7 @@
         $(".remove-trust").click((event) => {
             event.preventDefault();
             this.RemoveTrust($(event.target).data('companyno'));
-            $(".error-summary.missing").hide();
+            $(".error-summary").hide();
         });
 
         $("#displayNew").click((event) => {
@@ -34,12 +34,12 @@
             $("#AddButton").show();
             $(".error-summary").hide();
             $(".error-message").hide();
+            document.title = document.title.replace("Error: ", "");
         });
 
     }
 
     validate() {
-
         let count = $(".remove-trust").length;
         if (count == 0 || $("#NewTrustName:visible").length > 0) {
             $(".error-summary").hide();
@@ -53,6 +53,7 @@
             }
             $("#NewTrustName").addClass("form-control-error");
             $(".error-summary-list a").focus();
+            document.title = "Error: " + document.title.replace("Error: ","");
             return false;
         } else {
             $(".error-summary").hide();

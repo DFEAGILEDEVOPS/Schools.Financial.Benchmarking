@@ -249,8 +249,11 @@ else
                 <div class="highlight">
                     <span class="bold-small">@Model.TrustComparisonList.DefaultTrustName</span>
                 </div>
-                <span>&nbsp;to selected trusts. You can </span>
-                <a href="/TrustComparison?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo&matName=@Model.TrustComparisonList.DefaultTrustName">view or edit these.</a>
+                @if (ViewBag.comparison == ComparisonType.Manual)
+                {
+                    <span>&nbsp;to selected trusts. You can </span>
+                    <a href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>
+                }
             </div>
         </div>
     }
