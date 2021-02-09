@@ -28,20 +28,20 @@ namespace SFB.Web.UI.Controllers
             _trustBenchmarkListService = trustBenchmarkListService;
         }
 
-        //public async Task<ActionResult> Index(int companyNo)
-        //{            
-        //    var benchmarkTrust = new TrustViewModel(companyNo);
+        public async Task<ActionResult> Manual(int companyNo)
+        {
+            var benchmarkTrust = new TrustViewModel(companyNo);
 
-        //    await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
+            await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
 
-        //    await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
+            await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
 
-        //    var trustComparisonList = _trustBenchmarkListService.GetTrustBenchmarkList();
+            var trustComparisonList = _trustBenchmarkListService.GetTrustBenchmarkList();
 
-        //    var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
+            var vm = new TrustSelectionViewModel(benchmarkTrust, trustComparisonList);
 
-        //    return View(vm);
-        //}
+            return View(vm);
+        }
 
         public ViewResult SelectType(int companyNo, string matName)
         {
@@ -54,15 +54,14 @@ namespace SFB.Web.UI.Controllers
             switch (comparisonType)
             {
                 case ComparisonType.Advanced:
-                    return Redirect("/TrustComparison/Advanced?companyNo=" + companyNo);
+                    return Redirect($"/TrustComparison/Advanced?companyNo={companyNo}");
                 case ComparisonType.Manual:
-                    return Redirect("/TrustComparison/Manual?companyNo=" + companyNo);
+                    return Redirect($"/TrustComparison/Manual?companyNo={companyNo}");
                 default:
                     var model = new TrustViewModel(companyNo, matName);
                     model.ErrorMessage = ErrorMessages.SelectComparisonType;
                     return View("SelectType", model);
-            }
- 
+            } 
         }
 
         public async Task<int> GenerateCountFromAdvancedCriteria(BenchmarkCriteriaVM criteria)

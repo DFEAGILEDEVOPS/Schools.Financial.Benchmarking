@@ -1,10 +1,9 @@
-﻿class TrustCompareViewModel {
+﻿class TrustCompareAdvancedViewModel {
 
     constructor() {
         this.questionCheckBoxSelector = ".multiple-choice.question > input";
         this.questionCheckBoxSelectorRadio = ".multiple-choice.questionRadio > input";
 
-        this.bindManualEvents();
         this.bindCriteriaEvents();
         this.validateForm();
         GOVUK.Accordion.bindElements("SelectTrustAccordion");
@@ -112,91 +111,6 @@
 
             });
 
-
-        $("#removeAllTrusts").click(() => {
-            this.RemoveAllTrusts();
-        });
-    }
-
-    bindManualEvents() {
-
-        this.bindAutosuggest('#NewTrustName', this.getTrustSuggestionHandler);
-
-        $("input.criteria-input").keyup((e) => {
-            let code = e.keyCode || e.which;
-            if (code !== 9) {
-                this.updateResultCount();
-            }
-        });
-
-        $("input.criteria-checkbox").change(() => {
-            this.updateResultCount();
-        });
-
-        $("input.criteria-radio").change(() => {
-            this.updateResultCount();
-        });
-
-        $("button.submit").click((event) => {
-            event.preventDefault();
-            this.checkResultCount();
-        });
-
-        $(".remove-trust").click((event) => {
-            event.preventDefault();
-            this.RemoveTrust($(event.target).data('companyno'));
-            $(".error-summary.missing").hide();
-        });
-
-        $("#displayNew").click((event) => {
-            event.preventDefault();
-            this.DisplayNewTrustElements();
-        });
-
-        $(".js-clear-criteria").click(() => {
-            this.clear();
-        });
-
-        $(".min-js").focusout((event) => {
-            let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
-            if (!maxInput[0].validity.valueMissing) {
-                maxInput.valid();
-            }
-        });
-
-        $(".max-js").focusout((event) => {
-            let minInput = $(event.target.parentNode.parentNode).find(".min-js");
-            if (!minInput[0].validity.valueMissing) {
-                minInput.valid();
-            }
-        });
-
-        $("#EnterManually").click(() => {
-            $("#liveCountBar").hide();
-            $("button.submit").hide();
-            $("#manualButton").show();
-        });
-
-        $("#EnterChars").click(() => {
-            $("#liveCountBar").show();
-            $("button.submit").show();
-            $("#manualButton").hide();
-        });
-
-        $("#manualButton").click((event) => {
-            if (!this.validate()) {
-                event.preventDefault();
-            }
-        });
-
-        $(".remove-new-trust").click((event) => {
-            event.preventDefault();
-            $("#NewTrust").hide();
-            $("#AddButton").show();
-            $(".error-summary").hide();
-            $(".error-message").hide();
-        });
-
     }
 
     validate() {
@@ -204,26 +118,6 @@
             $(".error-summary.required").show();
             $(".error-summary-list a").focus();
             return false;
-        }
-        let count = $(".remove-trust").length;
-        if (count == 0 || $("#NewTrustName:visible").length > 0) {
-            $(".error-summary").hide();
-            $(".error-message").hide();
-            if ($("#NewTrustName").val() === "") {
-                $(".error-summary.missing").show();
-                $(".error-message.missing").show();
-            } else {
-                $(".error-summary.not-found").show();
-                $(".error-message.not-found").show();
-            }
-            $("#NewTrustName").addClass("form-control-error");
-            $(".error-summary-list a").focus();
-            return false;
-        } else {
-            $(".error-summary").hide();
-            $(".error-message").hide();
-            $("#NewTrustName").removeClass("form-control-error");
-            return true;
         }
     }
 
@@ -270,7 +164,7 @@
         if (this.jqxhr) {
             this.jqxhr.abort();
         }
-        this.jqxhr = $.post("TrustComparison/GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
+        this.jqxhr = $.post("GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
             .done(function (count) {
                 $("#schoolCount").text("Searching");
                 setTimeout(function () { $("#schoolCount").text(count + " trusts found"); }, 500);
@@ -285,119 +179,8 @@
                 //}
                 $('.sticky-div').Stickyfill();
             });
-    }
-    
-    getTrustSuggestionHandler(keywords, callback) {
-        let dataSuggestionUrl = $("#NewTrustName").attr("data-suggestion-url");
-        return $.get(encodeURI(dataSuggestionUrl + '?name=' + keywords),
-            function (response) {
-                return callback(response.Matches);
-            });
-    }
-    
-    bindAutosuggest(targetInputElementName, suggestionSource) {
-        let field = "Text";
-        let value = "Id";
-        let source = null;
-        let minChars = 0;
+    }      
 
-        if (typeof suggestionSource === "function") { // remote source
-            minChars = 3;
-            source = (query, syncResultsFn, asyncResultsFn) => {
-                return suggestionSource.call(this, query, asyncResultsFn);
-            };
-        } else if (typeof suggestionSource === "object") { // local data source
-
-            if (!suggestionSource.data) {
-                console.log("suggestionSource.data is null");
-                return;
-            }
-            if (!suggestionSource.name) {
-                console.log("suggestionSource.name is null");
-                return;
-            }
-            if (!suggestionSource.value) {
-                console.log("suggestionSource.value is null");
-                return;
-            }
-            console.log("suggestionSource.data has " + suggestionSource.data.length + " items");
-
-            minChars = 2;
-            field = suggestionSource.name;
-            value = suggestionSource.value;
-
-            source = new Bloodhound({
-                datumTokenizer: function (d) { return Bloodhound.tokenizers.whitespace(d[field]); },
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                local: suggestionSource.data
-            });
-            source.initialize();
-        } else {
-            console.log("Incompatible suggestionSource");
-            return;
-        }
-
-        let templateHandler = function (suggestion) {
-            return '<div><a href="javascript:">' + suggestion[field] + '</a></div>';
-        };
-
-        $(targetInputElementName).typeahead({
-            hint: false,
-            highlight: true,
-            highlightAliases: [
-                ["st. ", "st ", "saint "]
-            ],
-            minLength: minChars,
-            classNames: {
-                menu: 'tt-menu form-control mtm',
-                highlight: 'bold-small'
-            },
-            ariaOwnsId: "arialist_" + DfE.Util.randomNumber()
-        },
-            {
-                display: field,
-                limit: 10,
-                source: source,
-                templates: {
-                    suggestion: templateHandler
-                }
-            });
-
-        $(targetInputElementName).bind("typeahead:select",
-            (src, suggestion)  => {
-                $.get("trustcomparison/AddTrust?companyNo=" + suggestion[value] + "&matName=" + suggestion[field],
-                    (data) => {
-                        $("#TrustsToCompare").html(data);
-                        this.bindManualEvents();
-                        $("#AddButton a").focus();
-                        $(".error-summary-list a").focus();
-                    });
-
-            });
-    }
-
-    RemoveTrust(companyNo) {
-        $.get("trustcomparison/RemoveTrust?companyNo=" + companyNo,
-            (data) => {
-                $("#TrustsToCompare").html(data);
-                this.bindManualEvents();
-            });
-    }
-
-    RemoveAllTrusts() {
-        $.get("trustcomparison/RemoveAllTrusts",
-            (data) => {
-                $("#TrustsToCompare").html(data);
-                this.bindManualEvents();
-            });
-    }
-
-    DisplayNewTrustElements() {
-        $("#NewTrust").show();
-        $("#NewTrustName").focus();
-        $("#NewTrustName").removeClass("form-control-error");
-        $("#AddButton").hide();
-    }
 }
 
 

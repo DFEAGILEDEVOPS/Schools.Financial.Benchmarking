@@ -488,6 +488,7 @@
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
     <Compile Include="Models\TrustListViewModel.cs" />
     <Compile Include="Models\AcademyTrustViewModel.cs" />
+    <Compile Include="Models\TrustSelectionViewModel.cs" />
     <Compile Include="Models\TrustViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
     <Compile Include="Models\TrustCharacteristicsViewModel.cs" />
@@ -525,6 +526,7 @@
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
+    <Content Include="Assets\Scripts\ViewsES6\trust-compare-advanced.js" />
     <Content Include="public\assets\images\icons\add.svg" />
     <Content Include="public\assets\images\icons\download.svg" />
     <Content Include="public\assets\images\icons\find.svg" />
@@ -560,7 +562,7 @@
     <Content Include="Assets\Scripts\ViewsES6\school-details.js" />
     <Content Include="Assets\Scripts\ViewsES6\school-results.js" />
     <Content Include="Assets\Scripts\ViewsES6\schools-search.js" />
-    <Content Include="Assets\Scripts\ViewsES6\trust-compare.js" />
+    <Content Include="Assets\Scripts\ViewsES6\trust-compare-manual.js" />
     <Content Include="Assets\Scripts\ViewsES6\trust-details.js" />
     <Content Include="Assets\Scripts\Views\add-schools-manually.js" />
     <Content Include="Assets\Scripts\Views\advanced-characteristics.js" />
@@ -988,6 +990,7 @@
     <Content Include="Views\TrustSearch\SearchResults.cshtml" />
     <Content Include="Views\TrustSearch\Partials\TrustFilterForm.cshtml" />
     <Content Include="Views\TrustComparison\SelectType.cshtml" />
+    <Content Include="Views\TrustComparison\Manual.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />

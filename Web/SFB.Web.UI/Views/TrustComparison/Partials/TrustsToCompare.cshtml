@@ -1,5 +1,4 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Constants
-@using SFB.Web.UI.Helpers.Constants
 @model List<SFB.Web.UI.Models.BenchmarkTrustModel>
 
 <form autocomplete="off">
@@ -7,7 +6,7 @@
     <input id="trustCount" type="hidden" value="@Model.Count"/>
     <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
     <fieldset>
-        <legend class="visuallyhidden">Choose a trust from auto completion list</legend>
+        <legend class="font-small form-hint" id="legend">Start entering a company name and the select from auto completion list</legend>
         @{
             if (ViewBag.Error != null)
             {
@@ -33,7 +32,10 @@
                     @for (; i < Model.Count; i++)
                     {
                         <div class="grid-row trust-element">
-                            <label class="form-label" for="mat_@i">Trust @Html.Raw(i + 1)</label>
+                            <label class="form-label" for="mat_@i">
+                                Trust @Html.Raw(i + 1)
+                                <span class="visually-hidden"> - Start entering a company name and the select from auto completion list</span>
+                            </label>
                             <input class="form-control" style="width: 50%" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
                             <button class="remove-trust link-button font-xsmall" data-companyno="@Model[i].CompanyNo" aria-label="Remove @Model[i].MatName">Remove</button>
                         </div>
@@ -42,7 +44,10 @@
 
                 <div id="NewTrust" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
                     <div class="grid-row trust-element">
-                        <label class="form-label" for="NewTrustName">Trust @Html.Raw(i + 1)</label>
+                        <label class="form-label" for="NewTrustName">
+                            Trust @Html.Raw(i + 1)
+                            <span class="visually-hidden"> - Start entering a company name and the select from auto completion list</span>
+                        </label>
                         @if (ViewBag.Error != null)
                         {
                             <span class="error-message">
@@ -59,7 +64,7 @@
                                class="form-control"
                                name="trustname"
                                type="text"
-                               data-suggestion-url="/trustsearch/suggest" />
+                                 data-suggestion-url="/trustsearch/suggest" />
                         <button class="remove-new-trust link-button font-xsmall" aria-label="Remove new trust addition">Remove</button>
 
                     </div>
@@ -80,7 +85,10 @@
             else
             {
                 <div class="grid-row trust-element">
-                    <label class="form-label" for="NewTrustName">Trust 1</label>
+                    <label class="form-label" for="NewTrustName">
+                        Trust 1
+                        <span class="visually-hidden"> - Start entering a company name and the select from auto completion list</span>
+                    </label>
                     @if (ViewBag.Error != null)
                     {
                         <span class="error-message duplicate">
@@ -110,11 +118,19 @@
         $('#ErrorSummaryPlaceHolder').empty();
         $('#error-summary').detach().appendTo('#ErrorSummaryPlaceHolder');
         $(".error-summary.missing").hide();
-        $('#trustCountMessage').text("Updating trust comparison list");
+        //$('#trustCountMessage').text("Updating list");
         setTimeout(function () {
-            $('#trustCountMessage').text($("#trustCount").val() + " trusts in list");
-        },2000);
-        
+            $('#trustCountMessage').text("Updating list:" + $("#trustCount").val() + " trusts in list");
+            setTimeout(function () {
+                if ($("#displayNew").length > 0) {
+                    $("#displayNew").focus();
+                }
+                else {
+                    $("#NewTrustName").focus();
+                }
+            }, 1000);
+        },1000);
+
 
     </script>
 }
