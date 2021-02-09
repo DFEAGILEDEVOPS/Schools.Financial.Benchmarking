@@ -244,10 +244,12 @@ else
     if (Model.EstablishmentType == EstablishmentType.MAT && Model.TrustComparisonList.Trusts.Any(t => t.CompanyNo == Model.TrustComparisonList.DefaultTrustCompanyNo))
     {
         <div class="grid-row">
-            <div class="column-full">
+            <div class="column-full font-xsmall">
                 <span>Comparing</span>
                 <div class="highlight">
-                    <span class="bold-small">@Model.TrustComparisonList.DefaultTrustName</span>
+                    <a href="/trust/index?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">
+                        <span class="bold-xsmall">@Model.TrustComparisonList.DefaultTrustName</span>
+                    </a>
                 </div>
                 @if (ViewBag.comparison == ComparisonType.Manual)
                 {
