@@ -1,0 +1,11 @@
+﻿@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+@if (Model != null)
+{
+    <form id="advancedCriteria" method="get" action="~/BenchmarkCriteria/StepOne">
+        
+        <input type="hidden" name="Urn" value="@Model.URN">
+        <input type="hidden" name="ComparisonType" value="@Model.ComparisonType">
+        <input type="hidden" name="SimilarPupils" value="@Request.QueryString["similarPupils"]">
+    </form>
+}
