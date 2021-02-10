@@ -549,13 +549,6 @@
         }
     }
 
-    .tab-link {
-        color: #1D70B8;
-
-        @include media(mobile) {
-            font-size: 14px;
-        }
-    }
 
     .custom-action-mobile {
         @include media(mobile) {

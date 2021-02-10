@@ -22,6 +22,10 @@
         });
     }
 
+    DownloadData(companyNo, name) {
+        document.getElementById('download_iframe').src = `/trust/download?companyNo=${companyNo}&name=${name}`;
+    }
+
     PrintPage() {
         $('details').attr('open', 'true');
         let detailses = document.getElementsByTagName("details"),
