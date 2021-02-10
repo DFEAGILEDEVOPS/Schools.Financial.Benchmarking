@@ -383,7 +383,7 @@
         padding-top: 25px;
     }
 
-    nav.tabs ol {
+     div.custom.tabs ul {
         @include media-down(tablet) {
             justify-content: flex-start;
         }
@@ -470,7 +470,7 @@
         }
     }
 
-    nav.tabs ol li a.helpLink {
+    div.tabs ul li a.helpLink {
         border: none;
         text-decoration: unset;
         height: auto;
@@ -490,12 +490,12 @@
         }
     }
 
-    nav.tabs ol li a.custom, nav.tabs ol li button.custom {
+    div.tabs ul li a.custom, div.tabs ul li button.custom {
         display: inline-block;
         padding-right: 30px
     }
 
-    nav.tabs ol li.active a.custom, nav.tabs ol li.active button.custom {
+    div.tabs ul li.active a.custom, div.tabs ul li.active button.custom {
         padding-right: 45px;
 
         @include media(tablet) {
@@ -534,7 +534,7 @@
         border: none;
     }
 
-    nav.tabs ol li, nav.tabs ol li a {
+    div.tabs ul li, div.tabs ul li a {
 
         &.tab-vertical-align {
             margin-top: 9px;

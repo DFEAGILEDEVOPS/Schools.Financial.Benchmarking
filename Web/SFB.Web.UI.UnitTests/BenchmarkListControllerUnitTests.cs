@@ -11,6 +11,7 @@ using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -46,14 +47,14 @@ namespace SFB.Web.UI.UnitTests
 
             var mockFinancialDataService = new Mock<IFinancialDataService>();
 
-            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var mockCookieManager = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(fakeSchoolComparisonList);
+            mockCookieManager.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var controller = new BenchmarkListController(mockEdubaseDataService.Object, mockCookieManager.Object, mockFinancialDataService.Object);
 
@@ -61,7 +62,7 @@ namespace SFB.Web.UI.UnitTests
 
             var result = await controller.UpdateBenchmarkBasket(null, CookieActions.RemoveAll);
 
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.RemoveAll, It.IsAny<BenchmarkSchoolModel>()),Times.Once);
+            mockCookieManager.Verify(m => m.ClearSchoolBenchmarkList(),Times.Once);
 
 
         }

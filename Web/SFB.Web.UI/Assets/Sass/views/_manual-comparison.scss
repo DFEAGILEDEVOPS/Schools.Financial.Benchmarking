@@ -171,14 +171,4 @@
     .tab-content--active {
         display: block;
     }
-
-    nav.tabs ol {
-        @include media-down(tablet) {
-            justify-content: flex-start;
-
-            li {
-                flex-basis: 98%;
-            }
-        }
-    }
 }

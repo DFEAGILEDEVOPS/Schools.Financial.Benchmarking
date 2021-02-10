@@ -5,9 +5,8 @@ using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Controllers;
-using SFB.Web.UI.Helpers;
-using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
+using SFB.Web.UI.Services;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -18,7 +17,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void WithoutBaseSchoolActionClearsBaseSchoolWhenManualComparisonWithoutBaseSchool()
         {
-            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            var mockSchoolCookieManager = new Mock<ISchoolBenchmarkListService>();
+            
+            var mockManualCookieManager = new Mock<IManualBenchmarkListService>();
 
             var _mockDocumentDbService = new Mock<IFinancialDataService>();
 
@@ -30,13 +31,13 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var controller = new ManualComparisonController(mockCookieManager.Object, mockLaService.Object, _mockEdubaseDataService.Object, null, null, null, null, null);
+            var controller = new ManualComparisonController(mockSchoolCookieManager.Object, mockLaService.Object, _mockEdubaseDataService.Object, null, null, null, null, null, mockManualCookieManager.Object);
 
             var result = controller.WithoutBaseSchool();
 
-            mockCookieManager.Verify(m => m.UpdateManualComparisonListCookie(CookieActions.UnsetDefault, null));
-            mockCookieManager.Verify(m => m.UpdateManualComparisonListCookie(CookieActions.RemoveAll, null));
-            mockCookieManager.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault, null));
+            mockManualCookieManager.Verify(m => m.UnsetDefaultSchoolInManualBenchmarkList());
+            mockManualCookieManager.Verify(m => m.ClearManualBenchmarkList());
+            mockSchoolCookieManager.Verify(m => m.UnsetDefaultSchool());
         }
 
 
@@ -49,9 +50,11 @@ namespace SFB.Web.UI.UnitTests
                 fakeBMSchools.Add(new BenchmarkSchoolModel());
             }
 
-            var mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
-            mockCookieManager.Setup(m => m.ExtractSchoolComparisonListFromCookie()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
-            mockCookieManager.Setup(m => m.ExtractManualComparisonListFromCookie()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
+            var mockSchoolCookieManager = new Mock<ISchoolBenchmarkListService>();
+            mockSchoolCookieManager.Setup(m => m.GetSchoolBenchmarkList()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
+            
+            var mockManualCookieManager = new Mock<IManualBenchmarkListService>();
+            mockManualCookieManager.Setup(m => m.GetManualBenchmarkList()).Returns(new SchoolComparisonListModel() { HomeSchoolUrn = "123", BenchmarkSchools = fakeBMSchools });
             
             var mockDocumentDbService = new Mock<IFinancialDataService>();
 
@@ -63,7 +66,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
 
-            var controller = new ManualComparisonController(mockCookieManager.Object, mockLaService.Object, mockEdubaseDataService.Object, null, null, null, null, null);
+            var controller = new ManualComparisonController(mockSchoolCookieManager.Object, mockLaService.Object, mockEdubaseDataService.Object, null, null, null, null, null, mockManualCookieManager.Object);
 
             var result = await controller.OverwriteStrategy();
 

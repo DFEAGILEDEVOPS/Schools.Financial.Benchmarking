@@ -13,10 +13,12 @@
         new Accordion(document.getElementById('schools-in-trust-accordion'));
 
         $(document).ready(function () {
-            var tab = DfE.Util.QueryString.get('tab');
-            if (tab) {
-                $("a:contains('" + tab + "')").focus();
-            }
+            setTimeout(function () {
+                var tab = DfE.Util.QueryString.get('tab');
+                if (tab) {
+                    $("a:contains('" + tab + "')").focus();
+                }
+            }, 500);
         });
     }
 
@@ -51,6 +53,51 @@
 
         window.location = queryString;
     }
+
+    TabKeydown(e) {
+        let keys = {
+            left: 37,
+            up: 38,
+            right: 39,
+            down: 40,
+            enter: 13,
+            space: 32
+        };
+
+        focusOnPreviousTab = function () {
+            $("ul[role='tablist'] li a:focus").parent().prev().find("a[role='tab']").focus();
+        }
+
+        focusOnNextTab = function () {
+            $("ul[role='tablist'] li a:focus").parent().next().find("a[role='tab']").focus();
+        }
+
+        activateTab = function () {
+            $("ul[role='tablist'] li a:focus").attr('aria-selected', 'true');
+   
+            setTimeout(function () {
+                $("ul[role='tablist'] li a:focus").click();
+            }, 1000);
+        }
+
+        switch (e.keyCode) {
+            case keys.left:
+            case keys.up:
+                focusOnPreviousTab();
+                e.preventDefault();
+                break
+            case keys.right:
+            case keys.down:
+                focusOnNextTab();
+                e.preventDefault();
+                break
+            case keys.enter:
+            case keys.space:
+                activateTab();
+                e.preventDefault();
+                break;
+        }
+    };
 
     ToggleChartsTables(mode) {
         let $charts = $('.chart-wrapper');

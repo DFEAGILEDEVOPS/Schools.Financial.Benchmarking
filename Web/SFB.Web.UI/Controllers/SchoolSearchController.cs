@@ -18,6 +18,7 @@ using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -37,8 +38,8 @@ namespace SFB.Web.UI.Controllers
             IValidationService valService, 
             IContextDataService contextDataService,
             ISchoolSearchService schoolSearchService,
-            IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
-            : base(schoolSearchService, null, benchmarkBasketCookieManager, filterBuilder)
+            ISchoolBenchmarkListService benchmarkBasketService)
+            : base(schoolSearchService, null, benchmarkBasketService, filterBuilder)
         {
             _laService = laService;
             _laSearchService = laSearchService;
@@ -96,7 +97,7 @@ namespace SFB.Web.UI.Controllers
                         return await SearchSchoolByLaName(laCodeName, tab, openOnly, orderby, page, referrer);
                     }
                 default:
-                    return ErrorView(searchType, referrer, errorMessage, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie());
+                    return ErrorView(searchType, referrer, errorMessage, _schoolBenchmarkListService.GetSchoolBenchmarkList());
             }
         }
 
@@ -117,7 +118,7 @@ namespace SFB.Web.UI.Controllers
         {
             ViewBag.SearchMethod = "School";
             dynamic searchResponse;
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
 
             if (IsLaEstab(nameId))
             {
@@ -217,7 +218,7 @@ namespace SFB.Web.UI.Controllers
 
         public ActionResult AddSchools()
         {
-            var schoolComparisonListModel = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonListModel = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             var vm = new SearchViewModel(schoolComparisonListModel, "");
             vm.Authorities = _laService.GetLocalAuthorities();
 
@@ -226,19 +227,27 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<PartialViewResult> UpdateBenchmarkBasket(int urn, CookieActions withAction)
         {
-            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
-
-            _benchmarkBasketCookieManager.UpdateSchoolComparisonListCookie(withAction,
-                new BenchmarkSchoolModel()
-                {
-                    Name = benchmarkSchool.Name,
-                    Urn = benchmarkSchool.Id.ToString(),
-                    Type = benchmarkSchool.Type,
-                    EstabType = benchmarkSchool.EstablishmentType.ToString()
-                });
+            switch (withAction)
+            {
+                case CookieActions.SetDefault:
+                    await _schoolBenchmarkListService.SetSchoolAsDefaultAsync(urn);
+                    break;
+                case CookieActions.Add:
+                    await _schoolBenchmarkListService.AddSchoolToBenchmarkListAsync(urn);
+                    break;
+                case CookieActions.Remove:
+                    await _schoolBenchmarkListService.RemoveSchoolFromBenchmarkListAsync(urn);
+                    break;
+                case CookieActions.RemoveAll:
+                    _schoolBenchmarkListService.ClearSchoolBenchmarkList();
+                    break;
+                case CookieActions.UnsetDefault:
+                    _schoolBenchmarkListService.UnsetDefaultSchool();
+                    break;
+            }
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie()));
+                new SchoolViewModel(null, _schoolBenchmarkListService.GetSchoolBenchmarkList()));
         }
 
         public async Task<ActionResult> Suggest(string nameId, bool openOnly = false)
@@ -268,7 +277,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<ActionResult> SearchSchoolByUrnOrLaEstab(string nameId, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             dynamic searchResp = null;
             var errorMessage = _valService.ValidateSchoolIdParameter(nameId);
             if (string.IsNullOrEmpty(errorMessage))
@@ -311,7 +320,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<ActionResult> SearchSchoolByName(string nameId, string suggestionUrn, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             dynamic searchResp = null;
 
             if (string.IsNullOrEmpty(_valService.ValidateSchoolIdParameter(suggestionUrn)))
@@ -337,7 +346,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<ActionResult> SearchSchoolByLaName(string laName, string tab, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             var errorMessage = _valService.ValidateLaNameParameter(laName);
             if (string.IsNullOrEmpty(errorMessage))
             {
@@ -363,7 +372,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<ActionResult> SearchSchoolByLaCode(string laCode, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             var errorMessage = _valService.ValidateLaCodeParameter(laCode);
             if (string.IsNullOrEmpty(errorMessage))
             {
@@ -385,7 +394,7 @@ namespace SFB.Web.UI.Controllers
 
         private ActionResult SearchSchoolByLocationName(string locationName, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             var errorMessage = _valService.ValidateLocationParameter(locationName);
             if (string.IsNullOrEmpty(errorMessage))
             {
@@ -408,7 +417,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<ActionResult> SearchSchoolByLocationCoordinates(string locationOrPostCode, string locationCoordinates, decimal? radius, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
-            var schoolComparisonList = _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie();
+            var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
 
             var searchResp = await GetSearchResultsAsync(null, SearchTypes.SEARCH_BY_LOCATION, null, locationCoordinates, null, radius, openOnly, orderby, page);
 

@@ -12,12 +12,12 @@ namespace SFB.Web.UI.Controllers
     public class LaController : Controller
     {
         private readonly ILaSearchService _laService;
-        private readonly IBenchmarkBasketCookieManager _benchmarkBasketCookieManager;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
 
-        public LaController(ILaSearchService laService, IBenchmarkBasketCookieManager benchmarkBasketCookieManager)
+        public LaController(ILaSearchService laService, ISchoolBenchmarkListService benchmarkBasketService)
         {
             _laService = laService;
-            _benchmarkBasketCookieManager = benchmarkBasketCookieManager;
+            _benchmarkBasketService = benchmarkBasketService;
         }
 
         public ActionResult Search(string name, string orderby = "", int page = 1, bool openOnly = false)
@@ -27,7 +27,7 @@ namespace SFB.Web.UI.Controllers
             var laModels = _laService.SearchContains(name);
             var laViewModels = laModels.Select(la => new LaViewModel(la.Id, la.LaName)).ToList();
 
-            var vm = new LaListViewModel(laViewModels, _benchmarkBasketCookieManager.ExtractSchoolComparisonListFromCookie(), orderby, openOnly, searchMethod);
+            var vm = new LaListViewModel(laViewModels, _benchmarkBasketService.GetSchoolBenchmarkList(), orderby, openOnly, searchMethod);
             
             vm.Pagination = new Pagination
                 {

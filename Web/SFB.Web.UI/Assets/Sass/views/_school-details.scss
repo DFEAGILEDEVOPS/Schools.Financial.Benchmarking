@@ -321,7 +321,7 @@
         margin-bottom: 0;
     }
 
-    nav.tabs ol {
+    div.custom.tabs ul {
         @include media-down(tablet) {
             justify-content: flex-start;
 

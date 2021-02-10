@@ -67,7 +67,9 @@
                                 $('#spinner-place-holder').hide();
                                 $('#CustomReportContentPlaceHolder').html(data);                           
                                 DfE.Views.BenchmarkChartsViewModel.GenerateCharts();
-                                $("table.data-table-js").tablesorter();
+                                $("table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                                $("table.data-table-js.chart-table--mobile-only-view.chart-table--summary-view").tablesorter({ sortList: [[$("table.data-table-js.chart-table--mobile-only-view.chart-table--summary-view").first().find("thead th").length - 1, 1]] });
+                                $("table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
                             }, 500);
                         }
                     });

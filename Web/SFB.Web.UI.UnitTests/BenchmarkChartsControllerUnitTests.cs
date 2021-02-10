@@ -116,13 +116,15 @@ namespace SFB.Web.UI.UnitTests
             var mockLaService = new Mock<ILocalAuthoritiesService>();
             mockLaService.Setup(m => m.GetLocalAuthorities()).Returns(() => "[{\"id\": \"0\",\"LANAME\": \"Hartlepool\",\"REGION\": \"1\",\"REGIONNAME\": \"North East A\"}]");
 
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";            
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
+
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -136,7 +138,8 @@ namespace SFB.Web.UI.UnitTests
                 mockComparisonService.Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -144,19 +147,20 @@ namespace SFB.Web.UI.UnitTests
 
             result.Wait();
 
-            mockBenchmarkBasketService.Verify(m => m.AddSchoolsToBenchmarkListFromComparisonResult(It.IsAny<ComparisonResult>()), Times.Exactly(1));
+            mockBenchmarkBasketService.Verify(m => m.AddSchoolsToBenchmarkList(It.IsAny<ComparisonResult>()), Times.Exactly(1));
         }
 
         [Test]
         public async Task OneClickReportShouldBuildCorrectViewModelAsync()
         {
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
+
 
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -228,6 +232,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
 
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object,
                 mockDocumentDbService.Object,
                 financialCalculationsService.Object,
@@ -238,7 +244,8 @@ namespace SFB.Web.UI.UnitTests
                 mockComparisonService.Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -253,13 +260,13 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public async Task GenerateFromAdvancedCriteriaWithAddAddsTheBenchmarkSchoolToTheBenchmarkListIfNotAlreadyReturnedAsync()
         {
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockFinancialDataService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -326,6 +333,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
 
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object,
                 mockFinancialDataService.Object,
                 financialCalculationsService.Object,
@@ -335,20 +344,21 @@ namespace SFB.Web.UI.UnitTests
                 null, mockComparisonService.Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
             var result = await controller.GenerateFromAdvancedCriteria(new BenchmarkCriteria(), EstablishmentType.All, null, 123, ComparisonArea.All, BenchmarkListOverwriteStrategy.Add);
 
-            mockBenchmarkBasketService.Verify(m => m.UpdateSchoolComparisonListCookie(CookieActions.Add, It.IsAny<BenchmarkSchoolModel>()), Times.Exactly(1));
+            mockBenchmarkBasketService.Verify(m => m.TryAddSchoolToBenchmarkList(It.IsAny<SchoolViewModel>()), Times.Exactly(1));
 
         }
 
         [Test]
         public void GenerateFromAdvancedCriteriaWithAddReturnsBackToPageWithErrorIfTotalLimitExceeds()
         {
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
@@ -360,7 +370,7 @@ namespace SFB.Web.UI.UnitTests
                     Urn = i.ToString(), Name = "test", EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockDocumentDbService = new Mock<IFinancialDataService>();
             var testResult = new SchoolTrustFinancialDataObject();
@@ -418,6 +428,8 @@ namespace SFB.Web.UI.UnitTests
 
             var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
 
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
+
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object,
                 mockDocumentDbService.Object,
                 financialCalculationsService.Object,
@@ -428,7 +440,8 @@ namespace SFB.Web.UI.UnitTests
                 mockComparisonService.Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -459,18 +472,20 @@ namespace SFB.Web.UI.UnitTests
 
             var mockComparisonService = new Mock<IComparisonService>();
 
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
             var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
+
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
 
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object,
                 mockDocumentDbService.Object,
@@ -482,7 +497,8 @@ namespace SFB.Web.UI.UnitTests
                 mockComparisonService.Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -516,18 +532,20 @@ namespace SFB.Web.UI.UnitTests
 
             IBenchmarkCriteriaBuilderService benchmarkCriteriaBuilderService = null;
 
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
             var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
+
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
 
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object,
                 mockDocumentDbService.Object,
@@ -539,7 +557,8 @@ namespace SFB.Web.UI.UnitTests
                 mockComparisonService.Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -625,18 +644,20 @@ namespace SFB.Web.UI.UnitTests
 
             var mockComparisonService = new Mock<IComparisonService>();
 
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
             fakeSchoolComparisonList.HomeSchoolType = "test";
             fakeSchoolComparisonList.HomeSchoolFinancialType = "Academies";
             fakeSchoolComparisonList.BenchmarkSchools.Add(new BenchmarkSchoolModel { Urn = "123", EstabType = "Academies" });
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
             var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
+
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
 
             var controller = new BenchmarkChartsController(mockBenchmarkChartBuilder.Object,
                 mockDocumentDbService.Object,
@@ -647,7 +668,8 @@ namespace SFB.Web.UI.UnitTests
                 null, mockComparisonService.Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -664,7 +686,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void GenerateFromSavedBasketReturnsWarningPageIfThereIsAnExistingListAndWouldReplace()
         {
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
@@ -679,11 +701,13 @@ namespace SFB.Web.UI.UnitTests
                     EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
             var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
+
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
 
             var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object,
                 new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object,
@@ -692,7 +716,8 @@ namespace SFB.Web.UI.UnitTests
                 new Mock<IComparisonService>().Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -712,7 +737,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void GenerateFromSavedBasketReturnsWarningPageIfThereIsAnExistingListAndWouldReplaceTrustList()
         {
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
+
             var fakeTrustComparisonList = new TrustComparisonListModel();
             fakeTrustComparisonList.DefaultTrustCompanyNo = 123;
             fakeTrustComparisonList.DefaultTrustName = "test";
@@ -721,7 +748,7 @@ namespace SFB.Web.UI.UnitTests
                 fakeTrustComparisonList.Trusts.Add(new BenchmarkTrustModel(i, "test"));
             }
 
-            mockBenchmarkBasketService.Setup(m => m.GetTrustComparisonList()).Returns(fakeTrustComparisonList);
+            mockTrustBasketService.Setup(m => m.GetTrustBenchmarkList()).Returns(fakeTrustComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -734,7 +761,8 @@ namespace SFB.Web.UI.UnitTests
                 new Mock<IComparisonService>().Object,
                 mockBicComparisonResultCachingService.Object,
                 mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -754,7 +782,7 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void GenerateFromSavedBasketReturnsConfirmationPageIfThereIsAnExistingListAndCouldReplaceOrAdd()
         {
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
             var fakeSchoolComparisonList = new SchoolComparisonListModel();
             fakeSchoolComparisonList.HomeSchoolUrn = "123";
             fakeSchoolComparisonList.HomeSchoolName = "test";
@@ -769,18 +797,21 @@ namespace SFB.Web.UI.UnitTests
                     EstabType = "Academies"
                 });
             }
-            mockBenchmarkBasketService.Setup(m => m.GetSchoolComparisonList()).Returns(fakeSchoolComparisonList);
+            mockBenchmarkBasketService.Setup(m => m.GetSchoolBenchmarkList()).Returns(fakeSchoolComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
             var mockEfficiencyMetricService = new Mock<IEfficiencyMetricDataService>();
-            
+
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
+
             var controller = new BenchmarkChartsController(new Mock<IBenchmarkChartBuilder>().Object,
                 new Mock<IFinancialDataService>().Object, new Mock<IFinancialCalculationsService>().Object,
                 new Mock<ILocalAuthoritiesService>().Object, null,
                 new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object,
                 mockBicComparisonResultCachingService.Object, mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -800,7 +831,9 @@ namespace SFB.Web.UI.UnitTests
         [Test]
         public void GenerateFromSavedBasketReturnsConfirmationPageIfThereIsAnExistingListAndCouldReplaceOrAddTrustList()
         {
-            var mockBenchmarkBasketService = new Mock<IBenchmarkBasketService>();
+            var mockBenchmarkBasketService = new Mock<ISchoolBenchmarkListService>();
+            var mockTrustBasketService = new Mock<ITrustBenchmarkListService>();
+
             var fakeTrustComparisonList = new TrustComparisonListModel();
             fakeTrustComparisonList.DefaultTrustCompanyNo = 123;
             fakeTrustComparisonList.DefaultTrustName = "test";
@@ -808,7 +841,7 @@ namespace SFB.Web.UI.UnitTests
             {
                 fakeTrustComparisonList.Trusts.Add(new BenchmarkTrustModel(i, "test"));
             }
-            mockBenchmarkBasketService.Setup(m => m.GetTrustComparisonList()).Returns(fakeTrustComparisonList);
+            mockTrustBasketService.Setup(m => m.GetTrustBenchmarkList()).Returns(fakeTrustComparisonList);
 
             var mockBicComparisonResultCachingService = new Mock<IBicComparisonResultCachingService>();
 
@@ -819,7 +852,8 @@ namespace SFB.Web.UI.UnitTests
                 new Mock<ILocalAuthoritiesService>().Object, null,
                 new Mock<IContextDataService>().Object, null, new Mock<IComparisonService>().Object,
                 mockBicComparisonResultCachingService.Object, mockEfficiencyMetricService.Object,
-                mockBenchmarkBasketService.Object);
+                mockBenchmarkBasketService.Object,
+                mockTrustBasketService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 

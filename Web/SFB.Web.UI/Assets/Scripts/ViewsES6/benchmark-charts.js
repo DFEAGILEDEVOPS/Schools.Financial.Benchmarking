@@ -17,9 +17,13 @@
         $(document).ready(() => {
             this.hideNaProgressScores();
 
-            $("#benchmarkChartsList table.data-table-js").tablesorter();
-            $("#bestInClassTabSection table.data-table-js").tablesorter();
-            $("#comparisonSchoolsTabSection table.data-table-js").tablesorter();
+            $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]]});
+            $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]]});
+            $("#benchmarkChartsList table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
+            $("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+            $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+            $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+
             $(".chart-table th").removeAttr("aria-label");
             
             this.GenerateCharts();
@@ -731,7 +735,14 @@
                 this.RefreshAddRemoveLinks();
                 $('.save-as-image').show();
                 this.GenerateCharts(unitParameter);
-                $("table.data-table-js").tablesorter();
+
+                $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                $("#benchmarkChartsList table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
+                $("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+
             }
         });
     }
@@ -789,9 +800,12 @@
         if (tab === "Custom") {
             $(".tabs li").removeClass("active");
             $('.tabs li a').attr('aria-selected', 'false');
+            $('.tabs li a').attr('tabindex', '-1');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
+            $(".tabs li#" + tab + ' a').attr('tabindex', '0');
+            $(".tabs li#" + tab + ' a').focus();
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#tabsSection form").empty('');
             $("#tabsSection .sticky-chart-controls").empty('');
@@ -809,9 +823,12 @@
         } else if (tab === "BestInClass") {
             $(".tabs li").removeClass("active");
             $('.tabs li a').attr('aria-selected', 'false');
+            $('.tabs li a').attr('tabindex', '-1');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
+            $(".tabs li#" + tab + ' a').attr('tabindex', '0');
+            $(".tabs li#" + tab + ' a').focus();
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
             $("#comparisonSchoolsTabSection").hide();
@@ -825,9 +842,12 @@
         else if (tab === "ComparisonSchools") {
             $(".tabs li").removeClass("active");
             $('.tabs li a').attr('aria-selected', 'false');
+            $('.tabs li a').attr('tabindex', '-1');
             $(".tabs li a span.bmtab").text("");
             $(".tabs li#" + tab).addClass("active");
             $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
+            $(".tabs li#" + tab + ' a').attr('tabindex', '0');
+            $(".tabs li#" + tab + ' a').focus();
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#customTabSection").hide();
             $("#bestInClassTabSection").hide();
@@ -883,9 +903,12 @@
                 success: (data) => {
                     $(".tabs li").removeClass("active");
                     $('.tabs li a').attr('aria-selected', 'false');
+                    $('.tabs li a').attr('tabindex', '-1');
                     $(".tabs li a span.bmtab").text("");
                     $(".tabs li#" + tab).addClass("active");
                     $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
+                    $(".tabs li#" + tab + ' a').attr('tabindex', '0');
+                    $(".tabs li#" + tab + ' a').focus();
                     $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $("#downloadLinkContainer").show();
                     $("#PrintLinkText").text(" Print page");
@@ -900,7 +923,13 @@
                     $("#tabsSection form").html(formHtml);
                     $("#tabsSection form").show();
                     $('.sticky-div').Stickyfill();  
-                    $("table.data-table-js").tablesorter();
+                    $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                    $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                    $("#benchmarkChartsList table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
+                    $("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#bestInClassTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+                    $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                    $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+
                     let unitParameter = $("#ShowValue").val();
                     this.RefreshAddRemoveLinks();
                     $('.save-as-image').show();
@@ -910,6 +939,38 @@
                     this.GenerateCharts(unitParameter);    
                 }
             });
+        }
+    }
+
+    TabKeydown(e) {
+        let keys = {
+            left: 37,
+            up: 38,
+            right: 39,
+            down: 40,
+            enter: 13,
+            space: 32
+        };
+
+        activatePreviousTab = function () {
+            $("ul[role='tablist'] li.active").prev().find("a[role='tab']").click();
+        }
+
+        activateNextTab = function () {
+            $("ul[role='tablist'] li.active").next().find("a[role='tab']").click();
+        }
+
+        switch (e.keyCode) {
+            case keys.left:
+            case keys.up:
+                activatePreviousTab();
+                e.preventDefault();
+                break
+            case keys.right:
+            case keys.down:
+                activateNextTab();
+                e.preventDefault();
+                break
         }
     }
 

@@ -18,6 +18,7 @@ using SFB.Web.ApplicationCore.Entities;
 using System.Linq;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.ApplicationCore.Helpers.Constants;
+using SFB.Web.UI.Services;
 
 namespace SFB.Web.UI.UnitTests
 {
@@ -34,7 +35,7 @@ namespace SFB.Web.UI.UnitTests
         private Mock<IContextDataService> _mockContextDataService;
         private Mock<ISchoolSearchService> _mockSchoolSearchService;
         private Mock<ITrustSearchService> _mockTrustSearchService;
-        private Mock<IBenchmarkBasketCookieManager> _mockCookieManager;
+        private Mock<ISchoolBenchmarkListService> _mockCookieManager;
 
         [SetUp]
         public void Setup()
@@ -54,7 +55,7 @@ namespace SFB.Web.UI.UnitTests
             _mockContextDataService = new Mock<IContextDataService>();
             _mockSchoolSearchService = new Mock<ISchoolSearchService>();
             _mockTrustSearchService = new Mock<ITrustSearchService>();
-            _mockCookieManager = new Mock<IBenchmarkBasketCookieManager>();
+            _mockCookieManager = new Mock<ISchoolBenchmarkListService>();
         }
 
         //[Test]

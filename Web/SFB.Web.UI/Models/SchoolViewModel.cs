@@ -5,7 +5,6 @@ using SFB.Web.ApplicationCore.Entities;
 using System.Globalization;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Collections.Generic;
-using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Models
@@ -97,11 +96,11 @@ namespace SFB.Web.UI.Models
 
         public string SponsorName => ContextDataModel.SponsorName;
 
-        public string TrustNameInLatestFinance => LatestYearFinancialData.TrustName;
+        public string TrustNameInLatestFinance => LatestYearFinancialData?.TrustName;
 
         public int? CompanyNo => ContextDataModel.CompanyNumber;
         
-        public int? CompanyNoInLatestFinance => LatestYearFinancialData.CompanyNo;
+        public int? CompanyNoInLatestFinance => LatestYearFinancialData?.CompanyNo;
         
         public int? UID => ContextDataModel.UID;
 
@@ -194,21 +193,21 @@ namespace SFB.Web.UI.Models
 
         public bool IsMATinLatestFinance => LatestYearFinancialData.IsMAT;
 
-        public decimal? FSM => LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals;
+        public decimal? FSM => LatestYearFinancialData?.PercentageOfEligibleFreeSchoolMeals;
 
-        public decimal? SEN => LatestYearFinancialData.PercentageOfPupilsWithSen;
+        public decimal? SEN => LatestYearFinancialData?.PercentageOfPupilsWithSen;
 
-        public string UrbanRural => LatestYearFinancialData.UrbanRural;
+        public string UrbanRural => LatestYearFinancialData?.UrbanRural;
 
-        public decimal? ExpenditurePerPupil => LatestYearFinancialData.PerPupilTotalExpenditure;
+        public decimal? ExpenditurePerPupil => LatestYearFinancialData?.PerPupilTotalExpenditure;
 
-        public string PhaseInFinancialSubmission => LatestYearFinancialData.SchoolPhase;
+        public string PhaseInFinancialSubmission => LatestYearFinancialData?.SchoolPhase;
 
-        public string OverallPhaseInFinancialSubmission => LatestYearFinancialData.SchoolOverallPhase;
+        public string OverallPhaseInFinancialSubmission => LatestYearFinancialData?.SchoolOverallPhase;
 
-        public List<SENCriteriaModel> TopSenCharacteristics => LatestYearFinancialData.TopSenCharacteristics;
+        public List<SENCriteriaModel> TopSenCharacteristics => LatestYearFinancialData?.TopSenCharacteristics;
 
-        public List<SENCriteriaModel> SenCharacteristics => LatestYearFinancialData.SenCharacteristics;
+        public List<SENCriteriaModel> SenCharacteristics => LatestYearFinancialData?.SenCharacteristics;
 
         public BicProgressScoreType BicProgressScoreType
         {
@@ -225,13 +224,13 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public decimal? ProgressScore => LatestYearFinancialData.ProgressScore;
+        public decimal? ProgressScore => LatestYearFinancialData?.ProgressScore;
 
-        public decimal? KS2ProgressScore => LatestYearFinancialData.Ks2Progress;
+        public decimal? KS2ProgressScore => LatestYearFinancialData?.Ks2Progress;
 
         public decimal? P8ProgressScore => LatestYearFinancialData.P8Mea;
 
-        public decimal? P8Banding => LatestYearFinancialData.P8Banding;
+        public decimal? P8Banding => LatestYearFinancialData?.P8Banding;
 
         public bool HasCoordinates
         {
@@ -276,24 +275,5 @@ namespace SFB.Web.UI.Models
             }
             return string.Empty;
         }
-    }
-
-    public class SchoolViewModelWithNoDefaultSchool : SchoolViewModel
-    {
-        public SchoolViewModelWithNoDefaultSchool() : base(null)
-        {
-        }
-
-        public SchoolViewModelWithNoDefaultSchool(SchoolComparisonListModel manualComparisonList) : base(null, null, manualComparisonList)
-        {
-        }
-
-        public SchoolViewModelWithNoDefaultSchool(SchoolComparisonListModel schoolComparisonList, SchoolComparisonListModel manualComparisonList) : base(null, schoolComparisonList, manualComparisonList)
-        {
-        }
-
-        public override string Name { get => null; }
-
-        public override string Type => null;
     }
 }
