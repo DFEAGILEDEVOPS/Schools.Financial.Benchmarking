@@ -991,6 +991,7 @@
     <Content Include="Views\TrustSearch\Partials\TrustFilterForm.cshtml" />
     <Content Include="Views\TrustComparison\SelectType.cshtml" />
     <Content Include="Views\TrustComparison\Manual.cshtml" />
+    <Content Include="Views\TrustComparison\Advanced.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />

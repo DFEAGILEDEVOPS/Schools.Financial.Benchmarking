@@ -1,0 +1,106 @@
+﻿@model SFB.Web.UI.Models.TrustCharacteristicsViewModel
+
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Find and compare trusts";
+    ViewBag.pageClass = "trust-comparison";
+}
+
+<div class="error-summary required" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        There is a problem
+    </h1>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#SelectTrustAccordion">Select an option to continue the comparison</a>
+        </li>
+    </ul>
+</div>
+
+@*<div class="error-summary not-found" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
+        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            There is a problem
+        </h1>
+        <ul class="error-summary-list">
+            <li>
+                <a href="#NewTrustName">We couldn't find any trusts matching your search criteria</a>
+            </li>
+        </ul>
+    </div>*@
+
+@section BackButtonContent{
+    <a class="govuk-back-link hide-in-print" href="/trustcomparison/SelectType?companyNo=@Model.BenchmarkTrust.CompanyNo&matName=@Model.BenchmarkTrust.Name">Back</a>
+}
+
+<div id="ErrorSummaryPlaceHolder"></div>
+
+<h1 class="heading-xlarge page-heading">Select the trust characteristics</h1>
+
+<div class="grid-row">
+    <div class="column-full">
+        <span class="font-xsmall">Comparing to</span>
+        <div class="highlight">
+            <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo"><span class="bold-xsmall">@Model.BenchmarkTrust.Name</span></a>
+        </div>
+    </div>
+</div>
+
+<p class="mt-2">
+    Please refine your search to <span class="bold-small">1</span> to <span class="bold-small">20</span> trusts, a meaningful benchmark basket contains around <span class="bold-small">5</span> trusts.
+</p>
+
+<div class="sticky-div">
+    <div id="liveCountBar">
+        <div class="grid-row">
+            <div class="column-full">
+                <div id="comparisonListInfoPanelResults" class="trust-match-info">
+                    <span id="spinnerPlaceHolder" class="font-xsmall" role="alert" style="display: none;">
+                        <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading">
+                        <span style="margin-left: 10px; color: black">Searching</span>
+                    </span>
+                    <span id="schoolCount" aria-live="assertive">
+                        <span id="countPart" class="bold-small">0</span>
+                        <span id="rest">trusts found (max. 20)</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid-row">
+    <div class="column-full">
+        <form method="post" id="criteriaForm" action="GenerateListFromAdvancedCriteria" autocomplete="off" class="mt-1">
+            <div class="form-group">
+                <fieldset>
+                    <legend class="visually-hidden">Select trust characteristics</legend>
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("Partials/TrustCharacteristics", Model)
+                    <div class="control-buttons">
+                        <div class="grid-row">
+                            <div class="column-two-thirds">
+                                <div class="column-half pl-0">
+                                    <button type="submit" class="button view-benchmark-charts submit">View benchmarking charts</button>
+                                </div>
+                                <div class="column-half no-padding">
+                                    <div class="back-button">
+                                        <button class="clear-criteria js-clear-criteria link-button font-xsmall">Clear characteristics</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section ViewScripts {
+
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        DfE.Views.TrustCompareAdvancedViewModel = new TrustCompareAdvancedViewModel();
+    </script>
+}
+
