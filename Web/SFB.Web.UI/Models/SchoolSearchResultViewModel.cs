@@ -137,7 +137,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string Address => $"{ContextDataModel.Street}, {ContextDataModel.Town}, {ContextDataModel.Postcode}";
+        public string Address => ContextDataModel.FullAddress;
 
         public string Type => ContextDataModel.TypeOfEstablishment;
 
