@@ -509,6 +509,11 @@ namespace SFB.Web.UI.Controllers
         public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int? urn, ComparisonArea areaType, 
             BenchmarkListOverwriteStrategy? overwriteStrategy, bool excludePartial = false)
         {
+            if(criteria == null)
+            {
+                criteria = new BenchmarkCriteria();
+            }
+
             criteria.LocalAuthorityCode = lacode;
             SchoolViewModel benchmarkSchoolVM;
             if (urn.HasValue)
