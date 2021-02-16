@@ -536,7 +536,7 @@
             return false;
         });   
 
-        $("a.button").on("keydown", function (event) {
+        $("a.button, a.js-modal").on("keydown", function (event) {
             // get the target element
             var target = event.target;
             // if the element has a role='button' and the pressed key is a space, we'll simulate a click
