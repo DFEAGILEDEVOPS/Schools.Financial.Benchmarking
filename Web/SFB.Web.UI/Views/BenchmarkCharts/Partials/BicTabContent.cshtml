@@ -90,11 +90,11 @@
             <table class="tablesorter data-table-js chart-table--mobile-above-view" id="ProgressScoresTable">
                 <thead>
                     <tr>
-                        <th nowrap class="school-column sortInitialOrder-asc" scope="col">School</th>
-                        <th nowrap class="sortInitialOrder-asc" scope="col">Local authority</th>
-                        <th nowrap class="numeric sortInitialOrder-desc" scope="col">Pupils</th>
-                        <th class="sortInitialOrder-desc" nowrap scope="col">FSM</th>
-                        <th class="sortInitialOrder-desc" nowrap scope="col">EHCP</th>
+                        <th  class="nowrap school-column sortInitialOrder-asc" scope="col">School</th>
+                        <th  class="nowrap sortInitialOrder-asc" scope="col">Local authority</th>
+                        <th  class="nowrap numeric sortInitialOrder-desc" scope="col">Pupils</th>
+                        <th class="nowrap sortInitialOrder-desc"  scope="col">FSM</th>
+                        <th class="nowrap sortInitialOrder-desc"  scope="col">EHCP</th>
                         <th class="sortInitialOrder-desc" cope="col">Expenditure per pupil</th>
                         <th class="sortInitialOrder-asc" scope="col">Urban/rural description</th>
                         @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
@@ -108,7 +108,7 @@
                         }
                         @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th nowrap class="numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
+                            <th  class="nowrap numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
                                 Progress 8
                                 <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
