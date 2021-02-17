@@ -9,6 +9,7 @@
     <label class="search-types__optional-section__label form-label" for="FindByTrustName">
         Enter a trust name or Companies House number
     </label>
+    <label class="visually-hidden" for="FindByTrustName_listbox">Select a trust from the list box</label>
     @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_NAME_ID))
     {
         <span class="error-message">@Model.ErrorMessage</span>
