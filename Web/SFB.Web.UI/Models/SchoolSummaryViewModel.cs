@@ -27,7 +27,7 @@ namespace SFB.Web.UI.Models
             }
             Name = model.EstablishmentName;
             Id = model.URN;
-            Address = String.Format("{0}, {1}, {2}", model.Street, model.Town, model.Postcode);
+            Address = model.FullAddress;
             EducationPhases = model.PhaseOfEducation;
             OverallPhase = model.OverallPhase;
             NFType = model.TypeOfEstablishment;            

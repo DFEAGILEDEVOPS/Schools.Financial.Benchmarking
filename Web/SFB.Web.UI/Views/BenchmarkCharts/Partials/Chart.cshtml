@@ -31,7 +31,7 @@
                         {
                             <span class="help-icon help-chart hide-in-print">
                                 <span class="icon dark-blue">
-                                    <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <a href="#" class="js-modal" role="button" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                         <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
                                     </a>
                                 </span>
@@ -50,7 +50,7 @@
                                 {
                                     <span class="help-icon help-chart hide-in-print">
                                         <span class="icon dark-blue">
-                                            <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                            <a href="#" class="js-modal" role="button" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                                 <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
                                             </a>
                                         </span>
@@ -79,7 +79,7 @@
                                 {
                                     <span class="help-icon help-chart hide-in-print">
                                         <span class="icon dark-blue">
-                                            <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                            <a href="#" class="js-modal" role="button" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                                 <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
                                             </a>
                                         </span>
@@ -120,7 +120,7 @@
                                     <div style="display:inline">
                                         <span class="help-icon help-addremove hide-in-print">
                                             <span class="icon dark-blue">
-                                                <a href="#" class="js-modal" data-modal-title="Add to your charts/remove from your charts" data-modal-text="If you want to download or print a customised report, you can save individual charts in the ‘Your charts’ tab. You can add or remove them by selecting ‘Add to your charts’ or ‘Remove from your charts’. Go to the 'Your charts' tab to see the ones you’ve chosen." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                <a href="#" class="js-modal" role="button" data-modal-title="Add to your charts/remove from your charts" data-modal-text="If you want to download or print a customised report, you can save individual charts in the ‘Your charts’ tab. You can add or remove them by selecting ‘Add to your charts’ or ‘Remove from your charts’. Go to the 'Your charts' tab to see the ones you’ve chosen." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                                     <span class="visuallyhidden">Open more info text for Add this chart to 'Your charts' opens a popup</span>
                                                 </a>
                                             </span>
@@ -152,7 +152,8 @@
 
                 @if (Model[i].DealsForSchoolsMessage != null)
                 {
-                <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
+                <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory"
+                                                                                                          aria-label="Deals for schools link @Model[i].DealsForSchoolsMessage">deals for schools</a></div>
                 }
 
                 @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
@@ -236,7 +237,11 @@
                             <div class="accordion-section-body">
                                 @if (Model[i].DealsForSchoolsMessage != null)
                                 {
-                                    <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
+                                    <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit 
+                                    <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" 
+                                       href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory"
+                                       aria-label="Link for @Model[i].DealsForSchoolsMessage">deals for schools</a>
+                                </div>
                                 }
                                 @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                                 {

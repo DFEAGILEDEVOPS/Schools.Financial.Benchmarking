@@ -179,7 +179,7 @@ namespace SFB.Web.UI.Models
 
         public string HasNursery => ContextDataModel.HasNursery == "Has Nursery Classes" ? "Yes" : "No";
 
-        public string Address => $"{ContextDataModel.Street}, {ContextDataModel.Town}, {ContextDataModel.Postcode}";
+        public string Address => ContextDataModel.Address;
 
         public override string Type => ContextDataModel.TypeOfEstablishment;
 
