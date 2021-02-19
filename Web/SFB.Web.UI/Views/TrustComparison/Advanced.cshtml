@@ -50,7 +50,7 @@
 </p>
 
 <div class="sticky-div">
-    <div id="liveCountBar">
+    <div id="liveCountBar" class="live-count-bar">
         <div class="grid-row">
             <div class="column-full">
                 <div id="comparisonListInfoPanelResults" class="trust-match-info">
@@ -59,8 +59,8 @@
                         <span style="margin-left: 10px; color: black">Searching</span>
                     </span>
                     <span id="schoolCount" aria-live="assertive">
-                        <span id="countPart" class="bold-small">0</span>
-                        <span id="rest">trusts found (max. 20)</span>
+                        <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
+                        <span style="margin-left: 10px; color: black">Searching</span>
                     </span>
                 </div>
             </div>
@@ -80,11 +80,11 @@
                         <div class="grid-row">
                             <div class="column-two-thirds">
                                 <div class="column-half pl-0">
-                                    <button type="submit" class="button view-benchmark-charts submit">View benchmarking charts</button>
+                                    <button onclick="DfE.Views.TrustCompareAdvancedViewModel.onSubmit(event)" class="button view-benchmark-charts submit">View benchmarking charts</button>
                                 </div>
                                 <div class="column-half no-padding">
                                     <div class="back-button">
-                                        <button class="clear-criteria js-clear-criteria link-button font-xsmall">Clear characteristics</button>
+                                        <button onclick="DfE.Views.TrustCompareAdvancedViewModel.onSubmit(event)" class="clear-criteria js-clear-criteria link-button font-xsmall">Clear characteristics</button>
                                     </div>
                                 </div>
                             </div>

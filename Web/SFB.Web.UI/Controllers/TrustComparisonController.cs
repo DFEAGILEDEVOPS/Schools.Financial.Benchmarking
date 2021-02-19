@@ -73,12 +73,8 @@ namespace SFB.Web.UI.Controllers
             {
                 return 0;
             }
-
-            if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
-            {                
-                return await _financialDataService.SearchTrustCountByCriteriaAsync(criteria.AdvancedCriteria);                
-            }
-            return 0;
+              
+             return await _financialDataService.SearchTrustCountByCriteriaAsync(criteria?.AdvancedCriteria);                
         }
 
         [HttpPost]

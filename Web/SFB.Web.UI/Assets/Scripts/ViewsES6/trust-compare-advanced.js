@@ -8,6 +8,7 @@
         this.validateForm();
         GOVUK.Accordion.bindElements("SelectTrustAccordion");
         GOVUK.Modal.Load();
+        this.updateResultCount();
     }
 
     validateForm() {
@@ -70,15 +71,6 @@
                 $panel.find("input[type='number']:disabled").val(null);
                 $panel.find("input[type='checkbox']:disabled").prop('checked', false);
                 $panel.find("input[type='radio']:disabled").prop('checked', false);
-                if ($(this.questionCheckBoxSelector + ":checked").length > 0) {
-                    $("#liveCountBar").show();
-                    $("#comparisonListInfoPanelResults").show();
-                    $("#comparisonListInfoPanelResultsEmpty").hide();
-                } else {
-                    $("#liveCountBar").show();
-                    $("#comparisonListInfoPanelResultsEmpty").show();
-                    $("#comparisonListInfoPanelResults").hide();
-                }
 
                 if (!event.target.checked) {
                     this.updateResultCount();
@@ -103,10 +95,6 @@
                     $mypanel.find("input").prop('disabled', false);
                 }
 
-                $("#liveCountBar").show();
-                $("#comparisonListInfoPanelResults").show();
-                $("#comparisonListInfoPanelResultsEmpty").hide();
-
                 this.updateResultCount();
 
             });
@@ -121,12 +109,14 @@
         }
     }
 
-    checkResultCount() {
+    onSubmit(event) {
+
         let count = $("#schoolCount").text().substring(0, $("#schoolCount").text().indexOf(' '));
         if (count <= 20) {
             $("#criteriaForm").submit();
         } else {
             this.renderWarningModal(count);
+            event.preventDefault();
         }
     }
 
@@ -164,19 +154,12 @@
         if (this.jqxhr) {
             this.jqxhr.abort();
         }
+        $("#schoolCount").html(`<img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" /><span style="margin-left: 10px; color: black">Searching</span>`);
         this.jqxhr = $.post("GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
             .done(function (count) {
-                $("#schoolCount").text("Searching");
-                setTimeout(function () { $("#schoolCount").text(count + " trusts found"); }, 500);
+                setTimeout(function () {
+                    $("#schoolCount").html(`<span id="countPart" class="bold-small">${count}</span><span id="rest"> trusts found (max. 20)</span >`); }, 500);
                 $("button.view-benchmark-charts").attr("aria-label", "View " + count + " trusts in a benchmark chart");
-                $("#liveCountBar").show();
-                //if (count > 0) {
-                //    $("button.submit").show();
-                //    $("button.submit").removeAttr("disabled");
-                //} else {
-                //    $("button.submit").hide();
-                //    $("button.submit").attr("disabled", "disabled");
-                //}
                 $('.sticky-div').Stickyfill();
             });
     }      
