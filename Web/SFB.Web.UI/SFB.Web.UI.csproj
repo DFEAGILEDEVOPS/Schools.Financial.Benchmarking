@@ -411,6 +411,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\AccessibilityController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BenchmarkChartsController.cs" />
     <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
@@ -974,6 +975,7 @@
     <Content Include="Views\Help\SadGuidance.cshtml" />
     <Content Include="Assets\Sass\_backLink.scss" />
     <Content Include="Views\BenchmarkCharts\Partials\SpecialHiddenFields.cshtml" />
+    <Content Include="Views\Accessibility\Index.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
