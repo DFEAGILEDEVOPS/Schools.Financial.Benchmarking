@@ -256,6 +256,13 @@ else
                     <span>&nbsp;to selected trusts. You can </span>
                     <a href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>
                 }
+                else
+                {
+                    <span>&nbsp;to trusts</span>
+                    <span class="bold-xsmall"> with characteristics you've chosen. </span>
+                    <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to trust characteristics</button>
+                    @Html.Partial("Partials/TrustAdvancedHiddenFields")
+                }
             </div>
         </div>
     }

@@ -1,0 +1,43 @@
+﻿@model SFB.Web.UI.Models.BenchmarkChartListViewModel
+
+@if (Model.AdvancedCriteria != null)
+{
+<form id="advancedCriteria" method="post" action="~/TrustComparison/advanced">
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinNoPupil)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxNoPupil)
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinNoSchools)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxNoSchools)
+
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinTotalInc)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxTotalInc)
+
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.SchoolOverallPhase)
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinCrossPhasePrimary)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxCrossPhasePrimary)
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinCrossPhaseSecondary)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxCrossPhaseSecondary)
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinCrossPhaseSpecial)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxCrossPhaseSpecial)
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinCrossPhasePru)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxCrossPhasePru)
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinCrossPhaseAP)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxCrossPhaseAP)
+
+    @Html.HiddenFor(model => model.AdvancedCriteria.MinCrossPhaseAT)
+    @Html.HiddenFor(model => model.AdvancedCriteria.MaxCrossPhaseAT)
+
+
+    <input type="hidden" id="companyNo" name="companyNo" value="@Model.TrustComparisonList.DefaultTrustCompanyNo">
+
+</form>
+}

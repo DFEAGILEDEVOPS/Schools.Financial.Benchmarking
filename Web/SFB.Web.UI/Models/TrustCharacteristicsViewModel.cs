@@ -20,6 +20,13 @@ namespace SFB.Web.UI.Models
             this.BenchmarkCriteria = new BenchmarkCriteria();
         }
 
+        public TrustCharacteristicsViewModel(TrustViewModel trust, BenchmarkCriteria criteria)
+        {
+            this.BenchmarkTrust = trust;
+            this.TrustCharacteristics = BuildTrustCharacteristics(trust);
+            this.BenchmarkCriteria = criteria;
+        }
+
         public string this[string question]
         {
             get

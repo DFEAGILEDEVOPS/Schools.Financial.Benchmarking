@@ -3,6 +3,7 @@
     constructor() {
         this.questionCheckBoxSelector = ".multiple-choice.question > input";
         this.questionCheckBoxSelectorRadio = ".multiple-choice.questionRadio > input";
+        this.questionNumberInputSelector = ".panel input.criteria-input";
 
         this.bindCriteriaEvents();
         this.validateForm();
@@ -65,6 +66,8 @@
                     $panel.removeClass("error");
                     $panel.find("input.error").removeClass("error");
                     $panel.find("label.error").css("display", "none");
+                    let $innerPanel = $panel.find(".panel");
+                    $innerPanel.hide();
                 } else {
                     $panel.find("input").prop('disabled', false);
                 }
@@ -99,6 +102,18 @@
 
             });
 
+        $(this.questionNumberInputSelector).keyup((e) => {
+            let code = e.keyCode || e.which;
+            if (code !== 9) {
+                this.updateResultCount();
+            }
+        });
+
+    }
+
+    onClear(event) {
+        $(this.questionCheckBoxSelector + ":checked").click();
+        event.preventDefault();
     }
 
     validate() {
@@ -144,10 +159,6 @@
 
         $('#js-modal-close').focus();
 
-    }
-
-    clear() {
-        $(this.questionCheckBoxSelector + ":checked").click();
     }
 
     updateResultCount() {

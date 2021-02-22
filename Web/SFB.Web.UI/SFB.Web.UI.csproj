@@ -978,6 +978,7 @@
     <Content Include="Assets\Sass\_backLink.scss" />
     <Content Include="Views\BenchmarkCharts\Partials\SpecialHiddenFields.cshtml" />
     <Content Include="Views\Accessibility\Index.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\TrustAdvancedHiddenFields.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

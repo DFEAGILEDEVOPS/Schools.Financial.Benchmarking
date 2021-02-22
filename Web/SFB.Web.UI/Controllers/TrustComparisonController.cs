@@ -10,6 +10,7 @@ using SFB.Web.UI.Services;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Helpers.Constants;
 using Microsoft.ApplicationInsights;
+using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -25,11 +26,11 @@ namespace SFB.Web.UI.Controllers
             _trustBenchmarkListService = trustBenchmarkListService;
         }
 
-        public async Task<ActionResult> Advanced(int companyNo)
+        public async Task<ActionResult> Advanced(int companyNo, BenchmarkCriteria advancedCriteria)
         {
             var benchmarkTrust =  await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
 
-            var vm = new TrustCharacteristicsViewModel(benchmarkTrust);
+            var vm = new TrustCharacteristicsViewModel(benchmarkTrust, advancedCriteria);
 
             return View(vm);
         }
@@ -97,6 +98,8 @@ namespace SFB.Web.UI.Controllers
                     _trustBenchmarkListService.TryAddTrustToBenchmarkList(doc.CompanyNumber.GetValueOrDefault(), doc.TrustOrCompanyName);
                 }
             }
+            
+            TempData["BenchmarkCriteria"] = criteria.AdvancedCriteria;
             return Redirect("/BenchmarkCharts/Mats");
         }
 

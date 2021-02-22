@@ -54,8 +54,11 @@
 
     .control-buttons {
         clear: left;
-        border-top: 1px solid black;
         padding-top: 25px;
+
+        &.advanced {
+            border-top: 1px solid black;
+        }
     }
 
     .form-control {
@@ -82,5 +85,4 @@
         padding: 12px 0 10px 0;
         background-color: $page-colour;
     }
-
 }

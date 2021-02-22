@@ -70,13 +70,13 @@
 
 <div class="grid-row">
     <div class="column-full">
-        <form method="post" id="criteriaForm" action="GenerateListFromAdvancedCriteria" autocomplete="off" class="mt-1">
+        <form method="post" id="criteriaForm" action="GenerateListFromAdvancedCriteria?companyNo=@Model.BenchmarkTrust.CompanyNo" autocomplete="off" class="mt-1">
             <div class="form-group">
                 <fieldset>
                     <legend class="visually-hidden">Select trust characteristics</legend>
                     @Html.AntiForgeryToken()
                     @Html.Partial("Partials/TrustCharacteristics", Model)
-                    <div class="control-buttons">
+                    <div class="advanced control-buttons">
                         <div class="grid-row">
                             <div class="column-two-thirds">
                                 <div class="column-half pl-0">
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="column-half no-padding">
                                     <div class="back-button">
-                                        <button onclick="DfE.Views.TrustCompareAdvancedViewModel.onSubmit(event)" class="clear-criteria js-clear-criteria link-button font-xsmall">Clear characteristics</button>
+                                        <button onclick="DfE.Views.TrustCompareAdvancedViewModel.onClear(event)" class="clear-criteria js-clear-criteria link-button font-xsmall">Clear characteristics</button>
                                     </div>
                                 </div>
                             </div>
