@@ -161,9 +161,11 @@
         this.jqxhr = $.post("GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
             .done(function (count) {
                 setTimeout(function () {
-                    $("#schoolCount").html(`<span id="countPart" class="bold-small">${count}</span><span id="rest"> trusts found (max. 20)</span >`); }, 500);
-                $("button.view-benchmark-charts").attr("aria-label", "View " + count + " trusts in a benchmark chart");
-                $('.sticky-div').Stickyfill();
+                    $("#schoolCount").html(`<span class="bold-small">${count}</span><span> trusts found</span >`);                    
+                }, 500);
+                    
+                    $("button.view-benchmark-charts").attr("aria-label", "View " + count + " trusts in a benchmark chart");
+                    $('.sticky-div').Stickyfill();
             });
     }      
 
