@@ -13,7 +13,6 @@
     }
 
     validateForm() {
-
         jQuery.extend(jQuery.validator.messages, {
             max: jQuery.validator.format("Enter a value less than or equal to {0}"),
             min: jQuery.validator.format("Enter a value greater than or equal to {0}")
@@ -116,18 +115,10 @@
         event.preventDefault();
     }
 
-    validate() {
-        if ($("input[type=radio]:checked").length == 0) {
-            $(".error-summary.required").show();
-            $(".error-summary-list a").focus();
-            return false;
-        }
-    }
-
     onSubmit(event) {
 
         let count = $("#schoolCount").text().substring(0, $("#schoolCount").text().indexOf(' '));
-        if (count <= 20) {
+        if (count > 0 && count <= 20) {
             $("#criteriaForm").submit();
         } else {
             this.renderWarningModal(count);
@@ -142,9 +133,9 @@
         // insert code at the end
         let $modal_code =
             '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
-            '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
+            '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="sbmt_button" title="Close">Close</a>' +
             '<h1 id="modal-title" class="modal-title">' + resultCount + ' matches found</h1>' +
-            '<p id="modal-content">Please refine the characteristics entered until there are 20 or fewer matched trusts.</p>';
+            '<p id="modal-content">Refine the characteristics entered until there are between 1 and 20 matched trusts.</p>';
 
         $($modal_code).insertAfter($page);
         $body.addClass('no-scroll');

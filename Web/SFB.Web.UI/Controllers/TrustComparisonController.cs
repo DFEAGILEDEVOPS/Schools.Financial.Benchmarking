@@ -85,7 +85,7 @@ namespace SFB.Web.UI.Controllers
             if (!ModelState.IsValid)
             {
                 new TelemetryClient().TrackException(new ApplicationException("Invalid criteria entered for advanced search!" + criteria));
-                return null;
+                throw new ApplicationException();
             }
 
             if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())

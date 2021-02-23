@@ -16,7 +16,13 @@
     @Html.HiddenFor(model => model.AdvancedCriteria.MaxTotalInc)
 
 
-    @Html.HiddenFor(model => model.AdvancedCriteria.SchoolOverallPhase)
+    @if (Model.AdvancedCriteria.SchoolOverallPhase != null)
+    {
+        for (int i = 0; i < Model.AdvancedCriteria.SchoolOverallPhase.Length; i++)
+        {
+            @Html.HiddenFor(model => Model.AdvancedCriteria.SchoolOverallPhase[i])
+        }
+    }
 
     @Html.HiddenFor(model => model.AdvancedCriteria.MinCrossPhasePrimary)
     @Html.HiddenFor(model => model.AdvancedCriteria.MaxCrossPhasePrimary)
