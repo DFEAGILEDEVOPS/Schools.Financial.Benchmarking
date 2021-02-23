@@ -528,6 +528,8 @@
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\ViewsES6\trust-compare-advanced.js" />
+    <Content Include="Assets\Scripts\Views\trust-compare-advanced.js" />
+    <Content Include="Assets\Scripts\Views\trust-compare-manual.js" />
     <Content Include="public\assets\images\icons\add.svg" />
     <Content Include="public\assets\images\icons\download.svg" />
     <Content Include="public\assets\images\icons\find.svg" />
@@ -574,7 +576,6 @@
     <Content Include="Assets\Scripts\Views\school-details.js" />
     <Content Include="Assets\Scripts\Views\school-results.js" />
     <Content Include="Assets\Scripts\Views\schools-search.js" />
-    <Content Include="Assets\Scripts\Views\trust-compare.js" />
     <Content Include="Assets\Scripts\Views\trust-details.js" />
     <Content Include="browserconfig.xml" />
     <Content Include="favicon.ico" />
