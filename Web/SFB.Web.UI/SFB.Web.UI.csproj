@@ -985,7 +985,6 @@
     <Content Include="Views\Trust\Partials\ValueSelect.cshtml" />
     <Content Include="Views\TrustSearch\Partials\TrustResultBlock.cshtml" />
     <Content Include="Views\Trust\Partials\TrustCentralFinancing.cshtml" />
-    <Content Include="Views\TrustComparison\Index.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustsToCompare.cshtml" />
     <Content Include="Views\TrustSchools\SearchResults.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />

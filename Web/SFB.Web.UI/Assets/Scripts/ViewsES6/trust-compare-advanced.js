@@ -42,7 +42,8 @@
                     if ($(element).closest(".panel").find("input.error").length === 0) {
                         $(element).closest(".panel").removeClass("error");
                     }
-                }
+                },
+                errorElement: "span"
             });
 
         $(".max-js").each((index, element) => $(element).rules("add", {

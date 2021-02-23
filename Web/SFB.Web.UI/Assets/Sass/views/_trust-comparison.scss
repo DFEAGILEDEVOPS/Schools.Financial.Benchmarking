@@ -85,4 +85,9 @@
         padding: 12px 0 10px 0;
         background-color: $page-colour;
     }
+
+    span.error {
+        border: none;
+        display: block;
+    }
 }
