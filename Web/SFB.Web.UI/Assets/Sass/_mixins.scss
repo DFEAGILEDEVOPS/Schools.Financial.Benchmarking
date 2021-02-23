@@ -16,6 +16,12 @@
                 text-decoration: underline;
                 color: white;
             }
+
+            &:focus {
+                span {
+                    color: $black;
+                }
+            }
         }
 
         @include media(mobile) {

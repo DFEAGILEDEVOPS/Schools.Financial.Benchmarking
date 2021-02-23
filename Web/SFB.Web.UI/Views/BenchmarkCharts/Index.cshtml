@@ -244,13 +244,25 @@ else
     if (Model.EstablishmentType == EstablishmentType.MAT && Model.TrustComparisonList.Trusts.Any(t => t.CompanyNo == Model.TrustComparisonList.DefaultTrustCompanyNo))
     {
         <div class="grid-row">
-            <div class="column-full">
+            <div class="column-full font-xsmall">
                 <span>Comparing</span>
                 <div class="highlight">
-                    <span class="bold-small">@Model.TrustComparisonList.DefaultTrustName</span>
+                    <a href="/trust/index?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">
+                        <span class="bold-xsmall">@Model.TrustComparisonList.DefaultTrustName</span>
+                    </a>
                 </div>
-                <span>&nbsp;to selected trusts. You can </span>
-                <a href="/TrustComparison?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo&matName=@Model.TrustComparisonList.DefaultTrustName">view or edit these.</a>
+                @if (ViewBag.comparison == ComparisonType.Manual)
+                {
+                    <span>&nbsp;to selected trusts. You can </span>
+                    <a href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>
+                }
+                else
+                {
+                    <span>&nbsp;to trusts</span>
+                    <span class="bold-xsmall"> with characteristics you've chosen. </span>
+                    <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to trust characteristics</button>
+                    @Html.Partial("Partials/TrustAdvancedHiddenFields")
+                }
             </div>
         </div>
     }
