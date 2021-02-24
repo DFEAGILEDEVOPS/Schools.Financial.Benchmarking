@@ -234,7 +234,8 @@ namespace SFB.Web.UI.Controllers
             ComparisonArea? areaType, 
             string laCodeName,
             BenchmarkCriteria AdvancedCriteria, 
-            bool excludePartial = false)
+            bool excludePartial = false,
+            int? laCode = null)
         {
 
             if (!areaType.HasValue)
@@ -258,9 +259,8 @@ namespace SFB.Web.UI.Controllers
                 return View("ChooseRegion", vm);
             }
 
-            int? laCode = null;
 
-            if (areaType == ComparisonArea.LaCodeName)
+            if (areaType == ComparisonArea.LaCodeName && laCode == null)
             {
                 string errorMessage = _valService.ValidateLaCodeNameParameter(laCodeName);
                 
