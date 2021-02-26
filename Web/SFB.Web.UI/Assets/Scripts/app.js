@@ -58,6 +58,12 @@
         }
     };
 
+    window.DfE.Util.Features = {
+        enabled: function (feature) {
+            return $("#Feature-" + feature + "-enabled").val().toLowerCase() == "true";
+        }
+    };
+
     window.DfE.Util.LoadingMessage = {
         display : function(location, message) {
             $(location).html('<div style="min-height:300px; margin-top:20px;">' +

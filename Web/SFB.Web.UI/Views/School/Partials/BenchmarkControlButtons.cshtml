@@ -3,8 +3,6 @@
 
         <a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>
 
-        @*<a class="button compare-buttons-panel__button--em" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name">Efficiency Metric</a>*@
-
         <a @DisplayStyle(Model.IsInComparisonList) class="add-remove-js button compare-buttons-panel__button--removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Remove')")">Remove from benchmark basket</a>
 
         <a @DisplayStyle(!Model.IsInComparisonList) class="add-remove-js button compare-buttons-panel__button--addto" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Add')")">Add to benchmark basket</a>

@@ -428,6 +428,11 @@ namespace SFB.Web.UI.Controllers
         [HttpGet]
         public async Task<ActionResult> GenerateFromEfficiencyMetricsTop(int urn)
         {
+            if (FeatureManager.IsDisabled(Features.EfficiencyMetric))
+            {
+                throw new UnauthorizedAccessException();
+            }
+
             var defaultSchool = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
             var neighbourSchools = (await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn)).Neighbours;
             var topNeighbourSchoolURNs = neighbourSchools.OrderBy(s => s.EfficiencyDecileNeighbour).Take(15).Select(n => n.Urn).ToList();
@@ -444,6 +449,11 @@ namespace SFB.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> GenerateFromEfficiencyMetricsManual(int urn, string neighbourURNs)
         {
+            if (FeatureManager.IsDisabled(Features.EfficiencyMetric))
+            {
+                throw new UnauthorizedAccessException();
+            }
+
             var neighbourUrnList = neighbourURNs?.Split(',').Select(u => int.Parse(u)).ToList();
 
             _schoolBenchmarkListService.ClearSchoolBenchmarkList();
