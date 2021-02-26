@@ -51,16 +51,6 @@
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
-            <li id="@TabType.Salary" class="hide-in-print" role="presentation">
-                <a aria-selected="false" 
-                   class="tab-link tab-vertical-align" 
-                   role="tab" 
-                   href="javascript: void(0)"
-                   tabindex="-1" 
-                   aria-controls="tabsSection"
-                   onkeydown="DfE.Views.BenchmarkChartsViewModel.TabKeydown(event)"
-                   onclick="DfE.Views.BenchmarkChartsViewModel.ChangeTab('@TabType.Salary')">@TabNames.SALARY <span class="bmtab visually-hidden"></span></a>
-            </li>
             <li id="@TabType.Custom" class="hide-in-print" role="presentation">
                 @*<span class="visually-hidden">@TabNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
                 <a aria-selected="false" 

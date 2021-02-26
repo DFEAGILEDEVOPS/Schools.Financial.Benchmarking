@@ -620,10 +620,6 @@
             height: 75px;
         }
 
-        &.Salary {
-            display: none;
-        }
-
         @include media(tablet) {
             height: 93px;
 

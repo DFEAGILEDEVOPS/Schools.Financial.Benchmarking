@@ -1995,44 +1995,6 @@ namespace SFB.Web.UI.Helpers
                     ShowValue = UnitType.AbsoluteCount
                 },
 
-                //Salary                
-                new ChartViewModel()
-                {
-                    Id = 58,
-                    Name = "Classroom teachers on main pay range (%)",
-                    FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_MAIN_PAY,
-                    TabType = TabType.Salary,
-                    ChartGroup = ChartGroupType.Salary,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    ChartType = ChartType.Total,
-                    Downloadable = true,
-                    ShowValue = UnitType.PercentageTeachers
-                },
-                new ChartViewModel()
-                {
-                    Id = 59,
-                    Name = "Classroom teachers on upper and/or leading pay range",
-                    FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_UPPER_LEADING_PAY,
-                    TabType = TabType.Salary,
-                    ChartGroup = ChartGroupType.Salary,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    ChartType = ChartType.Total,
-                    Downloadable = true,
-                    ShowValue = UnitType.PercentageTeachers
-                },
-                new ChartViewModel()
-                {
-                    Id = 60,
-                    Name = "All teachers on leadership pay range (%)",
-                    FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_LEADERSHIP_PAY,
-                    TabType = TabType.Salary,
-                    ChartGroup = ChartGroupType.Salary,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    ChartType = ChartType.Total,
-                    Downloadable = true,
-                    ShowValue = UnitType.PercentageTeachers
-                },
-
                 //School performance (for download only)
                 new ChartViewModel()
                 {
