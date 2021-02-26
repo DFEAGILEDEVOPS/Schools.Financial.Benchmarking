@@ -221,56 +221,16 @@
                 var textBoxId = $(this).attr('id');
                 let url = '';
                 switch (textBoxId) {
-                    case 'FindByNameId':
-                        url = '/school/detail?urn=' + suggestion['Id'];
-                        if (openSchoolsOnly) {
-                            url += '&openOnly=true';
-                        }
-                        break;
-                    case 'FindSchoolByLaCodeName':
-                        // convert it to an la code search, which is the same as if they'd submitted.
-                        url = '/schoolsearch/search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
-                        if (openSchoolsOnly) {
-                            url += '&openOnly=true';
-                        }
-                        break;
-                    case 'FindTrustByLaCodeName':
-                        // convert it to an la code search, which is the same as if they'd submitted.
-                        url = '/trustsearch/search?searchType=search-by-trust-la-code-name&laCodeName=' + suggestion['id'];
-                        break;
-                    case 'FindSchoolManuallyByLaCodeName':
-                        // convert it to an la code search, which is the same as if they'd submitted.
-                        url = '/ManualComparison/Search?searchType=search-by-la-code-name&laCodeName=' + suggestion['id'];
-                        if (openSchoolsOnly) {
-                            url += '&openOnly=true';
-                        }
-                        break;
-                    case 'FindByTrustName':
-                        url = '/trust/index?companyNo=' + suggestion['Id'];
-                        break;
                     case 'FindSchoolByTown':
                         $('#LocationCoordinates').val(suggestion['Location']);
-                        url = '/SchoolSearch/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
-                        if (openSchoolsOnly) {
-                            url += '&openOnly=true';
-                        }
                         break;
                     case 'FindTrustByTown':
                         $('#LocationCoordinatesForTrust').val(suggestion['Location']);
-                        url = '/TrustSearch/Search?searchtype=search-by-trust-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
-                        if (openSchoolsOnly) {
-                            url += '&openOnly=true';
-                        }
                         break;
                     case 'FindSchoolManuallyByTown':
                         $('#LocationCoordinates').val(suggestion['Location']);
-                        url = '/ManualComparison/Search?searchtype=search-by-location&LocationCoordinates=' + suggestion['Location'] + '&locationorpostcode=' + suggestion['Text'];
-                        if (openSchoolsOnly) {
-                            url += '&openOnly=true';
-                        }
                         break;
                 }
-                window.location = url;
             });
 
             $(targetInputElementName).bind("typeahead:autocomplete", function (src, suggestion) {

@@ -93,24 +93,10 @@
     }
 
     .search-button {
-        display: inline-block;
+        display: block;
+        clear: left;
+        margin-top: 19px;
         float: left;
-        position: relative;
-        box-sizing: border-box;
-        background: $button-colour url(../../../public/assets/images/icons/find_button.svg) no-repeat 0 50%;
-        background-size: 32px 23px;
-        border: solid 2px $button-colour;
-        cursor: pointer;
-        overflow: hidden;
-        text-indent: -500px;
-        border-radius: 0;
-        width: 37px;
-        height: 37px;
-        background-size: 32px 17px;
-
-        @include media(mobile) {
-            background-position-x: -2px;
-        }
     }
 
     .tt-input, .search-input {

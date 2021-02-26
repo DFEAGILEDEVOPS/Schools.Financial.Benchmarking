@@ -1,10 +1,12 @@
 ﻿using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Models;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.UI.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SFB.Web.UI.Services
@@ -48,22 +50,29 @@ namespace SFB.Web.UI.Services
             try
             {
                 return UpdateTrustComparisonListCookie(CookieActions.Add, companyNumber, trustOrCompanyName);
-            }catch(ApplicationException) {
+            }
+            catch (ApplicationException)
+            {
                 return null;
             }//Ignore double add attempts
         }
 
-        public async Task SetTrustAsDefaultAsync(int companyNo)
+        public async Task<TrustViewModel> SetTrustAsDefaultAsync(int companyNo)
         {
             var latestTerm = await LatestMATTermAsync();
             var trustFinancialDataObject = await _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(companyNo, latestTerm, MatFinancingType.TrustOnly);
 
-            try
-            {
-                AddTrustToBenchmarkList(companyNo, trustFinancialDataObject.TrustOrCompanyName);
-            }
-            catch { }
+            TryAddTrustToBenchmarkList(companyNo, trustFinancialDataObject.TrustOrCompanyName);
+
             UpdateTrustComparisonListCookie(CookieActions.SetDefault, companyNo, trustFinancialDataObject.TrustOrCompanyName);
+            
+            var vm = new TrustViewModel(companyNo, trustFinancialDataObject.TrustOrCompanyName);
+            vm.HistoricalFinancialDataModels = new List<FinancialDataModel>
+            {
+                new FinancialDataModel(companyNo.ToString(), latestTerm, trustFinancialDataObject, EstablishmentType.MAT)
+            };
+
+            return vm;
         }
 
         private async Task<string> LatestMATTermAsync()

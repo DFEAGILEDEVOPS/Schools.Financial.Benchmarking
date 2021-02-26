@@ -9,6 +9,7 @@
     <label class="search-types__optional-section__label" for="FindTrustByLaCodeName">
         <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
     </label>
+    <label class="visually-hidden" for="FindTrustByLaCodeName_listbox">Select a local authority from the list box</label>
     @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME))
     {
         <span class="error-message">@Model.ErrorMessage</span>
@@ -20,7 +21,7 @@
                maxlength="100"
                type="text" />
         <input type="hidden" id="SelectedLocalAuthorityIdTrust" name="SelectedLocalAuthorityId" />
-        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME">Search</button>
+        <button type="submit" class="button search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME">Search</button>
     </div>
 </div>
 

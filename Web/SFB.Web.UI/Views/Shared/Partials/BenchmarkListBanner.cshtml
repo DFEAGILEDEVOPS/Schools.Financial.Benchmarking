@@ -21,7 +21,7 @@
                     @if (!((RazorView)ViewContext.View).ViewPath.ToLower().Contains("benchmarkcharts") && Model.ComparisonListCount >= 2)
                     {
                         <div class="view-benchmark-charts-wrapper">
-                            <a class="button" href="/BenchmarkCharts">View benchmark charts</a>
+                            <a class="button" role="button" href="/BenchmarkCharts">View benchmark charts</a>
                         </div>
                     }
                     else

@@ -383,7 +383,7 @@
         padding-top: 25px;
     }
 
-     div.custom.tabs ul {
+    div.custom.tabs ul {
         @include media-down(tablet) {
             justify-content: flex-start;
         }
@@ -421,7 +421,8 @@
             @include media-down(tablet) {
                 a:focus {
                     background-color: initial;
-                    outline: initial;
+                    padding-top: 20px;
+                    margin-top: 0;
                 }
             }
 

@@ -5,8 +5,8 @@
     <thead>
     <tr>
         <th scope="col">Characteristic</th>
-        <th scope="col" nowrap>Default school value</th>
-        <th scope="col" nowrap>Comparison criteria</th>
+        <th class="nowrap" scope="col" >Default school value</th>
+        <th class="nowrap" scope="col" >Comparison criteria</th>
     </tr>
     </thead>
     <tbody>
@@ -60,8 +60,8 @@
 
         <tr>
             <td>Grant funding per pupil</td>
-            <td nowrap>@Model.BenchmarkSchoolData.PerPupilGrantFunding.GetValueOrDefault().ToString("C")</td>
-            <td nowrap>@Model.AdvancedCriteria.MinPerPupilGrantFunding.GetValueOrDefault().ToString("C") - @Model.AdvancedCriteria.MaxPerPupilGrantFunding.GetValueOrDefault().ToString("C")</td>
+            <td >@Model.BenchmarkSchoolData.PerPupilGrantFunding.GetValueOrDefault().ToString("C")</td>
+            <td >@Model.AdvancedCriteria.MinPerPupilGrantFunding.GetValueOrDefault().ToString("C") - @Model.AdvancedCriteria.MaxPerPupilGrantFunding.GetValueOrDefault().ToString("C")</td>
         </tr>
 
         @if (Model.AdvancedCriteria.LondonWeighting != null)
