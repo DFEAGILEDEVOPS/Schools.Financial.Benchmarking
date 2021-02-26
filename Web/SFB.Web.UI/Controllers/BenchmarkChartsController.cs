@@ -1035,9 +1035,6 @@ namespace SFB.Web.UI.Controllers
                 case TabType.Workforce:
                     defaultUnitType = UnitType.AbsoluteCount;
                     break;
-                case TabType.Salary:
-                    defaultUnitType = UnitType.PercentageTeachers;
-                    break;
                 default:
                     defaultUnitType = comparisonType == ComparisonType.BestInClass || comparisonType == ComparisonType.Specials
                                       ? UnitType.PerPupil
@@ -1058,9 +1055,6 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case TabType.Balance:
                     unitType = showValue == UnitType.PercentageOfTotalIncome || showValue == UnitType.PercentageOfTotalExpenditure || showValue == UnitType.PerPupil || showValue == UnitType.PerTeacher ? showValue : UnitType.AbsoluteMoney;
-                    break;
-                case TabType.Salary:
-                    unitType = UnitType.PercentageTeachers;
                     break;
                 case TabType.Income:
                     unitType = showValue == UnitType.PercentageOfTotalExpenditure ? UnitType.PercentageOfTotalExpenditure : showValue;
@@ -1092,9 +1086,6 @@ namespace SFB.Web.UI.Controllers
                     break;
                 case TabType.Workforce:
                     chartGroup = ChartGroupType.Workforce;
-                    break;
-                case TabType.Salary:
-                    chartGroup = ChartGroupType.Salary;
                     break;
                 default:
                     chartGroup = ChartGroupType.All;
