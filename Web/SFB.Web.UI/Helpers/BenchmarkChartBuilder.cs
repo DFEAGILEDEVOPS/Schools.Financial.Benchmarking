@@ -2011,7 +2011,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Id = 59,
-                    Name = "Classroom teachers on upper and/or leading pay range (%)",
+                    Name = "Classroom teachers on upper and/or leading pay range",
                     FieldName = SchoolTrustFinanceDataFieldNames.TEACHERS_UPPER_LEADING_PAY,
                     TabType = TabType.Salary,
                     ChartGroup = ChartGroupType.Salary,
