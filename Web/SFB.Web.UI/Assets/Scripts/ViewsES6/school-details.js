@@ -89,10 +89,6 @@
         }, 500);
     }
 
-    DownloadData(urn) {
-        document.getElementById('download_iframe').src = '/school/download?urn='+ urn;
-    }
-
     PrintPage() {
         $('details').attr('open', 'true');
         let detailses = document.getElementsByTagName("details");

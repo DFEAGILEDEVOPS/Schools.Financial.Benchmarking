@@ -253,10 +253,10 @@
             <div class="column-full">
                 <div class="column-one-third no-padding">
                     <div class="download">
-                        <button class="no-underline link-button bold-xsmall black" onclick="DfE.Views.TrustDetailsViewModel.DownloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                        <a class="no-underline bold-xsmall" href="/trust/download?companyNo=@Model.CompanyNo&name=@Model.Name" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                             <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
                             Download data for this trust
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="column-one-third no-padding">
@@ -358,5 +358,3 @@
                 DfE.Views.TrustDetailsViewModel = new TrustDetailsViewModel('@ViewBag.ChartFormat');
             </script>
         }
-
-<iframe id="download_iframe" style="display:none;"></iframe>

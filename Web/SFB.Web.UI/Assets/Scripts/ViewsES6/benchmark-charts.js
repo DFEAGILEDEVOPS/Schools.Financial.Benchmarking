@@ -783,10 +783,6 @@
         d3.selectAll('#' + id + ' svg .title').remove(); 
     }
 
-    DownloadData(establishmentType) {
-        document.getElementById('download_iframe').src = '/BenchmarkCharts/Download?type=' + establishmentType;
-    }
-
     PrintPage() {
 
         let accordion_sections = $("#benchmarkChartsList .accordion-section");
