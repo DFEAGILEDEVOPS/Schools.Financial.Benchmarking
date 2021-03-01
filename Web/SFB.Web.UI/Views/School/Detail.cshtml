@@ -238,15 +238,15 @@
     <div id="post-map-content" class="column-full hide-in-print">
         <div class="column-one-third no-padding">
             <div class="download">
-                <a class="no-underline bold-xsmall sfb_gtm_csv_school" href="/school/download?urn=@Model.Id" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.DownloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                     Download data for this school
-                </a>
+                </button>
             </div>
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <button class="no-underline link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                     Print page
                 </button>
@@ -391,3 +391,5 @@
         DfE.Views.SchoolDetailsViewModel = new SchoolDetailsViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
     </script>
 }
+
+<iframe id="download_iframe" style="display:none;"></iframe>
