@@ -1,0 +1,80 @@
+﻿@model SFB.Web.UI.Models.TrustSelectionViewModel
+
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Enter trusts by name";
+    ViewBag.pageClass = "trust-comparison";
+}
+
+
+<div class="error-summary missing" role="alert" style="display: none">
+    <h1 id="ErrorSummaryHeading1" class="heading-medium error-summary-heading">
+        There is a problem
+    </h1>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#NewTrustName">Enter a trust name to continue the comparison</a>
+        </li>
+    </ul>
+</div>
+
+<div class="error-summary not-found" role="alert" style="display: none">
+    <h1 id="ErrorSummaryHeading2" class="heading-medium error-summary-heading">
+        There is a problem
+    </h1>
+    <ul class="error-summary-list">
+        <li>
+            <a href="#NewTrustName">We couldn't find any trusts matching your search criteria</a>
+        </li>
+    </ul>
+</div>
+
+
+@section BackButtonContent{
+    <a class="govuk-back-link hide-in-print" href="/trustcomparison/SelectType?companyNo=@Model.BenchmarkTrust.CompanyNo&matName=@Model.BenchmarkTrust.Name">Back</a>
+}
+
+<div id="ErrorSummaryPlaceHolder"></div>
+
+<h1 class="heading-xlarge page-heading">Enter trusts by name</h1>
+
+<div class="grid-row">
+    <div class="column-full">
+        <span class="font-xsmall">Comparing to</span>
+        <div class="highlight">
+            <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo"><span class="bold-xsmall">@Model.BenchmarkTrust.Name</span></a>
+        </div>
+    </div>
+</div>
+
+<p class="mt-2">
+    Create a benchmark group of <span class="bold-xsmall">1-20</span> trusts with a recommended size of <span class="bold-xsmall">5</span>.
+</p>
+
+<div id="TrustsToCompare">
+    @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
+</div>
+
+<div class="control-buttons">
+    <div class="grid-row">
+        <div class="column-three-quarters">
+            <div class="column-half pl-0">
+                <a id="manualButton" class="button" href="~/BenchmarkCharts/Mats?comparison=Manual">View benchmarking charts</a>                
+            </div>
+            @*<div class="column-half no-padding">
+                <div class="back-button">
+                    <button id="removeAllTrusts" class="link-button font-small">Remove all trusts</button>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+@section ViewScripts {
+
+    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        DfE.Views.TrustCompareViewModel = new TrustCompareManualViewModel();
+    </script>
+}

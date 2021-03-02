@@ -4,7 +4,7 @@
 
 <button onclick="DfE.Util.focusTo('post-table-@Model.Name.Replace(" ","")')" class="hidden-button a-button">Skip the table @Model.Name</button>
 
-<div id="mobile-tables">
+<div class="mobile-tables">
     <button aria-label="Display @Model.Name table in detailed view" class="mobile-hide-show-button show detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)">Show more information</button>
     <button aria-label="Display @Model.Name table in summary view" class="mobile-hide-show-button hide detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)" style="display: none">Show less information</button>
 
@@ -36,7 +36,7 @@
                             {
                                 <span class="exc-icon">
                                     <span class="icon dark-blue">
-                                        <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                        <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                             <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
                                         </a>
                                     </span>
@@ -52,7 +52,7 @@
                             </a>
                             <span class="exc-icon">
                                 <span class="icon dark-blue">
-                                    <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                         <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
                                     </a>
                                 </span>
@@ -125,7 +125,7 @@
                         {
                             <span class="exc-icon">
                                 <span class="icon dark-blue">
-                                    <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                         <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
                                     </a>
                                 </span>
@@ -141,7 +141,7 @@
                         </a>
                         <span class="exc-icon">
                             <span class="icon dark-blue">
-                                <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                     <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
                                 </a>
                             </span>
@@ -261,7 +261,7 @@
     </table>
 </div>
 
-<div id="desktop-tables">
+<div class="desktop-tables">
     <button aria-label="Hide extra columns in @Model.Name table" class="hide-show-button hide detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Show less information</button>
     <button aria-label="Show extra columns in @Model.Name table" class="hide-show-button show detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">Show more information</button>
 
@@ -321,7 +321,7 @@
                         {
                             <span class="exc-icon">
                                 <span class="icon dark-blue">
-                                    <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                         <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
                                     </a>
                                 </span>
@@ -337,7 +337,7 @@
                         </a>
                         <span class="exc-icon">
                             <span class="icon dark-blue">
-                                <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                     <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
                                 </a>
                             </span>

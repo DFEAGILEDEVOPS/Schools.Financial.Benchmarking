@@ -1,4 +1,6 @@
 ﻿@using SFB.Web.UI.Controllers
+@using SFB.Web.UI.Helpers
+
 @{
     Layout = "../../govuk/layouts/template.cshtml";
     var version = typeof(HomeController).Assembly.GetName().Version.ToString();
@@ -90,17 +92,21 @@
 
 <div class="grid-row" id="content">
 
-        <main class="page @(ViewBag.pageClass)" role="main" tabindex="-1">
+    <main class="page @(ViewBag.pageClass)" role="main" tabindex="-1">
 
-            @*<div class="pre-content"></div>*@
+        @*<div class="pre-content"></div>*@
 
-            @RenderBody()
+        @RenderBody()
 
-            <input type="hidden" id="version" value="@version"/>
-            <input type="hidden" id="googleAnalyticsId" value="@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]"/>
-            <input type="hidden" id="cookieDomain" value="@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]"/>
-            <input type="hidden" id="SfbApiUrl" value="@System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]"/>
-        </main>
+        <input type="hidden" id="version" value="@version" />
+        <input type="hidden" id="googleAnalyticsId" value="@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]" />
+        <input type="hidden" id="cookieDomain" value="@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]" />
+        <input type="hidden" id="SfbApiUrl" value="@System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]" />
+
+        @*Features*@
+        <input type="hidden" id="@Features.EfficiencyMetric" value="@FeatureManager.IsEnabled(Features.EfficiencyMetric).ToString()" />
+        @*Features*@
+    </main>
     
 
         @RenderSection("Aside", required: false)

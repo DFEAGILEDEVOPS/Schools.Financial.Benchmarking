@@ -244,13 +244,25 @@ else
     if (Model.EstablishmentType == EstablishmentType.MAT && Model.TrustComparisonList.Trusts.Any(t => t.CompanyNo == Model.TrustComparisonList.DefaultTrustCompanyNo))
     {
         <div class="grid-row">
-            <div class="column-full">
+            <div class="column-full font-xsmall">
                 <span>Comparing</span>
                 <div class="highlight">
-                    <span class="bold-small">@Model.TrustComparisonList.DefaultTrustName</span>
+                    <a href="/trust/index?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">
+                        <span class="bold-xsmall">@Model.TrustComparisonList.DefaultTrustName</span>
+                    </a>
                 </div>
-                <span>&nbsp;to selected trusts. You can </span>
-                <a href="/TrustComparison?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo&matName=@Model.TrustComparisonList.DefaultTrustName">view or edit these.</a>
+                @if (ViewBag.comparison == ComparisonType.Manual)
+                {
+                    <span>&nbsp;to selected trusts. You can </span>
+                    <a href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>
+                }
+                else
+                {
+                    <span>&nbsp;to trusts</span>
+                    <span class="bold-xsmall"> with characteristics you've chosen. </span>
+                    <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to trust characteristics</button>
+                    @Html.Partial("Partials/TrustAdvancedHiddenFields")
+                }
             </div>
         </div>
     }
@@ -271,7 +283,9 @@ else
                 <div class="download">
                     <button id="DownloadLink" class="link-button no-underline bold-xsmall sfb_gtm_csv_bm" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadData('@Model.EstablishmentType')">
                         <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" />
-                        <span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
+                        <div id="DownloadLinkTextWrapper" class="inline">
+                            <span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
+                        </div>
                     </button>
                 </div>
             </div>
@@ -299,7 +313,7 @@ else
                     </button>
                     <span class="help-icon no-margin hide-in-print">
                         <span class="icon dark-blue">
-                            <a href="#" class="js-modal" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                            <a href="#" class="js-modal" role="button" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                 <span class="visuallyhidden">Open more info text for save or share benchmark - opens a popup</span>
                             </a>
                         </span>
@@ -368,4 +382,4 @@ else
 
 }
 
-<iframe id="download_iframe" style="display:none;"></iframe>
+<iframe id="download_iframe" style="display:none;" title="download"></iframe>

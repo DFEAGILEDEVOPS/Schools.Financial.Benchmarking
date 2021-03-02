@@ -23,7 +23,11 @@
     }
 
     DownloadData(companyNo, name) {
+        $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
         document.getElementById('download_iframe').src = `/trust/download?companyNo=${companyNo}&name=${name}`;
+        setTimeout(() => {
+            $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText'> Download data for this trust<span class='visually-hidden'> (CSV)</span></span>");
+        }, 2000)
     }
 
     PrintPage() {

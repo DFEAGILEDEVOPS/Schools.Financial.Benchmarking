@@ -58,6 +58,12 @@
         }
     };
 
+    window.DfE.Util.Features = {
+        enabled: function (feature) {
+            return $("#Feature-" + feature + "-enabled").val().toLowerCase() == "true";
+        }
+    };
+
     window.DfE.Util.LoadingMessage = {
         display : function(location, message) {
             $(location).html('<div style="min-height:300px; margin-top:20px;">' +
@@ -516,6 +522,7 @@
         manageCookies();
 
         $(document).on("click", "a,.js-track", window.DfE.Util.Analytics.TrackClick);
+
         $(document).on("click", ".expander > span,.label > a", function () {
             var $ele = $(this).closest(".expander");
             if ($ele.hasClass("open")) {
@@ -529,10 +536,22 @@
         });
 
         $(".print-link a").click(function () { window.print(); });
+
         $(document).on("click", "a.button-view-comparison.zero", function ($e) {
             $e.preventDefault();
             return false;
-        });
+        });   
+
+        $("a.button, a.js-modal").on("keydown", function (event) {
+            // get the target element
+            var target = event.target;
+            // if the element has a role='button' and the pressed key is a space, we'll simulate a click
+            if (target.getAttribute('role') === 'button' && event.keyCode === 32) {
+                event.preventDefault();
+                // trigger the target's click event
+                target.click();
+            }
+        })
     });
 
     //$(function () {
@@ -666,3 +685,4 @@ function manageGACookies(cookiesPolicyCookie) {
 //        GOVUK.cookie("MS0", null);
 //    }
 //}
+

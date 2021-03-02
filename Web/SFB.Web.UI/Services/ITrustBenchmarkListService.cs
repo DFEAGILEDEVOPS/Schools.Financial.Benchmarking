@@ -9,7 +9,7 @@ namespace SFB.Web.UI.Services
         TrustComparisonListModel AddTrustToBenchmarkList(int companyNumber, string trustOrCompanyName);
         void AddDefaultTrustToBenchmarkList();
 
-        Task SetTrustAsDefaultAsync(int companyNo);
+        Task<TrustViewModel> SetTrustAsDefaultAsync(int companyNo);
 
         TrustComparisonListModel GetTrustBenchmarkList();
 

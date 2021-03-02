@@ -219,8 +219,8 @@
     <Reference Include="SFB.Web.ApplicationCore, Version=1.0.42.56542, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.42.56542\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
     </Reference>
-    <Reference Include="SFB.Web.Infrastructure, Version=1.0.42.56543, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.42.56543\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
+    <Reference Include="SFB.Web.Infrastructure, Version=1.0.50.56727, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.50.56727\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.0.601\lib\net472\StackExchange.Redis.dll</HintPath>
@@ -411,6 +411,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Controllers\AccessibilityController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BenchmarkChartsController.cs" />
     <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
@@ -430,6 +431,7 @@
     <Compile Include="Helpers\BenchmarkBasketCookieManager.cs" />
     <Compile Include="Helpers\DownloadCSVBuilder.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
+    <Compile Include="Helpers\FeatureManager.cs" />
     <Compile Include="Helpers\Filters\DynamicHeaderMessageAttribute.cs" />
     <Compile Include="Helpers\HistoricalChartBuilder.cs" />
     <Compile Include="Helpers\ISchoolVMBuilder.cs" />
@@ -488,6 +490,7 @@
     <Compile Include="Models\SimpleCharacteristicsViewModel.cs" />
     <Compile Include="Models\TrustListViewModel.cs" />
     <Compile Include="Models\AcademyTrustViewModel.cs" />
+    <Compile Include="Models\TrustSelectionViewModel.cs" />
     <Compile Include="Models\TrustViewModel.cs" />
     <Compile Include="Models\DynamicViewModelBase.cs" />
     <Compile Include="Models\TrustCharacteristicsViewModel.cs" />
@@ -525,6 +528,9 @@
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
+    <Content Include="Assets\Scripts\ViewsES6\trust-compare-advanced.js" />
+    <Content Include="Assets\Scripts\Views\trust-compare-advanced.js" />
+    <Content Include="Assets\Scripts\Views\trust-compare-manual.js" />
     <Content Include="public\assets\images\icons\add.svg" />
     <Content Include="public\assets\images\icons\download.svg" />
     <Content Include="public\assets\images\icons\find.svg" />
@@ -560,7 +566,7 @@
     <Content Include="Assets\Scripts\ViewsES6\school-details.js" />
     <Content Include="Assets\Scripts\ViewsES6\school-results.js" />
     <Content Include="Assets\Scripts\ViewsES6\schools-search.js" />
-    <Content Include="Assets\Scripts\ViewsES6\trust-compare.js" />
+    <Content Include="Assets\Scripts\ViewsES6\trust-compare-manual.js" />
     <Content Include="Assets\Scripts\ViewsES6\trust-details.js" />
     <Content Include="Assets\Scripts\Views\add-schools-manually.js" />
     <Content Include="Assets\Scripts\Views\advanced-characteristics.js" />
@@ -571,7 +577,6 @@
     <Content Include="Assets\Scripts\Views\school-details.js" />
     <Content Include="Assets\Scripts\Views\school-results.js" />
     <Content Include="Assets\Scripts\Views\schools-search.js" />
-    <Content Include="Assets\Scripts\Views\trust-compare.js" />
     <Content Include="Assets\Scripts\Views\trust-details.js" />
     <Content Include="browserconfig.xml" />
     <Content Include="favicon.ico" />
@@ -974,19 +979,23 @@
     <Content Include="Views\Help\SadGuidance.cshtml" />
     <Content Include="Assets\Sass\_backLink.scss" />
     <Content Include="Views\BenchmarkCharts\Partials\SpecialHiddenFields.cshtml" />
+    <Content Include="Views\Accessibility\Index.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\TrustAdvancedHiddenFields.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
     <Content Include="Views\Trust\Partials\ValueSelect.cshtml" />
     <Content Include="Views\TrustSearch\Partials\TrustResultBlock.cshtml" />
     <Content Include="Views\Trust\Partials\TrustCentralFinancing.cshtml" />
-    <Content Include="Views\TrustComparison\Index.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustsToCompare.cshtml" />
     <Content Include="Views\TrustSchools\SearchResults.cshtml" />
     <Content Include="Views\TrustComparison\Partials\TrustCharacteristics.cshtml" />
     <Content Include="Views\TrustSearch\NotFound.cshtml" />
     <Content Include="Views\TrustSearch\SearchResults.cshtml" />
     <Content Include="Views\TrustSearch\Partials\TrustFilterForm.cshtml" />
+    <Content Include="Views\TrustComparison\SelectType.cshtml" />
+    <Content Include="Views\TrustComparison\Manual.cshtml" />
+    <Content Include="Views\TrustComparison\Advanced.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />

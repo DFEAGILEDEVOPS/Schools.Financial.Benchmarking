@@ -35,7 +35,6 @@ namespace SFB.Web.UI.UnitTests
         private Mock<ISchoolSearchService> _mockSchoolSearchService;
         private Mock<ITrustSearchService> _mockTrustSearchService;
         private Mock<ISchoolBenchmarkListService> _mockCookieManager;
-        private Mock<IFinancialDataService> _mockFinancialDataService;
 
         [SetUp]
         public void Setup()
@@ -56,7 +55,6 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService = new Mock<ISchoolSearchService>();
             _mockTrustSearchService = new Mock<ITrustSearchService>();
             _mockCookieManager = new Mock<ISchoolBenchmarkListService>();
-            _mockFinancialDataService = new Mock<IFinancialDataService>();
         }
 
         //[Test]
@@ -101,7 +99,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search("TestTrust", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 1);
+            var result = await controller.Search("TestTrust", null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 1);
 
             Assert.IsTrue(result is ViewResult);
             Assert.AreEqual("SearchResults", (result as ViewResult).ViewName);
@@ -126,7 +124,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            var result = await controller.Search("6182612", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
+            var result = await controller.Search("6182612", null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
@@ -135,12 +133,28 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
+        public async Task SearchActionRedirectsToTrustViewIfSuggestedCompanyNumberIsUsed()
+        {
+            var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = await controller.Search("test_name", "5112090", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
+            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("5112090", (result as RedirectToRouteResult).RouteValues["companyNo"].ToString());
+        }
+
+        [Test]
         public async Task SearchByNameReturnsErrorPageForInvalidCompanyNo()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search("12345", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
+            var result = await controller.Search("12345", null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -152,7 +166,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search("te", SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
+            var result = await controller.Search("te", null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -164,7 +178,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -176,7 +190,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, null, null, null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, null, null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -188,7 +202,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "x", null, null, null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "x", null, null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -202,7 +216,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", null, null, null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", null, null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -216,7 +230,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", null, null, null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", null, null, null, false, null, 0);
 
             Assert.AreEqual("Location", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Suggest", (result as RedirectToRouteResult).RouteValues["action"]);
@@ -239,7 +253,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -261,7 +275,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, "AreaSchoolNumber", 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, "AreaSchoolNumber", 0);
 
             _mockSchoolSearchService.Verify(m => m.SearchSchoolByLatLonAsync("1", "2", SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE * 1.6m, 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));    
         }
@@ -272,7 +286,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "x", null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "x", null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -284,7 +298,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "1234", null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "1234", null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -308,7 +322,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "Croydon", null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "Croydon", null, false, null, 0);
 
             _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCodeAsync("319", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));
         }
@@ -332,7 +346,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "test", null, false, null, 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "test", null, false, null, 0);
 
             Assert.IsTrue(result is ViewResult);
             Assert.IsNotEmpty(((result as ViewResult).Model as SearchViewModel).ErrorMessage);
@@ -354,7 +368,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var response = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "000", null, false, null, 0);
+            var response = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "000", null, false, null, 0);
 
             Assert.IsNotNull(response);
             Assert.IsNotNull((response as ViewResult).Model);
@@ -378,7 +392,7 @@ namespace SFB.Web.UI.UnitTests
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
                 _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
 
-            var result = await controller.Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "123", null, false, "AreaSchoolNumber", 0);
+            var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "123", null, false, "AreaSchoolNumber", 0);
 
             _mockSchoolSearchService.Verify(m => m.SearchSchoolByLaCodeAsync("123", 0, SearchDefaults.SEARCHED_SCHOOLS_MAX, $"{EdubaseDataFieldNames.TRUSTS} asc", null));
         }
