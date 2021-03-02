@@ -90,7 +90,11 @@
     }
 
     DownloadData(urn) {
-        document.getElementById('download_iframe').src = '/school/download?urn='+ urn;
+        $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
+        document.getElementById('download_iframe').src = '/school/download?urn=' + urn;
+        setTimeout(() => {
+            $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText'> Download data for this school<span class='visually-hidden'> (CSV)</span></span>");
+        }, 2000)
     }
 
     PrintPage() {

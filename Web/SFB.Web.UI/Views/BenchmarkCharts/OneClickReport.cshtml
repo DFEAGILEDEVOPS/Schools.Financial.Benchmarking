@@ -98,7 +98,10 @@ else
         <div id="downloadLinkContainer" class="download-link">
             <div class="download">
                 <button id="DownloadLink" class="no-underline bold-xsmall link-button sfb_gtm_csv_bm" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadData('@Model.EstablishmentType')">
-                    <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" /><span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
+                    <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
+                    </div>
                 </button>
             </div>
         </div>

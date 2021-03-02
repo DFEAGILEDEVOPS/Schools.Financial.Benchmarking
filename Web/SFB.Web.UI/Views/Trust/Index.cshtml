@@ -255,7 +255,9 @@
                     <div class="download">
                         <button class="no-underline link-button bold-xsmall black" onclick="DfE.Views.TrustDetailsViewModel.DownloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                             <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
-                            Download data for this trust
+                            <div id="DownloadLinkTextWrapper" class="inline">
+                                <span id="DownloadLinkText"> Download data for this trust<span class="visually-hidden"> (CSV)</span></span>
+                            </div>
                         </button>
                     </div>
                 </div>
