@@ -59,14 +59,24 @@
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">@Model.Name</h1>
-<div class="grid-row">
+<div class="blue-banner">
+    <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+
     @if (!Model.IsReturnsDNS)
     {
-        <div class="column-half">
-            <a class="button" role="button" href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name">Compare with other trusts</a>
-        </div>
+        <p>There are several ways for you to compare this trust against others.</p>
+
+        <a class="button start-button" href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name" role="button">
+            Start benchmarking
+            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+            </svg>
+        </a>
     }
+
+</div>
+
+<div class="grid-row">
     <div class="column-full mt-2">
         Companies House number:
         <a class="ml-05" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(Model.CompanyNo.ToString("D8"))">@(Model.CompanyNo)</a>
@@ -100,36 +110,36 @@
                         </a>
                     </h2>
 
-                        <div class="accordion-section-body">
-                            <div class="sponsor-detail">
-                                @if (Model.AcademiesInContextList.Count > 10)
-                                {
-                                    <div class="resultListPanel">
-                                        <ul class="list two-columns resultListPanel__ul">
-                                            @foreach (var academy in Model.AcademiesInContextList)
-                                            {
-                                                <li>
-                                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="resultListPanel">
-                                        <ul class="list list-bullet resultListPanel__ul">
-                                            @foreach (var school in Model.AcademiesInContextList)
-                                            {
-                                                <li>
-                                                    <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-                                }
-                            </div>
+                    <div class="accordion-section-body">
+                        <div class="sponsor-detail">
+                            @if (Model.AcademiesInContextList.Count > 10)
+                            {
+                                <div class="resultListPanel">
+                                    <ul class="list two-columns resultListPanel__ul">
+                                        @foreach (var academy in Model.AcademiesInContextList)
+                                        {
+                                            <li>
+                                                <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="resultListPanel">
+                                    <ul class="list list-bullet resultListPanel__ul">
+                                        @foreach (var school in Model.AcademiesInContextList)
+                                        {
+                                            <li>
+                                                <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
                         </div>
+                    </div>
                 </div>
 
                 <div class="accordion-section latest">
@@ -139,60 +149,60 @@
                         </a>
                     </h2>
 
-                        <div class="accordion-section-body">
-                            <div class="sponsor-detail">
-                                @if (Model.AcademiesInFinanceList.Count > 10)
-                                {
-                                    <div class="resultListPanel">
-                                        <ul class="list two-columns resultListPanel__ul">
-                                            @foreach (var academy in Model.AcademiesInFinanceList)
+                    <div class="accordion-section-body">
+                        <div class="sponsor-detail">
+                            @if (Model.AcademiesInFinanceList.Count > 10)
+                            {
+                                <div class="resultListPanel">
+                                    <ul class="list two-columns resultListPanel__ul">
+                                        @foreach (var academy in Model.AcademiesInFinanceList)
+                                        {
+                                            if (academy.HasIncompleteFinancialData)
                                             {
-                                                if (academy.HasIncompleteFinancialData)
-                                                {
-                                                    <li>
-                                                        <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
-                                                            @academy.EstablishmentName
-                                                            <span class="visually-hidden"> has data from a period less than 12 months</span>
-                                                        </a>
-                                                    </li>
-                                                }
-                                                else
-                                                {
-                                                    <li>
-                                                        <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
-                                                    </li>
-                                                }
+                                                <li>
+                                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
+                                                        @academy.EstablishmentName
+                                                        <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                                    </a>
+                                                </li>
                                             }
-                                        </ul>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="resultListPanel">
-                                        <ul class="list list-bullet resultListPanel__ul">
-                                            @foreach (var school in Model.AcademiesInFinanceList)
+                                            else
                                             {
-                                                if (school.HasIncompleteFinancialData)
-                                                {
-                                                    <li>
-                                                        <a href="/school/detail?urn=@school.URN" class="highlight-warning">
-                                                            @school.EstablishmentName
-                                                            <span class="visually-hidden"> has data from a period less than 12 months</span>
-                                                        </a>
-                                                    </li>
-                                                }
-                                                else
-                                                {
-                                                    <li>
-                                                        <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
-                                                    </li>
-                                                }
+                                                <li>
+                                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                                </li>
                                             }
-                                        </ul>
-                                    </div>
-                                }
-                            </div>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="resultListPanel">
+                                    <ul class="list list-bullet resultListPanel__ul">
+                                        @foreach (var school in Model.AcademiesInFinanceList)
+                                        {
+                                            if (school.HasIncompleteFinancialData)
+                                            {
+                                                <li>
+                                                    <a href="/school/detail?urn=@school.URN" class="highlight-warning">
+                                                        @school.EstablishmentName
+                                                        <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                                    </a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                                                </li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            }
                         </div>
+                    </div>
                 </div>
 
                 <div class="accordion-section history">
@@ -202,42 +212,42 @@
                         </a>
                     </h2>
 
-                        <div class="accordion-section-body">
-                            <div class="sponsor-detail">
-                                <div class="resultListPanel">
-                                    <table class="history-table">
-                                        <tr>
-                                            <th scope="col">School year</th>
-                                            <th scope="col">Date</th>
-                                            <th scope="col">Event</th>
-                                            <th scope="col">Organisation</th>
-                                        </tr>
-                                        @for (int i = 0; i < Model.TrustHistory.Events.Count; i++)
+                    <div class="accordion-section-body">
+                        <div class="sponsor-detail">
+                            <div class="resultListPanel">
+                                <table class="history-table">
+                                    <tr>
+                                        <th scope="col">School year</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Event</th>
+                                        <th scope="col">Organisation</th>
+                                    </tr>
+                                    @for (int i = 0; i < Model.TrustHistory.Events.Count; i++)
+                                    {
+                                        if (i > 0 && Model.TrustHistory.Events[i].SchoolYear == Model.TrustHistory.Events[i - 1].SchoolYear)
                                         {
-                                            if (i > 0 && Model.TrustHistory.Events[i].SchoolYear == Model.TrustHistory.Events[i - 1].SchoolYear)
-                                            {
-                                                <tr>
-                                                    <td class="school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
-                                                    <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
-                                                    <td>@Model.TrustHistory.Events[i].Event</td>
-                                                    <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
-                                                </tr>
-                                            }
-                                            else
-                                            {
-                                                <tr class="new-row">
-                                                    <td class="school-year-column">@Model.TrustHistory.Events[i].SchoolYear</td>
-                                                    <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
-                                                    <td>@Model.TrustHistory.Events[i].Event</td>
-                                                    <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
-                                                </tr>
-                                            }
-
+                                            <tr>
+                                                <td class="school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
+                                                <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
+                                                <td>@Model.TrustHistory.Events[i].Event</td>
+                                                <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                                            </tr>
                                         }
-                                    </table>
-                                </div>
+                                        else
+                                        {
+                                            <tr class="new-row">
+                                                <td class="school-year-column">@Model.TrustHistory.Events[i].SchoolYear</td>
+                                                <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
+                                                <td>@Model.TrustHistory.Events[i].Event</td>
+                                                <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                                            </tr>
+                                        }
+
+                                    }
+                                </table>
                             </div>
                         </div>
+                    </div>
                 </div>
 
             </div>
@@ -249,116 +259,116 @@
     </div>
 </div>
 
-        <div class="grid-row download-links hide-in-print">
-            <div class="column-full">
-                <div class="column-one-third no-padding">
-                    <div class="download">
-                        <button class="no-underline link-button bold-xsmall black" onclick="DfE.Views.TrustDetailsViewModel.DownloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
-                            <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
-                            <div id="DownloadLinkTextWrapper" class="inline">
-                                <span id="DownloadLinkText"> Download data for this trust<span class="visually-hidden"> (CSV)</span></span>
-                            </div>
-                        </button>
+<div class="grid-row download-links hide-in-print">
+    <div class="column-full">
+        <div class="column-one-third no-padding">
+            <div class="download">
+                <button class="no-underline link-button bold-xsmall black" onclick="DfE.Views.TrustDetailsViewModel.DownloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data for this trust<span class="visually-hidden"> (CSV)</span></span>
                     </div>
+                </button>
+            </div>
+        </div>
+        <div class="column-one-third no-padding">
+            <div class="print">
+                <button class="no-underline link-button bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Partials/FinancialSummaryFields")
+
+
+<a name="charts"></a>
+<div id="tabs" class="custom tabs">
+    <ul role="tablist">
+        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")"
+               role="tab"
+               aria-controls="tabPanel"
+               class="tab-link"
+               href="javascript: void(0)"
+               onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
+               onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</a>
+        </li>
+        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
+               role="tab"
+               aria-controls="tabPanel"
+               class="tab-link"
+               href="javascript: void(0)"
+               onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
+               onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</a>
+        </li>
+        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")"
+               role="tab"
+               aria-controls="tabPanel"
+               class="tab-link"
+               href="javascript: void(0)"
+               onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
+               onclick='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</a>
+        </li>
+    </ul>
+</div>
+
+<div id="tabPanel" role="tabpanel">
+    <div class="sticky-div sticky-chart-controls">
+        <div id="controls-accordion" class="accordion mobile-only-accordion">
+            <div class="accordion-section">
+                <fieldset role="group">
+                    <legend class="visually-hidden">Filters</legend>
+                    <div class="accordion-section-header">
+                        <h2 class="heading-medium">Filters</h2>
+                    </div>
+                    <div class="accordion-section-body">
+                        @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                        @Html.Partial("Partials/ValueSelect")
+                        @Html.Partial("Partials/TrustCentralFinancing")
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <div class="charts-section">
+        <div class="grid-row">
+            <div autocomplete="off">
+                <div class="column-full font-xsmall chartTable hide-in-print">
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
-                <div class="column-one-third no-padding">
-                    <div class="print">
-                        <button class="no-underline link-button bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
-                            <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
-                        </button>
-                    </div>
+                <div class="column-full font-xsmall hide-in-print">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                        <span><</span>
+                        <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                    </button>
                 </div>
             </div>
         </div>
-
-        @Html.Partial("Partials/FinancialSummaryFields")
-
-
-        <a name="charts"></a>
-        <div id="tabs" class="custom tabs">
-            <ul role="tablist">
-                <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
-                    <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")" 
-                       tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")" 
-                       role="tab" 
-                       aria-controls="tabPanel"
-                       class="tab-link" 
-                       href="javascript: void(0)"
-                       onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
-                       onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</a>
-                </li>
-                <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
-                    <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")" 
-                       tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
-                       role="tab" 
-                       aria-controls="tabPanel"
-                       class="tab-link" 
-                       href="javascript: void(0)"
-                       onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
-                       onclick='DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</a>
-                </li>
-                <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
-                    <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")" 
-                       tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")" 
-                       role="tab" 
-                       aria-controls="tabPanel"
-                       class="tab-link" 
-                       href="javascript: void(0)"
-                       onkeydown="DfE.Views.TrustDetailsViewModel.TabKeydown(event)"
-                       onclick='javascript:DfE.Views.TrustDetailsViewModel.TabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</a>
-                </li>
-            </ul>
+        <div class="historical-charts-list">
+            @Html.Partial("Partials/Chart", Model)
         </div>
+    </div>
+</div>
+<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 
-        <div id="tabPanel" role="tabpanel">
-            <div class="sticky-div sticky-chart-controls">
-                <div id="controls-accordion" class="accordion mobile-only-accordion">
-                    <div class="accordion-section">
-                        <fieldset role="group">
-                            <legend class="visually-hidden">Filters</legend>
-                            <div class="accordion-section-header">
-                                <h2 class="heading-medium">Filters</h2>
-                            </div>
-                            <div class="accordion-section-body">
-                                @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-                                @Html.Partial("Partials/ValueSelect")
-                                @Html.Partial("Partials/TrustCentralFinancing")
-                            </div>
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
+@section ViewScripts {
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
 
-            <div class="charts-section">
-                <div class="grid-row">
-                    <div autocomplete="off">
-                        <div class="column-full font-xsmall chartTable hide-in-print">
-                            <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                            <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
-                        </div>
-                        <div class="column-full font-xsmall hide-in-print">
-                            <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
-                                <span><</span>
-                                <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="historical-charts-list">
-                    @Html.Partial("Partials/Chart", Model)
-                </div>
-            </div>
-        </div>
-        <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
-
-        @section ViewScripts {
-            <script src="~/node_modules/d3/d3.min.js"></script>
-            <script src="~/node_modules/c3/c3.min.js"></script>
-            <script src="~/node_modules/lodash/lodash.min.js"></script>
-
-            <script>
+    <script>
                 DfE.Views.TrustDetailsViewModel = new TrustDetailsViewModel('@ViewBag.ChartFormat');
-            </script>
-        }
+    </script>
+}
 
-<iframe id="download_iframe" style="display:none;"></iframe>
+<iframe id="download_iframe" style="display:none;" title="download"></iframe>

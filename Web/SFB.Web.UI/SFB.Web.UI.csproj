@@ -533,7 +533,11 @@
     <Content Include="Assets\Scripts\ViewsES6\trust-compare-advanced.js" />
     <Content Include="Assets\Scripts\Views\trust-compare-advanced.js" />
     <Content Include="Assets\Scripts\Views\trust-compare-manual.js" />
+    <Content Include="babel.config.js" />
+    <Content Include="public\assets\images\chart.svg" />
+    <Content Include="public\assets\images\checklist.svg" />
     <Content Include="public\assets\images\icons\add.svg" />
+    <Content Include="public\assets\images\icons\black-arrow.svg" />
     <Content Include="public\assets\images\icons\download.svg" />
     <Content Include="public\assets\images\icons\find.svg" />
     <Content Include="public\assets\images\icons\find_button.svg" />
@@ -545,6 +549,7 @@
     <Content Include="public\assets\images\icons\save.svg" />
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
+    <Content Include="public\assets\images\progress.svg" />
     <Content Include="robots.txt" />
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
@@ -980,6 +985,11 @@
     <Content Include="Views\BenchmarkCharts\Partials\SpecialHiddenFields.cshtml" />
     <Content Include="Views\Accessibility\Index.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\TrustAdvancedHiddenFields.cshtml" />
+    <Content Include="ci\init-assets.cmd" />
+    <Content Include="package.json" />
+    <Content Include="Assets\Sass\views\_comparison-type-select.scss" />
+    <None Include="Properties\PublishProfiles\as-t1pr-sfb-as-t1pr-sfb-new-comparison-flow - Web Deploy.pubxml" />
+    <Content Include="Views\School\StartBenchmarking.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

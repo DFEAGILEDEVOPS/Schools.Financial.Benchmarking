@@ -6,12 +6,12 @@
 
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
-    ViewBag.Title = "Select comparison type";
+    ViewBag.Title = "Which benchmark comparison would you like to do?";
     ViewBag.pageClass = "comparison-strategy";
 }
 
 @section BackButtonContent{
-    <a class="govuk-back-link hide-in-print" href="../../school/detail?urn=@Model.Id">Back</a>
+    <a class="govuk-back-link hide-in-print" href="/school/start-benchmarking?urn=@Model.Id">Back</a>
 }
 
 @if (Model.HasError())
@@ -26,7 +26,7 @@
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Select comparison type</h1>
+<h1 class="heading-xlarge page-heading">Which benchmark comparison would you like to do?</h1>
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
@@ -98,7 +98,7 @@
                     </label>
                 </div>
 
-                @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
+                @*@if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
                 {
                     <p style="clear:left; padding: 0.8em 0 0 0">or</p>
                     <div class="multiple-choice">
@@ -114,7 +114,7 @@
                             </span>
                         </span>
                     </div>
-                }
+                }*@
             </fieldset>
         </div>
         <div class="grid-row">

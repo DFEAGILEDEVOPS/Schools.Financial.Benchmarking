@@ -80,6 +80,15 @@ namespace SFB.Web.UI.Controllers
             return View("Detail", schoolVM);
         }
 
+        [Route("school/start-benchmarking")]
+        public async Task<ViewResult> StartBenchmarking(int urn)
+        {
+            await _schoolVMBuilder.BuildCoreAsync(urn);
+            await _schoolVMBuilder.AddLatestYearFinanceAsync();
+            var schoolVM = _schoolVMBuilder.GetResult();
+            return View(schoolVM);
+        }
+
         public async Task<PartialViewResult> GetCharts(
         int urn,
         TabType revGroup,
