@@ -32,7 +32,7 @@ namespace SFB.Web.UI.Models
 
         public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels?.Last();
 
-        public bool HasLatestYearFinancialData => LatestYearFinancialData.FinancialDataObjectModel != null;
+        public bool HasLatestYearFinancialData => LatestYearFinancialData?.FinancialDataObjectModel != null;
 
         public bool IsReturnsComplete => LatestYearFinancialData.IsReturnsComplete;
 

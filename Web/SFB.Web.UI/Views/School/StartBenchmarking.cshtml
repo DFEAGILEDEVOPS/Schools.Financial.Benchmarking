@@ -1,0 +1,59 @@
+﻿@using SFB.Web.UI.Helpers.Constants;
+@using SFB.Web.ApplicationCore.Helpers.Constants;
+
+@model SFB.Web.UI.Models.SchoolViewModel
+@{
+    ViewBag.Title = "What type of comparison would you like?";
+    ViewBag.pageClass = "comparison-type-select";
+}
+
+@section BackButtonContent{
+    <a class="govuk-back-link hide-in-print" href="/school/detail?urn=@Model.Id">Back</a>
+}
+
+<h1 class="heading-xlarge page-heading">What type of comparison would you like?</h1>
+
+<div class="grid-row columns">
+    <div class="column-one-third">
+        <img src="~/public/assets/images/chart.svg" class="pano blue-svg" alt="Benchmark comparison"/>
+        <h2 class="heading-small">Benchmark comparison</h2>
+        <p>
+            Compare against similar schools to yours or schools of your choice.
+        </p>
+        <ul class="list-arrow">
+            <li>
+                <a class="font-xsmall" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
+            </li>
+            <li>
+                <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Get a basic benchmark report</a>
+            </li>
+        </ul>
+    </div>
+    @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
+    {
+        <div class="column-one-third">
+            <img src="~/public/assets/images/progress.svg" class="pano green-svg" alt="Highest performing schools"/>
+            <h2 class="heading-small">Highest performing schools</h2>
+            <p>
+                See how highest progress schools similar to yours perform financially.
+            </p>
+            <ul class="list-arrow">
+                <li>
+                    <a class="font-xsmall" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
+                </li>
+            </ul>
+        </div>
+    }
+    <div class="column-one-third">
+        <img src="~/public/assets/images/checklist.svg" class="pano navy-svg" alt="Self-assessment dashboard" />
+        <h2 class="heading-small">Self-assessment dashboard</h2>
+        <p>
+            Formerly the SRMSAT/SFVS dashboard, see areas where your school is looking healthy or may need to focus on.
+        </p>
+        <ul class="list-arrow">
+            <li>
+                <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
+            </li>
+        </ul>
+    </div>
+</div>
