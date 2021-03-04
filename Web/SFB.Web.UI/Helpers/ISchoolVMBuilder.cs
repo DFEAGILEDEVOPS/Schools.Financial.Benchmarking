@@ -9,6 +9,7 @@ namespace SFB.Web.UI.Helpers
     {
         Task BuildCoreAsync(int urn);
         Task AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType);
+        Task AddLatestYearFinanceAsync();
         void AssignLaName();
         SchoolViewModel GetResult();
     }
