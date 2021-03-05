@@ -526,7 +526,6 @@
     <Content Include="Assets\Sass\_cookiesBanner.scss" />
     <Content Include="Assets\Sass\views\_cookies-settings.scss" />
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
-    <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\ViewsES6\trust-compare-advanced.js" />
     <Content Include="Assets\Scripts\Views\trust-compare-advanced.js" />
