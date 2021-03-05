@@ -684,6 +684,10 @@ a.button {
         margin-bottom: 0;
     }
 
+    .mb-05 {
+        margin-bottom: 0.5em;
+    }
+
     .mb-1 {
         margin-bottom: 1em;
     }
@@ -1261,12 +1265,21 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
 .blue-banner {
     background-color: $govuk-blue;
     color: $page-colour;
-    padding: 30px 15px;
+    padding: 30px;
 
     .start-button {
         background-color: $page-colour;
         color: $govuk-blue;
         font-weight: 700;
+        font-size: 18px;
+
+        &:focus{
+            color: black;
+        }
+
+        @include media(tablet) {
+            font-size: 24px;
+        }
 
         .govuk-button__start-icon {
             vertical-align: middle;
