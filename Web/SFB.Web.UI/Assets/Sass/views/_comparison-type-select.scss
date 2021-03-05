@@ -1,7 +1,5 @@
 ﻿.comparison-type-select {
     .pano {
-        max-height: 160px;
-        padding: 30px 0;
 
         @include media(mobile) {
             margin-top: 30px;
@@ -9,7 +7,9 @@
     }
 
     .blue-svg {
-        background: $light-blue;
+        background: #1d70b8;
+        max-height: 140px;
+        padding: 40px 0;
     }
 
     .green-svg {
@@ -18,8 +18,10 @@
         max-height: 130px;
     }
 
-    .navy-svg {
-        background: $govuk-blue
+    .turq-svg {
+        background: #28a197;
+        max-height: 160px;
+        padding: 30px 0;
     }
 
     .list-arrow {
@@ -32,10 +34,10 @@
         }
     }
 
-    .columns{
+    .columns {
         margin-top: 0;
 
-        @include media(tablet){
+        @include media(tablet) {
             margin-top: 3em;
         }
     }
