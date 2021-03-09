@@ -100,7 +100,7 @@
         </div>
         <div id="table_for_chart_@Model.Id" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
             <div class="column-full">
-                @Html.Partial("Partials/ChartTable", Model.HistoricalData)
+                @Html.Partial("Partials/ChartTable", Model)
             </div>
         </div>
     </div>
