@@ -36,7 +36,7 @@
 <h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
 
 <p>
-    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. You can replace them or retain them alongside those matching the characteristics you've just selected.
+    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmark set. You can replace them or retain them alongside those matching the characteristics you've just selected.
 </p>
 
 <form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post" id="gfac">
@@ -52,14 +52,14 @@
             <div class="multiple-choice">
                 <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
                 <label class="selection-button-radio" for="radio-1">
-                    Replace current basket
+                    Replace benchmark set
                 </label>
             </div>
 
             <div class="multiple-choice">
                 <input id="radio-2" type="radio" name="overwriteStrategy" value="add">
                 <label class="selection-button-radio" for="radio-2">
-                    Add to existing basket
+                    Add to existing benchmark set
                 </label>
             </div>
 
