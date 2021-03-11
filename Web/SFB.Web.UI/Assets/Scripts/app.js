@@ -177,38 +177,6 @@
             $('#js-modal-close').focus();
 
         },
-        RenderNewsModal: function () {
-            GOVUK.Modal.Load();
-
-            var $body = $('body');
-            var $page = $('#js-modal-page');
-
-            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
-                "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLinkText' title='Close'>Close</a>" +
-                "<h1 id='modal-title' class='modal-title'>New feature</h1>" +
-                "<p id = 'modal-content'>A new article has been added to the news page that could help your school's financial benchmarking experience. " +
-                "<a href='/news?referrer=" + window.DfE.Util.ModalRenderer.GetQueryString() + "'>Go to the news page</a> to view the article or find the news link in the 'News and Guidance' section on the homepage.</p>" +
-                "<div class='grid-row modal-form-buttons'>"+
-                "<div class='column-half'>" +
-                "<a class='button next-button' href='/news?referrer=" + window.DfE.Util.ModalRenderer.GetQueryString() + "'>Go to news page</a>" +
-                    "<button type='button' class='back-button link-button' value='Cancel' onclick='GOVUK.Modal.prototype.closeAccessibleModal()'>Cancel</button>"+
-                "</div>"+                
-                "</div></div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLinkText' title='Close'>Close</a></dialog>";
-
-            $($modal_code).insertAfter($page);
-            $body.addClass('no-scroll');
-
-            $page.attr('aria-hidden', 'true');
-
-            // add overlay
-            var $modal_overlay =
-                '<span id="js-modal-overlay" class="modal-overlay" title="Close" data-background-click="enabled"><span class="invisible">Close modal</span></span>';
-
-            $($modal_overlay).insertAfter($('#js-modal'));
-
-            $('#js-modal-close').focus();
-
-        },
 
         RenderYourChartsInfoModal: function () {
             var $body = $('body');
@@ -576,7 +544,6 @@ function manageCookies() {
     manageCookiePreferencesCookies();
     manageDynamicHeaderAndCookie(cookiesPolicyCookie);
     manageRecruitmentBannerAndCookie(cookiesPolicyCookie);
-    manageNewsModalAndCookie(cookiesPolicyCookie);
     manageGACookies(cookiesPolicyCookie);
     //manageMSCookies(cookiesPolicyCookie);
 
@@ -604,21 +571,6 @@ function manageCookiePreferencesCookies() {
     } else {
         $("#global-cookie-message").hide();
         DfE.Util.CookieOverlayRenderer.UnRender();
-    }
-}
-
-function manageNewsModalAndCookie(cookiesPolicyCookie) {
-    var isInNewsPage = window.location.href.toLowerCase().includes("/news");
-    if (cookiesPolicyCookie.settings) {
-        var seenVersion = GOVUK.cookie("seen-news-for-version");
-        var lastVersion = $('#version').val();
-        if (seenVersion !== lastVersion && !isInNewsPage) {
-            DfE.Util.ModalRenderer.RenderNewsModal();
-            GOVUK.cookie("seen-news-for-version", lastVersion, { days: 10000 });
-        }
-    }
-    else {
-        GOVUK.cookie("seen-news-for-version", null);
     }
 }
 
