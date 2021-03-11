@@ -865,7 +865,6 @@
     <Content Include="Views\BenchmarkCriteria\ComparisonStrategy.cshtml" />
     <Content Include="Views\BenchmarkCriteria\OverwriteStrategy.cshtml" />
     <Content Include="Views\Shared\Partials\BackToHomeLink.cshtml" />
-    <Content Include="Views\Help\Guidance.cshtml" />
     <Content Include="Views\Errors\NotFound.cshtml" />
     <Content Include="Views\Errors\InternalServerError.cshtml" />
     <Content Include="Views\BenchmarkCriteria\SelectSchoolType.cshtml" />
@@ -908,7 +907,6 @@
     <Content Include="public\js-marker-clusterer\LICENSE" />
     <Content Include="public\js-marker-clusterer\README.md" />
     <Content Include="Views\Shared\Partials\HistoricalChart.cshtml" />
-    <Content Include="Views\Help\InterpretingCharts.cshtml" />
     <Content Include="Views\BenchmarkCriteria\Partials\GeneralCharacteristics.cshtml" />
     <Content Include="Views\BenchmarkCriteria\Partials\PerformanceCharacteristics.cshtml" />
     <Content Include="Views\BenchmarkCriteria\Partials\WorkforceCharacteristics.cshtml" />
