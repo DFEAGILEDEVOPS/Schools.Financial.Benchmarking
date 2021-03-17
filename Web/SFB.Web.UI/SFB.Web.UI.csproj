@@ -445,6 +445,7 @@
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
     <Compile Include="Models\DataQueryViewModel.cs" />
+    <Compile Include="Models\FederationViewModel.cs" />
     <Compile Include="Models\GetInvolvedViewModel.cs" />
     <Compile Include="Models\HierarchicalChartViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
