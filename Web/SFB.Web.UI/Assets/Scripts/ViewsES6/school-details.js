@@ -29,14 +29,16 @@
             }
         });
 
-        $.ajax({
-            type: 'HEAD',
-            url: `https://${$("#SfbApiUrl").val()}/api/efficiencymetric/${modelId}`,
-            success: function () { $("#efficiencyMetricLink").show(); },
-            error: function (xhr, e) {
-                $("#efficiencyMetricLink").hide();
-            }
-        });
+        if (DfE.Util.Features.enabled("EfficiencyMetric")) {
+            $.ajax({
+                type: 'HEAD',
+                url: `https://${$("#SfbApiUrl").val()}/api/efficiencymetric/${modelId}`,
+                success: function () { $("#efficiencyMetricLink").show(); },
+                error: function (xhr, e) {
+                    $("#efficiencyMetricLink").hide();
+                }
+            });
+        }
 
         sessionStorage.chartFormat = chartFormat;
 
@@ -88,7 +90,11 @@
     }
 
     DownloadData(urn) {
-        document.getElementById('download_iframe').src = '/school/download?urn='+ urn;
+        $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
+        document.getElementById('download_iframe').src = '/school/download?urn=' + urn;
+        setTimeout(() => {
+            $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText'> Download data for this school<span class='visually-hidden'> (CSV)</span></span>");
+        }, 2000)
     }
 
     PrintPage() {

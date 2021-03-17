@@ -3,7 +3,7 @@
 @model SchoolComparisonListModel
 
 @{
-    ViewBag.Title = "Benchmark basket";
+    ViewBag.Title = "Benchmark set";
     ViewBag.pageClass = "benchmark-list";
 }
 
@@ -34,7 +34,7 @@
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Benchmark basket</h1>
+<h1 class="heading-xlarge page-heading">Benchmark set</h1>
 
 <div id="benchmarkBasketControlsPlaceHolder">
     @Html.Partial("Partials/BenchmarkBasketControls")
@@ -55,7 +55,7 @@
                         </div>
                         <span class="help-icon inline-block hide-in-print">
                             <span class="icon dark-blue">
-                                <a href="#" class="js-modal" data-modal-title="Incomplete financial data" data-modal-text="<p id='modal-content'>This school doesn't have a complete set of financial data for this period.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
+                                <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="<p id='modal-content'>This school doesn't have a complete set of financial data for this period.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
                                     <span class="visuallyhidden">Open incomplete financial modal. Opens a popup</span>
                                 </a>
                             </span>
@@ -112,11 +112,11 @@
 {
     <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'SetDefault')")"
             aria-label="Use @school.Name as default school">
-        Use as default school
+        Use as your school
     </button>
     <button @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark link-button font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'UnsetDefault')")"
             aria-label="Remove @school.Name as default school">
-        Remove as default school
+        Remove as your school
     </button>
 }
 

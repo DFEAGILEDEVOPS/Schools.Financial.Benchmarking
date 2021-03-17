@@ -1,7 +1,7 @@
 ﻿@model SFB.Web.UI.Models.BenchmarkCriteriaVM
 
 @{
-    ViewBag.Title = "Replace current basket";
+    ViewBag.Title = "Replace benchmark set";
     ViewBag.pageClass = "overwrite-strategy";
 }
 
@@ -19,10 +19,10 @@
     }
 }
 
-<h1 class="heading-xlarge page-heading">Replace current basket</h1>
+<h1 class="heading-xlarge page-heading">Replace benchmark set</h1>
 
 <p>
-    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmarking basket. By proceeding you will replace your current basket. If you wish to add to your basket go back and reduce your basket size.
+    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmark set. By proceeding you will replace your current benchmark set. If you wish to add to your benchmark set go back and reduce your benchmark set size.
 </p>
 
 <form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post" id="gfac">
@@ -33,7 +33,7 @@
     <div class="grid-row">
         <div class="column-half">
             <div class="column-two-thirds next-button">
-                <button type="submit" class="button">Replace current basket</button>
+                <button type="submit" class="button">Replace benchmark set</button>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
         <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
         <input type="hidden" name="EstType" value="@ViewBag.EstType">
         <input type="hidden" name="AreaType" value="@ViewBag.AreaType">
-        <input type="hidden" name="LaCode" value="@ViewBag.LaCode">
+        <input type="hidden" name="laCode" value="@ViewBag.LaCode">
         <input type="hidden" name="ExcludePartial" value="@ViewBag.ExcludePartial">
 
     </div>

@@ -6,9 +6,10 @@
     <label for="LaCodeName">Add schools by local authority</label>
 </div>
 <div id="SearchByLaCodeNameFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
-    <label class="search-types__optional-section__label" for="FindSchoolByLaCodeName" id="sectionLabel">
+    <label class="search-types__optional-section__label" for="FindSchoolManuallyByLaCodeName" id="sectionLabel">
         <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
     </label>
+    <label class="visually-hidden" for="FindSchoolManuallyByLaCodeName_listbox">Select a local authority from the list box</label>
     @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
     {
         <span class="error-message">@Model.ErrorMessage</span>
@@ -22,10 +23,10 @@
                class="form-control"
                name="lacodename"
                maxlength="100"
-               type="text" 
-               aria-labelledby="sectionLabel"/>
+               type="text"
+               aria-labelledby="sectionLabel" />
         <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />
-        <button type="submit" class="search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
+        <button type="submit" class="button search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
     </div>
 </div>
 

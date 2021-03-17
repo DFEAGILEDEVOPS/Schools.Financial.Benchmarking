@@ -446,9 +446,9 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/SchoolsToAdd", vm.BenchmarkSchools.Where(s => s.Id != vm.HomeSchoolUrn).ToList());
         }
 
-        public PartialViewResult RemoveSchool(int urn)
+        public async Task<PartialViewResult> RemoveSchool(int urn)
         {
-            _manualBenchmarkListService.RemoveSchoolFromManualBenchmarkListAsync(urn);
+            await _manualBenchmarkListService.RemoveSchoolFromManualBenchmarkListAsync(urn);
 
             var vm = _manualBenchmarkListService.GetManualBenchmarkList();
 

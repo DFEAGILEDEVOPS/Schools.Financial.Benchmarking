@@ -1,4 +1,4 @@
-﻿<div class="banner hide-in-print" id="benchmarkBasket" role="region" aria-label="Benchmark Basket">
+﻿<div class="banner hide-in-print" id="benchmarkBasket" role="region" aria-label="Benchmark set">
     @if (Model.ComparisonListCount >= 1)
     {
         <div class="grid-row">
@@ -6,22 +6,22 @@
                 <div class="banner__comparison-list-info-panel">
                     @if (((RazorView)ViewContext.View).ViewPath.Contains("BenchmarkCharts"))
                     {
-                        <span class="message">Showing the <span class="banner__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span> in your benchmark basket</span>
+                        <span class="message">Showing the <span class="banner__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span> in your benchmark set</span>
                     }
                     else
                     {
-                        <span class="message">Your benchmark basket contains <span class="banner__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span></span>
+                        <span class="message">Your benchmark set contains <span class="banner__comparison-list-info-panel__count">@Model.ComparisonListCount schools</span></span>
                     }
 
                     @{
                         var referrer = Request.IsAjaxRequest() ? Request.UrlReferrer.ToString() : Request.RawUrl;
                     }
-                    <a class="banner__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@System.Web.HttpUtility.UrlEncode(referrer)">Edit benchmark basket</a>
+                    <a class="banner__comparison-list-info-panel__edit-basket" href="/benchmarklist?referrer=@System.Web.HttpUtility.UrlEncode(referrer)">Edit benchmark set</a>
 
                     @if (!((RazorView)ViewContext.View).ViewPath.ToLower().Contains("benchmarkcharts") && Model.ComparisonListCount >= 2)
                     {
                         <div class="view-benchmark-charts-wrapper">
-                            <a class="button" href="/BenchmarkCharts">View benchmark charts</a>
+                            <a class="button" role="button" href="/BenchmarkCharts">View benchmark charts</a>
                         </div>
                     }
                     else

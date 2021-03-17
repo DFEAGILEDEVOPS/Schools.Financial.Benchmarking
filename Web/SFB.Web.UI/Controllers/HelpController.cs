@@ -21,17 +21,7 @@ namespace SFB.Web.UI.Controllers
             _emailSender = emailSender;
         }
 
-        public ActionResult Guidance()
-        {
-            return View();
-        }
-
         public ActionResult SadGuidance()
-        {
-            return View();
-        }
-
-        public ActionResult InterpretingCharts()
         {
             return View();
         }

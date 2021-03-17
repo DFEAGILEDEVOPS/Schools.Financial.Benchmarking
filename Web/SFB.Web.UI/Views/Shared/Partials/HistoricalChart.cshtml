@@ -8,7 +8,7 @@
 {
     <details class="mt-1">
         <summary class="hide-in-print">
-            <span class="summary font-xsmall">More info<span class="visuallyhidden"> on @Model.Name</span></span>
+            <span class="summary font-xsmall">More about @Model.Name.ToLower()</span>
         </summary>
         <div class="panel panel-border-narrow">
             @Html.Raw(Model.MoreInfo)
@@ -100,7 +100,7 @@
         </div>
         <div id="table_for_chart_@Model.Id" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
             <div class="column-full">
-                @Html.Partial("Partials/ChartTable", Model.HistoricalData)
+                @Html.Partial("Partials/ChartTable", Model)
             </div>
         </div>
     </div>

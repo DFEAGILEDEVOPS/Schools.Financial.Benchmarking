@@ -1,0 +1,81 @@
+﻿@model SFB.Web.UI.Models.TrustCharacteristicsViewModel
+
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = "Find and compare trusts";
+    ViewBag.pageClass = "trust-comparison";
+}
+
+@section BackButtonContent{
+    <a class="govuk-back-link hide-in-print" href="/trustcomparison/SelectType?companyNo=@Model.BenchmarkTrust.CompanyNo&matName=@Model.BenchmarkTrust.Name">Back</a>
+}
+
+<div id="ErrorSummaryPlaceHolder"></div>
+
+<h1 class="heading-xlarge page-heading">Select the trust characteristics</h1>
+
+<div class="grid-row">
+    <div class="column-full">
+        <span class="font-xsmall">Comparing to</span>
+        <div class="highlight">
+            <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo"><span class="bold-xsmall">@Model.BenchmarkTrust.Name</span></a>
+        </div>
+    </div>
+</div>
+
+<p class="mt-2">
+    Please refine your search to <span class="bold-small">1</span> to <span class="bold-small">20</span> trusts, a meaningful benchmark set contains around <span class="bold-small">5</span> trusts.
+</p>
+
+<div class="sticky-div">
+    <div id="liveCountBar" class="live-count-bar">
+        <div class="grid-row">
+            <div class="column-full">
+                <div id="comparisonListInfoPanelResults" class="trust-match-info">
+                    <span id="schoolCount" aria-live="assertive">
+                        <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
+                        <span style="margin-left: 10px; color: black">Searching</span>
+                    </span>
+                    <span> (max. 20)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid-row">
+    <div class="column-full">
+        <form method="post" id="criteriaForm" action="GenerateListFromAdvancedCriteria?companyNo=@Model.BenchmarkTrust.CompanyNo" autocomplete="off" class="mt-1">
+            <div class="form-group">
+                <fieldset>
+                    <legend class="visually-hidden">Select trust characteristics</legend>
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("Partials/TrustCharacteristics", Model)
+                    <div class="advanced control-buttons">
+                        <div class="grid-row">
+                            <div class="column-two-thirds">
+                                <div class="column-half pl-0">
+                                    <button id="sbmt_button" onclick="DfE.Views.TrustCompareAdvancedViewModel.onSubmit(event)" class="button view-benchmark-charts submit">View benchmarking charts</button>
+                                </div>
+                                <div class="column-half no-padding">
+                                    <div class="back-button">
+                                        <button onclick="DfE.Views.TrustCompareAdvancedViewModel.onClear(event)" class="clear-criteria js-clear-criteria link-button font-xsmall">Clear characteristics</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section ViewScripts {
+
+    <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        DfE.Views.TrustCompareAdvancedViewModel = new TrustCompareAdvancedViewModel();
+    </script>
+}
+

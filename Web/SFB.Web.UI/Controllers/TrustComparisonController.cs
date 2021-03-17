@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using SFB.Web.UI.Models;
 using SFB.Web.ApplicationCore.Services.DataAccess;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Attributes;
-using SFB.Web.ApplicationCore.Helpers.Enums;
-using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.UI.Services;
+using SFB.Web.UI.Helpers.Enums;
+using SFB.Web.UI.Helpers.Constants;
+using Microsoft.ApplicationInsights;
+using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -26,19 +26,46 @@ namespace SFB.Web.UI.Controllers
             _trustBenchmarkListService = trustBenchmarkListService;
         }
 
-        public async Task<ActionResult> Index(int companyNo)
-        {            
-            var benchmarkTrust = new TrustViewModel(companyNo);
+        public async Task<ActionResult> Advanced(int companyNo, BenchmarkCriteria advancedCriteria)
+        {
+            var benchmarkTrust =  await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
 
-            await LoadFinancialDataOfLatestYearAsync(benchmarkTrust);
+            var vm = new TrustCharacteristicsViewModel(benchmarkTrust, advancedCriteria);
 
-            await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
+            return View(vm);
+        }
+
+
+        public async Task<ActionResult> Manual(int companyNo)
+        {
+            var benchmarkTrust = await _trustBenchmarkListService.SetTrustAsDefaultAsync(companyNo);
 
             var trustComparisonList = _trustBenchmarkListService.GetTrustBenchmarkList();
 
-            var vm = new TrustCharacteristicsViewModel(benchmarkTrust, trustComparisonList);
+            var vm = new TrustSelectionViewModel(benchmarkTrust, trustComparisonList);
 
             return View(vm);
+        }
+
+        public ViewResult SelectType(int companyNo, string matName)
+        {
+            var model = new TrustViewModel(companyNo, matName);
+            return View(model);
+        }
+
+        public ActionResult StepOne(int companyNo, string matName, ComparisonType? comparisonType)
+        {
+            switch (comparisonType)
+            {
+                case ComparisonType.Advanced:
+                    return Redirect($"/TrustComparison/Advanced?companyNo={companyNo}");
+                case ComparisonType.Manual:
+                    return Redirect($"/TrustComparison/Manual?companyNo={companyNo}");
+                default:
+                    var model = new TrustViewModel(companyNo, matName);
+                    model.ErrorMessage = ErrorMessages.SelectComparisonType;
+                    return View("SelectType", model);
+            } 
         }
 
         public async Task<int> GenerateCountFromAdvancedCriteria(BenchmarkCriteriaVM criteria)
@@ -47,22 +74,18 @@ namespace SFB.Web.UI.Controllers
             {
                 return 0;
             }
-
-            if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
-            {                
-                return await _financialDataService.SearchTrustCountByCriteriaAsync(criteria.AdvancedCriteria);                
-            }
-            return 0;
+              
+             return await _financialDataService.SearchTrustCountByCriteriaAsync(criteria?.AdvancedCriteria);                
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GenerateListFromManualCriteria(BenchmarkCriteriaVM criteria)
+        public async Task<ActionResult> GenerateListFromAdvancedCriteria(BenchmarkCriteriaVM criteria)
         {
             if (!ModelState.IsValid)
             {
                 new TelemetryClient().TrackException(new ApplicationException("Invalid criteria entered for advanced search!" + criteria));
-                return null;
+                throw new ApplicationException();
             }
 
             if (criteria.AdvancedCriteria != null && !criteria.AdvancedCriteria.IsAllPropertiesNull())
@@ -75,6 +98,8 @@ namespace SFB.Web.UI.Controllers
                     _trustBenchmarkListService.TryAddTrustToBenchmarkList(doc.CompanyNumber.GetValueOrDefault(), doc.TrustOrCompanyName);
                 }
             }
+            
+            TempData["BenchmarkCriteria"] = criteria.AdvancedCriteria;
             return Redirect("/BenchmarkCharts/Mats");
         }
 
@@ -100,23 +125,11 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
         }
 
-        public PartialViewResult RemoveAllTrusts()
-        {
-            var vm = _trustBenchmarkListService.ClearTrustBenchmarkList();
+        //public PartialViewResult RemoveAllTrusts()
+        //{
+        //    var vm = _trustBenchmarkListService.ClearTrustBenchmarkList();
 
-            return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
-        }
-
-        private async Task LoadFinancialDataOfLatestYearAsync(TrustViewModel benchmarkTrust)
-        {
-            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.MAT);
-            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
-            var financialDataObject = await _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(benchmarkTrust.CompanyNo, term, MatFinancingType.TrustAndAcademies);
-
-            benchmarkTrust.HistoricalFinancialDataModels = new List<ApplicationCore.Models.FinancialDataModel>
-            {
-                new ApplicationCore.Models.FinancialDataModel(benchmarkTrust.CompanyNo.ToString(), term, financialDataObject, EstablishmentType.MAT)
-            };
-        }
+        //    return PartialView("Partials/TrustsToCompare", vm.Trusts.Where(t => t.CompanyNo != vm.DefaultTrustCompanyNo).ToList());
+        //}
     }
 }

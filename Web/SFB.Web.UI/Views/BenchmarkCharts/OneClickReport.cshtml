@@ -59,7 +59,7 @@
 {
     <div class="panel panel-border-wide orange-warning">
         <p>
-            There are no schools in your benchmark basket, so no charts can be displayed.
+            There are no schools in your benchmark set, so no charts can be displayed.
         </p>
     </div>
 }
@@ -98,7 +98,10 @@ else
         <div id="downloadLinkContainer" class="download-link">
             <div class="download">
                 <button id="DownloadLink" class="no-underline bold-xsmall link-button sfb_gtm_csv_bm" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadData('@Model.EstablishmentType')">
-                    <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" /><span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
+                    <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
+                    </div>
                 </button>
             </div>
         </div>
@@ -126,7 +129,7 @@ else
                 </button>
                 <span class="help-icon no-margin hide-in-print">
                     <span class="icon dark-blue">
-                        <a href="#" class="js-modal" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                        <a href="#" class="js-modal" role="button" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                             <span class="visuallyhidden">Open more info text for save or share benchmark - opens a popup</span>
                         </a>
                     </span>

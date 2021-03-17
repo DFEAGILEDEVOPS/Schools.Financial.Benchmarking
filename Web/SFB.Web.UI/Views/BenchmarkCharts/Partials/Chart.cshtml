@@ -15,59 +15,61 @@
             <div>
                 @if (Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
                 {
-                    <div class="column-full no-padding">
-                        <h2 class="heading-medium inline">
-                            <span>
-                                @Model[i].Name
-                            </span>
-                            @if (Model[i].ChartType != ChartType.OneClick || Model[i].FieldName != SchoolTrustFinanceDataFieldNames.TEACHERS_TOTAL)//exception #31821
-                            {
-                                <span class="not-bold">
-                                    @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
-                                </span>
-                            }
-                        </h2>
-                        @if (Model[i].HelpTooltip != null)
+                <div class="column-full no-padding">
+                    <h2 class="heading-medium inline">
+                        <span>
+                            @Model[i].Name
+                        </span>
+                        @if (Model[i].ChartType != ChartType.OneClick || Model[i].FieldName != SchoolTrustFinanceDataFieldNames.TEACHERS_TOTAL)//exception #31821
                         {
-                            <span class="help-icon help-chart hide-in-print">
-                                <span class="icon dark-blue">
-                                    <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                        <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
-                                    </a>
-                                </span>
+                            <span class="not-bold">
+                                @Html.Raw("(" + Model[i].ShowValue.GetDescription() + ")")
                             </span>
                         }
-                    </div>
+                    </h2>
+                    @if (Model[i].HelpTooltip != null)
+                    {
+                        <details>
+                            <summary class="hide-in-print">
+                                <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                            </summary>
+                            <div class="panel panel-border-narrow">
+                                @Html.Raw(Model[i].HelpTooltip)
+                            </div>
+                        </details>                        
+                    }
+                </div>
                 }
                 else
                 {
                     <div class="column-half no-padding">
                         @if (Model[i].DrillInto != null)
                         {
-                            <div class="chart-header">
-                                <h2 class="heading-medium inline">@Model[i].Name</h2>
-                                @if (Model[i].HelpTooltip != null)
+                        <div class="chart-header">
+                            <h2 class="heading-medium inline">@Model[i].Name</h2>
+                            <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto', '@Model[i].TabName.ToLower()')">
+                                @if (ViewBag.ChartFormat == ChartFormat.Charts)
                                 {
-                                    <span class="help-icon help-chart hide-in-print">
-                                        <span class="icon dark-blue">
-                                            <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                                <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
-                                            </a>
-                                        </span>
-                                    </span>
+                                    <span class="view-more">All @Model[i].Name.Replace("total", "").ToLower() charts</span>
                                 }
-                                <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto', '@Model[i].TabName.ToLower()')">
-                                    @if (ViewBag.ChartFormat == ChartFormat.Charts)
-                                    {
-                                        <span class="view-more">All @Model[i].Name.Replace("total", "").ToLower() charts</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="view-more">View more tables</span>
-                                    }
-                                    <span class="visuallyhidden"> for @Model[i].Name</span>
-                                </button>
-                            </div>
+                                else
+                                {
+                                    <span class="view-more">View more tables</span>
+                                }
+                                <span class="visuallyhidden"> for @Model[i].Name</span>
+                            </button>
+                            @if (Model[i].HelpTooltip != null)
+                            {
+                                <details>
+                                    <summary class="hide-in-print">
+                                        <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                                    </summary>
+                                    <div class="panel panel-border-narrow">
+                                        @Html.Raw(Model[i].HelpTooltip)
+                                    </div>
+                                </details>
+                            }
+                        </div>
                         }
                         else
                         {
@@ -77,13 +79,14 @@
                                 </h2>
                                 @if (Model[i].HelpTooltip != null)
                                 {
-                                    <span class="help-icon help-chart hide-in-print">
-                                        <span class="icon dark-blue">
-                                            <a href="#" class="js-modal" data-modal-title="@Model[i].Name" data-modal-text="@Model[i].HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                                <span class="visuallyhidden">Open more info text for @Model[i].Name opens a popup</span>
-                                            </a>
-                                        </span>
-                                    </span>
+                                <details>
+                                    <summary class="hide-in-print">
+                                        <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                                    </summary>
+                                    <div class="panel panel-border-narrow">
+                                        @Html.Raw(Model[i].HelpTooltip)
+                                    </div>
+                                </details>
                                 }
                             </div>
                         }
@@ -120,7 +123,7 @@
                                     <div style="display:inline">
                                         <span class="help-icon help-addremove hide-in-print">
                                             <span class="icon dark-blue">
-                                                <a href="#" class="js-modal" data-modal-title="Add to your charts/remove from your charts" data-modal-text="If you want to download or print a customised report, you can save individual charts in the ‘Your charts’ tab. You can add or remove them by selecting ‘Add to your charts’ or ‘Remove from your charts’. Go to the 'Your charts' tab to see the ones you’ve chosen." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                <a href="#" class="js-modal" role="button" data-modal-title="Add to your charts/remove from your charts" data-modal-text="If you want to download or print a customised report, you can save individual charts in the ‘Your charts’ tab. You can add or remove them by selecting ‘Add to your charts’ or ‘Remove from your charts’. Go to the 'Your charts' tab to see the ones you’ve chosen." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                                     <span class="visuallyhidden">Open more info text for Add this chart to 'Your charts' opens a popup</span>
                                                 </a>
                                             </span>
@@ -152,14 +155,15 @@
 
                 @if (Model[i].DealsForSchoolsMessage != null)
                 {
-                <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
+                <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory"
+                                                                                                          aria-label="Deals for schools link @Model[i].DealsForSchoolsMessage">deals for schools</a></div>
                 }
 
                 @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
                 {
                     <details>
                         <summary class="hide-in-print">
-                            <span class="summary font-xsmall">More info<span class="visuallyhidden"> on @Model[i].Name</span></span>
+                            <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
                         </summary>
                         <div class="panel panel-border-narrow">
                             @Html.Raw(Model[i].MoreInfo)
@@ -234,10 +238,26 @@
                             </h2>
 
                             <div class="accordion-section-body">
+                                @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
+                                {
+                                <details>
+                                    <summary class="hide-in-print">
+                                        <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                                    </summary>
+                                    <div class="panel panel-border-narrow">
+                                        @Html.Raw(Model[i].MoreInfo)
+                                    </div>
+                                </details>
+                                }
                                 @if (Model[i].DealsForSchoolsMessage != null)
                                 {
-                                    <div class="panel panel-border-wide dfs-panel">@Model[i].DealsForSchoolsMessage, visit <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page" href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory">deals for schools</a></div>
-                                }
+                                    <div class="panel panel-border-wide dfs-panel">
+                                        @Model[i].DealsForSchoolsMessage, visit
+                                    <a rel="external noopener noreferrer" class="sfb_gtm_deals_for_schools" target="_blank" title="Link will open in a new page"
+                                       href="https://find-dfe-approved-framework.service.gov.uk/framework#@Model[i].DealsForSchoolsCategory"
+                                       aria-label="Link for @Model[i].DealsForSchoolsMessage">deals for schools</a>
+                                </div>
+                            }
                                 @if (Model[i].ChartType != ChartType.CustomReport && Model[i].ChartType != ChartType.OneClick)
                                 {
                                     <div class="customActions column-half add-remove-links table hide-in-print float-to-right" data-fn="@Model[i].Id" data-sv="@Model[i].ShowValue">
@@ -287,17 +307,6 @@
 
                                 @if (Model[i].DataJson != null)
                                 {
-                                    if (!string.IsNullOrEmpty(Model[i].MoreInfo))
-                                    {
-                                        <details>
-                                            <summary class="hide-in-print">
-                                                <span class="summary font-xsmall">More info<span class="visuallyhidden"> on @Model[i].Name</span></span>
-                                            </summary>
-                                            <div class="panel panel-border-narrow">
-                                                @Html.Raw(Model[i].MoreInfo)
-                                            </div>
-                                        </details>
-                                    }
                                     <div class="grid-row">
                                         <div class="column-full">
                                             <div class="chart-wrapper @(ViewBag.ComparisonType == ComparisonType.BestInClass ? "bic" : "")" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "inline-block")">

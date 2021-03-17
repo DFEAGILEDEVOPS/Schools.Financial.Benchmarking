@@ -45,6 +45,7 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> Search(
         string trustNameId,
+        string trustsuggestionUrn,
         string searchType,
         string locationorpostcode,
         string locationCoordinates,
@@ -70,7 +71,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        return await SearchByTrustName(trustNameId, openOnly, orderby, page, referrer);
+                        return await SearchByTrustName(trustNameId, trustsuggestionUrn, openOnly, orderby, page, referrer);
                     }
                 case SearchTypes.SEARCH_BY_TRUST_LOCATION:
                     if (string.IsNullOrEmpty(locationCoordinates))
@@ -342,8 +343,13 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        private async Task<ActionResult> SearchByTrustName(string trustName, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
+        private async Task<ActionResult> SearchByTrustName(string trustName, string suggestionId, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
+            if (string.IsNullOrEmpty(_valService.ValidateCompanyNoParameter(suggestionId)))
+            {
+                return RedirectToAction("Index", "Trust", new { companyNo = suggestionId });
+            }
+
             var errorMessage = _valService.ValidateTrustNameParameter(trustName);
             if (string.IsNullOrEmpty(errorMessage))
             {
@@ -413,7 +419,7 @@ namespace SFB.Web.UI.Controllers
                 if (exactMatch != null)
                 {
                     laName = exactMatch.Id;
-                    return await Search(null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, laName, null, openOnly, orderby, page, tab);
+                    return await Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, laName, null, openOnly, orderby, page, tab);
                 }
                 var similarMatch = _laSearchService.SearchContains(laName);
                 if (similarMatch.Count == 0)

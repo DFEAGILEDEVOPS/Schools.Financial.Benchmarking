@@ -784,7 +784,11 @@
     }
 
     DownloadData(establishmentType) {
+        $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
         document.getElementById('download_iframe').src = '/BenchmarkCharts/Download?type=' + establishmentType;
+        setTimeout(() => {
+            $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText'> Download data<span class='visually-hidden'> (CSV)</span></span>");
+        }, 5000)
     }
 
     PrintPage() {

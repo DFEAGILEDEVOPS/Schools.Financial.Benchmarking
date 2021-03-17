@@ -1,6 +1,5 @@
 ﻿using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Models;
-using SFB.Web.ApplicationCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,17 +9,22 @@ namespace SFB.Web.UI.Models
     public class TrustCharacteristicsViewModel : ViewModelBase
     {
         public TrustViewModel BenchmarkTrust { get; set; }
-        public TrustComparisonListModel TrustComparisonList { get; set; }
         public List<SchoolCharacteristic> TrustCharacteristics { get; set; }
         public BenchmarkCriteria BenchmarkCriteria { get; set; }
 
 
-        public TrustCharacteristicsViewModel(TrustViewModel trust, TrustComparisonListModel trustComparisonList)
+        public TrustCharacteristicsViewModel(TrustViewModel trust)
         {
-            this.TrustComparisonList = trustComparisonList;
             this.BenchmarkTrust = trust;
             this.TrustCharacteristics = BuildTrustCharacteristics(trust);
             this.BenchmarkCriteria = new BenchmarkCriteria();
+        }
+
+        public TrustCharacteristicsViewModel(TrustViewModel trust, BenchmarkCriteria criteria)
+        {
+            this.BenchmarkTrust = trust;
+            this.TrustCharacteristics = BuildTrustCharacteristics(trust);
+            this.BenchmarkCriteria = criteria;
         }
 
         public string this[string question]

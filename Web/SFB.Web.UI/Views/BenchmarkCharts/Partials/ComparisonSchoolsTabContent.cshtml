@@ -8,12 +8,13 @@
                 <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
             </div>
             <table class="tablesorter data-table-js comp-school-table chart-table--mobile-above-view" id="ComparisonSchoolsTable">
+                <caption class="visually-hidden">Comparison schools</caption>
                 <thead>
                     <tr>
                         <th class="school-column sortInitialOrder-asc" scope="col">School</th>
                         <th class="numeric sortInitialOrder-desc" scope="col">Pupils</th>
                         <th class="numeric sortInitialOrder-asc numeric comp-school-table__phase-col" scope="col">Phase of education</th>
-                        <th nowrap class="numeric sortInitialOrder-asc" scope="col">Ofsted rating</th>
+                        <th  class="nowrap numeric sortInitialOrder-asc" scope="col">Ofsted rating</th>
                         <th class="numeric sortInitialOrder-desc string-min sorter-digit comp-school-table__ks-col th-ks2-js" scope="col">
                             Key stage 2 progress
                             <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
@@ -78,6 +79,7 @@
             </table>
 
             <table class="tablesorter data-table-js comp-school-table chart-table--mobile-only-view" id="ComparisonSchoolsTableMobile">
+                <caption class="visually-hidden">Comparison schools</caption>
                 @foreach (var cSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                 {
                     <tbody class="chart-table--detail-view__body">
@@ -96,7 +98,7 @@
                         </tr>
                         <tr>
                             <th scope="row" class="col-header">Pupils</th>
-                            <td>@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>                            
+                            <td>@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
                         </tr>
                         <tr>
                             <th scope="row" class="col-header">Phase of education</th>

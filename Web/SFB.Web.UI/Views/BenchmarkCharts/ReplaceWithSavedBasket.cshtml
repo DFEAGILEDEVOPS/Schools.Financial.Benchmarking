@@ -1,22 +1,22 @@
 ﻿@model SFB.Web.UI.Models.SaveOverwriteViewModel
 
 @{
-    ViewBag.Title = "Replace current basket";
+    ViewBag.Title = "Replace benchmark set";
     ViewBag.pageClass = "overwrite-strategy";
 }
 
-<h1 class="heading-xlarge page-heading">Replace current basket</h1>
+<h1 class="heading-xlarge page-heading">Replace benchmark set</h1>
 
 @if (Model.SavedUrns != null)
 {
     <p>
-        You already have <span class="bold">@Model.ComparisonListCount</span> schools in your current benchmarking basket. If you choose to view this saved basket it will remove the schools in your current basket and replace them with the schools saved in the link.
+        You already have <span class="bold">@Model.ComparisonListCount</span> schools in your current benchmark set. If you choose to view this saved benchmark set it will remove the schools in your current benchmark set and replace them with the schools saved in the link.
     </p>
 }
 else
 {
     <p>
-        You already have <span class="bold">@Model.TrustComparisonList.Trusts.Count</span> schools in your current benchmarking basket. If you choose to view this saved basket it will remove the schools in your current basket and replace them with the schools saved in the link.
+        You already have <span class="bold">@Model.TrustComparisonList.Trusts.Count</span> schools in your current benchmark set. If you choose to view this saved benchmark set it will remove the schools in your current benchmark set and replace them with the schools saved in the link.
     </p>
 }
 
@@ -38,7 +38,7 @@ else
     <div class="grid-row mt-2">
         <div class="column-half">
             <div class="column-two-thirds next-button">
-                <button type="submit" class="button">Replace current basket</button>
+                <button type="submit" class="button">Replace benchmark set</button>
             </div>
             <div class="column-one-third back-button">
                 <a href="/">Cancel</a>
