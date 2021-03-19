@@ -418,6 +418,7 @@
     <Compile Include="Controllers\BenchmarkListController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
+    <Compile Include="Controllers\FederationController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
@@ -978,6 +979,8 @@
     <Content Include="Views\BenchmarkCharts\Partials\SpecialHiddenFields.cshtml" />
     <Content Include="Views\Accessibility\Index.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\TrustAdvancedHiddenFields.cshtml" />
+    <Content Include="Views\Federation\Index.cshtml" />
+    <Content Include="Assets\Sass\views\_federation-details.scss" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

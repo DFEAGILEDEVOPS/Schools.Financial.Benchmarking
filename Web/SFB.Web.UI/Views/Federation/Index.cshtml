@@ -1,0 +1,49 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Helpers;
+@model SFB.Web.UI.Models.FederationViewModel
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = Model.Name;
+    ViewBag.pageClass = "federation-detail";
+}
+
+@section InsideHead{
+    <link href="~/node_modules/c3/c3.css" rel="stylesheet" type="text/css">
+    <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<div class="grid-row">
+    <div class="column-three-quarters">
+        <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+    </div>
+    <div class="column-quarter">
+        @*@if (Model.HasLatestYearFinancialData)*@
+        {
+            <aside class="analytics-links">
+                <h2 class="heading-small">Tools for governors and school business professionals</h2>
+                <ul class="list">
+                    <li>
+                        <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.UID">Self-assessment dashboard</a>
+                    </li>
+                    <li>
+                        <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?fuid=@Model.UID">Basic comparison report</a>
+                    </li>
+                </ul>
+            </aside>
+        }
+    </div>
+</div>
