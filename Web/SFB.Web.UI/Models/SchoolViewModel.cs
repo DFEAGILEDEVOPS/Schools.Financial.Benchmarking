@@ -232,11 +232,11 @@ namespace SFB.Web.UI.Models
 
         public decimal? P8Banding => LatestYearFinancialData?.P8Banding;
 
-        public bool IsFederation => (bool)LatestYearFinancialData?.IsFederation;
+        public bool IsFederation => (bool)(LatestYearFinancialData?.IsFederation);
 
-        public bool IsPartOfFederation => (bool)LatestYearFinancialData?.IsPartOfFederation;
-
+        public bool IsPartOfFederation => (bool)(LatestYearFinancialData?.IsPartOfFederation);
         public int? FederationUID => LatestYearFinancialData?.FederationUID;
+        public string FederationName => LatestYearFinancialData?.FederationName;
 
         public int[] FederationMembers => LatestYearFinancialData?.FederationMembers;
 

@@ -1,7 +1,6 @@
 ﻿using SFB.Web.ApplicationCore.Entities;
+using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Collections.Generic;
-using System.Linq;
-using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Models
 {
@@ -27,14 +26,6 @@ namespace SFB.Web.UI.Models
         {
             get
             {
-                if (AcademiesInFinanceList?.Count > 0)
-                {
-                    return AcademiesInFinanceList.FirstOrDefault().TrustName;
-                }
-                else if (LatestYearFinancialData?.FinancialDataObjectModel != null)
-                {
-                    return LatestYearFinancialData.FinancialDataObjectModel.TrustOrCompanyName;
-                }
                 return _federationName;
             }
             set
@@ -43,44 +34,36 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public List<AcademySummaryDataObject> AcademiesInFinanceList { get; set; }
+        public override string Type => "Federation";
 
-        public List<EdubaseDataObject> AcademiesInContextList { get; set; }
+        public override EstablishmentType EstablishmentType => EstablishmentType.Federation;
 
-        public override string Type => "MAT";
+        public List<EdubaseDataObject> SchoolsInFederation { get; set; }
 
-        public override EstablishmentType EstablishmentType => EstablishmentType.MAT;
+        public string OpenDate => LatestYearFinancialData?.OpenDate;
 
-        public TrustHistoryModel TrustHistory { get; internal set; }
+        public decimal? PupilCount => LatestYearFinancialData?.PupilCount;
 
-        public TrustViewModel(int companyNo)
-        {
-            this.CompanyNo = companyNo;
-        }
+        public string OverallPhase => LatestYearFinancialData.SchoolOverallPhase;
 
-        public TrustViewModel(int companyNo, string matName)
-        {
-            this.CompanyNo = companyNo;
-            this.Name = matName;
-        }
+        public bool? HasNursery => LatestYearFinancialData?.HasNursery;
 
-        public TrustViewModel(int uid, int companyNo) :
-            this(companyNo)
+        public bool? Has6Form => LatestYearFinancialData?.Has6Form;
+
+        public int?  LA => LatestYearFinancialData?.LaNumber;
+        public decimal? LowestAge => LatestYearFinancialData?.LowestAgePupils;
+        public decimal? HighestAge => LatestYearFinancialData?.HighestAgePupils;
+
+
+        public FederationViewModel(int uid)
         {
             this.UID = uid;
         }
 
-        public TrustViewModel(int companyNo, SchoolComparisonListModel comparisonList = null)
-        : this(companyNo)
+        public FederationViewModel(int uid, SchoolComparisonListModel comparisonList = null)
+        : this(uid)
         {
             base.ComparisonList = comparisonList;
         }
-
-        public TrustViewModel(int uid, int companyNo, SchoolComparisonListModel comparisonList = null)
-            : this(uid, companyNo)
-        {
-            base.ComparisonList = comparisonList;
-        }
-
     }
 }

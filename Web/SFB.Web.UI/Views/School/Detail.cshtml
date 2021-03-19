@@ -95,7 +95,7 @@
         }
         @if(Model.IsPartOfFederation && !Model.IsFederation)
         {
-            <div class="panel panel-border-wide">You can now compare this school’s federation <a class="font-xsmall" href="/federation?fuid=@Model.FederationUID">@Model.FederationUID</a> against other schools and federations which may give a more accurate comparison.</div>
+            <div class="panel panel-border-wide">You can now compare this school’s federation <a class="font-small" href="/federation?fuid=@Model.FederationUID">@Model.FederationName</a> against other schools and federations which may give a more accurate comparison.</div>
         }
 
     </div>
@@ -193,7 +193,7 @@
 
                 @if (Model.IsPartOfFederation)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationUID?.ToString()), Model.FederationUID?.ToString())
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationUID?.ToString()), Model.FederationName)
                 }
 
                 @if (Model.IsMAT)
