@@ -35,23 +35,21 @@ namespace SFB.Web.UI.Controllers
             _fcService = fcService;
         }
 
-        public ActionResult Index(int fuid,
+        public async Task<ActionResult> Index(int fuid,
             UnitType unit = UnitType.AbsoluteMoney,
-            CentralFinancingType financing = CentralFinancingType.Include,
             TabType tab = TabType.Expenditure,
             ChartFormat format = ChartFormat.Charts)
         {
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
             var chartGroup = DetectDefaultChartGroupFromTabType(tab);
 
-            var vm = BuildFederationViewModelAsync(fuid, tab, chartGroup);
+            var vm = await BuildFederationViewModelAsync(fuid, tab, chartGroup);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.UnitType = unit;
-            ViewBag.Financing = financing;
             ViewBag.ChartFormat = format;
-            ViewBag.EstablishmentType = EstablishmentType.MAT;
+            ViewBag.EstablishmentType = EstablishmentType.Federation;
 
             return View(vm);
         }
@@ -79,7 +77,7 @@ namespace SFB.Web.UI.Controllers
             for (int i = ChartHistory.YEARS_OF_HISTORY - 1; i >= 0; i--)
             {
                 var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var task = _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(companyNo, term, matFinancing);
+                var task = _financialDataService.GetFederationFinancialDataObjectByFuidAsync(fuid, term);
                 taskList.Add(task);
             }
 

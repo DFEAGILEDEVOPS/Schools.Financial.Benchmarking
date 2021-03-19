@@ -24,13 +24,14 @@ namespace SFB.Web.UI.Models
 
         public override string Name
         {
+            set { _federationName = value; }
             get
             {
-                return _federationName;
-            }
-            set
-            {
-                _federationName = value;
+                if (!string.IsNullOrEmpty(_federationName))
+                {
+                    return _federationName;
+                }
+                return LatestYearFinancialData?.FinancialDataObjectModel?.FederationName;
             }
         }
 
