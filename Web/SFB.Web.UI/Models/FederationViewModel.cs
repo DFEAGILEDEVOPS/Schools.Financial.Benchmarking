@@ -1,11 +1,16 @@
 ﻿using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SFB.Web.UI.Models
 {
     public class FederationViewModel : EstablishmentViewModelBase
     {
+        private decimal? LowestAge => LatestYearFinancialData?.LowestAgePupils;
+        private decimal? HighestAge => LatestYearFinancialData?.HighestAgePupils;
+
         private string _federationName;
 
         public int? _uid;
@@ -39,21 +44,34 @@ namespace SFB.Web.UI.Models
 
         public override EstablishmentType EstablishmentType => EstablishmentType.Federation;
 
-        public List<EdubaseDataObject> SchoolsInFederation { get; set; }
-
-        public string OpenDate => LatestYearFinancialData?.OpenDate;
+        public string OpenDate
+        {
+            get
+            {
+                try
+                {
+                    return DateTime.Parse(LatestYearFinancialData.OpenDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
 
         public decimal? PupilCount => LatestYearFinancialData?.PupilCount;
 
         public string OverallPhase => LatestYearFinancialData.SchoolOverallPhase;
 
-        public bool? HasNursery => LatestYearFinancialData?.HasNursery;
+        public string HasNursery => (bool)LatestYearFinancialData?.HasNursery ? "Yes" : "No";
 
-        public bool? Has6Form => LatestYearFinancialData?.Has6Form;
+        public string Has6Form => (bool)LatestYearFinancialData?.Has6Form ? "Yes" : "No";
 
-        public int?  LA => LatestYearFinancialData?.LaNumber;
-        public decimal? LowestAge => LatestYearFinancialData?.LowestAgePupils;
-        public decimal? HighestAge => LatestYearFinancialData?.HighestAgePupils;
+        public int?  La => LatestYearFinancialData?.LaNumber;
+        public string LaName { get; set; }
+        public string AgeRange => this.LowestAge == null ? null : $"{this.LowestAge} to {this.HighestAge}";
+        public int[] FederationMembersURNs => LatestYearFinancialData?.FederationMembers;
+        public List<EdubaseDataObject> SchoolsInFederation { get; set; }
 
 
         public FederationViewModel(int uid)

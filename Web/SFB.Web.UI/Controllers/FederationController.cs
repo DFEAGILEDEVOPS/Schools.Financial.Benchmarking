@@ -3,7 +3,9 @@ using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Helpers;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Models;
+using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Services.DataAccess;
+using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Helpers.Constants;
 using SFB.Web.UI.Helpers.Enums;
@@ -25,14 +27,16 @@ namespace SFB.Web.UI.Controllers
         private readonly IContextDataService _contexDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
+        private readonly ILocalAuthoritiesService _laService;
 
         public FederationController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService,
-            IFinancialCalculationsService fcService, IContextDataService contexDataService)
+            IFinancialCalculationsService fcService, IContextDataService contexDataService, ILocalAuthoritiesService laService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _contexDataService = contexDataService;
             _fcService = fcService;
+            _laService = laService;
         }
 
         public async Task<ActionResult> Index(int fuid,
@@ -64,6 +68,9 @@ namespace SFB.Web.UI.Controllers
             vm.LatestTerm = await LatestFederationTermAsync();
 
             vm.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(fuid);
+
+            vm.SchoolsInFederation = await _contexDataService.GetMultipleSchoolDataObjectsByUrnsAsync(vm.FederationMembersURNs.ToList());
+            vm.LaName = _laService.GetLaName(vm.La.ToString());
 
             return vm;
         }

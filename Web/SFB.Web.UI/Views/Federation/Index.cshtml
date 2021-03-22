@@ -46,4 +46,139 @@
             </aside>
         }
     </div>
+    <div class="column-full">
+        <p class="font-small">This federation is a combination of <span class="bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
+        <div id="schools-in-federation-accordion" class="accordion mb-1">
+
+            <div class="accordion-section">
+                <h2>
+                    <a class="accordion-section-header" href="javascript:void(0)">
+                        <span class="heading-medium ">Schools in this federation</span>
+                    </a>
+                </h2>
+
+                <div class="accordion-section-body">
+                    <div>
+                        <div class="resultListPanel">
+                            <ul class="list list-bullet resultListPanel__ul">
+                                @foreach (var school in Model.SchoolsInFederation)
+                                {
+                                    <li>
+                                        <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="grid-row">
+    <div class="column-half">
+        <div class="metadata-school-detail font-xsmall">
+            <dl class="metadata-school-detail__dl">
+
+                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
+                @SchoolDetailField("School type:", Model.Type)
+                @SchoolDetailField("Number of pupils:", Model.PupilCount.ToString())
+                @SchoolDetailField("Federation UID:", Model.UID.ToString())
+                @SchoolDetailField("Age range of pupils:", Model.AgeRange)
+                @SchoolDetailField("Has sixth form:", Model.Has6Form)
+                @SchoolDetailField("Has nursery:", Model.HasNursery)
+
+                @DataSourcesField()
+
+            </dl>
+            <div style="display: inline-block" class="mb-1">
+                <a href="~/Help/DataQueries">Do you have a query about this federation's data?</a>
+            </div>
+        </div>
+    </div>
+    <div class="column-half">
+        <details open>
+            <summary class="map hide-in-print">
+                <span class="summary font-xsmall">Show map</span>
+            </summary>
+            <div class="panel panel-border-narrow map">
+                <a href="#post-map-content" class="skip-map">Skip the map</a>
+                <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
+            </div>
+        </details>
+        @*<div class="govuk-box-highlight">
+                <h3 class="heading-large mt-0 pt-0">
+                    <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">Deals for schools<span class="visuallyhidden"> Opens in a new window</span></a>
+                </h3>
+                <p class="font-xsmall pb-0 mb-0">
+                    Find a range of cost-saving deals for schools assessed for compliance with procurement regulations and ease of use by the DfE
+                </p>
+            </div>*@
+    </div>
+    <div id="post-map-content" class="column-full hide-in-print">
+        <div class="column-one-third no-padding">
+            <div class="download">
+                <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.DownloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="column-one-third no-padding">
+            <div class="print">
+                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
+                    Print page
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
+@helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
+{
+    if (args != null)
+    {
+        if (args.Any(string.IsNullOrEmpty))
+        {
+            return;
+        }
+
+        var formatted = string.Format(formatString, args);
+        @SchoolDetailField(name, formatted)
+    }
+}
+
+@helper SchoolDetailField(string name, string value)
+{
+    if (!string.IsNullOrEmpty(value))
+    {
+        var htmlValue = new MvcHtmlString(value);
+
+        <dt class="metadata-school-detail__dt">@name</dt>
+        <dd class="metadata-school-detail__dd bold">@htmlValue</dd>
+    }
+}
+
+@helper DataSourcesField()
+{
+    <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
+    <dd class="metadata-school-detail__dd bold">
+        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.UID">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
+    </dd>
+}
+
+@section ViewScripts {
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+
+    <script>
+        DfE.Views.FederationDetailsViewModel = new FederationDetailsViewModel('@ViewBag.ChartFormat');
+    </script>
+}
