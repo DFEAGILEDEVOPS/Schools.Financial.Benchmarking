@@ -14,6 +14,7 @@ using SFB.Web.UI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -28,15 +29,18 @@ namespace SFB.Web.UI.Controllers
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly ILocalAuthoritiesService _laService;
+        private readonly IDownloadCSVBuilder _csvBuilder;
 
         public FederationController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService,
-            IFinancialCalculationsService fcService, IContextDataService contexDataService, ILocalAuthoritiesService laService)
+            IFinancialCalculationsService fcService, IContextDataService contexDataService, ILocalAuthoritiesService laService, 
+            IDownloadCSVBuilder csvBuilder)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _contexDataService = contexDataService;
             _fcService = fcService;
             _laService = laService;
+            _csvBuilder = csvBuilder;
         }
 
         public async Task<ActionResult> Index(int fuid,
@@ -47,7 +51,7 @@ namespace SFB.Web.UI.Controllers
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
             var chartGroup = DetectDefaultChartGroupFromTabType(tab);
 
-            var vm = await BuildFederationViewModelAsync(fuid, tab, chartGroup);
+            var vm = await BuildFederationViewModelAsync(fuid, tab, chartGroup, unit);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -58,18 +62,48 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
-        private async Task<FederationViewModel> BuildFederationViewModelAsync(int fuid, TabType tab, ChartGroupType chartGroup)
+        public async Task<PartialViewResult> GetCharts(
+            int fuid,
+            TabType revGroup,
+            ChartGroupType chartGroup,
+            UnitType unit,
+            ChartFormat format = ChartFormat.Charts)
         {
-            //var comparisonListVM = _benchmarkBasketService.GetSchoolBenchmarkList();
+            var vm = await BuildFederationViewModelAsync(fuid, revGroup, chartGroup, unit);
+
+            ViewBag.Tab = revGroup;
+            ViewBag.ChartGroup = chartGroup;
+            ViewBag.UnitType = unit;
+            ViewBag.ChartFormat = format;
+            ViewBag.EstablishmentType = EstablishmentType.Federation;
+
+            return PartialView("Partials/Chart", vm);
+        }
+
+        public async Task<ActionResult> Download(int fuid)
+        {
+
+            var vm = await BuildFederationViewModelAsync(fuid, TabType.AllExcludingSchoolPerf, ChartGroupType.All, UnitType.AbsoluteMoney);
+
+            var csv = _csvBuilder.BuildCSVContentHistorically(vm, await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Federation));
+
+            return File(Encoding.UTF8.GetBytes(csv), "text/plain", $"HistoricalData-{fuid}.csv");
+        }
+
+        private async Task<FederationViewModel> BuildFederationViewModelAsync(int fuid, TabType tab, ChartGroupType chartGroup, UnitType unitType)
+        {
             var vm = new FederationViewModel(fuid);
 
-            vm.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, vm.EstablishmentType);
+            vm.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, vm.EstablishmentType, unitType);
             vm.ChartGroups = _historicalChartBuilder.Build(tab, vm.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
             vm.LatestTerm = await LatestFederationTermAsync();
+            vm.Tab = tab;
 
-            vm.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(fuid);
+            vm.HistoricalFinancialDataModels = await GetFinancialDataHistoricallyAsync(fuid);
+            _fcService.PopulateHistoricalChartsWithFinancialData(vm.HistoricalCharts, vm.HistoricalFinancialDataModels, vm.LatestTerm, vm.Tab, unitType, vm.EstablishmentType);
 
             vm.SchoolsInFederation = await _contexDataService.GetMultipleSchoolDataObjectsByUrnsAsync(vm.FederationMembersURNs.ToList());
+            
             vm.LaName = _laService.GetLaName(vm.La.ToString());
 
             return vm;

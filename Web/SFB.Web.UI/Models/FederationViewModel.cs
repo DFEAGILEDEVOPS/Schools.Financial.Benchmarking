@@ -3,6 +3,7 @@ using SFB.Web.ApplicationCore.Helpers.Enums;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace SFB.Web.UI.Models
 {
@@ -26,6 +27,8 @@ namespace SFB.Web.UI.Models
                 return LatestYearFinancialData?.FinancialDataObjectModel?.FederationUid;
             }
         }
+
+        public int Id => UID.GetValueOrDefault();
 
         public override string Name
         {
@@ -73,6 +76,17 @@ namespace SFB.Web.UI.Models
         public int[] FederationMembersURNs => LatestYearFinancialData?.FederationMembers;
         public List<EdubaseDataObject> SchoolsInFederation { get; set; }
 
+        public bool IsInComparisonList
+        {
+            get
+            {
+                if (ComparisonList == null)
+                {
+                    return false;
+                }
+                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == UID.ToString());
+            }
+        }
 
         public FederationViewModel(int uid)
         {

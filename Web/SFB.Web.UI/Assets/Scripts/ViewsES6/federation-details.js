@@ -1,16 +1,20 @@
 ﻿class FederationDetailsViewModel {
-    constructor(chartFormat) {
+    constructor(chartFormat, unitType) {
+
+        $.get("/school/GetBenchmarkBasket",
+            (data) => {
+                $("#benchmarkBasket").replaceWith(data);
+            });
 
         sessionStorage.chartFormat = chartFormat;
 
         DfE.Views.HistoricalCharts = new HistoricalCharts();
-        DfE.Views.HistoricalCharts.GenerateCharts();
+        DfE.Views.HistoricalCharts.GenerateCharts(unitType);
 
         GOVUK.Modal.Load();
 
-        //new Accordion(document.getElementById('historical-charts-accordion'));
-        //new Accordion(document.getElementById('controls-accordion'));
         new Accordion(document.getElementById('schools-in-federation-accordion'));
+        new Accordion(document.getElementById('controls-accordion'));
 
         $(document).ready(function () {
             setTimeout(function () {
@@ -22,9 +26,9 @@
         });
     }
 
-    DownloadData(fuid, name) {
+    DownloadData(fuid) {
         $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
-        document.getElementById('download_iframe').src = `/federation/download?fuid=${fuid}&name=${name}`;
+        document.getElementById('download_iframe').src = `/federation/download?fuid=${fuid}`;
         setTimeout(() => {
             $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText'> Download data for this federation<span class='visually-hidden'> (CSV)</span></span>");
         }, 2000)
@@ -42,22 +46,22 @@
         window.print();
     }
 
-    TabChange(code, companyNo, name, tab) {
-        let queryString = "?code=" +
-            code +
-            "&companyNo=" +
-            companyNo +
-            "&name=" +
-            name +
-            "&tab=" +
-            tab +
-            "&unit=" +
-            $("select#ShowValue option:selected")[0].value +
-            "&financing=" +
-            $("select#Financing option:selected")[0].value +
-            "&format=" +
-            sessionStorage.chartFormat +
-            '#financialSummary';
+    TabChange(urn, tab) {
+        let queryString = `?fuid=${urn}&tab=${tab}`;
+
+        if (DfE.Util.QueryString.get('tab') !== "Workforce") {
+            queryString += `&unit=${$("select#ShowValue option:selected")[0].value}`;
+        }
+
+        if ($("select#Financing option:selected").length > 0) {
+            queryString += `&financing=${$("select#Financing option:selected")[0].value}`;
+        }
+
+        if (sessionStorage.chartFormat) {
+            queryString += `&format=${sessionStorage.chartFormat}`;
+        }
+
+        queryString += '#financialSummary';
 
         window.location = queryString;
     }

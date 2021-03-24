@@ -22,6 +22,12 @@
 
 }
 
+@section BMListBannerContent
+{
+    <div id="benchmarkBasket"></div>
+}
+
+
 @section BackButtonContent{
     @Html.Partial("Partials/BackToHomeLink")
 }
@@ -29,6 +35,17 @@
 <div class="grid-row">
     <div class="column-three-quarters">
         <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+        <div class="compare-buttons-panel">
+            <div class="compare-buttons-panel__column-full">
+
+                <a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/StepOne?comparisonType=FederationBasic&Urn=@Model.UID">Compare with other schools</a>
+
+                <a @DisplayStyle(Model.IsInComparisonList) class="add-remove-js button compare-buttons-panel__button--removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">Remove from benchmark set</a>
+
+                <a @DisplayStyle(!Model.IsInComparisonList) class="add-remove-js button compare-buttons-panel__button--addto" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">Add to benchmark set</a>
+
+            </div>
+        </div>
     </div>
     <div class="column-quarter">
         @if (Model.HasLatestYearFinancialData)
@@ -38,9 +55,6 @@
                 <ul class="list">
                     <li>
                         <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.UID">Self-assessment dashboard</a>
-                    </li>
-                    <li>
-                        <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?fuid=@Model.UID">Basic comparison report</a>
                     </li>
                 </ul>
             </aside>
@@ -83,6 +97,7 @@
 
                 @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
                 @SchoolDetailField("School type:", Model.Type)
+                @SchoolDetailField("Overall phase:", Model.OverallPhase)
                 @SchoolDetailField("Number of pupils:", Model.PupilCount.ToString())
                 @SchoolDetailField("Federation UID:", Model.UID.ToString())
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
@@ -93,7 +108,7 @@
 
             </dl>
             <div style="display: inline-block" class="mb-1">
-                <a href="~/Help/DataQueries">Do you have a query about this federation's data?</a>
+                <a class="hide-in-print" href="~/Help/DataQueries">Do you have a query about this federation's data?</a>
             </div>
         </div>
     </div>
@@ -119,17 +134,17 @@
     <div id="post-map-content" class="column-full hide-in-print">
         <div class="column-one-third no-padding">
             <div class="download">
-                <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.DownloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.DownloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
-                        <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
+                        <span id="DownloadLinkText"> Download data for this federation<span class="visually-hidden"> (CSV)</span></span>
                     </div>
                 </button>
             </div>
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.FederationDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                     Print page
                 </button>
@@ -138,7 +153,97 @@
     </div>
 </div>
 
+@Html.Partial("Partials/FinancialSummaryFields")
+
+<a name="charts"></a>
+
+<div id="tabs" class="custom tabs">
+    <ul role="tablist">
+        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
+               aria-controls="tabPanel"
+               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Expenditure')"
+               href="javascript: void(0)">@TabNames.EXPENDITURE</a>
+        </li>
+        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
+               aria-controls="tabPanel"
+               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')"
+               href="javascript: void(0)">@TabNames.INCOME</a>
+        </li>
+        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
+               aria-controls="tabPanel"
+               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')"
+               href="javascript: void(0)">@TabNames.BALANCE</a>
+        </li>
+        <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Workforce ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
+               aria-controls="tabPanel"
+               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Workforce')"
+               href="javascript: void(0)">@TabNames.WORKFORCE</a>
+        </li>
+    </ul>
+</div>
+
+<div role="tabpanel" id="tabPanel">
+    <div class="sticky-div sticky-chart-controls">
+        <div id="controls-accordion" class="accordion mobile-only-accordion">
+            <div class="accordion-section">
+                <fieldset role="group">
+                    <legend class="visually-hidden">Filters</legend>
+                    <div class="accordion-section-header">
+                        <h2 class="heading-medium">Filters</h2>
+                    </div>
+                    <div class="accordion-section-body">
+                        @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                        @Html.Partial("Partials/ValueSelect", Model)
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="charts-section">
+        <div class="grid-row">
+            <div>
+                <div class="column-full font-xsmall chartTable hide-in-print">
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                </div>
+                <div class="column-full font-xsmall hide-in-print">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                        <span><</span>
+                        <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="historical-charts-list">
+            @Html.Partial("Partials/Chart", Model)
+        </div>
+    </div>
+</div>
+
+
 <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
+<iframe id="download_iframe" style="display:none;"></iframe>
 
 @helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
 {
@@ -169,7 +274,7 @@
 {
     <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
     <dd class="metadata-school-detail__dd bold">
-        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.UID">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
     </dd>
 }
 
@@ -179,6 +284,18 @@
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-        DfE.Views.FederationDetailsViewModel = new FederationDetailsViewModel('@ViewBag.ChartFormat');
+        DfE.Views.FederationDetailsViewModel = new FederationDetailsViewModel('@ViewBag.ChartFormat', '@ViewBag.UnitType');
     </script>
+}
+
+@helper DisplayStyle(bool display)
+{
+    if (display)
+    {
+        @Html.Raw("style=\"display: inline-block\"");
+    }
+    else
+    {
+        @Html.Raw("style=\"display: none\"");
+    }
 }

@@ -977,6 +977,8 @@
     <Content Include="Views\BenchmarkCharts\Partials\TrustAdvancedHiddenFields.cshtml" />
     <Content Include="Views\Federation\Index.cshtml" />
     <Content Include="Assets\Sass\views\_federation-details.scss" />
+    <Content Include="Views\Federation\Partials\ChartGroups.cshtml" />
+    <Content Include="Views\Federation\Partials\ValueSelect.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
