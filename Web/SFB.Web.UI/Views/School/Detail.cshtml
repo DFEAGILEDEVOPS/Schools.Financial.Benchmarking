@@ -232,7 +232,7 @@
                 <span class="summary font-xsmall">Show map</span>
             </summary>
             <div class="panel panel-border-narrow map">
-                <a href="#post-map-content" class="skip-map">Skip the map</a>
+                <a href="#post-map-content" class="skip-map hide-in-print">Skip the map</a>
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
@@ -270,7 +270,7 @@
 @Html.Partial("Partials/FinancialSummaryFields")
 
 <a name="charts"></a>
-<div id="tabs" class="custom tabs">
+<div id="tabs" class="custom tabs hide-in-print">
     <ul role="tablist">
         <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
             <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
@@ -319,9 +319,9 @@
         <div id="controls-accordion" class="accordion mobile-only-accordion">
             <div class="accordion-section">
                 <fieldset role="group">
-                    <legend class="visually-hidden">Filters</legend>
+                    <legend class="visually-hidden hide-in-print">Filters</legend>
                     <div class="accordion-section-header">
-                        <h2 class="heading-medium">Filters</h2>
+                        <h2 class="heading-medium hide-in-print">Filters</h2>
                     </div>
                     <div class="accordion-section-body">
                         @Html.Partial("Partials/ChartGroups", Model.ChartGroups)

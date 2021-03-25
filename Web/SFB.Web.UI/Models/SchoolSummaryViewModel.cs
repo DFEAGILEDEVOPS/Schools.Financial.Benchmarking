@@ -1,10 +1,14 @@
 ﻿using System;
+using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Models;
 
 namespace SFB.Web.UI.Models
 {
     public class SchoolSummaryViewModel
     {
+        private EdubaseDataObject result;
+        private SchoolViewModel school;
+
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Name { get; set; }
@@ -33,6 +37,21 @@ namespace SFB.Web.UI.Models
             NFType = model.TypeOfEstablishment;            
             SponsorName = model.Trusts;
             CompanyNumber = model.CompanyNumber;
+        }
+
+        public SchoolSummaryViewModel(SchoolViewModel model)
+        {
+            var location = model.GetLocation();
+            if (location != null)
+            {
+                Latitude = double.Parse(location.coordinates[1]);
+                Longitude = double.Parse(location.coordinates[0]);
+            }
+            Name = model.Name;
+            Id = model.Id.ToString();
+            Address = model.Address;
+            OverallPhase = model.OverallPhase;
+            NFType = model.Type;
         }
     }
 }

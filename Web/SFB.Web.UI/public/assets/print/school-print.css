@@ -16,6 +16,7 @@
 .school-detail .school-location-map {
     width: 465px;
     height: 300px;
+    page-break-inside: avoid;
 }
 
 .charts-section__chart-container {

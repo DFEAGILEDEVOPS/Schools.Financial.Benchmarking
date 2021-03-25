@@ -80,6 +80,21 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Chart", vm);
         }
 
+        public async Task<JsonResult> GetMapData(int fuid)
+        {
+            var finance = await GetLatestFinance(fuid);
+            var schoolsInFederation = (await _contexDataService.GetMultipleSchoolDataObjectsByUrnsAsync(finance.FederationMembers.ToList())).Select(d => new SchoolViewModel(d));
+
+            var results = new List<SchoolSummaryViewModel>();
+            foreach (var school in schoolsInFederation)
+            {
+                var schoolVm = new SchoolSummaryViewModel(school);
+                results.Add(schoolVm);
+            }
+
+            return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
+        }
+
         public async Task<ActionResult> Download(int fuid)
         {
 
@@ -88,6 +103,14 @@ namespace SFB.Web.UI.Controllers
             var csv = _csvBuilder.BuildCSVContentHistorically(vm, await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Federation));
 
             return File(Encoding.UTF8.GetBytes(csv), "text/plain", $"HistoricalData-{fuid}.csv");
+        }
+
+        private async Task<SchoolTrustFinancialDataObject> GetLatestFinance(int fuid)
+        {
+            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Federation);
+            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var finance = await _financialDataService.GetFederationFinancialDataObjectByFuidAsync(fuid, term);
+            return finance;
         }
 
         private async Task<FederationViewModel> BuildFederationViewModelAsync(int fuid, TabType tab, ChartGroupType chartGroup, UnitType unitType)

@@ -40,7 +40,7 @@
                 crossOrigin: true,
                 subscriptionKey: this.mapApiKey
             };
-
+            
             this.azureMap = L.map(this.mapElementId, { attributionControl: false }).setView(this.centreLatLng, this.defaultZoom);
 
             this.azureMap.addControl(L.control.attribution({
@@ -162,8 +162,74 @@
             this.topLayer = markers;
 
             this.azureMap.addLayer(markers);
-
+ 
             this.azureMap.fitBounds(L.latLngBounds(latLangs));
+        },
+
+        renderFederatonSchoolPinsForAzureMap: function (response) {
+            var data = response.results;
+
+            var hashtable = {};
+
+            var genKey = function genKey(lat, lng) {
+                return lat + "#" + lng;
+            };
+
+            if (this.topLayer) {
+                this.topLayer.clearLayers();
+            }
+
+            var latLangs = [];
+            var markers = L.markerClusterGroup();
+
+            for (var i = 0; i < data.length; i++) {
+
+                var adjustment = 0.00005; // put the school pin about 6 metres away from it's equivalent.
+
+                var lat = new Number(data[i].Latitude);
+                var lng = new Number(data[i].Longitude);
+                var key = genKey(lat, lng);
+
+                if (!hashtable[key]) {
+                    hashtable[key] = key;
+                } else {
+                    lng += adjustment;
+                    key = genKey(lat, lng);
+                    hashtable[key] = key;
+                }
+
+                var blackIcon = L.icon({
+                    iconUrl: '/public/assets/images/icons/icon-location.png',
+                    iconSize: [20, 32]
+                });
+
+                var marker = L.marker([data[i].Latitude, data[i].Longitude], { icon: blackIcon });
+                markers.addLayer(marker);
+                latLangs.push([data[i].Latitude, data[i].Longitude]);
+                var info = data[i];
+                var html = `<div class="infowindow-school-summary">                    
+                        <a href ="/school/detail?urn=${info.Id}">${info.Name}</a>
+                        <p>${info.Address}</p>
+                        <p>${info.OverallPhase}</p>
+                        <p>${info.NFType}</p>`;
+
+                marker.bindPopup(html);
+                marker.on('click', function (ev) {
+                    ev.target.options.icon.options.iconUrl = "/public/assets/images/icons/icon-location-pink.png";
+                    ev.target.refreshIconOptions();
+                });
+                marker.on('popupclose', function (ev) {
+                    ev.target.options.icon.options.iconUrl = "/public/assets/images/icons/icon-location.png";
+                    ev.target.refreshIconOptions();
+                });
+            }
+
+            this.topLayer = markers;
+
+            this.azureMap.addLayer(markers);
+
+            let opt = { padding: [50, 50] };
+            this.azureMap.fitBounds(L.latLngBounds(latLangs), opt);
         }
     };
 

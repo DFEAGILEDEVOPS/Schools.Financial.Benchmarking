@@ -365,4 +365,55 @@
             margin-bottom: 24px;
         }
     }
+
+    .infowindow-school-summary {
+        padding: 5px;
+
+        a {
+            font-weight: bold;
+            font-size: 15px;
+            color: #1D70B8;
+        }
+
+        p {
+            margin: 0 0 1px 0;
+            font-size: 13px;
+        }
+
+        p.lastinsp {
+            color: #777;
+            font-size: 11.5px;
+        }
+
+        p.rating-text {
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        div.button {
+            background-color: #bfc1c3;
+            color: #0b0c0c;
+            -moz-box-shadow: 0 2px 0 #9aa0a6;
+            -webkit-box-shadow: 0 2px 0 #9aa0a6;
+            box-shadow: 0 2px 0 #9aa0a6;
+            margin-bottom: 5px;
+            margin-top: 5px;
+
+            &:active {
+                top: 0;
+                -moz-transform: translate(0,2px);
+                -ms-transform: translate(0,2px);
+                -o-transform: translate(0,2px);
+                -webkit-transform: translate(0,2px);
+                transform: translate(0,2px);
+            }
+        }
+
+        div.button.add {
+        }
+
+        div.button.remove {
+            background-color: #dee0e2;
+        }
+    }
 }

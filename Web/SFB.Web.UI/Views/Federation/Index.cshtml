@@ -1,7 +1,7 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
 @using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Helpers.Enums
-@using SFB.Web.UI.Helpers;
+
 @model SFB.Web.UI.Models.FederationViewModel
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
@@ -14,12 +14,14 @@
     <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
     <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
 
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
     <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
-
+    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 }
 
 @section BMListBannerContent
@@ -35,7 +37,7 @@
 <div class="grid-row">
     <div class="column-three-quarters">
         <h1 class="heading-xlarge page-heading">@Model.Name</h1>
-        <div class="compare-buttons-panel">
+        <div class="compare-buttons-panel hide-in-print">
             <div class="compare-buttons-panel__column-full">
 
                 <a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/StepOne?comparisonType=FederationBasic&Urn=@Model.UID">Compare with other schools</a>
@@ -50,7 +52,7 @@
     <div class="column-quarter">
         @if (Model.HasLatestYearFinancialData)
         {
-            <aside class="analytics-links">
+            <aside class="analytics-links hide-in-print">
                 <h2 class="heading-small">Tools for governors and school business professionals</h2>
                 <ul class="list">
                     <li>
@@ -117,8 +119,8 @@
             <summary class="map hide-in-print">
                 <span class="summary font-xsmall">Show map</span>
             </summary>
-            <div class="panel panel-border-narrow map">
-                <a href="#post-map-content" class="skip-map">Skip the map</a>
+            <div class="map">
+                <a href="#post-map-content" class="skip-map hide-in-print">Skip the map</a>
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
@@ -157,7 +159,7 @@
 
 <a name="charts"></a>
 
-<div id="tabs" class="custom tabs">
+<div id="tabs" class="custom tabs hide-in-print">
     <ul role="tablist">
         <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
             <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
@@ -207,9 +209,9 @@
         <div id="controls-accordion" class="accordion mobile-only-accordion">
             <div class="accordion-section">
                 <fieldset role="group">
-                    <legend class="visually-hidden">Filters</legend>
+                    <legend class="visually-hidden hide-in-print">Filters</legend>
                     <div class="accordion-section-header">
-                        <h2 class="heading-medium">Filters</h2>
+                        <h2 class="heading-medium hide-in-print">Filters</h2>
                     </div>
                     <div class="accordion-section-body">
                         @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
@@ -284,7 +286,7 @@
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-        DfE.Views.FederationDetailsViewModel = new FederationDetailsViewModel('@ViewBag.ChartFormat', '@ViewBag.UnitType');
+        DfE.Views.FederationDetailsViewModel = new FederationDetailsViewModel('@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
     </script>
 }
 
