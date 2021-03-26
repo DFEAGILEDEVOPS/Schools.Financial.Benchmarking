@@ -1,7 +1,7 @@
 ﻿<div class="compare-buttons-panel">
     <div class="compare-buttons-panel__column-full">
 
-        <a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>
+        @*<a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>*@
 
         <a @DisplayStyle(Model.IsInComparisonList) class="add-remove-js button compare-buttons-panel__button--removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Remove')")">Remove from benchmark set</a>
 

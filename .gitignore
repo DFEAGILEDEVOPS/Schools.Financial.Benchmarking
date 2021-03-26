@@ -218,3 +218,5 @@ Web/Web.UI.Automation/screenshots/*
 /Web/SFB.Web.Api2/appsettings.json
 /Web/SFB.Web.Api2/appsettings.Development.json
 /Web/SFB.Web.UI/Properties/PublishProfiles
+
+/Web/SFB.Web.UI/Properties/PublishProfiles/FolderProfile.pubxml
