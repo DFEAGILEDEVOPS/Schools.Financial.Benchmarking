@@ -6,9 +6,6 @@ namespace SFB.Web.UI.Models
 {
     public class SchoolSummaryViewModel
     {
-        private EdubaseDataObject result;
-        private SchoolViewModel school;
-
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Name { get; set; }
