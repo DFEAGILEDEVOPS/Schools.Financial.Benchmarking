@@ -3,7 +3,7 @@
 @model SchoolComparisonListModel
 
 @{
-    ViewBag.Title = "Benchmark basket";
+    ViewBag.Title = "Benchmark set";
     ViewBag.pageClass = "benchmark-list";
 }
 
@@ -34,7 +34,7 @@
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Benchmark basket</h1>
+<h1 class="heading-xlarge page-heading">Benchmark set</h1>
 
 <div id="benchmarkBasketControlsPlaceHolder">
     @Html.Partial("Partials/BenchmarkBasketControls")
@@ -112,11 +112,11 @@
 {
     <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'SetDefault')")"
             aria-label="Use @school.Name as default school">
-        Use as default school
+        Use as your school
     </button>
     <button @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark link-button font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.UpdateBenchmarkBasket({school.Urn},'UnsetDefault')")"
             aria-label="Remove @school.Name as default school">
-        Remove as default school
+        Remove as your school
     </button>
 }
 

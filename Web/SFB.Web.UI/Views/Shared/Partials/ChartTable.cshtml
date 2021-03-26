@@ -1,21 +1,23 @@
 ﻿@using Microsoft.Ajax.Utilities
 @using SFB.Web.UI.Helpers.Enums
-@model List<SFB.Web.ApplicationCore.Models.HistoricalChartData>
+@using SFB.Web.UI.Models
+@model ChartViewModel
 
 
     <table class="tablesorter data-table-js chart-table">
+        <caption class="visually-hidden">@Model.Name</caption>
         <thead>
         <tr>
             <th class="school-column" scope="col">
                 Year
             </th>
             <th scope="col">
-                <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.First().Unit)">@ViewHelpers.GetAmountLabel(Model.First().Unit)</span>
+                <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.HistoricalData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.HistoricalData.First().Unit)</span>
             </th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var schoolHistoricalData in Model)
+        @foreach (var schoolHistoricalData in Model.HistoricalData)
         {
             <tr>
                 <td class="school-column">@schoolHistoricalData.Year</td>

@@ -24,7 +24,7 @@
                 }
                 else
                 {
-                    <a class="govuk-back-link" href="@HttpUtility.ParseQueryString(Request.UrlReferrer.Query).Get("referrer")" aria-label="Close basket">Back</a>
+                    <a class="govuk-back-link" href="@HttpUtility.ParseQueryString(Request.UrlReferrer.Query).Get("referrer")" aria-label="Close benchmark set">Back</a>
                 }
             }
             else if (referrer.Contains("/benchmarkcharts"))
