@@ -13,48 +13,47 @@
 
 <h1 class="heading-xlarge page-heading">What type of comparison would you like?</h1>
 
-<div class="grid-row">
-    <div class="column-two-thirds">
-        <div>
-            <h2 class="heading-medium mt-1">Benchmark comparison</h2>
+<div class="grid-row columns">
+    <div class="column-one-third">
+        <img src="~/public/assets/images/chart.svg" class="pano blue-svg" alt="Benchmark comparison" />
+        <h2 class="heading-small">Benchmark comparison</h2>
+        <p class="font-xsmall mb-05">
+            Compare against similar schools to yours or schools of your choice.
+        </p>
+        <ul class="list-arrow">
+            <li>
+                <a class="font-xsmall" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
+            </li>
+            <li>
+                <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Get a basic benchmark report</a>
+            </li>
+        </ul>
+    </div>
+    @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
+    {
+        <div class="column-one-third">
+            <img src="~/public/assets/images/progress.svg" class="pano green-svg" alt="Highest performing schools"/>
+            <h2 class="heading-small">Highest performing schools</h2>
             <p class="font-xsmall mb-05">
-                Compare against similar schools to yours or schools of your choice.
+                See how highest progress schools similar to yours perform financially.
             </p>
-            <ul>
+            <ul class="list-arrow">
                 <li>
-                    <a class="font-xsmall" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
-                </li>
-                <li>
-                    <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Get a basic benchmark report</a>
+                    <a class="font-xsmall" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
                 </li>
             </ul>
         </div>
-        <hr />
-        @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
-        {
-            <div>
-                <h2 class="heading-medium">Highest performing schools</h2>
-                <p class="font-xsmall mb-05">
-                    See how highest progress schools similar to yours perform financially.
-                </p>
-                <ul>
-                    <li>
-                        <a class="font-xsmall" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
-                    </li>
-                </ul>
-            </div>
-            <hr />
-        }
-        <div>
-            <h2 class="heading-medium">Self-assessment dashboard</h2>
-            <p class="font-xsmall mb-05">
-                Formerly the SRMSAT/SFVS dashboard, see areas where your school is looking healthy or may need to focus on.
-            </p>
-            <ul>
-                <li>
-                    <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
-                </li>
-            </ul>
-        </div>
+    }
+    <div class="column-one-third">
+        <img src="~/public/assets/images/checklist.svg" class="pano turq-svg" alt="Self-assessment dashboard" />
+        <h2 class="heading-small">Self-assessment dashboard</h2>
+        <p class="font-xsmall mb-05">
+            Formerly the SRMSAT/SFVS dashboard, see areas where your school is looking healthy or may need to focus on.
+        </p>
+        <ul class="list-arrow">
+            <li>
+                <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
+            </li>
+        </ul>
     </div>
 </div>
