@@ -181,7 +181,7 @@
             <div class="grid-row hide-in-print returns-incomplete" id="benchmarkControlsPlaceHolder"></div>
         }
 
-        <div class="metadata-school-detail font-xsmall">
+        <div class="metadata-school-detail font-xsmall mt-2">
             <dl class="metadata-school-detail__dl">
                 @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
                 @if (!string.IsNullOrEmpty(Model.PhoneNumber))
