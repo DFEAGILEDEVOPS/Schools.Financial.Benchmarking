@@ -1,4 +1,4 @@
-﻿@using SFB.Web.UI.Helpers.Constants;
+﻿@using SFB.Web.UI.Helpers;
 @using SFB.Web.ApplicationCore.Helpers.Constants;
 
 @model SFB.Web.UI.Models.SchoolViewModel
@@ -14,7 +14,7 @@
 <h1 class="heading-xlarge page-heading">What type of comparison would you like?</h1>
 
 <div class="grid-row columns">
-    <div class="column-one-third">
+    <div class="column-one-third" id="compareColumn">
         <img src="~/public/assets/images/chart.svg" class="pano blue-svg" alt="Benchmark comparison" />
         <h2 class="heading-small">Benchmark comparison</h2>
         <p class="font-xsmall mb-05">
@@ -25,26 +25,37 @@
                 <a class="font-xsmall" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
             </li>
             <li>
-                <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Get a basic benchmark report</a>
+                <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic benchmark report</a>
             </li>
         </ul>
     </div>
-    @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
+
+    @if ((FeatureManager.IsEnabled(Features.EfficiencyMetric)) || (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null))
     {
-        <div class="column-one-third">
-            <img src="~/public/assets/images/progress.svg" class="pano green-svg" alt="Highest performing schools"/>
-            <h2 class="heading-small">Highest performing schools</h2>
+        <div class="column-one-third" id="progressColumn">
+            <img src="~/public/assets/images/progress.svg" class="pano green-svg" alt="Progress comparison" />
+            <h2 class="heading-small">Progress comparison</h2>
             <p class="font-xsmall mb-05">
-                See how highest progress schools similar to yours perform financially.
+                Examine your school's spending in relation to progress or compare your school against higher progress schools
             </p>
             <ul class="list-arrow">
-                <li>
-                    <a class="font-xsmall" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
-                </li>
+                @if (FeatureManager.IsEnabled(Features.EfficiencyMetric))
+                {
+                    <li id="efficiencyMetricLink" style="display: none">
+                        <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name.Replace("(", "%28").Replace(")", "%29").Replace("&", "%26")">Efficiency metric</a>
+                    </li>
+                }
+                @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
+                {
+                    <li>
+                        <a class="font-xsmall" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
+                    </li>
+                }
             </ul>
         </div>
     }
-    <div class="column-one-third">
+
+    <div class="column-one-third" id="saColumn">
         <img src="~/public/assets/images/checklist.svg" class="pano turq-svg" alt="Self-assessment dashboard" />
         <h2 class="heading-small">Self-assessment dashboard</h2>
         <p class="font-xsmall mb-05">
@@ -57,3 +68,27 @@
         </ul>
     </div>
 </div>
+
+@section ViewScripts {
+    <script>
+            $.ajax({
+                type: 'HEAD',
+                url: `https://${$("#SfbApiUrl").val()}/api/efficiencymetric/${@Model.Id}`,
+                success: function () {
+                    $("#efficiencyMetricLink").show();   
+                    if ($("#progressColumn li:visible").length == 0) {
+                        $("#compareColumn").removeClass("column-one-third").addClass("column-half");
+                        $("#saColumn").removeClass("column-one-third").addClass("column-half");
+                    }
+                },
+                error: function (xhr, e) {
+                    $("#efficiencyMetricLink").hide();
+                    if ($("#progressColumn li:visible").length == 0){
+                        $("#progressColumn").hide();
+                        $("#compareColumn").removeClass("column-one-third").addClass("column-half");
+                        $("#saColumn").removeClass("column-one-third").addClass("column-half");
+                    }
+                }
+            });        
+    </script>
+}
