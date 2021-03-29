@@ -50,35 +50,44 @@
                 <span class="visually-hidden">Warning</span>
             </i>
         </div>
-        <div class="combined-warnings">
-            @if (!Model.IsReturnsComplete)
-            {
-                <p>
-                    This school doesn't have a complete set of financial data for this period
-                </p>
-            }
+        @if (Model.IsPartOfFederation)
+        {
+            <div class="combined-warnings" style="width:90%">
+                <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
+            </div>
+        }
+        else
+        {
+            <div class="combined-warnings">
+                @if (!Model.IsReturnsComplete)
+                {
+                    <p>
+                        This school doesn't have a complete set of financial data for this period
+                    </p>
+                }
 
-            @if (!Model.WorkforceDataPresent)
-            {
-                <p>
-                    This school doesn't have a complete set of workforce data for this period
-                </p>
-            }
+                @if (!Model.WorkforceDataPresent)
+                {
+                    <p>
+                        This school doesn't have a complete set of workforce data for this period
+                    </p>
+                }
 
-            @if (Model.HasNoTeacherData)
-            {
-                <p>
-                    We can’t show charts with per teacher values because they weren't supplied within these finance returns
-                </p>
-            }
+                @if (Model.HasNoTeacherData)
+                {
+                    <p>
+                        We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                    </p>
+                }
 
-            @if (Model.HasNoPupilData)
-            {
-                <p>
-                    We can’t show charts with per pupil values because they weren't supplied within these finance returns
-                </p>
-            }
-        </div>
+                @if (Model.HasNoPupilData)
+                {
+                    <p>
+                        We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                    </p>
+                }
+            </div>
+        }
     </div>
 }
 
