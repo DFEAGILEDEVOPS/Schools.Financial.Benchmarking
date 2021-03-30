@@ -3,6 +3,7 @@ using System.Linq;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Entities;
 
 namespace SFB.Web.UI.Models
 {
@@ -31,6 +32,8 @@ namespace SFB.Web.UI.Models
         public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 
         public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels?.Last();
+        
+        public EdubaseDataObject ContextData { get; set; }
 
         public bool HasLatestYearFinancialData => LatestYearFinancialData?.FinancialDataObjectModel != null;
 

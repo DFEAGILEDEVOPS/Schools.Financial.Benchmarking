@@ -9,10 +9,7 @@ namespace SFB.Web.UI.Models
 {
     public class FederationViewModel : EstablishmentViewModelBase
     {
-        private decimal? LowestAge => LatestYearFinancialData?.LowestAgePupils;
-        private decimal? HighestAge => LatestYearFinancialData?.HighestAgePupils;
-
-        private string _federationName;
+        public int Id => UID.GetValueOrDefault();
 
         public int? _uid;
         public int? UID
@@ -24,12 +21,11 @@ namespace SFB.Web.UI.Models
                 {
                     return _uid;
                 }
-                return LatestYearFinancialData?.FinancialDataObjectModel?.FederationUid;
+                return ContextData.FederationUid;
             }
         }
 
-        public int Id => UID.GetValueOrDefault();
-
+        private string _federationName;
         public override string Name
         {
             set { _federationName = value; }
@@ -39,13 +35,15 @@ namespace SFB.Web.UI.Models
                 {
                     return _federationName;
                 }
-                return LatestYearFinancialData?.FinancialDataObjectModel?.FederationName;
+                return ContextData.FederationName;
             }
         }
 
         public override string Type => "Federation";
 
         public override EstablishmentType EstablishmentType => EstablishmentType.Federation;
+
+        public int[] FederationMembersURNs => ContextData.FederationMembers;
 
         public string OpenDate
         {
@@ -73,8 +71,9 @@ namespace SFB.Web.UI.Models
         public int?  La => LatestYearFinancialData?.LaNumber;
         public string LaName { get; set; }
         public string AgeRange => this.LowestAge == null ? null : $"{this.LowestAge} to {this.HighestAge}";
-        public int[] FederationMembersURNs => LatestYearFinancialData?.FederationMembers;
         public List<EdubaseDataObject> SchoolsInFederation { get; set; }
+        private decimal? LowestAge => LatestYearFinancialData?.LowestAgePupils;
+        private decimal? HighestAge => LatestYearFinancialData?.HighestAgePupils;
 
         public bool IsInComparisonList
         {

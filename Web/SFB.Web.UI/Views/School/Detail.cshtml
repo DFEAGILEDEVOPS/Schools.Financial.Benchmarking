@@ -232,7 +232,7 @@
 
                 @if (Model.IsPartOfFederation)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationUID?.ToString()), Model.FederationName)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.Federation)
                 }
 
                 @if (Model.IsMAT)

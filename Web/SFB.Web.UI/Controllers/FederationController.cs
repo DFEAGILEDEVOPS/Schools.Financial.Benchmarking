@@ -25,19 +25,19 @@ namespace SFB.Web.UI.Controllers
     {
 
         private readonly IFinancialDataService _financialDataService;
-        private readonly IContextDataService _contexDataService;
+        private readonly IContextDataService _contextDataService;
         private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly ILocalAuthoritiesService _laService;
         private readonly IDownloadCSVBuilder _csvBuilder;
 
         public FederationController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService,
-            IFinancialCalculationsService fcService, IContextDataService contexDataService, ILocalAuthoritiesService laService, 
+            IFinancialCalculationsService fcService, IContextDataService contextDataService, ILocalAuthoritiesService laService, 
             IDownloadCSVBuilder csvBuilder)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
-            _contexDataService = contexDataService;
+            _contextDataService = contextDataService;
             _fcService = fcService;
             _laService = laService;
             _csvBuilder = csvBuilder;
@@ -82,8 +82,8 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<JsonResult> GetMapData(int fuid)
         {
-            var finance = await GetLatestFinance(fuid);
-            var schoolsInFederation = (await _contexDataService.GetMultipleSchoolDataObjectsByUrnsAsync(finance.FederationMembers.ToList())).Select(d => new SchoolViewModel(d));
+            var context = await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid);
+            var schoolsInFederation = (await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(context.FederationMembers.ToList())).Select(d => new SchoolViewModel(d));
 
             var results = new List<SchoolSummaryViewModel>();
             foreach (var school in schoolsInFederation)
@@ -122,10 +122,11 @@ namespace SFB.Web.UI.Controllers
             vm.LatestTerm = await LatestFederationTermAsync();
             vm.Tab = tab;
 
+            vm.ContextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid);
             vm.HistoricalFinancialDataModels = await GetFinancialDataHistoricallyAsync(fuid);
             _fcService.PopulateHistoricalChartsWithFinancialData(vm.HistoricalCharts, vm.HistoricalFinancialDataModels, vm.LatestTerm, vm.Tab, unitType, vm.EstablishmentType);
 
-            vm.SchoolsInFederation = await _contexDataService.GetMultipleSchoolDataObjectsByUrnsAsync(vm.FederationMembersURNs.ToList());
+            vm.SchoolsInFederation = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(vm.FederationMembersURNs.ToList());
             
             vm.LaName = _laService.GetLaName(vm.La.ToString());
 
