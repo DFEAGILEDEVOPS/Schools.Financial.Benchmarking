@@ -50,7 +50,7 @@ namespace SFB.Web.UI.Models
 
         public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == ContextData.URN.ToString();
 
-        public int Id => ContextData.URN;
+        public override int Id => ContextData.URN;
 
         public string LaEstab => $"{ContextData.LACode} {ContextData.EstablishmentNumber}";
 
@@ -63,10 +63,6 @@ namespace SFB.Web.UI.Models
 
             set { }
         }
-
-        public int La => ContextData.LACode;
-
-        public string LaName { get; set; }
 
         public int Estab => ContextData.EstablishmentNumber;
 
@@ -171,7 +167,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public float TotalPupils => ContextData.NumberOfPupils.GetValueOrDefault();
+        public override float TotalPupils => ContextData.NumberOfPupils.GetValueOrDefault();
 
         public string IsPost16 => ContextData.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
@@ -181,7 +177,17 @@ namespace SFB.Web.UI.Models
 
         public override string Type => ContextData.TypeOfEstablishment;
 
-        public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextData.FinanceType);
+        public override EstablishmentType EstablishmentType
+        {
+            get
+            {
+                if (this.IsFederation)
+                {
+                    return EstablishmentType.Maintained;
+                }
+                return (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextData.FinanceType);
+            }
+        }
 
         public bool IsSAT => ContextData.MatSat == "SAT";
         
@@ -221,8 +227,6 @@ namespace SFB.Web.UI.Models
                 }
             }
         }
-
-        public decimal? ProgressScore => LatestYearFinancialData?.ProgressScore;
 
         public decimal? KS2ProgressScore => LatestYearFinancialData?.Ks2Progress;
 

@@ -35,11 +35,19 @@ namespace SFB.Web.UI.Services
         }
         public async Task AddSchoolToBenchmarkListAsync(int urn)
         {
-            var schoolDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
-            if (schoolDataObject != null)
+            var contextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
+            if (contextData != null)
             {
-                var benchmarkSchool = new SchoolViewModel(schoolDataObject, null);
-                AddSchoolToBenchmarkList(benchmarkSchool);
+                if (contextData.IsFederation)
+                {
+                    var benchmarkFederation = new FederationViewModel(contextData, null);
+                    AddFederationToBenchmarkList(benchmarkFederation);
+                }
+                else
+                {
+                    var benchmarkSchool = new SchoolViewModel(contextData, null);
+                    AddSchoolToBenchmarkList(benchmarkSchool);
+                }
             }            
         }
 
@@ -60,6 +68,11 @@ namespace SFB.Web.UI.Services
         public void AddSchoolToBenchmarkList(SchoolViewModel schoolVM)
         {
             AddSchoolToBenchmarkList(new BenchmarkSchoolModel(schoolVM));                            
+        }
+
+        public void AddFederationToBenchmarkList(FederationViewModel fedVM)
+        {
+            AddSchoolToBenchmarkList(new BenchmarkSchoolModel(fedVM));
         }
 
         public void TryAddSchoolToBenchmarkList(SchoolViewModel schoolVM)

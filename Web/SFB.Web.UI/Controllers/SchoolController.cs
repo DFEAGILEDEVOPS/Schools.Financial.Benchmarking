@@ -64,6 +64,11 @@ namespace SFB.Web.UI.Controllers
             _schoolVMBuilder.AssignLaName();
             var schoolVM = _schoolVMBuilder.GetResult();
 
+            if (schoolVM.IsFederation)
+            {
+                return Redirect("/federation?fuid="+schoolVM.Id);
+            }
+
             if (schoolVM.ContextData == null)
             {
                 return View("EmptyResult", new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), SearchTypes.SEARCH_BY_NAME_ID));

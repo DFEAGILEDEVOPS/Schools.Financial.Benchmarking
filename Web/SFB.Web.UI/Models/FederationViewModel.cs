@@ -9,7 +9,7 @@ namespace SFB.Web.UI.Models
 {
     public class FederationViewModel : EstablishmentViewModelBase
     {
-        public int Id => UID.GetValueOrDefault();
+        public override int Id => UID.GetValueOrDefault();
 
         public int? _uid;
         public int? UID
@@ -64,12 +64,13 @@ namespace SFB.Web.UI.Models
 
         public string OverallPhase => LatestYearFinancialData.SchoolOverallPhase;
 
+        public override float TotalPupils => (float)LatestYearFinancialData.PupilCount.GetValueOrDefault();
+
         public string HasNursery => (bool)LatestYearFinancialData?.HasNursery ? "Yes" : "No";
 
         public string Has6Form => (bool)LatestYearFinancialData?.Has6Form ? "Yes" : "No";
 
-        public int?  La => LatestYearFinancialData?.LaNumber;
-        public string LaName { get; set; }
+        public new int?  La => LatestYearFinancialData?.LaNumber;
         public string AgeRange => this.LowestAge == null ? null : $"{this.LowestAge} to {this.HighestAge}";
         public List<EdubaseDataObject> SchoolsInFederation { get; set; }
         private decimal? LowestAge => LatestYearFinancialData?.LowestAgePupils;
@@ -92,10 +93,21 @@ namespace SFB.Web.UI.Models
             this.UID = uid;
         }
 
+        public FederationViewModel(EdubaseDataObject contextDataModel)
+        {
+            this.ContextData = contextDataModel;
+        }
+
         public FederationViewModel(int uid, SchoolComparisonListModel comparisonList = null)
         : this(uid)
         {
             base.ComparisonList = comparisonList;
         }
+
+        public FederationViewModel(EdubaseDataObject schoolContextDataModel, SchoolComparisonListModel comparisonList) : this(schoolContextDataModel)
+        {
+            base.ComparisonList = comparisonList;
+        }
+
     }
 }

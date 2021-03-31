@@ -30,10 +30,11 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly ILocalAuthoritiesService _laService;
         private readonly IDownloadCSVBuilder _csvBuilder;
+        private readonly ISchoolBenchmarkListService _benchmarkBasketService;
 
         public FederationController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService,
             IFinancialCalculationsService fcService, IContextDataService contextDataService, ILocalAuthoritiesService laService, 
-            IDownloadCSVBuilder csvBuilder)
+            IDownloadCSVBuilder csvBuilder, ISchoolBenchmarkListService benchmarkBasketService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
@@ -41,6 +42,7 @@ namespace SFB.Web.UI.Controllers
             _fcService = fcService;
             _laService = laService;
             _csvBuilder = csvBuilder;
+            _benchmarkBasketService = benchmarkBasketService;
         }
 
         public async Task<ActionResult> Index(int fuid,
@@ -115,7 +117,7 @@ namespace SFB.Web.UI.Controllers
 
         private async Task<FederationViewModel> BuildFederationViewModelAsync(int fuid, TabType tab, ChartGroupType chartGroup, UnitType unitType)
         {
-            var vm = new FederationViewModel(fuid);
+            var vm = new FederationViewModel(fuid, _benchmarkBasketService.GetSchoolBenchmarkList());
 
             vm.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, vm.EstablishmentType, unitType);
             vm.ChartGroups = _historicalChartBuilder.Build(tab, vm.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();

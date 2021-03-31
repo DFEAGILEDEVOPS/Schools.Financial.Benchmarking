@@ -13,6 +13,14 @@ namespace SFB.Web.UI.Models
 
         public abstract string Type { get; }
 
+        public abstract int Id { get;}
+
+        public abstract float TotalPupils { get; }
+
+        public int La => ContextData.LACode;        
+
+        public string LaName { get; set; }
+
         public abstract EstablishmentType EstablishmentType { get; }
 
         public List<ChartViewModel> HistoricalCharts { get; set; }
@@ -48,5 +56,9 @@ namespace SFB.Web.UI.Models
         public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0m;
 
         public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0m;
+
+        public decimal? ProgressScore => LatestYearFinancialData?.ProgressScore;
+
+        public bool IsFederation => ContextData.IsFederation;
     }
 }

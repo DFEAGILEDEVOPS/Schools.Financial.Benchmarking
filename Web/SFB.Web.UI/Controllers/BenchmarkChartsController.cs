@@ -272,9 +272,9 @@ namespace SFB.Web.UI.Controllers
 
             _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
 
-            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList(benchmarkSchool);
+            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((SchoolViewModel)benchmarkSchool);
 
-            _schoolBenchmarkListService.SetSchoolAsDefault(benchmarkSchool);
+            _schoolBenchmarkListService.SetSchoolAsDefault((SchoolViewModel)benchmarkSchool);
 
             return await Index(urn, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
         }
@@ -287,9 +287,9 @@ namespace SFB.Web.UI.Controllers
             var specialCriteria = new SpecialCriteria();
             specialCriteria.SimilarPupils = similarPupils.GetValueOrDefault();
             specialCriteria.TopSenCriteria = new List<SenCriterion>();
-            for (int i=0; i<benchmarkSchool.TopSenCharacteristics.Count; i++)
+            for (int i=0; i< (benchmarkSchool as SchoolViewModel).TopSenCharacteristics.Count; i++)
             {
-                var senCriterion = new SenCriterion(i, benchmarkSchool.TopSenCharacteristics[i].Definition, benchmarkSchool.TopSenCharacteristics[i].DataName, benchmarkSchool.TopSenCharacteristics[i].Value);
+                var senCriterion = new SenCriterion(i, (benchmarkSchool as SchoolViewModel).TopSenCharacteristics[i].Definition, (benchmarkSchool as SchoolViewModel).TopSenCharacteristics[i].DataName, (benchmarkSchool as SchoolViewModel).TopSenCharacteristics[i].Value);
                 specialCriteria.TopSenCriteria.Add(senCriterion);
             }
 
@@ -301,7 +301,7 @@ namespace SFB.Web.UI.Controllers
 
             _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
 
-            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList(benchmarkSchool);
+            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((benchmarkSchool as SchoolViewModel));
 
             return await Index(urn, null, comparisonResult.BenchmarkCriteria, null, ComparisonType.Specials, ComparisonListLimit.SPECIALS, benchmarkSchool.LatestYearFinancialData, EstablishmentType.All);
         }
@@ -313,7 +313,7 @@ namespace SFB.Web.UI.Controllers
             var bicCriteria = new BestInClassCriteria()
             {
                 EstablishmentType = EstablishmentType.All,
-                OverallPhase = benchmarkSchool.OverallPhase,
+                OverallPhase = (benchmarkSchool as SchoolViewModel).OverallPhase,
                 UrbanRural = benchmarkSchool.LatestYearFinancialData.UrbanRural,
                 NoPupilsMin = WithinPositiveLimits((benchmarkSchool.LatestYearFinancialData.PupilCount.GetValueOrDefault() - CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT)),
                 NoPupilsMax = (benchmarkSchool.LatestYearFinancialData.PupilCount.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_PUPIL_COUNT_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_PUPIL_COUNT),
@@ -323,10 +323,10 @@ namespace SFB.Web.UI.Controllers
                 PercentageFSMMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault() + CriteriaSearchConfig.BIC_DEFAULT_CONSTANT_FSM_TOPUP) * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_FSM),
                 PercentageSENMin = benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 - CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN),
                 PercentageSENMax = WithinPercentLimits(benchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault() * (1 + CriteriaSearchConfig.BIC_DEFAULT_FLEX_SEN)),
-                Ks2ProgressScoreMin = benchmarkSchool.BicProgressScoreType == BicProgressScoreType.P8 ? (decimal?)null : 0,
-                Ks2ProgressScoreMax = benchmarkSchool.BicProgressScoreType == BicProgressScoreType.P8 ? (decimal?)null : 20,
-                Ks4ProgressScoreMin = benchmarkSchool.BicProgressScoreType == BicProgressScoreType.P8 ? 0 : (decimal?)null,
-                Ks4ProgressScoreMax = benchmarkSchool.BicProgressScoreType == BicProgressScoreType.P8 ? +5 : (decimal?)null,
+                Ks2ProgressScoreMin = (benchmarkSchool as SchoolViewModel).BicProgressScoreType == BicProgressScoreType.P8 ? (decimal?)null : 0,
+                Ks2ProgressScoreMax = (benchmarkSchool as SchoolViewModel).BicProgressScoreType == BicProgressScoreType.P8 ? (decimal?)null : 20,
+                Ks4ProgressScoreMin = (benchmarkSchool as SchoolViewModel).BicProgressScoreType == BicProgressScoreType.P8 ? 0 : (decimal?)null,
+                Ks4ProgressScoreMax = (benchmarkSchool as SchoolViewModel).BicProgressScoreType == BicProgressScoreType.P8 ? +5 : (decimal?)null,
                 RRPerIncomeMin = CriteriaSearchConfig.RR_PER_INCOME_TRESHOLD,
                 LondonWeighting = benchmarkSchool.LatestYearFinancialData.LondonWeighting == "Neither" ? new[] { "Neither" } : new[] { "Inner", "Outer" }
             };
@@ -366,7 +366,7 @@ namespace SFB.Web.UI.Controllers
             {
                 var benchmarkSchoolToAdd = new BenchmarkSchoolModel(schoolData)
                 {
-                      ProgressScore = benchmarkSchool.BicProgressScoreType== BicProgressScoreType.P8 ?
+                      ProgressScore = (benchmarkSchool as SchoolViewModel).BicProgressScoreType== BicProgressScoreType.P8 ?
                         decimal.Round(schoolData.Progress8Measure.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
                         : decimal.Round(schoolData.Ks2Progress.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)
 
@@ -376,7 +376,7 @@ namespace SFB.Web.UI.Controllers
 
             }
 
-            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList(benchmarkSchool);
+            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((benchmarkSchool as SchoolViewModel));
 
             return await Index(urn, null, comparisonResult.BenchmarkCriteria, bicCriteria, ComparisonType.BestInClass, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, bicCriteria.EstablishmentType);
         }
@@ -395,9 +395,9 @@ namespace SFB.Web.UI.Controllers
 
             _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
 
-            _schoolBenchmarkListService.SetSchoolAsDefault(benchmarkSchool);
+            _schoolBenchmarkListService.SetSchoolAsDefault((benchmarkSchool as SchoolViewModel));
 
-            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList(benchmarkSchool);
+            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((benchmarkSchool as SchoolViewModel));
 
             var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(TabType.Custom, ChartGroupType.Custom, null, CentralFinancingType.Include);
 
@@ -528,7 +528,7 @@ namespace SFB.Web.UI.Controllers
             SchoolViewModel benchmarkSchoolVM;
             if (urn.HasValue)
             {
-                benchmarkSchoolVM = await InstantiateBenchmarkSchoolAsync(urn.Value);
+                benchmarkSchoolVM = await InstantiateBenchmarkSchoolAsync(urn.Value) as SchoolViewModel;
             }
             else
             {
@@ -673,7 +673,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BicComparisonOverallPhase = comparisonSchools?.FirstOrDefault()?.OverallPhaseInFinancialSubmission;
+            ViewBag.BicComparisonOverallPhase = (comparisonSchools?.FirstOrDefault() as SchoolViewModel).OverallPhaseInFinancialSubmission;
 
             return View("Index", vm);
         }
@@ -797,9 +797,9 @@ namespace SFB.Web.UI.Controllers
                          "BenchmarkData.csv");
         }
 
-        private async Task<List<SchoolViewModel>> PopulateSchoolsListForComparisonTableAsync(SchoolComparisonListModel comparisonList)
+        private async Task<List<EstablishmentViewModelBase>> PopulateSchoolsListForComparisonTableAsync(SchoolComparisonListModel comparisonList)
         {
-            var comparisonSchools = new List<SchoolViewModel>();
+            var comparisonSchools = new List<EstablishmentViewModelBase>();
 
             foreach (var school in comparisonList.BenchmarkSchools)
             {
@@ -1014,9 +1014,17 @@ namespace SFB.Web.UI.Controllers
             return await _financialDataService.GetFinancialDataForSchoolsAsync(schoolSearchModels, centralFinancing);
         }
 
-        private async Task<SchoolViewModel> InstantiateBenchmarkSchoolAsync(int urn)
+        private async Task<EstablishmentViewModelBase> InstantiateBenchmarkSchoolAsync(int urn)
         {
-            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _schoolBenchmarkListService.GetSchoolBenchmarkList());
+            var contextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
+            EstablishmentViewModelBase benchmarkSchool;
+            if (contextData.IsFederation) { 
+                benchmarkSchool = new FederationViewModel(contextData, _schoolBenchmarkListService.GetSchoolBenchmarkList());
+            }
+            else
+            {
+                benchmarkSchool = new SchoolViewModel(contextData, _schoolBenchmarkListService.GetSchoolBenchmarkList());
+            }
             var schoolsLatestFinancialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
             benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
             return benchmarkSchool;
