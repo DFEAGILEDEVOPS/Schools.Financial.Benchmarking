@@ -82,7 +82,7 @@ namespace SFB.Web.UI.Controllers
         
         }
 
-        public async Task<ActionResult> StepOne(int? urn, ComparisonType? comparisonType, bool similarPupils = false)
+        public async Task<ActionResult> StepOne(int? urn, int?  fuid, ComparisonType? comparisonType, bool similarPupils = false)
         {
             switch (comparisonType)
             {
@@ -98,8 +98,9 @@ namespace SFB.Web.UI.Controllers
                         return RedirectToAction("WithoutBaseSchool", "ManualComparison");
                     }
                 case ComparisonType.Basic:
+                case ComparisonType.FederationBasic:
                 case ComparisonType.Advanced:
-                    return await SelectSchoolType(urn, comparisonType.Value, null, null);
+                    return await SelectSchoolType(urn, fuid,comparisonType.Value, null, null);
                 case ComparisonType.Specials:
                     return await HowWeCalculateSpecials(urn.GetValueOrDefault(), similarPupils);
                 case null:
@@ -148,14 +149,20 @@ namespace SFB.Web.UI.Controllers
         /// <param name="comparisonType"></param>
         /// <param name="estType"></param>
         /// <returns></returns>
-        public async Task<ViewResult> SelectSchoolType(int? urn, ComparisonType comparisonType, EstablishmentType? estType, int? basketSize)
+        public async Task<ViewResult> SelectSchoolType(int? urn, int? fuid, ComparisonType comparisonType, EstablishmentType? estType, int? basketSize)
         {
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
             ViewBag.BasketSize = basketSize;
 
-            if (urn.HasValue)
+            if (fuid.HasValue)
+            {
+                var benchmarkSchool = new FederationViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
+                _benchmarkBasketService.SetFederationAsDefault(benchmarkSchool);
+                return View("SelectSchoolType", benchmarkSchool);
+            }
+            else if (urn.HasValue)
             {
                 var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
 

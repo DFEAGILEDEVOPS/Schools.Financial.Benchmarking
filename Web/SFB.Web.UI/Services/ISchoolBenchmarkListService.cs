@@ -20,6 +20,7 @@ namespace SFB.Web.UI.Services
         
         Task SetSchoolAsDefaultAsync(int urn);
         void SetSchoolAsDefault(SchoolViewModel benchmarkSchool);        
+        void SetFederationAsDefault(FederationViewModel benchmarkSchool);        
         void SetSchoolAsDefault(BenchmarkSchoolModel benchmarkSchool);
       
 

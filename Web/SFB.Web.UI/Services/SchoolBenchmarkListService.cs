@@ -114,6 +114,11 @@ namespace SFB.Web.UI.Services
             UpdateSchoolComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel(benchmarkSchool));
         }
 
+        public void SetFederationAsDefault(FederationViewModel benchmarkSchool)
+        {
+            UpdateSchoolComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel(benchmarkSchool));
+        }
+
         public void SetSchoolAsDefault(BenchmarkSchoolModel benchmarkSchool)
         {
             UpdateSchoolComparisonListCookie(CookieActions.SetDefault, benchmarkSchool);            

@@ -1,5 +1,5 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
-@model SFB.Web.UI.Models.SchoolViewModel
+@model SFB.Web.UI.Models.EstablishmentViewModelBase
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Which school type do you wish to compare with?";
@@ -52,7 +52,7 @@
         <div class="column-full">
             <span class="font-xsmall">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span></a>
+                <a href="/school/detail?urn=@Model.Id"><span class="bold-xsmall">@Model.Name</span></a>
             </div>
         </div>
     </div>
