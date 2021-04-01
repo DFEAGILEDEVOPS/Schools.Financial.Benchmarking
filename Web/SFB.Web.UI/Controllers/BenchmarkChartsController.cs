@@ -673,7 +673,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = financing;
             ViewBag.ChartFormat = ChartFormat.Charts;
             ViewBag.ComparisonType = comparisonType;
-            ViewBag.BicComparisonOverallPhase = (comparisonSchools?.FirstOrDefault() as SchoolViewModel).OverallPhaseInFinancialSubmission;
+            ViewBag.BicComparisonOverallPhase = (comparisonSchools?.FirstOrDefault() as SchoolViewModel)?.OverallPhaseInFinancialSubmission;
 
             return View("Index", vm);
         }

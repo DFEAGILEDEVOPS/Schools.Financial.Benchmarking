@@ -1,11 +1,12 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Models
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
 <div id="bestInClassTabSection" style="display: none">
     <div class="grid-row">
         <div class="column-full">
             @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
-            {            
+            {
                 <h2 class="heading-small" id="ProgressScoresTableHeading">Overall Progress 8 - all pupils</h2>
             }
             else if (ViewBag.BicComparisonOverallPhase == "Primary")
@@ -18,83 +19,83 @@
             <table class="tablesorter data-table-js chart-table--mobile-only-view chart-table--detail-view" id="ProgressScoresTableMobile">
                 @foreach (var bicSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                 {
-                <tbody class="chart-table--detail-view__body">
-                    <tr>
-                        <th scope="row" class="col-header">School name</th>
-                        <td aria-label="@bicSchool.Name @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " index school" : "" )">
-                            <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " highlight" : "" )"><span>@bicSchool.Name</span></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-header">Local authority</th>
-                        <td aria-label="@bicSchool.LaName local authority">@bicSchool.LaName</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-header">Pupils</th>
-                        <td aria-label="@bicSchool.TotalPupils pupils">@bicSchool.TotalPupils</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-header">FSM</th>
-                        <td aria-label="@bicSchool.FSM% Percentage of Eligible Free School Meals">@bicSchool.FSM%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-header">EHCP</th>
-                        <td aria-label="@bicSchool.SEN% Percentage of pupil with special education needs">@bicSchool.SEN%</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-header">Expenditure per pupil</th>
-                        <td aria-label="@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString(" C") Expenditure per pupil">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="col-header">Urban/rural description</th>
-                        <td>@bicSchool.UrbanRural</td>
-                    </tr>
-                    @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
-                    {
+                    <tbody class="chart-table--detail-view__body">
                         <tr>
-                            <th scope="row" class="col-header">
-                                Key stage 2 progress
-                                <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info_@bicSchool.Id" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
-                                    <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
-                                </button>
-                            </th>
-                            <td class="no-padding" aria-label="@bicSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2") @ViewHelpers.ScoreText(bicSchool.KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, bicSchool.P8Banding.GetValueOrDefault() ) Progress score">
-                                <div class="score @ViewHelpers.ScoreColorCode(bicSchool.KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, bicSchool.P8Banding.GetValueOrDefault())">
-                                    <span class="font-xsmall">@bicSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2")</span>
-                                    <span class="no-wrap ml-1 font-xxxsmall">@ViewHelpers.ScoreText(bicSchool.KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, bicSchool.P8Banding.GetValueOrDefault())</span>
-                                </div>
+                            <th scope="row" class="col-header">School name</th>
+                            <td aria-label="@bicSchool.Name @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " index school" : "" )">
+                                <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " highlight" : "" )"><span>@bicSchool.Name</span></a>
                             </td>
                         </tr>
-                    }
-                    @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
+                        <tr>
+                            <th scope="row" class="col-header">Local authority</th>
+                            <td aria-label="@bicSchool.LaName local authority">@bicSchool.LaName</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="col-header">Pupils</th>
+                            <td aria-label="@bicSchool.TotalPupils pupils">@bicSchool.TotalPupils</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="col-header">FSM</th>
+                            <td aria-label="@((bicSchool as SchoolViewModel).FSM)% Percentage of Eligible Free School Meals">@((bicSchool as SchoolViewModel).FSM)%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="col-header">EHCP</th>
+                            <td aria-label="@((bicSchool as SchoolViewModel).SEN)% Percentage of pupil with special education needs">@((bicSchool as SchoolViewModel).SEN)%</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="col-header">Expenditure per pupil</th>
+                            <td aria-label="@((bicSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString(" C")) Expenditure per pupil">@((bicSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString("C"))</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="col-header">Urban/rural description</th>
+                            <td>@((bicSchool as SchoolViewModel).UrbanRural)</td>
+                        </tr>
+                        @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                        <tr>
-                            <th scope="row" class="col-header">
-                                Progress 8
-                                <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable_m_@bicSchool.Id" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
-                                    <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
-                                </button>
-                            </th>
-                            <td class="no-padding" aria-label="@bicSchool.P8ProgressScore.GetValueOrDefault().ToString("F2") @ViewHelpers.ScoreText(bicSchool.P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, bicSchool.P8Banding.GetValueOrDefault()) Progress score">
-                                <div class="score @ViewHelpers.ScoreColorCode(bicSchool.P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, bicSchool.P8Banding.GetValueOrDefault())">
-                                    <span class="font-xsmall">@bicSchool.P8ProgressScore.GetValueOrDefault().ToString("F2")</span>
-                                    <span class="no-wrap ml-1 font-xxxsmall">@ViewHelpers.ScoreText(bicSchool.P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, bicSchool.P8Banding.GetValueOrDefault())</span>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                            <tr>
+                                <th scope="row" class="col-header">
+                                    Key stage 2 progress
+                                    <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info_@bicSchool.Id" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
+                                        <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
+                                    </button>
+                                </th>
+                                <td class="no-padding" aria-label="@((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2")) @ViewHelpers.ScoreText((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault() ) Progress score">
+                                    <div class="score @ViewHelpers.ScoreColorCode((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
+                                        <span class="font-xsmall">@((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2"))</span>
+                                        <span class="no-wrap ml-1 font-xxxsmall">@ViewHelpers.ScoreText((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                        @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
+                        {
+                            <tr>
+                                <th scope="row" class="col-header">
+                                    Progress 8
+                                    <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable_m_@bicSchool.Id" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
+                                        <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
+                                    </button>
+                                </th>
+                                <td class="no-padding" aria-label="@((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString(" F2")) @ViewHelpers.ScoreText((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
+                                    <div class="score @ViewHelpers.ScoreColorCode((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
+                                        <span class="font-xsmall">@((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2"))</span>
+                                        <span class="no-wrap ml-1 font-xxxsmall">@ViewHelpers.ScoreText((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 }
             </table>
 
             <table class="tablesorter data-table-js chart-table--mobile-above-view" id="ProgressScoresTable">
                 <thead>
                     <tr>
-                        <th  class="nowrap school-column sortInitialOrder-asc" scope="col">School</th>
-                        <th  class="nowrap sortInitialOrder-asc" scope="col">Local authority</th>
-                        <th  class="nowrap numeric sortInitialOrder-desc" scope="col">Pupils</th>
-                        <th class="nowrap sortInitialOrder-desc"  scope="col">FSM</th>
-                        <th class="nowrap sortInitialOrder-desc"  scope="col">EHCP</th>
+                        <th class="nowrap school-column sortInitialOrder-asc" scope="col">School</th>
+                        <th class="nowrap sortInitialOrder-asc" scope="col">Local authority</th>
+                        <th class="nowrap numeric sortInitialOrder-desc" scope="col">Pupils</th>
+                        <th class="nowrap sortInitialOrder-desc" scope="col">FSM</th>
+                        <th class="nowrap sortInitialOrder-desc" scope="col">EHCP</th>
                         <th class="sortInitialOrder-desc" cope="col">Expenditure per pupil</th>
                         <th class="sortInitialOrder-asc" scope="col">Urban/rural description</th>
                         @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
@@ -108,7 +109,7 @@
                         }
                         @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th  class="nowrap numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
+                            <th class="nowrap numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
                                 Progress 8
                                 <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -118,41 +119,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var bicSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
+                    @foreach (var biSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                     {
-                    <tr>
-                        <td scope="col" class="school-column" aria-label="@bicSchool.Name @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "index school" : "")">
-                            <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? "highlight" : "")"><span>@bicSchool.Name</span></a>
-                        </td>
-                        <td scope="col" aria-label="@bicSchool.LaName local authority">@bicSchool.LaName</td>
-                        <td class="numeric" scope="col" aria-label="@bicSchool.TotalPupils pupils">@bicSchool.TotalPupils</td>
-                        <td class="numeric" scope="col" aria-label="@bicSchool.FSM% Percentage of Eligible Free School Meals">@bicSchool.FSM%</td>
-                        <td class="numeric" scope="col" aria-label="@bicSchool.SEN% Percentage of pupil with special education needs">@bicSchool.SEN%</td>
-                        <td class="numeric" scope="col" aria-label="@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C") Expenditure per pupil">@bicSchool.ExpenditurePerPupil.GetValueOrDefault().ToString("C")</td>
-                        <td class="numeric" scope="col">@bicSchool.UrbanRural</td>
-                        @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
-                        {
-                            <td class="numeric no-padding" scope="col" aria-label="@bicSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2") @ViewHelpers.ScoreText(bicSchool.KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, bicSchool.P8Banding.GetValueOrDefault()) Progress score">
-                                <div class="score @ViewHelpers.ScoreColorCode(bicSchool.KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, bicSchool.P8Banding.GetValueOrDefault())">
-                                    <div class="font-xsmall">@bicSchool.KS2ProgressScore.GetValueOrDefault().ToString("F2")</div>
-                                    <div class="no-wrap">@ViewHelpers.ScoreText(bicSchool.KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, bicSchool.P8Banding.GetValueOrDefault())</div>
-                                </div>
+                        <tr>
+                            <td scope="col" class="school-column" aria-label="@biSchool.Name @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == biSchool.Name ? "index school" : "")">
+                                <a href="/school/detail?Urn=@biSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == biSchool.Name ? "highlight" : "")"><span>@biSchool.Name</span></a>
                             </td>
-                        }
-                        @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
-                        {
-                            <td class="numeric no-padding" scope="col" aria-label="@bicSchool.P8ProgressScore.GetValueOrDefault().ToString("F2") @ViewHelpers.ScoreText(bicSchool.P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, bicSchool.P8Banding.GetValueOrDefault()) Progress score">
-                                <div class="score @ViewHelpers.ScoreColorCode(bicSchool.P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, bicSchool.P8Banding.GetValueOrDefault())">
-                                    <div class="font-xsmall">@bicSchool.P8ProgressScore.GetValueOrDefault().ToString("F2")</div>
-                                    <div class="no-wrap">@ViewHelpers.ScoreText(bicSchool.P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, bicSchool.P8Banding.GetValueOrDefault())</div>
-                                </div>
-                            </td>
-                        }
-                    </tr>
-                    }
-                </tbody>
-            </table>
+                            <td scope="col" aria-label="@biSchool.LaName local authority">@biSchool.LaName</td>
+                            <td class="numeric" scope="col" aria-label="@biSchool.TotalPupils pupils">@biSchool.TotalPupils</td>
+                            <td class="numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).FSM)% Percentage of Eligible Free School Meals">@((biSchool as SchoolViewModel).FSM)%</td>
+                            <td class="numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).SEN)% Percentage of pupil with special education needs">@((biSchool as SchoolViewModel).SEN)%</td>
+                            <td class="numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString("C")) Expenditure per pupil">@((biSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString("C"))</td>
+                            <td class="numeric" scope="col">@((biSchool as SchoolViewModel).UrbanRural)</td>
+                            @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
+                            {
+                                <td class="numeric no-padding" scope="col" aria-label="@((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2")) @ViewHelpers.ScoreText((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
+                                    <div class="score @ViewHelpers.ScoreColorCode(((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault()), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
+                                        <div class="font-xsmall">@((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2"))</div>
+                                        <div class="no-wrap">@ViewHelpers.ScoreText((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
+                                    </div>
+                                </td>
+                            }
+                            @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
+                            {
+                                <td class="numeric no-padding" scope="col" aria-label="@((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString(" F2")) @ViewHelpers.ScoreText((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
+                                    <div class="score @ViewHelpers.ScoreColorCode((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
+                                        <div class="font-xsmall">@((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2"))</div>
+                                        <div class="no-wrap">@ViewHelpers.ScoreText((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
+                                    </div>
+                                </td>
+                                }
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 

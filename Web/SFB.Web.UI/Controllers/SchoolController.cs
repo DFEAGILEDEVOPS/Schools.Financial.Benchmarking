@@ -23,26 +23,22 @@ namespace SFB.Web.UI.Controllers
     {
         private readonly IContextDataService _contextDataService;
         private readonly IFinancialDataService _financialDataService;
-        private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly ISchoolBenchmarkListService _benchmarkBasketService;
-        private readonly ILocalAuthoritiesService _laSearchService;
         private readonly IActiveUrnsService _activeUrnsService;
         private readonly ISchoolVMBuilder _schoolVMBuilder;
 
-        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
+        public SchoolController(IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
-            ISchoolBenchmarkListService benchmarkBasketService, ILocalAuthoritiesService laSearchService,
+            ISchoolBenchmarkListService benchmarkBasketService,
             IActiveUrnsService activeUrnsService, ISchoolVMBuilder schoolVMBuilder)
         {
-            _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketService = benchmarkBasketService;
-            _laSearchService = laSearchService;
             _activeUrnsService = activeUrnsService;
             _schoolVMBuilder = schoolVMBuilder;
         }
