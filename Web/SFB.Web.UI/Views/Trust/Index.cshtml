@@ -222,7 +222,7 @@
                                         <th scope="col">Event</th>
                                         <th scope="col">Organisation</th>
                                     </tr>
-                                    @for (int i = 0; i < Model.TrustHistory.Events.Count; i++)
+                                        @for (int i = 0; i < Model.TrustHistory?.Events.Count; i++)
                                     {
                                         if (i > 0 && Model.TrustHistory.Events[i].SchoolYear == Model.TrustHistory.Events[i - 1].SchoolYear)
                                         {
