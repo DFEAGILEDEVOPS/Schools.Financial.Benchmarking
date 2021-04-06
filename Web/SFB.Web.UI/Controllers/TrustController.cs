@@ -16,6 +16,7 @@ using SFB.Web.UI.Attributes;
 using System.Web.Routing;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers;
+using System;
 
 namespace SFB.Web.UI.Controllers
 {
@@ -166,9 +167,15 @@ namespace SFB.Web.UI.Controllers
 
             if (trustVM.UID != null)
             {
-                trustVM.TrustHistory = await _trustHistoryService.GetTrustHistoryModelAsync(trustVM.UID.GetValueOrDefault());
+                try
+                {
+                    trustVM.TrustHistory = await _trustHistoryService.GetTrustHistoryModelAsync(trustVM.UID.GetValueOrDefault());
+                }
+                catch (NullReferenceException)
+                { 
+                    //Do not load trust history if missing 
+                }
             }
-
             return trustVM;
         }
 
