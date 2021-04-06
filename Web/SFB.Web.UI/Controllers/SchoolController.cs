@@ -50,7 +50,7 @@ namespace SFB.Web.UI.Controllers
         #if !DEBUG
         [OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
-        public async Task<ActionResult> Detail(
+        public async Task<ActionResult> Detail( 
             int urn, 
             UnitType unit = UnitType.AbsoluteMoney, 
             CentralFinancingType financing = CentralFinancingType.Include, 
