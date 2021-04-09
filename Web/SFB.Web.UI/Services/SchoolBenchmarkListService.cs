@@ -84,6 +84,15 @@ namespace SFB.Web.UI.Services
             catch (ApplicationException) { }//ignore duplicate add
         }
 
+        public void TryAddFederationToBenchmarkList(FederationViewModel fedVM)
+        {
+            try
+            {
+                AddFederationToBenchmarkList(fedVM);
+            }
+            catch (ApplicationException) { }//ignore duplicate add
+        }
+
         public void AddSchoolsToBenchmarkList(ComparisonResult comparisonResult)
         {
             foreach (var schoolFinance in comparisonResult.BenchmarkSchools)

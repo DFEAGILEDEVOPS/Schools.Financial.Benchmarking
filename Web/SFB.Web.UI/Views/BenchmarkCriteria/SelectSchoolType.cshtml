@@ -1,4 +1,5 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Models
 @model SFB.Web.UI.Models.EstablishmentViewModelBase
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
@@ -8,9 +9,13 @@
 
 @section BackButtonContent{
     @{
-        if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
+        if (Model is SchoolViewModelWithNoDefaultSchool)
         {
             <a class="govuk-back-link hide-in-print" href="/">Back</a>
+        }
+        if (Model is FederationViewModel)
+        {
+            <a class="govuk-back-link hide-in-print" href="/federation?fuid=@Model.Id">Back</a>
         }
         else
         {
@@ -147,6 +152,7 @@
         </div>
 
         <input type="hidden" name="Urn" value="@ViewBag.URN">
+        <input type="hidden" name="Fuid" value="@ViewBag.fuid">
         <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
         </form>
     </div>

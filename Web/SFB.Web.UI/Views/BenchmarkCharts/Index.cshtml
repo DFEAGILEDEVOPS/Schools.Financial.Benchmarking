@@ -42,6 +42,12 @@
 
         @Html.Partial("Partials/Breadcrumbs/BackToEfficiencyMetricLink")
     }
+    else if (Model.ComparisonType == ComparisonType.FederationBasic)
+    {
+        ViewBag.Fuid = Model.SchoolComparisonList.HomeSchoolUrn;
+        ViewBag.Name = Model.SchoolComparisonList.HomeSchoolName;
+        @Html.Partial("Partials/Breadcrumbs/BackToFederationLink")
+    }
     else if (Model.ComparisonType != ComparisonType.Manual && Model.SchoolComparisonList.HomeSchoolUrn != null)
     {
         ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
@@ -141,7 +147,7 @@ else
                             <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.SubmitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
-                    else if (Model.ComparisonType == ComparisonType.Basic)
+                    else if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.FederationBasic)
                     {
                         <div id="comparing-text" class="font-xsmall">
                             <span>Comparing</span>
@@ -194,6 +200,7 @@ else
         }
 
         if ((Model.ComparisonType == ComparisonType.Basic
+            || Model.ComparisonType == ComparisonType.FederationBasic
             || Model.ComparisonType == ComparisonType.Specials
             || Model.ComparisonType == ComparisonType.Advanced
             || Model.ComparisonType == ComparisonType.BestInClass)
@@ -212,7 +219,7 @@ else
                                 @Html.Partial("Partials/UsedAdvancedCriteria")
                             </div>
                         }
-                        else if (Model.ComparisonType == ComparisonType.Basic)
+                        else if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.FederationBasic)
                         {
                             <div class="panel panel-border-narrow criteria-detail">
                                 @Html.Partial("Partials/BasicHiddenFields")

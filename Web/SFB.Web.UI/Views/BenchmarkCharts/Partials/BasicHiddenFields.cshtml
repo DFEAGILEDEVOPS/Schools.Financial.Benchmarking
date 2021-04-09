@@ -11,8 +11,12 @@
     <input type="hidden" name="SimpleCriteria.IncludeSen" value="@Model.SimpleCriteria.IncludeSen.GetValueOrDefault().ToString()" />
 
     <input type="hidden" name="Urn" value="@Model.URN">
+    @if (Model.ComparisonType == SFB.Web.UI.Helpers.Enums.ComparisonType.FederationBasic)
+    {
+        <input type="hidden" name="Fuid" value="@Model.URN">
+    }
     <input type="hidden" name="ComparisonType" value="@Model.ComparisonType">
-    <input type="hidden" name="EstType" value="@Model.EstablishmentType">
+    <input type="hidden" name="EstType" value="@Model.SearchedEstablishmentType">
     <input type="hidden" name="BasketSize" value="@Model.BasketSize">
 
     <span id="criteriaExp">This benchmark was created using the following criteria.</span>

@@ -152,6 +152,7 @@ namespace SFB.Web.UI.Controllers
         public async Task<ViewResult> SelectSchoolType(int? urn, int? fuid, ComparisonType comparisonType, EstablishmentType? estType, int? basketSize)
         {
             ViewBag.URN = urn;
+            ViewBag.Fuid = fuid;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
             ViewBag.BasketSize = basketSize;
@@ -374,31 +375,51 @@ namespace SFB.Web.UI.Controllers
         /// Step 3 - Simple
         /// </summary>
         /// <param name="urn"></param>
+        /// <param name="fuid"></param>
         /// <param name="comparisonType"></param>
-        /// <param name="basketSize"></param>
         /// <param name="estType"></param>
         /// <param name="simpleCriteria"></param>
         /// <returns></returns>
-        public async Task<ActionResult> SimpleCharacteristics(int urn, ComparisonType comparisonType, EstablishmentType? estType, SimpleCriteria SimpleCriteria)
+        public async Task<ActionResult> SimpleCharacteristics(int? urn, int? fuid, ComparisonType comparisonType, EstablishmentType? estType, SimpleCriteria SimpleCriteria)
         {
             if (estType.HasValue)
             {
                 ViewBag.URN = urn;
+                ViewBag.Fuid = fuid;
                 ViewBag.ComparisonType = comparisonType;
-                ViewBag.EstType = estType;                
+                ViewBag.EstType = estType;
 
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
+                EstablishmentViewModelBase benchmarkSchool;
+
+                if (fuid.HasValue) 
+                {
+                    benchmarkSchool = new FederationViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
+                }
+                else
+                {
+                    benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault()), _benchmarkBasketService.GetSchoolBenchmarkList());
+                }
 
                 var schoolCharsVM = new SimpleCharacteristicsViewModel(benchmarkSchool, SimpleCriteria);
                 return View(schoolCharsVM);
             }
             else
             {
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
-                benchmarkSchool.ErrorMessage = ErrorMessages.SelectSchoolType;
-
                 ViewBag.URN = urn;
+                ViewBag.Fuid = fuid;
                 ViewBag.ComparisonType = comparisonType;
+
+                EstablishmentViewModelBase benchmarkSchool;
+                if (fuid.HasValue)
+                {
+                    benchmarkSchool = new FederationViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
+                }
+                else
+                {
+                    benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault()), _benchmarkBasketService.GetSchoolBenchmarkList());
+                }
+
+                benchmarkSchool.ErrorMessage = ErrorMessages.SelectSchoolType;
 
                 return View("SelectSchoolType", benchmarkSchool);
             }
