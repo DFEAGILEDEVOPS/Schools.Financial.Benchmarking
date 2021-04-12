@@ -219,11 +219,11 @@
     <Reference Include="RestSharp, Version=106.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SFB.Web.ApplicationCore, Version=1.0.99.57819, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.99.57819\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
+    <Reference Include="SFB.Web.ApplicationCore, Version=1.0.102.57871, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.102.57871\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
     </Reference>
-    <Reference Include="SFB.Web.Infrastructure, Version=1.0.99.57820, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.99.57820\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
+    <Reference Include="SFB.Web.Infrastructure, Version=1.0.102.57872, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.102.57872\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.0.601\lib\net472\StackExchange.Redis.dll</HintPath>
