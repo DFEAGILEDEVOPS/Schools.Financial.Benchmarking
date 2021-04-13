@@ -1,4 +1,5 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Constants
+@using SFB.Web.UI.Models
 
 @model SFB.Web.UI.Models.SimpleCharacteristicsViewModel
 @{
@@ -8,7 +9,14 @@
 }
 
 @section BackButtonContent{
-    <a class="govuk-back-link hide-in-print" href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType">Back</a>
+    @if (Model.BenchmarkSchool is FederationViewModel)
+    {
+        <a class="govuk-back-link hide-in-print" href="SelectSchoolType?fuid=@ViewBag.Fuid&comparisontype=@ViewBag.ComparisonType">Back</a>
+    }
+    else
+    {
+        <a class="govuk-back-link hide-in-print" href="SelectSchoolType?urn=@ViewBag.URN&comparisontype=@ViewBag.ComparisonType">Back</a>
+    }
 }
 
 <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading" id="errorSummary" style="display: none">
@@ -121,6 +129,7 @@
         </div>
 
         <input type="hidden" name="Urn" value="@ViewBag.URN">
+        <input type="hidden" name="Fuid" value="@ViewBag.fuid">
         <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
         <input type="hidden" name="EstType" value="@ViewBag.EstType">
 
@@ -131,7 +140,7 @@
     <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
     <script>
         function checkBasketCount() {
-                if ($("#BasketSizeInput:visible").length > 0) {
+            if ($("#BasketSizeInput:visible").length > 0) {
                 let count = $("#BasketSizeInput").val();
                 if (count < 5 || count > 30) {
                     $(".error-summary").show();
@@ -156,7 +165,7 @@
 
         GOVUK.Modal.Load();
 
-        $('#CustomBasketSize').change(            
+        $('#CustomBasketSize').change(
             (event) => {
                 let $panel = $('#CustomBasketSizeFieldset');
                 $panel.toggle();

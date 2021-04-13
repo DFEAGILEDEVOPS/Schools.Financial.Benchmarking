@@ -260,29 +260,50 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateFromSimpleCriteria(int urn, EstablishmentType estType, SimpleCriteria simpleCriteria, int basketSize = ComparisonListLimit.DEFAULT)
+        public async Task<ActionResult> GenerateFromSimpleCriteria(int? urn, int? fuid, EstablishmentType estType, SimpleCriteria simpleCriteria, int basketSize = ComparisonListLimit.DEFAULT)
         {
-            var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
+            if (fuid.HasValue)
+            {
+                var benchmarkFed = await InstantiateBenchmarkSchoolOrFedAsync(fuid.GetValueOrDefault());
 
-            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
+                var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkFed.LatestYearFinancialData, simpleCriteria);
 
-            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
+                var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkFed.LatestYearFinancialData, false);
 
-            _schoolBenchmarkListService.ClearSchoolBenchmarkList();
+                _schoolBenchmarkListService.ClearSchoolBenchmarkList();
 
-            _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
+                _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
 
-            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((SchoolViewModel)benchmarkSchool);
+                _schoolBenchmarkListService.TryAddFederationToBenchmarkList((FederationViewModel)benchmarkFed);
 
-            _schoolBenchmarkListService.SetSchoolAsDefault((SchoolViewModel)benchmarkSchool);
+                _schoolBenchmarkListService.SetFederationAsDefault((FederationViewModel)benchmarkFed);
 
-            return await Index(urn, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
+                return await Index(fuid, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.FederationBasic, basketSize, benchmarkFed.LatestYearFinancialData, estType);
+            }
+            else
+            {
+                var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn.GetValueOrDefault());
+
+                var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
+
+                var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData);
+
+                _schoolBenchmarkListService.ClearSchoolBenchmarkList();
+
+                _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
+
+                _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((SchoolViewModel)benchmarkSchool);
+
+                _schoolBenchmarkListService.SetSchoolAsDefault((SchoolViewModel)benchmarkSchool);
+
+                return await Index(urn, simpleCriteria, comparisonResult.BenchmarkCriteria, null, ComparisonType.Basic, basketSize, benchmarkSchool.LatestYearFinancialData, estType);
+            }
         }
 
         [HttpGet]
         public async Task<ActionResult> SpecialsComparison(int urn, bool? similarPupils)
         {
-            var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
+            var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
 
             var specialCriteria = new SpecialCriteria();
             specialCriteria.SimilarPupils = similarPupils.GetValueOrDefault();
@@ -308,7 +329,7 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> GenerateFromBicCriteria(int urn)
         {
-            var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);            
+            var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);            
 
             var bicCriteria = new BestInClassCriteria()
             {
@@ -338,7 +359,7 @@ namespace SFB.Web.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> GenerateFromBicCriteria(int urn, BestInClassCriteria bicCriteria, bool isEditedCriteria = true)
         {
-            var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
+            var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
 
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(benchmarkSchool.LatestYearFinancialData, bicCriteria);
 
@@ -385,7 +406,7 @@ namespace SFB.Web.UI.Controllers
         [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]        
         public async Task<ViewResult> OneClickReport(int urn)
         {
-            var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
+            var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
 
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromOneClickComparisonCriteria(benchmarkSchool.LatestYearFinancialData);
 
@@ -528,7 +549,7 @@ namespace SFB.Web.UI.Controllers
             SchoolViewModel benchmarkSchoolVM;
             if (urn.HasValue)
             {
-                benchmarkSchoolVM = await InstantiateBenchmarkSchoolAsync(urn.Value) as SchoolViewModel;
+                benchmarkSchoolVM = await InstantiateBenchmarkSchoolOrFedAsync(urn.Value) as SchoolViewModel;
             }
             else
             {
@@ -803,7 +824,7 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var school in comparisonList.BenchmarkSchools)
             {
-                var bmSchool = await InstantiateBenchmarkSchoolAsync(int.Parse(school.Urn));
+                var bmSchool = await InstantiateBenchmarkSchoolOrFedAsync(int.Parse(school.Urn));
                 bmSchool.LaName = _laService.GetLaName(bmSchool.La.ToString());
                 comparisonSchools.Add(bmSchool);
             }
@@ -1014,7 +1035,7 @@ namespace SFB.Web.UI.Controllers
             return await _financialDataService.GetFinancialDataForSchoolsAsync(schoolSearchModels, centralFinancing);
         }
 
-        private async Task<EstablishmentViewModelBase> InstantiateBenchmarkSchoolAsync(int urn)
+        private async Task<EstablishmentViewModelBase> InstantiateBenchmarkSchoolOrFedAsync(int urn)
         {
             var contextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
             EstablishmentViewModelBase benchmarkSchool;

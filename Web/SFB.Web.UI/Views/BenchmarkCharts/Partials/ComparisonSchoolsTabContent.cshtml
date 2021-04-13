@@ -35,20 +35,30 @@
                     {
                         if (cSchool is FederationViewModel)
                         {
-                            <tr>
-                                <td scope="col" class="school-column">
-                                    <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
-                                        <span>@cSchool.Name</span>
-                                    </a>
-                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
-                                    <div></div>
-                                </td>
-                                <td class="numeric" scope="col">@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
-                                <td class="numeric" scope="col">N/A</td>
-                                <td class="numeric" scope="col">N/A</td>
-                                <td class="numeric no-padding td-ks2-js" scope="col">N/A</td>
-                                <td class="numeric no-padding td-p8-js" scope="col">N/A</td>
-                            </tr>
+                    <tr>
+                        <td scope="col" class="school-column">
+                            <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
+                                <span>@cSchool.Name</span>
+                            </a>
+                            @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                            <div></div>
+                        </td>
+                        <td class="numeric" scope="col">@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
+                        <td class="numeric" scope="col">@((cSchool as FederationViewModel).OverallPhase)</td>
+                        <td scope="col">N/A</td>
+                        <td class="numeric no-padding td-ks2-js" scope="col">
+                            <div class="score na">
+                                <div class="font-xsmall">N/A</div>
+                                <span class="visually-hidden">Key stage 2 progress score</span>
+                            </div>
+                        </td>
+                        <td class="numeric no-padding td-p8-js" scope="col">
+                            <div class="score na">
+                                <div class="font-xsmall">N/A</div>
+                                <span class="visually-hidden">Progress 8 score</span>
+                            </div>
+                        </td>
+                    </tr>
                         }
                         else
                         {
@@ -125,7 +135,7 @@
                             </tr>
                             <tr>
                                 <th scope="row" class="col-header">Phase of education</th>
-                                <td>N/A</td>
+                                <td>@((cSchool as FederationViewModel).OverallPhase)</td>
                             </tr>
                             <tr>
                                 <th scope="row" class="col-header">Ofsted rating</th>

@@ -12,7 +12,8 @@ namespace SFB.Web.UI.Services
         Task AddSchoolToBenchmarkListAsync(int urn);
         void AddSchoolToBenchmarkList(SchoolViewModel bmSchool);        
         void AddFederationToBenchmarkList(FederationViewModel bmFederation);        
-        void TryAddSchoolToBenchmarkList(SchoolViewModel bmSchool);
+        void TryAddSchoolToBenchmarkList(SchoolViewModel bmSchool);        
+        void TryAddFederationToBenchmarkList(FederationViewModel bmFederation);
         void AddSchoolToBenchmarkList(BenchmarkSchoolModel bmSchool);
         void TryAddSchoolToBenchmarkList(BenchmarkSchoolModel bmSchool);
         void AddSchoolsToBenchmarkList(ComparisonResult comparisonResult);

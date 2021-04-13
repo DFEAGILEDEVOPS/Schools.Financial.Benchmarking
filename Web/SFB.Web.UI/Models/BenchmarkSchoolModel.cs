@@ -47,7 +47,7 @@ namespace SFB.Web.UI.Models
         
         public BenchmarkSchoolModel(SchoolTrustFinancialDataObject schoolFinanceData)
         {
-            Name = schoolFinanceData.SchoolName;
+            Name = schoolFinanceData.SchoolName ?? schoolFinanceData.FederationName;
             Type = schoolFinanceData.Type;
             EstabType = schoolFinanceData.FinanceType;
             Urn = schoolFinanceData.URN.ToString();
