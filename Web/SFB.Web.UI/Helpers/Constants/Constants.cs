@@ -123,12 +123,6 @@
         public const string SelectOverwriteStrategy = "Select an option for saving your basket";
     }
 
-    public class MoreInfoText
-    {
-        public const string INTERPRET_CHARTS =
-            "For more information about this chart, read our guidance on <a href=\"../Help/InterpretingCharts\">Interpreting the data</a>.";
-    }
-
     public class HelpTooltipText
     {
         public const string TargetedGrantsHelp = "This includes: pupil premium, education services grants, SEN, funding for minority ethnic pupils, and pupil-focused extended school funding and/or grants.";

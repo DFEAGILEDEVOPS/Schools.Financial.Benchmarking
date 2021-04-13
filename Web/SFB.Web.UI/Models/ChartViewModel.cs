@@ -75,18 +75,7 @@ namespace SFB.Web.UI.Models
         
         public UnitType ShowValue { get; set; }
 
-        public string MoreInfo
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_moreInfo))
-                {
-                    return _moreInfo;
-                }
-                return $"{_moreInfo}<p>{MoreInfoText.INTERPRET_CHARTS}</p>";
-            }
-            set { _moreInfo = value; }
-        }
+        public string MoreInfo { get; set; }
 
         public List<DataTableColumnViewModel> TableColumns { get; set; }
         public List<ChartViewModel> SubCharts { get; set; }
@@ -100,8 +89,6 @@ namespace SFB.Web.UI.Models
         public decimal? LastYearBalance { get; set; }
 
         public int BenchmarkSchoolIndex { get; set; }
-
-        private string _moreInfo;
 
         public List<int> IncompleteFinanceDataIndex { get; set; }
 
