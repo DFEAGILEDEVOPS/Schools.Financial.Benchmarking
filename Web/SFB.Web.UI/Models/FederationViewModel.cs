@@ -51,7 +51,7 @@ namespace SFB.Web.UI.Models
             {
                 try
                 {
-                    return DateTime.Parse(LatestYearFinancialData.OpenDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                    return DateTime.Parse(ContextData.OpenDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
                 }
                 catch
                 {
@@ -60,21 +60,25 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public decimal? PupilCount => LatestYearFinancialData?.PupilCount;
+        public string OverallPhase => ContextData.OverallPhase;
 
-        public string OverallPhase => LatestYearFinancialData.SchoolOverallPhase;
+        public string Phase => ContextData.PhaseOfEducation;
 
-        public override float TotalPupils => (float)LatestYearFinancialData.PupilCount.GetValueOrDefault();
+        public override float TotalPupils => ContextData.NumberOfPupils.GetValueOrDefault();
 
-        public string HasNursery => (bool)LatestYearFinancialData?.HasNursery ? "Yes" : "No";
+        public string HasNursery => ContextData.NurseryProvision == "Has Nursery Classes" ? "Yes" : "No";
 
-        public string Has6Form => (bool)LatestYearFinancialData?.Has6Form ? "Yes" : "No";
+        public string Has6Form => ContextData.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
-        public new int?  La => LatestYearFinancialData?.LaNumber;
+        public new int?  La => ContextData?.LACode;
+
         public string AgeRange => this.LowestAge == null ? null : $"{this.LowestAge} to {this.HighestAge}";
+
         public List<EdubaseDataObject> SchoolsInFederation { get; set; }
-        private decimal? LowestAge => LatestYearFinancialData?.LowestAgePupils;
-        private decimal? HighestAge => LatestYearFinancialData?.HighestAgePupils;
+
+        private decimal? LowestAge => ContextData?.StatutoryLowAge;
+
+        private decimal? HighestAge => ContextData?.StatutoryHighAge;
 
         public bool IsInComparisonList
         {

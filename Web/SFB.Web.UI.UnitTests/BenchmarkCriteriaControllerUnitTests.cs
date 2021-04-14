@@ -61,8 +61,8 @@ namespace SFB.Web.UI.UnitTests
                 return new List<SchoolTrustFinancialDataObject> { testResult };
             });
 
-            _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
-                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial) => task);
+            _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), false, true))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial, bool excludeFeds) => task);
 
             Task<int> GetLatestFinancialDataYearPerEstabTypeAsyncTask = Task.Run(()=> {
                 return 2015;

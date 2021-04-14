@@ -130,7 +130,7 @@
                 @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @SchoolDetailField("Overall phase:", Model.OverallPhase)
-                @SchoolDetailField("Number of pupils:", Model.PupilCount.ToString())
+                @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
                 @SchoolDetailField("Federation UID:", Model.UID.ToString())
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Has sixth form:", Model.Has6Form)
