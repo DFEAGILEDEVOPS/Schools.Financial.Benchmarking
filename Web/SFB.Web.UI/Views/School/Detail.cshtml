@@ -44,92 +44,51 @@
 
 @if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
+<div class="panel panel-border-wide orange-warning mt-1">
+    <div class="shared-icon-wrapper">
+        <i class="icon icon-important shared-icon">
+            <span class="visually-hidden">Warning</span>
+        </i>
+    </div>
+    @if (Model.IsPartOfFederation)
+    {
+        <div class="combined-warnings" style="width:90%">
+            <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
+        </div> }
+    else
+    {
+        <div class="combined-warnings">
+            @if (!Model.IsReturnsComplete)
+            {
+                <p>
+                    This school doesn't have a complete set of financial data for this period
+                </p>
+            }
+
+            @if (!Model.WorkforceDataPresent)
+            {
+                <p>
+                    This school doesn't have a complete set of workforce data for this period
+                </p>
+            }
+
+            @if (Model.HasNoTeacherData)
+            {
+                <p>
+                    We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                </p>
+            }
+
+            @if (Model.HasNoPupilData)
+            {
+                <p>
+                    We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                </p>
+            }
         </div>
-        @if (Model.IsPartOfFederation)
-        {
-            <div class="combined-warnings" style="width:90%">
-                <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
-            </div>
-        }
-        else
-        {
-            <div class="combined-warnings">
-                @if (!Model.IsReturnsComplete)
-                {
-                    <p>
-                        This school doesn't have a complete set of financial data for this period
-                    </p>
-                }
-
-                @if (!Model.WorkforceDataPresent)
-                {
-                    <p>
-                        This school doesn't have a complete set of workforce data for this period
-                    </p>
-                }
-
-                @if (Model.HasNoTeacherData)
-                {
-                    <p>
-                        We can’t show charts with per teacher values because they weren't supplied within these finance returns
-                    </p>
-                }
-
-                @if (Model.HasNoPupilData)
-                {
-                    <p>
-                        We can’t show charts with per pupil values because they weren't supplied within these finance returns
-                    </p>
-                }
-            </div>
-        }
-    </div>
+    }
+</div>
 }
-
-@*<div class="grid-row">
-    <div class="column-three-quarters">
-        <h1 class="heading-xlarge page-heading">@Model.Name</h1>
-        @if (!Model.IsReturnsDNS)
-        {
-            <div class="hide-in-print returns-complete" id="benchmarkControlsPlaceHolder"></div>
-        }
-        else
-        {
-            <div class="grid-row hide-in-print returns-incomplete" id="benchmarkControlsPlaceHolder"></div>
-        }
-        @if(Model.IsPartOfFederation && !Model.IsFederation)
-        {
-            <div class="panel panel-border-wide">You can now compare this school’s federation <a class="font-small" href="/federation?fuid=@Model.FederationUID">@Model.FederationName</a> against other schools and federations which may give a more accurate comparison.</div>
-        }
-
-    </div>
-    <div class="column-quarter">
-        @if (Model.HasLatestYearFinancialData && Model.CloseDate == null)
-        {
-            <aside class="analytics-links">
-                <h2 class="heading-small">Tools for governors and school business professionals</h2>
-                <ul class="list">
-                    @if(FeatureManager.IsEnabled(Features.EfficiencyMetric)){
-                        <li id="efficiencyMetricLink" style="display: none">
-                            <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name.Replace("(", "%28").Replace(")","%29").Replace("&","%26")">Efficiency metric</a>
-                        </li>
-                    }                    
-                    <li>
-                        <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
-                    </li>
-                    <li>
-                        <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic comparison report</a>
-                    </li>
-                </ul>
-            </aside>
-        }
-    </div>
-</div>*@
 
 <div class="grid-row">
     <div class="column-full">
@@ -138,7 +97,14 @@
             <div class="blue-banner">
                 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
-                <p>There are now several ways for you to compare this school against others.</p>
+                @if (Model.IsPartOfFederation)
+                {
+                    <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.Federation</a> where you can compare it against other schools and federations. Alternatively you can compare this school as usual.</p>
+                }
+                else
+                {
+                    <p>There are now several ways for you to compare this school against others.</p>
+                }
 
                 <a class="button start-button" href="start-benchmarking?urn=@Model.Id" role="button">
                     Start a comparison
@@ -150,7 +116,15 @@
         }
         else
         {
-            <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+            <div class="blue-banner">
+                <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+
+                @if (Model.IsPartOfFederation)
+                {
+                   <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.Federation</a> where you can compare it against other schools and federations. </p>
+                }
+
+            </div>
         }
     </div>
     <div class="column-half mt-2">
@@ -229,11 +203,6 @@
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
-
-                @if (Model.IsPartOfFederation)
-                {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.Federation)
-                }
 
                 @if (Model.IsMAT)
                 {

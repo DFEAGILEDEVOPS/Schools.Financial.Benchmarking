@@ -366,4 +366,16 @@
             margin-bottom: 24px;
         }
     }
+
+    .fed-link {
+        font-weight: bold;
+
+        &:active, &:hover {
+            color: $text-colour;
+        }
+
+        &:visited{
+            color: $page-colour;
+        }
+    }
 }
