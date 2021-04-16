@@ -999,6 +999,7 @@
     <None Include="Properties\PublishProfiles\as-t1pr-sfb-as-t1pr-sfb-new-comparison-flow - Web Deploy.pubxml" />
     <Content Include="Views\School\StartBenchmarking.cshtml" />
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToFederationLink.cshtml" />
+    <Content Include="Views\Federation\StartBenchmarking.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

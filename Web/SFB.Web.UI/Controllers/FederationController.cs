@@ -107,6 +107,13 @@ namespace SFB.Web.UI.Controllers
             return File(Encoding.UTF8.GetBytes(csv), "text/plain", $"HistoricalData-{fuid}.csv");
         }
 
+        [Route("federation/start-benchmarking")]
+        public ViewResult StartBenchmarking(int fuid)
+        {
+            ViewBag.fuid = fuid;
+            return View();
+        }
+
         private async Task<SchoolTrustFinancialDataObject> GetLatestFinance(int fuid)
         {
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Federation);
