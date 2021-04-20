@@ -816,9 +816,9 @@ a.button {
         }
     }
 
-    .download, .print, .pdf, .save {
-        margin: 10px 0 20px 0;
-        padding-left: 5px;
+    .add-remove, .download, .print, .pdf, .save {
+        margin: 10px 0 0px 0;
+   /*     padding-left: 5px;*/
 
         a {
             color: black;
@@ -1273,7 +1273,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         font-weight: 700;
         font-size: 18px;
 
-        &:focus{
+        &:focus {
             color: black;
         }
 
@@ -1286,4 +1286,10 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
             margin-left: 5px;
         }
     }
-}
+
+    @media print {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+ }

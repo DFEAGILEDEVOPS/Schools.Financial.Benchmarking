@@ -11,12 +11,12 @@
             float: left;
             clear: left;
             padding-right: 15px;
-            text-align: right;
+            text-align: left;
             padding-bottom: 15px;
             width: 140px;
 
             @include media(desktop) {
-                width: 190px;
+                width: 170px;
             }
 
             @include media(mobile) {
@@ -255,7 +255,7 @@
     }
 
     .returns-incomplete {
-        .compare-buttons-panel--set-unset, .compare-buttons-panel__button--addto, .compare-buttons-panel__button--compare, .compare-buttons-panel--auto {
+        &.set-unset, &.addto, &.compare, &.auto {
             display: none !important;
         }
     }
@@ -276,7 +276,7 @@
         }
     }
 
-    .print img.icon, .download img.icon {
+    .add-remove img.icon, .print img.icon, .download img.icon {
         width: 24px;
         height: 24px;
         padding-right: 5px;
@@ -374,7 +374,7 @@
             color: $text-colour;
         }
 
-        &:visited{
+        &:visited {
             color: $page-colour;
         }
     }

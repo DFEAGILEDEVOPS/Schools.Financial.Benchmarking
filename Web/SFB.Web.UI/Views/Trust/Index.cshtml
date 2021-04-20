@@ -64,9 +64,9 @@
 
     @if (!Model.IsReturnsDNS)
     {
-        <p>There are several ways for you to compare this trust against others.</p>
+        <p class="hide-in-print">There are several ways for you to compare this trust against others.</p>
 
-        <a class="button start-button" href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name" role="button">
+        <a class="button start-button hide-in-print" href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name" role="button">
             Start a comparison
             <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
                 <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
@@ -76,16 +76,25 @@
 
 </div>
 
-<div class="grid-row">
-    <div class="column-full mt-2">
-        Companies House number:
-        <a class="ml-05" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(Model.CompanyNo.ToString("D8"))">@(Model.CompanyNo)</a>
-    </div>
-    <div class="column-full mt-1">
-        Data from other services:
-        <a class="trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Multi academy trust performance link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Multi academy trust performance</a>
-        <span class="trust-ext-link-seperator">|</span>
-        <a class="trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get more information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get more information</a>
+<div class="grid-row download-links hide-in-print">
+    <div class="column-full pl-0">
+        <div class="column-one-third no-padding">
+            <div class="download">
+                <button class="no-underline link-button bold-xsmall black" onclick="DfE.Views.TrustDetailsViewModel.DownloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data for this trust<span class="visually-hidden"> (CSV)</span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="column-one-third no-padding">
+            <div class="print">
+                <button class="no-underline link-button bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -254,30 +263,25 @@
         </div>
     }
 
-    <div class="column-full mb-1 mt-1">
-        <a href="~/Help/DataQueries" class="hide-in-print">Do you have a query about this trust's data?</a>
-    </div>
 </div>
 
-<div class="grid-row download-links hide-in-print">
+<div class="grid-row metadata-school-detail font-xsmall mt-1">
     <div class="column-full">
-        <div class="column-one-third no-padding">
-            <div class="download">
-                <button class="no-underline link-button bold-xsmall black" onclick="DfE.Views.TrustDetailsViewModel.DownloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
-                    <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
-                    <div id="DownloadLinkTextWrapper" class="inline">
-                        <span id="DownloadLinkText"> Download data for this trust<span class="visually-hidden"> (CSV)</span></span>
-                    </div>
-                </button>
-            </div>
-        </div>
-        <div class="column-one-third no-padding">
-            <div class="print">
-                <button class="no-underline link-button bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
-                    <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
-                </button>
-            </div>
-        </div>
+        <dl class="metadata-school-detail__dl">
+            <dt class="metadata-school-detail__dt">Companies House number:</dt>
+            <dd class="metadata-school-detail__dd bold">
+                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(Model.CompanyNo.ToString("D8"))">@(Model.CompanyNo)</a>
+            </dd>
+            <dt class="metadata-school-detail__dt">Data from other services:</dt>
+            <dd class="metadata-school-detail__dd bold">
+                <a class="trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Multi academy trust performance link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Multi academy trust performance</a>
+                <span class="trust-ext-link-seperator">|</span>
+                <a class="trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get more information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get more information</a>
+            </dd>
+        </dl>
+    </div>
+    <div class="column-full mb-1 mt-1" style="clear: left">
+        <a href="~/Help/DataQueries" class="hide-in-print">Do you have a query about this trust's data?</a>
     </div>
 </div>
 

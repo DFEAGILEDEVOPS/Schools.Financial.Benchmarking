@@ -30,64 +30,54 @@
 @section BackButtonContent{
     @Html.Partial("Partials/BackToHomeLink")
 }
-@*@if (Model.EstablishmentType == EstablishmentType.Maintained)
-{
-<div class="panel panel-border-wide blue-warning mt-1">
-    <div class="shared-icon-wrapper">
-        <i class="icon icon-important shared-icon">
-            <span class="visually-hidden">Warning</span>
-        </i>
-    </div>
-    Due to delays in collecting CFR data owing to Covid-19, publication of updated data for LA maintained schools will not occur within its usual timescales. We apologise for any inconvenience caused.
-</div>
-}*@
 
 @if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
 {
-<div class="panel panel-border-wide orange-warning mt-1">
-    <div class="shared-icon-wrapper">
-        <i class="icon icon-important shared-icon">
-            <span class="visually-hidden">Warning</span>
-        </i>
-    </div>
-    @if (Model.IsPartOfFederation)
-    {
-        <div class="combined-warnings" style="width:90%">
-            <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
-        </div> }
-    else
-    {
-        <div class="combined-warnings">
-            @if (!Model.IsReturnsComplete)
-            {
-                <p>
-                    This school doesn't have a complete set of financial data for this period
-                </p>
-            }
-
-            @if (!Model.WorkforceDataPresent)
-            {
-                <p>
-                    This school doesn't have a complete set of workforce data for this period
-                </p>
-            }
-
-            @if (Model.HasNoTeacherData)
-            {
-                <p>
-                    We can’t show charts with per teacher values because they weren't supplied within these finance returns
-                </p>
-            }
-
-            @if (Model.HasNoPupilData)
-            {
-                <p>
-                    We can’t show charts with per pupil values because they weren't supplied within these finance returns
-                </p>
-            }
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
         </div>
-    }
-</div>
+        @if (Model.IsPartOfFederation)
+        {
+            <div class="combined-warnings" style="width:90%">
+                <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
+            </div>
+        }
+        else
+        {
+            <div class="combined-warnings">
+                @if (!Model.IsReturnsComplete)
+                {
+                    <p>
+                        This school doesn't have a complete set of financial data for this period
+                    </p>
+                }
+
+                @if (!Model.WorkforceDataPresent)
+                {
+                    <p>
+                        This school doesn't have a complete set of workforce data for this period
+                    </p>
+                }
+
+                @if (Model.HasNoTeacherData)
+                {
+                    <p>
+                        We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                    </p>
+                }
+
+                @if (Model.HasNoPupilData)
+                {
+                    <p>
+                        We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                    </p>
+                }
+            </div>
+        }
+    </div>
 }
 
 <div class="grid-row">
@@ -97,16 +87,18 @@
             <div class="blue-banner">
                 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
-                @if (Model.IsPartOfFederation)
-                {
-                    <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.Federation</a> where you can compare it against other schools and federations. Alternatively you can compare this school as usual.</p>
-                }
-                else
-                {
-                    <p>There are now several ways for you to compare this school against others.</p>
-                }
+                <div class="hide-in-print">
+                    @if (Model.IsPartOfFederation)
+                    {
+                        <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.Federation</a> where you can compare it against other schools and federations. Alternatively you can compare this school as usual.</p>
+                    }
+                    else
+                    {
+                        <p>There are now several ways for you to compare this school against others.</p>
+                    }
+                </div>
 
-                <a class="button start-button" href="start-benchmarking?urn=@Model.Id" role="button">
+                <a class="button start-button hide-in-print" href="start-benchmarking?urn=@Model.Id" role="button">
                     Start a comparison
                     <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
                         <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
@@ -121,13 +113,48 @@
 
                 @if (Model.IsPartOfFederation)
                 {
-                   <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.Federation</a> where you can compare it against other schools and federations. </p>
+                    <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.Federation</a> where you can compare it against other schools and federations. </p>
                 }
 
             </div>
         }
+
+
     </div>
-    <div class="column-half mt-2">
+
+    <div class="column-full mt-1 hide-in-print ">
+        @if (Model.IsReturnsDNS)
+        {
+            <div class="column-one-third no-padding returns-incomplete addto">
+                <div class="add-remove" id="benchmarkControlsPlaceHolder"></div>
+            </div>
+        }
+        else
+        {
+            <div class="column-one-third no-padding returns-complete addto">
+                <div class="add-remove" id="benchmarkControlsPlaceHolder"></div>
+            </div>
+        }
+        <div class="column-one-third no-padding">
+            <div class="download">
+                <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.DownloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="column-one-third no-padding">
+            <div class="print">
+                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
+                    Print page
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="column-half mt-1">
         @if (Model.Phase == "Special" && Model.SenCharacteristics.Any(c => c.Value != null))
         {
             <details class="mb-1">
@@ -155,16 +182,7 @@
             </details>
         }
 
-        @if (!Model.IsReturnsDNS)
-        {
-            <div class="hide-in-print returns-complete" id="benchmarkControlsPlaceHolder"></div>
-        }
-        else
-        {
-            <div class="grid-row hide-in-print returns-incomplete" id="benchmarkControlsPlaceHolder"></div>
-        }
-
-        <div class="metadata-school-detail font-xsmall mt-2">
+        <div class="metadata-school-detail font-xsmall mt-1">
             <dl class="metadata-school-detail__dl">
                 @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
                 @if (!string.IsNullOrEmpty(Model.PhoneNumber))
@@ -244,35 +262,8 @@
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
-        @*<div class="govuk-box-highlight">
-                <h3 class="heading-large mt-0 pt-0">
-                    <a target="_blank" rel="external noopener noreferrer" class="govuk-box-highlight__link" href="https://www.gov.uk/government/publications/deals-for-schools/deals-for-schools">Deals for schools<span class="visuallyhidden"> Opens in a new window</span></a>
-                </h3>
-                <p class="font-xsmall pb-0 mb-0">
-                    Find a range of cost-saving deals for schools assessed for compliance with procurement regulations and ease of use by the DfE
-                </p>
-            </div>*@
     </div>
-    <div id="post-map-content" class="column-full hide-in-print">
-        <div class="column-one-third no-padding">
-            <div class="download">
-                <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.DownloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
-                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
-                    <div id="DownloadLinkTextWrapper" class="inline">
-                        <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
-                    </div>
-                </button>
-            </div>
-        </div>
-        <div class="column-one-third no-padding">
-            <div class="print">
-                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
-                    <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
-                    Print page
-                </button>
-            </div>
-        </div>
-    </div>
+    <div id="post-map-content"></div>
 </div>
 
 @Html.Partial("Partials/FinancialSummaryFields")
@@ -282,8 +273,8 @@
     <ul role="tablist">
         <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
             <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")" 
-               class="tab-link" 
+               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")"
+               class="tab-link"
                role="tab"
                aria-controls="tabPanel"
                onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
@@ -291,29 +282,29 @@
                href="javascript: void(0)">@TabNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")" 
+            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")"
                tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
-               class="tab-link" 
-               role="tab" 
+               class="tab-link"
+               role="tab"
                aria-controls="tabPanel"
                onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
                onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')"
                href="javascript: void(0)">@TabNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")" 
-               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")" 
-               class="tab-link" 
-               role="tab" 
+            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
                aria-controls="tabPanel"
                onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
                onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')"
                href="javascript: void(0)">@TabNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")" 
-               tabindex="@(ViewBag.Tab == TabType.Workforce ? "0" : "-1")" 
-               class="tab-link" 
+            <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Workforce ? "0" : "-1")"
+               class="tab-link"
                role="tab"
                aria-controls="tabPanel"
                onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"

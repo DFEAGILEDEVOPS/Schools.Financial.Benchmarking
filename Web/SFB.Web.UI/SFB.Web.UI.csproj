@@ -541,6 +541,7 @@
     <Content Include="public\assets\images\chart.svg" />
     <Content Include="public\assets\images\checklist.svg" />
     <Content Include="public\assets\images\icons\add.svg" />
+    <Content Include="public\assets\images\icons\Add_to_set.svg" />
     <Content Include="public\assets\images\icons\black-arrow.svg" />
     <Content Include="public\assets\images\icons\download.svg" />
     <Content Include="public\assets\images\icons\find.svg" />
@@ -550,6 +551,7 @@
     <Content Include="public\assets\images\icons\info.svg" />
     <Content Include="public\assets\images\icons\location.svg" />
     <Content Include="public\assets\images\icons\print.svg" />
+    <Content Include="public\assets\images\icons\Remove_from_set.svg" />
     <Content Include="public\assets\images\icons\save.svg" />
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
