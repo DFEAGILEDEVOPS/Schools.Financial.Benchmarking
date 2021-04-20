@@ -222,6 +222,11 @@
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
                 @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
 
+                @if (Model.IsPartOfFederation)
+                {
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.Federation)
+                }
+
                 @if (Model.IsMAT)
                 {
                     if (Model.UID != null)
