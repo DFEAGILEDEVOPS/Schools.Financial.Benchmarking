@@ -369,13 +369,10 @@
 
     .fed-link {
         font-weight: bold;
+        color: $page-colour;
 
         &:active, &:hover {
             color: $text-colour;
-        }
-
-        &:visited {
-            color: $page-colour;
         }
     }
 }
