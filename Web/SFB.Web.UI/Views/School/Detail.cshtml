@@ -90,7 +90,7 @@
                 <div class="hide-in-print">
                     @if (Model.IsPartOfFederation)
                     {
-                        <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.Federation</a> where you can compare it against other schools and federations. Alternatively you can compare this school as usual.</p>
+                        <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> where you can compare it against other schools and federations. Alternatively you can compare this school as usual.</p>
                     }
                     else
                     {
@@ -113,7 +113,7 @@
 
                 @if (Model.IsPartOfFederation)
                 {
-                    <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.Federation</a> where you can compare it against other schools and federations. </p>
+                    <p>You can now view this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> where you can compare it against other schools and federations. </p>
                 }
 
             </div>
@@ -224,7 +224,7 @@
 
                 @if (Model.IsPartOfFederation)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.Federation)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.FederationName)
                 }
 
                 @if (Model.IsMAT)

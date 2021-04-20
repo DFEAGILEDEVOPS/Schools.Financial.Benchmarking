@@ -238,8 +238,7 @@ namespace SFB.Web.UI.Models
         //public int? FederationUID => ContextData.FederationUid;
         //public int[] FederationMembers => ContextData.FederationMembers; 
         public int? FederationsCode => ContextData.FederationsCode;
-        public string FederationName => ContextData.FederationName;        
-        public string Federation => ContextData.Federation;        
+        public string FederationName => ContextData.FederationName;              
         public bool IsPartOfFederation => FederationsCode.HasValue;
 
         public bool HasCoordinates
