@@ -180,6 +180,10 @@ else
                             </div>
                             <span>&nbsp;using</span>
                             <span class="bold-xsmall"> efficiency metric characteristics. </span>
+                            @if (Model.ComparisonType == ComparisonType.EfficiencyManual)
+                            {
+                                <a href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/manual-comparison/@Model.SchoolComparisonList.HomeSchoolUrn" class="font-xsmall no-padding hide-in-print">Back to school selection</a>
+                            }
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.BestInClass && Model.AdvancedCriteria != null)
