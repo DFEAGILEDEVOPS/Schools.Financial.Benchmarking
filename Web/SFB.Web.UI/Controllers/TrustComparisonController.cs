@@ -80,7 +80,7 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GenerateListFromAdvancedCriteria(BenchmarkCriteriaVM criteria)
+        public async Task<ActionResult> GenerateListFromAdvancedCriteria(BenchmarkCriteriaVM criteria, ComparisonType? comparison = null)
         {
             if (!ModelState.IsValid)
             {
@@ -100,6 +100,7 @@ namespace SFB.Web.UI.Controllers
             }
             
             TempData["BenchmarkCriteria"] = criteria.AdvancedCriteria;
+            TempData["ComparisonType"] = comparison;
             return Redirect("/BenchmarkCharts/Mats");
         }
 

@@ -48,7 +48,7 @@
         ViewBag.Name = Model.SchoolComparisonList.HomeSchoolName;
         @Html.Partial("Partials/Breadcrumbs/BackToFederationLink")
     }
-    else if (Model.ComparisonType != ComparisonType.Manual && Model.SchoolComparisonList.HomeSchoolUrn != null)
+    else if (Model.ComparisonType != ComparisonType.Manual && Model.SchoolComparisonList?.HomeSchoolUrn != null)
     {
         ViewBag.HomeSchoolId = Model.SchoolComparisonList.HomeSchoolUrn;
         ViewBag.HomeSchoolName = Model.SchoolComparisonList.HomeSchoolName;
@@ -262,7 +262,7 @@ else
                         <span class="bold-xsmall">@Model.TrustComparisonList.DefaultTrustName</span>
                     </a>
                 </div>
-                @if (ViewBag.comparison == ComparisonType.Manual)
+                @if (ViewBag.ComparisonType == ComparisonType.Manual)
                 {
                     <span>&nbsp;to selected trusts. You can </span>
                     <a href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>

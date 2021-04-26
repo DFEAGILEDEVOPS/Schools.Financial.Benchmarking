@@ -699,7 +699,7 @@ namespace SFB.Web.UI.Controllers
             return View("Index", vm);
         }
 
-        public async Task<ActionResult> Mats(TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ComparisonType? comparison = null)
+        public async Task<ActionResult> Mats(TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies)
         {
             var chartGroup = DetermineDefaultChartGroup(tab);
             var defaultUnitType = DetermineDefaultUnitType(ComparisonType.Basic, tab);
@@ -710,7 +710,8 @@ namespace SFB.Web.UI.Controllers
             var maintainedTerm = SchoolFormatHelpers.FinancialTermFormatMaintained(await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Maintained));
             
             var usedCriteria = TempData["BenchmarkCriteria"] as BenchmarkCriteria;
-            var vm = new BenchmarkChartListViewModel(benchmarkCharts, null, chartGroups, ComparisonType.Manual, usedCriteria, null, null, null, EstablishmentType.MAT, 
+            var comparisonType = TempData["ComparisonType"] as ComparisonType? ?? ComparisonType.Manual;
+            var vm = new BenchmarkChartListViewModel(benchmarkCharts, null, chartGroups, comparisonType, usedCriteria, null, null, null, EstablishmentType.MAT, 
                 EstablishmentType.MAT, null, null, academiesTerm, maintainedTerm, ComparisonArea.All, null, 0, ComparisonListLimit.DEFAULT,
                 _trustBenchmarkListService.GetTrustBenchmarkList());
 
@@ -720,7 +721,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.HomeSchoolId = vm.TrustComparisonList.DefaultTrustCompanyNo;
             ViewBag.EstablishmentType = vm.EstablishmentType;
             ViewBag.TrustFinancing = financing;
-            ViewBag.Comparison = comparison;
+            ViewBag.ComparisonType = comparisonType;
 
             return View("Index", vm);
         }
