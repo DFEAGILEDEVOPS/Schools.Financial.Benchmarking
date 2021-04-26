@@ -28,7 +28,7 @@
 
         &__dd {
             display: block;
-            float: left;
+            /*float: left;*/
             text-align: left;
             padding-right: 5px;
             padding-bottom: 3px;
@@ -37,11 +37,11 @@
             padding-bottom: 15px;
 
             @include media(mobile) {
-                max-width: 165px;
+                max-width: 130px;
             }
 
             @include media(tablet) {
-                max-width: 165px;
+                max-width: 135px;
             }
 
             @include media(desktop) {
