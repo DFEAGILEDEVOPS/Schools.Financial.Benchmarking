@@ -9,14 +9,7 @@
 }
 
 @section BackButtonContent{
-    @if (ViewBag.HomeSchoolId != null)
-    {
-        <a class="govuk-back-link hide-in-print" href="../../school/detail?urn=@ViewBag.HomeSchoolId" aria-label="Back to @ViewBag.HomeSchoolName">Back</a>
-    }
-    else
-    {
-        <a class="govuk-back-link hide-in-print" href="@ViewBag.referrer">Back</a>
-    }
+    <a class="govuk-back-link hide-in-print" href="@ViewBag.referrer">Back</a>
 }
 
 @if (Model.HasError())
