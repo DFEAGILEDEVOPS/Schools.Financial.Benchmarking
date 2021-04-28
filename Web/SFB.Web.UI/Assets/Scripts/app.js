@@ -491,7 +491,7 @@
 
         manageCookies();
 
-        $(document).on("click", "a,.js-track", window.DfE.Util.Analytics.TrackClick);
+        //$(document).on("click", "a,.js-track", window.DfE.Util.Analytics.TrackClick);
 
         $(document).on("click", ".expander > span,.label > a", function () {
             var $ele = $(this).closest(".expander");
