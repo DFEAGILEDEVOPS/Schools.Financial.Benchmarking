@@ -89,6 +89,13 @@
                     <label class="selection-button-radio" for="radio-2">
                         Detailed comparison using characteristics you choose
                     </label>
+                                            <span class="help-icon tb inline-block hide-in-print">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" role="button" data-modal-title="Detailed comparison" data-modal-text="@HelpTooltipText.DetailedComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
+                                    <span class="visuallyhidden">Open more info text for detailed comparison - opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
                 </div>
 
                 <div class="multiple-choice">
@@ -96,6 +103,13 @@
                     <label class="selection-button-radio" for="radio-4">
                         Manual comparison by name or location
                     </label>
+                    <span class="help-icon tb inline-block hide-in-print">
+                        <span class="icon dark-blue">
+                            <a href="#" class="js-modal" role="button" data-modal-title="Manual comparison" data-modal-text="@HelpTooltipText.ManualComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
+                                <span class="visuallyhidden">Open more info text for manual comparison - opens a popup</span>
+                            </a>
+                        </span>
+                    </span>
                 </div>
 
                 @*@if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)

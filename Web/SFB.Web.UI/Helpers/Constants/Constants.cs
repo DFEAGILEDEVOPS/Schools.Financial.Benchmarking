@@ -161,6 +161,19 @@
             "<li>Percentage of SEN characteristics</li>"+
           "</ul>";
 
+        public const string DetailedComparisonExplanation = "<p>This type of comparison allows you to tailor a comparison set of schools that match value ranges of school characteristics that you specify. These include:</p>" +
+        "<ul>"+
+            "<li>General characteristics (such as education phases, pupil size ranges, age ranges, FSM percentages, school types, London weighting, etc.)</li>"+
+            "<li>SEN primary need percentage ranges,</li>"+
+            "<li>Performance measures, and</li>" +
+            "<li>Workforce profiles.</li>"+
+        "</ul><br>"+
+        "<p>A count of schools matching the criteria selected so far is updated and shown while you select and adjust your criteria. This allows you to tailor a benchmark comparison set of suitable size with schools you know have similar characteristics. </p>";
+
+        public const string ManualComparisonExplanation = "<p>This type of comparison allows you to select specific schools to add to a benchmark set. This can be done by you adding schools by their name, or by adding schools schools from a list of schools found in a radius search near an address you specify or by selecting schools from a list of all schools within a local authority.</ p>" +
+            "<p>The location and local authority lists can be filtered down on education phase, school type, Ofsted rating and/or religious character.</p>" +
+            "<p>Using this method you can manually select up to 30 schools for a comparison.</p>";
+
         public const string TrustFinance = "Multi-academy trusts submit finance for each of their academies, they may also submit finance specific to the trust itself.  In order to allow like-for-like comparisons users are able to include or exclude a calculated share of trust finance to each academy within the trust. On this website, we make this calculation on a simple per-pupil basis by dividing the trust’s declared finance by the total number of pupils in the trust that year." +
             "<p>This method makes simple comparisons possible, but it is not necessarily indicative of how allocations are made by trusts in practice.</p>";
     }
