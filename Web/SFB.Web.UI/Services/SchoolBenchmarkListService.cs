@@ -21,7 +21,7 @@ namespace SFB.Web.UI.Services
             _financialDataService = financialDataService;
         }
 
-        public async Task TryAddSchoolToBenchmarkListAsync(int urn)
+        public async Task TryAddSchoolToBenchmarkListAsync(long urn)
         {
             var schoolDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
             if (schoolDataObject != null)
@@ -33,7 +33,7 @@ namespace SFB.Web.UI.Services
                 catch (ApplicationException) { }//ignore duplicate add
             }
         }
-        public async Task AddSchoolToBenchmarkListAsync(int urn)
+        public async Task AddSchoolToBenchmarkListAsync(long urn)
         {
             var contextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
             if (contextData != null)
@@ -101,7 +101,7 @@ namespace SFB.Web.UI.Services
             }
         }
 
-        public async Task AddSchoolsToBenchmarkListAsync(ComparisonType comparison, List<int> urnList)
+        public async Task AddSchoolsToBenchmarkListAsync(ComparisonType comparison, List<long> urnList)
         {
             var benchmarkSchoolDataObjects = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(urnList);
 
@@ -111,7 +111,7 @@ namespace SFB.Web.UI.Services
 
                 if (comparison == ComparisonType.BestInClass)
                 {
-                    var schoolFinancialData = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(int.Parse(benchmarkSchoolToAdd.Urn), (EstablishmentType)Enum.Parse(typeof(EstablishmentType), benchmarkSchoolToAdd.EstabType));
+                    var schoolFinancialData = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(long.Parse(benchmarkSchoolToAdd.Urn), (EstablishmentType)Enum.Parse(typeof(EstablishmentType), benchmarkSchoolToAdd.EstabType));
                     benchmarkSchoolToAdd.ProgressScore = schoolFinancialData.ProgressScore;
                 }
                 TryAddSchoolToBenchmarkList(benchmarkSchoolToAdd);
@@ -133,7 +133,7 @@ namespace SFB.Web.UI.Services
             UpdateSchoolComparisonListCookie(CookieActions.SetDefault, benchmarkSchool);            
         }
 
-        public async Task SetSchoolAsDefaultAsync(int urn)
+        public async Task SetSchoolAsDefaultAsync(long urn)
         {
             var benchmarkSchoolDataObject = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
 
@@ -162,7 +162,7 @@ namespace SFB.Web.UI.Services
             UpdateSchoolComparisonListCookie(CookieActions.UnsetDefault);
         }
 
-        public async Task RemoveSchoolFromBenchmarkListAsync(int urn)
+        public async Task RemoveSchoolFromBenchmarkListAsync(long urn)
         {
             var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
 

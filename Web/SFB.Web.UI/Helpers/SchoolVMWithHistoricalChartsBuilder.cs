@@ -38,7 +38,7 @@ namespace SFB.Web.UI.Helpers
             _laSearchService = laSearchService;
         }
 
-        public async Task BuildCoreAsync(int urn)
+        public async Task BuildCoreAsync(long urn)
         {
             SchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _schoolBenchmarkListService.GetSchoolBenchmarkList());
         }
@@ -76,7 +76,7 @@ namespace SFB.Web.UI.Helpers
             return SchoolVM;
         }
 
-        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
+        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(long urn, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var models = new List<FinancialDataModel>();
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(estabType);
@@ -110,7 +110,7 @@ namespace SFB.Web.UI.Helpers
             return models;
         }
 
-        private async Task<FinancialDataModel> GetLatestFinancialDataAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
+        private async Task<FinancialDataModel> GetLatestFinancialDataAsync(long urn, EstablishmentType estabType, CentralFinancingType cFinance)
         { 
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(estabType);
             var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);

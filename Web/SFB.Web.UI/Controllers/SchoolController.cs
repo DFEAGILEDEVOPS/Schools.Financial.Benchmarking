@@ -47,7 +47,7 @@ namespace SFB.Web.UI.Controllers
         [OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
         public async Task<ActionResult> Detail( 
-            int urn, 
+            long urn, 
             UnitType unit = UnitType.AbsoluteMoney, 
             CentralFinancingType financing = CentralFinancingType.Include, 
             TabType tab = TabType.Expenditure, 
@@ -82,7 +82,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [Route("school/start-benchmarking")]
-        public async Task<ViewResult> StartBenchmarking(int urn)
+        public async Task<ViewResult> StartBenchmarking(long urn)
         {
             await _schoolVMBuilder.BuildCoreAsync(urn);
             await _schoolVMBuilder.AddLatestYearFinanceAsync();
@@ -91,7 +91,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         public async Task<PartialViewResult> GetCharts(
-        int urn,
+        long urn,
         TabType revGroup,
         ChartGroupType chartGroup,
         UnitType unit,
@@ -111,7 +111,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Chart", schoolVM);
         }
 
-        public async Task<ActionResult> Download(int urn)
+        public async Task<ActionResult> Download(long urn)
         {
             await _schoolVMBuilder.BuildCoreAsync(urn);
             await _schoolVMBuilder.AddHistoricalChartsAsync(TabType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, UnitType.AbsoluteMoney);
@@ -125,7 +125,7 @@ namespace SFB.Web.UI.Controllers
         [HttpHead]
         [AllowAnonymous]
         [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]
-        public async Task<ActionResult> Status(int urn)
+        public async Task<ActionResult> Status(long urn)
         {
             try
             {
@@ -139,7 +139,7 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        public async Task<PartialViewResult> UpdateBenchmarkBasket(int? urn, CookieActions withAction)
+        public async Task<PartialViewResult> UpdateBenchmarkBasket(long? urn, CookieActions withAction)
         {          
             if (urn.HasValue)
             {
@@ -186,7 +186,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));
         }
 
-        public async Task<PartialViewResult> GetBenchmarkControls(int urn)
+        public async Task<PartialViewResult> GetBenchmarkControls(long urn)
         {
             return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList()));
         }

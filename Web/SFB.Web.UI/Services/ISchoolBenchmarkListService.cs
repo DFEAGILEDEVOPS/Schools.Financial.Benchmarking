@@ -8,8 +8,8 @@ namespace SFB.Web.UI.Services
 {
     public interface ISchoolBenchmarkListService
     {
-        Task TryAddSchoolToBenchmarkListAsync(int urn);
-        Task AddSchoolToBenchmarkListAsync(int urn);
+        Task TryAddSchoolToBenchmarkListAsync(long urn);
+        Task AddSchoolToBenchmarkListAsync(long urn);
         void AddSchoolToBenchmarkList(SchoolViewModel bmSchool);        
         void AddFederationToBenchmarkList(FederationViewModel bmFederation);        
         void TryAddSchoolToBenchmarkList(SchoolViewModel bmSchool);        
@@ -17,9 +17,9 @@ namespace SFB.Web.UI.Services
         void AddSchoolToBenchmarkList(BenchmarkSchoolModel bmSchool);
         void TryAddSchoolToBenchmarkList(BenchmarkSchoolModel bmSchool);
         void AddSchoolsToBenchmarkList(ComparisonResult comparisonResult);
-        Task AddSchoolsToBenchmarkListAsync(ComparisonType comparison, List<int> urnList);
+        Task AddSchoolsToBenchmarkListAsync(ComparisonType comparison, List<long> urnList);
         
-        Task SetSchoolAsDefaultAsync(int urn);
+        Task SetSchoolAsDefaultAsync(long urn);
         void SetSchoolAsDefault(SchoolViewModel benchmarkSchool);        
         void SetFederationAsDefault(FederationViewModel benchmarkSchool);        
         void SetSchoolAsDefault(BenchmarkSchoolModel benchmarkSchool);
@@ -31,7 +31,7 @@ namespace SFB.Web.UI.Services
 
         void ClearSchoolBenchmarkList();
 
-        Task RemoveSchoolFromBenchmarkListAsync(int urn);
+        Task RemoveSchoolFromBenchmarkListAsync(long urn);
     }
 
 }

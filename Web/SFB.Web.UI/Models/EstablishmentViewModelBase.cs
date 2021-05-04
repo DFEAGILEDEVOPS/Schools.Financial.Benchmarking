@@ -13,7 +13,7 @@ namespace SFB.Web.UI.Models
 
         public abstract string Type { get; }
 
-        public abstract int Id { get;}
+        public abstract long Id { get;}
 
         public abstract float TotalPupils { get; }
 

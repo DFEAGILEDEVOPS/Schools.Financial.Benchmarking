@@ -9,10 +9,10 @@ namespace SFB.Web.UI.Models
 {
     public class FederationViewModel : EstablishmentViewModelBase
     {
-        public override int Id => UID.GetValueOrDefault();
+        public override long Id => UID.GetValueOrDefault();
 
-        public int? _uid;
-        public int? UID
+        public long? _uid;
+        public long? UID
         {
             set { _uid = value; }
             get
@@ -43,7 +43,7 @@ namespace SFB.Web.UI.Models
 
         public override EstablishmentType EstablishmentType => EstablishmentType.Federation;
 
-        public int[] FederationMembersURNs => ContextData.FederationMembers;
+        public long[] FederationMembersURNs => ContextData.FederationMembers;
 
         public string OpenDate
         {
@@ -92,7 +92,7 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public FederationViewModel(int uid)
+        public FederationViewModel(long uid)
         {
             this.UID = uid;
         }
@@ -102,7 +102,7 @@ namespace SFB.Web.UI.Models
             this.ContextData = contextDataModel;
         }
 
-        public FederationViewModel(int uid, SchoolComparisonListModel comparisonList = null)
+        public FederationViewModel(long uid, SchoolComparisonListModel comparisonList = null)
         : this(uid)
         {
             base.ComparisonList = comparisonList;

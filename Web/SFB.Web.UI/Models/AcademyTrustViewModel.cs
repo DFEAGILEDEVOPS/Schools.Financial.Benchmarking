@@ -7,7 +7,7 @@ namespace SFB.Web.UI.Models
 {
     public class AcademyTrustViewModel : EstablishmentViewModelBase
     {
-        public override int Id => Uid;
+        public override long Id => Uid;
 
         public int Code { get; set; }
 

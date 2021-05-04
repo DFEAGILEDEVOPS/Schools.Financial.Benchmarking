@@ -31,7 +31,7 @@ namespace SFB.Web.UI.Controllers
             return View();
         }
 
-        public ActionResult DataQueries(int? urn, string schoolName)
+        public ActionResult DataQueries(long? urn, string schoolName)
         {
             ViewBag.Urn = urn;
             ViewBag.SchoolName = schoolName;
@@ -106,7 +106,7 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DataQuerySubmission(DataQueryViewModel dataQuery, int? urn, string schoolName)
+        public async Task<ActionResult> DataQuerySubmission(DataQueryViewModel dataQuery, long? urn, string schoolName)
         {
             ViewBag.ModelState = ModelState;
             if (ModelState.IsValid)

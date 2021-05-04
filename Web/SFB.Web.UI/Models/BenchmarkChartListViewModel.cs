@@ -25,7 +25,7 @@ namespace SFB.Web.UI.Models
         public string LatestTermMaintained { get; set; }
         public ComparisonArea AreaType { get; }
         public string LaCode { get; }
-        public int? URN { get; }
+        public long? URN { get; }
 
         public bool HasIncompleteFinancialData
         {
@@ -63,7 +63,7 @@ namespace SFB.Web.UI.Models
         public BenchmarkChartListViewModel(List<ChartViewModel> modelList, SchoolComparisonListModel comparisonList, List<ChartViewModel> chartGroups, 
             ComparisonType comparisonType, BenchmarkCriteria advancedCriteria, SimpleCriteria simpleCriteria, BestInClassCriteria bicCriteria, 
             FinancialDataModel benchmarkSchoolData, EstablishmentType estabType, EstablishmentType searchedEstabType, string schoolArea, string selectedArea, 
-            string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, int? urn, int basketSize, 
+            string latestTermAcademies, string latestTermMaintained, ComparisonArea areaType, string laCode, long? urn, int basketSize, 
             TrustComparisonListModel trustComparisonList = null, List<EstablishmentViewModelBase> comparisonSchools = null, bool excludePartial = false)
             :base(modelList, comparisonList)
         {

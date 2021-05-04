@@ -312,7 +312,7 @@ namespace SFB.Web.UI.UnitTests
         {
              var GetSchoolDataObjectByUrnAsyncTask = Task.Run(()=> new EdubaseDataObject { URN = 123456 });
 
-            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123456)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
+            _mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123456)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             var controller = new SchoolSearchController(_mockLaService.Object, 
                 _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 

@@ -50,7 +50,7 @@ namespace SFB.Web.UI.Models
 
         public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == ContextData.URN.ToString();
 
-        public override int Id => ContextData.URN;
+        public override long Id => ContextData.URN;
 
         public string LaEstab => $"{ContextData.LACode} {ContextData.EstablishmentNumber}";
 
@@ -237,7 +237,7 @@ namespace SFB.Web.UI.Models
         //public bool IsFederation => ContextData.IsFederation;
         //public int? FederationUID => ContextData.FederationUid;
         //public int[] FederationMembers => ContextData.FederationMembers; 
-        public int? FederationsCode => ContextData.FederationsCode;
+        public long? FederationsCode => ContextData.FederationsCode;
         public string FederationName => ContextData.FederationName;              
         public bool IsPartOfFederation => FederationsCode.HasValue;
 

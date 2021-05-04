@@ -29,7 +29,7 @@ namespace SFB.Web.UI.Controllers
         {
             var comparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
             
-            var benchmarkSchoolDataObjects = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
+            var benchmarkSchoolDataObjects = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(comparisonList.BenchmarkSchools.Select(b => long.Parse(b.Urn)).ToList());
 
             comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
@@ -72,7 +72,7 @@ namespace SFB.Web.UI.Controllers
             return View(comparisonList);
         }
 
-        public async Task<PartialViewResult> UpdateBenchmarkBasket(int? urn, CookieActions withAction)
+        public async Task<PartialViewResult> UpdateBenchmarkBasket(long? urn, CookieActions withAction)
         {
             if (urn.HasValue)
             {

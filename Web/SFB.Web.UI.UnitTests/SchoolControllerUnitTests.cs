@@ -62,7 +62,7 @@ namespace SFB.Web.UI.UnitTests
                 return fakeEdubaseObject;
             });
 
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -111,7 +111,7 @@ namespace SFB.Web.UI.UnitTests
             {
                 return fakeEdubaseObject;
             });
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             var financialCalculationsService = new Mock<IFinancialCalculationsService>();
 
@@ -159,7 +159,7 @@ namespace SFB.Web.UI.UnitTests
                 };
             });
 
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
             mockHistoricalChartBuilder
@@ -207,7 +207,7 @@ namespace SFB.Web.UI.UnitTests
         //    var testEduResult = new EdubaseDataObject();
         //    testEduResult.URN = 123;
         //    testEduResult.FinanceType = "Maintained";
-        //    mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+        //    mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((long urn) => testEduResult);
 
         //    var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
         //    mockHistoricalChartBuilder
@@ -235,7 +235,7 @@ namespace SFB.Web.UI.UnitTests
 
         //    mockApiRequest
         //        .Setup(ar => ar.SptReportExists(It.IsAny<int>()))
-        //        .Returns((int urn) => true);
+        //        .Returns((long urn) => true);
 
         //    var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
         //        mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object, mockActiveUrnsService.Object);
@@ -255,7 +255,7 @@ namespace SFB.Web.UI.UnitTests
         //    var testEduResult = new EdubaseDataObject();
         //    testEduResult.URN = 123;
         //    testEduResult.FinanceType = "Maintained";
-        //    mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((int urn) => testEduResult);
+        //    mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrn(123)).Returns((long urn) => testEduResult);
 
         //    var mockHistoricalChartBuilder = new Mock<IHistoricalChartBuilder>();
         //    mockHistoricalChartBuilder
@@ -283,7 +283,7 @@ namespace SFB.Web.UI.UnitTests
 
         //    mockApiRequest
         //        .Setup(ar => ar.SptReportExists(It.IsAny<int>()))
-        //        .Returns((int urn) => false);
+        //        .Returns((long urn) => false);
 
         //    var controller = new SchoolController(mockHistoricalChartBuilder.Object, mockFinancialDataService.Object, financialCalculationsService.Object, 
         //        mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockApiRequest.Object, mockLaSearchService.Object, mockActiveUrnsService.Object);

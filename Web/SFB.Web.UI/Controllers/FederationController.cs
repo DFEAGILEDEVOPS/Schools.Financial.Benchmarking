@@ -45,7 +45,7 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketService = benchmarkBasketService;
         }
 
-        public async Task<ActionResult> Index(int fuid,
+        public async Task<ActionResult> Index(long fuid,
             UnitType unit = UnitType.AbsoluteMoney,
             TabType tab = TabType.Expenditure,
             ChartFormat format = ChartFormat.Charts)
@@ -65,7 +65,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         public async Task<PartialViewResult> GetCharts(
-            int fuid,
+            long fuid,
             TabType revGroup,
             ChartGroupType chartGroup,
             UnitType unit,
@@ -82,7 +82,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Chart", vm);
         }
 
-        public async Task<JsonResult> GetMapData(int fuid)
+        public async Task<JsonResult> GetMapData(long fuid)
         {
             var context = await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid);
             var schoolsInFederation = (await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(context.FederationMembers.ToList())).Select(d => new SchoolViewModel(d));
@@ -97,7 +97,7 @@ namespace SFB.Web.UI.Controllers
             return Json(new { count = results.Count, results = results }, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<ActionResult> Download(int fuid)
+        public async Task<ActionResult> Download(long fuid)
         {
 
             var vm = await BuildFederationViewModelAsync(fuid, TabType.AllExcludingSchoolPerf, ChartGroupType.All, UnitType.AbsoluteMoney);
@@ -108,13 +108,13 @@ namespace SFB.Web.UI.Controllers
         }
 
         [Route("federation/start-benchmarking")]
-        public ViewResult StartBenchmarking(int fuid)
+        public ViewResult StartBenchmarking(long fuid)
         {
             ViewBag.fuid = fuid;
             return View();
         }
 
-        private async Task<SchoolTrustFinancialDataObject> GetLatestFinance(int fuid)
+        private async Task<SchoolTrustFinancialDataObject> GetLatestFinance(long fuid)
         {
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Federation);
             var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
@@ -122,7 +122,7 @@ namespace SFB.Web.UI.Controllers
             return finance;
         }
 
-        private async Task<FederationViewModel> BuildFederationViewModelAsync(int fuid, TabType tab, ChartGroupType chartGroup, UnitType unitType)
+        private async Task<FederationViewModel> BuildFederationViewModelAsync(long fuid, TabType tab, ChartGroupType chartGroup, UnitType unitType)
         {
             var vm = new FederationViewModel(fuid, _benchmarkBasketService.GetSchoolBenchmarkList());
 
@@ -142,7 +142,7 @@ namespace SFB.Web.UI.Controllers
             return vm;
         }
 
-        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int fuid)
+        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(long fuid)
         {
             var models = new List<FinancialDataModel>();
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Federation);

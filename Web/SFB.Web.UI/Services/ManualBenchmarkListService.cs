@@ -29,13 +29,13 @@ namespace SFB.Web.UI.Services
             UpdateManualComparisonListCookie(CookieActions.Add, new BenchmarkSchoolModel(bmSchool));
         }
 
-        public async Task AddSchoolToManualBenchmarkListAsync(int urn)
+        public async Task AddSchoolToManualBenchmarkListAsync(long urn)
         {
             var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
             AddSchoolToManualBenchmarkList(benchmarkSchool);
         }
 
-        public async Task RemoveSchoolFromManualBenchmarkListAsync(int urn)
+        public async Task RemoveSchoolFromManualBenchmarkListAsync(long urn)
         {
             var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
 
@@ -62,7 +62,7 @@ namespace SFB.Web.UI.Services
             UpdateManualComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel(schoolComparisonList));
         }
 
-        public async Task SetSchoolAsDefaultInManualBenchmarkList(int urn)
+        public async Task SetSchoolAsDefaultInManualBenchmarkList(long urn)
         {
             var bmSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), null);
             UpdateManualComparisonListCookie(CookieActions.SetDefault, new BenchmarkSchoolModel(bmSchool));

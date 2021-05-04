@@ -10,7 +10,7 @@ namespace SFB.Web.UI.Models
     {
         private string _trustName;
 
-        public override int Id => UID.GetValueOrDefault();
+        public override long Id => UID.GetValueOrDefault();
 
         public int Code { get; set; }
 

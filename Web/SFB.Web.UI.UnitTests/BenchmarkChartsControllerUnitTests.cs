@@ -86,12 +86,12 @@ namespace SFB.Web.UI.UnitTests
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), false, true))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial, bool excludeFeds) => SearchSchoolsByCriteriaAsyncTask);
             mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModelAsync(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
-                .Returns((int urn, EstablishmentType estType) => GetSchoolsLatestFinancialDataModelAsyncTask);
+                .Returns((long urn, EstablishmentType estType) => GetSchoolsLatestFinancialDataModelAsyncTask);
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(321)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(321)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask);
 
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask_2);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask_2);
 
             var mockComparisonService = new Mock<IComparisonService>();
             Task<ComparisonResult> cTask = Task.Run(() =>
@@ -179,7 +179,7 @@ namespace SFB.Web.UI.UnitTests
                 return new EdubaseDataObject { URN = 321, EstablishmentName = "test" };
             });
 
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(321)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(321)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             Task<EdubaseDataObject> GetSchoolDataObjectByUrnAsyncTask_2 = Task.Run(() =>
             {
@@ -195,12 +195,12 @@ namespace SFB.Web.UI.UnitTests
                 return new FinancialDataModel("321", "2017-18", new SchoolTrustFinancialDataObject(), EstablishmentType.Academies);
             });
 
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask_2);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask_2);
 
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), false, true))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial, bool excludeFeds) => task);
             mockDocumentDbService.Setup(m => m.GetSchoolsLatestFinancialDataModelAsync(It.IsAny<int>(), It.IsAny<EstablishmentType>()))
-                .Returns((int urn, EstablishmentType estType) => GetSchoolsLatestFinancialDataModelAsyncTask);
+                .Returns((long urn, EstablishmentType estType) => GetSchoolsLatestFinancialDataModelAsyncTask);
 
             var mockBenchmarkChartBuilder = new Mock<IBenchmarkChartBuilder>();
             mockBenchmarkChartBuilder
@@ -285,7 +285,7 @@ namespace SFB.Web.UI.UnitTests
                 return new EdubaseDataObject { URN = 321, EstablishmentName = "test" };
             });
 
-            mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(321)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
+            mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(321)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             Task<EdubaseDataObject> GetSchoolDataObjectByUrnAsyncTask_2 = Task.Run(() =>
             {
@@ -296,7 +296,7 @@ namespace SFB.Web.UI.UnitTests
                     FinanceType = "Academies"
                 };
             });
-            mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask_2);
+            mockContextDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask_2);
 
             mockFinancialDataService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), false, true))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial, bool excludeFeds) => task);
@@ -387,7 +387,7 @@ namespace SFB.Web.UI.UnitTests
             {
                 return new EdubaseDataObject { URN = 321, EstablishmentName = "test" };
             });
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(321)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(321)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask);
 
             Task<EdubaseDataObject> GetSchoolDataObjectByUrnAsyncTask_2 = Task.Run(() =>
             {
@@ -398,7 +398,7 @@ namespace SFB.Web.UI.UnitTests
                     FinanceType = "Academies"
                 };
             });
-            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((int urn) => GetSchoolDataObjectByUrnAsyncTask_2);
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns((long urn) => GetSchoolDataObjectByUrnAsyncTask_2);
 
             mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), false, true))
                 .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial, bool excludeFeds) => task);

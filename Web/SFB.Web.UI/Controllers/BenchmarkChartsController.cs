@@ -70,11 +70,11 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> GenerateFromSavedBasket(string urns, string companyNumbers, int? @default, BenchmarkListOverwriteStrategy? overwriteStrategy, ComparisonType comparison = ComparisonType.Manual)
         {
-            List<int> urnList = null;
+            List<long> urnList = null;
             List<int> companyNoList = null;
             try
             {
-                urnList = urns?.Split('-').Select(urn => int.Parse(urn)).ToList();
+                urnList = urns?.Split('-').Select(urn => long.Parse(urn)).ToList();
                 companyNoList = companyNumbers?.Split('-').Select(cn => int.Parse(cn)).ToList();
             }
             catch (Exception)
@@ -260,7 +260,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateFromSimpleCriteria(int? urn, int? fuid, EstablishmentType estType, SimpleCriteria simpleCriteria, int basketSize = ComparisonListLimit.DEFAULT)
+        public async Task<ActionResult> GenerateFromSimpleCriteria(long? urn, long? fuid, EstablishmentType estType, SimpleCriteria simpleCriteria, int basketSize = ComparisonListLimit.DEFAULT)
         {
             if (fuid.HasValue)
             {
@@ -301,7 +301,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> SpecialsComparison(int urn, bool? similarPupils)
+        public async Task<ActionResult> SpecialsComparison(long urn, bool? similarPupils)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
 
@@ -327,7 +327,7 @@ namespace SFB.Web.UI.Controllers
             return await Index(urn, null, comparisonResult.BenchmarkCriteria, null, ComparisonType.Specials, ComparisonListLimit.SPECIALS, benchmarkSchool.LatestYearFinancialData, EstablishmentType.All);
         }
 
-        public async Task<ActionResult> GenerateFromBicCriteria(int urn)
+        public async Task<ActionResult> GenerateFromBicCriteria(long urn)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);            
 
@@ -357,7 +357,7 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GenerateFromBicCriteria(int urn, BestInClassCriteria bicCriteria, bool isEditedCriteria = true)
+        public async Task<ActionResult> GenerateFromBicCriteria(long urn, BestInClassCriteria bicCriteria, bool isEditedCriteria = true)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
 
@@ -404,7 +404,7 @@ namespace SFB.Web.UI.Controllers
 
         [HttpGet]
         [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]        
-        public async Task<ViewResult> OneClickReport(int urn)
+        public async Task<ViewResult> OneClickReport(long urn)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
 
@@ -447,7 +447,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GenerateFromEfficiencyMetricsTop(int urn)
+        public async Task<ActionResult> GenerateFromEfficiencyMetricsTop(long urn)
         {
             if (FeatureManager.IsDisabled(Features.EfficiencyMetric))
             {
@@ -468,14 +468,14 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> GenerateFromEfficiencyMetricsManual(int urn, string neighbourURNs)
+        public async Task<ActionResult> GenerateFromEfficiencyMetricsManual(long urn, string neighbourURNs)
         {
             if (FeatureManager.IsDisabled(Features.EfficiencyMetric))
             {
                 throw new UnauthorizedAccessException();
             }
 
-            var neighbourUrnList = neighbourURNs?.Split(',').Select(u => int.Parse(u)).ToList();
+            var neighbourUrnList = neighbourURNs?.Split(',').Select(u => long.Parse(u)).ToList();
 
             _schoolBenchmarkListService.ClearSchoolBenchmarkList();
 
@@ -489,7 +489,7 @@ namespace SFB.Web.UI.Controllers
         [HttpGet]
         public async Task<ActionResult> GenerateNewFromAdvancedCriteria()
         {
-            int? urn;
+            long? urn;
             BenchmarkCriteria usedCriteria;
             try
             {
@@ -537,7 +537,7 @@ namespace SFB.Web.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, int? urn, ComparisonArea areaType, 
+        public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, long? urn, ComparisonArea areaType, 
             BenchmarkListOverwriteStrategy? overwriteStrategy, bool excludePartial = false)
         {
             if(criteria == null)
@@ -636,7 +636,7 @@ namespace SFB.Web.UI.Controllers
         }
 
         public async Task<ActionResult> Index(
-            int? urn,
+            long? urn,
             SimpleCriteria simpleCriteria,
             BenchmarkCriteria advancedCriteria,
             BestInClassCriteria bicCriteria = null,
@@ -825,7 +825,7 @@ namespace SFB.Web.UI.Controllers
 
             foreach (var school in comparisonList.BenchmarkSchools)
             {
-                var bmSchool = await InstantiateBenchmarkSchoolOrFedAsync(int.Parse(school.Urn));
+                var bmSchool = await InstantiateBenchmarkSchoolOrFedAsync(long.Parse(school.Urn));
                 bmSchool.LaName = _laService.GetLaName(bmSchool.La.ToString());
                 comparisonSchools.Add(bmSchool);
             }
@@ -1036,7 +1036,7 @@ namespace SFB.Web.UI.Controllers
             return await _financialDataService.GetFinancialDataForSchoolsAsync(schoolSearchModels, centralFinancing);
         }
 
-        private async Task<EstablishmentViewModelBase> InstantiateBenchmarkSchoolOrFedAsync(int urn)
+        private async Task<EstablishmentViewModelBase> InstantiateBenchmarkSchoolOrFedAsync(long urn)
         {
             var contextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(urn);
             EstablishmentViewModelBase benchmarkSchool;
