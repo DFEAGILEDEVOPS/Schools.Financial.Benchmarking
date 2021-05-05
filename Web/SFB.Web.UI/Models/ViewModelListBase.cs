@@ -18,6 +18,10 @@ namespace SFB.Web.UI.Models
         {
             get
             {
+                if(this.SchoolComparisonList ==  null)
+                {
+                    return 0;
+                }
                 return this.SchoolComparisonList.BenchmarkSchools.Count;
             }
         }

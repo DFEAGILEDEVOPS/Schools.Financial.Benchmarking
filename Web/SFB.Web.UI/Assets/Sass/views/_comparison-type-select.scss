@@ -1,0 +1,44 @@
+﻿.comparison-type-select {
+    .pano {
+
+        @include media(mobile) {
+            margin-top: 30px;
+        }
+    }
+
+    .blue-svg {
+        background: #1d70b8;
+        max-height: 140px;
+        padding: 40px 0;
+    }
+
+    .green-svg {
+        background: $green;
+        padding: 45px 0;
+        max-height: 130px;
+    }
+
+    .turq-svg {
+        background: #28a197;
+        max-height: 160px;
+        padding: 30px 0;
+    }
+
+    .list-arrow {
+        li::before {
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            vertical-align: text-top;
+            content: url(../../../public/assets/images/icons/black-arrow.svg);
+        }
+    }
+
+    .columns {
+        margin-top: 0;
+
+        @include media(tablet) {
+            margin-top: 3em;
+        }
+    }
+}

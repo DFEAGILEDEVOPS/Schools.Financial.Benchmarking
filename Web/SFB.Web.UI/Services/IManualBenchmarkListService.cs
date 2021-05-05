@@ -5,18 +5,18 @@ namespace SFB.Web.UI.Services
 {
     public interface IManualBenchmarkListService
     {
-        Task AddSchoolToManualBenchmarkListAsync(int urn);
+        Task AddSchoolToManualBenchmarkListAsync(long urn);
         void AddSchoolToManualBenchmarkList(SchoolViewModel benchmarkSchool);
         void TryAddSchoolToManualBenchmarkList(SchoolViewModel benchmarkSchool);
 
         void SetSchoolAsDefaultInManualBenchmarkList(SchoolComparisonListModel schoolComparisonList); 
-        Task SetSchoolAsDefaultInManualBenchmarkList(int urn);
+        Task SetSchoolAsDefaultInManualBenchmarkList(long urn);
 
         void UnsetDefaultSchoolInManualBenchmarkList();
 
         SchoolComparisonListModel GetManualBenchmarkList();
 
-        Task RemoveSchoolFromManualBenchmarkListAsync(int urn);
+        Task RemoveSchoolFromManualBenchmarkListAsync(long urn);
 
         void ClearManualBenchmarkList();
     }

@@ -1,5 +1,6 @@
 ﻿@using SFB.Web.UI.Helpers.Enums
-@model SFB.Web.UI.Models.SchoolViewModel
+@using SFB.Web.UI.Models
+@model SFB.Web.UI.Models.EstablishmentViewModelBase
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = "Which school type do you wish to compare with?";
@@ -8,9 +9,13 @@
 
 @section BackButtonContent{
     @{
-        if (Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool)
+        if (Model is SchoolViewModelWithNoDefaultSchool)
         {
             <a class="govuk-back-link hide-in-print" href="/">Back</a>
+        }
+        if (Model is FederationViewModel)
+        {
+            <a class="govuk-back-link hide-in-print" href="/federation/start-benchmarking?fuid=@Model.Id">Back</a>
         }
         else
         {
@@ -52,7 +57,7 @@
         <div class="column-full">
             <span class="font-xsmall">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span></a>
+                <a href="/school/detail?urn=@Model.Id"><span class="bold-xsmall">@Model.Name</span></a>
             </div>
         </div>
     </div>
@@ -147,6 +152,7 @@
         </div>
 
         <input type="hidden" name="Urn" value="@ViewBag.URN">
+        <input type="hidden" name="Fuid" value="@ViewBag.fuid">
         <input type="hidden" name="ComparisonType" value="@ViewBag.ComparisonType">
         </form>
     </div>

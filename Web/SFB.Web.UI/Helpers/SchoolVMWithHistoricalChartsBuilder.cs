@@ -38,7 +38,7 @@ namespace SFB.Web.UI.Helpers
             _laSearchService = laSearchService;
         }
 
-        public async Task BuildCoreAsync(int urn)
+        public async Task BuildCoreAsync(long urn)
         {
             SchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _schoolBenchmarkListService.GetSchoolBenchmarkList());
         }
@@ -56,6 +56,16 @@ namespace SFB.Web.UI.Helpers
            
         }
 
+        public async Task AddLatestYearFinanceAsync()
+        {
+            SchoolVM.LatestTerm = await LatestTermAsync(SchoolVM.EstablishmentType);
+
+            SchoolVM.HistoricalFinancialDataModels = new List<FinancialDataModel> 
+            {
+                await this.GetLatestFinancialDataAsync(SchoolVM.Id, SchoolVM.EstablishmentType, CentralFinancingType.Exclude)
+            };
+        }
+
         public void AssignLaName()
         {
             SchoolVM.LaName = _laSearchService.GetLaName(SchoolVM.La.ToString());
@@ -66,7 +76,7 @@ namespace SFB.Web.UI.Helpers
             return SchoolVM;
         }
 
-        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(int urn, EstablishmentType estabType, CentralFinancingType cFinance)
+        private async Task<List<FinancialDataModel>> GetFinancialDataHistoricallyAsync(long urn, EstablishmentType estabType, CentralFinancingType cFinance)
         {
             var models = new List<FinancialDataModel>();
             var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(estabType);
@@ -98,6 +108,25 @@ namespace SFB.Web.UI.Helpers
             }
 
             return models;
+        }
+
+        private async Task<FinancialDataModel> GetLatestFinancialDataAsync(long urn, EstablishmentType estabType, CentralFinancingType cFinance)
+        { 
+            var latestYear = await _financialDataService.GetLatestDataYearPerEstabTypeAsync(estabType);
+            var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear);
+            var resultDataObject = await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, cFinance);
+
+            if (estabType == EstablishmentType.Academies && cFinance == CentralFinancingType.Include && resultDataObject == null)//if nothing found in MAT-Allocs collection try to source it from (non-allocated) Academies data
+            {
+                resultDataObject = (await _financialDataService.GetSchoolFinancialDataObjectAsync(urn, term, estabType, CentralFinancingType.Exclude));
+            }
+
+            if (resultDataObject != null && resultDataObject.DidNotSubmit)//School did not submit finance, return & display "no data" in the charts
+            {
+                resultDataObject = null;
+            }
+
+            return new FinancialDataModel(urn.ToString(), term, resultDataObject, estabType);
         }
 
         private async Task<string> LatestTermAsync(EstablishmentType type)

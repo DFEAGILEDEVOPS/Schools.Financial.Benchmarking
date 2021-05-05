@@ -53,7 +53,7 @@ namespace SFB.Web.UI.Controllers
         /// </summary>
         /// <param name="urn"></param>
         /// <returns></returns>
-        public async Task<ViewResult> ComparisonStrategy(int urn)
+        public async Task<ViewResult> ComparisonStrategy(long urn)
         {
             ViewBag.URN = urn;
 
@@ -66,7 +66,7 @@ namespace SFB.Web.UI.Controllers
             return View(benchmarkSchool);
         }
 
-        private async Task<ActionResult> ErrorViewForComparisonStrategy(int urn)
+        private async Task<ActionResult> ErrorViewForComparisonStrategy(long urn)
         {
             ViewBag.URN = urn;
 
@@ -82,7 +82,7 @@ namespace SFB.Web.UI.Controllers
         
         }
 
-        public async Task<ActionResult> StepOne(int? urn, ComparisonType? comparisonType, bool similarPupils = false)
+        public async Task<ActionResult> StepOne(long? urn, long? fuid, ComparisonType? comparisonType, bool similarPupils = false)
         {
             switch (comparisonType)
             {
@@ -98,8 +98,9 @@ namespace SFB.Web.UI.Controllers
                         return RedirectToAction("WithoutBaseSchool", "ManualComparison");
                     }
                 case ComparisonType.Basic:
+                case ComparisonType.FederationBasic:
                 case ComparisonType.Advanced:
-                    return await SelectSchoolType(urn, comparisonType.Value, null, null);
+                    return await SelectSchoolType(urn, fuid,comparisonType.Value, null, null);
                 case ComparisonType.Specials:
                     return await HowWeCalculateSpecials(urn.GetValueOrDefault(), similarPupils);
                 case null:
@@ -115,7 +116,7 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        private async Task<ViewResult> HowWeCalculateSpecials(int urn, bool similarPupils)
+        private async Task<ViewResult> HowWeCalculateSpecials(long urn, bool similarPupils)
         {
             ViewBag.URN = urn;
             ViewBag.SimilarPupils = similarPupils;
@@ -131,7 +132,7 @@ namespace SFB.Web.UI.Controllers
         /// <param name="urn"></param>
         /// <param name="comparisonType"></param>
         /// <returns></returns>
-        public async Task<ViewResult> SelectBasketSize(int urn, ComparisonType comparisonType)
+        public async Task<ViewResult> SelectBasketSize(long urn, ComparisonType comparisonType)
         {
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
@@ -148,14 +149,21 @@ namespace SFB.Web.UI.Controllers
         /// <param name="comparisonType"></param>
         /// <param name="estType"></param>
         /// <returns></returns>
-        public async Task<ViewResult> SelectSchoolType(int? urn, ComparisonType comparisonType, EstablishmentType? estType, int? basketSize)
+        public async Task<ViewResult> SelectSchoolType(long? urn, long? fuid, ComparisonType comparisonType, EstablishmentType? estType, int? basketSize)
         {
             ViewBag.URN = urn;
+            ViewBag.Fuid = fuid;
             ViewBag.ComparisonType = comparisonType;
             ViewBag.EstType = estType;
             ViewBag.BasketSize = basketSize;
 
-            if (urn.HasValue)
+            if (fuid.HasValue)
+            {
+                var benchmarkSchool = new FederationViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
+                _benchmarkBasketService.SetFederationAsDefault(benchmarkSchool);
+                return View("SelectSchoolType", benchmarkSchool);
+            }
+            else if (urn.HasValue)
             {
                 var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
 
@@ -175,7 +183,7 @@ namespace SFB.Web.UI.Controllers
         /// <param name="comparisonType"></param>
         /// <param name="estType"></param>
         /// <returns></returns>
-        public async Task<ViewResult> ChooseRegion(int? urn, ComparisonType comparisonType, EstablishmentType? estType, bool excludePartial = false)
+        public async Task<ViewResult> ChooseRegion(long? urn, ComparisonType comparisonType, EstablishmentType? estType, bool excludePartial = false)
         {
             ViewBag.URN = urn;
             ViewBag.ComparisonType = comparisonType;
@@ -228,7 +236,7 @@ namespace SFB.Web.UI.Controllers
         /// <param name="laCodeName"></param>
         /// <returns></returns>
         public async Task<ActionResult> AdvancedCharacteristics(
-            int? urn, 
+            long? urn, 
             ComparisonType comparisonType, 
             EstablishmentType estType, 
             ComparisonArea? areaType, 
@@ -342,7 +350,7 @@ namespace SFB.Web.UI.Controllers
         /// </summary>
         /// <param name="urn"></param>
         /// <returns></returns>
-        public ActionResult HighestProgressSchoolsBenchmarking(int urn)
+        public ActionResult HighestProgressSchoolsBenchmarking(long urn)
         {
             ViewBag.URN = urn;
             return View("HighestProgressSchoolsBenchmarking");
@@ -354,7 +362,7 @@ namespace SFB.Web.UI.Controllers
         /// <param name="urn"></param>
         /// <returns></returns>
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> BestInClassCharacteristics(int urn, BestInClassCriteria bicCriteria)
+        public async Task<ActionResult> BestInClassCharacteristics(long urn, BestInClassCriteria bicCriteria)
         {                                
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 
@@ -367,31 +375,51 @@ namespace SFB.Web.UI.Controllers
         /// Step 3 - Simple
         /// </summary>
         /// <param name="urn"></param>
+        /// <param name="fuid"></param>
         /// <param name="comparisonType"></param>
-        /// <param name="basketSize"></param>
         /// <param name="estType"></param>
         /// <param name="simpleCriteria"></param>
         /// <returns></returns>
-        public async Task<ActionResult> SimpleCharacteristics(int urn, ComparisonType comparisonType, EstablishmentType? estType, SimpleCriteria SimpleCriteria)
+        public async Task<ActionResult> SimpleCharacteristics(long? urn, long? fuid, ComparisonType comparisonType, EstablishmentType? estType, SimpleCriteria SimpleCriteria)
         {
             if (estType.HasValue)
             {
                 ViewBag.URN = urn;
+                ViewBag.Fuid = fuid;
                 ViewBag.ComparisonType = comparisonType;
-                ViewBag.EstType = estType;                
+                ViewBag.EstType = estType;
 
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
+                EstablishmentViewModelBase benchmarkSchool;
+
+                if (fuid.HasValue) 
+                {
+                    benchmarkSchool = new FederationViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
+                }
+                else
+                {
+                    benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault()), _benchmarkBasketService.GetSchoolBenchmarkList());
+                }
 
                 var schoolCharsVM = new SimpleCharacteristicsViewModel(benchmarkSchool, SimpleCriteria);
                 return View(schoolCharsVM);
             }
             else
             {
-                var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
-                benchmarkSchool.ErrorMessage = ErrorMessages.SelectSchoolType;
-
                 ViewBag.URN = urn;
+                ViewBag.Fuid = fuid;
                 ViewBag.ComparisonType = comparisonType;
+
+                EstablishmentViewModelBase benchmarkSchool;
+                if (fuid.HasValue)
+                {
+                    benchmarkSchool = new FederationViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid.Value), _benchmarkBasketService.GetSchoolBenchmarkList());
+                }
+                else
+                {
+                    benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn.GetValueOrDefault()), _benchmarkBasketService.GetSchoolBenchmarkList());
+                }
+
+                benchmarkSchool.ErrorMessage = ErrorMessages.SelectSchoolType;
 
                 return View("SelectSchoolType", benchmarkSchool);
             }
@@ -410,7 +438,7 @@ namespace SFB.Web.UI.Controllers
         /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> OverwriteStrategy(int? urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, 
+        public async Task<ActionResult> OverwriteStrategy(long? urn, ComparisonType comparisonType, EstablishmentType estType, BenchmarkCriteriaVM criteria, 
             ComparisonArea areaType, int? lacode, string schoolName, int basketCount, bool excludePartial = false)
         {
             ViewBag.URN = urn;
@@ -488,7 +516,7 @@ namespace SFB.Web.UI.Controllers
             return result;
         }
 
-        private async Task<SchoolViewModel> InstantiateBenchmarkSchoolAsync(int urn)
+        private async Task<SchoolViewModel> InstantiateBenchmarkSchoolAsync(long urn)
         {
             var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList());
             var schoolsLatestFinancialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);

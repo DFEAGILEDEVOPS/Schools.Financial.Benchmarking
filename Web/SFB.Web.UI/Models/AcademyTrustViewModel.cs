@@ -7,6 +7,8 @@ namespace SFB.Web.UI.Models
 {
     public class AcademyTrustViewModel : EstablishmentViewModelBase
     {
+        public override long Id => Uid;
+
         public int Code { get; set; }
 
         public int CompanyNo { get; set; }
@@ -22,6 +24,8 @@ namespace SFB.Web.UI.Models
         public override string Type => "MAT";
 
         public override EstablishmentType EstablishmentType => EstablishmentType.MAT;
+
+        public override float TotalPupils { get; }
 
         public AcademyTrustViewModel(int uid, int companyNo, string name)
         {

@@ -29,7 +29,7 @@ namespace SFB.Web.UI.Controllers
         {
             var comparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
             
-            var benchmarkSchoolDataObjects = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(comparisonList.BenchmarkSchools.Select(b => Int32.Parse(b.Urn)).ToList());
+            var benchmarkSchoolDataObjects = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(comparisonList.BenchmarkSchools.Select(b => long.Parse(b.Urn)).ToList());
 
             comparisonList.BenchmarkSchools = new List<BenchmarkSchoolModel>();
 
@@ -37,15 +37,31 @@ namespace SFB.Web.UI.Controllers
             {
                 foreach (var benchmarkSchoolDataObject in benchmarkSchoolDataObjects)
                 {
-                    var school = new SchoolViewModel(benchmarkSchoolDataObject);
-                    var financialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(school.Id, school.EstablishmentType);
+                    BenchmarkSchoolModel benchmarkSchool;
 
-                    var benchmarkSchool = new BenchmarkSchoolModel(school)
+                    if (benchmarkSchoolDataObject.IsFederation)
                     {
-                        Address = school.Address,
-                        IsReturnsComplete = financialDataModel.IsReturnsComplete,
-                        WorkforceDataPresent = financialDataModel.WorkforceDataPresent
-                    };
+                        var federation = new FederationViewModel(benchmarkSchoolDataObject);
+                        var financialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(federation.Id, federation.EstablishmentType);
+
+                        benchmarkSchool = new BenchmarkSchoolModel(federation)
+                        {
+                            IsReturnsComplete = financialDataModel.IsReturnsComplete,
+                            WorkforceDataPresent = financialDataModel.WorkforceDataPresent
+                        };
+                    }
+                    else
+                    {
+                        var school = new SchoolViewModel(benchmarkSchoolDataObject);
+                        var financialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(school.Id, school.EstablishmentType);
+
+                        benchmarkSchool = new BenchmarkSchoolModel(school)
+                        {
+                            Address = school.Address,
+                            IsReturnsComplete = financialDataModel.IsReturnsComplete,
+                            WorkforceDataPresent = financialDataModel.WorkforceDataPresent
+                        };
+                    }
 
                     comparisonList.BenchmarkSchools.Add(benchmarkSchool);
                 }
@@ -56,7 +72,7 @@ namespace SFB.Web.UI.Controllers
             return View(comparisonList);
         }
 
-        public async Task<PartialViewResult> UpdateBenchmarkBasket(int? urn, CookieActions withAction)
+        public async Task<PartialViewResult> UpdateBenchmarkBasket(long? urn, CookieActions withAction)
         {
             if (urn.HasValue)
             {

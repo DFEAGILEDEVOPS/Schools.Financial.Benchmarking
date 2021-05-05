@@ -225,7 +225,7 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
-        public async Task<PartialViewResult> UpdateBenchmarkBasket(int urn, CookieActions withAction)
+        public async Task<PartialViewResult> UpdateBenchmarkBasket(long urn, CookieActions withAction)
         {
             switch (withAction)
             {
@@ -303,7 +303,7 @@ namespace SFB.Web.UI.Controllers
                     }
                     else
                     {
-                        searchResp = await _contextDataService.GetSchoolDataObjectByUrnAsync(Int32.Parse(nameId));
+                        searchResp = await _contextDataService.GetSchoolDataObjectByUrnAsync(long.Parse(nameId));
                         return RedirectToAction("Detail", "School", new { urn = searchResp.URN });
                     }
                 }

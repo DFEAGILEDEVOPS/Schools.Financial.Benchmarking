@@ -1,14 +1,18 @@
-﻿<div class="compare-buttons-panel">
-    <div class="compare-buttons-panel__column-full">
-
-        <a class="button compare-buttons-panel__button--compare" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Compare with other schools</a>
-
-        <a @DisplayStyle(Model.IsInComparisonList) class="add-remove-js button compare-buttons-panel__button--removefrom" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Remove')")">Remove from benchmark set</a>
-
-        <a @DisplayStyle(!Model.IsInComparisonList) class="add-remove-js button compare-buttons-panel__button--addto" href="#" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Add')")">Add to benchmark set</a>
-
+﻿<button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Remove')")">
+    <img class="icon" src="~/public/assets/images/icons/remove_from_set.svg" />
+    <div class="inline">
+        <span> Remove from benchmark set</span>
     </div>
-</div>
+</button>
+
+<button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["urn"]},'Add')")">
+    <img class="icon" src="~/public/assets/images/icons/add_to_set.svg" />
+    <div class="inline">
+        <span> Add to benchmark set</span>
+    </div>
+</button>
+
+
 
 @helper DisplayStyle(bool display)
 {

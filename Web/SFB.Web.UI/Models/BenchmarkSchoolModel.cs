@@ -17,19 +17,37 @@ namespace SFB.Web.UI.Models
             Type = schoolViewModel.Type;
             EstabType = schoolViewModel.EstablishmentType.ToString();
             ProgressScore = schoolViewModel.ProgressScore;
-        }        
-        
+        }
+
+        public BenchmarkSchoolModel(FederationViewModel federationViewModel)
+        {
+            Name = federationViewModel.Name;
+            Urn = federationViewModel.Id.ToString();
+            Type = federationViewModel.Type;
+            EstabType = federationViewModel.EstablishmentType.ToString();
+        }
+
         public BenchmarkSchoolModel(EdubaseDataObject schoolContextData)
         {
-            Name = schoolContextData.EstablishmentName;
-            Type = schoolContextData.TypeOfEstablishment;
-            EstabType = schoolContextData.FinanceType;
-            Urn = schoolContextData.URN.ToString();
+            if (schoolContextData.IsFederation)
+            {
+                Name = schoolContextData.FederationName;
+                Type = "Federation";
+                EstabType = "Maintained";
+                Urn = schoolContextData.URN.ToString();
+            }
+            else
+            {
+                Name = schoolContextData.EstablishmentName;
+                Type = schoolContextData.TypeOfEstablishment;
+                EstabType = schoolContextData.FinanceType;
+                Urn = schoolContextData.URN.ToString();
+            }
         }        
         
         public BenchmarkSchoolModel(SchoolTrustFinancialDataObject schoolFinanceData)
         {
-            Name = schoolFinanceData.SchoolName;
+            Name = schoolFinanceData.SchoolName ?? schoolFinanceData.FederationName;
             Type = schoolFinanceData.Type;
             EstabType = schoolFinanceData.FinanceType;
             Urn = schoolFinanceData.URN.ToString();

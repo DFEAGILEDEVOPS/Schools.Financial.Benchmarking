@@ -676,8 +676,16 @@ a.button {
         margin-top: 2em;
     }
 
+    .mt-3 {
+        margin-top: 3em;
+    }
+
     .mb-0 {
         margin-bottom: 0;
+    }
+
+    .mb-05 {
+        margin-bottom: 0.5em;
     }
 
     .mb-1 {
@@ -686,6 +694,10 @@ a.button {
 
     .mb-2 {
         margin-bottom: 2em;
+    }
+    
+    .mb-3 {
+        margin-bottom: 3em;
     }
 
     .mr-1 {
@@ -804,9 +816,9 @@ a.button {
         }
     }
 
-    .download, .print, .pdf, .save {
-        margin: 10px 0 20px 0;
-        padding-left: 5px;
+    .add-remove, .download, .print, .pdf, .save {
+        margin: 10px 0 0px 0;
+   /*     padding-left: 5px;*/
 
         a {
             color: black;
@@ -1250,3 +1262,34 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         display: block;
     }
 
+.blue-banner {
+    background-color: $govuk-blue;
+    color: $page-colour;
+    padding: 30px;
+
+    .start-button {
+        background-color: $page-colour;
+        color: $govuk-blue;
+        font-weight: 700;
+        font-size: 18px;
+
+        &:focus {
+            color: black;
+        }
+
+        @include media(tablet) {
+            font-size: 24px;
+        }
+
+        .govuk-button__start-icon {
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+    }
+
+    @media print {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+    }
+ }

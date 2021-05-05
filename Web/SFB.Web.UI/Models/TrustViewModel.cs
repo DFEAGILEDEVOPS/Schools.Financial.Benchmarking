@@ -10,6 +10,8 @@ namespace SFB.Web.UI.Models
     {
         private string _trustName;
 
+        public override long Id => UID.GetValueOrDefault();
+
         public int Code { get; set; }
 
         public int CompanyNo { get; set; }
@@ -50,6 +52,8 @@ namespace SFB.Web.UI.Models
         public List<EdubaseDataObject> AcademiesInContextList {get; set;}
 
         public override string Type => "MAT";
+
+        public override float TotalPupils { get; }
 
         public override EstablishmentType EstablishmentType => EstablishmentType.MAT;
 

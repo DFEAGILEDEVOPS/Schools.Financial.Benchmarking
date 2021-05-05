@@ -1,0 +1,308 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.FederationViewModel
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = Model.Name;
+    ViewBag.pageClass = "federation-detail";
+}
+
+@section InsideHead{
+    <link href="~/node_modules/c3/c3.css" rel="stylesheet" type="text/css">
+    <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+}
+
+@section BMListBannerContent
+{
+    <div id="benchmarkBasket"></div>
+}
+
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<div class="grid-row">
+    <div class="column-full">
+        @if (!Model.IsReturnsDNS)
+        {
+            <div class="blue-banner">
+                <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+
+                <p class="hide-in-print">There are now several ways for you to compare this federation against schools and federations.</p>
+
+                <a class="button start-button hide-in-print" href="federation/start-benchmarking?fuid=@Model.Id" role="button">
+                    Start a comparison
+                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+                    </svg>
+                </a>
+            </div>
+        }
+        else
+        {
+            <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+        }
+    </div>
+    <div class="column-full mt-1 pl-0">
+        <div class="column-full hide-in-print">
+            <div class="column-one-third no-padding">
+                <div class="add-remove">
+                    <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
+                        <img class="icon" src="~/public/assets/images/icons/add_to_set.svg" />
+                        <div class="inline">
+                            <span> Add to benchmark set</span>
+                        </div>
+                    </button>                    
+                    <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
+                        <img class="icon" src="~/public/assets/images/icons/remove_from_set.svg" />
+                        <div class="inline">
+                            <span> Remove from benchmark set</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="column-one-third no-padding">
+                <div class="download">
+                    <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.DownloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                        <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
+                        <div id="DownloadLinkTextWrapper" class="inline">
+                            <span id="DownloadLinkText"> Download data for this federation<span class="visually-hidden"> (CSV)</span></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="column-one-third no-padding">
+                <div class="print">
+                    <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.FederationDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                        <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
+                        Print page
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column-full mt-2">
+        <p class="font-small">This federation is a combination of <span class="bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
+        <div id="schools-in-federation-accordion" class="accordion">
+
+            <div class="accordion-section">
+                <h2>
+                    <a class="accordion-section-header" href="javascript:void(0)">
+                        <span class="heading-medium ">Schools in this federation</span>
+                    </a>
+                </h2>
+
+                <div class="accordion-section-body">
+                    <div>
+                        <div class="resultListPanel">
+                            <ul class="list list-bullet resultListPanel__ul">
+                                @foreach (var school in Model.SchoolsInFederation)
+                                {
+                                    <li>
+                                        <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid-row">
+    <div class="column-half">
+        <div class="metadata-school-detail font-xsmall mt-2">
+            <dl class="metadata-school-detail__dl">
+
+                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
+                @SchoolDetailField("School type:", Model.Type)
+                @SchoolDetailField("Overall phase:", Model.OverallPhase)
+                @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
+                @SchoolDetailField("Federation UID:", Model.UID.ToString())
+                @SchoolDetailField("Age range of pupils:", Model.AgeRange)
+                @SchoolDetailField("Has sixth form:", Model.Has6Form)
+                @SchoolDetailField("Has nursery:", Model.HasNursery)
+
+                @DataSourcesField()
+
+            </dl>
+            <div style="display: inline-block" class="mb-1">
+                <a class="hide-in-print" href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name">Do you have a query about this federation's data?</a>
+            </div>
+        </div>
+    </div>
+    <div class="column-half">
+        <details open>
+            <summary class="map hide-in-print">
+                <span class="summary font-xsmall">Show map</span>
+            </summary>
+            <div class="map">
+                <a href="#post-map-content" class="skip-map hide-in-print">Skip the map</a>
+                <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
+            </div>
+        </details>
+    </div>
+    <div id="post-map-content"></div>
+</div>
+
+@Html.Partial("Partials/FinancialSummaryFields")
+
+<a name="charts"></a>
+
+<div id="tabs" class="custom tabs hide-in-print">
+    <ul role="tablist">
+        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
+               aria-controls="tabPanel"
+               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Expenditure')"
+               href="javascript: void(0)">@TabNames.EXPENDITURE</a>
+        </li>
+        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
+               aria-controls="tabPanel"
+               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')"
+               href="javascript: void(0)">@TabNames.INCOME</a>
+        </li>
+        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
+               aria-controls="tabPanel"
+               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')"
+               href="javascript: void(0)">@TabNames.BALANCE</a>
+        </li>
+        <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
+            <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")"
+               tabindex="@(ViewBag.Tab == TabType.Workforce ? "0" : "-1")"
+               class="tab-link"
+               role="tab"
+               aria-controls="tabPanel"
+               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Workforce')"
+               href="javascript: void(0)">@TabNames.WORKFORCE</a>
+        </li>
+    </ul>
+</div>
+
+<div role="tabpanel" id="tabPanel">
+    <div class="sticky-div sticky-chart-controls">
+        <div id="controls-accordion" class="accordion mobile-only-accordion">
+            <div class="accordion-section">
+                <fieldset role="group">
+                    <legend class="visually-hidden hide-in-print">Filters</legend>
+                    <div class="accordion-section-header">
+                        <h2 class="heading-medium hide-in-print">Filters</h2>
+                    </div>
+                    <div class="accordion-section-body">
+                        @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                        @Html.Partial("Partials/ValueSelect", Model)
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div class="charts-section">
+        <div class="grid-row">
+            <div>
+                <div class="column-full font-xsmall chartTable hide-in-print">
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                </div>
+                <div class="column-full font-xsmall hide-in-print">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                        <span><</span>
+                        <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="historical-charts-list">
+            @Html.Partial("Partials/Chart", Model)
+        </div>
+    </div>
+</div>
+
+
+<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
+<iframe id="download_iframe" style="display:none;"></iframe>
+
+@helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
+{
+    if (args != null)
+    {
+        if (args.Any(string.IsNullOrEmpty))
+        {
+            return;
+        }
+
+        var formatted = string.Format(formatString, args);
+        @SchoolDetailField(name, formatted)
+    }
+}
+
+@helper SchoolDetailField(string name, string value)
+{
+    if (!string.IsNullOrEmpty(value))
+    {
+        var htmlValue = new MvcHtmlString(value);
+
+        <dt class="metadata-school-detail__dt">@name</dt>
+        <dd class="metadata-school-detail__dd bold">@htmlValue</dd>
+    }
+}
+
+@helper DataSourcesField()
+{
+    <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
+    <dd class="metadata-school-detail__dd bold">
+        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
+    </dd>
+}
+
+@section ViewScripts {
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+
+    <script>
+        DfE.Views.FederationDetailsViewModel = new FederationDetailsViewModel('@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+    </script>
+}
+
+@helper DisplayStyle(bool display)
+{
+    if (display)
+    {
+        @Html.Raw("style=\"display: inline-block\"");
+    }
+    else
+    {
+        @Html.Raw("style=\"display: none\"");
+    }
+}

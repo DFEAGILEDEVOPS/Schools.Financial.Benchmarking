@@ -11,31 +11,29 @@ namespace SFB.Web.UI.Models
 {
     public class SchoolViewModel : EstablishmentViewModelBase
     {
-        public EdubaseDataObject ContextDataModel { get; set; }
-
         public SchoolComparisonListModel ManualComparisonList { get; set; }
 
         public SchoolViewModel(EdubaseDataObject contextDataModel)
         {
-            this.ContextDataModel = contextDataModel;
+            this.ContextData = contextDataModel;
         }
 
         public SchoolViewModel(EdubaseDataObject schoolContextDataModel, SchoolComparisonListModel comparisonList)
         {
-            this.ContextDataModel = schoolContextDataModel;
+            this.ContextData = schoolContextDataModel;
             base.ComparisonList = comparisonList;
         }
 
         public SchoolViewModel(EdubaseDataObject schoolContextDataModel, SchoolComparisonListModel comparisonList, SchoolComparisonListModel manualComparisonList)
         {
-            this.ContextDataModel = schoolContextDataModel;
+            this.ContextData = schoolContextDataModel;
             base.ComparisonList = comparisonList;
             this.ManualComparisonList = manualComparisonList;
         }
 
         public LocationDataObject GetLocation()
         {
-            return ContextDataModel.Location;
+            return ContextData.Location;
         }
 
         public bool IsInComparisonList
@@ -46,40 +44,36 @@ namespace SFB.Web.UI.Models
                 {
                     return false;
                 }
-                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == ContextDataModel.URN.ToString());
+                return base.ComparisonList.BenchmarkSchools.Any(s => s.Urn == ContextData.URN.ToString());
             }
         }
 
-        public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == ContextDataModel.URN.ToString();
+        public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == ContextData.URN.ToString();
 
-        public int Id => ContextDataModel.URN;
+        public override long Id => ContextData.URN;
 
-        public string LaEstab => $"{ContextDataModel.LACode} {ContextDataModel.EstablishmentNumber}";
+        public string LaEstab => $"{ContextData.LACode} {ContextData.EstablishmentNumber}";
 
         public override string Name
         {
             get
             {
-                return ContextDataModel.EstablishmentName;
+                return ContextData.EstablishmentName;
             }
 
             set { }
         }
 
-        public int La => ContextDataModel.LACode;
+        public int Estab => ContextData.EstablishmentNumber;
 
-        public string LaName { get; set; }
+        public string OverallPhase => ContextData.OverallPhase;
 
-        public int Estab => ContextDataModel.EstablishmentNumber;
-
-        public string OverallPhase => ContextDataModel.OverallPhase;
-
-        public string Phase => ContextDataModel.PhaseOfEducation;
+        public string Phase => ContextData.PhaseOfEducation;
 
         public string SchoolWebSite
         {
             get {
-                var url = ContextDataModel.SchoolWebsite;
+                var url = ContextData.SchoolWebsite;
                 if (!string.IsNullOrEmpty(url) && !url.ToLower().StartsWith("http"))
                 {
                     url = "http://" + url;
@@ -89,24 +83,24 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public string AgeRange => ContextDataModel.StatutoryLowAge == null ? null : $"{ContextDataModel.StatutoryLowAge} to {ContextDataModel.StatutoryHighAge}";
+        public string AgeRange => ContextData.StatutoryLowAge == null ? null : $"{ContextData.StatutoryLowAge} to {ContextData.StatutoryHighAge}";
 
-        public string HeadTeachFullName => $"{ContextDataModel.HeadFirstName} {ContextDataModel.HeadLastName}";
-        public string TrustName => ContextDataModel.Trusts;
+        public string HeadTeachFullName => $"{ContextData.HeadFirstName} {ContextData.HeadLastName}";
+        public string TrustName => ContextData.Trusts;
 
-        public string SponsorName => ContextDataModel.SponsorName;
+        public string SponsorName => ContextData.SponsorName;
 
         public string TrustNameInLatestFinance => LatestYearFinancialData?.TrustName;
 
-        public int? CompanyNo => ContextDataModel.CompanyNumber;
+        public int? CompanyNo => ContextData.CompanyNumber;
         
         public int? CompanyNoInLatestFinance => LatestYearFinancialData?.CompanyNo;
         
-        public int? UID => ContextDataModel.UID;
+        public int? UID => ContextData.UID;
 
-        public string PhoneNumber => ContextDataModel.TelephoneNum;
+        public string PhoneNumber => ContextData.TelephoneNum;
 
-        public string OfstedRating => ContextDataModel.OfstedRating;
+        public string OfstedRating => ContextData.OfstedRating;
 
         public string OfstedInspectionDate
         {
@@ -114,7 +108,7 @@ namespace SFB.Web.UI.Models
             {
                 try
                 {
-                    return DateTime.Parse(ContextDataModel.OfstedLastInsp, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                    return DateTime.Parse(ContextData.OfstedLastInsp, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
                 }
                 catch
                 {
@@ -129,7 +123,7 @@ namespace SFB.Web.UI.Models
             {
                 try
                 {
-                    return DateTime.Parse(ContextDataModel.OpenDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                    return DateTime.Parse(ContextData.OpenDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
                 }
                 catch
                 {
@@ -144,7 +138,7 @@ namespace SFB.Web.UI.Models
             {
                 try
                 {
-                    return DateTime.Parse(ContextDataModel.CloseDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
+                    return DateTime.Parse(ContextData.CloseDate, CultureInfo.CurrentCulture, DateTimeStyles.None).ToLongDateString();
                 }
                 catch
                 {
@@ -173,21 +167,31 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public float TotalPupils => ContextDataModel.NumberOfPupils.GetValueOrDefault();
+        public override float TotalPupils => ContextData.NumberOfPupils.GetValueOrDefault();
 
-        public string IsPost16 => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
+        public string IsPost16 => ContextData.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
-        public string HasNursery => ContextDataModel.HasNursery == "Has Nursery Classes" ? "Yes" : "No";
+        public string HasNursery => ContextData.NurseryProvision == "Has Nursery Classes" ? "Yes" : "No";
 
-        public string Address => ContextDataModel.Address;
+        public string Address => ContextData.Address;
 
-        public override string Type => ContextDataModel.TypeOfEstablishment;
+        public override string Type => ContextData.TypeOfEstablishment;
 
-        public override EstablishmentType EstablishmentType => (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextDataModel.FinanceType);
+        public override EstablishmentType EstablishmentType
+        {
+            get
+            {
+                if (this.IsFederation)
+                {
+                    return EstablishmentType.Maintained;
+                }
+                return (EstablishmentType)Enum.Parse(typeof(EstablishmentType), ContextData.FinanceType);
+            }
+        }
 
-        public bool IsSAT => ContextDataModel.MatSat == "SAT";
+        public bool IsSAT => ContextData.MatSat == "SAT";
         
-        public bool IsMAT => ContextDataModel.MatSat == "MAT";
+        public bool IsMAT => ContextData.MatSat == "MAT";
 
         public bool IsSATinLatestFinance => LatestYearFinancialData.IsSAT;
 
@@ -224,13 +228,18 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public decimal? ProgressScore => LatestYearFinancialData?.ProgressScore;
-
         public decimal? KS2ProgressScore => LatestYearFinancialData?.Ks2Progress;
 
         public decimal? P8ProgressScore => LatestYearFinancialData.P8Mea;
 
         public decimal? P8Banding => LatestYearFinancialData?.P8Banding;
+
+        //public bool IsFederation => ContextData.IsFederation;
+        //public int? FederationUID => ContextData.FederationUid;
+        //public int[] FederationMembers => ContextData.FederationMembers; 
+        public long? FederationsCode => ContextData.FederationsCode;
+        public string FederationName => ContextData.FederationName;              
+        public bool IsPartOfFederation => FederationsCode.HasValue;
 
         public bool HasCoordinates
         {

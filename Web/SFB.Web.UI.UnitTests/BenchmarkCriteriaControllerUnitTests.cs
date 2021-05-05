@@ -61,8 +61,8 @@ namespace SFB.Web.UI.UnitTests
                 return new List<SchoolTrustFinancialDataObject> { testResult };
             });
 
-            _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), It.IsAny<bool>()))
-                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial) => task);
+            _mockDocumentDbService.Setup(m => m.SearchSchoolsByCriteriaAsync(It.IsAny<BenchmarkCriteria>(), It.IsAny<EstablishmentType>(), false, true))
+                .Returns((BenchmarkCriteria criteria, EstablishmentType estType, bool excludePartial, bool excludeFeds) => task);
 
             Task<int> GetLatestFinancialDataYearPerEstabTypeAsyncTask = Task.Run(()=> {
                 return 2015;
@@ -126,7 +126,7 @@ namespace SFB.Web.UI.UnitTests
 
             var controller = new BenchmarkCriteriaController(null, _mockDocumentDbService.Object, _mockEdubaseDataService.Object, null, mockCookieManager.Object, mockComparisonService.Object, new ValidationService());
 
-            var result = controller.SelectSchoolType(null, ComparisonType.Advanced, EstablishmentType.Maintained, 15);
+            var result = controller.SelectSchoolType(null, null, ComparisonType.Advanced, EstablishmentType.Maintained, 15);
 
             mockCookieManager.Verify(m => m.UnsetDefaultSchool());
         }

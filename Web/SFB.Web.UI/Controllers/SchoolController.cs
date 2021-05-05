@@ -23,26 +23,22 @@ namespace SFB.Web.UI.Controllers
     {
         private readonly IContextDataService _contextDataService;
         private readonly IFinancialDataService _financialDataService;
-        private readonly IHistoricalChartBuilder _historicalChartBuilder;
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly ISchoolBenchmarkListService _benchmarkBasketService;
-        private readonly ILocalAuthoritiesService _laSearchService;
         private readonly IActiveUrnsService _activeUrnsService;
         private readonly ISchoolVMBuilder _schoolVMBuilder;
 
-        public SchoolController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
+        public SchoolController(IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
-            ISchoolBenchmarkListService benchmarkBasketService, ILocalAuthoritiesService laSearchService,
+            ISchoolBenchmarkListService benchmarkBasketService,
             IActiveUrnsService activeUrnsService, ISchoolVMBuilder schoolVMBuilder)
         {
-            _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
             _fcService = fcService;
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketService = benchmarkBasketService;
-            _laSearchService = laSearchService;
             _activeUrnsService = activeUrnsService;
             _schoolVMBuilder = schoolVMBuilder;
         }
@@ -51,7 +47,7 @@ namespace SFB.Web.UI.Controllers
         [OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
         #endif
         public async Task<ActionResult> Detail( 
-            int urn, 
+            long urn, 
             UnitType unit = UnitType.AbsoluteMoney, 
             CentralFinancingType financing = CentralFinancingType.Include, 
             TabType tab = TabType.Expenditure, 
@@ -64,7 +60,12 @@ namespace SFB.Web.UI.Controllers
             _schoolVMBuilder.AssignLaName();
             var schoolVM = _schoolVMBuilder.GetResult();
 
-            if (schoolVM.ContextDataModel == null)
+            if (schoolVM.IsFederation)
+            {
+                return Redirect("/federation?fuid="+schoolVM.Id);
+            }
+
+            if (schoolVM.ContextData == null)
             {
                 return View("EmptyResult", new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), SearchTypes.SEARCH_BY_NAME_ID));
             }
@@ -80,8 +81,17 @@ namespace SFB.Web.UI.Controllers
             return View("Detail", schoolVM);
         }
 
+        [Route("school/start-benchmarking")]
+        public async Task<ViewResult> StartBenchmarking(long urn)
+        {
+            await _schoolVMBuilder.BuildCoreAsync(urn);
+            await _schoolVMBuilder.AddLatestYearFinanceAsync();
+            var schoolVM = _schoolVMBuilder.GetResult();
+            return View(schoolVM);
+        }
+
         public async Task<PartialViewResult> GetCharts(
-        int urn,
+        long urn,
         TabType revGroup,
         ChartGroupType chartGroup,
         UnitType unit,
@@ -101,7 +111,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Chart", schoolVM);
         }
 
-        public async Task<ActionResult> Download(int urn)
+        public async Task<ActionResult> Download(long urn)
         {
             await _schoolVMBuilder.BuildCoreAsync(urn);
             await _schoolVMBuilder.AddHistoricalChartsAsync(TabType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, UnitType.AbsoluteMoney);
@@ -115,7 +125,7 @@ namespace SFB.Web.UI.Controllers
         [HttpHead]
         [AllowAnonymous]
         [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]
-        public async Task<ActionResult> Status(int urn)
+        public async Task<ActionResult> Status(long urn)
         {
             try
             {
@@ -129,7 +139,7 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        public async Task<PartialViewResult> UpdateBenchmarkBasket(int? urn, CookieActions withAction)
+        public async Task<PartialViewResult> UpdateBenchmarkBasket(long? urn, CookieActions withAction)
         {          
             if (urn.HasValue)
             {
@@ -176,7 +186,7 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));
         }
 
-        public async Task<PartialViewResult> GetBenchmarkControls(int urn)
+        public async Task<PartialViewResult> GetBenchmarkControls(long urn)
         {
             return PartialView("Partials/BenchmarkControlButtons", new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _benchmarkBasketService.GetSchoolBenchmarkList()));
         }

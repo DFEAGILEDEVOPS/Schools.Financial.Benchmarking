@@ -3,6 +3,7 @@ using System.Linq;
 using SFB.Web.ApplicationCore.Models;
 using SFB.Web.UI.Helpers.Enums;
 using SFB.Web.ApplicationCore.Helpers.Enums;
+using SFB.Web.ApplicationCore.Entities;
 
 namespace SFB.Web.UI.Models
 {
@@ -11,6 +12,14 @@ namespace SFB.Web.UI.Models
         public abstract string Name { get; set; }
 
         public abstract string Type { get; }
+
+        public abstract long Id { get;}
+
+        public abstract float TotalPupils { get; }
+
+        public int La => ContextData.LACode;        
+
+        public string LaName { get; set; }
 
         public abstract EstablishmentType EstablishmentType { get; }
 
@@ -31,8 +40,10 @@ namespace SFB.Web.UI.Models
         public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 
         public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels?.Last();
+        
+        public EdubaseDataObject ContextData { get; set; }
 
-        public bool HasLatestYearFinancialData => LatestYearFinancialData.FinancialDataObjectModel != null;
+        public bool HasLatestYearFinancialData => LatestYearFinancialData?.FinancialDataObjectModel != null;
 
         public bool IsReturnsComplete => LatestYearFinancialData.IsReturnsComplete;
 
@@ -45,5 +56,9 @@ namespace SFB.Web.UI.Models
         public bool HasNoTeacherData => LatestYearFinancialData.TeacherCount == 0m;
 
         public bool HasNoPupilData => LatestYearFinancialData.PupilCount == 0m;
+
+        public decimal? ProgressScore => LatestYearFinancialData?.ProgressScore;
+
+        public bool IsFederation => ContextData.IsFederation;
     }
 }

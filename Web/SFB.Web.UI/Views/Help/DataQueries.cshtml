@@ -104,6 +104,8 @@
                 @InputErrorMessage("dataQuery.DataQuery")
                 <textarea class="form-control form-control-3-4 @FormControlErrorClass("dataQuery.DataQuery")" name="dataQuery.DataQuery" id="dataQuery.DataQuery" rows="8" maxlength="1000">@Model.DataQuery</textarea>
             </div>
+            <input type="hidden" name="urn" value="@ViewBag.Urn" />
+            <input type="hidden" name="schoolName" value="@ViewBag.SchoolName" />
             <button class="button" type="submit">Submit</button>
         </form>
     </div>
@@ -114,7 +116,7 @@
 {
     var msDictionary = ViewBag.ModelState as ModelStateDictionary;
 
-    if (msDictionary != null && msDictionary.Count > 0)
+    if (msDictionary != null && !msDictionary.IsValid)
     {
         <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
             <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">

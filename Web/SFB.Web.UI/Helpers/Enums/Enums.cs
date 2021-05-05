@@ -50,7 +50,8 @@ namespace SFB.Web.UI.Helpers.Enums
         OneClick,
         EfficiencyTop,
         EfficiencyManual,
-        Specials
+        Specials,
+        FederationBasic
     }
 
     public enum UnitType

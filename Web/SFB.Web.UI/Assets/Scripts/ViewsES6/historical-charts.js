@@ -189,6 +189,7 @@
         let codeParameter = DfE.Util.QueryString.get('code');
         let urnParameter = DfE.Util.QueryString.get('urn');
         let companyNoParameter = DfE.Util.QueryString.get('companyNo');
+        let fuid = DfE.Util.QueryString.get('fuid');
         let nameParameter = DfE.Util.QueryString.get('name');
         let tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
         let unitParameter = $("#ShowValue").val();
@@ -204,6 +205,8 @@
             codeParameter +
             "&companyNo=" +
             companyNoParameter +
+            "&fuid=" +
+            fuid +
             "&revgroup=" +
             tabParameter +
             "&chartGroup=" +

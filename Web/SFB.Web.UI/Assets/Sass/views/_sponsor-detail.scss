@@ -1,4 +1,57 @@
 ﻿.sponsor-detail {
+    .metadata-school-detail {
+        overflow: hidden;
+
+        &__dl {
+            margin-bottom: 7px;
+        }
+
+        &__dt {
+            display: block;
+            float: left;
+            clear: left;
+            padding-right: 15px;
+            text-align: left;
+            padding-bottom: 15px;
+            width: 190px;
+
+            @include media(mobile) {
+                text-align: left;
+                min-width: unset;
+                width: 100px;
+            }
+        }
+
+        &__dd {
+            display: block;
+            float: left;
+            text-align: left;
+            padding-right: 5px;
+            padding-bottom: 3px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-bottom: 15px;
+
+            @include media(mobile) {
+                max-width: 165px;
+            }
+
+            @include media(tablet) {
+                max-width: 400px;
+            }
+        }
+
+        a {
+            font-weight: initial;
+        }
+
+        .seperator {
+            top: 1px;
+            position: relative;
+        }
+    }
+
+
     .result-list-summary {
         padding-top: 30px;
         padding-bottom: 10px;

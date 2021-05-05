@@ -29,8 +29,17 @@
         <p>
             They will contact you either to inform you of the action that will be taken or to request further information.
         </p>
-        <p>
-            <a href="/">Return to the homepage</a>            
-        </p>
+        @if (ViewBag.Urn == null)
+        {
+            <p>
+                <a href="/">Return to the homepage</a>
+            </p>
+        }
+        else
+        {
+            <p>
+                <a href="~/school/detail?urn=@ViewBag.Urn">Return to @ViewBag.SchoolName</a>
+            </p>
+        }
     </div>
 </div>
