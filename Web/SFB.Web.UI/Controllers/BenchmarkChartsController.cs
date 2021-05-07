@@ -493,7 +493,7 @@ namespace SFB.Web.UI.Controllers
             BenchmarkCriteria usedCriteria;
             try
             {
-                urn = (int?)TempData["URN"];
+                urn = (long?)TempData["URN"];
                 usedCriteria = TempData["BenchmarkCriteria"] as BenchmarkCriteria;
             }
             catch (Exception)
