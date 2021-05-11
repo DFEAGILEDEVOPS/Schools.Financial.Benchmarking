@@ -13,7 +13,7 @@
         {
             <a class="govuk-back-link hide-in-print" href="/">Back</a>
         }
-        if (Model is FederationViewModel)
+        else if (Model is FederationViewModel)
         {
             <a class="govuk-back-link hide-in-print" href="/federation/start-benchmarking?fuid=@Model.Id">Back</a>
         }
