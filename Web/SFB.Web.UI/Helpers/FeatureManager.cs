@@ -20,6 +20,6 @@ namespace SFB.Web.UI.Helpers
 
     public struct Features
     {
-        public static string EfficiencyMetric => "Feature-EfficiencyMetric-enabled";
+        //public static string EfficiencyMetric => "Feature-EfficiencyMetric-enabled";
     }
 }
