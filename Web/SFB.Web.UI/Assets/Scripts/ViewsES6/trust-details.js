@@ -22,7 +22,7 @@
         });
     }
 
-    DownloadData(companyNo, name) {
+    downloadData(companyNo, name) {
         $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
         document.getElementById('download_iframe').src = `/trust/download?companyNo=${companyNo}&name=${name}`;
         setTimeout(() => {
@@ -30,7 +30,7 @@
         }, 2000)
     }
 
-    PrintPage() {
+    printPage() {
         $('details').attr('open', 'true');
         let detailses = document.getElementsByTagName("details"),
             details,
@@ -42,7 +42,7 @@
         window.print();
     }
 
-    TabChange(code, companyNo, name, tab) {
+    tabChange(code, companyNo, name, tab) {
         let queryString = "?code=" +
             code +
             "&companyNo=" +
@@ -62,7 +62,7 @@
         window.location = queryString;
     }
 
-    TabKeydown(e) {
+    tabKeydown(e) {
         let keys = {
             left: 37,
             up: 38,
@@ -107,7 +107,7 @@
         }
     };
 
-    ToggleChartsTables(mode) {
+    toggleChartsTables(mode) {
         let $charts = $('.chart-wrapper');
         let $tables = $('.chart-table-wrapper');
         let $mobile_balance_wrappers = $('.balance-wrapper-mobile');

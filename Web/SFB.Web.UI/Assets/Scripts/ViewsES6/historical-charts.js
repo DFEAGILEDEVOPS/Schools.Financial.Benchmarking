@@ -60,7 +60,7 @@
             case "PerPupil":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -71,7 +71,7 @@
             case "AbsoluteMoney":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -82,7 +82,7 @@
             case "PerTeacher":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -95,7 +95,7 @@
             case "FTERatioToTotalFTE":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartPercentageFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -108,7 +108,7 @@
             case "AbsoluteCount":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartDecimalFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -273,7 +273,7 @@
     updateBenchmarkBasket(urn, withAction) {
         if (withAction === "Add") {
             if (DfE.Util.ComparisonList.count() === 30) {
-                DfE.Util.ComparisonList.RenderFullListWarningModal();
+                DfE.Util.ComparisonList.renderFullListWarningModal();
                 return;
             }
         }

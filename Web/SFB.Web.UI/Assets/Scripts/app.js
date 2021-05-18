@@ -75,7 +75,7 @@
     };
 
     window.DfE.Sfb.BenchmarkBasket = {
-        ClearBenchmarkBasket : function () {
+        clearBenchmarkBasket : function () {
             $.get("/school/UpdateBenchmarkBasket?withAction=RemoveAll",
                 function (data) {
                     $("#benchmarkBasket").replaceWith(data);
@@ -90,7 +90,7 @@
     };
 
     window.DfE.Util.Charting = {
-        ChartMoneyFormat: function(amount) {
+        chartMoneyFormat: function(amount) {
             if (amount === null)
                 return "Not applicable";
             else if (amount >= 1000000)
@@ -102,46 +102,46 @@
             else if (amount <= -10000)
                 return "-£" + parseFloat(Math.abs(amount / 1000).toFixed(1)).toString() + 'k';
             else if (amount < 0)
-                return "-£" + window.DfE.Util.Charting.NumberWithCommas(parseFloat(Math.abs(amount).toFixed(0)).toString());
+                return "-£" + window.DfE.Util.Charting.numberWithCommas(parseFloat(Math.abs(amount).toFixed(0)).toString());
             else
-                return "£" + window.DfE.Util.Charting.NumberWithCommas(parseFloat(amount.toFixed(0)).toString());
+                return "£" + window.DfE.Util.Charting.numberWithCommas(parseFloat(amount.toFixed(0)).toString());
         },
 
-        ChartPercentageFormat: function(amount) {
+        chartPercentageFormat: function(amount) {
             if (amount === null)
                 return "Not applicable";
             else
                 return parseFloat(amount.toFixed(1)).toString() + '%';
         },
 
-        ChartDecimalFormat: function(amount) {
+        chartDecimalFormat: function(amount) {
             if (amount === null)
                 return "Not applicable";
             else
                 return parseFloat(amount.toFixed(2)).toString();
         },
 
-        ChartIntegerFormat: function(amount) {
+        chartIntegerFormat: function(amount) {
             if (amount === null)
                 return "Not applicable";
             else
                 return parseFloat(amount.toFixed(0)).toString();
         },
 
-        NumberWithCommas: function(x) {
+        numberWithCommas: function(x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
     };
 
     window.DfE.Util.CookieOverlayRenderer = {
-        Render: function () {
+        render: function () {
             var div = document.createElement("div");
             div.className += "cookie-overlay";
             document.getElementById('cookie-overlay-wrapper').appendChild(div);
             window.onscroll = function () { window.scrollTo(0, 0); };
         },
 
-        UnRender: function () {
+        unRender: function () {
             document.getElementById('cookie-overlay-wrapper').removeChild(document.getElementById('cookie-overlay-wrapper').lastChild);
             window.onscroll = null;
         }
@@ -149,11 +149,11 @@
 
     window.DfE.Util.ModalRenderer = {
 
-        GetQueryString: function () {
+        getQueryString: function () {
             return encodeURIComponent(window.location.pathname + window.location.search);
         },
 
-        RenderAdditionalGrantModal: function () {
+        renderAdditionalGrantModal: function () {
             var $body = $('body');
             var $page = $('#js-modal-page');
 
@@ -178,7 +178,7 @@
 
         },
 
-        RenderYourChartsInfoModal: function () {
+        renderYourChartsInfoModal: function () {
             var $body = $('body');
             var $page = $('#js-modal-page');
 
@@ -202,7 +202,7 @@
             $('#js-modal-close').focus();
 
         },
-        RenderBicCriteriaP8Modal: function (event) {
+        renderBicCriteriaP8Modal: function (event) {
 
             event.stopPropagation();
 
@@ -236,7 +236,7 @@
             $('#js-modal-close').focus();
 
         },
-        RenderBicCriteriaKs2Modal: function (event) {
+        renderBicCriteriaKs2Modal: function (event) {
             event.stopPropagation();
 
             var $body = $('body');
@@ -312,7 +312,7 @@
             }
             return comparisonList.BS.length;
         },
-        RenderFullListWarningModal: function () {
+        renderFullListWarningModal: function () {
             var $body = $('body');
             var $page = $('#js-modal-page');
         
@@ -336,7 +336,7 @@
             $('#js-modal-close').focus();
 
         },
-        RenderFullListWarningModalManual: function () {
+        renderFullListWarningModalManual: function () {
             var $body = $('body');
             var $page = $('#js-modal-page');
 
@@ -360,7 +360,7 @@
             $('#js-modal-close').focus();
 
         },
-        RenderFullListWarningModalMat: function () {
+        renderFullListWarningModalMat: function () {
             var $body = $('body');
             var $page = $('#js-modal-page');
 
@@ -391,7 +391,7 @@
             var retVal = window.ga && window.ga.hasOwnProperty('loaded') === true && window.ga.loaded === true;
             return retVal;
         },
-        TrackClick: function (event) { // Tracks outbound links and element clicks when bound to "a,.js-track"
+        trackClick: function (event) { // Tracks outbound links and element clicks when bound to "a,.js-track"
             if (DfE.Util.Analytics.isAvailable()) {
                 var $element = $(this);
                 var isHyperlinking = event.currentTarget && event.currentTarget.hostname;
@@ -430,12 +430,12 @@
                             gaHitCallback = navigateHitCallback;
                             event.preventDefault();
                         }
-                        DfE.Util.Analytics.TrackEvent(gaCategoryName, gaEventLabel, gaActionName, gaHitCallback);
+                        DfE.Util.Analytics.trackEvent(gaCategoryName, gaEventLabel, gaActionName, gaHitCallback);
                     }
                 }
             }
         },
-        TrackEvent: function (category, label, action, callback) {
+        trackEvent: function (category, label, action, callback) {
             if (DfE.Util.Analytics.isAvailable() && category && action) {
                 category = category.trim();
                 label = label ? label.trim() : null;
@@ -469,19 +469,19 @@
                     //console.log("Tracked event: cat: " + category + ", action: " + action + ", label: " + label);
                 }
                 catch (error) {
-                    //console.log("TrackEvent error: " + error);
+                    //console.log("trackEvent error: " + error);
                 }
             } else {
                 //console.log("Unable to track event: cat: " + category + ", action: " + action);
             }
         },
-        TrackPageView: function (path) {
+        trackPageView: function (path) {
             if (DfE.Util.Analytics.isAvailable() && path) {
                 try {
                     ga('send', 'pageview', path);
                     //console.log("Tracked pageview: " + path);
                 } catch (error) {
-                    //console.log("TrackPageView error: " + error);
+                    //console.log("trackPageView error: " + error);
                 }
             }
         }
@@ -491,7 +491,7 @@
 
         manageCookies();
 
-        //$(document).on("click", "a,.js-track", window.DfE.Util.Analytics.TrackClick);
+        //$(document).on("click", "a,.js-track", window.DfE.Util.Analytics.trackClick);
 
         $(document).on("click", ".expander > span,.label > a", function () {
             var $ele = $(this).closest(".expander");
@@ -556,7 +556,7 @@ function manageCookies() {
 
         $(".gem-c-cookie-banner__wrapper").hide();
         $(".gem-c-cookie-banner__confirmation").show();
-        DfE.Util.CookieOverlayRenderer.UnRender();
+        DfE.Util.CookieOverlayRenderer.unRender();
     });
 
     $("#acceptAllCookiesHide").click(function () {
@@ -569,10 +569,10 @@ function manageCookiePreferencesCookies() {
 
     if (!GOVUK.cookie("cookies_preferences_set") && !window.location.href.toLowerCase().includes("/help/cookies")) {
         $("#global-cookie-message").show();
-        DfE.Util.CookieOverlayRenderer.Render();
+        DfE.Util.CookieOverlayRenderer.render();
     } else {
         $("#global-cookie-message").hide();
-        DfE.Util.CookieOverlayRenderer.UnRender();
+        DfE.Util.CookieOverlayRenderer.unRender();
     }
 }
 

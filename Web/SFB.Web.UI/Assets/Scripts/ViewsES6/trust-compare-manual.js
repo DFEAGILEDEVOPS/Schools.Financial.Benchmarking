@@ -18,7 +18,7 @@
 
         $("#displayNew").click((event) => {
             event.preventDefault();
-            this.DisplayNewTrustElements();
+            this.displayNewTrustElements();
         });
 
 
@@ -194,7 +194,7 @@
     //        });
     //}
 
-    DisplayNewTrustElements() {
+    displayNewTrustElements() {
         $("#NewTrust").show();
         $("#NewTrustName").focus();
         $("#NewTrustName").removeClass("form-control-error");

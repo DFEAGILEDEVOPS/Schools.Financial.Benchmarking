@@ -413,7 +413,7 @@
             case "AbsoluteCount":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartIntegerFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartIntegerFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -427,12 +427,12 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.chartDecimalFormat(d); };
                 break;
             case "AbsoluteMoney":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -446,12 +446,12 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); };
                 break;
             case "PerPupil":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -466,13 +466,13 @@
                     }
                 };
                 yFormat = (d) => {
-                    return window.DfE.Util.Charting.ChartMoneyFormat(d);
+                    return window.DfE.Util.Charting.chartMoneyFormat(d);
                 };
                 break;
             case "PerTeacher":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -487,7 +487,7 @@
                     }
                 };
                 yFormat = (d) => {
-                    return window.DfE.Util.Charting.ChartMoneyFormat(d);
+                    return window.DfE.Util.Charting.chartMoneyFormat(d);
                 };
                 break;
             case "PercentageOfTotalIncome":
@@ -496,7 +496,7 @@
             case "PercentageTeachers":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartPercentageFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -511,13 +511,13 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.chartPercentageFormat(d); };
                 break;
             case "NoOfPupilsPerMeasure":
             case "HeadcountPerFTE":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartDecimalFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -531,7 +531,7 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.chartDecimalFormat(d); };
                 break;
         }
 
