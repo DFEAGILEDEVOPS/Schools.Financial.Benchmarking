@@ -4,7 +4,7 @@
         sessionStorage.chartFormat = chartFormat;
 
         DfE.Views.HistoricalCharts = new HistoricalCharts();
-        DfE.Views.HistoricalCharts.GenerateCharts();
+        DfE.Views.HistoricalCharts.generateCharts();
 
         GOVUK.Modal.Load();
 

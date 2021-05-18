@@ -18,7 +18,7 @@
                 {
             <div class="charts-section__chart-container__chart-header">
                 <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
-                <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.SelectGrouping('@historicalChart.DrillInto','@historicalChart.TabName.ToLower()')">
+                <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.HistoricalCharts.selectGrouping('@historicalChart.DrillInto','@historicalChart.TabName.ToLower()')">
                     @if (ViewBag.ChartFormat == ChartFormat.Charts)
                     {
                         <span class="view-more">All @historicalChart.Name.Replace("total", "").ToLower() charts</span>

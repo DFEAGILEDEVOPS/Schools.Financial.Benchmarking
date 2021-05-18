@@ -1,6 +1,6 @@
 ﻿class HistoricalCharts {
 
-    GenerateCharts(unitParameter) {
+    generateCharts(unitParameter) {
         let self = this;
         $(".chart").each(
             function () {
@@ -10,27 +10,27 @@
                 let maxBy = _.maxBy(yValues, function (o) { return o.amount; });
                 let maximum = maxBy ? maxBy.amount : 0;
                 if (minimum === 0 && maximum === 0) {
-                    self.GenerateChart(this, null, 0, 0, 0, 0);
+                    self.generateChart(this, null, 0, 0, 0, 0);
                 } else if (minimum === maximum) {
                     let middle;
                     if (minimum >= 0) {
-                        middle = self.RoundedTickRange(0, maximum);
-                        self.GenerateChart(this, unitParameter, 0, middle, middle, middle * 2);
+                        middle = self.roundedTickRange(0, maximum);
+                        self.generateChart(this, unitParameter, 0, middle, middle, middle * 2);
                     } else {
-                        middle = self.RoundedTickRange(minimum, 0);
-                        self.GenerateChart(this, unitParameter, -2 * middle, -1 * middle, -1 * middle, 0);
+                        middle = self.roundedTickRange(minimum, 0);
+                        self.generateChart(this, unitParameter, -2 * middle, -1 * middle, -1 * middle, 0);
                     }
                 } else {
-                    let range = self.RoundedTickRange(minimum, maximum);
+                    let range = self.roundedTickRange(minimum, maximum);
                     let newMin = range * Math.floor(minimum / range);
                     let newMax = range * Math.ceil(maximum / range);
-                    self.GenerateChart(this, unitParameter, newMin, newMin + range, newMin + range + range, newMax);
+                    self.generateChart(this, unitParameter, newMin, newMin + range, newMin + range + range, newMax);
                 }
             }
         );
     }
 
-    RoundedTickRange(min, max) {
+    roundedTickRange(min, max) {
         let range = max - min;
         let tickCount = 3;
         let unroundedTickSize = range / (tickCount - 1);
@@ -40,7 +40,7 @@
         return roundedTickRange;
     }
 
-    GenerateChart(el, showValue, min, mid, mid2, max) {
+    generateChart(el, showValue, min, mid, mid2, max) {
         showValue = showValue || "AbsoluteMoney";
         let axisLabel = $('#' + el.id).attr('data-axis-label');
         let yAxis;
@@ -170,7 +170,7 @@
         });
     }
 
-    SelectGrouping(grouping, parentGrouping) {
+    selectGrouping(grouping, parentGrouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
         $("#financialSummary")[0].scrollIntoView();
@@ -179,13 +179,13 @@
         $(".back-to-main-chart-group-button").show();
     }
 
-    ResetGrouping() {
+    resetGrouping() {
         $('#ChartGroup').prop('selectedIndex', 0);
         $("#ChartGroup").change();
         $(".back-to-main-chart-group-button").hide();
     }
 
-    RebuildCharts(establishment) {
+    rebuildCharts(establishment) {
         let codeParameter = DfE.Util.QueryString.get('code');
         let urnParameter = DfE.Util.QueryString.get('urn');
         let companyNoParameter = DfE.Util.QueryString.get('companyNo');
@@ -230,15 +230,15 @@
             },
             success: (data) => {
                 $(".historical-charts-list").html(data);
-                this.GenerateCharts(unitParameter);
-                this.UpdateTotals();
-                this.UpdateTrustWarnings();
+                this.generateCharts(unitParameter);
+                this.updateTotals();
+                this.updateTrustWarnings();
                 new Accordion(document.getElementById('historical-charts-accordion'));
             }
         });
     }
 
-    UpdateTrustWarnings() {
+    updateTrustWarnings() {
         let isPlaceholder = $("#isPlaceholder").val();
         if (isPlaceholder === "true") {
             $("#placeholderWarning").show();
@@ -247,7 +247,7 @@
         }
     }
 
-    UpdateTotals() {
+    updateTotals() {
         let expTotal = $("#expTotal").val();
         let expTotalAbbr = $("#expTotalAbbr").val();
         let incTotal = $("#incTotal").val();
@@ -270,7 +270,7 @@
         }
     }
 
-    UpdateBenchmarkBasket(urn, withAction) {
+    updateBenchmarkBasket(urn, withAction) {
         if (withAction === "Add") {
             if (DfE.Util.ComparisonList.count() === 30) {
                 DfE.Util.ComparisonList.RenderFullListWarningModal();

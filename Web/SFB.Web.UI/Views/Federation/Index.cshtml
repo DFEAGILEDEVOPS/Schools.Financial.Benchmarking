@@ -60,13 +60,13 @@
         <div class="column-full hide-in-print">
             <div class="column-one-third no-padding">
                 <div class="add-remove">
-                    <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
+                    <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
                         <img class="icon" src="~/public/assets/images/icons/add_to_set.svg" />
                         <div class="inline">
                             <span> Add to benchmark set</span>
                         </div>
                     </button>                    
-                    <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
+                    <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
                         <img class="icon" src="~/public/assets/images/icons/remove_from_set.svg" />
                         <div class="inline">
                             <span> Remove from benchmark set</span>
@@ -86,7 +86,7 @@
             </div>
             <div class="column-one-third no-padding">
                 <div class="print">
-                    <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.FederationDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                    <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.FederationDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                         <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                         Print page
                     </button>
@@ -234,7 +234,7 @@
                     <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
                 <div class="column-full font-xsmall hide-in-print">
-                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                         <span><</span>
                         <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
                     </button>

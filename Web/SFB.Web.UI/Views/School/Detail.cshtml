@@ -143,7 +143,7 @@
         }
         <div class="column-one-third no-padding">
             <div class="download">
-                <button class="pl-0 link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.DownloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <button class="pl-0 link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.downloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
                         <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
@@ -153,7 +153,7 @@
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                     Print page
                 </button>
@@ -288,8 +288,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Expenditure')"
+               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
                href="javascript: void(0)">@TabNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
@@ -298,8 +298,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')"
+               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
                href="javascript: void(0)">@TabNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
@@ -308,8 +308,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')"
+               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
                href="javascript: void(0)">@TabNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
@@ -318,8 +318,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Workforce')"
+               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Workforce')"
                href="javascript: void(0)">@TabNames.WORKFORCE</a>
         </li>
     </ul>
@@ -349,11 +349,11 @@
         <div class="grid-row">
             <div>
                 <div class="column-full font-xsmall chartTable hide-in-print">
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
                 <div class="column-full font-xsmall hide-in-print">
-                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                         <span><</span>
                         <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
                     </button>
