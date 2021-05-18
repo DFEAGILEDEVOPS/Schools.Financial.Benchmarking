@@ -16,7 +16,7 @@
 
         $(".remove-school").click((event) => {
             event.preventDefault();
-            this.RemoveSchool($(event.target).data('urn'));
+            this.removeSchool($(event.target).data('urn'));
         });
 
 
@@ -30,7 +30,7 @@
 
         $("#displayNew").click((event) => {
             event.preventDefault();
-            this.DisplayNewSchoolElements();            
+            this.displayNewSchoolElements();            
         });
     }
 
@@ -124,7 +124,7 @@
             });
     }
 
-    RemoveSchool(urn) {
+    removeSchool(urn) {
         $.get("/manualcomparison/RemoveSchool?urn=" + urn,
             (data) => {
                 $("#SchoolsToAdd").html(data);
@@ -133,7 +133,7 @@
             });
     }
 
-    RemoveAllSchools() {
+    removeAllSchools() {
         $.get("/manualcomparison/RemoveAllSchools",
             (data) => {
                 $("#SchoolsToAdd").html(data);
@@ -141,7 +141,7 @@
             });
     }
 
-    DisplayNewSchoolElements() {
+    displayNewSchoolElements() {
         $("#NewSchool").show();
         $("#NewSchoolName").focus();
         $("#NewSchoolName").removeClass("form-control-error");

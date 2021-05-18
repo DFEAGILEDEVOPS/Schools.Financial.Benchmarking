@@ -59,7 +59,7 @@
         });
     }
 
-    DownloadData(fuid) {
+    downloadData(fuid) {
         $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
         document.getElementById('download_iframe').src = `/federation/download?fuid=${fuid}`;
         setTimeout(() => {
@@ -67,7 +67,7 @@
         }, 2000)
     }
 
-    PrintPage() {
+    printPage() {
         $('details').attr('open', 'true');
         let detailses = document.getElementsByTagName("details"),
             details,
@@ -79,7 +79,7 @@
         window.print();
     }
 
-    TabChange(urn, tab) {
+    tabChange(urn, tab) {
         let queryString = `?fuid=${urn}&tab=${tab}`;
 
         if (DfE.Util.QueryString.get('tab') !== "Workforce") {
@@ -99,7 +99,7 @@
         window.location = queryString;
     }
 
-    TabKeydown(e) {
+    tabKeydown(e) {
         let keys = {
             left: 37,
             up: 38,
@@ -144,7 +144,7 @@
         }
     };
 
-    ToggleChartsTables(mode) {
+    toggleChartsTables(mode) {
         let $charts = $('.chart-wrapper');
         let $tables = $('.chart-table-wrapper');
         let $mobile_balance_wrappers = $('.balance-wrapper-mobile');

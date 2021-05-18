@@ -3,7 +3,7 @@
         GOVUK.Modal.Load();
     }
 
-    UpdateBenchmarkBasket(urn, withAction) {
+    updateBenchmarkBasket(urn, withAction) {
         $.ajax({
             url: "/benchmarklist/UpdateBenchmarkBasket?urn=" + urn + "&withAction=" + withAction,
             datatype: 'json',
