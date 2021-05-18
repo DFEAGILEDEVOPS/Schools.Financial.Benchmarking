@@ -12,7 +12,7 @@
                 </a>
             </span>
         </span>
-        <select name="CentralFinancing" id="CentralFinancing" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.RebuildCharts()">
+        <select name="CentralFinancing" id="CentralFinancing" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.rebuildCharts()">
             <option value="@CentralFinancingType.Exclude" @IsSelected(CentralFinancingType.Exclude)>@BMFinancing.EXCLUDE</option>
             <option value="@CentralFinancingType.Include" @IsSelected(CentralFinancingType.Include)>@BMFinancing.INCLUDE</option>
         </select>

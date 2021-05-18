@@ -97,7 +97,7 @@ else
     <div class="grid-row download-links hide-in-print">
         <div id="downloadLinkContainer" class="download-link">
             <div class="download">
-                <button id="DownloadLink" class="no-underline bold-xsmall link-button sfb_gtm_csv_bm" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadData('@Model.EstablishmentType')">
+                <button id="DownloadLink" class="no-underline bold-xsmall link-button sfb_gtm_csv_bm" onclick="DfE.Views.BenchmarkChartsViewModel.downloadData('@Model.EstablishmentType')">
                     <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" />
                     <div id="DownloadLinkTextWrapper" class="inline">
                         <span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
@@ -107,7 +107,7 @@ else
         </div>
         <div class="download-link pdf-ppt">
             <div class="pdf">
-                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.RenderDownloadModal(event)">
+                <button id="PdfLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.renderDownloadModal(event)">
                     <img class="icon download-icon" src="~/public/assets/images/icons/download.svg" alt="" />
                     @*<img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />*@
                     <span id="PdfLinkText"> Download page</span>
@@ -116,14 +116,14 @@ else
         </div>
         <div class="download-link">
             <div class="print">
-                <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.PrintPage()">
+                <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.printPage()">
                     <img class="icon" src="~/public/assets/images/icons/print.svg" alt="" /><span id="PrintLinkText"> Print page</span>
                 </button>
             </div>
         </div>
         <div class="download-link">
             <div class="save">
-                <button id="SaveLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.SaveBenchmarkBasketModal()">
+                <button id="SaveLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.saveBenchmarkBasketModal()">
                     <img class="icon download-icon" src="~/public/assets/images/icons/save.svg" alt="" />
                     <span id="SaveLinkText"> Save or share benchmark</span>
                 </button>
@@ -144,8 +144,8 @@ else
                 <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
             </div>
             <div class="column-quarter font-xsmall chartTable hide-in-print mt-1">
-                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                <button style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
             </div>
         </div>
         <hr />

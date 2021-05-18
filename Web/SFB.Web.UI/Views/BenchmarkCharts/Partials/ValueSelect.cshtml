@@ -13,7 +13,7 @@
                 </a>
             </span>
         </span>
-        <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.RebuildCharts()">
+        <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.rebuildCharts()">
             @if (ViewBag.Tab == TabType.Workforce)
             {
                 <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>
