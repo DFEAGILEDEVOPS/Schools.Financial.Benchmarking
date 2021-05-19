@@ -1,4 +1,6 @@
-﻿class SchoolsResultsViewModel {
+﻿"use strict";
+
+class SchoolsResultsViewModel {
     constructor(activeTab, mapApiKey) {
         this.cache = {};
         this.location;

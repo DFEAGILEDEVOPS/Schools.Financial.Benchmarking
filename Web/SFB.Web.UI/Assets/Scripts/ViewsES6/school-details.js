@@ -89,13 +89,14 @@
     printPage() {
         $('details').attr('open', 'true');
         let detailses = document.getElementsByTagName("details");
-        let details;
-        let i = -1;
-        while (details = detailses[++i]) {
-            //DOM API
-            details["open"] = true;
+        let i = 0;
+        let details = detailses[i];
+        while (details) {
+            details = detailses[i++];
+            if (details) {
+                details["open"] = true;
+            }
         }
-
         window.print();
     }
 

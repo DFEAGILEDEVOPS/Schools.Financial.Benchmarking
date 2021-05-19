@@ -1,4 +1,6 @@
-﻿class TrustDetailsViewModel {
+﻿"use strict";
+
+class TrustDetailsViewModel {
     constructor(chartFormat) {
 
         sessionStorage.chartFormat = chartFormat;
@@ -32,12 +34,14 @@
 
     printPage() {
         $('details').attr('open', 'true');
-        let detailses = document.getElementsByTagName("details"),
-            details,
-            i = -1;
-        while (details = detailses[++i]) {
-            //DOM API
-            details["open"] = true;
+        let detailses = document.getElementsByTagName("details");
+        let i = 0;
+        let details = detailses[i];
+        while (details) {
+            details = detailses[i++];
+            if (details) {
+                details["open"] = true;
+            }
         }
         window.print();
     }

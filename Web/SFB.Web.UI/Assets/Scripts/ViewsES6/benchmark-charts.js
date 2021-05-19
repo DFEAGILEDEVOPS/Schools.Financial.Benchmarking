@@ -1,4 +1,6 @@
-﻿class BenchmarkChartsViewModel {
+﻿"use strict";
+
+class BenchmarkChartsViewModel {
 
     constructor() {
 
@@ -1367,13 +1369,12 @@ class PptGenerator {
             })();
             
             if (sessionStorage.chartFormat === 'Charts') {
-                var intervalId = setInterval(checkFinished, 100);
-                function checkFinished() {
+                var intervalId = setInterval(() => {
                     if (chartImageResults.length === charts.length) {
                         clearInterval(intervalId);
                         resolve();
                     }
-                }
+                }, 100);
             } else {
                 resolve();
             } 
@@ -1777,13 +1778,12 @@ class PdfGenerator {
             })();
 
             if (sessionStorage.chartFormat === 'Charts') {
-                let intervalId = setInterval(checkFinished, 100);
-                function checkFinished() {
+                let intervalId = setInterval(() => {
                     if (chartImageResults.length === charts.length) {
                         clearInterval(intervalId);
                         resolve();
                     }
-                }
+                }, 100);
             } else {
                 resolve();
             }         

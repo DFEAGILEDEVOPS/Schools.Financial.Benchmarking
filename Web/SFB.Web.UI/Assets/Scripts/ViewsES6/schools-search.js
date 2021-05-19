@@ -1,4 +1,6 @@
-﻿class SchoolsSearchViewModel {
+﻿"use strict";
+
+class SchoolsSearchViewModel {
 
     constructor(localAuthorities, azureMapsAPIKey) {
         this.localAuthorities = localAuthorities;

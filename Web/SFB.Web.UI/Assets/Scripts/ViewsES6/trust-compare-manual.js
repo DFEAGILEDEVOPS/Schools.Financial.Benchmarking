@@ -1,4 +1,6 @@
-﻿class TrustCompareManualViewModel {
+﻿"use strict";
+
+class TrustCompareManualViewModel {
 
     constructor() {
         this.bindManualEvents();
@@ -41,7 +43,7 @@
 
     validate() {
         let count = $(".remove-trust").length;
-        if (count == 0 || $("#NewTrustName:visible").length > 0) {
+        if (count === 0 || $("#NewTrustName:visible").length > 0) {
             $(".error-summary").hide();
             $(".error-message").hide();
             if ($("#NewTrustName").val() === "") {

@@ -1,4 +1,6 @@
-﻿class AdvancedCharacteristicsViewModel {
+﻿"use strict";
+
+class AdvancedCharacteristicsViewModel {
 
     constructor() {
 

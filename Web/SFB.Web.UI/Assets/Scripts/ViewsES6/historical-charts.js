@@ -1,4 +1,6 @@
-﻿class HistoricalCharts {
+﻿"use strict";
+
+class HistoricalCharts {
 
     generateCharts(unitParameter) {
         let self = this;

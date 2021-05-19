@@ -1,4 +1,6 @@
-﻿class TrustCompareAdvancedViewModel {
+﻿"use strict";
+
+class TrustCompareAdvancedViewModel {
 
     constructor() {
         this.questionCheckBoxSelector = ".multiple-choice.question > input";

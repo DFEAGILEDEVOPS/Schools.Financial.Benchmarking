@@ -1,4 +1,6 @@
-﻿class BenchmarkListViewModel{
+﻿"use strict";
+
+class BenchmarkListViewModel{
     constructor() {
         GOVUK.Modal.Load();
     }

@@ -1,4 +1,6 @@
-﻿class FederationDetailsViewModel {
+﻿"use strict";
+
+class FederationDetailsViewModel {
     constructor(chartFormat, unitType, mapApiKey) {
         this.initControls(chartFormat, unitType);
         this.initMaps(mapApiKey);
@@ -69,12 +71,14 @@
 
     printPage() {
         $('details').attr('open', 'true');
-        let detailses = document.getElementsByTagName("details"),
-            details,
-            i = -1;
-        while (details = detailses[++i]) {
-            //DOM API
-            details["open"] = true;
+        let detailses = document.getElementsByTagName("details");
+        let i = 0;
+        let details = detailses[i];
+        while (details) {
+            details = detailses[i++];
+            if (details) {
+                details["open"] = true;
+            }
         }
         window.print();
     }

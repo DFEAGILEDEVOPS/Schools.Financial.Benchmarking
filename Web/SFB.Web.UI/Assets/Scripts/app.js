@@ -60,7 +60,7 @@
 
     window.DfE.Util.Features = {
         enabled: function (feature) {
-            return $("#Feature-" + feature + "-enabled").val().toLowerCase() == "true";
+            return $("#Feature-" + feature + "-enabled").val().toLowerCase() === "true";
         }
     };
 
@@ -281,7 +281,7 @@
         isInList: function (id) {
             var data = this.getData("sfb_comparison_list");
             var comparisonList = JSON.parse(data);
-            if (comparisonList == null) {
+            if (comparisonList === null) {
                 return false;
             }
             var found = _.find(comparisonList.BS, function (bs) { return bs.U === id; });
@@ -290,7 +290,7 @@
         isInManualList: function (id) {
             var data = this.getData("sfb_comparison_list_manual");
             var comparisonList = JSON.parse(data);
-            if (comparisonList == null) {
+            if (comparisonList === null) {
                 return false;
             }
             var found = _.find(comparisonList.BS, function (bs) { return bs.U === id; });
@@ -299,7 +299,7 @@
         count: function () {
             var data = this.getData("sfb_comparison_list");
             var comparisonList = JSON.parse(data);
-            if (comparisonList == null) {
+            if (comparisonList === null) {
                 return 0;
             }
             return comparisonList.BS.length;
@@ -307,7 +307,7 @@
         countManual: function () {
             var data = this.getData("sfb_comparison_list_manual");
             var comparisonList = JSON.parse(data);
-            if (comparisonList == null) {
+            if (comparisonList === null) {
                 return 0;
             }
             return comparisonList.BS.length;
@@ -395,8 +395,8 @@
             if (DfE.Util.Analytics.isAvailable()) {
                 var $element = $(this);
                 var isHyperlinking = event.currentTarget && event.currentTarget.hostname;
-                var isExternalLink = isHyperlinking && location.hostname != event.currentTarget.hostname;
-                var isTargetBlank = $element.attr("target") == "_blank";
+                var isExternalLink = isHyperlinking && location.hostname !== event.currentTarget.hostname;
+                var isTargetBlank = $element.attr("target") === "_blank";
                 var targetHref = isHyperlinking ? event.currentTarget.href : null;
                 var navigateHitCallback = function () { document.location = targetHref; };
                 var hasJsTrackCssClass = $(this).hasClass("js-track");
@@ -413,12 +413,12 @@
                         var trackData = $element.data("track"); // 'category|label|action'
                         if (trackData) {
                             var parts = trackData.split("|");
-                            if (parts.length == 3) {
+                            if (parts.length === 3) {
                                 gaCategoryName = parts[0];
                                 gaEventLabel = parts[1];
                                 gaActionName = parts[2];
 
-                                if (gaEventLabel == "[use-path]")
+                                if (gaEventLabel === "[use-path]")
                                     gaEventLabel = event.currentTarget.pathname + event.currentTarget.search;
                             }
                         }

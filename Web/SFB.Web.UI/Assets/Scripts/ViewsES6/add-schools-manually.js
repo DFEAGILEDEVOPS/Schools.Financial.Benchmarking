@@ -1,4 +1,6 @@
-﻿class AddSchoolsManuallyViewModel {
+﻿"use strict";
+
+class AddSchoolsManuallyViewModel {
 
     constructor() {
         GOVUK.Modal.Load();
@@ -150,7 +152,7 @@
 
     validate() {
         let count = $("#schoolCount").val();
-        if (count == 0 || $("#NewSchoolName:visible").length > 0) {
+        if (count === 0 || $("#NewSchoolName:visible").length > 0) {
             $(".error-summary").hide();
             $(".error-message").hide();
             if ($("#NewSchoolName").val() === "") {
