@@ -74,13 +74,12 @@ class BenchmarkChartsViewModel {
         if (scope) {
             scope.dataLoaded.then(
                 function () {
-                    $(".customActions").each(function () {
-                        let self = this;
-                        let chartId = Number($(self).attr("data-fn"));
-                        let showValue = $(self).attr("data-sv");
+                    $(".customActions").each((i, el) => {
+                        let chartId = Number($(el).attr("data-fn"));
+                        let showValue = $(el).attr("data-sv");
 
                         _.forEach(scope.selectionList.HierarchicalCharts,
-                            function (group) {
+                            (group) => {
                                 let selection = _.find(group.Charts,
                                     function (c) {
                                         return c.Id === chartId;
@@ -89,34 +88,34 @@ class BenchmarkChartsViewModel {
                                 if (selection) {
                                     switch (showValue) {
                                         case 'PerPupil':
-                                            selection.PerPupilSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PerPupilSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'PerTeacher':
-                                            selection.PerTeacherSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PerTeacherSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'PercentageOfTotalExpenditure':
-                                            selection.PercentageExpenditureSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PercentageExpenditureSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'PercentageOfTotalIncome':
-                                            selection.PercentageIncomeSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PercentageIncomeSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'AbsoluteMoney':
-                                            selection.AbsoluteMoneySelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.AbsoluteMoneySelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'AbsoluteCount':
-                                            selection.AbsoluteCountSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.AbsoluteCountSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'HeadcountPerFTE':
-                                            selection.HeadCountPerFTESelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.HeadCountPerFTESelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'FTERatioToTotalFTE':
-                                            selection.PercentageOfWorkforceSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PercentageOfWorkforceSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'NoOfPupilsPerMeasure':
-                                            selection.NumberOfPupilsPerMeasureSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.NumberOfPupilsPerMeasureSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'PercentageTeachers':
-                                            selection.PercentageTeachersSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PercentageTeachersSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                     }
                                 }

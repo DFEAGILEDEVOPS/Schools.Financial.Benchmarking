@@ -3,30 +3,29 @@
 class HistoricalCharts {
 
     generateCharts(unitParameter) {
-        let self = this;
         $(".chart").each(
-            function () {
-                let yValues = JSON.parse($('#' + this.id).attr('data-chart'));
-                let minBy = _.minBy(yValues, function (o) { return o.amount; });
+            (i, el) => {
+                let yValues = JSON.parse($('#' + el.id).attr('data-chart'));
+                let minBy = _.minBy(yValues, (o) => o.amount );
                 let minimum = minBy ? minBy.amount : 0;
-                let maxBy = _.maxBy(yValues, function (o) { return o.amount; });
+                let maxBy = _.maxBy(yValues, o => o.amount);
                 let maximum = maxBy ? maxBy.amount : 0;
                 if (minimum === 0 && maximum === 0) {
-                    self.generateChart(this, null, 0, 0, 0, 0);
+                    this.generateChart(el, null, 0, 0, 0, 0);
                 } else if (minimum === maximum) {
                     let middle;
                     if (minimum >= 0) {
-                        middle = self.roundedTickRange(0, maximum);
-                        self.generateChart(this, unitParameter, 0, middle, middle, middle * 2);
+                        middle = this.roundedTickRange(0, maximum);
+                        this.generateChart(el, unitParameter, 0, middle, middle, middle * 2);
                     } else {
-                        middle = self.roundedTickRange(minimum, 0);
-                        self.generateChart(this, unitParameter, -2 * middle, -1 * middle, -1 * middle, 0);
+                        middle = this.roundedTickRange(minimum, 0);
+                        this.generateChart(el, unitParameter, -2 * middle, -1 * middle, -1 * middle, 0);
                     }
                 } else {
-                    let range = self.roundedTickRange(minimum, maximum);
+                    let range = this.roundedTickRange(minimum, maximum);
                     let newMin = range * Math.floor(minimum / range);
                     let newMax = range * Math.ceil(maximum / range);
-                    self.generateChart(this, unitParameter, newMin, newMin + range, newMin + range + range, newMax);
+                    this.generateChart(el, unitParameter, newMin, newMin + range, newMin + range + range, newMax);
                 }
             }
         );
