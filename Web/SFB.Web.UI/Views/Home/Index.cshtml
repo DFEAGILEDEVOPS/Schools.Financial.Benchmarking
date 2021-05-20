@@ -42,14 +42,20 @@
     {
         <div class="home-school-section">
             <p>
-                <span class="heading-small bold-small">
-                    Your school:
-                </span>
+                @if (Model.ComparisonList.HomeSchoolType == "Federation")
+                {
+                    <span class="heading-small bold-small">
+                        Your federation:
+                    </span>
+                }
+                else
+                {
+                    <span class="heading-small bold-small">
+                        Your school:
+                    </span>
+                }
                 <a class="bold-small" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
             </p>
-            @*<div>
-                <a class="button" role="button" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.ComparisonList.HomeSchoolUrn">Compare with other schools</a>
-            </div>*@
         </div>
     }
 
