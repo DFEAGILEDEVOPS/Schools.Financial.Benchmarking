@@ -398,6 +398,7 @@ namespace SFB.Web.UI.Controllers
             }
 
             _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((benchmarkSchool as SchoolViewModel));
+            await _schoolBenchmarkListService.SetSchoolAsDefaultAsync(urn);
 
             return await Index(urn, null, comparisonResult.BenchmarkCriteria, bicCriteria, ComparisonType.BestInClass, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, bicCriteria.EstablishmentType);
         }

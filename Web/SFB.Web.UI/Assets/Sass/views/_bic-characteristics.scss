@@ -1,12 +1,14 @@
 ﻿.bic-characteristics {
-    .highlight {
+    /*    .highlight {
         @include bold-16();
         background-color: $pink_contrast;
         color: $white;
         text-align: center;
         padding: 5px;
         display: inline;
-    }
+    }*/
+
+    @include highlighting;
 
     .benchmark-school-value {
         margin-bottom: 8px;
