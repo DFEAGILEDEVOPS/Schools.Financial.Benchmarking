@@ -370,6 +370,8 @@ class BenchmarkChartsViewModel {
                     let limit = 42;
                     let text = schoolName.length < limit
                         ? schoolName
+                        : urn === $("#HomeSchoolURN").val()
+                        ? schoolName.substring(0, limit - 5) + "..."
                         : schoolName.substring(0, limit - 3) + "...";
                     $(this).find('tspan').text(text);
                 }
