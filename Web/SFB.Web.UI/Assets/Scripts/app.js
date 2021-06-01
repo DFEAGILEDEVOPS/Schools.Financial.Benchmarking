@@ -620,6 +620,10 @@ function manageRecruitmentBannerAndCookie(cookiesPolicyCookie) {
             $(".banner-content__recruitment-banner").show();
             $(".js-dismiss-recruitment-banner").click(function () {
                 $(".banner-content__recruitment-banner").hide();
+                cookiesPolicyCookie = JSON.parse(GOVUK.cookie("cookies_policy"));
+                if (cookiesPolicyCookie.settings) {
+                    GOVUK.cookie("suppress-recruitment-banner", 'yes', { days: 180 });
+                }
             });
         }
     }
