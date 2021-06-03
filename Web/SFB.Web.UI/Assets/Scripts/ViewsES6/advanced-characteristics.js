@@ -30,12 +30,18 @@ class AdvancedCharacteristicsViewModel {
 
         $.validator.methods.maxGreaterThanMin = (value, element) => {
             let minValue = $(element.parentNode.parentNode).find(".min-js").val();
-            return minValue === "" || parseFloat(value) >= parseFloat(minValue);
+            return minValue === "" || value === "" || parseFloat(value) >= parseFloat(minValue);
         };
 
         $.validator.methods.minLowerThanMax = (value, element) => {
             let maxValue = $(element.parentNode.parentNode).find(".max-js").val();
-            return maxValue === "" || parseFloat(value) <= parseFloat(maxValue);
+            return maxValue === "" || value === "" || parseFloat(value) <= parseFloat(maxValue);
+        };
+
+        $.validator.methods.minOrMaxRequired = (value, element) => {
+               let minValue = $(element.parentNode.parentNode).find(".min-js").val();
+            let maxValue = $(element.parentNode.parentNode).find(".max-js").val();
+            return minValue !== "" || maxValue !== "";
         };
 
         $('#criteriaForm').
@@ -56,11 +62,11 @@ class AdvancedCharacteristicsViewModel {
             });
 
         $(".max-js").each((index, element) => $(element).rules("add", {
-            maxGreaterThanMin: ""
+            maxGreaterThanMin: "", minOrMaxRequired: ""
         }));
 
         $(".min-js").each((index, element) => $(element).rules("add", {
-            minLowerThanMax: ""
+            minLowerThanMax: "", minOrMaxRequired: ""
         }));
     }
 
@@ -243,19 +249,21 @@ class AdvancedCharacteristicsViewModel {
             this.clear();
         });
 
-        $(".min-js").focusout((event) => {
-            let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
-            if (!maxInput[0].validity.valueMissing) {
-                maxInput.valid();
-            }
-        });
+        //$(".min-js").focusout((event) => {
+        //    debugger;
+        //    let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
+        //    if (!maxInput[0].validity.valueMissing) {
+        //        maxInput.valid();
+        //    }
+        //});
 
-        $(".max-js").focusout((event) => {
-            let minInput = $(event.target.parentNode.parentNode).find(".min-js");
-            if (!minInput[0].validity.valueMissing) {
-                minInput.valid();
-            }
-        });
+        //$(".max-js").focusout((event) => {
+        //    debugger;
+        //    let minInput = $(event.target.parentNode.parentNode).find(".min-js");
+        //    if (!minInput[0].validity.valueMissing) {
+        //        minInput.valid();
+        //    }
+        //});
     }
 }
 
