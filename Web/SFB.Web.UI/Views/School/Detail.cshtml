@@ -204,7 +204,7 @@
                     @SchoolDetailField("School overall phase:", Model.OverallPhase)
                 }
                 @SchoolDetailField("School phase:", Model.Phase)
-                @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
+                @SchoolDetailField("Number of pupils:", Model.TotalPupilsForPhase.ToString())
                 <dt class="metadata-school-detail__dt"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
                 <dd class="metadata-school-detail__dd bold">@Model.Id</dd>
                 @if (Model.OfstedRating == "0")

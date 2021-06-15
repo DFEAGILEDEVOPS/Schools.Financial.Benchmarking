@@ -167,7 +167,29 @@ namespace SFB.Web.UI.Models
             }
         }
 
-        public override float TotalPupils => ContextData.NumberOfPupils.GetValueOrDefault();
+        public float TotalPupilsForPhase
+        {
+            get
+            {
+                if (OverallPhase == "Pupil referral unit" || OverallPhase == "Alternative provision")
+                {                  
+                    return (float)LatestYearFinancialData?.PupilCount;
+                }
+                return TotalPupils;
+            }
+        }        
+        
+        public override float TotalPupils
+        {
+            get
+            {
+                if(OverallPhase == "Pupil referral unit")
+                {                  
+                    return (float)LatestYearFinancialData?.PupilCount;
+                }
+                return ContextData.NumberOfPupils.GetValueOrDefault();
+            }
+        }
 
         public string IsPost16 => ContextData.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
