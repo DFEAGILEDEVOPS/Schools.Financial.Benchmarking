@@ -13,7 +13,7 @@
             padding-right: 15px;
             text-align: left;
             padding-bottom: 15px;
-            width: 140px;
+            width: 150px;
 
             @include media(desktop) {
                 width: 170px;
@@ -22,7 +22,6 @@
             @include media(mobile) {
                 text-align: left;
                 min-width: unset;
-                width: 100px;
             }
         }
 

@@ -204,7 +204,19 @@
                     @SchoolDetailField("School overall phase:", Model.OverallPhase)
                 }
                 @SchoolDetailField("School phase:", Model.Phase)
-                @SchoolDetailField("Number of pupils:", Model.TotalPupilsForPhase.ToString())
+                @if (Model.OverallPhase == "Pupil referral unit" || Model.OverallPhase == "Alternative provision")
+                {
+                    @SchoolDetailField("Number of pupils: <span class=\"help-icon hide-in-print js-show-value-help\">" +
+                                     $"<span class=\"icon dark-blue\">" +
+                                     $"<a href=\"#\" class=\"js-modal\" role=\"button\" data-modal-title=\"Number of pupils\" data-modal-text=\"{@HelpTooltipText.NumberOfPupils}\" data-modal-close-text=\"Close\" data-modal-close-title=\"Close\" data-help-text-key=\"\">" +
+                                     "<span class=\"visuallyhidden\">Open more info text for Number of pupils - opens a popup</span>" +
+                                     "</a></span></span>", Model.TotalPupilsForPhase.ToString())
+                }
+                else
+                {
+                    @SchoolDetailField("Number of pupils: ", Model.TotalPupils.ToString())
+                }
+
                 <dt class="metadata-school-detail__dt"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
                 <dd class="metadata-school-detail__dd bold">@Model.Id</dd>
                 @if (Model.OfstedRating == "0")
@@ -390,8 +402,9 @@
     if (!string.IsNullOrEmpty(value))
     {
         var htmlValue = new MvcHtmlString(value);
+        var htmlName= new MvcHtmlString(name);
 
-        <dt class="metadata-school-detail__dt">@name</dt>
+        <dt class="metadata-school-detail__dt">@htmlName</dt>
         <dd class="metadata-school-detail__dd bold">@htmlValue</dd>
     }
 }

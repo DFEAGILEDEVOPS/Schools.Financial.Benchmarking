@@ -176,6 +176,8 @@
 
         public const string TrustFinance = "Multi-academy trusts submit finance for each of their academies, they may also submit finance specific to the trust itself.  In order to allow like-for-like comparisons users are able to include or exclude a calculated share of trust finance to each academy within the trust. On this website, we make this calculation on a simple per-pupil basis by dividing the trust’s declared finance by the total number of pupils in the trust that year." +
             "<p>This method makes simple comparisons possible, but it is not necessarily indicative of how allocations are made by trusts in practice.</p>";
+
+        public const string NumberOfPupils = "Due to issues around dual registration pupil referral units and alternative provision settings use the pupil number shown in the most recent financial submission.";
     }
 
     public class DealsForSchoolsLinkText
