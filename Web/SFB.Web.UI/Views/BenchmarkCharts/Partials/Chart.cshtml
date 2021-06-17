@@ -47,7 +47,7 @@
                         {
                         <div class="chart-header">
                             <h2 class="heading-medium inline">@Model[i].Name</h2>
-                            <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.SelectGrouping('@Model[i].DrillInto', '@Model[i].TabName.ToLower()')">
+                            <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.selectGrouping('@Model[i].DrillInto', '@Model[i].TabName.ToLower()')">
                                 @if (ViewBag.ChartFormat == ChartFormat.Charts)
                                 {
                                     <span class="view-more">All @Model[i].Name.Replace("total", "").ToLower() charts</span>
@@ -108,13 +108,13 @@
                             </div>
                             <div class="column-half font-xsmall no-padding float-to-right your-chart-controls custom-action-mobile">
                                 <div class="float-to-right">
-                                    <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
+                                    <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
                                         <i class="icon icon-bookmark">
                                             <span class="visually-hidden">Bookmark</span>
                                         </i>
                                         <span>Add to your charts</span>
                                     </button>
-                                    <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
+                                    <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
                                         <i class="icon icon-bookmark">
                                             <span class="visually-hidden">Bookmark</span>
                                         </i>
@@ -131,7 +131,7 @@
                                     </div>
                                 </div>
                                 <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
-                                    <button aria-label="View Your Charts" class="a-button" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom')">
+                                    <button aria-label="View Your Charts" class="a-button" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.changeTab('Custom')">
                                         <i class="icon icon-report"></i>
                                         <span>View your charts</span>
                                     </button>
@@ -179,7 +179,7 @@
                                 {
                                     <div class="chart-scores-header" style="max-width: 60px;">
                                         <span>Progress 8</span>
-                                        @*<button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoChart_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
+                                        @*<button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoChart_@i" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                             <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                         </button>*@
                                     </div>
@@ -188,7 +188,7 @@
                                 {
                                     <div class="chart-scores-header">
                                         <span>KS2 progress</span>
-                                        @*<button class="helpLink link-button no-padding hide-in-print ks2-help" id="renderKS2InfoChart_@i" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
+                                        @*<button class="helpLink link-button no-padding hide-in-print ks2-help" id="renderKS2InfoChart_@i" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                             <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                         </button>*@
                                     </div>
@@ -274,17 +274,17 @@
 
                                                 <div class="column-half font-xsmall no-padding float-to-right custom-action-mobile">
                                                     <div class="float-to-right">
-                                                        <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
+                                                        <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
                                                             <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
                                                             <span>Add to your charts</span>
                                                         </button>
-                                                        <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.AddRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
+                                                        <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
                                                             <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
                                                             <span>Remove from your charts</span>
                                                         </button>
                                                     </div>
                                                     <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
-                                                        <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.ChangeTab('Custom');">
+                                                        <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.changeTab('Custom');">
                                                             <i class="icon icon-report"></i>
                                                             <span>View your charts</span>
                                                         </a>

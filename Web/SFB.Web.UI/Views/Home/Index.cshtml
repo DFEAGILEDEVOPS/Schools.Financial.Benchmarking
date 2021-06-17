@@ -42,14 +42,20 @@
     {
         <div class="home-school-section">
             <p>
-                <span class="heading-small bold-small">
-                    Your school:
-                </span>
+                @if (Model.ComparisonList.HomeSchoolType == "Federation")
+                {
+                    <span class="heading-small bold-small">
+                        Your federation:
+                    </span>
+                }
+                else
+                {
+                    <span class="heading-small bold-small">
+                        Your school:
+                    </span>
+                }
                 <a class="bold-small" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
             </p>
-            @*<div>
-                <a class="button" role="button" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.ComparisonList.HomeSchoolUrn">Compare with other schools</a>
-            </div>*@
         </div>
     }
 
@@ -58,8 +64,8 @@
             <ul role="tablist">
                 <li class="@ViewHelpers.SchoolTabActive(Model.SearchType) hide-in-print" role="presentation" id="SchoolTab">
                     <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.TabChange('SchoolTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.TabKeydown(event)"
+                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('SchoolTab')" 
+                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
                        role="tab" 
                        aria-selected="true" 
                        aria-controls="SchoolTabContent" 
@@ -68,8 +74,8 @@
                 </li>
                 <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="presentation" id="TrustTab">
                     <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.TabChange('TrustTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.TabKeydown(event)"
+                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('TrustTab')" 
+                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
                        role="tab" 
                        aria-selected="false" 
                        aria-controls="TrustTabContent" 
@@ -78,8 +84,8 @@
                 </li>
                 <li class="@ViewHelpers.NoDefaultTabActive(Model.SearchType) hide-in-print" role="presentation" id="NoDefaultTab">
                     <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.TabChange('NoDefaultTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.TabKeydown(event)"
+                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('NoDefaultTab')" 
+                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
                        role="tab" 
                        aria-selected="false" 
                        aria-controls="NoDefaultTabContent" 

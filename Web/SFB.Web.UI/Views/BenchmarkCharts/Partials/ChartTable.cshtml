@@ -5,8 +5,8 @@
 <button onclick="DfE.Util.focusTo('post-table-@Model.Name.Replace(" ","")')" class="hidden-button a-button">Skip the table @Model.Name</button>
 
 <div class="mobile-tables">
-    <button aria-label="Display @Model.Name table in detailed view" class="mobile-hide-show-button show detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)">Show more information</button>
-    <button aria-label="Display @Model.Name table in summary view" class="mobile-hide-show-button hide detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetailsMobile(this)" style="display: none">Show less information</button>
+    <button aria-label="Display @Model.Name table in detailed view" class="mobile-hide-show-button show detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetailsMobile(this)">Show more information</button>
+    <button aria-label="Display @Model.Name table in summary view" class="mobile-hide-show-button hide detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetailsMobile(this)" style="display: none">Show less information</button>
 
     <table class="tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--summary-view">
         <caption class="visually-hidden">@Model.Name</caption>
@@ -174,7 +174,7 @@
                         {
                             <th scope="row" class="col-header">
                                 KS2 progress
-                                <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
+                                <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                 </button>
                             </th>
@@ -189,7 +189,7 @@
                         {
                             <th scope="row" class="col-header">
                                 Progress 8
-                                <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
+                                <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                 </button>
                             </th>
@@ -264,8 +264,8 @@
 </div>
 
 <div class="desktop-tables">
-    <button aria-label="Hide extra columns in @Model.Name table" class="hide-show-button hide detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)">Show less information</button>
-    <button aria-label="Show extra columns in @Model.Name table" class="hide-show-button show detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.HideShowDetails(this)" style="display: none">Show more information</button>
+    <button aria-label="Hide extra columns in @Model.Name table" class="hide-show-button hide detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetails(this)">Show less information</button>
+    <button aria-label="Show extra columns in @Model.Name table" class="hide-show-button show detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetails(this)" style="display: none">Show more information</button>
 
     <table class="tablesorter data-table-js chart-table chart-table--mobile-above-view">
         <caption class="visually-hidden">@Model.Name</caption>
@@ -280,7 +280,7 @@
                     {
                         <th class="detail sortInitialOrder-desc" scope="col" data-header="Progress Score">
                             Progress 8
-                            <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaP8Modal(event)">
+                            <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                 <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                             </button>
                         </th>
@@ -289,7 +289,7 @@
                     {
                         <th class="detail sortInitialOrder-desc" scope="col" data-header="Progress Score">
                             KS2 progress
-                            <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.RenderBicCriteriaKs2Modal(event)">
+                            <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                 <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                             </button>
                         </th>

@@ -1,4 +1,6 @@
-﻿class AddSchoolsManuallyViewModel {
+﻿"use strict";
+
+class AddSchoolsManuallyViewModel {
 
     constructor() {
         GOVUK.Modal.Load();
@@ -16,7 +18,7 @@
 
         $(".remove-school").click((event) => {
             event.preventDefault();
-            this.RemoveSchool($(event.target).data('urn'));
+            this.removeSchool($(event.target).data('urn'));
         });
 
 
@@ -30,7 +32,7 @@
 
         $("#displayNew").click((event) => {
             event.preventDefault();
-            this.DisplayNewSchoolElements();            
+            this.displayNewSchoolElements();            
         });
     }
 
@@ -124,7 +126,7 @@
             });
     }
 
-    RemoveSchool(urn) {
+    removeSchool(urn) {
         $.get("/manualcomparison/RemoveSchool?urn=" + urn,
             (data) => {
                 $("#SchoolsToAdd").html(data);
@@ -133,7 +135,7 @@
             });
     }
 
-    RemoveAllSchools() {
+    removeAllSchools() {
         $.get("/manualcomparison/RemoveAllSchools",
             (data) => {
                 $("#SchoolsToAdd").html(data);
@@ -141,7 +143,7 @@
             });
     }
 
-    DisplayNewSchoolElements() {
+    displayNewSchoolElements() {
         $("#NewSchool").show();
         $("#NewSchoolName").focus();
         $("#NewSchoolName").removeClass("form-control-error");
@@ -150,7 +152,7 @@
 
     validate() {
         let count = $("#schoolCount").val();
-        if (count == 0 || $("#NewSchoolName:visible").length > 0) {
+        if (count === 0 || $("#NewSchoolName:visible").length > 0) {
             $(".error-summary").hide();
             $(".error-message").hide();
             if ($("#NewSchoolName").val() === "") {

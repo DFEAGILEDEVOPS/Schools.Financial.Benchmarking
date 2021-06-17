@@ -24,13 +24,13 @@
             <li>
                 <a class="font-xsmall" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
             </li>
-            <li>
+            @*<li>
                 <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic benchmark report</a>
-            </li>
+            </li>*@
         </ul>
     </div>
 
-    @if ((FeatureManager.IsEnabled(Features.EfficiencyMetric)) || (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null))
+    @if ((CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null))
     {
         <div class="column-one-third" id="progressColumn">
             <img src="~/public/assets/images/progress.svg" class="pano green-svg" alt="Progress comparison" />
@@ -39,18 +39,15 @@
                 Examine your school's spending in relation to progress or compare your school against higher progress schools
             </p>
             <ul class="list-arrow">
-                @if (FeatureManager.IsEnabled(Features.EfficiencyMetric))
-                {
-                    <li id="efficiencyMetricLink" style="display: none">
-                        <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name.Replace("(", "%28").Replace(")", "%29").Replace("&", "%26")">Efficiency metric</a>
-                    </li>
-                }
                 @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
                 {
                     <li>
                         <a class="font-xsmall" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
                     </li>
                 }
+                <li id="efficiencyMetricLink" style="display: none">
+                    <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name.Replace("(", "%28").Replace(")", "%29").Replace("&", "%26")">Efficiency metric</a>
+                </li>
             </ul>
         </div>
     }

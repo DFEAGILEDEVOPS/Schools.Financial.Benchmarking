@@ -1,4 +1,6 @@
-﻿class SchoolsResultsViewModel {
+﻿"use strict";
+
+class SchoolsResultsViewModel {
     constructor(activeTab, mapApiKey) {
         this.cache = {};
         this.location;
@@ -178,7 +180,7 @@
     updateBenchmarkBasket(urn, withAction) {
         if (withAction === "Add") {
             if (DfE.Util.ComparisonList.count() === 30) {
-                DfE.Util.ComparisonList.RenderFullListWarningModal();
+                DfE.Util.ComparisonList.renderFullListWarningModal();
                 return;
             }
         }
@@ -194,7 +196,7 @@
     updateManualBasket(urn, withAction) {
         if (withAction === "Add") {
             if (DfE.Util.ComparisonList.countManual() === 30) {
-                DfE.Util.ComparisonList.RenderFullListWarningModalManual();
+                DfE.Util.ComparisonList.renderFullListWarningModalManual();
                 return;
             }
         }
@@ -219,7 +221,7 @@
         let schoolsToAddCount = $addButtons.length;
         let comparisonListCount = DfE.Util.ComparisonList.count();
         if (comparisonListCount + schoolsToAddCount > 30) {
-            DfE.Util.ComparisonList.RenderFullListWarningModal();
+            DfE.Util.ComparisonList.renderFullListWarningModal();
         } else {
             var urns = [];
             $addButtons.each(function () {

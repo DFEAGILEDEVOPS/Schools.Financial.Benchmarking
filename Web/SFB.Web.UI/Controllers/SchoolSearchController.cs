@@ -321,9 +321,7 @@ namespace SFB.Web.UI.Controllers
         private async Task<ActionResult> SearchSchoolByName(string nameId, string suggestionUrn, bool openOnly = false, string orderby = "", int page = 1, string referrer = "home/index")
         {
             var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
-            dynamic searchResp = null;
-
-            if (string.IsNullOrEmpty(_valService.ValidateSchoolIdParameter(suggestionUrn)))
+            if ((referrer == "home/index") && string.IsNullOrEmpty(_valService.ValidateSchoolIdParameter(suggestionUrn)))
             {
                 return RedirectToAction("Detail", "School", new { urn = suggestionUrn });
             }
@@ -331,8 +329,12 @@ namespace SFB.Web.UI.Controllers
             var errorMessage = _valService.ValidateNameParameter(nameId);
             if (string.IsNullOrEmpty(errorMessage))
             {
-                searchResp = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, openOnly, orderby, page);
-                if(searchResp.NumberOfResults == 0)
+                if (nameId.IndexOf('(') > 0)
+                {
+                    nameId = nameId.Substring(0, nameId.IndexOf('(') - 1);
+                }
+                dynamic searchResp = await GetSearchResultsAsync(nameId, SearchTypes.SEARCH_BY_NAME_ID, null, null, null, null, openOnly, orderby, page);
+                if (searchResp.NumberOfResults == 0)
                 {
                     return ErrorView(SearchTypes.SEARCH_BY_NAME_ID, referrer, SearchErrorMessages.NO_SCHOOL_NAME_RESULTS, schoolComparisonList);
                 }

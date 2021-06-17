@@ -1,9 +1,11 @@
-﻿class BenchmarkListViewModel{
+﻿"use strict";
+
+class BenchmarkListViewModel{
     constructor() {
         GOVUK.Modal.Load();
     }
 
-    UpdateBenchmarkBasket(urn, withAction) {
+    updateBenchmarkBasket(urn, withAction) {
         $.ajax({
             url: "/benchmarklist/UpdateBenchmarkBasket?urn=" + urn + "&withAction=" + withAction,
             datatype: 'json',

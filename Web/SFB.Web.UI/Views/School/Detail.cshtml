@@ -84,45 +84,47 @@
     <div class="column-full">
         @if (!Model.IsReturnsDNS)
         {
-        <div class="blue-banner">
-            <h1 class="heading-xlarge page-heading">@Model.Name</h1>
-
-            <div class="hide-in-print">
-                @if (Model.IsPartOfFederation)
-                {
-                    <p>There are now several ways for you to compare this school against others.</p>
-                }
-                else
-                {
-                    <p>There are now several ways for you to compare this school against others.</p>
-                }
-            </div>
-
-            <a class="button start-button hide-in-print" href="start-benchmarking?urn=@Model.Id" role="button">
-                Start a comparison
-                <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
-                </svg>
-            </a>
-
-            @if (Model.IsPartOfFederation)
-            {
-                <hr />
-                <p>Alternatively this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> can be compared against other schools and federations which which may give a more accurate comparison.</p>
-            }
-        </div>
-        }
-        else
-        {
             <div class="blue-banner">
                 <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
+                <div class="hide-in-print">
+                    <p>There are now several ways for you to compare this school against others.</p>
+                </div>
+
+                <a class="button start-button hide-in-print" href="start-benchmarking?urn=@Model.Id" role="button">
+                    Start a comparison
+                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+                    </svg>
+                </a>
+
                 @if (Model.IsPartOfFederation)
                 {
-                    <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                    <hr />
+                    <p class="mb-0">Alternatively this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> can be compared against other schools and federations which which may give a more accurate comparison.</p>
                 }
-
             </div>
+        }
+        else
+        {
+    <div class="blue-banner">
+        <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+
+        @if (Model.IsPartOfFederation)
+        {
+            <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+        }
+
+        <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
+
+        <a class="button start-button hide-in-print" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button">
+            Go to the self-assessment dashboard
+            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+            </svg>
+        </a>
+
+    </div>
         }
 
 
@@ -143,7 +145,7 @@
         }
         <div class="column-one-third no-padding">
             <div class="download">
-                <button class="pl-0 link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.DownloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <button class="pl-0 link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.downloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
                         <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
@@ -153,7 +155,7 @@
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                     Print page
                 </button>
@@ -202,7 +204,19 @@
                     @SchoolDetailField("School overall phase:", Model.OverallPhase)
                 }
                 @SchoolDetailField("School phase:", Model.Phase)
-                @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
+                @if (Model.OverallPhase == "Pupil referral unit" || Model.OverallPhase == "Alternative provision")
+                {
+                    @SchoolDetailField("Number of pupils: <span class=\"help-icon hide-in-print js-show-value-help\">" +
+                                     $"<span class=\"icon dark-blue\">" +
+                                     $"<a href=\"#\" class=\"js-modal\" role=\"button\" data-modal-title=\"Number of pupils\" data-modal-text=\"{@HelpTooltipText.NumberOfPupils}\" data-modal-close-text=\"Close\" data-modal-close-title=\"Close\" data-help-text-key=\"\">" +
+                                     "<span class=\"visuallyhidden\">Open more info text for Number of pupils - opens a popup</span>" +
+                                     "</a></span></span>", Model.TotalPupilsForPhase.ToString())
+                }
+                else
+                {
+                    @SchoolDetailField("Number of pupils: ", Model.TotalPupils.ToString())
+                }
+
                 <dt class="metadata-school-detail__dt"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
                 <dd class="metadata-school-detail__dd bold">@Model.Id</dd>
                 @if (Model.OfstedRating == "0")
@@ -288,8 +302,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Expenditure')"
+               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
                href="javascript: void(0)">@TabNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
@@ -298,8 +312,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')"
+               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
                href="javascript: void(0)">@TabNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
@@ -308,8 +322,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')"
+               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
                href="javascript: void(0)">@TabNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
@@ -318,8 +332,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.SchoolDetailsViewModel.TabChange(@Model.Id,'@TabType.Workforce')"
+               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Workforce')"
                href="javascript: void(0)">@TabNames.WORKFORCE</a>
         </li>
     </ul>
@@ -349,11 +363,11 @@
         <div class="grid-row">
             <div>
                 <div class="column-full font-xsmall chartTable hide-in-print">
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
                 <div class="column-full font-xsmall hide-in-print">
-                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                         <span><</span>
                         <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
                     </button>
@@ -388,8 +402,9 @@
     if (!string.IsNullOrEmpty(value))
     {
         var htmlValue = new MvcHtmlString(value);
+        var htmlName= new MvcHtmlString(name);
 
-        <dt class="metadata-school-detail__dt">@name</dt>
+        <dt class="metadata-school-detail__dt">@htmlName</dt>
         <dd class="metadata-school-detail__dd bold">@htmlValue</dd>
     }
 }
@@ -398,9 +413,9 @@
 {
     <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
     <dd class="metadata-school-detail__dd bold">
-        <a rel="external noopener noreferrer" class="font16-ext-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">School performance tables<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="font16-ext-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="visuallyhidden"> Opens in a new window</span></a>
         <span class="seperator spt_link_js" aria-hidden="true">&nbsp; | &nbsp;</span>
-        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="visuallyhidden"> Opens in a new window</span></a>
     </dd>
 }
 

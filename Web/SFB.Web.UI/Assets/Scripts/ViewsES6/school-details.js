@@ -32,7 +32,7 @@
         sessionStorage.chartFormat = chartFormat;
 
         DfE.Views.HistoricalCharts = new HistoricalCharts();
-        DfE.Views.HistoricalCharts.GenerateCharts(unitType);
+        DfE.Views.HistoricalCharts.generateCharts(unitType);
 
         new Accordion(document.getElementById('historical-charts-accordion'));
         new Accordion(document.getElementById('controls-accordion'));
@@ -78,7 +78,7 @@
         }, 500);
     }
 
-    DownloadData(urn) {
+    downloadData(urn) {
         $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
         document.getElementById('download_iframe').src = '/school/download?urn=' + urn;
         setTimeout(() => {
@@ -86,20 +86,21 @@
         }, 2000)
     }
 
-    PrintPage() {
+    printPage() {
         $('details').attr('open', 'true');
         let detailses = document.getElementsByTagName("details");
-        let details;
-        let i = -1;
-        while (details = detailses[++i]) {
-            //DOM API
-            details["open"] = true;
+        let i = 0;
+        let details = detailses[i];
+        while (details) {
+            details = detailses[i++];
+            if (details) {
+                details["open"] = true;
+            }
         }
-
         window.print();
     }
 
-    TabChange(urn, tab) {
+    tabChange(urn, tab) {
         let queryString = `?urn=${urn}&tab=${tab}`;
 
         if (DfE.Util.QueryString.get('tab') !== "Workforce") {
@@ -119,7 +120,7 @@
         window.location = queryString;
     }
 
-    TabKeydown(e) {
+    tabKeydown(e) {
         let keys = {
             left: 37,
             up: 38,
@@ -164,7 +165,7 @@
         }
     }
 
-    ToggleChartsTables(mode) {
+    toggleChartsTables(mode) {
         let $charts = $('.chart-wrapper');
         let $tables = $('.chart-table-wrapper');
         let $mobile_balance_wrappers = $('.balance-wrapper-mobile');

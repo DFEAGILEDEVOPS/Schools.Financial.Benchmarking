@@ -126,10 +126,20 @@
                 }
                 else
                 {
-                    <div id="MaintainedContainer" class="multiple-choice">
-                        <input id="Maintained" type="radio" name="EstType" value="Maintained">
-                        <label class="selection-button-radio" for="Maintained">Maintained schools</label>
-                    </div>
+                    if (ViewBag.ComparisonType == ComparisonType.FederationBasic)
+                    {
+                        <div id="MaintainedContainer" class="multiple-choice">
+                            <input id="Maintained" type="radio" name="EstType" value="Maintained">
+                            <label class="selection-button-radio" for="Maintained">Maintained schools and federations</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="MaintainedContainer" class="multiple-choice">
+                            <input id="Maintained" type="radio" name="EstType" value="Maintained">
+                            <label class="selection-button-radio" for="Maintained">Maintained schools</label>
+                        </div>
+                    }
 
                     <div id="AcademiesContainer" class="multiple-choice">
                         <input id="Academies" type="radio" name="EstType" value="Academies">

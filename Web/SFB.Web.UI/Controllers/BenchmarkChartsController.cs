@@ -398,62 +398,58 @@ namespace SFB.Web.UI.Controllers
             }
 
             _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((benchmarkSchool as SchoolViewModel));
+            await _schoolBenchmarkListService.SetSchoolAsDefaultAsync(urn);
 
             return await Index(urn, null, comparisonResult.BenchmarkCriteria, bicCriteria, ComparisonType.BestInClass, ComparisonListLimit.DEFAULT, benchmarkSchool.LatestYearFinancialData, bicCriteria.EstablishmentType);
         }
 
-        [HttpGet]
-        [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]        
-        public async Task<ViewResult> OneClickReport(long urn)
-        {
-            var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
+        //[HttpGet]
+        //[OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]        
+        //public async Task<ViewResult> OneClickReport(long urn)
+        //{
+        //    var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
 
-            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromOneClickComparisonCriteria(benchmarkSchool.LatestYearFinancialData);
+        //    var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromOneClickComparisonCriteria(benchmarkSchool.LatestYearFinancialData);
 
-            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithOneClickComparisonAsync(benchmarkCriteria, EstablishmentType.All, ComparisonListLimit.ONE_CLICK, benchmarkSchool.LatestYearFinancialData);
+        //    var comparisonResult = await _comparisonService.GenerateBenchmarkListWithOneClickComparisonAsync(benchmarkCriteria, EstablishmentType.All, ComparisonListLimit.ONE_CLICK, benchmarkSchool.LatestYearFinancialData);
 
-            _schoolBenchmarkListService.ClearSchoolBenchmarkList();
+        //    _schoolBenchmarkListService.ClearSchoolBenchmarkList();
 
-            _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
+        //    _schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
 
-            _schoolBenchmarkListService.SetSchoolAsDefault((benchmarkSchool as SchoolViewModel));
+        //    _schoolBenchmarkListService.SetSchoolAsDefault((benchmarkSchool as SchoolViewModel));
 
-            _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((benchmarkSchool as SchoolViewModel));
+        //    _schoolBenchmarkListService.TryAddSchoolToBenchmarkList((benchmarkSchool as SchoolViewModel));
 
-            var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(TabType.Custom, ChartGroupType.Custom, null, CentralFinancingType.Include);
+        //    var benchmarkCharts = await BuildSchoolBenchmarkChartsAsync(TabType.Custom, ChartGroupType.Custom, null, CentralFinancingType.Include);
 
-            var vm = new BenchmarkChartListViewModel(
-                benchmarkCharts,
-                _schoolBenchmarkListService.GetSchoolBenchmarkList(),
-                null,
-                ComparisonType.OneClick,
-                comparisonResult.BenchmarkCriteria,
-                null,
-                null,
-                benchmarkSchool.LatestYearFinancialData,
-                benchmarkSchool.EstablishmentType,
-                EstablishmentType.All,
-                null, null,
-                SchoolFormatHelpers.FinancialTermFormatAcademies(await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Academies)),
-                SchoolFormatHelpers.FinancialTermFormatMaintained(await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Maintained)),
-                ComparisonArea.All, null, urn,
-                ComparisonListLimit.ONE_CLICK);
+        //    var vm = new BenchmarkChartListViewModel(
+        //        benchmarkCharts,
+        //        _schoolBenchmarkListService.GetSchoolBenchmarkList(),
+        //        null,
+        //        ComparisonType.OneClick,
+        //        comparisonResult.BenchmarkCriteria,
+        //        null,
+        //        null,
+        //        benchmarkSchool.LatestYearFinancialData,
+        //        benchmarkSchool.EstablishmentType,
+        //        EstablishmentType.All,
+        //        null, null,
+        //        SchoolFormatHelpers.FinancialTermFormatAcademies(await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Academies)),
+        //        SchoolFormatHelpers.FinancialTermFormatMaintained(await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Maintained)),
+        //        ComparisonArea.All, null, urn,
+        //        ComparisonListLimit.ONE_CLICK);
 
-            ViewBag.ChartFormat = ChartFormat.Charts;
-            ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
-            ViewBag.Financing = CentralFinancingType.Include;
+        //    ViewBag.ChartFormat = ChartFormat.Charts;
+        //    ViewBag.HomeSchoolId = vm.SchoolComparisonList.HomeSchoolUrn;
+        //    ViewBag.Financing = CentralFinancingType.Include;
 
-            return View(vm);
-        }
+        //    return View(vm);
+        //}
 
         [HttpGet]
         public async Task<ActionResult> GenerateFromEfficiencyMetricsTop(long urn)
         {
-            if (FeatureManager.IsDisabled(Features.EfficiencyMetric))
-            {
-                throw new UnauthorizedAccessException();
-            }
-
             var defaultSchool = await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn);
             var neighbourSchools = (await _efficiencyMetricDataService.GetSchoolDataObjectByUrnAsync(urn)).Neighbours;
             var topNeighbourSchoolURNs = neighbourSchools.OrderBy(s => s.Rank).Take(15).Select(n => n.Urn).ToList();
@@ -470,10 +466,6 @@ namespace SFB.Web.UI.Controllers
         [HttpPost]
         public async Task<ActionResult> GenerateFromEfficiencyMetricsManual(long urn, string neighbourURNs)
         {
-            if (FeatureManager.IsDisabled(Features.EfficiencyMetric))
-            {
-                throw new UnauthorizedAccessException();
-            }
 
             var neighbourUrnList = neighbourURNs?.Split(',').Select(u => long.Parse(u)).ToList();
 

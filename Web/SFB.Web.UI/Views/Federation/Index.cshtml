@@ -60,13 +60,13 @@
         <div class="column-full hide-in-print">
             <div class="column-one-third no-padding">
                 <div class="add-remove">
-                    <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
+                    <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
                         <img class="icon" src="~/public/assets/images/icons/add_to_set.svg" />
                         <div class="inline">
                             <span> Add to benchmark set</span>
                         </div>
                     </button>                    
-                    <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.UpdateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
+                    <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
                         <img class="icon" src="~/public/assets/images/icons/remove_from_set.svg" />
                         <div class="inline">
                             <span> Remove from benchmark set</span>
@@ -76,7 +76,7 @@
             </div>
             <div class="column-one-third no-padding">
                 <div class="download">
-                    <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.DownloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.downloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                         <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                         <div id="DownloadLinkTextWrapper" class="inline">
                             <span id="DownloadLinkText"> Download data for this federation<span class="visually-hidden"> (CSV)</span></span>
@@ -86,7 +86,7 @@
             </div>
             <div class="column-one-third no-padding">
                 <div class="print">
-                    <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.FederationDetailsViewModel.PrintPage()" aria-label="Print page for @Model.Name">
+                    <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.FederationDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                         <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                         Print page
                     </button>
@@ -172,8 +172,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Expenditure')"
+               onkeydown="DfE.Views.FederationDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
                href="javascript: void(0)">@TabNames.EXPENDITURE</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
@@ -182,8 +182,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Income')"
+               onkeydown="DfE.Views.FederationDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
                href="javascript: void(0)">@TabNames.INCOME</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
@@ -192,8 +192,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Balance')"
+               onkeydown="DfE.Views.FederationDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
                href="javascript: void(0)">@TabNames.BALANCE</a>
         </li>
         <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
@@ -202,8 +202,8 @@
                class="tab-link"
                role="tab"
                aria-controls="tabPanel"
-               onkeydown="DfE.Views.FederationDetailsViewModel.TabKeydown(event)"
-               onclick="DfE.Views.FederationDetailsViewModel.TabChange(@Model.Id,'@TabType.Workforce')"
+               onkeydown="DfE.Views.FederationDetailsViewModel.tabKeydown(event)"
+               onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Workforce')"
                href="javascript: void(0)">@TabNames.WORKFORCE</a>
         </li>
     </ul>
@@ -230,11 +230,11 @@
         <div class="grid-row">
             <div>
                 <div class="column-full font-xsmall chartTable hide-in-print">
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.ToggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.ToggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
                 <div class="column-full font-xsmall hide-in-print">
-                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                         <span><</span>
                         <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
                     </button>
@@ -281,7 +281,7 @@
 {
     <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
     <dd class="metadata-school-detail__dd bold">
-        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get more information<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get information about schools<span class="visuallyhidden"> Opens in a new window</span></a>
     </dd>
 }
 

@@ -5,7 +5,7 @@
 
 <div class="form-group @IsWorkforceTab()">
     <label class="form-label" for="TrustCentralFinancing">Trust finance</label>
-    <select name="TrustCentralFinancing" id="TrustCentralFinancing" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.RebuildCharts()">
+    <select name="TrustCentralFinancing" id="TrustCentralFinancing" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.rebuildCharts()">
         <option value="@MatFinancingType.TrustAndAcademies" @IsSelected(MatFinancingType.TrustAndAcademies)>@MATFinancing.TRUST_ACADEMIES</option>
         <option value="@MatFinancingType.TrustOnly" @IsSelected(MatFinancingType.TrustOnly)>@MATFinancing.TRUST_ONLY</option>
         <option value="@MatFinancingType.AcademiesOnly" @IsSelected(MatFinancingType.AcademiesOnly)>@MATFinancing.ACADEMIES_ONLY</option>

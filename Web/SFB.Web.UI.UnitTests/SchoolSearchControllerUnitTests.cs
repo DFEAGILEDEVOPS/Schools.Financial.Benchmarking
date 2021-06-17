@@ -295,7 +295,7 @@ namespace SFB.Web.UI.UnitTests
         }
 
         [Test]
-        public async Task SearchActionRedirectsToSchoolViewIfValidUrnProvided()
+        public async Task SearchActionRedirectsToSchoolViewIfValidUrnProvidedInHomePage()
         {
             var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService, 
                 _mockContextDataService.Object, _mockSchoolSearchService.Object,  _mockCookieManager.Object);
@@ -305,6 +305,31 @@ namespace SFB.Web.UI.UnitTests
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
             Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("123456", (result as RedirectToRouteResult).RouteValues["urn"]);
+        }
+
+        [Test]
+        public async Task SearchActionNotRedirectsToSchoolViewIfValidUrnProvidedInAddSchoolPage()
+        {
+            var matches = new List<SchoolSearchResult>();
+            matches.Add(new SchoolSearchResult() { URN = "654321" });
+            matches.Add(new SchoolSearchResult() { URN = "123456" });
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(1, null, matches, 50, 0);
+            var task = Task.Run(() =>
+            {
+                return edubaseSearchResponse;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 50, 50, It.IsAny<string>(), It.IsAny<NameValueCollection>()))
+                .Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService,
+                _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = await controller.Search("Test (ABC 3DX)", SearchTypes.SEARCH_BY_NAME_ID, "123456", null, null, null, null, false, null, 2, null, "AddSchool");
+
+            Assert.IsTrue(result is ViewResult);
+            Assert.AreEqual("SearchResults", (result as ViewResult).ViewName);
         }
 
         [Test]
@@ -527,6 +552,30 @@ namespace SFB.Web.UI.UnitTests
 
             _mockSchoolSearchService.Verify(req => req.SearchSchoolByNameAsync("Test", 50, 50, string.Empty, null), Times.Once());
         }
-      
+
+        [Test]
+        public async Task SearchActionCallsServiceWithAddressRemovedFromSchoolNameOnAddSchools()
+        {
+            var matches = new List<SchoolSearchResult>();
+            matches.Add(new SchoolSearchResult() { URN = "654321" });
+            matches.Add(new SchoolSearchResult() { URN = "123456" });
+            var edubaseSearchResponse = new SearchResultsModel<SchoolSearchResult>(1, null, matches, 50, 0);
+            var task = Task.Run(() =>
+            {
+                return edubaseSearchResponse;
+            });
+
+            _mockSchoolSearchService.Setup(m => m.SearchSchoolByNameAsync("Test", 50, 50, It.IsAny<string>(), It.IsAny<NameValueCollection>()))
+                .Returns((string name, int skip, int take, string orderby, NameValueCollection queryParams) => task);
+
+            var controller = new SchoolSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object, _valService,
+                _mockContextDataService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+            controller.ControllerContext = new ControllerContext(_rc, controller);
+
+            var result = await controller.Search("Test (SQR 3NT)", SearchTypes.SEARCH_BY_NAME_ID, "123", null, null, null, null, false, string.Empty, 2, null, "addSchools");
+
+            _mockSchoolSearchService.Verify(req => req.SearchSchoolByNameAsync("Test", 50, 50, string.Empty, null), Times.Once());
+        }
+
     }
 }

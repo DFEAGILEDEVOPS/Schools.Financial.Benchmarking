@@ -1,4 +1,6 @@
-﻿class CriteriaByAreaViewModel {
+﻿"use strict";
+
+class CriteriaByAreaViewModel {
 
     constructor(localAuthorities) {
         this.localAuthorities = localAuthorities;

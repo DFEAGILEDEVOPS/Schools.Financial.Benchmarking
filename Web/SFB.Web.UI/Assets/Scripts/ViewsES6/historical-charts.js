@@ -1,36 +1,37 @@
-﻿class HistoricalCharts {
+﻿"use strict";
 
-    GenerateCharts(unitParameter) {
-        let self = this;
+class HistoricalCharts {
+
+    generateCharts(unitParameter) {
         $(".chart").each(
-            function () {
-                let yValues = JSON.parse($('#' + this.id).attr('data-chart'));
-                let minBy = _.minBy(yValues, function (o) { return o.amount; });
+            (i, el) => {
+                let yValues = JSON.parse($('#' + el.id).attr('data-chart'));
+                let minBy = _.minBy(yValues, (o) => o.amount );
                 let minimum = minBy ? minBy.amount : 0;
-                let maxBy = _.maxBy(yValues, function (o) { return o.amount; });
+                let maxBy = _.maxBy(yValues, o => o.amount);
                 let maximum = maxBy ? maxBy.amount : 0;
                 if (minimum === 0 && maximum === 0) {
-                    self.GenerateChart(this, null, 0, 0, 0, 0);
+                    this.generateChart(el, null, 0, 0, 0, 0);
                 } else if (minimum === maximum) {
                     let middle;
                     if (minimum >= 0) {
-                        middle = self.RoundedTickRange(0, maximum);
-                        self.GenerateChart(this, unitParameter, 0, middle, middle, middle * 2);
+                        middle = this.roundedTickRange(0, maximum);
+                        this.generateChart(el, unitParameter, 0, middle, middle, middle * 2);
                     } else {
-                        middle = self.RoundedTickRange(minimum, 0);
-                        self.GenerateChart(this, unitParameter, -2 * middle, -1 * middle, -1 * middle, 0);
+                        middle = this.roundedTickRange(minimum, 0);
+                        this.generateChart(el, unitParameter, -2 * middle, -1 * middle, -1 * middle, 0);
                     }
                 } else {
-                    let range = self.RoundedTickRange(minimum, maximum);
+                    let range = this.roundedTickRange(minimum, maximum);
                     let newMin = range * Math.floor(minimum / range);
                     let newMax = range * Math.ceil(maximum / range);
-                    self.GenerateChart(this, unitParameter, newMin, newMin + range, newMin + range + range, newMax);
+                    this.generateChart(el, unitParameter, newMin, newMin + range, newMin + range + range, newMax);
                 }
             }
         );
     }
 
-    RoundedTickRange(min, max) {
+    roundedTickRange(min, max) {
         let range = max - min;
         let tickCount = 3;
         let unroundedTickSize = range / (tickCount - 1);
@@ -40,7 +41,7 @@
         return roundedTickRange;
     }
 
-    GenerateChart(el, showValue, min, mid, mid2, max) {
+    generateChart(el, showValue, min, mid, mid2, max) {
         showValue = showValue || "AbsoluteMoney";
         let axisLabel = $('#' + el.id).attr('data-axis-label');
         let yAxis;
@@ -60,7 +61,7 @@
             case "PerPupil":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -71,7 +72,7 @@
             case "AbsoluteMoney":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -82,7 +83,7 @@
             case "PerTeacher":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -95,7 +96,7 @@
             case "FTERatioToTotalFTE":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartPercentageFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -108,7 +109,7 @@
             case "AbsoluteCount":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartDecimalFormat(d); },
                         values: [min, mid, mid2, max],
                         count: 4
                     },
@@ -170,7 +171,7 @@
         });
     }
 
-    SelectGrouping(grouping, parentGrouping) {
+    selectGrouping(grouping, parentGrouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
         $("#financialSummary")[0].scrollIntoView();
@@ -179,13 +180,13 @@
         $(".back-to-main-chart-group-button").show();
     }
 
-    ResetGrouping() {
+    resetGrouping() {
         $('#ChartGroup').prop('selectedIndex', 0);
         $("#ChartGroup").change();
         $(".back-to-main-chart-group-button").hide();
     }
 
-    RebuildCharts(establishment) {
+    rebuildCharts(establishment) {
         let codeParameter = DfE.Util.QueryString.get('code');
         let urnParameter = DfE.Util.QueryString.get('urn');
         let companyNoParameter = DfE.Util.QueryString.get('companyNo');
@@ -230,15 +231,15 @@
             },
             success: (data) => {
                 $(".historical-charts-list").html(data);
-                this.GenerateCharts(unitParameter);
-                this.UpdateTotals();
-                this.UpdateTrustWarnings();
+                this.generateCharts(unitParameter);
+                this.updateTotals();
+                this.updateTrustWarnings();
                 new Accordion(document.getElementById('historical-charts-accordion'));
             }
         });
     }
 
-    UpdateTrustWarnings() {
+    updateTrustWarnings() {
         let isPlaceholder = $("#isPlaceholder").val();
         if (isPlaceholder === "true") {
             $("#placeholderWarning").show();
@@ -247,7 +248,7 @@
         }
     }
 
-    UpdateTotals() {
+    updateTotals() {
         let expTotal = $("#expTotal").val();
         let expTotalAbbr = $("#expTotalAbbr").val();
         let incTotal = $("#incTotal").val();
@@ -270,10 +271,10 @@
         }
     }
 
-    UpdateBenchmarkBasket(urn, withAction) {
+    updateBenchmarkBasket(urn, withAction) {
         if (withAction === "Add") {
             if (DfE.Util.ComparisonList.count() === 30) {
-                DfE.Util.ComparisonList.RenderFullListWarningModal();
+                DfE.Util.ComparisonList.renderFullListWarningModal();
                 return;
             }
         }

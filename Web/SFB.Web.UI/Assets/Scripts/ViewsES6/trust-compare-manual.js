@@ -1,4 +1,6 @@
-﻿class TrustCompareManualViewModel {
+﻿"use strict";
+
+class TrustCompareManualViewModel {
 
     constructor() {
         this.bindManualEvents();
@@ -18,7 +20,7 @@
 
         $("#displayNew").click((event) => {
             event.preventDefault();
-            this.DisplayNewTrustElements();
+            this.displayNewTrustElements();
         });
 
 
@@ -41,7 +43,7 @@
 
     validate() {
         let count = $(".remove-trust").length;
-        if (count == 0 || $("#NewTrustName:visible").length > 0) {
+        if (count === 0 || $("#NewTrustName:visible").length > 0) {
             $(".error-summary").hide();
             $(".error-message").hide();
             if ($("#NewTrustName").val() === "") {
@@ -194,7 +196,7 @@
     //        });
     //}
 
-    DisplayNewTrustElements() {
+    displayNewTrustElements() {
         $("#NewTrust").show();
         $("#NewTrustName").focus();
         $("#NewTrustName").removeClass("form-control-error");

@@ -1,4 +1,6 @@
-﻿class SchoolsSearchViewModel {
+﻿"use strict";
+
+class SchoolsSearchViewModel {
 
     constructor(localAuthorities, azureMapsAPIKey) {
         this.localAuthorities = localAuthorities;
@@ -247,7 +249,7 @@
             });
         }
 
-    TabChange(tabId) {
+    tabChange(tabId) {
         $('.tabs li').removeClass('active');
         $('.tabs li a').attr('aria-selected', 'false');
         $('.tabs li a').attr('tabindex', '-1');
@@ -259,7 +261,7 @@
         $('#' + tabId + 'Content').show();
     }
 
-    TabKeydown(e) {
+    tabKeydown(e) {
         let keys = {
             left: 37,
             up: 38,

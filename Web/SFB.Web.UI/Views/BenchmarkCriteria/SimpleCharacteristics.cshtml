@@ -92,32 +92,56 @@
         </div>
         <div class="form-group" id="BasketSizeAccordion">
             <fieldset>
-                <legend>
-                    <span class="bold-small">Number of schools in benchmark set:</span>
-                    <span class="help-icon hide-in-print">
-                        <span class="icon dark-blue">
-                            <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='bold-xsmall'>10</span> and <span class='bold-xsmall'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
-                            </a>
+                @if (Model.BenchmarkSchool is FederationViewModel)
+                {
+                    <legend>
+                        <span class="bold-small">Number of schools and federations in benchmark set:</span>
+                        <span class="help-icon hide-in-print">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='bold-xsmall'>10</span> and <span class='bold-xsmall'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
+                                </a>
+                            </span>
                         </span>
-                    </span>
-                </legend>
-
-                <div id="CustomSizeAccordion" class="multiple-choice js-accordion" aria-controls="CustomBasketSizeFieldset">
-                    <input id="CustomBasketSize" type="checkbox" />
-                    <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Define the number of schools in the benchmark comparison (default is 15)</label>
-                </div>
-
-                <div id="CustomBasketSizeFieldset" class="form-group optional-section">
-                    <p>
-                        A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
-                    </p>
-                    <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
-                    <span class="error-message" style="display: none">Enter a number between 5 and 30</span>
-                    <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
-                </div>
-
-
+                    </legend>
+                    <div id="CustomSizeAccordion" class="multiple-choice js-accordion" aria-controls="CustomBasketSizeFieldset">
+                        <input id="CustomBasketSize" type="checkbox" />
+                        <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Define the number of schools and federations in the benchmark comparison (default is 15)</label>
+                    </div>
+                    <div id="CustomBasketSizeFieldset" class="form-group optional-section">
+                        <p>
+                            A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools and federations. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
+                        </p>
+                        <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
+                        <span class="error-message" style="display: none">Enter a number between 5 and 30</span>
+                        <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
+                    </div>
+                }
+                else
+                {
+                    <legend>
+                        <span class="bold-small">Number of schools in benchmark set:</span>
+                        <span class="help-icon hide-in-print">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='bold-xsmall'>10</span> and <span class='bold-xsmall'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
+                    </legend>
+                    <div id="CustomSizeAccordion" class="multiple-choice js-accordion" aria-controls="CustomBasketSizeFieldset">
+                        <input id="CustomBasketSize" type="checkbox" />
+                        <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Define the number of schools in the benchmark comparison (default is 15)</label>
+                    </div>
+                    <div id="CustomBasketSizeFieldset" class="form-group optional-section">
+                        <p>
+                            A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
+                        </p>
+                        <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
+                        <span class="error-message" style="display: none">Enter a number between 5 and 30</span>
+                        <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
+                    </div>
+                }
             </fieldset>
         </div>
         <div class="grid-row">

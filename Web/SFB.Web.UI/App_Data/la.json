@@ -348,6 +348,18 @@
     "REGIONNAME": "East Midlands B"
   },
   {
+    "id": "940",
+    "LANAME": "North Northamptonshire",
+    "REGION": "16",
+    "REGIONNAME": "East Midlands B"
+  },
+  {
+    "id": "941",
+    "LANAME": "West Northamptonshire",
+    "REGION": "16",
+    "REGIONNAME": "East Midlands B"
+  },
+  {
     "id": "334",
     "LANAME": "Solihull",
     "REGION": "24",

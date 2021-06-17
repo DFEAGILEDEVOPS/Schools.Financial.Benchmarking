@@ -1,4 +1,6 @@
-﻿class BenchmarkChartsViewModel {
+﻿"use strict";
+
+class BenchmarkChartsViewModel {
 
     constructor() {
 
@@ -26,8 +28,8 @@
 
             $(".chart-table th").removeAttr("aria-label");
             
-            this.GenerateCharts();
-            this.RefreshAddRemoveLinks();
+            this.generateCharts();
+            this.refreshAddRemoveLinks();
             $('.save-as-image').show();
 
             $(document).keyup((e) => {
@@ -42,7 +44,7 @@
         GOVUK.Modal.Load();     
     }
 
-    GenerateImageDataURIsOfVisibleCharts() {
+    generateImageDataURIsOfVisibleCharts() {
         let charts = $('.chart-container:visible');
         for (let i = 0; i < charts.length; i++) {
             if (sessionStorage.chartFormat === 'Charts') {
@@ -56,7 +58,7 @@
     }
 
     //This function is accessing to the scope of the AngularJS controller to retrieve the chart selections model and update the buttons accordingly in other tabs.
-    RefreshAddRemoveLinks() {
+    refreshAddRemoveLinks() {
 
         function showRemoveLink(element) {
             $(element).find(".customRemove").show();
@@ -72,13 +74,12 @@
         if (scope) {
             scope.dataLoaded.then(
                 function () {
-                    $(".customActions").each(function () {
-                        let self = this;
-                        let chartId = Number($(self).attr("data-fn"));
-                        let showValue = $(self).attr("data-sv");
+                    $(".customActions").each((i, el) => {
+                        let chartId = Number($(el).attr("data-fn"));
+                        let showValue = $(el).attr("data-sv");
 
                         _.forEach(scope.selectionList.HierarchicalCharts,
-                            function (group) {
+                            (group) => {
                                 let selection = _.find(group.Charts,
                                     function (c) {
                                         return c.Id === chartId;
@@ -87,34 +88,34 @@
                                 if (selection) {
                                     switch (showValue) {
                                         case 'PerPupil':
-                                            selection.PerPupilSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PerPupilSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'PerTeacher':
-                                            selection.PerTeacherSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PerTeacherSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'PercentageOfTotalExpenditure':
-                                            selection.PercentageExpenditureSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PercentageExpenditureSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'PercentageOfTotalIncome':
-                                            selection.PercentageIncomeSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PercentageIncomeSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'AbsoluteMoney':
-                                            selection.AbsoluteMoneySelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.AbsoluteMoneySelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'AbsoluteCount':
-                                            selection.AbsoluteCountSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.AbsoluteCountSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'HeadcountPerFTE':
-                                            selection.HeadCountPerFTESelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.HeadCountPerFTESelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'FTERatioToTotalFTE':
-                                            selection.PercentageOfWorkforceSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PercentageOfWorkforceSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'NoOfPupilsPerMeasure':
-                                            selection.NumberOfPupilsPerMeasureSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.NumberOfPupilsPerMeasureSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                         case 'PercentageTeachers':
-                                            selection.PercentageTeachersSelected ? showRemoveLink(self) : showAddLink(self);
+                                            selection.PercentageTeachersSelected ? showRemoveLink(el) : showAddLink(el);
                                             break;
                                     }
                                 }
@@ -125,7 +126,7 @@
     }
 
     //This function is accessing to the scope of the AngularJS controller tab to retrieve and update its chart selections model.
-    AddRemoveYourCharts(chartId, showValue, checked, element) {
+    addRemoveYourCharts(chartId, showValue, checked, element) {
         let scope = angular.element($("#listCtrl")).scope();
         scope.$apply(() => {
             _.forEach(scope.selectionList.HierarchicalCharts,
@@ -179,10 +180,10 @@
             $(element).parents(".your-chart-controls").find(".view-your-charts").hide();
         }
 
-        this.RefreshAddRemoveLinks();
+        this.refreshAddRemoveLinks();
     }
 
-    GenerateChart(el, showValue, min, mid, max, barCount) {
+    generateChart(el, showValue, min, mid, max, barCount) {
         let applyChartStyles = function (el) {
 
             let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0].value;
@@ -243,21 +244,21 @@
                     .attr("r", r)
                     .attr("cy", cy)
                     .attr("cx", newTextX);
-                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.renderMissingFinanceInfoModal(isMAT));
                 d3.select(tick).append('line')
                     .classed("ex-icon", 1)
                     .attr("x1", newTextX)
                     .attr("y1", cy - r + 2)
                     .attr("x2", newTextX)
                     .attr("y2", cy - r + 8);
-                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.renderMissingFinanceInfoModal(isMAT));
                 d3.select(tick).append('line')
                     .classed("ex-icon", 1)
                     .attr("x1", newTextX)
                     .attr("y1", cy - r + 11)
                     .attr("x2", newTextX)
                     .attr("y2", cy - r + 12);
-                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.RenderMissingFinanceInfoModal(isMAT));
+                $(tick.lastElementChild).on('click', () => DfE.Views.BenchmarkChartsViewModel.renderMissingFinanceInfoModal(isMAT));
             };
 
             let drawProgressScoreBox = function (originalTextX, $text, progressScoreType, progressScore, p8binding) {
@@ -369,6 +370,8 @@
                     let limit = 42;
                     let text = schoolName.length < limit
                         ? schoolName
+                        : urn === $("#HomeSchoolURN").val()
+                        ? schoolName.substring(0, limit - 5) + "..."
                         : schoolName.substring(0, limit - 3) + "...";
                     $(this).find('tspan').text(text);
                 }
@@ -413,7 +416,7 @@
             case "AbsoluteCount":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartIntegerFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartIntegerFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -427,12 +430,12 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.chartDecimalFormat(d); };
                 break;
             case "AbsoluteMoney":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -446,12 +449,12 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); };
                 break;
             case "PerPupil":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -466,13 +469,13 @@
                     }
                 };
                 yFormat = (d) => {
-                    return window.DfE.Util.Charting.ChartMoneyFormat(d);
+                    return window.DfE.Util.Charting.chartMoneyFormat(d);
                 };
                 break;
             case "PerTeacher":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartMoneyFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartMoneyFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -487,7 +490,7 @@
                     }
                 };
                 yFormat = (d) => {
-                    return window.DfE.Util.Charting.ChartMoneyFormat(d);
+                    return window.DfE.Util.Charting.chartMoneyFormat(d);
                 };
                 break;
             case "PercentageOfTotalIncome":
@@ -496,7 +499,7 @@
             case "PercentageTeachers":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartPercentageFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -511,13 +514,13 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartPercentageFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.chartPercentageFormat(d); };
                 break;
             case "NoOfPupilsPerMeasure":
             case "HeadcountPerFTE":
                 yAxis = {
                     tick: {
-                        format: (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); },
+                        format: (d) => { return window.DfE.Util.Charting.chartDecimalFormat(d); },
                         values: () => { return [min, mid, max]; },
                         count: 3
                     },
@@ -531,7 +534,7 @@
                         position: 'outer-center'
                     }
                 };
-                yFormat = (d) => { return window.DfE.Util.Charting.ChartDecimalFormat(d); };
+                yFormat = (d) => { return window.DfE.Util.Charting.chartDecimalFormat(d); };
                 break;
         }
 
@@ -624,7 +627,7 @@
         });
     }
 
-    GenerateCharts(unitParameter) {
+    generateCharts(unitParameter) {
         let self = this;
         let RoundedTickRange = function (min, max) {
             let range = max - min;
@@ -644,9 +647,9 @@
             let maxBy = _.maxBy(yValues, function (o) { return o.amount; });
             let maximum = maxBy ? maxBy.amount : 0;
             if (minimum === 0 && maximum === 0) {
-                self.GenerateChart(this, unit, 0, 0, 0, yValues.length);
+                self.generateChart(this, unit, 0, 0, 0, yValues.length);
             } else if (minimum === maximum) {
-                self.GenerateChart(this, unit, minimum, minimum, minimum, yValues.length);
+                self.generateChart(this, unit, minimum, minimum, minimum, yValues.length);
             } else {
                 if (minimum > 0) {
                     minimum = 0;
@@ -656,7 +659,7 @@
                     ? (range * Math.floor(minimum / range))
                     : (range * Math.round(minimum / range));
                 let newMax = range * Math.ceil(maximum / range);
-                self.GenerateChart(this, unit, newMin, newMin + range, newMax, yValues.length);
+                self.generateChart(this, unit, newMin, newMin + range, newMax, yValues.length);
             }
         });
 
@@ -664,10 +667,10 @@
             new Accordion(document.getElementById('bm-charts-accordion'));
         }
 
-        setTimeout(() => this.GenerateImageDataURIsOfVisibleCharts(), 2000);   
+        setTimeout(() => this.generateImageDataURIsOfVisibleCharts(), 2000);   
     }
 
-    SelectGrouping(grouping, parentGrouping) {
+    selectGrouping(grouping, parentGrouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
         $("#BCHeader")[0].scrollIntoView();
@@ -676,13 +679,13 @@
         $(".back-to-main-chart-group-button").show();
     }
 
-    ResetGrouping() {
+    resetGrouping() {
         $('#ChartGroup').prop('selectedIndex', 0);
         $("#ChartGroup").change();
         $(".back-to-main-chart-group-button").hide();
     }
 
-    RebuildCharts() {
+    rebuildCharts() {
         let tabParameter = $("#tabSelection").val();
         let chartGroupParameter = $("#ChartGroup").val();
         let unitParameter = $("#ShowValue").val();
@@ -732,9 +735,9 @@
             },
             success: (data) => {
                 $("#benchmarkChartsList").html(data);
-                this.RefreshAddRemoveLinks();
+                this.refreshAddRemoveLinks();
                 $('.save-as-image').show();
-                this.GenerateCharts(unitParameter);
+                this.generateCharts(unitParameter);
 
                 $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
                 $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
@@ -783,7 +786,7 @@
         d3.selectAll('#' + id + ' svg .title').remove(); 
     }
 
-    DownloadData(establishmentType) {
+    downloadData(establishmentType) {
         $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
         document.getElementById('download_iframe').src = '/BenchmarkCharts/Download?type=' + establishmentType;
         setTimeout(() => {
@@ -791,7 +794,7 @@
         }, 5000)
     }
 
-    PrintPage() {
+    printPage() {
 
         let accordion_sections = $("#benchmarkChartsList .accordion-section");
         accordion_sections.attr('aria-expanded', true);
@@ -804,7 +807,7 @@
         window.print();
     }
 
-    ChangeTab(tab) {
+    changeTab(tab) {
         if (tab === "Custom") {
             $(".tabs li").removeClass("active");
             $('.tabs li a').attr('aria-selected', 'false');
@@ -939,18 +942,18 @@
                     $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
 
                     let unitParameter = $("#ShowValue").val();
-                    this.RefreshAddRemoveLinks();
+                    this.refreshAddRemoveLinks();
                     $('.save-as-image').show();
                     if (tab === "Workforce") {
                         $(".js-show-value-help").show();
                     }
-                    this.GenerateCharts(unitParameter);    
+                    this.generateCharts(unitParameter);    
                 }
             });
         }
     }
 
-    TabKeydown(e) {
+    tabKeydown(e) {
         let keys = {
             left: 37,
             up: 38,
@@ -982,7 +985,7 @@
         }
     }
 
-    ToggleChartsTables(mode) {
+    toggleChartsTables(mode) {
         let $charts = $('.chart-wrapper');
         let $chartsScores = $('.chart-scores-wrapper');
         let $tables = $('.chart-table-wrapper');
@@ -1001,7 +1004,7 @@
             $viewMoreLabels.text("View more charts");
             sessionStorage.chartFormat = 'Charts';
             if ($comparisonType.val() === "BestInClass") {
-                this.RebuildCharts();
+                this.rebuildCharts();
             }
         } else if (mode === 'Tables') {
             $showTablesButton.hide();
@@ -1015,31 +1018,29 @@
         }
     }
 
-    HideShowDetails(element) {
+    hideShowDetails(element) {
         let $tableWrapper = $(element).closest('.chart-table-wrapper');
         $tableWrapper.find('.detail').toggle(200);
         setTimeout(() => $tableWrapper.find('.hide-show-button:visible').focus(), 300);        
     }
 
-    HideShowDetailsMobile(element) {
+    hideShowDetailsMobile(element) {
         let $tableWrapper = $(element).closest('.chart-table-wrapper');
         $tableWrapper.find('.detail').toggle(200);
         $tableWrapper.find('.chart-table--mobile-only-view').toggle(200);
         setTimeout(() => $tableWrapper.find('.mobile-hide-show-button:visible').focus(), 300);    
     }
 
-    DownloadPage() {
-
+    downloadPage() {
         let downloadFormat = $("input:radio[name='downloadFormat']:checked").val();
         if (downloadFormat === "pdf") {
-            this.PdfPage();
+            this.pdfPage();
         } else {
-            this.PptPage();
+            this.pptPage();
         }
     }
 
-    PptPage() {        
-
+    pptPage() {
         $('#criteria-details.criteria-details').attr('open', 'true');
         $('.chart-container .accordion-section[aria-expanded="false"] .accordion-section-header').click();
         
@@ -1065,7 +1066,7 @@
         });       
     }
 
-    PdfPage() {
+    pdfPage() {
 
         //$('#PdfLink .download-icon').toggle();
         //$('#PdfLink .spin-icon').toggle();
@@ -1095,11 +1096,11 @@
         });
     }
 
-    SubmitCriteriaForm() {
+    submitCriteriaForm() {
         $('form#advancedCriteria').submit();
     }
 
-    SaveBenchmarkBasketModal() {
+    saveBenchmarkBasketModal() {
         let link;
         let type = $('#Type').val();
         if (type === 'MAT') {
@@ -1153,7 +1154,7 @@
             <p id='modal-content'>
                 You can now save the link as a bookmark or in a document to keep your benchmark basket.
             </p>           
-            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.ShowSaveModalOne()'>See more options to save</button>            
+            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.showSaveModalOne()'>See more options to save</button>            
         </div>
         <a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLink' title='Close'>Close</a>
         </dialog>`;
@@ -1171,7 +1172,7 @@
         let clipboard = new ClipboardJS('#clip-button');
 
         clipboard.on('success', function () {
-            DfE.Views.BenchmarkChartsViewModel.ShowSaveModalTwo();
+            DfE.Views.BenchmarkChartsViewModel.showSaveModalTwo();
         });
 
         if (!ClipboardJS.isSupported()) {
@@ -1183,7 +1184,7 @@
         $('#js-modal-close').focus();
     }
 
-    RenderMissingFinanceInfoModal(isMAT) {
+    renderMissingFinanceInfoModal(isMAT) {
         var $body = $('body');
         var $page = $('#js-modal-page');
 
@@ -1212,17 +1213,17 @@
         $('#js-modal-close').focus();
     }
         
-    ShowSaveModalOne() {
+    showSaveModalOne() {
         $('.save-modal-js.page-2').hide();
         $('.save-modal-js.page-1').show();
     }
 
-    ShowSaveModalTwo() {
+    showSaveModalTwo() {
         $('.save-modal-js.page-1').hide();
         $('.save-modal-js.page-2').show();
     }
 
-    RenderDownloadModal(event) {
+    renderDownloadModal(event) {
 
         event.stopPropagation();
 
@@ -1250,7 +1251,7 @@
               </fieldset>
             <div class="grid-row modal-form-buttons">
                 <div class="column-half">
-                    <button type="button" class="button next-button" onclick="DfE.Views.BenchmarkChartsViewModel.DownloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">Download</button>
+                    <button type="button" class="button next-button" onclick="DfE.Views.BenchmarkChartsViewModel.downloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">Download</button>
                     <button type="button" class="back-button link-button" value="Cancel" onclick="GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
                 </div>
             </div>
@@ -1369,13 +1370,12 @@ class PptGenerator {
             })();
             
             if (sessionStorage.chartFormat === 'Charts') {
-                var intervalId = setInterval(checkFinished, 100);
-                function checkFinished() {
+                var intervalId = setInterval(() => {
                     if (chartImageResults.length === charts.length) {
                         clearInterval(intervalId);
                         resolve();
                     }
-                }
+                }, 100);
             } else {
                 resolve();
             } 
@@ -1779,13 +1779,12 @@ class PdfGenerator {
             })();
 
             if (sessionStorage.chartFormat === 'Charts') {
-                let intervalId = setInterval(checkFinished, 100);
-                function checkFinished() {
+                let intervalId = setInterval(() => {
                     if (chartImageResults.length === charts.length) {
                         clearInterval(intervalId);
                         resolve();
                     }
-                }
+                }, 100);
             } else {
                 resolve();
             }         
