@@ -25,8 +25,8 @@
                 <a class="font-xsmall" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
             </li>
             @*<li>
-                <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic benchmark report</a>
-            </li>*@
+                    <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic benchmark report</a>
+                </li>*@
         </ul>
     </div>
 
@@ -52,18 +52,21 @@
         </div>
     }
 
-    <div class="column-one-third" id="saColumn">
-        <img src="~/public/assets/images/checklist.svg" class="pano turq-svg" alt="Self-assessment dashboard" />
-        <h2 class="heading-small">Self-assessment dashboard</h2>
-        <p class="font-xsmall mb-05">
-            Formerly the SRMSAT/SFVS dashboard, see areas where your school is looking healthy or may need to focus on.
-        </p>
-        <ul class="list-arrow">
-            <li>
-                <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
-            </li>
-        </ul>
-    </div>
+    @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
+    {
+        <div class="column-one-third" id="saColumn">
+            <img src="~/public/assets/images/checklist.svg" class="pano turq-svg" alt="Self-assessment dashboard" />
+            <h2 class="heading-small">Self-assessment dashboard</h2>
+            <p class="font-xsmall mb-05">
+                Formerly the SRMSAT/SFVS dashboard, see areas where your school is looking healthy or may need to focus on.
+            </p>
+            <ul class="list-arrow">
+                <li>
+                    <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
+                </li>
+            </ul>
+        </div>
+    }
 </div>
 
 @section ViewScripts {
