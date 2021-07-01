@@ -86,6 +86,7 @@ namespace SFB.Web.UI.Models
         public string AgeRange => ContextData.StatutoryLowAge == null ? null : $"{ContextData.StatutoryLowAge} to {ContextData.StatutoryHighAge}";
 
         public string HeadTeachFullName => $"{ContextData.HeadFirstName} {ContextData.HeadLastName}";
+
         public string TrustName => ContextData.Trusts;
 
         public string SponsorName => ContextData.SponsorName;
@@ -246,12 +247,21 @@ namespace SFB.Web.UI.Models
 
         public decimal? P8Banding => LatestYearFinancialData?.P8Banding;
 
-        //public bool IsFederation => ContextData.IsFederation;
-        //public int? FederationUID => ContextData.FederationUid;
-        //public int[] FederationMembers => ContextData.FederationMembers; 
         public long? FederationsCode => ContextData.FederationsCode;
-        public string FederationName => ContextData.FederationName;              
+
+        public string FederationName => ContextData.FederationName;  
+        
         public bool IsPartOfFederation => FederationsCode.HasValue;
+
+        public string EstablishmentStatus => ContextData.EstablishmentStatus;
+
+        public bool OverallPhaseNonTertiary { 
+            get
+            {
+                var nonTertiaryPhases = new string[] { "Primary", "Secondary", "All-through", "Nursery", "Pupil referral unit" };
+                return nonTertiaryPhases.Contains(this.OverallPhase);
+            } 
+        }
 
         public bool HasCoordinates
         {
@@ -279,6 +289,7 @@ namespace SFB.Web.UI.Models
         public bool InsideSearchArea { get; set; }
 
         public string Lat => GetCoordinates(1);
+
         public string Lng => GetCoordinates(0);
 
         private string GetCoordinates(int index)

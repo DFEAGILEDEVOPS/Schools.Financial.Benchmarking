@@ -199,7 +199,7 @@ namespace SFB.Web.UI.Controllers
                 case SearchTypes.SEARCH_BY_LOCATION:
                     var latLng = locationCoordinates.Split(',');
                     response = await _schoolSearchService.SearchSchoolByLatLonAsync(latLng[0], latLng[1],
-                        (radius ?? SearchDefaults.TRUST_LOCATION_SEARCH_DISTANCE) * 1.6m,
+                        (radius ?? SearchDefaults.LOCATION_SEARCH_DISTANCE) * 1.6m,
                         (page - 1) * SearchDefaults.RESULTS_PER_PAGE, take, orderby,
                         Request.QueryString);
                     break;

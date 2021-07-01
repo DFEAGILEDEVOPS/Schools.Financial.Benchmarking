@@ -101,30 +101,32 @@
                 @if (Model.IsPartOfFederation)
                 {
                     <hr />
-                    <p class="mb-0">Alternatively this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> can be compared against other schools and federations which which may give a more accurate comparison.</p>
+                    <p class="mb-0">Alternatively this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> can be compared against other schools and federations which may give a more accurate comparison.</p>
                 }
             </div>
         }
         else
         {
-    <div class="blue-banner">
-        <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+            <div class="blue-banner">
+                <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
-        @if (Model.IsPartOfFederation)
-        {
-            <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
-        }
+                @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
+                {
+                    if (Model.IsPartOfFederation)
+                    {
+                        <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                    }
 
-        <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
+                    <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
 
-        <a class="button start-button hide-in-print" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button">
-            Go to the self-assessment dashboard
-            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
-            </svg>
-        </a>
-
-    </div>
+                    <a class="button start-button hide-in-print" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button">
+                        Go to the self-assessment dashboard
+                        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+                        </svg>
+                    </a>
+                }
+            </div>
         }
 
 
