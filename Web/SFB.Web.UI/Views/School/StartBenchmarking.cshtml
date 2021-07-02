@@ -52,7 +52,7 @@
         </div>
     }
 
-    @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
+    @if (!Model.IsReturnsDNS && Model.OverallPhaseNonTertiary)
     {
         <div class="column-one-third" id="saColumn">
             <img src="~/public/assets/images/checklist.svg" class="pano turq-svg" alt="Self-assessment dashboard" />
