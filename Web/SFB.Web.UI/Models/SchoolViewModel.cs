@@ -258,7 +258,7 @@ namespace SFB.Web.UI.Models
         public bool OverallPhaseNonTertiary { 
             get
             {
-                var nonTertiaryPhases = new string[] { "Primary", "Secondary", "All-through", "Nursery", "Pupil referral unit" };
+                var nonTertiaryPhases = new string[] { "Primary", "Secondary", "All-through", "Nursery", "Pupil referral unit", "Special" };
                 return nonTertiaryPhases.Contains(this.OverallPhase);
             } 
         }
