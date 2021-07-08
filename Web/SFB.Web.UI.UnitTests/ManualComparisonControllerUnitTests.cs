@@ -1,6 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
 using SFB.Web.ApplicationCore.DataAccess;
+using SFB.Web.ApplicationCore.Entities;
 using SFB.Web.ApplicationCore.Services;
 using SFB.Web.ApplicationCore.Services.Comparison;
 using SFB.Web.ApplicationCore.Services.DataAccess;
@@ -8,6 +9,7 @@ using SFB.Web.UI.Controllers;
 using SFB.Web.UI.Models;
 using SFB.Web.UI.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace SFB.Web.UI.UnitTests
@@ -61,6 +63,7 @@ namespace SFB.Web.UI.UnitTests
             var mockDataCollectionManager = new Mock<IDataCollectionManager>();
 
             var mockEdubaseDataService = new Mock<IContextDataService>();
+            mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123)).Returns(Task.Run(() => new EdubaseDataObject()));
 
             var mockComparisonService = new Mock<IComparisonService>();
 
