@@ -2,6 +2,7 @@
 @using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Helpers.Enums
 @using SFB.Web.UI.Helpers;
+@using System.Configuration;
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
@@ -29,6 +30,20 @@
 
 @section BackButtonContent{
     @Html.Partial("Partials/BackToHomeLink")
+}
+
+@if (Model.IsUnderReview)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings" style="width:90%">
+            <p>@ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]</p>
+        </div>
+    </div>
 }
 
 @if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
@@ -404,7 +419,7 @@
     if (!string.IsNullOrEmpty(value))
     {
         var htmlValue = new MvcHtmlString(value);
-        var htmlName= new MvcHtmlString(name);
+        var htmlName = new MvcHtmlString(name);
 
         <dt class="metadata-school-detail__dt">@htmlName</dt>
         <dd class="metadata-school-detail__dd bold">@htmlValue</dd>

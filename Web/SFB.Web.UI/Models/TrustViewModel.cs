@@ -3,6 +3,7 @@ using SFB.Web.ApplicationCore.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using SFB.Web.ApplicationCore.Models;
+using System.Configuration;
 
 namespace SFB.Web.UI.Models
 {
@@ -62,22 +63,21 @@ namespace SFB.Web.UI.Models
         public TrustViewModel(int companyNo)
         {            
             this.CompanyNo = companyNo;
+            var underReviewTrusts = ConfigurationManager.AppSettings["UnderReviewTrusts"]?.Split(',').ToList() ?? new List<string>();
+            this.IsUnderReview = underReviewTrusts.Contains(this.CompanyNo.ToString());
         }
 
-        public TrustViewModel(int companyNo, string matName)
-        {
-            this.CompanyNo = companyNo;
+        public TrustViewModel(int companyNo, string matName): this(companyNo)
+        {            
             this.Name = matName;
         }
 
-        public TrustViewModel(int uid, int companyNo):
-            this(companyNo)
+        public TrustViewModel(int uid, int companyNo): this(companyNo)
         {
             this.UID = uid;
         }
 
-        public TrustViewModel(int companyNo, SchoolComparisonListModel comparisonList = null)
-        : this(companyNo)
+        public TrustViewModel(int companyNo, SchoolComparisonListModel comparisonList = null): this(companyNo)
         {
             base.ComparisonList = comparisonList;
         }

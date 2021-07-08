@@ -247,7 +247,7 @@ namespace SFB.Web.UI.Controllers
             }
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, _schoolBenchmarkListService.GetSchoolBenchmarkList()));
+                new SchoolViewModel(_schoolBenchmarkListService.GetSchoolBenchmarkList()));
         }
 
         public async Task<ActionResult> Suggest(string nameId, bool openOnly = false)

@@ -1,6 +1,7 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Helpers.Enums
 @using SFB.Web.ApplicationCore.Helpers.Enums
+@using System.Configuration;
 @model SFB.Web.UI.Models.TrustViewModel
 
 @{
@@ -21,6 +22,20 @@
 @section BackButtonContent{
 
     @Html.Partial("Partials/BackToHomeLink")
+}
+
+@if (Model.IsUnderReview)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            <p>@ConfigurationManager.AppSettings["UnderReviewMessageForTrusts"]</p>
+        </div>
+    </div>
 }
 
 @if (Model.IsReturnsDNS || Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData) || Model.IsReturnsPlaceholder)
@@ -231,7 +246,7 @@
                                         <th scope="col">Event</th>
                                         <th scope="col">Organisation</th>
                                     </tr>
-                                        @for (int i = 0; i < Model.TrustHistory?.Events.Count; i++)
+                                    @for (int i = 0; i < Model.TrustHistory?.Events.Count; i++)
                                     {
                                         if (i > 0 && Model.TrustHistory.Events[i].SchoolYear == Model.TrustHistory.Events[i - 1].SchoolYear)
                                         {
@@ -329,9 +344,9 @@
         <div id="controls-accordion" class="accordion mobile-only-accordion">
             <div class="accordion-section">
                 <fieldset role="group">
-                            <legend class="visually-hidden hide-in-print">Filters</legend>
+                    <legend class="visually-hidden hide-in-print">Filters</legend>
                     <div class="accordion-section-header">
-                                <h2 class="heading-medium hide-in-print">Filters</h2>
+                        <h2 class="heading-medium hide-in-print">Filters</h2>
                     </div>
                     <div class="accordion-section-body">
                         @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
