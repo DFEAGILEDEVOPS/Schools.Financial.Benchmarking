@@ -220,3 +220,5 @@ Web/Web.UI.Automation/screenshots/*
 /Web/SFB.Web.UI/Properties/PublishProfiles
 
 /Web/SFB.Web.UI/Properties/PublishProfiles/FolderProfile.pubxml
+/Web/SFB.Web.UI/public/assets/scripts
+/Web
