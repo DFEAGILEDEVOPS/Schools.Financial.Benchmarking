@@ -167,7 +167,7 @@ namespace SFB.Web.UI.Controllers
             }                       
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));
+                new SchoolViewModel(_benchmarkBasketService.GetSchoolBenchmarkList()));
         }
         
         public async Task<PartialViewResult> UpdateBenchmarkBasketAddMultiple(int[] urns)
@@ -178,12 +178,12 @@ namespace SFB.Web.UI.Controllers
             }
 
             return PartialView("Partials/BenchmarkListBanner",
-                new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));
+                new SchoolViewModel(_benchmarkBasketService.GetSchoolBenchmarkList()));
         }
 
         public PartialViewResult GetBenchmarkBasket()
         {
-            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(null, _benchmarkBasketService.GetSchoolBenchmarkList()));
+            return PartialView("Partials/BenchmarkListBanner", new SchoolViewModel(_benchmarkBasketService.GetSchoolBenchmarkList()));
         }
 
         public async Task<PartialViewResult> GetBenchmarkControls(long urn)

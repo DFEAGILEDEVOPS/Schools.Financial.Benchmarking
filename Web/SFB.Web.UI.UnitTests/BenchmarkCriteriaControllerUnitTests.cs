@@ -142,7 +142,7 @@ namespace SFB.Web.UI.UnitTests
             var _mockDataCollectionManager = new Mock<IDataCollectionManager>();
 
             var _mockEdubaseDataService = new Mock<IContextDataService>();
-            //_mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123456)).Returns(Task.Run(() => new EdubaseDataObject()));
+            _mockEdubaseDataService.Setup(m => m.GetSchoolDataObjectByUrnAsync(123456)).Returns(Task.Run(() => new EdubaseDataObject()));
 
             var mockComparisonService = new Mock<IComparisonService>();
 

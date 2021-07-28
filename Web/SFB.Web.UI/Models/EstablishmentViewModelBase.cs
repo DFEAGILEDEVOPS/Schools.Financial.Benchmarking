@@ -60,5 +60,7 @@ namespace SFB.Web.UI.Models
         public decimal? ProgressScore => LatestYearFinancialData?.ProgressScore;
 
         public bool IsFederation => ContextData.IsFederation;
+
+        public bool IsUnderReview { get; set; }
     }
 }
