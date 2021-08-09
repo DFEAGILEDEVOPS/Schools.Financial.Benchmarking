@@ -11,6 +11,13 @@
         max-height: 140px;
         padding: 40px 0;
         width: 100%;
+
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            /* IE10+ CSS */
+            min-height: 150px;
+            max-width: 200px;
+            padding: 40px 50px 20px 50px;
+        }
     }
 
     .green-svg {
@@ -18,6 +25,13 @@
         padding: 45px 0;
         max-height: 130px;
         width: 100%;
+
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            /* IE10+ CSS */
+            min-height: 150px;
+            max-width: 200px;
+            padding: 40px 50px 20px 50px;
+        }
     }
 
     .turq-svg {
@@ -25,6 +39,13 @@
         max-height: 160px;
         padding: 30px 0;
         width: 100%;
+
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+            /* IE10+ CSS */
+            min-height: 150px;
+            max-width: 122px;
+            padding: 20px 80px 30px 80px;
+        }
     }
 
     .list-arrow {
