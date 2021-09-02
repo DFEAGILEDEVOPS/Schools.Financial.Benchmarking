@@ -48,8 +48,8 @@ namespace SFB.Web.UI.Controllers
 
                 try
                 {
-                    await _emailSender.SendUserEmailAsync(contactUs.Email, placeholders);
-                    await _emailSender.SendDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
+                    await _emailSender.SendDataQueryUserEmailAsync(contactUs.Email, placeholders);
+                    await _emailSender.SendDataQueryDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
                 }
                 catch (Exception exception)
                 {
@@ -59,8 +59,8 @@ namespace SFB.Web.UI.Controllers
                     {
                         var ai = new TelemetryClient();
                         ai.TrackException(exception);
-                        ai.TrackTrace($"Data query email sending error: {exception.Message}");
-                        ai.TrackTrace($"Data query email sending failed for: {contactUs.Name} ({contactUs.Email}) - ref: {emailReference}");
+                        ai.TrackTrace($"Contact us email sending error: {exception.Message}");
+                        ai.TrackTrace($"Contact us email sending failed for: {contactUs.Name} ({contactUs.Email}) - ref: {emailReference}");
                     }
                     throw;
                 }
@@ -75,7 +75,7 @@ namespace SFB.Web.UI.Controllers
 
         private string GenerateEmailReference(ContactUsViewModel model)
         {
-            return $"{model.Name.Substring(0, 3)}-{DateTime.UtcNow.Minute}{DateTime.UtcNow.Second}{DateTime.UtcNow.Millisecond}";
+            return $"{model.Name.Substring(0, 3).ToUpper()}{DateTime.UtcNow.Minute}{DateTime.UtcNow.Second}{DateTime.UtcNow.Millisecond}";
         }
 
     }

@@ -36,7 +36,7 @@
                 <input class="form-control @FormControlErrorClass("contactUs.SchoolTrustName")" id="contactUs.SchoolTrustName" name="contactUs.SchoolTrustName" type="text" value="@Model.SchoolTrustName">
             </div>
             <div class="form-group @FormGroupErrorClass("contactUs.Message")">
-                <label class="form-label" for="contactUs.message">Message</label>
+                <label class="form-label" for="contactUs.Message">Message</label>
                 @InputErrorMessage("contactUs.Message")
                 <textarea class="form-control form-control-3-4 @FormControlErrorClass("contactUs.Message")" name="contactUs.Message" id="contactUs.Message" rows="8" maxlength="1000">@Model.Message</textarea>
             </div>
