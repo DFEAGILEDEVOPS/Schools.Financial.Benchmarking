@@ -6,6 +6,7 @@ using System.Globalization;
 using SFB.Web.ApplicationCore.Helpers.Enums;
 using System.Collections.Generic;
 using SFB.Web.ApplicationCore.Models;
+using System.Configuration;
 
 namespace SFB.Web.UI.Models
 {
@@ -16,18 +17,23 @@ namespace SFB.Web.UI.Models
         public SchoolViewModel(EdubaseDataObject contextDataModel)
         {
             this.ContextData = contextDataModel;
+            var underReviewSchools = ConfigurationManager.AppSettings["UnderReviewSchools"]?.Split(',').ToList() ?? new List<string>();
+            this.IsUnderReview = underReviewSchools.Contains(this.Id.ToString());
         }
 
-        public SchoolViewModel(EdubaseDataObject schoolContextDataModel, SchoolComparisonListModel comparisonList)
+        public SchoolViewModel(SchoolComparisonListModel comparisonList) : this((EdubaseDataObject)null)
         {
-            this.ContextData = schoolContextDataModel;
+            base.ComparisonList = comparisonList;
+        }
+
+        public SchoolViewModel(EdubaseDataObject schoolContextDataModel, SchoolComparisonListModel comparisonList) : this(schoolContextDataModel)
+        {
             base.ComparisonList = comparisonList;
         }
 
         public SchoolViewModel(EdubaseDataObject schoolContextDataModel, SchoolComparisonListModel comparisonList, SchoolComparisonListModel manualComparisonList)
+            :this(schoolContextDataModel, comparisonList)
         {
-            this.ContextData = schoolContextDataModel;
-            base.ComparisonList = comparisonList;
             this.ManualComparisonList = manualComparisonList;
         }
 
@@ -50,7 +56,7 @@ namespace SFB.Web.UI.Models
 
         public bool IsDefaultBenchmark => base.ComparisonList.HomeSchoolUrn == ContextData.URN.ToString();
 
-        public override long Id => ContextData.URN;
+        public override long Id => ContextData == null ? 0 : ContextData.URN;
 
         public string LaEstab => $"{ContextData.LACode} {ContextData.EstablishmentNumber}";
 

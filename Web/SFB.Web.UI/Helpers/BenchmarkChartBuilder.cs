@@ -1380,18 +1380,12 @@ namespace SFB.Web.UI.Helpers
                     {
                         new DataTableColumnViewModel
                         {
-                            Name = "Pre-16 funding",
-                            FieldName = SchoolTrustFinanceDataFieldNames.PRE_16_FUNDING,
+                            Name = "Pre-16 and post-16 funding",
+                            FieldName = SchoolTrustFinanceDataFieldNames.PRE_POST_16_FUNDING,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo =
-                                @"<p>This is the major share of funding provided by the Education Funding Agency to the school.</p>"
-                        },
-                        new DataTableColumnViewModel
-                        {
-                            Name = "Funding for sixth-form students",
-                            FieldName = SchoolTrustFinanceDataFieldNames.POST_16_FUNDING,
-                            ChartSchoolType = ChartSchoolType.Both,
-                            MoreInfo = @"<p>This includes:</p> 
+                                @"<p>For pre-16 this is the major share of funding provided by the Education Funding Agency to the school.</p>
+                                <p>For post-16 funding it includes</p>
                                 <ul>
                                 <li>funding from public sources for sixth-form students</li>
                                 <li>Education Funding Agency (EFA) funding</li>
@@ -1400,8 +1394,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>post-16 high needs place funding (elements 1 & 2) </li>
                                 </ul>
 
-                                <p>It excludes:</p>
-
+                                <p>For post-16 funding it excludes:</p>
                                 <ul>
                                 <li>voluntary sources of funding for sixth-form students</li>
                                 <li>any balances carried forward from previous years</li>

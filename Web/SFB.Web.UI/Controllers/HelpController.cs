@@ -125,8 +125,8 @@ namespace SFB.Web.UI.Controllers
 
                 try
                 {
-                    await _emailSender.SendUserEmailAsync(dataQuery.Email, placeholders);
-                    await _emailSender.SendDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
+                    await _emailSender.SendDataQueryUserEmailAsync(dataQuery.Email, placeholders);
+                    await _emailSender.SendDataQueryDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
                 }
                 catch (Exception exception)
                 {

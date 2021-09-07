@@ -2,6 +2,7 @@
 @using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Helpers.Enums
 @using SFB.Web.UI.Helpers;
+@using System.Configuration;
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
@@ -31,7 +32,7 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
-@if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
+@if (Model.IsUnderReview)
 {
     <div class="panel panel-border-wide orange-warning mt-1">
         <div class="shared-icon-wrapper">
@@ -39,54 +40,78 @@
                 <span class="visually-hidden">Warning</span>
             </i>
         </div>
-        @if (Model.IsPartOfFederation)
-        {
-            <div class="combined-warnings" style="width:90%">
-                <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
-            </div>
-        }
-        else
-        {
-            <div class="combined-warnings">
-                @if (!Model.IsReturnsComplete)
-                {
-                    <p>
-                        This school doesn't have a complete set of financial data for this period
-                    </p>
-                }
-
-                @if (!Model.WorkforceDataPresent)
-                {
-                    <p>
-                        This school doesn't have a complete set of workforce data for this period
-                    </p>
-                }
-
-                @if (Model.HasNoTeacherData)
-                {
-                    <p>
-                        We can’t show charts with per teacher values because they weren't supplied within these finance returns
-                    </p>
-                }
-
-                @if (Model.HasNoPupilData)
-                {
-                    <p>
-                        We can’t show charts with per pupil values because they weren't supplied within these finance returns
-                    </p>
-                }
-            </div>
-        }
+        <div class="combined-warnings" style="width:90%">
+            <p>@ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]</p>
+        </div>
     </div>
 }
+
+@if (Model.IsPartOfFederation)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings" style="width:90%">
+            <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
+        </div>
+    </div>
+}
+else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
+{
+    <div class="panel panel-border-wide orange-warning mt-1">
+        <div class="shared-icon-wrapper">
+            <i class="icon icon-important shared-icon">
+                <span class="visually-hidden">Warning</span>
+            </i>
+        </div>
+        <div class="combined-warnings">
+            @if (!Model.IsReturnsComplete)
+            {
+                <p>
+                    This school doesn't have a complete set of financial data for this period
+                </p>
+            }
+
+            @if (!Model.WorkforceDataPresent)
+            {
+                <p>
+                    This school doesn't have a complete set of workforce data for this period
+                </p>
+            }
+
+            @if (Model.HasNoTeacherData)
+            {
+                <p>
+                    We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                </p>
+            }
+
+            @if (Model.HasNoPupilData)
+            {
+                <p>
+                    We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                </p>
+            }
+        </div>
+    </div>
+}
+
 
 <div class="grid-row">
     <div class="column-full">
         @if (!Model.IsReturnsDNS)
         {
-            <div class="blue-banner">
-                <h1 class="heading-xlarge page-heading">@Model.Name</h1>
-
+        <div class="blue-banner">
+            <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+            @if (Model.IsPartOfFederation)
+            {
+                <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+            }
+            else
+            {
                 <div class="hide-in-print">
                     <p>There are now several ways for you to compare this school against others.</p>
                 </div>
@@ -97,13 +122,9 @@
                         <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
                     </svg>
                 </a>
+            }
 
-                @if (Model.IsPartOfFederation)
-                {
-                    <hr />
-                    <p class="mb-0">Alternatively this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> can be compared against other schools and federations which may give a more accurate comparison.</p>
-                }
-            </div>
+        </div>
         }
         else
         {
@@ -116,15 +137,17 @@
                     {
                         <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
                     }
+                    else
+                    {
+                        <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
 
-                    <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
-
-                    <a class="button start-button hide-in-print" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button">
-                        Go to the self-assessment dashboard
-                        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
-                        </svg>
-                    </a>
+                        <a class="button start-button hide-in-print" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button">
+                            Go to the self-assessment dashboard
+                            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+                            </svg>
+                        </a>
+                    }
                 }
             </div>
         }
@@ -404,7 +427,7 @@
     if (!string.IsNullOrEmpty(value))
     {
         var htmlValue = new MvcHtmlString(value);
-        var htmlName= new MvcHtmlString(name);
+        var htmlName = new MvcHtmlString(name);
 
         <dt class="metadata-school-detail__dt">@htmlName</dt>
         <dd class="metadata-school-detail__dd bold">@htmlValue</dd>

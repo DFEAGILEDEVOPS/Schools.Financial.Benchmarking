@@ -159,7 +159,7 @@
                                                                                                           aria-label="Deals for schools link @Model[i].DealsForSchoolsMessage">deals for schools</a></div>
                 }
 
-                @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
+                @if (Model[i].ChartType != ChartType.CustomReport && !string.IsNullOrEmpty(Model[i].MoreInfo))
                 {
                     <details>
                         <summary class="hide-in-print">

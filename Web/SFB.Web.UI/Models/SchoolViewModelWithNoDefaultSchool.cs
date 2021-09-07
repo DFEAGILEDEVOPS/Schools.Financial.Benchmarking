@@ -1,8 +1,10 @@
-﻿namespace SFB.Web.UI.Models
+﻿using SFB.Web.ApplicationCore.Entities;
+
+namespace SFB.Web.UI.Models
 {
     public class SchoolViewModelWithNoDefaultSchool : SchoolViewModel
     {
-        public SchoolViewModelWithNoDefaultSchool() : base(null)
+        public SchoolViewModelWithNoDefaultSchool() : base((EdubaseDataObject)null)
         {
         }
 
@@ -14,7 +16,7 @@
         {
         }
 
-        public override string Name { get => null; }
+        public override string Name => null;
 
         public override string Type => null;
     }
