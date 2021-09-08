@@ -156,17 +156,20 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
     </div>
 
     <div class="column-full mt-1 hide-in-print ">
-        @if (Model.IsReturnsDNS)
+        @if (!Model.IsPartOfFederation)
         {
+            if (Model.IsReturnsDNS)
+            {
             <div class="column-one-third no-padding returns-incomplete addto">
                 <div class="add-remove" id="benchmarkControlsPlaceHolder"></div>
             </div>
-        }
-        else
-        {
+            }
+            else
+            {
             <div class="column-one-third no-padding returns-complete addto">
                 <div class="add-remove" id="benchmarkControlsPlaceHolder"></div>
             </div>
+            }
         }
         <div class="column-one-third no-padding">
             <div class="download">
