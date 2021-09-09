@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Contact us";
+    ViewBag.pageClass = "contact-us";
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+@model SFB.Web.UI.Models.ContactUsViewModel
+
+<div class="grid-row mt-2">
+    <div class="column-full">
+        @FormErrorSummary()
+
+        <h1 class="govuk-heading-xl">Contact</h1>
+
+        <form action="~/Contact/ContactUsSubmission" method="post">
+
+            @Html.AntiForgeryToken()
+            <p>Contact us if you are an school, academy trust, local authority, or member of the public who has a query about Schools financial benchmarking.</p>
+
+            <div class="form-group @FormGroupErrorClass("contactUs.Name")">
+                <label class="form-label" for="contactUs.Name">Name</label>
+                @InputErrorMessage("contactUs.Name")
+                <input class="form-control @FormControlErrorClass("contactUs.Name")" id="contactUs.Name" name="contactUs.Name" type="text" value="@Model.Name">
+            </div>
+            <div class="form-group @FormGroupErrorClass("contactUs.Email")">
+                <label class="form-label" for="contactUs.Email">Email</label>
+                @InputErrorMessage("contactUs.Email")
+                <input class="form-control @FormControlErrorClass("contactUs.Email")" id="contactUs.Email" name="contactUs.Email" type="text" value="@Model.Email">
+            </div>
+            <div class="form-group @FormGroupErrorClass("contactUs.SchoolTrustName")">
+                <label class="form-label" for="contactUs.SchoolTrustName">School, academy trust or local authority (optional)</label>
+                @InputErrorMessage("contactUs.SchoolTrustName")
+                <input class="form-control @FormControlErrorClass("contactUs.SchoolTrustName")" id="contactUs.SchoolTrustName" name="contactUs.SchoolTrustName" type="text" value="@Model.SchoolTrustName">
+            </div>
+            <div class="form-group @FormGroupErrorClass("contactUs.Message")">
+                <label class="form-label" for="contactUs.Message">Message</label>
+                @InputErrorMessage("contactUs.Message")
+                <textarea class="form-control form-control-3-4 @FormControlErrorClass("contactUs.Message")" name="contactUs.Message" id="contactUs.Message" rows="8" maxlength="1000">@Model.Message</textarea>
+            </div>
+            @*<input type="hidden" name="urn" value="@ViewBag.Urn" />
+            <input type="hidden" name="schoolName" value="@ViewBag.SchoolName" />*@
+            <button class="button" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+@helper FormErrorSummary()
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+
+    if (msDictionary != null && !msDictionary.IsValid)
+    {
+        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                There is a problem
+            </h1>
+            <ul class="error-summary-list">
+                @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
+                {
+                    if (ms.Value.Errors.Count > 0)
+                    {
+                        <li>
+                            <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+}
+
+@helper FormGroupErrorClass(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        @("form-group-error")
+    }
+}
+
+
+@helper FormControlErrorClass(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        @("form-control-error")
+    }
+}
+
+@helper InputErrorMessage(string inputId)
+{
+    var msDictionary = ViewBag.ModelState as ModelStateDictionary;
+    var ms = msDictionary[inputId];
+    if (ms?.Errors.Count > 0)
+    {
+        <span class="error-message">
+            @ms.Errors.First().ErrorMessage
+        </span>
+    }
+}
