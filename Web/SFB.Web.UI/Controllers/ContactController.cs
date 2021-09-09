@@ -48,8 +48,8 @@ namespace SFB.Web.UI.Controllers
 
                 try
                 {
-                    await _emailSender.SendDataQueryUserEmailAsync(contactUs.Email, placeholders);
-                    await _emailSender.SendDataQueryDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
+                    await _emailSender.SendContactUsUserEmailAsync(contactUs.Email, placeholders);
+                    await _emailSender.SendContactUsDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
                 }
                 catch (Exception exception)
                 {
