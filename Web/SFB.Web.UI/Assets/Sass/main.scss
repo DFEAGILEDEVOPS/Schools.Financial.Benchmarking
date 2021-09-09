@@ -2,6 +2,10 @@
 // in the govuk frontend toolkit's url-helpers partial
 $path: "/public/assets/images/";
 
+//Migration
+$govuk-compatibility-govukelements: true;
+@import "../../node_modules/govuk-frontend/govuk/all";
+
 @import "govuk-elements";
 
 

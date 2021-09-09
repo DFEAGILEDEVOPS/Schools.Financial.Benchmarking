@@ -419,6 +419,7 @@
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\FederationController.cs" />
+    <Compile Include="Controllers\GovukFrontendTestController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
@@ -515,6 +516,16 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\images\favicon.ico" />
+    <Content Include="Assets\images\govuk-apple-touch-icon-152x152.png" />
+    <Content Include="Assets\images\govuk-apple-touch-icon-167x167.png" />
+    <Content Include="Assets\images\govuk-apple-touch-icon-180x180.png" />
+    <Content Include="Assets\images\govuk-apple-touch-icon.png" />
+    <Content Include="Assets\images\govuk-crest-2x.png" />
+    <Content Include="Assets\images\govuk-crest.png" />
+    <Content Include="Assets\images\govuk-logotype-crown.png" />
+    <Content Include="Assets\images\govuk-mask-icon.svg" />
+    <Content Include="Assets\images\govuk-opengraph-image.png" />
     <Content Include="Assets\Sass\utils\_accordion.scss" />
     <Content Include="App_Data\la.json" />
     <Content Include="App_Code\ViewHelpers.cshtml" />
@@ -994,10 +1005,15 @@
     <Content Include="ci\init-assets.cmd" />
     <Content Include="package.json" />
     <Content Include="Assets\Sass\views\_comparison-type-select.scss" />
+    <Content Include="Assets\fonts\bold-affa96571d-v2.woff" />
+    <Content Include="Assets\fonts\bold-b542beb274-v2.woff2" />
+    <Content Include="Assets\fonts\light-94a07e06a1-v2.woff2" />
+    <Content Include="Assets\fonts\light-f591b13f7d-v2.woff" />
     <None Include="Properties\PublishProfiles\as-t1pr-sfb-as-t1pr-sfb-new-comparison-flow - Web Deploy.pubxml" />
     <Content Include="Views\School\StartBenchmarking.cshtml" />
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToFederationLink.cshtml" />
     <Content Include="Views\Federation\StartBenchmarking.cshtml" />
+    <Content Include="Views\GovukFrontendTest\Index.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
