@@ -1,51 +1,15 @@
-﻿@using SFB.Web.UI.Controllers
-
-@{
-    Layout = null;
-
-    ViewBag.assetsPath = "/public/govuk_template/assets";
-
-    var appTitle = "Schools financial benchmarking";
-    var documentTitle = !string.IsNullOrEmpty(ViewBag.Title) ?
-        string.Format("{0}{1} - Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix ?? "", ViewBag.Title) :
-        string.Format("{0}Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix ?? "");
-
-    var version = typeof(HomeController).Assembly.GetName().Version.ToString();
-}
+﻿@{ Layout = null; }
 
 <!DOCTYPE html>
 <html lang="en" class="govuk-template ">
 
 <head>
     <meta charset="utf-8">
-    <title>@documentTitle</title>
-
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com atlas.microsoft.com ">
-    <meta http-equiv="Content-Security-Policy" content="object-src 'none'">
-    <meta http-equiv="Content-Security-Policy" content="frame-src 'self'">
-    <meta http-equiv="Content-Security-Policy" content="media-src 'none'">
-    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' www.google-analytics.com api.postcodes.io atlas.microsoft.com www.compare-school-performance.service.gov.uk @System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]">
-    <meta http-equiv="Content-Security-Policy" content="font-src 'self' data:">
-    <meta http-equiv="Content-Security-Policy" content="manifest-src 'self'">
-    <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline'">
-    <meta http-equiv="Content-Security-Policy" content="img-src 'self' www.googletagmanager.com www.google-analytics.com atlas.microsoft.com data:">
-    <meta http-equiv="Content-Security-Policy" content="form-action 'self'">
-
+    <title>GOV.UK - The best place to find government services and information</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0b0c0c">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    @*//////// Added by SFB dev in regards to story #18856 ////////////////*@
-    @if (ViewBag.pageDescription == null)
-    {
-        <meta name="robots" content="noindex">
-    }
-    else
-    {
-        <meta name="description" content="@(ViewBag.pageDescription)">
-    }
-    @*//////// Added by SFB dev in regards to story #18856 ////////////////*@
 
     <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="/assets/images/favicon.ico" type="image/x-icon">
     <link rel="mask-icon" href="/assets/images/govuk-mask-icon.svg" color="#0b0c0c">
@@ -55,7 +19,7 @@
     <link rel="apple-touch-icon" href="/assets/images/govuk-apple-touch-icon.png">
 
     <!--[if !IE 8]><!-->
-    <!--<link href="/govuk-frontend/govuk/all.css" rel="stylesheet">-->
+    @*<link href="/govuk-frontend/govuk/all.css" rel="stylesheet">*@
     <!--<![endif]-->
     <!--[if IE 8]>
       <link href="/govuk-frontend/all-ie8.css" rel="stylesheet">
@@ -65,10 +29,7 @@
     <![endif]-->
 
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
-
-    @*@RenderSection("Head", required: false)*@
-
-    <link href="/public/assets/stylesheets/main2.css?v=@version" rel="stylesheet" type="text/css">
+    <link href="/public/assets/stylesheets/main2.css" rel="stylesheet" type="text/css">
 </head>
 
 <body class="govuk-template__body ">
@@ -103,7 +64,7 @@
 
     <div class="govuk-width-container ">
         <main class="govuk-main-wrapper " id="main-content" role="main">
-            <h1 class="govuk-heading-xl">Test</h1>
+            <h1 class="govuk-heading-xl">View with vanilla GOVUK Frontend template</h1>
 
             @*////////////////////////////*@
             <h2 class="govuk-heading-l">Accordion</h2>
@@ -181,11 +142,11 @@
             </div>
         </div>
     </footer>
-    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
+
     <script src="~/node_modules/govuk-frontend/govuk/all.js"></script>
     <script>
         window.GOVUKFrontend.initAll()
+
     </script>
 </body>
 

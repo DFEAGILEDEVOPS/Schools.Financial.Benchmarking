@@ -8,6 +8,7 @@ module.exports = {
   ],
   "compile-dev-css": [
     "clean:elements-css",
-    "sass:generate-dev"
+    "sass:generate-dev",
+    "sass:generate-new-dev",
   ]
 };
