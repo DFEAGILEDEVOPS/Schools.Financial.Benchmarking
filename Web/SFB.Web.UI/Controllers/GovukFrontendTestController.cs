@@ -13,5 +13,10 @@ namespace SFB.Web.UI.Controllers
         {
             return View();
         }
+
+        public ActionResult WithTemplate()
+        {
+            return View();
+        }
     }
 }
