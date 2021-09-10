@@ -42,7 +42,7 @@ namespace SFB.Web.UI.Controllers
                     { "EmailReference ", emailReference },
                     { "Name", contactUs.Name },
                     { "Email", contactUs.Email },
-                    { "SchoolTrustName", contactUs.SchoolTrustName },
+                    { "SchoolTrustName", contactUs.SchoolTrustName ?? "N/A" },
                     { "Message", contactUs.Message }
                 };
 
