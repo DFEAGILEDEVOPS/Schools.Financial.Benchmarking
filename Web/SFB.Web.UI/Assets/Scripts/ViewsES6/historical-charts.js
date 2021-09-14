@@ -233,8 +233,7 @@ class HistoricalCharts {
                 $(".historical-charts-list").html(data);
                 this.generateCharts(unitParameter);
                 this.updateTotals();
-                this.updateTrustWarnings();
-                //new Accordion(document.getElementById('historical-charts-accordion'));
+                this.updateTrustWarnings();                
                 window.GOVUKFrontend.initAll();
             }
         });

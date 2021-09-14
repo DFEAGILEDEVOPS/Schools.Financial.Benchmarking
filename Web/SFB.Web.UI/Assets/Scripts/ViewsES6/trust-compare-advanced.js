@@ -9,7 +9,7 @@ class TrustCompareAdvancedViewModel {
 
         this.bindCriteriaEvents();
         this.validateForm();
-        GOVUK.Accordion.bindElements("SelectTrustAccordion");
+        //GOVUK.Accordion.bindElements("SelectTrustAccordion");
         GOVUK.Modal.Load();
         this.updateResultCount();
     }

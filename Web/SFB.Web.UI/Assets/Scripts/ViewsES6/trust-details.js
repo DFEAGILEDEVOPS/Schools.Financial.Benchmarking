@@ -10,9 +10,9 @@ class TrustDetailsViewModel {
 
         GOVUK.Modal.Load();
 
-        new Accordion(document.getElementById('historical-charts-accordion'));
-        new Accordion(document.getElementById('controls-accordion'));
-        new Accordion(document.getElementById('schools-in-trust-accordion'));
+        //new Accordion(document.getElementById('historical-charts-accordion'));
+        //new Accordion(document.getElementById('controls-accordion'));
+        //new Accordion(document.getElementById('schools-in-trust-accordion'));
 
         $(document).ready(function () {
             setTimeout(function () {

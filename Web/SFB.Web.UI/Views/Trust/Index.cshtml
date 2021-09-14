@@ -125,16 +125,16 @@
                 <a href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
             </p>
 
-            <div id="schools-in-trust-accordion" class="accordion mb-1">
-
-                <div class="accordion-section current">
-                    <h2>
-                        <a class="accordion-section-header" href="javascript:void(0)">
-                            <span id="CurrentHeader" class="heading-medium ">Schools currently in this trust</span>
-                        </a>
-                    </h2>
-
-                    <div class="accordion-section-body">
+            <div class="govuk-accordion govuk-!-margin-bottom-3 app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-trust-accordion">
+                <div class="govuk-accordion__section current">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            <span class="govuk-accordion__section-button" id="CurrentHeader">
+                                Schools currently in this trust
+                            </span>
+                        </h2>
+                    </div>
+                    <div id="accordion-current-content" class="govuk-accordion__section-content" aria-labelledby="CurrentHeader">
                         <div class="sponsor-detail">
                             @if (Model.AcademiesInContextList.Count > 10)
                             {
@@ -166,14 +166,15 @@
                     </div>
                 </div>
 
-                <div class="accordion-section latest">
-                    <h2>
-                        <a class="accordion-section-header" href="javascript:void(0)">
-                            <span id="LatestTermHeader" class="heading-medium ">Schools in this trust's @Model.LatestTerm submission</span>
-                        </a>
-                    </h2>
-
-                    <div class="accordion-section-body">
+                <div class="govuk-accordion__section latest">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            <span class="govuk-accordion__section-button" id="LatestTermHeader">
+                                Schools in this trust's @Model.LatestTerm submission
+                            </span>
+                        </h2>
+                    </div>
+                    <div id="accordion-latest-content" class="govuk-accordion__section-content" aria-labelledby="LatestTermHeader">
                         <div class="sponsor-detail">
                             @if (Model.AcademiesInFinanceList.Count > 10)
                             {
@@ -226,17 +227,19 @@
                                 </div>
                             }
                         </div>
+
                     </div>
                 </div>
 
-                <div class="accordion-section history">
-                    <h2>
-                        <a class="accordion-section-header" href="javascript:void(0)">
-                            <span id="HistoryTermHeader" class="heading-medium ">Trust history</span>
-                        </a>
-                    </h2>
-
-                    <div class="accordion-section-body">
+                <div class="govuk-accordion__section history">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            <span class="govuk-accordion__section-button" id="HistoryTermHeader">
+                                Trust history
+                            </span>
+                        </h2>
+                    </div>
+                    <div id="accordion-history-content" class="govuk-accordion__section-content" aria-labelledby="HistoryTermHeader">
                         <div class="sponsor-detail">
                             <div class="resultListPanel">
                                 <table class="history-table">
@@ -273,8 +276,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
     }
 
@@ -341,20 +344,15 @@
 
 <div id="tabPanel" role="tabpanel">
     <div class="sticky-div sticky-chart-controls">
-        <div id="controls-accordion" class="accordion mobile-only-accordion">
-            <div class="accordion-section">
-                <fieldset role="group">
-                    <legend class="visually-hidden hide-in-print">Filters</legend>
-                    <div class="accordion-section-header">
-                        <h2 class="heading-medium hide-in-print">Filters</h2>
-                    </div>
-                    <div class="accordion-section-body">
-                        @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-                        @Html.Partial("Partials/ValueSelect")
-                        @Html.Partial("Partials/TrustCentralFinancing")
-                    </div>
-                </fieldset>
-            </div>
+        <div id="controls-accordion">
+            <fieldset role="group">
+                <legend class="visually-hidden hide-in-print">Filters</legend>
+                <div>
+                    @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                    @Html.Partial("Partials/ValueSelect")
+                    @Html.Partial("Partials/TrustCentralFinancing")
+                </div>
+            </fieldset>
         </div>
     </div>
 

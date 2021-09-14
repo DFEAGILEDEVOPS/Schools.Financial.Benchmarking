@@ -4,7 +4,7 @@ class TrustCompareManualViewModel {
 
     constructor() {
         this.bindManualEvents();
-        GOVUK.Accordion.bindElements("SelectTrustAccordion");
+        //GOVUK.Accordion.bindElements("SelectTrustAccordion");
         GOVUK.Modal.Load();
     }
 

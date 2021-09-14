@@ -12,7 +12,7 @@ class SchoolsSearchViewModel {
     }
 
     bindEvents() {
-        GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
+        //GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
         $('#FindCurrentPosition').click(this.findCurrentLocationHandler.bind(this));
         $('#openOnlyName').change(() => $('#FindByNameId').typeahead('val', ''));
         this.bindAutosuggest('#FindByNameId', '#FindByNameIdSuggestionId', this.getSchoolsSuggestionHandler);
