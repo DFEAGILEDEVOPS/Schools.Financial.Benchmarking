@@ -1,28 +1,27 @@
-﻿@using SFB.Web.ApplicationCore.Helpers.Constants
-@using SFB.Web.UI.Models
+﻿@using SFB.Web.UI.Models
 @model SchoolCharacteristicsViewModel
 
-<div class="accordion-section">
-
-        <h2>
-            <a class="accordion-section-header" href="javascript:void(0)">
-                <span id="PerformanceHeader" class="heading-medium">Performance characteristics <span class="font-small break-in-mobile"><span>(</span><span role="status"><span class="selection-counter">0</span><span class="visually-hidden"> performance characteristics</span> selected</span><span>)</span></span></span>
-            </a>
+<div class="govuk-accordion__section ">
+    <div class="govuk-accordion__section-header">
+        <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="PerformanceHeader">
+                Performance characteristics <span class="font-small break-in-mobile"><span>(</span><span role="status"><span class="selection-counter">0</span><span class="visually-hidden"> performance characteristics</span> selected</span><span>)</span></span>
+            </span>
         </h2>
+    </div>
+    <div id="accordion-performance-content" class="govuk-accordion__section-content" aria-labelledby="PerformanceHeader">
+        <p>
+            To compare schools across more performance characteristics visit the <a rel="external noopener noreferrer" class="font19-ext-link" target="_blank" href="https://www.gov.uk/school-performance-tables">find and compare schools in England<span class="visuallyhidden"> Opens in a new window</span></a> site.
+        </p>
 
-        <div class="accordion-section-body">
-            <p>
-                To compare schools across more performance characteristics visit the <a rel="external noopener noreferrer" class="font19-ext-link" target="_blank" href="https://www.gov.uk/school-performance-tables">find and compare schools in England<span class="visuallyhidden"> Opens in a new window</span></a> site.
-            </p>
+        @Html.Partial("Partials/Criteria/PercentageCriteria", Model.Ks2ActualRangeVm)
 
-            @Html.Partial("Partials/Criteria/PercentageCriteria", Model.Ks2ActualRangeVm)
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.Ks2ProgressRangeVM)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.Ks2ProgressRangeVM)
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.AverageAtt8RangeVM)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.AverageAtt8RangeVM)
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.Progress8MeasureRangeVM)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.Progress8MeasureRangeVM)
-
-            @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.OfstedRatingMultipleChoiceVM)
-        </div>
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.OfstedRatingMultipleChoiceVM)
+    </div>
 </div>

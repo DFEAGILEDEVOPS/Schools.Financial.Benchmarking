@@ -1298,6 +1298,10 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     }
 }
 
+.question {
+    float: none!important; //for advanced comparison questions. TEMPORARY
+}
+
 ////// GOVUK-FRONTEND modifications/////
 .app-accordion--no-open-all {
     .govuk-accordion__open-all{
@@ -1307,4 +1311,8 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
 
 .app-accordion--no-border-bottom {
     border-bottom: none !important;
+}
+
+.app-accordion__section-header--no-border-top{
+        border-top: none !important;
 }

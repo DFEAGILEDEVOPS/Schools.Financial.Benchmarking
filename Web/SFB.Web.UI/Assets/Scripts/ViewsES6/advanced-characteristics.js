@@ -8,7 +8,7 @@ class AdvancedCharacteristicsViewModel {
         this.questionCheckBoxSelector = ".multiple-choice.question > input";
         this.subQuestionCheckBoxSelector = ".multiple-choice.subQuestion > input";
 
-        new Accordion(document.getElementById('characteristics-accordion'));
+        //new Accordion(document.getElementById('characteristics-accordion'));
 
         this.validateForm();
 
