@@ -368,14 +368,10 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
 </div>
 <div role="tabpanel" id="tabPanel">
     <div class="sticky-div sticky-chart-controls">
-        <div id="controls-accordion" class="accordion mobile-only-accordion">
-            <div class="accordion-section">
+        <div id="controls">
                 <fieldset role="group">
                     <legend class="visually-hidden hide-in-print">Filters</legend>
-                    <div class="accordion-section-header">
-                        <h2 class="heading-medium hide-in-print">Filters</h2>
-                    </div>
-                    <div class="accordion-section-body">
+                    <div>
                         @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
                         @Html.Partial("Partials/ValueSelect", Model)
                         @if (Model.EstablishmentType == EstablishmentType.Academies && Model.IsMATinLatestFinance)
@@ -384,7 +380,6 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                         }
                     </div>
                 </fieldset>
-            </div>
         </div>
     </div>
     <div class="charts-section">

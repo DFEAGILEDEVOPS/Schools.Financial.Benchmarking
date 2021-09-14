@@ -86,7 +86,7 @@ a.button {
     }
 }
 
-.accordion.with-js.mobile-only-accordion {
+/*.accordion.with-js.mobile-only-accordion {
     border-bottom: none;
 
     .accordion-section {
@@ -124,7 +124,7 @@ a.button {
             }
         }
     }
-}
+}*/
 
 .no-border{
     border-bottom: none!important;
@@ -1295,5 +1295,13 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         padding-left: 0;
         padding-right: 0;
         padding-bottom: 0;
+    }
+}
+
+////// GOVUK-FRONTEND modifications/////
+.app-accordion--no-open-all {
+    border-bottom: none !important;
+    .govuk-accordion__open-all{
+        display: none;
     }
 }

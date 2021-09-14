@@ -526,7 +526,6 @@
     <Content Include="Assets\images\govuk-logotype-crown.png" />
     <Content Include="Assets\images\govuk-mask-icon.svg" />
     <Content Include="Assets\images\govuk-opengraph-image.png" />
-    <Content Include="Assets\Sass\utils\_accordion.scss" />
     <Content Include="App_Data\la.json" />
     <Content Include="App_Code\ViewHelpers.cshtml" />
     <Content Include="Assets\Sass\views\_bic-characteristics.scss" />
@@ -568,7 +567,6 @@
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
-    <Content Include="Assets\Scripts\Behaviours\Accordion\accordion.js" />
     <Content Include="Assets\Scripts\Behaviours\Collapsible\collapsible.js" />
     <Content Include="Assets\Scripts\Behaviours\PartialRequest\partial-request.js" />
     <Content Include="Assets\Scripts\Elements\elements.js" />

@@ -8,6 +8,7 @@
 
 @section Head {
     <link href="/public/assets/stylesheets/main.css?v=@version" rel="stylesheet" type="text/css">
+    <link href="/public/assets/stylesheets/main2.css?v=@version" rel="stylesheet" type="text/css">
 
     <style>
         .c3 svg {
@@ -107,9 +108,9 @@
         @*<input type="hidden" id="@Features.EfficiencyMetric" value="@FeatureManager.IsEnabled(Features.EfficiencyMetric).ToString()" />*@
         @*Features*@
     </main>
-    
 
-        @RenderSection("Aside", required: false)
+
+    @RenderSection("Aside", required: false)
 </div>
 
 @RenderSection("AfterMain", required: false)
@@ -128,6 +129,10 @@
     }
 
     <script src="/public/assets/scripts/application.js?v=@version"></script>
+    <script src="~/node_modules/govuk-frontend/govuk/all.js"></script>
+    <script>
+        window.GOVUKFrontend.initAll()
+    </script>
     @(RenderSection("ViewScripts", required: false))
 
     <script>

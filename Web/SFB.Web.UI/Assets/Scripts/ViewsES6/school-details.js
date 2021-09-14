@@ -34,8 +34,8 @@
         DfE.Views.HistoricalCharts = new HistoricalCharts();
         DfE.Views.HistoricalCharts.generateCharts(unitType);
 
-        new Accordion(document.getElementById('historical-charts-accordion'));
-        new Accordion(document.getElementById('controls-accordion'));
+        //new Accordion(document.getElementById('historical-charts-accordion'));
+        //new Accordion(document.getElementById('controls-accordion'));
     }
 
     initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey) {
