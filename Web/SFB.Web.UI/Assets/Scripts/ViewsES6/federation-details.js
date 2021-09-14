@@ -19,9 +19,6 @@ class FederationDetailsViewModel {
 
         GOVUK.Modal.Load();
 
-        new Accordion(document.getElementById('schools-in-federation-accordion'));
-        new Accordion(document.getElementById('controls-accordion'));
-
         $(document).ready(function () {
             setTimeout(function () {
                 var tab = DfE.Util.QueryString.get('tab');
