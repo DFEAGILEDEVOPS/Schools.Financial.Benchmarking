@@ -5,6 +5,7 @@
             function($scope, $http, $q) {
                 var self = this;
                 self.format = "Charts";
+                self.accordionInitialised = false;
 
                 self.loadData = function (resolve) {
                     localStorage.removeItem('CustomCharts');
@@ -52,7 +53,8 @@
                 };
 
                 self.openDetails = function () {
-                    $("#customTabSection button.accordion-expand-all:contains('Open')").click();
+                    debugger;
+                    $("#customTabSection button.govuk-accordion__open-all:contains('Open')").click();
                 };
 
                 self.displayCustomReport = function () {
@@ -69,11 +71,15 @@
                         success: function (data) {
                             setTimeout(function () {
                                 $('#spinner-place-holder').hide();
-                                $('#CustomReportContentPlaceHolder').html(data);                           
+                                $('#CustomReportContentPlaceHolder').html(data); 
                                 DfE.Views.BenchmarkChartsViewModel.generateCharts();
                                 $("table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
                                 $("table.data-table-js.chart-table--mobile-only-view.chart-table--summary-view").tablesorter({ sortList: [[$("table.data-table-js.chart-table--mobile-only-view.chart-table--summary-view").first().find("thead th").length - 1, 1]] });
                                 $("table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
+                                if (!self.accordionInitialised) {
+                                    window.GOVUKFrontend.initAll({ scope: $("#customTabSection")[0] });
+                                    self.accordionInitialised = true;
+                                }
                             }, 500);
                         }
                     });

@@ -62,21 +62,21 @@
                     <div class="selections">
                         <fieldset>
                             <legend class="visually-hidden">Selections</legend>
-                            <div id="custom-report-accordion" class="accordion">
-                                <div class="accordion-section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
-                                    <h2>
-                                        <a class="accordion-section-header" href="javascript:void(0)" ng-class="{'hide-summary': ctrl.query}">
-                                            <span class="heading-medium chart-accordion-header" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
+                            <div id="custom-report-accordion" class="govuk-accordion app-accordion--no-open-all govuk-!-margin-top-4" data-module="govuk-accordion">
+                                <div class="govuk-accordion__section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
+                                    <div class="govuk-accordion__section-header" ng-class="{'hide-summary': ctrl.query}">
+                                        <h2 class="govuk-accordion__section-heading">
+                                            <span id="accordion-selection-heading" class="govuk-accordion__section-button" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
                                                 {{group.GroupName}}
                                                 <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">
                                                     ({{ctrl.groupSelectCount(group)}} selected)
                                                 </span>
                                                 <span class="visuallyhidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
                                             </span>
-                                        </a>
-                                    </h2>
+                                        </h2>
+                                    </div>
 
-                                    <div class="accordion-section-body">
+                                    <div id="accordion-selection-content" class="govuk-accordion__section-content" aria-labelledby="accordion-selection-heading">
                                         <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="grid-row chart-selection" ng-class="{'show-details': ctrl.query}">
                                             <div class="multiple-choice-header column-quarter">
                                                 <span class="bold-xsmall">{{chart.Name}}</span>

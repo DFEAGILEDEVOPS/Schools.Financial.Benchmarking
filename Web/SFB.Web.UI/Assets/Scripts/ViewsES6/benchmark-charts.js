@@ -654,7 +654,6 @@ class BenchmarkChartsViewModel {
             }
         });
 
-        window.GOVUKFrontend.initAll();
         setTimeout(() => this.generateImageDataURIsOfVisibleCharts(), 2000);   
     }
 
@@ -726,6 +725,8 @@ class BenchmarkChartsViewModel {
                 this.refreshAddRemoveLinks();
                 $('.save-as-image').show();
                 this.generateCharts(unitParameter);
+                debugger;
+                window.GOVUKFrontend.initAll({ scope : $("#benchmarkChartsList")[0]});
 
                 $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
                 $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
@@ -914,7 +915,7 @@ class BenchmarkChartsViewModel {
                     $("#PdfLinkText").text(" Download page");
                     let stickyDivHtml = $(data).find(".sticky-div")[0];
                     $("#tabsSection .sticky-chart-controls").replaceWith(stickyDivHtml);
-                     let formHtml = $(data).find("form").html();
+                    let formHtml = $(data).find("form").html();
                     $("#tabsSection form").html(formHtml);
                     $("#tabsSection form").show();
                     $('.sticky-div').Stickyfill();  
@@ -931,7 +932,7 @@ class BenchmarkChartsViewModel {
                     if (tab === "Workforce") {
                         $(".js-show-value-help").show();
                     }
-                    this.generateCharts(unitParameter);    
+                    this.generateCharts(unitParameter);  
                 }
             });
         }

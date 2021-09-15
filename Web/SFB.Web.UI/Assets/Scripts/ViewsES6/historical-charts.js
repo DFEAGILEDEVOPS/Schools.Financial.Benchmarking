@@ -234,7 +234,7 @@ class HistoricalCharts {
                 this.generateCharts(unitParameter);
                 this.updateTotals();
                 this.updateTrustWarnings();                
-                window.GOVUKFrontend.initAll();
+                window.GOVUKFrontend.initAll();//TODO: use option.scope here as parameter
             }
         });
     }
