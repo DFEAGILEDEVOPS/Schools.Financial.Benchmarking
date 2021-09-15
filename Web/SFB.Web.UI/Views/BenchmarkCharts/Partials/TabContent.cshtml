@@ -1,19 +1,15 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
-@using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
 <div class="charts-section">
     <div class="grid-row">
         <div class="column-full">
             <div class="sticky-div sticky-chart-controls @ViewBag.Tab">
-                <div id="controls-accordion" class="accordion mobile-only-accordion" style="display: none">
-                    <div class="accordion-section">
+                <div id="controls-accordion">
+                    <div>
                         <fieldset role="group" aria-labelledby="filtersLegend">
                             <legend class="visually-hidden" id="filtersLegend">Filters</legend>
-                            <div class="accordion-section-header">
-                                <h2 class="heading-medium">Filters</h2>
-                            </div>
-                            <div class="accordion-section-body">
+                            <div>
                                 @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
                                 @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
 

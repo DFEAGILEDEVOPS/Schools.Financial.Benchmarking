@@ -6,15 +6,6 @@ class BenchmarkChartsViewModel {
 
         sessionStorage.chartFormat = 'Charts';
 
-        if (document.getElementById('controls-accordion')) {
-            new Accordion(document.getElementById('controls-accordion'));
-            $("#controls-accordion").show();
-        }
-
-        if (document.getElementById('custom-controls-accordion')) {
-            new Accordion(document.getElementById('custom-controls-accordion'));
-            $("#custom-controls-accordion").show();
-        }
 
         $(document).ready(() => {
             this.hideNaProgressScores();
@@ -663,10 +654,7 @@ class BenchmarkChartsViewModel {
             }
         });
 
-        if (document.getElementById('bm-charts-accordion')){
-            new Accordion(document.getElementById('bm-charts-accordion'));
-        }
-
+        window.GOVUKFrontend.initAll();
         setTimeout(() => this.generateImageDataURIsOfVisibleCharts(), 2000);   
     }
 
@@ -926,11 +914,7 @@ class BenchmarkChartsViewModel {
                     $("#PdfLinkText").text(" Download page");
                     let stickyDivHtml = $(data).find(".sticky-div")[0];
                     $("#tabsSection .sticky-chart-controls").replaceWith(stickyDivHtml);
-                    if (document.getElementById('controls-accordion')) {
-                        new Accordion(document.getElementById('controls-accordion'));
-                        $("#controls-accordion").show();
-                    }
-                    let formHtml = $(data).find("form").html();
+                     let formHtml = $(data).find("form").html();
                     $("#tabsSection form").html(formHtml);
                     $("#tabsSection form").show();
                     $('.sticky-div').Stickyfill();  
