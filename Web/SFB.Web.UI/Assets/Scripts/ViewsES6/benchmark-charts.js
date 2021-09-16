@@ -725,7 +725,7 @@ class BenchmarkChartsViewModel {
                 this.refreshAddRemoveLinks();
                 $('.save-as-image').show();
                 this.generateCharts(unitParameter);
-                debugger;
+
                 window.GOVUKFrontend.initAll({ scope : $("#benchmarkChartsList")[0]});
 
                 $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });

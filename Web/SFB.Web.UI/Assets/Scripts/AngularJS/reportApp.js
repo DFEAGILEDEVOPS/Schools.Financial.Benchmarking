@@ -53,7 +53,6 @@
                 };
 
                 self.openDetails = function () {
-                    debugger;
                     $("#customTabSection button.govuk-accordion__open-all:contains('Open')").click();
                 };
 
