@@ -220,3 +220,4 @@ Web/Web.UI.Automation/screenshots/*
 /Web/SFB.Web.UI/Properties/PublishProfiles
 
 /Web/SFB.Web.UI/Properties/PublishProfiles/FolderProfile.pubxml
+/Web/SFB.Web.UI/Properties/ServiceDependencies/as-t1-dv-sfb-govuk-frontend - Web Deploy/profile.arm.json

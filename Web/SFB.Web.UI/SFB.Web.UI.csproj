@@ -564,6 +564,8 @@
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
     <Content Include="public\assets\images\progress.svg" />
+    <Content Include="public\assets\stylesheets\main.css" />
+    <Content Include="public\assets\stylesheets\main2.css" />
     <Content Include="robots.txt" />
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
@@ -782,7 +784,6 @@
     <Content Include="Assets\Sass\elements\forms\_form-questions.scss" />
     <Content Include="Assets\Sass\elements\forms\_form-validation.scss" />
     <Content Include="Assets\Sass\elements\rating\_rating.scss" />
-    <Content Include="Assets\Sass\elements\_breadcrumbs.scss" />
     <Content Include="Assets\Sass\elements\_browse.scss" />
     <Content Include="Assets\Sass\elements\_buttons.scss" />
     <Content Include="Assets\Sass\elements\_details.scss" />
@@ -1006,6 +1007,7 @@
     <Content Include="Assets\fonts\light-f591b13f7d-v2.woff" />
     <Content Include="Assets\Sass\main.scss" />
     <Content Include="Assets\Sass\main2.scss" />
+    <None Include="Properties\PublishProfiles\as-t1-dv-sfb-govuk-frontend - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\as-t1pr-sfb-as-t1pr-sfb-new-comparison-flow - Web Deploy.pubxml" />
     <Content Include="Views\School\StartBenchmarking.cshtml" />
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToFederationLink.cshtml" />
@@ -1030,7 +1032,6 @@
     <Content Include="Views\TrustComparison\Advanced.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="public\assets\stylesheets\" />
     <Folder Include="Views\EmComparison\" />
     <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
