@@ -1,6 +1,6 @@
 ﻿.benchmark-list {
 
-   .button.view-benchmark {
+   button.view-benchmark {
         margin-bottom: 0;
         float: right;
     }
@@ -35,12 +35,11 @@
     }
 
     .document .remove-benchmark {
-        .button {
+        button {
             float: right;
         }
 
-        .button.removefrom {
-            @include grey-button;
+        button.removefrom {
             margin-right: 0;
         }
     }

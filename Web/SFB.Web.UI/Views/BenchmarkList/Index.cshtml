@@ -87,7 +87,7 @@
                         @DefaultButton(school)
                     </div>
                     <div class="remove-benchmark column-quarter no-padding">
-                        <button class="button removefrom" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'Remove')")"
+                        <button class="govuk-button govuk-button--secondary removefrom" data-module="govuk-button" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'Remove')")"
                                 aria-label="Remove @school.Name from benchmark">
                             Remove
                         </button>
@@ -101,7 +101,7 @@
 @if (Model.BenchmarkSchools.Count > 1)
 {
     <div class="view-button-bottom">
-        <a class="button view-benchmark" href="/BenchmarkCharts"> View benchmarking charts</a>
+        <button class="govuk-button view-benchmark" data-module="govuk-button" onclick="javascript: window.open('/BenchmarkCharts', '_self')">View benchmarking charts</button>
     </div>
 }
 

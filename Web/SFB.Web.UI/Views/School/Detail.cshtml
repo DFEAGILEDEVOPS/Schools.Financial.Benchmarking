@@ -116,10 +116,11 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     <p>There are now several ways for you to compare this school against others.</p>
                 </div>
 
-                <a class="button start-button hide-in-print" href="start-benchmarking?urn=@Model.Id" role="button">
+
+                <a href="start-benchmarking?urn=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
                     Start a comparison
                     <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
                     </svg>
                 </a>
             }
@@ -128,28 +129,28 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         }
         else
         {
-            <div class="blue-banner">
-                <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+    <div class="blue-banner">
+        <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
-                @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
-                {
-                    if (Model.IsPartOfFederation)
-                    {
-                        <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
-                    }
-                    else
-                    {
-                        <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
+        @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
+        {
+            if (Model.IsPartOfFederation)
+            {
+                <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+            }
+            else
+            {
+                <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
 
-                        <a class="button start-button hide-in-print" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button">
-                            Go to the self-assessment dashboard
-                            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
-                            </svg>
-                        </a>
-                    }
-                }
-            </div>
+                <a href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                    Go to the self-assessment dashboard
+                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                    </svg>
+                </a>
+            }
+        }
+    </div>
         }
 
 

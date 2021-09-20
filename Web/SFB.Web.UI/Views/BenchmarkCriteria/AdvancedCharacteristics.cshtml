@@ -84,7 +84,7 @@
                 <form action="OverwriteStrategy" method="post" id="criteriaForm" autocomplete="off">
                     @Html.AntiForgeryToken()
                     <div class="criteria-questions">
-                        <div id="characteristics-accordion" class="govuk-accordion app-accordion--no-open-all" data-module="govuk-accordion" >
+                        <div id="characteristics-accordion" class="govuk-accordion app-accordion--no-open-all" data-module="govuk-accordion">
                             @Html.Partial("Partials/GeneralCharacteristics")
                             @Html.Partial("Partials/SenCharacteristics")
                             @Html.Partial("Partials/PerformanceCharacteristics")
@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                    <div class="grid-row">
+                    @*<div class="grid-row">
                         <div class="button-set column-full">
                             <div class="criteria-controls">
                                 <button class="button submit-criteria-js submit mr-2">Continue to benchmarking charts</button>
@@ -103,6 +103,14 @@
                                 </div>
                             </div>
                         </div>
+                    </div>*@
+
+                    <div class="govuk-button-group">
+                        <button class="govuk-button submit-criteria-js submit" data-module="govuk-button">
+                            Continue to benchmarking charts
+                        </button>
+
+                        <a class="govuk-link js-clear-criteria" href="#">Clear all characteristics</a>
                     </div>
 
                     <input type="hidden" name="Urn" value="@ViewBag.URN">

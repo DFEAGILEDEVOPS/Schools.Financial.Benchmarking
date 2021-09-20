@@ -1127,7 +1127,7 @@ class BenchmarkChartsViewModel {
             </p>
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
-                <button id='clip-button' class='button' type='button' data-clipboard-target='#saveUrl' style='font-size: 16px'>Copy link to clipboard</button>
+                <button id='clip-button' class='govuk-button' data-module='govuk-button' type='button' data-clipboard-target='#saveUrl' style='font-size: 16px'>Copy link to clipboard</button>
                 <span id='clip-not-supported' class='error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
             <a class='bold-xsmall email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
@@ -1139,7 +1139,7 @@ class BenchmarkChartsViewModel {
             <p id='modal-content'>
                 You can now save the link as a bookmark or in a document to keep your benchmark basket.
             </p>           
-            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.showSaveModalOne()'>See more options to save</button>            
+            <a href='javascript: DfE.Views.BenchmarkChartsViewModel.showSaveModalOne()'>See more options to save</button>            
         </div>
         <a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLink' title='Close'>Close</a>
         </dialog>`;
@@ -1236,8 +1236,10 @@ class BenchmarkChartsViewModel {
               </fieldset>
             <div class="grid-row modal-form-buttons">
                 <div class="column-half">
-                    <button type="button" class="button next-button" onclick="DfE.Views.BenchmarkChartsViewModel.downloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">Download</button>
-                    <button type="button" class="back-button link-button" value="Cancel" onclick="GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
+                    <div class="govuk-button-group">
+                        <button type="button" data-module="govuk-button" class="govuk-button" onclick="DfE.Views.BenchmarkChartsViewModel.downloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">Download</button>
+                        <a class="govuk-link" href="javascript: GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
+                    </div>
                 </div>
             </div>
             </div>` +

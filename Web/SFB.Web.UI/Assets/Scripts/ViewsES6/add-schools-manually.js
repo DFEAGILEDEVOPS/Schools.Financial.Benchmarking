@@ -8,6 +8,8 @@ class AddSchoolsManuallyViewModel {
         $("#manualButton").click((event) => {
             if (!this.validate()) {
                 event.preventDefault();
+            } else {
+                window.open('OverwriteStrategy', '_self');
             }
         });
     }

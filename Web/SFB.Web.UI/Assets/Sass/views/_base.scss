@@ -207,7 +207,7 @@ a.button {
 
     div.view-benchmark-charts-wrapper {
         float: right;
-        top: -5px;
+        top: -10px;
         position: relative;
 
         @media (max-width: 1024px) {
@@ -376,10 +376,6 @@ a.button {
     .next-button {
         padding-left: 0;
         padding-right: 0;
-
-        button {
-            width: 100%;
-        }
     }
 
     .modal-form-buttons {
@@ -1271,7 +1267,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         background: $page-colour;
     }
 
-    .start-button {
+/*    .start-button {
         background-color: $page-colour;
         color: $govuk-blue;
         font-weight: 700;
@@ -1289,7 +1285,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
             vertical-align: middle;
             margin-left: 5px;
         }
-    }
+    }*/
 
     @media print {
         padding-left: 0;
@@ -1315,4 +1311,19 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
 
 .app-accordion__section-header--no-border-top{
         border-top: none !important;
+}
+
+.govuk-button.app-button--start-blue {
+    background-color: $page-colour;
+    color: $govuk-blue;
+
+    &:link, &:visited, &:active {
+        color: $govuk-blue !important;
+    }
+
+    &:focus, &:hover {
+        background-color: $page-colour;
+        color: $govuk-blue;
+        color: black !important;//TODO: replace with a govuk colour
+    }
 }
