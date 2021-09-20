@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Schools Financial Benchmarking";
+    ViewBag.pageClass = "contact-us";
+}
+
+<div class="grid-row">
+    <div class="column-two-thirds">
+
+        <div class="govuk-box-highlight">
+            <h1 class="heading-xlarge">
+                Your message has been sent
+            </h1>
+            <p class="font-large">
+                Your reference number<br>
+                <strong class="bold">@ViewBag.EmailReference</strong>
+            </p>
+        </div>
+
+        <p>
+            We have sent you a confirmation email.
+        </p>
+
+        <h2 class="heading-medium">
+            What happens next?
+        </h2>
+        <p>
+            We have sent your message to the school resource management team.
+        </p>
+        <p>
+            They will contact you either to inform you of the action that will be taken or to request further information.
+        </p>
+        @if (ViewBag.Urn == null)
+        {
+            <p>
+                <a href="/">Return to the homepage</a>
+            </p>
+        }
+        else
+        {
+            <p>
+                <a href="/">Return to homepage</a>
+            </p>
+        }
+    </div>
+</div>
