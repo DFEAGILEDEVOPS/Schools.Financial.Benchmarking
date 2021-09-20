@@ -54,13 +54,9 @@
                     <div class="advanced control-buttons">
                         <div class="grid-row">
                             <div class="column-two-thirds">
-                                <div class="column-half pl-0">
-                                    <button id="sbmt_button" onclick="DfE.Views.TrustCompareAdvancedViewModel.onSubmit(event)" class="button view-benchmark-charts submit">View benchmarking charts</button>
-                                </div>
-                                <div class="column-half no-padding">
-                                    <div class="back-button">
-                                        <button onclick="DfE.Views.TrustCompareAdvancedViewModel.onClear(event)" class="clear-criteria js-clear-criteria link-button font-xsmall">Clear characteristics</button>
-                                    </div>
+                                <div class="govuk-button-group">
+                                        <button id="sbmt_button" onclick="DfE.Views.TrustCompareAdvancedViewModel.onSubmit(event)" class="govuk-button view-benchmark-charts submit">View benchmarking charts</button>
+                                        <a href="javascript: DfE.Views.TrustCompareAdvancedViewModel.onClear(event)" class="govuk-link clear-criteria js-clear-criteria">Clear characteristics</a>
                                 </div>
                             </div>
                         </div>

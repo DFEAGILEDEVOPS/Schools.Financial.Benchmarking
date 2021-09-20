@@ -133,16 +133,11 @@
         }
     }
 
-    .button.removefrom, .button.addto {
-        @include grey-button;
-    }
-
     .add-all-wrapper {
         margin-bottom: 45px;
     }
 
     .add-all {
-        @include grey-button;
         float: right;
     }
 
@@ -249,32 +244,6 @@
         p.rating-text {
             font-size: 12px;
             white-space: nowrap;
-        }
-
-        div.button {
-            background-color: #bfc1c3;
-            color: #0b0c0c;
-            -moz-box-shadow: 0 2px 0 #9aa0a6;
-            -webkit-box-shadow: 0 2px 0 #9aa0a6;
-            box-shadow: 0 2px 0 #9aa0a6;
-            margin-bottom: 5px;
-            margin-top: 5px;
-
-            &:active {
-                top: 0;
-                -moz-transform: translate(0,2px);
-                -ms-transform: translate(0,2px);
-                -o-transform: translate(0,2px);
-                -webkit-transform: translate(0,2px);
-                transform: translate(0,2px);
-            }
-        }
-
-        div.button.add {
-        }
-
-        div.button.remove {
-            background-color: #dee0e2;
         }
     }
 

@@ -79,10 +79,6 @@
     font-size: 16px;
     line-height: 1.3157894737;
 
-    .button {
-        font-size: 16px;
-    }
-
     @include media(desktop) {
         font-size: 19px;
         margin: 0px 40px 0 -15px;
@@ -99,7 +95,7 @@
     }
 }
 
-.gem-c-button{
+button.gem-c-button{
    width: 100%;
    @include media(desktop){
        width: 90%;

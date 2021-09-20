@@ -112,19 +112,19 @@
 
                 if ($("#SearchMethod").val() === "Manual") {
                     if (DfE.Util.ComparisonList.isInManualList(info.Id)) {
-                        html += `<div class="button add add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</div>`;
+                        html += `<button class="govuk-button govuk-!-margin-bottom-0 add add-remove" data-module="govuk-button" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</button>
+                            <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary remove add-remove" data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</button>`;
                     } else {
-                        html += `<div class="button add add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</div>`;
+                        html += `<button class="govuk-button govuk-!-margin-bottom-0 add add-remove" data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</button>
+                            <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary remove add-remove" data-module="govuk-button" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</button>`;
                     }
                 } else if ($("#SearchMethod").val() === "School"){
                     if (DfE.Util.ComparisonList.isInList(info.Id)) {
-                        html += `<div class="button add add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
+                        html += `<button class="govuk-button govuk-!-margin-bottom-0 add add-remove" data-module="govuk-button" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</button>
+                            <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary remove add-remove" data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
                     } else {
-                        html += `<div class="button add add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
+                        html += `<button class="govuk-button govuk-!-margin-bottom-0 add add-remove" data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</button>
+                            <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary remove add-remove" data-module="govuk-button" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</button>`;
                     }
                 }
                 
