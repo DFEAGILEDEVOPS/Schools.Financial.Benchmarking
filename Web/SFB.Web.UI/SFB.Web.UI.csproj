@@ -784,7 +784,6 @@
     <Content Include="Assets\Sass\elements\forms\_form-block-labels.scss" />
     <Content Include="Assets\Sass\elements\forms\_form-date.scss" />
     <Content Include="Assets\Sass\elements\forms\_form-questions.scss" />
-    <Content Include="Assets\Sass\elements\forms\_form-validation.scss" />
     <Content Include="Assets\Sass\elements\rating\_rating.scss" />
     <Content Include="Assets\Sass\elements\_browse.scss" />
     <Content Include="Assets\Sass\elements\_elements-typography.scss" />

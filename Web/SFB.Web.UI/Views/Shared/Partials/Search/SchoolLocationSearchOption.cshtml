@@ -5,7 +5,7 @@
     <input id="TownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LOCATION)) aria-label="Search by location"/>
     <label for="TownOrCity">Location</label>
 </div>
-<div id="SearchByTownFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
+<div id="SearchByTownFieldset" class="panel panel-border-narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
     <label class="search-types__optional-section__label" for="FindSchoolByTown">
         Enter a postcode, town or street. Or
         <button id="FindCurrentPosition" class="focus-first link-button font-small no-padding" title="Select to use your current location">use your current location</button>
@@ -14,7 +14,7 @@
     <div class="location-error-message-placeholder">
         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
         {
-            <span class="error-message">@Model.ErrorMessage</span>
+            <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
         }
     </div>
     <div class="multiple-choice" style="float:none">
@@ -23,7 +23,7 @@
     </div>
     <div>
         <input id="FindSchoolByTown"
-               class="form-control search-input"
+               class="form-control search-input @(Model.GetInputErrorClass(SearchTypes.SEARCH_BY_LOCATION))"
                name="locationorpostcode"
                placeholder=""
                maxlength="100"

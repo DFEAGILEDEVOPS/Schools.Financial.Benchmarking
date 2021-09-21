@@ -57,12 +57,12 @@
 <section class="section" id="options">
     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
         <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
-            <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
+            <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group-error" : "")">
                 <fieldset role="radiogroup" id="RadioFieldSet">
 
                     <legend id="legend">
                         <span class="visually-hidden">Where should comparison schools come from?</span>
-                        <span class="error-message">@Model.ErrorMessage</span>
+                        <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
                     </legend>
 
                     <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
@@ -76,13 +76,13 @@
                             Local authority
                         </label>
                     </div>
-                    <div id="SearchByLaCodeFieldset" class="form-group optional-section">
+                    <div id="SearchByLaCodeFieldset" class="govuk-form-group optional-section">
                         <label for="FindSchoolByLaCode" class="la-label">
                             Enter a local authority name or a three-digit LA code
                         </label>
                         @if (ViewBag.AreaType == ComparisonArea.LaCodeName)
                         {
-                            <span class="error-message">@Model.ErrorMessage</span>
+                            <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
                         }
                         <input id="FindSchoolByLaCode"
                                class="form-control"

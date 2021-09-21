@@ -5,14 +5,14 @@
     <input id="LaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME)) />
     <label for="LaCodeName">Add schools by local authority</label>
 </div>
-<div id="SearchByLaCodeNameFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
+<div id="SearchByLaCodeNameFieldset" class="panel panel-border-narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
     <label class="search-types__optional-section__label" for="FindSchoolManuallyByLaCodeName" id="sectionLabel">
         <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
     </label>
     <label class="visually-hidden" for="FindSchoolManuallyByLaCodeName_listbox">Select a local authority from the list box</label>
     @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
     {
-        <span class="error-message">@Model.ErrorMessage</span>
+        <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
     }
     <div class="multiple-choice" style="float:none">
         <input id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>

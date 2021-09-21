@@ -36,12 +36,12 @@
         <h2 class="heading-medium">Your details</h2>
         <form action="GetInvolvedSubmission" method="post">
             @Html.AntiForgeryToken()
-            <div class="form-group @FormGroupErrorClass("getInvolved.Name")">
+            <div class="govuk-form-group @FormGroupErrorClass("getInvolved.Name")">
                 <label class="form-label" for="getInvolved.Name">Name</label>
                 @InputErrorMessage("getInvolved.Name")
                 <input class="form-control @FormControlErrorClass("getInvolved.Name")" id="getInvolved.Name" name="getInvolved.Name" type="text" value="@Model.Name">
             </div>
-            <div class="form-group @FormGroupErrorClass("getInvolved.Email")">
+            <div class="govuk-form-group @FormGroupErrorClass("getInvolved.Email")">
                 <label class="form-label" for="getInvolved.Email">Email</label>
                 @InputErrorMessage("getInvolved.Email")
                 <input class="form-control @FormControlErrorClass("getInvolved.Email")" id="getInvolved.Email" name="getInvolved.Email" type="text" value="@Model.Email">
@@ -83,7 +83,7 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        @("form-group-error")
+        @("govuk-form-group-error")
     }
 }
 
@@ -104,7 +104,8 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        <span class="error-message">
+        <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error: </span>
             @ms.Errors.First().ErrorMessage
         </span>
     }

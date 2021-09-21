@@ -45,7 +45,7 @@
 <form action="/BenchmarkCharts/GenerateFromBicCriteria" method="post" id="criteriaForm">
     @Html.AntiForgeryToken()
     <div>
-        <div class="form-group">
+        <div class="govuk-form-group">
             <div class="column-full no-padding">
                 <div class="bold-small">Number of pupils</div>
                 <div class="benchmark-school-value">
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="column-half no-padding">
-                <div class="form-group no-padding">
+                <div class="govuk-form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="NoPupilsMin">From</label>
                         <input type="number" name="BicCriteria.NoPupilsMin" id="NoPupilsMin" class="form-control criteria-input" required=""
@@ -72,7 +72,7 @@
     </div>
 
     <div>
-        <div class="form-group">
+        <div class="govuk-form-group">
             <div class="column-full no-padding">
                 <div class="bold-small">Eligibility for free school meals (% of pupils)</div>
                 <div class="benchmark-school-value">
@@ -81,7 +81,7 @@
                 </div>
             </div>
             <div class="column-half no-padding">
-                <div class="form-group no-padding">
+                <div class="govuk-form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="MinPerFSM">From</label>
                         <input type="number" name="BicCriteria.PercentageFSMMin" id="MinPerFSM" class="form-control criteria-input" required="" step=".01" min="0" max="100" value="@Model.BicCriteria.PercentageFSMMin.ToString("F2")"
@@ -98,12 +98,12 @@
     </div>
 
     <div>
-        <div class="form-group">
+        <div class="govuk-form-group">
             <div class="column-full no-padding">
                 <div class="bold-small">Pupils with <abbr title="Special Education Needs" aria-label="">SEN</abbr> who have statements or <abbr title="Education, health and care" aria-label="">EHC</abbr> plans (% of pupils)</div>
             </div>
             <div class="column-full no-padding">
-                <div class="form-group no-padding">
+                <div class="govuk-form-group no-padding">
                     <div class="multiple-choice">
                         <input id="sen" name="BicCriteria.SENEnabled" type="checkbox" value="true" onchange="javascript: $('#sen_range').toggle();"
                                @Html.Raw(Model.BicCriteria.SENEnabled ? "checked" : "none")>
@@ -116,7 +116,7 @@
                     <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
                 </div>
-                <div class="form-group no-padding">
+                <div class="govuk-form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="MinPerSEN">From</label>
                         <input type="number" name="BicCriteria.PercentageSENMin" id="MinPerSEN" class="form-control criteria-input" required=""
@@ -136,7 +136,7 @@
 
 
     <div>
-        <div class="form-group">
+        <div class="govuk-form-group">
             <div class="column-full no-padding">
                 <div class="bold-small">
                     Total expenditure in £ per pupil
@@ -147,7 +147,7 @@
                 </div>
             </div>
             <div class="column-half no-padding">
-                <div class="form-group no-padding">
+                <div class="govuk-form-group no-padding">
                     <div class="column-half no-padding">
                         <label class="form-label" for="MinPerSEN">From</label>
                         <input type="number" name="BicCriteria.PerPupilExpMin" id="PerPupilExpMin" class="form-control criteria-input" required=""
@@ -166,7 +166,7 @@
     </div>
 
     <div>
-        <div class="form-group">
+        <div class="govuk-form-group">
             <div class="column-full no-padding">
                 <div class="bold-small">Urban/Rural schools</div>
                 <div class="benchmark-school-value">
@@ -184,7 +184,7 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="govuk-form-group">
         <div class="govuk-button-group">
             <button type="submit" class="govuk-button" data-module="govuk-button">Update comparison</button>
             <a class="govuk-link" href="~/BenchmarkCriteria/ComparisonStrategy?urn=@Model.BenchmarkSchool.Id">Cancel</a>

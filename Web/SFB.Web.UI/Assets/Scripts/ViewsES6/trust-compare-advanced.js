@@ -33,7 +33,7 @@ class TrustCompareAdvancedViewModel {
         $('#criteriaForm').
             validate({
                 errorPlacement: function (error, element) {
-                    error.appendTo(element.closest(".question").find(".error-message"));
+                    error.appendTo(element.closest(".question").find(".govuk-error-message"));
                 },
                 highlight: function (element, errorClass, validClass) {
                     $(element).addClass(errorClass).removeClass(validClass);

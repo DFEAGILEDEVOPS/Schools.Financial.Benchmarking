@@ -3,7 +3,7 @@
 @using SFB.Web.UI.Helpers.Enums
 
 
-<div class="form-group @IsWorkforceTab()">
+<div class="govuk-form-group @IsWorkforceTab()">
     <label class="form-label" for="TrustCentralFinancing">Trust finance</label>
     <select name="TrustCentralFinancing" id="TrustCentralFinancing" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.rebuildCharts()">
         <option value="@MatFinancingType.TrustAndAcademies" @IsSelected(MatFinancingType.TrustAndAcademies)>@MATFinancing.TRUST_ACADEMIES</option>

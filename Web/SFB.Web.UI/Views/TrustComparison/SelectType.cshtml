@@ -39,13 +39,14 @@
 
 <section class="section" aria-label="Select comparison type">
     <form action="/TrustComparison/StepOne">
-        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
+        <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group-error" : "")">
             <fieldset>
                 <legend id="csLegend">
                     <span>How do you want to compare this trust with others?</span>
                     @if (Model.HasError())
                     {
-                        <span class="error-message">
+                        <span class="govuk-error-message">
+                            <span class="govuk-visually-hidden">Error: </span>
                             Select a comparison type
                         </span>
                     }

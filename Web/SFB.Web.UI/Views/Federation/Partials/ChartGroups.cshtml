@@ -3,7 +3,7 @@
 @if (Model.Count > 1)
 {
     <div class="column-one-third chart-filter">
-        <div class="form-group">
+        <div class="govuk-form-group">
             <label class="form-label" for="ChartGroup">Show grouping</label>
             <select name="ChartGroup" id="ChartGroup" class="form-control" onchange="DfE.Views.HistoricalCharts.rebuildCharts('federation')">
                 @foreach (var item in Model)

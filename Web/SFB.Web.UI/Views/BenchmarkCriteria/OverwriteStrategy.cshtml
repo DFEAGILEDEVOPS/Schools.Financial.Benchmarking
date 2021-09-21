@@ -41,12 +41,12 @@
 
 <form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post" id="gfac">
     @Html.AntiForgeryToken()
-    <div class="form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "form-group-error")">
+    <div class="govuk-form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "govuk-form-group-error")">
 
         <fieldset>
             @if (!string.IsNullOrEmpty(Model.ErrorMessage))
             {
-                <span class="error-message">@Model.ErrorMessage</span>
+                <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
             }
             <legend class="visually-hidden">Overwrite strategy</legend>
             <div class="multiple-choice">

@@ -25,11 +25,11 @@
 </div>
 
 <form action="/Download/@ViewBag.Estab/DataSet" method="get" autocomplete="off">
-    <div class="form-group">
+    <div class="govuk-form-group">
         <label class="bold-form-label form-label" for="year">Select the financial year</label>
         @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
         {
-            <span class="error-message">@ViewBag.ErrorMessage</span>
+            <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@ViewBag.ErrorMessage</span>
         }
         <select class="form-control" id="year" name="year">
             <option value="">Please select</option>
@@ -40,7 +40,7 @@
         </select>
     </div>
 
-    <div class="form-group">
+    <div class="govuk-form-group">
         <button type="submit" class="govuk-button">Continue</button>
     </div>
 

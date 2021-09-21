@@ -43,14 +43,14 @@ else
 }
 
 <form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
-    <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
+    <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group-error" : "")">
 
         <fieldset>
             <legend id="legend">
                 <span class="visually-hidden">Overwrite strategy</span>
                 @if (Model.HasError())
                 {
-                    <span class="error-message">@Model.ErrorMessage</span>
+                    <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
                 }
             </legend>
             <div class="multiple-choice">

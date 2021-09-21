@@ -11,7 +11,7 @@
                             <legend class="visually-hidden" id="filtersLegendCustom">Filters</legend>
                             <div>
                                 <div class="column-one-third chart-filter">
-                                    <div class="form-group">
+                                    <div class="govuk-form-group">
                                         <label class="form-label" for="CFinancing">Trust finance</label>
                                         <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
                                             <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
@@ -44,7 +44,7 @@
                     <div class="selection-filters no-padding">
                         <div class="column-full no-padding">
                             <div class="column-half no-padding">
-                                <div class="form-group">
+                                <div class="govuk-form-group">
                                     <label class="form-label" for="Filter">Filter by chart name</label>
                                     <input id="Filter" class="form-control" ng-model="ctrl.query" ng-change="ctrl.openDetails()" />
                                 </div>

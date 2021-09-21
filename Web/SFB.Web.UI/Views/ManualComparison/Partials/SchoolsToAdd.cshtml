@@ -40,14 +40,17 @@
                         <label class="form-label" for="NewSchoolName">School @Html.Raw(i + 1)</label>
                         @if (ViewBag.Error != null)
                         {
-                            <span class="error-message">
+                            <span class="govuk-error-message">
+                                <span class="govuk-visually-hidden">Error: </span>
                                 @ViewBag.Error
                             </span>
                         }
-                        <span class="error-message missing" style="display: none">
+                        <span class="govuk-error-message missing" style="display: none">
+                            <span class="govuk-visually-hidden">Error: </span>
                             Enter a school name to continue the comparison
                         </span>
-                        <span class="error-message not-found" style="display: none">
+                        <span class="govuk-error-message not-found" style="display: none">
+                            <span class="govuk-visually-hidden">Error: </span>
                             We couldn't find any schools matching your search criteria
                         </span>
                         <input id="NewSchoolName"
@@ -77,15 +80,18 @@
                     <label class="form-label" for="NewSchoolName">School 1</label>
                     @if (ViewBag.Error != null)
                     {
-                        <span class="error-message duplicate">
+                        <span class="govuk-error-message duplicate">
+                            <span class="govuk-visually-hidden">Error: </span>
                             @ViewBag.Error
                         </span>
                     }
-                    <span class="error-message missing" style="display: none">
+                    <span class="govuk-error-message missing" style="display: none">
+                        <span class="govuk-visually-hidden">Error: </span>
                         Enter a school name to continue the comparison
                     </span>
-                    <span class="error-message not-found" style="display: none">
-                            We couldn't find any schools matching your search criteria
+                    <span class="govuk-error-message not-found" style="display: none">
+                        <span class="govuk-visually-hidden">Error: </span>
+                        We couldn't find any schools matching your search criteria
                     </span>
                     <input id="NewSchoolName"
                            class="form-control"

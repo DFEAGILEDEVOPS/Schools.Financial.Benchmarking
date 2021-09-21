@@ -1128,7 +1128,7 @@ class BenchmarkChartsViewModel {
             <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
                 <button id='clip-button' class='govuk-button' data-module='govuk-button' type='button' data-clipboard-target='#saveUrl' style='font-size: 16px'>Copy link to clipboard</button>
-                <span id='clip-not-supported' class='error-message' style='display: none'>Please select and copy the link above.</span>
+                <span id='clip-not-supported' class='govuk-error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
             <a class='bold-xsmall email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            

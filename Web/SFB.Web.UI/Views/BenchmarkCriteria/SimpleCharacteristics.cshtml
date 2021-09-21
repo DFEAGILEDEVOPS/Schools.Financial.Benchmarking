@@ -51,7 +51,7 @@
 <section class="section">
 
     <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="get" id="criteriaForm">
-        <div class="form-group">
+        <div class="govuk-form-group">
             <fieldset>
                 <legend class="bold-small">Find schools with a similar percentage of:</legend>
                 <div class="multiple-choice">
@@ -71,7 +71,7 @@
                 </div>
             </fieldset>
         </div>
-        <div class="form-group">
+        <div class="govuk-form-group">
             <fieldset>
                 <legend>
                     <span class="bold-small">Location characteristic:</span>
@@ -90,7 +90,7 @@
                 </div>
             </fieldset>
         </div>
-        <div class="form-group" id="BasketSizeAccordion">
+        <div class="govuk-form-group" id="BasketSizeAccordion">
             <fieldset>
                 @if (Model.BenchmarkSchool is FederationViewModel)
                 {
@@ -108,12 +108,12 @@
                         <input id="CustomBasketSize" type="checkbox" />
                         <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Define the number of schools and federations in the benchmark comparison (default is 15)</label>
                     </div>
-                    <div id="CustomBasketSizeFieldset" class="form-group optional-section">
+                    <div id="CustomBasketSizeFieldset" class="govuk-form-group optional-section">
                         <p>
                             A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools and federations. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
                         </p>
                         <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
-                        <span class="error-message" style="display: none">Enter a number between 5 and 30</span>
+                        <span class="govuk-error-message" style="display: none">Enter a number between 5 and 30</span>
                         <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
                     </div>
                 }
@@ -133,12 +133,12 @@
                         <input id="CustomBasketSize" type="checkbox" />
                         <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Define the number of schools in the benchmark comparison (default is 15)</label>
                     </div>
-                    <div id="CustomBasketSizeFieldset" class="form-group optional-section">
+                    <div id="CustomBasketSizeFieldset" class="govuk-form-group optional-section">
                         <p>
                             A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
                         </p>
                         <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
-                        <span class="error-message" style="display: none">Enter a number between 5 and 30</span>
+                        <span class="govuk-error-message" style="display: none">Enter a number between 5 and 30</span>
                         <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
                     </div>
                 }
@@ -168,12 +168,12 @@
                 let count = $("#BasketSizeInput").val();
                 if (count < 5 || count > 30) {
                     $(".error-summary").show();
-                    $(".error-message").show();
+                    $(".govuk-error-message").show();
                     $('#basketSizeError').focus();
                     return false;
                 } else {
                     $(".error-summary").hide();
-                    $(".error-message").hide();
+                    $(".govuk-error-message").hide();
                     return true;
                 }
             } else {
@@ -198,7 +198,7 @@
                 if (!event.target.checked) {
                     $panel.find(".panel").hide();
                     $panel.removeClass("error");
-                    $panel.find("error-message").hide();
+                    $panel.find("govuk-error-message").hide();
                     $panel.find("input.error").removeClass("error");
                     $panel.find("label.error").css("display", "none");
                 }

@@ -12,22 +12,22 @@
                 @Html.AntiForgeryToken()
                 <h4>Use a local account to log in.</h4>
                 <hr />
-                @Html.ValidationSummary(true, "", new { @class = "error-message" })
-                <div class="form-group">
+                @Html.ValidationSummary(true, "", new { @class = "govuk-error-message" })
+                <div class="govuk-form-group">
                     @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "error-message" })
+                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "govuk-error-message" })
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="govuk-form-group">
                     @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
                         @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "error-message" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "govuk-error-message" })
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="govuk-form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
                             @Html.CheckBoxFor(m => m.RememberMe)
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="govuk-form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Log in" class="btn btn-default govuk-button" />
                     </div>

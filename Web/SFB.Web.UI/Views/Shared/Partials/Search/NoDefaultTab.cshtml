@@ -1,19 +1,23 @@
-﻿@using SFB.Web.UI.Helpers.Enums
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
 
-<form action="/BenchmarkCriteria/StepOne" 
-      class="tab-content tab-content--@ViewHelpers.NoDefaultTabActive(Model.SearchType)" 
+<form action="/BenchmarkCriteria/StepOne"
+      class="tab-content tab-content--@ViewHelpers.NoDefaultTabActive(Model.SearchType)"
       id="NoDefaultTabContent"
       role="tabpanel">
-    <div class="form-group">
+    <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))">
         <fieldset>
             <p class="mt-1">This allows you to create a benchmark set without using a default school. If you already have a default school it will be removed.</p>
 
             <legend>
-                <span class="form-group heading-small bold-small mb-1">
+                <span class="govuk-form-group heading-small bold-small mb-1">
                     Compare by:
                 </span>
             </legend>
-
+            @if (Model.SearchTypeHasError(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))
+            {
+                <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+            }
             <div class="multiple-choice">
                 <input id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
                 <label class="selection-button-radio" for="radio-2">

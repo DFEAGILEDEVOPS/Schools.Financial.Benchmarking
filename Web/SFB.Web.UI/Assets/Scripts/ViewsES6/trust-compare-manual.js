@@ -35,7 +35,7 @@ class TrustCompareManualViewModel {
             $("#NewTrust").hide();
             $("#AddButton").show();
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
             document.title = document.title.replace("Error: ", "");
         });
 
@@ -45,13 +45,13 @@ class TrustCompareManualViewModel {
         let count = $(".remove-trust").length;
         if (count === 0 || $("#NewTrustName:visible").length > 0) {
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
             if ($("#NewTrustName").val() === "") {
                 $(".error-summary.missing").show();
-                $(".error-message.missing").show();
+                $(".govuk-error-message.missing").show();
             } else {
                 $(".error-summary.not-found").show();
-                $(".error-message.not-found").show();
+                $(".govuk-error-message.not-found").show();
             }
             $("#NewTrustName").addClass("form-control-error");
             $(".error-summary-list a").focus();
@@ -59,7 +59,7 @@ class TrustCompareManualViewModel {
             return false;
         } else {
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
             $("#NewTrustName").removeClass("form-control-error");
             return true;
         }

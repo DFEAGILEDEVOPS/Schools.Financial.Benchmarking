@@ -79,27 +79,27 @@
             @Html.AntiForgeryToken()
             <p>If the above information does not resolve your data query please submit a request for us to look into.</p>
 
-            <div class="form-group @FormGroupErrorClass("dataQuery.Name")">
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.Name")">
                 <label class="form-label" for="dataQuery.Name">Name</label>
                 @InputErrorMessage("dataQuery.Name")
                 <input class="form-control @FormControlErrorClass("dataQuery.Name")" id="dataQuery.Name" name="dataQuery.Name" type="text" value="@Model.Name">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.Email")">
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.Email")">
                 <label class="form-label" for="dataQuery.Email">Email</label>
                 @InputErrorMessage("dataQuery.Email")
                 <input class="form-control @FormControlErrorClass("dataQuery.Email")" id="dataQuery.Email" name="dataQuery.Email" type="text" value="@Model.Email">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.SchoolTrustName")">
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.SchoolTrustName")">
                 <label class="form-label" for="dataQuery.SchoolTrustName">School or trust name</label>
                 @InputErrorMessage("dataQuery.SchoolTrustName")
                 <input class="form-control @FormControlErrorClass("dataQuery.SchoolTrustName")" id="dataQuery.SchoolTrustName" name="dataQuery.SchoolTrustName" type="text" value="@Model.SchoolTrustName">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.SchoolTrustReferenceNumber")">
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.SchoolTrustReferenceNumber")">
                 <label class="form-label" for="dataQuery.SchoolTrustReferenceNumber">School or trust reference number e.g. <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>, <abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB code</abbr> or company number</label>
                 @InputErrorMessage("dataQuery.SchoolTrustReferenceNumber")
                 <input class="form-control @FormControlErrorClass("dataQuery.SchoolTrustReferenceNumber")" id="dataQuery.SchoolTrustReferenceNumber" name="dataQuery.SchoolTrustReferenceNumber" type="text" value="@Model.SchoolTrustReferenceNumber">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.DataQuery")">
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.DataQuery")">
                 <label class="form-label" for="dataQuery.DataQuery">Data query</label>
                 @InputErrorMessage("dataQuery.DataQuery")
                 <textarea class="form-control form-control-3-4 @FormControlErrorClass("dataQuery.DataQuery")" name="dataQuery.DataQuery" id="dataQuery.DataQuery" rows="8" maxlength="1000">@Model.DataQuery</textarea>
@@ -143,7 +143,7 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        @("form-group-error")
+        @("govuk-form-group-error")
     }
 }
 
@@ -164,7 +164,8 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        <span class="error-message">
+        <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error: </span>
             @ms.Errors.First().ErrorMessage
         </span>
     }

@@ -73,11 +73,11 @@
         {
             Html.BeginForm("SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get);
         }
-        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
+        <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group-error" : "")">
             <fieldset role="radiogroup" id="RadioFieldSet">
                 <legend id="sstLegend">
                     <span class="visually-hidden">Which schools would you like to include?</span>
-                    <span class="error-message">@Model.ErrorMessage</span>
+                    <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
                 </legend>
 
                 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
@@ -87,7 +87,7 @@
                         <label class="selection-button-radio" for="Maintained">Maintained schools</label>
                     </div>
 
-                    <div id="MaintainedFieldset" class="form-group optional-section panel panel-border-narrow">
+                    <div id="MaintainedFieldset" class="govuk-form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled />
                             <label for="excludePartialMaintained">
@@ -101,7 +101,7 @@
                         <label class="selection-button-radio" for="Academies">Academies</label>
                     </div>
 
-                    <div id="AcademiesFieldset" class="form-group optional-section panel panel-border-narrow">
+                    <div id="AcademiesFieldset" class="govuk-form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled />
                             <label for="excludePartialAcademies">
@@ -115,7 +115,7 @@
                         <label class="selection-button-radio" for="All">All schools</label>
                     </div>
 
-                    <div id="AllFieldset" class="form-group optional-section panel panel-border-narrow">
+                    <div id="AllFieldset" class="govuk-form-group optional-section panel panel-border-narrow">
                         <div class="multiple-choice" style="float:none">
                             <input id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled />
                             <label for="excludePartialAll">

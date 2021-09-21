@@ -47,7 +47,7 @@ class AdvancedCharacteristicsViewModel {
         $('#criteriaForm').
             validate({
                 errorPlacement: (error, element) => {
-                    error.appendTo(element.closest(".question").find(".error-message"));
+                    error.appendTo(element.closest(".question").find(".govuk-error-message"));
                 },
                 highlight: (element, errorClass, validClass) => {
                     $(element).addClass(errorClass).removeClass(validClass);

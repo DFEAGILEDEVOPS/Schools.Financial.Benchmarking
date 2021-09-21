@@ -29,7 +29,7 @@ class AddSchoolsManuallyViewModel {
             $("#NewSchool").hide();
             $("#AddButton").show();
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
         });
 
         $("#displayNew").click((event) => {
@@ -156,20 +156,20 @@ class AddSchoolsManuallyViewModel {
         let count = $("#schoolCount").val();
         if (count === 0 || $("#NewSchoolName:visible").length > 0) {
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
             if ($("#NewSchoolName").val() === "") {
                 $(".error-summary.missing").show();
-                $(".error-message.missing").show();
+                $(".govuk-error-message.missing").show();
             } else {
                 $(".error-summary.not-found").show();
-                $(".error-message.not-found").show();
+                $(".govuk-error-message.not-found").show();
             }
             $("#NewSchoolName").addClass("form-control-error");
             $(".error-summary-list a").focus();
             return false;
         } else {
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
             $("#NewSchoolName").removeClass("form-control-error");
             return true;
         }

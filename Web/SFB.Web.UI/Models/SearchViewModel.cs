@@ -43,7 +43,15 @@
         public string GetSearchTypeErrorClass(string testQueryKey)
         {
             if (SearchTypeHasError(testQueryKey))
-                return "error";
+                return "govuk-form-group--error";
+
+            return string.Empty;
+        }
+
+        public string GetInputErrorClass(string testQueryKey)
+        {
+            if (SearchTypeHasError(testQueryKey))
+                return "govuk-input--error";
 
             return string.Empty;
         }

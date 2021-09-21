@@ -20,22 +20,22 @@
             @Html.AntiForgeryToken()
             <p>Contact us if you are an school, academy trust, local authority, or member of the public who has a query about Schools financial benchmarking.</p>
 
-            <div class="form-group @FormGroupErrorClass("contactUs.Name")">
+            <div class="govuk-form-group @FormGroupErrorClass("contactUs.Name")">
                 <label class="form-label" for="contactUs.Name">Name</label>
                 @InputErrorMessage("contactUs.Name")
                 <input class="form-control @FormControlErrorClass("contactUs.Name")" id="contactUs.Name" name="contactUs.Name" type="text" value="@Model.Name">
             </div>
-            <div class="form-group @FormGroupErrorClass("contactUs.Email")">
+            <div class="govuk-form-group @FormGroupErrorClass("contactUs.Email")">
                 <label class="form-label" for="contactUs.Email">Email</label>
                 @InputErrorMessage("contactUs.Email")
                 <input class="form-control @FormControlErrorClass("contactUs.Email")" id="contactUs.Email" name="contactUs.Email" type="text" value="@Model.Email">
             </div>
-            <div class="form-group @FormGroupErrorClass("contactUs.SchoolTrustName")">
+            <div class="govuk-form-group @FormGroupErrorClass("contactUs.SchoolTrustName")">
                 <label class="form-label" for="contactUs.SchoolTrustName">School, academy trust or local authority (optional)</label>
                 @InputErrorMessage("contactUs.SchoolTrustName")
                 <input class="form-control @FormControlErrorClass("contactUs.SchoolTrustName")" id="contactUs.SchoolTrustName" name="contactUs.SchoolTrustName" type="text" value="@Model.SchoolTrustName">
             </div>
-            <div class="form-group @FormGroupErrorClass("contactUs.Message")">
+            <div class="govuk-form-group @FormGroupErrorClass("contactUs.Message")">
                 <label class="form-label" for="contactUs.Message">Message</label>
                 @InputErrorMessage("contactUs.Message")
                 <textarea class="form-control form-control-3-4 @FormControlErrorClass("contactUs.Message")" name="contactUs.Message" id="contactUs.Message" rows="8" maxlength="1000">@Model.Message</textarea>
@@ -79,7 +79,7 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        @("form-group-error")
+        @("govuk-form-group-error")
     }
 }
 
@@ -100,8 +100,9 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        <span class="error-message">
-            @ms.Errors.First().ErrorMessage
-        </span>
+<span class="govuk-error-message">
+    <span class="govuk-visually-hidden">Error: </span>
+    @ms.Errors.First().ErrorMessage
+</span>
     }
 }
