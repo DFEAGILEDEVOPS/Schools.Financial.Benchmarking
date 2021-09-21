@@ -787,7 +787,6 @@
     <Content Include="Assets\Sass\elements\forms\_form-validation.scss" />
     <Content Include="Assets\Sass\elements\rating\_rating.scss" />
     <Content Include="Assets\Sass\elements\_browse.scss" />
-    <Content Include="Assets\Sass\elements\_details.scss" />
     <Content Include="Assets\Sass\elements\_elements-typography.scss" />
     <Content Include="Assets\Sass\elements\_footer.scss" />
     <Content Include="Assets\Sass\elements\_forms.scss" />

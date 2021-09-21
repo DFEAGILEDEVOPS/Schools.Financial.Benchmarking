@@ -29,11 +29,11 @@
                     </h2>
                     @if (Model[i].HelpTooltip != null)
                     {
-                        <details>
-                            <summary class="hide-in-print">
-                                <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                        <details class="govuk-details govuk-!-margin-bottom-0" data-module="govuk-details">
+                            <summary class="govuk-details__summary hide-in-print">
+                                <span class="govuk-details__summary-text govuk-!-font-size-16">More about @Model[i].Name.ToLower()</span>
                             </summary>
-                            <div class="panel panel-border-narrow">
+                            <div class="govuk-details__text">
                                 @Html.Raw(Model[i].HelpTooltip)
                             </div>
                         </details>                        
@@ -60,11 +60,11 @@
                             </button>
                             @if (Model[i].HelpTooltip != null)
                             {
-                                <details>
-                                    <summary class="hide-in-print">
-                                        <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                                <details class="govuk-details govuk-!-margin-bottom-0" data-module="govuk-details">
+                                    <summary class="govuk-details__summary hide-in-print">
+                                        <span class="govuk-details__summary-text govuk-!-font-size-16">More about @Model[i].Name.ToLower()</span>
                                     </summary>
-                                    <div class="panel panel-border-narrow">
+                                    <div class="govuk-details__text">
                                         @Html.Raw(Model[i].HelpTooltip)
                                     </div>
                                 </details>
@@ -79,11 +79,11 @@
                                 </h2>
                                 @if (Model[i].HelpTooltip != null)
                                 {
-                                <details>
-                                    <summary class="hide-in-print">
-                                        <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                                <details class="govuk-details govuk-!-margin-bottom-0" data-module="govuk-details">
+                                    <summary class="govuk-details__summary hide-in-print">
+                                        <span class="govuk-details__summary-text govuk-!-font-size-16">More about @Model[i].Name.ToLower()</span>
                                     </summary>
-                                    <div class="panel panel-border-narrow">
+                                    <div class="govuk-details__text">
                                         @Html.Raw(Model[i].HelpTooltip)
                                     </div>
                                 </details>
@@ -161,11 +161,11 @@
 
                 @if (Model[i].ChartType != ChartType.CustomReport && !string.IsNullOrEmpty(Model[i].MoreInfo))
                 {
-                    <details>
-                        <summary class="hide-in-print">
-                            <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                    <details class="govuk-details govuk-!-margin-bottom-0" data-module="govuk-details">
+                        <summary class="govuk-details__summary hide-in-print">
+                            <span class="govuk-details__summary-text govuk-!-font-size-16">More about @Model[i].Name.ToLower()</span>
                         </summary>
-                        <div class="panel panel-border-narrow">
+                        <div class="govuk-details__text">
                             @Html.Raw(Model[i].MoreInfo)
                         </div>
                     </details>
@@ -241,11 +241,11 @@
             <div id="accordion-chart-content" class="govuk-accordion__section-content" aria-labelledby="accordion-chartName-heading">
                 @if (!string.IsNullOrEmpty(Model[i].MoreInfo))
                 {
-                    <details>
-                        <summary class="hide-in-print">
-                            <span class="summary font-xsmall">More about @Model[i].Name.ToLower()</span>
+                    <details class="govuk-details govuk-!-margin-bottom-0" data-module="govuk-details">
+                        <summary class="govuk-details__summary hide-in-print">
+                            <span class="govuk-details__summary-text govuk-!-font-size-16">More about @Model[i].Name.ToLower()</span>
                         </summary>
-                        <div class="panel panel-border-narrow">
+                        <div class="govuk-details__text">
                             @Html.Raw(Model[i].MoreInfo)
                         </div>
                     </details>

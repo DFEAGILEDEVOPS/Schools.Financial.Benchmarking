@@ -32,11 +32,11 @@
                             </button>
                             @if (historicalChart.HelpTooltip != null)
                             {
-                                <details>
-                                    <summary class="hide-in-print">
+                                <details class="govuk-details" data-module="govuk-details">
+                                    <summary class="govuk-details__summary hide-in-print">
                                         <span class="summary font-xsmall">More about @historicalChart.Name.ToLower()</span>
                                     </summary>
-                                    <div class="panel panel-border-narrow">
+                                    <div class="govuk-details__text">
                                         @Html.Raw(historicalChart.HelpTooltip)
                                     </div>
                                 </details>
@@ -51,11 +51,11 @@
                             {
                                 if (historicalChart.HelpTooltip != null)
                                 {
-                                    <details>
-                                        <summary class="hide-in-print">
+                                    <details class="govuk-details" data-module="govuk-details">
+                                        <summary class="govuk-details__summary hide-in-print">
                                             <span class="summary font-xsmall">More about @historicalChart.Name.ToLower()</span>
                                         </summary>
-                                        <div class="panel panel-border-narrow">
+                                        <div class="govuk-details__text">
                                             @Html.Raw(historicalChart.HelpTooltip)
                                         </div>
                                     </details>

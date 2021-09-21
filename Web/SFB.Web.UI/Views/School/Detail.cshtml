@@ -194,11 +194,11 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
     <div class="column-half mt-1">
         @if (Model.Phase == "Special" && Model.SenCharacteristics.Any(c => c.Value != null))
         {
-            <details class="mb-1">
-                <summary>
+            <details class="govuk-details mb-1" data-module="govuk-details">
+                <summary class="govuk-details__summary">
                     <span class="summary font-xsmall">This school's SEN characteristics</span>
                 </summary>
-                <div class="panel panel-border-narrow">
+                <div class="govuk-details__text">
                     <table class="sen-table">
                         <tr>
                             <th scope="col">SEN characteristic</th>
@@ -307,11 +307,11 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         </div>
     </div>
     <div class="column-half">
-        <details open>
-            <summary class="map hide-in-print">
+        <details class="govuk-details" data-module="govuk-details" open>
+            <summary class="govuk-details__summary map hide-in-print">
                 <span class="summary font-xsmall">Show map</span>
             </summary>
-            <div class="panel panel-border-narrow map">
+            <div class="govuk-details__text map">
                 <a href="#post-map-content" class="skip-map hide-in-print">Skip the map</a>
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>

@@ -136,7 +136,7 @@ HTMLElement.prototype.insertAdjacentHTML = https://gist.github.com/1276030
 		else init();
 	}
 	else {
-		//TODO:: for animation and over stuffs we need to listen "open" property change and add "open" css class for <details> element
+		//TODO:: for animation and over stuffs we need to listen "open" property change and add "open" css class for <details class="govuk-details" data-module="govuk-details"> element
 	}
 })(
 	window,//global
