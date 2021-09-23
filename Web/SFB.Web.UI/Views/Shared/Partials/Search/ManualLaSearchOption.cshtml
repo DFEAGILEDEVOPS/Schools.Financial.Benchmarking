@@ -20,7 +20,7 @@
     </div>
     <div>
         <input id="FindSchoolManuallyByLaCodeName"
-               class="form-control"
+               class="form-control @Html.Raw(Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME) ? "govuk-input--error" : "")"
                name="lacodename"
                maxlength="100"
                type="text"

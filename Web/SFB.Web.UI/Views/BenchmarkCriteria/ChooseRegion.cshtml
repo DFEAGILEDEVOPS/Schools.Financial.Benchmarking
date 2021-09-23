@@ -57,12 +57,15 @@
 <section class="section" id="options">
     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
         <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
-            <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group-error" : "")">
+            <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
                 <fieldset role="radiogroup" id="RadioFieldSet">
 
                     <legend id="legend">
                         <span class="visually-hidden">Where should comparison schools come from?</span>
-                        <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+                        @if (Model.ErrorMessage == "Select area type")
+                        {
+                            <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+                        }
                     </legend>
 
                     <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
@@ -85,7 +88,7 @@
                             <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
                         }
                         <input id="FindSchoolByLaCode"
-                               class="form-control"
+                               class="form-control govuk-input @Html.Raw(Model.HasError() ? "govuk-input--error" : "")"
                                name="lacodename"
                                type="text" />
                         <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />

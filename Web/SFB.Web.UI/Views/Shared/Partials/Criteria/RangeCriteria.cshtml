@@ -35,15 +35,15 @@
                 }
             </div>
         </div>
-        <div>
-            <span class="govuk-error-message"></span>
-        </div>
         <div class="column-half">
             <div class="govuk-form-group">
+                <div class="column-full">
+                    <span class="govuk-error-message"></span>
+                </div>
                 <div class="column-half">
                     <label class="form-label" for="@Model.MinElementName">From</label>
                     <input value="@Model.MinValue" type="number" name="AdvancedCriteria.@Model.MinElementName" id="@Model.MinElementName" class="form-control criteria-input min-js"
-                           min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled") 
+                           min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled")
                            data-msg-minLowerThanMax="'From' value can not be greater than the 'To' value"
                            data-msg-minOrMaxRequired="Fill in at least one of the boxes if you want this characteristic to be included in the search."
                            aria-label="Minimum value for @Model.Question">
@@ -51,7 +51,7 @@
                 <div class="column-half">
                     <label class="form-label" for="@Model.MaxElementName">To</label>
                     <input value="@Model.MaxValue" type="number" name="AdvancedCriteria.@Model.MaxElementName" id="@Model.MaxElementName" class="form-control criteria-input max-js"
-                           min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled") 
+                           min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled")
                            data-msg-maxGreaterThanMin="'To' value can not be lower than the 'From' value"
                            data-msg-minOrMaxRequired="Fill in at least one of the boxes if you want this characteristic to be included in the search."
                            aria-label="Maximum value for @Model.Question">

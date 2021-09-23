@@ -46,17 +46,19 @@ class AdvancedCharacteristicsViewModel {
 
         $('#criteriaForm').
             validate({
+                errorClass: 'govuk-input--error',
+                ignore: "label",
                 errorPlacement: (error, element) => {
                     error.appendTo(element.closest(".question").find(".govuk-error-message"));
                 },
                 highlight: (element, errorClass, validClass) => {
                     $(element).addClass(errorClass).removeClass(validClass);
-                    $(element).closest(".panel").addClass("error");
+                    $(element).closest(".panel").addClass("govuk-form-group--error");
                 },
                 unhighlight: (element, errorClass, validClass) => {
                     $(element).removeClass(errorClass).addClass(validClass);
-                    if ($(element).closest(".panel").find("input.error").length === 0) {
-                        $(element).closest(".panel").removeClass("error");
+                    if ($(element).closest(".panel").find("input.govuk-input--error").length === 0) {
+                        $(element).closest(".panel").removeClass("govuk-form-group--error");
                     }
                 }
             });
@@ -161,9 +163,9 @@ class AdvancedCharacteristicsViewModel {
         $panel.toggle();
         $panel.find("input").prop('disabled', (i, v) => { return !v; });
         if (!event.target.checked) {
-            $panel.removeClass("error");
-            $panel.find("input.error").removeClass("error");
-            $panel.find("label.error").css("display", "none");
+            $panel.removeClass("govuk-form-group--error");
+            $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
+            $panel.find("label.govuk-input--error").css("display", "none");
         }
         $panel.find("input[type='checkbox']:disabled").prop('checked', false);
         $panel.find("input[type='checkbox']:enabled").click();
@@ -192,9 +194,9 @@ class AdvancedCharacteristicsViewModel {
                 $panel.find("input:hidden").prop('disabled', true);
                 if (!event.target.checked) {
                     $panel.find(".panel").hide();
-                    $panel.removeClass("error");
-                    $panel.find("input.error").removeClass("error");
-                    $panel.find("label.error").css("display", "none");
+                    $panel.removeClass("govuk-form-group--error");
+                    $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
+                    $panel.find("label.govuk-input--error").css("display", "none");
                 }
                 $panel.find("input[type='number']:disabled").val(null);
                 $panel.find("input[type='checkbox']:disabled").prop('checked', false);

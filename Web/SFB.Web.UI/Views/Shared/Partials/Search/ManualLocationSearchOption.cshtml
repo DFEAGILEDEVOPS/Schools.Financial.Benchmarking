@@ -22,7 +22,7 @@
     </div>
     <div>
         <input id="FindSchoolManuallyByTown"
-               class="form-control search-input"
+               class="form-control search-input @Html.Raw(Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION) ? "govuk-input--error" : "")"
                name="locationorpostcode"
                placeholder=""
                maxlength="100"

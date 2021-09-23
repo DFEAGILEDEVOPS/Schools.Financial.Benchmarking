@@ -41,7 +41,7 @@
 
 <form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post" id="gfac">
     @Html.AntiForgeryToken()
-    <div class="govuk-form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "govuk-form-group-error")">
+    <div class="govuk-form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "govuk-form-group--error")">
 
         <fieldset>
             @if (!string.IsNullOrEmpty(Model.ErrorMessage))

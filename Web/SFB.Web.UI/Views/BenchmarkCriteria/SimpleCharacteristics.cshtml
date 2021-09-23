@@ -113,7 +113,7 @@
                             A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools and federations. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
                         </p>
                         <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
-                        <span class="govuk-error-message" style="display: none">Enter a number between 5 and 30</span>
+                        <span class="govuk-error-message" style="display: none"><span class="govuk-visually-hidden">Error: </span>Enter a number between 5 and 30</span>
                         <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
                     </div>
                 }
@@ -138,7 +138,7 @@
                             A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
                         </p>
                         <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
-                        <span class="govuk-error-message" style="display: none">Enter a number between 5 and 30</span>
+                        <span class="govuk-error-message" style="display: none"><span class="govuk-visually-hidden">Error: </span>Enter a number between 5 and 30</span>
                         <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
                     </div>
                 }
@@ -169,11 +169,17 @@
                 if (count < 5 || count > 30) {
                     $(".error-summary").show();
                     $(".govuk-error-message").show();
+                    let $panel = $('#CustomBasketSizeFieldset');
+                    $panel.addClass("govuk-form-group--error");
+                    $panel.find("input").addClass("govuk-input--error");
                     $('#basketSizeError').focus();
                     return false;
                 } else {
                     $(".error-summary").hide();
                     $(".govuk-error-message").hide();
+                    let $panel = $('#CustomBasketSizeFieldset');
+                    $panel.removeClass("govuk-form-group--error");
+                    $panel.find("input").removeClass("govuk-input--error");
                     return true;
                 }
             } else {
@@ -197,10 +203,10 @@
                 $panel.find("input:hidden").prop('disabled', true);
                 if (!event.target.checked) {
                     $panel.find(".panel").hide();
-                    $panel.removeClass("error");
+                    $panel.removeClass("govuk-form-group--error");
                     $panel.find("govuk-error-message").hide();
-                    $panel.find("input.error").removeClass("error");
-                    $panel.find("label.error").css("display", "none");
+                    $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
+                    $panel.find("label.govuk-error-message").css("display", "none");
                 }
                 $panel.find("input[type='number']:disabled").val(null);
                 $panel.find("input[type='checkbox']:disabled").prop('checked', false);
