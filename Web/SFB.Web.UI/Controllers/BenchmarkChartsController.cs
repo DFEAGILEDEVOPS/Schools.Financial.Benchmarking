@@ -329,6 +329,8 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> GenerateFromBicCriteria(long urn)
         {
+            ViewBag.ModelState = ModelState;
+
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);            
 
             var bicCriteria = new BestInClassCriteria()
@@ -359,9 +361,10 @@ namespace SFB.Web.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> GenerateFromBicCriteria(long urn, BestInClassCriteria bicCriteria, bool isEditedCriteria = true)
         {
+            ViewBag.ModelState = ModelState;
+
             if (!ModelState.IsValid) {
-                ViewBag.ModelState = ModelState;
-                return View("~/Views/BenchmarkCriteria/BestInClassCharacteristics.cshtml", 
+                    return View("~/Views/BenchmarkCriteria/BestInClassCharacteristics.cshtml", 
                     new BestInClassCharacteristicsViewModel(await InstantiateBenchmarkSchoolAsync(urn), bicCriteria) {
                     ErrorMessage = "Validation error"
                 });
