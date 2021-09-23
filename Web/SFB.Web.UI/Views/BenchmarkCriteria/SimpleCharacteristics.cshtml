@@ -19,13 +19,15 @@
     }
 }
 
-<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading" id="errorSummary" style="display: none">
-    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+<div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading" id="errorSummary" style="display: none">
+    <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
         There is a problem
-    </h1>
-    <ul class="error-summary-list">
-        <li><a id="basketSizeError" href="#BasketSizeInput">Enter a number between 5 and 30</a></li>
-    </ul>
+    </h2>
+    <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+            <li><a id="basketSizeError" href="#BasketSizeInput">Enter a number between 5 and 30</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="steps">
@@ -167,7 +169,7 @@
             if ($("#BasketSizeInput:visible").length > 0) {
                 let count = $("#BasketSizeInput").val();
                 if (count < 5 || count > 30) {
-                    $(".error-summary").show();
+                    $(".govuk-error-summary").show();
                     $(".govuk-error-message").show();
                     let $panel = $('#CustomBasketSizeFieldset');
                     $panel.addClass("govuk-form-group--error");
@@ -175,7 +177,7 @@
                     $('#basketSizeError').focus();
                     return false;
                 } else {
-                    $(".error-summary").hide();
+                    $(".govuk-error-summary").hide();
                     $(".govuk-error-message").hide();
                     let $panel = $('#CustomBasketSizeFieldset');
                     $panel.removeClass("govuk-form-group--error");

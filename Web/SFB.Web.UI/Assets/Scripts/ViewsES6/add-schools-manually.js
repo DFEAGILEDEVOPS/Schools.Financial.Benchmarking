@@ -28,7 +28,7 @@ class AddSchoolsManuallyViewModel {
             event.preventDefault();
             $("#NewSchool").hide();
             $("#AddButton").show();
-            $(".error-summary").hide();
+            $(".govuk-error-summary").hide();
             $(".govuk-error-message").hide();
         });
 
@@ -122,8 +122,8 @@ class AddSchoolsManuallyViewModel {
                         $("#SchoolsToAdd").html(data);
                         this.bindManualEvents();
                         $("#AddButton a").focus();
-                        $(".error-summary.missing").hide();
-                        $(".error-summary.not-found").hide();
+                        $(".govuk-error-summary.missing").hide();
+                        $(".govuk-error-summary.not-found").hide();
                     });
             });
     }
@@ -132,7 +132,7 @@ class AddSchoolsManuallyViewModel {
         $.get("/manualcomparison/RemoveSchool?urn=" + urn,
             (data) => {
                 $("#SchoolsToAdd").html(data);
-                $(".error-summary").hide();
+                $(".govuk-error-summary").hide();
                 this.bindManualEvents();
             });
     }
@@ -148,29 +148,29 @@ class AddSchoolsManuallyViewModel {
     displayNewSchoolElements() {
         $("#NewSchool").show();
         $("#NewSchoolName").focus();
-        $("#NewSchoolName").removeClass("form-control-error");
+        $("#NewSchoolName").removeClass("govuk-input--error");
         $("#AddButton").hide();
     }
 
     validate() {
         let count = $("#schoolCount").val();
         if (count === 0 || $("#NewSchoolName:visible").length > 0) {
-            $(".error-summary").hide();
+            $(".govuk-error-summary").hide();
             $(".govuk-error-message").hide();
             if ($("#NewSchoolName").val() === "") {
-                $(".error-summary.missing").show();
+                $(".govuk-error-summary.missing").show();
                 $(".govuk-error-message.missing").show();
             } else {
-                $(".error-summary.not-found").show();
+                $(".govuk-error-summary.not-found").show();
                 $(".govuk-error-message.not-found").show();
             }
-            $("#NewSchoolName").addClass("form-control-error");
-            $(".error-summary-list a").focus();
+            $("#NewSchoolName").addClass("govuk-input--error");
+            $(".govuk-error-summary__list a").focus();
             return false;
         } else {
-            $(".error-summary").hide();
+            $(".govuk-error-summary").hide();
             $(".govuk-error-message").hide();
-            $("#NewSchoolName").removeClass("form-control-error");
+            $("#NewSchoolName").removeClass("govuk-input--error");
             return true;
         }
     }

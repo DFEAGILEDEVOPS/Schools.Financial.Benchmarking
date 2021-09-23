@@ -10,13 +10,17 @@
         @{
             if (ViewBag.Error != null)
             {
-                <div id="error-summary" class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-
-                    <ul class="error-summary-list">
-                        <li>
-                            <a href="#NewSchoolName">@ViewBag.Error</a>
-                        </li>
-                    </ul>
+                <div id="govuk-error-summary" class="govuk-error-summary" role="alert" aria-labelledby="govuk-error-summary__title" tabindex="-1">
+                    <h2 class="govuk-error-summary__title" id="error-summary-title">
+                        There is a problem
+                    </h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#NewSchoolName">@ViewBag.Error</a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
             }
@@ -54,7 +58,7 @@
                             We couldn't find any schools matching your search criteria
                         </span>
                         <input id="NewSchoolName"
-                               class="form-control"
+                               class="form-control @(Html.Raw(ViewBag.Error != null ? "govuk-input--error" : ""))"
                                name="schoolname"
                                type="text"
                                data-suggestion-url="/schoolsearch/suggest" />
@@ -94,7 +98,7 @@
                         We couldn't find any schools matching your search criteria
                     </span>
                     <input id="NewSchoolName"
-                           class="form-control"
+                           class="form-control @(Html.Raw(ViewBag.Error != null ? "govuk-input--error" : ""))"
                            name="schoolname"
                            type="text"
                            data-suggestion-url="/schoolsearch/suggest" />

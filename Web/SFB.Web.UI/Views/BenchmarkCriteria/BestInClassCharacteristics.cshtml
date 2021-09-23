@@ -60,15 +60,15 @@
                     @InputErrorMessage("bicCriteria.NoPupilsMin")
                     @InputErrorMessage("bicCriteria.NoPupilsMax")
                     <div class="column-half no-padding">
-                        <label class="form-label" for="NoPupilsMin">From</label>
-                        <input type="number" name="BicCriteria.NoPupilsMin" id="NoPupilsMin"
+                        <label class="form-label" for="bicCriteria.NoPupilsMin">From</label>
+                        <input type="number" name="bicCriteria.NoPupilsMin" id="bicCriteria.NoPupilsMin"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.NoPupilsMin")"
                                step=".01" min="0" max="100000" value="@(Model.BicCriteria.NoPupilsMin?.ToString("F2"))"
                                aria-label="Minimum value for number of pupils">
                     </div>
                     <div class="column-half no-padding">
-                        <label class="form-label" for="NoPupilsMax">To</label>
-                        <input type="number" name="BicCriteria.NoPupilsMax" id="NoPupilsMax"
+                        <label class="form-label" for="bicCriteria.NoPupilsMax">To</label>
+                        <input type="number" name="bicCriteria.NoPupilsMax" id="bicCriteria.NoPupilsMax"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.NoPupilsMax")"
                                step=".01" min="0" max="100000"
                                value="@(Model.BicCriteria.NoPupilsMax?.ToString("F2"))"
@@ -93,16 +93,16 @@
                     @InputErrorMessage("bicCriteria.PercentageFSMMin")
                     @InputErrorMessage("bicCriteria.PercentageFSMMax")
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MinPerFSM">From</label>
-                        <input type="number" name="BicCriteria.PercentageFSMMin" id="MinPerFSM"
+                        <label class="form-label" for="bicCriteria.PercentageFSMMin">From</label>
+                        <input type="number" name="bicCriteria.PercentageFSMMin" id="bicCriteria.PercentageFSMMin"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageFSMMin")"
                                step=".01" min="0" max="100"
                                value="@(Model.BicCriteria.PercentageFSMMin?.ToString("F2"))"
                                aria-label="Minimum value for Eligibility for free school meals (% of pupils)">
                     </div>
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MaxPerFSM">To</label>
-                        <input type="number" name="BicCriteria.PercentageFSMMax" id="MaxPerFSM"
+                        <label class="form-label" for="bicCriteria.PercentageFSMMax">To</label>
+                        <input type="number" name="bicCriteria.PercentageFSMMax" id="bicCriteria.PercentageFSMMax"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageFSMMax")"
                                step=".01" min="0" max="100"
                                value="@(Model.BicCriteria.PercentageFSMMax?.ToString("F2"))"
@@ -133,16 +133,20 @@
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
                 </div>
                 <div class="govuk-form-group no-padding @FormGroupErrorClass("bicCriteria.PercentageSENMin") @FormGroupErrorClass("bicCriteria.PercentageSENMax")">
+                    @InputErrorMessage("bicCriteria.PercentageSENMin")
+                    @InputErrorMessage("bicCriteria.PercentageSENMax")
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MinPerSEN">From</label>
-                        <input type="number" name="BicCriteria.PercentageSENMin" id="MinPerSEN" class="form-control criteria-input" required=""
-                               step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMin.ToString("F2"))"
+                        <label class="form-label" for="bicCriteria.PercentageSENMin">From</label>
+                        <input type="number" name="bicCriteria.PercentageSENMin" id="bicCriteria.PercentageSENMin"
+                               class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageSENMin")"
+                               step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMin?.ToString("F2"))"
                                aria-label="Minimum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
                     </div>
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MaxPerSEN">To</label>
-                        <input type="number" name="BicCriteria.PercentageSENMax" id="MaxPerSEN" class="form-control criteria-input" required=""
-                               step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMax.ToString("F2"))"
+                        <label class="form-label" for="bicCriteria.PercentageSENMax">To</label>
+                        <input type="number" name="bicCriteria.PercentageSENMax" id="bicCriteria.PercentageSENMax"
+                               class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageSENMax")"
+                               step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMax?.ToString("F2"))"
                                aria-label="Maximum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
                     </div>
                 </div>
@@ -167,15 +171,15 @@
                     @InputErrorMessage("bicCriteria.PerPupilExpMin")
                     @InputErrorMessage("bicCriteria.PerPupilExpMax")
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MinPerSEN">From</label>
-                        <input type="number" name="BicCriteria.PerPupilExpMin" id="PerPupilExpMin"
+                        <label class="form-label" for="bicCriteria.PerPupilExpMin">From</label>
+                        <input type="number" name="bicCriteria.PerPupilExpMin" id="bicCriteria.PerPupilExpMin"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.PerPupilExpMin")"
                                step=".01" min="0" value="@(Model.BicCriteria.PerPupilExpMin?.ToString("F2"))"
                                aria-label="Minimum value for Total expenditure in £ per pupil">
                     </div>
                     <div class="column-half no-padding">
-                        <label class="form-label" for="MaxPerSEN">To</label>
-                        <input type="number" name="BicCriteria.PerPupilExpMax" id="PerPupilExpMax"
+                        <label class="form-label" for="bicCriteria.PerPupilExpMax">To</label>
+                        <input type="number" name="BicCriteria.PerPupilExpMax" id="bicCriteria.PerPupilExpMax"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.PerPupilExpMax")"
                                step=".01" min="0" value="@(Model.BicCriteria.PerPupilExpMax?.ToString("F2"))"
                                aria-label="Maximum value for Total expenditure in £ per pupil">
@@ -244,21 +248,23 @@
 
     if (msDictionary != null && !msDictionary.IsValid)
     {
-        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+            <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
                 There is a problem
-            </h1>
-            <ul class="error-summary-list">
-                @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
-                {
-                    if (ms.Value.Errors.Count > 0)
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
                     {
-                        <li>
-                            <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
-                        </li>
+                        if (ms.Value.Errors.Count > 0)
+                        {
+                            <li>
+                                <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
+                            </li>
+                        }
                     }
-                }
-            </ul>
+                </ul>
+            </div>
         </div>
     }
 }

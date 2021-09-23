@@ -7,22 +7,24 @@
 }
 
 
-<div class="error-summary missing" role="alert" style="display: none">
-    <h1 id="ErrorSummaryHeading1" class="heading-medium error-summary-heading">
+<div class="govuk-error-summary missing" role="alert" style="display: none">
+    <h2 id="ErrorSummaryHeading1" class="govuk-error-summary__title">
         There is a problem
-    </h1>
-    <ul class="error-summary-list">
-        <li>
-            <a href="#NewTrustName">Enter a trust name to continue the comparison</a>
-        </li>
-    </ul>
+    </h2>
+    <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+            <li>
+                <a href="#NewTrustName">Enter a trust name to continue the comparison</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<div class="error-summary not-found" role="alert" style="display: none">
-    <h1 id="ErrorSummaryHeading2" class="heading-medium error-summary-heading">
+<div class="govuk-error-summary not-found" role="alert" style="display: none">
+    <h1 id="ErrorSummaryHeading2" class="govuk-error-summary__title">
         There is a problem
     </h1>
-    <ul class="error-summary-list">
+    <ul class="govuk-list govuk-error-summary__list">
         <li>
             <a href="#NewTrustName">We couldn't find any trusts matching your search criteria</a>
         </li>

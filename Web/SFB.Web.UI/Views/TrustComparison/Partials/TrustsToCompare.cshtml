@@ -10,17 +10,18 @@
         @{
             if (ViewBag.Error != null)
             {
-                <div id="error-summary" class="error-summary duplicate" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+                <div id="govuk-error-summary" class="govuk-error-summary duplicate" role="alert" aria-labelledby="govuk-error-summary__title-example-1" tabindex="-1">
 
-                    <h2 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+                    <h2 class="govuk-error-summary__title" id="govuk-error-summary__title-example-1">
                         There is a problem
                     </h2>
-
-                    <ul class="error-summary-list">
-                        <li>
-                            <a href="#NewTrustName">@ViewBag.Error</a>
-                        </li>
-                    </ul>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#NewTrustName">@ViewBag.Error</a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
             }
@@ -123,10 +124,10 @@
 {
     <script>
         $('#ErrorSummaryPlaceHolder').empty();
-        $('#error-summary').detach().appendTo('#ErrorSummaryPlaceHolder');
-        $(".error-summary.missing").hide();
-        $(".error-summary.not-found").hide();
-        if ($(".error-summary.duplicate").length > 0) {
+        $('#govuk-error-summary').detach().appendTo('#ErrorSummaryPlaceHolder');
+        $(".govuk-error-summary.missing").hide();
+        $(".govuk-error-summary.not-found").hide();
+        if ($(".govuk-error-summary.duplicate").length > 0) {
             document.title = "Error: " + document.title.replace("Error: ", "");
         } else {
             document.title = document.title.replace("Error: ", "");
