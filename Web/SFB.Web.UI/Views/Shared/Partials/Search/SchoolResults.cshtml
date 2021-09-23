@@ -16,7 +16,7 @@
     @if (ViewBag.SearchMethod == "Manual")
     {
         <div class="manual-button" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")">
-            <a id="manualButton" class="manual-button__button button font-xsmall" href="OverwriteStrategy">Continue to benchmarking charts</a>
+            <button id="manualButton" class="govuk-button manual-button__button button font-xsmall" onclick="window.open('OverwriteStrategy', '_self')">Continue to benchmarking charts</button>
         </div>
     }
     <div class="result-controllers">

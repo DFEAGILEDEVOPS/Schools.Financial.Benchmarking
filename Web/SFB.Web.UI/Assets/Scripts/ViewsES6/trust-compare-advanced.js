@@ -32,17 +32,18 @@ class TrustCompareAdvancedViewModel {
 
         $('#criteriaForm').
             validate({
+                errorClass: 'govuk-input--error',
                 errorPlacement: function (error, element) {
                     error.appendTo(element.closest(".question").find(".govuk-error-message"));
                 },
                 highlight: function (element, errorClass, validClass) {
                     $(element).addClass(errorClass).removeClass(validClass);
-                    $(element).closest(".panel").addClass("error");
+                    $(element).closest(".panel").addClass("govuk-form-group--error");
                 },
                 unhighlight: function (element, errorClass, validClass) {
                     $(element).removeClass(errorClass).addClass(validClass);
-                    if ($(element).closest(".panel").find("input.error").length === 0) {
-                        $(element).closest(".panel").removeClass("error");
+                    if ($(element).closest(".panel").find("input.govuk-input--error").length === 0) {
+                        $(element).closest(".panel").removeClass("govuk-form-group--error");
                     }
                 },
                 errorElement: "span"
@@ -65,9 +66,9 @@ class TrustCompareAdvancedViewModel {
                 $panel.toggle();
                 if (!event.target.checked) {
                     $panel.find("input").prop('disabled', true);
-                    $panel.removeClass("error");
-                    $panel.find("input.error").removeClass("error");
-                    $panel.find("label.error").css("display", "none");
+                    $panel.removeClass("govuk-form-group--error");
+                    $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
+                    $panel.find("label.govuk-error-message").css("display", "none");
                     let $innerPanel = $panel.find(".panel");
                     $innerPanel.hide();
                 } else {
@@ -119,13 +120,12 @@ class TrustCompareAdvancedViewModel {
     }
 
     onSubmit(event) {
-
+        event.preventDefault();
         let count = $("#schoolCount").text().substring(0, $("#schoolCount").text().indexOf(' '));
         if (count > 0 && count <= 20) {
             $("#criteriaForm").submit();
         } else {
             this.renderWarningModal(count);
-            event.preventDefault();
         }
     }
 

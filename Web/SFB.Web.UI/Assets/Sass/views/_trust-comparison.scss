@@ -76,8 +76,14 @@
         background-color: $page-colour;
     }
 
-    span.error {
+    span.govuk-input--error {
         border: none;
         display: block;
+    }
+
+    .benchmark-school-value {
+        margin-left: 15px;
+        margin-bottom: 10px;
+        color: $grey-1;
     }
 }
