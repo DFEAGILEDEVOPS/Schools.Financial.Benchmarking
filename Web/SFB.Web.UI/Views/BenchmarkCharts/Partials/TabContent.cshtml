@@ -7,8 +7,8 @@
             <div class="sticky-div sticky-chart-controls @ViewBag.Tab">
                 <div id="controls-accordion">
                     <div>
-                        <fieldset role="group" aria-labelledby="filtersLegend">
-                            <legend class="visually-hidden" id="filtersLegend">Filters</legend>
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-visually-hidden" id="filtersLegend">Filters</legend>
                             <div>
                                 @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
                                 @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)

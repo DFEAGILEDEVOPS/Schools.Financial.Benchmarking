@@ -5,14 +5,13 @@
       class="tab-content tab-content--@ViewHelpers.NoDefaultTabActive(Model.SearchType)"
       id="NoDefaultTabContent"
       role="tabpanel">
-    <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))">
-        <fieldset>
-            <p class="mt-1">This allows you to create a benchmark set without using a default school. If you already have a default school it will be removed.</p>
 
-            <legend>
-                <span class="govuk-form-group heading-small bold-small mb-1">
-                    Compare by:
-                </span>
+    <p class="mt-1">This allows you to create a benchmark set without using a default school. If you already have a default school it will be removed.</p>
+
+    <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                Compare by:
             </legend>
             @if (Model.SearchTypeHasError(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))
             {

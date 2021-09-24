@@ -42,20 +42,18 @@
 <section class="section" aria-label="Select comparison type">
     <form action="/TrustComparison/StepOne">
         <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
-            <fieldset>
-                <legend id="csLegend">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend" id="csLegend">
                     <span>How do you want to compare this trust with others?</span>
-                    @if (Model.HasError())
-                    {
-                        <span class="govuk-error-message">
-                            <span class="govuk-visually-hidden">Error: </span>
-                            Select a comparison type
-                        </span>
-                    }
+                    <span class="govuk-hint govuk-!-margin-top-2">We have some guidance on <a href="/help/guidance#question-twelve">choosing characteristics</a> if you are unsure which method suits you.</span>
                 </legend>
-
-                <p>We have some guidance on <a href="/help/guidance#question-twelve">choosing characteristics</a> if you are unsure which method suits you.</p>
-
+                @if (Model.HasError())
+                {
+                    <span class="govuk-error-message">
+                        <span class="govuk-visually-hidden">Error: </span>
+                        Select a comparison type
+                    </span>
+                }
                 <div class="multiple-choice">
                     <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Manual">
                     <label class="selection-button-radio" for="radio-1">

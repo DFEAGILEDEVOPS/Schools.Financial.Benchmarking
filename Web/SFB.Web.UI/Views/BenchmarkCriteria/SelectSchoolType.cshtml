@@ -76,12 +76,11 @@
             Html.BeginForm("SimpleCharacteristics", "BenchmarkCriteria", FormMethod.Get);
         }
         <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
-            <fieldset role="radiogroup" id="RadioFieldSet">
-                <legend id="sstLegend">
-                    <span class="visually-hidden">Which schools would you like to include?</span>
-                    <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+            <fieldset class="govuk-fieldset">
+                <legend id="sstLegend" class="govuk-visually-hidden">
+                    <span>Which schools would you like to include?</span>
                 </legend>
-
+                <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
                 @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                 {
                     <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">

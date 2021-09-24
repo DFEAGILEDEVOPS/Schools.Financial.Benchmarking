@@ -47,8 +47,8 @@
     <div class="column-full">
         <form method="post" id="criteriaForm" action="GenerateListFromAdvancedCriteria?companyNo=@Model.BenchmarkTrust.CompanyNo&comparison=Advanced" autocomplete="off" class="mt-1">
             <div class="govuk-form-group">
-                <fieldset>
-                    <legend class="visually-hidden">Select trust characteristics</legend>
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-visually-hidden">Select trust characteristics</legend>
                     @Html.AntiForgeryToken()
                     @Html.Partial("Partials/TrustCharacteristics", Model)
                     <div class="advanced control-buttons">

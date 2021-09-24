@@ -5,8 +5,8 @@
     <span id="schoolCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count schools in manual comparison list</span>
     <input id="schoolCount" type="hidden" value="@Model.Count"/>
     <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
-    <fieldset>
-        <legend class="visuallyhidden">Choose a school from auto completion list</legend>
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-visually-hidden">Choose a school from auto completion list</legend>
         @{
             if (ViewBag.Error != null)
             {

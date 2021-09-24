@@ -54,8 +54,8 @@
 
     <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="get" id="criteriaForm">
         <div class="govuk-form-group">
-            <fieldset>
-                <legend class="bold-small">Find schools with a similar percentage of:</legend>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Find schools with a similar percentage of:</legend>
                 <div class="multiple-choice">
                     <input id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true"
                            @Html.Raw(Model.SimpleCriteria.IncludeFsm.HasValue && !Model.SimpleCriteria.IncludeFsm.Value ? "" : "checked")>
@@ -74,9 +74,9 @@
             </fieldset>
         </div>
         <div class="govuk-form-group">
-            <fieldset>
-                <legend>
-                    <span class="bold-small">Location characteristic:</span>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
+                    <span>Location characteristic:</span>
                     <span class="help-icon hide-in-print">
                         <span class="icon dark-blue">
                             <a href="#" class="js-modal" role="button" data-modal-title="Within the local authority" data-modal-text="Choosing this characteristic will produce comparisons with schools that have fewer similarities with your default school." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
@@ -93,11 +93,11 @@
             </fieldset>
         </div>
         <div class="govuk-form-group" id="BasketSizeAccordion">
-            <fieldset>
+            <fieldset class="govuk-fieldset">
                 @if (Model.BenchmarkSchool is FederationViewModel)
                 {
-                    <legend>
-                        <span class="bold-small">Number of schools and federations in benchmark set:</span>
+                    <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
+                        <span>Number of schools and federations in benchmark set:</span>
                         <span class="help-icon hide-in-print">
                             <span class="icon dark-blue">
                                 <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='bold-xsmall'>10</span> and <span class='bold-xsmall'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
@@ -121,8 +121,8 @@
                 }
                 else
                 {
-                    <legend>
-                        <span class="bold-small">Number of schools in benchmark set:</span>
+                    <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
+                        <span>Number of schools in benchmark set:</span>
                         <span class="help-icon hide-in-print">
                             <span class="icon dark-blue">
                                 <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='bold-xsmall'>10</span> and <span class='bold-xsmall'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">

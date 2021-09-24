@@ -29,32 +29,29 @@
     </div>
 }
 
-@if (Model.SavedUrns != null)
-{
-    <h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
-    <p>
-        You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmark set. You can replace them or retain them alongside the saved schools from the link.
-    </p>
-}
-else
-{
-    <h1 class="heading-xlarge page-heading">Comparing similar trusts</h1>
-    <p>
-        You already have <span class="bold">@Model.TrustComparisonList.Trusts.Count</span> trusts in your benchmark set. You can replace them or retain them alongside the saved schools from the link.
-    </p>
-}
-
 <form action="/BenchmarkCharts/GenerateFromSavedBasket" method="get">
     <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
 
-        <fieldset>
-            <legend id="legend">
-                <span class="visually-hidden">Overwrite strategy</span>
-                @if (Model.HasError())
-                {
-                    <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
-                }
+        <fieldset class="govuk-fieldset">
+            <legend id="legend" class="govuk-fieldset__legend">
+                <h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
             </legend>
+            @if (Model.HasError())
+            {
+                <span class="govuk-error-message"><span>Error: </span>@Model.ErrorMessage</span>
+            }
+            @if (Model.SavedUrns != null)
+            {
+                <div class="govuk-hint">
+                    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmark set. You can replace them or retain them alongside the saved schools from the link.
+                </div>
+            }
+            else
+            {
+                <div class="govuk-hint">
+                    You already have <span class="bold">@Model.TrustComparisonList.Trusts.Count</span> trusts in your benchmark set. You can replace them or retain them alongside the saved schools from the link.
+                </div>
+            }
             <div class="multiple-choice">
                 <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
                 <label class="selection-button-radio" for="radio-1">

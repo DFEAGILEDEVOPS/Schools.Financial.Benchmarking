@@ -3,13 +3,11 @@
       id="TrustTabContent"
       role="tabpanel">
     <div class="govuk-form-group">
-        <fieldset>
-            <legend class="visuallyhidden">Select a search type option</legend>
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-margin-top-3">
+                Search by:
+            </legend>
             <div>
-                <h2 class="govuk-form-group heading-small bold-small mb-1">
-                    Search by:
-                </h2>
-
                 @Html.Partial("Partials/Search/TrustNameSearchOption")
                 @Html.Partial("Partials/Search/TrustLocationSearchOption")
                 @Html.Partial("Partials/Search/TrustLaSearchOption")

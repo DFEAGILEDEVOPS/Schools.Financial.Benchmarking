@@ -5,8 +5,11 @@
     <span id="trustCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count trusts in comparison list</span>
     <input id="trustCount" type="hidden" value="@Model.Count"/>
     <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
-    <fieldset>
-        <legend class="font-small form-hint" id="legend">Start entering a trust name and select from the auto-complete list.</legend>
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-!-margin-top-4" id="legend">
+            Create a benchmark group of <span class="bold-xsmall">1-20</span> trusts with a recommended size of <span class="bold-xsmall">5</span>.
+            <span class="govuk-hint govuk-!-margin-top-2">Start entering a trust name and select from the auto-complete list.</span>
+        </legend>
         @{
             if (ViewBag.Error != null)
             {
@@ -37,7 +40,7 @@
                                 Trust @Html.Raw(i + 1)
                                 <span class="visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
                             </label>
-                            <input class="form-control" style="width: 50%" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
+                            <input class="form-control" style="width: 50%" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName" />
                             <button class="remove-trust link-button font-xsmall" data-companyno="@Model[i].CompanyNo" aria-label="Remove @Model[i].MatName">Remove</button>
                         </div>
                     }
@@ -113,7 +116,7 @@
                            class="form-control"
                            name="trustname"
                            type="text"
-                           data-suggestion-url="/trustsearch/suggest"/>
+                           data-suggestion-url="/trustsearch/suggest" />
                 </div>
             }
         }

@@ -49,10 +49,6 @@
     </div>
 </div>
 
-<p class="mt-2">
-    Create a benchmark group of <span class="bold-xsmall">1-20</span> trusts with a recommended size of <span class="bold-xsmall">5</span>.
-</p>
-
 <div id="TrustsToCompare">
     @Html.Partial("Partials/TrustsToCompare", Model.TrustComparisonList.Trusts.Where(t => t.CompanyNo != Model.BenchmarkTrust.CompanyNo).ToList())
 </div>

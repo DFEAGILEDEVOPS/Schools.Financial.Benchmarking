@@ -38,15 +38,15 @@
     @Html.AntiForgeryToken()
     <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
 
-        <fieldset>
+        <fieldset class="govuk-fieldset">
             <legend id="legend">
-                <span class="visually-hidden">Overwrite strategy</span>
-                @if (Model.HasError())
-                {
-                    <span class="govuk-visually-hidden">Error: </span>
-                    <span class="govuk-error-message">@Model.ErrorMessage</span>
-                }
+                <span class="govuk-visually-hidden">Overwrite strategy</span>
             </legend>
+            @if (Model.HasError())
+            {
+                <span class="govuk-visually-hidden">Error: </span>
+                <span class="govuk-error-message">@Model.ErrorMessage</span>
+            }
             <div class="multiple-choice">
                 <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
                 <label class="selection-button-radio" for="radio-1">

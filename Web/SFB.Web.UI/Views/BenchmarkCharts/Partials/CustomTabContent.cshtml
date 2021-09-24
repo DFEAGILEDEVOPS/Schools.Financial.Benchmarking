@@ -7,8 +7,8 @@
             <div class="sticky-div sticky-custom-controls">
                 <div id="custom-controls-accordion">
                     <div>
-                        <fieldset role="group" aria-labelledby="filtersLegendCustom">
-                            <legend class="visually-hidden" id="filtersLegendCustom">Filters</legend>
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-visually-hidden" id="filtersLegendCustom">Filters</legend>
                             <div>
                                 <div class="column-one-third chart-filter">
                                     <div class="govuk-form-group">
@@ -60,8 +60,8 @@
                     </div>
 
                     <div class="selections">
-                        <fieldset>
-                            <legend class="visually-hidden">Selections</legend>
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-visually-hidden">Selections</legend>
                             <div id="custom-report-accordion" class="govuk-accordion app-accordion--no-open-all govuk-!-margin-top-4" data-module="govuk-accordion">
                                 <div class="govuk-accordion__section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
                                     <div class="govuk-accordion__section-header" ng-class="{'hide-summary': ctrl.query}">

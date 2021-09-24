@@ -45,11 +45,12 @@
 <section class="section" aria-label="Select comparison type">
     <form action="/BenchmarkCriteria/StepOne">
         <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
-            <fieldset>
-                <legend id="csLegend">
-                    <span class="visually-hidden">Select comparison type</span>
-                    <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+            <fieldset class="govuk-fieldset">
+                <legend id="csLegend" class="govuk-visually-hidden">
+                    <span>Select comparison type</span>
                 </legend>
+
+                <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
 
                 @if (Model.OverallPhase == "Special")
                 {
@@ -89,13 +90,13 @@
                     <label class="selection-button-radio" for="radio-2">
                         Detailed comparison using characteristics you choose
                     </label>
-                                            <span class="help-icon tb inline-block hide-in-print">
-                            <span class="icon dark-blue">
-                                <a href="#" class="js-modal" role="button" data-modal-title="Detailed comparison" data-modal-text="@HelpTooltipText.DetailedComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
-                                    <span class="visuallyhidden">Open more info text for detailed comparison - opens a popup</span>
-                                </a>
-                            </span>
+                    <span class="help-icon tb inline-block hide-in-print">
+                        <span class="icon dark-blue">
+                            <a href="#" class="js-modal" role="button" data-modal-title="Detailed comparison" data-modal-text="@HelpTooltipText.DetailedComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
+                                <span class="visuallyhidden">Open more info text for detailed comparison - opens a popup</span>
+                            </a>
                         </span>
+                    </span>
                 </div>
 
                 <div class="multiple-choice">
@@ -113,22 +114,22 @@
                 </div>
 
                 @*@if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
-                {
-                    <p style="clear:left; padding: 0.8em 0 0 0">or</p>
-                    <div class="multiple-choice">
-                        <input id="radio-3" type="radio" name="comparisonType" value="@ComparisonType.BestInClass">
-                        <label class="selection-button-radio" for="radio-3">
-                            Schools with the highest progress but similar characteristics (number of pupils, expenditure, <abbr title="Free school meals" aria-label="Free school meals">FSM</abbr>)
-                        </label>
-                        <span class="help-icon tb inline-block hide-in-print">
-                            <span class="icon dark-blue">
-                                <a href="#" class="js-modal" role="button" data-modal-title="High progress school comparison" data-modal-text="@HelpTooltipText.BicComparisonHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_3">
-                                    <span class="visuallyhidden">Open more info text for High progress school comparison - opens a popup</span>
-                                </a>
-                            </span>
-                        </span>
-                    </div>
-                }*@
+        {
+            <p style="clear:left; padding: 0.8em 0 0 0">or</p>
+            <div class="multiple-choice">
+                <input id="radio-3" type="radio" name="comparisonType" value="@ComparisonType.BestInClass">
+                <label class="selection-button-radio" for="radio-3">
+                    Schools with the highest progress but similar characteristics (number of pupils, expenditure, <abbr title="Free school meals" aria-label="Free school meals">FSM</abbr>)
+                </label>
+                <span class="help-icon tb inline-block hide-in-print">
+                    <span class="icon dark-blue">
+                        <a href="#" class="js-modal" role="button" data-modal-title="High progress school comparison" data-modal-text="@HelpTooltipText.BicComparisonHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_3">
+                            <span class="visuallyhidden">Open more info text for High progress school comparison - opens a popup</span>
+                        </a>
+                    </span>
+                </span>
+            </div>
+        }*@
             </fieldset>
         </div>
         <div class="grid-row">

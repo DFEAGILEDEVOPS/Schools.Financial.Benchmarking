@@ -60,16 +60,17 @@
     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
         <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
             <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
-                <fieldset role="radiogroup" id="RadioFieldSet">
+                <fieldset class="govuk-fieldset">
 
-                    <legend id="legend">
-                        <span class="visually-hidden">Where should comparison schools come from?</span>
-                        @if (Model.ErrorMessage == "Select area type")
-                        {
-                            <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
-                        }
+                    <legend id="legend" class="govuk-visually-hidden">
+                        <span>Where should comparison schools come from?</span>
                     </legend>
 
+                    @if (Model.ErrorMessage == "Select area type")
+                    {
+                        <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+                    }
+                    
                     <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
                         <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") />
                         <label id="AllAccordion" for="All">All of England</label>

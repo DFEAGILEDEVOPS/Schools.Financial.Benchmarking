@@ -345,8 +345,8 @@
 <div id="tabPanel" role="tabpanel">
     <div class="sticky-div sticky-chart-controls">
         <div id="controls-accordion">
-            <fieldset role="group">
-                <legend class="visually-hidden hide-in-print">Filters</legend>
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
                 <div>
                     @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
                     @Html.Partial("Partials/ValueSelect")
