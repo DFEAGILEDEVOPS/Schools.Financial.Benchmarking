@@ -53,12 +53,12 @@ class AdvancedCharacteristicsViewModel {
                 },
                 highlight: (element, errorClass, validClass) => {
                     $(element).addClass(errorClass).removeClass(validClass);
-                    $(element).closest(".panel").addClass("govuk-form-group--error");
+                    $(element).closest(".govuk-inset-text").addClass("govuk-form-group--error");
                 },
                 unhighlight: (element, errorClass, validClass) => {
                     $(element).removeClass(errorClass).addClass(validClass);
-                    if ($(element).closest(".panel").find("input.govuk-input--error").length === 0) {
-                        $(element).closest(".panel").removeClass("govuk-form-group--error");
+                    if ($(element).closest(".govuk-inset-text").find("input.govuk-input--error").length === 0) {
+                        $(element).closest(".govuk-inset-text").removeClass("govuk-form-group--error");
                     }
                 }
             });
@@ -193,7 +193,7 @@ class AdvancedCharacteristicsViewModel {
                 $panel.find("input:visible").prop('disabled', false);
                 $panel.find("input:hidden").prop('disabled', true);
                 if (!event.target.checked) {
-                    $panel.find(".panel").hide();
+                    $panel.find(".govuk-inset-text").hide();
                     $panel.removeClass("govuk-form-group--error");
                     $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
                     $panel.find("label.govuk-input--error").css("display", "none");

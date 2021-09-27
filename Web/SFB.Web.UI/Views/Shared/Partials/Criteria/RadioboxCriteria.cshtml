@@ -9,7 +9,7 @@
         <input id="checkbox-@Model.ElementName" type="checkbox" @Html.Raw(activated ? "checked" : "")>
         <label for="checkbox-@Model.ElementName">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
-    <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
+    <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(activated ? "inline-block": "none")">
         <div class="column-full">
             <div class="benchmark-school-value">
                 @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
@@ -42,7 +42,7 @@
                             </div>
                             if (Model.Options[i].SubRangeOptions != null)
                             {
-                                <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
+                                <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(activated ? "inline-block": "none")">
                                     @foreach (var subOption in Model.Options[i].SubRangeOptions.SubOptions)
                                     {
                                         @Html.Partial("Partials/Criteria/RangeCriteria", subOption)

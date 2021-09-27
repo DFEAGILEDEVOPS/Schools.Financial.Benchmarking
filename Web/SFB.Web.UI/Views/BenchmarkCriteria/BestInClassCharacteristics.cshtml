@@ -35,7 +35,7 @@
 
 <p class="mt-2">This comparison generates a group of statistically similar schools using the following characteristics and progress data.</p>
 
-<div class="panel panel-border-wide" style="margin-bottom:40px">
+<div class="govuk-inset-text" style="margin-bottom:40px">
     <p class="bold-small">Included as standard:</p>
     <ul class="list list-bullet">
         <li><span class="bold-small">Establishment type: </span>@Model.BicCriteria.EstablishmentType</li>
@@ -127,7 +127,7 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-border-wide" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
+            <div class="govuk-inset-text" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
                 <div class="benchmark-school-value">
                     <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>

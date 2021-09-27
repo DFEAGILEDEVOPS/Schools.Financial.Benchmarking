@@ -80,7 +80,7 @@
 
 @if (Model.HasIncompleteFinancialData)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
+    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
         <div class="shared-icon-wrapper hide-in-print">
             <i class="icon icon-important shared-icon">
                 <span class="visually-hidden">Warning</span>
@@ -114,7 +114,7 @@ else
 
 @if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
 {
-    <div class="panel panel-border-wide orange-warning">
+    <div class="govuk-inset-text app-govuk-inset-text--orange">
         <p>
             There are no schools in your benchmark set, so no charts can be displayed.
         </p>
@@ -292,7 +292,7 @@ else
 
     if (Model.NoResultsForSimpleSearch)
     {
-        <div class="panel panel-border-wide orange-warning">
+        <div class="govuk-inset-text app-govuk-inset-text--orange">
             <p>
                 No similar schools were found. Change the characteristics used or try the
                 <a href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Detailed comparison</a>.

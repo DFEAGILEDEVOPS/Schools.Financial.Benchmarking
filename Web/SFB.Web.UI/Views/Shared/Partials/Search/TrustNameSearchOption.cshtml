@@ -5,7 +5,7 @@
     <input id="trustNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_NAME_ID)) aria-label="Search by Academy trust name or Companies House number" />
     <label for="trustNameId">Academy trust name or Companies House number</label>
 </div>
-<div id="SearchByTrustNameFieldset" class="panel panel-border-narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))">
+<div id="SearchByTrustNameFieldset" class="govuk-inset-text app-govuk-inset-text--narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))">
     <label class="search-types__optional-section__label form-label" for="FindByTrustName">
         Enter a trust name or Companies House number
     </label>

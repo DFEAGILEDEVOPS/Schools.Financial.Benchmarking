@@ -5,7 +5,7 @@ class TrustCompareAdvancedViewModel {
     constructor() {
         this.questionCheckBoxSelector = ".multiple-choice.question > input";
         this.questionCheckBoxSelectorRadio = ".multiple-choice.questionRadio > input";
-        this.questionNumberInputSelector = ".panel input.criteria-input";
+        this.questionNumberInputSelector = ".govuk-inset-text input.criteria-input";
 
         this.bindCriteriaEvents();
         this.validateForm();
@@ -38,12 +38,12 @@ class TrustCompareAdvancedViewModel {
                 },
                 highlight: function (element, errorClass, validClass) {
                     $(element).addClass(errorClass).removeClass(validClass);
-                    $(element).closest(".panel").addClass("govuk-form-group--error");
+                    $(element).closest(".govuk-inset-text").addClass("govuk-form-group--error");
                 },
                 unhighlight: function (element, errorClass, validClass) {
                     $(element).removeClass(errorClass).addClass(validClass);
-                    if ($(element).closest(".panel").find("input.govuk-input--error").length === 0) {
-                        $(element).closest(".panel").removeClass("govuk-form-group--error");
+                    if ($(element).closest(".govuk-inset-text").find("input.govuk-input--error").length === 0) {
+                        $(element).closest(".govuk-inset-text").removeClass("govuk-form-group--error");
                     }
                 },
                 errorElement: "span"
@@ -62,14 +62,14 @@ class TrustCompareAdvancedViewModel {
 
         $(this.questionCheckBoxSelector).change(
             (event) => {
-                let $panel = $(event.target).parent().next(".panel");
+                let $panel = $(event.target).parent().next(".govuk-inset-text");
                 $panel.toggle();
                 if (!event.target.checked) {
                     $panel.find("input").prop('disabled', true);
                     $panel.removeClass("govuk-form-group--error");
                     $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
                     $panel.find("label.govuk-error-message").css("display", "none");
-                    let $innerPanel = $panel.find(".panel");
+                    let $innerPanel = $panel.find(".govuk-inset-text");
                     $innerPanel.hide();
                 } else {
                     $panel.find("input").prop('disabled', false);
@@ -85,17 +85,17 @@ class TrustCompareAdvancedViewModel {
 
         $(this.questionCheckBoxSelectorRadio).change(
             (event) => {
-                let $allpanels = $(this).parent().parent().children(".panel");
+                let $allpanels = $(this).parent().parent().children(".govuk-inset-text");
                 if ($allpanels.length > 0) {
                     $allpanels.hide();
                     $allpanels.find("input").prop('disabled', true);
-                    $allpanels.find(".panel").hide();
+                    $allpanels.find(".govuk-inset-text").hide();
                     $allpanels.find("input[type='number']:disabled").val(null);
                     $allpanels.find("input[type='checkbox']:disabled").prop('checked', false);
                     $allpanels.find("input[type='radio']:disabled").prop('checked', false);
                 }
 
-                var $mypanel = $(event.target).parent().next(".panel");
+                var $mypanel = $(event.target).parent().next(".govuk-inset-text");
                 if ($mypanel.length > 0) {
                     $mypanel.show();
                     $mypanel.find("input").prop('disabled', false);

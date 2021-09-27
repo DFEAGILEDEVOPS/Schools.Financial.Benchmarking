@@ -5,7 +5,7 @@
     <input id="SchoolOrCollegeNameId" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID)) />
     <label for="SchoolOrCollegeNameId">Add schools by name</label>
 </div>
-<div id="SearchByNameIdFieldset" class="panel panel-border-narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
+<div id="SearchByNameIdFieldset" class="govuk-inset-text app-govuk-inset-text--narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
     <div class="multiple-choice" style="float:none">
         <input id="openOnlyName" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
         <label class="search-types__optional-section__label" for="openOnlyName">Include open schools only</label>

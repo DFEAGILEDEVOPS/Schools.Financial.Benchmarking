@@ -5,7 +5,7 @@
     <input id="TrustLaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)) aria-label="Search by Local authority of schools in academy trust" />
     <label for="TrustLaCodeName">Local authority of schools in academy trust</label>
 </div>
-<div id="TrustSearchByLaCodeNameFieldset" class="panel panel-border-narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME))">
+<div id="TrustSearchByLaCodeNameFieldset" class="govuk-inset-text app-govuk-inset-text--narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME))">
     <label class="search-types__optional-section__label" for="FindTrustByLaCodeName">
         <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
     </label>

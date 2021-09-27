@@ -9,7 +9,7 @@
         <input id="checkbox-@Model.MinElementName" type="checkbox" @Html.Raw(activated ? "checked": "")>
         <label for="checkbox-@Model.MinElementName">@Model.Question <span class="visuallyhidden">Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
-    <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
+    <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(activated ? "inline-block": "none")">
         <div class="column-full">
             <div class="benchmark-school-value">
                 @{

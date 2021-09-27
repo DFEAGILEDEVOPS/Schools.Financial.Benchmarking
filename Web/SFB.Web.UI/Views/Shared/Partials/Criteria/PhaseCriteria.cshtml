@@ -9,7 +9,7 @@
         <input id="checkbox-OverallPhase" type="checkbox" @Html.Raw(activated ? "checked" : "")>
         <label id="label-OverallPhase" for="checkbox-OverallPhase">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
-    <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
+    <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(activated ? "inline-block": "none")">
         <div class="column-full">
             <div class="benchmark-school-value">
                 @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
@@ -50,7 +50,7 @@
                                    @Html.Raw(activated ? "" : "disabled") @Html.Raw(anyPrimaryPhaseSelected ? "checked" : "") />
                             <label for="PrimaryOverallPhase">Primary</label>
                         </div>
-                        <div class="panel panel-border-narrow" style="display: @Html.Raw(anyPrimaryPhaseSelected ? "block": "none")">
+                        <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(anyPrimaryPhaseSelected ? "inline-block": "none")">
                             <div class="column-full">
                                 <div class="govuk-form-group">
                                     <div class="column-full">
@@ -87,7 +87,7 @@
                                    @Html.Raw(activated ? "" : "disabled") @Html.Raw(anySecondaryPhaseSelected ? "checked" : "") />
                             <label for="SecondaryOverallPhase">Secondary</label>
                         </div>
-                        <div class="panel panel-border-narrow" style="display: @Html.Raw(anySecondaryPhaseSelected ? "block": "none")">
+                        <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(anySecondaryPhaseSelected ? "inline-block": "none")">
                             <div class="column-full">
                                 <div class="govuk-form-group">
                                     <div class="column-full">

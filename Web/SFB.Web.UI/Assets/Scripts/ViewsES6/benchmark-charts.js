@@ -1283,7 +1283,7 @@ class PptGenerator {
     }
 
     writeWarnings() {
-        let warnings = $('.panel.orange-warning .combined-warnings');
+        let warnings = $('.govuk-inset-text--orange .combined-warnings');
         if (warnings.length > 0) {
             warnings.each((index, element) => {
                 this.yOffset += 0.5;
@@ -1670,7 +1670,7 @@ class PdfGenerator {
 
     writeWarnings() {
 
-        let warnings = $('.panel.orange-warning .combined-warnings');
+        let warnings = $('.govuk-inset-text--orange .combined-warnings');
         if (warnings.length > 0) {
             warnings.each((index, element) => {
                 this.pdfWriteLine('Warning', element.innerText);

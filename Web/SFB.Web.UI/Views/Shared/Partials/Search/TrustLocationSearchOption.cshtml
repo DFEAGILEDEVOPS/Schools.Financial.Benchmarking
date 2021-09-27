@@ -5,7 +5,7 @@
     <input id="TrustTownOrCity" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_LOCATION)) aria-label="Search by Location of schools in academy trust" />
     <label for="TrustTownOrCity">Location of schools in academy trust</label>
 </div>
-<div id="TrustSearchByTownFieldset" class="panel panel-border-narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_LOCATION))">
+<div id="TrustSearchByTownFieldset" class="govuk-inset-text app-govuk-inset-text--narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_LOCATION))">
     <label class="search-types__optional-section__label" for="FindTrustByTown">
         Enter a postcode, town or street
     </label>
