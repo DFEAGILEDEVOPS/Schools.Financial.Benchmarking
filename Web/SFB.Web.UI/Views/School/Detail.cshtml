@@ -35,13 +35,14 @@
 @if (Model.IsUnderReview)
 {
     <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
         <div class="combined-warnings" style="width:90%">
-            <p>@ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]</p>
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    @ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]
+                </strong>
+            </div>
         </div>
     </div>
 }
@@ -49,51 +50,63 @@
 @if (Model.IsPartOfFederation)
 {
     <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
-        <div class="combined-warnings" style="width:90%">
-            <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
+        <div class="combined-warnings">
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.
+                </strong>
+            </div>
         </div>
     </div>
 }
 else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
 {
     <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
         <div class="combined-warnings">
             @if (!Model.IsReturnsComplete)
             {
-                <p>
-                    This school doesn't have a complete set of financial data for this period
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This school doesn't have a complete set of financial data for this period
+                    </strong>
+                </div>
             }
 
             @if (!Model.WorkforceDataPresent)
             {
-                <p>
-                    This school doesn't have a complete set of workforce data for this period
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This school doesn't have a complete set of workforce data for this period
+                    </strong>
+                </div>
             }
 
             @if (Model.HasNoTeacherData)
             {
-                <p>
-                    We can’t show charts with per teacher values because they weren't supplied within these finance returns
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                    </strong>
+                </div>
             }
 
             @if (Model.HasNoPupilData)
             {
-                <p>
-                    We can’t show charts with per pupil values because they weren't supplied within these finance returns
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                    </strong>
+                </div>
             }
         </div>
     </div>

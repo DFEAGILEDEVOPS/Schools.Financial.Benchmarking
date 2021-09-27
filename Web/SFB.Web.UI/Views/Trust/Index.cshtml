@@ -27,13 +27,14 @@
 @if (Model.IsUnderReview)
 {
     <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
         <div class="combined-warnings">
-            <p>@ConfigurationManager.AppSettings["UnderReviewMessageForTrusts"]</p>
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    @ConfigurationManager.AppSettings["UnderReviewMessageForTrusts"]
+                </strong>
+            </div>
         </div>
     </div>
 }
@@ -41,34 +42,41 @@
 @if (Model.IsReturnsDNS || Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData) || Model.IsReturnsPlaceholder)
 {
     <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
-        <div class="shared-icon-wrapper hide-in-print">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
         <div class="combined-warnings">
             @if (Model.IsReturnsDNS)
             {
-                <p>
-                    This trust has not submitted any data
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This trust has not submitted any data
+                    </strong>
+                </div>
             }
             else
             {
                 if (Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData))
                 {
-                    <p>
-                        Some of this trust's schools have data from a period less than 12 months
-                    </p>
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            Some of this trust's schools have data from a period less than 12 months
+                        </strong>
+                    </div>
                 }
 
             }
 
             @if (Model.IsReturnsPlaceholder)
             {
-                <p>
-                    This trust did not submit finance for the most recent year
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This trust did not submit finance for the most recent year
+                    </strong>
+                </div>
             }
         </div>
     </div>

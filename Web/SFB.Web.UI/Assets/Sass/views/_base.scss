@@ -1203,15 +1203,6 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         margin-right: 0.5em;
     }
 
-    .combined-warnings {
-        display: inline-block;
-        vertical-align: middle;
-
-        p {
-            margin-bottom: 0.5px;
-        }
-    }
-
     .dfs-panel {
         background-color: #f1f1f1;
         border-color: $govuk-blue;
@@ -1320,6 +1311,10 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
                 margin-top: auto;
                 margin-bottom: auto;
             }
+        }
+
+        .govuk-warning-text{
+            margin-bottom: 0;
         }
     }
 
