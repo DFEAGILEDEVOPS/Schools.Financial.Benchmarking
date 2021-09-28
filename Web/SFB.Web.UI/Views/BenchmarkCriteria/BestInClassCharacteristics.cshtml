@@ -118,39 +118,41 @@
             <div class="column-full no-padding">
                 <label class="bold-small">Pupils with <abbr title="Special Education Needs" aria-label="">SEN</abbr> who have statements or <abbr title="Education, health and care" aria-label="">EHC</abbr> plans (% of pupils)</label>
             </div>
-            <div class="column-full no-padding">
+            <div class="column-full no-padding govuk-!-margin-top-2">
                 <div class="govuk-form-group no-padding">
-                    <div class="multiple-choice">
-                        <input id="sen" name="BicCriteria.SENEnabled" type="checkbox" value="true" onchange="javascript: $('#sen_range').toggle();"
-                               @Html.Raw(Model.BicCriteria.SENEnabled ? "checked" : "none")>
-                        <label for="sen">Include schools with a similar <abbr title="Education, health and care" aria-label="">EHC</abbr> plan value</label>
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input data-aria-controls="sen_range" class="govuk-checkboxes__input" id="sen" name="BicCriteria.SENEnabled" type="checkbox" value="true" onchange="javascript: $('#sen_range').toggle();"
+                                   @Html.Raw(Model.BicCriteria.SENEnabled ? "checked" : "none")>
+                            <label class="govuk-label govuk-checkboxes__label" for="sen">Include schools with a similar <abbr title="Education, health and care" aria-label="">EHC</abbr> plan value</label>
+                        </div>
+                    </div>
+                    <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
+                        <div class="benchmark-school-value">
+                            <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
+                            <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
+                        </div>
+                        <div class="govuk-form-group no-padding @FormGroupErrorClass("bicCriteria.PercentageSENMin") @FormGroupErrorClass("bicCriteria.PercentageSENMax")">
+                            @InputErrorMessage("bicCriteria.PercentageSENMin")
+                            @InputErrorMessage("bicCriteria.PercentageSENMax")
+                            <div class="column-half no-padding">
+                                <label class="form-label" for="bicCriteria.PercentageSENMin">From</label>
+                                <input type="number" name="bicCriteria.PercentageSENMin" id="bicCriteria.PercentageSENMin"
+                                       class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageSENMin")"
+                                       step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMin?.ToString("F2"))"
+                                       aria-label="Minimum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
+                            </div>
+                            <div class="column-half no-padding">
+                                <label class="form-label" for="bicCriteria.PercentageSENMax">To</label>
+                                <input type="number" name="bicCriteria.PercentageSENMax" id="bicCriteria.PercentageSENMax"
+                                       class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageSENMax")"
+                                       step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMax?.ToString("F2"))"
+                                       aria-label="Maximum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="govuk-inset-text" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
-                <div class="benchmark-school-value">
-                    <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
-                    <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
-                </div>
-                <div class="govuk-form-group no-padding @FormGroupErrorClass("bicCriteria.PercentageSENMin") @FormGroupErrorClass("bicCriteria.PercentageSENMax")">
-                    @InputErrorMessage("bicCriteria.PercentageSENMin")
-                    @InputErrorMessage("bicCriteria.PercentageSENMax")
-                    <div class="column-half no-padding">
-                        <label class="form-label" for="bicCriteria.PercentageSENMin">From</label>
-                        <input type="number" name="bicCriteria.PercentageSENMin" id="bicCriteria.PercentageSENMin"
-                               class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageSENMin")"
-                               step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMin?.ToString("F2"))"
-                               aria-label="Minimum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
-                    </div>
-                    <div class="column-half no-padding">
-                        <label class="form-label" for="bicCriteria.PercentageSENMax">To</label>
-                        <input type="number" name="bicCriteria.PercentageSENMax" id="bicCriteria.PercentageSENMax"
-                               class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageSENMax")"
-                               step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMax?.ToString("F2"))"
-                               aria-label="Maximum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
-                    </div>
-                </div>
-            </div>
+            </div>            
         </div>
     </div>
 
@@ -199,10 +201,12 @@
                 </div>
             </div>
             <div class="column-full no-padding">
-                <div class="multiple-choice">
-                    <input id="ur" name="BicCriteria.UREnabled" type="checkbox" value="true"
-                           @Html.Raw(Model.BicCriteria.UREnabled ? "checked" : "") />
-                    <label for="ur">Include schools with this value</label>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="ur" name="BicCriteria.UREnabled" type="checkbox" value="true"
+                               @Html.Raw(Model.BicCriteria.UREnabled ? "checked" : "") />
+                        <label class="govuk-label govuk-checkboxes__label" for="ur">Include schools with this value</label>
+                    </div>
                 </div>
             </div>
         </div>

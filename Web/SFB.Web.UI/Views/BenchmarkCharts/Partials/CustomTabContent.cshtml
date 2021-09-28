@@ -82,45 +82,47 @@
                                                 <span class="bold-xsmall">{{chart.Name}}</span>
                                             </div>
                                             <div class="multiple-choices column-three-quarters">
-                                                <div class="multiple-choice" ng-show="chart.PerPupilAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerPupilSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_1" aria-label="{{chart.Name}} per pupil">Per pupil</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PerTeacherAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerTeacherSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_2" aria-label="{{chart.Name}} per teacher">Per teacher</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageExpenditureAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageExpenditureSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total expenditure</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageIncomeAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_31" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageIncomeSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_31" aria-label="{{chart.Name}} percentage of total">Percentage of total income</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.AbsoluteMoneyAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteMoneySelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_4" aria-label="{{chart.Name}} absolute total">Absolute total</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.AbsoluteCountAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteCountSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_5" aria-label="{{chart.Name}} total">Total</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.HeadCountPerFTEAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.HeadCountPerFTESelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_6" aria-label="{{chart.Name}} headcount per FTE">Headcount per FTE</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageOfWorkforceAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageOfWorkforceSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_7" aria-label="{{chart.Name}} percentage of workforce">Percentage of workforce</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.NumberOfPupilsPerMeasureAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_8" aria-label="{{chart.Name}} pupils per staff role">Pupils per staff role</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageTeachersAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_9" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageTeachersSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_9" aria-label="{{chart.Name}} percentage">Percentage</label>
+                                                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PerPupilAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerPupilSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_1" aria-label="{{chart.Name}} per pupil">Per pupil</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PerTeacherAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerTeacherSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_2" aria-label="{{chart.Name}} per teacher">Per teacher</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PercentageExpenditureAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageExpenditureSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total expenditure</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PercentageIncomeAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_31" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageIncomeSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_31" aria-label="{{chart.Name}} percentage of total">Percentage of total income</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.AbsoluteMoneyAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteMoneySelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_4" aria-label="{{chart.Name}} absolute total">Absolute total</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.AbsoluteCountAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteCountSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_5" aria-label="{{chart.Name}} total">Total</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.HeadCountPerFTEAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.HeadCountPerFTESelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_6" aria-label="{{chart.Name}} headcount per FTE">Headcount per FTE</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PercentageOfWorkforceAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageOfWorkforceSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_7" aria-label="{{chart.Name}} percentage of workforce">Percentage of workforce</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.NumberOfPupilsPerMeasureAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_8" aria-label="{{chart.Name}} pupils per staff role">Pupils per staff role</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PercentageTeachersAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_9" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageTeachersSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_9" aria-label="{{chart.Name}} percentage">Percentage</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <hr class="tablet-divider" />

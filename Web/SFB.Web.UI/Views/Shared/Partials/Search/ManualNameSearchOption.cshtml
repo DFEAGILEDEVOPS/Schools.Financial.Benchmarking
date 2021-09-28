@@ -6,9 +6,11 @@
     <label for="SchoolOrCollegeNameId">Add schools by name</label>
 </div>
 <div id="SearchByNameIdFieldset" class="govuk-inset-text app-govuk-inset-text--narrow search-types__optional-section govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">
-    <div class="multiple-choice" style="float:none">
-        <input id="openOnlyName" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
-        <label class="search-types__optional-section__label" for="openOnlyName">Include open schools only</label>
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
+            <input class="govuk-checkboxes__input" id="openOnlyName" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
+            <label class="govuk-label govuk-checkboxes__label" for="openOnlyName">Include open schools only</label>
+        </div>
     </div>
     <button type="submit" class="govuk-button" name="searchtype" data-module="govuk-button" value="@SearchTypes.SEARCH_BY_NAME_ID">Continue</button>
     <input type="hidden" id="FindByNameIdSuggestionId" name="suggestionUrn" />

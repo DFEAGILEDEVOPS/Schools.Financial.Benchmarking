@@ -14,9 +14,11 @@
     {
         <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
     }
-    <div class="multiple-choice" style="float:none">
-        <input id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>
-        <label for="openOnlyLa" class="search-types__optional-section__label">Include open schools only</label>
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
+            <input class="govuk-checkboxes__input" id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>
+            <label for="openOnlyLa" class="govuk-label govuk-checkboxes__label">Include open schools only</label>
+        </div>
     </div>
     <div>
         <input id="FindSchoolManuallyByLaCodeName"

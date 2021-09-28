@@ -12,9 +12,11 @@
     {
         <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
     }
-    <div class="multiple-choice" style="float:none">
-        <input id="openOnlyName" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
-        <label class="search-types__optional-section__label" for="openOnlyName">Include open schools only</label>
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
+            <input class="govuk-checkboxes__input" id="openOnlyName" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_NAME_ID))>
+            <label class="govuk-label govuk-checkboxes__label" for="openOnlyName">Include open schools only</label>
+        </div>
     </div>
     <input id="FindByNameId"
            class="form-control @(Model.GetInputErrorClass(SearchTypes.SEARCH_BY_NAME_ID))"

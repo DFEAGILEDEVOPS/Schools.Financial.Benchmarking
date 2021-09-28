@@ -1323,3 +1323,10 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         padding-bottom: 0;
     }
 }
+
+.govuk-checkboxes--small {
+    .govuk-checkboxes__item.app-govuk-checkboxes__item--inline {
+        float: none;
+        display: inline-block;
+    }
+}

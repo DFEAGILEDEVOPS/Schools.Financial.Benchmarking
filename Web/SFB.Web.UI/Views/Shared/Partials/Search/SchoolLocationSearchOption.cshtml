@@ -17,10 +17,14 @@
             <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
         }
     </div>
-    <div class="multiple-choice" style="float:none">
-        <input id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LOCATION))>
-        <label class="search-types__optional-section__label" for="openOnlyLocation">Include open schools only</label>
+    
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+        <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
+            <input class="govuk-checkboxes__input" id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LOCATION))>
+            <label class="govuk-label govuk-checkboxes__label" for="openOnlyLocation">Include open schools only</label>
+        </div>
     </div>
+
     <div>
         <input id="FindSchoolByTown"
                class="form-control search-input @(Model.GetInputErrorClass(SearchTypes.SEARCH_BY_LOCATION))"

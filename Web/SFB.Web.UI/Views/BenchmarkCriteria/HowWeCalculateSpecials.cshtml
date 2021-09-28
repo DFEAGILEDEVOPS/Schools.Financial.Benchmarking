@@ -51,9 +51,11 @@
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Pupil age characteristics (this may expand the SEN range):</legend>
-                    <div class="multiple-choice">
-                        <input id="similarPupils" name="similarPupils" type="checkbox" value="true" checked="@ViewBag.SimilarPupils">
-                        <label for="similarPupils">Schools with similar aged pupils</label>
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input"  id="similarPupils" name="similarPupils" type="checkbox" value="true" checked="@ViewBag.SimilarPupils">
+                            <label class="govuk-label govuk-checkboxes__label" for="similarPupils">Schools with similar aged pupils</label>
+                        </div>
                     </div>
                 </fieldset>
                 <input type="hidden" id="urn" name="urn" value="@ViewBag.URN" />
