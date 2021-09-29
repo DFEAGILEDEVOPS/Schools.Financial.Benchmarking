@@ -5,10 +5,8 @@ class AdvancedCharacteristicsViewModel {
     constructor() {
 
         this.jqxhr = null;
-        this.questionCheckBoxSelector = ".multiple-choice.question > input";
-        this.subQuestionCheckBoxSelector = ".multiple-choice.subQuestion > input";
-
-        //new Accordion(document.getElementById('characteristics-accordion'));
+        this.questionCheckBoxSelector = ".govuk-checkboxes__item.question > input";
+        this.subQuestionCheckBoxSelector = ".govuk-checkboxes__item.subQuestion > input";
 
         this.validateForm();
 
@@ -53,12 +51,12 @@ class AdvancedCharacteristicsViewModel {
                 },
                 highlight: (element, errorClass, validClass) => {
                     $(element).addClass(errorClass).removeClass(validClass);
-                    $(element).closest(".govuk-inset-text").addClass("govuk-form-group--error");
+                    $(element).closest(".govuk-form-group").addClass("govuk-form-group--error");
                 },
                 unhighlight: (element, errorClass, validClass) => {
                     $(element).removeClass(errorClass).addClass(validClass);
-                    if ($(element).closest(".govuk-inset-text").find("input.govuk-input--error").length === 0) {
-                        $(element).closest(".govuk-inset-text").removeClass("govuk-form-group--error");
+                    if ($(element).closest(".govuk-form-group").find("input.govuk-input--error").length === 0) {
+                        $(element).closest(".govuk-form-group").removeClass("govuk-form-group--error");
                     }
                 }
             });
@@ -100,7 +98,7 @@ class AdvancedCharacteristicsViewModel {
 
 
     updateCounter(element) {
-        var $counterElement = $(element).parents(".accordion-section").find(".selection-counter");
+        var $counterElement = $(element).parents(".govuk-accordion__section").find(".selection-counter");
         var count = $counterElement.text();
         if ($(element).is(":checked")) {
             $counterElement.text(++count);
@@ -110,9 +108,9 @@ class AdvancedCharacteristicsViewModel {
     }
 
     updateAllCounters() {
-        var $counterElements = $(".accordion-section-header .selection-counter");
+        var $counterElements = $(".govuk-accordion__section-header .selection-counter");
         $counterElements.each(function () {
-            var count = $(this).parents(".accordion-section").find("div.multiple-choice.question input:checked").length;
+            var count = $(this).parents(".govuk-accordion__section").find("div.govuk-checkboxes__item.question input:checked").length;
             $(this).text(count);
         });
     }
@@ -160,12 +158,12 @@ class AdvancedCharacteristicsViewModel {
 
     parentPhaseClicked(event) {
         let $panel = $(event.target).parent().next();
-        $panel.toggle();
+        //$panel.toggle();
         $panel.find("input").prop('disabled', (i, v) => { return !v; });
         if (!event.target.checked) {
-            $panel.removeClass("govuk-form-group--error");
+            $panel.find(".govuk-form-group.govuk-form-group--error").removeClass("govuk-form-group--error");
             $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
-            $panel.find("label.govuk-input--error").css("display", "none");
+            $panel.find("span.govuk-error-message").css("display", "none");
         }
         $panel.find("input[type='checkbox']:disabled").prop('checked', false);
         $panel.find("input[type='checkbox']:enabled").click();
@@ -189,14 +187,14 @@ class AdvancedCharacteristicsViewModel {
         $(this.questionCheckBoxSelector).change(
             (event) => {
                 let $panel = $(event.target).parent().next();
-                $panel.toggle();
+                //$panel.toggle();
                 $panel.find("input:visible").prop('disabled', false);
                 $panel.find("input:hidden").prop('disabled', true);
                 if (!event.target.checked) {
-                    $panel.find(".govuk-inset-text").hide();
-                    $panel.removeClass("govuk-form-group--error");
+                    //$panel.find(".govuk-checkboxes__conditional").hide();
+                    $panel.find(".govuk-form-group.govuk-form-group--error").removeClass("govuk-form-group--error");
                     $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
-                    $panel.find("label.govuk-input--error").css("display", "none");
+                    $panel.find("span.govuk-error-message").css("display", "none");
                 }
                 $panel.find("input[type='number']:disabled").val(null);
                 $panel.find("input[type='checkbox']:disabled").prop('checked', false);
@@ -251,21 +249,6 @@ class AdvancedCharacteristicsViewModel {
             this.clear();
         });
 
-        //$(".min-js").focusout((event) => {
-        //    debugger;
-        //    let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
-        //    if (!maxInput[0].validity.valueMissing) {
-        //        maxInput.valid();
-        //    }
-        //});
-
-        //$(".max-js").focusout((event) => {
-        //    debugger;
-        //    let minInput = $(event.target.parentNode.parentNode).find(".min-js");
-        //    if (!minInput[0].validity.valueMissing) {
-        //        minInput.valid();
-        //    }
-        //});
     }
 }
 

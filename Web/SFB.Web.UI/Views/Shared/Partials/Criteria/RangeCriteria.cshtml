@@ -4,59 +4,61 @@
     var activated = Model.MinValue.HasValue || Model.MaxValue.HasValue;
 }
 
-<div class="question">
-    <div class="multiple-choice question">
-        <input id="checkbox-@Model.MinElementName" type="checkbox" @Html.Raw(activated ? "checked" : "")>
-        <label for="checkbox-@Model.MinElementName">@Model.Question <span class="visuallyhidden">Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
+<div class="govuk-checkboxes question" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item question">
+        <input class="govuk-checkboxes__input"  id="checkbox-@Model.MinElementName" type="checkbox" @Html.Raw(activated ? "checked" : "") data-aria-controls="rc">
+        <label class="govuk-label govuk-checkboxes__label" for="checkbox-@Model.MinElementName">@Model.Question <span class="visuallyhidden">Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
-    <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(activated ? "inline-block": "none")">
-        <div class="column-full">
-            <div class="benchmark-school-value">
-                @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
-                {
-                    if (!@Model.HomeSchoolName.IsEmpty())
+    <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="rc">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-hint">
+                    @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
                     {
-                        <span>No value was supplied for @Model.HomeSchoolName</span>
-                    }
-                }
-                else
-                {
-                    <span>Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is </span>
-
-                    decimal homeValueDecimal;
-                    if (!string.IsNullOrEmpty(Model.Format) && decimal.TryParse(Model.HomeSchoolValue, out homeValueDecimal))
-                    {
-                        <span class="bold-small">@homeValueDecimal.ToString(Model.Format)</span>
+                        if (!@Model.HomeSchoolName.IsEmpty())
+                        {
+                            <span>No value was supplied for @Model.HomeSchoolName</span>
+                        }
                     }
                     else
                     {
-                        <span class="bold-small">@Model.HomeSchoolValue</span>
+                        <span>Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is </span>
+
+                        decimal homeValueDecimal;
+                        if (!string.IsNullOrEmpty(Model.Format) && decimal.TryParse(Model.HomeSchoolValue, out homeValueDecimal))
+                        {
+                            <span class="bold-small">@homeValueDecimal.ToString(Model.Format)</span>
+                        }
+                        else
+                        {
+                            <span class="bold-small">@Model.HomeSchoolValue</span>
+                        }
                     }
-                }
-            </div>
-        </div>
-        <div class="column-half">
-            <div class="govuk-form-group">
-                <div class="column-full">
-                    <span class="govuk-error-message"></span>
                 </div>
+
+                <span class="govuk-error-message"></span>
+
+                <legend class="govuk-visually-hidden">@Model.Question</legend>
+
                 <div class="column-half">
-                    <label class="form-label" for="@Model.MinElementName">From</label>
-                    <input value="@Model.MinValue" type="number" name="AdvancedCriteria.@Model.MinElementName" id="@Model.MinElementName" class="form-control criteria-input min-js"
+                    <label class="govuk-label" for="@Model.MinElementName">From</label>
+                    <input value="@Model.MinValue" type="number" name="AdvancedCriteria.@Model.MinElementName" id="@Model.MinElementName" 
+                           class="govuk-input form-control criteria-input min-js"
                            min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled")
                            data-msg-minLowerThanMax="'From' value can not be greater than the 'To' value"
                            data-msg-minOrMaxRequired="Fill in at least one of the boxes if you want this characteristic to be included in the search."
                            aria-label="Minimum value for @Model.Question">
                 </div>
                 <div class="column-half">
-                    <label class="form-label" for="@Model.MaxElementName">To</label>
-                    <input value="@Model.MaxValue" type="number" name="AdvancedCriteria.@Model.MaxElementName" id="@Model.MaxElementName" class="form-control criteria-input max-js"
+                    <label class="govuk-label" for="@Model.MaxElementName">To</label>
+                    <input value="@Model.MaxValue" type="number" name="AdvancedCriteria.@Model.MaxElementName" id="@Model.MaxElementName" 
+                           class="govuk-input form-control criteria-input max-js"
                            min="@Model.MinLimit.GetValueOrDefault()" max="@Model.MaxLimit.GetValueOrDefault()" @Html.Raw(activated ? "" : "disabled")
                            data-msg-maxGreaterThanMin="'To' value can not be lower than the 'From' value"
                            data-msg-minOrMaxRequired="Fill in at least one of the boxes if you want this characteristic to be included in the search."
                            aria-label="Maximum value for @Model.Question">
                 </div>
-            </div>
+            </fieldset>
         </div>
     </div>
 </div>

@@ -835,7 +835,6 @@
     <Content Include="Assets\Sass\_mixins.scss" />
     <Content Include="Assets\Sass\views\_comparison-basket-size.scss" />
     <Content Include="Assets\Sass\views\_simple-characteristics.scss" />
-    <Content Include="Assets\Sass\elements\forms\_form-multiple-choice.scss" />
     <Content Include="Assets\Sass\views\_advanced-school-characteristics.scss" />
     <Content Include="Assets\Sass\views\_cookies-page.scss" />
     <Content Include="ApplicationInsights.config">

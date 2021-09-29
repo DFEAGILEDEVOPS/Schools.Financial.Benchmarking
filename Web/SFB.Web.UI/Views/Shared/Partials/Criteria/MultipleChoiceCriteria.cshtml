@@ -3,48 +3,46 @@
 @{
     var activated = Model.Options.Any(o => o.Selected);
 }
-<div class="question">
-    <div class="multiple-choice question">
-        <input id="checkbox-@Model.ElementName" type="checkbox" @Html.Raw(activated ? "checked" : "")>
-        <label id="label-@Model.ElementName" for="checkbox-@Model.ElementName">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
-    </div>
-    <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(activated ? "inline-block": "none")">
-        <div class="column-full">
-            <div class="benchmark-school-value">
-                @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
-                {
-                    if (!@Model.HomeSchoolName.IsEmpty())
-                    {
-                        <span>No value was supplied for @Model.HomeSchoolName</span>
-                    }
-                }
-                else
-                {
-                    <span>The value for @Model.HomeSchoolName is <span class="bold-small">@Model.HomeSchoolValue</span></span>
-                }
-            </div>
-        </div>
 
-        <div class="column-full">
-            <div class="govuk-form-group">
-                <div class="column-full">
-                    <span class="govuk-error-message"></span>
-                </div>
-                <div class="column-full">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-visually-hidden">@Model.Question</legend>
-                        @foreach (var option in Model.Options)
+<div class="govuk-checkboxes question" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item question">
+        <input class="govuk-checkboxes__input" id="checkbox-@Model.ElementName" type="checkbox" @Html.Raw(activated ? "checked" : "") data-aria-controls="mcc">
+        <label class="govuk-label govuk-checkboxes__label" id="label-@Model.ElementName" for="checkbox-@Model.ElementName">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
+    </div>
+    <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="mcc">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-hint">
+                    @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
+                    {
+                        if (!@Model.HomeSchoolName.IsEmpty())
                         {
-                            <div class="multiple-choice">
-                                <input type="checkbox" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName.@option.Name" value="@option.Value" class="criteria-checkbox"
-                                       required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                                <label for="@Model.ElementName.@option.Name">@option.Name</label>
-                            </div>
+                            <span>No value was supplied for @Model.HomeSchoolName</span>
                         }
-                    </fieldset>
+                    }
+                    else
+                    {
+                        <span>The value for @Model.HomeSchoolName is <span class="bold-small">@Model.HomeSchoolValue</span></span>
+                    }
                 </div>
-            </div>
+
+                <span class="govuk-error-message"></span>
+
+                <legend class="govuk-visually-hidden">@Model.Question</legend>
+
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    @foreach (var option in Model.Options)
+                    {
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input criteria-checkbox" type="checkbox" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName.@option.Name" value="@option.Value"
+                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(option.Selected ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                            <label class="govuk-label govuk-checkboxes__label" for="@Model.ElementName.@option.Name">@option.Name</label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
         </div>
     </div>
 </div>
+
 
