@@ -71,18 +71,10 @@
                         <fieldset class="govuk-fieldset">
                             <legend class="govuk-visually-hidden">How do you like to manually add schools?</legend>
 
-                            <div>
-                                <ul style="list-style-type: none; padding-left: 0">
-                                    <li>
-                                        @Html.Partial("Partials/Search/ManualNameSearchOption")
-                                    </li>
-                                    <li>
-                                        @Html.Partial("Partials/Search/ManualLocationSearchOption")
-                                    </li>
-                                    <li>
-                                        @Html.Partial("Partials/Search/ManualLaSearchOption")
-                                    </li>
-                                </ul>
+                            <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                                @Html.Partial("Partials/Search/ManualNameSearchOption")
+                                @Html.Partial("Partials/Search/ManualLocationSearchOption")
+                                @Html.Partial("Partials/Search/ManualLaSearchOption")
                             </div>
                         </fieldset>
                     </div>

@@ -17,18 +17,21 @@
             {
                 <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
             }
-            <div class="multiple-choice">
-                <input id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
-                <label class="selection-button-radio" for="radio-2">
-                    Detailed comparison using characteristics you choose
-                </label>
-            </div>
 
-            <div class="multiple-choice">
-                <input id="radio-4" type="radio" name="comparisonType" value="@ComparisonType.Manual">
-                <label class="selection-button-radio" for="radio-4">
-                    Manual comparison by name or location
-                </label>
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
+                    <label class="govuk-label govuk-radios__label" for="radio-2">
+                        Detailed comparison using characteristics you choose
+                    </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="radio-4" type="radio" name="comparisonType" value="@ComparisonType.Manual">
+                    <label class="govuk-label govuk-radios__label" for="radio-4">
+                        Manual comparison by name or location
+                    </label>
+                </div>
             </div>
 
         </fieldset>

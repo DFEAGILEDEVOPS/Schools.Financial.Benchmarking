@@ -35,34 +35,40 @@
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
-
-<p>
-    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmark set. You can replace them or retain them alongside those matching the characteristics you've just selected.
-</p>
-
 <form action="/BenchmarkCharts/GenerateFromAdvancedCriteria" method="post" id="gfac">
     @Html.AntiForgeryToken()
     <div class="govuk-form-group @Html.Raw(string.IsNullOrEmpty(Model.ErrorMessage) ? "" : "govuk-form-group--error")">
 
         <fieldset class="govuk-fieldset">
-            <legend class="govuk-visually-hidden">Overwrite strategy</legend>
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-top-4">
+                <h1 class="govuk-fieldset__heading">
+                    Comparing similar schools
+                </h1>
+            </legend>
+
+            <div class="govuk-hint">
+                You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmark set. You can replace them or retain them alongside those matching the characteristics you've just selected.
+            </div>
+
             @if (!string.IsNullOrEmpty(Model.ErrorMessage))
             {
                 <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
             }
-            <div class="multiple-choice">
-                <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
-                <label class="selection-button-radio" for="radio-1">
-                    Replace benchmark set
-                </label>
-            </div>
 
-            <div class="multiple-choice">
-                <input id="radio-2" type="radio" name="overwriteStrategy" value="add">
-                <label class="selection-button-radio" for="radio-2">
-                    Add to existing benchmark set
-                </label>
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
+                    <label class="govuk-label govuk-radios__label" for="radio-1">
+                        Replace benchmark set
+                    </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="radio-2" type="radio" name="overwriteStrategy" value="add">
+                    <label class="govuk-label govuk-radios__label" for="radio-2">
+                        Add to existing benchmark set
+                    </label>
+                </div>
             </div>
 
         </fieldset>

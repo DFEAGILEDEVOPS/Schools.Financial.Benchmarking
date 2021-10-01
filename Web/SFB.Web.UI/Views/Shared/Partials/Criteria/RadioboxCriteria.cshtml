@@ -30,20 +30,21 @@
 
                 <legend class="govuk-visually-hidden">@Model.Question</legend>
 
-                <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
                     @for (var i = 0; i < Model.Options.Count; i++)
                     {
-
                         <div class="govuk-radios__item">
                             <input type="radio" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName@i" value="@Model.Options[i].Value"
                                    class="govuk-radios__input criteria-radio"
-                                   required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "") data-msg-required="Choose an option to continue the comparison">
-                            <label class="govuk-label selection-button-radio" for="@Model.ElementName@i">@Model.Options[i].Name</label>
+                                   required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "") 
+                                   data-msg-required="Choose an option to continue the comparison"
+                                   data-aria-controls="subs_@Model.ElementName">
+                            <label class="govuk-label govuk-radios__label" for="@Model.ElementName@i">@Model.Options[i].Name</label>
                         </div>
 
                         if (Model.Options[i].SubRangeOptions != null)
                         {
-                            <div class="govuk-inset-text app-govuk-inset-text--criteria" style="display: @Html.Raw(activated ? "inline-block": "none")">
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="subs_@Model.ElementName">
                                 @foreach (var subOption in Model.Options[i].SubRangeOptions.SubOptions)
                                 {
                                     @Html.Partial("Partials/Criteria/RangeCriteria", subOption)

@@ -41,7 +41,7 @@
 
                         <legend class="govuk-fieldset__legend">Cookies that measure website use</legend>
 
-                        <div id="hint-05e792cb" class="mb-1 form-hint">
+                        <div id="hint-05e792cb" class="govuk-hint">
                             We use Google Analytics to measure how you use the website so we can improve it based on user needs. Google Analytics sets cookies that store anonymised information about:
                             <ul class="list list-bullet cookies-list-bullet">
                                 <li>how you got to the site</li>
@@ -51,16 +51,16 @@
                             We do not allow Google to use or share the data about how you use this site.
                         </div>
 
-                        <div>
-                            <div class="multiple-choice">
-                                <input type="radio" name="usage" id="radio-abcdd7c2-0" value="on" checked="@Model.Usage">
-                                <label for="radio-abcdd7c2-0">
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" name="usage" id="radio-abcdd7c2-0" value="on" checked="@Model.Usage">
+                                <label class="govuk-label govuk-radios__label" for="radio-abcdd7c2-0">
                                     <span>On</span>
                                 </label>
                             </div>
-                            <div class="multiple-choice">
-                                <input type="radio" name="usage" id="radio-abcdd7c2-1" value="off" checked="@(!Model.Usage)">
-                                <label for="radio-abcdd7c2-1">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" name="usage" id="radio-abcdd7c2-1" value="off" checked="@(!Model.Usage)">
+                                <label class="govuk-label govuk-radios__label" for="radio-abcdd7c2-1">
                                     <span>Off</span>
                                 </label>
                             </div>
@@ -68,48 +68,25 @@
                     </fieldset>
                 </div>
 
-                @*<div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend>Cookies that help with our communications and marketing</legend>
-                        <div id="hint-0da31e3d" class="mb-1 form-hint">
-                            These cookies may be set by third party websites and do things like measure how you view YouTube videos that are on GOV.UK.
-                        </div>
-                        <div>
-                            <div class="multiple-choice">
-                                <input type="radio" name="campaigns" id="radio-d7c57257-0" value="on" checked="@Model.Campaigns">
-
-                                <label for="radio-d7c57257-0">
-                                    <span class="translation_missing">On</span>
-                                </label>
-                            </div>
-
-                            <div class="multiple-choice">
-                                <input type="radio" name="campaigns" id="radio-d7c57257-1" value="off" checked="@(!Model.Campaigns)">
-                                <label for="radio-d7c57257-1">
-                                    <span>Off</span>
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>*@
 
                 <div class="govuk-govuk-form-group">
                     <fieldset class="govuk-fieldset">
+
                         <legend class="govuk-fieldset__legend">Cookies that remember your settings</legend>
 
-                        <div id="hint-b291b8f4" class="mb-1 form-hint">
+                        <div id="hint-b291b8f4" class="govuk-hint">
                             These cookies do things like remember your preferences and the choices you make, to personalise your experience of using the site.
                         </div>
-                        <div>
-                            <div class="multiple-choice">
-                                <input type="radio" name="settings" id="radio-209c3582-0" value="on" checked="@Model.Settings" />
-                                <label for="radio-209c3582-0">
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" name="settings" id="radio-209c3582-0" value="on" checked="@Model.Settings" />
+                                <label class="govuk-label govuk-radios__label" for="radio-209c3582-0">
                                     <span>On</span>
                                 </label>
                             </div>
-                            <div class="multiple-choice">
-                                <input type="radio" name="settings" id="radio-209c3582-1" value="off" checked="@(!Model.Settings)">
-                                <label for="radio-209c3582-1">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" name="settings" id="radio-209c3582-1" value="off" checked="@(!Model.Settings)">
+                                <label class="govuk-label govuk-radios__label" for="radio-209c3582-1">
                                     <span>Off</span>
                                 </label>
                             </div>

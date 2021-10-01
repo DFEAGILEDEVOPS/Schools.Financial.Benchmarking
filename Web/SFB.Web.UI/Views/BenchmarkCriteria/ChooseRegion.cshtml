@@ -59,7 +59,7 @@
 <section class="section" id="options">
     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
         <form action="/BenchmarkCriteria/AdvancedCharacteristics" method="get" autocomplete="off">
-            <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
+            <div class="govuk-form-group @Html.Raw(Model.HasError() && Model.ErrorMessage == "Select area type" ? "govuk-form-group--error" : "")">
                 <fieldset class="govuk-fieldset">
 
                     <legend id="legend" class="govuk-visually-hidden">
@@ -71,31 +71,38 @@
                         <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
                     }
                     
-                    <div id="AllAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "selected" : "")" aria-controls="AllFieldset">
-                        <input id="All" type="radio" name="areaType" value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") />
-                        <label id="AllAccordion" for="All">All of England</label>
+                <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                    <div id="AllAccordionContainer" class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="All" type="radio" name="areaType" 
+                               value="All" @Html.Raw(ViewBag.AreaType == ComparisonArea.All ? "checked" : "") />
+                        <label class="govuk-label govuk-radios__label" id="AllAccordion" for="All">All of England</label>
                     </div>
 
-                    <div id="LaAccordionContainer" class="multiple-choice js-accordion @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "selected" : "")" aria-controls="SearchByLaCodeFieldset">
-                        <input id="LaCodeRadio" type="radio" name="areaType" value="LACodeName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "checked" : "") />
-                        <label id="LaCodeAccordion" for="LaCodeRadio">
+                    <div id="LaAccordionContainer" class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="LaCodeRadio" type="radio" name="areaType" 
+                               value="LACodeName" @Html.Raw(ViewBag.AreaType == ComparisonArea.LaCodeName ? "checked" : "") 
+                               data-aria-controls="SearchByLaCodeFieldset"/>
+                        <label class="govuk-label govuk-radios__label" id="LaCodeAccordion" for="LaCodeRadio">
                             Local authority
                         </label>
                     </div>
-                    <div id="SearchByLaCodeFieldset" class="govuk-form-group optional-section">
-                        <label for="FindSchoolByLaCode" class="la-label">
-                            Enter a local authority name or a three-digit LA code
-                        </label>
-                        @if (ViewBag.AreaType == ComparisonArea.LaCodeName)
-                        {
-                            <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
-                        }
-                        <input id="FindSchoolByLaCode"
-                               class="form-control govuk-input @Html.Raw(Model.HasError() ? "govuk-input--error" : "")"
-                               name="lacodename"
-                               type="text" />
-                        <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />
+                    <div id="SearchByLaCodeFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
+                        <div class="govuk-form-group @Html.Raw(Model.HasError() && Model.ErrorMessage != "Select area type" ? "govuk-form-group--error" : "")">
+                            <label for="FindSchoolByLaCode" class="govuk-label">
+                                Enter a local authority name or a three-digit LA code
+                            </label>
+                            @if (ViewBag.AreaType == ComparisonArea.LaCodeName)
+                            {
+                                <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+                            }
+                            <input id="FindSchoolByLaCode"
+                                   class="govuk-input govuk-!-width-one-third @Html.Raw(Model.HasError() && Model.ErrorMessage != "Select area type" ? "govuk-input--error" : "")"
+                                   name="lacodename"
+                                   type="text" />
+                            <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />
+                        </div>
                     </div>
+                </div>
                 </fieldset>
 
             </div>

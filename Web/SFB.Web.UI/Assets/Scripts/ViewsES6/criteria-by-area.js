@@ -8,12 +8,7 @@ class CriteriaByAreaViewModel {
     }
 
     bindEvents() {
-        GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
         this.bindAutosuggest("#FindSchoolByLaCode", "#SelectedLocalAuthorityId", { data: this.localAuthorities, name: "LANAME", value: "id" });
-    }
-
-    accordionChangeHandler() {
-        $(".error-summary").hide();
     }
 
     bindAutosuggest(targetInputElementName, targetResolvedInputElementName, suggestionSource) {

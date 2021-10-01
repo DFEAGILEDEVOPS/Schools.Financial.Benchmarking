@@ -81,83 +81,93 @@
                     <span>Which schools would you like to include?</span>
                 </legend>
                 <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
-                @if (ViewBag.ComparisonType == ComparisonType.Advanced)
-                {
-                    <div id="MaintainedContainer" class="accordion-label multiple-choice js-accordion" aria-controls="MaintainedFieldset">
-                        <input id="Maintained" type="radio" name="EstType" value="Maintained">
-                        <label class="selection-button-radio" for="Maintained">Maintained schools</label>
-                    </div>
-
-                    <div id="MaintainedFieldset" class="govuk-form-group optional-section govuk-inset-text app-govuk-inset-text--narrow">
-                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                            <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled />
-                                <label class="govuk-label govuk-checkboxes__label" for="excludePartialMaintained">
-                                    Exclude maintained schools that don't have a complete set of financial data
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="AcademiesContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AcademiesFieldset">
-                        <input id="Academies" type="radio" name="EstType" value="Academies">
-                        <label class="selection-button-radio" for="Academies">Academies</label>
-                    </div>
-
-                    <div id="AcademiesFieldset" class="govuk-form-group optional-section govuk-inset-text app-govuk-inset-text--narrow">
-                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                            <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled />
-                                <label class="govuk-label govuk-checkboxes__label" for="excludePartialAcademies">
-                                    Exclude academies that don't have a complete set of financial data
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="AllContainer" class="accordion-label multiple-choice js-accordion" aria-controls="AllFieldset">
-                        <input id="All" type="radio" name="EstType" value="All">
-                        <label class="selection-button-radio" for="All">All schools</label>
-                    </div>
-
-                    <div id="AllFieldset" class="govuk-form-group optional-section govuk-inset-text app-govuk-inset-text--narrow">
-                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                            <div class="govuk-checkboxes__item">
-                                <input class="govuk-checkboxes__input" id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled />
-                                <label class="govuk-label govuk-checkboxes__label" for="excludePartialAll">
-                                    Exclude schools that don't have a complete set of financial data
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    if (ViewBag.ComparisonType == ComparisonType.FederationBasic)
+                
+                <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                    @if (ViewBag.ComparisonType == ComparisonType.Advanced)
                     {
-                        <div id="MaintainedContainer" class="multiple-choice">
-                            <input id="Maintained" type="radio" name="EstType" value="Maintained">
-                            <label class="selection-button-radio" for="Maintained">Maintained schools and federations</label>
+                        <div id="MaintainedContainer" class="govuk-radios__item js-accordion">
+                            <input class="govuk-radios__input" id="Maintained" type="radio" name="EstType" value="Maintained" data-aria-controls="MaintainedFieldset">
+                            <label class="govuk-label govuk-radios__label" for="Maintained">Maintained schools</label>
+                        </div>
+
+                        <div id="MaintainedFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
+                            <div class="govuk-form-group">
+                                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="excludePartialMaintained" name="excludePartial" type="checkbox" value="true" checked disabled />
+                                        <label class="govuk-label govuk-checkboxes__label" for="excludePartialMaintained">
+                                            Exclude maintained schools that don't have a complete set of financial data
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="AcademiesContainer" class="govuk-radios__item js-accordion">
+                            <input class="govuk-radios__input" id="Academies" type="radio" name="EstType" value="Academies" data-aria-controls="AcademiesFieldset">
+                            <label class="govuk-label govuk-radios__label" for="Academies">Academies</label>
+                        </div>
+
+                        <div id="AcademiesFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
+                            <div class="govuk-form-group">
+                                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="excludePartialAcademies" name="excludePartial" type="checkbox" value="true" checked disabled />
+                                        <label class="govuk-label govuk-checkboxes__label" for="excludePartialAcademies">
+                                            Exclude academies that don't have a complete set of financial data
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="AllContainer" class="govuk-radios__item js-accordion">
+                            <input class="govuk-radios__input"  id="All" type="radio" name="EstType" value="All" data-aria-controls="AllFieldset">
+                            <label class="govuk-label govuk-radios__label" for="All">All schools</label>
+                        </div>
+
+                        <div id="AllFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
+                            <div class="govuk-form-group">
+                                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input" id="excludePartialAll" name="excludePartial" type="checkbox" value="true" checked disabled />
+                                        <label class="govuk-label govuk-checkboxes__label" for="excludePartialAll">
+                                            Exclude schools that don't have a complete set of financial data
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     }
                     else
                     {
-                        <div id="MaintainedContainer" class="multiple-choice">
-                            <input id="Maintained" type="radio" name="EstType" value="Maintained">
-                            <label class="selection-button-radio" for="Maintained">Maintained schools</label>
+                        if (ViewBag.ComparisonType == ComparisonType.FederationBasic)
+                        {
+                            <div id="MaintainedContainer" class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="Maintained" type="radio" name="EstType" value="Maintained">
+                                <label class="govuk-label govuk-radios__label" for="Maintained">Maintained schools and federations</label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="MaintainedContainer" class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="Maintained" type="radio" name="EstType" value="Maintained">
+                                <label class="govuk-label govuk-radios__label" for="Maintained">Maintained schools</label>
+                            </div>
+                        }
+
+                        <div id="AcademiesContainer" class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="Academies" type="radio" name="EstType" value="Academies">
+                            <label class="govuk-label govuk-radios__label" for="Academies">Academies</label>
+                        </div>
+
+                        <div id="AllContainer" class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="All" type="radio" name="EstType" value="All">
+                            <label class="govuk-label govuk-radios__label" for="All">All schools</label>
                         </div>
                     }
+                </div>
 
-                    <div id="AcademiesContainer" class="multiple-choice">
-                        <input id="Academies" type="radio" name="EstType" value="Academies">
-                        <label class="selection-button-radio" for="Academies">Academies</label>
-                    </div>
-
-                    <div id="AllContainer" class="multiple-choice">
-                        <input id="All" type="radio" name="EstType" value="All">
-                        <label class="selection-button-radio" for="All">All schools</label>
-                    </div>
-                }
             </fieldset>
         </div>
         <div class="grid-row">
@@ -180,8 +190,6 @@
     @if (ViewBag.ComparisonType == ComparisonType.Advanced)
     {
         <script>
-            GOVUK.Accordion.bindElements("SchoolTypesAccordion");
-
             $().ready(function () {
                 var inputs = $("#SchoolTypesAccordion .js-accordion");
                 inputs.click(function (event) {
@@ -189,7 +197,6 @@
                     $(event.currentTarget).next().find("input:checkbox[name='excludePartial']").prop('disabled', false);
                 });
             });
-
         </script>
     }
 

@@ -541,7 +541,6 @@
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
-    <Content Include="Assets\Scripts\Behaviours\Accordion\accordion.js" />
     <Content Include="Assets\Scripts\ViewsES6\trust-compare-advanced.js" />
     <Content Include="Assets\Scripts\ViewsES6\federation-details.js" />
     <Content Include="Assets\Scripts\Views\federation-details.js" />

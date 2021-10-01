@@ -4,10 +4,10 @@
       role="tabpanel">
     <div class="govuk-form-group">
         <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-margin-top-3">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-margin-top-4 govuk-!-margin-bottom-3">
                 Search by:
             </legend>
-            <div>
+            <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
                 @Html.Partial("Partials/Search/TrustNameSearchOption")
                 @Html.Partial("Partials/Search/TrustLocationSearchOption")
                 @Html.Partial("Partials/Search/TrustLaSearchOption")

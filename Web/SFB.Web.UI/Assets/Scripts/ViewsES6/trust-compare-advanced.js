@@ -3,13 +3,12 @@
 class TrustCompareAdvancedViewModel {
 
     constructor() {
-        this.questionCheckBoxSelector = ".multiple-choice.question > input";
-        this.questionCheckBoxSelectorRadio = ".multiple-choice.questionRadio > input";
-        this.questionNumberInputSelector = ".govuk-inset-text input.criteria-input";
+        this.questionCheckBoxSelector = ".govuk-checkboxes__item.question > input";
+        this.questionCheckBoxSelectorRadio = ".govuk-radios__item > input";
+        this.questionNumberInputSelector = ".govuk-checkboxes__conditional input.criteria-input";
 
         this.bindCriteriaEvents();
         this.validateForm();
-        //GOVUK.Accordion.bindElements("SelectTrustAccordion");
         GOVUK.Modal.Load();
         this.updateResultCount();
     }
@@ -38,12 +37,12 @@ class TrustCompareAdvancedViewModel {
                 },
                 highlight: function (element, errorClass, validClass) {
                     $(element).addClass(errorClass).removeClass(validClass);
-                    $(element).closest(".govuk-inset-text").addClass("govuk-form-group--error");
+                    $(element).closest(".govuk-form-group").addClass("govuk-form-group--error");
                 },
                 unhighlight: function (element, errorClass, validClass) {
                     $(element).removeClass(errorClass).addClass(validClass);
-                    if ($(element).closest(".govuk-inset-text").find("input.govuk-input--error").length === 0) {
-                        $(element).closest(".govuk-inset-text").removeClass("govuk-form-group--error");
+                    if ($(element).closest(".govuk-form-group").find("input.govuk-input--error").length === 0) {
+                        $(element).closest(".govuk-form-group").removeClass("govuk-form-group--error");
                     }
                 },
                 errorElement: "span"
@@ -62,15 +61,13 @@ class TrustCompareAdvancedViewModel {
 
         $(this.questionCheckBoxSelector).change(
             (event) => {
-                let $panel = $(event.target).parent().next(".govuk-inset-text");
-                $panel.toggle();
+                let $panel = $(event.target).parent().next(".govuk-checkboxes__conditional");
+                //$panel.toggle();
                 if (!event.target.checked) {
                     $panel.find("input").prop('disabled', true);
-                    $panel.removeClass("govuk-form-group--error");
+                    $panel.find(".govuk-form-group").removeClass("govuk-form-group--error");
                     $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
-                    $panel.find("label.govuk-error-message").css("display", "none");
-                    let $innerPanel = $panel.find(".govuk-inset-text");
-                    $innerPanel.hide();
+                    $panel.find("span.govuk-error-message").css("display", "none");
                 } else {
                     $panel.find("input").prop('disabled', false);
                 }
@@ -85,17 +82,15 @@ class TrustCompareAdvancedViewModel {
 
         $(this.questionCheckBoxSelectorRadio).change(
             (event) => {
-                let $allpanels = $(this).parent().parent().children(".govuk-inset-text");
+                let $allpanels = $(this).parent().parent().children(".govuk-checkboxes__conditional");
                 if ($allpanels.length > 0) {
-                    $allpanels.hide();
                     $allpanels.find("input").prop('disabled', true);
-                    $allpanels.find(".govuk-inset-text").hide();
                     $allpanels.find("input[type='number']:disabled").val(null);
                     $allpanels.find("input[type='checkbox']:disabled").prop('checked', false);
                     $allpanels.find("input[type='radio']:disabled").prop('checked', false);
                 }
 
-                var $mypanel = $(event.target).parent().next(".govuk-inset-text");
+                var $mypanel = $(event.target).parent().next(".govuk-radios__conditional");
                 if ($mypanel.length > 0) {
                     $mypanel.show();
                     $mypanel.find("input").prop('disabled', false);

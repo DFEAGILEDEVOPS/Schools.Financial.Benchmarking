@@ -63,7 +63,7 @@ $path: "/public/assets/images/";
 @import "elements/forms/feedback/feedback";
 
 // Collapsibles
-@import "elements/collapsible/collapsible";
+//@import "elements/collapsible/collapsible";
 
 // Browse
 @import "elements/browse";
@@ -274,7 +274,7 @@ ul.list {
 }
 
 .help-icon.tb {
-    vertical-align: text-bottom;
+    //vertical-align: text-bottom;
     margin-left: 10px;
 
     @include media(desktop) {
