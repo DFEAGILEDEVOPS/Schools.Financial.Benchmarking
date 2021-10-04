@@ -383,9 +383,10 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
 <div role="tabpanel" id="tabPanel">
     <div class="sticky-div sticky-chart-controls">
         <div id="controls">
-                <fieldset class="govuk-fieldset">
-                    <legend class="visually-hidden hide-in-print">Filters</legend>
-                    <div>
+            <fieldset class="govuk-fieldset">
+                <legend class="visually-hidden hide-in-print">Filters</legend>
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-full">
                         @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
                         @Html.Partial("Partials/ValueSelect", Model)
                         @if (Model.EstablishmentType == EstablishmentType.Academies && Model.IsMATinLatestFinance)
@@ -393,7 +394,8 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                             Html.RenderPartial("Partials/CentralFinancing");
                         }
                     </div>
-                </fieldset>
+                </div>
+            </fieldset>
         </div>
     </div>
     <div class="charts-section">

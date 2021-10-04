@@ -2,9 +2,9 @@
 @using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Helpers.Enums
 
-<div class="column-third chart-filter @IsIrrelevantTab()">
+<div class="govuk-grid-column-one-third chart-filter govuk-!-padding-right-0 @IsIrrelevantTab()">
     <div class="govuk-form-group">
-        <label class="form-label inline" for="CentralFinancing">Trust finance</label>
+        <label class="govuk-label govuk-!-display-inline-block" for="CentralFinancing">Trust finance</label>
         <span class="help-icon hide-in-print help-trust-finance js-show-value-help">
             <span class="icon dark-blue">
                 <a href="#" class="js-modal" role="button" data-modal-title="Trust finance" data-modal-text="@HelpTooltipText.TrustFinance" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
@@ -12,7 +12,7 @@
                 </a>
             </span>
         </span>
-        <select name="CentralFinancing" id="CentralFinancing" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.rebuildCharts()">
+        <select name="CentralFinancing" id="CentralFinancing" class="govuk-select" onchange="DfE.Views.BenchmarkChartsViewModel.rebuildCharts()">
             <option value="@CentralFinancingType.Exclude" @IsSelected(CentralFinancingType.Exclude)>@BMFinancing.EXCLUDE</option>
             <option value="@CentralFinancingType.Include" @IsSelected(CentralFinancingType.Include)>@BMFinancing.INCLUDE</option>
         </select>

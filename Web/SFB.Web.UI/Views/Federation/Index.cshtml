@@ -213,9 +213,11 @@
         <div id="controls-accordion">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
-                    <div>
-                        @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-                        @Html.Partial("Partials/ValueSelect", Model)
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-full">
+                            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                            @Html.Partial("Partials/ValueSelect", Model)
+                        </div>
                     </div>
                 </fieldset>
         </div>

@@ -616,11 +616,11 @@
             padding-top: 5px;
         }
 
-        .chart-filter {
+/*        .chart-filter {
             height: 75px;
-        }
+        }*/
 
-        @include media(tablet) {
+/*        @include media(tablet) {
             height: 93px;
 
             .chart-filter:first-of-type {
@@ -634,7 +634,7 @@
             .form-group {
                 padding-bottom: 20px;
             }
-        }
+        }*/
     }
 
     .bic-chart-wrapper {

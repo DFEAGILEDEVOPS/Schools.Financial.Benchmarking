@@ -9,20 +9,20 @@
                     <div>
                         <fieldset class="govuk-fieldset">
                             <legend class="govuk-visually-hidden" id="filtersLegend">Filters</legend>
-                            <div>
-                                @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
-                                @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
+                                    @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
 
-                                @if (Model.EstablishmentType == EstablishmentType.Academies || Model.EstablishmentType == EstablishmentType.All)
-                                {
-                                    Html.RenderPartial("~/Views/BenchmarkCharts/Partials/CentralFinancing.cshtml");
-                                }
-                                else if (Model.EstablishmentType == EstablishmentType.MAT)
-                                {
-                                    <div class="column-one-third chart-filter">
+                                    @if (Model.EstablishmentType == EstablishmentType.Academies || Model.EstablishmentType == EstablishmentType.All)
+                                    {
+                                        Html.RenderPartial("~/Views/BenchmarkCharts/Partials/CentralFinancing.cshtml");
+                                    }
+                                    else if (Model.EstablishmentType == EstablishmentType.MAT)
+                                    {
                                         @Html.Partial("~/Views/BenchmarkCharts/Partials/TrustCentralFinancing.cshtml")
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
                         </fieldset>
                     </div>

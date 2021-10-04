@@ -2,10 +2,10 @@
 
 @if (Model.Count > 1)
 {
-    <div class="column-one-third chart-filter">
+    <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-left-0">
         <div class="govuk-form-group">
-            <label class="form-label" for="ChartGroup">Show grouping</label>
-            <select name="ChartGroup" id="ChartGroup" class="form-control" onchange="DfE.Views.HistoricalCharts.rebuildCharts('school')">
+            <label class="govuk-label" for="ChartGroup">Show grouping</label>
+            <select name="ChartGroup" id="ChartGroup" class="govuk-select" onchange="DfE.Views.HistoricalCharts.rebuildCharts('school')">
                 @foreach (var item in Model)
                 {
                     if (ViewBag.ChartGroup == item.ChartGroup)

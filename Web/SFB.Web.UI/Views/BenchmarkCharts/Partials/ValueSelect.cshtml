@@ -3,9 +3,9 @@
 @using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-<div class="column-third chart-filter">
+<div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
     <div class="govuk-form-group">
-        <label class="form-label inline-block" for="ShowValue">Show value</label>
+        <label class="govuk-label" for="ShowValue">Show value</label>
         <span class="help-icon hide-in-print js-show-value-help" style="display: none">
             <span class="icon dark-blue">
                 <a href="#" class="js-modal" role="button" data-modal-title="Show value" data-modal-text="@HelpTooltipText.ShowValueHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
@@ -13,7 +13,7 @@
                 </a>
             </span>
         </span>
-        <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.BenchmarkChartsViewModel.rebuildCharts()">
+        <select class="govuk-select" name="ShowValue" id="ShowValue" onchange="DfE.Views.BenchmarkChartsViewModel.rebuildCharts()">
             @if (ViewBag.Tab == TabType.Workforce)
             {
                 <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>

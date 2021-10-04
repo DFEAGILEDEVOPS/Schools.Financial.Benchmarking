@@ -348,7 +348,11 @@
     }
 
     .chart-filter {
-        .form-control {
+        @include media(mobile) {
+            padding: 0!important;
+        }
+
+        select {
             width: 100%;
         }
     }
