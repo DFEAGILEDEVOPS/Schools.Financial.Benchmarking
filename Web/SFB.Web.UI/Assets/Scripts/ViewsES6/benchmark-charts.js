@@ -1218,20 +1218,21 @@ class BenchmarkChartsViewModel {
         var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
             "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='PdfLink' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Select file format</h1>" +            
-            `<div class="form-group">
-              <fieldset>
+            `<div class="govuk-form-group">
+              <fieldset class="govuk-fieldset">
 
-                <legend>
+                <legend class="govuk-fieldset-legend">
                   You can download the page's charts in PDF or PowerPoint format.
                 </legend>
-
-                <div class="multiple-choice">
-                  <input id="radio-1" type="radio" name="downloadFormat" value="pdf" checked>
-                  <label for="radio-1" class="font-small">PDF format</label>
-                </div>
-                <div class="multiple-choice">
-                  <input id="radio-2" type="radio" name="downloadFormat" value="ppt">
-                  <label for="radio-2" class="font-small">PowerPoint format</label>
+                <div class="govuk-radios">
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="radio-1" type="radio" name="downloadFormat" value="pdf" checked>
+                      <label for="radio-1" class="govuk-label govuk-radios__label">PDF format</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="radio-2" type="radio" name="downloadFormat" value="ppt">
+                      <label for="radio-2" class="govuk-label govuk-radios__label">PowerPoint format</label>
+                    </div>
                 </div>
               </fieldset>
             <div class="grid-row modal-form-buttons">

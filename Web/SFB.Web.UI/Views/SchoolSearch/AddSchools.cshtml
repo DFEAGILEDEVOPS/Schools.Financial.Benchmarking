@@ -82,18 +82,10 @@
 
                                     <div class="govuk-hint">You can add schools by name or by location:</div>
 
-                                    <div>
-                                        <ul style="list-style-type: none; padding-left: 0">
-                                            <li>
-                                                @Html.Partial("Partials/Search/SchoolNameSearchOption")
-                                            </li>
-                                            <li>
-                                                @Html.Partial("Partials/Search/SchoolLocationSearchOption")
-                                            </li>
-                                            <li>
-                                                @Html.Partial("Partials/Search/SchoolLaSearchOption")
-                                            </li>
-                                        </ul>
+                                    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                                        @Html.Partial("Partials/Search/SchoolNameSearchOption")
+                                        @Html.Partial("Partials/Search/SchoolLocationSearchOption")
+                                        @Html.Partial("Partials/Search/SchoolLaSearchOption")
                                     </div>
                                 </fieldset>
                             </div>
