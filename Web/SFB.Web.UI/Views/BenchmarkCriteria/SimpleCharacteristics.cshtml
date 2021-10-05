@@ -52,7 +52,7 @@
 
 <section class="section">
 
-    <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="get" id="criteriaForm">
+    <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="get" id="criteriaForm" novalidate>
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Find schools with a similar percentage of:</legend>
@@ -122,7 +122,8 @@
                                 </div>
                                 <label class="govuk-label" for="BasketSizeInput">Enter a number between 5 and 30</label>
                                 <span class="govuk-error-message" style="display: none"><span class="govuk-visually-hidden">Error: </span>Enter a number between 5 and 30</span>
-                                <input id="BasketSizeInput" class="govuk-input govuk-!-width-one-third" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
+                                <input id="BasketSizeInput" class="govuk-input govuk-input--width-2" name="BasketSize" type="text" pattern="[0-9]*" inputmode="numeric" 
+                                       value="@ViewBag.BasketSize" />
                             </div>
                         </div>
                     </div>
@@ -152,7 +153,7 @@
                                     </div>
                                     <label style="display: block" class="govuk-label" for="BasketSizeInput">Enter a number between 5 and 30</label>
                                     <span class="govuk-error-message" style="display: none"><span class="govuk-visually-hidden">Error: </span>Enter a number between 5 and 30</span>
-                                    <input id="BasketSizeInput" class="govuk-input govuk-!-width-one-third" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
+                                    <input id="BasketSizeInput" class="govuk-input govuk-input--width-2" name="BasketSize" type="text" pattern="[0-9]*" inputmode="numeric" value="@ViewBag.BasketSize" />
                                 </div>
                             </div>
                         </div>
@@ -182,7 +183,7 @@
         function checkBasketCount() {
             if ($("#BasketSizeInput:visible").length > 0) {
                 let count = $("#BasketSizeInput").val();
-                if (count < 5 || count > 30) {
+                if (isNaN(count) || count < 5 || count > 30) {
                     $(".govuk-error-summary").show();
                     $(".govuk-error-message").show();
                     let $panel = $('#CustomBasketSizeFieldset .govuk-form-group');

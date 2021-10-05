@@ -13,7 +13,8 @@
 
 
     .twitter-typeahead {
-        width: 50%;
+        width: 100%;
+        display: contents!important;
         float: left;
 
         @include media(mobile) {

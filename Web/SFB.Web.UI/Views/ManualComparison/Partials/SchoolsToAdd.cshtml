@@ -32,8 +32,8 @@
                     @for (; i < Model.Count; i++)
                     {
                         <div class="grid-row school-element">
-                            <label class="form-label" for="school_@i">School @Html.Raw(i + 1)</label>
-                            <input class="form-control" style="width: 50%" id="school_@i" name="school_@i" type="text" disabled="disabled" value="@Model[i].Name" />
+                            <label class="govuk-label" for="school_@i">School @Html.Raw(i + 1)</label>
+                            <input class="govuk-input govuk-!-width-one-half" id="school_@i" name="school_@i" type="text" disabled="disabled" value="@Model[i].Name" />
                             <button class="remove-school link-button font-small" data-urn="@Model[i].Id" aria-label="Remove @Model[i].Name">Remove</button>
                         </div>
                     }
@@ -58,7 +58,7 @@
                             We couldn't find any schools matching your search criteria
                         </span>
                         <input id="NewSchoolName"
-                               class="form-control @(Html.Raw(ViewBag.Error != null ? "govuk-input--error" : ""))"
+                               class="govuk-input govuk-!-width-one-half @(Html.Raw(ViewBag.Error != null ? "govuk-input--error" : ""))"
                                name="schoolname"
                                type="text"
                                data-suggestion-url="/schoolsearch/suggest" />
@@ -98,7 +98,7 @@
                         We couldn't find any schools matching your search criteria
                     </span>
                     <input id="NewSchoolName"
-                           class="form-control @(Html.Raw(ViewBag.Error != null ? "govuk-input--error" : ""))"
+                           class="govuk-input govuk-!-width-one-half @(Html.Raw(ViewBag.Error != null ? "govuk-input--error" : ""))"
                            name="schoolname"
                            type="text"
                            data-suggestion-url="/schoolsearch/suggest" />

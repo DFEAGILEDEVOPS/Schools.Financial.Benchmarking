@@ -21,7 +21,6 @@
                class="govuk-input @(Model.GetInputErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))"
                name="trustnameid"
                type="text"
-               maxlength="100"
                data-suggestion-url="@(Model.TrustSuggestionUrl)" />
         <input type="hidden" id="FindByTrustNameSuggestionId" name="trustsuggestionUrn" />
         <button type="submit" class="govuk-button search-button" data-module="govuk-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_NAME_ID">Search</button>

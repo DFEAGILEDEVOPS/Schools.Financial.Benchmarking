@@ -24,7 +24,6 @@
                    class="govuk-input @(Model.GetInputErrorClass(SearchTypes.SEARCH_BY_TRUST_LOCATION))"
                    name="locationorpostcode"
                    placeholder=""
-                   maxlength="100"
                    type="text" />
             <input type="hidden" id="LocationCoordinatesForTrust" name="locationCoordinates" />
             <button type="submit" class="govuk-button search-button" data-module="govuk-button" name="searchtype" value="@SearchTypes.SEARCH_BY_TRUST_LOCATION">Search</button>

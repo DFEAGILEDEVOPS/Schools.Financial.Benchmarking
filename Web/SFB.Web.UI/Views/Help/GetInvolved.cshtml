@@ -37,14 +37,16 @@
         <form action="GetInvolvedSubmission" method="post">
             @Html.AntiForgeryToken()
             <div class="govuk-form-group @FormGroupErrorClass("getInvolved.Name")">
-                <label class="form-label" for="getInvolved.Name">Name</label>
+                <label class="govuk-label" for="getInvolved.Name">Name</label>
                 @InputErrorMessage("getInvolved.Name")
-                <input class="form-control @FormControlErrorClass("getInvolved.Name")" id="getInvolved.Name" name="getInvolved.Name" type="text" value="@Model.Name">
+                <input class="govuk-input govuk-!-width-three-quarters @FormControlErrorClass("getInvolved.Name")" id="getInvolved.Name" name="getInvolved.Name" type="text" 
+                       value="@Model.Name" autocomplete="name">
             </div>
             <div class="govuk-form-group @FormGroupErrorClass("getInvolved.Email")">
-                <label class="form-label" for="getInvolved.Email">Email</label>
+                <label class="govuk-label" for="getInvolved.Email">Email</label>
                 @InputErrorMessage("getInvolved.Email")
-                <input class="form-control @FormControlErrorClass("getInvolved.Email")" id="getInvolved.Email" name="getInvolved.Email" type="text" value="@Model.Email">
+                <input class="govuk-input govuk-!-width-three-quarters @FormControlErrorClass("getInvolved.Email")" id="getInvolved.Email" name="getInvolved.Email" type="text" 
+                       value="@Model.Email" autocomplete="email">
             </div>
             <button class="govuk-button" data-module="govuk-button" type="submit">Submit</button>
         </form>
