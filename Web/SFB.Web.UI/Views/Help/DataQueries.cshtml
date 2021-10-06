@@ -104,7 +104,7 @@
             <div class="govuk-form-group @FormGroupErrorClass("dataQuery.DataQuery")">
                 <label class="govuk-label" for="dataQuery.DataQuery">Data query</label>
                 @InputErrorMessage("dataQuery.DataQuery")
-                <textarea class="form-control govuk-!-width-three-quarters @FormControlErrorClass("dataQuery.DataQuery")" name="dataQuery.DataQuery" id="dataQuery.DataQuery" rows="8" maxlength="1000">@Model.DataQuery</textarea>
+                <textarea class="govuk-textarea govuk-!-width-three-quarters @FormControlErrorClass("dataQuery.DataQuery")" name="dataQuery.DataQuery" id="dataQuery.DataQuery" rows="8" maxlength="1000">@Model.DataQuery</textarea>
             </div>
             <input type="hidden" name="urn" value="@ViewBag.Urn" />
             <input type="hidden" name="schoolName" value="@ViewBag.SchoolName" />

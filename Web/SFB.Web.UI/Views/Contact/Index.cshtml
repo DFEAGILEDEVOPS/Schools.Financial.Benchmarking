@@ -38,7 +38,7 @@
             <div class="govuk-form-group @FormGroupErrorClass("contactUs.Message")">
                 <label class="govuk-label" for="contactUs.Message">Message</label>
                 @InputErrorMessage("contactUs.Message")
-                <textarea spellcheck="true" class="form-control govuk-!-width-three-quarters @FormControlErrorClass("contactUs.Message")" name="contactUs.Message" id="contactUs.Message" rows="8" maxlength="1000">@Model.Message</textarea>
+                <textarea spellcheck="true" class="govuk-textarea govuk-!-width-three-quarters @FormControlErrorClass("contactUs.Message")" name="contactUs.Message" id="contactUs.Message" rows="8" maxlength="1000">@Model.Message</textarea>
             </div>
             @*<input type="hidden" name="urn" value="@ViewBag.Urn" />
             <input type="hidden" name="schoolName" value="@ViewBag.SchoolName" />*@
