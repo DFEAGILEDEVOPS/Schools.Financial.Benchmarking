@@ -9,11 +9,11 @@
 </div>
 <div id="SearchByTownFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
     <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
-        <label class="govuk-hint" for="FindSchoolByTown">
+        <div class="govuk-hint" for="FindSchoolByTown">
             Enter a postcode, town or street. Or
             <button id="FindCurrentPosition" class="focus-first link-button font-small no-padding" title="Select to use your current location">use your current location</button>
-        </label>
-        <label class="visually-hidden" for="FindSchoolByTown_listbox">Select a location from the list box</label>
+        </div>
+        <label class="govuk-visually-hidden" for="FindSchoolByTown_listbox">Select a location from the list box</label>
         <div class="location-error-message-placeholder">
             @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))
             {

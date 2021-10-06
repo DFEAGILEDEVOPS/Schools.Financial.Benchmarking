@@ -9,10 +9,10 @@
 </div>
 <div id="TrustSearchByLaCodeNameFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
     <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME))">
-        <label class="govuk-hint" for="FindTrustByLaCodeName">
+        <div class="govuk-hint" for="FindTrustByLaCodeName">
             <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
-        </label>
-        <label class="visually-hidden" for="FindTrustByLaCodeName_listbox">Select a local authority from the list box</label>
+        </div>
+        <label class="govuk-visually-hidden" for="FindTrustByLaCodeName_listbox">Select a local authority from the list box</label>
         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME))
         {
             <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>

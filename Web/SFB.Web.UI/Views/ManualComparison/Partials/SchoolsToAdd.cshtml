@@ -41,7 +41,7 @@
 
                 <div id="NewSchool" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
                     <div class="grid-row school-element">
-                        <label class="form-label" for="NewSchoolName">School @Html.Raw(i + 1)</label>
+                        <label class="govuk-label" for="NewSchoolName">School @Html.Raw(i + 1)</label>
                         @if (ViewBag.Error != null)
                         {
                             <span class="govuk-error-message">
@@ -81,7 +81,7 @@
             else
             {
                 <div class="grid-row school-element">
-                    <label class="form-label" for="NewSchoolName">School 1</label>
+                    <label class="govuk-label" for="NewSchoolName">School 1</label>
                     @if (ViewBag.Error != null)
                     {
                         <span class="govuk-error-message duplicate">

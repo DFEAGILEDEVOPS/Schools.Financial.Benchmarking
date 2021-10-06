@@ -46,7 +46,7 @@
                         if (Model.ModelList.Count > 1)
                         {
                             <div class="filter-box">
-                                <label class="legend" for="OrderByControl">Sorted by</label>
+                                <label class="govuk-label govuk-!-display-inline" for="OrderByControl">Sorted by</label>
                                 <select name="orderbyControl" id="OrderByControl" class="govuk-select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                                     <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                                     <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
@@ -59,7 +59,7 @@
                         if (Model.ModelList.Count > 1)
                         {
                             <div class="filter-box">
-                                <label class="legend" for="OrderByControl">Sorted by</label>
+                                <label class="govuk-label govuk-!-display-inline" for="OrderByControl">Sorted by</label>
                                 <select name="orderbyControl" id="OrderByControl" class="govuk-select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                                     <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                                     <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>

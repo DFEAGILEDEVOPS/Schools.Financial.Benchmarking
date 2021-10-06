@@ -49,7 +49,7 @@
     <div>
         <div class="govuk-form-group @FormGroupErrorClass("bicCriteria.NoPupilsMin") @FormGroupErrorClass("bicCriteria.NoPupilsMax")">
             <div class="column-full no-padding">
-                <label class="bold-small">Number of pupils</label>
+                <label class="govuk-label govuk-!-font-weight-bold">Number of pupils</label>
                 <div class="benchmark-school-value">
                     <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@Model.BenchmarkSchool.LatestYearFinancialData.PupilCount pupils</span>
@@ -60,14 +60,14 @@
                     @InputErrorMessage("bicCriteria.NoPupilsMin")
                     @InputErrorMessage("bicCriteria.NoPupilsMax")
                     <div class="column-half no-padding">
-                        <label class="form-label" for="bicCriteria.NoPupilsMin">From</label>
+                        <label class="govuk-label" for="bicCriteria.NoPupilsMin">From</label>
                         <input type="text" pattern="[0-9]*" inputmode="numeric" name="bicCriteria.NoPupilsMin" id="bicCriteria.NoPupilsMin"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.NoPupilsMin")"
                                step=".01" min="0" max="100000" value="@(Model.BicCriteria.NoPupilsMin?.ToString("F2"))"
                                aria-label="Minimum value for number of pupils">
                     </div>
                     <div class="column-half no-padding">
-                        <label class="form-label" for="bicCriteria.NoPupilsMax">To</label>
+                        <label class="govuk-label" for="bicCriteria.NoPupilsMax">To</label>
                         <input type="text" pattern="[0-9]*" inputmode="numeric" name="bicCriteria.NoPupilsMax" id="bicCriteria.NoPupilsMax"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.NoPupilsMax")"
                                step=".01" min="0" max="100000"
@@ -82,7 +82,7 @@
     <div>
         <div class="govuk-form-group @FormGroupErrorClass("bicCriteria.PercentageFSMMin") @FormGroupErrorClass("bicCriteria.PercentageFSMMax")">
             <div class="column-full no-padding">
-                <label class="bold-small">Eligibility for free school meals (% of pupils)</label>
+                <label class="govuk-label govuk-!-font-weight-bold">Eligibility for free school meals (% of pupils)</label>
                 <div class="benchmark-school-value">
                     <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
                     <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault().ToString("F2"))%</span>
@@ -101,7 +101,7 @@
                                aria-label="Minimum value for Eligibility for free school meals (% of pupils)">
                     </div>
                     <div class="column-half no-padding">
-                        <label class="form-label" for="bicCriteria.PercentageFSMMax">To</label>
+                        <label class="govuk-label" for="bicCriteria.PercentageFSMMax">To</label>
                         <input type="text" pattern="[0-9]*" inputmode="numeric" name="bicCriteria.PercentageFSMMax" id="bicCriteria.PercentageFSMMax"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageFSMMax")"
                                step=".01" min="0" max="100"
@@ -116,7 +116,7 @@
     <div>
         <div class="govuk-form-group">
             <div class="column-full no-padding">
-                <label class="bold-small">Pupils with <abbr title="Special Education Needs" aria-label="">SEN</abbr> who have statements or <abbr title="Education, health and care" aria-label="">EHC</abbr> plans (% of pupils)</label>
+                <label class="govuk-label govuk-!-font-weight-bold">Pupils with <abbr title="Special Education Needs" aria-label="">SEN</abbr> who have statements or <abbr title="Education, health and care" aria-label="">EHC</abbr> plans (% of pupils)</label>
             </div>
             <div class="column-full no-padding govuk-!-margin-top-2">
                 <div class="govuk-form-group no-padding">
@@ -136,14 +136,14 @@
                             @InputErrorMessage("bicCriteria.PercentageSENMin")
                             @InputErrorMessage("bicCriteria.PercentageSENMax")
                             <div class="column-half no-padding">
-                                <label class="form-label" for="bicCriteria.PercentageSENMin">From</label>
+                                <label class="govuk-label" for="bicCriteria.PercentageSENMin">From</label>
                                 <input type="text" pattern="[0-9]*" inputmode="numeric" name="bicCriteria.PercentageSENMin" id="bicCriteria.PercentageSENMin"
                                        class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageSENMin")"
                                        step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMin?.ToString("F2"))"
                                        aria-label="Minimum value for Pupils with SEN who have statements or EHC plans (% of pupils)">
                             </div>
                             <div class="column-half no-padding">
-                                <label class="form-label" for="bicCriteria.PercentageSENMax">To</label>
+                                <label class="govuk-label" for="bicCriteria.PercentageSENMax">To</label>
                                 <input type="text" pattern="[0-9]*" inputmode="numeric" name="bicCriteria.PercentageSENMax" id="bicCriteria.PercentageSENMax"
                                        class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageSENMax")"
                                        step=".01" min="0" max="100" value="@(Model.BicCriteria.PercentageSENMax?.ToString("F2"))"
@@ -160,7 +160,7 @@
     <div>
         <div class="govuk-form-group @FormGroupErrorClass("bicCriteria.PerPupilExpMin") @FormGroupErrorClass("bicCriteria.PerPupilExpMax")">
             <div class="column-full no-padding">
-                <label class="bold-small">
+                <label class="govuk-label govuk-!-font-weight-bold">
                     Total expenditure in £ per pupil
                 </label>
                 <div class="benchmark-school-value">
@@ -173,14 +173,14 @@
                     @InputErrorMessage("bicCriteria.PerPupilExpMin")
                     @InputErrorMessage("bicCriteria.PerPupilExpMax")
                     <div class="column-half no-padding">
-                        <label class="form-label" for="bicCriteria.PerPupilExpMin">From</label>
+                        <label class="govuk-label" for="bicCriteria.PerPupilExpMin">From</label>
                         <input type="text" pattern="[0-9]*" inputmode="numeric" name="bicCriteria.PerPupilExpMin" id="bicCriteria.PerPupilExpMin"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.PerPupilExpMin")"
                                step=".01" min="0" value="@(Model.BicCriteria.PerPupilExpMin?.ToString("F2"))"
                                aria-label="Minimum value for Total expenditure in £ per pupil">
                     </div>
                     <div class="column-half no-padding">
-                        <label class="form-label" for="bicCriteria.PerPupilExpMax">To</label>
+                        <label class="govuk-label" for="bicCriteria.PerPupilExpMax">To</label>
                         <input type="text" pattern="[0-9]*" inputmode="numeric" name="BicCriteria.PerPupilExpMax" id="bicCriteria.PerPupilExpMax"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.PerPupilExpMax")"
                                step=".01" min="0" value="@(Model.BicCriteria.PerPupilExpMax?.ToString("F2"))"
