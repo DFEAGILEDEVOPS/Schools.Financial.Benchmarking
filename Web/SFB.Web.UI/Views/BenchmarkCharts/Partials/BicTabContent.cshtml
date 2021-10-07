@@ -126,14 +126,14 @@
                                 <a href="/school/detail?Urn=@biSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == biSchool.Name ? "highlight" : "")"><span>@biSchool.Name</span></a>
                             </td>
                             <td scope="col" aria-label="@biSchool.LaName local authority">@biSchool.LaName</td>
-                            <td class="govuk-table__cell numeric" scope="col" aria-label="@biSchool.TotalPupils pupils">@biSchool.TotalPupils</td>
-                            <td class="govuk-table__cell numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).FSM)% Percentage of Eligible Free School Meals">@((biSchool as SchoolViewModel).FSM)%</td>
-                            <td class="govuk-table__cell numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).SEN)% Percentage of pupil with special education needs">@((biSchool as SchoolViewModel).SEN)%</td>
-                            <td class="govuk-table__cell numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString("C")) Expenditure per pupil">@((biSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString("C"))</td>
-                            <td class="govuk-table__cell numeric" scope="col">@((biSchool as SchoolViewModel).UrbanRural)</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric" scope="col" aria-label="@biSchool.TotalPupils pupils">@biSchool.TotalPupils</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).FSM)% Percentage of Eligible Free School Meals">@((biSchool as SchoolViewModel).FSM)%</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).SEN)% Percentage of pupil with special education needs">@((biSchool as SchoolViewModel).SEN)%</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric" scope="col" aria-label="@((biSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString("C")) Expenditure per pupil">@((biSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString("C"))</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@((biSchool as SchoolViewModel).UrbanRural)</td>
                             @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
                             {
-                                <td class="govuk-table__cell numeric no-padding" scope="col" aria-label="@((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2")) @ViewHelpers.ScoreText((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
+                                <td class="govuk-table__cell govuk-table__cell--numeric no-padding" scope="col" aria-label="@((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2")) @ViewHelpers.ScoreText((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
                                     <div class="score @ViewHelpers.ScoreColorCode(((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault()), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
                                         <div class="font-xsmall">@((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2"))</div>
                                         <div class="no-wrap">@ViewHelpers.ScoreText((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
@@ -142,7 +142,7 @@
                             }
                             @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                             {
-                                <td class="govuk-table__cell numeric no-padding" scope="col" aria-label="@((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString(" F2")) @ViewHelpers.ScoreText((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
+                                <td class="govuk-table__cell govuk-table__cell--numeric no-padding" scope="col" aria-label="@((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString(" F2")) @ViewHelpers.ScoreText((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
                                     <div class="score @ViewHelpers.ScoreColorCode((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
                                         <div class="font-xsmall">@((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2"))</div>
                                         <div class="no-wrap">@ViewHelpers.ScoreText((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>

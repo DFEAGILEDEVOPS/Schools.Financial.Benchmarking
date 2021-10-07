@@ -55,22 +55,22 @@
                         {
                             if (amount.HasValue)
                             {
-                                <td class="govuk-table__cell numeric">@amount.GetValueOrDefault().ToString("F1")%</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric">@amount.GetValueOrDefault().ToString("F1")%</td>
                             }
                             else
                             {
-                                <td class="govuk-table__cell numeric">Not applicable</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric">Not applicable</td>
                             }
                         }
                         else
                         {
                             if (amount.HasValue)
                             {
-                                <td class="govuk-table__cell numeric">@amount.GetValueOrDefault().ToString("C0")</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric">@amount.GetValueOrDefault().ToString("C0")</td>
                             }
                             else
                             {
-                                <td class="govuk-table__cell numeric">Not applicable</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric">Not applicable</td>
                             }
                         }
                     }
