@@ -30,7 +30,7 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="govuk-table__body">
                     @foreach (var cSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                     {
                         if (cSchool is FederationViewModel)
@@ -115,7 +115,7 @@
                 {
                     if (cSchool is FederationViewModel)
                     {
-                        <tbody class="chart-table--detail-view__body">
+                        <tbody class="govuk-table__body chart-table--detail-view__body">
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header col-header">School name</th>
                                 <td>
@@ -163,7 +163,7 @@
                     }
                     else
                     {
-                        <tbody class="chart-table--detail-view__body">
+                        <tbody class="govuk-table__body chart-table--detail-view__body">
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header col-header">School name</th>
                                 <td>

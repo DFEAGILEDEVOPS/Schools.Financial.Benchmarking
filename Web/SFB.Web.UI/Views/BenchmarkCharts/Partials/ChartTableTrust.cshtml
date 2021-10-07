@@ -11,7 +11,7 @@
             <th class="govuk-table__header sortInitialOrder-desc" scope="col" data-header="Amount"><span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(ViewBag.UnitType.ToString())">@ViewHelpers.GetAmountLabel(ViewBag.UnitType.ToString())</span></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="govuk-table__body">
         @for (int i = 0; i < Model.BenchmarkData.Count; i++)
         {
 
