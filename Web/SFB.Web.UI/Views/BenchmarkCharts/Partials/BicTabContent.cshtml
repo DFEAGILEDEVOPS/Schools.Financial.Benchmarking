@@ -93,14 +93,14 @@
                     <tr class="govuk-table__row">
                         <th class="govuk-table__header nowrap school-column sortInitialOrder-asc" scope="col">School</th>
                         <th class="govuk-table__header nowrap sortInitialOrder-asc" scope="col">Local authority</th>
-                        <th class="govuk-table__header nowrap numeric sortInitialOrder-desc" scope="col">Pupils</th>
+                        <th class="govuk-table__header govuk-table__header--numeric nowrap sortInitialOrder-desc" scope="col">Pupils</th>
                         <th class="govuk-table__header nowrap sortInitialOrder-desc" scope="col">FSM</th>
                         <th class="govuk-table__header nowrap sortInitialOrder-desc" scope="col">EHCP</th>
                         <th class="govuk-table__header sortInitialOrder-desc" cope="col">Expenditure per pupil</th>
                         <th class="govuk-table__header sortInitialOrder-asc" scope="col">Urban/rural description</th>
                         @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th class="govuk-table__header numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
+                            <th class="govuk-table__header govuk-table__header--numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
                                 Key stage 2 progress
                                 <button class="helpLink link-button no-padding hide-in-print" id="renderKs2InfoBic" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -109,7 +109,7 @@
                         }
                         @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th class="govuk-table__header nowrap numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
+                            <th class="govuk-table__header govuk-table__header--numeric nowrap sortInitialOrder-desc string-min sorter-digit" scope="col">
                                 Progress 8
                                 <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
