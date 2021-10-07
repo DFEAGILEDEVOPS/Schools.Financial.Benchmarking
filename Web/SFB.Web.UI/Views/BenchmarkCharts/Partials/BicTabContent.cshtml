@@ -16,7 +16,7 @@
 
             <p class="show-count-js no-margin mt-1">Showing <span class="bold-xsmall">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>
 
-            <table class="tablesorter data-table-js chart-table--mobile-only-view chart-table--detail-view" id="ProgressScoresTableMobile">
+            <table class="govuk-table tablesorter data-table-js chart-table--mobile-only-view chart-table--detail-view" id="ProgressScoresTableMobile">
                 @foreach (var bicSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                 {
                     <tbody class="chart-table--detail-view__body">
@@ -88,7 +88,7 @@
                 }
             </table>
 
-            <table class="tablesorter data-table-js chart-table--mobile-above-view" id="ProgressScoresTable">
+            <table class="govuk-table tablesorter data-table-js chart-table--mobile-above-view" id="ProgressScoresTable">
                 <thead>
                     <tr>
                         <th class="nowrap school-column sortInitialOrder-asc" scope="col">School</th>

@@ -8,7 +8,7 @@
     <button aria-label="Display @Model.Name table in detailed view" class="mobile-hide-show-button show detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetailsMobile(this)">Show more information</button>
     <button aria-label="Display @Model.Name table in summary view" class="mobile-hide-show-button hide detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetailsMobile(this)" style="display: none">Show less information</button>
 
-    <table class="tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--summary-view">
+    <table class="govuk-table tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--summary-view">
         <caption class="visually-hidden">@Model.Name</caption>
         <thead>
             <tr>
@@ -108,7 +108,7 @@
         </tbody>
     </table>
 
-    <table class="tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--detail-view" style="display: none">
+    <table class="govuk-table tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--detail-view" style="display: none">
         <caption class="visually-hidden">@Model.Name</caption>
         @for (int i = 0; i < Model.BenchmarkData.Count; i++)
         {
@@ -267,7 +267,7 @@
     <button aria-label="Hide extra columns in @Model.Name table" class="hide-show-button hide detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetails(this)">Show less information</button>
     <button aria-label="Show extra columns in @Model.Name table" class="hide-show-button show detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetails(this)" style="display: none">Show more information</button>
 
-    <table class="tablesorter data-table-js chart-table chart-table--mobile-above-view">
+    <table class="govuk-table tablesorter data-table-js chart-table chart-table--mobile-above-view">
         <caption class="visually-hidden">@Model.Name</caption>
         <thead>
             <tr>

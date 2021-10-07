@@ -8,7 +8,7 @@
             <div class="font-xsmall latest-year-message mt-2 mb-2">
                 <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
             </div>
-            <table class="tablesorter data-table-js comp-school-table chart-table--mobile-above-view" id="ComparisonSchoolsTable">
+            <table class="govuk-table tablesorter data-table-js comp-school-table chart-table--mobile-above-view" id="ComparisonSchoolsTable">
                 <caption class="visually-hidden">Comparison schools</caption>
                 <thead>
                     <tr>
@@ -109,7 +109,7 @@
                 </tbody>
             </table>
 
-            <table class="tablesorter data-table-js comp-school-table chart-table--mobile-only-view" id="ComparisonSchoolsTableMobile">
+            <table class="govuk-table tablesorter data-table-js comp-school-table chart-table--mobile-only-view" id="ComparisonSchoolsTableMobile">
                 <caption class="visually-hidden">Comparison schools</caption>
                 @foreach (var cSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                 {

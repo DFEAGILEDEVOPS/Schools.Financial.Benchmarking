@@ -93,7 +93,7 @@
                             <div class="govuk-details__text">
                                 @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                                 {
-                                    <table class="school-table">
+                                    <table class="govuk-table school-table">
                                         <thead>
                                             <tr>
                                                 <th colspan="2" scope="colgroup">Inside search area</th>
@@ -111,7 +111,7 @@
                                     </table>
                                     if (trust.AcademiesList.Any(a => !a.InsideSearchArea))
                                     {
-                                        <table class="school-table mt-1">
+                                        <table class="govuk-table school-table mt-1">
                                             <thead>
                                                 <tr>
                                                     <th colspan="2" scope="colgroup">Outside search area</th>
@@ -131,7 +131,7 @@
                                 }
                                 else if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
                                 {
-                                    <table class="school-table">
+                                    <table class="govuk-table school-table">
                                         <thead>
                                             <tr>
                                                 <th colspan="2" scope="colgroup">Inside local authority</th>
@@ -149,7 +149,7 @@
                                     </table>
                                     if (trust.AcademiesList.Any(a => !a.InsideSearchArea))
                                     {
-                                        <table class="school-table mt-1">
+                                        <table class="govuk-table school-table mt-1">
                                             <thead>
                                                 <tr>
                                                     <th colspan="2" scope="colgroup">Outside local authority</th>
@@ -169,7 +169,7 @@
                                 }
                                 else
                                 {
-                                    <table class="school-table">
+                                    <table class="govuk-table school-table">
                                         <thead>
                                             <tr>
                                                 <th colspan="2" scope="colgroup">Schools</th>
