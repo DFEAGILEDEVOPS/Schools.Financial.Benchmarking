@@ -297,12 +297,12 @@
                 }
                 <th class="govuk-table__header detail sortInitialOrder-asc" scope="col" data-header="Local authority">Local authority</th>
                 <th class="govuk-table__header detail sortInitialOrder-asc" scope="col" data-header="School type">School type</th>
-                <th class="govuk-table__header detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Number of pupils</th>
+                <th class="govuk-table__header detail govuk-table__header--numeric sortInitialOrder-desc" scope="col" data-header="Number of pupils">Number of pupils</th>
                 @if (ViewBag.ComparisonType == ComparisonType.Specials)
                 {
-                    <th class="govuk-table__header detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Highest 3 SEN characteristics</th>
+                    <th class="govuk-table__header govuk-table__header--numeric detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Highest 3 SEN characteristics</th>
                 }
-                <th class="govuk-table__header sortInitialOrder-desc" scope="col" data-header="Amount">
+                <th class="govuk-table__header govuk-table__header--numeric sortInitialOrder-desc govuk-table__header--numeric app-govuk-table__header--rightest" scope="col" data-header="Amount">
                     <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
                 </th>
             </tr>
@@ -376,7 +376,7 @@
 
                     <td class="govuk-table__cell detail" data-header="Local authority">@schoolBenchmarkData.La</td>
                     <td class="govuk-table__cell detail" data-header="School type">@schoolBenchmarkData.Type</td>
-                    <td class="govuk-table__cell detail" data-header="Number of pupils" aria-label="@schoolBenchmarkData.PupilCount pupils">@schoolBenchmarkData.PupilCount</td>
+                    <td class="govuk-table__cell govuk-table__cell--numeric detail" data-header="Number of pupils" aria-label="@schoolBenchmarkData.PupilCount pupils">@schoolBenchmarkData.PupilCount</td>
                     @if (ViewBag.ComparisonType == ComparisonType.Specials)
                     {
                         <td class="govuk-table__cell detail" data-header="School type">
@@ -386,7 +386,7 @@
                             }
                         </td>
                     }
-                    <td data-header="Amount">
+                    <td class="govuk-table__cell govuk-table__cell--numeric" data-header="Amount">
                         <span>
                             @if (schoolBenchmarkData.Amount.HasValue)
                             {

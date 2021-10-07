@@ -1021,6 +1021,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         background-repeat: no-repeat;
         background-position: center right;
         cursor: pointer;
+        background-position-y: 15px;
     }
 
     table.tablesorter thead tr .header:hover {
@@ -1330,4 +1331,9 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         float: none;
         display: inline-block;
     }
+}
+
+.govuk-table__header--numeric.app-govuk-table__header--rightest.tablesorter-headerAsc, 
+.govuk-table__header--numeric.app-govuk-table__header--rightest.tablesorter-headerDesc{
+    padding-right: 15px !important;
 }

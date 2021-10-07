@@ -8,7 +8,7 @@
         <tr class="govuk-table__row">
             <th class="govuk-table__header school-column sortInitialOrder-asc" scope="col"  data-header="Trust name">Trust name</th>
             <th class="govuk-table__header detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Number of pupils</th>
-            <th class="govuk-table__header sortInitialOrder-desc" scope="col" data-header="Amount"><span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(ViewBag.UnitType.ToString())">@ViewHelpers.GetAmountLabel(ViewBag.UnitType.ToString())</span></th>
+            <th class="govuk-table__header govuk-table__header--numeric sortInitialOrder-desc" scope="col" data-header="Amount"><span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(ViewBag.UnitType.ToString())">@ViewHelpers.GetAmountLabel(ViewBag.UnitType.ToString())</span></th>
         </tr>
     </thead>
     <tbody class="govuk-table__body">
@@ -60,7 +60,7 @@
                 </td>
             }
             <td class="govuk-table__cell detail" data-header="Number of pupils">@schoolBenchmarkData.PupilCount</td>
-            <td data-header="Amount">
+            <td class="govuk-table__cell govuk-table__cell--numeric" data-header="Amount">
                 @if (schoolBenchmarkData.Amount.HasValue)
                 {
                     switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))

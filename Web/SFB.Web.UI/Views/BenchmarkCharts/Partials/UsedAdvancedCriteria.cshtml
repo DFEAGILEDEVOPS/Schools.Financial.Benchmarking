@@ -8,7 +8,7 @@
 @using SFB.Web.ApplicationCore.Attributes
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-<table id="criteriaTable" class="govuk-table >
+<table id="criteriaTable" class="govuk-table">
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header">Characteristic</th>
@@ -50,7 +50,7 @@
                 var fieldValue = Model.AdvancedCriteria.GetType().GetProperty(property.Name).GetValue(Model.AdvancedCriteria, null);
                 if (fieldValue != null)
                 {
-                    @Html.Raw("<tr class="govuk-table__row">")
+                    @Html.Raw("<tr class=\"govuk-table__row\">")
 
                     var fieldName = (dbAttribute as DBFieldAttribute).Name;
                     var fieldType = (dbAttribute as DBFieldAttribute).Type;
@@ -66,48 +66,48 @@
                         switch (fieldType)
                         {
                             case CriteriaFieldComparisonTypes.MIN:
-                                @Html.Raw($"<td class="govuk-table__cell">{uiName} (minimum)</td>")
+                                @Html.Raw($"<td class=\"govuk-table__cell\">{uiName} (minimum)</td>")
                                 if (criteriaValue != null)
                                 {
-                                    @Html.Raw($"<td class="govuk-table__cell">{criteriaValue}</td>")
+                                    @Html.Raw($"<td class=\"govuk-table__cell\">{criteriaValue}</td>")
                                 }
-                                @Html.Raw($"<td class="govuk-table__cell">{fieldValue}</td>")
+                                @Html.Raw($"<td class=\"govuk-table__cell\">{fieldValue}</td>")
                                 break;
                             case CriteriaFieldComparisonTypes.MAX:
-                                @Html.Raw($"<td class="govuk-table__cell">{uiName} (maximum)</td>")
+                                @Html.Raw($"<td class=\"govuk-table__cell\">{uiName} (maximum)</td>")
                                 if (criteriaValue != null)
                                 {
-                                    @Html.Raw($"<td class="govuk-table__cell">{criteriaValue}</td>")
+                                    @Html.Raw($"<td class=\"govuk-table__cell\">{criteriaValue}</td>")
                                 }
-                                @Html.Raw($"<td class="govuk-table__cell">{fieldValue}</td>")
+                                @Html.Raw($"<td class=\"govuk-table__cell\">{fieldValue}</td>")
                                 break;
                             case CriteriaFieldComparisonTypes.EQUALTO:
                                 if (fieldValue is string)
                                 {
-                                    @Html.Raw($"<td class="govuk-table__cell">{uiName}</td>")
+                                    @Html.Raw($"<td class=\"govuk-table__cell\">{uiName}</td>")
                                     if (criteriaValue != null)
                                     {
-                                        @Html.Raw($"<td class="govuk-table__cell">{criteriaValue}</td>")
+                                        @Html.Raw($"<td class=\"govuk-table__cell\">{criteriaValue}</td>")
                                     }
-                                    @Html.Raw($"<td class="govuk-table__cell">{fieldValue}</td>")
+                                    @Html.Raw($"<td class=\"govuk-table__cell\">{fieldValue}</td>")
                                 }
                                 else if (fieldValue is int)
                                 {
-                                    @Html.Raw($"<td class="govuk-table__cell">{uiName}</td>")
+                                    @Html.Raw($"<td class=\"govuk-table__cell\">{uiName}</td>")
                                     if (criteriaValue != null)
                                     {
-                                        @Html.Raw($"<td class="govuk-table__cell">{criteriaValue}</td>")
+                                        @Html.Raw($"<td class=\"govuk-table__cell\">{criteriaValue}</td>")
                                     }
-                                    @Html.Raw($"<td class="govuk-table__cell">{fieldValue}</td>")
+                                    @Html.Raw($"<td class=\"govuk-table__cell\">{fieldValue}</td>")
                                 }
                                 else if (fieldValue is Array)
                                 {
-                                    @Html.Raw($"<td class="govuk-table__cell">{uiName}</td>")
+                                    @Html.Raw($"<td class=\"govuk-table__cell\">{uiName}</td>")
                                     if (criteriaValue != null)
                                     {
-                                        @Html.Raw($"<td class="govuk-table__cell">{criteriaValue}</td>")
+                                        @Html.Raw($"<td class=\"govuk-table__cell\">{criteriaValue}</td>")
                                     }
-                                    @Html.Raw("<td class="govuk-table__cell">")
+                                    @Html.Raw("<td class=\"govuk-table__cell\">")
                                     @Html.Raw(string.Join(", ", fieldValue as string[]))
                                     @Html.Raw("</td>")
                                 }
