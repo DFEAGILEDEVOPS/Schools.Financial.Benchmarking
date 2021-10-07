@@ -21,39 +21,39 @@
                 {
                     <tbody class="chart-table--detail-view__body">
                         <tr class="govuk-table__row">
-                            <th scope="row" class="col-header">School name</th>
+                            <th scope="row" class="govuk-table__header col-header">School name</th>
                             <td aria-label="@bicSchool.Name @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " index school" : "" )">
                                 <a href="/school/detail?Urn=@bicSchool.Id" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " highlight" : "" )"><span>@bicSchool.Name</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
-                            <th scope="row" class="col-header">Local authority</th>
+                            <th scope="row" class="govuk-table__header col-header">Local authority</th>
                             <td aria-label="@bicSchool.LaName local authority">@bicSchool.LaName</td>
                         </tr>
                         <tr class="govuk-table__row">
-                            <th scope="row" class="col-header">Pupils</th>
+                            <th scope="row" class="govuk-table__header col-header">Pupils</th>
                             <td aria-label="@bicSchool.TotalPupils pupils">@bicSchool.TotalPupils</td>
                         </tr>
                         <tr class="govuk-table__row">
-                            <th scope="row" class="col-header">FSM</th>
+                            <th scope="row" class="govuk-table__header col-header">FSM</th>
                             <td aria-label="@((bicSchool as SchoolViewModel).FSM)% Percentage of Eligible Free School Meals">@((bicSchool as SchoolViewModel).FSM)%</td>
                         </tr>
                         <tr class="govuk-table__row">
-                            <th scope="row" class="col-header">EHCP</th>
+                            <th scope="row" class="govuk-table__header col-header">EHCP</th>
                             <td aria-label="@((bicSchool as SchoolViewModel).SEN)% Percentage of pupil with special education needs">@((bicSchool as SchoolViewModel).SEN)%</td>
                         </tr>
                         <tr class="govuk-table__row">
-                            <th scope="row" class="col-header">Expenditure per pupil</th>
+                            <th scope="row" class="govuk-table__header col-header">Expenditure per pupil</th>
                             <td aria-label="@((bicSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString(" C")) Expenditure per pupil">@((bicSchool as SchoolViewModel).ExpenditurePerPupil.GetValueOrDefault().ToString("C"))</td>
                         </tr>
                         <tr class="govuk-table__row">
-                            <th scope="row" class="col-header">Urban/rural description</th>
+                            <th scope="row" class="govuk-table__header col-header">Urban/rural description</th>
                             <td>@((bicSchool as SchoolViewModel).UrbanRural)</td>
                         </tr>
                         @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
                             <tr class="govuk-table__row">
-                                <th scope="row" class="col-header">
+                                <th scope="row" class="govuk-table__header col-header">
                                     Key stage 2 progress
                                     <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info_@bicSchool.Id" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                         <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -70,7 +70,7 @@
                         @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
                             <tr class="govuk-table__row">
-                                <th scope="row" class="col-header">
+                                <th scope="row" class="govuk-table__header col-header">
                                     Progress 8
                                     <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable_m_@bicSchool.Id" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                         <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -91,16 +91,16 @@
             <table class="govuk-table tablesorter data-table-js chart-table--mobile-above-view" id="ProgressScoresTable">
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                        <th class="nowrap school-column sortInitialOrder-asc" scope="col">School</th>
-                        <th class="nowrap sortInitialOrder-asc" scope="col">Local authority</th>
-                        <th class="nowrap numeric sortInitialOrder-desc" scope="col">Pupils</th>
-                        <th class="nowrap sortInitialOrder-desc" scope="col">FSM</th>
-                        <th class="nowrap sortInitialOrder-desc" scope="col">EHCP</th>
-                        <th class="sortInitialOrder-desc" cope="col">Expenditure per pupil</th>
-                        <th class="sortInitialOrder-asc" scope="col">Urban/rural description</th>
+                        <th class="govuk-table__header nowrap school-column sortInitialOrder-asc" scope="col">School</th>
+                        <th class="govuk-table__header nowrap sortInitialOrder-asc" scope="col">Local authority</th>
+                        <th class="govuk-table__header nowrap numeric sortInitialOrder-desc" scope="col">Pupils</th>
+                        <th class="govuk-table__header nowrap sortInitialOrder-desc" scope="col">FSM</th>
+                        <th class="govuk-table__header nowrap sortInitialOrder-desc" scope="col">EHCP</th>
+                        <th class="govuk-table__header sortInitialOrder-desc" cope="col">Expenditure per pupil</th>
+                        <th class="govuk-table__header sortInitialOrder-asc" scope="col">Urban/rural description</th>
                         @if (ViewBag.BicComparisonOverallPhase == "Primary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th class="numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
+                            <th class="govuk-table__header numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
                                 Key stage 2 progress
                                 <button class="helpLink link-button no-padding hide-in-print" id="renderKs2InfoBic" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -109,7 +109,7 @@
                         }
                         @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th class="nowrap numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
+                            <th class="govuk-table__header nowrap numeric sortInitialOrder-desc string-min sorter-digit" scope="col">
                                 Progress 8
                                 <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">

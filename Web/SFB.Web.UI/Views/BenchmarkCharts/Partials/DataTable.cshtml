@@ -7,10 +7,10 @@
     <table class="govuk-table tablesorter data-table-js includes-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="school-column">School</th>
+                <th scope="col" class="govuk-table__header school-column">School</th>
                 @foreach (var column in Model.TableColumns)
                 {
-                    <th scope="col">
+                    <th scope="col" class="govuk-table__header">
                         <span>@column.Name</span>
 
                         <div class="sort-icon"></div>

@@ -12,10 +12,10 @@
         <caption class="visually-hidden">@Model.Name</caption>
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th class="school-column sortInitialOrder-asc" scope="col" data-header="School name">
+                <th class="govuk-table__header school-column sortInitialOrder-asc" scope="col" data-header="School name">
                     School name
                 </th>
-                <th class="sortInitialOrder-desc" scope="col" data-header="Amount">
+                <th class="govuk-table__header sortInitialOrder-desc" scope="col" data-header="Amount">
                     <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
                 </th>
             </tr>
@@ -116,7 +116,7 @@
                 <tr class="govuk-table__row">
                     @{var schoolBenchmarkData = Model.BenchmarkData[i];}
 
-                    <th scope="row" class="col-header">School name</th>
+                    <th scope="row" class="govuk-table__header col-header">School name</th>
                     @if (@ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
                         <td>
@@ -172,7 +172,7 @@
                     {
                         if (ViewBag.BicComparisonOverallPhase == "Primary")
                         {
-                            <th scope="row" class="col-header">
+                            <th scope="row" class="govuk-table__header col-header">
                                 KS2 progress
                                 <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -187,7 +187,7 @@
                         }
                         else if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                         {
-                            <th scope="row" class="col-header">
+                            <th scope="row" class="govuk-table__header col-header">
                                 Progress 8
                                 <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -202,21 +202,21 @@
                     }
                 </tr>
                 <tr class="govuk-table__row">
-                    <th scope="row" class="col-header">Local authority</th>
+                    <th scope="row" class="govuk-table__header col-header">Local authority</th>
                     <td>@schoolBenchmarkData.La</td>
                 </tr>
                 <tr class="govuk-table__row">
-                    <th scope="row" class="col-header">School type</th>
+                    <th scope="row" class="govuk-table__header col-header">School type</th>
                     <td>@schoolBenchmarkData.Type</td>
                 </tr>
                 <tr class="govuk-table__row col-header">
-                    <th scope="row" class="col-header">Pupils</th>
+                    <th scope="row" class="govuk-table__header col-header">Pupils</th>
                     <td aria-label="@schoolBenchmarkData.PupilCount pupils">@schoolBenchmarkData.PupilCount</td>
                 </tr>
                 @if (ViewBag.ComparisonType == ComparisonType.Specials)
                 {
                     <tr class="govuk-table__row col-header">
-                        <th scope="row" class="col-header">Highest 3 SEN characteristics</th>
+                        <th scope="row" class="govuk-table__header col-header">Highest 3 SEN characteristics</th>
                         <td>
                             @foreach (var s in schoolBenchmarkData.TopSEN)
                             {
@@ -226,7 +226,7 @@
                     </tr>
                 }
                 <tr class="govuk-table__row">
-                    <th scope="row" class="col-header">
+                    <th scope="row" class="govuk-table__header col-header">
                         <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
                     </th>
                     <td>
@@ -271,14 +271,14 @@
         <caption class="visually-hidden">@Model.Name</caption>
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th class="school-column sortInitialOrder-asc" scope="col" data-header="School name">
+                <th class="govuk-table__header school-column sortInitialOrder-asc" scope="col" data-header="School name">
                     School name
                 </th>
                 @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                 {
                     if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
                     {
-                        <th class="detail sortInitialOrder-desc" scope="col" data-header="Progress Score">
+                        <th class="govuk-table__header detail sortInitialOrder-desc" scope="col" data-header="Progress Score">
                             Progress 8
                             <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                 <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -287,7 +287,7 @@
                     }
                     else if (ViewBag.BicComparisonOverallPhase == "Primary")
                     {
-                        <th class="detail sortInitialOrder-desc" scope="col" data-header="Progress Score">
+                        <th class="govuk-table__header detail sortInitialOrder-desc" scope="col" data-header="Progress Score">
                             KS2 progress
                             <button class="helpLink link-button no-padding hide-in-print" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                 <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -295,14 +295,14 @@
                         </th>
                     }
                 }
-                <th class="detail sortInitialOrder-asc" scope="col" data-header="Local authority">Local authority</th>
-                <th class="detail sortInitialOrder-asc" scope="col" data-header="School type">School type</th>
-                <th class="detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Number of pupils</th>
+                <th class="govuk-table__header detail sortInitialOrder-asc" scope="col" data-header="Local authority">Local authority</th>
+                <th class="govuk-table__header detail sortInitialOrder-asc" scope="col" data-header="School type">School type</th>
+                <th class="govuk-table__header detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Number of pupils</th>
                 @if (ViewBag.ComparisonType == ComparisonType.Specials)
                 {
-                    <th class="detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Highest 3 SEN characteristics</th>
+                    <th class="govuk-table__header detail sortInitialOrder-desc" scope="col" data-header="Number of pupils">Highest 3 SEN characteristics</th>
                 }
-                <th class="sortInitialOrder-desc" scope="col" data-header="Amount">
+                <th class="govuk-table__header sortInitialOrder-desc" scope="col" data-header="Amount">
                     <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
                 </th>
             </tr>

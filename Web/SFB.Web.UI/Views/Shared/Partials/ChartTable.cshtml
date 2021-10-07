@@ -8,10 +8,10 @@
         <caption class="visually-hidden">@Model.Name</caption>
         <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-            <th class="school-column" scope="col">
+            <th class="govuk-table__header school-column" scope="col">
                 Year
             </th>
-            <th scope="col">
+            <th scope="col" class="govuk-table__header">
                 <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.HistoricalData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.HistoricalData.First().Unit)</span>
             </th>
         </tr>
