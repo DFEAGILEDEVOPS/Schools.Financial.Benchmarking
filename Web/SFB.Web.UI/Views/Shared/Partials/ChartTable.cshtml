@@ -20,8 +20,8 @@
         @foreach (var schoolHistoricalData in Model.HistoricalData)
         {
             <tr class="govuk-table__row">
-                <td class="school-column">@schoolHistoricalData.Year</td>
-                <td>
+                <td class="govuk-table__cell school-column">@schoolHistoricalData.Year</td>
+                <td class="govuk-table__cell">
                     @if (schoolHistoricalData.Amount.HasValue)
                     {
                         switch ((UnitType) Enum.Parse(typeof(UnitType), schoolHistoricalData.Unit))

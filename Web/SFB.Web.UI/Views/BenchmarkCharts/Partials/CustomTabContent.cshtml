@@ -151,13 +151,13 @@
                     </thead>
                     <tbody class="govuk-table__body">
                         <tr class="govuk-table__row" ng-repeat="school in schoolChartData">
-                            <td class="school-column">
+                            <td class="govuk-table__cell school-column">
                                 <span ng-class="{'bold-xsmall' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
                                 <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
                             </td>
-                            <td>{{school.la}}</td>
-                            <td>{{school.type}}</td>
-                            <td>{{school.pupilCount}}</td>
+                            <td class="govuk-table__cell">{{school.la}}</td>
+                            <td class="govuk-table__cell">{{school.type}}</td>
+                            <td class="govuk-table__cell">{{school.pupilCount}}</td>
                         </tr>
                     </tbody>
                 </table>

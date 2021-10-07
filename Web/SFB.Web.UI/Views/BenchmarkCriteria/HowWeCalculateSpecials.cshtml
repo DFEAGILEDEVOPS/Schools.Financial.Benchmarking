@@ -40,8 +40,8 @@
                 if (ch.Value.GetValueOrDefault() > 0)
                 {
                     <tr class="govuk-table__row">
-                        <td><span>@ch.Definition</span></td>
-                        <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
+                        <td class="govuk-table__cell"><span>@ch.Definition</span></td>
+                        <td class="govuk-table__cell col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
                     </tr>
                 }
             }

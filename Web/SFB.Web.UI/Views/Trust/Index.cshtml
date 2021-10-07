@@ -262,19 +262,19 @@
                                         if (i > 0 && Model.TrustHistory.Events[i].SchoolYear == Model.TrustHistory.Events[i - 1].SchoolYear)
                                         {
                                             <tr class="govuk-table__row">
-                                                <td class="school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
-                                                <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
-                                                <td>@Model.TrustHistory.Events[i].Event</td>
-                                                <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                                                <td class="govuk-table__cell school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
+                                                <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
+                                                <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Event</td>
+                                                <td class="govuk-table__cell"><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
                                             </tr>
                                         }
                                         else
                                         {
                                             <tr class="govuk-table__row new-row">
-                                                <td class="school-year-column">@Model.TrustHistory.Events[i].SchoolYear</td>
-                                                <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
-                                                <td>@Model.TrustHistory.Events[i].Event</td>
-                                                <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                                                <td class="govuk-table__cell school-year-column">@Model.TrustHistory.Events[i].SchoolYear</td>
+                                                <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
+                                                <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Event</td>
+                                                <td class="govuk-table__cell"><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
                                             </tr>
                                         }
 

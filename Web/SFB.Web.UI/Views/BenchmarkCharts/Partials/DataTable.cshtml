@@ -32,7 +32,7 @@
             @foreach (var school in Model.TableColumns[0].BenchmarkData)
             {
                 <tr class="govuk-table__row">
-                    <td class="school-column">
+                    <td class="govuk-table__cell school-column">
                         @{
                             var style = school.Urn == ViewBag.HomeSchoolId?.ToString() ? "highlight-field" : "";
 
@@ -55,22 +55,22 @@
                         {
                             if (amount.HasValue)
                             {
-                                <td class="numeric">@amount.GetValueOrDefault().ToString("F1")%</td>
+                                <td class="govuk-table__cell numeric">@amount.GetValueOrDefault().ToString("F1")%</td>
                             }
                             else
                             {
-                                <td class="numeric">Not applicable</td>
+                                <td class="govuk-table__cell numeric">Not applicable</td>
                             }
                         }
                         else
                         {
                             if (amount.HasValue)
                             {
-                                <td class="numeric">@amount.GetValueOrDefault().ToString("C0")</td>
+                                <td class="govuk-table__cell numeric">@amount.GetValueOrDefault().ToString("C0")</td>
                             }
                             else
                             {
-                                <td class="numeric">Not applicable</td>
+                                <td class="govuk-table__cell numeric">Not applicable</td>
                             }
                         }
                     }

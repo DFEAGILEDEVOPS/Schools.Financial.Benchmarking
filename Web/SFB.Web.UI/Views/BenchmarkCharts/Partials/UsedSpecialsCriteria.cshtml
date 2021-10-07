@@ -12,132 +12,132 @@
     </thead>
     <tbody class="govuk-table__body">
         <tr class="govuk-table__row">
-            <td>Finance type</td>
+            <td class="govuk-table__cell">Finance type</td>
             @if (Model.BenchmarkSchoolData != null && Model.BenchmarkSchoolData.EstabType == EstablishmentType.Academies)
             {
-                <td>Academy</td>
+                <td class="govuk-table__cell">Academy</td>
             }
             else if (Model.BenchmarkSchoolData != null && Model.BenchmarkSchoolData.EstabType == EstablishmentType.Maintained)
             {
-                <td>Maintained</td>
+                <td class="govuk-table__cell">Maintained</td>
             }
-            <td>@Model.SearchedEstablishmentType</td>
+            <td class="govuk-table__cell">@Model.SearchedEstablishmentType</td>
         </tr>
         <tr class="govuk-table__row">
-            <td>School phase</td>
-            <td>@Model.BenchmarkSchoolData.SchoolOverallPhase</td>
-            <td>@Model.AdvancedCriteria.SchoolOverallPhase.FirstOrDefault()</td>
+            <td class="govuk-table__cell">School phase</td>
+            <td class="govuk-table__cell">@Model.BenchmarkSchoolData.SchoolOverallPhase</td>
+            <td class="govuk-table__cell">@Model.AdvancedCriteria.SchoolOverallPhase.FirstOrDefault()</td>
         </tr>
         @if (Model.AdvancedCriteria.MinLowestAgePupils.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS</td>
-                <td>@Model.BenchmarkSchoolData.LowestAgePupils.GetValueOrDefault()</td>
-                <td>@Model.AdvancedCriteria.MinLowestAgePupils.GetValueOrDefault() - @Model.AdvancedCriteria.MaxLowestAgePupils.GetValueOrDefault()</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.LOWEST_AGE_PUPILS</td>
+                <td class="govuk-table__cell">@Model.BenchmarkSchoolData.LowestAgePupils.GetValueOrDefault()</td>
+                <td class="govuk-table__cell">@Model.AdvancedCriteria.MinLowestAgePupils.GetValueOrDefault() - @Model.AdvancedCriteria.MaxLowestAgePupils.GetValueOrDefault()</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinHighestAgePupils.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS</td>
-                <td>@Model.BenchmarkSchoolData.HighestAgePupils.GetValueOrDefault()</td>
-                <td>@Model.AdvancedCriteria.MinHighestAgePupils.GetValueOrDefault() - @Model.AdvancedCriteria.MaxHighestAgePupils.GetValueOrDefault()</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.HIGHEST_AGE_PUPILS</td>
+                <td class="govuk-table__cell">@Model.BenchmarkSchoolData.HighestAgePupils.GetValueOrDefault()</td>
+                <td class="govuk-table__cell">@Model.AdvancedCriteria.MinHighestAgePupils.GetValueOrDefault() - @Model.AdvancedCriteria.MaxHighestAgePupils.GetValueOrDefault()</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinAutisticDisorder.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.AUTISTIC_DISORDER</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.AutisticDisorder.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinAutisticDisorder.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxAutisticDisorder.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.AUTISTIC_DISORDER</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.AutisticDisorder.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinAutisticDisorder.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxAutisticDisorder.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinModLearnDiff.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.ModerateLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinModLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxModLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.MODERATE_LEARNING_DIFFICULTY</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.ModerateLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinModLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxModLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinSpeechNeeds.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.SPEECH_NEEDS</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.SpeechNeeds.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinSpeechNeeds.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxSpeechNeeds.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.SPEECH_NEEDS</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.SpeechNeeds.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinSpeechNeeds.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxSpeechNeeds.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinSevLearnDiff.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.SevereLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinSevLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxSevLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.SEVERE_LEARNING_DIFFICULTY</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.SevereLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinSevLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxSevLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinPhysicalDisability.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.PhysicalDisability.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinPhysicalDisability.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPhysicalDisability.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.PHYSICAL_DISABILITY</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.PhysicalDisability.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinPhysicalDisability.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPhysicalDisability.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinSocialHealth.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.SOCIAL_HEALTH</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.SocialHealth.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinSocialHealth.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxSocialHealth.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.SOCIAL_HEALTH</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.SocialHealth.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinSocialHealth.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxSocialHealth.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinSpecLearnDiff.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.SpecificLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinSpecLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxSpecLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.SPECIFIC_LEARNING_DIFFICULTY</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.SpecificLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinSpecLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxSpecLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinProfLearnDiff.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.ProfLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinProfLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxProfLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.PROF_LEARNING_DIFFICULTY</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.ProfLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinProfLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxProfLearnDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinVisualImpairment.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.VisualImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinVisualImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxVisualImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.VISUAL_IMPAIRMENT</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.VisualImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinVisualImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxVisualImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinMSImpairment.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.MultiSensoryImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinMSImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxMSImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.MULTI_SENSORY_IMPAIRMENT</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.MultiSensoryImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinMSImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxMSImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinOtherLearningDiff.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.OtherLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinOtherLearningDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxOtherLearningDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.OTHER_LEARNING_DIFF</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.OtherLearningDifficulty.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinOtherLearningDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxOtherLearningDiff.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
         @if (Model.AdvancedCriteria.MinHearingImpairment.HasValue)
         {
             <tr class="govuk-table__row">
-                <td>@SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT</td>
-                <td>@decimal.Round(Model.BenchmarkSchoolData.HearingImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-                <td>@decimal.Round(Model.AdvancedCriteria.MinHearingImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxHearingImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@SchoolCharacteristicsQuestions.HEARING_IMPAIRMENT</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.HearingImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+                <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinHearingImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxHearingImpairment.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
             </tr>
         }
     </tbody>

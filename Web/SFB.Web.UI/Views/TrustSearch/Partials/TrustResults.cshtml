@@ -179,8 +179,8 @@
                                             @foreach (var academy in trust.AcademiesList)
                                             {
                                                 <tr class="govuk-table__row">
-                                                    <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                    <td>@academy.OverallPhase</td>
+                                                    <td class="govuk-table__cell"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td class="govuk-table__cell">@academy.OverallPhase</td>
                                                 </tr>
                                             }
                                         </tbody>

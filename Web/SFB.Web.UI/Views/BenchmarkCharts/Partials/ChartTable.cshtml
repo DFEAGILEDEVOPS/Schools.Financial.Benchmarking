@@ -29,7 +29,7 @@
                 <tr class="govuk-table__row">
                     @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
-                        <td class="school-column" data-header="School name">
+                        <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
                             </a>
@@ -47,7 +47,7 @@
                     }
                     else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                     {
-                        <td class="school-column" data-header="School name">
+                        <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
                             </a>
@@ -62,7 +62,7 @@
                     }
                     else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
                     {
-                        <td class="school-column" data-header="School name">
+                        <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete workforce data</span>
                             </a>
@@ -70,7 +70,7 @@
                     }
                     else
                     {
-                        <td class="school-column" data-header="School name">
+                        <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 @schoolBenchmarkData.School
                             </a>
@@ -119,7 +119,7 @@
                     <th scope="row" class="govuk-table__header col-header">School name</th>
                     @if (@ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
-                        <td>
+                        <td class="govuk-table__cell">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
                             </a>
@@ -137,7 +137,7 @@
                     }
                     else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                     {
-                        <td>
+                        <td class="govuk-table__cell">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
                             </a>
@@ -152,7 +152,7 @@
                     }
                     else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
                     {
-                        <td>
+                        <td class="govuk-table__cell">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete workforce data</span>
                             </a>
@@ -160,7 +160,7 @@
                     }
                     else
                     {
-                        <td>
+                        <td class="govuk-table__cell">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 @schoolBenchmarkData.School
                             </a>
@@ -178,7 +178,7 @@
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                 </button>
                             </th>
-                            <td>
+                            <td class="govuk-table__cell">
                                 <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, schoolBenchmarkData.P8Banding.GetValueOrDefault())">
                                     <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                                 </div>
@@ -193,7 +193,7 @@
                                     <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                 </button>
                             </th>
-                            <td>
+                            <td class="govuk-table__cell">
                                 <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, schoolBenchmarkData.P8Banding.GetValueOrDefault())">
                                     <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                                 </div>
@@ -203,11 +203,11 @@
                 </tr>
                 <tr class="govuk-table__row">
                     <th scope="row" class="govuk-table__header col-header">Local authority</th>
-                    <td>@schoolBenchmarkData.La</td>
+                    <td class="govuk-table__cell">@schoolBenchmarkData.La</td>
                 </tr>
                 <tr class="govuk-table__row">
                     <th scope="row" class="govuk-table__header col-header">School type</th>
-                    <td>@schoolBenchmarkData.Type</td>
+                    <td class="govuk-table__cell">@schoolBenchmarkData.Type</td>
                 </tr>
                 <tr class="govuk-table__row col-header">
                     <th scope="row" class="govuk-table__header col-header">Pupils</th>
@@ -217,7 +217,7 @@
                 {
                     <tr class="govuk-table__row col-header">
                         <th scope="row" class="govuk-table__header col-header">Highest 3 SEN characteristics</th>
-                        <td>
+                        <td class="govuk-table__cell">
                             @foreach (var s in schoolBenchmarkData.TopSEN)
                             {
                                 @s.Key<text>: </text>@s.Value<text>%</text><br />
@@ -229,7 +229,7 @@
                     <th scope="row" class="govuk-table__header col-header">
                         <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
                     </th>
-                    <td>
+                    <td class="govuk-table__cell">
                         @if (schoolBenchmarkData.Amount.HasValue)
                         {
                             switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
@@ -316,7 +316,7 @@
                 <tr class="govuk-table__row">
                     @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
-                        <td class="school-column" data-header="School name">
+                        <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
                             </a>
@@ -334,7 +334,7 @@
                     }
                     else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                     {
-                        <td class="school-column" data-header="School name">
+                        <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
                             </a>
@@ -349,7 +349,7 @@
                     }
                     else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
                     {
-                        <td class="school-column" data-header="School name">
+                        <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete workforce data</span>
                             </a>
@@ -357,7 +357,7 @@
                     }
                     else
                     {
-                        <td class="school-column" data-header="School name">
+                        <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 @schoolBenchmarkData.School
                             </a>
@@ -366,7 +366,7 @@
 
                     @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                     {
-                        <td class="detail" data-header="Progress Score">
+                        <td class="govuk-table__cell detail" data-header="Progress Score">
                             <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? BicProgressScoreType.P8 : BicProgressScoreType.KS2, schoolBenchmarkData.P8Banding.GetValueOrDefault())">
                                 <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
                                 <span class="visually-hidden">@ViewHelpers.ScoreText(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? BicProgressScoreType.P8 : BicProgressScoreType.KS2, schoolBenchmarkData.P8Banding.GetValueOrDefault())</span>
@@ -374,12 +374,12 @@
                         </td>
                     }
 
-                    <td class="detail" data-header="Local authority">@schoolBenchmarkData.La</td>
-                    <td class="detail" data-header="School type">@schoolBenchmarkData.Type</td>
-                    <td class="detail" data-header="Number of pupils" aria-label="@schoolBenchmarkData.PupilCount pupils">@schoolBenchmarkData.PupilCount</td>
+                    <td class="govuk-table__cell detail" data-header="Local authority">@schoolBenchmarkData.La</td>
+                    <td class="govuk-table__cell detail" data-header="School type">@schoolBenchmarkData.Type</td>
+                    <td class="govuk-table__cell detail" data-header="Number of pupils" aria-label="@schoolBenchmarkData.PupilCount pupils">@schoolBenchmarkData.PupilCount</td>
                     @if (ViewBag.ComparisonType == ComparisonType.Specials)
                     {
-                        <td class="detail" data-header="School type">
+                        <td class="govuk-table__cell detail" data-header="School type">
                             @foreach (var s in schoolBenchmarkData.TopSEN)
                             {
                                 @s.Key<text>: </text>@s.Value<text>%</text><br />
