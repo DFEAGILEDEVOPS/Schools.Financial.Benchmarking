@@ -11,7 +11,7 @@
     <table class="govuk-table tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--summary-view">
         <caption class="visually-hidden">@Model.Name</caption>
         <thead class="govuk-table__head">
-            <tr>
+            <tr class="govuk-table__row">
                 <th class="school-column sortInitialOrder-asc" scope="col" data-header="School name">
                     School name
                 </th>
@@ -26,7 +26,7 @@
 
                 var schoolBenchmarkData = Model.BenchmarkData[i];
 
-                <tr>
+                <tr class="govuk-table__row">
                     @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
                         <td class="school-column" data-header="School name">
@@ -113,7 +113,7 @@
         @for (int i = 0; i < Model.BenchmarkData.Count; i++)
         {
             <tbody class="chart-table--detail-view__body">
-                <tr>
+                <tr class="govuk-table__row">
                     @{var schoolBenchmarkData = Model.BenchmarkData[i];}
 
                     <th scope="row" class="col-header">School name</th>
@@ -167,7 +167,7 @@
                         </td>
                     }
                 </tr>
-                <tr>
+                <tr class="govuk-table__row">
                     @if (ViewBag.ComparisonType == ComparisonType.BestInClass)
                     {
                         if (ViewBag.BicComparisonOverallPhase == "Primary")
@@ -201,21 +201,21 @@
                         }
                     }
                 </tr>
-                <tr>
+                <tr class="govuk-table__row">
                     <th scope="row" class="col-header">Local authority</th>
                     <td>@schoolBenchmarkData.La</td>
                 </tr>
-                <tr>
+                <tr class="govuk-table__row">
                     <th scope="row" class="col-header">School type</th>
                     <td>@schoolBenchmarkData.Type</td>
                 </tr>
-                <tr class="col-header">
+                <tr class="govuk-table__row col-header">
                     <th scope="row" class="col-header">Pupils</th>
                     <td aria-label="@schoolBenchmarkData.PupilCount pupils">@schoolBenchmarkData.PupilCount</td>
                 </tr>
                 @if (ViewBag.ComparisonType == ComparisonType.Specials)
                 {
-                    <tr class="col-header">
+                    <tr class="govuk-table__row col-header">
                         <th scope="row" class="col-header">Highest 3 SEN characteristics</th>
                         <td>
                             @foreach (var s in schoolBenchmarkData.TopSEN)
@@ -225,7 +225,7 @@
                         </td>
                     </tr>
                 }
-                <tr>
+                <tr class="govuk-table__row">
                     <th scope="row" class="col-header">
                         <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit)</span>
                     </th>
@@ -270,7 +270,7 @@
     <table class="govuk-table tablesorter data-table-js chart-table chart-table--mobile-above-view">
         <caption class="visually-hidden">@Model.Name</caption>
         <thead class="govuk-table__head">
-            <tr>
+            <tr class="govuk-table__row">
                 <th class="school-column sortInitialOrder-asc" scope="col" data-header="School name">
                     School name
                 </th>
@@ -313,7 +313,7 @@
 
                 var schoolBenchmarkData = Model.BenchmarkData[i];
 
-                <tr>
+                <tr class="govuk-table__row">
                     @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
                         <td class="school-column" data-header="School name">

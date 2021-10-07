@@ -213,7 +213,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table sen-table">
-                        <tr>
+                        <tr class="govuk-table__row">
                             <th scope="col">SEN characteristic</th>
                             <th scope="col" class="col-right">% of pupils</th>
                         </tr>
@@ -221,7 +221,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                         {
                             if (ch.Value.GetValueOrDefault() > 0)
                             {
-                                <tr>
+                                <tr class="govuk-table__row">
                                     <td><span>@ch.Definition</span></td>
                                     <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
                                 </tr>

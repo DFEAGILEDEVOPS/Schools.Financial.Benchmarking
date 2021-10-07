@@ -95,14 +95,14 @@
                                 {
                                     <table class="govuk-table school-table">
                                         <thead class="govuk-table__head">
-                                            <tr>
+                                            <tr class="govuk-table__row">
                                                 <th colspan="2" scope="colgroup">Inside search area</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
                                             {
-                                                <tr>
+                                                <tr class="govuk-table__row">
                                                     <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                     <td scope="col" class="phase">@academy.OverallPhase</td>
                                                 </tr>
@@ -113,14 +113,14 @@
                                     {
                                         <table class="govuk-table school-table mt-1">
                                             <thead class="govuk-table__head">
-                                                <tr>
+                                                <tr class="govuk-table__row">
                                                     <th colspan="2" scope="colgroup">Outside search area</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
-                                                    <tr>
+                                                    <tr class="govuk-table__row">
                                                         <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                         <td scope="col" class="phase">@academy.OverallPhase</td>
                                                     </tr>
@@ -133,14 +133,14 @@
                                 {
                                     <table class="govuk-table school-table">
                                         <thead class="govuk-table__head">
-                                            <tr>
+                                            <tr class="govuk-table__row">
                                                 <th colspan="2" scope="colgroup">Inside local authority</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
                                             {
-                                                <tr>
+                                                <tr class="govuk-table__row">
                                                     <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                     <td scope="col" class="phase">@academy.OverallPhase</td>
                                                 </tr>
@@ -151,14 +151,14 @@
                                     {
                                         <table class="govuk-table school-table mt-1">
                                             <thead class="govuk-table__head">
-                                                <tr>
+                                                <tr class="govuk-table__row">
                                                     <th colspan="2" scope="colgroup">Outside local authority</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
-                                                    <tr>
+                                                    <tr class="govuk-table__row">
                                                         <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                         <td scope="col" class="phase">@academy.OverallPhase</td>
                                                     </tr>
@@ -171,14 +171,14 @@
                                 {
                                     <table class="govuk-table school-table">
                                         <thead class="govuk-table__head">
-                                            <tr>
+                                            <tr class="govuk-table__row">
                                                 <th colspan="2" scope="colgroup">Schools</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach (var academy in trust.AcademiesList)
                                             {
-                                                <tr>
+                                                <tr class="govuk-table__row">
                                                     <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                     <td>@academy.OverallPhase</td>
                                                 </tr>

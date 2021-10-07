@@ -142,7 +142,7 @@
                 <h2 class="heading-medium" id="contextExp">School context data</h2>
                 <table id="contextDataTable" class="govuk-table tablesorter data-table-js context-table">
                     <thead class="govuk-table__head">
-                        <tr>
+                        <tr class="govuk-table__row">
                             <th scope="col" class="school-column">School name</th>
                             <th scope="col">Local authority</th>
                             <th scope="col">School type</th>
@@ -150,7 +150,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="school in schoolChartData">
+                        <tr class="govuk-table__row" ng-repeat="school in schoolChartData">
                             <td class="school-column">
                                 <span ng-class="{'bold-xsmall' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
                                 <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>

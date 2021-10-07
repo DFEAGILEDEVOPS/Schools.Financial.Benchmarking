@@ -10,7 +10,7 @@
 
 <table id="criteriaTable" class="govuk-table >
     <thead class="govuk-table__head">
-    <tr>
+    <tr class="govuk-table__row">
         <th scope="col">Characteristic</th>
         @if (Model.BenchmarkSchoolData != null)
         {
@@ -20,7 +20,7 @@
     </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr class="govuk-table__row">
             <td>Finance type</td>
             @if (Model.BenchmarkSchoolData != null && Model.BenchmarkSchoolData.EstabType == EstablishmentType.Academies)
             {
@@ -32,7 +32,7 @@
             }
             <td>@Model.SearchedEstablishmentType</td>
         </tr>
-        <tr>
+        <tr class="govuk-table__row">
             <td>Area</td>
             @if (Model.BenchmarkSchoolData != null)
             {
@@ -50,7 +50,7 @@
                 var fieldValue = Model.AdvancedCriteria.GetType().GetProperty(property.Name).GetValue(Model.AdvancedCriteria, null);
                 if (fieldValue != null)
                 {
-                    @Html.Raw("<tr>")
+                    @Html.Raw("<tr class="govuk-table__row">")
 
                     var fieldName = (dbAttribute as DBFieldAttribute).Name;
                     var fieldType = (dbAttribute as DBFieldAttribute).Type;

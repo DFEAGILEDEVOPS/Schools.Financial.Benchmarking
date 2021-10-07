@@ -6,7 +6,7 @@
 
     <table class="govuk-table tablesorter data-table-js includes-table">
         <thead class="govuk-table__head">
-            <tr>
+            <tr class="govuk-table__row">
                 <th scope="col" class="school-column">School</th>
                 @foreach (var column in Model.TableColumns)
                 {
@@ -31,7 +31,7 @@
         <tbody>
             @foreach (var school in Model.TableColumns[0].BenchmarkData)
             {
-                <tr>
+                <tr class="govuk-table__row">
                     <td class="school-column">
                         @{
                             var style = school.Urn == ViewBag.HomeSchoolId?.ToString() ? "highlight-field" : "";

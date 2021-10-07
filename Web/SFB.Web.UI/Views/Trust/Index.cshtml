@@ -251,7 +251,7 @@
                         <div class="sponsor-detail">
                             <div class="resultListPanel">
                                 <table class="govuk-table history-table">
-                                    <tr>
+                                    <tr class="govuk-table__row">
                                         <th scope="col">School year</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Event</th>
@@ -261,7 +261,7 @@
                                     {
                                         if (i > 0 && Model.TrustHistory.Events[i].SchoolYear == Model.TrustHistory.Events[i - 1].SchoolYear)
                                         {
-                                            <tr>
+                                            <tr class="govuk-table__row">
                                                 <td class="school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
                                                 <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
                                                 <td>@Model.TrustHistory.Events[i].Event</td>
@@ -270,7 +270,7 @@
                                         }
                                         else
                                         {
-                                            <tr class="new-row">
+                                            <tr class="govuk-table__row new-row">
                                                 <td class="school-year-column">@Model.TrustHistory.Events[i].SchoolYear</td>
                                                 <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
                                                 <td>@Model.TrustHistory.Events[i].Event</td>

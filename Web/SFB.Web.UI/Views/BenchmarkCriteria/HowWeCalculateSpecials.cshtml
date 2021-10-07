@@ -31,7 +31,7 @@
     <div class="column-three-quarters">
         <table class="govuk-table sen-table mt-1">
             <caption class="font-small bold">We will find schools with a similar percentage of SEN characteristics to yours:</caption>
-            <tr>
+            <tr class="govuk-table__row">
                 <th scope="col">SEN characteristic</th>
                 <th scope="col" class="col-right">Your school's value</th>
             </tr>
@@ -39,7 +39,7 @@
             {
                 if (ch.Value.GetValueOrDefault() > 0)
                 {
-                    <tr>
+                    <tr class="govuk-table__row">
                         <td><span>@ch.Definition</span></td>
                         <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
                     </tr>
