@@ -1,17 +1,19 @@
-﻿<form method="get" action="/SchoolSearch/Search" autocomplete="off" 
-      class="tab-content tab-content--@ViewHelpers.SchoolTabActive(Model.SearchType)" 
-      id="SchoolTabContent"
-      role="tabpanel">
-    <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-margin-top-4 govuk-!-margin-bottom-3">
-                Search by:
-            </legend>
-            <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
-                @Html.Partial("Partials/Search/SchoolNameSearchOption")
-                @Html.Partial("Partials/Search/SchoolLocationSearchOption")
-                @Html.Partial("Partials/Search/SchoolLaSearchOption")
-            </div>
-        </fieldset>
-    </div>
-</form>
+﻿<div class="govuk-tabs__panel" id="school-tab-panel">
+    <form method="get" action="/SchoolSearch/Search" autocomplete="off"
+          class="tab-content tab-content--@ViewHelpers.SchoolTabActive(Model.SearchType)"
+          id="SchoolTabContent"
+          role="tabpanel">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-margin-top-4 govuk-!-margin-bottom-3">
+                    Search by:
+                </legend>
+                <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                    @Html.Partial("Partials/Search/SchoolNameSearchOption")
+                    @Html.Partial("Partials/Search/SchoolLocationSearchOption")
+                    @Html.Partial("Partials/Search/SchoolLaSearchOption")
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</div>

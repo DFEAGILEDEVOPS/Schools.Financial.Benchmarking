@@ -1,17 +1,19 @@
-﻿<form method="get" action="/TrustSearch/Search" autocomplete="off" 
-      class="tab-content tab-content--@ViewHelpers.TrustTabActive(Model.SearchType)" 
-      id="TrustTabContent"
-      role="tabpanel">
-    <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-margin-top-4 govuk-!-margin-bottom-3">
-                Search by:
-            </legend>
-            <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
-                @Html.Partial("Partials/Search/TrustNameSearchOption")
-                @Html.Partial("Partials/Search/TrustLocationSearchOption")
-                @Html.Partial("Partials/Search/TrustLaSearchOption")
-            </div>
-        </fieldset>
-    </div>
-</form>
+﻿<div class="govuk-tabs__panel" id="trust-tab-panel">
+    <form method="get" action="/TrustSearch/Search" autocomplete="off"
+          class="tab-content tab-content--@ViewHelpers.TrustTabActive(Model.SearchType)"
+          id="TrustTabContent"
+          role="tabpanel">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-margin-top-4 govuk-!-margin-bottom-3">
+                    Search by:
+                </legend>
+                <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                    @Html.Partial("Partials/Search/TrustNameSearchOption")
+                    @Html.Partial("Partials/Search/TrustLocationSearchOption")
+                    @Html.Partial("Partials/Search/TrustLaSearchOption")
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</div>

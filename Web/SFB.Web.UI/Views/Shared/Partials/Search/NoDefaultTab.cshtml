@@ -1,46 +1,48 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Helpers.Enums
 
-<form action="/BenchmarkCriteria/StepOne"
-      class="tab-content tab-content--@ViewHelpers.NoDefaultTabActive(Model.SearchType)"
-      id="NoDefaultTabContent"
-      role="tabpanel">
+<div class="govuk-tabs__panel" id="no-default-tab-panel">
+    <form action="/BenchmarkCriteria/StepOne"
+          class="tab-content tab-content--@ViewHelpers.NoDefaultTabActive(Model.SearchType)"
+          id="NoDefaultTabContent"
+          role="tabpanel">
 
-    <p class="mt-1">This allows you to create a benchmark set without using a default school. If you already have a default school it will be removed.</p>
+        <p class="mt-1">This allows you to create a benchmark set without using a default school. If you already have a default school it will be removed.</p>
 
-    <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))">
-        <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
-                Compare by:
-            </legend>
-            @if (Model.SearchTypeHasError(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))
-            {
-                <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
-            }
+        <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                    Compare by:
+                </legend>
+                @if (Model.SearchTypeHasError(SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL))
+                {
+                    <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+                }
 
-            <div class="govuk-radios" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
-                    <label class="govuk-label govuk-radios__label" for="radio-2">
-                        Detailed comparison using characteristics you choose
-                    </label>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
+                        <label class="govuk-label govuk-radios__label" for="radio-2">
+                            Detailed comparison using characteristics you choose
+                        </label>
+                    </div>
+
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radio-4" type="radio" name="comparisonType" value="@ComparisonType.Manual">
+                        <label class="govuk-label govuk-radios__label" for="radio-4">
+                            Manual comparison by name or location
+                        </label>
+                    </div>
                 </div>
 
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="radio-4" type="radio" name="comparisonType" value="@ComparisonType.Manual">
-                    <label class="govuk-label govuk-radios__label" for="radio-4">
-                        Manual comparison by name or location
-                    </label>
+            </fieldset>
+        </div>
+        <div class="grid-row mb-1">
+            <div class="column-half">
+                <div class="column-half next-button">
+                    <button type="submit" class="govuk-button" name="searchtype" value="@SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL">Continue</button>
                 </div>
-            </div>
-
-        </fieldset>
-    </div>
-    <div class="grid-row mb-1">
-        <div class="column-half">
-            <div class="column-half next-button">
-                <button type="submit" class="govuk-button">Continue</button>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>

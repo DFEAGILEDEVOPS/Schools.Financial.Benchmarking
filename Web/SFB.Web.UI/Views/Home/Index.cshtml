@@ -62,44 +62,24 @@
     }
 
     <div class="finder-section mt-1" id="finderSection">
-        <div id="SearchTypesAccordion" class="search-types custom tabs">
-            <ul role="tablist">
-                <li class="@ViewHelpers.SchoolTabActive(Model.SearchType) hide-in-print" role="presentation" id="SchoolTab">
-                    <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('SchoolTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
-                       role="tab" 
-                       aria-selected="true" 
-                       aria-controls="SchoolTabContent" 
-                       tabindex="0" 
-                       class="tab-link">Find a school</a>
+        <div id="SearchTypesAccordion" class="govuk-tabs" data-module="govuk-tabs">
+            <ul class="govuk-tabs__list">
+                <li class="govuk-tabs__list-item hide-in-print" id="SchoolTab">
+                    <a href="#school-tab-panel"
+                       class="govuk-tabs__tab">Find a school</a>
                 </li>
-                <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="presentation" id="TrustTab">
-                    <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('TrustTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
-                       role="tab" 
-                       aria-selected="false" 
-                       aria-controls="TrustTabContent" 
-                       tabindex="-1" 
-                       class="tab-link">Find an academy trust</a>
+                <li class="govuk-tabs__list-item hide-in-print" id="TrustTab">
+                    <a href="#trust-tab-panel"
+                       class="govuk-tabs__tab">Find an academy trust</a>
                 </li>
-                <li class="@ViewHelpers.NoDefaultTabActive(Model.SearchType) hide-in-print" role="presentation" id="NoDefaultTab">
-                    <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('NoDefaultTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
-                       role="tab" 
-                       aria-selected="false" 
-                       aria-controls="NoDefaultTabContent" 
-                       tabindex="-1" 
-                       class="tab-link">Compare with no default school</a>
+                <li class="govuk-tabs__list-item hide-in-print" id="NoDefaultTab">
+                    <a href="#no-default-tab-panel"
+                       class="govuk-tabs__tab">Compare with no default school</a>
                 </li>
             </ul>
-            <div class="search-tab-content">
-                @Html.Partial("Partials/Search/SchoolTab")
-                @Html.Partial("Partials/Search/TrustTab")
-                @Html.Partial("Partials/Search/NoDefaultTab")
-            </div>
+            @Html.Partial("Partials/Search/SchoolTab")
+            @Html.Partial("Partials/Search/TrustTab")
+            @Html.Partial("Partials/Search/NoDefaultTab")
         </div>
     </div>
 </div>

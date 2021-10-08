@@ -9,6 +9,22 @@ class SchoolsSearchViewModel {
         this.azureMapsClient = new atlas.service.Client(atlas.getSubscriptionKey());
 
         this.bindEvents();
+
+        this.setTab();
+    }
+
+    setTab() {
+        let searchType = DfE.Util.QueryString.get('searchtype');
+        switch (searchType) {
+            case "search-by-trust-location":
+            case "search-by-trust-name-id":
+            case "search-by-trust-la-code-name":
+                $("#TrustTab a")[0].click();
+                break;
+            case "compare-without-default-school":
+                $("#NoDefaultTab a")[0].click();
+                break;
+        }
     }
 
     bindEvents() {
@@ -23,15 +39,6 @@ class SchoolsSearchViewModel {
         this.bindAutosuggest('#FindSchoolManuallyByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolManuallyByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindEnterKeysToButtons();
-        this.bindAccordionHeaderClick();
-    }
-
-    bindAccordionHeaderClick() {
-        let inputs = $("#SearchTypesAccordion .js-accordion");
-        inputs.click(function (event) {
-            $("input:checkbox[name='openOnly']").prop('disabled', true);
-            $(event.currentTarget).next().find("input:checkbox[name='openOnly']").prop('disabled', false);
-        });
     }
 
     bindEnterKeysToButtons() {
@@ -50,10 +57,6 @@ class SchoolsSearchViewModel {
             $('#FindSchoolByPostcode').attr("placeholder", "Locating...");
             navigator.geolocation.getCurrentPosition(this.getCurrentPositionSuccessHandler, this.getCurrentPositionErrorHandler);
         } else this.getCurrentPositionErrorHandler(-1);
-    }
-
-    accordionChangeHandler() {
-        $(".error-summary").hide();
     }
 
     getSchoolsSuggestionHandler(keywords, callback) {
@@ -246,50 +249,6 @@ class SchoolsSearchViewModel {
                 $(targetResolvedInputElementName).val("");
             }
         });
-    }
-
-    tabChange(tabId) {
-        $('.tabs li').removeClass('active');
-        $('.tabs li a').attr('aria-selected', 'false');
-        $('.tabs li a').attr('tabindex', '-1');
-        $('#' + tabId).addClass('active');
-        $('#' + tabId + ' a').attr('aria-selected', 'true');
-        $('#' + tabId + ' a').focus();
-        $('#' + tabId + ' a').attr('tabindex', '0');
-        $('.tab-content').hide();
-        $('#' + tabId + 'Content').show();
-    }
-
-    tabKeydown(e) {
-        let keys = {
-            left: 37,
-            up: 38,
-            right: 39,
-            down: 40,
-            enter: 13,
-            space: 32
-        };
-
-        activatePreviousTab = function () {
-            $("ul[role='tablist'] li.active").prev().find("a[role='tab']").click();
-        }
-
-        activateNextTab = function () {
-            $("ul[role='tablist'] li.active").next().find("a[role='tab']").click();
-        }
-
-        switch (e.keyCode) {
-            case keys.left:
-            case keys.up:
-                activatePreviousTab();
-                e.preventDefault();
-                break
-            case keys.right:
-            case keys.down:
-                activateNextTab();
-                e.preventDefault();
-                break
-        }
     }
 }
 
