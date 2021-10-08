@@ -336,85 +336,67 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
 @Html.Partial("Partials/FinancialSummaryFields")
 
 <a name="charts"></a>
-<div id="tabs" class="custom tabs hide-in-print">
-    <ul role="tablist">
-        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+
+<div id="tabs" class="govuk-tabs" data-module="govuk-tabs">
+    <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected hide-in-print" id="ExpenditureTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
-               href="javascript: void(0)">@TabNames.EXPENDITURE</a>
+               href="#tabPanel">@TabNames.EXPENDITURE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="IncomeTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
-               href="javascript: void(0)">@TabNames.INCOME</a>
+               href="#tabPanel">@TabNames.INCOME</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="BalanceTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
-               href="javascript: void(0)">@TabNames.BALANCE</a>
+               href="#tabPanel">@TabNames.BALANCE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Workforce ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="WorkforceTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Workforce')"
-               href="javascript: void(0)">@TabNames.WORKFORCE</a>
+               href="#tabPanel">@TabNames.WORKFORCE</a>
         </li>
     </ul>
-</div>
-<div role="tabpanel" id="tabPanel">
-    <div class="sticky-div sticky-chart-controls">
-        <div id="controls">
-            <fieldset class="govuk-fieldset">
-                <legend class="visually-hidden hide-in-print">Filters</legend>
-                <div class="govuk-grid-row">
-                    <div class="govuk-grid-column-full">
-                        @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-                        @Html.Partial("Partials/ValueSelect", Model)
-                        @if (Model.EstablishmentType == EstablishmentType.Academies && Model.IsMATinLatestFinance)
-                        {
-                            Html.RenderPartial("Partials/CentralFinancing");
-                        }
+
+    <div id="tabPanel" class="govuk-tabs__panel">
+        <div class="sticky-div sticky-chart-controls">
+            <div id="controls">
+                <fieldset class="govuk-fieldset">
+                    <legend class="visually-hidden hide-in-print">Filters</legend>
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-full">
+                            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                            @Html.Partial("Partials/ValueSelect", Model)
+                            @if (Model.EstablishmentType == EstablishmentType.Academies && Model.IsMATinLatestFinance)
+                            {
+                                Html.RenderPartial("Partials/CentralFinancing");
+                            }
+                        </div>
                     </div>
-                </div>
-            </fieldset>
-        </div>
-    </div>
-    <div class="charts-section">
-        <div class="grid-row">
-            <div>
-                <div class="column-full font-xsmall chartTable hide-in-print">
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
-                </div>
-                <div class="column-full font-xsmall hide-in-print">
-                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
-                        <span><</span>
-                        <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
-                    </button>
-                </div>
+                </fieldset>
             </div>
         </div>
-        <div class="historical-charts-list">
-            @Html.Partial("Partials/Chart", Model)
+        <div class="charts-section">
+            <div class="grid-row">
+                <div>
+                    <div class="column-full font-xsmall chartTable hide-in-print">
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    </div>
+                    <div class="column-full font-xsmall hide-in-print">
+                        <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
+                            <span><</span>
+                            <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="historical-charts-list">
+                @Html.Partial("Partials/Chart", Model)
+            </div>
         </div>
     </div>
 </div>

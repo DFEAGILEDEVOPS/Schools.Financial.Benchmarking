@@ -186,6 +186,26 @@ class HistoricalCharts {
         $(".back-to-main-chart-group-button").hide();
     }
 
+    setActiveTab() {
+        $(".govuk-tabs__list-item").removeClass("govuk-tabs__list-item--selected");
+        let tab = DfE.Util.QueryString.get('tab');
+        switch (tab) {
+            case "Expenditure":
+            default:
+                $("#ExpenditureTab").addClass("govuk-tabs__list-item--selected");
+                break;
+            case "Income":
+                $("#IncomeTab").addClass("govuk-tabs__list-item--selected");
+                break;
+            case "Balance":
+                $("#BalanceTab").addClass("govuk-tabs__list-item--selected");
+                break;
+            case "Workforce":
+                $("#WorkforceTab").addClass("govuk-tabs__list-item--selected");
+                break;
+        }
+    }
+
     rebuildCharts(establishment) {
         let codeParameter = DfE.Util.QueryString.get('code');
         let urnParameter = DfE.Util.QueryString.get('urn');
@@ -235,6 +255,7 @@ class HistoricalCharts {
                 this.updateTotals();
                 this.updateTrustWarnings();                
                 window.GOVUKFrontend.initAll();//TODO: use option.scope here as parameter
+                this.setActiveTab();
             }
         });
     }

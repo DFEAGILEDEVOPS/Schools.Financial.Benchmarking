@@ -11,7 +11,7 @@
             var historicalChart = Model.HistoricalCharts[index];
             ViewBag.FinancialYear = Model.EstablishmentType == EstablishmentType.Academies ? historicalChart.LastYear : historicalChart.LastYear.Replace('/', '-');
 
-            <div class="charts-section__chart-container index-@index column-full no-padding" data-group="@historicalChart.ChartGroup">
+            <div class="charts-section__chart-container index-@index no-padding" data-group="@historicalChart.ChartGroup">
                 @if (historicalChart.ChartType == ChartType.Total)
                 {
 

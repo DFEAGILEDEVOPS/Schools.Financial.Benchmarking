@@ -10,10 +10,10 @@ class SchoolsSearchViewModel {
 
         this.bindEvents();
 
-        this.setTab();
+        this.setActiveTab();
     }
 
-    setTab() {
+    setActiveTab() {
         let searchType = DfE.Util.QueryString.get('searchtype');
         switch (searchType) {
             case "search-by-trust-location":

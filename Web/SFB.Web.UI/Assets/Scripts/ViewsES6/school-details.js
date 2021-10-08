@@ -33,6 +33,7 @@
 
         DfE.Views.HistoricalCharts = new HistoricalCharts();
         DfE.Views.HistoricalCharts.generateCharts(unitType);
+        DfE.Views.HistoricalCharts.setActiveTab();
 
         //new Accordion(document.getElementById('historical-charts-accordion'));
         //new Accordion(document.getElementById('controls-accordion'));
