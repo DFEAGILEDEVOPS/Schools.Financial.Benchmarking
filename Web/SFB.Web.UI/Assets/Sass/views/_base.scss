@@ -1337,3 +1337,20 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
 .govuk-table__header--numeric.app-govuk-table__header--rightest.tablesorter-headerDesc{
     padding-right: 15px !important;
 }
+
+.govuk-tabs__list-item.app-govuk-tabs__list-item--s {
+
+    @include media(tablet) {
+        font-size: 14px;
+    }
+
+    @include media(desktop) {
+        font-size: 17px;
+    }
+
+    height: 35px;
+
+    a {
+        vertical-align: sub;
+    }
+}

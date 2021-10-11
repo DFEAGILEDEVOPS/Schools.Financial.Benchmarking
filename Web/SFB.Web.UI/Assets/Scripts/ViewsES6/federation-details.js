@@ -16,6 +16,7 @@ class FederationDetailsViewModel {
 
         DfE.Views.HistoricalCharts = new HistoricalCharts();
         DfE.Views.HistoricalCharts.generateCharts(unitType);
+        DfE.Views.HistoricalCharts.setActiveTab();
 
         GOVUK.Modal.Load();
 
@@ -99,51 +100,6 @@ class FederationDetailsViewModel {
 
         window.location = queryString;
     }
-
-    tabKeydown(e) {
-        let keys = {
-            left: 37,
-            up: 38,
-            right: 39,
-            down: 40,
-            enter: 13,
-            space: 32
-        };
-
-        focusOnPreviousTab = function () {
-            $("ul[role='tablist'] li a:focus").parent().prev().find("a[role='tab']").focus();
-        }
-
-        focusOnNextTab = function () {
-            $("ul[role='tablist'] li a:focus").parent().next().find("a[role='tab']").focus();
-        }
-
-        activateTab = function () {
-            $("ul[role='tablist'] li a:focus").attr('aria-selected', 'true');
-   
-            setTimeout(function () {
-                $("ul[role='tablist'] li a:focus").click();
-            }, 1000);
-        }
-
-        switch (e.keyCode) {
-            case keys.left:
-            case keys.up:
-                focusOnPreviousTab();
-                e.preventDefault();
-                break
-            case keys.right:
-            case keys.down:
-                focusOnNextTab();
-                e.preventDefault();
-                break
-            case keys.enter:
-            case keys.space:
-                activateTab();
-                e.preventDefault();
-                break;
-        }
-    };
 
     toggleChartsTables(mode) {
         let $charts = $('.chart-wrapper');

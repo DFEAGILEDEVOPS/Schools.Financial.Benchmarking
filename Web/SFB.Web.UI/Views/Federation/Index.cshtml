@@ -38,19 +38,19 @@
     <div class="column-full">
         @if (!Model.IsReturnsDNS)
         {
-        <div class="blue-banner">
-            <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+            <div class="blue-banner">
+                <h1 class="heading-xlarge page-heading">@Model.Name</h1>
 
-            <p class="hide-in-print">There are now several ways for you to compare this federation against schools and federations.</p>
+                <p class="hide-in-print">There are now several ways for you to compare this federation against schools and federations.</p>
 
-            <a href="federation/start-benchmarking?fuid=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
-                Start a comparison
-                <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-                </svg>
-            </a>
+                <a href="federation/start-benchmarking?fuid=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                    Start a comparison
+                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                    </svg>
+                </a>
 
-        </div>
+            </div>
         }
         else
         {
@@ -66,7 +66,7 @@
                         <div class="inline">
                             <span> Add to benchmark set</span>
                         </div>
-                    </button>                    
+                    </button>
                     <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
                         <img class="icon" src="~/public/assets/images/icons/remove_from_set.svg" />
                         <div class="inline">
@@ -163,54 +163,33 @@
 
 <a name="charts"></a>
 
-<div id="tabs" class="custom tabs hide-in-print">
-    <ul role="tablist">
-        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.FederationDetailsViewModel.tabKeydown(event)"
+<div id="tabs" class="govuk-tabs" data-module="govuk-tabs">
+    <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected hide-in-print" id="ExpenditureTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
-               href="javascript: void(0)">@TabNames.EXPENDITURE</a>
+               href="#tabPanel">@TabNames.EXPENDITURE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.FederationDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="IncomeTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
-               href="javascript: void(0)">@TabNames.INCOME</a>
+               href="#tabPanel">@TabNames.INCOME</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.FederationDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="BalanceTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
-               href="javascript: void(0)">@TabNames.BALANCE</a>
+               href="#tabPanel">@TabNames.BALANCE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Workforce ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.FederationDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="WorkforceTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Workforce')"
-               href="javascript: void(0)">@TabNames.WORKFORCE</a>
+               href="#tabPanel">@TabNames.WORKFORCE</a>
         </li>
     </ul>
-</div>
 
-<div role="tabpanel" id="tabPanel">
-    <div class="sticky-div sticky-chart-controls">
-        <div id="controls-accordion">
+    <div id="tabPanel" class="govuk-tabs__panel">
+        <div class="sticky-div sticky-chart-controls">
+            <div id="controls-accordion">
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
                     <div class="govuk-grid-row">
@@ -220,29 +199,30 @@
                         </div>
                     </div>
                 </fieldset>
-        </div>
-    </div>
-    <div class="charts-section">
-        <div class="grid-row">
-            <div>
-                <div class="column-full font-xsmall chartTable hide-in-print">
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
-                </div>
-                <div class="column-full font-xsmall hide-in-print">
-                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
-                        <span><</span>
-                        <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
-                    </button>
-                </div>
             </div>
         </div>
-        <div class="historical-charts-list">
-            @Html.Partial("Partials/Chart", Model)
+        <div class="charts-section">
+            <div class="grid-row">
+                <div>
+                    <div class="column-full font-xsmall chartTable hide-in-print">
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    </div>
+                    <div class="column-full font-xsmall hide-in-print">
+                        <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
+                            <span><</span>
+                            <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="historical-charts-list">
+                @Html.Partial("Partials/Chart", Model)
+            </div>
         </div>
     </div>
-</div>
 
+</div>
 
 <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
 

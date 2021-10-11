@@ -351,24 +351,7 @@ else
 
         <div ng-app="reportApp">
             <div id="listCtrl" ng-controller="ChartListController as ctrl">
-                <div>
-
-                    @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-                    <div id="tabsSection">
-                        @Html.Partial("Partials/TabContent")
-                    </div>
-                    @if (Model.EstablishmentType != EstablishmentType.MAT)
-                    {
-                        <div id="customTabSection" style="display: none">
-                            @Html.Partial("Partials/CustomTabContent")
-                        </div>
-                        @Html.Partial("Partials/ComparisonSchoolsTabContent")
-                    }
-                    @if (Model.ComparisonType == ComparisonType.BestInClass)
-                    {
-                        @Html.Partial("Partials/BicTabContent")
-                    }
-                </div>
+                @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
             </div>
         </div>
         <a href="#pagetop" class="page-top hide-in-print">Back to top</a>

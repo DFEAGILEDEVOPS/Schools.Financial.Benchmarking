@@ -383,6 +383,32 @@
         padding-top: 25px;
     }
 
+    li.comparison-tab {
+        background-color: $link-colour;
+
+        a {
+            color: $page-colour;
+        }
+
+        a:focus, a:link, a:visited {
+            color: $page-colour!important;
+        }
+
+        @include media(desktop) {
+            float: right;
+            margin-left: auto;
+
+            &.govuk-tabs__list-item--selected {
+                background-color: $page-colour;
+
+                a {
+                    color: $text-colour!important;
+                }
+            }
+        }
+    }
+
+
     div.custom.tabs ul {
         @include media-down(tablet) {
             justify-content: flex-start;
@@ -615,12 +641,10 @@
             padding-bottom: 5px;
             padding-top: 5px;
         }
-
-/*        .chart-filter {
+        /*        .chart-filter {
             height: 75px;
         }*/
-
-/*        @include media(tablet) {
+        /*        @include media(tablet) {
             height: 93px;
 
             .chart-filter:first-of-type {
