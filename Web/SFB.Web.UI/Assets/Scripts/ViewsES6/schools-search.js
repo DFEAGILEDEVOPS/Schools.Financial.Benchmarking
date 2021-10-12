@@ -39,6 +39,16 @@ class SchoolsSearchViewModel {
         this.bindAutosuggest('#FindSchoolManuallyByTown', '#LocationCoordinates', this.getLocationResultsHandler.bind(this));
         this.bindAutosuggest('#FindSchoolManuallyByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindEnterKeysToButtons();
+        this.bindAccordionHeaderClick();
+
+    }
+
+    bindAccordionHeaderClick() {
+        let inputs = $("#SearchTypesAccordion .js-accordion");
+        inputs.click(function (event) {
+            $("input:checkbox[name='openOnly']").prop('disabled', true);
+            $(event.currentTarget).next().find("input:checkbox[name='openOnly']").prop('disabled', false);
+        });
     }
 
     bindEnterKeysToButtons() {

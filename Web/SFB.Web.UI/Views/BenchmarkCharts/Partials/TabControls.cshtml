@@ -59,22 +59,22 @@
         }
 
     </ul>
-    <div id="tabsSection" class="govuk-tabs__panel">
+    <div id="tabsSection" class="govuk-tabs__panel app-tabs__panel--no-border">
         @Html.Partial("Partials/TabContent")
     </div>
     @if (Model.EstablishmentType != EstablishmentType.MAT)
     {
-        <div id="customTabSection" class="govuk-tabs__panel govuk-tabs__panel--hidden">
+        <div id="customTabSection" class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden">
             @Html.Partial("Partials/CustomTabContent")
         </div>
 
-        <div id="comparisonSchoolsTabSection" class="govuk-tabs__panel govuk-tabs__panel--hidden">
+        <div id="comparisonSchoolsTabSection" class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden">
             @Html.Partial("Partials/ComparisonSchoolsTabContent")
         </div>
     }
     @if (Model.ComparisonType == ComparisonType.BestInClass)
     {
-        <div id="bestInClassTabSection" class="govuk-tabs__panel govuk-tabs__panel--hidden">
+        <div id="bestInClassTabSection" class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden">
             @Html.Partial("Partials/BicTabContent")
         </div>
     }

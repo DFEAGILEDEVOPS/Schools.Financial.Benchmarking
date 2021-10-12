@@ -1354,3 +1354,8 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         vertical-align: sub;
     }
 }
+
+.govuk-tabs__panel.app-tabs__panel--no-border{
+    border: none!important;
+    padding: 10px 0 0 0!important;    
+}
