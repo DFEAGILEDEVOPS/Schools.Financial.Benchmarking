@@ -10,6 +10,12 @@
 </div>
 <div id="SearchByLaCodeNameFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
     <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
+                <input class="govuk-checkboxes__input" id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>
+                <label for="openOnlyLa" class="govuk-label govuk-checkboxes__label">Include open schools only</label>
+            </div>
+        </div>
         <div class="govuk-hint" for="FindSchoolManuallyByLaCodeName" id="sectionLabel">
             <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
         </div>
@@ -18,12 +24,6 @@
         {
             <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
         }
-        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
-                <input class="govuk-checkboxes__input" id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>
-                <label for="openOnlyLa" class="govuk-label govuk-checkboxes__label">Include open schools only</label>
-            </div>
-        </div>
         <input id="FindSchoolManuallyByLaCodeName"
                class="govuk-input @Html.Raw(Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME) ? "govuk-input--error" : "")"
                name="lacodename"

@@ -9,6 +9,12 @@
 </div>
 <div id="SearchByTownFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
     <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LOCATION))">
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
+                <input class="govuk-checkboxes__input" id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LOCATION))>
+                <label class="govuk-label govuk-checkboxes__label" for="openOnlyLocation">Include open schools only</label>
+            </div>
+        </div>
         <div class="govuk-hint" for="FindSchoolManuallyByTown">
             Enter a postcode, town or street. Or
             <button id="FindCurrentPosition" class="focus-first link-button font-small no-padding" title="Select to use your current location">use your current location</button>
@@ -18,12 +24,6 @@
             {
                 <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
             }
-        </div>
-        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
-                <input class="govuk-checkboxes__input" id="openOnlyLocation" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LOCATION))>
-                <label class="govuk-label govuk-checkboxes__label" for="openOnlyLocation">Include open schools only</label>
-            </div>
         </div>
         <input id="FindSchoolManuallyByTown"
                class="govuk-input @Html.Raw(Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION) ? "govuk-input--error" : "")"
