@@ -390,8 +390,12 @@
             color: $page-colour;
         }
 
-        a:focus, a:link, a:visited {
-            color: $page-colour!important;
+        a:link, a:visited {
+            color: $page-colour !important;
+        }
+
+        a:focus {
+            color: $text-colour !important;
         }
 
         @include media(desktop) {
@@ -402,7 +406,7 @@
                 background-color: $page-colour;
 
                 a {
-                    color: $text-colour!important;
+                    color: $text-colour !important;
                 }
             }
         }
