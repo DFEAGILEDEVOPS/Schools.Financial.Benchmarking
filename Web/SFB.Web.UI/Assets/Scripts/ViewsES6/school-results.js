@@ -38,6 +38,10 @@ class SchoolsResultsViewModel {
         });
 
         window.addEventListener("load", this.load.bind(this));
+
+        window.addEventListener("beforeunload", () => {
+            $(".js-live-search-form .govuk-checkboxes__input").prop("checked", false);
+        });
     }
 
     getTabName() {

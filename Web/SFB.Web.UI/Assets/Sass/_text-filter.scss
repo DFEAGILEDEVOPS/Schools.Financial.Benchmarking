@@ -53,7 +53,7 @@ category: Forms
     }
 
     .filter {
-        background-color: #dee0e2;
+        background-color: #f3f2f1;
         margin-bottom: $gutter-half;
         padding: 5px;
         padding-top: 10px;
@@ -111,17 +111,16 @@ category: Forms
         }
     }
 
-    .grid-row.filter-header{
-
-        margin-top:0!important;
-        padding-top: 0!important;
+    .grid-row.filter-header {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
 
         @include media(mobile) {
             display: none;
         }
     }
 
-   .panel.filter-detail {
+    .panel.filter-detail {
         border: none;
         padding: 0;
     }

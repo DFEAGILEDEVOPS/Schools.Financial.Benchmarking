@@ -90,8 +90,8 @@
             pageUpdated = this.updateResults();
             pageUpdated.done(
               function () {
-                  history.pushState({ payload: this.state, tab: this.resultsViewModel.currentTabName }, '', window.location.pathname
-                        + "?" + $.param(this.state));
+                  //history.pushState({ payload: this.state, tab: this.resultsViewModel.currentTabName }, '', window.location.pathname
+                  //      + "?" + $.param(this.state));
                   if (elementIdSelector) $(elementIdSelector).focus();
               }.bind(this)
             );
@@ -110,7 +110,6 @@
     };
 
     LiveSearch.prototype.pageChange = function pageChange(e) {
-
         if (e && e.preventDefault) {
             e.preventDefault();
         }

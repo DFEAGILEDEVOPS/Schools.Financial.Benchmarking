@@ -44,6 +44,7 @@
         if (event.target.activeElement.id !== "DownloadLink") {
             $('select').prop('selectedIndex', -1);
         }
+        //$(".govuk-checkboxes__input").prop("checked", false);
     };
 
     window.DfE.Util.QueryString = {

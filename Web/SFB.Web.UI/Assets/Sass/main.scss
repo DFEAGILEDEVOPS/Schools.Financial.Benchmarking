@@ -57,8 +57,8 @@ $path: "/public/assets/images/";
 // Forms
 @import "elements/forms/form-questions";
 
-@import "elements/forms/filter-form/text-filter";
-@import "elements/forms/filter-form/option-select";
+//@import "elements/forms/filter-form/text-filter";
+//@import "elements/forms/filter-form/option-select";
 
 @import "elements/forms/feedback/feedback";
 
@@ -76,7 +76,13 @@ $path: "/public/assets/images/";
 
 @import "elements/phase-banner";                  // Alpha and beta banners and tags
 
+//-----------------
+
 @import "cookiesBanner";
+
+@import "option-select";
+
+@import "text-filter";
 
 // Views
 // ==========================================================================

@@ -6,18 +6,26 @@
         <div class="js-selected-counter"></div>
     </div>
     <div class="options-container" id="@(Model.Id)">
-        <div class="js-auto-height-inner">
+        <div class="govuk-form-group js-auto-height-inner">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-visually-hidden">Select an option below to filter the results</legend>
-                @foreach (var item in Model.Metadata)
-                {
-                    <label for="@(Model.Group)_@item.Id" @(item.Disabled ? "disabled" : string.Empty)>
-                        <input name="@(Model.Group)" @(item.Disabled ? "disabled" : string.Empty) value="@(item.Value)" id="@(Model.Group)_@item.Id" type="checkbox"
+                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                    @foreach (var item in Model.Metadata)
+                    {
+                    <div class="govuk-checkboxes__item app-checkboxes__item--filter">
+                        <input name="@(Model.Group)" @(item.Disabled ? "disabled" : string.Empty) 
+                               value="@(item.Value)" 
+                               id="@(Model.Group)_@item.Id" 
+                               type="checkbox"
+                               class="govuk-checkboxes__input"
                                @(item.Checked ? "checked" : "")>
-                        @(item.Label)
-                        @*<span class="visuallyhidden">- changing the selection will refresh the results</span>*@
-                    </label>
-                }
+                        <label for="@(Model.Group)_@item.Id" @(item.Disabled ? "disabled" : string.Empty)
+                               class="govuk-label govuk-checkboxes__label">
+                            @(item.Label)
+                        </label>
+                    </div>
+                    }
+                </div>
             </fieldset>
         </div>
     </div>

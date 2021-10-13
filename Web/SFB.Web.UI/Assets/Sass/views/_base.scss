@@ -1,5 +1,4 @@
-﻿
-%banner-box {
+﻿%banner-box {
     outline: none;
     max-width: 960px;
     margin: 15px $gutter-half 0 $gutter-half;
@@ -1359,3 +1358,15 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     border: none!important;
     padding: 10px 0 0 0!important;    
 }
+
+.govuk-checkboxes__item.app-checkboxes__item--filter {
+    float: none !important;
+    padding-left: 5px !important;
+    margin-left: 10px;
+
+    label {
+        padding: 12px 0 10px 30px;
+        border: none;
+    }
+}
+

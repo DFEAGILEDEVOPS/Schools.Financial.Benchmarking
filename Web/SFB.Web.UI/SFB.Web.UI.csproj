@@ -778,8 +778,6 @@
     <Content Include="Assets\Sass\elements\box\_box.scss" />
     <Content Include="Assets\Sass\elements\collapsible\_collapsible.scss" />
     <Content Include="Assets\Sass\elements\forms\feedback\_feedback.scss" />
-    <Content Include="Assets\Sass\elements\forms\filter-form\_option-select.scss" />
-    <Content Include="Assets\Sass\elements\forms\filter-form\_text-filter.scss" />
     <Content Include="Assets\Sass\elements\forms\_form-block-labels.scss" />
     <Content Include="Assets\Sass\elements\forms\_form-date.scss" />
     <Content Include="Assets\Sass\elements\forms\_form-questions.scss" />
@@ -1004,6 +1002,8 @@
     <Content Include="Assets\fonts\light-f591b13f7d-v2.woff" />
     <Content Include="Assets\Sass\main.scss" />
     <Content Include="Assets\Sass\main2.scss" />
+    <Content Include="Assets\Sass\_option-select.scss" />
+    <Content Include="Assets\Sass\_text-filter.scss" />
     <None Include="Properties\PublishProfiles\as-t1-dv-sfb-govuk-frontend - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\as-t1pr-sfb-as-t1pr-sfb-new-comparison-flow - Web Deploy.pubxml" />
     <Content Include="Views\School\StartBenchmarking.cshtml" />
