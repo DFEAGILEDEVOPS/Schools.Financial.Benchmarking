@@ -16,7 +16,7 @@
                 @if (Model[i].ChartType == ChartType.CustomReport || Model[i].ChartType == ChartType.OneClick)
                 {
                 <div class="column-full no-padding">
-                    <h2 class="heading-medium inline">
+                    <h2 class="govuk-heading-m govuk-!-margin-top-6 inline">
                         <span>
                             @Model[i].Name
                         </span>
@@ -46,7 +46,7 @@
                         @if (Model[i].DrillInto != null)
                         {
                         <div class="chart-header">
-                            <h2 class="heading-medium inline">@Model[i].Name</h2>
+                            <h2 class="govuk-heading-m govuk-!-margin-top-6 inline">@Model[i].Name</h2>
                             <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.selectGrouping('@Model[i].DrillInto', '@Model[i].TabName.ToLower()')">
                                 @if (ViewBag.ChartFormat == ChartFormat.Charts)
                                 {
@@ -74,7 +74,7 @@
                         else
                         {
                             <div class="chart-header">
-                                <h2 class="heading-medium inline">
+                                <h2 class="govuk-heading-m govuk-!-margin-top-6 inline">
                                     @Model[i].Name
                                 </h2>
                                 @if (Model[i].HelpTooltip != null)

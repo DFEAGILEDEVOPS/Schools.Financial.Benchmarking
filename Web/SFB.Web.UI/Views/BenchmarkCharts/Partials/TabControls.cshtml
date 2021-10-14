@@ -42,7 +42,7 @@
 
             if (Model.ComparisonType == ComparisonType.BestInClass)
             {
-                <li id="BestInClass" class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print">
+                <li id="BestInClass" class="govuk-tabs__list-item app-govuk-tabs__list-item--s comparison-tab hide-in-print">
                     <a class="govuk-tabs__tab"
                        href="#bestInClassTabSection"
                        onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>

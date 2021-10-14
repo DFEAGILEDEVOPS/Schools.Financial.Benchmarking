@@ -7,11 +7,11 @@
         <div class="column-full">
             @if (ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through")
             {
-                <h2 class="heading-small" id="ProgressScoresTableHeading">Overall Progress 8 - all pupils</h2>
+                <h2 class="govuk-heading-s govuk-!-margin-top-2" id="ProgressScoresTableHeading">Overall Progress 8 - all pupils</h2>
             }
             else if (ViewBag.BicComparisonOverallPhase == "Primary")
             {
-                <h2 class="heading-small" id="ProgressScoresTableHeading">Overall key stage 2 progress - all pupils</h2>
+                <h2 class="govuk-heading-s govuk-!-margin-top-2" id="ProgressScoresTableHeading">Overall key stage 2 progress - all pupils</h2>
             }
 
             <p class="show-count-js no-margin mt-1">Showing <span class="bold-xsmall">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>

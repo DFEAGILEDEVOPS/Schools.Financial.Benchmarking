@@ -286,6 +286,7 @@
     @media (min-width: 641px) {
         .page-heading {
             margin-top: 30px !important;
+            margin-bottom: 30px !important;
         }
     }
 
@@ -1231,7 +1232,10 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         background: $page-colour;
     }
 
-/*    .start-button {
+    h1 {
+        color: #ffffff;
+    }
+    /*    .start-button {
         background-color: $page-colour;
         color: $govuk-blue;
         font-weight: 700;

@@ -118,7 +118,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         @if (!Model.IsReturnsDNS)
         {
         <div class="blue-banner">
-            <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+            <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
             @if (Model.IsPartOfFederation)
             {
                 <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
@@ -143,7 +143,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         else
         {
     <div class="blue-banner">
-        <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+        <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
 
         @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
         {

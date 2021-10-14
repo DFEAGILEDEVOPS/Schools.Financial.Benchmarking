@@ -25,7 +25,7 @@
             <p class="result-info">
                 @if (System.Linq.Enumerable.FirstOrDefault(Model.Suggestions.Matches) != null)
                 {
-                    <h1 class="heading-xlarge">
+                    <h1 class="govuk-heading-xl page-heading">
                         We found no exact matches for "@Model.SearchKey"
                     </h1>
                 <p>
@@ -34,7 +34,7 @@
             }
             else
             {
-                <h1 class="heading-xlarge">
+                <h1 class="govuk-heading-xl page-heading">
                     We found no matches for "@Model.SearchKey"
                 </h1>
             }
