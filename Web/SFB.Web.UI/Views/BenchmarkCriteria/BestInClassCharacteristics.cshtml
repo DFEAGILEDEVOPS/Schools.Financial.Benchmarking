@@ -27,7 +27,7 @@
         <div class="column-full">
             <span class="govuk-!-font-size-19">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.BenchmarkSchool.Id"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.BenchmarkSchool.Name</span></a>
+                <a class="govuk-link" href="/school/detail?urn=@Model.BenchmarkSchool.Id"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.BenchmarkSchool.Name</span></a>
             </div>
         </div>
     </div>
@@ -263,7 +263,7 @@
                         if (ms.Value.Errors.Count > 0)
                         {
                             <li>
-                                <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
+                                <a class="govuk-link" href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
                             </li>
                         }
                     }

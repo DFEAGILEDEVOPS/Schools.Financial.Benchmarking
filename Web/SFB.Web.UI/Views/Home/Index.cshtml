@@ -25,7 +25,7 @@
                 <div class="govuk-error-summary__body">
                     <ul class="govuk-list govuk-error-summary__list">
                         <li>
-                            <a href="#finderSection">@Model.ErrorMessage</a>
+                            <a class="govuk-link" href="#finderSection">@Model.ErrorMessage</a>
                         </li>
                     </ul>
                 </div>
@@ -46,7 +46,7 @@
             <p>
                 @if (Model.ComparisonList.HomeSchoolType == "Federation")
                 {
-                    <span class="govuk-heading-s govuk-!-font-size-19 govuk-!-font-weight-bold">
+                    <span class="govuk-heading-s govuk-!-font-size-19 govuk-!-font-weight-bold govuk-!-display-inline">
                         Your federation:
                     </span>
                 }
@@ -56,7 +56,7 @@
                         Your school:
                     </span>
                 }
-                <a class="govuk-!-font-size-19 govuk-!-font-weight-bold" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
+                <a class="govuk-link govuk-!-font-weight-bold" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
             </p>
         </div>
     }
@@ -92,13 +92,13 @@
             <nav role="navigation" aria-labelledby="subsection-title">
                 <ul class="list govuk-!-font-size-16">
                     <li>
-                        <a href="Help/SadGuidance">Self-assessment dashboard guidance</a>
+                        <a class="govuk-link" href="Help/SadGuidance">Self-assessment dashboard guidance</a>
                     </li>
                     <li>
-                        <a href="Help/DataSources">Data Sources and Interpretation</a>
+                        <a class="govuk-link" href="Help/DataSources">Data Sources and Interpretation</a>
                     </li>
                     <li>
-                        <a href="~/Help/DataQueries">Do you have a school or trust data query?</a>
+                        <a class="govuk-link" href="~/Help/DataQueries">Do you have a school or trust data query?</a>
                     </li>
                 </ul>
             </nav>

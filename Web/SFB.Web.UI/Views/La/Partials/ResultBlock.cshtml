@@ -22,19 +22,18 @@
             if (Model.SearchMethod == "Manual")
             {
                 <li class="document">
-                    <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.Id&openOnly=@Model.OpenOnly.ToString()" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@laViewModel.LaName</a>
-                </li>
+                    <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.Id&openOnly=@Model.OpenOnly.ToString()" class="govuk-!-font-size-19link
             }
             else if (Model.SearchMethod == "MAT")
             {
                 <li class="document">
-                    <a href="/TrustSearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME&lacodename=@laViewModel.Id" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@laViewModel.LaName</a>
+                    <a href="/TrustSearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME&lacodename=@laViewModel.Id" class="govuk-link govuk-!-font-weight-bold">@laViewModel.LaName</a>
                 </li>
             }
             else
             {
                 <li class="document">
-                    <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.Id&openOnly=@Model.OpenOnly.ToString()" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@laViewModel.LaName</a>
+                    <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LA_CODE_NAME&lacodename=@laViewModel.Id&openOnly=@Model.OpenOnly.ToString()" class="govuk-link govuk-!-font-weight-bold">@laViewModel.LaName</a>
                 </li>
             }
         }

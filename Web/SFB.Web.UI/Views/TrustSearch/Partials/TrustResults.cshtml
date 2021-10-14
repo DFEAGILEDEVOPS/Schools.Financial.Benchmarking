@@ -69,12 +69,12 @@
                 {
                     <li class="school-document">
                         <div>
-                            <a href="/trust/index?companyNo=@trust.CompanyNo" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@trust.Name</a>
+                            <a href="/trust/index?companyNo=@trust.CompanyNo" class="govuk-link govuk-!-font-weight-bold">@trust.Name</a>
                         </div>
                         <div class="govuk-!-font-size-16">
                             <div>
                                 Companies House number:
-                                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(trust.CompanyNo.ToString("D8"))">@(trust.CompanyNo)</a>
+                                <a class="govuk-link" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(trust.CompanyNo.ToString("D8"))">@(trust.CompanyNo)</a>
                             </div>
                             @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                             {
@@ -103,7 +103,7 @@
                                             @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
                                             {
                                                 <tr class="govuk-table__row">
-                                                    <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td scope="col"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                     <td scope="col" class="phase">@academy.OverallPhase</td>
                                                 </tr>
                                             }
@@ -121,7 +121,7 @@
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
                                                     <tr class="govuk-table__row">
-                                                        <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td scope="col"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                         <td scope="col" class="phase">@academy.OverallPhase</td>
                                                     </tr>
                                                 }
@@ -141,7 +141,7 @@
                                             @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
                                             {
                                                 <tr class="govuk-table__row">
-                                                    <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td scope="col"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                     <td scope="col" class="phase">@academy.OverallPhase</td>
                                                 </tr>
                                             }
@@ -159,7 +159,7 @@
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
                                                     <tr class="govuk-table__row">
-                                                        <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td scope="col"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                         <td scope="col" class="phase">@academy.OverallPhase</td>
                                                     </tr>
                                                 }
@@ -179,7 +179,7 @@
                                             @foreach (var academy in trust.AcademiesList)
                                             {
                                                 <tr class="govuk-table__row">
-                                                    <td class="govuk-table__cell"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td class="govuk-table__cell"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
                                                     <td class="govuk-table__cell">@academy.OverallPhase</td>
                                                 </tr>
                                             }

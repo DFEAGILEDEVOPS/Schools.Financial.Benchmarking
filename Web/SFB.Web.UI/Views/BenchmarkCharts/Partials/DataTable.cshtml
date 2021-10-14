@@ -19,7 +19,7 @@
                         {
                             <span class="help-icon no-margin hide-in-print">
                                 <span class="icon dark-blue">
-                                    <a class="helpLink hide-in-print" href="#" id="additionalGrantModal" onclick="DfE.Util.ModalRenderer.renderAdditionalGrantModal()">
+                                    <a class="govuk-link helpLink hide-in-print" href="#" id="additionalGrantModal" onclick="DfE.Util.ModalRenderer.renderAdditionalGrantModal()">
                                     </a>
                                 </span>
                             </span>
@@ -39,11 +39,11 @@
                             if (school.Urn.StartsWith("MAT"))
                             {
                                 var name = school.School.Substring(0, school.School.LastIndexOf("#"));
-                                <a target="_self" href="/trust/index?companyNo=@school.Urn&name=@name" class="@style">@name</a>
+                                <a target="_self" href="/trust/index?companyNo=@school.Urn&name=@name" class="govuk-link @style">@name</a>
                             }
                             else
                             {
-                                <a target="_self" href="/school/detail?urn=@school.Urn" class="@style">@school.School</a>
+                                <a target="_self" href="/school/detail?urn=@school.Urn" class="govuk-link @style">@school.School</a>
                             }
                         }
 

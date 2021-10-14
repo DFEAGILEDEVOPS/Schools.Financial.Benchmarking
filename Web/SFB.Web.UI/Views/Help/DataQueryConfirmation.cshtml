@@ -32,13 +32,13 @@
         @if (ViewBag.Urn == null)
         {
             <p>
-                <a href="/">Return to the homepage</a>
+                <a class="govuk-link" href="/">Return to the homepage</a>
             </p>
         }
         else
         {
             <p>
-                <a href="~/school/detail?urn=@ViewBag.Urn">Return to @ViewBag.SchoolName</a>
+                <a class="govuk-link" href="~/school/detail?urn=@ViewBag.Urn">Return to @ViewBag.SchoolName</a>
             </p>
         }
     </div>

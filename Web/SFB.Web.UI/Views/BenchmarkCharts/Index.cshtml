@@ -197,7 +197,7 @@ else
                             <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> efficiency metric characteristics. </span>
                             @if (Model.ComparisonType == ComparisonType.EfficiencyManual)
                             {
-                                <a href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/manual-comparison/@Model.SchoolComparisonList.HomeSchoolUrn/@Model.SchoolComparisonList.HomeSchoolName" class="govuk-!-font-size-16 no-padding hide-in-print">Back to school selection</a>
+                                <a href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/manual-comparison/@Model.SchoolComparisonList.HomeSchoolUrn/@Model.SchoolComparisonList.HomeSchoolName" class="govuk-!link hide-in-print">Back to school selection</a>
                             }
                         </div>
                     }
@@ -206,7 +206,7 @@ else
                         <div id="comparing-text" class="govuk-!-font-size-16">
                             <span>Comparing</span>
                             <div class="highlight">
-                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                                <a class="govuk-link" href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                             </div>
                             <span>&nbsp;to schools</span>
                             <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> with the highest progress. </span>
@@ -280,7 +280,7 @@ else
                 @if (ViewBag.ComparisonType == ComparisonType.Manual)
                 {
                     <span>&nbsp;to selected trusts. You can </span>
-                    <a href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>
+                    <a class="govuk-link" href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>
                 }
                 else
                 {
@@ -298,7 +298,7 @@ else
         <div class="govuk-inset-text app-govuk-inset-text--orange">
             <p>
                 No similar schools were found. Change the characteristics used or try the
-                <a href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Detailed comparison</a>.
+                <a class="govuk-link" href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Detailed comparison</a>.
             </p>
         </div>
     }
@@ -339,7 +339,7 @@ else
                     </button>
                     <span class="help-icon no-margin hide-in-print">
                         <span class="icon dark-blue">
-                            <a href="#" class="js-modal" role="button" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                            <a class="govuk-link" href="#" class="js-modal" role="button" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                 <span class="visuallyhidden">Open more info text for save or share benchmark - opens a popup</span>
                             </a>
                         </span>

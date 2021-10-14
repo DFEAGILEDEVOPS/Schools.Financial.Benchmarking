@@ -112,7 +112,7 @@
                             @foreach (var school in Model.SchoolsInFederation)
                             {
                                 <li>
-                                    <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                                    <a class="govuk-link" href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
                                 </li>
                             }
                         </ul>
@@ -141,7 +141,7 @@
 
             </dl>
             <div style="display: inline-block" class="mb-1">
-                <a class="hide-in-print" href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name">Do you have a query about this federation's data?</a>
+                <a class="govuk-link hide-in-print" href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name">Do you have a query about this federation's data?</a>
             </div>
         </div>
     </div>
@@ -151,7 +151,7 @@
                 <span class="govuk-details__summary-text govuk-!-font-size-16">Show map</span>
             </summary>
             <div class="map">
-                <a href="#post-map-content" class="skip-map hide-in-print">Skip the map</a>
+                <a href="#post-map-content" class="govuk-link skip-map hide-in-print">Skip the map</a>
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
@@ -161,7 +161,7 @@
 
 @Html.Partial("Partials/FinancialSummaryFields")
 
-<a name="charts"></a>
+<a class="govuk-link" name="charts"></a>
 
 <div id="tabs" class="govuk-tabs" data-module="govuk-tabs">
     <ul class="govuk-tabs__list">
@@ -224,7 +224,7 @@
 
 </div>
 
-<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 <iframe id="download_iframe" style="display:none;"></iframe>
 
@@ -257,7 +257,7 @@
 {
     <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
     <dd class="metadata-school-detail__dd bold">
-        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get information about schools<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get information about schools<span class="visuallyhidden"> Opens in a new window</span></a>
     </dd>
 }
 

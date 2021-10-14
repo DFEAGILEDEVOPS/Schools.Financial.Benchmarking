@@ -37,19 +37,19 @@
                     if (Model.SearchMethod == "Manual")
                     {
                         <li class="document">
-                            <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@location.LocationName</a>
+                            <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="govuk-link govuk-!-font-weight-bold">@location.LocationName</a>
                         </li>
                     }
                     else if (Model.SearchMethod == "MAT")
                     {
                         <li class="document">
-                            <a href="/trustsearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@location.LocationName</a>
+                            <a href="/trustsearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName" class="govuk-link govuk-!-font-weight-bold">@location.LocationName</a>
                         </li>
                     }
                     else
                     {
                         <li class="document">
-                            <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@location.LocationName</a>
+                            <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="govuk-link govuk-!-font-weight-bold">@location.LocationName</a>
                         </li>
                     }
                 }
@@ -59,7 +59,7 @@
         {
             <p class="govuk-!-font-size-19 govuk-!-font-weight-bold" style="margin-top: 22px;">Please try:</p>
             <p class="indent">
-                • <a href="/">searching again</a> using different spelling or words
+                • <a class="govuk-link" href="/">searching again</a> using different spelling or words
             </p>
         }
     </div>

@@ -85,7 +85,7 @@
                         <li class="school-document">
                             <div class="grid-row">
                                 <div class="column-two-thirds">
-                                    <a href="/school/detail?urn=@school.Id" class="govuk-!-font-size-19 govuk-!-font-weight-bold">
+                                    <a href="/school/detail?urn=@school.Id" class="govuk-link govuk-!-font-weight-bold">
                                         @school.Name
                                         @if (school.Status == "Closed")
                                         {
@@ -119,7 +119,7 @@
             {
                 <p class="govuk-!-font-size-19 govuk-!-font-weight-bold" style="margin-top: 22px;">Please try:</p>
                 <p class="indent">
-                    • <a href="/">searching again</a> using different spelling or words
+                    • <a class="govuk-link" href="/">searching again</a> using different spelling or words
                 </p>
                 <p class="indent">
                     • removing your filters

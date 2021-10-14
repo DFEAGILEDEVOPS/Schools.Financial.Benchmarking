@@ -3,7 +3,7 @@
     <div class="column-two-thirds">
         <strong class="govuk-!-font-size-19 govuk-!-font-weight-bold">@Model.BenchmarkSchools.Count</strong> schools in this list
         <div class="basket-control-buttons">
-            <a class="benchmarkControls" href="/SchoolSearch/AddSchools">Add schools</a>
+            <a class="govuk-link benchmarkControls" href="/SchoolSearch/AddSchools">Add schools</a>
             @if (Model.BenchmarkSchools.Count > 0)
             {
                 <button class="benchmarkControls link-button no-underline govuk-!-font-size-16" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket(null,'RemoveAll')")">Clear benchmark set</button>

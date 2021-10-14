@@ -17,11 +17,11 @@
             </h2>
             <nav role="navigation" aria-labelledby="subsection-title">
                 <ul class="list govuk-!-font-size-16">
-                    <li><a href="#school-information">School information</a></li>
-                    <li><a href="#workforce-data">Workforce data</a></li>
-                    <li><a href="#financial-data">Financial data</a></li>
-                    <li><a href="#gaps-in-data">Gaps in the data</a></li>
-                    <li><a href="#data-query">Data query</a></li>
+                    <li><a class="govuk-link" href="#school-information">School information</a></li>
+                    <li><a class="govuk-link" href="#workforce-data">Workforce data</a></li>
+                    <li><a class="govuk-link" href="#financial-data">Financial data</a></li>
+                    <li><a class="govuk-link" href="#gaps-in-data">Gaps in the data</a></li>
+                    <li><a class="govuk-link" href="#data-query">Data query</a></li>
                 </ul>
             </nav>
         </aside>
@@ -38,30 +38,30 @@
             that the information displayed is accurate and reflects the data provided to us by schools, trusts and local authorities.
             There are rare occasions when there are inaccuracies reflected in the tool or inconsistencies with the data provided to us.
             The following are some possible reasons and remedies that can be taken to change this.
-            If none of these solve your problem please use the data queries <a href="#data-query">form</a> to help us to identify and rectify your problem.
+            If none of these solve your problem please use the data queries <a class="govuk-link" href="#data-query">form</a> to help us to identify and rectify your problem.
         </p>
 
-        <a id="school-information"></a>
+        <a class="govuk-link" id="school-information"></a>
         <h2 class="govuk-heading-m govuk-!-margin-top-6">School information</h2>
         <p>
-            For school information we display information that has been entered into <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://get-information-schools.service.gov.uk">Get more information about schools (GIAS)<span class="visuallyhidden"> Opens in a new window</span></a> by the school or their trust.
+            For school information we display information that has been entered into <a rel="external noopener noreferrer" class="govuk-link" target="_blank" href="https://get-information-schools.service.gov.uk">Get more information about schools (GIAS)<span class="visuallyhidden"> Opens in a new window</span></a> by the school or their trust.
             If you believe the school information is incorrect please get in touch with the person at the school or trust with responsibility to keep GIAS
             up-to-date and request they update the information.
         </p>
 
-        <a id="workforce-data"></a>
+        <a class="govuk-link" id="workforce-data"></a>
         <h2 class="govuk-heading-m govuk-!-margin-top-6">Workforce data</h2>
         <p>
             Workforce information is collected annually and if a school has been unable to submit on time they will be registered as having missing data.
         </p>
 
-        <a id="financial-data"></a>
+        <a class="govuk-link" id="financial-data"></a>
         <h2 class="govuk-heading-m govuk-!-margin-top-6">Financial data</h2>
         <p>
             For new schools, schools which have converted to academy status in year or schools which have joined a trust in year, we will often receive a part-year financial submission for the school. We display this partial submission on the tool, but we will also flag it as having missing or incomplete financial data. When we receive a full year's financial submission from the school, this flag will be removed.
         </p>
 
-        <a id="gaps-in-data"></a>
+        <a class="govuk-link" id="gaps-in-data"></a>
 
         <h2 class="govuk-heading-m govuk-!-margin-top-6">Gaps in the data</h2>
 
@@ -73,7 +73,7 @@
             <li>data is not available because some metrics have been introduced recently. For example, Progress 8 and Attainment 8 data is only available from 2015 onward.</li>
         </ul>
 
-        <a id="data-query"></a>
+        <a class="govuk-link" id="data-query"></a>
         <h2 class="govuk-heading-m govuk-!-margin-top-6">Data query</h2>
         <form action="DataQuerySubmission" method="post">
             @Html.AntiForgeryToken()
@@ -131,7 +131,7 @@
                         if (ms.Value.Errors.Count > 0)
                         {
                             <li>
-                                <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
+                                <a class="govuk-link" href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
                             </li>
                         }
                     }
