@@ -16,24 +16,24 @@
 @if (ViewBag.Estab == EstablishmentType.MAT)
 {
     <p>
-        Downloading data for <span class="bold">@ViewBag.Count trusts</span>
+        Downloading data for <span class="govuk-!-font-weight-bold">@ViewBag.Count trusts</span>
     </p>
 }
 else
 {
     <p>
-        Downloading data for <span class="bold">@ViewBag.Count schools</span>
+        Downloading data for <span class="govuk-!-font-weight-bold">@ViewBag.Count schools</span>
     </p>
 }
 
 <div class="download">
-    <a class="no-underline bold-xsmall" href="@Html.Raw($"https:////sat1dvsfb.blob.core.windows.net/test/{ViewBag.Estab}-{ViewBag.Year}.csv")" aria-label="Download data in CSV format. Opens in a new window">
+    <a class="no-underline govuk-!-font-size-16 govuk-!-font-weight-bold" href="@Html.Raw($"https:////sat1dvsfb.blob.core.windows.net/test/{ViewBag.Estab}-{ViewBag.Year}.csv")" aria-label="Download data in CSV format. Opens in a new window">
         <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg"/>
         Download data in CSV format
     </a>
 </div>
 <div class="download">
-    <a class="no-underline bold-xsmall" href="@Html.Raw($"https:////sat1dvsfb.blob.core.windows.net/test/{ViewBag.Estab}-{ViewBag.Year}.xlsx")" aria-label="Download data in XLS format. Opens in a new window">
+    <a class="no-underline govuk-!-font-size-16 govuk-!-font-weight-bold" href="@Html.Raw($"https:////sat1dvsfb.blob.core.windows.net/test/{ViewBag.Estab}-{ViewBag.Year}.xlsx")" aria-label="Download data in XLS format. Opens in a new window">
         <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg"/>
         Download data in XLS format
     </a>

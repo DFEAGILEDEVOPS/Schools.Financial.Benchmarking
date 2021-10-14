@@ -8,7 +8,7 @@
 {
     <details class="govuk-details" data-module="govuk-details mt-1">
         <summary class="govuk-details__summary hide-in-print">
-            <span class="summary font-xsmall">More about @Model.Name.ToLower()</span>
+            <span class="summary govuk-!-font-size-16">More about @Model.Name.ToLower()</span>
         </summary>
         <div class="govuk-details__text">
             @Html.Raw(Model.MoreInfo)
@@ -19,7 +19,7 @@
     <div class="column-full no-padding">
         <div class="balance-wrapper-mobile column-quarter mobile">
             <div>
-                <span class="bold">@ViewBag.FinancialYear</span>
+                <span class="govuk-!-font-weight-bold">@ViewBag.FinancialYear</span>
             </div>
             <div class="charts-section__chart-container__lastYearBalance">
                 @if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure ||
@@ -61,7 +61,7 @@
             </div>
             <div class="column-quarter desktop">
                 <div>
-                    <span class="bold">@ViewBag.FinancialYear</span>
+                    <span class="govuk-!-font-weight-bold">@ViewBag.FinancialYear</span>
                 </div>
                 <div class="charts-section__chart-container__lastYearBalance">
                     @if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure ||

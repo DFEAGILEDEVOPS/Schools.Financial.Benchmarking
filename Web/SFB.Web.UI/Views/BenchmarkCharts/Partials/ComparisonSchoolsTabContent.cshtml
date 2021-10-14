@@ -5,8 +5,8 @@
 
     <div class="grid-row">
         <div class="column-full">
-            <div class="font-xsmall latest-year-message mt-2 mb-2">
-                <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+            <div class="govuk-!-font-size-16 latest-year-message mt-2 mb-2">
+                <span>The data below is from the latest year available. For maintained schools this is <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermMaintained</span>, academies from <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermAcademies</span></span>
             </div>
             <table class="govuk-table tablesorter data-table-js comp-school-table chart-table--mobile-above-view" id="ComparisonSchoolsTable">
                 <caption class="visually-hidden">Comparison schools</caption>
@@ -48,13 +48,13 @@
                         <td scope="col">N/A</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-ks2-js" scope="col">
                             <div class="score na">
-                                <div class="font-xsmall">N/A</div>
+                                <div class="govuk-!-font-size-16">N/A</div>
                                 <span class="visually-hidden">Key stage 2 progress score</span>
                             </div>
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-p8-js" scope="col">
                             <div class="score na">
-                                <div class="font-xsmall">N/A</div>
+                                <div class="govuk-!-font-size-16">N/A</div>
                                 <span class="visually-hidden">Progress 8 score</span>
                             </div>
                         </td>
@@ -85,7 +85,7 @@
                                 </td>
                                 <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-ks2-js" scope="col">
                                     <div class="score @ViewHelpers.ScoreColorCode((cSchool as SchoolViewModel).KS2ProgressScore, BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <div class="font-xsmall">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
+                                        <div class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                         @if ((cSchool as SchoolViewModel).KS2ProgressScore.HasValue)
                                         {
                                             <div class="no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
@@ -95,7 +95,7 @@
                                 </td>
                                 <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-p8-js" scope="col">
                                     <div class="score @ViewHelpers.ScoreColorCode((cSchool as SchoolViewModel).P8ProgressScore, BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <div class="font-xsmall">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
+                                        <div class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                         @if ((cSchool as SchoolViewModel).P8ProgressScore.HasValue)
                                         {
                                             <div class="no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
@@ -208,7 +208,7 @@
                                 </th>
                                 <td class="govuk-table__cell no-padding">
                                     <div class="score @ViewHelpers.ScoreColorCode((cSchool as SchoolViewModel).KS2ProgressScore, BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <span class="font-xsmall">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
+                                        <span class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
                                         @if ((cSchool as SchoolViewModel).KS2ProgressScore.HasValue)
                                         {
                                             <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
@@ -226,7 +226,7 @@
                                 </th>
                                 <td class="govuk-table__cell no-padding">
                                     <div class="score @ViewHelpers.ScoreColorCode((cSchool as SchoolViewModel).P8ProgressScore, BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <span class="font-xsmall">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
+                                        <span class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
                                         @if ((cSchool as SchoolViewModel).P8ProgressScore.HasValue)
                                         {
                                             <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>

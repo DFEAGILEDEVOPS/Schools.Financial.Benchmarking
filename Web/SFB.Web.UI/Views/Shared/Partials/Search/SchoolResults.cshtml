@@ -16,7 +16,7 @@
     @if (ViewBag.SearchMethod == "Manual")
     {
         <div class="manual-button" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")">
-            <button id="manualButton" class="govuk-button manual-button__button button font-xsmall" onclick="window.open('OverwriteStrategy', '_self')">Continue to benchmarking charts</button>
+            <button id="manualButton" class="govuk-button manual-button__button button govuk-!-font-size-16" onclick="window.open('OverwriteStrategy', '_self')">Continue to benchmarking charts</button>
         </div>
     }
     <div class="result-controllers">
@@ -85,7 +85,7 @@
                         <li class="school-document">
                             <div class="grid-row">
                                 <div class="column-two-thirds">
-                                    <a href="/school/detail?urn=@school.Id" class="bold-small">
+                                    <a href="/school/detail?urn=@school.Id" class="govuk-!-font-size-19 govuk-!-font-weight-bold">
                                         @school.Name
                                         @if (school.Status == "Closed")
                                         {
@@ -117,7 +117,7 @@
             }
             else
             {
-                <p class="bold-small" style="margin-top: 22px;">Please try:</p>
+                <p class="govuk-!-font-size-19 govuk-!-font-weight-bold" style="margin-top: 22px;">Please try:</p>
                 <p class="indent">
                     • <a href="/">searching again</a> using different spelling or words
                 </p>

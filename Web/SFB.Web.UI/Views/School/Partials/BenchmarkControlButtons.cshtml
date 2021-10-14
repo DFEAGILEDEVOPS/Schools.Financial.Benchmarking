@@ -1,11 +1,11 @@
-﻿<button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["urn"]},'Remove')")">
+﻿<button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["urn"]},'Remove')")">
     <img class="icon" src="~/public/assets/images/icons/remove_from_set.svg" />
     <div class="inline">
         <span> Remove from benchmark set</span>
     </div>
 </button>
 
-<button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["urn"]},'Add')")">
+<button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["urn"]},'Add')")">
     <img class="icon" src="~/public/assets/images/icons/add_to_set.svg" />
     <div class="inline">
         <span> Add to benchmark set</span>

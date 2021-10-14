@@ -61,13 +61,13 @@
         <div class="column-full hide-in-print">
             <div class="column-one-third no-padding">
                 <div class="add-remove">
-                    <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
+                    <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
                         <img class="icon" src="~/public/assets/images/icons/add_to_set.svg" />
                         <div class="inline">
                             <span> Add to benchmark set</span>
                         </div>
                     </button>
-                    <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline bold-xsmall black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
+                    <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
                         <img class="icon" src="~/public/assets/images/icons/remove_from_set.svg" />
                         <div class="inline">
                             <span> Remove from benchmark set</span>
@@ -77,7 +77,7 @@
             </div>
             <div class="column-one-third no-padding">
                 <div class="download">
-                    <button class="link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.downloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.downloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                         <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                         <div id="DownloadLinkTextWrapper" class="inline">
                             <span id="DownloadLinkText"> Download data for this federation<span class="visually-hidden"> (CSV)</span></span>
@@ -87,7 +87,7 @@
             </div>
             <div class="column-one-third no-padding">
                 <div class="print">
-                    <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.FederationDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                    <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.FederationDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                         <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                         Print page
                     </button>
@@ -96,7 +96,7 @@
         </div>
     </div>
     <div class="column-full mt-2">
-        <p class="font-small">This federation is a combination of <span class="bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
+        <p class="govuk-!-font-size-19">This federation is a combination of <span class="govuk-!-font-weight-bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
         <div class="govuk-accordion app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-federation-accordion">
             <div class="govuk-accordion__section ">
                 <div class="govuk-accordion__section-header">
@@ -125,7 +125,7 @@
 
 <div class="grid-row">
     <div class="column-half">
-        <div class="metadata-school-detail font-xsmall mt-2">
+        <div class="metadata-school-detail govuk-!-font-size-16 mt-2">
             <dl class="metadata-school-detail__dl">
 
                 @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
@@ -204,11 +204,11 @@
         <div class="charts-section">
             <div class="grid-row">
                 <div>
-                    <div class="column-full font-xsmall chartTable hide-in-print">
+                    <div class="column-full govuk-!-font-size-16 chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
-                    <div class="column-full font-xsmall hide-in-print">
+                    <div class="column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                             <span><</span>
                             <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>

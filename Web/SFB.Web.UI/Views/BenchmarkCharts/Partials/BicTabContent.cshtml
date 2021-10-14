@@ -14,7 +14,7 @@
                 <h2 class="govuk-heading-s govuk-!-margin-top-2" id="ProgressScoresTableHeading">Overall key stage 2 progress - all pupils</h2>
             }
 
-            <p class="show-count-js no-margin mt-1">Showing <span class="bold-xsmall">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>
+            <p class="show-count-js no-margin mt-1">Showing <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.BenchmarkSchools.Count</span> schools</p>
 
             <table class="govuk-table tablesorter data-table-js chart-table--mobile-only-view chart-table--detail-view" id="ProgressScoresTableMobile">
                 @foreach (var bicSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
@@ -61,7 +61,7 @@
                                 </th>
                                 <td class="govuk-table__cell no-padding" aria-label="@((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2")) @ViewHelpers.ScoreText((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault() ) Progress score">
                                     <div class="score @ViewHelpers.ScoreColorCode((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <span class="font-xsmall">@((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2"))</span>
+                                        <span class="govuk-!-font-size-16">@((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2"))</span>
                                         <span class="no-wrap ml-1 font-xxxsmall">@ViewHelpers.ScoreText((bicSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
                                     </div>
                                 </td>
@@ -78,7 +78,7 @@
                                 </th>
                                 <td class="govuk-table__cell no-padding" aria-label="@((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString(" F2")) @ViewHelpers.ScoreText((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
                                     <div class="score @ViewHelpers.ScoreColorCode((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <span class="font-xsmall">@((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2"))</span>
+                                        <span class="govuk-!-font-size-16">@((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2"))</span>
                                         <span class="no-wrap ml-1 font-xxxsmall">@ViewHelpers.ScoreText((bicSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (bicSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
                                     </div>
                                 </td>
@@ -135,7 +135,7 @@
                             {
                                 <td class="govuk-table__cell govuk-table__cell--numeric no-padding" scope="col" aria-label="@((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2")) @ViewHelpers.ScoreText((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
                                     <div class="score @ViewHelpers.ScoreColorCode(((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault()), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <div class="font-xsmall">@((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2"))</div>
+                                        <div class="govuk-!-font-size-16">@((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2"))</div>
                                         <div class="no-wrap">@ViewHelpers.ScoreText((biSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
                                     </div>
                                 </td>
@@ -144,7 +144,7 @@
                             {
                                 <td class="govuk-table__cell govuk-table__cell--numeric no-padding" scope="col" aria-label="@((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString(" F2")) @ViewHelpers.ScoreText((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault()) Progress score">
                                     <div class="score @ViewHelpers.ScoreColorCode((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <div class="font-xsmall">@((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2"))</div>
+                                        <div class="govuk-!-font-size-16">@((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2"))</div>
                                         <div class="no-wrap">@ViewHelpers.ScoreText((biSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (biSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
                                     </div>
                                 </td>

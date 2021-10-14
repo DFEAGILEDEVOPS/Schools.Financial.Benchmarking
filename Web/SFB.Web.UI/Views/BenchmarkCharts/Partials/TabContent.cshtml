@@ -33,23 +33,23 @@
                 <input type="submit" class="hidden" value="submit">
 
                 <div class="grid-row">
-                    <div class="column-three-quarters font-xsmall latest-year-message">
+                    <div class="column-three-quarters govuk-!-font-size-16 latest-year-message">
                         @if (Model.EstablishmentType == EstablishmentType.MAT)
                         {
-                            <span>The data below is from the latest year available. For trusts this is <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+                            <span>The data below is from the latest year available. For trusts this is <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermAcademies</span></span>
                         }
                         else
                         {
-                            <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+                            <span>The data below is from the latest year available. For maintained schools this is <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermMaintained</span>, academies from <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermAcademies</span></span>
                         }
                     </div>
                     
-                    <div class="column-quarter font-xsmall chartTable hide-in-print mt-1">
+                    <div class="column-quarter govuk-!-font-size-16 chartTable hide-in-print mt-1">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
 
-                    <div class="column-full font-xsmall hide-in-print">
+                    <div class="column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.BenchmarkChartsViewModel.resetGrouping()">
                             <span><</span>
                             <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>

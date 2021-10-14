@@ -34,7 +34,7 @@
                         <div class="grid-row school-element">
                             <label class="govuk-label" for="school_@i">School @Html.Raw(i + 1)</label>
                             <input class="govuk-input govuk-!-width-one-half" id="school_@i" name="school_@i" type="text" disabled="disabled" value="@Model[i].Name" />
-                            <button class="remove-school link-button font-small" data-urn="@Model[i].Id" aria-label="Remove @Model[i].Name">Remove</button>
+                            <button class="remove-school link-button govuk-!-font-size-19" data-urn="@Model[i].Id" aria-label="Remove @Model[i].Name">Remove</button>
                         </div>
                     }
                 </div>
@@ -62,18 +62,18 @@
                                name="schoolname"
                                type="text"
                                data-suggestion-url="/schoolsearch/suggest" />
-                        <button class="remove-new-school link-button font-small" aria-label="Remove new school addition">Remove</button>
+                        <button class="remove-new-school link-button govuk-!-font-size-19" aria-label="Remove new school addition">Remove</button>
                     </div>
                 </div>
                 <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
                     <div class="column-full">
                         @if (Model.Count + 1 < ComparisonListLimit.LIMIT)
                         {
-                            <button class="link-button font-small" id="displayNew">Add another school</button>
+                            <button class="link-button govuk-!-font-size-19" id="displayNew">Add another school</button>
                         }
                         else
                         {
-                            <button type="button" class="link-button font-small" onclick="DfE.Util.ComparisonList.renderFullListWarningModalManual()">Add another school</button>
+                            <button type="button" class="link-button govuk-!-font-size-19" onclick="DfE.Util.ComparisonList.renderFullListWarningModalManual()">Add another school</button>
                         }
                     </div>
                 </div>

@@ -50,7 +50,7 @@
                     @if (!school.IsReturnsComplete)
                     {
                         <div class="name highlight-warning">
-                            <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"> (has incomplete data)</span></a>
+                            <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="visually-hidden"> (has incomplete data)</span></a>
                         </div>
                         <span class="help-icon inline-block hide-in-print">
                             <span class="icon dark-blue">
@@ -65,13 +65,13 @@
                         if (school.Urn != Model.HomeSchoolUrn)
                         {
                             <div class="name">
-                                <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"></span></a>
+                                <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="visually-hidden"></span></a>
                             </div>
                         }
                         else
                         {
                             <div class="name highlight">
-                                <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"> (default school)</span></a>
+                                <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="visually-hidden"> (default school)</span></a>
                             </div>
                         }
                     }
@@ -109,11 +109,11 @@
 
 @helper DefaultButton(BenchmarkSchoolModel school)
 {
-    <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'SetDefault')")"
+    <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button govuk-!-font-size-16" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'SetDefault')")"
             aria-label="Use @school.Name as default school">
         Use as your school
     </button>
-    <button @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark link-button font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'UnsetDefault')")"
+    <button @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark link-button govuk-!-font-size-16" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'UnsetDefault')")"
             aria-label="Remove @school.Name as default school">
         Remove as your school
     </button>

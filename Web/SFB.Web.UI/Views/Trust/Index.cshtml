@@ -103,7 +103,7 @@
     <div class="column-full pl-0">
         <div class="column-one-third no-padding">
             <div class="download">
-                <button class="no-underline link-button bold-xsmall black" onclick="DfE.Views.TrustDetailsViewModel.downloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.TrustDetailsViewModel.downloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
                         <span id="DownloadLinkText"> Download data for this trust<span class="visually-hidden"> (CSV)</span></span>
@@ -113,7 +113,7 @@
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <button class="no-underline link-button bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold" onclick="DfE.Views.TrustDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
                 </button>
             </div>
@@ -127,8 +127,8 @@
         <div class="column-full">
 
             <p class="mb-1 mt-1">
-                This trust is made up of <span class="bold">@Model.AcademiesInContextList.Count</span> of schools.
-                At the time of <span class="bold">@Model.LatestTerm</span> financial submission there were <span class="bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
+                This trust is made up of <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span> of schools.
+                At the time of <span class="govuk-!-font-weight-bold">@Model.LatestTerm</span> financial submission there were <span class="govuk-!-font-weight-bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
                 Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
                 <a href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
             </p>
@@ -291,7 +291,7 @@
 
 </div>
 
-<div class="grid-row metadata-school-detail font-xsmall mt-1">
+<div class="grid-row metadata-school-detail govuk-!-font-size-16 mt-1">
     <div class="column-full">
         <dl class="metadata-school-detail__dl">
             <dt class="metadata-school-detail__dt">Companies House number:</dt>
@@ -352,11 +352,11 @@
         <div class="charts-section">
             <div class="grid-row">
                 <div autocomplete="off">
-                    <div class="column-full font-xsmall chartTable hide-in-print">
+                    <div class="column-full govuk-!-font-size-16 chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
-                    <div class="column-full font-xsmall hide-in-print">
+                    <div class="column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
                             <span><</span>
                             <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>

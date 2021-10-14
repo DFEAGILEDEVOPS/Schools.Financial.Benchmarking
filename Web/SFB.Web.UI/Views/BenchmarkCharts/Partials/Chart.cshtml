@@ -47,7 +47,7 @@
                         {
                         <div class="chart-header">
                             <h2 class="govuk-heading-m govuk-!-margin-top-6 inline">@Model[i].Name</h2>
-                            <button class="link-button font-xsmall inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.selectGrouping('@Model[i].DrillInto', '@Model[i].TabName.ToLower()')">
+                            <button class="link-button govuk-!-font-size-16 inline hide-in-print no-padding" onclick="DfE.Views.BenchmarkChartsViewModel.selectGrouping('@Model[i].DrillInto', '@Model[i].TabName.ToLower()')">
                                 @if (ViewBag.ChartFormat == ChartFormat.Charts)
                                 {
                                     <span class="view-more">All @Model[i].Name.Replace("total", "").ToLower() charts</span>
@@ -97,7 +97,7 @@
                     <div class="customActions column-half add-remove-links hide-in-print" data-fn="@Model[i].Id" data-sv="@Model[i].ShowValue">
                         @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                         {
-                            <div class="column-half font-xsmall no-padding custom-action-mobile">
+                            <div class="column-half govuk-!-font-size-16 no-padding custom-action-mobile">
                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                         aria-label="Save image of @Model[i].FieldName">
                                     <i class="icon icon-save-image">
@@ -106,7 +106,7 @@
                                     <span>Save as image</span>
                                 </button>
                             </div>
-                            <div class="column-half font-xsmall no-padding float-to-right your-chart-controls custom-action-mobile">
+                            <div class="column-half govuk-!-font-size-16 no-padding float-to-right your-chart-controls custom-action-mobile">
                                 <div class="float-to-right">
                                     <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
                                         <i class="icon icon-bookmark">
@@ -130,7 +130,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
+                                <div style="display: none" class="float-to-right govuk-!-font-size-16 no-padding view-your-charts">
                                     <button aria-label="View Your Charts" class="a-button" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.changeTab('Custom')">
                                         <i class="icon icon-report"></i>
                                         <span>View your charts</span>
@@ -140,7 +140,7 @@
                         }
                         else
                         {
-                            <div class="column-full font-xsmall no-padding">
+                            <div class="column-full govuk-!-font-size-16 no-padding">
                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                         aria-label="Save image of @Model[i].FieldName">
                                     <i class="icon icon-save-image">
@@ -265,7 +265,7 @@
                         @if (ViewBag.EstablishmentType != EstablishmentType.MAT)
                         {
                             <div class="your-chart-controls">
-                                <div class="column-half font-xsmall no-padding custom-action-mobile">
+                                <div class="column-half govuk-!-font-size-16 no-padding custom-action-mobile">
                                     <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                             aria-label="Save image of @Model[i].FieldName">
                                         <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
@@ -273,7 +273,7 @@
                                     </button>
                                 </div>
 
-                                <div class="column-half font-xsmall no-padding float-to-right custom-action-mobile">
+                                <div class="column-half govuk-!-font-size-16 no-padding float-to-right custom-action-mobile">
                                     <div class="float-to-right">
                                         <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
                                             <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
@@ -284,7 +284,7 @@
                                             <span>Remove from your charts</span>
                                         </button>
                                     </div>
-                                    <div style="display: none" class="float-to-right font-xsmall no-padding view-your-charts">
+                                    <div style="display: none" class="float-to-right govuk-!-font-size-16 no-padding view-your-charts">
                                         <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.changeTab('Custom');">
                                             <i class="icon icon-report"></i>
                                             <span>View your charts</span>
@@ -295,7 +295,7 @@
                         }
                         else
                         {
-                            <div class="column-full font-xsmall no-padding">
+                            <div class="column-full govuk-!-font-size-16 no-padding">
                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                         aria-label="Save image of @Model[i].FieldName">
                                     <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>

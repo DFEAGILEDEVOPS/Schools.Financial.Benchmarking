@@ -26,7 +26,7 @@
             </div>
 
             <div class="column-full no-padding mt-1">
-                <div class="font-xsmall chartTable hide-in-print">
+                <div class="govuk-!-font-size-16 chartTable hide-in-print">
                     <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
                     <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
@@ -34,7 +34,7 @@
             <details class="govuk-details criteria-details" data-module="govuk-details">
                 <summary class="govuk-details__summary hide-in-print">
                     <span class="govuk-details__summary-text govuk-!-font-size-16">Add or remove charts</span>
-                    <span id="spinner-place-holder" class="ml-1 font-xsmall">
+                    <span id="spinner-place-holder" class="ml-1 govuk-!-font-size-16">
                         <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
                         <span role="alert" aria-live="assertive" aria-label="Updating charts"></span>
                         <span style="margin-left: 10px; color: black">Updating charts</span>
@@ -52,7 +52,7 @@
                             <div class="column-half no-padding">
                                 <div class="selection-controls column-one-third no-padding" ng-show="ctrl.anySelected()">
                                     <div class="clear-link">
-                                        <a href="#" class="font-xsmall" ng-click="ctrl.clear()">Clear selections</a>
+                                        <a href="#" class="govuk-!-font-size-16" ng-click="ctrl.clear()">Clear selections</a>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                         <h2 class="govuk-accordion__section-heading">
                                             <span id="accordion-selection-heading" class="govuk-accordion__section-button" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
                                                 {{group.GroupName}}
-                                                <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">
+                                                <span class="not-bold govuk-!-font-size-19" ng-show="ctrl.groupSelectCount(group) != 0">
                                                     ({{ctrl.groupSelectCount(group)}} selected)
                                                 </span>
                                                 <span class="visuallyhidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
@@ -79,7 +79,7 @@
                                     <div id="accordion-selection-content" class="govuk-accordion__section-content" aria-labelledby="accordion-selection-heading">
                                         <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="grid-row chart-selection" ng-class="{'show-details': ctrl.query}">
                                             <div class="multiple-choice-header column-quarter">
-                                                <span class="bold-xsmall">{{chart.Name}}</span>
+                                                <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">{{chart.Name}}</span>
                                             </div>
                                             <div class="multiple-choices column-three-quarters">
                                                 <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
@@ -152,7 +152,7 @@
                     <tbody class="govuk-table__body">
                         <tr class="govuk-table__row" ng-repeat="school in schoolChartData">
                             <td class="govuk-table__cell school-column">
-                                <span ng-class="{'bold-xsmall' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
+                                <span ng-class="{'govuk-!-font-size-16 govuk-!-font-weight-bold' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
                                 <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
                             </td>
                             <td class="govuk-table__cell">{{school.la}}</td>

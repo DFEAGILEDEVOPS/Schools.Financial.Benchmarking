@@ -14,7 +14,7 @@
 }
 
 
-<div class="column-three-quarters mt-2">
+<div class="column-three-quarters govuk-!-margin-top-2">
     <div id="govuk-error-summary-placeholder">
         @if (!string.IsNullOrEmpty(Model.ErrorMessage))
         {
@@ -37,7 +37,7 @@
         Schools financial benchmarking
     </h1>
 
-    <p class="lede">Compare a school or trust's income and expenditure with similar establishments in England.</p>
+    <p class="govuk-body-l">Compare a school or trust's income and expenditure with similar establishments in England.</p>
     <p class="homep">You can view your school or academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
 
     @if (Model.ComparisonList.HomeSchoolUrn != null)
@@ -46,17 +46,17 @@
             <p>
                 @if (Model.ComparisonList.HomeSchoolType == "Federation")
                 {
-                    <span class="govuk-heading-s bold-small">
+                    <span class="govuk-heading-s govuk-!-font-size-19 govuk-!-font-weight-bold">
                         Your federation:
                     </span>
                 }
                 else
                 {
-                    <span class="bold-small">
+                    <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">
                         Your school:
                     </span>
                 }
-                <a class="bold-small" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
+                <a class="govuk-!-font-size-19 govuk-!-font-weight-bold" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
             </p>
         </div>
     }
@@ -88,9 +88,9 @@
 @section Aside {
     <div class="column-quarter aside">
         <aside class="app-related-items mt-2">
-            <h2 class="govuk-heading-m govuk-!-margin-top-6" id="subsection-title">Guidance</h2>
+            <h2 class="govuk-heading-m" id="subsection-title">Guidance</h2>
             <nav role="navigation" aria-labelledby="subsection-title">
-                <ul class="list font-xsmall">
+                <ul class="list govuk-!-font-size-16">
                     <li>
                         <a href="Help/SadGuidance">Self-assessment dashboard guidance</a>
                     </li>

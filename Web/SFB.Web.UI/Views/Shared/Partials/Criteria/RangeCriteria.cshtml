@@ -27,11 +27,11 @@
                         decimal homeValueDecimal;
                         if (!string.IsNullOrEmpty(Model.Format) && decimal.TryParse(Model.HomeSchoolValue, out homeValueDecimal))
                         {
-                            <span class="bold-small">@homeValueDecimal.ToString(Model.Format)</span>
+                            <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@homeValueDecimal.ToString(Model.Format)</span>
                         }
                         else
                         {
-                            <span class="bold-small">@Model.HomeSchoolValue</span>
+                            <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@Model.HomeSchoolValue</span>
                         }
                     }
                 </div>

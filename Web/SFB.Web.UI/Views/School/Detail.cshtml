@@ -187,7 +187,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         }
         <div class="column-one-third no-padding">
             <div class="download">
-                <button class="pl-0 link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.downloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <button class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.downloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
                         <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
@@ -197,7 +197,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         </div>
         <div class="column-one-third no-padding">
             <div class="print">
-                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.SchoolDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                     Print page
                 </button>
@@ -209,7 +209,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         {
             <details class="govuk-details mb-1" data-module="govuk-details">
                 <summary class="govuk-details__summary">
-                    <span class="summary font-xsmall">This school's SEN characteristics</span>
+                    <span class="summary govuk-!-font-size-16">This school's SEN characteristics</span>
                 </summary>
                 <div class="govuk-details__text">
                     <table class="govuk-table sen-table">
@@ -232,7 +232,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             </details>
         }
 
-        <div class="metadata-school-detail font-xsmall mt-1">
+        <div class="metadata-school-detail govuk-!-font-size-16 mt-1">
             <dl class="metadata-school-detail__dl">
                 @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
                 @if (!string.IsNullOrEmpty(Model.PhoneNumber))
@@ -322,7 +322,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
     <div class="column-half">
         <details class="govuk-details" data-module="govuk-details" open>
             <summary class="govuk-details__summary map hide-in-print">
-                <span class="summary font-xsmall">Show map</span>
+                <span class="summary govuk-!-font-size-16">Show map</span>
             </summary>
             <div class="govuk-details__text map">
                 <a href="#post-map-content" class="skip-map hide-in-print">Skip the map</a>
@@ -382,11 +382,11 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         <div class="charts-section">
             <div class="grid-row">
                 <div>
-                    <div class="column-full font-xsmall chartTable hide-in-print">
+                    <div class="column-full govuk-!-font-size-16 chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
-                    <div class="column-full font-xsmall hide-in-print">
+                    <div class="column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                             <span><</span>
                             <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>

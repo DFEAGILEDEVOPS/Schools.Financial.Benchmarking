@@ -25,9 +25,9 @@
 {
     <div class="grid-row">
         <div class="column-full">
-            <span class="font-small">Comparing to</span>
+            <span class="govuk-!-font-size-19">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.BenchmarkSchool.Id"><span class="bold-xsmall">@Model.BenchmarkSchool.Name</span></a>
+                <a href="/school/detail?urn=@Model.BenchmarkSchool.Id"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.BenchmarkSchool.Name</span></a>
             </div>
         </div>
     </div>
@@ -36,11 +36,11 @@
 <p class="mt-2">This comparison generates a group of statistically similar schools using the following characteristics and progress data.</p>
 
 <div class="govuk-inset-text" style="margin-bottom:40px">
-    <p class="bold-small">Included as standard:</p>
+    <p class="govuk-!-font-size-19 govuk-!-font-weight-bold">Included as standard:</p>
     <ul class="list list-bullet">
-        <li><span class="bold-small">Establishment type: </span>@Model.BicCriteria.EstablishmentType</li>
-        <li><span class="bold-small">School phase: </span>@Model.BicCriteria.OverallPhase</li>
-        <li><span class="bold-small">London Weighting: </span>@string.Join(",", Model.BicCriteria.LondonWeighting)</li>
+        <li><span class="govuk-!-font-size-19 govuk-!-font-weight-bold">Establishment type: </span>@Model.BicCriteria.EstablishmentType</li>
+        <li><span class="govuk-!-font-size-19 govuk-!-font-weight-bold">School phase: </span>@Model.BicCriteria.OverallPhase</li>
+        <li><span class="govuk-!-font-size-19 govuk-!-font-weight-bold">London Weighting: </span>@string.Join(",", Model.BicCriteria.LondonWeighting)</li>
     </ul>
 </div>
 
@@ -52,7 +52,7 @@
                 <label class="govuk-label govuk-!-font-weight-bold">Number of pupils</label>
                 <div class="benchmark-school-value">
                     <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
-                    <span class="bold-small">@Model.BenchmarkSchool.LatestYearFinancialData.PupilCount pupils</span>
+                    <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@Model.BenchmarkSchool.LatestYearFinancialData.PupilCount pupils</span>
                 </div>
             </div>
             <div class="column-half no-padding">
@@ -85,7 +85,7 @@
                 <label class="govuk-label govuk-!-font-weight-bold">Eligibility for free school meals (% of pupils)</label>
                 <div class="benchmark-school-value">
                     <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
-                    <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault().ToString("F2"))%</span>
+                    <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault().ToString("F2"))%</span>
                 </div>
             </div>
             <div class="column-half no-padding">
@@ -93,7 +93,7 @@
                     @InputErrorMessage("bicCriteria.PercentageFSMMin")
                     @InputErrorMessage("bicCriteria.PercentageFSMMax")
                     <div class="column-half no-padding">
-                        <label class="form-label" for="bicCriteria.PercentageFSMMin">From</label>
+                        <label class="govuk-label" for="bicCriteria.PercentageFSMMin">From</label>
                         <input type="text" pattern="[0-9]*" inputmode="numeric" name="bicCriteria.PercentageFSMMin" id="bicCriteria.PercentageFSMMin"
                                class="form-control criteria-input @FormControlErrorClass("bicCriteria.PercentageFSMMin")"
                                step=".01" min="0" max="100"
@@ -130,7 +130,7 @@
                     <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="sen_range" style="display: @Html.Raw(Model.BicCriteria.SENEnabled ? "block" : "none")">
                         <div class="benchmark-school-value">
                             <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
-                            <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
+                            <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@(Model.BenchmarkSchool.LatestYearFinancialData.PercentageOfPupilsWithSen.GetValueOrDefault().ToString("F2"))%</span>
                         </div>
                         <div class="govuk-form-group no-padding @FormGroupErrorClass("bicCriteria.PercentageSENMin") @FormGroupErrorClass("bicCriteria.PercentageSENMax")">
                             @InputErrorMessage("bicCriteria.PercentageSENMin")
@@ -165,7 +165,7 @@
                 </label>
                 <div class="benchmark-school-value">
                     <span>Enter your preferred range in the boxes below. The value for @Model.BenchmarkSchool.Name is </span>
-                    <span class="bold-small">@(Model.BenchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault().ToString("C"))</span>
+                    <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@(Model.BenchmarkSchool.LatestYearFinancialData.PerPupilTotalExpenditure.GetValueOrDefault().ToString("C"))</span>
                 </div>
             </div>
             <div class="column-half no-padding">
@@ -194,10 +194,10 @@
     <div>
         <div class="govuk-form-group">
             <div class="column-full no-padding">
-                <label class="bold-small">Urban/Rural schools</label>
+                <label class="govuk-!-font-size-19 govuk-!-font-weight-bold">Urban/Rural schools</label>
                 <div class="benchmark-school-value">
                     <span>The value for @Model.BenchmarkSchool.Name is </span>
-                    <span class="bold-small">@(Model.BicCriteria.UrbanRural)</span>
+                    <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@(Model.BicCriteria.UrbanRural)</span>
                 </div>
             </div>
             <div class="column-full no-padding">
