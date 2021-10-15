@@ -76,13 +76,13 @@
         margin: 0;
 
         li {
-            @include core-14;
+            @include govuk-font(14);
             margin-left: 0;
             padding: 0;
         }
 
         .rating-date {
-            @include core-14;
+            @include govuk-font(14);
             color: $grey-1;
         }
     }
@@ -90,7 +90,7 @@
     .metadata-school-detail {
 
         dt, dd {
-            @include core-14;
+            @include govuk-font(14);
             margin-left: 0;
             padding-bottom: $gutter-one-third;
 
@@ -271,7 +271,7 @@
         }
 
         td {
-            @include core-14;
+            @include govuk-font(14);
         }
     }
 

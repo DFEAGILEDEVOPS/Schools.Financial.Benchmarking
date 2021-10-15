@@ -127,7 +127,7 @@
                 &__a--inline {
                     display: inline;
                     margin-left: 25px;
-                    @include core-16;
+                    @include govuk-font(16);
 
                     @include media(mobile) {
                         display: block;
@@ -146,7 +146,7 @@
             }
 
             &__lastYearBalance {
-                @include core-36;
+                @include govuk-font(36);
                 border-top: 1px solid $border-colour;
                 color: $turquoise;
                 padding-top: 12px;
@@ -296,12 +296,11 @@
             padding-bottom: 5px;
             padding-top: 5px;
         }
-/*
+        /*
         .chart-filter {
             height: 75px;
         }*/
-
-/*        @include media(tablet) {
+        /*        @include media(tablet) {
             height: 93px;
 
             .chart-filter:first-of-type {

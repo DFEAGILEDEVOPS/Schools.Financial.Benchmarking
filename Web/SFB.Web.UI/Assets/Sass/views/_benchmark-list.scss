@@ -9,7 +9,7 @@
     }
 
     .benchmarkControlPanel {
-        @include core-16;
+        @include govuk-font(16);
         padding-bottom: 15px;
     }
 
@@ -28,7 +28,7 @@
         margin: 0;
 
         li {
-            @include core-14;
+            @include govuk-font(14);
             margin-left: 0;
             padding: 0;
         }

@@ -272,7 +272,7 @@
             margin-top: 1.5em;
 
             a {
-                @include core-16;
+                @include govuk-font(16);
                 float: right
             }
 
@@ -359,7 +359,7 @@
         background-color: $page-colour;
 
         td, th {
-            @include core-16;
+            @include govuk-font(16);
             border: 1px solid $grey-2;
             padding: 8px;
 

@@ -116,6 +116,9 @@ $path: "/public/assets/images/";
 @import "views/manual-comparison";
 @import "views/comparison-type-select";
 
+//Migration
+$govuk-compatibility-govukelements: true;
+@import "../../node_modules/govuk-frontend/govuk/all";
 
 // ==========================================================================
 // Elements page styles
@@ -181,7 +184,7 @@ $path: "/public/assets/images/";
 }
 
 .list-contents li {
-    @include core-16;
+    @include govuk-font(16)
 }
 
 // Use for paragraphs before lists

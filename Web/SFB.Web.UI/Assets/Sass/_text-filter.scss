@@ -44,7 +44,7 @@ category: Forms
 
     p {
         max-width: $full-width;
-        @include core-16;
+        @include govuk-font(16);
         margin-bottom: $gutter;
     }
 
@@ -60,7 +60,7 @@ category: Forms
         padding-bottom: 10px;
 
         .legend {
-            @include core-19;
+            @include govuk-font(19);
             font-weight: bold;
             display: block;
             padding-bottom: 5px;

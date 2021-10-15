@@ -133,7 +133,7 @@
     @extend %banner-box;
 
     &__comparison-list-info-panel {
-        @include core-16;
+        @include govuk-font(16);
         background-color: #D9ECE2;
         padding: 20px;
 
@@ -343,7 +343,7 @@
     }
 
     tspan.england-average-tick {
-        //@include core-16;
+        //@include govuk-font(16);
         font-weight: bold;
     }
 
@@ -892,7 +892,7 @@
     .chevron-button {
         text-decoration: none;
         color: $text-colour;
-        @include core-19;
+        @include govuk-font(19);
     }
 
     .page-top {
@@ -959,13 +959,13 @@
         }
 
         thead tr th {
-            @include core-16;
+            @include govuk-font(16);
             text-align: right;
             color: $govuk-blue;
         }
 
         tbody tr td {
-            @include core-16;
+            @include govuk-font(16);
             text-align: right;
 
             a {

@@ -97,6 +97,10 @@ category: Forms
 ```
 */
 
+//Migration
+$govuk-compatibility-govukelements: true;
+@import "../../node_modules/govuk-frontend/govuk/all";
+
 .govuk-option-select {
     background-color: $grey-3;
     padding: 5px;
@@ -125,7 +129,7 @@ category: Forms
     }
 
     .option-select-label {
-        @include core-19;
+        @include govuk-font(19);
         font-weight: bold;
         padding-top: 5px;
         padding-left: 10px;
@@ -183,7 +187,7 @@ category: Forms
         padding: 0 0 1px 0;
 
         .js-selected-counter {
-            @include core-14;
+            @include govuk-font(14);
             padding-left: $gutter-half;
             display: inline-block;
         }
