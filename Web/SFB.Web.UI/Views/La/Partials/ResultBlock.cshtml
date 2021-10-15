@@ -16,7 +16,7 @@
     {
         @Html.Partial("Partials/Pagination", Model.Pagination)
 
-    <ul>
+    <ul class="govuk-list">
         @foreach (var laViewModel in Model.ModelList)
         {
             if (Model.SearchMethod == "Manual")

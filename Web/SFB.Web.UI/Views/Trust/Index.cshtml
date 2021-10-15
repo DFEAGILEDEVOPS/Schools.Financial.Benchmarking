@@ -147,7 +147,7 @@
                             @if (Model.AcademiesInContextList.Count > 10)
                             {
                                 <div class="resultListPanel">
-                                    <ul class="list two-columns resultListPanel__ul">
+                                    <ul class="govuk-list two-columns resultListPanel__ul">
                                         @foreach (var academy in Model.AcademiesInContextList)
                                         {
                                             <li>
@@ -160,7 +160,7 @@
                             else
                             {
                                 <div class="resultListPanel">
-                                    <ul class="list list-bullet resultListPanel__ul">
+                                    <ul class="govuk-list govuk-list--bullet resultListPanel__ul">
                                         @foreach (var school in Model.AcademiesInContextList)
                                         {
                                             <li>
@@ -187,7 +187,7 @@
                             @if (Model.AcademiesInFinanceList.Count > 10)
                             {
                                 <div class="resultListPanel">
-                                    <ul class="list two-columns resultListPanel__ul">
+                                    <ul class="govuk-list two-columns resultListPanel__ul">
                                         @foreach (var academy in Model.AcademiesInFinanceList)
                                         {
                                             if (academy.HasIncompleteFinancialData)
@@ -212,7 +212,7 @@
                             else
                             {
                                 <div class="resultListPanel">
-                                    <ul class="list list-bullet resultListPanel__ul">
+                                    <ul class="govuk-list govuk-list--bullet resultListPanel__ul">
                                         @foreach (var school in Model.AcademiesInFinanceList)
                                         {
                                             if (school.HasIncompleteFinancialData)

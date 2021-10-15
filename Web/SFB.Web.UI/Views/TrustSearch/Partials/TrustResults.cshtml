@@ -64,7 +64,7 @@
     </div>
     <div class="tabs">
         <div class="list @(ViewBag.tab != "map" ? "active" : string.Empty)">
-            <ul>
+            <ul class="govuk-list">
                 @foreach (var trust in Model.ModelList)
                 {
                     <li class="school-document">

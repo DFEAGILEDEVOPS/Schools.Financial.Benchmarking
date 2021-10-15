@@ -20,7 +20,7 @@
         <p class="govuk-!-font-size-16 mb-05">
             Compare against similar schools to yours or schools of your choice.
         </p>
-        <ul class="list-arrow">
+        <ul class="govuk-list">
             <li>
                 <a class="govuk-link govuk-!-font-size-16" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
             </li>
@@ -38,7 +38,7 @@
             <p class="govuk-!-font-size-16 mb-05">
                 Examine your school's spending in relation to progress or compare your school against higher progress schools
             </p>
-            <ul class="list-arrow">
+            <ul class="govuk-list">
                 @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
                 {
                     <li>
@@ -60,7 +60,7 @@
             <p class="govuk-!-font-size-16 mb-05">
                 Formerly the SRMSAT/SFVS dashboard, see areas where your school is looking healthy or may need to focus on.
             </p>
-            <ul class="list-arrow">
+            <ul class="govuk-list">
                 <li>
                     <a class="govuk-link govuk-!-font-size-16 sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
                 </li>
