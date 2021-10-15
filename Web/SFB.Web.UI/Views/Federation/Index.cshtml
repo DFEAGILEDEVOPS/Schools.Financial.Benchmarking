@@ -80,7 +80,7 @@
                     <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.downloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                         <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                         <div id="DownloadLinkTextWrapper" class="inline">
-                            <span id="DownloadLinkText"> Download data for this federation<span class="visually-hidden"> (CSV)</span></span>
+                            <span id="DownloadLinkText"> Download data for this federation<span class="govuk-visually-hidden"> (CSV)</span></span>
                         </div>
                     </button>
                 </div>
@@ -206,7 +206,7 @@
                 <div>
                     <div class="column-full govuk-!-font-size-16 chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
                     <div class="column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
@@ -257,7 +257,7 @@
 {
     <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
     <dd class="metadata-school-detail__dd bold">
-        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get information about schools<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
     </dd>
 }
 

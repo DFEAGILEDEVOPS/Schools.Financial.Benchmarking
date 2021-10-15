@@ -7,7 +7,7 @@
 <div class="govuk-checkboxes question" data-module="govuk-checkboxes">
     <div class="govuk-checkboxes__item question">
         <input class="govuk-checkboxes__input" id="checkbox-OverallPhase" type="checkbox" @Html.Raw(activated ? "checked" : "") data-aria-controls="phc">
-        <label class="govuk-label govuk-checkboxes__label" id="label-OverallPhase" for="checkbox-OverallPhase">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
+        <label class="govuk-label govuk-checkboxes__label" id="label-OverallPhase" for="checkbox-OverallPhase">@Model.Question <span class="govuk-visually-hidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
     <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="phc">
         <div class="govuk-form-group">

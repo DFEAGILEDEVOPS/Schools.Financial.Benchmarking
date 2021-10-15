@@ -56,7 +56,7 @@
                                 {
                                     <span class="view-more">View more tables</span>
                                 }
-                                <span class="visuallyhidden"> for @Model[i].Name</span>
+                                <span class="govuk-visually-hidden"> for @Model[i].Name</span>
                             </button>
                             @if (Model[i].HelpTooltip != null)
                             {
@@ -101,7 +101,7 @@
                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                         aria-label="Save image of @Model[i].FieldName">
                                     <i class="icon icon-save-image">
-                                        <span class="visually-hidden">Save as image</span>
+                                        <span class="govuk-visually-hidden">Save as image</span>
                                     </i>
                                     <span>Save as image</span>
                                 </button>
@@ -110,13 +110,13 @@
                                 <div class="float-to-right">
                                     <button style="display: none" class="customAdd a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
                                         <i class="icon icon-bookmark">
-                                            <span class="visually-hidden">Bookmark</span>
+                                            <span class="govuk-visually-hidden">Bookmark</span>
                                         </i>
                                         <span>Add to your charts</span>
                                     </button>
                                     <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
                                         <i class="icon icon-bookmark">
-                                            <span class="visually-hidden">Bookmark</span>
+                                            <span class="govuk-visually-hidden">Bookmark</span>
                                         </i>
                                         <span>Remove from your charts</span>
                                     </button>
@@ -124,7 +124,7 @@
                                         <span class="help-icon help-addremove hide-in-print">
                                             <span class="icon dark-blue">
                                                 <a href="#" class="js-modal" role="button" data-modal-title="Add to your charts/remove from your charts" data-modal-text="If you want to download or print a customised report, you can save individual charts in the ‘Your charts’ tab. You can add or remove them by selecting ‘Add to your charts’ or ‘Remove from your charts’. Go to the 'Your charts' tab to see the ones you’ve chosen." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                                    <span class="visuallyhidden">Open more info text for Add this chart to 'Your charts' opens a popup</span>
+                                                    <span class="govuk-visually-hidden">Open more info text for Add this chart to 'Your charts' opens a popup</span>
                                                 </a>
                                             </span>
                                         </span>
@@ -144,7 +144,7 @@
                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                         aria-label="Save image of @Model[i].FieldName">
                                     <i class="icon icon-save-image">
-                                        <span class="visually-hidden">Save as image</span>
+                                        <span class="govuk-visually-hidden">Save as image</span>
                                     </i>
                                     <span>Save as image</span>
                                 </button>
@@ -268,7 +268,7 @@
                                 <div class="column-half govuk-!-font-size-16 no-padding custom-action-mobile">
                                     <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                             aria-label="Save image of @Model[i].FieldName">
-                                        <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
+                                        <i class="icon icon-save-image"><span class="govuk-visually-hidden">Save as image</span></i>
                                         <span>Save as image</span>
                                     </button>
                                 </div>
@@ -276,11 +276,11 @@
                                 <div class="column-half govuk-!-font-size-16 no-padding float-to-right custom-action-mobile">
                                     <div class="float-to-right">
                                         <button style="display: none" class="customAdd float-to-right a-button" aria-label="Add @Model[i].FieldName to Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', true, this);">
-                                            <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                            <i class="icon icon-bookmark"><span class="govuk-visually-hidden">Bookmark</span></i>
                                             <span>Add to your charts</span>
                                         </button>
                                         <button style="display: none" class="customRemove a-button" aria-label="Remove @Model[i].FieldName from Your Charts" onclick="DfE.Views.BenchmarkChartsViewModel.addRemoveYourCharts(@Model[i].Id,'@Model[i].ShowValue', false, this);">
-                                            <i class="icon icon-bookmark"><span class="visually-hidden">Bookmark</span></i>
+                                            <i class="icon icon-bookmark"><span class="govuk-visually-hidden">Bookmark</span></i>
                                             <span>Remove from your charts</span>
                                         </button>
                                     </div>
@@ -298,7 +298,7 @@
                             <div class="column-full govuk-!-font-size-16 no-padding">
                                 <button class="save-as-image a-button" style="display: none" onclick="DfE.Views.BenchmarkChartsViewModel.saveAsImage('@Model[i].Name', 'chart_@i')"
                                         aria-label="Save image of @Model[i].FieldName">
-                                    <i class="icon icon-save-image"><span class="visually-hidden">Save as image</span></i>
+                                    <i class="icon icon-save-image"><span class="govuk-visually-hidden">Save as image</span></i>
                                     <span>Save as image</span>
                                 </button>
                             </div>

@@ -190,7 +190,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                 <button class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.downloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
-                        <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
+                        <span id="DownloadLinkText"> Download data for this school<span class="govuk-visually-hidden"> (CSV)</span></span>
                     </div>
                 </button>
             </div>
@@ -384,7 +384,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                 <div>
                     <div class="column-full govuk-!-font-size-16 chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
                     <div class="column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
@@ -434,9 +434,9 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
 {
     <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
     <dd class="metadata-school-detail__dd bold">
-        <a rel="external noopener noreferrer" class="govuk-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="govuk-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
         <span class="seperator spt_link_js" aria-hidden="true">&nbsp; | &nbsp;</span>
-        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
     </dd>
 }
 

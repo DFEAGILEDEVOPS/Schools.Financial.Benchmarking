@@ -2,7 +2,7 @@
 @model List<SFB.Web.UI.Models.BenchmarkSchoolModel>
 
 <form autocomplete="off">
-    <span id="schoolCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count schools in manual comparison list</span>
+    <span id="schoolCountMessage" class="govuk-visually-hidden" aria-live="polite">@Model.Count schools in manual comparison list</span>
     <input id="schoolCount" type="hidden" value="@Model.Count"/>
     <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
     <fieldset class="govuk-fieldset">

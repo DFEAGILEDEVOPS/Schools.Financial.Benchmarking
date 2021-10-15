@@ -7,7 +7,7 @@
 <div class="govuk-checkboxes question" data-module="govuk-checkboxes">
     <div class="govuk-checkboxes__item question">
         <input class="govuk-checkboxes__input" id="checkbox-@Model.MinElementName" type="checkbox" @Html.Raw(activated ? "checked" : "")  data-aria-controls="pc">
-        <label class="govuk-label govuk-checkboxes__label" for="checkbox-@Model.MinElementName">@Model.Question <span class="visuallyhidden">Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
+        <label class="govuk-label govuk-checkboxes__label" for="checkbox-@Model.MinElementName">@Model.Question <span class="govuk-visually-hidden">Enter your preferred range in the boxes below. The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
     <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="pc">
         <div class="govuk-form-group">

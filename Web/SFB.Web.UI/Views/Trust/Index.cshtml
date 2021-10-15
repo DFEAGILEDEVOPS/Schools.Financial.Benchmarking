@@ -106,7 +106,7 @@
                 <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.TrustDetailsViewModel.downloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
-                        <span id="DownloadLinkText"> Download data for this trust<span class="visually-hidden"> (CSV)</span></span>
+                        <span id="DownloadLinkText"> Download data for this trust<span class="govuk-visually-hidden"> (CSV)</span></span>
                     </div>
                 </button>
             </div>
@@ -195,7 +195,7 @@
                                                 <li>
                                                     <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
                                                         @academy.EstablishmentName
-                                                        <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                                        <span class="govuk-visually-hidden"> has data from a period less than 12 months</span>
                                                     </a>
                                                 </li>
                                             }
@@ -220,7 +220,7 @@
                                                 <li>
                                                     <a href="/school/detail?urn=@school.URN" class="govuk=link highlight-warning">
                                                         @school.EstablishmentName
-                                                        <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                                        <span class="govuk-visually-hidden"> has data from a period less than 12 months</span>
                                                     </a>
                                                 </li>
                                             }
@@ -354,7 +354,7 @@
                 <div autocomplete="off">
                     <div class="column-full govuk-!-font-size-16 chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
                     <div class="column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">

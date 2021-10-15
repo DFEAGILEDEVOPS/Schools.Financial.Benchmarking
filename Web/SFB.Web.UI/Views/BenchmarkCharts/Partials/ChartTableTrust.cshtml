@@ -22,14 +22,14 @@
             {
             <td class="govuk-table__cell school-column" data-header="Trust name">
                 <a href="/trust/index?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
-                    <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
+                    <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
                 </a>
                 @if (Model.IncompleteFinanceDataIndex.Contains(i))
                 {
                     <span class="help-icon">
                         <span class="icon dark-blue">
                             <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="Some of this trust's schools have data from a period less than 12 months." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
                             </a>
                         </span>
                     </span>
@@ -40,12 +40,12 @@
             {
                 <td class="govuk-table__cell school-column" data-header="Trust name">
                     <a href="/trust/index?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
-                        <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
+                        <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
                     </a>
                     <span class="help-icon">
                         <span class="icon dark-blue">
                             <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="Some of this trust's schools have data from a period less than 12 months." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
                             </a>
                         </span>
                     </span>

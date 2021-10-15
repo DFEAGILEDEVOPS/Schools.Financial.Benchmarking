@@ -9,7 +9,7 @@
     <button aria-label="Display @Model.Name table in summary view" class="mobile-hide-show-button hide detail hide-in-print a-button mobile-only" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetailsMobile(this)" style="display: none">Show less information</button>
 
     <table class="govuk-table tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--summary-view">
-        <caption class="visually-hidden">@Model.Name</caption>
+        <caption class="govuk-visually-hidden">@Model.Name</caption>
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 <th class="govuk-table__header school-column sortInitialOrder-asc" scope="col" data-header="School name">
@@ -31,14 +31,14 @@
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
+                                <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
                             </a>
                             @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                             {
                                 <span class="exc-icon">
                                     <span class="icon dark-blue">
                                         <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                            <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                            <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
                                         </a>
                                     </span>
                                 </span>
@@ -49,12 +49,12 @@
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
+                                <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
                             </a>
                             <span class="exc-icon">
                                 <span class="icon dark-blue">
                                     <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                        <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                        <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
                                     </a>
                                 </span>
                             </span>
@@ -64,7 +64,7 @@
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete workforce data</span>
+                                <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete workforce data</span>
                             </a>
                         </td>
                     }
@@ -109,7 +109,7 @@
     </table>
 
     <table class="govuk-table tablesorter data-table-js chart-table chart-table--mobile-only-view chart-table--detail-view" style="display: none">
-        <caption class="visually-hidden">@Model.Name</caption>
+        <caption class="govuk-visually-hidden">@Model.Name</caption>
         @for (int i = 0; i < Model.BenchmarkData.Count; i++)
         {
             <tbody class="govuk-table__body chart-table--detail-view__body">
@@ -121,14 +121,14 @@
                     {
                         <td class="govuk-table__cell">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
+                                <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
                             </a>
                             @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                             {
                                 <span class="exc-icon">
                                     <span class="icon dark-blue">
                                         <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                            <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                            <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
                                         </a>
                                     </span>
                                 </span>
@@ -139,12 +139,12 @@
                     {
                         <td class="govuk-table__cell">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
+                                <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
                             </a>
                             <span class="exc-icon">
                                 <span class="icon dark-blue">
                                     <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                        <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                        <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
                                     </a>
                                 </span>
                             </span>
@@ -154,7 +154,7 @@
                     {
                         <td class="govuk-table__cell">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete workforce data</span>
+                                <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete workforce data</span>
                             </a>
                         </td>
                     }
@@ -268,7 +268,7 @@
     <button aria-label="Show extra columns in @Model.Name table" class="hide-show-button show detail hide-in-print a-button hide-in-mobile" onclick="DfE.Views.BenchmarkChartsViewModel.hideShowDetails(this)" style="display: none">Show more information</button>
 
     <table class="govuk-table tablesorter data-table-js chart-table chart-table--mobile-above-view">
-        <caption class="visually-hidden">@Model.Name</caption>
+        <caption class="govuk-visually-hidden">@Model.Name</caption>
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
                 <th class="govuk-table__header school-column sortInitialOrder-asc" scope="col" data-header="School name">
@@ -318,14 +318,14 @@
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> index school</span>
+                                <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
                             </a>
                             @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                             {
                                 <span class="exc-icon">
                                     <span class="icon dark-blue">
                                         <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                            <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                            <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
                                         </a>
                                     </span>
                                 </span>
@@ -336,12 +336,12 @@
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete financial data</span>
+                                <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
                             </a>
                             <span class="exc-icon">
                                 <span class="icon dark-blue">
                                     <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                        <span class="visuallyhidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                        <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
                                     </a>
                                 </span>
                             </span>
@@ -351,7 +351,7 @@
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
                             <a href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
-                                <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="visually-hidden"> has incomplete workforce data</span>
+                                <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete workforce data</span>
                             </a>
                         </td>
                     }
@@ -369,7 +369,7 @@
                         <td class="govuk-table__cell detail" data-header="Progress Score">
                             <div class="score chart-table--score @ViewHelpers.ScoreColorCode(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? BicProgressScoreType.P8 : BicProgressScoreType.KS2, schoolBenchmarkData.P8Banding.GetValueOrDefault())">
                                 <span class="chart-table--score__text">@schoolBenchmarkData.ProgressScore</span>
-                                <span class="visually-hidden">@ViewHelpers.ScoreText(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? BicProgressScoreType.P8 : BicProgressScoreType.KS2, schoolBenchmarkData.P8Banding.GetValueOrDefault())</span>
+                                <span class="govuk-visually-hidden">@ViewHelpers.ScoreText(schoolBenchmarkData.ProgressScore.GetValueOrDefault(), ViewBag.BicComparisonOverallPhase == "Secondary" || ViewBag.BicComparisonOverallPhase == "All-through" ? BicProgressScoreType.P8 : BicProgressScoreType.KS2, schoolBenchmarkData.P8Banding.GetValueOrDefault())</span>
                             </div>
                         </td>
                     }

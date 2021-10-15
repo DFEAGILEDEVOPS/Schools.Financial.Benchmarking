@@ -28,7 +28,7 @@
             <div class="column-full no-padding mt-1">
                 <div class="govuk-!-font-size-16 chartTable hide-in-print">
                     <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
             </div>
             <details class="govuk-details criteria-details" data-module="govuk-details">
@@ -71,7 +71,7 @@
                                                 <span class="not-bold govuk-!-font-size-19" ng-show="ctrl.groupSelectCount(group) != 0">
                                                     ({{ctrl.groupSelectCount(group)}} selected)
                                                 </span>
-                                                <span class="visuallyhidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
+                                                <span class="govuk-visually-hidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
                                             </span>
                                         </h2>
                                     </div>
@@ -153,7 +153,7 @@
                         <tr class="govuk-table__row" ng-repeat="school in schoolChartData">
                             <td class="govuk-table__cell school-column">
                                 <span ng-class="{'govuk-!-font-size-16 govuk-!-font-weight-bold' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
-                                <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
+                                <span ng-if="homeSchoolName === school.school.split('#')[0]" class="govuk-visually-hidden"> index school</span>
                             </td>
                             <td class="govuk-table__cell">{{school.la}}</td>
                             <td class="govuk-table__cell">{{school.type}}</td>

@@ -50,12 +50,12 @@
                     @if (!school.IsReturnsComplete)
                     {
                         <div class="name highlight-warning">
-                            <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="visually-hidden"> (has incomplete data)</span></a>
+                            <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"> (has incomplete data)</span></a>
                         </div>
                         <span class="help-icon inline-block hide-in-print">
                             <span class="icon dark-blue">
                                 <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="<p id='modal-content'>This school doesn't have a complete set of financial data for this period.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
-                                    <span class="visuallyhidden">Open incomplete financial modal. Opens a popup</span>
+                                    <span class="govuk-visually-hidden">Open incomplete financial modal. Opens a popup</span>
                                 </a>
                             </span>
                         </span>
@@ -65,13 +65,13 @@
                         if (school.Urn != Model.HomeSchoolUrn)
                         {
                             <div class="name">
-                                <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="visually-hidden"></span></a>
+                                <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"></span></a>
                             </div>
                         }
                         else
                         {
                             <div class="name highlight">
-                                <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="visually-hidden"> (default school)</span></a>
+                                <a href="/school/detail?urn=@school.Urn" class="govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"> (default school)</span></a>
                             </div>
                         }
                     }

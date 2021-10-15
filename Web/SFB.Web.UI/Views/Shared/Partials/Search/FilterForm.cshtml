@@ -20,7 +20,7 @@
 
             <div class="filter school @(ViewBag.tab == "map" ? "active" : string.Empty)">
                 <div class="govuk-form-group filter-box">
-                    <label class="govuk-label govuk-!-font-weight-bold" for="DistanceRadius">Within a radius of <span class="visuallyhidden">- changing the selection will refresh the results</span></label>
+                    <label class="govuk-label govuk-!-font-weight-bold" for="DistanceRadius">Within a radius of <span class="govuk-visually-hidden">- changing the selection will refresh the results</span></label>
                     <select id="DistanceRadius" name="radius" class="govuk-select">
                         @foreach (var radius in distanceRadius)
                         {

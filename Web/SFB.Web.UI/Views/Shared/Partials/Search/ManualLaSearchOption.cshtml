@@ -19,7 +19,7 @@
         <div class="govuk-hint" for="FindSchoolManuallyByLaCodeName" id="sectionLabel">
             <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
         </div>
-        <label class="visually-hidden" for="FindSchoolManuallyByLaCodeName_listbox">Select a local authority from the list box</label>
+        <label class="govuk-visually-hidden" for="FindSchoolManuallyByLaCodeName_listbox">Select a local authority from the list box</label>
         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
         {
             <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>

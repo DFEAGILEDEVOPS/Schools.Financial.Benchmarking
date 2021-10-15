@@ -9,7 +9,7 @@
                 <span>The data below is from the latest year available. For maintained schools this is <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermMaintained</span>, academies from <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermAcademies</span></span>
             </div>
             <table class="govuk-table tablesorter data-table-js comp-school-table chart-table--mobile-above-view" id="ComparisonSchoolsTable">
-                <caption class="visually-hidden">Comparison schools</caption>
+                <caption class="govuk-visually-hidden">Comparison schools</caption>
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th class="govuk-table__header school-column sortInitialOrder-asc" scope="col">School</th>
@@ -43,19 +43,19 @@
                             @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
                             <div></div>
                         </td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
                         <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@((cSchool as FederationViewModel).OverallPhase)</td>
                         <td scope="col">N/A</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-ks2-js" scope="col">
                             <div class="score na">
                                 <div class="govuk-!-font-size-16">N/A</div>
-                                <span class="visually-hidden">Key stage 2 progress score</span>
+                                <span class="govuk-visually-hidden">Key stage 2 progress score</span>
                             </div>
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-p8-js" scope="col">
                             <div class="score na">
                                 <div class="govuk-!-font-size-16">N/A</div>
-                                <span class="visually-hidden">Progress 8 score</span>
+                                <span class="govuk-visually-hidden">Progress 8 score</span>
                             </div>
                         </td>
                     </tr>
@@ -70,14 +70,14 @@
                                     @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
                                     <div>@((cSchool as SchoolViewModel).Address)</div>
                                 </td>
-                                <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
-                                <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@((cSchool as SchoolViewModel).OverallPhase) <span class="visually-hidden">phase</span></td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@((cSchool as SchoolViewModel).OverallPhase) <span class="govuk-visually-hidden">phase</span></td>
                                 <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">
                                     @if ((cSchool as SchoolViewModel).OfstedRating != "0")
                                     {
                                         <span class="rating rating-@((cSchool as SchoolViewModel).OfstedRating)">@((cSchool as SchoolViewModel).OfstedRating)</span>
                                     }
-                                    @((cSchool as SchoolViewModel).OfstedRatingText) <span class="visually-hidden">ofsted rating</span>
+                                    @((cSchool as SchoolViewModel).OfstedRatingText) <span class="govuk-visually-hidden">ofsted rating</span>
                                     @if ((cSchool as SchoolViewModel).OfstedRatingText != "Not rated" && (cSchool as SchoolViewModel).OfstedInspectionDate != null)
                                     {
                                         <br><span class="font-xxsmall not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
@@ -90,7 +90,7 @@
                                         {
                                             <div class="no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
                                         }
-                                        <span class="visually-hidden">Key stage 2 progress score</span>
+                                        <span class="govuk-visually-hidden">Key stage 2 progress score</span>
                                     </div>
                                 </td>
                                 <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-p8-js" scope="col">
@@ -100,7 +100,7 @@
                                         {
                                             <div class="no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
                                         }
-                                        <span class="visually-hidden">Progress 8 score</span>
+                                        <span class="govuk-visually-hidden">Progress 8 score</span>
                                     </div>
                                 </td>
                             </tr>
@@ -110,7 +110,7 @@
             </table>
 
             <table class="govuk-table tablesorter data-table-js comp-school-table chart-table--mobile-only-view" id="ComparisonSchoolsTableMobile">
-                <caption class="visually-hidden">Comparison schools</caption>
+                <caption class="govuk-visually-hidden">Comparison schools</caption>
                 @foreach (var cSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                 {
                     if (cSchool is FederationViewModel)
@@ -131,7 +131,7 @@
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header col-header">Pupils</th>
-                                <td class="govuk-table__cell">@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
+                                <td class="govuk-table__cell">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header col-header">Phase of education</th>
@@ -179,11 +179,11 @@
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header col-header">Pupils</th>
-                                <td class="govuk-table__cell">@((cSchool as SchoolViewModel).TotalPupils) <span class="visually-hidden">pupils</span></td>
+                                <td class="govuk-table__cell">@((cSchool as SchoolViewModel).TotalPupils) <span class="govuk-visually-hidden">pupils</span></td>
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header col-header">Phase of education</th>
-                                <td class="govuk-table__cell">@((cSchool as SchoolViewModel).OverallPhase) <span class="visually-hidden">phase</span></td>
+                                <td class="govuk-table__cell">@((cSchool as SchoolViewModel).OverallPhase) <span class="govuk-visually-hidden">phase</span></td>
                             </tr>
                             <tr class="govuk-table__row">
                                 <th scope="row" class="govuk-table__header col-header">Ofsted rating</th>
@@ -192,7 +192,7 @@
                                     {
                                         <span class="rating rating-@((cSchool as SchoolViewModel).OfstedRating)">@((cSchool as SchoolViewModel).OfstedRating)</span>
                                     }
-                                    @((cSchool as SchoolViewModel).OfstedRatingText) <span class="visually-hidden">ofsted rating</span>
+                                    @((cSchool as SchoolViewModel).OfstedRatingText) <span class="govuk-visually-hidden">ofsted rating</span>
                                     @if ((cSchool as SchoolViewModel).OfstedRatingText != "Not rated" && (cSchool as SchoolViewModel).OfstedInspectionDate != null)
                                     {
                                         <br><span class="font-xxsmall not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
@@ -213,7 +213,7 @@
                                         {
                                             <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
                                         }
-                                        <span class="visually-hidden">Key stage 2 progress score</span>
+                                        <span class="govuk-visually-hidden">Key stage 2 progress score</span>
                                     </div>
                                 </td>
                             </tr>
@@ -231,7 +231,7 @@
                                         {
                                             <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
                                         }
-                                        <span class="visually-hidden">Progress 8 score</span>
+                                        <span class="govuk-visually-hidden">Progress 8 score</span>
                                     </div>
                                 </td>
                             </tr>
