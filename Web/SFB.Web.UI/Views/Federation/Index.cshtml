@@ -34,8 +34,8 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
-<div class="grid-row">
-    <div class="column-full">
+<div class="govuk-grid-row">
+    <div class=" govuk-grid-column-full">
         @if (!Model.IsReturnsDNS)
         {
             <div class="blue-banner">
@@ -57,9 +57,9 @@
             <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
         }
     </div>
-    <div class="column-full mt-1 pl-0">
-        <div class="column-full hide-in-print">
-            <div class="column-one-third no-padding">
+    <div class=" govuk-grid-column-full mt-1 pl-0">
+        <div class=" govuk-grid-column-full hide-in-print">
+            <div class="govuk-grid-column-one-third no-padding">
                 <div class="add-remove">
                     <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
                         <img class="icon" src="~/public/assets/images/icons/add_to_set.svg" />
@@ -75,7 +75,7 @@
                     </button>
                 </div>
             </div>
-            <div class="column-one-third no-padding">
+            <div class="govuk-grid-column-one-third no-padding">
                 <div class="download">
                     <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.downloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                         <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
@@ -85,7 +85,7 @@
                     </button>
                 </div>
             </div>
-            <div class="column-one-third no-padding">
+            <div class="govuk-grid-column-one-third no-padding">
                 <div class="print">
                     <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.FederationDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                         <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
@@ -95,7 +95,7 @@
             </div>
         </div>
     </div>
-    <div class="column-full mt-2">
+    <div class=" govuk-grid-column-full mt-2">
         <p class="govuk-!-font-size-19">This federation is a combination of <span class="govuk-!-font-weight-bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
         <div class="govuk-accordion app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-federation-accordion">
             <div class="govuk-accordion__section ">
@@ -123,8 +123,8 @@
     </div>
 </div>
 
-<div class="grid-row">
-    <div class="column-half">
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
         <div class="metadata-school-detail govuk-!-font-size-16 mt-2">
             <dl class="metadata-school-detail__dl">
 
@@ -145,7 +145,7 @@
             </div>
         </div>
     </div>
-    <div class="column-half">
+    <div class="govuk-grid-column-one-half">
         <details class="govuk-details" data-module="govuk-details" open>
             <summary class="govuk-details__summary map hide-in-print">
                 <span class="govuk-details__summary-text govuk-!-font-size-16">Show map</span>
@@ -202,13 +202,13 @@
             </div>
         </div>
         <div class="charts-section">
-            <div class="grid-row">
+            <div class="govuk-grid-row">
                 <div>
-                    <div class="column-full govuk-!-font-size-16 chartTable hide-in-print">
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
-                    <div class="column-full govuk-!-font-size-16 hide-in-print">
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                             <span><</span>
                             <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>

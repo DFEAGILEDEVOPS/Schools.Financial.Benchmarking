@@ -1,6 +1,6 @@
 ﻿@model SFB.Web.UI.Models.SearchedSchoolListViewModel
 
-<div class="column-one-third">
+<div class="govuk-grid-column-one-third">
     <div class="filter-form">
         <details class="govuk-details" data-module="govuk-details" open>
             <summary class="govuk-details__summary filter-detail"><span class="summary govuk-!-font-size-16">Show search filters</span></summary>
@@ -10,6 +10,6 @@
         </details>
     </div>
 </div>
-<div class="column-two-thirds">
+<div class="govuk-grid-column-two-thirds">
     @(Html.Partial("Partials/Search/SchoolResults", Model))
 </div>

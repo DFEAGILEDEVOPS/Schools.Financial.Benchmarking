@@ -40,8 +40,8 @@
 
 <h1 class="govuk-heading-xl page-heading">Enter trusts by name</h1>
 
-<div class="grid-row">
-    <div class="column-full">
+<div class="govuk-grid-row">
+    <div class=" govuk-grid-column-full">
         <span class="govuk-!-font-size-16">Comparing to</span>
         <div class="highlight">
             <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.BenchmarkTrust.Name</span></a>
@@ -54,12 +54,12 @@
 </div>
 
 <div class="control-buttons">
-    <div class="grid-row">
-        <div class="column-three-quarters">
-            <div class="column-half pl-0">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-grid-column-one-half pl-0">
                 <button id="manualButton" class="govuk-button" data-module="govuk-button" onclick="window.open('../BenchmarkCharts/Mats?comparison=Manual', '_self')">View benchmarking charts</button>                
             </div>
-            @*<div class="column-half no-padding">
+            @*<div class="govuk-grid-column-one-half no-padding">
                 <div class="back-button">
                     <button id="removeAllTrusts" class="link-button govuk-!-font-size-19">Remove all trusts</button>
                 </div>

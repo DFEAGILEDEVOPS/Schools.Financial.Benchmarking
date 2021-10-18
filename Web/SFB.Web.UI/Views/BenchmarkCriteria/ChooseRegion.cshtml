@@ -46,8 +46,8 @@
 
 @if (!(Model is SFB.Web.UI.Models.SchoolViewModelWithNoDefaultSchool))
 {
-    <div class="grid-row">
-        <div class="column-full">
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
             <span class="govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
                 <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
@@ -106,9 +106,9 @@
                 </fieldset>
 
             </div>
-            <div class="grid-row">
-                <div class="column-half">
-                    <div class="column-one-third next-button">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <div class="govuk-grid-column-one-third next-button">
                         <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
                     </div>
                 </div>

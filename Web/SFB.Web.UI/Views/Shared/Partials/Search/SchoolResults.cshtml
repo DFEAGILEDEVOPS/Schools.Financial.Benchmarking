@@ -20,7 +20,7 @@
         </div>
     }
     <div class="result-controllers">
-        <div class="column-one-third no-padding view-map">
+        <div class="govuk-grid-column-one-third no-padding view-map">
             <nav class="navigation-links" role="navigation">
                 <div class="olist" role="tablist">
                     <div class="litem navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
@@ -38,7 +38,7 @@
                 </div>
             </nav>
         </div>
-        <div class="column-two-thirds no-padding">
+        <div class="govuk-grid-column-two-thirds no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
                 <div class="filter school @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
                     @if (Model.SearchType == SearchTypes.SEARCH_BY_NAME_ID || Model.SearchType == SearchTypes.SEARCH_BY_LA_CODE_NAME || Model.SearchType == SearchTypes.SEARCH_BY_MAT)
@@ -83,8 +83,8 @@
                     @foreach (var school in Model.ModelList)
                     {
                         <li class="school-document">
-                            <div class="grid-row">
-                                <div class="column-two-thirds">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-two-thirds">
                                     <a href="/school/detail?urn=@school.Id" class="govuk-link govuk-!-font-weight-bold">
                                         @school.Name
                                         @if (school.Status == "Closed")

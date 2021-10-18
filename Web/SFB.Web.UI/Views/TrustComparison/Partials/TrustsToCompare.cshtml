@@ -35,7 +35,7 @@
                 <div id="ExistingTrusts">
                     @for (; i < Model.Count; i++)
                     {
-                        <div class="grid-row trust-element">
+                        <div class="govuk-grid-row trust-element">
                             <label class="govuk-label" for="mat_@i">
                                 Trust @Html.Raw(i + 1)
                                 <span class="govuk-visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
@@ -47,7 +47,7 @@
                 </div>
 
                 <div id="NewTrust" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
-                    <div class="grid-row trust-element">
+                    <div class="govuk-grid-row trust-element">
                         <label class="govuk-label" for="NewTrustName">
                             Trust @Html.Raw(i + 1)
                             <span class="govuk-visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
@@ -77,8 +77,8 @@
 
                     </div>
                 </div>
-                <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
-                    <div class="column-full">
+                <div id="AddButton" class="govuk-grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
+                    <div class=" govuk-grid-column-full">
                         @if (Model.Count + 1 < ComparisonListLimit.MAT_LIMIT)
                         {
                             <button class="link-button govuk-!-font-size-16" id="displayNew">Add another trust</button>
@@ -92,7 +92,7 @@
             }
             else
             {
-                <div class="grid-row trust-element">
+                <div class="govuk-grid-row trust-element">
                     <label class="govuk-label" for="NewTrustName">
                         Trust 1
                         <span class="govuk-visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>

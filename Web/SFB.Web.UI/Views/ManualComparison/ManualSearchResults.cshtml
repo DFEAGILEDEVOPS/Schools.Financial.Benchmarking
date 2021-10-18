@@ -58,10 +58,10 @@
     }
 </h1>
 
-<div class="grid-row home-school section">
+<div class="govuk-grid-row home-school section">
     @if (ViewBag.HomeSchoolId != null)
     {
-        <div class="column-three-quarters">
+        <div class="govuk-grid-column-three-quarters">
             <span class="govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
                 <a href="/school/detail?urn=@Model.SchoolComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
@@ -78,7 +78,7 @@
     <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
 </div>
 
-<div class="grid-row js-live-search-results-block">
+<div class="govuk-grid-row js-live-search-results-block">
     @Html.Partial("Partials/Search/ResultBlock")
 </div>
 

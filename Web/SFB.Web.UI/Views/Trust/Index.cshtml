@@ -99,9 +99,9 @@
 
 </div>
 
-<div class="grid-row download-links hide-in-print">
-    <div class="column-full pl-0">
-        <div class="column-one-third no-padding">
+<div class="govuk-grid-row download-links hide-in-print">
+    <div class=" govuk-grid-column-full pl-0">
+        <div class="govuk-grid-column-one-third no-padding">
             <div class="download">
                 <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.TrustDetailsViewModel.downloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
@@ -111,7 +111,7 @@
                 </button>
             </div>
         </div>
-        <div class="column-one-third no-padding">
+        <div class="govuk-grid-column-one-third no-padding">
             <div class="print">
                 <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold" onclick="DfE.Views.TrustDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
@@ -121,10 +121,10 @@
     </div>
 </div>
 
-<div class="grid-row">
+<div class="govuk-grid-row">
     @if (Model.AcademiesInContextList.Count > 0)
     {
-        <div class="column-full">
+        <div class=" govuk-grid-column-full">
 
             <p class="mb-1 mt-1">
                 This trust is made up of <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span> of schools.
@@ -291,8 +291,8 @@
 
 </div>
 
-<div class="grid-row metadata-school-detail govuk-!-font-size-16 mt-1">
-    <div class="column-full">
+<div class="govuk-grid-row metadata-school-detail govuk-!-font-size-16 mt-1">
+    <div class=" govuk-grid-column-full">
         <dl class="metadata-school-detail__dl">
             <dt class="metadata-school-detail__dt">Companies House number:</dt>
             <dd class="metadata-school-detail__dd bold">
@@ -306,7 +306,7 @@
             </dd>
         </dl>
     </div>
-    <div class="column-full mb-1 mt-1" style="clear: left">
+    <div class=" govuk-grid-column-full mb-1 mt-1" style="clear: left">
         <a href="~/Help/DataQueries" class="hide-in-print">Do you have a query about this trust's data?</a>
     </div>
 </div>
@@ -350,13 +350,13 @@
         </div>
 
         <div class="charts-section">
-            <div class="grid-row">
+            <div class="govuk-grid-row">
                 <div autocomplete="off">
-                    <div class="column-full govuk-!-font-size-16 chartTable hide-in-print">
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 chartTable hide-in-print">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
-                    <div class="column-full govuk-!-font-size-16 hide-in-print">
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
                             <span><</span>
                             <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>

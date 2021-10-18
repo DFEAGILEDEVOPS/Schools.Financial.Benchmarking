@@ -2,15 +2,15 @@
 @using SFB.Web.UI.Helpers.Constants
 
 <div class="charts-section">
-    <div class="grid-row">
-        <div class="column-full">
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
             <div class="sticky-div sticky-custom-controls">
                 <div id="custom-controls-accordion">
                     <div>
                         <fieldset class="govuk-fieldset">
                             <legend class="govuk-visually-hidden" id="filtersLegendCustom">Filters</legend>
                             <div>
-                                <div class="column-one-third chart-filter govuk-!-padding-0">
+                                <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
                                     <div class="govuk-form-group">
                                         <label class="govuk-label" for="CFinancing">Trust finance</label>
                                         <select name="CentralFinancing" id="CFinancing" class="govuk-select" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="column-full no-padding mt-1">
+            <div class=" govuk-grid-column-full no-padding mt-1">
                 <div class="govuk-!-font-size-16 chartTable hide-in-print">
                     <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
                     <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
@@ -42,15 +42,15 @@
                 </summary>
                 <div class="govuk-details__text">
                     <div class="selection-filters no-padding">
-                        <div class="column-full no-padding">
-                            <div class="column-half no-padding">
+                        <div class=" govuk-grid-column-full no-padding">
+                            <div class="govuk-grid-column-one-half no-padding">
                                 <div class="govuk-form-group">
                                     <label class="govuk-label" for="Filter">Filter by chart name</label>
                                     <input id="Filter" class="form-control" ng-model="ctrl.query" ng-change="ctrl.openDetails()" />
                                 </div>
                             </div>
-                            <div class="column-half no-padding">
-                                <div class="selection-controls column-one-third no-padding" ng-show="ctrl.anySelected()">
+                            <div class="govuk-grid-column-one-half no-padding">
+                                <div class="selection-controls govuk-grid-column-one-third no-padding" ng-show="ctrl.anySelected()">
                                     <div class="clear-link">
                                         <a href="#" class="govuk-!-font-size-16" ng-click="ctrl.clear()">Clear selections</a>
                                     </div>
@@ -77,11 +77,11 @@
                                     </div>
 
                                     <div id="accordion-selection-content" class="govuk-accordion__section-content" aria-labelledby="accordion-selection-heading">
-                                        <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="grid-row chart-selection" ng-class="{'show-details': ctrl.query}">
-                                            <div class="multiple-choice-header column-quarter">
+                                        <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="govuk-grid-row chart-selection" ng-class="{'show-details': ctrl.query}">
+                                            <div class="multiple-choice-header govuk-grid-column-one-quarter">
                                                 <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">{{chart.Name}}</span>
                                             </div>
-                                            <div class="multiple-choices column-three-quarters">
+                                            <div class="multiple-choices govuk-grid-column-three-quarters">
                                                 <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
                                                     <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PerPupilAvailable">
                                                         <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerPupilSelected">

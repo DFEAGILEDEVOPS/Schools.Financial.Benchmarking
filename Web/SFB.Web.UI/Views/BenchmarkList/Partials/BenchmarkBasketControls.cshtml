@@ -1,6 +1,6 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
-<div class="grid-row benchmarkControlPanel">
-    <div class="column-two-thirds">
+<div class="govuk-grid-row benchmarkControlPanel">
+    <div class="govuk-grid-column-two-thirds">
         <strong class="govuk-!-font-size-19 govuk-!-font-weight-bold">@Model.BenchmarkSchools.Count</strong> schools in this list
         <div class="basket-control-buttons">
             <a class="govuk-link benchmarkControls" href="/SchoolSearch/AddSchools">Add schools</a>
@@ -12,7 +12,7 @@
     </div>
     @if (Model.BenchmarkSchools.Count > 1)
     {
-        <div class="column-one-third">
+        <div class="govuk-grid-column-one-third">
             <button class="govuk-button view-benchmark" data-module="govuk-button" onclick="window.open('/BenchmarkCharts', '_self')">View benchmarking charts</button>
         </div>
     }

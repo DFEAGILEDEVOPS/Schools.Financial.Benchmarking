@@ -1,7 +1,7 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.TrustListViewModel
 
-<div class="column-one-third @(Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_TRUST_LOCATION ? "trust-location-filter" : "hidden-filter")">
+<div class="govuk-grid-column-one-third @(Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_TRUST_LOCATION ? "trust-location-filter" : "hidden-filter")">
     <div class="filter-form">
         <details class="govuk-details" data-module="govuk-details" open>
             <summary class="govuk-details__summary filter-detail"><span class="summary govuk-!-font-size-16">Show search filters</span></summary>
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="column-two-thirds">
+<div class="govuk-grid-column-two-thirds">
     <div aria-live="assertive" class="js-search-results-info">
         <div class="result-info">
             <p class="summary" aria-live="assertive">

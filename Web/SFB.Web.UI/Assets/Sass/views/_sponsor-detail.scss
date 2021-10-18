@@ -172,7 +172,7 @@
         }
     }
 
-    .column-quarter.mobile {
+    .govuk-grid-column-one-quarter.mobile {
         @include media(tablet) {
             display: none;
         }
@@ -182,7 +182,7 @@
         }
     }
 
-    .column-quarter.desktop {
+    .govuk-grid-column-one-quarter.desktop {
         @include media(mobile) {
             display: none;
         }
@@ -299,13 +299,13 @@
         }
     }
 
-    .column-quarter.balance-wrapper-mobile--inactive {
+    .govuk-grid-column-one-quarter.balance-wrapper-mobile--inactive {
         @include media(mobile) {
             display: none;
         }
     }
 
-    .column-quarter.balance-wrapper-mobile--active {
+    .govuk-grid-column-one-quarter.balance-wrapper-mobile--active {
         @include media(mobile) {
             display: block;
         }

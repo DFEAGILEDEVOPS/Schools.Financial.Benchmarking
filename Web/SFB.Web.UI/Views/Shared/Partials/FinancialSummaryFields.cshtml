@@ -2,8 +2,8 @@
 @using SFB.Web.UI.Helpers;
 @model SFB.Web.UI.Models.EstablishmentViewModelBase
 
-<div class="grid-row" id="financialSummary">
-    <div class="column-third">
+<div class="govuk-grid-row" id="financialSummary">
+    <div class="govuk-grid-column-one-third">
         <div class="revenue-box">
             <h2 class="govuk-heading-m govuk-!-margin-top-6">Expenditure</h2>
             <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
@@ -21,7 +21,7 @@
             <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
-    <div class="column-third">
+    <div class="govuk-grid-column-one-third">
         <div class="revenue-box">
             <h2 class="govuk-heading-m govuk-!-margin-top-6">Income</h2>
             <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
@@ -37,7 +37,7 @@
             <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
-    <div class="column-third">
+    <div class="govuk-grid-column-one-third">
         <div class="revenue-box">
             <h2 class="govuk-heading-m govuk-!-margin-top-6">In-year balance</h2>
             <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">

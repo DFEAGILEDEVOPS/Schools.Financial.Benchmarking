@@ -5,7 +5,7 @@
 
 <div class="schoolResults">
     <div class="result-controllers">
-        <div class="column-one-third no-padding view-map">
+        <div class="govuk-grid-column-one-third no-padding view-map">
             <nav class="navigation-links" role="navigation">
                 <div class="olist" role="tablist">
                     <div class="litem navigation-link no-margin list mb-1 @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
@@ -23,7 +23,7 @@
                 </div>
             </nav>
         </div>
-        <div class="column-two-thirds no-padding">
+        <div class="govuk-grid-column-two-thirds no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
                 <div class="filter school @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
                     @if (Model.ModelList.Count > 1)

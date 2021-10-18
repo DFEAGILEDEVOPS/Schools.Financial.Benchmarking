@@ -31,7 +31,7 @@
                 <div id="ExistingSchools">
                     @for (; i < Model.Count; i++)
                     {
-                        <div class="grid-row school-element">
+                        <div class="govuk-grid-row school-element">
                             <label class="govuk-label" for="school_@i">School @Html.Raw(i + 1)</label>
                             <input class="govuk-input govuk-!-width-one-half" id="school_@i" name="school_@i" type="text" disabled="disabled" value="@Model[i].Name" />
                             <button class="remove-school link-button govuk-!-font-size-19" data-urn="@Model[i].Id" aria-label="Remove @Model[i].Name">Remove</button>
@@ -40,7 +40,7 @@
                 </div>
 
                 <div id="NewSchool" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
-                    <div class="grid-row school-element">
+                    <div class="govuk-grid-row school-element">
                         <label class="govuk-label" for="NewSchoolName">School @Html.Raw(i + 1)</label>
                         @if (ViewBag.Error != null)
                         {
@@ -65,8 +65,8 @@
                         <button class="remove-new-school link-button govuk-!-font-size-19" aria-label="Remove new school addition">Remove</button>
                     </div>
                 </div>
-                <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
-                    <div class="column-full">
+                <div id="AddButton" class="govuk-grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
+                    <div class=" govuk-grid-column-full">
                         @if (Model.Count + 1 < ComparisonListLimit.LIMIT)
                         {
                             <button class="link-button govuk-!-font-size-19" id="displayNew">Add another school</button>
@@ -80,7 +80,7 @@
             }
             else
             {
-                <div class="grid-row school-element">
+                <div class="govuk-grid-row school-element">
                     <label class="govuk-label" for="NewSchoolName">School 1</label>
                     @if (ViewBag.Error != null)
                     {

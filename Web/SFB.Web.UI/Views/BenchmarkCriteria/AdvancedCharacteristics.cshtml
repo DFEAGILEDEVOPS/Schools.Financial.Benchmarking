@@ -32,8 +32,8 @@
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
-    <div class="grid-row">
-        <div class="column-full">
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
             <span class="govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
                 <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
@@ -44,8 +44,8 @@
 
 <section class="section">
     <div class="criteria-section">
-        <div class="grid-row">
-            <div class="column-three-quarters">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
                 <p>
                     Create a benchmark group of <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">1-30</span> schools with a recommended size of <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">15</span>.
                 </p>
@@ -53,8 +53,8 @@
         </div>
 
         <div class="sticky-div">
-            <div class="grid-row">
-                <div class="column-three-quarters">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-three-quarters">
                     <div class="school-match-info">
                         <span id="spinnerPlaceHolder" class="govuk-!-font-size-16" role="alert">
                             <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
@@ -79,8 +79,8 @@
                 @Html.ValidationSummary()
             </div>
         }
-        <div class="grid-row">
-            <div class="column-three-quarters">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
                 <form action="OverwriteStrategy" method="post" id="criteriaForm" autocomplete="off">
                     @Html.AntiForgeryToken()
                     <div class="criteria-questions">

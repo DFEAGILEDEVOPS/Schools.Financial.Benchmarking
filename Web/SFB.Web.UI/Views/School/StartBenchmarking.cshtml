@@ -13,8 +13,8 @@
 
 <h1 class="govuk-heading-xl page-heading">What type of comparison would you like?</h1>
 
-<div class="grid-row columns">
-    <div class="column-one-third" id="compareColumn">
+<div class="govuk-grid-row columns">
+    <div class="govuk-grid-column-one-third" id="compareColumn">
         <img src="~/public/assets/images/chart.svg" class="pano blue-svg" style="width:100%" alt="Benchmark comparison" />
         <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Benchmark comparison</h2>
         <p class="govuk-!-font-size-16 mb-05">
@@ -32,7 +32,7 @@
 
     @if ((CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null))
     {
-        <div class="column-one-third" id="progressColumn">
+        <div class="govuk-grid-column-one-third" id="progressColumn">
             <img src="~/public/assets/images/progress.svg" class="pano green-svg" style="width:100%" alt="Progress comparison" />
             <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Progress comparison</h2>
             <p class="govuk-!-font-size-16 mb-05">
@@ -54,7 +54,7 @@
 
     @if (!Model.IsReturnsDNS && Model.OverallPhaseNonTertiary)
     {
-        <div class="column-one-third" id="saColumn">
+        <div class="govuk-grid-column-one-third" id="saColumn">
             <img src="~/public/assets/images/checklist.svg" class="pano turq-svg" style="width:100%" alt="Self-assessment dashboard" />
             <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Self-assessment dashboard</h2>
             <p class="govuk-!-font-size-16 mb-05">
@@ -77,16 +77,16 @@
                 success: function () {
                     $("#efficiencyMetricLink").show();   
                     if ($("#progressColumn li:visible").length == 0) {
-                        $("#compareColumn").removeClass("column-one-third").addClass("column-half");
-                        $("#saColumn").removeClass("column-one-third").addClass("column-half");
+                        $("#compareColumn").removeClass("govuk-grid-column-one-third").addClass("govuk-grid-column-one-half");
+                        $("#saColumn").removeClass("govuk-grid-column-one-third").addClass("govuk-grid-column-one-half");
                     }
                 },
                 error: function (xhr, e) {
                     $("#efficiencyMetricLink").hide();
                     if ($("#progressColumn li:visible").length == 0){
                         $("#progressColumn").hide();
-                        $("#compareColumn").removeClass("column-one-third").addClass("column-half");
-                        $("#saColumn").removeClass("column-one-third").addClass("column-half");
+                        $("#compareColumn").removeClass("govuk-grid-column-one-third").addClass("govuk-grid-column-one-half");
+                        $("#saColumn").removeClass("govuk-grid-column-one-third").addClass("govuk-grid-column-one-half");
                     }
                 }
             });        

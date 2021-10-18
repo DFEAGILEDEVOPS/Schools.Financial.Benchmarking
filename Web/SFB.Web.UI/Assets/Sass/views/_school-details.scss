@@ -180,7 +180,7 @@
         padding: 0;
     }
 
-    .column-quarter.mobile {
+    .govuk-grid-column-one-quarter.mobile {
         @media(min-width: 1000px) {
             display: none;
         }
@@ -191,7 +191,7 @@
         }
     }
 
-    .column-quarter.desktop {
+    .govuk-grid-column-one-quarter.desktop {
         @media(max-width: 1000px) {
             display: none;
         }

@@ -14,8 +14,8 @@
 
 <h1 class="govuk-heading-xl page-heading">Select the trust characteristics</h1>
 
-<div class="grid-row">
-    <div class="column-full">
+<div class="govuk-grid-row">
+    <div class=" govuk-grid-column-full">
         <span class="govuk-!-font-size-16">Comparing to</span>
         <div class="highlight">
             <a href="/trust/index?companyNo=@Model.BenchmarkTrust.CompanyNo"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.BenchmarkTrust.Name</span></a>
@@ -29,8 +29,8 @@
 
 <div class="sticky-div">
     <div id="liveCountBar" class="live-count-bar">
-        <div class="grid-row">
-            <div class="column-full">
+        <div class="govuk-grid-row">
+            <div class=" govuk-grid-column-full">
                 <div id="comparisonListInfoPanelResults" class="trust-match-info">
                     <span id="schoolCount" aria-live="assertive">
                         <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
@@ -43,8 +43,8 @@
     </div>
 </div>
 
-<div class="grid-row">
-    <div class="column-full">
+<div class="govuk-grid-row">
+    <div class=" govuk-grid-column-full">
         <form method="post" id="criteriaForm" action="GenerateListFromAdvancedCriteria?companyNo=@Model.BenchmarkTrust.CompanyNo&comparison=Advanced" autocomplete="off" class="mt-1">
             <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
@@ -52,8 +52,8 @@
                     @Html.AntiForgeryToken()
                     @Html.Partial("Partials/TrustCharacteristics", Model)
                     <div class="advanced control-buttons">
-                        <div class="grid-row">
-                            <div class="column-two-thirds">
+                        <div class="govuk-grid-row">
+                            <div class="govuk-grid-column-two-thirds">
                                 <div class="govuk-button-group">
                                         <button id="sbmt_button" onclick="DfE.Views.TrustCompareAdvancedViewModel.onSubmit(event)" class="govuk-button view-benchmark-charts submit">View benchmarking charts</button>
                                         <a href="javascript: DfE.Views.TrustCompareAdvancedViewModel.onClear(event)" class="govuk-link clear-criteria js-clear-criteria">Clear characteristics</a>

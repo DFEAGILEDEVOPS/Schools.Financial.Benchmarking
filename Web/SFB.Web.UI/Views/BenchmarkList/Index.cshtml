@@ -45,8 +45,8 @@
     @foreach (var school in Model.BenchmarkSchools)
     {
         <li class="document" id="doc_@school.Urn">
-            <div class="grid-row">
-                <div class="column-half">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
                     @if (!school.IsReturnsComplete)
                     {
                         <div class="name highlight-warning">
@@ -81,11 +81,11 @@
                         <li>@school.Type</li>
                     </ul>
                 </div>
-                <div class="column-half make-benchmark">
-                    <div class="default-benchmark column-three-quarters right-padding" data-urn="@school.Urn">
+                <div class="govuk-grid-column-one-half make-benchmark">
+                    <div class="default-benchmark govuk-grid-column-three-quarters right-padding" data-urn="@school.Urn">
                         @DefaultButton(school)
                     </div>
-                    <div class="remove-benchmark column-quarter no-padding">
+                    <div class="remove-benchmark govuk-grid-column-one-quarter no-padding">
                         <button class="govuk-button govuk-button--secondary removefrom" data-module="govuk-button" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'Remove')")"
                                 aria-label="Remove @school.Name from benchmark">
                             Remove

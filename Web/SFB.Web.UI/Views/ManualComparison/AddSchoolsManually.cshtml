@@ -67,8 +67,8 @@
 
 @if (ViewBag.HomeSchoolId != null)
 {
-    <div class="grid-row home-school section">
-        <div class="column-full mb-1">
+    <div class="govuk-grid-row home-school section">
+        <div class=" govuk-grid-column-full mb-1">
             <span class="govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
                 <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
@@ -77,15 +77,15 @@
     </div>
 }
 
-<div class="column-three-quarters no-padding">
+<div class="govuk-grid-column-three-quarters no-padding">
     <div id="SchoolsToAdd">
         @Html.Partial("Partials/SchoolsToAdd", Model.ManualComparisonList.BenchmarkSchools.Where(t => t.Urn != Model.ManualComparisonList.HomeSchoolUrn).ToList())
     </div>
 </div>
 
-<div class="grid-row control-buttons govuk-!-font-size-16">
-    <div class="column-half mt-1">
-        <div class="column-three-quarters next-button">
+<div class="govuk-grid-row control-buttons govuk-!-font-size-16">
+    <div class="govuk-grid-column-one-half mt-1">
+        <div class="govuk-grid-column-three-quarters next-button">
             <button id="manualButton" class="govuk-button" data-module="govuk-button">Continue to benchmarking charts</button>
         </div>
     </div>

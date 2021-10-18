@@ -40,8 +40,8 @@
 
 @if (!string.IsNullOrEmpty(Model.BenchmarkSchool.Name))
 {
-    <div class="grid-row">
-        <div class="column-full">
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
             <span class="govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
                 <a class="govuk-link" href="/school/detail?urn=@Model.BenchmarkSchool.Id"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.BenchmarkSchool.Name</span></a>
@@ -161,9 +161,9 @@
                 }
             </fieldset>
         </div>
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <div class="column-two-thirds next-button">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-grid-column-two-thirds next-button">
                     <button type="submit" class="govuk-button" id="continue-button" data-module="govuk-button">Continue to benchmarking charts</button>
                 </div>
             </div>
