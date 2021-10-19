@@ -1,5 +1,8 @@
 ﻿@using SFB.Web.UI.Controllers
 @{
+    ViewBag.assetsPath = "/public/govuk_template/assets";
+
+    var appTitle = "Schools financial benchmarking";
     var documentTitle = !string.IsNullOrEmpty(ViewBag.Title) ?
         string.Format("{0}{1} - Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix ?? "", ViewBag.Title) :
         string.Format("{0}Schools Financial Benchmarking - GOV.UK", ViewBag.ErrorPrefix ?? "");
@@ -68,7 +71,6 @@
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
 
     <link href="/public/assets/stylesheets/main.css?v=@version" rel="stylesheet" type="text/css">
-    @*<link href="/public/assets/stylesheets/main2.css?v=@version" rel="stylesheet" type="text/css">*@
 
     <style>
         .c3 svg {
@@ -189,12 +191,17 @@
                             </svg>
                             <!--<![endif]-->
                             <!--[if IE 8]>
-                            <img src="/assets/images/govuk-logotype-crown.png" class="govuk-header__logotype-crown-fallback-image" width="36" height="32">
-                            <![endif]-->
+                <img src="/assets/images/govuk-logotype-crown.png" class="govuk-header__logotype-crown-fallback-image" width="36" height="32">
+                <![endif]-->
                             <span class="govuk-header__logotype-text">
                                 GOV.UK
                             </span>
                         </span>
+                    </a>
+                </div>
+                <div class="govuk-header__content">
+                    <a href="/" class="govuk-header__link govuk-header__link--service-name">
+                        @appTitle
                     </a>
                 </div>
             </div>
@@ -235,7 +242,7 @@
         </div>
 
         <div class="govuk-width-container " id="content">
-            <main class="govuk-main-wrapper @(ViewBag.pageClass)" id="main-content" role="main">
+            <main class="govuk-main-wrapper pt-0 @(ViewBag.pageClass)" id="main-content" role="main">
                 @RenderBody()
                 <input type="hidden" id="version" value="@version" />
                 <input type="hidden" id="googleAnalyticsId" value="@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]" />
