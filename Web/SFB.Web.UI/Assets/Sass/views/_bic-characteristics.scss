@@ -13,7 +13,7 @@
     .benchmark-school-value {
         margin-bottom: 8px;
         margin-top: 8px;
-        color: $grey-1;
+        color: govuk-colour("dark-grey", $legacy: "grey-1");
     }
 
     .multiple-choice {

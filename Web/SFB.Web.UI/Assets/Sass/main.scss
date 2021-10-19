@@ -78,6 +78,10 @@ $path: "/public/assets/images/";
 
 //-----------------
 
+//Migration
+$govuk-compatibility-govukelements: true;
+@import "../../node_modules/govuk-frontend/govuk/all";
+
 @import "cookiesBanner";
 
 @import "option-select";
@@ -116,10 +120,6 @@ $path: "/public/assets/images/";
 @import "views/manual-comparison";
 @import "views/comparison-type-select";
 
-//Migration
-$govuk-compatibility-govukelements: true;
-@import "../../node_modules/govuk-frontend/govuk/all";
-
 // ==========================================================================
 // Elements page styles
 // ==========================================================================
@@ -152,7 +152,7 @@ $govuk-compatibility-govukelements: true;
 }
 
 .govuk-heading-m {
-    color: #0b0c0c;
+    color: govuk-colour("black");
     font-family: "GDS Transport", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -222,7 +222,7 @@ $govuk-compatibility-govukelements: true;
 }
 
 .cookie-overlay {
-    background-color: black;
+    background-color: govuk-colour("black");
     position: absolute;
     width: 100%;
     height: 100%;

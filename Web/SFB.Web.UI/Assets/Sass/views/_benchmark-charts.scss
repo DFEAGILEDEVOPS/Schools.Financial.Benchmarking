@@ -3,11 +3,11 @@
     @include highlighting;
 
     .c3-text {
-        fill: $black !important;
+        fill: govuk-colour("black") !important;
     }
 
     .england-average-bar {
-        fill: $grey-2 !important;
+        fill: govuk-colour("mid-grey", $legacy: "grey-2") !important;
     }
 
     .england-average-tick {
@@ -38,7 +38,7 @@
         }
 
         &.incompleteFinance-highlight, &.incompleteWorkforce-highlight {
-            background-color: $orange;
+            background-color: govuk-colour("orange");
         }
     }
 
@@ -119,7 +119,7 @@
 
     .chart-border {
         border-top: solid 5px;
-        border-color: $govuk-blue;
+        border-color: $govuk-brand-colour;
         padding-top: 15px;
     }
 
@@ -195,7 +195,7 @@
         padding-top: 10px;
 
         @include media(desktop) {
-            border-bottom: 2px solid $grey-2;
+            border-bottom: 2px solid govuk-colour("mid-grey", $legacy: "grey-2");
         }
 
         &.hide-borders {
@@ -356,11 +356,11 @@
     }
 
     table.bmc-rollover-table {
-        background-color: $page-colour;
+        background-color: govuk-colour("white");
 
         td, th {
             @include govuk-font(16);
-            border: 1px solid $grey-2;
+            border: 1px solid govuk-colour("mid-grey", $legacy: "grey-2");
             padding: 8px;
 
             &.bold {
@@ -369,10 +369,10 @@
         }
 
         th {
-            background-color: $grey-3;
+            background-color: govuk-colour("light-grey", $legacy: "grey-3");
 
             &.highlighted {
-                background-color: $pink-contrast;
+                background-color: govuk-colour("pink")-contrast;
                 font-weight: bold;
                 color: white;
             }
@@ -384,18 +384,18 @@
     }
 
     li.comparison-tab {
-        background-color: $link-colour;
+        background-color: $govuk-link-colour;
 
         a {
-            color: $page-colour;
+            color: govuk-colour("white");
         }
 
         a:link, a:visited {
-            color: $page-colour !important;
+            color: govuk-colour("white") !important;
         }
 
         a:focus {
-            color: $text-colour !important;
+            color: $govuk-text-colour !important;
         }
 
         @include media(desktop) {
@@ -403,10 +403,10 @@
             margin-left: auto;
 
             &.govuk-tabs__list-item--selected {
-                background-color: $page-colour;
+                background-color: govuk-colour("white");
 
                 a {
-                    color: $text-colour !important;
+                    color: $govuk-text-colour !important;
                 }
             }
         }
@@ -481,7 +481,7 @@
             }
 
             &.comparison-tab {
-                background-color: $govuk-blue;
+                background-color: $govuk-brand-colour;
 
                 @include media(desktop) {
                     float: right;
@@ -489,13 +489,13 @@
 
                     &.active {
                         a {
-                            color: $text-colour;
+                            color: $govuk-text-colour;
                         }
                     }
                 }
 
                 a {
-                    color: $page-colour;
+                    color: govuk-colour("white");
                 }
             }
         }
@@ -637,8 +637,8 @@
 
     .sticky-chart-controls, .sticky-custom-controls {
         margin: 0;
-        background-color: $page-colour;
-        border-bottom: 1px solid $border-colour;
+        background-color: govuk-colour("white");
+        border-bottom: 1px solid $govuk-border-colour;
 
         .form-group {
             margin-bottom: 0;
@@ -762,7 +762,7 @@
     }
 
     &.na {
-        background-color: $panel-colour;
+        background-color: govuk-colour("light-grey", $legacy: "grey-3");
         min-height: 34px;
 
         @include media(mobile) {

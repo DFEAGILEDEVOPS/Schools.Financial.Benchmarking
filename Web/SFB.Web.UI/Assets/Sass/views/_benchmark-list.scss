@@ -20,7 +20,7 @@
     }
 
     li.document {
-        border-top: solid 1px $border-colour;
+        border-top: solid 1px  $govuk-border-colour;
         padding: $gutter-half 0;
     }
 
@@ -80,7 +80,7 @@
     }
 
     .document .highlight-warning {
-        background-color: $orange;
+        background-color: govuk-colour("orange");
         display: inline;
 
         a {

@@ -27,7 +27,7 @@
     }
 
     .school-document {
-        border-bottom: solid 1px $border-colour;
+        border-bottom: solid 1px $govuk-border-colour;
         padding: $gutter-half 0;
 
         .grid-row {
@@ -83,7 +83,7 @@
 
         .rating-date {
             @include govuk-font(14);
-            color: $grey-1;
+            color: govuk-colour("dark-grey", $legacy: "grey-1");
         }
     }
 

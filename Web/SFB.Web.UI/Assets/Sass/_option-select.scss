@@ -97,12 +97,9 @@ category: Forms
 ```
 */
 
-//Migration
-$govuk-compatibility-govukelements: true;
-@import "../../node_modules/govuk-frontend/govuk/all";
 
 .govuk-option-select {
-    background-color: $grey-3;
+    background-color: govuk-colour("light-grey", $legacy: "grey-3");
     padding: 5px;
 
     @include media(desktop) {
@@ -121,7 +118,7 @@ $govuk-compatibility-govukelements: true;
     }
 
     &:focus {
-        outline: 3px solid $yellow;
+        outline: 3px solid govuk-colour("yellow");
     }
 
     .container-head {
@@ -134,20 +131,20 @@ $govuk-compatibility-govukelements: true;
         padding-top: 5px;
         padding-left: 10px;
         display: inline-block;
-        width:85%;
+        width: 85%;
 
         @include media(tablet) {
-            width:80%;
+            width: 80%;
         }
-       
+
         @include media(desktop) {
-            width:85%;
+            width: 85%;
         }
     }
 
     .options-container {
         position: relative;
-        background-color: $page-colour;
+        background-color: $govuk-brand-colour;
         overflow-y: scroll;
         overflow-x: hidden;
 
@@ -158,7 +155,7 @@ $govuk-compatibility-govukelements: true;
         label {
             @include inline-block;
             padding: 7px 0 7px 30px;
-            border-bottom: 1px solid $border-colour;
+            border-bottom: 1px solid $govuk-border-colour;
             width: 100%;
             cursor: pointer;
             font-size: 16px;
@@ -169,11 +166,11 @@ $govuk-compatibility-govukelements: true;
             }
 
             &:hover {
-                background-color: $highlight-colour;
+                background-color: govuk-colour("pink");
             }
 
             &[disabled] {
-                color: $grey-2;
+                color: govuk-colour("mid-grey", $legacy: "grey-2");
             }
         }
 
@@ -193,7 +190,7 @@ $govuk-compatibility-govukelements: true;
         }
 
         .options-container {
-            border: 5px solid $grey-3;
+            border: 5px solid govuk-colour("light-grey", $legacy: "grey-3");
             border-top: 10px;
         }
         /* styles for collapsibleness. .js-collapsible is added by the javascript if the browser is not ie6/7 in which case these don't collapse */
@@ -210,7 +207,7 @@ $govuk-compatibility-govukelements: true;
                 padding: 5px 0;
                 background-position-x: right;
                 background-position-y: 13px;
-                background-color: $grey-3;
+                background-color: govuk-colour("light-grey", $legacy: "grey-3");
 
                 @include device-pixel-ratio() {
                     background-size: 32px 50px;

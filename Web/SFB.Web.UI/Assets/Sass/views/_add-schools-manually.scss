@@ -41,7 +41,7 @@
             }
 
             &:hover, a:hover {
-                background-color: $link-hover-colour;
+                background-color: govuk-colour("light-blue");
                 color: white;
                 cursor: pointer;
             }

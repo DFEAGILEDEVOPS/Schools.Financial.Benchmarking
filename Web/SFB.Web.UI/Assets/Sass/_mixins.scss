@@ -1,6 +1,6 @@
 ﻿@mixin highlighting {
     .highlight {
-        background-color: $pink_contrast;
+        background-color: govuk-colour("pink");
         display: inline;
         padding: 5px 5px;
 
@@ -19,7 +19,7 @@
 
             &:focus {
                 span {
-                    color: $black;
+                    color: $govuk-focus-text-colour;
                 }
             }
         }
@@ -31,8 +31,8 @@
 }
 
 @mixin grey-button {
-    background-color: $grey-2;
-    color: $black;
+    background-color: govuk-colour("mid-grey", $legacy: "grey-2");
+    color: govuk-colour("black");
     -webkit-box-shadow: 0 2px 0 #7d8185;
     box-shadow: 0 2px 0 #7d8185;
 }

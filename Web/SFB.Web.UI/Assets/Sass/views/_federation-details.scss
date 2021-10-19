@@ -147,8 +147,8 @@
 
             &__lastYearBalance {
                 @include govuk-font(36);
-                border-top: 1px solid $border-colour;
-                color: $turquoise;
+                border-top: 1px solid  $govuk-border-colour;
+                color: govuk-colour("turquoise");
                 padding-top: 12px;
                 font-weight: bold;
             }
@@ -161,7 +161,7 @@
 
         .c3-line-amount {
             stroke-width: 4px;
-            color: $turquoise;
+            color: govuk-colour("turquoise");
         }
 
         .c3-axis-y path {
@@ -171,7 +171,7 @@
         .c3-axis-x {
             path {
                 stroke-width: 2px;
-                stroke: $border-colour;
+                stroke:  $govuk-border-colour;
             }
         }
     }
@@ -233,7 +233,7 @@
 
     .chart-border {
         border-top: solid 5px;
-        border-color: $govuk-blue;
+        border-color:  $govuk-brand-colour;
         padding-top: 15px;
     }
 
@@ -288,8 +288,8 @@
 
     .sticky-chart-controls {
         margin-top: 10px;
-        background-color: $page-colour;
-        border-bottom: 1px solid $border-colour;
+        background-color: govuk-colour("white");
+        border-bottom: 1px solid  $govuk-border-colour;
 
         .form-group {
             margin-bottom: 0;
@@ -357,7 +357,7 @@
     }
 
     .analytics-links {
-        border-top: 2px solid $govuk-blue;
+        border-top: 2px solid  $govuk-brand-colour;
         margin-top: 36px;
 
         @include media(mobile) {

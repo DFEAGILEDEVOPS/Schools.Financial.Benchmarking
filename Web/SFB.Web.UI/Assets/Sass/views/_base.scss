@@ -98,7 +98,7 @@
             padding: 0 15px;
         }
 
-        background-color: $page-colour;
+        background-color: govuk-colour("white");
     }
 
     .accordion-section-body {
@@ -303,7 +303,7 @@
     }
 
     .revenue-box {
-        border-top: 1px solid $border-colour;
+        border-top: 1px solid  $govuk-border-colour;
         margin-top: 30px;
         margin-bottom: 30px;
 
@@ -391,7 +391,7 @@
 
     abbr, span {
         .negative-balance {
-            color: $mellow-red;
+            color: govuk-colour("red");
         }
     }
     //modal dialog
@@ -589,7 +589,7 @@
     }
 
 .orange-warning {
-    border-color: $orange;
+    border-color: govuk-colour("orange");
     background-color: bisque;
     margin-top: 15px;
 
@@ -604,7 +604,7 @@
 }
 
     .blue-warning {
-        border-color: $govuk-blue;
+        border-color:  $govuk-brand-colour;
         background-color: rgba(210, 226, 241, 1);
         margin-top: 15px;
         display: inline-flex;
@@ -832,11 +832,11 @@
     }
 
     .back-chevron {
-        color: $black;
+        color: govuk-colour("black");
     }
 
     .forward-chevron {
-        color: $grey-1;
+        color: govuk-colour("dark-grey", $legacy: "grey-2");
         padding-left: 8px;
         padding-right: 8px;
         position: relative;
@@ -891,7 +891,7 @@
 
     .chevron-button {
         text-decoration: none;
-        color: $text-colour;
+        color:  $govuk-text-colour;
         @include govuk-font(19);
     }
 
@@ -961,7 +961,7 @@
         thead tr th {
             @include govuk-font(16);
             text-align: right;
-            color: $govuk-blue;
+            color:  $govuk-brand-colour;
         }
 
         tbody tr td {
@@ -980,11 +980,11 @@
     }
 
 table.tablesorter.chart-table th, table.tablesorter.context-table th {
-    color: $text-colour;
+    color:  $govuk-text-colour;
     @include bold-16();
 
     &.tablesorter-header {
-        color: $link-colour;
+        color:  $govuk-link-colour;
         font-weight: 500;
 
         &.tablesorter-headerAsc, &.tablesorter-headerDesc {
@@ -1087,7 +1087,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
 
     .header-bar {
         height: 10px;
-        background-color: $govuk-blue;
+        background-color:  $govuk-brand-colour;
         width: 100%;
         margin: 40px 0 30px 0;
 
@@ -1104,42 +1104,42 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         padding-bottom: 15px;
     }
 
-    div.custom.tabs ul li {
-        text-align: center;
+div.custom.tabs ul li {
+    text-align: center;
 
-        a {
-            white-space: normal;
-        }
-
-        @include media-down(tablet) {
-            background-color: $grey-3;
-            border-color: $border-colour;
-            border-width: 1px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-
-            &:last-child {
-                margin-right: 0;
-            }
-
-            button, &.active button {
-                border: none;
-                margin: 0 auto;
-                padding-top: 5px;
-            }
-
-            a {
-                text-align: center;
-            }
-
-            &.active {
-                background-color: $page-colour;
-            }
-        }
+    a {
+        white-space: normal;
     }
 
+    @include media-down(tablet) {
+        background-color: govuk-colour("light-grey", $legacy: "grey-3");
+        border-color: $govuk-border-colour;
+        border-width: 1px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        button, &.active button {
+            border: none;
+            margin: 0 auto;
+            padding-top: 5px;
+        }
+
+        a {
+            text-align: center;
+        }
+
+        &.active {
+            background-color: govuk-colour("white");
+        }
+    }
+}
+
     .improve-this-page__prompt {
-        background-color: $govuk-blue;
+        background-color:  $govuk-brand-colour;
         color: #fff;
         padding: 10px 15px 0;
 
@@ -1158,7 +1158,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     }
 
     #footer {
-        border-top: 10px solid $govuk-blue;
+        border-top: 10px solid  $govuk-brand-colour;
     }
 
     .full-page-width-wrapper {
@@ -1202,7 +1202,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
 
     .dfs-panel {
         background-color: #f1f1f1;
-        border-color: $govuk-blue;
+        border-color:  $govuk-brand-colour;
         margin-top: 0.8em;
         float: left;
         font-size: 16px;
@@ -1224,20 +1224,20 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     }
 
 .blue-banner {
-    background-color: $govuk-blue;
-    color: $page-colour;
+    background-color:  $govuk-brand-colour;
+    color: govuk-colour("white");
     padding: 30px;
 
     hr {
-        background: $page-colour;
+        background: govuk-colour("white");
     }
 
     h1 {
         color: #ffffff;
     }
     /*    .start-button {
-        background-color: $page-colour;
-        color: $govuk-blue;
+        background-color: govuk-colour("white");
+        color:  $govuk-brand-colour;
         font-weight: 700;
         font-size: 18px;
 
@@ -1279,16 +1279,16 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
 }
 
 .govuk-button.app-button--start-blue {
-    background-color: $page-colour;
-    color: $govuk-blue;
+    background-color: govuk-colour("white");
+    color:  $govuk-brand-colour;
 
     &:link, &:visited, &:active {
-        color: $govuk-blue !important;
+        color:  $govuk-brand-colour !important;
     }
 
     &:focus, &:hover {
-        background-color: $page-colour;
-        color: $govuk-blue;
+        background-color: govuk-colour("white");
+        color:  $govuk-brand-colour;
         color: black !important;//TODO: replace with a govuk colour
     }
 }
@@ -1296,8 +1296,8 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
 .govuk-inset-text {
 
     &.app-govuk-inset-text--orange {
-        border-left: 10px solid $orange;
-        border-color: $orange;
+        border-left: 10px solid govuk-colour("orange");
+        border-color: govuk-colour("orange");
         background-color: bisque;
         margin-top: 15px;
 

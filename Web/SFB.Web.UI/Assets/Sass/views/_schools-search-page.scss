@@ -51,14 +51,14 @@
         }
 
         &:hover, a:hover {
-            background-color: $link-hover-colour;
+            background-color: govuk-colour("light-blue");
             color: white !important;
             cursor: pointer;
         }
     }
 
     .tt-cursor {
-        background-color: $link-hover-colour;
+        background-color: govuk-colour("light-blue");
         color: white;
 
         a {
@@ -148,7 +148,7 @@
     }
 
     .contents-guidance {
-        border-top: 10px solid $govuk-blue;
+        border-top: 10px solid  $govuk-brand-colour;
         margin-top: 36px;
 
         h3 {

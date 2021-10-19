@@ -14,7 +14,7 @@
 
     .twitter-typeahead {
         width: 100%;
-        display: contents!important;
+        display: contents !important;
         float: left;
 
         @include media(mobile) {
@@ -42,7 +42,7 @@
             }
 
             &:hover, a:hover {
-                background-color: $link-hover-colour;
+                background-color: govuk-colour("light-blue");
                 color: white;
                 cursor: pointer;
             }
@@ -74,7 +74,7 @@
         border-top: 1px solid black;
         border-bottom: 1px solid black;
         padding: 12px 0 10px 0;
-        background-color: $page-colour;
+        background-color: govuk-colour("white");
     }
 
     span.govuk-input--error {
@@ -85,6 +85,6 @@
     .benchmark-school-value {
         margin-left: 15px;
         margin-bottom: 10px;
-        color: $grey-1;
+        color: govuk-colour("dark-grey", $legacy: "grey-1");
     }
 }

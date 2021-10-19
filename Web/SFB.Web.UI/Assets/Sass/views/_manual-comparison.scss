@@ -47,7 +47,7 @@
         }
 
         &:hover, a:hover {
-            background-color: $link-hover-colour;
+            background-color: govuk-colour("light-blue");
             color: white;
             cursor: pointer;
         }
@@ -88,8 +88,8 @@
         float: left;
         position: relative;
         box-sizing: border-box;
-        background: $button-colour url(../../../public/assets/images/icons/find_button.svg) no-repeat 0 50%;
-        border: solid 2px $button-colour;
+        background:  govuk-colour("green") url(../../../public/assets/images/icons/find_button.svg) no-repeat 0 50%;
+        border: solid 2px  govuk-colour("green");
         cursor: pointer;
         overflow: hidden;
         text-indent: -500px;
@@ -152,7 +152,7 @@
     }
 
     .contents-guidance {
-        border-top: 10px solid $govuk-blue;
+        border-top: 10px solid  $govuk-brand-colour;
         margin-top: 36px;
 
         h3 {
