@@ -1262,6 +1262,46 @@ div.custom.tabs ul li {
     }
 }
 
+/*Banner header*/
+#banner-header {
+    width: 100%;
+    color: govuk-colour("white");
+    background-color: $govuk-brand-colour;
+    padding: 10px 0;
+}
+
+#banner-header .header-wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 8px 15px;
+    font-family: "nta",arial,sans-serif;
+}
+
+#banner-header .header-wrapper__header-proposition {
+    display: inline-block;
+}
+
+#banner-header .header-wrapper__hide-button-wrapper {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+@media (min-width: 641px) {
+    #banner-header .header-wrapper__hide-button-wrapper {
+        float: right;
+        margin-top: 0;
+    }
+}
+
+#banner-header button {
+    color: govuk-colour("white");
+    font-size: 16px;
+}
+
+#banner-header a {
+    display: block;
+    color: govuk-colour("white");
+}
 
 ////// GOVUK-FRONTEND modifications/////
 .app-accordion--no-open-all {

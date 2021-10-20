@@ -39,20 +39,6 @@
     }
 }
 
-.govuk-width-container {
-    @include media(tablet) {
-        margin-right: 15px;
-        margin-left: 15px;
-    }
-
-    @include media(desktop) {
-        max-width: 960px;
-        margin-right: auto;
-        margin-left: auto;
-    }
-}
-
-
 .gem-c-cookie-banner__confirmation-message{
     display: inline;
     max-width: 960px;
