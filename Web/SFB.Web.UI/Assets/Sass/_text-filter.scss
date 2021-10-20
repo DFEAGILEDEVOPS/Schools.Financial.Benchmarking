@@ -39,22 +39,22 @@ category: Forms
     display: none;
   }*/
     .change-search-link {
-        padding-left: $gutter-half;
+        padding-left: $govuk-gutter-half;
     }
 
     p {
-        max-width: $full-width;
+        //max-width: $full-width;
         @include govuk-font(16);
-        margin-bottom: $gutter;
+        margin-bottom: $govuk-gutter;
     }
 
     .filter-divider {
-        margin-top: $gutter-half;
+        margin-top: $govuk-gutter-half;
     }
 
     .filter {
         background-color: #f3f2f1;
-        margin-bottom: $gutter-half;
+        margin-bottom: $govuk-gutter-half;
         padding: 5px;
         padding-top: 10px;
         padding-bottom: 10px;
@@ -97,9 +97,9 @@ category: Forms
     }
 
     .button {
-        @include button($button-colour);
+        //@include button($button-colour);
         width: auto;
-        @include bold-24;
+        @include govuk-font(24, $weight: bold);
     }
 
     .closed {
@@ -115,7 +115,7 @@ category: Forms
         margin-top: 0 !important;
         padding-top: 0 !important;
 
-        @include media(mobile) {
+        @include govuk-media-query(mobile) {
             display: none;
         }
     }
@@ -126,7 +126,7 @@ category: Forms
     }
 
     summary.filter-detail {
-        @include media(tablet) {
+        @include govuk-media-query(tablet) {
             display: none;
         }
     }
@@ -137,7 +137,7 @@ category: Forms
     padding-top: 20px;
     padding-bottom: 50px;
 
-    @include media(mobile) {
+    @include govuk-media-query(mobile) {
         padding-bottom: 20px;
     }
 }
@@ -151,7 +151,7 @@ category: Forms
             font-size: 16px;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query(mobile) {
             text-align: left;
         }
     }

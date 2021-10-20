@@ -17,7 +17,7 @@
    .benchmark-basket {
         .optional-section {
             label {
-                @include bold-19;
+                @include govuk-font(19, $weight: bold);
                 float: left;
                 width: 100%;
                 margin-bottom: 1em;

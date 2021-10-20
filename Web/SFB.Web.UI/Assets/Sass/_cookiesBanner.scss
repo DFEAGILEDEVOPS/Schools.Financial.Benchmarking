@@ -17,12 +17,12 @@
     line-height: 1.25;
     margin: 0 15px;
 
-    @include media(tablet) {
+    @include govuk-media-query(tablet) {
         font-size: 16px;
         line-height: 1.25;
     }
 
-    @include media(desktop) {
+    @include govuk-media-query(desktop) {
         font-size: 19px;
         line-height: 1.3157894737;
         margin-left: 0;
@@ -32,10 +32,10 @@
 
 
 .cookie-heading-m {
-    margin-left: 15px!important;
+    margin-left: 15px !important;
 
-    @include media(desktop) {
-        margin-left: 0!important;
+    @include govuk-media-query(desktop) {
+        margin-left: 0 !important;
     }
 }
 
@@ -50,12 +50,11 @@
     margin: 20px 15px;
     text-align: center;
 
-    @include media(tablet)
-    {
+    @include govuk-media-query(tablet) {
         margin: 10px 10px;
     }
 
-    @include media(desktop) {
+    @include govuk-media-query(desktop) {
         margin: 10px 0;
         width: 50%;
     }
@@ -65,7 +64,7 @@
     font-size: 16px;
     line-height: 1.3157894737;
 
-    @include media(desktop) {
+    @include govuk-media-query(desktop) {
         font-size: 19px;
         margin: 0px 40px 0 -15px;
     }
@@ -75,17 +74,18 @@
     display: inline-block;
     padding-bottom: 10px;
 
-    @include media(desktop) {
+    @include govuk-media-query(desktop) {
         width: 90%;
         padding: 0 0 15px 0;
     }
 }
 
-button.gem-c-button{
-   width: 100%;
-   @include media(desktop){
-       width: 90%;
-   }
+button.gem-c-button {
+    width: 100%;
+
+    @include govuk-media-query(desktop) {
+        width: 90%;
+    }
 }
 
 .gem-c-cookie-banner {
@@ -96,7 +96,7 @@ button.gem-c-button{
 .gem-c-cookie-banner__confirmation {
     margin: 15px 10px;
 
-    @include media(desktop) {
+    @include govuk-media-query(desktop) {
         margin: 15px auto;
     }
 }
@@ -104,11 +104,11 @@ button.gem-c-button{
 #global-cookie-message .gem-c-cookie-banner__confirmation p {
     margin-left: 0;
 
-    @include media(tablet) {
+    @include govuk-media-query(tablet) {
         margin-left: 15px;
     }
 
-    @include media(desktop) {
+    @include govuk-media-query(desktop) {
         margin-left: 0;
     }
 }
@@ -118,11 +118,11 @@ button.gem-c-button{
     font-size: 1em;
     margin-top: 10px;
 
-    @include media(tablet){
-        margin-left:15px;
+    @include govuk-media-query(tablet) {
+        margin-left: 15px;
     }
 
-    @include media(desktop) {
+    @include govuk-media-query(desktop) {
         float: right;
         display: inline-block;
         margin-top: 0;

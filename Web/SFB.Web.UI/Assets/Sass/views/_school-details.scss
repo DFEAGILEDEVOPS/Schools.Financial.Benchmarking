@@ -15,11 +15,11 @@
             padding-bottom: 15px;
             width: 150px;
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 width: 170px;
             }
 
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 text-align: left;
                 min-width: unset;
             }
@@ -35,15 +35,15 @@
             text-overflow: ellipsis;
             padding-bottom: 15px;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 max-width: 130px;
             }
 
-            @include media(tablet) {
+            @include govuk-media-query($from: tablet) {
                 max-width: 135px;
             }
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 max-width: 250px;
             }
         }
@@ -68,7 +68,7 @@
         &__button--removefrom, &__button--addto, &__button--em {
             @include grey-button;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 margin-top: 10px;
                 margin-left: 0;
             }
@@ -81,14 +81,14 @@
         &__button--auto {
             margin-left: 30px;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 margin-left: 0;
             }
         }
     }
 
     .chart-wrapper__inner {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             padding: 0;
         }
     }
@@ -99,11 +99,11 @@
                 margin-top: 1.5em;
 
                 &__h2 {
-                    @include bold-24();
+                     @include govuk-font(24, $weight: bold);
                     margin-top: 1em;
                     margin-bottom: em(10, 20);
 
-                    @include media(tablet) {
+                    @include govuk-media-query($from: tablet) {
                         margin-top: em(45, 24);
                         margin-bottom: em(20, 24);
                     }
@@ -118,7 +118,7 @@
                     margin-left: 25px;
                     @include govuk-font(16);
 
-                    @include media(mobile) {
+                    @include govuk-media-query($until: mobile) {
                         display: block;
                         margin-left: 0;
                         margin-bottom: 5px;
@@ -170,7 +170,7 @@
     }
 
     summary.map {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: none;
         }
     }
@@ -236,7 +236,7 @@
     .ofsted-divider {
         display: none;
 
-        @include media(desktop) {
+        @include govuk-media-query($from: desktop) {
             display: inline;
             padding: 4px;
         }
@@ -288,7 +288,7 @@
             height: 75px;
         }
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             height: 93px;
 
             .chart-filter:first-of-type {
@@ -314,17 +314,17 @@
     }
 
     div.custom.tabs ul {
-        @include media-down(tablet) {
+        @include govuk-media-query($until: tablet){
             justify-content: flex-start;
 
             li {
 
-                @include media-down(tablet) {
+                @include govuk-media-query($until: tablet){
                     flex-basis: 32%;
                     width: 32%;
                 }
 
-                @include media(mobile) {
+                @include govuk-media-query($until: mobile) {
                     flex-basis: 47%;
                     width: 47%;
                 }
@@ -333,13 +333,13 @@
     }
 
     .column-quarter.balance-wrapper-mobile--inactive {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: none;
         }
     }
 
     .column-quarter.balance-wrapper-mobile--active {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: block;
         }
     }
@@ -348,7 +348,7 @@
         border-top: 2px solid  $govuk-brand-colour;
         margin-top: 36px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-top: 24px;
             margin-bottom: 24px;
         }

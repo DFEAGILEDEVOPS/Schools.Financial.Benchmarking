@@ -1,7 +1,7 @@
 ﻿.comparison-type-select {
     .pano {
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-top: 30px;
         }
     }
@@ -61,7 +61,7 @@
     .columns {
         margin-top: 0;
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             margin-top: 3em;
         }
     }

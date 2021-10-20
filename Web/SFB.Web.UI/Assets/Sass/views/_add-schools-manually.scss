@@ -16,7 +16,7 @@
         width: 100%;
         display: inline !important;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             width: 80%;
         }
 
@@ -32,7 +32,7 @@
         .tt-suggestion {
             a {
                 display: block;
-                padding: $gutter-one-quarter;
+                padding: $govuk-gutter-half / 2;
                 text-decoration: none;
             }
 

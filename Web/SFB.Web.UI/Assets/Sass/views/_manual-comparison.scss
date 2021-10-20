@@ -20,7 +20,7 @@
         width: 50%;
         float: left;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             width: 80%;
         }
 
@@ -38,7 +38,7 @@
     .tt-suggestion {
         a {
             display: block;
-            padding: $gutter-one-quarter;
+            padding: $govuk-gutter-half / 2;
             text-decoration: none;
         }
 
@@ -78,7 +78,7 @@
         display: inline-block;
         float: left;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             width: 80%;
         }
     }
@@ -98,7 +98,7 @@
         height: 37px;
         background-size: 32px 17px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             background-position-x: -2px;
         }
     }
@@ -111,7 +111,7 @@
         width: 50%;
         max-width: 471px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             width: 100%;
         }
     }
@@ -129,7 +129,7 @@
                 float: left;
                 width: 100%;
 
-                @include media(tablet) {
+                @include govuk-media-query($from: tablet) {
                     min-width: 650px;
                 }
 

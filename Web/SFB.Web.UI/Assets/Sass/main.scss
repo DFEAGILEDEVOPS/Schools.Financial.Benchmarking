@@ -2,84 +2,14 @@
 // in the govuk frontend toolkit's url-helpers partial
 $path: "/public/assets/images/";
 
-@import "govuk-elements";
-
-
-// Colours
-@import "styleguide/colours";
-
-// vars
-@import "variables";
-
 // mixins
 @import "mixins";
 
-// utils
-@import "utils/conditionals";
-@import "utils/vendor-prefixes";
-@import "utils/clearfix-me";
-@import "utils/whitespace";
-@import "utils/border-radius";
-@import "utils/toggles";
-@import "utils/buttons";
-//@import "utils/accordion";
-
-// prototype spacers
-@include whitespace((5px,10px,15px,20px), 4);
-
-// Helpers
-@import "elements/helpers";
-
-// Base
-// ==========================================================================
-
-
-// Layout
-@import "elements/footer";
-
-// Links
-@import "elements/links";
-
-// Boxes
-@import "elements/related-box";
-@import "elements/box/box";
-
-// Tabs
-@import "elements/_tabs";
-
-// Help icon
-@import "elements/_helpicon";
-@import "elements/_excicon";
-
-// Components
-// ==========================================================================
-
-// Forms
-@import "elements/forms/form-questions";
-
-//@import "elements/forms/filter-form/text-filter";
-//@import "elements/forms/filter-form/option-select";
-
-@import "elements/forms/feedback/feedback";
-
-// Collapsibles
-//@import "elements/collapsible/collapsible";
-
-// Browse
-@import "elements/browse";
-
-// Rating
-@import "elements/rating/rating";
-
-// Pagination
-@import "elements/pagination";
-
-@import "elements/phase-banner";                  // Alpha and beta banners and tags
 
 //-----------------
 
 //Migration
-$govuk-compatibility-govukelements: true;
+//$govuk-compatibility-govukelements: true;
 @import "../../node_modules/govuk-frontend/govuk/all";
 
 @import "cookiesBanner";
@@ -138,14 +68,14 @@ $govuk-compatibility-govukelements: true;
 }
 
 .outdent-navigation {
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin-left: -25%;
     }
 }
 
 // Increase spacing above headings
 .heading-xlarge {
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin-top: em(60, 48);
         margin-bottom: em(30, 48);
     }
@@ -164,7 +94,7 @@ $govuk-compatibility-govukelements: true;
     margin-bottom: 15px;
     margin-left: 0;
 
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin-bottom: 20px;
         font-size: 24px;
         line-height: 1.25;
@@ -194,7 +124,7 @@ $govuk-compatibility-govukelements: true;
 
 // Lists
 .list-bullet {
-    margin-bottom: ($gutter*1.5);
+    margin-bottom: ($govuk-gutter*1.5);
 }
 
 .list-underline {
@@ -215,7 +145,7 @@ $govuk-compatibility-govukelements: true;
 }
 
 
-@include media(tablet) {
+@include govuk-media-query($from: tablet) {
      .aside {
         margin: 0 -15px;
     }
@@ -286,13 +216,13 @@ ul.list {
     //vertical-align: text-bottom;
     margin-left: 10px;
 
-    @include media(desktop) {
+    @include govuk-media-query($from: desktop) {
         margin-left: 0;
     }
 }
 
 .help-trust-finance {
-    @include media(mobile) {
+    @include govuk-media-query($until: mobile) {
         vertical-align:-webkit-baseline-middle
     }
 }

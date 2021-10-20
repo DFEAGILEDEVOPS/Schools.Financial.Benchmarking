@@ -2,7 +2,7 @@
 
     @include highlighting;
 
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin: 0 -15px;
     }
 
@@ -24,7 +24,7 @@
         width: 50%;
         float: left;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             width: 80%;
         }
 
@@ -42,7 +42,7 @@
     .tt-suggestion {
         a {
             display: block;
-            padding: $gutter-one-quarter;
+            padding: $govuk-gutter-half / 2;
             text-decoration: none;
         }
 
@@ -87,7 +87,7 @@
         display: inline-block;
         float: left;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             width: 80%;
         }
     }
@@ -107,7 +107,7 @@
         width: 50%;
         max-width: 471px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             width: 100%;
         }
     }
@@ -125,7 +125,7 @@
                 float: left;
                 width: 100%;
 
-                @include media(tablet) {
+                @include govuk-media-query($from: tablet) {
                     min-width: 650px;
                 }
 
@@ -148,7 +148,7 @@
     }
 
     .contents-guidance {
-        border-top: 10px solid  $govuk-brand-colour;
+        border-top: 10px solid $govuk-brand-colour;
         margin-top: 36px;
 
         h3 {
@@ -169,7 +169,7 @@
     }
 
     div.custom.tabs ul {
-        @include media-down(tablet) {
+        @include govuk-media-query($until: tablet) {
             justify-content: flex-start;
 
             li {

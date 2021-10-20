@@ -21,7 +21,7 @@
 
     li.document {
         border-top: solid 1px  $govuk-border-colour;
-        padding: $gutter-half 0;
+        padding: $govuk-gutter-half 0;
     }
 
     .metadata {
@@ -47,12 +47,12 @@
     .document .make-benchmark {
         height: 75px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             height: 25px;
         }
 
         button {
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 float: left;
             }
         }
@@ -61,7 +61,7 @@
     .document .default-benchmark button {
         float: right;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             float: left;
             padding-top: 15px;
             padding-bottom: 15px;
@@ -69,7 +69,7 @@
     }
 
     .document .highlight {
-        background-color: $pink_contrast;
+        background-color: govuk-colour("pink");
         display: inline;
 
         a {
@@ -93,7 +93,7 @@
     .basket-control-buttons {
         display: inline-block;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: block;
             margin-left: -20px;
             margin-top: 15px;
@@ -110,7 +110,7 @@
         position: relative;
         left: 2px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             top: 1px;
             left: 0;
         }

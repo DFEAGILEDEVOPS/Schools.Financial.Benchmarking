@@ -11,9 +11,9 @@
     }
 
     .highlight {
-        @include bold-16();
-        background-color: $pink_contrast;
-        color: $white;
+        @include govuk-font(16, $weight: bold);
+        background-color: govuk-colour("pink");
+        color: govuk-colour("white");
         text-align: center;
         padding: 5px;
         margin: 10px;
@@ -49,7 +49,7 @@
     }
 
     .validation-summary-errors {
-        @include bold-19();
+        @include govuk-font(19, $weight: bold);
         color: govuk-colour("red");
     }
 
@@ -66,7 +66,7 @@
         width: 29px;
         height: 29px;
 
-        @include ie(8) {
+        @include govuk-if-ie8 {
             top: 12px;
         }
     }

@@ -24,7 +24,7 @@
             }
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-bottom: 5px;
         }
     }

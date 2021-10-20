@@ -34,7 +34,7 @@
     }
 
     .validation-summary-errors {
-        @include bold-19();
+        @include govuk-font(19, $weight: bold);
         color: govuk-colour("red");
     }
 
@@ -51,7 +51,7 @@
         width: 29px;
         height: 29px;
 
-        @include ie(8) {
+        @include govuk-if-ie8 {
             top: 12px;
         }
     }
@@ -111,13 +111,13 @@
         top: 10px;
         position: relative;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-top: 5px;
         }
     }
 
     .question .panel .form-group .column-half:last-child {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-top: 13px;
         }
     }

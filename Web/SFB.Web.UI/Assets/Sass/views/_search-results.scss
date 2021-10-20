@@ -3,7 +3,7 @@
     @include highlighting;
 
     .manual-button {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             margin-bottom: 50px;
 
             &__button {
@@ -17,7 +17,7 @@
     }
 
     .back-to-manual-compare {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             float: right;
         }
     }
@@ -28,7 +28,7 @@
 
     .school-document {
         border-bottom: solid 1px $govuk-border-colour;
-        padding: $gutter-half 0;
+        padding: $govuk-gutter-half 0;
 
         .grid-row {
             margin-right: 0;
@@ -40,21 +40,21 @@
     }
 
     .school-document__add-to-compare-button--add-remove-desktop {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: block;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: none;
         }
     }
 
     .school-document__add-to-compare-button--add-remove-mobile {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: block;
         }
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: none;
         }
     }
@@ -92,15 +92,15 @@
         dt, dd {
             @include govuk-font(14);
             margin-left: 0;
-            padding-bottom: $gutter-one-third;
+            padding-bottom: $govuk-gutter-half;
 
             @media screen and (max-width: 768px) {
                 font-size: 16px;
             }
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 padding: 0;
-                padding-bottom: $gutter-one-third/2;
+                padding-bottom: $govuk-gutter-half/2;
             }
         }
 
@@ -109,7 +109,7 @@
             clear: left;
             width: 40%;
 
-            @include media(tablet) {
+            @include govuk-media-query($from: tablet) {
                 width: 40%;
             }
         }
@@ -118,7 +118,7 @@
             float: left;
             width: 60%;
 
-            @include media(tablet) {
+            @include govuk-media-query($from: tablet) {
                 width: 60%;
             }
         }
@@ -173,7 +173,7 @@
             }
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             float: unset;
         }
     }
@@ -202,11 +202,11 @@
             }
 
             div.form-group.lower {
-                margin-top: ($gutter / 2) + 5px;
+                margin-top: ($govuk-gutter / 2) + 5px;
             }
 
             div.form-group.upper {
-                margin-bottom: ($gutter / 2) + 5px;
+                margin-bottom: ($govuk-gutter / 2) + 5px;
             }
         }
     }
@@ -217,7 +217,7 @@
         position: relative;
         overflow: hidden;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             height: 400px;
         }
     }
@@ -252,7 +252,7 @@
         clear: right;
         position: relative;
         top: 10px;
-        color: $white;
+        color: govuk-colour("white");
         cursor: default;
         font-size: 16px;
     }
@@ -267,7 +267,7 @@
 
     .school-table {
         th {
-            @include bold-16;
+            @include govuk-font(16, $weight: bold);
         }
 
         td {

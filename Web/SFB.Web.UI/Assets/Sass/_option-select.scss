@@ -102,7 +102,7 @@ category: Forms
     background-color: govuk-colour("light-grey", $legacy: "grey-3");
     padding: 5px;
 
-    @include media(desktop) {
+    @include govuk-media-query(desktop) {
         /* Redefine scrollbars on desktop where these lists are scrollable
     so they are always visible in option lists */
         ::-webkit-scrollbar {
@@ -133,11 +133,11 @@ category: Forms
         display: inline-block;
         width: 85%;
 
-        @include media(tablet) {
+        @include govuk-media-query(tablet) {
             width: 80%;
         }
 
-        @include media(desktop) {
+        @include govuk-media-query(desktop) {
             width: 85%;
         }
     }
@@ -148,19 +148,19 @@ category: Forms
         overflow-y: scroll;
         overflow-x: hidden;
 
-        @include media(desktop) {
+        @include govuk-media-query(desktop) {
             max-height: 200px;
         }
 
         label {
-            @include inline-block;
+            //@include inline-block;
             padding: 7px 0 7px 30px;
             border-bottom: 1px solid $govuk-border-colour;
             width: 100%;
             cursor: pointer;
             font-size: 16px;
 
-            @include media(desktop) {
+            @include govuk-media-query(desktop) {
                 /* leave room for the scroll bars on desktop*/
                 width: 90%;
             }
@@ -185,7 +185,7 @@ category: Forms
 
         .js-selected-counter {
             @include govuk-font(14);
-            padding-left: $gutter-half;
+            padding-left: $govuk-gutter-half;
             display: inline-block;
         }
 
@@ -209,7 +209,7 @@ category: Forms
                 background-position-y: 13px;
                 background-color: govuk-colour("light-grey", $legacy: "grey-3");
 
-                @include device-pixel-ratio() {
+                @include govuk-device-pixel-ratio() {
                     background-size: 32px 50px;
                 }
 

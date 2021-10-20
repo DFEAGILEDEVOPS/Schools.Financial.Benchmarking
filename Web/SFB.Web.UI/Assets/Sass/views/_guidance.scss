@@ -36,7 +36,7 @@
 }
 
 .text {
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin-top: -25px;
     }
 }

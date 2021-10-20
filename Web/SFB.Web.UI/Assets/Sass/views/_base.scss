@@ -1,15 +1,15 @@
 ﻿%banner-box {
     outline: none;
     max-width: 960px;
-    margin: 15px $gutter-half 0 $gutter-half;
+    margin: 15px $govuk-gutter-half 0 $govuk-gutter-half;
 
-    @include media(tablet) {
-        margin: 15px $gutter 0 $gutter;
+    @include govuk-media-query($from: tablet) {
+        margin: 15px $govuk-gutter 0 $govuk-gutter;
     }
-
-    @include media($min-width: ($site-width + $gutter * 2)) {
+/*
+    @include govuk-media-query($min-width: ($site-width + $govuk-gutter * 2)) {
         margin: 15px auto 0 auto;
-    }
+    }*/
 }
 
 .font-xxxsmall {
@@ -41,7 +41,7 @@
                 margin-bottom: 5px;
             }
 
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 margin-right: 0;
                 font-size: 14px;
             }
@@ -56,7 +56,7 @@
             text-align: right;
             font-size: 1em;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 position: static;
                 text-align: left;
                 top: auto;
@@ -88,7 +88,7 @@
     .accordion-section-header {
         display: none;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: block;
         }
 
@@ -102,11 +102,11 @@
     }
 
     .accordion-section-body {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: block;
         }
 
-        @include media(mobile){
+        @include govuk-media-query($until: mobile){
             margin-top: 0;
             margin-bottom: 0;
             padding-bottom: 0;
@@ -141,7 +141,7 @@
             display: block;
             margin-bottom: 10px;
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 display: inline-block;
                 margin-bottom: 0;
             }
@@ -156,7 +156,7 @@
             width: 100%;
             color: #0C0C0C !important;
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 margin-left: 15px;
                 width: auto;
             }
@@ -166,7 +166,7 @@
             margin-right: 15px;
             margin-left: 15px;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 margin-left: 0;
                 margin-top: 10px;
                 display: block;
@@ -180,14 +180,14 @@
             font-weight: bold;
             text-decoration: none;
 
-            @include media(tablet) {
+            @include govuk-media-query($from: tablet) {
                 display: inline-block;
                 float: right;
                 margin-top: 0;
             }
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             padding: 10px;
         }
     }
@@ -204,7 +204,7 @@
             margin-top: 10px;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-top: 1em;
         }
 
@@ -242,7 +242,7 @@
             color: black;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-bottom: 2px;
             font-size: 14px;
         }
@@ -255,13 +255,13 @@
     .pre-content {
         padding-bottom: 10px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             padding-bottom: 4px;
         }
     }
 
     .side-width-wrapper {
-        @extend %site-width-container;
+        	@include govuk-width-container;
     }
 
     .top-logo {
@@ -348,7 +348,7 @@
     }
 
     .chart-filter {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             padding: 0!important;
         }
 
@@ -376,7 +376,7 @@
         .back-button {
             margin-top: 15px;
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 margin-top: 2%;
                 margin-left: 15px;
             }
@@ -414,7 +414,7 @@
         overflow: auto;
         max-width: 720px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             left: 0;
             right: 0;
             top: 25%;
@@ -506,7 +506,7 @@
 
     .modal-title {
         font-weight: bold;
-        @include bold-24();
+        @include govuk-font(24, $weight: bold);
         margin-bottom: 15px;
         padding-top: 15px;
     }
@@ -543,7 +543,7 @@
     text-decoration: underline;
     cursor: pointer;
 
-    @include media(mobile) {
+    @include govuk-media-query($until: mobile) {
         padding-left: 0;
     }
 }
@@ -578,7 +578,7 @@
     .chart.c3 svg {
         font: 14px sans-serif;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             font: 12px sans-serif !important;
         }
     }
@@ -593,7 +593,7 @@
     background-color: bisque;
     margin-top: 15px;
 
-    @include media(mobile) {
+    @include govuk-media-query($until: mobile) {
         display: inline-flex;
 
         .shared-icon-wrapper {
@@ -689,7 +689,7 @@
         font-size: 24px;
         margin-top: 1.875em;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-top: 0;
         }
     }
@@ -743,7 +743,7 @@
     }
 
     .break-in-mobile {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: block;
         }
     }
@@ -754,17 +754,17 @@
     }
 
     .mobile-only {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: block;
         }
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: none!important;
         }
     }
 
     .hide-in-mobile {
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: none!important;
         }
     }
@@ -772,7 +772,7 @@
     .show-in-desktop {
         display: none;
 
-        @include media(desktop) {
+        @include govuk-media-query($from: desktop) {
             display: inline;
         }
     }
@@ -781,14 +781,14 @@
         margin-top: 2%;
 
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-top: 25px;
             padding-left: 0;
         }
 
         font-size: 19px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             font-size: 16px;
         }
     }
@@ -801,7 +801,7 @@
             color: black;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin: 0 0 20px 0;
         }
 
@@ -816,7 +816,7 @@
             vertical-align: middle;
             position: relative;
             bottom: 1px;
-            @include media(desktop)
+            @include govuk-media-query($from: desktop)
             {
                 right: 0;
             }
@@ -825,7 +825,7 @@
 
     .download {
         img.icon {
-            @include media(mobile) {
+            @include govuk-media-query($until: mobile) {
                 width: 36px;
             }
         }
@@ -909,7 +909,7 @@
         color: white;
         font-size: 16px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             font-size: 12px;
             font-weight: normal;
         }
@@ -932,7 +932,7 @@
    .tab-link {
         color: #1D70B8;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             font-size: 14px;
         }
 
@@ -981,7 +981,7 @@
 
 table.tablesorter.chart-table th, table.tablesorter.context-table th {
     color:  $govuk-text-colour;
-    @include bold-16();
+    @include govuk-font(16, $weight: bold);
 
     &.tablesorter-header {
         color:  $govuk-link-colour;
@@ -1009,7 +1009,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     }
 
     .view-charts-tables {
-        @include media(desktop) {
+        @include govuk-media-query($from: desktop) {
             float: right;
         }
 
@@ -1055,7 +1055,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     .help-icon.help-chart {
         top: -5px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             top: 0;
         }
     }
@@ -1091,7 +1091,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         width: 100%;
         margin: 40px 0 30px 0;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin: 0 0 20px 0;
         }
     }
@@ -1111,7 +1111,7 @@ div.custom.tabs ul li {
         white-space: normal;
     }
 
-    @include media-down(tablet) {
+    @include govuk-media-query($until: tablet){
         background-color: govuk-colour("light-grey", $legacy: "grey-3");
         border-color: $govuk-border-colour;
         border-width: 1px;
@@ -1168,14 +1168,14 @@ div.custom.tabs ul li {
     }
 
     .save-url-input {
-        @include media(desktop) {
+        @include govuk-media-query($from: desktop) {
             width: 65%;
             margin-right: 5px;
             position: relative;
             bottom: 1px;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             margin-bottom: 5px;
         }
     }
@@ -1245,7 +1245,7 @@ div.custom.tabs ul li {
             color: black;
         }
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             font-size: 24px;
         }
 
@@ -1341,7 +1341,7 @@ div.custom.tabs ul li {
         background-color: bisque;
         margin-top: 15px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: inline-flex;
 
             .shared-icon-wrapper {
@@ -1383,11 +1383,11 @@ div.custom.tabs ul li {
 
 .govuk-tabs__list-item.app-govuk-tabs__list-item--s {
 
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         font-size: 13px;
     }
 
-    @include media(desktop) {
+    @include govuk-media-query($from: desktop) {
         font-size: 17px;
     }
 
