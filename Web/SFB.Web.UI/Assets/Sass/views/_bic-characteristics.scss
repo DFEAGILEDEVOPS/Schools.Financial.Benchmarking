@@ -22,7 +22,7 @@
     }
 
     @include govuk-media-query($from: desktop) {
-        .form-control {
+        .govuk-form-control {
             width: 80%;
         }
     }

@@ -141,7 +141,7 @@ class TrustCompareManualViewModel {
         }
 
         let templateHandler = function (suggestion) {
-            return '<div><a href="javascript:">' + suggestion[field] + '</a></div>';
+            return '<div><a class="govuk-link" href="javascript:">' + suggestion[field] + '</a></div>';
         };
 
         $(targetInputElementName).typeahead({

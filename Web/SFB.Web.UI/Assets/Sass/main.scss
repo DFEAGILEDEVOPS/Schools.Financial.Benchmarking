@@ -1,3 +1,7 @@
+* {
+    font-family: "GDS Transport", Arial, sans-serif !important;
+}
+
 // Path to assets for use with the file-url function
 // in the govuk frontend toolkit's url-helpers partial
 $path: "/public/assets/images/";
@@ -226,10 +230,6 @@ ul.list {
         vertical-align:-webkit-baseline-middle
     }
 }
-
-//* {
-//    font-family: "GDS Transport", Arial, sans-serif !important;
-//}
 
 //For accessibility test https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html
 /*body {

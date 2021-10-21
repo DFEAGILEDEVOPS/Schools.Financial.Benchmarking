@@ -99,7 +99,7 @@
                 latLangs.push([data[i].Latitude, data[i].Longitude]);
                 var info = data[i];
                 var html = `<div class="infowindow-school-summary">                    
-                        <a href ="/school/detail?urn=${info.Id}">${info.Name}</a>
+                        <a class="govuk-link" href ="/school/detail?urn=${info.Id}">${info.Name}</a>
                         <p>${info.Address}</p>
                         <p>${info.EducationPhases}</p>
                         <p>${info.NFType}</p>
@@ -107,7 +107,7 @@
 
                 if (info.CompanyNumber !== "0") {
                     html += `<div class="mt-1" style="font-style: italic">Part of the </div>
-                    <div class="mb-1"><a href="/trust/index?companyNo=${info.CompanyNumber}">${info.SponsorName}</a></div>`;
+                    <div class="mb-1"><a class="govuk-link" href="/trust/index?companyNo=${info.CompanyNumber}">${info.SponsorName}</a></div>`;
                 }  
 
                 if ($("#SearchMethod").val() === "Manual") {
@@ -208,7 +208,7 @@
                 latLangs.push([data[i].Latitude, data[i].Longitude]);
                 var info = data[i];
                 var html = `<div class="infowindow-school-summary">                    
-                        <a href ="/school/detail?urn=${info.Id}">${info.Name}</a>
+                        <a class="govuk-link" href ="/school/detail?urn=${info.Id}">${info.Name}</a>
                         <p>${info.Address}</p>
                         <p>${info.OverallPhase}</p>
                         <p>${info.NFType}</p>`;

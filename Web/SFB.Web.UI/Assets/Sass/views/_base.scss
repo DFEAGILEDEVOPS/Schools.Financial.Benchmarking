@@ -1,20 +1,7 @@
 ﻿%banner-box {
     outline: none;
     max-width: 960px;
-    margin: 15px $govuk-gutter-half 0 $govuk-gutter-half;
-
-    @include govuk-media-query($from: tablet) {
-        margin: 15px $govuk-gutter 0 $govuk-gutter;
-    }
-/*
-    @include govuk-media-query($min-width: ($site-width + $govuk-gutter * 2)) {
-        margin: 15px auto 0 auto;
-    }*/
-}
-
-.font-xxxsmall {
-    font-size: 10px;
-    line-height: 1;
+    margin: 15px auto 0 auto;
 }
 
 .header-content {
@@ -76,57 +63,6 @@
         z-index: 10000;
         //margin-top: 10px;
     }
-}
-
-/*.accordion.with-js.mobile-only-accordion {
-    border-bottom: none;
-
-    .accordion-section {
-        border-top: none;
-    }
-
-    .accordion-section-header {
-        display: none;
-
-        @include govuk-media-query($until: mobile) {
-            display: block;
-        }
-
-        margin: 0 -15px;
-
-        h2 {
-            padding: 0 15px;
-        }
-
-        background-color: govuk-colour("white");
-    }
-
-    .accordion-section-body {
-        @include govuk-media-query($from: tablet) {
-            display: block;
-        }
-
-        @include govuk-media-query($until: mobile){
-            margin-top: 0;
-            margin-bottom: 0;
-            padding-bottom: 0;
-
-            .chart-filter{
-                padding: 0;
-            }
-        }
-    }
-}*/
-
-.no-border{
-    border-bottom: none!important;
-    border-top: none!important;
-    border-right: none!important;
-    border-left: none!important;
-}
-
-.latest-year-message{
-    margin-top: 15px;
 }
 
 .banner {
@@ -276,7 +212,21 @@
         background-color: darkseagreen;
     }
 
+    .font-xxxsmall {
+        font-size: 10px;
+        line-height: 1;
+    }
 
+    .no-border {
+        border-bottom: none !important;
+        border-top: none !important;
+        border-right: none !important;
+        border-left: none !important;
+    }
+
+    .latest-year-message {
+        margin-top: 15px;
+    }
 
     .text.section {
         margin-top: 40px;
@@ -944,8 +894,9 @@
         }
     }
 
-    .tt-menu.form-control.mtm {
+    .tt-menu.govuk-form-control.mtm {
         margin-top: 0 !important;
+        border: 2px solid $govuk-input-border-colour;
     }
 
     .bold-form-label {

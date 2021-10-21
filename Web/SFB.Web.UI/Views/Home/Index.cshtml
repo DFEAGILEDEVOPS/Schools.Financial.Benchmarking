@@ -14,7 +14,7 @@
 }
 
 
-<div class="govuk-grid-column-three-quarters govuk-!-margin-top-2">
+<div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-7">
     <div id="govuk-error-summary-placeholder">
         @if (!string.IsNullOrEmpty(Model.ErrorMessage))
         {
@@ -38,21 +38,21 @@
     </h1>
 
     <p class="govuk-body-l">Compare a school or trust's income and expenditure with similar establishments in England.</p>
-    <p class="homep">You can view your school or academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
+    <p class="govuk-body-m">You can view your school or academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
 
     @if (Model.ComparisonList.HomeSchoolUrn != null)
     {
         <div class="home-school-section">
-            <p>
+            <p class="govuk-!-font-size-19">
                 @if (Model.ComparisonList.HomeSchoolType == "Federation")
                 {
-                    <span class="govuk-heading-s govuk-!-font-size-19 govuk-!-font-weight-bold govuk-!-display-inline">
+                    <span class="govuk-heading-s govuk-!-font-weight-bold govuk-!-display-inline">
                         Your federation:
                     </span>
                 }
                 else
                 {
-                    <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">
+                    <span class="govuk-!-font-weight-bold">
                         Your school:
                     </span>
                 }
@@ -87,7 +87,7 @@
 
 @section Aside {
     <div class="govuk-grid-column-one-quarter aside">
-        <aside class="app-related-items mt-2">
+        <div class="app-related-items">
             <h2 class="govuk-heading-m" id="subsection-title">Guidance</h2>
             <nav role="navigation" aria-labelledby="subsection-title">
                 <ul class="govuk-list govuk-!-font-size-16">
@@ -102,7 +102,7 @@
                     </li>
                 </ul>
             </nav>
-        </aside>
+        </div>
     </div>
 
 }

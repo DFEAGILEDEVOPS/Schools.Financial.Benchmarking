@@ -203,7 +203,7 @@ class SchoolsSearchViewModel {
             return;
         }
 
-        var templateHandler = function (suggestion) { return '<div><a href="javascript:">' + suggestion[field] + '</a></div>'; };
+        var templateHandler = function (suggestion) { return '<div><a class="govuk-link" href="javascript:">' + suggestion[field] + '</a></div>'; };
 
         $(targetInputElementName).typeahead({
             hint: false,
@@ -213,8 +213,8 @@ class SchoolsSearchViewModel {
             ],
             minLength: minChars,
             classNames: {
-                menu: 'tt-menu form-control mtm',
-                highlight: 'bold-small'
+                menu: 'tt-menu govuk-form-control mtm',
+                highlight: 'govuk-!-font-size-19 govuk-!-font-weight-bold'
             },
             ariaOwnsId: "arialist_" + DfE.Util.randomNumber()
         }, {

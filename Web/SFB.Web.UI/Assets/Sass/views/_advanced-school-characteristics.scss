@@ -20,7 +20,7 @@
         padding-top: 6%;
     }
 
-    .form-control {
+    .govuk-form-control {
         width: 100%;
     }
 
@@ -38,7 +38,7 @@
         color: govuk-colour("red");
     }
 
-    .form-control.error {
+    .govuk-form-control.error {
         -moz-box-shadow: none;
         border: 4px solid govuk-colour("red");
     }

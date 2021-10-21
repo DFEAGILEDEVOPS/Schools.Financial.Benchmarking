@@ -160,7 +160,7 @@
     .selection-filters {
         padding-top: 20px;
 
-        .form-control {
+        .govuk-form-control {
             @include govuk-media-query($from: tablet) {
                 width: 80%;
             }

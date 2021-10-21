@@ -241,15 +241,17 @@
             @RenderSection("BackButtonContent", required: false)
         </div>
 
-        <div class="govuk-width-container " id="content">
-            <main class="govuk-main-wrapper pt-0 @(ViewBag.pageClass)" id="main-content" role="main">
-                @RenderBody()
-                <input type="hidden" id="version" value="@version" />
-                <input type="hidden" id="googleAnalyticsId" value="@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]" />
-                <input type="hidden" id="cookieDomain" value="@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]" />
-                <input type="hidden" id="SfbApiUrl" value="@System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]" />
-            </main>
-            @RenderSection("Aside", required: false)
+        <div class="govuk-width-container" id="content">
+            <div class="govuk-grid-row govuk-!-margin-left-0 govuk-margin-right-0">
+                <main class="govuk-main-wrapper govuk-!-padding-top-0 @(ViewBag.pageClass)" id="main-content">
+                    @RenderBody()
+                    <input type="hidden" id="version" value="@version" />
+                    <input type="hidden" id="googleAnalyticsId" value="@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]" />
+                    <input type="hidden" id="cookieDomain" value="@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]" />
+                    <input type="hidden" id="SfbApiUrl" value="@System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]" />
+                </main>
+                @RenderSection("Aside", required: false)
+            </div>
         </div>
         @RenderSection("AfterMain", required: false)
 
