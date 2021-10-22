@@ -5,21 +5,19 @@
         padding: 5px 5px;
 
         span {
-            color: white;
+            color: govuk-colour("white");
             line-height: 1.8em;
         }
 
         a {
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-                color: white;
-            }
+            @extend %govuk-link;
+            color: govuk-colour("white") !important;
 
             &:focus {
+                color: $govuk-text-colour !important;
+
                 span {
-                    color: $govuk-focus-text-colour;
+                    color: $govuk-text-colour !important;
                 }
             }
         }

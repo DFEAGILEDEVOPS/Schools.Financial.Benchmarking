@@ -144,7 +144,7 @@ category: Forms
 
     .options-container {
         position: relative;
-        background-color: $govuk-brand-colour;
+        background-color: govuk-colour("white");
         overflow-y: scroll;
         overflow-x: hidden;
 
@@ -166,7 +166,7 @@ category: Forms
             }
 
             &:hover {
-                background-color: govuk-colour("pink");
+                background-color: govuk-colour("light-grey");
             }
 
             &[disabled] {

@@ -118,10 +118,10 @@
             else
             {
                 <p class="govuk-!-font-size-19 govuk-!-font-weight-bold" style="margin-top: 22px;">Please try:</p>
-                <p class="indent">
+                <p class="govuk-body indent">
                     • <a class="govuk-link" href="/">searching again</a> using different spelling or words
                 </p>
-                <p class="indent">
+                <p class="govuk-body indent">
                     • removing your filters
                 </p>
             }
@@ -145,13 +145,13 @@
             {
                 <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) data-module="govuk-button" class='govuk-button govuk-button--secondary add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from benchmark set @deviceLabel">Remove</button>
                 <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) data-module="govuk-button" class='govuk-button govuk-button--secondary add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to benchmark set @deviceLabel">Add</button>
-                <a class="hidden-goto-basket" href="/manualcomparison/overwritestrategy" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")" aria-label="Continue to benchmark charts with @ViewBag.manualCount schools selected">Continue to benchmark charts</a>
+                <a class="govuk-link hidden-goto-basket" href="/manualcomparison/overwritestrategy" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")" aria-label="Continue to benchmark charts with @ViewBag.manualCount schools selected">Continue to benchmark charts</a>
             }
             else
             {
                 <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) data-module="govuk-button" class='govuk-button govuk-button--secondary add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from benchmark set @deviceLabel">Remove</button>
                 <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) data-module="govuk-button" class='govuk-button govuk-button--secondary add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to benchmark set @deviceLabel">Add</button>
-                <a class="hidden-goto-basket" href="/benchmarklist">Go to your benchmark set</a>
+                <a class="govuk-link hidden-goto-basket" href="/benchmarklist">Go to your benchmark set</a>
             }
         </div>
     }

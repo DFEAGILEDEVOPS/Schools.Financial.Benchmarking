@@ -919,7 +919,6 @@
     <Content Include="package.json" />
     <Content Include="Assets\Sass\views\_comparison-type-select.scss" />
     <Content Include="Assets\Sass\main.scss" />
-    <Content Include="Assets\Sass\main2.scss" />
     <Content Include="Assets\Sass\_option-select.scss" />
     <Content Include="Assets\Sass\_text-filter.scss" />
     <Content Include="Assets\fonts\bold-affa96571d-v2.woff" />

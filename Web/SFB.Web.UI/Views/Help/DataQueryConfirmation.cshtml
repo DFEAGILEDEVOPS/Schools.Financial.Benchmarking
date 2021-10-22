@@ -16,28 +16,28 @@
             </div>
         </div>
 
-        <p>
+        <p class="govuk-body">
             We have sent you a confirmation email.
         </p>
 
         <h2 class="govuk-heading-m govuk-!-margin-top-6">
             What happens next?
         </h2>
-        <p>
+        <p class="govuk-body">
             We have sent your data query to the school resource management team.
         </p>
-        <p>
+        <p class="govuk-body">
             They will contact you either to inform you of the action that will be taken or to request further information.
         </p>
         @if (ViewBag.Urn == null)
         {
-            <p>
+            <p class="govuk-body">
                 <a class="govuk-link" href="/">Return to the homepage</a>
             </p>
         }
         else
         {
-            <p>
+            <p class="govuk-body">
                 <a class="govuk-link" href="~/school/detail?urn=@ViewBag.Urn">Return to @ViewBag.SchoolName</a>
             </p>
         }

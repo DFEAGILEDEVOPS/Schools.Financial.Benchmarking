@@ -1042,15 +1042,15 @@ class BenchmarkChartsViewModel {
         <div role='document' class='save-modal-js page-1' style='display: block'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Save or share benchmark</h1>
-            <p id='modal-content' class='font-small'>
+            <p id='modal-content' class='govuk-!-font-size-19'>
                 Save your benchmark by copying the link below and saving it as a bookmark or in a document. Alternatively you can email the link to yourself or share with others.
             </p>
-            <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
-                <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
+            <div class='govuk-form-group govuk-!-margin-bottom-0'><label class='govuk-label' for='saveUrl'>Page link</label>
+                <input id='saveUrl' name='saveUrl' type='text' class='govuk-input save-url-input' value='${link}'>
                 <button id='clip-button' class='govuk-button' data-module='govuk-button' type='button' data-clipboard-target='#saveUrl' style='font-size: 16px'>Copy link to clipboard</button>
                 <span id='clip-not-supported' class='govuk-error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
-            <a class='bold-xsmall email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
+            <a class='govuk-link email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
         </div>
         <div role='document' class='save-modal-js page-2' style='display: none'>
@@ -1059,7 +1059,7 @@ class BenchmarkChartsViewModel {
             <p id='modal-content'>
                 You can now save the link as a bookmark or in a document to keep your benchmark basket.
             </p>           
-            <a href='javascript: DfE.Views.BenchmarkChartsViewModel.showSaveModalOne()'>See more options to save</button>            
+            <a class='govuk-link' href='javascript: DfE.Views.BenchmarkChartsViewModel.showSaveModalOne()'>See more options to save</button>            
         </div>
         <a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLink' title='Close'>Close</a>
         </dialog>`;
@@ -1141,7 +1141,7 @@ class BenchmarkChartsViewModel {
             `<div class="govuk-form-group">
               <fieldset class="govuk-fieldset">
 
-                <legend class="govuk-fieldset-legend">
+                <legend class="govuk-fieldset__legend">
                   You can download the page's charts in PDF or PowerPoint format.
                 </legend>
                 <div class="govuk-radios">

@@ -1175,9 +1175,13 @@ div.custom.tabs ul li {
     }
 
 .blue-banner {
-    background-color:  $govuk-brand-colour;
-    color: govuk-colour("white");
+    background-color: $govuk-brand-colour;
+    color: govuk-colour("white") !important;
     padding: 30px;
+
+    p {
+        color: govuk-colour("white") !important;
+    }
 
     hr {
         background: govuk-colour("white");

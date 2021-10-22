@@ -9,13 +9,13 @@
 
 @if (Model.SavedUrns != null)
 {
-    <p>
+    <p class="govuk-body">
         You already have <span class="govuk-!-font-weight-bold">@Model.ComparisonListCount</span> schools in your current benchmark set. If you choose to view this saved benchmark set it will remove the schools in your current benchmark set and replace them with the schools saved in the link.
     </p>
 }
 else
 {
-    <p>
+    <p class="govuk-body">
         You already have <span class="govuk-!-font-weight-bold">@Model.TrustComparisonList.Trusts.Count</span> schools in your current benchmark set. If you choose to view this saved benchmark set it will remove the schools in your current benchmark set and replace them with the schools saved in the link.
     </p>
 }

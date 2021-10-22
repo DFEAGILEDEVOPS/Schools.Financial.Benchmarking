@@ -87,7 +87,7 @@
 
     @if (!Model.IsReturnsDNS)
     {
-        <p class="hide-in-print">There are several ways for you to compare this trust against others.</p>
+        <p class="govuk-body hide-in-print">There are several ways for you to compare this trust against others.</p>
 
         <a href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
             Start a comparison
@@ -126,7 +126,7 @@
     {
         <div class=" govuk-grid-column-full">
 
-            <p class="mb-1 mt-1">
+            <p class="govuk-body mb-1 mt-1">
                 This trust is made up of <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span> of schools.
                 At the time of <span class="govuk-!-font-weight-bold">@Model.LatestTerm</span> financial submission there were <span class="govuk-!-font-weight-bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
                 Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
@@ -193,7 +193,7 @@
                                             if (academy.HasIncompleteFinancialData)
                                             {
                                                 <li>
-                                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
+                                                    <a href="/school/detail?urn=@academy.URN" class="govuk-link highlight-warning">
                                                         @academy.EstablishmentName
                                                         <span class="govuk-visually-hidden"> has data from a period less than 12 months</span>
                                                     </a>
@@ -218,7 +218,7 @@
                                             if (school.HasIncompleteFinancialData)
                                             {
                                                 <li>
-                                                    <a href="/school/detail?urn=@school.URN" class="govuk=link highlight-warning">
+                                                    <a href="/school/detail?urn=@school.URN" class="govuk-link highlight-warning">
                                                         @school.EstablishmentName
                                                         <span class="govuk-visually-hidden"> has data from a period less than 12 months</span>
                                                     </a>
@@ -265,7 +265,7 @@
                                                 <td class="govuk-table__cell school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
                                                 <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
                                                 <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Event</td>
-                                                <td class="govuk-table__cell"><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                                                <td class="govuk-table__cell"><a class="govuk-link" href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
                                             </tr>
                                         }
                                         else
@@ -307,7 +307,7 @@
         </dl>
     </div>
     <div class=" govuk-grid-column-full mb-1 mt-1" style="clear: left">
-        <a href="~/Help/DataQueries" class="hide-in-print">Do you have a query about this trust's data?</a>
+        <a href="~/Help/DataQueries" class="govuk-link hide-in-print">Do you have a query about this trust's data?</a>
     </div>
 </div>
 
@@ -359,7 +359,7 @@
                     <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
                             <span><</span>
-                            <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                            <span class="govuk-link">All <span class="js-parent-group">expenditure</span> charts</span>
                         </button>
                     </div>
                 </div>

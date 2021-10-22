@@ -197,7 +197,7 @@ else
                             <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> efficiency metric characteristics. </span>
                             @if (Model.ComparisonType == ComparisonType.EfficiencyManual)
                             {
-                                <a href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/manual-comparison/@Model.SchoolComparisonList.HomeSchoolUrn/@Model.SchoolComparisonList.HomeSchoolName" class="govuk-!link hide-in-print">Back to school selection</a>
+                                <a href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/manual-comparison/@Model.SchoolComparisonList.HomeSchoolUrn/@Model.SchoolComparisonList.HomeSchoolName" class="govuk-link hide-in-print">Back to school selection</a>
                             }
                         </div>
                     }
@@ -339,7 +339,7 @@ else
                     </button>
                     <span class="help-icon no-margin hide-in-print">
                         <span class="icon dark-blue">
-                            <a class="govuk-link" href="#" class="js-modal" role="button" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                            <a class="js-modal" href="#" role="button" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
                                 <span class="govuk-visually-hidden">Open more info text for save or share benchmark - opens a popup</span>
                             </a>
                         </span>
@@ -354,7 +354,7 @@ else
                 @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
             </div>
         </div>
-        <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+        <a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
         <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />

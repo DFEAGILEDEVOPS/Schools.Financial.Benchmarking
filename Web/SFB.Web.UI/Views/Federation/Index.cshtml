@@ -41,7 +41,7 @@
             <div class="blue-banner">
                 <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
 
-                <p class="hide-in-print">There are now several ways for you to compare this federation against schools and federations.</p>
+                <p class="govuk-body hide-in-print">There are now several ways for you to compare this federation against schools and federations.</p>
 
                 <a href="federation/start-benchmarking?fuid=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
                     Start a comparison
@@ -125,10 +125,10 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-        <div class="metadata-school-detail govuk-!-font-size-16 mt-2">
+        <div class="metadata-school-detail govuk-!-font-size-16">
             <dl class="metadata-school-detail__dl">
 
-                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
+                @SchoolDetailField("Local authority:", $"<a class=\"govuk-link\" href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @SchoolDetailField("Overall phase:", Model.OverallPhase)
                 @SchoolDetailField("Number of pupils:", Model.TotalPupils.ToString())
@@ -151,7 +151,7 @@
                 <span class="govuk-details__summary-text govuk-!-font-size-16">Show map</span>
             </summary>
             <div class="map">
-                <a href="#post-map-content" class="govuk-link skip-map hide-in-print">Skip the map</a>
+                <a href="#post-map-content" class="govuk-link govuk-visually-hidden-focusable hide-in-print">Skip the map</a>
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
@@ -211,7 +211,7 @@
                     <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                             <span><</span>
-                            <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                            <span class="govuk-link">All <span class="js-parent-group">expenditure</span> charts</span>
                         </button>
                     </div>
                 </div>

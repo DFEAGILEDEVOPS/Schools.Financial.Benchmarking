@@ -111,11 +111,11 @@ category: Forms
         }
     }
 
-    .grid-row.filter-header {
+    .govuk-grid-row.filter-header {
         margin-top: 0 !important;
         padding-top: 0 !important;
 
-        @include govuk-media-query(mobile) {
+        @include govuk-media-query($until: mobile) {
             display: none;
         }
     }
@@ -135,9 +135,9 @@ category: Forms
 .result-controllers {
     border-top: solid 1px #bfc1c3;
     padding-top: 20px;
-    padding-bottom: 50px;
+    padding-bottom: 65px;
 
-    @include govuk-media-query(mobile) {
+    @include govuk-media-query($until: mobile) {
         padding-bottom: 20px;
     }
 }
@@ -151,7 +151,7 @@ category: Forms
             font-size: 16px;
         }
 
-        @include govuk-media-query(mobile) {
+        @include govuk-media-query($until: mobile) {
             text-align: left;
         }
     }

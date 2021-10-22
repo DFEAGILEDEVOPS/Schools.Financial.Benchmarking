@@ -9,24 +9,24 @@
         <li id="@TabType.Expenditure" class="govuk-tabs__list-item app-govuk-tabs__list-item--s govuk-tabs__list-item--selected hide-in-print">
             <a class="govuk-tabs__tab"
                href="#tabsSection"
-               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Expenditure')">@TabNames.EXPENDITURE <span class="bmtab visually-hidden"> selected</span></a>
+               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Expenditure')">@TabNames.EXPENDITURE <span class="bmtab govuk-visually-hidden"> selected</span></a>
         </li>
         <li id="@TabType.Income" class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print">
             <a class="govuk-tabs__tab"
                href="#tabsSection"
-               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Income')">@TabNames.INCOME <span class="bmtab visually-hidden"></span></a>
+               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Income')">@TabNames.INCOME <span class="bmtab govuk-visually-hidden"></span></a>
         </li>
         <li id="@TabType.Balance" class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print">
             <a class="govuk-tabs__tab"
                href="#tabsSection"
-               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Balance')">@TabNames.BALANCE <span class="bmtab visually-hidden"></span></a>
+               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Balance')">@TabNames.BALANCE <span class="bmtab govuk-visually-hidden"></span></a>
         </li>
         @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
         {
             <li id="@TabType.Workforce" class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print">
                 <a class="govuk-tabs__tab"
                    href="#tabsSection"
-                   onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Workforce')">@TabNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>
+                   onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Workforce')">@TabNames.WORKFORCE <span class="bmtab govuk-visually-hidden"></span></a>
             </li>
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
@@ -36,7 +36,7 @@
                    href="#customTabSection"
                    onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Custom')">
                     <span>@TabNames.CUSTOM<span> (<span ng-cloak>{{ctrl.totalSelectCount()}}</span>)</span></span>
-                    <span class="bmtab visually-hidden">tab</span>
+                    <span class="bmtab govuk-visually-hidden">tab</span>
                 </a>
             </li>
 
@@ -45,7 +45,7 @@
                 <li id="BestInClass" class="govuk-tabs__list-item app-govuk-tabs__list-item--s comparison-tab hide-in-print">
                     <a class="govuk-tabs__tab"
                        href="#bestInClassTabSection"
-                       onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
+                       onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('BestInClass')">Comparison schools<span class="bmtab govuk-visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
                 </li>
             }
             else

@@ -70,7 +70,7 @@
             $(location).html('<div style="min-height:300px; margin-top:20px;">' +
                 '<img style="vertical-align:bottom" src="../public/assets/images/spinner.gif"></img>' +
                 '<span role="alert" aria-live="assertive" aria-label="'+ message +'"></span>' +
-                '<span class="font-medium" style="margin-left: 10px">Loading...</span>'+
+                '<span class="govuk-body" style="margin-left: 10px">Loading...</span>'+
                 '</div>');
         }
     };

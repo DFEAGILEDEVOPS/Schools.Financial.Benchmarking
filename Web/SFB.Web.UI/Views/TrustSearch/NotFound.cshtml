@@ -22,13 +22,13 @@
 <div class="govuk-grid-row">
     <div class=" govuk-grid-column-full">
         <section>
-            <p class="result-info">
+            <p class="govuk-body result-info">
                 @if (System.Linq.Enumerable.FirstOrDefault(Model.Suggestions.Matches) != null)
                 {
                     <h1 class="govuk-heading-xl page-heading">
                         We found no exact matches for "@Model.SearchKey"
                     </h1>
-                <p>
+                <p class="govuk-body">
                     Did you mean one of the options below?
                 </p>
             }
@@ -53,12 +53,12 @@
                 </ul>
             </section>
             <section>
-                <p class="result-info">
+                <p class="govuk-body result-info">
                     <span>You can </span>
                     <a class="govuk-link" href="/">try searching again</a>
                     <span>using a different spelling.</span>
                 </p>
-                <p class="result-info">
+                <p class="govuk-body result-info">
                     Please note that this site only lets you search for trusts in England.
                 </p>
             </section>

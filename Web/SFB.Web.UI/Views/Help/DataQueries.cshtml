@@ -33,7 +33,7 @@
 
         <h1 class="govuk-heading-xl page-heading">Do you have a school or trust data query?</h1>
 
-        <p>
+        <p class="govuk-body">
             Schools financial benchmarking uses data from multiple school data collections. We make every effort to ensure
             that the information displayed is accurate and reflects the data provided to us by schools, trusts and local authorities.
             There are rare occasions when there are inaccuracies reflected in the tool or inconsistencies with the data provided to us.
@@ -43,7 +43,7 @@
 
         <a class="govuk-link" id="school-information"></a>
         <h2 class="govuk-heading-m govuk-!-margin-top-6">School information</h2>
-        <p>
+        <p class="govuk-body">
             For school information we display information that has been entered into <a rel="external noopener noreferrer" class="govuk-link" target="_blank" href="https://get-information-schools.service.gov.uk">Get more information about schools (GIAS)<span class="govuk-visually-hidden"> Opens in a new window</span></a> by the school or their trust.
             If you believe the school information is incorrect please get in touch with the person at the school or trust with responsibility to keep GIAS
             up-to-date and request they update the information.
@@ -51,13 +51,13 @@
 
         <a class="govuk-link" id="workforce-data"></a>
         <h2 class="govuk-heading-m govuk-!-margin-top-6">Workforce data</h2>
-        <p>
+        <p class="govuk-body">
             Workforce information is collected annually and if a school has been unable to submit on time they will be registered as having missing data.
         </p>
 
         <a class="govuk-link" id="financial-data"></a>
         <h2 class="govuk-heading-m govuk-!-margin-top-6">Financial data</h2>
-        <p>
+        <p class="govuk-body">
             For new schools, schools which have converted to academy status in year or schools which have joined a trust in year, we will often receive a part-year financial submission for the school. We display this partial submission on the tool, but we will also flag it as having missing or incomplete financial data. When we receive a full year's financial submission from the school, this flag will be removed.
         </p>
 
@@ -65,7 +65,7 @@
 
         <h2 class="govuk-heading-m govuk-!-margin-top-6">Gaps in the data</h2>
 
-        <p>You might find gaps in the data you view. This could be because:</p>
+        <p class="govuk-body">You might find gaps in the data you view. This could be because:</p>
 
         <ul class="govuk-list govuk-list--bullet">
             <li>Data has been suppressed to protect privacy, or</li>
@@ -77,7 +77,7 @@
         <h2 class="govuk-heading-m govuk-!-margin-top-6">Data query</h2>
         <form action="DataQuerySubmission" method="post">
             @Html.AntiForgeryToken()
-            <p>If the above information does not resolve your data query please submit a request for us to look into.</p>
+            <p class="govuk-body">If the above information does not resolve your data query please submit a request for us to look into.</p>
 
             <div class="govuk-form-group @FormGroupErrorClass("dataQuery.Name")">
                 <label class="govuk-label" for="dataQuery.Name">Name</label>

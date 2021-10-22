@@ -199,12 +199,12 @@
 
     LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator() {
         //this.getSummaryBlock().css("display", "none");
-        this.getSummaryContainerBlock().append("<p class=\"msg\">Loading...</p>");
+        this.getSummaryContainerBlock().append("<p class=\"govuk-body msg\">Loading...</p>");
     };
 
     LiveSearch.prototype.showErrorIndicator = function showErrorIndicator() {
         //this.getSummaryBlock().css("display", "none");
-        this.getSummaryContainerBlock().append("<p class=\"msg\">Error. Please try modifying your search and trying again.</p>");
+        this.getSummaryContainerBlock().append("<p class=\"govuk-body msg\">Error. Please try modifying your search and trying again.</p>");
     };
 
     LiveSearch.prototype.displayResults = function displayResults(results, action) {

@@ -13,9 +13,7 @@
                 }
                 else
                 {
-                    <span class="govuk-heading-m govuk-!-margin-top-6">
-                        <span class="money exp-total">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</span>
-                    </span>
+                    <span class="money exp-total">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</span>                 
                 }
             </span>
             <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
@@ -29,9 +27,7 @@
                 {
                     <abbr title="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("N0") pounds" class="inc-total summary">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</abbr>
                 }else {
-                    <span class="govuk-heading-m govuk-!-margin-top-6">
-                        <span class="money inc-total">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</span>
-                    </span>
+                    <span class="money inc-total">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</span>
                 }
             </span>
             <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
@@ -59,9 +55,7 @@
                     {
                         <abbr class="bal-total summary" title="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" aria-label="@Model.InYearBalance.GetValueOrDefault().ToString("N0") pounds">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</abbr>
                     }else {
-                        <span class="govuk-heading-m govuk-!-margin-top-6">
                             <span class="money bal-total">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</span>
-                        </span>
                     }
                 }
             </span>

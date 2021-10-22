@@ -1,6 +1,8 @@
 ﻿.benchmark-list {
 
-   button.view-benchmark {
+    @include highlighting;
+
+    button.view-benchmark {
         margin-bottom: 0;
         float: right;
     }
@@ -20,12 +22,14 @@
     }
 
     li.document {
-        border-top: solid 1px  $govuk-border-colour;
+        border-top: solid 1px $govuk-border-colour;
         padding: $govuk-gutter-half 0;
     }
 
     .metadata {
         margin: 0;
+        padding: 0;
+        list-style-type: none;
 
         li {
             @include govuk-font(14);
@@ -67,8 +71,7 @@
             padding-bottom: 15px;
         }
     }
-
-    .document .highlight {
+    /*    .document .highlight {
         background-color: govuk-colour("pink");
         display: inline;
 
@@ -77,7 +80,7 @@
             padding: 8px;
             line-height: 1.8em;
         }
-    }
+    }*/
 
     .document .highlight-warning {
         background-color: govuk-colour("orange");

@@ -121,12 +121,12 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
             @if (Model.IsPartOfFederation)
             {
-                <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
             }
             else
             {
                 <div class="hide-in-print">
-                    <p>There are now several ways for you to compare this school against others.</p>
+                    <p class="govuk-body">There are now several ways for you to compare this school against others.</p>
                 </div>
 
 
@@ -149,7 +149,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         {
             if (Model.IsPartOfFederation)
             {
-                <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
             }
             else
             {
@@ -204,7 +204,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             </div>
         </div>
     </div>
-    <div class="govuk-grid-column-one-half mt-1">
+    <div class="govuk-grid-column-one-half govuk-!-margin-top-6">
         @if (Model.Phase == "Special" && Model.SenCharacteristics.Any(c => c.Value != null))
         {
             <details class="govuk-details mb-1" data-module="govuk-details">
@@ -232,14 +232,14 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             </details>
         }
 
-        <div class="metadata-school-detail govuk-!-font-size-16 mt-1">
+        <div class="metadata-school-detail govuk-!-font-size-16">
             <dl class="metadata-school-detail__dl">
-                @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
+                @SchoolDetailField("Address:", $"<a class=\"govuk-link sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"govuk-visually-hidden\">GoogleMaps link opens in a new window</span></a>")
                 @if (!string.IsNullOrEmpty(Model.PhoneNumber))
                 {
-                    @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: {Model.PhoneNumber}\" aria-label=\"Call telephone number {Model.PhoneNumber}\">{Model.PhoneNumber}</a>")
+                    @SchoolDetailField("Telephone number:", $"<a class=\"govuk-link sfb_gtm_tel\" href=\"tel: {Model.PhoneNumber}\" aria-label=\"Call telephone number {Model.PhoneNumber}\">{Model.PhoneNumber}</a>")
                 }
-                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
+                @SchoolDetailField("Local authority:", $"<a class=\"govuk-link\" href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
@@ -251,7 +251,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     @SchoolDetailField("Number of pupils: <span class=\"help-icon hide-in-print js-show-value-help\">" +
                                      $"<span class=\"icon dark-blue\">" +
                                      $"<a href=\"#\" class=\"js-modal\" role=\"button\" data-modal-title=\"Number of pupils\" data-modal-text=\"{@HelpTooltipText.NumberOfPupils}\" data-modal-close-text=\"Close\" data-modal-close-title=\"Close\" data-help-text-key=\"\">" +
-                                     "<span class=\"visuallyhidden\">Open more info text for Number of pupils - opens a popup</span>" +
+                                     "<span class=\"govuk-visually-hidden\">Open more info text for Number of pupils - opens a popup</span>" +
                                      "</a></span></span>", Model.TotalPupilsForPhase.ToString())
                 }
                 else
@@ -270,7 +270,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     @SchoolDetailFieldFormatted("Ofsted rating:",
                                     "<span class=\"rating rating-{0}\"> {0} </span><span class=\"rating-text\"> {1} </span>" +
                                     "<span class=\"ofsted-divider\" aria-hidden=\"true\">| </span>" +
-                                    "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"govuk-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"visually-hidden\">Opens in a new window</span></a>" +
+                                    "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"govuk-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"govuk-visually-hidden\">Opens in a new window</span></a>" +
                                     "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
                                     Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate)
                 }
@@ -282,22 +282,22 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
-                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"govuk-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
+                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"govuk-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"govuk-visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
 
                 @if (Model.IsPartOfFederation)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.FederationName)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a class=\"govuk-link\" href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.FederationName)
                 }
 
                 @if (Model.IsMAT)
                 {
                     if (Model.UID != null)
                     {
-                        @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?uid={0}\">{1}</a>", Server.UrlEncode(Model.UID.ToString()), Model.TrustName)
+                        @SchoolDetailFieldFormatted("Academy trust:", "<a class=\"govuk-link\" href=\"/trust?uid={0}\">{1}</a>", Server.UrlEncode(Model.UID.ToString()), Model.TrustName)
                     }
                     else
                     {
-                        @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
+                        @SchoolDetailFieldFormatted("Academy trust:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
                     }
                 }
 
@@ -305,27 +305,27 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                 {
                     if ((Model.IsSAT && Model.IsMATinLatestFinance) || Model.CompanyNo != Model.CompanyNoInLatestFinance)
                     {
-                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
                     }
                 }
 
                 @DataSourcesField()
 
             </dl>
-            <div style="display: inline-block" class="mb-1">
-                <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="hide-in-print">Do you have a query about this school's data?</a>
+            <div style="display: inline-block" class="govuk-!-margin-bottom-1">
+                <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="govuk-link hide-in-print">Do you have a query about this school's data?</a>
             </div>
             <input type="hidden" id="la" value="@Model.La" />
             <input type="hidden" id="estab" value="@Model.Estab" />
         </div>
     </div>
-    <div class="govuk-grid-column-one-half">
+    <div class="govuk-grid-column-one-half govuk-!-margin-top-6">
         <details class="govuk-details" data-module="govuk-details" open>
             <summary class="govuk-details__summary map hide-in-print">
                 <span class="summary govuk-!-font-size-16">Show map</span>
             </summary>
-            <div class="govuk-details__text map">
-                <a href="#post-map-content" class="skip-map hide-in-print">Skip the map</a>
+            <div class="govuk-details__text map govuk-!-margin-top-4">
+                <a href="#post-map-content" class="govuk-link govuk-visually-hidden-focusable hide-in-print">Skip the map</a>
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
@@ -365,7 +365,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         <div class="sticky-div sticky-chart-controls">
             <div id="controls">
                 <fieldset class="govuk-fieldset">
-                    <legend class="visually-hidden hide-in-print">Filters</legend>
+                    <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
                     <div class="govuk-grid-row">
                         <div class="govuk-grid-column-full">
                             @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
@@ -389,7 +389,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
                             <span><</span>
-                            <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                            <span class="govuk-link">All <span class="js-parent-group">expenditure</span> charts</span>
                         </button>
                     </div>
                 </div>
@@ -401,7 +401,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
     </div>
 </div>
 
-<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 
 @helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
