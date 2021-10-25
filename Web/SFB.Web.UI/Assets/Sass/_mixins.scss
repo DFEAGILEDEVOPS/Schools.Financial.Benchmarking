@@ -45,4 +45,9 @@
     padding-right: 0;
     @include govuk-font(16);
     font-weight: bold;
+
+    &:focus {
+        outline: 3px solid #ffdd00;
+        outline-offset: 0;
+    }
 }

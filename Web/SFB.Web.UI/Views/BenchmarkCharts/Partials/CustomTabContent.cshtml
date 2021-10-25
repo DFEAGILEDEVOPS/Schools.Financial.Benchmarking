@@ -43,14 +43,14 @@
                 <div class="govuk-details__text">
                     <div class="selection-filters no-padding">
                         <div class=" govuk-grid-column-full no-padding">
-                            <div class="govuk-grid-column-one-half no-padding">
+                            <div class="govuk-grid-column-one-third no-padding">
                                 <div class="govuk-form-group">
                                     <label class="govuk-label" for="Filter">Filter by chart name</label>
-                                    <input id="Filter" class="form-control" ng-model="ctrl.query" ng-change="ctrl.openDetails()" />
+                                    <input id="Filter" class="govuk-input" ng-model="ctrl.query" ng-change="ctrl.openDetails()" />
                                 </div>
                             </div>
-                            <div class="govuk-grid-column-one-half no-padding">
-                                <div class="selection-controls govuk-grid-column-one-third no-padding" ng-show="ctrl.anySelected()">
+                            <div class="govuk-grid-column-one-third">
+                                <div class="selection-controls no-padding" ng-show="ctrl.anySelected()">
                                     <div class="clear-link">
                                         <a href="#" class="govuk-link govuk-!-font-size-16" ng-click="ctrl.clear()">Clear selections</a>
                                     </div>
@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="selections">
-                        <fieldset class="govuk-fieldset">
+                        <fieldset class="govuk-fieldset" style="width: 100%">
                             <legend class="govuk-visually-hidden">Selections</legend>
                             <div id="custom-report-accordion" class="govuk-accordion app-accordion--no-open-all govuk-!-margin-top-4" data-module="govuk-accordion">
                                 <div class="govuk-accordion__section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">

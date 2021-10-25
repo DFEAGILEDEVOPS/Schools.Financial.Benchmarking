@@ -462,6 +462,7 @@
     }
 
     #js-modal-close, #js-modal-close-bottom {
+        @extend %govuk-link;
         float: right;
     }
     //modal dialog

@@ -370,9 +370,10 @@
 
         th {
             background-color: govuk-colour("light-grey", $legacy: "grey-3");
+            font-weight: bold;
 
             &.highlighted {
-                background-color: govuk-colour("pink")-contrast;
+                background-color: govuk-colour("pink");
                 font-weight: bold;
                 color: white;
             }
@@ -549,7 +550,6 @@
 
     .chart-scores-header {
         display: none;
-        font-size: 1.4rem;
         padding: 0;
         line-height: 1.4rem;
         max-width: 75px;
@@ -729,7 +729,7 @@
     border-bottom-left-radius: 5px;
     font-size: 1.2rem;
     text-align: center;
-    padding: .6em;
+    padding: 0.2em;
     line-height: 14px;
     margin: 0 0 0 1em;
 
@@ -777,13 +777,13 @@
 
 .modal__score {
     display: inline-block;
-    font-size: 1.4rem;
+    font-size: 0.9rem;
     text-align: center;
     width: 18%;
     margin-left: 0.6em;
 
     .score {
-        font-size: 1.4rem;
+        font-size: 0.9rem;
         padding: 1em 0.3em;
         margin: 0.5em 0;
     }

@@ -391,7 +391,7 @@ class BenchmarkChartsViewModel {
         };
 
         let insertProgressLabel = function () {
-            var left = $("#chart_0")[0].getBoundingClientRect().width - $(".c3-event-rects.c3-event-rects-single")[0].getBoundingClientRect().width - 62;
+            var left = $("#chart_0")[0].getBoundingClientRect().width - $(".c3-event-rects.c3-event-rects-single")[0].getBoundingClientRect().width - 70;
             $(".chart-scores-header").css("left", left);
             $(".chart-scores-header").show();
         };
@@ -576,14 +576,14 @@ class BenchmarkChartsViewModel {
                         $(el).closest('.chart-container'))[0].value;
                     let highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
                     let tableHtml =
-                        "<table class='bmc-rollover-table' >" +
-                        "<tr><th colspan='2' class='" + highlight + "'>" + name + "</th></tr>" +
-                        "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
-                        "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
-                        "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
+                        "<table class='govuk-table bmc-rollover-table' >" +
+                        "<tr class='govuk-table__row'><th colspan='2' class='" + highlight + "'>" + name + "</th></tr>" +
+                        "<tr class='govuk-table__row'><th scope='row' class='govuk-table__header'>Local authority</th><td class='govuk-table__cell'>" + schoolData.la + "</td></tr>" +
+                        "<tr class='govuk-table__row'><th scope='row' class='govuk-table__header'>School type</th><td class='govuk-table__cell'>" + schoolData.type + "</td></tr>" +
+                        "<tr class='govuk-table__row'><th scope='row' class='govuk-table__header'>Number of pupils</th><td class='govuk-table__cell'>" + schoolData.pupilCount + "</td></tr>";
 
                     if ($("#ComparisonType").val() === "Specials") {
-                        tableHtml += "<tr><td style='max-width: 150px' class='bold'>Highest 3 SEN characteristics</td><td>";
+                        tableHtml += "<tr class='govuk-table__row'><th style='max-width: 150px' scope='row' class='govuk-table__header'>Highest 3 SEN characteristics</th><td class='govuk-table__cell'>";
                         schoolData.topsen.forEach(
                             topsen => { tableHtml += `${topsen.Key}: ${topsen.Value}%<br/>`; }
                         )
@@ -591,7 +591,7 @@ class BenchmarkChartsViewModel {
                     }
 
                     if ($("#ComparisonType").val() === "BestInClass") {
-                        tableHtml += "<tr><td class='bold'>Key stage progress</td><td>" + schoolData.progressscore + "</td></tr>";
+                        tableHtml += "<tr class='govuk-table__row'><th class='govuk-table__header'>Key stage progress</th><td class='govuk-table__cell'>" + schoolData.progressscore + "</td></tr>";
                     }
 
                     tableHtml += "</table>";
@@ -1047,7 +1047,7 @@ class BenchmarkChartsViewModel {
             </p>
             <div class='govuk-form-group govuk-!-margin-bottom-0'><label class='govuk-label' for='saveUrl'>Page link</label>
                 <input id='saveUrl' name='saveUrl' type='text' class='govuk-input save-url-input' value='${link}'>
-                <button id='clip-button' class='govuk-button' data-module='govuk-button' type='button' data-clipboard-target='#saveUrl' style='font-size: 16px'>Copy link to clipboard</button>
+                <button id='clip-button' class='govuk-button' data-module='govuk-button' type='button' data-clipboard-target='#saveUrl' >Copy link to clipboard</button>
                 <span id='clip-not-supported' class='govuk-error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
             <a class='govuk-link email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">

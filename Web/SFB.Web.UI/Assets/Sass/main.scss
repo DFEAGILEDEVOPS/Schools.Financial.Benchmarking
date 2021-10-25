@@ -180,9 +180,11 @@ ul.list {
     }
 }
 
-.help-icon .icon {
-    background-image: url(/public/assets/images/icons/info.svg);
- }
+.icon {
+    display: inline-block;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
 
 .icon-table, .icon-chart, .icon-location {
     width: 20px;
@@ -213,15 +215,6 @@ ul.list {
 .helpLink {
     .help-image {
         width: 16px;
-    }
-}
-
-.help-icon.tb {
-    //vertical-align: text-bottom;
-    margin-left: 10px;
-
-    @include govuk-media-query($from: desktop) {
-        margin-left: 0;
     }
 }
 
@@ -480,6 +473,63 @@ ul.list {
 .rating-date {
     font-size: x-small;
     color: gray
+}
+
+.help-icon{
+    display: inline-block;
+    height: 15px;
+    position: relative;
+    top: -2px;
+
+    @include govuk-media-query($until: mobile){
+        display: inline-block;
+        height: 22px;
+        margin-left: 0.2em;
+        margin-top: 0;
+        vertical-align: middle;
+    }
+
+    a {
+        display: block;
+        height: 100%;
+        padding: 2px;
+        width: 100%;
+    }
+
+    &:focus{
+        background-color: inherit!important;
+        outline: 3px solid #ffdd00!important;
+    }
+
+    @include govuk-media-query($until: mobile){
+        padding: 1px;
+    }
+
+    .icon{
+        background-image: url(/public/assets/images/icons/info.svg);
+        background-position: center;
+        background-size: cover;
+        display: inline-block;
+        float: right;
+        height:16px;
+        padding: 2px;
+        margin: 1px 1px 5px 1px;
+        vertical-align: middle;
+        width: 16px;
+
+        @include govuk-media-query($until: mobile){
+            height:12px;
+            width: 12px;
+        }
+    }
+
+    &.tb{
+        margin-left: 10px;
+
+        @include govuk-media-query($from: desktop){
+            margin-left: 0;
+        }
+    }
 }
 
 

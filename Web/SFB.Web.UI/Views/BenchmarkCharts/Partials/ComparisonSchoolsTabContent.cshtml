@@ -36,7 +36,7 @@
                         if (cSchool is FederationViewModel)
                         {
                     <tr class="govuk-table__row">
-                        <td scope="col" class="school-column">
+                        <td scope="col" class="govuk-table__cell school-column">
                             <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                 <span>@cSchool.Name</span>
                             </a>
@@ -45,7 +45,7 @@
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
                         <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@((cSchool as FederationViewModel).OverallPhase)</td>
-                        <td scope="col">N/A</td>
+                        <td class="govuk-table-cell" scope="col">N/A</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-ks2-js" scope="col">
                             <div class="score na">
                                 <div class="govuk-!-font-size-16">N/A</div>
@@ -63,7 +63,7 @@
                         else
                         {
                             <tr class="govuk-table__row">
-                                <td scope="col" class="school-column">
+                                <td scope="col" class="govuk-table__cell school-column">
                                     <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                         <span>@cSchool.Name</span>
                                     </a>
@@ -80,7 +80,7 @@
                                     @((cSchool as SchoolViewModel).OfstedRatingText) <span class="govuk-visually-hidden">ofsted rating</span>
                                     @if ((cSchool as SchoolViewModel).OfstedRatingText != "Not rated" && (cSchool as SchoolViewModel).OfstedInspectionDate != null)
                                     {
-                                        <br><span class="font-xxsmall not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
+                                        <br><span class="govuk-!-font-size-14 not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
                                     }
                                 </td>
                                 <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-ks2-js" scope="col">
@@ -88,7 +88,7 @@
                                         <div class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                         @if ((cSchool as SchoolViewModel).KS2ProgressScore.HasValue)
                                         {
-                                            <div class="no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
+                                            <div class="govuk-!-font-size-14 no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
                                         }
                                         <span class="govuk-visually-hidden">Key stage 2 progress score</span>
                                     </div>
@@ -98,7 +98,7 @@
                                         <div class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                         @if ((cSchool as SchoolViewModel).P8ProgressScore.HasValue)
                                         {
-                                            <div class="no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
+                                            <div class="govuk-!-font-size-14 no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
                                         }
                                         <span class="govuk-visually-hidden">Progress 8 score</span>
                                     </div>
@@ -195,7 +195,7 @@
                                     @((cSchool as SchoolViewModel).OfstedRatingText) <span class="govuk-visually-hidden">ofsted rating</span>
                                     @if ((cSchool as SchoolViewModel).OfstedRatingText != "Not rated" && (cSchool as SchoolViewModel).OfstedInspectionDate != null)
                                     {
-                                        <br><span class="font-xxsmall not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
+                                        <br><span class="govuk-!-font-size-14 not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
                                     }
                                 </td>
                             </tr>
@@ -211,7 +211,7 @@
                                         <span class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
                                         @if ((cSchool as SchoolViewModel).KS2ProgressScore.HasValue)
                                         {
-                                            <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
+                                            <span class="ml-1 govuk-!-font-size-14 no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
                                         }
                                         <span class="govuk-visually-hidden">Key stage 2 progress score</span>
                                     </div>
@@ -229,7 +229,7 @@
                                         <span class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
                                         @if ((cSchool as SchoolViewModel).P8ProgressScore.HasValue)
                                         {
-                                            <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
+                                            <span class="ml-1 govuk-!-font-size-14 no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
                                         }
                                         <span class="govuk-visually-hidden">Progress 8 score</span>
                                     </div>
