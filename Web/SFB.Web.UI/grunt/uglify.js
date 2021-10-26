@@ -9,8 +9,7 @@
                 mangle: true
             },
             src: [
-              'Assets/Scripts/*.js',
-              'Assets/Scripts/Behaviours/Collapsible/*.js',
+              'Assets/Scripts/*.js',              
               'Assets/Scripts/Elements/Forms/*.js',
               'Assets/Scripts/Elements/Modal/*.js',
               'Assets/Scripts/Elements/SchoolMap/*.js',

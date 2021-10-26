@@ -74,9 +74,9 @@ class SchoolsResultsViewModel {
         });
     }
        
-    bindEditSearchButton() {
-        GOVUK.Collapsible.bindElements("#EditSearchCollapsible.js-collapsible");
-    }
+    //bindEditSearchButton() {
+    //    GOVUK.Collapsible.bindElements("#EditSearchCollapsible.js-collapsible");
+    //}
 
     bindFilterCollapseButtons() {
         // Instantiate an option select for each one found on the page
@@ -114,7 +114,7 @@ class SchoolsResultsViewModel {
     }
 
     onRefresh() {
-        this.bindEditSearchButton();
+        //this.bindEditSearchButton();
         this.bindFilterCollapseButtons();
         this.mapLoaded = false;
         this.initTabs();
