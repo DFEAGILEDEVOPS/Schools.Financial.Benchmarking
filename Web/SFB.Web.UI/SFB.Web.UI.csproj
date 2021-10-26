@@ -568,10 +568,6 @@
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
-    <Content Include="Assets\Scripts\Behaviours\Collapsible\collapsible.js" />
-    <Content Include="Assets\Scripts\Behaviours\PartialRequest\partial-request.js" />
-    <Content Include="Assets\Scripts\Elements\elements.js" />
-    <Content Include="Assets\Scripts\Elements\Forms\form-block-labels.js" />
     <Content Include="Assets\Scripts\Elements\Forms\live-search.js" />
     <Content Include="Assets\Scripts\Elements\Forms\option-select.js" />
     <Content Include="Assets\Scripts\Elements\Modal\modal.js" />
