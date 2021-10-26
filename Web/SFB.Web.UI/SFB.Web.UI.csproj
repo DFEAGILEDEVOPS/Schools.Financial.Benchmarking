@@ -564,7 +564,6 @@
     <Content Include="public\assets\images\icons\warning.svg" />
     <Content Include="public\assets\images\progress.svg" />
     <Content Include="public\assets\stylesheets\main.css" />
-    <Content Include="public\assets\stylesheets\main2.css" />
     <Content Include="robots.txt" />
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
@@ -728,11 +727,6 @@
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPng.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\saveSvgAsPngCombined.min.js" />
     <Content Include="public\scripts\saveSvgAsPng-gh-pages\StackBlur.js" />
-    <Content Include="public\scripts\termi\Element.details.ajax.js" />
-    <Content Include="public\scripts\termi\Element.details.ie8.js" />
-    <Content Include="public\scripts\termi\Element.details.ielt8.htc" />
-    <Content Include="public\scripts\termi\Element.details.ielt8.js" />
-    <Content Include="public\scripts\termi\Element.details.js" />
     <Content Include="Config\beta\log4net.Release.config" />
     <Content Include="Config\dev\log4net.Release.config" />
     <Content Include="Config\stage\log4net.Release.config" />
@@ -779,13 +773,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\DfE\Layouts\template.cshtml" />
-    <Content Include="Views\GOVUK\Layouts\template.cshtml" />
-    <Content Include="Views\GOVUK\Partials\footer-support-links.cshtml" />
-    <Content Include="Views\GOVUK\Partials\footer-top.cshtml" />
-    <Content Include="Views\GOVUK\Partials\phase\alpha.cshtml" />
-    <Content Include="Views\GOVUK\Partials\phase\beta.cshtml" />
-    <Content Include="Views\GOVUK\Views\ga\google-analytics.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\School\Detail.cshtml" />
     <Content Include="Views\SchoolSearch\SearchResults.cshtml" />
@@ -932,9 +919,7 @@
     <Content Include="Views\Federation\StartBenchmarking.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Contact\ContactUsConfirmation.cshtml" />
-    <Content Include="Views\GovukFrontendTest\Index.cshtml" />
     <Content Include="Views\GovukFrontendLayout\GovukTemplate.cshtml" />
-    <Content Include="Views\GovukFrontendTest\WithTemplate.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
@@ -953,7 +938,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />
-    <Folder Include="Views\GOVUK\Views\errors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
