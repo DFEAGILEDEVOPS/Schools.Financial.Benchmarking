@@ -136,7 +136,7 @@ class AdvancedCharacteristicsViewModel {
 
         // insert code at the end
         let $modal_code =
-            '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
+            '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
             '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
             '<h1 id="modal-title" class="modal-title">' + resultCount + ' matches found</h1>' +
             '<p id="modal-content">Refine the characteristics entered until there are between 1 and 30 matched schools.</p>';

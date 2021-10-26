@@ -8,7 +8,7 @@
                 <div class="result-info">
                     @if (@ViewBag.CompanyNo == null)
                     {
-                        <div class="summary count-summary govuk-!-font-size-16 ">
+                        <div class="govuk-body-s summary count-summary govuk-!-font-size-16 ">
                             @if (Model.PagedEntityType == SFB.Web.ApplicationCore.Helpers.Enums.PagedEntityType.School)
                             {
                                 <span>Showing @(Model.Start) - @(Model.End) of <span class="govuk-!-font-size-16 govuk-!-font-weight-bold result-count count-js">@(Model.Total)</span> schools</span>

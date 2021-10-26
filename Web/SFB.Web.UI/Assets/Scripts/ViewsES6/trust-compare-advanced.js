@@ -130,7 +130,7 @@ class TrustCompareAdvancedViewModel {
 
         // insert code at the end
         let $modal_code =
-            '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
+            '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
             '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="sbmt_button" title="Close">Close</a>' +
             '<h1 id="modal-title" class="modal-title">' + resultCount + ' matches found</h1>' +
             '<p id="modal-content">Refine the characteristics entered until there are between 1 and 20 matched trusts.</p>';
@@ -154,11 +154,11 @@ class TrustCompareAdvancedViewModel {
         if (this.jqxhr) {
             this.jqxhr.abort();
         }
-        $("#schoolCount").html(`<img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" /><span style="margin-left: 10px; color: black">Searching</span>`);
+        $("#schoolCount").html(`<img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" /><span class=\"govuk-body-s\" style="margin-left: 10px; color: black">Searching</span>`);
         this.jqxhr = $.post("GenerateCountFromAdvancedCriteria", $('#criteriaForm').serialize())
             .done(function (count) {
                 setTimeout(function () {
-                    $("#schoolCount").html(`<span class="bold-small">${count}</span><span> trusts found</span >`);                    
+                    $("#schoolCount").html(`<span class="govuk-body-s">${count}</span><span> trusts found</span >`);                    
                 }, 500);
                     
                     $("button.view-benchmark-charts").attr("aria-label", "View " + count + " trusts in a benchmark chart");

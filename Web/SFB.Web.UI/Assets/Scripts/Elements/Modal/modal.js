@@ -113,7 +113,7 @@
             var $page = $('#js-modal-page');
 
             // insert code at the end
-            $modal_code = '<dialog id="js-modal" class="' + $modal_prefix_classes + 'modal" role="dialog" aria-labelledby="modal-title">';
+            $modal_code = '<dialog id="js-modal" class="' + $modal_prefix_classes + 'modal govuk-body-s" role="dialog" aria-labelledby="modal-title">';
             $modal_code += '<a href="#" id="js-modal-close" class="' + $modal_prefix_classes + 'modal-close" data-focus-back="' + $modal_starter_id +
                 '" title="' + $modal_close_title + '">' + $modal_close_text + "</a>";
             if ($modal_title !== '') {

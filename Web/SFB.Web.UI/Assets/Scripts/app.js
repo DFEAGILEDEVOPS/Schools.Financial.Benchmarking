@@ -158,7 +158,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+            var $modal_code = '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="additionalGrantModal" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Additional grant for schools</h1><p id="modal-content">' +
                 'This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.</p>' +
@@ -183,7 +183,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderYourChartsInfo' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>Your charts tab</h1><p id='modal-content'>" +
                 "This tab shows which charts you have chosen to include in your customised report. You can add charts to this area by selecting the ‘Add to your charts’ function beside each chart. You can also add charts within the tab by selecting the relevant checkboxes.</p>" +
@@ -210,7 +210,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderP8Info' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>Progress 8 scores</h1><p id='modal-content'>" +
                 "Progress 8 score is calculated for each pupil by comparing their Attainment 8 score – with the average Attainment 8 scores of all pupils nationally who had a similar starting point, using assessment results from the end of primary school.</p>" +
@@ -243,16 +243,16 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderKs2Info' title='Close'>Close</a>" +
-                "<h1 id='modal-title' class='modal-title'>Key stage 2 progress scores</h1><p id='modal-content'>" +
+                "<h1 id='modal-title' class='modal-title'>Key stage 2 progress scores</h1><p class='govuk-body-s' id='modal-content'>" +
                 "The scores are calculated by comparing the key stage 2 test and assessment results of pupils with the results of pupils in schools across England who started with similar assessment results at the end of the previous key stage 1.</p>" +
-                "<h3 class='heading-small'>What do the scores mean</h3>" +
-                "<div class='modal__score'><div class='score well-below'>Well below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score below'>Below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score average'>Average</div><div>About <span class='bold'>60%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score above'>Above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score well-above'>Well above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<h3 class='govuk-heading-s'>What do the scores mean</h3>" +
+                "<div class='modal__score'><div class='govuk-heading-s score well-below'>Well below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-heading-s score below'>Below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-heading-s score average'>Average</div><div>About <span class='bold'>60%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-heading-s score above'>Above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-heading-s score well-above'>Well above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
                 "<div class='govuk-warning-text mt-2'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><div class='govuk-body-s govuk-warning-text__text'><span class='govuk-warning-text__assistive'>Warning</span>Due to Covid-19 the Government is not publishing the school educational performance data for 2020, the latest progress data is from 2019.</div></div>" +
                 "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
 
@@ -317,7 +317,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
         
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+            var $modal_code = '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Not enough space in basket</h1><p id="modal-content">' +
                 'You can only benchmark up to 30 schools. You can view and remove schools from the <a href=\'/benchmarklist\'>edit basket</a> page.</p>' +
@@ -341,7 +341,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+            var $modal_code = '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="manualButton" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Not enough space in basket</h1><p id="modal-content">' +
                 'You can only benchmark up to 30 schools.</p>' +
@@ -365,7 +365,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+            var $modal_code = '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="manualButton" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Trust basket is full</h1><p id="modal-content">' +
                 'You can only benchmark up to 20 trusts.</p>' +

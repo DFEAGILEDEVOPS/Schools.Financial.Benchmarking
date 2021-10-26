@@ -96,7 +96,7 @@
         </div>
     </div>
     <div class=" govuk-grid-column-full mt-2">
-        <p class="govuk-!-font-size-19">This federation is a combination of <span class="govuk-!-font-weight-bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
+        <p class="govuk-body govuk-!-font-size-19">This federation is a combination of <span class="govuk-!-font-weight-bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
         <div class="govuk-accordion app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-federation-accordion">
             <div class="govuk-accordion__section ">
                 <div class="govuk-accordion__section-header">
@@ -248,15 +248,15 @@
     {
         var htmlValue = new MvcHtmlString(value);
 
-        <dt class="metadata-school-detail__dt">@name</dt>
-        <dd class="metadata-school-detail__dd bold">@htmlValue</dd>
+        <dt class="metadata-school-detail__dt govuk-body-s">@name</dt>
+        <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@htmlValue</dd>
     }
 }
 
 @helper DataSourcesField()
 {
-    <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
-    <dd class="metadata-school-detail__dd bold">
+    <dt class="metadata-school-detail__dt govuk-body-s">Data from other <br>services:</dt>
+    <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
         <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
     </dd>
 }

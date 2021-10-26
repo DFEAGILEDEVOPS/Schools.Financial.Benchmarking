@@ -16,7 +16,7 @@
                     <span class="money exp-total">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</span>                 
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+            <div class="summary-year govuk-body-s">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
     <div class="govuk-grid-column-one-third">
@@ -30,7 +30,7 @@
                     <span class="money inc-total">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</span>
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+            <div class="summary-year govuk-body-s">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
     <div class="govuk-grid-column-one-third">
@@ -59,7 +59,7 @@
                     }
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+            <div class="summary-year govuk-body-s">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
 </div>

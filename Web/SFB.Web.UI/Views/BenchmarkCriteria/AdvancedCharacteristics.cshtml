@@ -33,8 +33,8 @@
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
     <div class="govuk-grid-row">
-        <div class=" govuk-grid-column-full">
-            <span class="govuk-!-font-size-16">Comparing to</span>
+        <div class="govuk-grid-column-full">
+            <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
                 <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
             </div>
@@ -58,9 +58,9 @@
                     <div class="school-match-info">
                         <span id="spinnerPlaceHolder" class="govuk-!-font-size-16" role="alert">
                             <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
-                            <span style="margin-left: 10px; color: black">Searching</span>
+                            <span class="govuk-body-s" style="margin-left: 10px; color: black">Searching</span>
                         </span>
-                        <span id="schoolCount" aria-live="assertive" role="alert" style="display: none" class="govuk-!-font-size-16">
+                        <span id="schoolCount" aria-live="assertive" role="alert" style="display: none" class="govuk-body-s govuk-!-font-size-16">
                             <span id="countPart" class="govuk-!-font-size-19 govuk-!-font-weight-bold">0</span>
                             <span id="rest"> schools matching <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">'@ViewBag.EstTypeDescription'</span> in <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">'@ViewBag.AreaTypeDescription'</span> (max. 30)</span>
                         </span>

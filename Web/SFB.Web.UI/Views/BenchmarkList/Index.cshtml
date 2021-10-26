@@ -109,7 +109,7 @@
 
 @helper DefaultButton(BenchmarkSchoolModel school)
 {
-    <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button govuk-!-font-size-16" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'SetDefault')")"
+    <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button govuk-body-s govuk-!-font-size-16" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'SetDefault')")"
             aria-label="Use @school.Name as default school">
         Use as your school
     </button>

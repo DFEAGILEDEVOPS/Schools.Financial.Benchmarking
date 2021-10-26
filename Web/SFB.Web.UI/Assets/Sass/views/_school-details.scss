@@ -12,8 +12,8 @@
             clear: left;
             padding-right: 15px;
             text-align: left;
-            padding-bottom: 15px;
             width: 150px;
+            margin-bottom: 10px;
 
             @include govuk-media-query($from: desktop) {
                 width: 170px;
@@ -33,7 +33,7 @@
             padding-bottom: 3px;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding-bottom: 15px;
+            margin-bottom: 10px;
 
             @include govuk-media-query($until: mobile) {
                 max-width: 130px;

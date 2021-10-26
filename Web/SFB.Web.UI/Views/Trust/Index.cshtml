@@ -294,12 +294,12 @@
 <div class="govuk-grid-row metadata-school-detail govuk-!-font-size-16 mt-1">
     <div class=" govuk-grid-column-full">
         <dl class="metadata-school-detail__dl">
-            <dt class="metadata-school-detail__dt">Companies House number:</dt>
-            <dd class="metadata-school-detail__dd bold">
+            <dt class="metadata-school-detail__dt govuk-body-s">Companies House number:</dt>
+            <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
                 <a class="govuk-link" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(Model.CompanyNo.ToString("D8"))">@(Model.CompanyNo)</a>
             </dd>
-            <dt class="metadata-school-detail__dt">Data from other services:</dt>
-            <dd class="metadata-school-detail__dd bold">
+            <dt class="metadata-school-detail__dt govuk-body-s">Data from other services:</dt>
+            <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
                 <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
                 <span class="trust-ext-link-seperator">|</span>
                 <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>

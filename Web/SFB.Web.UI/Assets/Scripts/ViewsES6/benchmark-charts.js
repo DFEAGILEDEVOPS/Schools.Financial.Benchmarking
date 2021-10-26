@@ -1038,7 +1038,7 @@ class BenchmarkChartsViewModel {
 
         let $body = $('body');
         let $page = $('#js-modal-page');
-        var $modal_code = `<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'>
+        var $modal_code = `<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'>
         <div role='document' class='save-modal-js page-1' style='display: block'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Save or share benchmark</h1>
@@ -1093,7 +1093,7 @@ class BenchmarkChartsViewModel {
         var $body = $('body');
         var $page = $('#js-modal-page');
 
-        var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+        var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
             "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1>";
         if (isMAT) {
@@ -1135,7 +1135,7 @@ class BenchmarkChartsViewModel {
         var $body = $('body');
         var $page = $('#js-modal-page');
 
-        var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+        var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
             "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='PdfLink' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Select file format</h1>" +            
             `<div class="govuk-form-group">

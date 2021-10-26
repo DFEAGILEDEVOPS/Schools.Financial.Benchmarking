@@ -12,8 +12,8 @@
             clear: left;
             padding-right: 15px;
             text-align: left;
-            padding-bottom: 15px;
             width: 140px;
+            margin-bottom: 10px;
 
             @include govuk-media-query($from: desktop) {
                 width: 170px;
@@ -34,7 +34,7 @@
             padding-bottom: 3px;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding-bottom: 15px;
+            margin-bottom: 10px;
 
             @include govuk-media-query($until: mobile) {
                 max-width: 165px;
@@ -110,7 +110,7 @@
                 margin-top: 1.5em;
 
                 &__h2 {
-                     @include govuk-font(24, $weight: bold);
+                    @include govuk-font(24, $weight: bold);
                     margin-top: 1em;
                     margin-bottom: em(10, 20);
 
@@ -147,7 +147,7 @@
 
             &__lastYearBalance {
                 @include govuk-font(36);
-                border-top: 1px solid  $govuk-border-colour;
+                border-top: 1px solid $govuk-border-colour;
                 color: govuk-colour("turquoise");
                 padding-top: 12px;
                 font-weight: bold;
@@ -171,7 +171,7 @@
         .c3-axis-x {
             path {
                 stroke-width: 2px;
-                stroke:  $govuk-border-colour;
+                stroke: $govuk-border-colour;
             }
         }
     }
@@ -233,7 +233,7 @@
 
     .chart-border {
         border-top: solid 5px;
-        border-color:  $govuk-brand-colour;
+        border-color: $govuk-brand-colour;
         padding-top: 15px;
     }
 
@@ -289,7 +289,7 @@
     .sticky-chart-controls {
         margin-top: 10px;
         background-color: govuk-colour("white");
-        border-bottom: 1px solid  $govuk-border-colour;
+        border-bottom: 1px solid $govuk-border-colour;
 
         .form-group {
             margin-bottom: 0;
@@ -326,12 +326,12 @@
     }
 
     div.custom.tabs ul {
-        @include govuk-media-query($until: tablet){
+        @include govuk-media-query($until: tablet) {
             justify-content: flex-start;
 
             li {
 
-                @include govuk-media-query($until: tablet){
+                @include govuk-media-query($until: tablet) {
                     flex-basis: 32%;
                     width: 32%;
                 }
@@ -357,7 +357,7 @@
     }
 
     .analytics-links {
-        border-top: 2px solid  $govuk-brand-colour;
+        border-top: 2px solid $govuk-brand-colour;
         margin-top: 36px;
 
         @include govuk-media-query($until: mobile) {

@@ -259,8 +259,8 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     @SchoolDetailField("Number of pupils: ", Model.TotalPupils.ToString())
                 }
 
-                <dt class="metadata-school-detail__dt"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
-                <dd class="metadata-school-detail__dd bold">@Model.Id</dd>
+                <dt class="metadata-school-detail__dt govuk-body-s"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
+                <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@Model.Id</dd>
                 @if (Model.OfstedRating == "0")
                 {
                     @SchoolDetailField("Ofsted rating:", Model.OfstedRatingText)
@@ -274,8 +274,8 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                                     "<br><span class=\"govuk-!-font-size-14 not-bold\">Inspected {3}</span>",
                                     Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate)
                 }
-                <dt class="metadata-school-detail__dt"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt>
-                <dd class="metadata-school-detail__dd bold">@Model.LaEstab</dd>
+                <dt class="metadata-school-detail__dt govuk-body-s"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt>
+                <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@Model.LaEstab</dd>
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
                 @SchoolDetailField("Has sixth form:", Model.IsPost16)
@@ -425,15 +425,15 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         var htmlValue = new MvcHtmlString(value);
         var htmlName = new MvcHtmlString(name);
 
-        <dt class="metadata-school-detail__dt">@htmlName</dt>
-        <dd class="metadata-school-detail__dd bold">@htmlValue</dd>
+        <dt class="metadata-school-detail__dt govuk-body-s">@htmlName</dt>
+        <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@htmlValue</dd>
     }
 }
 
 @helper DataSourcesField()
 {
-    <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
-    <dd class="metadata-school-detail__dd bold">
+    <dt class="metadata-school-detail__dt govuk-body-s">Data from other <br>services:</dt>
+    <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
         <a rel="external noopener noreferrer" class="govuk-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
         <span class="seperator spt_link_js" aria-hidden="true">&nbsp; | &nbsp;</span>
         <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
