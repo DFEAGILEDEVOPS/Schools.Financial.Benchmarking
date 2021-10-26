@@ -13,8 +13,7 @@
 
 
     .twitter-typeahead {
-        width: 100%;
-        display: contents !important;
+        width: 50%;
         float: left;
 
         @include govuk-media-query($until: mobile) {

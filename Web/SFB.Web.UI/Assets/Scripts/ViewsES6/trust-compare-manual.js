@@ -152,7 +152,7 @@ class TrustCompareManualViewModel {
             ],
             minLength: minChars,
             classNames: {
-                menu: 'tt-menu form-control mtm',
+                menu: 'tt-menu govuk-form-control mtm',
                 highlight: 'bold-small'
             },
             ariaOwnsId: "arialist_" + DfE.Util.randomNumber()

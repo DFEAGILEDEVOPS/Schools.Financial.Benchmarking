@@ -90,7 +90,7 @@ class AddSchoolsManuallyViewModel {
         }
 
         let templateHandler = function (suggestion) {
-            return '<div><a href="javascript:">' + suggestion[field] + '</a></div>';
+            return '<div><a class="govuk-link" href="javascript:">' + suggestion[field] + '</a></div>';
         };
 
         $(targetInputElementName).typeahead({
@@ -101,7 +101,7 @@ class AddSchoolsManuallyViewModel {
             ],
             minLength: minChars,
             classNames: {
-                menu: 'tt-menu form-control mtm',
+                menu: 'tt-menu govuk-form-control mtm',
                 highlight: 'bold-small'
             },
             ariaOwnsId: "arialist_" + DfE.Util.randomNumber()
