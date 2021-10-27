@@ -5,7 +5,7 @@
 @model EstablishmentViewModelBase
 
 <div id="historical-charts-accordion">
-    <div class="govuk-accordion app-accordion--no-open-all app-accordion--no-border-bottom" data-module="govuk-accordion" id="accordion-default">
+    <div class="govuk-accordion app-accordion--no-open-all app-accordion--no-border-bottom govuk-!-margin-bottom-0" data-module="govuk-accordion" id="accordion-default">
         @for (var index = 0; index < Model.HistoricalCharts.Count; index++)
         {
             var historicalChart = Model.HistoricalCharts[index];

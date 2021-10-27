@@ -488,6 +488,8 @@
     }
 
 .link-button {
+    @extend %govuk-body-s;
+    margin-bottom: 0;
     background: none;
     border: none;
     color: #1D70B8;

@@ -248,11 +248,11 @@
                 "<h1 id='modal-title' class='modal-title'>Key stage 2 progress scores</h1><p class='govuk-body-s' id='modal-content'>" +
                 "The scores are calculated by comparing the key stage 2 test and assessment results of pupils with the results of pupils in schools across England who started with similar assessment results at the end of the previous key stage 1.</p>" +
                 "<h3 class='govuk-heading-s'>What do the scores mean</h3>" +
-                "<div class='modal__score'><div class='govuk-heading-s score well-below'>Well below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='govuk-heading-s score below'>Below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='govuk-heading-s score average'>Average</div><div>About <span class='bold'>60%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='govuk-heading-s score above'>Above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='govuk-heading-s score well-above'>Well above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score well-below'>Well below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score below'>Below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score average'>Average</div><div>About <span class='bold'>60%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score above'>Above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score well-above'>Well above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
                 "<div class='govuk-warning-text mt-2'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><div class='govuk-body-s govuk-warning-text__text'><span class='govuk-warning-text__assistive'>Warning</span>Due to Covid-19 the Government is not publishing the school educational performance data for 2020, the latest progress data is from 2019.</div></div>" +
                 "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
 
