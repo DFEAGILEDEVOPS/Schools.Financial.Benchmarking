@@ -223,26 +223,28 @@
 
         <div class="global-header-bar"></div>
 
-        <div class="header-content" role="region" aria-label="Announcement">
-            @if (ViewBag.DynamicHeaderContent != null)
-            {
-                <div class="header-content__dynamic-header hide-in-print">
-                    <div class="header-content__dynamic-header__copy">
-                        @Html.Raw(ViewBag.DynamicHeaderContent)
+        <div class="govuk-width-container">
+            <div class="header-content" role="region" aria-label="Announcement">
+                @if (ViewBag.DynamicHeaderContent != null)
+                {
+                    <div class="header-content__dynamic-header hide-in-print">
+                        <div class="header-content__dynamic-header__copy">
+                            @Html.Raw(ViewBag.DynamicHeaderContent)
+                        </div>
+                        <button class="header-content__dynamic-header__button js-dismiss-dynamic-header link-button">Hide message</button>
                     </div>
-                    <button class="header-content__dynamic-header__button js-dismiss-dynamic-header link-button">Hide message</button>
-                </div>
-            }
-        </div>
+                }
+            </div>
 
-        @RenderSection("BMListBannerContent", required: false)
+            @RenderSection("BMListBannerContent", required: false)
 
-        <div class="header-content">
-            @RenderSection("BackButtonContent", required: false)
+            <div class="header-content">
+                @RenderSection("BackButtonContent", required: false)
+            </div>
         </div>
 
         <div class="govuk-width-container" id="content">
-            <div class="govuk-grid-row govuk-!-margin-left-0 govuk-margin-right-0">
+            <div class="govuk-grid-row govuk-!-margin-left-0 govuk-!-margin-right-0">
                 <main class="govuk-main-wrapper govuk-!-padding-top-0 @(ViewBag.pageClass)" id="main-content">
                     @RenderBody()
                     <input type="hidden" id="version" value="@version" />
