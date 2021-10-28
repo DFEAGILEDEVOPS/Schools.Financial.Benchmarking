@@ -133,18 +133,18 @@
         top: -10px;
         position: relative;
 
-        @media (max-width: 1024px) {
+        @include govuk-media-query($until: desktop) {
             float: none;
             bottom: 0;
             display: block;
             margin-top: 10px;
+            top: 0;
         }
 
         @include govuk-media-query($until: tablet) {
             margin-top: 1em;
             top: 0;
         }
-
     }
 }
 
@@ -1343,11 +1343,11 @@ div.custom.tabs ul li {
 .govuk-tabs__list-item.app-govuk-tabs__list-item--s {
 
     @include govuk-media-query($from: tablet) {
-        font-size: 13px;
+        font-size: 0.8rem;
     }
 
     @include govuk-media-query($from: desktop) {
-        font-size: 17px;
+        font-size: 1.2rem;
     }
 
 /*    height: 35px;

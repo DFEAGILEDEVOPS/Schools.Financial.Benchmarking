@@ -38,7 +38,6 @@
             @include govuk-media-query($until: tablet) {
                 max-width: 165px;
             }
-
         }
 
         a {
@@ -173,21 +172,21 @@
     }
 
     .govuk-grid-column-one-quarter.mobile {
-        @include govuk-media-query($from: tablet) {
+        @include govuk-media-query($from: desktop) {
             display: none;
         }
 
-        @include govuk-media-query($until: tablet) {
+        @include govuk-media-query($until: desktop) {
             display: block;
         }
     }
 
     .govuk-grid-column-one-quarter.desktop {
-        @include govuk-media-query($until: tablet) {
+        @include govuk-media-query($until: desktop) {
             display: none;
         }
 
-        @include govuk-media-query($from: tablet) {
+        @include govuk-media-query($from: desktop) {
             display: block;
         }
     }
