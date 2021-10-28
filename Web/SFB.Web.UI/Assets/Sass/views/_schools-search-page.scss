@@ -24,8 +24,8 @@
         width: 50%;
         float: left;
 
-        @include govuk-media-query($until: mobile) {
-            width: 80%;
+        @include govuk-media-query($until: tablet) {
+            width: 100%;
         }
 
         .govuk-form-control {
@@ -87,7 +87,7 @@
         display: inline-block;
         float: left;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             width: 80%;
         }
     }
@@ -107,7 +107,7 @@
         width: 50%;
         max-width: 471px;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             width: 100%;
         }
     }

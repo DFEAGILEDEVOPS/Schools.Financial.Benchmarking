@@ -5,7 +5,7 @@
     <input class="govuk-radios__input" id="trustNameId" name="option" type="radio"
            @Html.Raw(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_TRUST_NAME_ID))
            data-aria-controls="SearchByTrustNameFieldset" />
-    <label class="govuk-label govuk-radios__label" for="trustNameId">Academy trust name or Companies House number</label>
+    <label class="govuk-label govuk-radios__label" for="trustNameId">Name or Companies House number</label>
 </div>
 <div id="SearchByTrustNameFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
     <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))">

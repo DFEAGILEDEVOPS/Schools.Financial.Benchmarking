@@ -111,13 +111,13 @@
         top: 10px;
         position: relative;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 5px;
         }
     }
 
     .question .panel .form-group .column-half:last-child {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 13px;
         }
     }

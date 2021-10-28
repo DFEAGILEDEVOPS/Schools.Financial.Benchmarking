@@ -115,7 +115,7 @@ category: Forms
         margin-top: 0 !important;
         padding-top: 0 !important;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: none;
         }
     }
@@ -137,7 +137,7 @@ category: Forms
     padding-top: 20px;
     padding-bottom: 65px;
 
-    @include govuk-media-query($until: mobile) {
+    @include govuk-media-query($until: tablet) {
         padding-bottom: 20px;
     }
 }
@@ -151,7 +151,7 @@ category: Forms
             font-size: 16px;
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             text-align: left;
         }
     }

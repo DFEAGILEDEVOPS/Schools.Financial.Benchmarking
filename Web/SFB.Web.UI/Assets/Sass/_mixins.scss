@@ -22,7 +22,7 @@
             }
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-bottom: 5px;
         }
     }

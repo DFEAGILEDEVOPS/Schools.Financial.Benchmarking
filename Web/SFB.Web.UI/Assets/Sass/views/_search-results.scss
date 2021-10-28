@@ -44,13 +44,13 @@
             display: block;
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: none;
         }
     }
 
     .school-document__add-to-compare-button--add-remove-mobile {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: block;
         }
 
@@ -176,7 +176,7 @@
             }
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             float: unset;
         }
     }
@@ -220,7 +220,7 @@
         position: relative;
         overflow: hidden;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             height: 400px;
         }
     }

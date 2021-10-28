@@ -16,7 +16,7 @@
         width: 100%;
         display: inline !important;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             width: 80%;
         }
 

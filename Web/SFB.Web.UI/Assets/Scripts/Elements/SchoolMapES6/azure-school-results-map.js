@@ -98,6 +98,7 @@
                 markers.addLayer(marker);
                 latLangs.push([data[i].Latitude, data[i].Longitude]);
                 var info = data[i];
+
                 var html = `<div class="infowindow-school-summary">                    
                         <a class="govuk-link" href ="/school/detail?urn=${info.Id}">${info.Name}</a>
                         <p>${info.Address}</p>

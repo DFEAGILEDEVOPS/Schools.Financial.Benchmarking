@@ -5,7 +5,7 @@
     <input class="govuk-radios__input" id="SchoolOrCollegeNameId" name="option" type="radio"
            @Html.Raw(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_NAME_ID))
            data-aria-controls="SearchByNameIdFieldset" />
-    <label class="govuk-label govuk-radios__label" for="SchoolOrCollegeNameId">School name, URN or LAESTAB code</label>
+    <label class="govuk-label govuk-radios__label" for="SchoolOrCollegeNameId">Name, URN or LAESTAB code</label>
 </div>
 <div id="SearchByNameIdFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
     <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_NAME_ID))">

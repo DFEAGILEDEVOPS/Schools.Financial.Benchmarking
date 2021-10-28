@@ -28,7 +28,7 @@
                 margin-bottom: 5px;
             }
 
-            @include govuk-media-query($until: mobile) {
+            @include govuk-media-query($until: tablet) {
                 margin-right: 0;
                 font-size: 14px;
             }
@@ -43,7 +43,7 @@
             text-align: right;
             font-size: 1em;
 
-            @include govuk-media-query($until: mobile) {
+            @include govuk-media-query($until: tablet) {
                 position: static;
                 text-align: left;
                 top: auto;
@@ -102,7 +102,7 @@
             margin-right: 15px;
             margin-left: 15px;
 
-            @include govuk-media-query($until: mobile) {
+            @include govuk-media-query($until: tablet) {
                 margin-left: 0;
                 margin-top: 10px;
                 display: block;
@@ -123,7 +123,7 @@
             }
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             padding: 10px;
         }
     }
@@ -140,8 +140,9 @@
             margin-top: 10px;
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 1em;
+            top: 0;
         }
 
     }
@@ -178,7 +179,7 @@
             color: black;
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-bottom: 2px;
             font-size: 14px;
         }
@@ -191,7 +192,7 @@
     .pre-content {
         padding-bottom: 10px;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             padding-bottom: 4px;
         }
     }
@@ -298,7 +299,7 @@
     }
 
     .chart-filter {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             padding: 0!important;
         }
 
@@ -364,7 +365,7 @@
         overflow: auto;
         max-width: 720px;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             left: 0;
             right: 0;
             top: 25%;
@@ -496,7 +497,7 @@
     text-decoration: underline;
     cursor: pointer;
 
-    @include govuk-media-query($until: mobile) {
+    @include govuk-media-query($until: tablet) {
         padding-left: 0;
     }
 }
@@ -531,7 +532,7 @@
     .chart.c3 svg {
         font: 14px sans-serif;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             font: 12px sans-serif !important;
         }
     }
@@ -546,7 +547,7 @@
     background-color: bisque;
     margin-top: 15px;
 
-    @include govuk-media-query($until: mobile) {
+    @include govuk-media-query($until: tablet) {
         display: inline-flex;
 
         .shared-icon-wrapper {
@@ -642,7 +643,7 @@
         font-size: 24px;
         margin-top: 1.875em;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 0;
         }
     }
@@ -696,7 +697,7 @@
     }
 
     .break-in-mobile {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: block;
         }
     }
@@ -707,7 +708,7 @@
     }
 
     .mobile-only {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: block;
         }
 
@@ -717,7 +718,7 @@
     }
 
     .hide-in-mobile {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: none!important;
         }
     }
@@ -734,14 +735,14 @@
         margin-top: 2%;
 
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 25px;
             padding-left: 0;
         }
 
         font-size: 19px;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             font-size: 16px;
         }
     }
@@ -754,7 +755,7 @@
             color: black;
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin: 0 0 20px 0;
         }
 
@@ -778,7 +779,7 @@
 
     .download {
         img.icon {
-            @include govuk-media-query($until: mobile) {
+            @include govuk-media-query($until: tablet) {
                 width: 36px;
             }
         }
@@ -862,7 +863,7 @@
         color: white;
         font-size: 16px;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             font-size: 12px;
             font-weight: normal;
         }
@@ -885,7 +886,7 @@
    .tab-link {
         color: #1D70B8;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             font-size: 14px;
         }
 
@@ -1009,7 +1010,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
     .help-icon.help-chart {
         top: -5px;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             top: 0;
         }
     }
@@ -1045,7 +1046,7 @@ table.tablesorter.chart-table th, table.tablesorter.context-table th {
         width: 100%;
         margin: 40px 0 30px 0;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin: 0 0 20px 0;
         }
     }
@@ -1129,7 +1130,7 @@ div.custom.tabs ul li {
             bottom: 1px;
         }
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-bottom: 5px;
         }
     }
@@ -1299,7 +1300,7 @@ div.custom.tabs ul li {
         background-color: bisque;
         margin-top: 15px;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: inline-flex;
 
             .shared-icon-wrapper {

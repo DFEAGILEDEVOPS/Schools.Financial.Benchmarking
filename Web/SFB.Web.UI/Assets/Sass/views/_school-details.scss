@@ -19,7 +19,7 @@
                 width: 170px;
             }
 
-            @include govuk-media-query($until: mobile) {
+            @include govuk-media-query($until: tablet) {
                 text-align: left;
                 min-width: unset;
             }
@@ -35,7 +35,7 @@
             text-overflow: ellipsis;
             margin-bottom: 10px;
 
-            @include govuk-media-query($until: mobile) {
+            @include govuk-media-query($until: tablet) {
                 max-width: 130px;
             }
 
@@ -68,7 +68,7 @@
         &__button--removefrom, &__button--addto, &__button--em {
             @include grey-button;
 
-            @include govuk-media-query($until: mobile) {
+            @include govuk-media-query($until: tablet) {
                 margin-top: 10px;
                 margin-left: 0;
             }
@@ -81,14 +81,14 @@
         &__button--auto {
             margin-left: 30px;
 
-            @include govuk-media-query($until: mobile) {
+            @include govuk-media-query($until: tablet) {
                 margin-left: 0;
             }
         }
     }
 
     .chart-wrapper__inner {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             padding: 0;
         }
     }
@@ -118,7 +118,7 @@
                     margin-left: 25px;
                     @include govuk-font(16);
 
-                    @include govuk-media-query($until: mobile) {
+                    @include govuk-media-query($until: tablet) {
                         display: block;
                         margin-left: 0;
                         margin-bottom: 5px;
@@ -324,7 +324,7 @@
                     width: 32%;
                 }
 
-                @include govuk-media-query($until: mobile) {
+                @include govuk-media-query($until: tablet) {
                     flex-basis: 47%;
                     width: 47%;
                 }
@@ -333,13 +333,13 @@
     }
 
     .column-quarter.balance-wrapper-mobile--inactive {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: none;
         }
     }
 
     .column-quarter.balance-wrapper-mobile--active {
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             display: block;
         }
     }
@@ -348,7 +348,7 @@
         border-top: 2px solid  $govuk-brand-colour;
         margin-top: 36px;
 
-        @include govuk-media-query($until: mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 24px;
             margin-bottom: 24px;
         }

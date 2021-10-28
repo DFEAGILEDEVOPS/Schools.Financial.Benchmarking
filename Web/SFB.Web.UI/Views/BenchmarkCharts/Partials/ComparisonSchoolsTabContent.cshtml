@@ -40,7 +40,7 @@
                             <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                 <span>@cSchool.Name</span>
                             </a>
-                            @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                            @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"govuk-visually-hidden\"> index school</span>" : "")
                             <div></div>
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
@@ -67,7 +67,7 @@
                                     <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                         <span>@cSchool.Name</span>
                                     </a>
-                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"govuk-visually-hidden\"> index school</span>" : "")
                                     <div>@((cSchool as SchoolViewModel).Address)</div>
                                 </td>
                                 <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
@@ -122,7 +122,7 @@
                                     <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                         <span>@cSchool.Name</span>
                                     </a>
-                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"govuk-visually-hidden\"> index school</span>" : "")
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -170,7 +170,7 @@
                                     <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                         <span>@cSchool.Name</span>
                                     </a>
-                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"govuk-visually-hidden\"> index school</span>" : "")
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
