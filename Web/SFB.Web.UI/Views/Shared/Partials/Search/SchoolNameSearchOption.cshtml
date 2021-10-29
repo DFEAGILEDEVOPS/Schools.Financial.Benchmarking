@@ -15,7 +15,7 @@
                 <label class="govuk-label govuk-checkboxes__label" for="openOnlyName">Include open schools only</label>
             </div>
         </div>
-        <span class="govuk-hint" for="FindByNameId">Enter a school name, <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr> or <abbr title="Local authority establishment code" aria-label="Local authority establishment number">LAESTAB number</abbr></span>
+        <label class="govuk-hint" for="FindByNameId">Enter a school name, <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr> or <abbr title="Local authority establishment code" aria-label="Local authority establishment number">LAESTAB number</abbr></label>
         <label class="govuk-visually-hidden" for="FindByNameId_listbox">Select a school name from the list box</label>
         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_NAME_ID))
         {

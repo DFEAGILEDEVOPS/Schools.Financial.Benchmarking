@@ -9,9 +9,9 @@
 </div>
 <div id="SearchByTrustNameFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
     <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_TRUST_NAME_ID))">
-        <div class="govuk-hint" for="FindByTrustName">
+        <label class="govuk-hint" for="FindByTrustName">
             Enter a trust name or Companies House number
-        </div>
+        </label>
         <label class="govuk-visually-hidden" for="FindByTrustName_listbox">Select a trust from the list box</label>
         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_TRUST_NAME_ID))
         {

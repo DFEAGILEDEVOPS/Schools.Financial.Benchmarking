@@ -42,6 +42,7 @@
                 <div id="NewSchool" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
                     <div class="govuk-grid-row school-element">
                         <label class="govuk-label" for="NewSchoolName">School @Html.Raw(i + 1)</label>
+                        <label class="govuk-visually-hidden" for="NewSchoolName_listbox">Select a school name from the list box</label>
                         @if (ViewBag.Error != null)
                         {
                             <span class="govuk-error-message">
@@ -82,6 +83,7 @@
             {
                 <div class="govuk-grid-row school-element">
                     <label class="govuk-label" for="NewSchoolName">School 1</label>
+                    <label class="govuk-visually-hidden" for="FNewSchoolName_listbox">Select a school name from the list box</label>
                     @if (ViewBag.Error != null)
                     {
                         <span class="govuk-error-message duplicate">

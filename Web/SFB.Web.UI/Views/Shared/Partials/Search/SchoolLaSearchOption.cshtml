@@ -15,9 +15,9 @@
                 <label for="openOnlyLa" class="govuk-label govuk-checkboxes__label">Include open schools only</label>
             </div>
         </div>
-        <div class="govuk-hint" for="FindSchoolByLaCodeName">
+        <label class="govuk-hint" for="FindSchoolByLaCodeName" for="FindSchoolByLaCodeName">
             <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
-        </div>
+        </label>
         <label class="govuk-visually-hidden" for="FindSchoolByLaCodeName_listbox">Select a local authority from the list box</label>
         @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
         {

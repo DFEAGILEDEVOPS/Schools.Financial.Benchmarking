@@ -66,7 +66,7 @@
                                 <div class="govuk-accordion__section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
                                     <div class="govuk-accordion__section-header" ng-class="{'hide-summary': ctrl.query}">
                                         <h2 class="govuk-accordion__section-heading">
-                                            <span id="accordion-selection-heading" class="govuk-accordion__section-button" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
+                                            <span id="accordion-selection-heading_{{$index}}" class="govuk-accordion__section-button" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
                                                 {{group.GroupName}}
                                                 <span class="not-bold govuk-!-font-size-19" ng-show="ctrl.groupSelectCount(group) != 0">
                                                     ({{ctrl.groupSelectCount(group)}} selected)
@@ -76,7 +76,7 @@
                                         </h2>
                                     </div>
 
-                                    <div id="accordion-selection-content" class="govuk-accordion__section-content" aria-labelledby="accordion-selection-heading">
+                                    <div class="govuk-accordion__section-content" aria-labelledby="accordion-selection-heading_{{$index}}">
                                         <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="govuk-grid-row chart-selection" ng-class="{'show-details': ctrl.query}">
                                             <div class="multiple-choice-header govuk-grid-column-one-quarter">
                                                 <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">{{chart.Name}}</span>

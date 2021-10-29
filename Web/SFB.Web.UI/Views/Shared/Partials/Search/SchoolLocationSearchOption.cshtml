@@ -15,10 +15,10 @@
                 <label class="govuk-label govuk-checkboxes__label" for="openOnlyLocation">Include open schools only</label>
             </div>
         </div>
-        <div class="govuk-hint" for="FindSchoolByTown">
+        <label class="govuk-hint" for="FindSchoolByTown" for="FindSchoolByTown">
             Enter a postcode, town or street. Or
             <button id="FindCurrentPosition" class="focus-first link-button govuk-!-font-size-19 no-padding" title="Select to use your current location">use your current location</button>
-        </div>
+        </label>
         <label class="govuk-visually-hidden" for="FindSchoolByTown_listbox">Select a location from the list box</label>
         <div class="location-error-message-placeholder">
             @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LOCATION))

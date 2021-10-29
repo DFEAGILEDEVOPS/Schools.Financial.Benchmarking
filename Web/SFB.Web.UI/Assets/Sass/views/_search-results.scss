@@ -81,7 +81,7 @@
             @include govuk-font(14);
             margin-left: 0;
             padding: 0;
-            line-height: 1.5em!important;
+            line-height: 1.5em !important;
         }
 
         .rating-date {
@@ -256,6 +256,11 @@
         position: relative;
         top: 10px;
         color: govuk-colour("white");
+
+        &:focus {
+            color: govuk-colour("black");
+        }
+
         cursor: default;
         font-size: 16px;
     }
