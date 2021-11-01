@@ -808,7 +808,6 @@
     <Content Include="Views\BenchmarkCharts\Partials\AdvancedHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\BasicHiddenFields.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\TabContent.cshtml" />
-    <Content Include="Views\Help\CookieDetails.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedBasicCriteria.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\UsedAdvancedCriteria.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />

@@ -663,7 +663,6 @@ function manageCookies() {
     }
 
     manageCookiePreferencesCookies();
-    manageDynamicHeaderAndCookie(cookiesPolicyCookie);
     manageRecruitmentBannerAndCookie(cookiesPolicyCookie);
     manageGACookies(cookiesPolicyCookie);
     //manageMSCookies(cookiesPolicyCookie);
@@ -692,28 +691,6 @@ function manageCookiePreferencesCookies() {
     } else {
         $("#global-cookie-message").hide();
         DfE.Util.CookieOverlayRenderer.unRender();
-    }
-}
-
-function manageDynamicHeaderAndCookie(cookiesPolicyCookie) {
-    if (cookiesPolicyCookie.settings) {
-        var suppressDynamicHeaderCookie = GOVUK.cookie("suppress-dynamic-header");
-        if (suppressDynamicHeaderCookie === "yes") {
-            $(".header-content__dynamic-header").hide();
-        } else {
-            //$(".header-content__dynamic-header").show();
-            $(".js-dismiss-dynamic-header").click(function () {
-                $(".header-content__dynamic-header").hide();
-                GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
-            });
-        }
-    }
-    else {
-        GOVUK.cookie("suppress-dynamic-header", null);
-        //$(".header-content__dynamic-header").show();
-        $(".js-dismiss-dynamic-header").click(function () {
-            $(".header-content__dynamic-header").hide();
-        });
     }
 }
 
