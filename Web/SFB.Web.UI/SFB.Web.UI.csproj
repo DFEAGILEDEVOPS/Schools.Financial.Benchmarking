@@ -416,6 +416,7 @@
     <Compile Include="Controllers\BenchmarkChartsController.cs" />
     <Compile Include="Controllers\BenchmarkCriteriaController.cs" />
     <Compile Include="Controllers\BenchmarkListController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\FederationController.cs" />
@@ -442,6 +443,7 @@
     <Compile Include="Models\BenchmarkSchoolModel.cs" />
     <Compile Include="Models\BestInClassCharacteristicsViewModel.cs" />
     <Compile Include="Models\CompareEntityBase.cs" />
+    <Compile Include="Models\ContactUsViewModel.cs" />
     <Compile Include="Models\CookiePolicyModel.cs" />
     <Compile Include="Models\CustomChartSelectionViewModel.cs" />
     <Compile Include="Models\CustomSelectionListViewModel.cs" />
@@ -998,6 +1000,8 @@
     <Content Include="Views\School\StartBenchmarking.cshtml" />
     <Content Include="Views\Shared\Partials\Breadcrumbs\BackToFederationLink.cshtml" />
     <Content Include="Views\Federation\StartBenchmarking.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Contact\ContactUsConfirmation.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
