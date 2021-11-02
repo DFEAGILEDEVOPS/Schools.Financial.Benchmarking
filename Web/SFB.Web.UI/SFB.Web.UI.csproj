@@ -534,7 +534,6 @@
     <Content Include="Assets\Sass\views\_data-queries.scss" />
     <Content Include="Assets\Sass\views\_add-schools-manually.scss" />
     <Content Include=".editorconfig" />
-    <Content Include="Assets\Sass\_cookiesBanner.scss" />
     <Content Include="Assets\Sass\views\_cookies-settings.scss" />
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
