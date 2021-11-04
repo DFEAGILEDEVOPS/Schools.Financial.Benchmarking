@@ -43,11 +43,6 @@
                     $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function(response) {
                         $scope.selectionList = response.data;
                         self.query = "";
-                        //setTimeout(
-                        //    function () {
-                        //    new Accordion(document.getElementById('custom-report-accordion'));
-                        //},
-                        //    500);
                         self.onSelectionChange();
                     });
                 };
@@ -119,11 +114,6 @@
                 $scope.dataLoaded = $q(function (resolve) {
                     self.loadData(resolve);
                 });
-
-                //angular.element(document).ready(function () {
-                //    new Accordion(document.getElementById('custom-report-accordion'));
-                //    //$("#custom-report-accordion .accordion-section-header").first().click();
-                //});
 
                 $(document).ready(function() {
                     $scope.schoolChartData = JSON.parse(($('.chart.c3').first()).attr('data-chart'));
