@@ -678,7 +678,18 @@ namespace SFB.Web.UI.Helpers
                     FieldName = SchoolTrustFinanceDataFieldNames.PFI_CHARGES,
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
-                    ChartSchoolType = ChartSchoolType.Academy,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"",
+                    Downloadable = true
+                },
+                new ChartViewModel()
+                {
+                    Id = 58,
+                    Name = "PFI charges",
+                    FieldName = SchoolTrustFinanceDataFieldNames.PFI_CHARGES,
+                    TabType = TabType.Expenditure,
+                    ChartGroup = ChartGroupType.Premises,
+                    ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     Downloadable = true
                 },

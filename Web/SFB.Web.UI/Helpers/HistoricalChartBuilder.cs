@@ -707,8 +707,8 @@ namespace SFB.Web.UI.Helpers
                     FieldName = SchoolTrustFinanceDataFieldNames.PFI_CHARGES,
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
-                    ChartSchoolType = ChartSchoolType.Academy,
-                    MoreInfo = @""
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"Prior to 2020-2021 PFI charges for Maintained schools were included within Bought in professional services under Supplies and Services"
                 },
 
                 //Occupation
