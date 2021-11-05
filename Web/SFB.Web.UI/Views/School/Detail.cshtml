@@ -289,7 +289,23 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     @SchoolDetailFieldFormatted("Belongs to:", "<a class=\"govuk-link\" href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.FederationName)
                 }
 
-                @if (Model.IsMAT)
+                @if (Model.EstablishmentStatus == "Closed")
+                {
+                    if (Model.IsMATinLatestFinance)
+                    {
+                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                    }
+                }
+                else if (Model.IsSAT)
+                {
+                    @SchoolDetailField("Academy trust:", "Single academy trust")
+
+                    if (Model.IsMATinLatestFinance)
+                    {
+                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                    }
+                }
+                else if (Model.IsMAT)
                 {
                     if (Model.UID != null)
                     {
@@ -299,13 +315,18 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     {
                         @SchoolDetailFieldFormatted("Academy trust:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
                     }
-                }
 
-                @if (Model.IsMATinLatestFinance)
-                {
-                    if ((Model.IsSAT && Model.IsMATinLatestFinance) || Model.CompanyNo != Model.CompanyNoInLatestFinance)
+                    if (Model.IsSATinLatestFinance)
                     {
-                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                        @SchoolDetailField($"Academy trust for {Model.LatestTerm} submission:", "Single academy trust")
+                    }
+
+                    if (Model.IsMATinLatestFinance)
+                    {
+                        if (Model.CompanyNo != Model.CompanyNoInLatestFinance)
+                        {
+                            @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                        }
                     }
                 }
 
