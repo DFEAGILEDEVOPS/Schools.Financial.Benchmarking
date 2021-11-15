@@ -1096,7 +1096,7 @@ namespace SFB.Web.UI.Helpers
                         {
                             Id = 24005,
                             Name = "Bought in Professional services, other, not PFI",
-                            FieldName = SchoolTrustFinanceDataFieldNames.BOUGHT_IN_OTHER,
+                            FieldName = SchoolTrustFinanceDataFieldNames.BOUGHT_IN_NOT_PFI,
                             TabType = TabType.Expenditure,
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Maintained,
@@ -1122,6 +1122,7 @@ namespace SFB.Web.UI.Helpers
                             <ul>
                             <li>cost of staff where they are directly employed by the school</li>
                             <li>consultancy and advice for curriculum</li>
+                            <li>PFI charges</li>
                             </ul>"
                         },
                         new ChartViewModel
