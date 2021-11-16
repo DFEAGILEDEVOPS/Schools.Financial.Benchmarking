@@ -1047,7 +1047,7 @@ namespace SFB.Web.UI.Helpers
                     MoreInfo = @"<p>This includes:</p>
                                 <ul>
                                 <li>educational consultancy</li>
-                                <li>bought-in professional services</li>
+                                <li>bought-in professional services, other, not PFI</li>
                                 <li>legal and professional</li>
                                 <li>auditor costs</li>
                                 </ul>",
@@ -1062,8 +1062,8 @@ namespace SFB.Web.UI.Helpers
                         },
                         new DataTableColumnViewModel
                         {
-                            Name = "Bought in professional services - other",
-                            FieldName = SchoolTrustFinanceDataFieldNames.BOUGHT_IN_OTHER,
+                            Name = "Bought in professional services, other, not PFI",
+                            FieldName = SchoolTrustFinanceDataFieldNames.BOUGHT_IN_NOT_PFI,
                             ChartSchoolType = ChartSchoolType.Maintained,
                             MoreInfo =
                                 @"<p>This covers professional services, consultancy and advice to staff and governors purchased from the local authority or an external party. </p>

@@ -39,7 +39,7 @@
                     return self.totalSelectCount() > 0;
                 };
 
-                self.clear = function() {
+                self.clear = function () {
                     $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function(response) {
                         $scope.selectionList = response.data;
                         self.query = "";
@@ -71,7 +71,7 @@
                                 $("table.data-table-js.chart-table--mobile-only-view.chart-table--summary-view").tablesorter({ sortList: [[$("table.data-table-js.chart-table--mobile-only-view.chart-table--summary-view").first().find("thead th").length - 1, 1]] });
                                 $("table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
                                 if (!self.accordionInitialised) {
-                                    window.GOVUKFrontend.initAll({ scope: $("#customTabSection")[0] });
+                                    //window.GOVUKFrontend.initAll({ scope: $("#customTabSection")[0] });
                                     self.accordionInitialised = true;
                                 }
                             }, 500);
@@ -79,7 +79,7 @@
                     });
                 };
 
-                self.groupSelectCount = function (group) {                    
+                self.groupSelectCount = function (group) {
                     var count = _.reduce(group.Charts,
                         function(sum, ch) {
                             return sum +
@@ -95,11 +95,10 @@
                                 (ch.PercentageTeachersSelected ? 1 : 0);
                         },
                         0);
-
                     return count;
                 };
 
-                self.totalSelectCount = function() {
+                self.totalSelectCount = function () {
                     var count = 0;
                     if ($scope.selectionList) {
                         count = _.reduce($scope.selectionList.HierarchicalCharts,
