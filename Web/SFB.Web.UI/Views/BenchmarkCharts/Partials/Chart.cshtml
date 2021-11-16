@@ -131,9 +131,9 @@
                                     </div>
                                 </div>
                                 <div style="display: none" class="float-to-right govuk-!-font-size-16 no-padding view-your-charts">
-                                    <button aria-label="View Your Charts" class="a-button" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.changeTab('Custom')">
+                                    <button aria-label="View Your Charts" class="a-button" onclick="$('#Custom a')[0].click(); $('#Custom a')[0].focus(); $('#customTabSection').show(); DfE.Views.BenchmarkChartsViewModel.changeTab('Custom')">
                                         <i class="icon icon-report"></i>
-                                        <span>View your charts</span>
+                                        <span class="govuk-body-s">View your charts</span>
                                     </button>
                                 </div>
                             </div>
@@ -285,9 +285,9 @@
                                         </button>
                                     </div>
                                     <div style="display: none" class="float-to-right govuk-!-font-size-16 no-padding view-your-charts">
-                                        <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('.custom').click(); $('.custom').focus(); DfE.Views.BenchmarkChartsViewModel.changeTab('Custom');">
+                                        <a aria-label="View Your Charts" class="float-to-right" href="#" onclick="$('#Custom a')[0].click(); $('#Custom a')[0].focus(); $('#customTabSection').show(); DfE.Views.BenchmarkChartsViewModel.changeTab('Custom');">
                                             <i class="icon icon-report"></i>
-                                            <span>View your charts</span>
+                                            <span class="govuk-body-s">View your charts</span>
                                         </a>
                                     </div>
                                 </div>
