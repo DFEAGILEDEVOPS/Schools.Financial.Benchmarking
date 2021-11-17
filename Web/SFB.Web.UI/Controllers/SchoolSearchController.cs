@@ -106,11 +106,12 @@ namespace SFB.Web.UI.Controllers
         /// </summary>
         [Route("SchoolSearch/Search-js")]
         public async Task<PartialViewResult> SearchJS(
-            string nameId, 
-            string searchType, 
-            string locationorpostcode, 
-            string locationCoordinates, 
-            string laCodeName, 
+            string nameId,
+            string searchType,
+            string locationorpostcode,
+            string locationCoordinates,
+            string laCodeName,
+            string selectedLocalAuthorityId,
             decimal? radius, 
             bool openOnly = false,
             string orderby = "", 
@@ -126,7 +127,7 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, laCodeName, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, selectedLocalAuthorityId == string.Empty ? laCodeName : selectedLocalAuthorityId, radius, openOnly, orderby, page);
             }
             var vm = GetSearchedSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
 
