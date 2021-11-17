@@ -60,7 +60,7 @@ namespace SFB.Web.UI.Services
         public async Task<TrustViewModel> SetTrustAsDefaultAsync(int companyNo)
         {
             var latestTerm = await LatestMATTermAsync();
-            var trustFinancialDataObject = await _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(companyNo, latestTerm, MatFinancingType.TrustOnly);
+            var trustFinancialDataObject = await _financialDataService.GetTrustFinancialDataObjectByCompanyNoAsync(companyNo, latestTerm, MatFinancingType.TrustAndAcademies);
 
             TryAddTrustToBenchmarkList(companyNo, trustFinancialDataObject.TrustOrCompanyName);
 
