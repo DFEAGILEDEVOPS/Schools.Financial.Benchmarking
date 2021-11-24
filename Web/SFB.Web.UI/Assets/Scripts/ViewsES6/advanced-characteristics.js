@@ -5,10 +5,8 @@ class AdvancedCharacteristicsViewModel {
     constructor() {
 
         this.jqxhr = null;
-        this.questionCheckBoxSelector = ".multiple-choice.question > input";
-        this.subQuestionCheckBoxSelector = ".multiple-choice.subQuestion > input";
-
-        new Accordion(document.getElementById('characteristics-accordion'));
+        this.questionCheckBoxSelector = ".govuk-checkboxes__item.question > input";
+        this.subQuestionCheckBoxSelector = ".govuk-checkboxes__item.subQuestion > input";
 
         this.validateForm();
 
@@ -46,17 +44,19 @@ class AdvancedCharacteristicsViewModel {
 
         $('#criteriaForm').
             validate({
+                errorClass: 'govuk-input--error',
+                ignore: "label",
                 errorPlacement: (error, element) => {
-                    error.appendTo(element.closest(".question").find(".error-message"));
+                    error.appendTo(element.closest(".question").find(".govuk-error-message"));
                 },
                 highlight: (element, errorClass, validClass) => {
                     $(element).addClass(errorClass).removeClass(validClass);
-                    $(element).closest(".panel").addClass("error");
+                    $(element).closest(".govuk-form-group").addClass("govuk-form-group--error");
                 },
                 unhighlight: (element, errorClass, validClass) => {
                     $(element).removeClass(errorClass).addClass(validClass);
-                    if ($(element).closest(".panel").find("input.error").length === 0) {
-                        $(element).closest(".panel").removeClass("error");
+                    if ($(element).closest(".govuk-form-group").find("input.govuk-input--error").length === 0) {
+                        $(element).closest(".govuk-form-group").removeClass("govuk-form-group--error");
                     }
                 }
             });
@@ -98,7 +98,7 @@ class AdvancedCharacteristicsViewModel {
 
 
     updateCounter(element) {
-        var $counterElement = $(element).parents(".accordion-section").find(".selection-counter");
+        var $counterElement = $(element).parents(".govuk-accordion__section").find(".selection-counter");
         var count = $counterElement.text();
         if ($(element).is(":checked")) {
             $counterElement.text(++count);
@@ -108,9 +108,9 @@ class AdvancedCharacteristicsViewModel {
     }
 
     updateAllCounters() {
-        var $counterElements = $(".accordion-section-header .selection-counter");
+        var $counterElements = $(".govuk-accordion__section-header .selection-counter");
         $counterElements.each(function () {
-            var count = $(this).parents(".accordion-section").find("div.multiple-choice.question input:checked").length;
+            var count = $(this).parents(".govuk-accordion__section").find("div.govuk-checkboxes__item.question input:checked").length;
             $(this).text(count);
         });
     }
@@ -136,7 +136,7 @@ class AdvancedCharacteristicsViewModel {
 
         // insert code at the end
         let $modal_code =
-            '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
+            '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
             '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
             '<h1 id="modal-title" class="modal-title">' + resultCount + ' matches found</h1>' +
             '<p id="modal-content">Refine the characteristics entered until there are between 1 and 30 matched schools.</p>';
@@ -158,12 +158,12 @@ class AdvancedCharacteristicsViewModel {
 
     parentPhaseClicked(event) {
         let $panel = $(event.target).parent().next();
-        $panel.toggle();
+        //$panel.toggle();
         $panel.find("input").prop('disabled', (i, v) => { return !v; });
         if (!event.target.checked) {
-            $panel.removeClass("error");
-            $panel.find("input.error").removeClass("error");
-            $panel.find("label.error").css("display", "none");
+            $panel.find(".govuk-form-group.govuk-form-group--error").removeClass("govuk-form-group--error");
+            $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
+            $panel.find("span.govuk-error-message").css("display", "none");
         }
         $panel.find("input[type='checkbox']:disabled").prop('checked', false);
         $panel.find("input[type='checkbox']:enabled").click();
@@ -187,14 +187,14 @@ class AdvancedCharacteristicsViewModel {
         $(this.questionCheckBoxSelector).change(
             (event) => {
                 let $panel = $(event.target).parent().next();
-                $panel.toggle();
+                //$panel.toggle();
                 $panel.find("input:visible").prop('disabled', false);
                 $panel.find("input:hidden").prop('disabled', true);
                 if (!event.target.checked) {
-                    $panel.find(".panel").hide();
-                    $panel.removeClass("error");
-                    $panel.find("input.error").removeClass("error");
-                    $panel.find("label.error").css("display", "none");
+                    //$panel.find(".govuk-checkboxes__conditional").hide();
+                    $panel.find(".govuk-form-group.govuk-form-group--error").removeClass("govuk-form-group--error");
+                    $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
+                    $panel.find("span.govuk-error-message").css("display", "none");
                 }
                 $panel.find("input[type='number']:disabled").val(null);
                 $panel.find("input[type='checkbox']:disabled").prop('checked', false);
@@ -249,21 +249,6 @@ class AdvancedCharacteristicsViewModel {
             this.clear();
         });
 
-        //$(".min-js").focusout((event) => {
-        //    debugger;
-        //    let maxInput = $(event.target.parentNode.parentNode).find(".max-js");
-        //    if (!maxInput[0].validity.valueMissing) {
-        //        maxInput.valid();
-        //    }
-        //});
-
-        //$(".max-js").focusout((event) => {
-        //    debugger;
-        //    let minInput = $(event.target.parentNode.parentNode).find(".min-js");
-        //    if (!minInput[0].validity.valueMissing) {
-        //        minInput.valid();
-        //    }
-        //});
     }
 }
 

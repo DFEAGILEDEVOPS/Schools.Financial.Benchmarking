@@ -4,6 +4,7 @@
 
         &__dl {
             margin-bottom: 7px;
+            margin-bottom: 0;
         }
 
         &__dt {
@@ -14,8 +15,9 @@
             text-align: left;
             padding-bottom: 15px;
             width: 190px;
+            margin-bottom: 0;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 text-align: left;
                 min-width: unset;
                 width: 100px;
@@ -31,13 +33,10 @@
             overflow: hidden;
             text-overflow: ellipsis;
             padding-bottom: 15px;
+            margin-bottom: 0;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 max-width: 165px;
-            }
-
-            @include media(tablet) {
-                max-width: 400px;
             }
         }
 
@@ -66,7 +65,7 @@
             -moz-columns: 2;
             line-height: 1.5em;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 columns: 1;
                 -webkit-columns: 1;
                 -moz-columns: 1;
@@ -79,7 +78,7 @@
     }
 
     .chart-wrapper__inner {
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             padding: 0;
         }
     }
@@ -90,11 +89,11 @@
                 margin-top: 1.5em;
 
                 &__h2 {
-                    @include bold-24();
+                    @include govuk-font(24, $weight: bold);
                     margin-top: 1em;
                     margin-bottom: em(10, 20);
 
-                    @include media(tablet) {
+                    @include govuk-media-query($from: tablet) {
                         margin-top: em(45, 24);
                         margin-bottom: em(20, 24);
                     }
@@ -107,9 +106,9 @@
                 &__a--inline {
                     display: inline;
                     margin-left: 25px;
-                    @include core-16;
+                    @include govuk-font(16);
 
-                    @include media(mobile) {
+                    @include govuk-media-query($until: tablet) {
                         display: block;
                         margin-left: 0;
                         margin-bottom: 5px;
@@ -126,9 +125,9 @@
             }
 
             &__lastYearBalance {
-                @include core-36;
-                border-top: 1px solid $border-colour;
-                color: $turquoise;
+                @include govuk-font(36);
+                border-top: 1px solid $govuk-border-colour;
+                color: govuk-colour("turquoise");
                 padding-top: 12px;
                 font-weight: bold;
             }
@@ -145,7 +144,7 @@
 
         .c3-line-amount {
             stroke-width: 4px;
-            color: $turquoise;
+            color: govuk-colour("turquoise");
         }
 
         .c3-axis-y path {
@@ -155,7 +154,7 @@
         .c3-axis-x {
             path {
                 stroke-width: 2px;
-                stroke: $border-colour;
+                stroke: $govuk-border-colour;
             }
         }
     }
@@ -163,7 +162,7 @@
     .download {
         margin-top: 10px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-bottom: 20px;
         }
 
@@ -172,22 +171,22 @@
         }
     }
 
-    .column-quarter.mobile {
-        @include media(tablet) {
+    .govuk-grid-column-one-quarter.mobile {
+        @include govuk-media-query($from: desktop) {
             display: none;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: desktop) {
             display: block;
         }
     }
 
-    .column-quarter.desktop {
-        @include media(mobile) {
+    .govuk-grid-column-one-quarter.desktop {
+        @include govuk-media-query($until: desktop) {
             display: none;
         }
 
-        @include media(tablet) {
+        @include govuk-media-query($from: desktop) {
             display: block;
         }
     }
@@ -211,15 +210,15 @@
     }
 
     .highlight-warning {
-        background-color: $orange;
+        background-color: govuk-colour("orange");
         padding-left: 10px;
         padding-right: 10px;
-        color: $white;
+        color: govuk-colour("white");
     }
 
     .chart-border {
         border-top: solid 5px;
-        border-color: $govuk-blue;
+        border-color: $govuk-brand-colour;
         padding-top: 15px;
     }
 
@@ -243,20 +242,19 @@
 
     .sticky-chart-controls {
         margin-top: 10px;
-        background-color: $page-colour;
-        border-bottom: 1px solid $border-colour;
+        background-color: govuk-colour("white");
+        border-bottom: 1px solid $govuk-border-colour;
 
         .form-group {
             margin-bottom: 0;
             padding-bottom: 5px;
             padding-top: 5px;
         }
-
-        .chart-filter {
+        /*        .chart-filter {
             height: 75px;
         }
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             height: 93px;
 
             .chart-filter:first-of-type {
@@ -270,7 +268,7 @@
             .form-group {
                 padding-bottom: 20px;
             }
-        }
+        }*/
     }
 
     #historical-charts-accordion {
@@ -282,17 +280,17 @@
     }
 
     div.custom.tabs ul {
-        @include media-down(tablet) {
+        @include govuk-media-query($until: tablet) {
             justify-content: flex-start;
 
             li {
 
-                @include media-down(tablet) {
+                @include govuk-media-query($until: tablet) {
                     flex-basis: 32%;
                     width: 32%;
                 }
 
-                @include media(mobile) {
+                @include govuk-media-query($until: tablet) {
                     flex-basis: 47%;
                     width: 47%;
                 }
@@ -300,14 +298,14 @@
         }
     }
 
-    .column-quarter.balance-wrapper-mobile--inactive {
-        @include media(mobile) {
+    .govuk-grid-column-one-quarter.balance-wrapper-mobile--inactive {
+        @include govuk-media-query($until: tablet) {
             display: none;
         }
     }
 
-    .column-quarter.balance-wrapper-mobile--active {
-        @include media(mobile) {
+    .govuk-grid-column-one-quarter.balance-wrapper-mobile--active {
+        @include govuk-media-query($until: tablet) {
             display: block;
         }
     }
@@ -316,7 +314,7 @@
         display: block;
         margin-top: 10px;
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: inline;
             margin-top: 0;
         }
@@ -327,7 +325,7 @@
         margin-left: 5px;
         margin-right: 5px;
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: inline;
         }
     }
@@ -336,7 +334,7 @@
         th, td {
             font-size: 16px;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 font-size: 14px;
             }
         }
@@ -348,13 +346,13 @@
 
         .new-row {
             td {
-                border-top: 1px double $black;
+                border-top: 1px double govuk-colour("black");
             }
         }
     }
 
     div.custom.tabs ul {
-        @include media-down(tablet) {
+        @include govuk-media-query($until: tablet) {
             justify-content: flex-start;
 
             li {

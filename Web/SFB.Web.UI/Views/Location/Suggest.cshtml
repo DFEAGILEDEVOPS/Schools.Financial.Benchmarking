@@ -17,39 +17,39 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
-<h1 class="heading-xlarge page-heading">Location search for "@Model.LocationOrPostcode"</h1>
+<h1 class="govuk-heading-xl page-heading">Location search for "@Model.LocationOrPostcode"</h1>
 
-<div class="grid-row js-live-search-results-block">
-    <div class="column-two-thirds">
+<div class="govuk-grid-row js-live-search-results-block">
+    <div class="govuk-grid-column-two-thirds">
 
         <div aria-live="assertive" class="js-search-results-info">
             <div class="result-info">
-                <p class="summary" aria-live="assertive">
-                    <span class="bold">@(Model.ModelList.Count)</span> locations found
+                <p class="govuk-body summary" aria-live="assertive">
+                    <span class="govuk-!-font-weight-bold">@(Model.ModelList.Count)</span> locations found
                 </p>
             </div>
         </div>
         @if (Model.ModelList.Count > 0)
         {
-            <ul>
+            <ul class="govuk-list">
                 @foreach (var location in Model.ModelList)
                 {
                     if (Model.SearchMethod == "Manual")
                     {
                         <li class="document">
-                            <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@location.LocationName</a>
+                            <a href="/ManualComparison/Search?searchtype=@SearchTypes.SEARCH_BY_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="govuk-link govuk-!-font-weight-bold">@location.LocationName</a>
                         </li>
                     }
                     else if (Model.SearchMethod == "MAT")
                     {
                         <li class="document">
-                            <a href="/trustsearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName" class="bold-small">@location.LocationName</a>
+                            <a href="/trustsearch/Search?searchtype=@SearchTypes.SEARCH_BY_TRUST_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName" class="govuk-link govuk-!-font-weight-bold">@location.LocationName</a>
                         </li>
                     }
                     else
                     {
                         <li class="document">
-                            <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="bold-small">@location.LocationName</a>
+                            <a href="/SchoolSearch/Search?searchtype=@SearchTypes.SEARCH_BY_LOCATION&&LocationCoordinates=@location.LatLon&locationorpostcode=@location.LocationName&openOnly=@Model.OpenOnly.ToString()" class="govuk-link govuk-!-font-weight-bold">@location.LocationName</a>
                         </li>
                     }
                 }
@@ -57,9 +57,9 @@
         }
         else
         {
-            <p class="bold-small" style="margin-top: 22px;">Please try:</p>
-            <p class="indent">
-                • <a href="/">searching again</a> using different spelling or words
+            <p class="govuk-body-m govuk-!-font-weight-bold" style="margin-top: 22px;">Please try:</p>
+            <p class="govuk-body indent">
+                • <a class="govuk-link" href="/">searching again</a> using different spelling or words
             </p>
         }
     </div>

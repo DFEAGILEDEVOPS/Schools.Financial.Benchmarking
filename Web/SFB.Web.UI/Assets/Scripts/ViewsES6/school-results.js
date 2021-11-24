@@ -38,6 +38,10 @@ class SchoolsResultsViewModel {
         });
 
         window.addEventListener("load", this.load.bind(this));
+
+        window.addEventListener("beforeunload", () => {
+            $(".js-live-search-form .govuk-checkboxes__input").prop("checked", false);
+        });
     }
 
     getTabName() {
@@ -70,9 +74,9 @@ class SchoolsResultsViewModel {
         });
     }
        
-    bindEditSearchButton() {
-        GOVUK.Collapsible.bindElements("#EditSearchCollapsible.js-collapsible");
-    }
+    //bindEditSearchButton() {
+    //    GOVUK.Collapsible.bindElements("#EditSearchCollapsible.js-collapsible");
+    //}
 
     bindFilterCollapseButtons() {
         // Instantiate an option select for each one found on the page
@@ -110,7 +114,7 @@ class SchoolsResultsViewModel {
     }
 
     onRefresh() {
-        this.bindEditSearchButton();
+        //this.bindEditSearchButton();
         this.bindFilterCollapseButtons();
         this.mapLoaded = false;
         this.initTabs();

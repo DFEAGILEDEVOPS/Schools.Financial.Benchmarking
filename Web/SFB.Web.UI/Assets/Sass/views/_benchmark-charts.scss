@@ -2,12 +2,18 @@
 
     @include highlighting;
 
+    .highlight {
+        @include govuk-media-query($until: tablet) {
+            line-height: 2;
+        }
+    }
+
     .c3-text {
-        fill: $black !important;
+        fill: govuk-colour("black") !important;
     }
 
     .england-average-bar {
-        fill: $grey-2 !important;
+        fill: govuk-colour("mid-grey", $legacy: "grey-2") !important;
     }
 
     .england-average-tick {
@@ -15,7 +21,7 @@
     }
 
     .highlight-field {
-        background-color: $pink_contrast;
+        background-color: govuk-colour("pink");
         color: white;
         padding-left: 10px;
         padding-right: 10px;
@@ -29,16 +35,16 @@
         line-height: 1.8em;
         font-weight: bold;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             padding: 4px 6px;
         }
 
         &.index-highlight {
-            background-color: $pink_contrast;
+            background-color: govuk-colour("pink");
         }
 
         &.incompleteFinance-highlight, &.incompleteWorkforce-highlight {
-            background-color: $orange;
+            background-color: govuk-colour("orange");
         }
     }
 
@@ -66,7 +72,7 @@
                 display: inline;
                 white-space: nowrap;
 
-                @include media(mobile) {
+                @include govuk-media-query($until: tablet) {
                     display: block;
                     margin-left: 0;
                     margin-bottom: 5px;
@@ -78,7 +84,7 @@
             }
 
             &.column-full {
-                @include media(mobile) {
+                @include govuk-media-query($until: tablet) {
                     padding: 0;
                 }
             }
@@ -97,7 +103,7 @@
                 cursor: pointer;
             }
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 margin-top: 0;
             }
         }
@@ -119,7 +125,7 @@
 
     .chart-border {
         border-top: solid 5px;
-        border-color: $govuk-blue;
+        border-color: $govuk-brand-colour;
         padding-top: 15px;
     }
 
@@ -139,7 +145,7 @@
     }
 
     .panel.criteria-detail {
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             border: none;
             padding: 0;
         }
@@ -160,24 +166,26 @@
     .selection-filters {
         padding-top: 20px;
 
-        .form-control {
-            @include media(tablet) {
+        .govuk-form-control {
+            @include govuk-media-query($from: tablet) {
                 width: 80%;
             }
         }
     }
 
     .selection-controls {
-        padding-top: 30px;
+        @include govuk-media-query($from: tablet) {
+            padding-top: 30px;
+        }
 
         .clear-link {
             padding-top: 8px;
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 padding-left: 0;
             }
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 padding-left: 0;
                 padding-top: 10px;
             }
@@ -187,15 +195,11 @@
         }
     }
 
-    .selections {
-        padding-top: 60px;
-    }
-
     details.selection-details {
         padding-top: 10px;
 
-        @include media(desktop) {
-            border-bottom: 2px solid $grey-2;
+        @include govuk-media-query($from: desktop) {
+            border-bottom: 2px solid govuk-colour("mid-grey", $legacy: "grey-2");
         }
 
         &.hide-borders {
@@ -211,10 +215,10 @@
 
     .chart-selection {
         padding-top: 5px;
-        padding-bottom: 30px;
+        padding-bottom: 10px;
         clear: left;
 
-        @include media(desktop) {
+        @include govuk-media-query($from: desktop) {
 
             .multiple-choice-header {
                 display: inline;
@@ -263,7 +267,7 @@
         hr.tablet-divider {
             clear: left;
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 display: none;
             }
         }
@@ -272,7 +276,7 @@
             margin-top: 1.5em;
 
             a {
-                @include core-16;
+                @include govuk-font(16);
                 float: right
             }
 
@@ -291,13 +295,13 @@
     }
 
     .customAdd, .customRemove {
-        /*@include media(tablet) {
+        /*@include govuk-media-query($from: tablet) {
             float: right;
         }*/
     }
 
     .save-as-image {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             float: right;
         }
     }
@@ -309,7 +313,7 @@
             text-decoration: none;
         }
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             margin-top: 1.5em;
 
             a {
@@ -349,18 +353,18 @@
             color: black;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             width: 100%;
             padding: 0;
         }
     }
 
     table.bmc-rollover-table {
-        background-color: $page-colour;
+        background-color: govuk-colour("white");
 
         td, th {
-            @include core-16;
-            border: 1px solid $grey-2;
+            @include govuk-font(16);
+            border: 1px solid govuk-colour("mid-grey", $legacy: "grey-2");
             padding: 8px;
 
             &.bold {
@@ -369,10 +373,11 @@
         }
 
         th {
-            background-color: $grey-3;
+            background-color: govuk-colour("light-grey", $legacy: "grey-3");
+            font-weight: bold;
 
             &.highlighted {
-                background-color: $pink-contrast;
+                background-color: govuk-colour("pink");
                 font-weight: bold;
                 color: white;
             }
@@ -383,14 +388,45 @@
         padding-top: 25px;
     }
 
+    li.comparison-tab {
+        @include govuk-media-query($from: tablet) {
+
+            background-color: $govuk-link-colour;
+
+            a {
+                color: govuk-colour("white");
+            }
+
+            a:link, a:visited {
+                color: govuk-colour("white") !important;
+            }
+
+            a:focus {
+                color: $govuk-text-colour !important;
+            }
+
+            float: right;
+            margin-left: auto;
+
+            &.govuk-tabs__list-item--selected {
+                background-color: govuk-colour("white");
+
+                a {
+                    color: $govuk-text-colour !important;
+                }
+            }
+        }
+    }
+
+
     div.custom.tabs ul {
-        @include media-down(tablet) {
+        @include govuk-media-query($until: tablet) {
             justify-content: flex-start;
         }
 
         li {
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 max-width: 110px;
 
                 a, button, a span {
@@ -406,19 +442,19 @@
                 }
             }
 
-            @include media-down(tablet) {
+            @include govuk-media-query($until: tablet) {
                 flex-basis: 32%;
                 width: 32%;
             }
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 flex-basis: 47%;
                 width: 47%;
             }
 
             height: auto;
 
-            @include media-down(tablet) {
+            @include govuk-media-query($until: tablet) {
                 a:focus {
                     background-color: initial;
                     padding-top: 20px;
@@ -427,11 +463,11 @@
             }
 
             button, a {
-                height: $tabheight + 15;
+                //height: $tabheight + 15;
                 padding-right: 15px;
                 padding-left: 15px;
 
-                @include media(desktop) {
+                @include govuk-media-query($from: desktop) {
                     display: table-cell;
                     vertical-align: middle;
                     text-align: center;
@@ -440,32 +476,32 @@
 
             &.active {
                 button, a {
-                    @include media-down(tablet) {
+                    @include govuk-media-query($until: tablet) {
                         border: none;
                     }
 
-                    @include media(desktop) {
-                        height: $tabheight + 20;
+                    @include govuk-media-query($from: desktop) {
+                        //height: $tabheight + 20;
                     }
                 }
             }
 
             &.comparison-tab {
-                background-color: $govuk-blue;
+                background-color: $govuk-brand-colour;
 
-                @include media(desktop) {
+                @include govuk-media-query($from: desktop) {
                     float: right;
                     margin-left: auto;
 
                     &.active {
                         a {
-                            color: $text-colour;
+                            color: $govuk-text-colour;
                         }
                     }
                 }
 
                 a {
-                    color: $page-colour;
+                    color: govuk-colour("white");
                 }
             }
         }
@@ -486,7 +522,7 @@
         top: 10px;
         float: right;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             top: -30px;
         }
     }
@@ -499,7 +535,7 @@
     div.tabs ul li.active a.custom, div.tabs ul li.active button.custom {
         padding-right: 45px;
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             padding-right: 40px;
         }
     }
@@ -519,14 +555,13 @@
 
     .chart-scores-header {
         display: none;
-        font-size: 1.4rem;
         padding: 0;
         line-height: 1.4rem;
         max-width: 75px;
         top: 20px;
         position: relative;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             top: 0
         }
     }
@@ -540,19 +575,19 @@
         &.tab-vertical-align {
             margin-top: 9px;
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 margin-top: 0;
             }
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             height: 50px;
         }
     }
 
 
     .custom-action-mobile {
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             width: unset !important;
             display: inline;
             float: left;
@@ -581,17 +616,17 @@
     .ks2-help {
         display: inline-block;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             display: block;
         }
     }
 
     .dfs-panel {
-        @include media(desktop) {
+        @include govuk-media-query($from: desktop) {
             margin-bottom: 0;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 0;
         }
     }
@@ -599,7 +634,7 @@
 
     .one-click-charts {
         .dfs-panel {
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 margin-top: 0.8em;
             }
         }
@@ -607,20 +642,18 @@
 
     .sticky-chart-controls, .sticky-custom-controls {
         margin: 0;
-        background-color: $page-colour;
-        border-bottom: 1px solid $border-colour;
+        background-color: govuk-colour("white");
+        border-bottom: 1px solid $govuk-border-colour;
 
         .form-group {
             margin-bottom: 0;
             padding-bottom: 5px;
             padding-top: 5px;
         }
-
-        .chart-filter {
+        /*        .chart-filter {
             height: 75px;
-        }
-
-        @include media(tablet) {
+        }*/
+        /*        @include govuk-media-query($from: tablet) {
             height: 93px;
 
             .chart-filter:first-of-type {
@@ -634,7 +667,7 @@
             .form-group {
                 padding-bottom: 20px;
             }
-        }
+        }*/
     }
 
     .bic-chart-wrapper {
@@ -643,11 +676,11 @@
 
     .chart-wrapper {
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             max-width: 708px;
         }
 
-        @include media(desktop) {
+        @include govuk-media-query($from: desktop) {
             max-width: 960px;
         }
     }
@@ -659,7 +692,7 @@
     .chart-table--mobile-only-view {
         display: none;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             display: table;
         }
     }
@@ -667,7 +700,7 @@
     .chart-table--mobile-above-view {
         display: none;
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: table;
         }
     }
@@ -699,13 +732,13 @@
     border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
-    padding: .6em;
+    padding: 0.2em;
     line-height: 14px;
     margin: 0 0 0 1em;
 
-    @include media(mobile) {
+    @include govuk-media-query($until: tablet) {
         margin: 0;
     }
 
@@ -734,10 +767,10 @@
     }
 
     &.na {
-        background-color: $panel-colour;
+        background-color: govuk-colour("light-grey", $legacy: "grey-3");
         min-height: 34px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             min-height: unset;
         }
 
@@ -749,13 +782,13 @@
 
 .modal__score {
     display: inline-block;
-    font-size: 1.4rem;
+    font-size: 0.9rem;
     text-align: center;
-    width: 18%;
+    width: 19%;
     margin-left: 0.6em;
 
     .score {
-        font-size: 1.4rem;
+        font-size: 0.9rem;
         padding: 1em 0.3em;
         margin: 0.5em 0;
     }
@@ -783,7 +816,7 @@
     display: block;
     float: none;
 
-    @include media(mobile) {
+    @include govuk-media-query($until: tablet) {
         font-size: 1.2rem;
         padding: 0.09em .2em;
         line-height: 2.7rem;

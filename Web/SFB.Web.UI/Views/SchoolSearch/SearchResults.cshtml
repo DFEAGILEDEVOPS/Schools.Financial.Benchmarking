@@ -47,28 +47,28 @@
 @switch (Model.SearchType)
 {
     case SearchTypes.SEARCH_BY_NAME_ID:
-        <h1 class="heading-xlarge page-heading">Search results for "@Model.NameKeyword"</h1>
+        <h1 class="govuk-heading-xl page-heading">Search results for "@Model.NameKeyword"</h1>
         break;
     case SearchTypes.SEARCH_BY_LOCATION:
-        <h1 class="heading-xlarge page-heading">Schools in and near @Model.LocationKeyword</h1>
+        <h1 class="govuk-heading-xl page-heading">Schools in and near @Model.LocationKeyword</h1>
         break;
     case SearchTypes.SEARCH_BY_LA_CODE_NAME:
-        <h1 class="heading-xlarge page-heading">Schools in @Model.LaKeyword</h1>
+        <h1 class="govuk-heading-xl page-heading">Schools in @Model.LaKeyword</h1>
         break;
     default:
-        <h1 class="heading-xlarge page-heading">School</h1>
+        <h1 class="govuk-heading-xl page-heading">School</h1>
         break;
 }
 
-<div id="screen-reader-result-list" class="visuallyhidden">
+<div id="screen-reader-result-list" class="govuk-visually-hidden">
     <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
 </div>
 
-<div class="grid-row js-live-search-results-block">
+<div class="govuk-grid-row js-live-search-results-block">
     @Html.Partial("Partials/Search/ResultBlock")
 </div>
 
-<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 @section ViewScripts{
     <script src="~/node_modules/lodash/lodash.min.js"></script>

@@ -19,26 +19,30 @@
 }
 
 
-<div class="error-summary missing" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
-    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+<div class="govuk-error-summary missing" role="alert" style="display: none">
+    <h2 id="ErrorSummaryHeading1" class="govuk-error-summary__title">
         There is a problem
-    </h1>
-    <ul class="error-summary-list">
-        <li>
-            <a href="#NewSchoolName">Enter a school name to continue the comparison</a>
-        </li>
-    </ul>
+    </h2>
+    <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+            <li>
+                <a class="govuk-link" href="#NewSchoolName">Enter a school name to continue the comparison</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
-<div class="error-summary not-found" role="alert" aria-labelledby="ErrorSummaryHeading" style="display: none">
-    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+<div class="govuk-error-summary not-found" role="alert" style="display: none">
+    <h2 id="ErrorSummaryHeading2" class="govuk-error-summary__title">
         There is a problem
-    </h1>
-    <ul class="error-summary-list">
-        <li>
-            <a href="#NewSchoolName">We couldn't find any schools matching your search criteria</a>
-        </li>
-    </ul>
+    </h2>
+    <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+            <li>
+                <a class="govuk-link" href="#NewSchoolName">We couldn't find any schools matching your search criteria</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 
@@ -57,32 +61,32 @@
     <span class="govuk-caption-xl">Manual comparison 2 of 2</span>
 </div>
 
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl page-heading">
     Enter schools by name
 </h1>
 
 @if (ViewBag.HomeSchoolId != null)
 {
-    <div class="grid-row home-school section">
-        <div class="column-full mb-1">
-            <span class="font-xsmall">Comparing to</span>
+    <div class="govuk-grid-row home-school section">
+        <div class=" govuk-grid-column-full mb-1">
+            <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span></a>
+                <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
             </div>
         </div>
     </div>
 }
 
-<div class="column-three-quarters no-padding">
+<div class="govuk-grid-column-three-quarters no-padding">
     <div id="SchoolsToAdd">
         @Html.Partial("Partials/SchoolsToAdd", Model.ManualComparisonList.BenchmarkSchools.Where(t => t.Urn != Model.ManualComparisonList.HomeSchoolUrn).ToList())
     </div>
 </div>
 
-<div class="grid-row control-buttons font-xsmall">
-    <div class="column-half mt-1">
-        <div class="column-three-quarters next-button">
-            <a id="manualButton" class="button" href="OverwriteStrategy">Continue to benchmarking charts</a>
+<div class="govuk-grid-row control-buttons govuk-!-font-size-16">
+    <div class="govuk-grid-column-one-half mt-1">
+        <div class="govuk-grid-column-three-quarters next-button">
+            <button id="manualButton" class="govuk-button" data-module="govuk-button">Continue to benchmarking charts</button>
         </div>
     </div>
 </div>

@@ -2,21 +2,18 @@
 @using SFB.Web.UI.Helpers.Constants
 
 <div class="charts-section">
-    <div class="grid-row">
-        <div class="column-full">
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
             <div class="sticky-div sticky-custom-controls">
-                <div id="custom-controls-accordion" class="accordion mobile-only-accordion" style="display: none">
-                    <div class="accordion-section">
-                        <fieldset role="group" aria-labelledby="filtersLegendCustom">
-                            <legend class="visually-hidden" id="filtersLegendCustom">Filters</legend>
-                            <div class="accordion-section-header">
-                                <h2 class="heading-medium">Filters</h2>
-                            </div>
-                            <div class="accordion-section-body">
-                                <div class="column-one-third chart-filter">
-                                    <div class="form-group">
-                                        <label class="form-label" for="CFinancing">Trust finance</label>
-                                        <select name="CentralFinancing" id="CFinancing" class="form-control" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
+                <div id="custom-controls-accordion">
+                    <div>
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-visually-hidden" id="filtersLegendCustom">Filters</legend>
+                            <div>
+                                <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label" for="CFinancing">Trust finance</label>
+                                        <select name="CentralFinancing" id="CFinancing" class="govuk-select" ng-model="selectionList.CentralFinance" ng-change="ctrl.onSelectionChange()">
                                             <option value="@CentralFinancingType.Exclude">@BMFinancing.EXCLUDE</option>
                                             <option value="@CentralFinancingType.Include">@BMFinancing.INCLUDE</option>
                                         </select>
@@ -28,34 +25,34 @@
                 </div>
             </div>
 
-            <div class="column-full no-padding mt-1">
-                <div class="font-xsmall chartTable hide-in-print">
+            <div class=" govuk-grid-column-full no-padding mt-1">
+                <div class="govuk-!-font-size-16 chartTable hide-in-print">
                     <button type="button" ng-click="ctrl.format = '@ChartFormat.Charts'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    <button type="button" ng-click="ctrl.format = '@ChartFormat.Tables'" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
                 </div>
             </div>
-            <details class="criteria-details">
-                <summary class="hide-in-print">
-                    <span class="summary font-xsmall">Add or remove charts</span>
-                    <span id="spinner-place-holder" class="ml-1 font-xsmall">
+            <details class="govuk-details criteria-details" data-module="govuk-details">
+                <summary class="govuk-details__summary hide-in-print">
+                    <span class="govuk-details__summary-text govuk-!-font-size-16">Add or remove charts</span>
+                    <span id="spinner-place-holder" class="ml-1 govuk-!-font-size-16">
                         <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
                         <span role="alert" aria-live="assertive" aria-label="Updating charts"></span>
                         <span style="margin-left: 10px; color: black">Updating charts</span>
                     </span>
                 </summary>
-                <div class="panel panel-border-narrow">
+                <div class="govuk-details__text">
                     <div class="selection-filters no-padding">
-                        <div class="column-full no-padding">
-                            <div class="column-half no-padding">
-                                <div class="form-group">
-                                    <label class="form-label" for="Filter">Filter by chart name</label>
-                                    <input id="Filter" class="form-control" ng-model="ctrl.query" ng-change="ctrl.openDetails()" />
+                        <div class="govuk-grid-row">
+                            <div class="govuk-grid-column-one-third">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="Filter">Filter by chart name</label>
+                                    <input id="Filter" class="govuk-input" ng-model="ctrl.query" ng-change="ctrl.openDetails()" />
                                 </div>
                             </div>
-                            <div class="column-half no-padding">
-                                <div class="selection-controls column-one-third no-padding" ng-show="ctrl.anySelected()">
+                            <div class="govuk-grid-column-one-third">
+                                <div class="selection-controls no-padding" ng-show="ctrl.anySelected()">
                                     <div class="clear-link">
-                                        <a href="#" class="font-xsmall" ng-click="ctrl.clear()">Clear selections</a>
+                                        <a href="#" class="govuk-link govuk-!-font-size-16" ng-click="ctrl.clear()">Clear selections</a>
                                     </div>
                                 </div>
                             </div>
@@ -63,67 +60,69 @@
                     </div>
 
                     <div class="selections">
-                        <fieldset>
-                            <legend class="visually-hidden">Selections</legend>
-                            <div id="custom-report-accordion" class="accordion">
-                                <div class="accordion-section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
-                                    <h2>
-                                        <a class="accordion-section-header" href="javascript:void(0)" ng-class="{'hide-summary': ctrl.query}">
-                                            <span class="heading-medium chart-accordion-header" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
+                        <fieldset class="govuk-fieldset" style="width: 100%">
+                            <legend class="govuk-visually-hidden">Selections</legend>
+                            <div id="custom-report-accordion" class="govuk-accordion app-accordion--no-open-all govuk-!-margin-top-4" data-module="govuk-accordion">
+                                <div class="govuk-accordion__section" ng-repeat="group in selectionList.HierarchicalCharts" ng-class="{'hide-borders': ctrl.query}">
+                                    <div class="govuk-accordion__section-header" ng-class="{'hide-summary': ctrl.query}">
+                                        <h2 class="govuk-accordion__section-heading">
+                                            <span id="accordion-selection-heading_{{$index}}" class="govuk-accordion__section-button" aria-label="{{group.GroupName}} {{ctrl.groupSelectCount(group)}} selected Select to show section">
                                                 {{group.GroupName}}
-                                                <span class="not-bold font-small" ng-show="ctrl.groupSelectCount(group) != 0">
+                                                <span class="not-bold govuk-!-font-size-19" ng-show="ctrl.groupSelectCount(group) != 0">
                                                     ({{ctrl.groupSelectCount(group)}} selected)
                                                 </span>
-                                                <span class="visuallyhidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
+                                                <span class="govuk-visually-hidden" role="status">{{ctrl.groupSelectCount(group)}} selected in {{group.GroupName}}</span>
                                             </span>
-                                        </a>
-                                    </h2>
+                                        </h2>
+                                    </div>
 
-                                    <div class="accordion-section-body">
-                                        <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="grid-row chart-selection" ng-class="{'show-details': ctrl.query}">
-                                            <div class="multiple-choice-header column-quarter">
-                                                <span class="bold-xsmall">{{chart.Name}}</span>
+                                    <div class="govuk-accordion__section-content" aria-labelledby="accordion-selection-heading_{{$index}}">
+                                        <div ng-repeat="chart in group.Charts | filter: ctrl.query" class="govuk-grid-row chart-selection" ng-class="{'show-details': ctrl.query}">
+                                            <div class="multiple-choice-header govuk-grid-column-one-quarter">
+                                                <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">{{chart.Name}}</span>
                                             </div>
-                                            <div class="multiple-choices column-three-quarters">
-                                                <div class="multiple-choice" ng-show="chart.PerPupilAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerPupilSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_1" aria-label="{{chart.Name}} per pupil">Per pupil</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PerTeacherAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerTeacherSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_2" aria-label="{{chart.Name}} per teacher">Per teacher</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageExpenditureAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageExpenditureSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total expenditure</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageIncomeAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_31" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageIncomeSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_31" aria-label="{{chart.Name}} percentage of total">Percentage of total income</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.AbsoluteMoneyAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteMoneySelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_4" aria-label="{{chart.Name}} absolute total">Absolute total</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.AbsoluteCountAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteCountSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_5" aria-label="{{chart.Name}} total">Total</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.HeadCountPerFTEAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.HeadCountPerFTESelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_6" aria-label="{{chart.Name}} headcount per FTE">Headcount per FTE</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageOfWorkforceAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageOfWorkforceSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_7" aria-label="{{chart.Name}} percentage of workforce">Percentage of workforce</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.NumberOfPupilsPerMeasureAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_8" aria-label="{{chart.Name}} pupils per staff role">Pupils per staff role</label>
-                                                </div>
-                                                <div class="multiple-choice" ng-show="chart.PercentageTeachersAvailable">
-                                                    <input id="sel_{{$parent.$index}}_{{$index}}_9" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageTeachersSelected">
-                                                    <label for="sel_{{$parent.$index}}_{{$index}}_9" aria-label="{{chart.Name}} percentage">Percentage</label>
+                                            <div class="multiple-choices govuk-grid-column-three-quarters">
+                                                <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PerPupilAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_1" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerPupilSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_1" aria-label="{{chart.Name}} per pupil">Per pupil</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PerTeacherAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_2" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PerTeacherSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_2" aria-label="{{chart.Name}} per teacher">Per teacher</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PercentageExpenditureAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_3" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageExpenditureSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_3" aria-label="{{chart.Name}} percentage of total">Percentage of total expenditure</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PercentageIncomeAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_31" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageIncomeSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_31" aria-label="{{chart.Name}} percentage of total">Percentage of total income</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.AbsoluteMoneyAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_4" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteMoneySelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_4" aria-label="{{chart.Name}} absolute total">Absolute total</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.AbsoluteCountAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_5" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.AbsoluteCountSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_5" aria-label="{{chart.Name}} total">Total</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.HeadCountPerFTEAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_6" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.HeadCountPerFTESelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_6" aria-label="{{chart.Name}} headcount per FTE">Headcount per FTE</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PercentageOfWorkforceAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_7" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageOfWorkforceSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_7" aria-label="{{chart.Name}} percentage of workforce">Percentage of workforce</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.NumberOfPupilsPerMeasureAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_8" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.NumberOfPupilsPerMeasureSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_8" aria-label="{{chart.Name}} pupils per staff role">Pupils per staff role</label>
+                                                    </div>
+                                                    <div class="govuk-checkboxes__item app-govuk-checkboxes__item--inline" ng-show="chart.PercentageTeachersAvailable">
+                                                        <input class="govuk-checkboxes__input" id="sel_{{$parent.$index}}_{{$index}}_9" type="checkbox" ng-click="ctrl.onSelectionChange()" ng-model="chart.PercentageTeachersSelected">
+                                                        <label class="govuk-label govuk-checkboxes__label" for="sel_{{$parent.$index}}_{{$index}}_9" aria-label="{{chart.Name}} percentage">Percentage</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <hr class="tablet-divider" />
@@ -140,25 +139,25 @@
             <div id="CustomReportContentPlaceHolder"></div>
 
             <div id="contextTable" ng-cloak ng-show="ctrl.anySelected()">
-                <h2 class="heading-medium" id="contextExp">School context data</h2>
-                <table id="contextDataTable" class="tablesorter data-table-js context-table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="school-column">School name</th>
-                            <th scope="col">Local authority</th>
-                            <th scope="col">School type</th>
-                            <th scope="col">Number of pupils</th>
+                <h2 class="govuk-heading-m govuk-!-margin-top-6" id="contextExp">School context data</h2>
+                <table id="contextDataTable" class="govuk-table tablesorter data-table-js context-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header school-column">School name</th>
+                            <th scope="col" class="govuk-table__header">Local authority</th>
+                            <th scope="col" class="govuk-table__header">School type</th>
+                            <th scope="col" class="govuk-table__header">Number of pupils</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr ng-repeat="school in schoolChartData">
-                            <td class="school-column">
-                                <span ng-class="{'bold-xsmall' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
-                                <span ng-if="homeSchoolName === school.school.split('#')[0]" class="visually-hidden"> index school</span>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row" ng-repeat="school in schoolChartData">
+                            <td class="govuk-table__cell school-column">
+                                <span ng-class="{'govuk-!-font-size-16 govuk-!-font-weight-bold' : homeSchoolName.toLowerCase() === school.school.split('#')[0].toLowerCase()}">{{school.school.split('#')[0]}}</span>
+                                <span ng-if="homeSchoolName === school.school.split('#')[0]" class="govuk-visually-hidden"> index school</span>
                             </td>
-                            <td>{{school.la}}</td>
-                            <td>{{school.type}}</td>
-                            <td>{{school.pupilCount}}</td>
+                            <td class="govuk-table__cell">{{school.la}}</td>
+                            <td class="govuk-table__cell">{{school.type}}</td>
+                            <td class="govuk-table__cell">{{school.pupilCount}}</td>
                         </tr>
                     </tbody>
                 </table>

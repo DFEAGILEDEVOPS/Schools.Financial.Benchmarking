@@ -4,128 +4,135 @@
     var activated = Model.Options.Any(o => o.Selected);
 }
 
-<div class="question">
-    <div class="multiple-choice question">
-        <input id="checkbox-OverallPhase" type="checkbox" @Html.Raw(activated ? "checked" : "")>
-        <label id="label-OverallPhase" for="checkbox-OverallPhase">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
+<div class="govuk-checkboxes question" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item question">
+        <input class="govuk-checkboxes__input" id="checkbox-OverallPhase" type="checkbox" @Html.Raw(activated ? "checked" : "") data-aria-controls="phc">
+        <label class="govuk-label govuk-checkboxes__label" id="label-OverallPhase" for="checkbox-OverallPhase">@Model.Question <span class="govuk-visually-hidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
-    <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
-        <div class="column-full">
-            <div class="benchmark-school-value">
-                @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
-                {
-                    if (!@Model.HomeSchoolName.IsEmpty())
+    <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="phc">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+
+                <div class="govuk-hint">
+                    @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
                     {
-                        <span>No value was supplied for @Model.HomeSchoolName</span>
+                        if (!@Model.HomeSchoolName.IsEmpty())
+                        {
+                            <span>No value was supplied for @Model.HomeSchoolName</span>
+                        }
                     }
-                }
-                else
-                {
-                    <span>The value for @Model.HomeSchoolName is <span class="bold-small">@Model.HomeSchoolValue</span></span>
-                }
-            </div>
-        </div>
-        <div>
-            <span class="error-message"></span>
-        </div>
-        <div class="column-full">
-            <div class="form-group">
-                <div class="column-full">
-                    <fieldset role="group" aria-label="@Model.Question">
-                        <legend class="visually-hidden">@Model.Question</legend>
-
-                        <div class="multiple-choice">
-                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Nursery" value="@Model.GetOptionValue("Nursery")" class="criteria-checkbox"
-                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Nursery") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                            <label for="SchoolPhase.Nursery">Nursery</label>
-                        </div>
-
-                        @*////// Primary ///////*@
-                        @{
-                            var anyPrimaryPhaseSelected = Model.GetAnyOptionSelected(new[] { "Infant and junior", "Infant", "Junior", "Middle deemed primary" });
-                        }
-                        <div class="multiple-choice subQuestion">
-                            <input type="checkbox" name="PrimaryOverallPhase" id="PrimaryOverallPhase" class="criteria-checkbox"
-                                   @Html.Raw(activated ? "" : "disabled") @Html.Raw(anyPrimaryPhaseSelected ? "checked" : "") />
-                            <label for="PrimaryOverallPhase">Primary</label>
-                        </div>
-                        <div class="panel panel-border-narrow" style="display: @Html.Raw(anyPrimaryPhaseSelected ? "block": "none")">
-                            <div class="column-full">
-                                <div class="form-group">
-                                    <div class="column-full">
-                                        <div class="multiple-choice">
-                                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.IJ" value="@Model.GetOptionValue("Infant and junior")" class="criteria-checkbox"
-                                                   required @Html.Raw(anyPrimaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Infant and junior") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                                            <label for="SchoolPhase.IJ">Infant and junior</label>
-                                        </div>
-                                        <div class="multiple-choice">
-                                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Infant" value="@Model.GetOptionValue("Infant")" class="criteria-checkbox"
-                                                   required @Html.Raw(anyPrimaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Infant") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                                            <label for="SchoolPhase.Infant">Infant</label>
-                                        </div>
-                                        <div class="multiple-choice">
-                                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Junior" value="@Model.GetOptionValue("Junior")" class="criteria-checkbox"
-                                                   required @Html.Raw(anyPrimaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Junior") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                                            <label for="SchoolPhase.Junior">Junior</label>
-                                        </div>
-                                        <div class="multiple-choice">
-                                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.MDP" value="@Model.GetOptionValue("Middle deemed primary")" class="criteria-checkbox"
-                                                   required @Html.Raw(anyPrimaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Middle deemed primary") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                                            <label for="SchoolPhase.MDP">Middle deemed primary</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @*////// Secondary ///////*@
-                        @{
-                            var anySecondaryPhaseSelected = Model.GetAnyOptionSelected(new[] { "Middle deemed secondary", "Secondary" });
-                        }
-                        <div class="multiple-choice subQuestion">
-                            <input type="checkbox" name="SecondaryOverallPhase" id="SecondaryOverallPhase" class="criteria-checkbox"
-                                   @Html.Raw(activated ? "" : "disabled") @Html.Raw(anySecondaryPhaseSelected ? "checked" : "") />
-                            <label for="SecondaryOverallPhase">Secondary</label>
-                        </div>
-                        <div class="panel panel-border-narrow" style="display: @Html.Raw(anySecondaryPhaseSelected ? "block": "none")">
-                            <div class="column-full">
-                                <div class="form-group">
-                                    <div class="column-full">
-                                        <div class="multiple-choice">
-                                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.MDS" value="@Model.GetOptionValue("Middle deemed secondary")" class="criteria-checkbox"
-                                                   required @Html.Raw(anySecondaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Middle deemed secondary") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                                            <label for="SchoolPhase.MDS">Middle deemed secondary</label>
-                                        </div>
-                                        <div class="multiple-choice">
-                                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Secondary" value="@Model.GetOptionValue("Secondary")" class="criteria-checkbox"
-                                                   required @Html.Raw(anySecondaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Secondary") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                                            <label for="SchoolPhase.Secondary">Secondary</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @*////////////////*@
-                        <div class="multiple-choice">
-                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Special" value="@Model.GetOptionValue("Special")" class="criteria-checkbox"
-                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Special") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                            <label for="SchoolPhase.Special">Special</label>
-                        </div>
-
-                        <div class="multiple-choice">
-                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.PRU" value="@Model.GetOptionValue("Pupil referral unit")" class="criteria-checkbox"
-                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Pupil referral unit") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                            <label for="SchoolPhase.PRU">Pupil referral unit</label>
-                        </div>
-
-                        <div class="multiple-choice">
-                            <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.AT" value="@Model.GetOptionValue("All-through")" class="criteria-checkbox"
-                                   required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("All-through") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
-                            <label for="SchoolPhase.AT">All-through</label>
-                        </div>
-
-                    </fieldset>
+                    else
+                    {
+                        <span>The value for @Model.HomeSchoolName is <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@Model.HomeSchoolValue</span></span>
+                    }
                 </div>
-            </div>
+
+                <span class="govuk-error-message"></span>
+
+                <legend class="govuk-visually-hidden">@Model.Question</legend>
+
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Nursery" value="@Model.GetOptionValue("Nursery")"
+                               class="govuk-checkboxes__input criteria-checkbox"
+                               required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Nursery") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                        <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.Nursery">Nursery</label>
+                    </div>
+
+                    @*////// Primary ///////*@
+                    @{
+                        var anyPrimaryPhaseSelected = Model.GetAnyOptionSelected(new[] { "Infant and junior", "Infant", "Junior", "Middle deemed primary" });
+                    }
+                    <div class="govuk-checkboxes__item subQuestion">
+                        <input type="checkbox" name="PrimaryOverallPhase" id="PrimaryOverallPhase"
+                               class="govuk-checkboxes__input criteria-checkbox"
+                               data-aria-controls="prim-phases"
+                               @Html.Raw(activated ? "" : "disabled") @Html.Raw(anyPrimaryPhaseSelected ? "checked" : "") />
+                        <label class="govuk-label govuk-checkboxes__label" for="PrimaryOverallPhase">Primary</label>
+                    </div>
+                    <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="prim-phases">
+                        <div class="govuk-form-group">
+                            <fieldset class="govuk-fieldset">
+                                <div class="govuk-checkboxes__item">
+                                    <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.IJ" value="@Model.GetOptionValue("Infant and junior")"
+                                           class="criteria-checkbox govuk-checkboxes__input"
+                                           required @Html.Raw(anyPrimaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Infant and junior") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                                    <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.IJ">Infant and junior</label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Infant" value="@Model.GetOptionValue("Infant")"
+                                           class="criteria-checkbox govuk-checkboxes__input"
+                                           required @Html.Raw(anyPrimaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Infant") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                                    <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.Infant">Infant</label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Junior" value="@Model.GetOptionValue("Junior")"
+                                           class="criteria-checkbox govuk-checkboxes__input"
+                                           required @Html.Raw(anyPrimaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Junior") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                                    <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.Junior">Junior</label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.MDP" value="@Model.GetOptionValue("Middle deemed primary")"
+                                           class="criteria-checkbox govuk-checkboxes__input"
+                                           required @Html.Raw(anyPrimaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Middle deemed primary") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                                    <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.MDP">Middle deemed primary</label>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    @*////// Secondary ///////*@
+                    @{
+                        var anySecondaryPhaseSelected = Model.GetAnyOptionSelected(new[] { "Middle deemed secondary", "Secondary" });
+                    }
+                    <div class="govuk-checkboxes__item subQuestion">
+                        <input type="checkbox" name="SecondaryOverallPhase" id="SecondaryOverallPhase"
+                               class="govuk-checkboxes__input criteria-checkbox"
+                               data-aria-controls="sec-phases"
+                               @Html.Raw(activated ? "" : "disabled") @Html.Raw(anySecondaryPhaseSelected ? "checked" : "") />
+                        <label class="govuk-label govuk-checkboxes__label" for="SecondaryOverallPhase">Secondary</label>
+                    </div>
+                    <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="sec-phases">
+                        <fieldset class="govuk-fieldset">
+                            <div class="govuk-form-group">
+                                <div class="govuk-checkboxes__item">
+                                    <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.MDS" value="@Model.GetOptionValue("Middle deemed secondary")"
+                                           class="govuk-checkboxes__input criteria-checkbox"
+                                           required @Html.Raw(anySecondaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Middle deemed secondary") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                                    <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.MDS">Middle deemed secondary</label>
+                                </div>
+                                <div class="govuk-checkboxes__item">
+                                    <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Secondary" value="@Model.GetOptionValue("Secondary")"
+                                           class="govuk-checkboxes__input criteria-checkbox"
+                                           required @Html.Raw(anySecondaryPhaseSelected ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Secondary") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                                    <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.Secondary">Secondary</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    @*////////////////*@
+                    <div class="govuk-checkboxes__item">
+                        <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.Special" value="@Model.GetOptionValue("Special")"
+                               class="govuk-checkboxes__input criteria-checkbox"
+                               required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Special") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                        <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.Special">Special</label>
+                    </div>
+
+                    <div class="govuk-checkboxes__item">
+                        <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.PRU" value="@Model.GetOptionValue("Pupil referral unit")"
+                               class="govuk-checkboxes__input criteria-checkbox"
+                               required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("Pupil referral unit") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                        <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.PRU">Pupil referral unit</label>
+                    </div>
+
+                    <div class="govuk-checkboxes__item">
+                        <input type="checkbox" name="AdvancedCriteria.SchoolPhase" id="SchoolPhase.AT" value="@Model.GetOptionValue("All-through")"
+                               class="govuk-checkboxes__input criteria-checkbox"
+                               required @Html.Raw(activated ? "" : "disabled") @Html.Raw(@Model.GetOptionSelected("All-through") ? "checked" : "") data-msg-required="Choose an option to continue the comparison" />
+                        <label class="govuk-label govuk-checkboxes__label" for="SchoolPhase.AT">All-through</label>
+                    </div>
+                </div>
+
+            </fieldset>
         </div>
     </div>
 </div>

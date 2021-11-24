@@ -3,7 +3,7 @@
     @include highlighting;
 
     .manual-button {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             margin-bottom: 50px;
 
             &__button {
@@ -17,7 +17,7 @@
     }
 
     .back-to-manual-compare {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             float: right;
         }
     }
@@ -27,10 +27,10 @@
     }
 
     .school-document {
-        border-bottom: solid 1px $border-colour;
-        padding: $gutter-half 0;
+        border-bottom: solid 1px $govuk-border-colour;
+        padding: $govuk-gutter-half 0;
 
-        .grid-row {
+        .govuk-grid-row {
             margin-right: 0;
         }
         /*&:first-child {
@@ -40,21 +40,21 @@
     }
 
     .school-document__add-to-compare-button--add-remove-desktop {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: block;
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             display: none;
         }
     }
 
     .school-document__add-to-compare-button--add-remove-mobile {
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             display: block;
         }
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: none;
         }
     }
@@ -74,33 +74,36 @@
 
     .metadata {
         margin: 0;
+        padding: 0;
+        list-style-type: none;
 
         li {
-            @include core-14;
+            @include govuk-font(14);
             margin-left: 0;
             padding: 0;
+            line-height: 1.5em !important;
         }
 
         .rating-date {
-            @include core-14;
-            color: $grey-1;
+            @include govuk-font(14);
+            color: govuk-colour("dark-grey", $legacy: "grey-1");
         }
     }
 
     .metadata-school-detail {
 
         dt, dd {
-            @include core-14;
+            @include govuk-font(14);
             margin-left: 0;
-            padding-bottom: $gutter-one-third;
+            padding-bottom: $govuk-gutter-half;
 
             @media screen and (max-width: 768px) {
                 font-size: 16px;
             }
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 padding: 0;
-                padding-bottom: $gutter-one-third/2;
+                padding-bottom: $govuk-gutter-half/2;
             }
         }
 
@@ -109,7 +112,7 @@
             clear: left;
             width: 40%;
 
-            @include media(tablet) {
+            @include govuk-media-query($from: tablet) {
                 width: 40%;
             }
         }
@@ -118,7 +121,7 @@
             float: left;
             width: 60%;
 
-            @include media(tablet) {
+            @include govuk-media-query($from: tablet) {
                 width: 60%;
             }
         }
@@ -133,16 +136,11 @@
         }
     }
 
-    .button.removefrom, .button.addto {
-        @include grey-button;
-    }
-
     .add-all-wrapper {
-        margin-bottom: 45px;
+        margin-bottom: 60px;
     }
 
     .add-all {
-        @include grey-button;
         float: right;
     }
 
@@ -178,7 +176,7 @@
             }
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             float: unset;
         }
     }
@@ -207,11 +205,11 @@
             }
 
             div.form-group.lower {
-                margin-top: ($gutter / 2) + 5px;
+                margin-top: ($govuk-gutter / 2) + 5px;
             }
 
             div.form-group.upper {
-                margin-bottom: ($gutter / 2) + 5px;
+                margin-bottom: ($govuk-gutter / 2) + 5px;
             }
         }
     }
@@ -222,7 +220,7 @@
         position: relative;
         overflow: hidden;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             height: 400px;
         }
     }
@@ -250,32 +248,6 @@
             font-size: 12px;
             white-space: nowrap;
         }
-
-        div.button {
-            background-color: #bfc1c3;
-            color: #0b0c0c;
-            -moz-box-shadow: 0 2px 0 #9aa0a6;
-            -webkit-box-shadow: 0 2px 0 #9aa0a6;
-            box-shadow: 0 2px 0 #9aa0a6;
-            margin-bottom: 5px;
-            margin-top: 5px;
-
-            &:active {
-                top: 0;
-                -moz-transform: translate(0,2px);
-                -ms-transform: translate(0,2px);
-                -o-transform: translate(0,2px);
-                -webkit-transform: translate(0,2px);
-                transform: translate(0,2px);
-            }
-        }
-
-        div.button.add {
-        }
-
-        div.button.remove {
-            background-color: #dee0e2;
-        }
     }
 
     .hidden-goto-basket {
@@ -283,7 +255,12 @@
         clear: right;
         position: relative;
         top: 10px;
-        color: $white;
+        color: govuk-colour("white");
+
+        &:focus {
+            color: govuk-colour("black");
+        }
+
         cursor: default;
         font-size: 16px;
     }
@@ -293,16 +270,16 @@
     }
 
     .js-container-head {
-        padding: 0 0 5px 0 !important;
+        padding: 2px 0 7px 0 !important;
     }
 
     .school-table {
         th {
-            @include bold-16;
+            @include govuk-font(16, $weight: bold);
         }
 
         td {
-            @include core-14;
+            @include govuk-font(14);
         }
     }
 

@@ -363,7 +363,9 @@ namespace SFB.Web.UI.Controllers
         /// <returns></returns>
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> BestInClassCharacteristics(long urn, BestInClassCriteria bicCriteria)
-        {                                
+        {
+            ViewBag.ModelState = ModelState;
+
             var benchmarkSchool = await InstantiateBenchmarkSchoolAsync(urn);
 
             var schoolCharsVM = new BestInClassCharacteristicsViewModel(benchmarkSchool, bicCriteria);

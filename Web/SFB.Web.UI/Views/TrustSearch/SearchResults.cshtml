@@ -42,28 +42,28 @@
 @switch (Model.SearchType)
 {
     case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
-        <h1 class="heading-xlarge page-heading">Search results for "@Model.NameKeyword"</h1>
+        <h1 class="govuk-heading-xl page-heading">Search results for "@Model.NameKeyword"</h1>
         break;
     case SearchTypes.SEARCH_BY_TRUST_LOCATION:
-        <h1 class="heading-xlarge page-heading">Academy trusts with schools operating in and near @Model.LocationKeyword</h1>
+        <h1 class="govuk-heading-xl page-heading">Academy trusts with schools operating in and near @Model.LocationKeyword</h1>
         break;
     case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
-        <h1 class="heading-xlarge page-heading">Academy trusts with schools operating in @Model.LaKeyword</h1>
+        <h1 class="govuk-heading-xl page-heading">Academy trusts with schools operating in @Model.LaKeyword</h1>
         break;
     default:
-        <h1 class="heading-xlarge page-heading">Trust</h1>
+        <h1 class="govuk-heading-xl page-heading">Trust</h1>
         break;
 }
 
-<div id="screen-reader-result-list" class="visuallyhidden">
+<div id="screen-reader-result-list" class="govuk-visually-hidden">
     <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) academy trusts found</span>
 </div>
 
-<div class="grid-row js-live-search-results-block">
+<div class="govuk-grid-row js-live-search-results-block">
     @Html.Partial("Partials/TrustResultBlock")
 </div>
 
-<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 @section ViewScripts{
     <script src="~/node_modules/lodash/lodash.min.js"></script>

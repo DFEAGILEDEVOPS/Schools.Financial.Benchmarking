@@ -2,14 +2,16 @@
 @using SFB.Web.UI.Models
 @model SchoolCharacteristicsViewModel
 
-<div class="accordion-section general">
-        <h2>
-            <a class="accordion-section-header" href="javascript:void(0)">
-                <span id="GeneralHeader" class="heading-medium ">General characteristics <span class="font-small break-in-mobile"><span>(</span><span role="status"><span class="selection-counter">0</span><span class="visually-hidden"> general characteristics</span> selected</span><span></span>)</span></span>
-            </a>
+<div class="govuk-accordion__section ">
+    <div class="govuk-accordion__section-header app-accordion__section-header--no-border-top">
+        <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="accordion-general-heading">
+                General characteristics <span class="govuk-!-font-weight-regular govuk-!-font-size-19 break-in-mobile"><span>(</span><span role="status"><span class="selection-counter">0</span><span class="govuk-visually-hidden"> general characteristics</span> selected</span><span></span>)</span>
+            </span>
         </h2>
+    </div>
 
-        <div class="accordion-section-body">
+    <div id="accordion-general-content" class="govuk-accordion__section-content" aria-labelledby="accordion-general-heading">
 
         @Html.Partial("Partials/Criteria/RangeCriteria", Model.NumberOfPupilsCriteriaRangeVm)
 
@@ -33,20 +35,20 @@
         @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercPupilsSenRegisterRangeVm)
 
         @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercPupilsWithSenRangeVm)
-            
+
         @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercPupilsWithEalRangeVm)
 
         @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.UrbanRuralMultipleChoiceVM)
 
-        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.LondonWeightingMultipleChoiceVM)           
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.LondonWeightingMultipleChoiceVM)
 
-        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.GovernmentOfficeMultipleChoiceVM)          
-            
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.GovernmentOfficeMultipleChoiceVM)
+
         @Html.Partial("Partials/Criteria/RadioboxCriteria", Model.PfiMultipleChoiceVM)
 
-        @Html.Partial("Partials/Criteria/RangeCriteria",Model.NumberIn6FormRangeVm)
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.NumberIn6FormRangeVm)
 
-        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.GenderMultipleChoiceVM)                       
+        @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.GenderMultipleChoiceVM)
 
         @Html.Partial("Partials/Criteria/RangeCriteria", Model.LowAgeRangeVm)
 
@@ -56,5 +58,5 @@
 
         @Html.Partial("Partials/Criteria/MultiplechoiceCriteria", Model.AdmissionMultipleChoiceVM)
 
-        </div>
+    </div>
 </div>

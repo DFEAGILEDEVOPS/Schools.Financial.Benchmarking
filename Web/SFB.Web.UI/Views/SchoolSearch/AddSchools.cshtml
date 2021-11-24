@@ -44,54 +44,48 @@
         {
             if (!string.IsNullOrEmpty(Model.ErrorMessage))
             {
-                <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-                    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+                <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+                    <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
                         There is a problem
-                    </h1>
-                    <ul class="error-summary-list">
-                        <li>
-                            <a href="#finderSection">@Model.ErrorMessage</a>
-                        </li>
-                    </ul>
+                    </h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#finderSection">@Model.ErrorMessage</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             }
 
-            <h1 class="heading-xlarge page-heading">Add schools</h1>
+            <h1 class="govuk-heading-xl page-heading">Add schools</h1>
 
 
-            <div class="grid-row home-school section">
-                <div class="column-full mb-1">
-                    <span class="font-xsmall">Comparing to</span>
+            <div class="govuk-grid-row home-school section">
+                <div class=" govuk-grid-column-full mb-1">
+                    <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
                     <div class="highlight">
-                        <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span></a>
+                        <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
                     </div>
                 </div>
             </div>
         }
 
-        <div class="column-three-quarters no-padding">
+        <div class="govuk-grid-column-three-quarters no-padding">
             <section class="section" aria-label="Select search type">
                 <div id="finderSection">
                     <div id="SearchTypesAccordion" class="search-types" aria-live="polite">
                         <form method="get" action="/SchoolSearch/Search" autocomplete="off">
-                            <div class="form-group">
-                                <fieldset>
-                                    <legend>How do you want to add schools?</legend>
+                            <div class="govuk-form-group">
+                                <fieldset class="govuk-fieldset">
+                                    <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">How do you want to add schools?</legend>
 
-                                    <p>You can add schools by name or by location:</p>
+                                    <div class="govuk-hint">You can add schools by name or by location:</div>
 
-                                    <div>
-                                        <ul style="list-style-type: none; padding-left: 0">
-                                            <li>
-                                                @Html.Partial("Partials/Search/SchoolNameSearchOption")
-                                            </li>
-                                            <li>
-                                                @Html.Partial("Partials/Search/SchoolLocationSearchOption")
-                                            </li>
-                                            <li>
-                                                @Html.Partial("Partials/Search/SchoolLaSearchOption")
-                                            </li>
-                                        </ul>
+                                    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                                        @Html.Partial("Partials/Search/SchoolNameSearchOption")
+                                        @Html.Partial("Partials/Search/SchoolLocationSearchOption")
+                                        @Html.Partial("Partials/Search/SchoolLaSearchOption")
                                     </div>
                                 </fieldset>
                             </div>

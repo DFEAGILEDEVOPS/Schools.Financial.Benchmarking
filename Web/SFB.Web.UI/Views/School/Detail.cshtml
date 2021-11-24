@@ -34,92 +34,106 @@
 
 @if (Model.IsUnderReview)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
+    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
         <div class="combined-warnings" style="width:90%">
-            <p>@ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]</p>
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    @ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]
+                </strong>
+            </div>
         </div>
     </div>
 }
 
 @if (Model.IsPartOfFederation)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
-        <div class="combined-warnings" style="width:90%">
-            <p>This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.</p>
+    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+        <div class="combined-warnings">
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.
+                </strong>
+            </div>
         </div>
     </div>
 }
 else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
+    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
         <div class="combined-warnings">
             @if (!Model.IsReturnsComplete)
             {
-                <p>
-                    This school doesn't have a complete set of financial data for this period
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This school doesn't have a complete set of financial data for this period
+                    </strong>
+                </div>
             }
 
             @if (!Model.WorkforceDataPresent)
             {
-                <p>
-                    This school doesn't have a complete set of workforce data for this period
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This school doesn't have a complete set of workforce data for this period
+                    </strong>
+                </div>
             }
 
             @if (Model.HasNoTeacherData)
             {
-                <p>
-                    We can’t show charts with per teacher values because they weren't supplied within these finance returns
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                    </strong>
+                </div>
             }
 
             @if (Model.HasNoPupilData)
             {
-                <p>
-                    We can’t show charts with per pupil values because they weren't supplied within these finance returns
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                    </strong>
+                </div>
             }
         </div>
     </div>
 }
 
 
-<div class="grid-row">
-    <div class="column-full">
+<div class="govuk-grid-row">
+    <div class=" govuk-grid-column-full">
         @if (!Model.IsReturnsDNS)
         {
         <div class="blue-banner">
-            <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+            <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
             @if (Model.IsPartOfFederation)
             {
-                <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
             }
             else
             {
                 <div class="hide-in-print">
-                    <p>There are now several ways for you to compare this school against others.</p>
+                    <p class="govuk-body">There are now several ways for you to compare this school against others.</p>
                 </div>
 
-                <a class="button start-button hide-in-print" href="start-benchmarking?urn=@Model.Id" role="button">
+
+                <a href="start-benchmarking?urn=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
                     Start a comparison
                     <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
                     </svg>
                 </a>
             }
@@ -128,88 +142,88 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         }
         else
         {
-            <div class="blue-banner">
-                <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+    <div class="blue-banner">
+        <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
 
-                @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
-                {
-                    if (Model.IsPartOfFederation)
-                    {
-                        <p>View this school’s federation <a class="fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
-                    }
-                    else
-                    {
-                        <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
+        @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
+        {
+            if (Model.IsPartOfFederation)
+            {
+                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+            }
+            else
+            {
+                <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
 
-                        <a class="button start-button hide-in-print" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button">
-                            Go to the self-assessment dashboard
-                            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
-                            </svg>
-                        </a>
-                    }
-                }
-            </div>
+                <a href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                    Go to the self-assessment dashboard
+                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                    </svg>
+                </a>
+            }
+        }
+    </div>
         }
 
 
     </div>
 
-    <div class="column-full mt-1 hide-in-print ">
+    <div class=" govuk-grid-column-full mt-1 hide-in-print ">
         @if (!Model.IsPartOfFederation)
         {
             if (Model.IsReturnsDNS)
             {
-            <div class="column-one-third no-padding returns-incomplete addto">
+            <div class="govuk-grid-column-one-third no-padding returns-incomplete addto">
                 <div class="add-remove" id="benchmarkControlsPlaceHolder"></div>
             </div>
             }
             else
             {
-            <div class="column-one-third no-padding returns-complete addto">
+            <div class="govuk-grid-column-one-third no-padding returns-complete addto">
                 <div class="add-remove" id="benchmarkControlsPlaceHolder"></div>
             </div>
             }
         }
-        <div class="column-one-third no-padding">
+        <div class="govuk-grid-column-one-third no-padding">
             <div class="download">
-                <button class="pl-0 link-button no-underline bold-xsmall black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.downloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <button class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.downloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
-                        <span id="DownloadLinkText"> Download data for this school<span class="visually-hidden"> (CSV)</span></span>
+                        <span id="DownloadLinkText"> Download data for this school<span class="govuk-visually-hidden"> (CSV)</span></span>
                     </div>
                 </button>
             </div>
         </div>
-        <div class="column-one-third no-padding">
+        <div class="govuk-grid-column-one-third no-padding">
             <div class="print">
-                <button class="link-button no-underline bold-xsmall black" onclick="DfE.Views.SchoolDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.SchoolDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
                     Print page
                 </button>
             </div>
         </div>
     </div>
-    <div class="column-half mt-1">
+    <div class="govuk-grid-column-one-half govuk-!-margin-top-6">
         @if (Model.Phase == "Special" && Model.SenCharacteristics.Any(c => c.Value != null))
         {
-            <details class="mb-1">
-                <summary>
-                    <span class="summary font-xsmall">This school's SEN characteristics</span>
+            <details class="govuk-details mb-1" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="summary govuk-!-font-size-16">This school's SEN characteristics</span>
                 </summary>
-                <div class="panel panel-border-narrow">
-                    <table class="sen-table">
-                        <tr>
-                            <th scope="col">SEN characteristic</th>
-                            <th scope="col" class="col-right">% of pupils</th>
+                <div class="govuk-details__text">
+                    <table class="govuk-table sen-table">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">SEN characteristic</th>
+                            <th scope="col" class="govuk-table__header col-right">% of pupils</th>
                         </tr>
                         @foreach (var ch in Model.SenCharacteristics.OrderByDescending(c => c.Value))
                         {
                             if (ch.Value.GetValueOrDefault() > 0)
                             {
-                                <tr>
-                                    <td><span>@ch.Definition</span></td>
-                                    <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell"><span>@ch.Definition</span></td>
+                                    <td class="govuk-table__cell col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
                                 </tr>
                             }
                         }
@@ -218,14 +232,14 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             </details>
         }
 
-        <div class="metadata-school-detail font-xsmall mt-1">
+        <div class="metadata-school-detail govuk-!-font-size-16">
             <dl class="metadata-school-detail__dl">
-                @SchoolDetailField("Address:", $"<a class=\"sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"visually-hidden\">GoogleMaps link opens in a new window</span></a>")
+                @SchoolDetailField("Address:", $"<a class=\"govuk-link sfb_gtm_address\" rel=\"external noopener noreferrer\" target=\"_blank\" href=\"https://www.google.co.uk/maps?q={Model.Name},{Model.Address}\">{Model.Address}<span class=\"govuk-visually-hidden\">GoogleMaps link opens in a new window</span></a>")
                 @if (!string.IsNullOrEmpty(Model.PhoneNumber))
                 {
-                    @SchoolDetailField("Telephone number:", $"<a class=\"sfb_gtm_tel\" href=\"tel: {Model.PhoneNumber}\" aria-label=\"Call telephone number {Model.PhoneNumber}\">{Model.PhoneNumber}</a>")
+                    @SchoolDetailField("Telephone number:", $"<a class=\"govuk-link sfb_gtm_tel\" href=\"tel: {Model.PhoneNumber}\" aria-label=\"Call telephone number {Model.PhoneNumber}\">{Model.PhoneNumber}</a>")
                 }
-                @SchoolDetailField("Local authority:", $"<a href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
+                @SchoolDetailField("Local authority:", $"<a class=\"govuk-link\" href=\"/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename={Model.La.ToString()}&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name\" aria-label=\"View schools in {Model.LaName}\">{Model.LaName}</a>")
                 @SchoolDetailField("School type:", Model.Type)
                 @if (Model.OverallPhase != Model.Phase)
                 {
@@ -237,7 +251,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     @SchoolDetailField("Number of pupils: <span class=\"help-icon hide-in-print js-show-value-help\">" +
                                      $"<span class=\"icon dark-blue\">" +
                                      $"<a href=\"#\" class=\"js-modal\" role=\"button\" data-modal-title=\"Number of pupils\" data-modal-text=\"{@HelpTooltipText.NumberOfPupils}\" data-modal-close-text=\"Close\" data-modal-close-title=\"Close\" data-help-text-key=\"\">" +
-                                     "<span class=\"visuallyhidden\">Open more info text for Number of pupils - opens a popup</span>" +
+                                     "<span class=\"govuk-visually-hidden\">Open more info text for Number of pupils - opens a popup</span>" +
                                      "</a></span></span>", Model.TotalPupilsForPhase.ToString())
                 }
                 else
@@ -245,8 +259,8 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     @SchoolDetailField("Number of pupils: ", Model.TotalPupils.ToString())
                 }
 
-                <dt class="metadata-school-detail__dt"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
-                <dd class="metadata-school-detail__dd bold">@Model.Id</dd>
+                <dt class="metadata-school-detail__dt govuk-body-s"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</dt>
+                <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@Model.Id</dd>
                 @if (Model.OfstedRating == "0")
                 {
                     @SchoolDetailField("Ofsted rating:", Model.OfstedRatingText)
@@ -256,62 +270,82 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     @SchoolDetailFieldFormatted("Ofsted rating:",
                                     "<span class=\"rating rating-{0}\"> {0} </span><span class=\"rating-text\"> {1} </span>" +
                                     "<span class=\"ofsted-divider\" aria-hidden=\"true\">| </span>" +
-                                    "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"font16-ext-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"visually-hidden\">Opens in a new window</span></a>" +
-                                    "<br><span class=\"font-xxsmall not-bold\">Inspected {3}</span>",
+                                    "<a target=\"_blank\" rel=\"external noopener noreferrer\" class=\"govuk-link\" href=\"https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/{2}\">Ofsted report <span class=\"govuk-visually-hidden\">Opens in a new window</span></a>" +
+                                    "<br><span class=\"govuk-!-font-size-14 not-bold\">Inspected {3}</span>",
                                     Model.OfstedRating, Model.OfstedRatingText, Model.Id.ToString(), Model.OfstedInspectionDate)
                 }
-                <dt class="metadata-school-detail__dt"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt>
-                <dd class="metadata-school-detail__dd bold">@Model.LaEstab</dd>
+                <dt class="metadata-school-detail__dt govuk-body-s"><abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB</abbr>:</dt>
+                <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@Model.LaEstab</dd>
                 @SchoolDetailField("Age range of pupils:", Model.AgeRange)
                 @SchoolDetailField("Headteacher's name:", Model.HeadTeachFullName)
                 @SchoolDetailField("Has sixth form:", Model.IsPost16)
                 @SchoolDetailField("Has nursery:", Model.HasNursery)
                 @SchoolDetailField("Date of opening:", Model.OpenDate)
                 @SchoolDetailField("Date of closure:", Model.CloseDate)
-                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"font16-ext-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
+                @SchoolDetailFieldFormatted("School website:", "<a rel=\"external noopener noreferrer\" class=\"govuk-link sfb_gtm_website\" target=\"_blank\" href=\"{0}\">{0} <span class=\"govuk-visually-hidden\">Opens in a new window</span></a>", Model.SchoolWebSite)
 
                 @if (Model.IsPartOfFederation)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.FederationName)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a class=\"govuk-link\" href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.FederationName)
                 }
 
-                @if (Model.IsMAT)
+                @if (Model.EstablishmentStatus == "Closed")
+                {
+                    if (Model.IsMATinLatestFinance)
+                    {
+                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance) 
+                    }
+                }
+                else if (Model.IsSAT)
+                {
+                    @SchoolDetailField("Academy trust:", "Single academy trust") 
+                    
+                    if (Model.IsMATinLatestFinance)
+                    {
+                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance) 
+                    }
+                }
+                else if (Model.IsMAT)
                 {
                     if (Model.UID != null)
                     {
-                        @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?uid={0}\">{1}</a>", Server.UrlEncode(Model.UID.ToString()), Model.TrustName)
+                        @SchoolDetailFieldFormatted("Academy trust:", "<a class=\"govuk-link\" href=\"/trust?uid={0}\">{1}</a>", Server.UrlEncode(Model.UID.ToString()), Model.TrustName) 
                     }
                     else
                     {
-                        @SchoolDetailFieldFormatted("Academy trust:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName)
+                        @SchoolDetailFieldFormatted("Academy trust:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNo.ToString()), Model.TrustName) 
                     }
-                }
 
-                @if (Model.IsMATinLatestFinance)
-                {
-                    if ((Model.IsSAT && Model.IsMATinLatestFinance) || Model.CompanyNo != Model.CompanyNoInLatestFinance)
+                    if (Model.IsSATinLatestFinance)
                     {
-                        @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)
+                        @SchoolDetailField($"Academy trust for {Model.LatestTerm} submission:", "Single academy trust") 
                     }
-                }
+
+                    if (Model.IsMATinLatestFinance)
+                    {
+                        if (Model.CompanyNo != Model.CompanyNoInLatestFinance)
+                        {
+                            @SchoolDetailFieldFormatted($"Academy trust for {Model.LatestTerm} submission:", "<a class=\"govuk-link\" href=\"/trust?companyNo={0}\">{1}</a>", Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString()), Model.TrustNameInLatestFinance)}
+                    }
+                }           
 
                 @DataSourcesField()
 
             </dl>
-            <div style="display: inline-block" class="mb-1">
-                <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="hide-in-print">Do you have a query about this school's data?</a>
+            <div style="display: inline-block" class="govuk-!-margin-bottom-1">
+                <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="govuk-link hide-in-print">Do you have a query about this school's data?</a>
             </div>
             <input type="hidden" id="la" value="@Model.La" />
             <input type="hidden" id="estab" value="@Model.Estab" />
         </div>
     </div>
-    <div class="column-half">
-        <details open>
-            <summary class="map hide-in-print">
-                <span class="summary font-xsmall">Show map</span>
+    <div class="govuk-grid-column-one-half govuk-!-margin-top-6">
+        <details class="govuk-details" data-module="govuk-details" open>
+            <summary class="govuk-details__summary map hide-in-print">
+                <span class="summary govuk-!-font-size-16">Show map</span>
             </summary>
-            <div class="panel panel-border-narrow map">
-                <a href="#post-map-content" class="skip-map hide-in-print">Skip the map</a>
+            <div class="govuk-details__text map govuk-!-margin-top-4">
+                <a href="#post-map-content" class="govuk-link govuk-visually-hidden-focusable hide-in-print">Skip the map</a>
                 <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
             </div>
         </details>
@@ -322,93 +356,72 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
 @Html.Partial("Partials/FinancialSummaryFields")
 
 <a name="charts"></a>
-<div id="tabs" class="custom tabs hide-in-print">
-    <ul role="tablist">
-        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+
+<div id="tabs" class="govuk-tabs" data-module="govuk-tabs">
+    <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected hide-in-print" id="ExpenditureTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
-               href="javascript: void(0)">@TabNames.EXPENDITURE</a>
+               href="#tabPanel">@TabNames.EXPENDITURE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="IncomeTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
-               href="javascript: void(0)">@TabNames.INCOME</a>
+               href="#tabPanel">@TabNames.INCOME</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="BalanceTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
-               href="javascript: void(0)">@TabNames.BALANCE</a>
+               href="#tabPanel">@TabNames.BALANCE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Workforce ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Workforce ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Workforce ? "0" : "-1")"
-               class="tab-link"
-               role="tab"
-               aria-controls="tabPanel"
-               onkeydown="DfE.Views.SchoolDetailsViewModel.tabKeydown(event)"
+        <li class="govuk-tabs__list-item hide-in-print" id="WorkforceTab">
+            <a class="govuk-tabs__tab"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Workforce')"
-               href="javascript: void(0)">@TabNames.WORKFORCE</a>
+               href="#tabPanel">@TabNames.WORKFORCE</a>
         </li>
     </ul>
-</div>
-<div role="tabpanel" id="tabPanel">
-    <div class="sticky-div sticky-chart-controls">
-        <div id="controls-accordion" class="accordion mobile-only-accordion">
-            <div class="accordion-section">
-                <fieldset role="group">
-                    <legend class="visually-hidden hide-in-print">Filters</legend>
-                    <div class="accordion-section-header">
-                        <h2 class="heading-medium hide-in-print">Filters</h2>
-                    </div>
-                    <div class="accordion-section-body">
-                        @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
-                        @Html.Partial("Partials/ValueSelect", Model)
-                        @if (Model.EstablishmentType == EstablishmentType.Academies && Model.IsMATinLatestFinance)
-                        {
-                            Html.RenderPartial("Partials/CentralFinancing");
-                        }
+
+    <div id="tabPanel" class="govuk-tabs__panel app-tabs__panel--no-border">
+        <div class="sticky-div sticky-chart-controls">
+            <div id="controls">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-full">
+                            @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                            @Html.Partial("Partials/ValueSelect", Model)
+                            @if (Model.EstablishmentType == EstablishmentType.Academies && Model.IsMATinLatestFinance)
+                            {
+                                Html.RenderPartial("Partials/CentralFinancing");
+                            }
+                        </div>
                     </div>
                 </fieldset>
             </div>
         </div>
-    </div>
-    <div class="charts-section">
-        <div class="grid-row">
-            <div>
-                <div class="column-full font-xsmall chartTable hide-in-print">
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
-                </div>
-                <div class="column-full font-xsmall hide-in-print">
-                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
-                        <span><</span>
-                        <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
-                    </button>
+        <div class="charts-section">
+            <div class="govuk-grid-row">
+                <div>
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 chartTable hide-in-print">
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    </div>
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
+                        <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
+                            <span><</span>
+                            <span class="govuk-link">All <span class="js-parent-group">expenditure</span> charts</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="historical-charts-list">
-            @Html.Partial("Partials/Chart", Model)
+            <div class="historical-charts-list">
+                @Html.Partial("Partials/Chart", Model)
+            </div>
         </div>
     </div>
 </div>
 
-<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 
 @helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
@@ -432,18 +445,18 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         var htmlValue = new MvcHtmlString(value);
         var htmlName = new MvcHtmlString(name);
 
-        <dt class="metadata-school-detail__dt">@htmlName</dt>
-        <dd class="metadata-school-detail__dd bold">@htmlValue</dd>
+        <dt class="metadata-school-detail__dt govuk-body-s">@htmlName</dt>
+        <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@htmlValue</dd>
     }
 }
 
 @helper DataSourcesField()
 {
-    <dt class="metadata-school-detail__dt">Data from other <br>services:</dt>
-    <dd class="metadata-school-detail__dd bold">
-        <a rel="external noopener noreferrer" class="font16-ext-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="visuallyhidden"> Opens in a new window</span></a>
+    <dt class="metadata-school-detail__dt govuk-body-s">Data from other <br>services:</dt>
+    <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
+        <a rel="external noopener noreferrer" class="govuk-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
         <span class="seperator spt_link_js" aria-hidden="true">&nbsp; | &nbsp;</span>
-        <a rel="external noopener noreferrer" class="font16-ext-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="visuallyhidden"> Opens in a new window</span></a>
+        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
     </dd>
 }
 

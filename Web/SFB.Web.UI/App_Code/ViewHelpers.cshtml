@@ -221,10 +221,27 @@
         case SearchTypes.SEARCH_BY_LOCATION:
         case SearchTypes.SEARCH_BY_LA_CODE_NAME:
         case null:
-            @("active")
+            @("govuk-tabs__list-item--selected")
             break;
         default:
-            @("inactive")
+            @("")
+            break;
+    }
+}
+
+@helper SchoolPanelActive(string searchType)
+{
+    switch (searchType)
+    {
+        case SearchTypes.SEARCH_BY_NAME_ID:
+        case SearchTypes.SEARCH_BY_LA_ESTAB:
+        case SearchTypes.SEARCH_BY_LOCATION:
+        case SearchTypes.SEARCH_BY_LA_CODE_NAME:
+        case null:
+            @("")
+            break;
+        default:
+            @("govuk-tabs__panel--hidden")
             break;
     }
 }
@@ -236,10 +253,25 @@
         case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
         case SearchTypes.SEARCH_BY_TRUST_LOCATION:
         case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
-            @("active")
+            @("govuk-tabs__list-item--selected")
             break;
         default:
-            @("inactive")
+            @("")
+            break;
+    }
+}
+
+@helper TrustPanelActive(string searchType)
+{
+    switch (searchType)
+    {
+        case SearchTypes.SEARCH_BY_TRUST_NAME_ID:
+        case SearchTypes.SEARCH_BY_TRUST_LOCATION:
+        case SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME:
+            @("")
+            break;
+        default:
+            @("govuk-tabs__panel--hidden")
             break;
     }
 }
@@ -249,10 +281,23 @@
     switch (searchType)
     {
         case SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL:
-            @("active")
+            @("govuk-tabs__list-item--selected")
             break;
         default:
-            @("inactive")
+            @("")
+            break;
+    }
+}
+
+@helper NoDefaultPanelActive(string searchType)
+{
+    switch (searchType)
+    {
+        case SearchTypes.COMPARE_WITHOUT_DEFAULT_SCHOOL:
+            @("")
+            break;
+        default:
+            @("govuk-tabs__panel--hidden")
             break;
     }
 }

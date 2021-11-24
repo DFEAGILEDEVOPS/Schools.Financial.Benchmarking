@@ -2,6 +2,13 @@
 
     @include highlighting;
 
+    .remove-new-trust {
+        @include govuk-media-query($until: tablet) {
+            padding-left: 5px;
+            padding-top: 10px;
+        }
+    }
+
     .clear-bottom {
         padding-left: 0;
         margin-top: 10px;
@@ -16,11 +23,11 @@
         width: 50%;
         float: left;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             width: 80%;
         }
 
-        .form-control {
+        .govuk-form-control {
             width: 100%;
             margin-bottom: -2px;
         }
@@ -32,7 +39,7 @@
         .tt-suggestion {
             a {
                 display: block;
-                padding: $gutter-one-quarter;
+                padding: $govuk-gutter-half / 2;
                 text-decoration: none;
             }
 
@@ -41,7 +48,7 @@
             }
 
             &:hover, a:hover {
-                background-color: $link-hover-colour;
+                background-color: govuk-colour("light-blue");
                 color: white;
                 cursor: pointer;
             }
@@ -61,7 +68,7 @@
         }
     }
 
-    .form-control {
+    .govuk-form-control {
         width: 100%;
     }
 
@@ -69,25 +76,21 @@
         margin-bottom: 30px;
     }
 
-    .error-message label {
-        border: none;
-        display: block;
-    }
-
-    .form-control.error {
-        -moz-box-shadow: none;
-        border: 4px solid #b10e1e;
-    }
-
     .trust-match-info {
         border-top: 1px solid black;
         border-bottom: 1px solid black;
         padding: 12px 0 10px 0;
-        background-color: $page-colour;
+        background-color: govuk-colour("white");
     }
 
-    span.error {
+    span.govuk-input--error {
         border: none;
         display: block;
+    }
+
+    .benchmark-school-value {
+        margin-left: 15px;
+        margin-bottom: 10px;
+        color: govuk-colour("dark-grey", $legacy: "grey-1");
     }
 }

@@ -1,21 +1,21 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.TrustListViewModel
 
-<div class="column-one-third @(Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_TRUST_LOCATION ? "trust-location-filter" : "hidden-filter")">
+<div class="govuk-grid-column-one-third @(Request.QueryString["searchtype"] == SearchTypes.SEARCH_BY_TRUST_LOCATION ? "trust-location-filter" : "hidden-filter")">
     <div class="filter-form">
-        <details open>
-            <summary class="filter-detail"><span class="summary font-xsmall">Show search filters</span></summary>
-            <div class="panel panel-border-narrow filter-detail">
+        <details class="govuk-details" data-module="govuk-details" open>
+            <summary class="govuk-details__summary filter-detail"><span class="summary govuk-!-font-size-16">Show search filters</span></summary>
+            <div class="govuk-details__text panel filter-detail">
                 @(Html.Partial("Partials/TrustFilterForm", Model))
             </div>
         </details>
     </div>
 </div>
 
-<div class="column-two-thirds">
+<div class="govuk-grid-column-two-thirds">
     <div aria-live="assertive" class="js-search-results-info">
         <div class="result-info">
-            <p class="summary" aria-live="assertive">
+            <p class="govuk-body summary" aria-live="assertive">
                 <span class="bold count-js">@(Model.Pagination.Total)</span> academy trusts found
             </p>
         </div>
@@ -26,11 +26,11 @@
     }
     else
     {
-        <p class="bold-small" style="margin-top:22px;">Please try:</p>
-        <p class="indent">
-            •	<a href="/">searching again</a> using different spelling or words
+        <p class="govuk-body-m govuk-!-font-weight-bold" style="margin-top:22px;">Please try:</p>
+        <p class="govuk-body indent">
+            •	<a class="govuk-link" href="/">searching again</a> using different spelling or words
         </p>
-        <p class="indent">
+        <p class="govuk-body indent">
             •	removing your filters
         </p>
     }

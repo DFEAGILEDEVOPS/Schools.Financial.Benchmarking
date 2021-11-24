@@ -98,8 +98,9 @@
                 markers.addLayer(marker);
                 latLangs.push([data[i].Latitude, data[i].Longitude]);
                 var info = data[i];
+
                 var html = `<div class="infowindow-school-summary">                    
-                        <a href ="/school/detail?urn=${info.Id}">${info.Name}</a>
+                        <a class="govuk-link" href ="/school/detail?urn=${info.Id}">${info.Name}</a>
                         <p>${info.Address}</p>
                         <p>${info.EducationPhases}</p>
                         <p>${info.NFType}</p>
@@ -107,24 +108,24 @@
 
                 if (info.CompanyNumber !== "0") {
                     html += `<div class="mt-1" style="font-style: italic">Part of the </div>
-                    <div class="mb-1"><a href="/trust/index?companyNo=${info.CompanyNumber}">${info.SponsorName}</a></div>`;
+                    <div class="mb-1"><a class="govuk-link" href="/trust/index?companyNo=${info.CompanyNumber}">${info.SponsorName}</a></div>`;
                 }  
 
                 if ($("#SearchMethod").val() === "Manual") {
                     if (DfE.Util.ComparisonList.isInManualList(info.Id)) {
-                        html += `<div class="button add add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</div>`;
+                        html += `<button class="govuk-button govuk-!-margin-bottom-0 add add-remove" data-module="govuk-button" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</button>
+                            <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary remove add-remove" data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</button>`;
                     } else {
-                        html += `<div class="button add add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</div>`;
+                        html += `<button class="govuk-button govuk-!-margin-bottom-0 add add-remove" data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Add')">Add</button>
+                            <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary remove add-remove" data-module="govuk-button" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket('${info.Id}','Remove')">Remove</button>`;
                     }
                 } else if ($("#SearchMethod").val() === "School"){
                     if (DfE.Util.ComparisonList.isInList(info.Id)) {
-                        html += `<div class="button add add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
+                        html += `<button class="govuk-button govuk-!-margin-bottom-0 add add-remove" data-module="govuk-button" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</button>
+                            <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary remove add-remove" data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
                     } else {
-                        html += `<div class="button add add-remove" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</div>
-                            <div class="button remove add-remove" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</div>`;
+                        html += `<button class="govuk-button govuk-!-margin-bottom-0 add add-remove" data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Add')">Add</button>
+                            <button class="govuk-button govuk-!-margin-bottom-0 govuk-button--secondary remove add-remove" data-module="govuk-button" style="display: none" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket('${info.Id}','Remove')">Remove</button>`;
                     }
                 }
                 
@@ -208,7 +209,7 @@
                 latLangs.push([data[i].Latitude, data[i].Longitude]);
                 var info = data[i];
                 var html = `<div class="infowindow-school-summary">                    
-                        <a href ="/school/detail?urn=${info.Id}">${info.Name}</a>
+                        <a class="govuk-link" href ="/school/detail?urn=${info.Id}">${info.Name}</a>
                         <p>${info.Address}</p>
                         <p>${info.OverallPhase}</p>
                         <p>${info.NFType}</p>`;

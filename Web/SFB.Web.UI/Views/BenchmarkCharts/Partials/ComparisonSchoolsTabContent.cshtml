@@ -2,27 +2,27 @@
 @using SFB.Web.UI.Models
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-<div id="comparisonSchoolsTabSection" style="display: none">
-    <div class="grid-row">
-        <div class="column-full">
-            <div class="font-xsmall latest-year-message mt-2 mb-2">
-                <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
+            <div class="govuk-body-s govuk-!-font-size-16 latest-year-message mt-2 mb-2">
+                <span>The data below is from the latest year available. For maintained schools this is <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermMaintained</span>, academies from <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermAcademies</span></span>
             </div>
-            <table class="tablesorter data-table-js comp-school-table chart-table--mobile-above-view" id="ComparisonSchoolsTable">
-                <caption class="visually-hidden">Comparison schools</caption>
-                <thead>
-                    <tr>
-                        <th class="school-column sortInitialOrder-asc" scope="col">School</th>
-                        <th class="numeric sortInitialOrder-desc" scope="col">Pupils</th>
-                        <th class="numeric sortInitialOrder-asc numeric comp-school-table__phase-col" scope="col">Phase of education</th>
-                        <th  class="nowrap numeric sortInitialOrder-asc" scope="col">Ofsted rating</th>
-                        <th class="numeric sortInitialOrder-desc string-min sorter-digit comp-school-table__ks-col th-ks2-js" scope="col">
+            <table class="govuk-table tablesorter data-table-js comp-school-table chart-table--mobile-above-view" id="ComparisonSchoolsTable">
+                <caption class="govuk-visually-hidden">Comparison schools</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th class="govuk-table__header school-column sortInitialOrder-asc" scope="col">School</th>
+                        <th class="govuk-table__header govuk-table__header--numeric sortInitialOrder-desc" scope="col">Pupils</th>
+                        <th class="govuk-table__header govuk-table__header--numeric sortInitialOrder-asc comp-school-table__phase-col" scope="col">Phase of education</th>
+                        <th class="govuk-table__header govuk-table__header--numeric nowrap sortInitialOrder-asc" scope="col">Ofsted rating</th>
+                        <th class="govuk-table__header govuk-table__header--numeric sortInitialOrder-desc string-min sorter-digit comp-school-table__ks-col th-ks2-js" scope="col">
                             Key stage 2 progress
                             <button class="helpLink link-button no-padding hide-in-print" id="renderKs2Info" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                 <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                             </button>
                         </th>
-                        <th class="numeric sortInitialOrder-desc string-min sorter-digit comp-school-table__ks-col th-p8-js" scope="col">
+                        <th class="govuk-table__header govuk-table__header--numeric sortInitialOrder-desc string-min sorter-digit comp-school-table__ks-col th-p8-js" scope="col">
                             Progress 8
                             <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTableCs" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                 <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
@@ -30,77 +30,77 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="govuk-table__body">
                     @foreach (var cSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                     {
                         if (cSchool is FederationViewModel)
                         {
-                    <tr>
-                        <td scope="col" class="school-column">
-                            <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
+                    <tr class="govuk-table__row">
+                        <td scope="col" class="govuk-table__cell school-column">
+                            <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                 <span>@cSchool.Name</span>
                             </a>
-                            @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                            @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"govuk-visually-hidden\"> index school</span>" : "")
                             <div></div>
                         </td>
-                        <td class="numeric" scope="col">@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
-                        <td class="numeric" scope="col">@((cSchool as FederationViewModel).OverallPhase)</td>
-                        <td scope="col">N/A</td>
-                        <td class="numeric no-padding td-ks2-js" scope="col">
+                        <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@((cSchool as FederationViewModel).OverallPhase)</td>
+                        <td class="govuk-table-cell" scope="col">N/A</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-ks2-js" scope="col">
                             <div class="score na">
-                                <div class="font-xsmall">N/A</div>
-                                <span class="visually-hidden">Key stage 2 progress score</span>
+                                <div class="govuk-!-font-size-16">N/A</div>
+                                <span class="govuk-visually-hidden">Key stage 2 progress score</span>
                             </div>
                         </td>
-                        <td class="numeric no-padding td-p8-js" scope="col">
+                        <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-p8-js" scope="col">
                             <div class="score na">
-                                <div class="font-xsmall">N/A</div>
-                                <span class="visually-hidden">Progress 8 score</span>
+                                <div class="govuk-!-font-size-16">N/A</div>
+                                <span class="govuk-visually-hidden">Progress 8 score</span>
                             </div>
                         </td>
                     </tr>
                         }
                         else
                         {
-                            <tr>
-                                <td scope="col" class="school-column">
-                                    <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
+                            <tr class="govuk-table__row">
+                                <td scope="col" class="govuk-table__cell school-column">
+                                    <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                         <span>@cSchool.Name</span>
                                     </a>
-                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"govuk-visually-hidden\"> index school</span>" : "")
                                     <div>@((cSchool as SchoolViewModel).Address)</div>
                                 </td>
-                                <td class="numeric" scope="col">@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
-                                <td class="numeric" scope="col">@((cSchool as SchoolViewModel).OverallPhase) <span class="visually-hidden">phase</span></td>
-                                <td class="numeric" scope="col">
+                                <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">@((cSchool as SchoolViewModel).OverallPhase) <span class="govuk-visually-hidden">phase</span></td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" scope="col">
                                     @if ((cSchool as SchoolViewModel).OfstedRating != "0")
                                     {
                                         <span class="rating rating-@((cSchool as SchoolViewModel).OfstedRating)">@((cSchool as SchoolViewModel).OfstedRating)</span>
                                     }
-                                    @((cSchool as SchoolViewModel).OfstedRatingText) <span class="visually-hidden">ofsted rating</span>
+                                    @((cSchool as SchoolViewModel).OfstedRatingText) <span class="govuk-visually-hidden">ofsted rating</span>
                                     @if ((cSchool as SchoolViewModel).OfstedRatingText != "Not rated" && (cSchool as SchoolViewModel).OfstedInspectionDate != null)
                                     {
-                                        <br><span class="font-xxsmall not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
+                                        <br><span class="govuk-!-font-size-14 not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
                                     }
                                 </td>
-                                <td class="numeric no-padding td-ks2-js" scope="col">
+                                <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-ks2-js" scope="col">
                                     <div class="score @ViewHelpers.ScoreColorCode((cSchool as SchoolViewModel).KS2ProgressScore, BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <div class="font-xsmall">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
+                                        <div class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                         @if ((cSchool as SchoolViewModel).KS2ProgressScore.HasValue)
                                         {
-                                            <div class="no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
+                                            <div class="govuk-!-font-size-14 no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
                                         }
-                                        <span class="visually-hidden">Key stage 2 progress score</span>
+                                        <span class="govuk-visually-hidden">Key stage 2 progress score</span>
                                     </div>
                                 </td>
-                                <td class="numeric no-padding td-p8-js" scope="col">
+                                <td class="govuk-table__cell govuk-table__cell--numeric no-padding td-p8-js" scope="col">
                                     <div class="score @ViewHelpers.ScoreColorCode((cSchool as SchoolViewModel).P8ProgressScore, BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <div class="font-xsmall">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
+                                        <div class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</div>
                                         @if ((cSchool as SchoolViewModel).P8ProgressScore.HasValue)
                                         {
-                                            <div class="no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
+                                            <div class="govuk-!-font-size-14 no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</div>
                                         }
-                                        <span class="visually-hidden">Progress 8 score</span>
+                                        <span class="govuk-visually-hidden">Progress 8 score</span>
                                     </div>
                                 </td>
                             </tr>
@@ -109,129 +109,129 @@
                 </tbody>
             </table>
 
-            <table class="tablesorter data-table-js comp-school-table chart-table--mobile-only-view" id="ComparisonSchoolsTableMobile">
-                <caption class="visually-hidden">Comparison schools</caption>
+            <table class="govuk-table tablesorter data-table-js comp-school-table chart-table--mobile-only-view" id="ComparisonSchoolsTableMobile">
+                <caption class="govuk-visually-hidden">Comparison schools</caption>
                 @foreach (var cSchool in Model.ComparisonSchools.OrderByDescending(s => s.ProgressScore))
                 {
                     if (cSchool is FederationViewModel)
                     {
-                        <tbody class="chart-table--detail-view__body">
-                            <tr>
-                                <th scope="row" class="col-header">School name</th>
-                                <td>
-                                    <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
+                        <tbody class="govuk-table__body chart-table--detail-view__body">
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">School name</th>
+                                <td class="govuk-table__cell">
+                                    <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                         <span>@cSchool.Name</span>
                                     </a>
-                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"govuk-visually-hidden\"> index school</span>" : "")
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">Address</th>
-                                <td>N/A</td>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">Address</th>
+                                <td class="govuk-table__cell">N/A</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">Pupils</th>
-                                <td>@cSchool.TotalPupils <span class="visually-hidden">pupils</span></td>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">Pupils</th>
+                                <td class="govuk-table__cell">@cSchool.TotalPupils <span class="govuk-visually-hidden">pupils</span></td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">Phase of education</th>
-                                <td>@((cSchool as FederationViewModel).OverallPhase)</td>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">Phase of education</th>
+                                <td class="govuk-table__cell">@((cSchool as FederationViewModel).OverallPhase)</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">Ofsted rating</th>
-                                <td>N/A</td>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">Ofsted rating</th>
+                                <td class="govuk-table__cell">N/A</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">
                                     Key stage 2 progress
                                     <button class="helpLink link-button no-padding hide-in-print" id="renderKs2InfoBic_@cSchool.Id" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                         <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                     </button>
                                 </th>
-                                <td class="no-padding">N/A</td>
+                                <td class="govuk-table__cell no-padding">N/A</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">
                                     Progress 8
                                     <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable_@cSchool.Id" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                         <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                     </button>
                                 </th>
-                                <td class="no-padding">N/A</td>
+                                <td class="govuk-table__cell no-padding">N/A</td>
                             </tr>
                         </tbody>
                     }
                     else
                     {
-                        <tbody class="chart-table--detail-view__body">
-                            <tr>
-                                <th scope="row" class="col-header">School name</th>
-                                <td>
-                                    <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="@Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
+                        <tbody class="govuk-table__body chart-table--detail-view__body">
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">School name</th>
+                                <td class="govuk-table__cell">
+                                    <a href="/school/detail?Urn=@cSchool.Id" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "highlight" : "")">
                                         <span>@cSchool.Name</span>
                                     </a>
-                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"visually-hidden\"> index school</span>" : "")
+                                    @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == cSchool.Name ? "<span class=\"govuk-visually-hidden\"> index school</span>" : "")
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">Address</th>
-                                <td>@((cSchool as SchoolViewModel).Address)</td>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">Address</th>
+                                <td class="govuk-table__cell">@((cSchool as SchoolViewModel).Address)</td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">Pupils</th>
-                                <td>@((cSchool as SchoolViewModel).TotalPupils) <span class="visually-hidden">pupils</span></td>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">Pupils</th>
+                                <td class="govuk-table__cell">@((cSchool as SchoolViewModel).TotalPupils) <span class="govuk-visually-hidden">pupils</span></td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">Phase of education</th>
-                                <td>@((cSchool as SchoolViewModel).OverallPhase) <span class="visually-hidden">phase</span></td>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">Phase of education</th>
+                                <td class="govuk-table__cell">@((cSchool as SchoolViewModel).OverallPhase) <span class="govuk-visually-hidden">phase</span></td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">Ofsted rating</th>
-                                <td>
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">Ofsted rating</th>
+                                <td class="govuk-table__cell">
                                     @if ((cSchool as SchoolViewModel).OfstedRating != "0")
                                     {
                                         <span class="rating rating-@((cSchool as SchoolViewModel).OfstedRating)">@((cSchool as SchoolViewModel).OfstedRating)</span>
                                     }
-                                    @((cSchool as SchoolViewModel).OfstedRatingText) <span class="visually-hidden">ofsted rating</span>
+                                    @((cSchool as SchoolViewModel).OfstedRatingText) <span class="govuk-visually-hidden">ofsted rating</span>
                                     @if ((cSchool as SchoolViewModel).OfstedRatingText != "Not rated" && (cSchool as SchoolViewModel).OfstedInspectionDate != null)
                                     {
-                                        <br><span class="font-xxsmall not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
+                                        <br><span class="govuk-!-font-size-14 not-bold">Inspected @((cSchool as SchoolViewModel).OfstedInspectionDate)</span>
                                     }
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">
                                     Key stage 2 progress
                                     <button class="helpLink link-button no-padding hide-in-print" id="renderKs2InfoBic_@cSchool.Id" onclick="DfE.Util.ModalRenderer.renderBicCriteriaKs2Modal(event)">
                                         <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                     </button>
                                 </th>
-                                <td class="no-padding">
+                                <td class="govuk-table__cell no-padding">
                                     <div class="score @ViewHelpers.ScoreColorCode((cSchool as SchoolViewModel).KS2ProgressScore, BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <span class="font-xsmall">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
+                                        <span class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).KS2ProgressScore.HasValue ? (cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
                                         @if ((cSchool as SchoolViewModel).KS2ProgressScore.HasValue)
                                         {
-                                            <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
+                                            <span class="ml-1 govuk-!-font-size-14 no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).KS2ProgressScore.GetValueOrDefault(), BicProgressScoreType.KS2, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
                                         }
-                                        <span class="visually-hidden">Key stage 2 progress score</span>
+                                        <span class="govuk-visually-hidden">Key stage 2 progress score</span>
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row" class="col-header">
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header col-header">
                                     Progress 8
                                     <button class="helpLink link-button no-padding hide-in-print" id="renderP8InfoTable_@cSchool.Id" onclick="DfE.Util.ModalRenderer.renderBicCriteriaP8Modal(event)">
                                         <img class="help-image" src="/public/assets/images/icons/info.svg" alt="Help">
                                     </button>
                                 </th>
-                                <td class="no-padding">
+                                <td class="govuk-table__cell no-padding">
                                     <div class="score @ViewHelpers.ScoreColorCode((cSchool as SchoolViewModel).P8ProgressScore, BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())">
-                                        <span class="font-xsmall">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
+                                        <span class="govuk-!-font-size-16">@((cSchool as SchoolViewModel).P8ProgressScore.HasValue ? (cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault().ToString("F2") : "N/A")</span>
                                         @if ((cSchool as SchoolViewModel).P8ProgressScore.HasValue)
                                         {
-                                            <span class="ml-1 font-xxxsmall no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
+                                            <span class="ml-1 govuk-!-font-size-14 no-wrap">@ViewHelpers.ScoreText((cSchool as SchoolViewModel).P8ProgressScore.GetValueOrDefault(), BicProgressScoreType.P8, (cSchool as SchoolViewModel).P8Banding.GetValueOrDefault())</span>
                                         }
-                                        <span class="visually-hidden">Progress 8 score</span>
+                                        <span class="govuk-visually-hidden">Progress 8 score</span>
                                     </div>
                                 </td>
                             </tr>
@@ -241,7 +241,7 @@
             </table>
         </div>
     </div>
-</div>
+
 
 
 

@@ -1,32 +1,28 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
-@using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
 <div class="charts-section">
-    <div class="grid-row">
-        <div class="column-full">
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
             <div class="sticky-div sticky-chart-controls @ViewBag.Tab">
-                <div id="controls-accordion" class="accordion mobile-only-accordion" style="display: none">
-                    <div class="accordion-section">
-                        <fieldset role="group" aria-labelledby="filtersLegend">
-                            <legend class="visually-hidden" id="filtersLegend">Filters</legend>
-                            <div class="accordion-section-header">
-                                <h2 class="heading-medium">Filters</h2>
-                            </div>
-                            <div class="accordion-section-body">
-                                @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
-                                @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
+                <div id="controls-accordion">
+                    <div>
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-visually-hidden" id="filtersLegend">Filters</legend>
+                            <div class="govuk-govuk-grid-row">
+                                <div class="govuk-grid-column-full no-padding">
+                                    @Html.Partial("~/Views/BenchmarkCharts/Partials/ChartGroups.cshtml", Model.ChartGroups)
+                                    @Html.Partial("~/Views/BenchmarkCharts/Partials/ValueSelect.cshtml", Model)
 
-                                @if (Model.EstablishmentType == EstablishmentType.Academies || Model.EstablishmentType == EstablishmentType.All)
-                                {
-                                    Html.RenderPartial("~/Views/BenchmarkCharts/Partials/CentralFinancing.cshtml");
-                                }
-                                else if (Model.EstablishmentType == EstablishmentType.MAT)
-                                {
-                                    <div class="column-one-third chart-filter">
+                                    @if (Model.EstablishmentType == EstablishmentType.Academies || Model.EstablishmentType == EstablishmentType.All)
+                                    {
+                                        Html.RenderPartial("~/Views/BenchmarkCharts/Partials/CentralFinancing.cshtml");
+                                    }
+                                    else if (Model.EstablishmentType == EstablishmentType.MAT)
+                                    {
                                         @Html.Partial("~/Views/BenchmarkCharts/Partials/TrustCentralFinancing.cshtml")
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
                         </fieldset>
                     </div>
@@ -36,27 +32,27 @@
                 <input type="hidden" id="tabSelection" value="@ViewBag.Tab" />
                 <input type="submit" class="hidden" value="submit">
 
-                <div class="grid-row">
-                    <div class="column-three-quarters font-xsmall latest-year-message">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-three-quarters govuk-body-s govuk-!-margin-bottom-0 latest-year-message">
                         @if (Model.EstablishmentType == EstablishmentType.MAT)
                         {
-                            <span>The data below is from the latest year available. For trusts this is <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+                            <span>The data below is from the latest year available. For trusts this is <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermAcademies</span></span>
                         }
                         else
                         {
-                            <span>The data below is from the latest year available. For maintained schools this is <span class="bold-xsmall">@Model.LatestTermMaintained</span>, academies from <span class="bold-xsmall">@Model.LatestTermAcademies</span></span>
+                            <span>The data below is from the latest year available. For maintained schools this is <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermMaintained</span>, academies from <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.LatestTermAcademies</span></span>
                         }
                     </div>
                     
-                    <div class="column-quarter font-xsmall chartTable hide-in-print mt-1">
+                    <div class="govuk-grid-column-one-quarter govuk-!-font-size-16 chartTable hide-in-print mt-1">
                         <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables no-underline a-button" onclick="DfE.Views.BenchmarkChartsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
                     </div>
 
-                    <div class="column-full font-xsmall hide-in-print">
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
                         <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.BenchmarkChartsViewModel.resetGrouping()">
                             <span><</span>
-                            <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
+                            <span class="govuk-link">All <span class="js-parent-group">expenditure</span> charts</span>
                         </button>
                     </div>
                 </div>

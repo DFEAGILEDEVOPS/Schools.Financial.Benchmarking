@@ -11,9 +11,9 @@
     }
 
     .highlight {
-        @include bold-16();
-        background-color: $pink_contrast;
-        color: $white;
+        @include govuk-font(16, $weight: bold);
+        background-color: govuk-colour("pink");
+        color: govuk-colour("white");
         text-align: center;
         padding: 5px;
         margin: 10px;
@@ -35,7 +35,7 @@
         padding-top: 6%;
     }
 
-    .form-control {
+    .govuk-form-control {
         width: 100%;
     }
 
@@ -49,17 +49,13 @@
     }
 
     .validation-summary-errors {
-        @include bold-19();
-        color: $red;
+        @include govuk-font(19, $weight: bold);
+        color: govuk-colour("red");
     }
 
-    .form-control.error {
+    .govuk-form-control.error {
         -moz-box-shadow: none;
-        border: 4px solid $red;
-    }
-
-    .error-message label {
-        display: block;
+        border: 4px solid govuk-colour("red");
     }
 
     .chkbox {
@@ -70,7 +66,7 @@
         width: 29px;
         height: 29px;
 
-        @include ie(8) {
+        @include govuk-if-ie8 {
             top: 12px;
         }
     }

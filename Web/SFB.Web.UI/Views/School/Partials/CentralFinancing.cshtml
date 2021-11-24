@@ -2,17 +2,17 @@
 @using SFB.Web.UI.Helpers.Constants
 @using SFB.Web.UI.Helpers.Enums
 
-<div class="column-one-third chart-filter @IsWorkforceTab()">
-    <div class="form-group">
-        <label class="form-label inline" for="Financing">Trust finance</label>
+<div class="govuk-grid-column-one-third chart-filter govuk-!-padding-right-0 @IsWorkforceTab()">
+    <div class="govuk-form-group">
+        <label class="govuk-label govuk-!-display-inline-block" for="Financing">Trust finance</label>
         <span class="help-icon hide-in-print help-trust-finance js-show-value-help">
             <span class="icon dark-blue">
                 <a href="#" class="js-modal" role="button" data-modal-title="Trust finance" data-modal-text="@HelpTooltipText.TrustFinance" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                    <span class="visuallyhidden">Open more info text for Trust finance opens a popup</span>
+                    <span class="govuk-visually-hidden">Open more info text for Trust finance opens a popup</span>
                 </a>
             </span>
         </span>
-        <select name="Financing" id="Financing" class="form-control" onchange="DfE.Views.HistoricalCharts.rebuildCharts('school')">
+        <select name="Financing" id="Financing" class="govuk-select" onchange="DfE.Views.HistoricalCharts.rebuildCharts('school')">
             <option value="@CentralFinancingType.Include" @IsFinancingSelected(CentralFinancingType.Include)>@CentralFinancing.INCLUDE</option>
             <option value="@CentralFinancingType.Exclude" @IsFinancingSelected(CentralFinancingType.Exclude)>@CentralFinancing.EXCLUDE</option>
         </select>

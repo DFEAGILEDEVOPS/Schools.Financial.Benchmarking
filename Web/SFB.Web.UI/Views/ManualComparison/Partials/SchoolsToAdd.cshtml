@@ -2,21 +2,25 @@
 @model List<SFB.Web.UI.Models.BenchmarkSchoolModel>
 
 <form autocomplete="off">
-    <span id="schoolCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count schools in manual comparison list</span>
+    <span id="schoolCountMessage" class="govuk-visually-hidden" aria-live="polite">@Model.Count schools in manual comparison list</span>
     <input id="schoolCount" type="hidden" value="@Model.Count"/>
     <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
-    <fieldset>
-        <legend class="visuallyhidden">Choose a school from auto completion list</legend>
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-visually-hidden">Choose a school from auto completion list</legend>
         @{
             if (ViewBag.Error != null)
             {
-                <div id="error-summary" class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
-
-                    <ul class="error-summary-list">
-                        <li>
-                            <a href="#NewSchoolName">@ViewBag.Error</a>
-                        </li>
-                    </ul>
+                <div id="govuk-error-summary" class="govuk-error-summary" role="alert" aria-labelledby="govuk-error-summary__title" tabindex="-1">
+                    <h2 class="govuk-error-summary__title" id="error-summary-title">
+                        There is a problem
+                    </h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#NewSchoolName">@ViewBag.Error</a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
             }
@@ -27,68 +31,76 @@
                 <div id="ExistingSchools">
                     @for (; i < Model.Count; i++)
                     {
-                        <div class="grid-row school-element">
-                            <label class="form-label" for="school_@i">School @Html.Raw(i + 1)</label>
-                            <input class="form-control" style="width: 50%" id="school_@i" name="school_@i" type="text" disabled="disabled" value="@Model[i].Name" />
-                            <button class="remove-school link-button font-small" data-urn="@Model[i].Id" aria-label="Remove @Model[i].Name">Remove</button>
+                        <div class="govuk-grid-row school-element">
+                            <label class="govuk-label" for="school_@i">School @Html.Raw(i + 1)</label>
+                            <input class="govuk-input govuk-!-width-one-half" id="school_@i" name="school_@i" type="text" disabled="disabled" value="@Model[i].Name" />
+                            <button class="remove-school link-button govuk-!-font-size-19" data-urn="@Model[i].Id" aria-label="Remove @Model[i].Name">Remove</button>
                         </div>
                     }
                 </div>
 
                 <div id="NewSchool" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
-                    <div class="grid-row school-element">
-                        <label class="form-label" for="NewSchoolName">School @Html.Raw(i + 1)</label>
+                    <div class="govuk-grid-row school-element">
+                        <label class="govuk-label" for="NewSchoolName">School @Html.Raw(i + 1)</label>
+                        <label class="govuk-visually-hidden" for="NewSchoolName_listbox">Select a school name from the list box</label>
                         @if (ViewBag.Error != null)
                         {
-                            <span class="error-message">
+                            <span class="govuk-error-message">
+                                <span class="govuk-visually-hidden">Error: </span>
                                 @ViewBag.Error
                             </span>
                         }
-                        <span class="error-message missing" style="display: none">
+                        <span class="govuk-error-message missing" style="display: none">
+                            <span class="govuk-visually-hidden">Error: </span>
                             Enter a school name to continue the comparison
                         </span>
-                        <span class="error-message not-found" style="display: none">
+                        <span class="govuk-error-message not-found" style="display: none">
+                            <span class="govuk-visually-hidden">Error: </span>
                             We couldn't find any schools matching your search criteria
                         </span>
                         <input id="NewSchoolName"
-                               class="form-control"
+                               class="govuk-input govuk-!-width-one-half @(Html.Raw(ViewBag.Error != null ? "govuk-input--error" : ""))"
                                name="schoolname"
                                type="text"
                                data-suggestion-url="/schoolsearch/suggest" />
-                        <button class="remove-new-school link-button font-small" aria-label="Remove new school addition">Remove</button>
+                        <button class="remove-new-school link-button govuk-!-font-size-19" aria-label="Remove new school addition">Remove</button>
                     </div>
                 </div>
-                <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
-                    <div class="column-full">
+                <div id="AddButton" class="govuk-grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
+                    <div class=" govuk-grid-column-full">
                         @if (Model.Count + 1 < ComparisonListLimit.LIMIT)
                         {
-                            <button class="link-button font-small" id="displayNew">Add another school</button>
+                            <button class="link-button govuk-!-font-size-19" id="displayNew">Add another school</button>
                         }
                         else
                         {
-                            <button type="button" class="link-button font-small" onclick="DfE.Util.ComparisonList.renderFullListWarningModalManual()">Add another school</button>
+                            <button type="button" class="link-button govuk-!-font-size-19" onclick="DfE.Util.ComparisonList.renderFullListWarningModalManual()">Add another school</button>
                         }
                     </div>
                 </div>
             }
             else
             {
-                <div class="grid-row school-element">
-                    <label class="form-label" for="NewSchoolName">School 1</label>
+                <div class="govuk-grid-row school-element">
+                    <label class="govuk-label" for="NewSchoolName">School 1</label>
+                    <label class="govuk-visually-hidden" for="FNewSchoolName_listbox">Select a school name from the list box</label>
                     @if (ViewBag.Error != null)
                     {
-                        <span class="error-message duplicate">
+                        <span class="govuk-error-message duplicate">
+                            <span class="govuk-visually-hidden">Error: </span>
                             @ViewBag.Error
                         </span>
                     }
-                    <span class="error-message missing" style="display: none">
+                    <span class="govuk-error-message missing" style="display: none">
+                        <span class="govuk-visually-hidden">Error: </span>
                         Enter a school name to continue the comparison
                     </span>
-                    <span class="error-message not-found" style="display: none">
-                            We couldn't find any schools matching your search criteria
+                    <span class="govuk-error-message not-found" style="display: none">
+                        <span class="govuk-visually-hidden">Error: </span>
+                        We couldn't find any schools matching your search criteria
                     </span>
                     <input id="NewSchoolName"
-                           class="form-control"
+                           class="govuk-input govuk-!-width-one-half @(Html.Raw(ViewBag.Error != null ? "govuk-input--error" : ""))"
                            name="schoolname"
                            type="text"
                            data-suggestion-url="/schoolsearch/suggest" />

@@ -6,20 +6,20 @@
 
 @if (!string.IsNullOrEmpty(Model.MoreInfo))
 {
-    <details class="mt-1">
-        <summary class="hide-in-print">
-            <span class="summary font-xsmall">More about @Model.Name.ToLower()</span>
+    <details class="govuk-details" data-module="govuk-details mt-1">
+        <summary class="govuk-details__summary hide-in-print">
+            <span class="summary govuk-!-font-size-16">More about @Model.Name.ToLower()</span>
         </summary>
-        <div class="panel panel-border-narrow">
+        <div class="govuk-details__text">
             @Html.Raw(Model.MoreInfo)
         </div>
     </details>
 }
-<div class="grid-row">
-    <div class="column-full no-padding">
-        <div class="balance-wrapper-mobile column-quarter mobile">
+<div class="govuk-grid-row">
+    <div class=" govuk-grid-column-full no-padding">
+        <div class="balance-wrapper-mobile govuk-grid-column-one-quarter mobile">
             <div>
-                <span class="bold">@ViewBag.FinancialYear</span>
+                <span class="govuk-!-font-weight-bold govuk-body-s">@ViewBag.FinancialYear</span>
             </div>
             <div class="charts-section__chart-container__lastYearBalance">
                 @if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure ||
@@ -56,12 +56,12 @@
             </div>
         </div>
         <div class="chart-wrapper" style="padding-right: 15px; display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")">
-            <div class="chart-wrapper__inner column-three-quarters">
+            <div class="chart-wrapper__inner govuk-grid-column-three-quarters">
                 <div id="chart_@Model.Id" class="chart" data-axis-label="@Model.ShowValue.GetDescription() @ChartLabelForCentralFinance()" data-chart='@Model.DataJson'></div>
             </div>
-            <div class="column-quarter desktop">
+            <div class="govuk-grid-column-one-quarter desktop">
                 <div>
-                    <span class="bold">@ViewBag.FinancialYear</span>
+                    <span class="govuk-body-s govuk-!-font-weight-bold">@ViewBag.FinancialYear</span>
                 </div>
                 <div class="charts-section__chart-container__lastYearBalance">
                     @if (Model.ShowValue == UnitType.PercentageOfTotalExpenditure ||
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div id="table_for_chart_@Model.Id" class="chart-table-wrapper" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")">
-            <div class="column-full">
+            <div class=" govuk-grid-column-full">
                 @Html.Partial("Partials/ChartTable", Model)
             </div>
         </div>

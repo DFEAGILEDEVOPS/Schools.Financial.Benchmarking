@@ -4,96 +4,79 @@
 
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-<div class="custom tabs">
-    <ul role="tablist">
-        <li id="@TabType.Expenditure" class="hide-in-print active" role="presentation">
-            <a aria-selected="true" 
-               class="tab-link tab-vertical-align" 
-               role="tab" 
-               href="javascript: void(0)"
-               tabindex="0" 
-               aria-controls="tabsSection"
-               onkeydown="DfE.Views.BenchmarkChartsViewModel.tabKeydown(event)"
-               onclick="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Expenditure')">@TabNames.EXPENDITURE <span class="bmtab visually-hidden"> selected</span></a>
+<div id="tabs" class="govuk-tabs custom govuk-!-margin-top-6" data-module="govuk-tabs">
+    <ul class="govuk-tabs__list">
+        <li id="@TabType.Expenditure" class="govuk-tabs__list-item app-govuk-tabs__list-item--s govuk-tabs__list-item--selected hide-in-print">
+            <a class="govuk-tabs__tab"
+               href="#tabsSection"
+               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Expenditure')">@TabNames.EXPENDITURE <span class="bmtab govuk-visually-hidden"> selected</span></a>
         </li>
-        <li id="@TabType.Income" class="hide-in-print" role="presentation">
-            <a aria-selected="false" 
-               class="tab-link tab-vertical-align" 
-               role="tab" 
-               href="javascript: void(0)"
-               tabindex="-1" 
-               aria-controls="tabsSection"
-               onkeydown="DfE.Views.BenchmarkChartsViewModel.tabKeydown(event)"
-               onclick="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Income')">@TabNames.INCOME <span class="bmtab visually-hidden"></span></a>
+        <li id="@TabType.Income" class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print">
+            <a class="govuk-tabs__tab"
+               href="#tabsSection"
+               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Income')">@TabNames.INCOME <span class="bmtab govuk-visually-hidden"></span></a>
         </li>
-        <li id="@TabType.Balance" class="hide-in-print" role="presentation">
-            <a aria-selected="false" 
-               class="tab-link tab-vertical-align" 
-               role="tab" 
-               href="javascript: void(0)"
-               tabindex="-1" 
-               aria-controls="tabsSection"
-               onkeydown="DfE.Views.BenchmarkChartsViewModel.tabKeydown(event)"
-               onclick="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Balance')">@TabNames.BALANCE <span class="bmtab visually-hidden"></span></a>
+        <li id="@TabType.Balance" class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print">
+            <a class="govuk-tabs__tab"
+               href="#tabsSection"
+               onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Balance')">@TabNames.BALANCE <span class="bmtab govuk-visually-hidden"></span></a>
         </li>
         @if (Model == null || Model.EstablishmentType != EstablishmentType.MAT)
         {
-            <li id="@TabType.Workforce" class="hide-in-print" role="presentation">
-                <a aria-selected="false" 
-                   class="tab-link tab-vertical-align" 
-                   role="tab"
-                   href="javascript: void(0)"
-                   tabindex="-1" 
-                   aria-controls="tabsSection"
-                   onkeydown="DfE.Views.BenchmarkChartsViewModel.tabKeydown(event)"
-                   onclick="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Workforce')">@TabNames.WORKFORCE <span class="bmtab visually-hidden"></span></a>
+            <li id="@TabType.Workforce" class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print">
+                <a class="govuk-tabs__tab"
+                   href="#tabsSection"
+                   onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Workforce')">@TabNames.WORKFORCE <span class="bmtab govuk-visually-hidden"></span></a>
             </li>
         }
         @if (Model.EstablishmentType != EstablishmentType.MAT)
         {
-            <li id="@TabType.Custom" class="hide-in-print" role="presentation">
-                @*<span class="visually-hidden">@TabNames.CUSTOM {{ctrl.totalSelectCount()}} selected</span>*@
-                <a aria-selected="false" 
-                   class="tab-link" 
-                   role="tab" 
-                   href="javascript: void(0)"
-                   tabindex="-1" 
-                   aria-controls="customTabSection"
-                   onkeydown="DfE.Views.BenchmarkChartsViewModel.tabKeydown(event)"
-                   onclick="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Custom')">
-                    <span>@TabNames.CUSTOM<br /><span style="display: inline-block"> (<span ng-cloak class="font-xsmall">{{ctrl.totalSelectCount()}} selected</span>)</span></span>
-                    <span class="bmtab visually-hidden">tab</span>
+            <li id="@TabType.Custom" class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print">
+                <a class="govuk-tabs__tab"
+                   href="#customTabSection"
+                   onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('@TabType.Custom')">
+                    <span>@TabNames.CUSTOM<span> (<span ng-cloak>{{ctrl.totalSelectCount()}}</span>)</span></span>
+                    <span class="bmtab govuk-visually-hidden">tab</span>
                 </a>
             </li>
 
             if (Model.ComparisonType == ComparisonType.BestInClass)
             {
-                <li id="BestInClass" class="comparison-tab hide-in-print" role="presentation">
-                    <a aria-selected="false" 
-                       class="tab-link comp tab-vertical-align" 
-                       role="tab" 
-                       href="javascript: void(0)"
-                       tabindex="-1" 
-                       aria-controls="bestInClassTabSection"
-                       onkeydown="DfE.Views.BenchmarkChartsViewModel.tabKeydown(event)"
-                       onclick="DfE.Views.BenchmarkChartsViewModel.changeTab('BestInClass')">Comparison schools<span class="bmtab visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
+                <li id="BestInClass" class="govuk-tabs__list-item app-govuk-tabs__list-item--s comparison-tab hide-in-print">
+                    <a class="govuk-tabs__tab"
+                       href="#bestInClassTabSection"
+                       onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('BestInClass')">Comparison schools<span class="bmtab govuk-visually-hidden">@Html.Raw(Model.ComparisonType == ComparisonType.BestInClass ? "selected " : "")</span></a>
                 </li>
             }
             else
             {
-                <li id="ComparisonSchools" class="comparison-tab hide-in-print" role="presentation">
-                    <a aria-selected="false" 
-                       class="tab-link tab-vertical-align" 
-                       role="tab" 
-                       href="javascript: void(0)"
-                       tabindex="-1" 
-                       aria-controls="comparisonSchoolsTabSection"
-                       onkeydown="DfE.Views.BenchmarkChartsViewModel.tabKeydown(event)"
-                       onclick="DfE.Views.BenchmarkChartsViewModel.changeTab('ComparisonSchools')">Comparison schools</a>
+                <li id="ComparisonSchools" class="govuk-tabs__list-item app-govuk-tabs__list-item--s comparison-tab hide-in-print">
+                    <a class="govuk-tabs__tab"
+                       href="#comparisonSchoolsTabSection"
+                       onfocus="DfE.Views.BenchmarkChartsViewModel.changeTab('ComparisonSchools')">Comparison schools</a>
                 </li>
             }
         }
 
     </ul>
+    <div id="tabsSection" class="govuk-tabs__panel app-tabs__panel--no-border">
+        @Html.Partial("Partials/TabContent")
+    </div>
+    @if (Model.EstablishmentType != EstablishmentType.MAT)
+    {
+        <div id="customTabSection" class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden">
+            @Html.Partial("Partials/CustomTabContent")
+        </div>
+
+        <div id="comparisonSchoolsTabSection" class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden">
+            @Html.Partial("Partials/ComparisonSchoolsTabContent")
+        </div>
+    }
+    @if (Model.ComparisonType == ComparisonType.BestInClass)
+    {
+        <div id="bestInClassTabSection" class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden">
+            @Html.Partial("Partials/BicTabContent")
+        </div>
+    }
 </div>
-<span role="status" class="visually-hidden">{{ctrl.totalSelectCount()}} selected in Your Charts</span>
+<span role="status" class="govuk-visually-hidden">{{ctrl.totalSelectCount()}} selected in Your Charts</span>

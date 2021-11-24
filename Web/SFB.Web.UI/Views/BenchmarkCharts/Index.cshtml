@@ -62,42 +62,45 @@
 }
 
 
-<div id="BackToBMCharts" class="grid-row hide-in-print" style="display: none">
-    <div class="column-full">
-        <span class="back-chevron" aria-hidden="true">&#9666;</span>
+<!--<div id="BackToBMCharts" class="govuk-grid-row hide-in-print" style="display: none">
+    <div class=" govuk-grid-column-full">
+        <span class="back-chevron" aria-hidden="true">&#9666;</span>-->
         @*@if (Model.ComparisonType == ComparisonType.BestInClass)
             {
                 <a class="home-link" href="@Request.Url.AbsolutePath?Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Back to benchmarking charts</a>
             }
             else
             {
-                <button class="link-button font-xsmall home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
+                <button class="link-button govuk-!-font-size-16 home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
             }*@
 
-        <button class="link-button font-xsmall home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
+        <!--<button class="link-button govuk-!-font-size-16 home-link no-padding" onclick="location.reload();">Back to benchmarking charts</button>
     </div>
-</div>
+</div>-->
 
 @if (Model.HasIncompleteFinancialData)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper hide-in-print">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
+    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
         <div class="combined-warnings">
             @if (Model.EstablishmentType == EstablishmentType.MAT)
             {
-                <p>
-                    Some trusts don't have a complete set of financial data for this period
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        Some trusts don't have a complete set of financial data for this period
+                    </strong>
+                </div>
             }
             else
             {
-                <p>
-                    Some schools don't have a complete set of financial data for this period
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        Some schools don't have a complete set of financial data for this period
+                    </strong>
+                </div>
             }
         </div>
     </div>
@@ -105,16 +108,16 @@
 
 @if (Model.ComparisonType == ComparisonType.BestInClass)
 {
-    <h1 id="BCHeader" class="heading-xlarge page-heading">Highest progress schools benchmark</h1>
+    <h1 id="BCHeader" class="govuk-heading-xl page-heading">Highest progress schools benchmark</h1>
 }
 else
 {
-    <h1 id="BCHeader" class="heading-xlarge page-heading">Benchmarking charts</h1>
+    <h1 id="BCHeader" class="govuk-heading-xl page-heading">Benchmarking charts</h1>
 }
 
 @if (Model.SchoolComparisonList != null && Model.SchoolComparisonList.BenchmarkSchools.Count == 0)
 {
-    <div class="panel panel-border-wide orange-warning">
+    <div class="govuk-inset-text app-govuk-inset-text--orange">
         <p>
             There are no schools in your benchmark set, so no charts can be displayed.
         </p>
@@ -126,88 +129,88 @@ else
     {
         if (Model.ComparisonType == ComparisonType.Advanced && Model.SchoolComparisonList.HomeSchoolName.IsEmpty())
         {
-            <div id="comparing-text" class="font-xsmall">
-                <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
+            <div id="comparing-text" class="govuk-body-s govuk-!-font-size-16">
+                <button type="submit" class="link-button govuk-!-font-size-16 no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
             </div>
         }
         else if (Model.BmSchoolInList())
         {
-            <div class="grid-row">
-                <div class="column-full" id="comparing">
+            <div class="govuk-grid-row">
+                <div class=" govuk-grid-column-full" id="comparing">
 
                     @if (Model.ComparisonType == ComparisonType.Advanced)
                     {
-                        <div id="comparing-text" class="font-xsmall">
+                        <div id="comparing-text" class="govuk-body-s govuk-!-font-size-16">
                             <span>Comparing</span>
                             <div class="highlight">
-                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                             </div>
                             <span>&nbsp;to schools</span>
-                            <span class="bold-xsmall"> with characteristics you've chosen. </span>
-                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
+                            <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> with characteristics you've chosen. </span>
+                            <button type="submit" class="link-button govuk-body-s govuk-!-font-size-16 no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.FederationBasic)
                     {
-                        <div id="comparing-text" class="font-xsmall">
+                        <div id="comparing-text" class="govuk-body-s govuk-!-font-size-16">
                             <span>Comparing</span>
                             <div class="highlight">
-                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                             </div>
                             <span>&nbsp;to schools and federations</span>
-                            <span class="bold-xsmall"> matching your chosen characteristics. </span>
-                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
+                            <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> matching your chosen characteristics. </span>
+                            <button type="submit" class="link-button govuk-body-s govuk-!-font-size-16 no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.Basic)
                     {
-                        <div id="comparing-text" class="font-xsmall">
+                        <div id="comparing-text" class="govuk-body-s govuk-!-font-size-16">
                             <span>Comparing</span>
                             <div class="highlight">
-                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                             </div>
                             <span>&nbsp;to schools</span>
-                            <span class="bold-xsmall"> matching your chosen characteristics. </span>
-                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
+                            <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> matching your chosen characteristics. </span>
+                            <button type="submit" class="link-button govuk-body-s govuk-!-font-size-16 no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.Specials)
                     {
-                        <div id="comparing-text" class="font-xsmall">
+                        <div id="comparing-text" class="govuk-body-s govuk-!-font-size-16">
                             <span>Comparing</span>
                             <div class="highlight">
-                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                             </div>
-                            <span class="bold-xsmall">&nbsp;to special schools</span>
+                            <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">&nbsp;to special schools</span>
                             <span> based on your SEN characteristics. </span>
-                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
+                            <button type="submit" class="link-button govuk-body-s govuk-!-font-size-16 no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to school characteristics</button>
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.EfficiencyTop || Model.ComparisonType == ComparisonType.EfficiencyManual)
                     {
-                        <div id="comparing-text" class="font-xsmall">
+                        <div id="comparing-text" class="govuk-body-s govuk-!-font-size-16">
                             <span>Comparing</span>
                             <div class="highlight">
-                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                             </div>
                             <span>&nbsp;using</span>
-                            <span class="bold-xsmall"> efficiency metric characteristics. </span>
+                            <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> efficiency metric characteristics. </span>
                             @if (Model.ComparisonType == ComparisonType.EfficiencyManual)
                             {
-                                <a href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/manual-comparison/@Model.SchoolComparisonList.HomeSchoolUrn/@Model.SchoolComparisonList.HomeSchoolName" class="font-xsmall no-padding hide-in-print">Back to school selection</a>
+                                <a href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/manual-comparison/@Model.SchoolComparisonList.HomeSchoolUrn/@Model.SchoolComparisonList.HomeSchoolName" class="govuk-link hide-in-print">Back to school selection</a>
                             }
                         </div>
                     }
                     else if (Model.ComparisonType == ComparisonType.BestInClass && Model.AdvancedCriteria != null)
                     {
-                        <div id="comparing-text" class="font-xsmall">
+                        <div id="comparing-text" class="govuk-body-s govuk-!-font-size-16">
                             <span>Comparing</span>
                             <div class="highlight">
-                                <a href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                                <a class="govuk-link" href="/school/detail?Urn=@Model.SchoolComparisonList.HomeSchoolUrn"> <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
                             </div>
                             <span>&nbsp;to schools</span>
-                            <span class="bold-xsmall"> with the highest progress. </span>
-                            <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Edit comparison</button>
+                            <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> with the highest progress. </span>
+                            <button type="submit" class="link-button govuk-body-s govuk-!-font-size-16 no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Edit comparison</button>
                         </div>
                     }
 
@@ -222,36 +225,36 @@ else
             || Model.ComparisonType == ComparisonType.BestInClass)
             && Model.AdvancedCriteria != null)
         {
-            <div class="grid-row">
-                <div class="column-full">
-                    <details id="criteria-details" class="criteria-details">
-                        <summary class="hide-in-print">
-                            <span class="summary font-xsmall">View characteristics used</span>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <details class="govuk-details criteria-details" data-module="govuk-details" id="criteria-details" >
+                        <summary class="govuk-details__summary hide-in-print">
+                            <span class="govuk-details__summary-text govuk-!-font-size-16">View characteristics used</span>
                         </summary>
                         @if (Model.ComparisonType == ComparisonType.Advanced)
                         {
-                            <div class="panel panel-border-narrow criteria-detail">
+                            <div class="govuk-details__text criteria-detail">
                                 @Html.Partial("Partials/AdvancedHiddenFields")
                                 @Html.Partial("Partials/UsedAdvancedCriteria")
                             </div>
                         }
                         else if (Model.ComparisonType == ComparisonType.Basic || Model.ComparisonType == ComparisonType.FederationBasic)
                         {
-                            <div class="panel panel-border-narrow criteria-detail">
+                            <div class="govuk-details__text criteria-detail">
                                 @Html.Partial("Partials/BasicHiddenFields")
                                 @Html.Partial("Partials/UsedBasicCriteria")
                             </div>
                         }
                         else if (Model.ComparisonType == ComparisonType.Specials)
                         {
-                            <div class="panel panel-border-narrow criteria-detail">
+                            <div class="govuk-details__text criteria-detail">
                                 @Html.Partial("Partials/SpecialHiddenFields")
                                 @Html.Partial("Partials/UsedSpecialsCriteria")
                             </div>
                         }
                         else if (Model.ComparisonType == ComparisonType.BestInClass && Model.BicCriteria != null)
                         {
-                            <div class="panel panel-border-narrow criteria-detail">
+                            <div class="govuk-details__text criteria-detail">
                                 @Html.Partial("Partials/BicHiddenFields")
                                 @Html.Partial("Partials/UsedBicCriteria")
                             </div>
@@ -266,24 +269,24 @@ else
 
     if (Model.EstablishmentType == EstablishmentType.MAT && Model.TrustComparisonList.Trusts.Any(t => t.CompanyNo == Model.TrustComparisonList.DefaultTrustCompanyNo))
     {
-        <div class="grid-row">
-            <div class="column-full font-xsmall">
+        <div class="govuk-grid-row">
+            <div class="govuk-body govuk-grid-column-full govuk-!-font-size-16">
                 <span>Comparing</span>
                 <div class="highlight">
                     <a href="/trust/index?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">
-                        <span class="bold-xsmall">@Model.TrustComparisonList.DefaultTrustName</span>
+                        <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.TrustComparisonList.DefaultTrustName</span>
                     </a>
                 </div>
                 @if (ViewBag.ComparisonType == ComparisonType.Manual)
                 {
                     <span>&nbsp;to selected trusts. You can </span>
-                    <a href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>
+                    <a class="govuk-link" href="/TrustComparison/manual?companyNo=@Model.TrustComparisonList.DefaultTrustCompanyNo">view or edit these.</a>
                 }
                 else
                 {
                     <span>&nbsp;to trusts</span>
-                    <span class="bold-xsmall"> with characteristics you've chosen. </span>
-                    <button type="submit" class="link-button font-xsmall no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to trust characteristics</button>
+                    <span class="govuk-!-font-size-16 govuk-!-font-weight-bold"> with characteristics you've chosen. </span>
+                    <button type="submit" class="link-button govuk-!-font-size-16 no-padding hide-in-print" onclick="DfE.Views.BenchmarkChartsViewModel.submitCriteriaForm()">Back to trust characteristics</button>
                     @Html.Partial("Partials/TrustAdvancedHiddenFields")
                 }
             </div>
@@ -292,29 +295,29 @@ else
 
     if (Model.NoResultsForSimpleSearch)
     {
-        <div class="panel panel-border-wide orange-warning">
+        <div class="govuk-inset-text app-govuk-inset-text--orange">
             <p>
                 No similar schools were found. Change the characteristics used or try the
-                <a href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Detailed comparison</a>.
+                <a class="govuk-link" href="/BenchmarkCriteria/StepOne?comparisonType=Advanced&Urn=@Model.SchoolComparisonList.HomeSchoolUrn">Detailed comparison</a>.
             </p>
         </div>
     }
     else
     {
-        <div class="download-links hide-in-print grid-row">
+        <div class="download-links hide-in-print govuk-grid-row">
             <div id="downloadLinkContainer" class="download-link">
                 <div class="download">
-                    <button id="DownloadLink" class="link-button no-underline bold-xsmall sfb_gtm_csv_bm" onclick="DfE.Views.BenchmarkChartsViewModel.downloadData('@Model.EstablishmentType')">
+                    <button id="DownloadLink" class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold sfb_gtm_csv_bm" onclick="DfE.Views.BenchmarkChartsViewModel.downloadData('@Model.EstablishmentType')">
                         <img class="icon" src="~/public/assets/images/icons/download.svg" alt="" />
                         <div id="DownloadLinkTextWrapper" class="inline">
-                            <span id="DownloadLinkText"> Download data<span class="visually-hidden"> (CSV)</span></span>
+                            <span id="DownloadLinkText"> Download data<span class="govuk-visually-hidden"> (CSV)</span></span>
                         </div>
                     </button>
                 </div>
             </div>
             <div class="download-link pdf-ppt">
                 <div class="pdf">
-                    <button id="PdfLink" class="link-button no-underline bold-xsmall" onclick="DfE.Views.BenchmarkChartsViewModel.renderDownloadModal(event)">
+                    <button id="PdfLink" class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold" onclick="DfE.Views.BenchmarkChartsViewModel.renderDownloadModal(event)">
                         <img class="icon download-icon" src="~/public/assets/images/icons/download.svg" alt="" />
                         @*<img class="icon spin-icon" src="~/public/assets/images/spinner.gif" alt="" style="display: none" />*@
                         <span id="PdfLinkText"> Download page</span>
@@ -323,21 +326,21 @@ else
             </div>
             <div class="download-link">
                 <div class="print">
-                    <button id="PrintLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.printPage()">
+                    <button id="PrintLink" class="no-underline govuk-!-font-size-16 govuk-!-font-weight-bold link-button" onclick="DfE.Views.BenchmarkChartsViewModel.printPage()">
                         <img class="icon" src="~/public/assets/images/icons/print.svg" alt="" /><span id="PrintLinkText"> Print page</span>
                     </button>
                 </div>
             </div>
             <div class="download-link">
                 <div class="save">
-                    <button id="SaveLink" class="no-underline bold-xsmall link-button" onclick="DfE.Views.BenchmarkChartsViewModel.saveBenchmarkBasketModal()">
+                    <button id="SaveLink" class="no-underline govuk-!-font-size-16 govuk-!-font-weight-bold link-button" onclick="DfE.Views.BenchmarkChartsViewModel.saveBenchmarkBasketModal()">
                         <img class="icon download-icon" src="~/public/assets/images/icons/save.svg" alt="" />
                         <span id="SaveLinkText"> Save or share benchmark</span>
                     </button>
                     <span class="help-icon no-margin hide-in-print">
                         <span class="icon dark-blue">
-                            <a href="#" class="js-modal" role="button" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                <span class="visuallyhidden">Open more info text for save or share benchmark - opens a popup</span>
+                            <a class="js-modal" href="#" role="button" data-modal-title="Save or share benchmark" data-modal-text="<p>This feature allows you to save or share your benchmark charts of these schools as a web link.</p><p>There is no limit to the number of saves you can make but each web link is unique so must be stored securely in a document or as a bookmark in your browser.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                <span class="govuk-visually-hidden">Open more info text for save or share benchmark - opens a popup</span>
                             </a>
                         </span>
                     </span>
@@ -348,27 +351,10 @@ else
 
         <div ng-app="reportApp">
             <div id="listCtrl" ng-controller="ChartListController as ctrl">
-                <div>
-
-                    @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
-                    <div id="tabsSection">
-                        @Html.Partial("Partials/TabContent")
-                    </div>
-                    @if (Model.EstablishmentType != EstablishmentType.MAT)
-                    {
-                        <div id="customTabSection" style="display: none">
-                            @Html.Partial("Partials/CustomTabContent")
-                        </div>
-                        @Html.Partial("Partials/ComparisonSchoolsTabContent")
-                    }
-                    @if (Model.ComparisonType == ComparisonType.BestInClass)
-                    {
-                        @Html.Partial("Partials/BicTabContent")
-                    }
-                </div>
+                @Html.Partial("~/Views/BenchmarkCharts/Partials/TabControls.cshtml")
             </div>
         </div>
-        <a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+        <a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
         <input type="hidden" id="Type" name="Type" value="@Model.EstablishmentType" />
         <input type="hidden" id="ComparisonType" name="Type" value="@Model.ComparisonType" />

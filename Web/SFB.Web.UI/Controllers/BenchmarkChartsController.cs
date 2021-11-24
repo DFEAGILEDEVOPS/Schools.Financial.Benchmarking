@@ -329,6 +329,8 @@ namespace SFB.Web.UI.Controllers
 
         public async Task<ActionResult> GenerateFromBicCriteria(long urn)
         {
+            ViewBag.ModelState = ModelState;
+
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);            
 
             var bicCriteria = new BestInClassCriteria()
@@ -359,6 +361,15 @@ namespace SFB.Web.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> GenerateFromBicCriteria(long urn, BestInClassCriteria bicCriteria, bool isEditedCriteria = true)
         {
+            ViewBag.ModelState = ModelState;
+
+            if (!ModelState.IsValid) {
+                    return View("~/Views/BenchmarkCriteria/BestInClassCharacteristics.cshtml", 
+                    new BestInClassCharacteristicsViewModel(await InstantiateBenchmarkSchoolAsync(urn), bicCriteria) {
+                    ErrorMessage = "Validation error"
+                });
+            }
+
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
 
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromBicComparisonCriteria(benchmarkSchool.LatestYearFinancialData, bicCriteria);
@@ -1132,6 +1143,14 @@ namespace SFB.Web.UI.Controllers
             }
 
             return chartGroup;
+        }
+
+        private async Task<SchoolViewModel> InstantiateBenchmarkSchoolAsync(long urn)
+        {
+            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _schoolBenchmarkListService.GetSchoolBenchmarkList());
+            var schoolsLatestFinancialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
+            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
+            return benchmarkSchool;
         }
 
 

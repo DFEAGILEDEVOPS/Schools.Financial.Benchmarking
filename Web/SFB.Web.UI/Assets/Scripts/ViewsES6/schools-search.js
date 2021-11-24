@@ -9,10 +9,25 @@ class SchoolsSearchViewModel {
         this.azureMapsClient = new atlas.service.Client(atlas.getSubscriptionKey());
 
         this.bindEvents();
+
+        this.setActiveTab();
+    }
+
+    setActiveTab() {
+        let searchType = DfE.Util.QueryString.get('searchtype');
+        switch (searchType) {
+            case "search-by-trust-location":
+            case "search-by-trust-name-id":
+            case "search-by-trust-la-code-name":
+                $("#TrustTab a")[0].click();
+                break;
+            case "compare-without-default-school":
+                $("#NoDefaultTab a")[0].click();
+                break;
+        }
     }
 
     bindEvents() {
-        GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
         $('#FindCurrentPosition').click(this.findCurrentLocationHandler.bind(this));
         $('#openOnlyName').change(() => $('#FindByNameId').typeahead('val', ''));
         this.bindAutosuggest('#FindByNameId', '#FindByNameIdSuggestionId', this.getSchoolsSuggestionHandler);
@@ -25,6 +40,7 @@ class SchoolsSearchViewModel {
         this.bindAutosuggest('#FindSchoolManuallyByLaCodeName', '#SelectedLocalAuthorityId', { data: this.localAuthorities, name: "LANAME", value: "id" });
         this.bindEnterKeysToButtons();
         this.bindAccordionHeaderClick();
+
     }
 
     bindAccordionHeaderClick() {
@@ -40,7 +56,7 @@ class SchoolsSearchViewModel {
         inputs.keypress(function (e) {
             if (e.which === 13) {
                 e.preventDefault();
-                $(e.target).closest(".form-group").find("button").click();
+                $(e.target).closest(".govuk-form-group").find("button").click();
             }
         });
     }
@@ -53,13 +69,9 @@ class SchoolsSearchViewModel {
         } else this.getCurrentPositionErrorHandler(-1);
     }
 
-    accordionChangeHandler() {
-        $(".error-summary").hide();
-    }
-    
     getSchoolsSuggestionHandler(keywords, callback) {
         let dataSuggestionUrl = $("#FindByNameId").attr("data-suggestion-url");
-        let openSchoolsOnly = $("#FindByNameId").parents('.form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
+        let openSchoolsOnly = $("#FindByNameId").parents('.govuk-form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
         return $.get(encodeURI(`${dataSuggestionUrl}?nameId=${keywords}&openonly=${openSchoolsOnly}`), function (response) {
             return callback(response.Matches);
         });
@@ -72,25 +84,25 @@ class SchoolsSearchViewModel {
         });
     }
 
-        getCurrentPositionErrorHandler (err) {
-            let msg;
-            switch (err.code) {
-                case err.UNKNOWN_ERROR:
-                    msg = "Unable to find your location";
-                    break;
-                case err.PERMISSION_DENIED:
-                    msg = "Your location is blocked by your browser, enter your location manually";
-                    break;
-                case err.POSITION_UNAVAILABLE:
-                    msg = "Your location is currently unknown";
-                    break;
-                case err.TIMEOUT:
-                    msg = "Attempt to find location took too long";
-                    break;
-                default:
-                    msg = "Location detection not supported in browser";
-            }
-            var html = `<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+    getCurrentPositionErrorHandler(err) {
+        let msg;
+        switch (err.code) {
+            case err.UNKNOWN_ERROR:
+                msg = "Unable to find your location";
+                break;
+            case err.PERMISSION_DENIED:
+                msg = "Your location is blocked by your browser, enter your location manually";
+                break;
+            case err.POSITION_UNAVAILABLE:
+                msg = "Your location is currently unknown";
+                break;
+            case err.TIMEOUT:
+                msg = "Attempt to find location took too long";
+                break;
+            default:
+                msg = "Location detection not supported in browser";
+        }
+        var html = `<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
                 <h1 id = "ErrorSummaryHeading" class="heading-medium error-summary-heading">
                 There is a problem
                 </h1>
@@ -100,197 +112,153 @@ class SchoolsSearchViewModel {
                     </li>
                 </ul>
                 </div>`;
-            $("#error-summary-placeholder").empty();
-            $("#error-summary-placeholder").append(html);
-            $(".location-error-message-placeholder").empty();
-            $(".location-error-message-placeholder").append(`<span class="error-message">${msg}</span>`);
-        }
+        $("#error-summary-placeholder").empty();
+        $("#error-summary-placeholder").append(html);
+        $(".location-error-message-placeholder").empty();
+        $(".location-error-message-placeholder").append(`<span class="error-message">${msg}</span>`);
+    }
 
-        getCurrentPositionSuccessHandler (position) {
-            let coords = position.coords || position.coordinate || position;
+    getCurrentPositionSuccessHandler(position) {
+        let coords = position.coords || position.coordinate || position;
 
-            $("#error-summary-placeholder").empty();
-            $(".location-error-message-placeholder").empty();
-            $('#LocationCoordinates').val(coords.latitude + ',' + coords.longitude);
-            $('#SearchByTownFieldset button[type="submit"]').removeAttr('disabled');
+        $("#error-summary-placeholder").empty();
+        $(".location-error-message-placeholder").empty();
+        $('#LocationCoordinates').val(coords.latitude + ',' + coords.longitude);
+        $('#SearchByTownFieldset button[type="submit"]').removeAttr('disabled');
 
-            $.getJSON(`https://api.postcodes.io/postcodes?lat=${coords.latitude}&lon=${coords.longitude}&widesearch=true`, function (data) {
-                if (data.result) {
-                    $('#FindSchoolByTown').val(data.result[0].postcode);
-                    $('#FindSchoolManuallyByTown').val(data.result[0].postcode);
-                    $('#FindSchoolByTown').attr("placeholder", "");
-                    $('#FindSchoolManuallyByTown').attr("placeholder", "");
-                }
-            });
+        $.getJSON(`https://api.postcodes.io/postcodes?lat=${coords.latitude}&lon=${coords.longitude}&widesearch=true`, function (data) {
+            if (data.result) {
+                $('#FindSchoolByTown').val(data.result[0].postcode);
+                $('#FindSchoolManuallyByTown').val(data.result[0].postcode);
+                $('#FindSchoolByTown').attr("placeholder", "");
+                $('#FindSchoolManuallyByTown').attr("placeholder", "");
+            }
+        });
     }
 
     getLocationResultsHandler(keywords, callback) {
-            this.azureMapsClient.search.getSearchAddress(keywords, {
-                typeahead: true,
-                countrySet: ['GB'],
-                limit: 10
-            }).then(function (response) {
-                let suggestions = [];
-                if (response && response.results !== null && response.results.length > 0) {
-                    var geojsonResponse = new atlas.service.geojson.GeoJsonSearchResponse(response);
-                    var results = geojsonResponse.getGeoJsonResults();
+        this.azureMapsClient.search.getSearchAddress(keywords, {
+            typeahead: true,
+            countrySet: ['GB'],
+            limit: 10
+        }).then(function (response) {
+            let suggestions = [];
+            if (response && response.results !== null && response.results.length > 0) {
+                var geojsonResponse = new atlas.service.geojson.GeoJsonSearchResponse(response);
+                var results = geojsonResponse.getGeoJsonResults();
 
-                    suggestions = results.features.filter(function (r) { return r.properties.address.countrySubdivision === "ENG"; }).map(function (r) {
-                        var obj = {};
-                        var output = "";
+                suggestions = results.features.filter(function (r) { return r.properties.address.countrySubdivision === "ENG"; }).map(function (r) {
+                    var obj = {};
+                    var output = "";
 
-                        if (r.properties.type !== "Street" && !r.properties.address.postalCode && r.properties.address.municipalitySubdivision) {
-                            output = r.properties.address.municipalitySubdivision + ', ' + r.properties.address.municipality;
-                        }
-                        else {
-                            output = r.properties.address.freeformAddress;
-                        }
+                    if (r.properties.type !== "Street" && !r.properties.address.postalCode && r.properties.address.municipalitySubdivision) {
+                        output = r.properties.address.municipalitySubdivision + ', ' + r.properties.address.municipality;
+                    }
+                    else {
+                        output = r.properties.address.freeformAddress;
+                    }
 
-                        output += ', ' + r.properties.address.countrySecondarySubdivision;
+                    output += ', ' + r.properties.address.countrySecondarySubdivision;
 
-                        obj.Text = output;
-                        obj.Location = r.properties.position.lat + ',' + r.properties.position.lon;
-                        return obj;
-                    });
-                }
-
-                return callback(suggestions);
-            });
-        }
-
-        bindAutosuggest (targetInputElementName, targetResolvedInputElementName, suggestionSource) {
-
-            let field = "Text";
-            let value = "Id";
-            let source = null;
-            let minChars = 0;
-
-            if (typeof suggestionSource === "function") { // remote source
-                minChars = 3;
-                source = function (query, syncResultsFn, asyncResultsFn) {
-                    return suggestionSource.call(self, query, asyncResultsFn);
-                };
-            } else if (typeof suggestionSource === "object") { // local data source
-
-                if (!suggestionSource.data) { console.log("suggestionSource.data is null"); return; }
-                if (!suggestionSource.name) { console.log("suggestionSource.name is null"); return; }
-                if (!suggestionSource.value) { console.log("suggestionSource.value is null"); return; }
-                
-                minChars = 2;
-                field = suggestionSource.name;
-                value = suggestionSource.value;
-
-                source = new Bloodhound({
-                    datumTokenizer: function (d) { return Bloodhound.tokenizers.whitespace(d[field]); },
-                    queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    local: suggestionSource.data
+                    obj.Text = output;
+                    obj.Location = r.properties.position.lat + ',' + r.properties.position.lon;
+                    return obj;
                 });
-                source.initialize();
-            } else {
-                console.log("Incompatible suggestionSource");
-                return;
             }
 
-            var templateHandler = function (suggestion) { return '<div><a href="javascript:">' + suggestion[field] + '</a></div>'; };
-
-            $(targetInputElementName).typeahead({
-                hint: false,
-                highlight: true,
-                highlightAliases: [
-                    ["st. ", "st ", "saint "]
-                ],
-                minLength: minChars,
-                classNames: {
-                    menu: 'tt-menu form-control mtm',
-                    highlight: 'bold-small'
-                },
-                ariaOwnsId: "arialist_" + DfE.Util.randomNumber()
-            }, {
-                    display: field,
-                    limit: 10,
-                    source: source,
-                    templates: {
-                        suggestion: templateHandler
-                    }
-                });
-
-            let currentSuggestionName = "";
-
-            $(targetInputElementName).bind("typeahead:select", function (src, suggestion) {
-                $(targetResolvedInputElementName).val(suggestion[value]);
-                currentSuggestionName = suggestion[field];
-                var openSchoolsOnly = $(this).parents('.form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
-                var textBoxId = $(this).attr('id');
-                let url = '';
-                switch (textBoxId) {
-                    case 'FindSchoolByTown':
-                        $('#LocationCoordinates').val(suggestion['Location']);
-                        break;
-                    case 'FindTrustByTown':
-                        $('#LocationCoordinatesForTrust').val(suggestion['Location']);
-                        break;
-                    case 'FindSchoolManuallyByTown':
-                        $('#LocationCoordinates').val(suggestion['Location']);
-                        break;
-                }
-            });
-
-            $(targetInputElementName).bind("typeahead:autocomplete", function (src, suggestion) {
-                $(targetResolvedInputElementName).val(suggestion[value]);
-                currentSuggestionName = suggestion[name];
-            });
-
-            $(targetInputElementName).bind("input propertychange", function (event) {
-                // When the user changes the value in the search having already selected an item, ensure the selection resets
-                var currentValue = $(event.target).val();
-                if (currentValue !== currentSuggestionName) {
-                    $(targetResolvedInputElementName).val("");
-                }
-            });
-        }
-
-    tabChange(tabId) {
-        $('.tabs li').removeClass('active');
-        $('.tabs li a').attr('aria-selected', 'false');
-        $('.tabs li a').attr('tabindex', '-1');
-        $('#' + tabId).addClass('active');
-        $('#' + tabId + ' a').attr('aria-selected', 'true');
-        $('#' + tabId + ' a').focus();
-        $('#' + tabId + ' a').attr('tabindex', '0');
-        $('.tab-content').hide();
-        $('#' + tabId + 'Content').show();
+            return callback(suggestions);
+        });
     }
 
-    tabKeydown(e) {
-        let keys = {
-            left: 37,
-            up: 38,
-            right: 39,
-            down: 40,
-            enter: 13,
-            space: 32
-        };
+    bindAutosuggest(targetInputElementName, targetResolvedInputElementName, suggestionSource) {
 
-        activatePreviousTab = function () {
-            $("ul[role='tablist'] li.active").prev().find("a[role='tab']").click();
+        let field = "Text";
+        let value = "Id";
+        let source = null;
+        let minChars = 0;
+
+        if (typeof suggestionSource === "function") { // remote source
+            minChars = 3;
+            source = function (query, syncResultsFn, asyncResultsFn) {
+                return suggestionSource.call(self, query, asyncResultsFn);
+            };
+        } else if (typeof suggestionSource === "object") { // local data source
+
+            if (!suggestionSource.data) { console.log("suggestionSource.data is null"); return; }
+            if (!suggestionSource.name) { console.log("suggestionSource.name is null"); return; }
+            if (!suggestionSource.value) { console.log("suggestionSource.value is null"); return; }
+
+            minChars = 2;
+            field = suggestionSource.name;
+            value = suggestionSource.value;
+
+            source = new Bloodhound({
+                datumTokenizer: function (d) { return Bloodhound.tokenizers.whitespace(d[field]); },
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: suggestionSource.data
+            });
+            source.initialize();
+        } else {
+            console.log("Incompatible suggestionSource");
+            return;
         }
 
-        activateNextTab = function () {
-            $("ul[role='tablist'] li.active").next().find("a[role='tab']").click();
-        }
+        var templateHandler = function (suggestion) { return '<div><a class="govuk-link" href="javascript:">' + suggestion[field] + '</a></div>'; };
 
-        switch (e.keyCode) {
-            case keys.left:
-            case keys.up:
-                activatePreviousTab();
-                e.preventDefault();
-                break
-            case keys.right:
-            case keys.down:
-                activateNextTab();
-                e.preventDefault();
-                break
-        }
+        $(targetInputElementName).typeahead({
+            hint: false,
+            highlight: true,
+            highlightAliases: [
+                ["st. ", "st ", "saint "]
+            ],
+            minLength: minChars,
+            classNames: {
+                menu: 'tt-menu govuk-form-control mtm',
+                highlight: 'govuk-!-font-size-19 govuk-!-font-weight-bold'
+            },
+            ariaOwnsId: "arialist_" + DfE.Util.randomNumber()
+        }, {
+            display: field,
+            limit: 10,
+            source: source,
+            templates: {
+                suggestion: templateHandler
+            }
+        });
+
+        let currentSuggestionName = "";
+
+        $(targetInputElementName).bind("typeahead:select", function (src, suggestion) {
+            $(targetResolvedInputElementName).val(suggestion[value]);
+            currentSuggestionName = suggestion[field];
+            var openSchoolsOnly = $(this).parents('.govuk-form-group').first().find("input:checkbox[name='openOnly']").prop('checked');
+            var textBoxId = $(this).attr('id');
+            let url = '';
+            switch (textBoxId) {
+                case 'FindSchoolByTown':
+                    $('#LocationCoordinates').val(suggestion['Location']);
+                    break;
+                case 'FindTrustByTown':
+                    $('#LocationCoordinatesForTrust').val(suggestion['Location']);
+                    break;
+                case 'FindSchoolManuallyByTown':
+                    $('#LocationCoordinates').val(suggestion['Location']);
+                    break;
+            }
+        });
+
+        $(targetInputElementName).bind("typeahead:autocomplete", function (src, suggestion) {
+            $(targetResolvedInputElementName).val(suggestion[value]);
+            currentSuggestionName = suggestion[name];
+        });
+
+        $(targetInputElementName).bind("input propertychange", function (event) {
+            // When the user changes the value in the search having already selected an item, ensure the selection resets
+            var currentValue = $(event.target).val();
+            if (currentValue !== currentSuggestionName) {
+                $(targetResolvedInputElementName).val("");
+            }
+        });
     }
 }
 

@@ -4,24 +4,24 @@
 @model ChartViewModel
 
 
-    <table class="tablesorter data-table-js chart-table">
-        <caption class="visually-hidden">@Model.Name</caption>
-        <thead>
-        <tr>
-            <th class="school-column" scope="col">
+    <table class="govuk-table tablesorter data-table-js chart-table">
+        <caption class="govuk-visually-hidden">@Model.Name</caption>
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th class="govuk-table__header school-column" scope="col">
                 Year
             </th>
-            <th scope="col">
+            <th scope="col" class="govuk-table__header">
                 <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.HistoricalData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.HistoricalData.First().Unit)</span>
             </th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="govuk-table__body">
         @foreach (var schoolHistoricalData in Model.HistoricalData)
         {
-            <tr>
-                <td class="school-column">@schoolHistoricalData.Year</td>
-                <td>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell school-column">@schoolHistoricalData.Year</td>
+                <td class="govuk-table__cell">
                     @if (schoolHistoricalData.Amount.HasValue)
                     {
                         switch ((UnitType) Enum.Parse(typeof(UnitType), schoolHistoricalData.Unit))

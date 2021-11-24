@@ -26,86 +26,94 @@
 
 @if (Model.IsUnderReview)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
+    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
         <div class="combined-warnings">
-            <p>@ConfigurationManager.AppSettings["UnderReviewMessageForTrusts"]</p>
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    @ConfigurationManager.AppSettings["UnderReviewMessageForTrusts"]
+                </strong>
+            </div>
         </div>
     </div>
 }
 
 @if (Model.IsReturnsDNS || Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData) || Model.IsReturnsPlaceholder)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper hide-in-print">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
+    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
         <div class="combined-warnings">
             @if (Model.IsReturnsDNS)
             {
-                <p>
-                    This trust has not submitted any data
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This trust has not submitted any data
+                    </strong>
+                </div>
             }
             else
             {
                 if (Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData))
                 {
-                    <p>
-                        Some of this trust's schools have data from a period less than 12 months
-                    </p>
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            Some of this trust's schools have data from a period less than 12 months
+                        </strong>
+                    </div>
                 }
 
             }
 
             @if (Model.IsReturnsPlaceholder)
             {
-                <p>
-                    This trust did not submit finance for the most recent year
-                </p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This trust did not submit finance for the most recent year
+                    </strong>
+                </div>
             }
         </div>
     </div>
 }
 
 <div class="blue-banner">
-    <h1 class="heading-xlarge page-heading">@Model.Name</h1>
+    <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
 
     @if (!Model.IsReturnsDNS)
     {
-        <p class="hide-in-print">There are several ways for you to compare this trust against others.</p>
+        <p class="govuk-body hide-in-print">There are several ways for you to compare this trust against others.</p>
 
-        <a class="button start-button hide-in-print" href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name" role="button">
+        <a href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
             Start a comparison
             <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
             </svg>
         </a>
     }
 
 </div>
 
-<div class="grid-row download-links hide-in-print">
-    <div class="column-full pl-0">
-        <div class="column-one-third no-padding">
+<div class="govuk-grid-row download-links hide-in-print">
+    <div class=" govuk-grid-column-full pl-0">
+        <div class="govuk-grid-column-one-third no-padding">
             <div class="download">
-                <button class="no-underline link-button bold-xsmall black" onclick="DfE.Views.TrustDetailsViewModel.downloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.TrustDetailsViewModel.downloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
                     <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
                     <div id="DownloadLinkTextWrapper" class="inline">
-                        <span id="DownloadLinkText"> Download data for this trust<span class="visually-hidden"> (CSV)</span></span>
+                        <span id="DownloadLinkText"> Download data for this trust<span class="govuk-visually-hidden"> (CSV)</span></span>
                     </div>
                 </button>
             </div>
         </div>
-        <div class="column-one-third no-padding">
+        <div class="govuk-grid-column-one-third no-padding">
             <div class="print">
-                <button class="no-underline link-button bold-xsmall" onclick="DfE.Views.TrustDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold" onclick="DfE.Views.TrustDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
                 </button>
             </div>
@@ -113,37 +121,37 @@
     </div>
 </div>
 
-<div class="grid-row">
+<div class="govuk-grid-row">
     @if (Model.AcademiesInContextList.Count > 0)
     {
-        <div class="column-full">
+        <div class=" govuk-grid-column-full">
 
-            <p class="mb-1 mt-1">
-                This trust is made up of <span class="bold">@Model.AcademiesInContextList.Count</span> of schools.
-                At the time of <span class="bold">@Model.LatestTerm</span> financial submission there were <span class="bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
+            <p class="govuk-body mb-1 mt-1">
+                This trust is made up of <span class="govuk-!-font-weight-bold">@Model.AcademiesInContextList.Count</span> of schools.
+                At the time of <span class="govuk-!-font-weight-bold">@Model.LatestTerm</span> financial submission there were <span class="govuk-!-font-weight-bold">@Model.AcademiesInFinanceList.Count</span> schools in scope for financial benchmarking.
                 Post 16 academies are included for distribution purposes, but they cannot be benchmarked.
-                <a href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
+                <a class="govuk-link" href="/TrustSchools?uid=@Model.UID&companyNo=@Model.CompanyNo&matname=@Model.Name">Compare schools in this trust</a>
             </p>
 
-            <div id="schools-in-trust-accordion" class="accordion mb-1">
-
-                <div class="accordion-section current">
-                    <h2>
-                        <a class="accordion-section-header" href="javascript:void(0)">
-                            <span id="CurrentHeader" class="heading-medium ">Schools currently in this trust</span>
-                        </a>
-                    </h2>
-
-                    <div class="accordion-section-body">
+            <div class="govuk-accordion govuk-!-margin-bottom-3 app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-trust-accordion">
+                <div class="govuk-accordion__section current">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            <span class="govuk-accordion__section-button" id="CurrentHeader">
+                                Schools currently in this trust
+                            </span>
+                        </h2>
+                    </div>
+                    <div id="accordion-current-content" class="govuk-accordion__section-content" aria-labelledby="CurrentHeader">
                         <div class="sponsor-detail">
                             @if (Model.AcademiesInContextList.Count > 10)
                             {
                                 <div class="resultListPanel">
-                                    <ul class="list two-columns resultListPanel__ul">
+                                    <ul class="govuk-list two-columns resultListPanel__ul">
                                         @foreach (var academy in Model.AcademiesInContextList)
                                         {
                                             <li>
-                                                <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                                <a class="govuk-link" href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
                                             </li>
                                         }
                                     </ul>
@@ -152,11 +160,11 @@
                             else
                             {
                                 <div class="resultListPanel">
-                                    <ul class="list list-bullet resultListPanel__ul">
+                                    <ul class="govuk-list govuk-list--bullet resultListPanel__ul">
                                         @foreach (var school in Model.AcademiesInContextList)
                                         {
                                             <li>
-                                                <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                                                <a class="govuk-link" href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
                                             </li>
                                         }
                                     </ul>
@@ -166,34 +174,35 @@
                     </div>
                 </div>
 
-                <div class="accordion-section latest">
-                    <h2>
-                        <a class="accordion-section-header" href="javascript:void(0)">
-                            <span id="LatestTermHeader" class="heading-medium ">Schools in this trust's @Model.LatestTerm submission</span>
-                        </a>
-                    </h2>
-
-                    <div class="accordion-section-body">
+                <div class="govuk-accordion__section latest">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            <span class="govuk-accordion__section-button" id="LatestTermHeader">
+                                Schools in this trust's @Model.LatestTerm submission
+                            </span>
+                        </h2>
+                    </div>
+                    <div id="accordion-latest-content" class="govuk-accordion__section-content" aria-labelledby="LatestTermHeader">
                         <div class="sponsor-detail">
                             @if (Model.AcademiesInFinanceList.Count > 10)
                             {
                                 <div class="resultListPanel">
-                                    <ul class="list two-columns resultListPanel__ul">
+                                    <ul class="govuk-list two-columns resultListPanel__ul">
                                         @foreach (var academy in Model.AcademiesInFinanceList)
                                         {
                                             if (academy.HasIncompleteFinancialData)
                                             {
                                                 <li>
-                                                    <a href="/school/detail?urn=@academy.URN" class="highlight-warning">
+                                                    <a href="/school/detail?urn=@academy.URN" class="govuk-link highlight-warning">
                                                         @academy.EstablishmentName
-                                                        <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                                        <span class="govuk-visually-hidden"> has data from a period less than 12 months</span>
                                                     </a>
                                                 </li>
                                             }
                                             else
                                             {
                                                 <li>
-                                                    <a href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
+                                                    <a class="govuk-link" href="/school/detail?urn=@academy.URN">@academy.EstablishmentName</a>
                                                 </li>
                                             }
                                         }
@@ -203,22 +212,22 @@
                             else
                             {
                                 <div class="resultListPanel">
-                                    <ul class="list list-bullet resultListPanel__ul">
+                                    <ul class="govuk-list govuk-list--bullet resultListPanel__ul">
                                         @foreach (var school in Model.AcademiesInFinanceList)
                                         {
                                             if (school.HasIncompleteFinancialData)
                                             {
                                                 <li>
-                                                    <a href="/school/detail?urn=@school.URN" class="highlight-warning">
+                                                    <a href="/school/detail?urn=@school.URN" class="govuk-link highlight-warning">
                                                         @school.EstablishmentName
-                                                        <span class="visually-hidden"> has data from a period less than 12 months</span>
+                                                        <span class="govuk-visually-hidden"> has data from a period less than 12 months</span>
                                                     </a>
                                                 </li>
                                             }
                                             else
                                             {
                                                 <li>
-                                                    <a href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
+                                                    <a class="govuk-link" href="/school/detail?urn=@school.URN">@school.EstablishmentName</a>
                                                 </li>
                                             }
                                         }
@@ -226,44 +235,46 @@
                                 </div>
                             }
                         </div>
+
                     </div>
                 </div>
 
-                <div class="accordion-section history">
-                    <h2>
-                        <a class="accordion-section-header" href="javascript:void(0)">
-                            <span id="HistoryTermHeader" class="heading-medium ">Trust history</span>
-                        </a>
-                    </h2>
-
-                    <div class="accordion-section-body">
+                <div class="govuk-accordion__section history">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            <span class="govuk-accordion__section-button" id="HistoryTermHeader">
+                                Trust history
+                            </span>
+                        </h2>
+                    </div>
+                    <div id="accordion-history-content" class="govuk-accordion__section-content" aria-labelledby="HistoryTermHeader">
                         <div class="sponsor-detail">
                             <div class="resultListPanel">
-                                <table class="history-table">
-                                    <tr>
-                                        <th scope="col">School year</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Event</th>
-                                        <th scope="col">Organisation</th>
+                                <table class="govuk-table history-table">
+                                    <tr class="govuk-table__row">
+                                        <th scope="col" class="govuk-table__header">School year</th>
+                                        <th scope="col" class="govuk-table__header">Date</th>
+                                        <th scope="col" class="govuk-table__header">Event</th>
+                                        <th scope="col" class="govuk-table__header">Organisation</th>
                                     </tr>
                                     @for (int i = 0; i < Model.TrustHistory?.Events.Count; i++)
                                     {
                                         if (i > 0 && Model.TrustHistory.Events[i].SchoolYear == Model.TrustHistory.Events[i - 1].SchoolYear)
                                         {
-                                            <tr>
-                                                <td class="school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
-                                                <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
-                                                <td>@Model.TrustHistory.Events[i].Event</td>
-                                                <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell school-year-column" aria-label="@Model.TrustHistory.Events[i].SchoolYear"></td>
+                                                <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
+                                                <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Event</td>
+                                                <td class="govuk-table__cell"><a class="govuk-link" href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
                                             </tr>
                                         }
                                         else
                                         {
-                                            <tr class="new-row">
-                                                <td class="school-year-column">@Model.TrustHistory.Events[i].SchoolYear</td>
-                                                <td>@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
-                                                <td>@Model.TrustHistory.Events[i].Event</td>
-                                                <td><a href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
+                                            <tr class="govuk-table__row new-row">
+                                                <td class="govuk-table__cell school-year-column">@Model.TrustHistory.Events[i].SchoolYear</td>
+                                                <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Date.ToShortDateString()</td>
+                                                <td class="govuk-table__cell">@Model.TrustHistory.Events[i].Event</td>
+                                                <td class="govuk-table__cell"><a class="govuk-link" href="/school/detail?urn=@Model.TrustHistory.Events[i].OrganisationUrn">@Model.TrustHistory.Events[i].OrganisationName</a></td>
                                             </tr>
                                         }
 
@@ -273,82 +284,63 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
     }
 
 </div>
 
-<div class="grid-row metadata-school-detail font-xsmall mt-1">
-    <div class="column-full">
+<div class="govuk-grid-row metadata-school-detail govuk-!-font-size-16 mt-1">
+    <div class=" govuk-grid-column-full">
         <dl class="metadata-school-detail__dl">
-            <dt class="metadata-school-detail__dt">Companies House number:</dt>
-            <dd class="metadata-school-detail__dd bold">
-                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(Model.CompanyNo.ToString("D8"))">@(Model.CompanyNo)</a>
+            <dt class="metadata-school-detail__dt govuk-body-s">Companies House number:</dt>
+            <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
+                <a class="govuk-link" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(Model.CompanyNo.ToString("D8"))">@(Model.CompanyNo)</a>
             </dd>
-            <dt class="metadata-school-detail__dt">Data from other services:</dt>
-            <dd class="metadata-school-detail__dd bold">
-                <a class="trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
+            <dt class="metadata-school-detail__dt govuk-body-s">Data from other services:</dt>
+            <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
+                <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
                 <span class="trust-ext-link-seperator">|</span>
-                <a class="trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
+                <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
             </dd>
         </dl>
     </div>
-    <div class="column-full mb-1 mt-1" style="clear: left">
-        <a href="~/Help/DataQueries" class="hide-in-print">Do you have a query about this trust's data?</a>
+    <div class=" govuk-grid-column-full mb-1 mt-1" style="clear: left">
+        <a href="~/Help/DataQueries" class="govuk-link hide-in-print">Do you have a query about this trust's data?</a>
     </div>
 </div>
 
 @Html.Partial("Partials/FinancialSummaryFields")
 
 
-<a name="charts"></a>
-<div id="tabs" class="custom tabs">
-    <ul role="tablist">
-        <li class="@(ViewBag.Tab == TabType.Expenditure ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Expenditure ? "0" : "-1")"
-               role="tab"
-               aria-controls="tabPanel"
-               class="tab-link"
-               href="javascript: void(0)"
-               onkeydown="DfE.Views.TrustDetailsViewModel.tabKeydown(event)"
-               onclick='DfE.Views.TrustDetailsViewModel.tabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'>@TabNames.EXPENDITURE</a>
+<a class="govuk-link" name="charts"></a>
+
+<div id="tabs" class="govuk-tabs custom" data-module="govuk-tabs">
+    <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected hide-in-print" id="ExpenditureTab">
+            <a class="govuk-tabs__tab"
+               onclick='DfE.Views.TrustDetailsViewModel.tabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Expenditure")'
+               href="#tabPanel">@TabNames.EXPENDITURE</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Income ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Income ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Income ? "0" : "-1")"
-               role="tab"
-               aria-controls="tabPanel"
-               class="tab-link"
-               href="javascript: void(0)"
-               onkeydown="DfE.Views.TrustDetailsViewModel.tabKeydown(event)"
-               onclick='DfE.Views.TrustDetailsViewModel.tabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'>@TabNames.INCOME</a>
+        <li class="govuk-tabs__list-item hide-in-print" id="IncomeTab">
+            <a class="govuk-tabs__tab"
+               onclick='DfE.Views.TrustDetailsViewModel.tabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Income")'
+               href="#tabPanel">@TabNames.INCOME</a>
         </li>
-        <li class="@(ViewBag.Tab == TabType.Balance ? "active" : "") hide-in-print" role="presentation">
-            <a aria-selected="@(ViewBag.Tab == TabType.Balance ? "true" : "false")"
-               tabindex="@(ViewBag.Tab == TabType.Balance ? "0" : "-1")"
-               role="tab"
-               aria-controls="tabPanel"
-               class="tab-link"
-               href="javascript: void(0)"
-               onkeydown="DfE.Views.TrustDetailsViewModel.tabKeydown(event)"
-               onclick='javascript:DfE.Views.TrustDetailsViewModel.tabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'>@TabNames.BALANCE</a>
+        <li class="govuk-tabs__list-item hide-in-print" id="BalanceTab">
+            <a class="govuk-tabs__tab"
+               onclick='DfE.Views.TrustDetailsViewModel.tabChange("@Model.Code","@Model.CompanyNo","@Model.Name","@TabType.Balance")'
+               href="#tabPanel">@TabNames.BALANCE</a>
         </li>
     </ul>
-</div>
 
-<div id="tabPanel" role="tabpanel">
-    <div class="sticky-div sticky-chart-controls">
-        <div id="controls-accordion" class="accordion mobile-only-accordion">
-            <div class="accordion-section">
-                <fieldset role="group">
-                    <legend class="visually-hidden hide-in-print">Filters</legend>
-                    <div class="accordion-section-header">
-                        <h2 class="heading-medium hide-in-print">Filters</h2>
-                    </div>
-                    <div class="accordion-section-body">
+    <div id="tabPanel" class="govuk-tabs__panel app-tabs__panel--no-border">
+        <div class="sticky-div sticky-chart-controls">
+            <div id="controls-accordion">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
+                    <div>
                         @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
                         @Html.Partial("Partials/ValueSelect")
                         @Html.Partial("Partials/TrustCentralFinancing")
@@ -356,29 +348,31 @@
                 </fieldset>
             </div>
         </div>
-    </div>
 
-    <div class="charts-section">
-        <div class="grid-row">
-            <div autocomplete="off">
-                <div class="column-full font-xsmall chartTable hide-in-print">
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
-                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="visually-hidden"> - Recommended option for screen readers</span></span></button>
-                </div>
-                <div class="column-full font-xsmall hide-in-print">
-                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
-                        <span><</span>
-                        <span class="underline">All <span class="js-parent-group">expenditure</span> charts</span>
-                    </button>
+        <div class="charts-section">
+            <div class="govuk-grid-row">
+                <div autocomplete="off">
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 chartTable hide-in-print">
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                        <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.TrustDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
+                    </div>
+                    <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
+                        <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.ResetGrouping()">
+                            <span><</span>
+                            <span class="govuk-link">All <span class="js-parent-group">expenditure</span> charts</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="historical-charts-list">
-            @Html.Partial("Partials/Chart", Model)
+            <div class="historical-charts-list">
+                @Html.Partial("Partials/Chart", Model)
+            </div>
         </div>
     </div>
+
 </div>
-<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 @section ViewScripts {
     <script src="~/node_modules/d3/d3.min.js"></script>

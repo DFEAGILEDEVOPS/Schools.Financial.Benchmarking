@@ -184,7 +184,7 @@ namespace SFB.Web.UI.Services
 
                 historicalChartData.Add(new HistoricalChartData()
                 {
-                    Year = schoolData.Term,
+                    Year = (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT) ? schoolData.Term.Replace(" / ", "/") : schoolData.Term.Replace(" / ", "-"),
                     Amount = amount,
                     TeacherCount = schoolData.TeacherCount,
                     PupilCount = schoolData.PupilCount,
@@ -194,7 +194,7 @@ namespace SFB.Web.UI.Services
 
             chart.HistoricalData = historicalChartData;
             chart.DataJson = GenerateJson(historicalChartData, estabType);
-            chart.LastYear = term;
+            chart.LastYear = term = (estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT) ? term.Replace(" / ", "/") : term.Replace(" / ", "-");
             chart.LastYearBalance = historicalChartData.Find(d => d.Year == term).Amount;
             chart.ShowValue = unit;
         }

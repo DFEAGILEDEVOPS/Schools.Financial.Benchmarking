@@ -1,32 +1,38 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
 @model SFB.Web.UI.Models.SearchViewModel
 
-<div id="LaCodeNameAccordion" class="accordion-label multiple-choice js-accordion @(Model.GetRadioButtonSelectedClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))" aria-controls="SearchByLaCodeNameFieldset">
-    <input id="LaCodeName" type="radio" @(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME)) />
-    <label for="LaCodeName">Add schools by local authority</label>
+
+<div id="LaCodeNameAccordion" class="govuk-radios__item js-accordion">
+    <input class="govuk-radios__input" id="LaCodeName" name="option" type="radio"  
+           @Html.Raw(Model.GetRadioButtonCheckedAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME)) 
+           data-aria-controls="SearchByLaCodeNameFieldset" />
+    <label class="govuk-label govuk-radios__label" for="LaCodeName">Add schools by local authority</label>
 </div>
-<div id="SearchByLaCodeNameFieldset" class="panel panel-border-narrow search-types__optional-section form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
-    <label class="search-types__optional-section__label" for="FindSchoolManuallyByLaCodeName" id="sectionLabel">
-        <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
-    </label>
-    <label class="visually-hidden" for="FindSchoolManuallyByLaCodeName_listbox">Select a local authority from the list box</label>
-    @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
-    {
-        <span class="error-message">@Model.ErrorMessage</span>
-    }
-    <div class="multiple-choice" style="float:none">
-        <input id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>
-        <label for="openOnlyLa" class="search-types__optional-section__label">Include open schools only</label>
-    </div>
-    <div>
+<div id="SearchByLaCodeNameFieldset" class="govuk-radios__conditional govuk-radios__conditional--hidden">
+    <div class="govuk-form-group @(Model.GetSearchTypeErrorClass(SearchTypes.SEARCH_BY_LA_CODE_NAME))">
+        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <div class="govuk-checkboxes__item govuk-!-margin-bottom-2">
+                <input class="govuk-checkboxes__input" id="openOnlyLa" name="openOnly" type="checkbox" value="true" checked @(Model.GetOpenOnlyDisabledAttr(SearchTypes.SEARCH_BY_LA_CODE_NAME))>
+                <label for="openOnlyLa" class="govuk-label govuk-checkboxes__label">Include open schools only</label>
+            </div>
+        </div>
+        <label class="govuk-hint" for="FindSchoolManuallyByLaCodeName" id="sectionLabel">
+            <span>Enter a local authority name or a three-digit <abbr title="Local authority" aria-label="Local authority">LA</abbr> code</span>
+        </label>
+        <label class="govuk-visually-hidden" for="FindSchoolManuallyByLaCodeName_listbox">Select a local authority from the list box</label>
+        @if (Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME))
+        {
+            <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
+        }
         <input id="FindSchoolManuallyByLaCodeName"
-               class="form-control"
+               class="govuk-input @Html.Raw(Model.SearchTypeHasError(SearchTypes.SEARCH_BY_LA_CODE_NAME) ? "govuk-input--error" : "")"
                name="lacodename"
                maxlength="100"
                type="text"
                aria-labelledby="sectionLabel" />
         <input type="hidden" id="SelectedLocalAuthorityId" name="SelectedLocalAuthorityId" />
-        <button type="submit" class="button search-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
+        <button type="submit" class="govuk-button search-button" data-module="govuk-button" name="searchtype" value="@SearchTypes.SEARCH_BY_LA_CODE_NAME">Search</button>
     </div>
 </div>
+
 

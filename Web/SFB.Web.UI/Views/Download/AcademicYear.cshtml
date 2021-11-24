@@ -8,30 +8,32 @@
 
 @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
 {
-    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+    <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
             There is a problem
-        </h1>
-        <ul class="error-summary-list">
-            <li><a href="#year">@ViewBag.ErrorMessage</a></li>
-        </ul>
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                <li><a class="govuk-link" href="#year">@ViewBag.ErrorMessage</a></li>
+            </ul>
+        </div>
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Dataset download generator</h1>
+<h1 class="govuk-heading-xl page-heading">Dataset download generator</h1>
 
 <div class="steps">
     <span>Step 1 of 2</span>
 </div>
 
 <form action="/Download/@ViewBag.Estab/DataSet" method="get" autocomplete="off">
-    <div class="form-group">
-        <label class="bold-form-label form-label" for="year">Select the financial year</label>
+    <div class="govuk-form-group">
+        <label class="govuk-label" for="year">Select the financial year</label>
         @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
         {
-            <span class="error-message">@ViewBag.ErrorMessage</span>
+            <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@ViewBag.ErrorMessage</span>
         }
-        <select class="form-control" id="year" name="year">
+        <select class="govuk-select" id="year" name="year">
             <option value="">Please select</option>
             @foreach (var term in ViewBag.Terms)
             {
@@ -40,8 +42,8 @@
         </select>
     </div>
 
-    <div class="form-group">
-        <button type="submit" class="button">Continue</button>
+    <div class="govuk-form-group">
+        <button type="submit" class="govuk-button">Continue</button>
     </div>
 
     <input type="hidden" value="@ViewBag.Estab" />

@@ -4,7 +4,6 @@ class TrustCompareManualViewModel {
 
     constructor() {
         this.bindManualEvents();
-        GOVUK.Accordion.bindElements("SelectTrustAccordion");
         GOVUK.Modal.Load();
     }
 
@@ -35,7 +34,7 @@ class TrustCompareManualViewModel {
             $("#NewTrust").hide();
             $("#AddButton").show();
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
             document.title = document.title.replace("Error: ", "");
         });
 
@@ -45,13 +44,13 @@ class TrustCompareManualViewModel {
         let count = $(".remove-trust").length;
         if (count === 0 || $("#NewTrustName:visible").length > 0) {
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
             if ($("#NewTrustName").val() === "") {
                 $(".error-summary.missing").show();
-                $(".error-message.missing").show();
+                $(".govuk-error-message.missing").show();
             } else {
                 $(".error-summary.not-found").show();
-                $(".error-message.not-found").show();
+                $(".govuk-error-message.not-found").show();
             }
             $("#NewTrustName").addClass("form-control-error");
             $(".error-summary-list a").focus();
@@ -59,7 +58,7 @@ class TrustCompareManualViewModel {
             return false;
         } else {
             $(".error-summary").hide();
-            $(".error-message").hide();
+            $(".govuk-error-message").hide();
             $("#NewTrustName").removeClass("form-control-error");
             return true;
         }
@@ -71,7 +70,7 @@ class TrustCompareManualViewModel {
 
         // insert code at the end
         let $modal_code =
-            '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
+            '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-content"><div role="document">' +
             '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
             '<h1 id="modal-title" class="modal-title">' + resultCount + ' matches found</h1>' +
             '<p id="modal-content">Please refine the characteristics entered until there are 20 or fewer matched trusts.</p>';
@@ -142,7 +141,7 @@ class TrustCompareManualViewModel {
         }
 
         let templateHandler = function (suggestion) {
-            return '<div><a href="javascript:">' + suggestion[field] + '</a></div>';
+            return '<div><a class="govuk-link" href="javascript:">' + suggestion[field] + '</a></div>';
         };
 
         $(targetInputElementName).typeahead({
@@ -153,7 +152,7 @@ class TrustCompareManualViewModel {
             ],
             minLength: minChars,
             classNames: {
-                menu: 'tt-menu form-control mtm',
+                menu: 'tt-menu govuk-form-control mtm',
                 highlight: 'bold-small'
             },
             ariaOwnsId: "arialist_" + DfE.Util.randomNumber()

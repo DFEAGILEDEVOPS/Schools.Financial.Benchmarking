@@ -14,24 +14,26 @@
 
 @if (Model.HasError())
 {
-    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+    <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
             There is a problem
-        </h1>
-        <ul class="error-summary-list">
-            <li><a href="#csLegend">@Model.ErrorMessage</a></li>
-        </ul>
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                <li><a href="#csLegend">@Model.ErrorMessage</a></li>
+            </ul>
+        </div>
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Select comparison type</h1>
+<h1 class="govuk-heading-xl page-heading">Select comparison type</h1>
 
 
-<div class="grid-row">
-    <div class="column-full">
-        <span class="font-xsmall">Comparing to</span>
+<div class="govuk-grid-row">
+    <div class=" govuk-grid-column-full">
+        <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
         <div class="highlight">
-            <a href="/trust/index?companyNo=@Model.CompanyNo"><span class="bold-xsmall">@Model.Name</span></a>
+            <a class="govuk-link" href="/trust/index?companyNo=@Model.CompanyNo"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.Name</span></a>
         </div>
     </div>
 </div>
@@ -39,32 +41,33 @@
 
 <section class="section" aria-label="Select comparison type">
     <form action="/TrustComparison/StepOne">
-        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
-            <fieldset>
-                <legend id="csLegend">
+        <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend" id="csLegend">
                     <span>How do you want to compare this trust with others?</span>
-                    @if (Model.HasError())
-                    {
-                        <span class="error-message">
-                            Select a comparison type
-                        </span>
-                    }
+                    <span class="govuk-hint govuk-!-margin-top-2">We have some guidance on <a class="govuk-link" href="/help/guidance#question-twelve">choosing characteristics</a> if you are unsure which method suits you.</span>
                 </legend>
+                @if (Model.HasError())
+                {
+                <span class="govuk-error-message">
+                    <span class="govuk-visually-hidden">Error: </span>
+                    Select a comparison type
+                </span>
+                }
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Manual">
+                        <label class="govuk-label govuk-radios__label" for="radio-1">
+                            Manually add trusts
+                        </label>
+                    </div>
 
-                <p>We have some guidance on <a href="/help/guidance#question-twelve">choosing characteristics</a> if you are unsure which method suits you.</p>
-
-                <div class="multiple-choice">
-                    <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Manual">
-                    <label class="selection-button-radio" for="radio-1">
-                        Manually add trusts
-                    </label>
-                </div>
-
-                <div class="multiple-choice">
-                    <input id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
-                    <label class="selection-button-radio" for="radio-2">
-                        Select characteristics to find trusts
-                    </label>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
+                        <label class="govuk-label govuk-radios__label" for="radio-2">
+                            Select characteristics to find trusts
+                        </label>
+                    </div>
                 </div>
 
             </fieldset>
@@ -72,10 +75,10 @@
         <input type="hidden" value="@Model.CompanyNo" name="companyNo" />
         <input type="hidden" value="@Model.Name" name="matName" />
 
-        <div class="grid-row">
-            <div class="column-half">
-                <div class="column-one-third next-button">
-                    <button type="submit" class="button">Continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <div class="govuk-grid-column-one-third next-button">
+                    <button type="submit" class="govuk-button" data--module="govuk-button">Continue</button>
                 </div>
             </div>
         </div>

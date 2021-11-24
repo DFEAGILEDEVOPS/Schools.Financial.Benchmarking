@@ -9,44 +9,46 @@
 
 @model SFB.Web.UI.Models.GetInvolvedViewModel
 
-<div class="grid-row">    
-    <div class="column-two-thirds" id="getInvolvedContent">
+<div class="govuk-grid-row">    
+    <div class="govuk-grid-column-two-thirds" id="getInvolvedContent">
 
         @FormErrorSummary()
 
-        <h1 class="heading-xlarge page-heading">Help make schools financial benchmarking better</h1>
+        <h1 class="govuk-heading-xl page-heading">Help make schools financial benchmarking better</h1>
 
-        <p>
+        <p class="govuk-body">
             We are always looking to improve schools financial benchmarking for our users and by conducting usability testing we get to see how the service works in the real world.
         </p>
 
-        <p>
+        <p class="govuk-body">
             We conduct the meetings either over the internet using software so we can share screen or in person with our user researcher visiting you.
         </p> 
-        <p>
+        <p class="govuk-body">
             The test usually take no longer than an hour and involve us observing how you use our service, what you’re looking for from it and finding out how we can improve it.
         </p>        
-        <p>
+        <p class="govuk-body">
             We also like to demo new features and improvements we are working on so will occasionally ask you use one of our prototypes to help their development.
         </p>        
-        <p>
+        <p class="govuk-body">
             If you would be interested in helping us then please submit your details below and one of our researchers will get in touch with you.
         </p>
 
-        <h2 class="heading-medium">Your details</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">Your details</h2>
         <form action="GetInvolvedSubmission" method="post">
             @Html.AntiForgeryToken()
-            <div class="form-group @FormGroupErrorClass("getInvolved.Name")">
-                <label class="form-label" for="getInvolved.Name">Name</label>
+            <div class="govuk-form-group @FormGroupErrorClass("getInvolved.Name")">
+                <label class="govuk-label" for="getInvolved.Name">Name</label>
                 @InputErrorMessage("getInvolved.Name")
-                <input class="form-control @FormControlErrorClass("getInvolved.Name")" id="getInvolved.Name" name="getInvolved.Name" type="text" value="@Model.Name">
+                <input class="govuk-input govuk-!-width-three-quarters @FormControlErrorClass("getInvolved.Name")" id="getInvolved.Name" name="getInvolved.Name" type="text" 
+                       value="@Model.Name" autocomplete="name">
             </div>
-            <div class="form-group @FormGroupErrorClass("getInvolved.Email")">
-                <label class="form-label" for="getInvolved.Email">Email</label>
+            <div class="govuk-form-group @FormGroupErrorClass("getInvolved.Email")">
+                <label class="govuk-label" for="getInvolved.Email">Email</label>
                 @InputErrorMessage("getInvolved.Email")
-                <input class="form-control @FormControlErrorClass("getInvolved.Email")" id="getInvolved.Email" name="getInvolved.Email" type="text" value="@Model.Email">
+                <input class="govuk-input govuk-!-width-three-quarters @FormControlErrorClass("getInvolved.Email")" id="getInvolved.Email" name="getInvolved.Email" type="text" 
+                       value="@Model.Email" autocomplete="email">
             </div>
-            <button class="button" type="submit">Submit</button>
+            <button class="govuk-button" data-module="govuk-button" type="submit">Submit</button>
         </form>
 
     </div>
@@ -58,21 +60,23 @@
 
     if (msDictionary != null && msDictionary.Count > 0)
     {
-        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+            <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
                 There is a problem
-            </h1>
-            <ul class="error-summary-list">
-                @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
-                {
-                    if (ms.Value.Errors.Count > 0)
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
                     {
-                        <li>
-                            <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
-                        </li>
+                        if (ms.Value.Errors.Count > 0)
+                        {
+                            <li>
+                                <a class="govuk-link" href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
+                            </li>
+                        }
                     }
-                }
-            </ul>
+                </ul>
+            </div>
         </div>
     }
 }
@@ -83,7 +87,7 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        @("form-group-error")
+        @("govuk-form-group--error")
     }
 }
 
@@ -94,7 +98,7 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        @("form-control-error")
+        @("govuk-input--error")
     }
 }
 
@@ -104,7 +108,8 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        <span class="error-message">
+        <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error: </span>
             @ms.Errors.First().ErrorMessage
         </span>
     }

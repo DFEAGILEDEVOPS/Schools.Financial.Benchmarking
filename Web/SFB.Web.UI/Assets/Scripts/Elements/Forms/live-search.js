@@ -90,8 +90,8 @@
             pageUpdated = this.updateResults();
             pageUpdated.done(
               function () {
-                  history.pushState({ payload: this.state, tab: this.resultsViewModel.currentTabName }, '', window.location.pathname
-                        + "?" + $.param(this.state));
+                  //history.pushState({ payload: this.state, tab: this.resultsViewModel.currentTabName }, '', window.location.pathname
+                  //      + "?" + $.param(this.state));
                   if (elementIdSelector) $(elementIdSelector).focus();
               }.bind(this)
             );
@@ -110,7 +110,6 @@
     };
 
     LiveSearch.prototype.pageChange = function pageChange(e) {
-
         if (e && e.preventDefault) {
             e.preventDefault();
         }
@@ -200,12 +199,12 @@
 
     LiveSearch.prototype.showLoadingIndicator = function showLoadingIndicator() {
         //this.getSummaryBlock().css("display", "none");
-        this.getSummaryContainerBlock().append("<p class=\"msg\">Loading...</p>");
+        this.getSummaryContainerBlock().append("<p class=\"govuk-body msg\">Loading...</p>");
     };
 
     LiveSearch.prototype.showErrorIndicator = function showErrorIndicator() {
         //this.getSummaryBlock().css("display", "none");
-        this.getSummaryContainerBlock().append("<p class=\"msg\">Error. Please try modifying your search and trying again.</p>");
+        this.getSummaryContainerBlock().append("<p class=\"govuk-body msg\">Error. Please try modifying your search and trying again.</p>");
     };
 
     LiveSearch.prototype.displayResults = function displayResults(results, action) {

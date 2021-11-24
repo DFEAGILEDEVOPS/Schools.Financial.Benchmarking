@@ -6,15 +6,6 @@ class BenchmarkChartsViewModel {
 
         sessionStorage.chartFormat = 'Charts';
 
-        if (document.getElementById('controls-accordion')) {
-            new Accordion(document.getElementById('controls-accordion'));
-            $("#controls-accordion").show();
-        }
-
-        if (document.getElementById('custom-controls-accordion')) {
-            new Accordion(document.getElementById('custom-controls-accordion'));
-            $("#custom-controls-accordion").show();
-        }
 
         $(document).ready(() => {
             this.hideNaProgressScores();
@@ -400,7 +391,7 @@ class BenchmarkChartsViewModel {
         };
 
         let insertProgressLabel = function () {
-            var left = $("#chart_0")[0].getBoundingClientRect().width - $(".c3-event-rects.c3-event-rects-single")[0].getBoundingClientRect().width - 62;
+            var left = $("#chart_0")[0].getBoundingClientRect().width - $(".c3-event-rects.c3-event-rects-single")[0].getBoundingClientRect().width - 70;
             $(".chart-scores-header").css("left", left);
             $(".chart-scores-header").show();
         };
@@ -585,14 +576,14 @@ class BenchmarkChartsViewModel {
                         $(el).closest('.chart-container'))[0].value;
                     let highlight = benchmarkSchoolIndex === d[0].index.toString() ? "highlighted" : "";
                     let tableHtml =
-                        "<table class='bmc-rollover-table' >" +
-                        "<tr><th colspan='2' class='" + highlight + "'>" + name + "</th></tr>" +
-                        "<tr><td class='bold'>Local authority</td><td>" + schoolData.la + "</td></tr>" +
-                        "<tr><td class='bold'>School type</td><td>" + schoolData.type + "</td></tr>" +
-                        "<tr><td class='bold'>Number of pupils</td><td>" + schoolData.pupilCount + "</td></tr>";
+                        "<table class='govuk-table bmc-rollover-table' >" +
+                        "<tr class='govuk-table__row'><th colspan='2' class='" + highlight + "'>" + name + "</th></tr>" +
+                        "<tr class='govuk-table__row'><th scope='row' class='govuk-table__header'>Local authority</th><td class='govuk-table__cell'>" + schoolData.la + "</td></tr>" +
+                        "<tr class='govuk-table__row'><th scope='row' class='govuk-table__header'>School type</th><td class='govuk-table__cell'>" + schoolData.type + "</td></tr>" +
+                        "<tr class='govuk-table__row'><th scope='row' class='govuk-table__header'>Number of pupils</th><td class='govuk-table__cell'>" + schoolData.pupilCount + "</td></tr>";
 
                     if ($("#ComparisonType").val() === "Specials") {
-                        tableHtml += "<tr><td style='max-width: 150px' class='bold'>Highest 3 SEN characteristics</td><td>";
+                        tableHtml += "<tr class='govuk-table__row'><th style='max-width: 150px' scope='row' class='govuk-table__header'>Highest 3 SEN characteristics</th><td class='govuk-table__cell'>";
                         schoolData.topsen.forEach(
                             topsen => { tableHtml += `${topsen.Key}: ${topsen.Value}%<br/>`; }
                         )
@@ -600,7 +591,7 @@ class BenchmarkChartsViewModel {
                     }
 
                     if ($("#ComparisonType").val() === "BestInClass") {
-                        tableHtml += "<tr><td class='bold'>Key stage progress</td><td>" + schoolData.progressscore + "</td></tr>";
+                        tableHtml += "<tr class='govuk-table__row'><th class='govuk-table__header'>Key stage progress</th><td class='govuk-table__cell'>" + schoolData.progressscore + "</td></tr>";
                     }
 
                     tableHtml += "</table>";
@@ -662,10 +653,6 @@ class BenchmarkChartsViewModel {
                 self.generateChart(this, unit, newMin, newMin + range, newMax, yValues.length);
             }
         });
-
-        if (document.getElementById('bm-charts-accordion')){
-            new Accordion(document.getElementById('bm-charts-accordion'));
-        }
 
         setTimeout(() => this.generateImageDataURIsOfVisibleCharts(), 2000);   
     }
@@ -739,6 +726,8 @@ class BenchmarkChartsViewModel {
                 $('.save-as-image').show();
                 this.generateCharts(unitParameter);
 
+                window.GOVUKFrontend.initAll({ scope : $("#benchmarkChartsList")[0]});
+
                 $("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
                 $("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
                 $("#benchmarkChartsList table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
@@ -809,22 +798,11 @@ class BenchmarkChartsViewModel {
 
     changeTab(tab) {
         if (tab === "Custom") {
-            $(".tabs li").removeClass("active");
-            $('.tabs li a').attr('aria-selected', 'false');
-            $('.tabs li a').attr('tabindex', '-1');
             $(".tabs li a span.bmtab").text("");
-            $(".tabs li#" + tab).addClass("active");
-            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
-            $(".tabs li#" + tab + ' a').attr('tabindex', '0');
-            $(".tabs li#" + tab + ' a').focus();
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
             $("#tabsSection form").empty('');
             $("#tabsSection .sticky-chart-controls").empty('');
-            $("#tabsSection").hide();
-            $("#customTabSection").show();
             $("#downloadLinkContainer").hide();
-            $("#comparisonSchoolsTabSection").hide();
-            $("#bestInClassTabSection").hide();
             $("#PrintLinkText").text(" Print report");
             $("#PdfLinkText").text(" Download report");
             $(".js-show-value-help").hide();
@@ -832,41 +810,19 @@ class BenchmarkChartsViewModel {
             scope.ctrl.displayCustomReport();
             $('.sticky-div').Stickyfill();
         } else if (tab === "BestInClass") {
-            $(".tabs li").removeClass("active");
-            $('.tabs li a').attr('aria-selected', 'false');
-            $('.tabs li a').attr('tabindex', '-1');
             $(".tabs li a span.bmtab").text("");
-            $(".tabs li#" + tab).addClass("active");
-            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
-            $(".tabs li#" + tab + ' a').attr('tabindex', '0');
-            $(".tabs li#" + tab + ' a').focus();
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
-            $("#customTabSection").hide();
-            $("#comparisonSchoolsTabSection").hide();
             $("#downloadLinkContainer").show();
             $("#PrintLinkText").text(" Print page");
             $("#PdfLinkText").text(" Download page");
-            $("#bestInClassTabSection").show();
-            $("#tabsSection").hide();
             $(".js-show-value-help").hide();
         }
         else if (tab === "ComparisonSchools") {
-            $(".tabs li").removeClass("active");
-            $('.tabs li a').attr('aria-selected', 'false');
-            $('.tabs li a').attr('tabindex', '-1');
             $(".tabs li a span.bmtab").text("");
-            $(".tabs li#" + tab).addClass("active");
-            $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
-            $(".tabs li#" + tab + ' a').attr('tabindex', '0');
-            $(".tabs li#" + tab + ' a').focus();
             $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
-            $("#customTabSection").hide();
-            $("#bestInClassTabSection").hide();
-            $("#comparisonSchoolsTabSection").show();
             $("#downloadLinkContainer").show();
             $("#PrintLinkText").text(" Print page");
             $("#PdfLinkText").text(" Download page");
-            $("#tabsSection").hide();
             $(".js-show-value-help").hide();
         }
         else {
@@ -904,32 +860,16 @@ class BenchmarkChartsViewModel {
                 url: url,
                 datatype: 'json',
                 beforeSend: () => {
-                    $("#bestInClassTabSection").hide();
-                    $("#comparisonSchoolsTabSection").hide();
-                    $("#customTabSection").hide();
-                    $("#tabsSection").show();
                     DfE.Util.LoadingMessage.display(".sticky-chart-controls", "Updating charts");
                     $("#tabsSection form").hide();
                 },
                 success: (data) => {
-                    $(".tabs li").removeClass("active");
-                    $('.tabs li a').attr('aria-selected', 'false');
-                    $('.tabs li a').attr('tabindex', '-1');
                     $(".tabs li a span.bmtab").text("");
-                    $(".tabs li#" + tab).addClass("active");
-                    $(".tabs li#" + tab + ' a').attr('aria-selected', 'true');
-                    $(".tabs li#" + tab + ' a').attr('tabindex', '0');
-                    $(".tabs li#" + tab + ' a').focus();
-                    $(".tabs li#" + tab + " a span.bmtab").text(" selected ");
                     $("#downloadLinkContainer").show();
                     $("#PrintLinkText").text(" Print page");
                     $("#PdfLinkText").text(" Download page");
                     let stickyDivHtml = $(data).find(".sticky-div")[0];
                     $("#tabsSection .sticky-chart-controls").replaceWith(stickyDivHtml);
-                    if (document.getElementById('controls-accordion')) {
-                        new Accordion(document.getElementById('controls-accordion'));
-                        $("#controls-accordion").show();
-                    }
                     let formHtml = $(data).find("form").html();
                     $("#tabsSection form").html(formHtml);
                     $("#tabsSection form").show();
@@ -947,41 +887,9 @@ class BenchmarkChartsViewModel {
                     if (tab === "Workforce") {
                         $(".js-show-value-help").show();
                     }
-                    this.generateCharts(unitParameter);    
+                    this.generateCharts(unitParameter);  
                 }
             });
-        }
-    }
-
-    tabKeydown(e) {
-        let keys = {
-            left: 37,
-            up: 38,
-            right: 39,
-            down: 40,
-            enter: 13,
-            space: 32
-        };
-
-        activatePreviousTab = function () {
-            $("ul[role='tablist'] li.active").prev().find("a[role='tab']").click();
-        }
-
-        activateNextTab = function () {
-            $("ul[role='tablist'] li.active").next().find("a[role='tab']").click();
-        }
-
-        switch (e.keyCode) {
-            case keys.left:
-            case keys.up:
-                activatePreviousTab();
-                e.preventDefault();
-                break
-            case keys.right:
-            case keys.down:
-                activateNextTab();
-                e.preventDefault();
-                break
         }
     }
 
@@ -1068,9 +976,6 @@ class BenchmarkChartsViewModel {
 
     pdfPage() {
 
-        //$('#PdfLink .download-icon').toggle();
-        //$('#PdfLink .spin-icon').toggle();
-
         $('#criteria-details.criteria-details').attr('open', 'true');
 
         let pdfGenerator = new PdfGenerator();
@@ -1133,19 +1038,19 @@ class BenchmarkChartsViewModel {
 
         let $body = $('body');
         let $page = $('#js-modal-page');
-        var $modal_code = `<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'>
+        var $modal_code = `<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'>
         <div role='document' class='save-modal-js page-1' style='display: block'>
             <a href='#' id='js-modal-close' class='modal-close' data-focus-back='SaveLink' title='Close'>Close</a>
             <h1 id='modal-title' class='modal-title'>Save or share benchmark</h1>
-            <p id='modal-content' class='font-small'>
+            <p id='modal-content' class='govuk-!-font-size-19'>
                 Save your benchmark by copying the link below and saving it as a bookmark or in a document. Alternatively you can email the link to yourself or share with others.
             </p>
-            <div class='form-group'><label class='form-label' for='saveUrl'>Page link</label>
-                <input id='saveUrl' name='saveUrl' type='text' class='form-control save-url-input' value='${link}'>
-                <button id='clip-button' class='button' type='button' data-clipboard-target='#saveUrl' style='font-size: 16px'>Copy link to clipboard</button>
-                <span id='clip-not-supported' class='error-message' style='display: none'>Please select and copy the link above.</span>
+            <div class='govuk-form-group govuk-!-margin-bottom-0'><label class='govuk-label' for='saveUrl'>Page link</label>
+                <input id='saveUrl' name='saveUrl' type='text' class='govuk-input save-url-input' value='${link}'>
+                <button id='clip-button' class='govuk-button' data-module='govuk-button' type='button' data-clipboard-target='#saveUrl' >Copy link to clipboard</button>
+                <span id='clip-not-supported' class='govuk-error-message' style='display: none'>Please select and copy the link above.</span>
             </div>         
-            <a class='bold-xsmall email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
+            <a class='govuk-link email-the-link' href="mailto:?subject=Saved%20benchmark%20charts&body=Here%20is%20your%20saved%20benchmark%20basket:%20${link}">
             <img class="icon email-list-icon" src="/public/assets/images/icons/icon-email.png" alt="" />Email the link</a>            
         </div>
         <div role='document' class='save-modal-js page-2' style='display: none'>
@@ -1154,7 +1059,7 @@ class BenchmarkChartsViewModel {
             <p id='modal-content'>
                 You can now save the link as a bookmark or in a document to keep your benchmark basket.
             </p>           
-            <button class='font-xsmall link-button no-padding' onclick='DfE.Views.BenchmarkChartsViewModel.showSaveModalOne()'>See more options to save</button>            
+            <a class='govuk-link' href='javascript: DfE.Views.BenchmarkChartsViewModel.showSaveModalOne()'>See more options to save</button>            
         </div>
         <a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='SaveLink' title='Close'>Close</a>
         </dialog>`;
@@ -1188,7 +1093,7 @@ class BenchmarkChartsViewModel {
         var $body = $('body');
         var $page = $('#js-modal-page');
 
-        var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+        var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
             "<a href='#' id='js-modal-close' class='modal-close' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Incomplete financial data</h1>";
         if (isMAT) {
@@ -1230,29 +1135,32 @@ class BenchmarkChartsViewModel {
         var $body = $('body');
         var $page = $('#js-modal-page');
 
-        var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+        var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
             "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='PdfLink' title='Close'>Close</a>" +
             "<h1 id='modal-title' class='modal-title'>Select file format</h1>" +            
-            `<div class="form-group">
-              <fieldset>
+            `<div class="govuk-form-group">
+              <fieldset class="govuk-fieldset">
 
-                <legend>
+                <legend class="govuk-fieldset__legend">
                   You can download the page's charts in PDF or PowerPoint format.
                 </legend>
-
-                <div class="multiple-choice">
-                  <input id="radio-1" type="radio" name="downloadFormat" value="pdf" checked>
-                  <label for="radio-1" class="font-small">PDF format</label>
-                </div>
-                <div class="multiple-choice">
-                  <input id="radio-2" type="radio" name="downloadFormat" value="ppt">
-                  <label for="radio-2" class="font-small">PowerPoint format</label>
+                <div class="govuk-radios">
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="radio-1" type="radio" name="downloadFormat" value="pdf" checked>
+                      <label for="radio-1" class="govuk-label govuk-radios__label">PDF format</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="radio-2" type="radio" name="downloadFormat" value="ppt">
+                      <label for="radio-2" class="govuk-label govuk-radios__label">PowerPoint format</label>
+                    </div>
                 </div>
               </fieldset>
             <div class="grid-row modal-form-buttons">
                 <div class="column-half">
-                    <button type="button" class="button next-button" onclick="DfE.Views.BenchmarkChartsViewModel.downloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">Download</button>
-                    <button type="button" class="back-button link-button" value="Cancel" onclick="GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
+                    <div class="govuk-button-group">
+                        <button type="button" data-module="govuk-button" class="govuk-button" onclick="DfE.Views.BenchmarkChartsViewModel.downloadPage(); GOVUK.Modal.prototype.closeAccessibleModal(event);">Download</button>
+                        <a class="govuk-link" href="javascript: GOVUK.Modal.prototype.closeAccessibleModal(event);">Cancel</button>
+                    </div>
                 </div>
             </div>
             </div>` +
@@ -1296,7 +1204,7 @@ class PptGenerator {
     }
 
     writeWarnings() {
-        let warnings = $('.panel.orange-warning .combined-warnings');
+        let warnings = $('.govuk-inset-text--orange .combined-warnings');
         if (warnings.length > 0) {
             warnings.each((index, element) => {
                 this.yOffset += 0.5;
@@ -1683,7 +1591,7 @@ class PdfGenerator {
 
     writeWarnings() {
 
-        let warnings = $('.panel.orange-warning .combined-warnings');
+        let warnings = $('.govuk-inset-text--orange .combined-warnings');
         if (warnings.length > 0) {
             warnings.each((index, element) => {
                 this.pdfWriteLine('Warning', element.innerText);

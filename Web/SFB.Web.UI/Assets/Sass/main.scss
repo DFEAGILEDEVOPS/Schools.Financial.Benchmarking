@@ -1,84 +1,24 @@
+/** {
+    font-family: "GDS Transport", Arial, sans-serif !important;
+}*/
+
 // Path to assets for use with the file-url function
 // in the govuk frontend toolkit's url-helpers partial
 $path: "/public/assets/images/";
 
-@import "govuk-elements";
-
-
-// Colours
-@import "styleguide/colours";
-
-// vars
-@import "variables";
-
 // mixins
 @import "mixins";
 
-// utils
-@import "utils/conditionals";
-@import "utils/vendor-prefixes";
-@import "utils/clearfix-me";
-@import "utils/whitespace";
-@import "utils/border-radius";
-@import "utils/toggles";
-@import "utils/buttons";
-@import "utils/accordion";
 
-// prototype spacers
-@include whitespace((5px,10px,15px,20px), 4);
+//-----------------
 
-// Helpers
-@import "elements/helpers";
+//Migration
+//$govuk-compatibility-govukelements: true;
+@import "../../node_modules/govuk-frontend/govuk/all";
 
-// Base
-// ==========================================================================
+@import "option-select";
 
-
-// Layout
-@import "elements/footer";
-
-// Links
-@import "elements/links";
-
-// Boxes
-@import "elements/related-box";
-@import "elements/box/box";
-
-// Tabs
-@import "elements/_tabs";
-
-// Help icon
-@import "elements/_helpicon";
-@import "elements/_excicon";
-
-// Components
-// ==========================================================================
-
-// Forms
-@import "elements/forms/form-questions";
-
-@import "elements/forms/filter-form/text-filter";
-@import "elements/forms/filter-form/option-select";
-
-@import "elements/forms/feedback/feedback";
-
-// Collapsibles
-@import "elements/collapsible/collapsible";
-
-// Browse
-@import "elements/browse";
-
-// Rating
-@import "elements/rating/rating";
-
-// Pagination
-@import "elements/pagination";
-
-@import "elements/phase-banner";                  // Alpha and beta banners and tags
-
-@import "cookiesBanner";
-
-@import "backLink";
+@import "text-filter";
 
 // Views
 // ==========================================================================
@@ -112,7 +52,6 @@ $path: "/public/assets/images/";
 @import "views/manual-comparison";
 @import "views/comparison-type-select";
 
-
 // ==========================================================================
 // Elements page styles
 // ==========================================================================
@@ -131,21 +70,21 @@ $path: "/public/assets/images/";
 }
 
 .outdent-navigation {
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin-left: -25%;
     }
 }
 
 // Increase spacing above headings
 .heading-xlarge {
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin-top: em(60, 48);
         margin-bottom: em(30, 48);
     }
 }
 
 .govuk-heading-m {
-    color: #0b0c0c;
+    color: govuk-colour("black");
     font-family: "GDS Transport", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -157,7 +96,7 @@ $path: "/public/assets/images/";
     margin-bottom: 15px;
     margin-left: 0;
 
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin-bottom: 20px;
         font-size: 24px;
         line-height: 1.25;
@@ -177,7 +116,7 @@ $path: "/public/assets/images/";
 }
 
 .list-contents li {
-    @include core-16;
+    @include govuk-font(16)
 }
 
 // Use for paragraphs before lists
@@ -187,7 +126,7 @@ $path: "/public/assets/images/";
 
 // Lists
 .list-bullet {
-    margin-bottom: ($gutter*1.5);
+    margin-bottom: ($govuk-gutter*1.5);
 }
 
 .list-underline {
@@ -208,14 +147,14 @@ $path: "/public/assets/images/";
 }
 
 
-@include media(tablet) {
+@include govuk-media-query($from: tablet) {
      .aside {
         margin: 0 -15px;
     }
 }
 
 .cookie-overlay {
-    background-color: black;
+    background-color: govuk-colour("black");
     position: absolute;
     width: 100%;
     height: 100%;
@@ -239,17 +178,15 @@ ul.list {
     }
 }
 
-.help-icon .icon {
-    background-image: url(/public/assets/images/icons/info.svg);
- }
+.icon {
+    display: inline-block;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
 
 .icon-table, .icon-chart, .icon-location {
     width: 20px;
     padding-right: 3px;
-}
-
-.icon-important {
-    background-image: url(/public/assets/images/icons/warning.svg);
 }
 
 .sen-table {
@@ -279,58 +216,321 @@ ul.list {
     }
 }
 
-.help-icon.tb {
-    vertical-align: text-bottom;
-    margin-left: 10px;
-
-    @include media(desktop) {
-        margin-left: 0;
-    }
-}
-
 .help-trust-finance {
-    @include media(mobile) {
+    @include govuk-media-query($until: tablet) {
         vertical-align:-webkit-baseline-middle
     }
 }
 
-details summary span{
-    margin-left: 20px;
+.pagination-container {
+    padding: $govuk-gutter-half 0;
+
+    .pagination-page-link {
+        padding-right: 4px;
+        padding-left: 4px;
+
+        @include govuk-media-query($until: tablet) {
+            padding-right: 8px;
+            padding-left: 8px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+        }
+    }
+
+    .pagination-links {
+        @include govuk-media-query($from: desktop) {
+            text-align: right;
+        }
+
+        @include govuk-media-query($from: tablet) {
+            float: right;
+        }
+
+        @include govuk-media-query($until: tablet) {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .next-page {
+            float: right;
+
+            a {
+                float: right;
+            }
+        }
+
+        .previous-page {
+            float: left;
+
+            a {
+                float: left;
+            }
+        }
+    }
+
+    li.pagination-previous a, li.pagination-next a {
+        @include govuk-media-query($until: tablet) {
+            padding-left: 0;
+        }
+    }
+
+    .pagination {
+        display: inline-block;
+        margin: 0;
+
+        > li {
+            display: inline; // Remove list-style and block-level defaults
+            > a,
+            > span {
+                @include govuk-font(19);
+                position: relative;
+                float: left; // Collapse white-space
+                padding: 0 $govuk-gutter/8;
+                text-decoration: none;
+                border: none;
+                text-decoration: underline;
+
+                @include govuk-media-query($until: tablet) {
+                    padding-left: 0;
+                }
+            }
+
+            &:first-child {
+                > a,
+                > span {
+                    margin-left: 0;
+                }
+            }
+            /*&:last-child {
+        > a,
+        > span {
+        }
+      }*/
+        }
+
+        > li > a,
+        > li > span {
+            &:hover,
+            &:focus {
+                z-index: 3;
+            }
+        }
+
+        > .active > a,
+        > .active > span {
+            &,
+            &:hover,
+            &:focus {
+                z-index: 2;
+                color: black;
+                cursor: default;
+                text-decoration: none;
+            }
+        }
+        /*> .disabled {
+      > span,
+      > span:hover,
+      > span:focus,
+      > a,
+      > a:hover,
+      > a:focus {
+        color: $pagination-disabled-color;
+        background-color: $pagination-disabled-bg;
+        border-color: $pagination-disabled-border;
+        cursor: $cursor-disabled;
+      }
+    }*/
+        > .pagination-index {
+            display: none;
+
+            @include govuk-media-query($from: desktop) {
+                display: inline;
+            }
+        }
+    }
+
+    .pub-c-pagination__link-title {
+        font-family: "nta", Arial, sans-serif;
+        font-weight: 400;
+        text-transform: none;
+        font-size: 20px;
+        line-height: 1.1111111111;
+        display: block;
+
+        @media (min-width: 641px) {
+            font-size: 27px;
+            line-height: 1.25;
+        }
+    }
+
+    .pub-c-pagination__link {
+        display: block;
+        padding: 15px;
+        text-decoration: none;
+    }
+
+    .pub-c-pagination__link:visited {
+        color: #1D70B8;
+    }
+
+    .pub-c-pagination__link-label {
+        display: inline-block;
+        margin-top: 0.1em;
+        text-decoration: underline;
+    }
+
+    .pub-c-pagination__item {
+        font-family: "nta", Arial, sans-serif;
+        font-weight: 400;
+        text-transform: none;
+        font-size: 14px;
+        line-height: 1.1428571429;
+        float: left;
+        list-style: none;
+        text-align: right;
+        margin: 0;
+        padding: 0;
+        width: 50%;
+
+        @media (min-width: 641px) {
+            font-size: 16px;
+            line-height: 1.25;
+        }
+    }
+
+    .pub-c-pagination__item--previous {
+        float: left;
+        text-align: left;
+    }
+
+    .pub-c-pagination__link:hover, .pub-c-pagination__link:active {
+        background-color: #f8f8f8;
+    }
 }
 
-details summary:before {
-    content: "";
-    position: absolute;
-    top: -1px;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-color: transparent;
-    -webkit-clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-    border-width: 7px 0 7px 12.124px;
-    border-left-color: inherit;
+.rating {
+    display: inline-block;
+    width: 18px;
+    //height: 18px;
+    color: white;
+    text-align: center;
+    border-radius: 4px
 }
 
-details[open] > summary:before {
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-color: transparent;
-    -webkit-clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
-    clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
-    border-width: 12.124px 7px 0 7px;
-    border-top-color: inherit;
+@media (max-width: 640px) {
+    .rating {
+        line-height: normal
+    }
 }
 
-//* {
-//    font-family: "GDS Transport", Arial, sans-serif !important;
-//}
+.rating .rating-text {
+    font-family: "nta",Arial,sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    font-size: 14px;
+    line-height: 1.1428571429;
+    line-height: 1.4 !important
+}
+
+@include govuk-media-query($from: tablet) {
+    .rating .rating-text {
+        font-size: 16px;
+        line-height: 1.25
+    }
+}
+
+@include govuk-media-query($from: desktop) {
+    .rating .rating-text {
+        vertical-align: middle
+    }
+}
+
+.rating-1 {
+    background-color: #006435
+}
+
+.rating-2 {
+    background-color: #1D70B8
+}
+
+.rating-3 {
+    background-color: #f47738;
+    color: #0b0c0c
+}
+
+.rating-4 {
+    background-color: #b10e1e
+}
+
+.rating-0 {
+    background-color: #6f777b
+}
+
+.rating-date {
+    font-size: x-small;
+    color: gray
+}
+
+.help-icon {
+    display: inline-block;
+    height: 15px;
+    position: relative;
+    top: -2px;
+
+    @include govuk-media-query($until: tablet) {
+        display: inline-block;
+        height: 22px;
+        margin-left: 0.2em;
+        margin-top: 0;
+        vertical-align: middle;
+        top: 0;
+    }
+
+    a {
+        display: block;
+        height: 100%;
+        padding: 2px;
+        width: 100%;
+    }
+
+    &:focus {
+        background-color: inherit !important;
+        outline: 3px solid #ffdd00 !important;
+    }
+
+    @include govuk-media-query($until: tablet) {
+        padding: 1px;
+    }
+
+    .icon {
+        background-image: url(/public/assets/images/icons/info.svg);
+        background-position: center;
+        background-size: cover;
+        display: inline-block;
+        float: right;
+        height: 16px;
+        padding: 2px;
+        margin: 1px 1px 5px 1px;
+        vertical-align: middle;
+        width: 16px;
+
+        @include govuk-media-query($until: tablet) {
+            height: 12px;
+            width: 12px;
+        }
+    }
+
+    &.tb {
+        margin-left: 10px;
+
+        @include govuk-media-query($from: desktop) {
+            margin-left: 0;
+        }
+    }
+}
+
 
 //For accessibility test https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html
 /*body {

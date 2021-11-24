@@ -5,18 +5,18 @@
     ViewBag.pageClass = "overwrite-strategy";
 }
 
-<h1 class="heading-xlarge page-heading">Replace benchmark set</h1>
+<h1 class="govuk-heading-xl page-heading">Replace benchmark set</h1>
 
 @if (Model.SavedUrns != null)
 {
-    <p>
-        You already have <span class="bold">@Model.ComparisonListCount</span> schools in your current benchmark set. If you choose to view this saved benchmark set it will remove the schools in your current benchmark set and replace them with the schools saved in the link.
+    <p class="govuk-body">
+        You already have <span class="govuk-!-font-weight-bold">@Model.ComparisonListCount</span> schools in your current benchmark set. If you choose to view this saved benchmark set it will remove the schools in your current benchmark set and replace them with the schools saved in the link.
     </p>
 }
 else
 {
-    <p>
-        You already have <span class="bold">@Model.TrustComparisonList.Trusts.Count</span> schools in your current benchmark set. If you choose to view this saved benchmark set it will remove the schools in your current benchmark set and replace them with the schools saved in the link.
+    <p class="govuk-body">
+        You already have <span class="govuk-!-font-weight-bold">@Model.TrustComparisonList.Trusts.Count</span> schools in your current benchmark set. If you choose to view this saved benchmark set it will remove the schools in your current benchmark set and replace them with the schools saved in the link.
     </p>
 }
 
@@ -35,13 +35,11 @@ else
         <input type="hidden" id="default" name="default" value="@Model.DefaultUrn" />
     }
 
-    <div class="grid-row mt-2">
-        <div class="column-half">
-            <div class="column-two-thirds next-button">
-                <button type="submit" class="button">Replace benchmark set</button>
-            </div>
-            <div class="column-one-third back-button">
-                <a href="/">Cancel</a>
+    <div class="govuk-grid-row mt-2">
+        <div class="govuk-grid-column-one-half">
+            <div class="govuk-button-group">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Replace benchmark set</button>
+                <a class="govuk-link" href="/">Cancel</a>
             </div>
         </div>
     </div>

@@ -16,25 +16,27 @@
 
 @if (Model.HasError())
 {
-    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+    <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
             There is a problem
-        </h1>
-        <ul class="error-summary-list">
-            <li><a href="#csLegend">@Model.ErrorMessage</a></li>
-        </ul>
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                <li><a class="govuk-link" href="#csLegend">@Model.ErrorMessage</a></li>
+            </ul>
+        </div>
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Which benchmark comparison would you like to do?</h1>
+<h1 class="govuk-heading-xl page-heading">Which benchmark comparison would you like to do?</h1>
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
-    <div class="grid-row">
-        <div class="column-full">
-            <span class="font-xsmall">Comparing to</span>
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
+            <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span></a>
+                <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
             </div>
         </div>
     </div>
@@ -42,99 +44,99 @@
 
 <section class="section" aria-label="Select comparison type">
     <form action="/BenchmarkCriteria/StepOne">
-        <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
-            <fieldset>
-                <legend id="csLegend">
-                    <span class="visually-hidden">Select comparison type</span>
-                    <span class="error-message">
-                        @Model.ErrorMessage
-                    </span>
+        <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
+            <fieldset class="govuk-fieldset">
+                <legend id="csLegend" class="govuk-visually-hidden">
+                    <span>Select comparison type</span>
                 </legend>
 
-                @if (Model.OverallPhase == "Special")
-                {
-                    <div class="multiple-choice">
-                        <input id="radio-5" type="radio" name="comparisonType" value="@ComparisonType.Specials">
-                        <label class="selection-button-radio" for="radio-5">
-                            Quick comparison for special schools
-                        </label>
-                        <span class="help-icon tb inline-block hide-in-print">
-                            <span class="icon dark-blue">
-                                <a href="#" class="js-modal" role="button" data-modal-title="Quick comparison" data-modal-text="@HelpTooltipText.SpecialsComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
-                                    <span class="visuallyhidden">Open more info text for Quick comparison for special schools - opens a popup</span>
-                                </a>
-                            </span>
-                        </span>
-                    </div>
-                }
-                else
-                {
-                    <div class="multiple-choice">
-                        <input id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Basic">
-                        <label class="selection-button-radio" for="radio-1">
-                            Quick comparison using pre-selected characteristics (number of pupils, school phase, urban/rural)
-                        </label>
-                        <span class="help-icon tb inline-block hide-in-print">
-                            <span class="icon dark-blue">
-                                <a href="#" class="js-modal" role="button" data-modal-title="Quick comparison" data-modal-text="@HelpTooltipText.QuickComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
-                                    <span class="visuallyhidden">Open more info text for quick comparison - opens a popup</span>
-                                </a>
-                            </span>
-                        </span>
-                    </div>
-                }
+                <span class="govuk-error-message"><span class="govuk-visually-hidden">Error: </span>@Model.ErrorMessage</span>
 
-                <div class="multiple-choice">
-                    <input id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
-                    <label class="selection-button-radio" for="radio-2">
-                        Detailed comparison using characteristics you choose
-                    </label>
-                                            <span class="help-icon tb inline-block hide-in-print">
+                <div class="govuk-radios" data-module="govuk-radios">
+                    @if (Model.OverallPhase == "Special")
+                    {
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-5" type="radio" name="comparisonType" value="@ComparisonType.Specials">
+                            <label class="govuk-label govuk-radios__label" for="radio-5">
+                                Quick comparison for special schools
+                            </label>
+                            <span class="help-icon tb inline-block hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" role="button" data-modal-title="Quick comparison" data-modal-text="@HelpTooltipText.SpecialsComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
+                                        <span class="govuk-visually-hidden">Open more info text for Quick comparison for special schools - opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-1" type="radio" name="comparisonType" value="@ComparisonType.Basic">
+                            <label class="govuk-label govuk-radios__label" for="radio-1">
+                                Quick comparison using pre-selected characteristics (number of pupils, school phase, urban/rural)
+                            </label>
+                            <span class="help-icon tb inline-block hide-in-print">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" role="button" data-modal-title="Quick comparison" data-modal-text="@HelpTooltipText.QuickComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
+                                        <span class="govuk-visually-hidden">Open more info text for quick comparison - opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        </div>
+                    }
+
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radio-2" type="radio" name="comparisonType" value="@ComparisonType.Advanced">
+                        <label class="govuk-label govuk-radios__label" for="radio-2">
+                            Detailed comparison using characteristics you choose
+                        </label>
+                        <span class="help-icon tb inline-block hide-in-print">
                             <span class="icon dark-blue">
                                 <a href="#" class="js-modal" role="button" data-modal-title="Detailed comparison" data-modal-text="@HelpTooltipText.DetailedComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
-                                    <span class="visuallyhidden">Open more info text for detailed comparison - opens a popup</span>
-                                </a>
-                            </span>
-                        </span>
-                </div>
-
-                <div class="multiple-choice">
-                    <input id="radio-4" type="radio" name="comparisonType" value="@ComparisonType.Manual">
-                    <label class="selection-button-radio" for="radio-4">
-                        Manual comparison by name or location
-                    </label>
-                    <span class="help-icon tb inline-block hide-in-print">
-                        <span class="icon dark-blue">
-                            <a href="#" class="js-modal" role="button" data-modal-title="Manual comparison" data-modal-text="@HelpTooltipText.ManualComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
-                                <span class="visuallyhidden">Open more info text for manual comparison - opens a popup</span>
-                            </a>
-                        </span>
-                    </span>
-                </div>
-
-                @*@if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
-                {
-                    <p style="clear:left; padding: 0.8em 0 0 0">or</p>
-                    <div class="multiple-choice">
-                        <input id="radio-3" type="radio" name="comparisonType" value="@ComparisonType.BestInClass">
-                        <label class="selection-button-radio" for="radio-3">
-                            Schools with the highest progress but similar characteristics (number of pupils, expenditure, <abbr title="Free school meals" aria-label="Free school meals">FSM</abbr>)
-                        </label>
-                        <span class="help-icon tb inline-block hide-in-print">
-                            <span class="icon dark-blue">
-                                <a href="#" class="js-modal" role="button" data-modal-title="High progress school comparison" data-modal-text="@HelpTooltipText.BicComparisonHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_3">
-                                    <span class="visuallyhidden">Open more info text for High progress school comparison - opens a popup</span>
+                                    <span class="govuk-visually-hidden">Open more info text for detailed comparison - opens a popup</span>
                                 </a>
                             </span>
                         </span>
                     </div>
-                }*@
+
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radio-4" type="radio" name="comparisonType" value="@ComparisonType.Manual">
+                        <label class="govuk-label govuk-radios__label" for="radio-4">
+                            Manual comparison by name or location
+                        </label>
+                        <span class="help-icon tb inline-block hide-in-print">
+                            <span class="icon dark-blue">
+                                <a href="#" class="js-modal" role="button" data-modal-title="Manual comparison" data-modal-text="@HelpTooltipText.ManualComparisonExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_2">
+                                    <span class="govuk-visually-hidden">Open more info text for manual comparison - opens a popup</span>
+                                </a>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                @*@if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
+        {
+            <p style="clear:left; padding: 0.8em 0 0 0">or</p>
+            <div class="multiple-choice">
+                <input id="radio-3" type="radio" name="comparisonType" value="@ComparisonType.BestInClass">
+                <label class="selection-button-radio" for="radio-3">
+                    Schools with the highest progress but similar characteristics (number of pupils, expenditure, <abbr title="Free school meals" aria-label="Free school meals">FSM</abbr>)
+                </label>
+                <span class="help-icon tb inline-block hide-in-print">
+                    <span class="icon dark-blue">
+                        <a href="#" class="js-modal" role="button" data-modal-title="High progress school comparison" data-modal-text="@HelpTooltipText.BicComparisonHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_3">
+                            <span class="govuk-visually-hidden">Open more info text for High progress school comparison - opens a popup</span>
+                        </a>
+                    </span>
+                </span>
+            </div>
+        }*@
             </fieldset>
         </div>
-        <div class="grid-row">
-            <div class="column-half">
-                <div class="column-one-third next-button">
-                    <button type="submit" class="button">Continue</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <div class="govuk-grid-column-one-third next-button">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
                 </div>
             </div>
         </div>

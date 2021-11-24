@@ -20,21 +20,20 @@
 
 @if (Model.HasIncompleteFinancialData)
 {
-    <div class="panel panel-border-wide orange-warning mt-1">
-        <div class="shared-icon-wrapper hide-in-print">
-            <i class="icon icon-important shared-icon">
-                <span class="visually-hidden">Warning</span>
-            </i>
-        </div>
+    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
         <div class="combined-warnings">
-            <p>
-                Some schools have data from a period less than 12 months
-            </p>
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-warning-text__assistive">Warning</span>
+                    Some schools have data from a period less than 12 months
+                </strong>
+            </div>
         </div>
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Benchmark set</h1>
+<h1 class="govuk-heading-xl page-heading">Benchmark set</h1>
 
 <div id="benchmarkBasketControlsPlaceHolder">
     @Html.Partial("Partials/BenchmarkBasketControls")
@@ -42,21 +41,21 @@
 
 <div id="benchmarkBasketLoadingPlaceHolder"></div>
 
-<ul>
+<ul class="govuk-list">
     @foreach (var school in Model.BenchmarkSchools)
     {
         <li class="document" id="doc_@school.Urn">
-            <div class="grid-row">
-                <div class="column-half">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
                     @if (!school.IsReturnsComplete)
                     {
                         <div class="name highlight-warning">
-                            <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"> (has incomplete data)</span></a>
+                            <a href="/school/detail?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"> (has incomplete data)</span></a>
                         </div>
                         <span class="help-icon inline-block hide-in-print">
                             <span class="icon dark-blue">
-                                <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="<p id='modal-content'>This school doesn't have a complete set of financial data for this period.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
-                                    <span class="visuallyhidden">Open incomplete financial modal. Opens a popup</span>
+                                <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="<p class='govuk-body' id='modal-content'>This school doesn't have a complete set of financial data for this period.</p>" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="" id="label_modal_1">
+                                    <span class="govuk-visually-hidden">Open incomplete financial modal. Opens a popup</span>
                                 </a>
                             </span>
                         </span>
@@ -66,13 +65,13 @@
                         if (school.Urn != Model.HomeSchoolUrn)
                         {
                             <div class="name">
-                                <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"></span></a>
+                                <a href="/school/detail?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"></span></a>
                             </div>
                         }
                         else
                         {
                             <div class="name highlight">
-                                <a href="/school/detail?urn=@school.Urn" class="bold-small">@school.Name<span class="visually-hidden"> (default school)</span></a>
+                                <a href="/school/detail?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"> (default school)</span></a>
                             </div>
                         }
                     }
@@ -82,12 +81,12 @@
                         <li>@school.Type</li>
                     </ul>
                 </div>
-                <div class="column-half make-benchmark">
-                    <div class="default-benchmark column-three-quarters right-padding" data-urn="@school.Urn">
+                <div class="govuk-grid-column-one-half make-benchmark">
+                    <div class="default-benchmark govuk-grid-column-three-quarters right-padding" data-urn="@school.Urn">
                         @DefaultButton(school)
                     </div>
-                    <div class="remove-benchmark column-quarter no-padding">
-                        <button class="button removefrom" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'Remove')")"
+                    <div class="remove-benchmark govuk-grid-column-one-quarter no-padding">
+                        <button class="govuk-button govuk-button--secondary removefrom" data-module="govuk-button" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'Remove')")"
                                 aria-label="Remove @school.Name from benchmark">
                             Remove
                         </button>
@@ -101,20 +100,20 @@
 @if (Model.BenchmarkSchools.Count > 1)
 {
     <div class="view-button-bottom">
-        <a class="button view-benchmark" href="/BenchmarkCharts"> View benchmarking charts</a>
+        <button class="govuk-button view-benchmark" data-module="govuk-button" onclick="javascript: window.open('/BenchmarkCharts', '_self')">View benchmarking charts</button>
     </div>
 }
 
-<a href="#pagetop" class="page-top hide-in-print">Top of page</a>
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Top of page</a>
 
 
 @helper DefaultButton(BenchmarkSchoolModel school)
 {
-    <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'SetDefault')")"
+    <button @DisplayStyle(Model.HomeSchoolUrn != school.Urn) id="btn_add_@school.Urn" class="add-remove add defaultBenchmark link-button govuk-body-s govuk-!-font-size-16" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'SetDefault')")"
             aria-label="Use @school.Name as default school">
         Use as your school
     </button>
-    <button @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark link-button font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'UnsetDefault')")"
+    <button @DisplayStyle(Model.HomeSchoolUrn == school.Urn) id="btn_remove_@school.Urn" class="add-remove remove defaultBenchmark link-button govuk-!-font-size-16" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket({school.Urn},'UnsetDefault')")"
             aria-label="Remove @school.Name as default school">
         Remove as your school
     </button>

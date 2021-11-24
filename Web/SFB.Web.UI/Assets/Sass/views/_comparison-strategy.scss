@@ -10,7 +10,7 @@
         margin-top: 1.5%;
 
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 25px;
             padding-left: 0;
         }

@@ -14,113 +14,95 @@
 }
 
 
-<div class="column-three-quarters mt-2">
-    <div id="error-summary-placeholder">
+<div class="govuk-grid-column-three-quarters govuk-!-padding-bottom-7">
+    <div id="govuk-error-summary-placeholder">
         @if (!string.IsNullOrEmpty(Model.ErrorMessage))
         {
-            <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-                <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+            <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+                <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
                     There is a problem
-                </h1>
-                <ul class="error-summary-list">
-                    <li>
-                        <a href="#finderSection">@Model.ErrorMessage</a>
-                    </li>
-                </ul>
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        <li>
+                            <a class="govuk-link" href="#finderSection">@Model.ErrorMessage</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         }
     </div>
 
-    <h1 class="govuk-heading-xl">
+    <h1 class="govuk-heading-xl page-heading">
         Schools financial benchmarking
     </h1>
 
-    <p class="lede">Compare a school or trust's income and expenditure with similar establishments in England.</p>
-    <p class="homep">You can view your school or academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
+    <p class="govuk-body-l">Compare a school or trust's income and expenditure with similar establishments in England.</p>
+    <p class="govuk-body-m">You can view your school or academy trust's financial data, see how it compares with others and use the information to establish relationships with other schools or multi-academy trusts.</p>
 
     @if (Model.ComparisonList.HomeSchoolUrn != null)
     {
         <div class="home-school-section">
-            <p>
+            <p class="govuk-body govuk-!-font-size-19">
                 @if (Model.ComparisonList.HomeSchoolType == "Federation")
                 {
-                    <span class="heading-small bold-small">
+                    <span class="govuk-heading-s govuk-!-font-weight-bold govuk-!-display-inline">
                         Your federation:
                     </span>
                 }
                 else
                 {
-                    <span class="heading-small bold-small">
+                    <span class="govuk-!-font-weight-bold">
                         Your school:
                     </span>
                 }
-                <a class="bold-small" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
+                <a class="govuk-link govuk-!-font-weight-bold" href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn">@Model.ComparisonList.HomeSchoolName</a>
             </p>
         </div>
     }
 
     <div class="finder-section mt-1" id="finderSection">
-        <div id="SearchTypesAccordion" class="search-types custom tabs">
-            <ul role="tablist">
-                <li class="@ViewHelpers.SchoolTabActive(Model.SearchType) hide-in-print" role="presentation" id="SchoolTab">
-                    <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('SchoolTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
-                       role="tab" 
-                       aria-selected="true" 
-                       aria-controls="SchoolTabContent" 
-                       tabindex="0" 
-                       class="tab-link">Find a school</a>
+        <div id="SearchTypesAccordion" class="govuk-tabs" data-module="govuk-tabs">
+            <ul class="govuk-tabs__list">
+                <li class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print" id="SchoolTab">
+                    <a href="#school-tab-panel"
+                       class="govuk-tabs__tab">Find a school</a>
                 </li>
-                <li class="@ViewHelpers.TrustTabActive(Model.SearchType) hide-in-print" role="presentation" id="TrustTab">
-                    <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('TrustTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
-                       role="tab" 
-                       aria-selected="false" 
-                       aria-controls="TrustTabContent" 
-                       tabindex="-1" 
-                       class="tab-link">Find an academy trust</a>
+                <li class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print" id="TrustTab">
+                    <a href="#trust-tab-panel"
+                       class="govuk-tabs__tab">Find an academy trust</a>
                 </li>
-                <li class="@ViewHelpers.NoDefaultTabActive(Model.SearchType) hide-in-print" role="presentation" id="NoDefaultTab">
-                    <a href="javascript: void(0)"
-                       onclick="DfE.Views.SchoolsSearchViewModel.tabChange('NoDefaultTab')" 
-                       onkeydown="DfE.Views.SchoolsSearchViewModel.tabKeydown(event)"
-                       role="tab" 
-                       aria-selected="false" 
-                       aria-controls="NoDefaultTabContent" 
-                       tabindex="-1" 
-                       class="tab-link">Compare with no default school</a>
+                <li class="govuk-tabs__list-item app-govuk-tabs__list-item--s hide-in-print" id="NoDefaultTab">
+                    <a href="#no-default-tab-panel"
+                       class="govuk-tabs__tab">Compare with no default school</a>
                 </li>
             </ul>
-            <div class="search-tab-content">
-                @Html.Partial("Partials/Search/SchoolTab")
-                @Html.Partial("Partials/Search/TrustTab")
-                @Html.Partial("Partials/Search/NoDefaultTab")
-            </div>
+            @Html.Partial("Partials/Search/SchoolTab")
+            @Html.Partial("Partials/Search/TrustTab")
+            @Html.Partial("Partials/Search/NoDefaultTab")
         </div>
     </div>
 </div>
 
 
 @section Aside {
-    <div class="column-quarter aside">
-        <aside class="app-related-items mt-2">
+    <div class="govuk-grid-column-one-quarter aside">
+        <div class="app-related-items">
             <h2 class="govuk-heading-m" id="subsection-title">Guidance</h2>
             <nav role="navigation" aria-labelledby="subsection-title">
-                <ul class="list font-xsmall">
+                <ul class="govuk-list govuk-!-font-size-16">
                     <li>
-                        <a href="Help/SadGuidance">Self-assessment dashboard guidance</a>
+                        <a class="govuk-link" href="Help/SadGuidance">Self-assessment dashboard guidance</a>
                     </li>
                     <li>
-                        <a href="Help/DataSources">Data Sources and Interpretation</a>
+                        <a class="govuk-link" href="Help/DataSources">Data Sources and Interpretation</a>
                     </li>
                     <li>
-                        <a href="~/Help/DataQueries">Do you have a school or trust data query?</a>
+                        <a class="govuk-link" href="~/Help/DataQueries">Do you have a school or trust data query?</a>
                     </li>
                 </ul>
             </nav>
-        </aside>
+        </div>
     </div>
 
 }

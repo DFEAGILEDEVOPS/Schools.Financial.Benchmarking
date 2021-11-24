@@ -2,20 +2,20 @@
 @using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.EstablishmentViewModelBase
 
-<div class="column-one-third chart-filter">
-    <div class="form-group">
-        <label class="form-label inline-block" for="ShowValue">Show value</label>
+<div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
+    <div class="govuk-form-group">
+        <label class="govuk-label govuk-!-display-inline-block" for="ShowValue">Show value</label>
         @if (Model.Tab == TabType.Workforce)
         {
             <span class="help-icon inline-block hide-in-print">
                 <span class="icon dark-blue">
                     <a href="#" class="js-modal" role="button" data-modal-title="Show value" data-modal-text="@HelpTooltipText.ShowValueHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                        <span class="visuallyhidden">Open more info text for Show Value opens a popup</span>
+                        <span class="govuk-visually-hidden">Open more info text for Show Value opens a popup</span>
                     </a>
                 </span>
             </span>
         }
-        <select name="ShowValue" id="ShowValue" class="form-control" onchange="DfE.Views.HistoricalCharts.rebuildCharts('federation')">
+        <select name="ShowValue" id="ShowValue" class="govuk-select" onchange="DfE.Views.HistoricalCharts.rebuildCharts('federation')">
             @if (Model.Tab == TabType.Workforce)
             {
                 <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>

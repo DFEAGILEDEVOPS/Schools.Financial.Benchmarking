@@ -1,38 +1,36 @@
 ﻿@mixin highlighting {
     .highlight {
-        background-color: $pink_contrast;
+        background-color: govuk-colour("pink");
         display: inline;
         padding: 5px 5px;
 
         span {
-            color: white;
+            color: govuk-colour("white");
             line-height: 1.8em;
         }
 
         a {
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-                color: white;
-            }
+            @extend %govuk-link;
+            color: govuk-colour("white") !important;
 
             &:focus {
+                color: $govuk-text-colour !important;
+
                 span {
-                    color: $black;
+                    color: $govuk-text-colour !important;
                 }
             }
         }
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-bottom: 5px;
         }
     }
 }
 
 @mixin grey-button {
-    background-color: $grey-2;
-    color: $black;
+    background-color: govuk-colour("mid-grey", $legacy: "grey-2");
+    color: govuk-colour("black");
     -webkit-box-shadow: 0 2px 0 #7d8185;
     box-shadow: 0 2px 0 #7d8185;
 }
@@ -45,6 +43,11 @@
     cursor: pointer;
     padding-left: 0;
     padding-right: 0;
-    @include core-16;
+    @include govuk-font(16);
     font-weight: bold;
+
+    &:focus {
+        outline: 3px solid #ffdd00;
+        outline-offset: 0;
+    }
 }

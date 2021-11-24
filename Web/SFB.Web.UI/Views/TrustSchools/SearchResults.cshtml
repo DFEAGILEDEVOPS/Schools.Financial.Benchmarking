@@ -27,17 +27,17 @@
     <a class="govuk-back-link hide-in-print" href="/Trust?companyNo=@ViewBag.CompanyNo">Back to @ViewBag.MatName</a>
 }
 
-<h1 class="heading-xlarge page-heading">Trust's Schools</h1>
+<h1 class="govuk-heading-xl page-heading">Trust's Schools</h1>
 
-<div id="trust-screen-reader-result-list" class="visuallyhidden">
+<div id="trust-screen-reader-result-list" class="govuk-visually-hidden">
     <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
 </div>
 
-<div class="grid-row js-live-search-results-block">
+<div class="govuk-grid-row js-live-search-results-block">
     @Html.Partial("Partials/Search/ResultBlock")
 </div>
 
-<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 @section ViewScripts{
     <script src="~/node_modules/lodash/lodash.min.js"></script>

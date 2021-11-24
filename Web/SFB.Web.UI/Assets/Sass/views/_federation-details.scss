@@ -12,14 +12,14 @@
             clear: left;
             padding-right: 15px;
             text-align: left;
-            padding-bottom: 15px;
             width: 140px;
+            margin-bottom: 10px;
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 width: 170px;
             }
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 text-align: left;
                 min-width: unset;
                 width: 100px;
@@ -34,17 +34,17 @@
             padding-bottom: 3px;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding-bottom: 15px;
+            margin-bottom: 10px;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 max-width: 165px;
             }
 
-            @include media(tablet) {
+            @include govuk-media-query($from: tablet) {
                 max-width: 165px;
             }
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 max-width: 250px;
             }
         }
@@ -66,7 +66,7 @@
             text-align: center;
 
 
-            @include media(desktop) {
+            @include govuk-media-query($from: desktop) {
                 font-size: 19px;
             }
         }
@@ -79,7 +79,7 @@
         &__button--removefrom, &__button--addto, &__button--em {
             @include grey-button;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 margin-top: 10px;
                 margin-left: 0;
             }
@@ -92,14 +92,14 @@
         &__button--auto {
             margin-left: 30px;
 
-            @include media(mobile) {
+            @include govuk-media-query($until: tablet) {
                 margin-left: 0;
             }
         }
     }
 
     .chart-wrapper__inner {
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             padding: 0;
         }
     }
@@ -110,11 +110,11 @@
                 margin-top: 1.5em;
 
                 &__h2 {
-                    @include bold-24();
+                    @include govuk-font(24, $weight: bold);
                     margin-top: 1em;
                     margin-bottom: em(10, 20);
 
-                    @include media(tablet) {
+                    @include govuk-media-query($from: tablet) {
                         margin-top: em(45, 24);
                         margin-bottom: em(20, 24);
                     }
@@ -127,9 +127,9 @@
                 &__a--inline {
                     display: inline;
                     margin-left: 25px;
-                    @include core-16;
+                    @include govuk-font(16);
 
-                    @include media(mobile) {
+                    @include govuk-media-query($until: tablet) {
                         display: block;
                         margin-left: 0;
                         margin-bottom: 5px;
@@ -146,9 +146,9 @@
             }
 
             &__lastYearBalance {
-                @include core-36;
-                border-top: 1px solid $border-colour;
-                color: $turquoise;
+                @include govuk-font(36);
+                border-top: 1px solid $govuk-border-colour;
+                color: govuk-colour("turquoise");
                 padding-top: 12px;
                 font-weight: bold;
             }
@@ -161,7 +161,7 @@
 
         .c3-line-amount {
             stroke-width: 4px;
-            color: $turquoise;
+            color: govuk-colour("turquoise");
         }
 
         .c3-axis-y path {
@@ -171,7 +171,7 @@
         .c3-axis-x {
             path {
                 stroke-width: 2px;
-                stroke: $border-colour;
+                stroke: $govuk-border-colour;
             }
         }
     }
@@ -182,7 +182,7 @@
     }
 
     summary.map {
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             display: none;
         }
     }
@@ -192,7 +192,7 @@
         padding: 0;
     }
 
-    .column-quarter.mobile {
+    .govuk-grid-column-one-quarter.mobile {
         @media(min-width: 1000px) {
             display: none;
         }
@@ -203,7 +203,7 @@
         }
     }
 
-    .column-quarter.desktop {
+    .govuk-grid-column-one-quarter.desktop {
         @media(max-width: 1000px) {
             display: none;
         }
@@ -233,7 +233,7 @@
 
     .chart-border {
         border-top: solid 5px;
-        border-color: $govuk-blue;
+        border-color: $govuk-brand-colour;
         padding-top: 15px;
     }
 
@@ -248,7 +248,7 @@
     .ofsted-divider {
         display: none;
 
-        @include media(desktop) {
+        @include govuk-media-query($from: desktop) {
             display: inline;
             padding: 4px;
         }
@@ -288,20 +288,19 @@
 
     .sticky-chart-controls {
         margin-top: 10px;
-        background-color: $page-colour;
-        border-bottom: 1px solid $border-colour;
+        background-color: govuk-colour("white");
+        border-bottom: 1px solid $govuk-border-colour;
 
         .form-group {
             margin-bottom: 0;
             padding-bottom: 5px;
             padding-top: 5px;
         }
-
+        /*
         .chart-filter {
             height: 75px;
-        }
-
-        @include media(tablet) {
+        }*/
+        /*        @include govuk-media-query($from: tablet) {
             height: 93px;
 
             .chart-filter:first-of-type {
@@ -315,7 +314,7 @@
             .form-group {
                 padding-bottom: 20px;
             }
-        }
+        }*/
     }
 
     #historical-charts-accordion {
@@ -327,17 +326,17 @@
     }
 
     div.custom.tabs ul {
-        @include media-down(tablet) {
+        @include govuk-media-query($until: tablet) {
             justify-content: flex-start;
 
             li {
 
-                @include media-down(tablet) {
+                @include govuk-media-query($until: tablet) {
                     flex-basis: 32%;
                     width: 32%;
                 }
 
-                @include media(mobile) {
+                @include govuk-media-query($until: tablet) {
                     flex-basis: 47%;
                     width: 47%;
                 }
@@ -346,22 +345,22 @@
     }
 
     .column-quarter.balance-wrapper-mobile--inactive {
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             display: none;
         }
     }
 
     .column-quarter.balance-wrapper-mobile--active {
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             display: block;
         }
     }
 
     .analytics-links {
-        border-top: 2px solid $govuk-blue;
+        border-top: 2px solid $govuk-brand-colour;
         margin-top: 36px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 24px;
             margin-bottom: 24px;
         }
@@ -389,32 +388,6 @@
         p.rating-text {
             font-size: 12px;
             white-space: nowrap;
-        }
-
-        div.button {
-            background-color: #bfc1c3;
-            color: #0b0c0c;
-            -moz-box-shadow: 0 2px 0 #9aa0a6;
-            -webkit-box-shadow: 0 2px 0 #9aa0a6;
-            box-shadow: 0 2px 0 #9aa0a6;
-            margin-bottom: 5px;
-            margin-top: 5px;
-
-            &:active {
-                top: 0;
-                -moz-transform: translate(0,2px);
-                -ms-transform: translate(0,2px);
-                -o-transform: translate(0,2px);
-                -webkit-transform: translate(0,2px);
-                transform: translate(0,2px);
-            }
-        }
-
-        div.button.add {
-        }
-
-        div.button.remove {
-            background-color: #dee0e2;
         }
     }
 }

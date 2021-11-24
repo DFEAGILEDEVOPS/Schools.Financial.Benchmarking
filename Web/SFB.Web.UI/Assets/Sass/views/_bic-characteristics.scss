@@ -1,8 +1,8 @@
 ﻿.bic-characteristics {
     /*    .highlight {
-        @include bold-16();
-        background-color: $pink_contrast;
-        color: $white;
+        @include govuk-font(16, $weight: bold);
+        background-color: govuk-colour("pink");
+        color: govuk-colour("white");
         text-align: center;
         padding: 5px;
         display: inline;
@@ -13,7 +13,7 @@
     .benchmark-school-value {
         margin-bottom: 8px;
         margin-top: 8px;
-        color: $grey-1;
+        color: govuk-colour("dark-grey", $legacy: "grey-1");
     }
 
     .multiple-choice {
@@ -21,8 +21,8 @@
         margin-top: 8px;
     }
 
-    @include media(desktop) {
-        .form-control {
+    @include govuk-media-query($from: desktop) {
+        .govuk-form-control {
             width: 80%;
         }
     }

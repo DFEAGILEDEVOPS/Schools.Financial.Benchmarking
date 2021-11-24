@@ -1,7 +1,7 @@
 ﻿.comparison-type-select {
     .pano {
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             margin-top: 30px;
         }
     }
@@ -21,7 +21,7 @@
     }
 
     .green-svg {
-        background: $green;
+        background: govuk-colour("green");
         padding: 45px 0;
         max-height: 130px;
         width: 100%;
@@ -61,7 +61,7 @@
     .columns {
         margin-top: 0;
 
-        @include media(tablet) {
+        @include govuk-media-query($from: tablet) {
             margin-top: 3em;
         }
     }

@@ -9,104 +9,106 @@
 
 @model SFB.Web.UI.Models.DataQueryViewModel
 
-<div class="grid-row mt-2">
-    <div class="column-one-third contents">
+<div class="govuk-grid-row mt-2">
+    <div class="govuk-grid-column-one-third contents">
         <aside class="app-related-items" role="complementary">
-            <h2 class="govuk-heading-m" id="subsection-title">
+            <h2 class="govuk-heading-m govuk-!-margin-top-6" id="subsection-title">
                 Contents
             </h2>
             <nav role="navigation" aria-labelledby="subsection-title">
-                <ul class="list font-xsmall">
-                    <li><a href="#school-information">School information</a></li>
-                    <li><a href="#workforce-data">Workforce data</a></li>
-                    <li><a href="#financial-data">Financial data</a></li>
-                    <li><a href="#gaps-in-data">Gaps in the data</a></li>
-                    <li><a href="#data-query">Data query</a></li>
+                <ul class="govuk-list govuk-!-font-size-16">
+                    <li><a class="govuk-link" href="#school-information">School information</a></li>
+                    <li><a class="govuk-link" href="#workforce-data">Workforce data</a></li>
+                    <li><a class="govuk-link" href="#financial-data">Financial data</a></li>
+                    <li><a class="govuk-link" href="#gaps-in-data">Gaps in the data</a></li>
+                    <li><a class="govuk-link" href="#data-query">Data query</a></li>
                 </ul>
             </nav>
         </aside>
     </div>
 
-    <div class="column-two-thirds" id="helpContent">
+    <div class="govuk-grid-column-two-thirds" id="helpContent">
 
         @FormErrorSummary()
 
-        <h1 class="govuk-heading-xl">Do you have a school or trust data query?</h1>
+        <h1 class="govuk-heading-xl page-heading">Do you have a school or trust data query?</h1>
 
-        <p>
+        <p class="govuk-body">
             Schools financial benchmarking uses data from multiple school data collections. We make every effort to ensure
             that the information displayed is accurate and reflects the data provided to us by schools, trusts and local authorities.
             There are rare occasions when there are inaccuracies reflected in the tool or inconsistencies with the data provided to us.
             The following are some possible reasons and remedies that can be taken to change this.
-            If none of these solve your problem please use the data queries <a href="#data-query">form</a> to help us to identify and rectify your problem.
+            If none of these solve your problem please use the data queries <a class="govuk-link" href="#data-query">form</a> to help us to identify and rectify your problem.
         </p>
 
-        <a id="school-information"></a>
-        <h2 class="heading-medium">School information</h2>
-        <p>
-            For school information we display information that has been entered into <a rel="external noopener noreferrer" class="font16-ext-link" target="_blank" href="https://get-information-schools.service.gov.uk">Get more information about schools (GIAS)<span class="visuallyhidden"> Opens in a new window</span></a> by the school or their trust.
+        <a class="govuk-link" id="school-information"></a>
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">School information</h2>
+        <p class="govuk-body">
+            For school information we display information that has been entered into <a rel="external noopener noreferrer" class="govuk-link" target="_blank" href="https://get-information-schools.service.gov.uk">Get more information about schools (GIAS)<span class="govuk-visually-hidden"> Opens in a new window</span></a> by the school or their trust.
             If you believe the school information is incorrect please get in touch with the person at the school or trust with responsibility to keep GIAS
             up-to-date and request they update the information.
         </p>
 
-        <a id="workforce-data"></a>
-        <h2 class="heading-medium">Workforce data</h2>
-        <p>
+        <a class="govuk-link" id="workforce-data"></a>
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">Workforce data</h2>
+        <p class="govuk-body">
             Workforce information is collected annually and if a school has been unable to submit on time they will be registered as having missing data.
         </p>
 
-        <a id="financial-data"></a>
-        <h2 class="heading-medium">Financial data</h2>
-        <p>
+        <a class="govuk-link" id="financial-data"></a>
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">Financial data</h2>
+        <p class="govuk-body">
             For new schools, schools which have converted to academy status in year or schools which have joined a trust in year, we will often receive a part-year financial submission for the school. We display this partial submission on the tool, but we will also flag it as having missing or incomplete financial data. When we receive a full year's financial submission from the school, this flag will be removed.
         </p>
 
-        <a id="gaps-in-data"></a>
+        <a class="govuk-link" id="gaps-in-data"></a>
 
-        <h2 class="heading-medium">Gaps in the data</h2>
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">Gaps in the data</h2>
 
-        <p>You might find gaps in the data you view. This could be because:</p>
+        <p class="govuk-body">You might find gaps in the data you view. This could be because:</p>
 
-        <ul class="list list-bullet">
+        <ul class="govuk-list govuk-list--bullet">
             <li>Data has been suppressed to protect privacy, or</li>
             <li>data has not been returned by a school, or</li>
             <li>data is not available because some metrics have been introduced recently. For example, Progress 8 and Attainment 8 data is only available from 2015 onward.</li>
         </ul>
 
-        <a id="data-query"></a>
-        <h2 class="heading-medium">Data query</h2>
+        <a class="govuk-link" id="data-query"></a>
+        <h2 class="govuk-heading-m govuk-!-margin-top-6">Data query</h2>
         <form action="DataQuerySubmission" method="post">
             @Html.AntiForgeryToken()
-            <p>If the above information does not resolve your data query please submit a request for us to look into.</p>
+            <p class="govuk-body">If the above information does not resolve your data query please submit a request for us to look into.</p>
 
-            <div class="form-group @FormGroupErrorClass("dataQuery.Name")">
-                <label class="form-label" for="dataQuery.Name">Name</label>
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.Name")">
+                <label class="govuk-label" for="dataQuery.Name">Name</label>
                 @InputErrorMessage("dataQuery.Name")
-                <input class="form-control @FormControlErrorClass("dataQuery.Name")" id="dataQuery.Name" name="dataQuery.Name" type="text" value="@Model.Name">
+                <input class="govuk-input govuk-!-width-three-quarters @FormControlErrorClass("dataQuery.Name")" id="dataQuery.Name" name="dataQuery.Name" type="text" 
+                       value="@Model.Name" autocomplete="name">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.Email")">
-                <label class="form-label" for="dataQuery.Email">Email</label>
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.Email")">
+                <label class="govuk-label" for="dataQuery.Email">Email</label>
                 @InputErrorMessage("dataQuery.Email")
-                <input class="form-control @FormControlErrorClass("dataQuery.Email")" id="dataQuery.Email" name="dataQuery.Email" type="text" value="@Model.Email">
+                <input class="govuk-input govuk-!-width-three-quarters @FormControlErrorClass("dataQuery.Email")" id="dataQuery.Email" name="dataQuery.Email" type="text" 
+                       value="@Model.Email" autocomplete="email">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.SchoolTrustName")">
-                <label class="form-label" for="dataQuery.SchoolTrustName">School or trust name</label>
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.SchoolTrustName")">
+                <label class="govuk-label" for="dataQuery.SchoolTrustName">School or trust name</label>
                 @InputErrorMessage("dataQuery.SchoolTrustName")
-                <input class="form-control @FormControlErrorClass("dataQuery.SchoolTrustName")" id="dataQuery.SchoolTrustName" name="dataQuery.SchoolTrustName" type="text" value="@Model.SchoolTrustName">
+                <input class="govuk-input govuk-!-width-three-quarters @FormControlErrorClass("dataQuery.SchoolTrustName")" id="dataQuery.SchoolTrustName" name="dataQuery.SchoolTrustName" type="text" value="@Model.SchoolTrustName">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.SchoolTrustReferenceNumber")">
-                <label class="form-label" for="dataQuery.SchoolTrustReferenceNumber">School or trust reference number e.g. <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>, <abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB code</abbr> or company number</label>
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.SchoolTrustReferenceNumber")">
+                <label class="govuk-label" for="dataQuery.SchoolTrustReferenceNumber">School or trust reference number e.g. <abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>, <abbr title="Local authority establishment code" aria-label="Local authority establishment code">LAESTAB code</abbr> or company number</label>
                 @InputErrorMessage("dataQuery.SchoolTrustReferenceNumber")
-                <input class="form-control @FormControlErrorClass("dataQuery.SchoolTrustReferenceNumber")" id="dataQuery.SchoolTrustReferenceNumber" name="dataQuery.SchoolTrustReferenceNumber" type="text" value="@Model.SchoolTrustReferenceNumber">
+                <input class="govuk-input govuk-!-width-three-quarters @FormControlErrorClass("dataQuery.SchoolTrustReferenceNumber")" id="dataQuery.SchoolTrustReferenceNumber" name="dataQuery.SchoolTrustReferenceNumber" type="text" value="@Model.SchoolTrustReferenceNumber">
             </div>
-            <div class="form-group @FormGroupErrorClass("dataQuery.DataQuery")">
-                <label class="form-label" for="dataQuery.DataQuery">Data query</label>
+            <div class="govuk-form-group @FormGroupErrorClass("dataQuery.DataQuery")">
+                <label class="govuk-label" for="dataQuery.DataQuery">Data query</label>
                 @InputErrorMessage("dataQuery.DataQuery")
-                <textarea class="form-control form-control-3-4 @FormControlErrorClass("dataQuery.DataQuery")" name="dataQuery.DataQuery" id="dataQuery.DataQuery" rows="8" maxlength="1000">@Model.DataQuery</textarea>
+                <textarea class="govuk-textarea govuk-!-width-three-quarters @FormControlErrorClass("dataQuery.DataQuery")" name="dataQuery.DataQuery" id="dataQuery.DataQuery" rows="8" maxlength="1000">@Model.DataQuery</textarea>
             </div>
             <input type="hidden" name="urn" value="@ViewBag.Urn" />
             <input type="hidden" name="schoolName" value="@ViewBag.SchoolName" />
-            <button class="button" type="submit">Submit</button>
+            <button class="govuk-button" data-module="govuk-button" type="submit">Submit</button>
         </form>
     </div>
 
@@ -118,21 +120,23 @@
 
     if (msDictionary != null && !msDictionary.IsValid)
     {
-        <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-            <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+        <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+            <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
                 There is a problem
-            </h1>
-            <ul class="error-summary-list">
-                @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
-                {
-                    if (ms.Value.Errors.Count > 0)
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @foreach (KeyValuePair<string, ModelState> ms in msDictionary)
                     {
-                        <li>
-                            <a href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
-                        </li>
+                        if (ms.Value.Errors.Count > 0)
+                        {
+                            <li>
+                                <a class="govuk-link" href="#@ms.Key">@ms.Value.Errors.First().ErrorMessage</a>
+                            </li>
+                        }
                     }
-                }
-            </ul>
+                </ul>
+            </div>
         </div>
     }
 }
@@ -143,7 +147,7 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        @("form-group-error")
+        @("govuk-form-group--error")
     }
 }
 
@@ -154,7 +158,7 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        @("form-control-error")
+        @("govuk-input--error")
     }
 }
 
@@ -164,7 +168,8 @@
     var ms = msDictionary[inputId];
     if (ms?.Errors.Count > 0)
     {
-        <span class="error-message">
+        <span class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error: </span>
             @ms.Errors.First().ErrorMessage
         </span>
     }

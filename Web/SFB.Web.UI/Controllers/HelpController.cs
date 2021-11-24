@@ -59,12 +59,6 @@ namespace SFB.Web.UI.Controllers
             return View(cookiePolicy);
         }
 
-        [Route("Help/cookie-details")]
-        public ActionResult CookieDetails()
-        {
-            return View();
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> GetInvolvedSubmission(GetInvolvedViewModel getInvolved)

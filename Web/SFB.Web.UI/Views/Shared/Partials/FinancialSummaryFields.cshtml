@@ -2,45 +2,41 @@
 @using SFB.Web.UI.Helpers;
 @model SFB.Web.UI.Models.EstablishmentViewModelBase
 
-<div class="grid-row" id="financialSummary">
-    <div class="column-third">
+<div class="govuk-grid-row" id="financialSummary">
+    <div class="govuk-grid-column-one-third">
         <div class="revenue-box">
-            <h2 class="heading-medium">Expenditure</h2>
-            <span class="heading-medium">
+            <h2 class="govuk-heading-m govuk-!-margin-top-6">Expenditure</h2>
+            <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
                 @if (Model.TotalRevenueExpenditure >= 10000 || Model.TotalRevenueExpenditure <= -10000)
                 {
                     <abbr title="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("N0") pounds" class="exp-total summary">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</abbr>
                 }
                 else
                 {
-                    <span class="heading-medium">
-                        <span class="money exp-total">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</span>
-                    </span>
+                    <span class="money exp-total">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</span>                 
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+            <div class="summary-year govuk-body-s">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
-    <div class="column-third">
+    <div class="govuk-grid-column-one-third">
         <div class="revenue-box">
-            <h2 class="heading-medium">Income</h2>
-            <span class="heading-medium">
+            <h2 class="govuk-heading-m govuk-!-margin-top-6">Income</h2>
+            <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
                 @if (Model.TotalRevenueIncome >= 10000 || Model.TotalRevenueIncome <= -10000)
                 {
                     <abbr title="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("N0") pounds" class="inc-total summary">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</abbr>
                 }else {
-                    <span class="heading-medium">
-                        <span class="money inc-total">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</span>
-                    </span>
+                    <span class="money inc-total">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</span>
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+            <div class="summary-year govuk-body-s">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
-    <div class="column-third">
+    <div class="govuk-grid-column-one-third">
         <div class="revenue-box">
-            <h2 class="heading-medium">In-year balance</h2>
-            <span class="heading-medium">
+            <h2 class="govuk-heading-m govuk-!-margin-top-6">In-year balance</h2>
+            <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
                 @if (Model.InYearBalance < 0)
                 {
                     if (Model.InYearBalance <= -10000)
@@ -59,13 +55,11 @@
                     {
                         <abbr class="bal-total summary" title="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" aria-label="@Model.InYearBalance.GetValueOrDefault().ToString("N0") pounds">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</abbr>
                     }else {
-                        <span class="heading-medium">
                             <span class="money bal-total">@Model.InYearBalance.GetValueOrDefault().FormatMoney()</span>
-                        </span>
                     }
                 }
             </span>
-            <div class="summary-year">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
+            <div class="summary-year govuk-body-s">@FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)</div>
         </div>
     </div>
 </div>

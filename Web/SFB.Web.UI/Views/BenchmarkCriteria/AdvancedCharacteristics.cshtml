@@ -26,17 +26,17 @@
     <span class="govuk-caption-xl">Detailed comparison 3 of 3</span>
 </div>
 
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl page-heading">
     Choose comparison school characteristics
 </h1>
 
 @if (!string.IsNullOrEmpty(Model.ComparisonList.HomeSchoolName))
 {
-    <div class="grid-row">
-        <div class="column-full">
-            <span class="font-xsmall">Comparing to</span>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span></a>
+                <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
             </div>
         </div>
     </div>
@@ -44,25 +44,25 @@
 
 <section class="section">
     <div class="criteria-section">
-        <div class="grid-row">
-            <div class="column-three-quarters">
-                <p>
-                    Create a benchmark group of <span class="bold-small">1-30</span> schools with a recommended size of <span class="bold-small">15</span>.
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
+                <p class="govuk-body">
+                    Create a benchmark group of <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">1-30</span> schools with a recommended size of <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">15</span>.
                 </p>
             </div>
         </div>
 
         <div class="sticky-div">
-            <div class="grid-row">
-                <div class="column-three-quarters">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-three-quarters">
                     <div class="school-match-info">
-                        <span id="spinnerPlaceHolder" class="font-xsmall" role="alert">
+                        <span id="spinnerPlaceHolder" class="govuk-!-font-size-16" role="alert">
                             <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading" />
-                            <span style="margin-left: 10px; color: black">Searching</span>
+                            <span class="govuk-body-s" style="margin-left: 10px; color: black">Searching</span>
                         </span>
-                        <span id="schoolCount" aria-live="assertive" role="alert" style="display: none" class="font-xsmall">
-                            <span id="countPart" class="bold-small">0</span>
-                            <span id="rest"> schools matching <span class="bold-xsmall">'@ViewBag.EstTypeDescription'</span> in <span class="bold-xsmall">'@ViewBag.AreaTypeDescription'</span> (max. 30)</span>
+                        <span id="schoolCount" aria-live="assertive" role="alert" style="display: none" class="govuk-body-s govuk-!-font-size-16">
+                            <span id="countPart" class="govuk-!-font-size-19 govuk-!-font-weight-bold">0</span>
+                            <span id="rest"> schools matching <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">'@ViewBag.EstTypeDescription'</span> in <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">'@ViewBag.AreaTypeDescription'</span> (max. 30)</span>
                         </span>
                     </div>
                 </div>
@@ -71,20 +71,20 @@
 
         @if (Model.HasError())
         {
-            <div class="error-summary" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+            <div class="govuk-error-summary" role="alert" aria-labelledby="govuk-error-summary__title-example-1" tabindex="-1">
 
-                <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+                <h2 class="govuk-error-summary__title" id="govuk-error-summary__title-example-1">
                     There is a problem
-                </h1>
+                </h2>
                 @Html.ValidationSummary()
             </div>
         }
-        <div class="grid-row">
-            <div class="column-three-quarters">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
                 <form action="OverwriteStrategy" method="post" id="criteriaForm" autocomplete="off">
                     @Html.AntiForgeryToken()
                     <div class="criteria-questions">
-                        <div id="characteristics-accordion" class="accordion">
+                        <div id="characteristics-accordion" class="govuk-accordion app-accordion--no-open-all" data-module="govuk-accordion">
                             @Html.Partial("Partials/GeneralCharacteristics")
                             @Html.Partial("Partials/SenCharacteristics")
                             @Html.Partial("Partials/PerformanceCharacteristics")
@@ -92,17 +92,12 @@
                         </div>
                     </div>
 
-                    <div class="grid-row">
-                        <div class="button-set column-full">
-                            <div class="criteria-controls">
-                                <button class="button submit-criteria-js submit mr-2">Continue to benchmarking charts</button>
-                            </div>
-                            <div class="criteria-controls-wrapper">
-                                <div class="criteria-controls">
-                                    <a href="#" class="clear-criteria js-clear-criteria">Clear all characteristics</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="govuk-button-group">
+                        <button class="govuk-button submit-criteria-js submit" data-module="govuk-button">
+                            Continue to benchmarking charts
+                        </button>
+
+                        <a class="govuk-link js-clear-criteria" href="#">Clear all characteristics</a>
                     </div>
 
                     <input type="hidden" name="Urn" value="@ViewBag.URN">

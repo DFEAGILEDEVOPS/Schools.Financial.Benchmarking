@@ -2,7 +2,7 @@
 
     @include highlighting;
 
-    @include media(tablet) {
+    @include govuk-media-query($from: tablet) {
         margin: 0 -15px;
     }
 
@@ -24,11 +24,11 @@
         width: 50%;
         float: left;
 
-        @include media(mobile) {
-            width: 80%;
+        @include govuk-media-query($until: tablet) {
+            width: 100%;
         }
 
-        .form-control {
+        .govuk-form-control {
             width: 100%;
             margin-bottom: -2px;
         }
@@ -42,7 +42,7 @@
     .tt-suggestion {
         a {
             display: block;
-            padding: $gutter-one-quarter;
+            padding: $govuk-gutter-half / 2;
             text-decoration: none;
         }
 
@@ -51,14 +51,14 @@
         }
 
         &:hover, a:hover {
-            background-color: $link-hover-colour;
+            background-color: govuk-colour("blue");
             color: white !important;
             cursor: pointer;
         }
     }
 
     .tt-cursor {
-        background-color: $link-hover-colour;
+        background-color: govuk-colour("light-blue");
         color: white;
 
         a {
@@ -87,7 +87,7 @@
         display: inline-block;
         float: left;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             width: 80%;
         }
     }
@@ -103,11 +103,11 @@
         height: 37px;
     }
 
-    .form-control {
+    .govuk-form-control {
         width: 50%;
         max-width: 471px;
 
-        @include media(mobile) {
+        @include govuk-media-query($until: tablet) {
             width: 100%;
         }
     }
@@ -125,7 +125,7 @@
                 float: left;
                 width: 100%;
 
-                @include media(tablet) {
+                @include govuk-media-query($from: tablet) {
                     min-width: 650px;
                 }
 
@@ -148,7 +148,7 @@
     }
 
     .contents-guidance {
-        border-top: 10px solid $govuk-blue;
+        border-top: 10px solid $govuk-brand-colour;
         margin-top: 36px;
 
         h3 {
@@ -169,7 +169,7 @@
     }
 
     div.custom.tabs ul {
-        @include media-down(tablet) {
+        @include govuk-media-query($until: tablet) {
             justify-content: flex-start;
 
             li {

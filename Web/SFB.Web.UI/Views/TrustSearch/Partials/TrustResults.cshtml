@@ -5,32 +5,32 @@
 
 <div class="schoolResults">
     <div class="result-controllers">
-        <div class="column-one-third no-padding view-map">
+        <div class="govuk-grid-column-one-third no-padding view-map">
             <nav class="navigation-links" role="navigation">
                 <div class="olist" role="tablist">
                     <div class="litem navigation-link no-margin list mb-1 @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
                         <button class="map-button no-padding">
                             <img class="icon icon-location" src="~/public/assets/images/icons/location.svg" alt="" />View on map
-                            <span class="visuallyhidden"> click to expand.</span>
+                            <span class="govuk-visually-hidden"> click to expand.</span>
                         </button>
                     </div>
                     <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
                         <button class="map-button no-padding">
                             <img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" />View as list
-                            <span class="visuallyhidden"> click to expand.</span>
+                            <span class="govuk-visually-hidden"> click to expand.</span>
                         </button>
                     </div>
                 </div>
             </nav>
         </div>
-        <div class="column-two-thirds no-padding">
+        <div class="govuk-grid-column-two-thirds no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
                 <div class="filter school @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
                     @if (Model.ModelList.Count > 1)
                     {
                         <div class="filter-box">
-                            <label class="legend" for="OrderByControl">Sorted by</label>
-                            <select name="orderbyControl" id="OrderByControl" class="select" style="max-width:200px" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                            <label class="govuk-label govuk-!-display-inline" for="OrderByControl">Sorted by</label>
+                            <select name="orderbyControl" id="OrderByControl" class="govuk-select" style="max-width:200px" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
 
                                 @if (Model.SearchType == SearchTypes.SEARCH_BY_TRUST_NAME_ID)
                                 {
@@ -64,17 +64,17 @@
     </div>
     <div class="tabs">
         <div class="list @(ViewBag.tab != "map" ? "active" : string.Empty)">
-            <ul>
+            <ul class="govuk-list">
                 @foreach (var trust in Model.ModelList)
                 {
                     <li class="school-document">
                         <div>
-                            <a href="/trust/index?companyNo=@trust.CompanyNo" class="bold-small">@trust.Name</a>
+                            <a href="/trust/index?companyNo=@trust.CompanyNo" class="govuk-link govuk-!-font-weight-bold">@trust.Name</a>
                         </div>
-                        <div class="font-xsmall">
+                        <div class="govuk-!-font-size-16">
                             <div>
                                 Companies House number:
-                                <a rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(trust.CompanyNo.ToString("D8"))">@(trust.CompanyNo)</a>
+                                <a class="govuk-link" rel="external noopener noreferrer" target="_blank" title="Companies house link will open in a new page" href="https://beta.companieshouse.gov.uk/company/@(trust.CompanyNo.ToString("D8"))">@(trust.CompanyNo)</a>
                             </div>
                             @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                             {
@@ -86,43 +86,43 @@
                                 Schools in trust: <span class="schoolsInTrust">@trust.AcademiesList.Count</span>
                             </div>
                         </div>
-                        <details>
-                            <summary class="hide-in-print">
-                                <span class="summary font-xsmall">View trust's schools</span>
+                        <details class="govuk-details govuk-!-margin-bottom-0" data-module="govuk-details">
+                            <summary class="govuk-details__summary hide-in-print">
+                                <span class="govuk-details__summary-text govuk-!-font-size-16">View trust's schools</span>
                             </summary>
-                            <div class="panel panel-border-narrow">
+                            <div class="govuk-details__text">
                                 @if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LOCATION)
                                 {
-                                    <table class="school-table">
-                                        <thead>
-                                            <tr>
+                                    <table class="govuk-table school-table">
+                                        <thead class="govuk-table__head">
+                                            <tr class="govuk-table__row">
                                                 <th colspan="2" scope="colgroup">Inside search area</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="govuk-table__body">
                                             @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
                                             {
-                                                <tr>
-                                                    <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                    <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                <tr class="govuk-table__row">
+                                                    <td class="govuk-table__cell" scope="col"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td class="govuk-table__cell phase" scope="col">@academy.OverallPhase</td>
                                                 </tr>
                                             }
                                         </tbody>
                                     </table>
                                     if (trust.AcademiesList.Any(a => !a.InsideSearchArea))
                                     {
-                                        <table class="school-table mt-1">
-                                            <thead>
-                                                <tr>
+                                        <table class="govuk-table school-table mt-1">
+                                            <thead class="govuk-table__head">
+                                                <tr class="govuk-table__row">
                                                     <th colspan="2" scope="colgroup">Outside search area</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="govuk-table__body">
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
-                                                    <tr>
-                                                        <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                        <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                    <tr class="govuk-table__row">
+                                                        <td class="govuk-table__cell" scope="col"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td class="govuk-table__cell phase" scope="col">@academy.OverallPhase</td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -131,36 +131,36 @@
                                 }
                                 else if (ViewBag.SearchType == SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME)
                                 {
-                                    <table class="school-table">
-                                        <thead>
-                                            <tr>
+                                    <table class="govuk-table school-table">
+                                        <thead class="govuk-table__head">
+                                            <tr class="govuk-table__row">
                                                 <th colspan="2" scope="colgroup">Inside local authority</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="govuk-table__body">
                                             @foreach (var academy in trust.AcademiesList.Where(a => a.InsideSearchArea))
                                             {
-                                                <tr>
-                                                    <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                    <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                <tr class="govuk-table__row">
+                                                    <td class="govuk-table__cell" scope="col"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td class="govuk-table__cell phase" scope="col">@academy.OverallPhase</td>
                                                 </tr>
                                             }
                                         </tbody>
                                     </table>
                                     if (trust.AcademiesList.Any(a => !a.InsideSearchArea))
                                     {
-                                        <table class="school-table mt-1">
-                                            <thead>
-                                                <tr>
+                                        <table class="govuk-table school-table mt-1">
+                                            <thead class="govuk-table__head">
+                                                <tr class="govuk-table__row">
                                                     <th colspan="2" scope="colgroup">Outside local authority</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody class="govuk-table__body">
                                                 @foreach (var academy in trust.AcademiesList.Where(a => !a.InsideSearchArea))
                                                 {
-                                                    <tr>
-                                                        <td scope="col"><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                        <td scope="col" class="phase">@academy.OverallPhase</td>
+                                                    <tr class="govuk-table__row">
+                                                        <td class="govuk-table__cell" scope="col"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                        <td class="govuk-table__cell phase" scope="col">@academy.OverallPhase</td>
                                                     </tr>
                                                 }
                                             </tbody>
@@ -169,18 +169,18 @@
                                 }
                                 else
                                 {
-                                    <table class="school-table">
-                                        <thead>
-                                            <tr>
+                                    <table class="govuk-table school-table">
+                                        <thead class="govuk-table__head">
+                                            <tr class="govuk-table__row">
                                                 <th colspan="2" scope="colgroup">Schools</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="govuk-table__body">
                                             @foreach (var academy in trust.AcademiesList)
                                             {
-                                                <tr>
-                                                    <td><a href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
-                                                    <td>@academy.OverallPhase</td>
+                                                <tr class="govuk-table__row">
+                                                    <td class="govuk-table__cell"><a class="govuk-link" href="/school/detail?urn=@academy.Id">@academy.Name</a></td>
+                                                    <td class="govuk-table__cell">@academy.OverallPhase</td>
                                                 </tr>
                                             }
                                         </tbody>

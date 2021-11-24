@@ -9,36 +9,36 @@
     @if (ViewBag.SearchMethod != "Manual")
     {
         <div class="add-all-wrapper" style="display: none">
-            <button class='add-remove button add-all' onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to benchmark set</button>
+            <button class='add-remove govuk-button add-all' data-module="govuk-button" onclick="DfE.Views.SchoolsResultsViewModel.addAll()">Add all to benchmark set</button>
         </div>
     }
 
     @if (ViewBag.SearchMethod == "Manual")
     {
         <div class="manual-button" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")">
-            <a id="manualButton" class="manual-button__button button font-xsmall" href="OverwriteStrategy">Continue to benchmarking charts</a>
+            <button id="manualButton" class="govuk-button manual-button__button button govuk-!-font-size-16" onclick="window.open('OverwriteStrategy', '_self')">Continue to benchmarking charts</button>
         </div>
     }
     <div class="result-controllers">
-        <div class="column-one-third no-padding view-map">
+        <div class="govuk-grid-column-one-third no-padding view-map">
             <nav class="navigation-links" role="navigation">
                 <div class="olist" role="tablist">
                     <div class="litem navigation-link no-margin list @(ViewBag.tab != "map" ? "active" : string.Empty)" data-tab="map" role="tab">
                         <button class="map-button no-padding">
                             <img class="icon icon-location" src="~/public/assets/images/icons/location.svg" alt="" />View on map
-                            <span class="visuallyhidden"> click to expand.</span>
+                            <span class="govuk-visually-hidden"> click to expand.</span>
                         </button>
                     </div>
                     <div class="litem navigation-link no-margin map @(ViewBag.tab == "map" ? "active" : string.Empty)" data-tab="list" role="tab">
                         <button class="map-button no-padding">
                             <img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" />View as list
-                            <span class="visuallyhidden"> click to expand.</span>
+                            <span class="govuk-visually-hidden"> click to expand.</span>
                         </button>
                     </div>
                 </div>
             </nav>
         </div>
-        <div class="column-two-thirds no-padding">
+        <div class="govuk-grid-column-two-thirds no-padding">
             <form id="SearchFacetsForm2" method="get" action="/SchoolSearch/Search" class="js-live-search-form filter-secondary-form no-padding pt-5">
                 <div class="filter school @(ViewBag.tab == "map" ? "hidden" : string.Empty)">
                     @if (Model.SearchType == SearchTypes.SEARCH_BY_NAME_ID || Model.SearchType == SearchTypes.SEARCH_BY_LA_CODE_NAME || Model.SearchType == SearchTypes.SEARCH_BY_MAT)
@@ -46,8 +46,8 @@
                         if (Model.ModelList.Count > 1)
                         {
                             <div class="filter-box">
-                                <label class="legend" for="OrderByControl">Sorted by</label>
-                                <select name="orderbyControl" id="OrderByControl" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                <label class="govuk-label govuk-!-display-inline" for="OrderByControl">Sorted by</label>
+                                <select name="orderbyControl" id="OrderByControl" class="govuk-select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                                     <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                                     <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
                                 </select>
@@ -59,8 +59,8 @@
                         if (Model.ModelList.Count > 1)
                         {
                             <div class="filter-box">
-                                <label class="legend" for="OrderByControl">Sorted by</label>
-                                <select name="orderbyControl" id="OrderByControl" class="select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
+                                <label class="govuk-label govuk-!-display-inline" for="OrderByControl">Sorted by</label>
+                                <select name="orderbyControl" id="OrderByControl" class="govuk-select" onchange="DfE.Views.SchoolsResultsViewModel.updateMainFilterForm('SearchFacetsForm', 'OrderBy', this.value)">
                                     <option value="EstablishmentName asc" @(Model.OrderBy == "EstablishmentName asc" ? "selected" : "")>alphabetical a - z</option>
                                     <option value="EstablishmentName desc" @(Model.OrderBy == "EstablishmentName desc" ? "selected" : "")>alphabetical z - a</option>
                                     <option value="" @(string.IsNullOrEmpty(Model.OrderBy) ? "selected" : "")>distance</option>
@@ -79,13 +79,13 @@
 
             @if (Model.ModelList.Count > 0)
             {
-                <ul>
+                <ul class="govuk-list">
                     @foreach (var school in Model.ModelList)
                     {
                         <li class="school-document">
-                            <div class="grid-row">
-                                <div class="column-two-thirds">
-                                    <a href="/school/detail?urn=@school.Id" class="bold-small">
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-two-thirds">
+                                    <a href="/school/detail?urn=@school.Id" class="govuk-link govuk-!-font-weight-bold">
                                         @school.Name
                                         @if (school.Status == "Closed")
                                         {
@@ -117,11 +117,11 @@
             }
             else
             {
-                <p class="bold-small" style="margin-top: 22px;">Please try:</p>
-                <p class="indent">
-                    • <a href="/">searching again</a> using different spelling or words
+                <p class="govuk-body-m govuk-!-font-weight-bold" style="margin-top: 22px;">Please try:</p>
+                <p class="govuk-body indent">
+                    • <a class="govuk-link" href="/">searching again</a> using different spelling or words
                 </p>
-                <p class="indent">
+                <p class="govuk-body indent">
                     • removing your filters
                 </p>
             }
@@ -143,15 +143,15 @@
         <div id="@school.Id@device" data-urn="@school.Id">
             @if (ViewBag.SearchMethod == "Manual")
             {
-                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from benchmark set @deviceLabel">Remove</button>
-                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to benchmark set @deviceLabel">Add</button>
-                <a class="hidden-goto-basket" href="/manualcomparison/overwritestrategy" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")" aria-label="Continue to benchmark charts with @ViewBag.manualCount schools selected">Continue to benchmark charts</a>
+                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) data-module="govuk-button" class='govuk-button govuk-button--secondary add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from benchmark set @deviceLabel">Remove</button>
+                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) data-module="govuk-button" class='govuk-button govuk-button--secondary add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateManualBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to benchmark set @deviceLabel">Add</button>
+                <a class="govuk-link hidden-goto-basket" href="/manualcomparison/overwritestrategy" style="display: @(ViewBag.manualCount > 1 ? "block" : "none")" aria-label="Continue to benchmark charts with @ViewBag.manualCount schools selected">Continue to benchmark charts</a>
             }
             else
             {
-                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) class='button add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from benchmark set @deviceLabel">Remove</button>
-                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) class='button add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to benchmark set @deviceLabel">Add</button>
-                <a class="hidden-goto-basket" href="/benchmarklist">Go to your benchmark set</a>
+                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.Any(s => s.Urn == school.Id)) data-module="govuk-button" class='govuk-button govuk-button--secondary add-remove @device-button removefrom' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Remove')" aria-label="Remove @status @school.Name from benchmark set @deviceLabel">Remove</button>
+                <button @DisplayStyle(Model.SchoolComparisonList.BenchmarkSchools.All(s => s.Urn != school.Id)) data-module="govuk-button" class='govuk-button govuk-button--secondary add-remove @device-button addto' data-urn="@school.Id" onclick="DfE.Views.SchoolsResultsViewModel.updateBenchmarkBasket(@school.Id,'Add')" aria-label="Add @status @school.Name to benchmark set @deviceLabel">Add</button>
+                <a class="govuk-link hidden-goto-basket" href="/benchmarklist">Go to your benchmark set</a>
             }
         </div>
     }

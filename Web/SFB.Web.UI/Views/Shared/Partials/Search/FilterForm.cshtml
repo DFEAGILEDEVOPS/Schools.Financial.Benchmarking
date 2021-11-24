@@ -9,8 +9,8 @@
     }
 
     <form id="SearchFacetsForm" method="get" action="/@(action)/Search" class="js-live-search-form">
-        <div class="grid-row mvs pvl filter-header">
-            <div class="column-full">
+        <div class="govuk-grid-row mvs pvl govuk-!-margin-bottom-2 filter-header">
+            <div class=" govuk-grid-column-full">
                 <nav>Filter by:</nav>
             </div>
         </div>
@@ -19,9 +19,9 @@
             var distanceRadius = new[] { 1, 3, 5, 10, 15, 20, 25 };
 
             <div class="filter school @(ViewBag.tab == "map" ? "active" : string.Empty)">
-                <div class="form-group filter-box">
-                    <label class="legend" for="DistanceRadius">Within a radius of <span class="visuallyhidden">- changing the selection will refresh the results</span></label>
-                    <select id="DistanceRadius" name="radius" class="select">
+                <div class="govuk-form-group filter-box govuk-!-margin-bottom-0">
+                    <label class="govuk-label govuk-!-font-weight-bold" for="DistanceRadius">Within a radius of <span class="govuk-visually-hidden">- changing the selection will refresh the results</span></label>
+                    <select id="DistanceRadius" name="radius" class="govuk-select">
                         @foreach (var radius in distanceRadius)
                         {
                             <option @((Request.QueryString["radius"] == radius.ToString() || (Request.QueryString["radius"] == null && radius == SearchDefaults.LOCATION_SEARCH_DISTANCE)) ? "selected" : "") value="@(radius)">

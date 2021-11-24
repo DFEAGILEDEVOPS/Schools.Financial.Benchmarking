@@ -16,51 +16,53 @@
     </span>
 </div>
 
-<h1 class="govuk-heading-xl">How we calculate the comparison</h1>
+<h1 class="govuk-heading-xl page-heading page-heading">How we calculate the comparison</h1>
 
-<div class="grid-row">
-    <div class="column-full">
-        <span class="font-xsmall">Comparing to</span>
+<div class="govuk-grid-row">
+    <div class=" govuk-grid-column-full">
+        <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
         <div class="highlight">
-            <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="bold-xsmall">@Model.ComparisonList.HomeSchoolName</span></a>
+            <a href="/school/detail?urn=@Model.ComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.ComparisonList.HomeSchoolName</span></a>
         </div>
     </div>
 </div>
 
-<div class="grid-row">
-    <div class="column-three-quarters">
-        <table class="sen-table mt-1">
-            <caption class="font-small bold">We will find schools with a similar percentage of SEN characteristics to yours:</caption>
-            <tr>
-                <th scope="col">SEN characteristic</th>
-                <th scope="col" class="col-right">Your school's value</th>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+        <table class="govuk-table sen-table mt-1">
+            <caption class="govuk-!-font-size-19 bold">We will find schools with a similar percentage of SEN characteristics to yours:</caption>
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">SEN characteristic</th>
+                <th scope="col" class="govuk-table__header col-right">Your school's value</th>
             </tr>
             @foreach (var ch in Model.TopSenCharacteristics)
             {
                 if (ch.Value.GetValueOrDefault() > 0)
                 {
-                    <tr>
-                        <td><span>@ch.Definition</span></td>
-                        <td class="col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><span>@ch.Definition</span></td>
+                        <td class="govuk-table__cell col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
                     </tr>
                 }
             }
         </table>
 
         <form action="/BenchmarkCharts/SpecialsComparison" method="get" class="mt-2" id="scForm">
-            <div class="form-group">
-                <fieldset>
-                    <legend>Pupil age characteristics (this may expand the SEN range):</legend>
-                    <div class="multiple-choice">
-                        <input id="similarPupils" name="similarPupils" type="checkbox" value="true" checked="@ViewBag.SimilarPupils">
-                        <label for="similarPupils">Schools with similar aged pupils</label>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Pupil age characteristics (this may expand the SEN range):</legend>
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input class="govuk-checkboxes__input"  id="similarPupils" name="similarPupils" type="checkbox" value="true" checked="@ViewBag.SimilarPupils">
+                            <label class="govuk-label govuk-checkboxes__label" for="similarPupils">Schools with similar aged pupils</label>
+                        </div>
                     </div>
                 </fieldset>
                 <input type="hidden" id="urn" name="urn" value="@ViewBag.URN" />
             </div>
-            <div class="grid-row">
-                <div class="column-half">
-                    <button class="button" type="submit">Continue to benchmarking charts</button>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <button class="govuk-button" type="submit">Continue to benchmarking charts</button>
                 </div>
             </div>
         </form>

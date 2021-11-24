@@ -1,19 +1,19 @@
 ﻿@using SFB.Web.UI.Helpers.Constants
-<div class="grid-row benchmarkControlPanel">
-    <div class="column-two-thirds">
-        <strong class="bold-small">@Model.BenchmarkSchools.Count</strong> schools in this list
+<div class="govuk-grid-row benchmarkControlPanel">
+    <div class="govuk-grid-column-two-thirds">
+        <strong class="govuk-!-font-size-19 govuk-!-font-weight-bold">@Model.BenchmarkSchools.Count</strong> schools in this list
         <div class="basket-control-buttons">
-            <a class="benchmarkControls" href="/SchoolSearch/AddSchools">Add schools</a>
+            <a class="govuk-link benchmarkControls" href="/SchoolSearch/AddSchools">Add schools</a>
             @if (Model.BenchmarkSchools.Count > 0)
             {
-                <button class="benchmarkControls link-button no-underline font-xsmall" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket(null,'RemoveAll')")">Clear benchmark set</button>
+                <button class="benchmarkControls link-button no-underline govuk-!-font-size-16" onclick="@( $"DfE.Views.BenchmarkListViewModel.updateBenchmarkBasket(null,'RemoveAll')")">Clear benchmark set</button>
             }
         </div>
     </div>
     @if (Model.BenchmarkSchools.Count > 1)
     {
-        <div class="column-one-third">
-            <a class="button view-benchmark" href="/BenchmarkCharts">View benchmarking charts</a>
+        <div class="govuk-grid-column-one-third">
+            <button class="govuk-button view-benchmark" data-module="govuk-button" onclick="window.open('/BenchmarkCharts', '_self')">View benchmarking charts</button>
         </div>
     }
 </div>

@@ -46,7 +46,7 @@
     <span class="govuk-caption-xl">Manual comparison 2 of 2</span>
 </div>
 
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl page-heading">
     @switch (Model.SearchType)
     {
         case SearchTypes.SEARCH_BY_LOCATION:
@@ -58,13 +58,13 @@
     }
 </h1>
 
-<div class="grid-row home-school section">
+<div class="govuk-grid-row home-school section">
     @if (ViewBag.HomeSchoolId != null)
     {
-        <div class="column-three-quarters">
-            <span class="font-xsmall">Comparing to</span>
+        <div class="govuk-grid-column-three-quarters">
+            <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.SchoolComparisonList.HomeSchoolUrn"><span class="bold-xsmall">@Model.SchoolComparisonList.HomeSchoolName</span></a>
+                <a href="/school/detail?urn=@Model.SchoolComparisonList.HomeSchoolUrn"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.SchoolComparisonList.HomeSchoolName</span></a>
             </div>
         </div>
     }
@@ -74,15 +74,15 @@
 
 </div>
 
-<div id="screen-reader-result-list" class="visuallyhidden">
+<div id="screen-reader-result-list" class="govuk-visually-hidden">
     <span class="bold screen-reader-result-count" aria-live="assertive">@(Model.Pagination.Total) schools found</span>
 </div>
 
-<div class="grid-row js-live-search-results-block">
+<div class="govuk-grid-row js-live-search-results-block">
     @Html.Partial("Partials/Search/ResultBlock")
 </div>
 
-<a href="#pagetop" class="page-top hide-in-print">Back to top</a>
+<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
 
 @section ViewScripts{
     <script src="~/node_modules/lodash/lodash.min.js"></script>

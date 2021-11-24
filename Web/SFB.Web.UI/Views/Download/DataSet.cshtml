@@ -6,7 +6,7 @@
     ViewBag.pageClass = "download-academic-year";
 }
 
-<h1 class="heading-xlarge page-heading">Dataset file</h1>
+<h1 class="govuk-heading-xl page-heading">Dataset file</h1>
 
 <div class="steps">
     <span>Step 2 of 2</span>
@@ -15,25 +15,25 @@
 
 @if (ViewBag.Estab == EstablishmentType.MAT)
 {
-    <p>
-        Downloading data for <span class="bold">@ViewBag.Count trusts</span>
+    <p class="govuk-body">
+        Downloading data for <span class="govuk-!-font-weight-bold">@ViewBag.Count trusts</span>
     </p>
 }
 else
 {
-    <p>
-        Downloading data for <span class="bold">@ViewBag.Count schools</span>
+    <p class="govuk-body">
+        Downloading data for <span class="govuk-!-font-weight-bold">@ViewBag.Count schools</span>
     </p>
 }
 
 <div class="download">
-    <a class="no-underline bold-xsmall" href="@Html.Raw($"https:////sat1dvsfb.blob.core.windows.net/test/{ViewBag.Estab}-{ViewBag.Year}.csv")" aria-label="Download data in CSV format. Opens in a new window">
+    <a class="govuk-link govuk-!-font-weight-bold govuk-link--no-underline" href="@Html.Raw($"https:////sat1dvsfb.blob.core.windows.net/test/{ViewBag.Estab}-{ViewBag.Year}.csv")" aria-label="Download data in CSV format. Opens in a new window">
         <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg"/>
         Download data in CSV format
     </a>
 </div>
 <div class="download">
-    <a class="no-underline bold-xsmall" href="@Html.Raw($"https:////sat1dvsfb.blob.core.windows.net/test/{ViewBag.Estab}-{ViewBag.Year}.xlsx")" aria-label="Download data in XLS format. Opens in a new window">
+    <a class="govuk-link govuk-!-font-weight-bold govuk-link--no-underline" href="@Html.Raw($"https:////sat1dvsfb.blob.core.windows.net/test/{ViewBag.Estab}-{ViewBag.Year}.xlsx")" aria-label="Download data in XLS format. Opens in a new window">
         <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg"/>
         Download data in XLS format
     </a>

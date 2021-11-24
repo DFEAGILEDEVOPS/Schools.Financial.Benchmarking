@@ -11,42 +11,42 @@
     <a class="govuk-back-link hide-in-print" href="/school/detail?urn=@Model.Id">Back</a>
 }
 
-<h1 class="heading-xlarge page-heading">What type of comparison would you like?</h1>
+<h1 class="govuk-heading-xl page-heading">What type of comparison would you like?</h1>
 
-<div class="grid-row columns">
-    <div class="column-one-third" id="compareColumn">
+<div class="govuk-grid-row columns">
+    <div class="govuk-grid-column-one-third" id="compareColumn">
         <img src="~/public/assets/images/chart.svg" class="pano blue-svg" style="width:100%" alt="Benchmark comparison" />
-        <h2 class="heading-small">Benchmark comparison</h2>
-        <p class="font-xsmall mb-05">
+        <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Benchmark comparison</h2>
+        <p class="govuk-body-s govuk-!-font-size-16 mb-05">
             Compare against similar schools to yours or schools of your choice.
         </p>
-        <ul class="list-arrow">
+        <ul class="govuk-list">
             <li>
-                <a class="font-xsmall" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
+                <a class="govuk-link govuk-!-font-size-16" href="/BenchmarkCriteria/ComparisonStrategy?urn=@Model.Id">Create a benchmark comparison</a>
             </li>
             @*<li>
-                    <a class="font-xsmall sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic benchmark report</a>
+                    <a class="govuk-!-font-size-16 sfb_gtm_auto_report" href="/benchmarkcharts/oneclickreport?urn=@Request.QueryString["urn"]">Basic benchmark report</a>
                 </li>*@
         </ul>
     </div>
 
     @if ((CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null))
     {
-        <div class="column-one-third" id="progressColumn">
+        <div class="govuk-grid-column-one-third" id="progressColumn">
             <img src="~/public/assets/images/progress.svg" class="pano green-svg" style="width:100%" alt="Progress comparison" />
-            <h2 class="heading-small">Progress comparison</h2>
-            <p class="font-xsmall mb-05">
+            <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Progress comparison</h2>
+            <p class="govuk-body-s govuk-!-font-size-16 mb-05">
                 Examine your school's spending in relation to progress or compare your school against higher progress schools
             </p>
-            <ul class="list-arrow">
+            <ul class="govuk-list">
                 @if (CriteriaSearchConfig.BIC_ALLOWED_PHASES.Contains(Model.Phase) && Model.ProgressScore != null)
                 {
                     <li>
-                        <a class="font-xsmall" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
+                        <a class="govuk-link govuk-!-font-size-16" href="/BenchmarkCriteria/StepOne?comparisonType=BestInClass&Urn=@Model.Id">Highest progress schools comparison</a>
                     </li>
                 }
                 <li id="efficiencyMetricLink" style="display: none">
-                    <a class="font-xsmall" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name.Replace("(", "%28").Replace(")", "%29").Replace("&", "%26")">Efficiency metric</a>
+                    <a class="govuk-link govuk-!-font-size-16" href="@System.Configuration.ConfigurationManager.AppSettings["EfficiencyMetricsUrl"]/how-it-works/@Model.Id/@Model.Name.Replace("(", "%28").Replace(")", "%29").Replace("&", "%26")">Efficiency metric</a>
                 </li>
             </ul>
         </div>
@@ -54,15 +54,15 @@
 
     @if (!Model.IsReturnsDNS && Model.OverallPhaseNonTertiary)
     {
-        <div class="column-one-third" id="saColumn">
+        <div class="govuk-grid-column-one-third" id="saColumn">
             <img src="~/public/assets/images/checklist.svg" class="pano turq-svg" style="width:100%" alt="Self-assessment dashboard" />
-            <h2 class="heading-small">Self-assessment dashboard</h2>
-            <p class="font-xsmall mb-05">
+            <h2 class="govuk-heading-s govuk-!-margin-top-4 govuk-!-margin-bottom-1">Self-assessment dashboard</h2>
+            <p class="govuk-body-s govuk-!-font-size-16 mb-05">
                 Formerly the SRMSAT/SFVS dashboard, see areas where your school is looking healthy or may need to focus on.
             </p>
-            <ul class="list-arrow">
+            <ul class="govuk-list">
                 <li>
-                    <a class="font-xsmall sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
+                    <a class="govuk-link govuk-!-font-size-16 sfb_gtm_sad_from_@Model.EstablishmentType" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/@Model.Id">Self-assessment dashboard</a>
                 </li>
             </ul>
         </div>
@@ -77,16 +77,16 @@
                 success: function () {
                     $("#efficiencyMetricLink").show();   
                     if ($("#progressColumn li:visible").length == 0) {
-                        $("#compareColumn").removeClass("column-one-third").addClass("column-half");
-                        $("#saColumn").removeClass("column-one-third").addClass("column-half");
+                        $("#compareColumn").removeClass("govuk-grid-column-one-third").addClass("govuk-grid-column-one-half");
+                        $("#saColumn").removeClass("govuk-grid-column-one-third").addClass("govuk-grid-column-one-half");
                     }
                 },
                 error: function (xhr, e) {
                     $("#efficiencyMetricLink").hide();
                     if ($("#progressColumn li:visible").length == 0){
                         $("#progressColumn").hide();
-                        $("#compareColumn").removeClass("column-one-third").addClass("column-half");
-                        $("#saColumn").removeClass("column-one-third").addClass("column-half");
+                        $("#compareColumn").removeClass("govuk-grid-column-one-third").addClass("govuk-grid-column-one-half");
+                        $("#saColumn").removeClass("govuk-grid-column-one-third").addClass("govuk-grid-column-one-half");
                     }
                 }
             });        

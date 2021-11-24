@@ -707,8 +707,8 @@ namespace SFB.Web.UI.Helpers
                     FieldName = SchoolTrustFinanceDataFieldNames.PFI_CHARGES,
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
-                    ChartSchoolType = ChartSchoolType.Academy,
-                    MoreInfo = @""
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"Prior to 2020-2021 PFI charges for Maintained schools were included within Bought in professional services under Supplies and Services"
                 },
 
                 //Occupation
@@ -1091,6 +1091,39 @@ namespace SFB.Web.UI.Helpers
                             ChartGroup = ChartGroupType.SuppliesAndServices,
                             ChartSchoolType = ChartSchoolType.Both,
                             MoreInfo = @"<p>This covers professional consultancy and advice to staff and governors.</p>"
+                        },
+                        new ChartViewModel
+                        {
+                            Id = 24005,
+                            Name = "Bought in Professional services, other, not PFI",
+                            FieldName = SchoolTrustFinanceDataFieldNames.BOUGHT_IN_NOT_PFI,
+                            TabType = TabType.Expenditure,
+                            ChartGroup = ChartGroupType.SuppliesAndServices,
+                            ChartSchoolType = ChartSchoolType.Maintained,
+                            MoreInfo =
+                                @"<p>This covers professional services, consultancy and advice to staff and governors purchased from the local authority or an external party. </p>
+
+                            <p>This includes:</p>
+
+                            <ul>
+                            <li>management</li>
+                            <li>finance</li>
+                            <li>legal</li>
+                            <li>personnel</li>
+                            <li>premises</li>
+                            <li>clerking service, if a clerk is not directly employed by the school</li>
+                            <li>management fee on PPP contracts</li>
+                            <li>free school meals (FSM) eligibility checking, including sums de-delegated by the local authority</li>
+                            <li>any security personnel employed to bank revenue funding </li>
+                            </ul>
+
+                            <p>It excludes: </p>
+
+                            <ul>
+                            <li>cost of staff where they are directly employed by the school</li>
+                            <li>consultancy and advice for curriculum</li>
+                            <li>PFI charges</li>
+                            </ul>"
                         },
                         new ChartViewModel
                         {

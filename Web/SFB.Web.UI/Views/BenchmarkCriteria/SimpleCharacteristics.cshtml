@@ -19,30 +19,32 @@
     }
 }
 
-<div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading" id="errorSummary" style="display: none">
-    <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+<div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading" id="errorSummary" style="display: none">
+    <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
         There is a problem
-    </h1>
-    <ul class="error-summary-list">
-        <li><a id="basketSizeError" href="#BasketSizeInput">Enter a number between 5 and 30</a></li>
-    </ul>
+    </h2>
+    <div class="govuk-error-summary__body">
+        <ul class="govuk-list govuk-error-summary__list">
+            <li><a class="govuk-link" id="basketSizeError" href="#BasketSizeInput">Enter a number between 5 and 30</a></li>
+        </ul>
+    </div>
 </div>
 
 <div class="steps">
     <span class="govuk-caption-xl">Quick comparison 2 of 2</span>
 </div>
 
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl page-heading">
     Refine your comparison results
 </h1>
 
 @if (!string.IsNullOrEmpty(Model.BenchmarkSchool.Name))
 {
-    <div class="grid-row">
-        <div class="column-full">
-            <span class="font-xsmall">Comparing to</span>
+    <div class="govuk-grid-row">
+        <div class=" govuk-grid-column-full">
+            <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
             <div class="highlight">
-                <a href="/school/detail?urn=@Model.BenchmarkSchool.Id"><span class="bold-xsmall">@Model.BenchmarkSchool.Name</span></a>
+                <a class="govuk-link" href="/school/detail?urn=@Model.BenchmarkSchool.Id"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.BenchmarkSchool.Name</span></a>
             </div>
         </div>
     </div>
@@ -50,104 +52,119 @@
 
 <section class="section">
 
-    <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="get" id="criteriaForm">
-        <div class="form-group">
-            <fieldset>
-                <legend class="bold-small">Find schools with a similar percentage of:</legend>
-                <div class="multiple-choice">
-                    <input id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true"
-                           @Html.Raw(Model.SimpleCriteria.IncludeFsm.HasValue && !Model.SimpleCriteria.IncludeFsm.Value ? "" : "checked")>
-                    <label for="fsm">Pupils eligible for free school meals</label>
-                </div>
-                <div class="multiple-choice">
-                    <input id="sen" name="SimpleCriteria.IncludeSen" type="checkbox" value="true"
-                           @Html.Raw(Model.SimpleCriteria.IncludeSen.HasValue && !Model.SimpleCriteria.IncludeSen.Value ? "" : "checked")>
-                    <label for="sen">Pupils with special educational needs who have statements or education and health care plans</label>
-                </div>
-                <div class="multiple-choice">
-                    <input id="eal" name="SimpleCriteria.IncludeEal" type="checkbox" value="true"
-                           @Html.Raw(Model.SimpleCriteria.IncludeEal.HasValue && !Model.SimpleCriteria.IncludeEal.Value ? "" : "checked")>
-                    <label for="eal">Pupils with English as an additional language</label>
+    <form action="/BenchmarkCharts/GenerateFromSimpleCriteria" method="get" id="criteriaForm" novalidate>
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">Find schools with a similar percentage of:</legend>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="fsm" name="SimpleCriteria.IncludeFsm" type="checkbox" value="true"
+                               @Html.Raw(Model.SimpleCriteria.IncludeFsm.HasValue && !Model.SimpleCriteria.IncludeFsm.Value ? "" : "checked")>
+                        <label class="govuk-label govuk-checkboxes__label" for="fsm">Pupils eligible for free school meals</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="sen" name="SimpleCriteria.IncludeSen" type="checkbox" value="true"
+                               @Html.Raw(Model.SimpleCriteria.IncludeSen.HasValue && !Model.SimpleCriteria.IncludeSen.Value ? "" : "checked")>
+                        <label class="govuk-label govuk-checkboxes__label" for="sen">Pupils with special educational needs who have statements or education and health care plans</label>
+                    </div>
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="eal" name="SimpleCriteria.IncludeEal" type="checkbox" value="true"
+                               @Html.Raw(Model.SimpleCriteria.IncludeEal.HasValue && !Model.SimpleCriteria.IncludeEal.Value ? "" : "checked")>
+                        <label class="govuk-label govuk-checkboxes__label" for="eal">Pupils with English as an additional language</label>
+                    </div>
                 </div>
             </fieldset>
         </div>
-        <div class="form-group">
-            <fieldset>
-                <legend>
-                    <span class="bold-small">Location characteristic:</span>
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
+                    <span>Location characteristic:</span>
                     <span class="help-icon hide-in-print">
                         <span class="icon dark-blue">
                             <a href="#" class="js-modal" role="button" data-modal-title="Within the local authority" data-modal-text="Choosing this characteristic will produce comparisons with schools that have fewer similarities with your default school." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
+                                <span class="govuk-visually-hidden">Open more info text for Location characteristic opens a popup</span>
                             </a>
                         </span>
                     </span>
                 </legend>
-                <div class="multiple-choice">
-                    <input id="la" name="SimpleCriteria.IncludeLa" type="checkbox" value="true"
-                           @Html.Raw(Model.SimpleCriteria.IncludeLa.HasValue && Model.SimpleCriteria.IncludeLa.Value ? "checked" : "")>
-                    <label for="la">Within the local authority (will produce fewer results if selected)</label>
+                <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="la" name="SimpleCriteria.IncludeLa" type="checkbox" value="true"
+                               @Html.Raw(Model.SimpleCriteria.IncludeLa.HasValue && Model.SimpleCriteria.IncludeLa.Value ? "checked" : "")>
+                        <label class="govuk-label govuk-checkboxes__label" for="la">Within the local authority (will produce fewer results if selected)</label>
+                    </div>
                 </div>
             </fieldset>
         </div>
-        <div class="form-group" id="BasketSizeAccordion">
-            <fieldset>
+        <div class="govuk-form-group" id="BasketSizeAccordion">
+            <fieldset class="govuk-fieldset">
                 @if (Model.BenchmarkSchool is FederationViewModel)
                 {
-                    <legend>
-                        <span class="bold-small">Number of schools and federations in benchmark set:</span>
+                    <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
+                        <span>Number of schools and federations in benchmark set:</span>
                         <span class="help-icon hide-in-print">
                             <span class="icon dark-blue">
-                                <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='bold-xsmall'>10</span> and <span class='bold-xsmall'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                    <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
+                                <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='govuk-!-font-size-16 govuk-!-font-weight-bold'>10</span> and <span class='govuk-!-font-size-16 govuk-!-font-weight-bold'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <span class="govuk-visually-hidden">Open more info text for Location characteristic opens a popup</span>
                                 </a>
                             </span>
                         </span>
                     </legend>
-                    <div id="CustomSizeAccordion" class="multiple-choice js-accordion" aria-controls="CustomBasketSizeFieldset">
-                        <input id="CustomBasketSize" type="checkbox" />
-                        <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Define the number of schools and federations in the benchmark comparison (default is 15)</label>
-                    </div>
-                    <div id="CustomBasketSizeFieldset" class="form-group optional-section">
-                        <p>
-                            A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools and federations. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
-                        </p>
-                        <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
-                        <span class="error-message" style="display: none">Enter a number between 5 and 30</span>
-                        <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            <input id="CustomBasketSize" class="govuk-checkboxes__input" type="checkbox" data-aria-controls="CustomBasketSizeFieldset"/>
+                            <label class="govuk-label govuk-checkboxes__label" id="CustomBasketSizeAccordion" for="CustomBasketSize">Define the number of schools and federations in the benchmark comparison (default is 15)</label>
+                        </div>
+                        <div id="CustomBasketSizeFieldset" class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden">
+                            <div class="govuk-form-group">
+                                <div class="govuk-hint">
+                                    A useful benchmark set should contain between <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">10</span> and <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">20</span> schools and federations. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
+                                </div>
+                                <label class="govuk-label" for="BasketSizeInput">Enter a number between 5 and 30</label>
+                                <span class="govuk-error-message" style="display: none"><span class="govuk-visually-hidden">Error: </span>Enter a number between 5 and 30</span>
+                                <input id="BasketSizeInput" class="govuk-input govuk-input--width-2" name="BasketSize" type="text" pattern="[0-9]*" inputmode="numeric" 
+                                       value="@ViewBag.BasketSize" />
+                            </div>
+                        </div>
                     </div>
                 }
                 else
                 {
-                    <legend>
-                        <span class="bold-small">Number of schools in benchmark set:</span>
+                    <legend class="govuk-fieldset__legend govuk-!-font-weight-bold">
+                        <span>Number of schools in benchmark set:</span>
                         <span class="help-icon hide-in-print">
                             <span class="icon dark-blue">
-                                <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='bold-xsmall'>10</span> and <span class='bold-xsmall'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                                    <span class="visuallyhidden">Open more info text for Location characteristic opens a popup</span>
+                                <a href="#" class="js-modal" role="button" data-modal-title="Benchmark set" data-modal-text="A useful benchmark set should contain between <span class='govuk-!-font-size-16 govuk-!-font-weight-bold'>10</span> and <span class='govuk-!-font-size-16 govuk-!-font-weight-bold'>20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                    <span class="govuk-visually-hidden">Open more info text for Location characteristic opens a popup</span>
                                 </a>
                             </span>
                         </span>
                     </legend>
-                    <div id="CustomSizeAccordion" class="multiple-choice js-accordion" aria-controls="CustomBasketSizeFieldset">
-                        <input id="CustomBasketSize" type="checkbox" />
-                        <label id="CustomBasketSizeAccordion" for="CustomBasketSize">Define the number of schools in the benchmark comparison (default is 15)</label>
-                    </div>
-                    <div id="CustomBasketSizeFieldset" class="form-group optional-section">
-                        <p>
-                            A useful benchmark set should contain between <span class="bold-xsmall">10</span> and <span class="bold-xsmall">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
-                        </p>
-                        <label style="display: block" class="mb-1" for="BasketSizeInput">Enter a number between 5 and 30</label>
-                        <span class="error-message" style="display: none">Enter a number between 5 and 30</span>
-                        <input id="BasketSizeInput" class="form-control mbl" name="BasketSize" type="number" value="@ViewBag.BasketSize" />
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item govuk-!-padding-left-0">
+                            <div id="CustomSizeAccordion" class="govuk-checkboxes__item" aria-controls="CustomBasketSizeFieldset">
+                                <input id="CustomBasketSize" type="checkbox" class="govuk-checkboxes__input" data-aria-controls="CustomBasketSizeFieldset" />
+                                <label id="CustomBasketSizeAccordion" for="CustomBasketSize" class="govuk-label govuk-checkboxes__label">Define the number of schools in the benchmark comparison (default is 15)</label>
+                            </div>
+                            <div id="CustomBasketSizeFieldset" class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden">
+                                <div class="govuk-form-group">
+                                    <div class="govuk-hint">
+                                        A useful benchmark set should contain between <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">10</span> and <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">20</span> schools. In some cases, the exact amount specified won't be returned if not enough similar schools are found.
+                                    </div>
+                                    <label style="display: block" class="govuk-label" for="BasketSizeInput">Enter a number between 5 and 30</label>
+                                    <span class="govuk-error-message" style="display: none"><span class="govuk-visually-hidden">Error: </span>Enter a number between 5 and 30</span>
+                                    <input id="BasketSizeInput" class="govuk-input govuk-input--width-2" name="BasketSize" type="text" pattern="[0-9]*" inputmode="numeric" value="@ViewBag.BasketSize" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 }
             </fieldset>
         </div>
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <div class="column-two-thirds next-button">
-                    <button type="submit" class="button" id="continue-button">Continue to benchmarking charts</button>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-grid-column-two-thirds next-button">
+                    <button type="submit" class="govuk-button" id="continue-button" data-module="govuk-button">Continue to benchmarking charts</button>
                 </div>
             </div>
         </div>
@@ -166,14 +183,20 @@
         function checkBasketCount() {
             if ($("#BasketSizeInput:visible").length > 0) {
                 let count = $("#BasketSizeInput").val();
-                if (count < 5 || count > 30) {
-                    $(".error-summary").show();
-                    $(".error-message").show();
+                if (isNaN(count) || count < 5 || count > 30) {
+                    $(".govuk-error-summary").show();
+                    $(".govuk-error-message").show();
+                    let $panel = $('#CustomBasketSizeFieldset .govuk-form-group');
+                    $panel.addClass("govuk-form-group--error");
+                    $panel.find("input").addClass("govuk-input--error");
                     $('#basketSizeError').focus();
                     return false;
                 } else {
-                    $(".error-summary").hide();
-                    $(".error-message").hide();
+                    $(".govuk-error-summary").hide();
+                    $(".govuk-error-message").hide();
+                    let $panel = $('#CustomBasketSizeFieldset .govuk-form-group');
+                    $panel.removeClass("govuk-form-group--error");
+                    $panel.find("input").removeClass("govuk-input--error");
                     return true;
                 }
             } else {
@@ -191,16 +214,15 @@
 
         $('#CustomBasketSize').change(
             (event) => {
-                let $panel = $('#CustomBasketSizeFieldset');
-                $panel.toggle();
+                let $panel = $('#CustomBasketSizeFieldset .govuk-form-group');
                 $panel.find("input:visible").prop('disabled', false);
                 $panel.find("input:hidden").prop('disabled', true);
                 if (!event.target.checked) {
-                    $panel.find(".panel").hide();
-                    $panel.removeClass("error");
-                    $panel.find("error-message").hide();
-                    $panel.find("input.error").removeClass("error");
-                    $panel.find("label.error").css("display", "none");
+                    $panel.removeClass("govuk-form-group--error");
+                    $panel.find("govuk-error-message").hide();
+                    $(".govuk-error-summary").hide();
+                    $panel.find("input.govuk-input--error").removeClass("govuk-input--error");
+                    $panel.find(".govuk-error-message").css("display", "none");
                 }
                 $panel.find("input[type='number']:disabled").val(null);
                 $panel.find("input[type='checkbox']:disabled").prop('checked', false);

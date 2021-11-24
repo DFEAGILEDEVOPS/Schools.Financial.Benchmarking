@@ -8,12 +8,7 @@ class CriteriaByAreaViewModel {
     }
 
     bindEvents() {
-        GOVUK.Accordion.bindElements("SearchTypesAccordion", this.accordionChangeHandler.bind(this));
         this.bindAutosuggest("#FindSchoolByLaCode", "#SelectedLocalAuthorityId", { data: this.localAuthorities, name: "LANAME", value: "id" });
-    }
-
-    accordionChangeHandler() {
-        $(".error-summary").hide();
     }
 
     bindAutosuggest(targetInputElementName, targetResolvedInputElementName, suggestionSource) {
@@ -51,7 +46,7 @@ class CriteriaByAreaViewModel {
         }
 
         let templateHandler = function (suggestion) {
-            return '<div><a href="javascript:">' + suggestion[field] + "</a></div>";
+            return '<div><a class="govuk-link" href="javascript:">' + suggestion[field] + "</a></div>";
         };
 
         $(targetInputElementName).typeahead({
@@ -62,7 +57,7 @@ class CriteriaByAreaViewModel {
             ],
             minLength: minChars,
             classNames: {
-                menu: "tt-menu form-control mtm",
+                menu: "tt-menu govuk-form-control mtm",
                 highlight: "bold-small"
             },
             ariaOwnsId: "arialist_" + DfE.Util.randomNumber()

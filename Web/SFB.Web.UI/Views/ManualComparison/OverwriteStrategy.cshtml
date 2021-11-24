@@ -14,58 +14,64 @@
 
 @if (Model.HasError())
 {
-    <div class="error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
-        <h1 id="ErrorSummaryHeading" class="heading-medium error-summary-heading">
+    <div class="govuk-error-summary" role="alert" aria-labelledby="ErrorSummaryHeading">
+        <h2 id="ErrorSummaryHeading" class="govuk-error-summary__title">
             There is a problem
-        </h1>
-        <ul class="error-summary-list">
-            <li>
-                <a href="#legend">@Model.ErrorMessage</a>
-            </li>
-        </ul>
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                <li>
+                    <a href="#legend">@Model.ErrorMessage</a>
+                </li>
+            </ul>
+        </div>
     </div>
 }
 
-<h1 class="heading-xlarge page-heading">Comparing similar schools</h1>
+<h1 class="govuk-heading-xl page-heading">Comparing similar schools</h1>
 
-<p>
-    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmark set. You can replace them or retain them alongside those matching the characteristics you've just selected.
+<p class="govuk-body">
+    You already have <span class="govuk-!-font-weight-bold">@Model.ComparisonListCount</span> schools in your benchmark set. You can replace them or retain them alongside those matching the characteristics you've just selected.
 </p>
 
 <form action="ReplaceAdd" method="post">
     @Html.AntiForgeryToken()
-    <div class="form-group @Html.Raw(Model.HasError() ? "form-group-error" : "")">
+    <div class="govuk-form-group @Html.Raw(Model.HasError() ? "govuk-form-group--error" : "")">
 
-        <fieldset>
+        <fieldset class="govuk-fieldset">
             <legend id="legend">
-                <span class="visually-hidden">Overwrite strategy</span>
-                @if (Model.HasError())
-                {
-                    <span class="error-message">@Model.ErrorMessage</span>
-                }
+                <span class="govuk-visually-hidden">Overwrite strategy</span>
             </legend>
-            <div class="multiple-choice">
-                <input id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
-                <label class="selection-button-radio" for="radio-1">
-                    Replace benchmark set
-                </label>
-            </div>
+            @if (Model.HasError())
+            {
+                <span class="govuk-visually-hidden">Error: </span>
+                <span class="govuk-error-message">@Model.ErrorMessage</span>
+            }
 
-            <div class="multiple-choice">
-                <input id="radio-2" type="radio" name="overwriteStrategy" value="add">
-                <label class="selection-button-radio" for="radio-2">
-                    Add to existing benchmark set
-                </label>
+            <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="radio-1" type="radio" name="overwriteStrategy" value="overwrite">
+                    <label class="govuk-label govuk-radios__label" for="radio-1">
+                        Replace benchmark set
+                    </label>
+                </div>
+
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="radio-2" type="radio" name="overwriteStrategy" value="add">
+                    <label class="govuk-label govuk-radios__label" for="radio-2">
+                        Add to existing benchmark set
+                    </label>
+                </div>
             </div>
 
         </fieldset>
     </div>
-    <div class="grid-row">
-        <div class="column-half">
-            <div class="column-one-third next-button">
-                <button type="submit" class="button">Continue</button>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-one-third next-button">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
             </div>
-            <div class="column-one-third">
+            <div class="govuk-grid-column-one-third">
                 <input type="hidden" name="referrer" value="@ViewBag.referrer" />
             </div>
         </div>

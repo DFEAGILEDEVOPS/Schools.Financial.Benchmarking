@@ -1,27 +1,27 @@
 ﻿@using SFB.Web.UI.Models
 @model SchoolCharacteristicsViewModel
 
-<div class="accordion-section">
-        <h2>
-            <a class="accordion-section-header" href="javascript:void(0)">
-                <span id="WFHeader" class="heading-medium">Workforce characteristics <span class="font-small break-in-mobile"><span>(</span><span role="status"><span class="selection-counter">0</span><span class="visually-hidden"> workforce characteristics</span> selected</span><span>)</span></span></span>
-            </a>
+<div class="govuk-accordion__section ">
+    <div class="govuk-accordion__section-header">
+        <h2 class="govuk-accordion__section-heading">
+            <span class="govuk-accordion__section-button" id="WFHeader">
+                Workforce characteristics <span class="govuk-!-font-weight-regular govuk-!-font-size-19 break-in-mobile"><span>(</span><span role="status"><span class="selection-counter">0</span><span class="govuk-visually-hidden"> workforce characteristics</span> selected</span><span>)</span></span>
+            </span>
         </h2>
+    </div>
+    <div id="accordion-wf-content" class="govuk-accordion__section-content" aria-labelledby="WFHeader">
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.SchoolWorkforceRangeVM)
 
-        <div class="accordion-section-body">
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.NumberOfTeachersFTERangeVM)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.SchoolWorkforceRangeVM)
+        @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercQualifiedTeachersRangeVM)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.NumberOfTeachersFTERangeVM)
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.SeniorLeadershipFTERangeVM)
 
-            @Html.Partial("Partials/Criteria/PercentageCriteria", Model.PercQualifiedTeachersRangeVM)
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.FulltimeTaRangeVM)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.SeniorLeadershipFTERangeVM)
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.FulltimeOtherRangeVM)
 
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.FulltimeTaRangeVM)
-
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.FulltimeOtherRangeVM)
-
-            @Html.Partial("Partials/Criteria/RangeCriteria", Model.FulltimeAuxRangeVM)
-        </div>
+        @Html.Partial("Partials/Criteria/RangeCriteria", Model.FulltimeAuxRangeVM)
+    </div>
 </div>

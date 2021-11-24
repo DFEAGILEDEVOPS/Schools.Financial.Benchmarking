@@ -5,6 +5,7 @@
             function($scope, $http, $q) {
                 var self = this;
                 self.format = "Charts";
+                self.accordionInitialised = false;
 
                 self.loadData = function (resolve) {
                     localStorage.removeItem('CustomCharts');
@@ -38,18 +39,16 @@
                     return self.totalSelectCount() > 0;
                 };
 
-                self.clear = function() {
+                self.clear = function () {
                     $http.get('/Assets/Scripts/AngularJS/allChartSelections.json').then(function(response) {
                         $scope.selectionList = response.data;
                         self.query = "";
-                        setTimeout(function() { new Accordion(document.getElementById('custom-report-accordion')); },
-                            500);
                         self.onSelectionChange();
                     });
                 };
 
                 self.openDetails = function () {
-                    $("#customTabSection button.accordion-expand-all:contains('Open')").click();
+                    $("#customTabSection button.govuk-accordion__open-all:contains('Open')").click();
                 };
 
                 self.displayCustomReport = function () {
@@ -66,17 +65,21 @@
                         success: function (data) {
                             setTimeout(function () {
                                 $('#spinner-place-holder').hide();
-                                $('#CustomReportContentPlaceHolder').html(data);                           
+                                $('#CustomReportContentPlaceHolder').html(data); 
                                 DfE.Views.BenchmarkChartsViewModel.generateCharts();
                                 $("table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
                                 $("table.data-table-js.chart-table--mobile-only-view.chart-table--summary-view").tablesorter({ sortList: [[$("table.data-table-js.chart-table--mobile-only-view.chart-table--summary-view").first().find("thead th").length - 1, 1]] });
                                 $("table.data-table-js.includes-table").tablesorter({ sortList: [[1, 1]] });
+                                if (!self.accordionInitialised) {
+                                    //window.GOVUKFrontend.initAll({ scope: $("#customTabSection")[0] });
+                                    self.accordionInitialised = true;
+                                }
                             }, 500);
                         }
                     });
                 };
 
-                self.groupSelectCount = function (group) {                    
+                self.groupSelectCount = function (group) {
                     var count = _.reduce(group.Charts,
                         function(sum, ch) {
                             return sum +
@@ -92,11 +95,10 @@
                                 (ch.PercentageTeachersSelected ? 1 : 0);
                         },
                         0);
-
                     return count;
                 };
 
-                self.totalSelectCount = function() {
+                self.totalSelectCount = function () {
                     var count = 0;
                     if ($scope.selectionList) {
                         count = _.reduce($scope.selectionList.HierarchicalCharts,
@@ -110,11 +112,6 @@
 
                 $scope.dataLoaded = $q(function (resolve) {
                     self.loadData(resolve);
-                });
-
-                angular.element(document).ready(function () {
-                    new Accordion(document.getElementById('custom-report-accordion'));
-                    //$("#custom-report-accordion .accordion-section-header").first().click();
                 });
 
                 $(document).ready(function() {

@@ -18,10 +18,10 @@
     }
 }
 
-<h1 class="heading-xlarge page-heading">Replace benchmark set</h1>
+<h1 class="govuk-heading-xl page-heading">Replace benchmark set</h1>
 
-<p>
-    You already have <span class="bold">@Model.ComparisonListCount</span> schools in your benchmark set. By proceeding you will replace your current benchmark set. If you wish to add to your benchmark set go back and reduce your benchmark set size.
+<p class="govuk-body">
+    You already have <span class="govuk-!-font-weight-bold">@Model.ComparisonListCount</span> schools in your benchmark set. By proceeding you will replace your current benchmark set. If you wish to add to your benchmark set go back and reduce your benchmark set size.
 </p>
 
 <form action="ReplaceAdd" method="post">
@@ -29,13 +29,11 @@
 
     <input type="hidden" name="overwriteStrategy" value="overwrite" checked="checked">
 
-    <div class="grid-row">
-        <div class="column-half">
-            <div class="column-two-thirds next-button">
-                <button type="submit" class="button">Replace benchmark set</button>
-            </div>
-            <div class="column-one-third back-button">
-                <a href="@ViewBag.referrer">Back</a>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <div class="govuk-button-group">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Replace benchmark set</button>
+                <a class="govuk-link" href="@ViewBag.referrer">Back</a>
                 <input type="hidden" name="referrer" value="@ViewBag.referrer" />
             </div>
         </div>

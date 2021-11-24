@@ -2,25 +2,29 @@
 @model List<SFB.Web.UI.Models.BenchmarkTrustModel>
 
 <form autocomplete="off">
-    <span id="trustCountMessage" class="visuallyhidden" aria-live="polite">@Model.Count trusts in comparison list</span>
+    <span id="trustCountMessage" class="govuk-visually-hidden" aria-live="polite">@Model.Count trusts in comparison list</span>
     <input id="trustCount" type="hidden" value="@Model.Count"/>
     <button type="submit" style="visibility: hidden; display: none" disabled="disabled">hidden</button>
-    <fieldset>
-        <legend class="font-small form-hint" id="legend">Start entering a trust name and select from the auto-complete list.</legend>
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-!-margin-top-4" id="legend">
+            Create a benchmark group of <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">1-20</span> trusts with a recommended size of <span class="govuk-!-font-size-16 govuk-!-font-weight-bold">5</span>.
+            <span class="govuk-hint govuk-!-margin-top-2">Start entering a trust name and select from the auto-complete list.</span>
+        </legend>
         @{
             if (ViewBag.Error != null)
             {
-                <div id="error-summary" class="error-summary duplicate" role="alert" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+                <div id="govuk-error-summary" class="govuk-error-summary duplicate" role="alert" aria-labelledby="govuk-error-summary__title-example-1" tabindex="-1">
 
-                    <h2 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+                    <h2 class="govuk-error-summary__title" id="govuk-error-summary__title-example-1">
                         There is a problem
                     </h2>
-
-                    <ul class="error-summary-list">
-                        <li>
-                            <a href="#NewTrustName">@ViewBag.Error</a>
-                        </li>
-                    </ul>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li>
+                                <a href="#NewTrustName">@ViewBag.Error</a>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
             }
@@ -31,82 +35,88 @@
                 <div id="ExistingTrusts">
                     @for (; i < Model.Count; i++)
                     {
-                        <div class="grid-row trust-element">
-                            <label class="form-label" for="mat_@i">
+                        <div class="govuk-grid-row trust-element">
+                            <label class="govuk-label" for="mat_@i">
                                 Trust @Html.Raw(i + 1)
-                                <span class="visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
+                                <span class="govuk-visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
                             </label>
-                            <input class="form-control" style="width: 50%" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName"/>
-                            <button class="remove-trust link-button font-xsmall" data-companyno="@Model[i].CompanyNo" aria-label="Remove @Model[i].MatName">Remove</button>
+                            <input class="govuk-input govuk-!-width-one-half" id="mat_@i" name="mat_@i" type="text" disabled="disabled" value="@Model[i].MatName" />
+                            <button class="remove-trust link-button govuk-!-font-size-16" data-companyno="@Model[i].CompanyNo" aria-label="Remove @Model[i].MatName">Remove</button>
                         </div>
                     }
                 </div>
 
                 <div id="NewTrust" style="display: @Html.Raw(ViewBag.Error == null ? "none" : "block")">
-                    <div class="grid-row trust-element">
-                        <label class="form-label" for="NewTrustName">
+                    <div class="govuk-grid-row trust-element">
+                        <label class="govuk-label" for="NewTrustName">
                             Trust @Html.Raw(i + 1)
-                            <span class="visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
+                            <span class="govuk-visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
                         </label>
-                        <label class="visually-hidden" for="NewTrustName_listbox">Select a trust name from the list box</label>
+                        <label class="govuk-visually-hidden" for="NewTrustName_listbox">Select a trust name from the list box</label>
                         @if (ViewBag.Error != null)
                         {
-                            <span class="error-message">
+                            <span class="govuk-error-message">
+                                <span class="govuk-visually-hidden">Error: </span>
                                 @ViewBag.Error
                             </span>
                         }
-                        <span class="error-message missing" style="display: none">
+                        <span class="govuk-error-message missing" style="display: none">
+                            <span class="govuk-visually-hidden">Error: </span>
                             Enter a trust name to continue the comparison
                         </span>
-                        <span class="error-message not-found" style="display: none">
+                        <span class="govuk-error-message not-found" style="display: none">
+                            <span class="govuk-visually-hidden">Error: </span>
                             We couldn't find any trusts matching your search criteria
                         </span>
                         <input id="NewTrustName"
-                               class="form-control"
+                               class="govuk-input"
                                name="trustname"
                                type="text"
                                data-suggestion-url="/trustsearch/suggest" />
-                        <button class="remove-new-trust link-button font-xsmall" aria-label="Remove new trust addition">Remove</button>
+                        <button class="remove-new-trust link-button govuk-!-font-size-16" aria-label="Remove new trust addition">Remove</button>
 
                     </div>
                 </div>
-                <div id="AddButton" class="grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
-                    <div class="column-full">
+                <div id="AddButton" class="govuk-grid-row" style="display: @Html.Raw(ViewBag.Error == null ? "block" : "none")">
+                    <div class=" govuk-grid-column-full">
                         @if (Model.Count + 1 < ComparisonListLimit.MAT_LIMIT)
                         {
-                            <button class="link-button font-xsmall" id="displayNew">Add another trust</button>
+                            <button class="link-button govuk-!-font-size-16" id="displayNew">Add another trust</button>
                         }
                         else
                         {
-                            <button type="button" class="link-button font-xsmall" onclick="DfE.Util.ComparisonList.renderFullListWarningModalMat()">Add another trust</button>
+                            <button type="button" class="link-button govuk-!-font-size-16" onclick="DfE.Util.ComparisonList.renderFullListWarningModalMat()">Add another trust</button>
                         }
                     </div>
                 </div>
             }
             else
             {
-                <div class="grid-row trust-element">
-                    <label class="form-label" for="NewTrustName">
+                <div class="govuk-grid-row trust-element">
+                    <label class="govuk-label" for="NewTrustName">
                         Trust 1
-                        <span class="visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
+                        <span class="govuk-visually-hidden"> - Start entering a trust name and select from the auto-complete list.</span>
                     </label>
                     @if (ViewBag.Error != null)
                     {
-                        <span class="error-message duplicate">
+                        <span class="govuk-error-message duplicate">
+                            <span class="govuk-visually-hidden">Error: </span>
                             @ViewBag.Error
                         </span>
                     }
-                    <span class="error-message missing" style="display: none">
+                    <span class="govuk-error-message missing" style="display: none">
+                        <span class="govuk-visually-hidden">Error: </span>
                         Enter a trust name to continue the comparison
                     </span>
-                    <span class="error-message not-found" style="display: none">
-                            We couldn't find any trusts matching your search criteria
+                    <span class="govuk-error-message not-found" style="display: none">
+                        <span class="govuk-visually-hidden">Error: </span>
+                        We couldn't find any trusts matching your search criteria
                     </span>
                     <input id="NewTrustName"
-                           class="form-control"
+                           class="govuk-input govuk-!-width-one-half"
                            name="trustname"
                            type="text"
-                           data-suggestion-url="/trustsearch/suggest"/>
+                           data-suggestion-url="/trustsearch/suggest" />
                 </div>
             }
         }
@@ -117,10 +127,10 @@
 {
     <script>
         $('#ErrorSummaryPlaceHolder').empty();
-        $('#error-summary').detach().appendTo('#ErrorSummaryPlaceHolder');
-        $(".error-summary.missing").hide();
-        $(".error-summary.not-found").hide();
-        if ($(".error-summary.duplicate").length > 0) {
+        $('#govuk-error-summary').detach().appendTo('#ErrorSummaryPlaceHolder');
+        $(".govuk-error-summary.missing").hide();
+        $(".govuk-error-summary.not-found").hide();
+        if ($(".govuk-error-summary.duplicate").length > 0) {
             document.title = "Error: " + document.title.replace("Error: ", "");
         } else {
             document.title = document.title.replace("Error: ", "");

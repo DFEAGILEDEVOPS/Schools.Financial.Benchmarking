@@ -44,6 +44,7 @@
         if (event.target.activeElement.id !== "DownloadLink") {
             $('select').prop('selectedIndex', -1);
         }
+        //$(".govuk-checkboxes__input").prop("checked", false);
     };
 
     window.DfE.Util.QueryString = {
@@ -69,7 +70,7 @@
             $(location).html('<div style="min-height:300px; margin-top:20px;">' +
                 '<img style="vertical-align:bottom" src="../public/assets/images/spinner.gif"></img>' +
                 '<span role="alert" aria-live="assertive" aria-label="'+ message +'"></span>' +
-                '<span class="font-medium" style="margin-left: 10px">Loading...</span>'+
+                '<span class="govuk-body" style="margin-left: 10px">Loading...</span>'+
                 '</div>');
         }
     };
@@ -157,7 +158,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+            var $modal_code = '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="additionalGrantModal" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Additional grant for schools</h1><p id="modal-content">' +
                 'This includes: primary PE and sports grants, universal infant free school meal funding, and additional grant funding for secondary schools to release PE teachers to work in primary schools.</p>' +
@@ -182,7 +183,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderYourChartsInfo' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>Your charts tab</h1><p id='modal-content'>" +
                 "This tab shows which charts you have chosen to include in your customised report. You can add charts to this area by selecting the ‘Add to your charts’ function beside each chart. You can also add charts within the tab by selecting the relevant checkboxes.</p>" +
@@ -209,7 +210,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderP8Info' title='Close'>Close</a>" +
                 "<h1 id='modal-title' class='modal-title'>Progress 8 scores</h1><p id='modal-content'>" +
                 "Progress 8 score is calculated for each pupil by comparing their Attainment 8 score – with the average Attainment 8 scores of all pupils nationally who had a similar starting point, using assessment results from the end of primary school.</p>" +
@@ -219,7 +220,7 @@
                 "<div class='modal__score'><div class='score average'>Average</div><div>About <span class='bold'>37%</span> of</br> schools in England</div></div>" +
                 "<div class='modal__score'><div class='score above'>Above average</div><div>About <span class='bold'>17%</span> of</br> schools in England</div></div>" +
                 "<div class='modal__score'><div class='score well-above'>Well above average</div><div>About <span class='bold'>14%</span> of</br> schools in England</div></div>" +
-                "<div class='panel panel-border-wide mt-2'><span class='govuk-body-s'>Due to Covid-19 the Government is not publishing the school educational performance data for 2020, the latest progress data is from 2019.</span></div>" +
+                "<div class='govuk-warning-text mt-2'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><div class='govuk-body-s govuk-warning-text__text'><span class='govuk-warning-text__assistive'>Warning</span>Due to Covid-19 the Government is not publishing the school educational performance data for 2020, the latest progress data is from 2019.</div></div>" +
                 "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderP8Info' title='Close'>Close</a></dialog>";
 
             $($modal_code).insertAfter($page);
@@ -242,17 +243,17 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = "<dialog id='js-modal' class='modal' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
+            var $modal_code = "<dialog id='js-modal' class='modal govuk-body-s' role='dialog' aria-labelledby='modal-title'><div role='document'>" +
                 "<a href='#' id='js-modal-close' class='modal-close' data-focus-back='renderKs2Info' title='Close'>Close</a>" +
-                "<h1 id='modal-title' class='modal-title'>Key stage 2 progress scores</h1><p id='modal-content'>" +
+                "<h1 id='modal-title' class='modal-title'>Key stage 2 progress scores</h1><p class='govuk-body-s' id='modal-content'>" +
                 "The scores are calculated by comparing the key stage 2 test and assessment results of pupils with the results of pupils in schools across England who started with similar assessment results at the end of the previous key stage 1.</p>" +
-                "<h3 class='heading-small'>What do the scores mean</h3>" +
-                "<div class='modal__score'><div class='score well-below'>Well below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score below'>Below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score average'>Average</div><div>About <span class='bold'>60%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score above'>Above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='modal__score'><div class='score well-above'>Well above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
-                "<div class='panel panel-border-wide mt-2'><span class='govuk-body-s'>Due to Covid-19 the Government is not publishing the school educational performance data for 2020, the latest progress data is from 2019.</span></div>"+
+                "<h3 class='govuk-heading-s'>What do the scores mean</h3>" +
+                "<div class='modal__score'><div class='govuk-body-s score well-below'>Well below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score below'>Below average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score average'>Average</div><div>About <span class='bold'>60%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score above'>Above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='modal__score'><div class='govuk-body-s score well-above'>Well above average</div><div>About <span class='bold'>10%</span> of</br> schools in England</div></div>" +
+                "<div class='govuk-warning-text mt-2'><span class='govuk-warning-text__icon' aria-hidden='true'>!</span><div class='govuk-body-s govuk-warning-text__text'><span class='govuk-warning-text__assistive'>Warning</span>Due to Covid-19 the Government is not publishing the school educational performance data for 2020, the latest progress data is from 2019.</div></div>" +
                 "</div><a href='#' id='js-modal-close-bottom' class='modal-close white-font' data-focus-back='renderKs2Info' title='Close'>Close</a></dialog>";
 
             $($modal_code).insertAfter($page);
@@ -316,7 +317,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
         
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+            var $modal_code = '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="label_modal_1" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Not enough space in basket</h1><p id="modal-content">' +
                 'You can only benchmark up to 30 schools. You can view and remove schools from the <a href=\'/benchmarklist\'>edit basket</a> page.</p>' +
@@ -340,7 +341,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+            var $modal_code = '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="manualButton" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Not enough space in basket</h1><p id="modal-content">' +
                 'You can only benchmark up to 30 schools.</p>' +
@@ -364,7 +365,7 @@
             var $body = $('body');
             var $page = $('#js-modal-page');
 
-            var $modal_code = '<dialog id="js-modal" class="modal" role="dialog" aria-labelledby="modal-title">' +
+            var $modal_code = '<dialog id="js-modal" class="modal govuk-body-s" role="dialog" aria-labelledby="modal-title">' +
                 '<a href="#" id="js-modal-close" class="modal-close" data-focus-back="manualButton" title="Close">Close</a>' +
                 '<h1 id="modal-title" class="modal-title">Trust basket is full</h1><p id="modal-content">' +
                 'You can only benchmark up to 20 trusts.</p>' +
@@ -534,6 +535,124 @@
     };
 }());
 
+(function () {
+    "use strict"
+    var root = this;
+    if (typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
+
+    /*
+      Cookie methods
+      ==============
+  
+      Usage:
+  
+        Setting a cookie:
+        GOVUK.cookie('hobnob', 'tasty', { days: 30 });
+  
+        Reading a cookie:
+        GOVUK.cookie('hobnob');
+  
+        Deleting a cookie:
+        GOVUK.cookie('hobnob', null);
+    */
+    GOVUK.cookie = function (name, value, options) {
+        if (typeof value !== 'undefined') {
+            if (value === false || value === null) {
+                return GOVUK.setCookie(name, '', { days: -1 });
+            } else {
+                return GOVUK.setCookie(name, value, options);
+            }
+        } else {
+            return GOVUK.getCookie(name);
+        }
+    };
+    GOVUK.setDomainCookie = function (name, value, options, domain) {
+        if (typeof options === 'undefined') {
+            options = {};
+        }
+        var cookieString = name + "=" + value + "; path=/";
+        if (options.days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (options.days * 24 * 60 * 60 * 1000));
+            cookieString = cookieString + "; expires=" + date.toGMTString();
+        }
+        if (document.location.protocol == 'https:') {
+            cookieString = cookieString + "; Secure";
+        }
+        cookieString = cookieString + "; samesite=lax";
+        cookieString = cookieString + "; domain=" + domain;
+        document.cookie = cookieString;
+    };
+    GOVUK.setCookie = function (name, value, options) {
+        if (typeof options === 'undefined') {
+            options = {};
+        }
+        var cookieString = name + "=" + value + "; path=/";
+        if (options.days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (options.days * 24 * 60 * 60 * 1000));
+            cookieString = cookieString + "; expires=" + date.toGMTString();
+        }
+        if (document.location.protocol == 'https:') {
+            cookieString = cookieString + "; Secure";
+        }
+        cookieString = cookieString + "; samesite=lax";
+        document.cookie = cookieString;
+    };
+    GOVUK.getCookie = function (name) {
+        var nameEQ = name + "=";
+        var cookies = document.cookie.split(';');
+        for (var i = 0, len = cookies.length; i < len; i++) {
+            var cookie = cookies[i];
+            while (cookie.charAt(0) == ' ') {
+                cookie = cookie.substring(1, cookie.length);
+            }
+            if (cookie.indexOf(nameEQ) === 0) {
+                return decodeURIComponent(cookie.substring(nameEQ.length));
+            }
+        }
+        return null;
+    };
+}).call(this);
+(function () {
+    "use strict"
+    var root = this;
+    if (typeof root.GOVUK === 'undefined') { root.GOVUK = {}; }
+}).call(this);
+(function () {
+    "use strict"
+
+    // add cookie message
+    if (window.GOVUK && GOVUK.addCookieMessage) {
+        GOVUK.addCookieMessage();
+    }
+
+    // header navigation toggle
+    if (document.querySelectorAll && document.addEventListener) {
+        var els = document.querySelectorAll('.js-header-toggle'),
+            i, _i;
+        for (i = 0, _i = els.length; i < _i; i++) {
+            els[i].addEventListener('click', function (e) {
+                e.preventDefault();
+                var target = document.getElementById(this.getAttribute('href').substr(1)),
+                    targetClass = target.getAttribute('class') || '',
+                    sourceClass = this.getAttribute('class') || '';
+
+                if (targetClass.indexOf('js-visible') !== -1) {
+                    target.setAttribute('class', targetClass.replace(/(^|\s)js-visible(\s|$)/, ''));
+                } else {
+                    target.setAttribute('class', targetClass + " js-visible");
+                }
+                if (sourceClass.indexOf('js-hidden') !== -1) {
+                    this.setAttribute('class', sourceClass.replace(/(^|\s)js-hidden(\s|$)/, ''));
+                } else {
+                    this.setAttribute('class', sourceClass + " js-hidden");
+                }
+            });
+        }
+    }
+}).call(this);
+
 function manageCookies() {
     var cookiesPolicyCookie = GOVUK.cookie("cookies_policy");
     if (!cookiesPolicyCookie) {
@@ -544,7 +663,6 @@ function manageCookies() {
     }
 
     manageCookiePreferencesCookies();
-    manageDynamicHeaderAndCookie(cookiesPolicyCookie);
     manageRecruitmentBannerAndCookie(cookiesPolicyCookie);
     manageGACookies(cookiesPolicyCookie);
     //manageMSCookies(cookiesPolicyCookie);
@@ -554,47 +672,32 @@ function manageCookies() {
         GOVUK.setDomainCookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 }, $("#cookieDomain").val());
         GOVUK.setDomainCookie("cookies_preferences_set", "true", { days: 365 }, $("#cookieDomain").val());
 
-        $(".gem-c-cookie-banner__wrapper").hide();
-        $(".gem-c-cookie-banner__confirmation").show();
-        DfE.Util.CookieOverlayRenderer.unRender();
+        $("#govuk-cookie-banner-message").hide();
+        $("#govuk-cookie-accept-confirmation").show();           
     });
 
-    $("#acceptAllCookiesHide").click(function () {
-        $("#global-cookie-message").hide();
+
+    $("#rejectAllCookies").click(function () {
+        var cookiesPolicyCookie = { "essential": true, "settings": false, "usage": false };
+        GOVUK.setDomainCookie("cookies_policy", JSON.stringify(cookiesPolicyCookie), { days: 365 }, $("#cookieDomain").val());
+        GOVUK.setDomainCookie("cookies_preferences_set", "true", { days: 365 }, $("#cookieDomain").val());
+
+        $("#govuk-cookie-banner-message").hide();
+        $("#govuk-cookie-reject-confirmation").show();     
+    });
+
+    $(".cookie-banner-hide-button").click(function () {
+        $(".govuk-cookie-banner").attr("hidden", true);
     });
 }
 
 function manageCookiePreferencesCookies() {
-    GOVUK.cookie("seen_cookie_message", null); //legacy cookie
 
-    if (!GOVUK.cookie("cookies_preferences_set") && !window.location.href.toLowerCase().includes("/help/cookies")) {
-        $("#global-cookie-message").show();
-        DfE.Util.CookieOverlayRenderer.render();
+    if (!GOVUK.cookie("cookies_preferences_set") && !window.location.href.toLowerCase().includes("/help/cookies")) {        
+        $(".govuk-cookie-banner").removeAttr("hidden");
+        $("#govuk-cookie-banner-message").show();
     } else {
-        $("#global-cookie-message").hide();
-        DfE.Util.CookieOverlayRenderer.unRender();
-    }
-}
-
-function manageDynamicHeaderAndCookie(cookiesPolicyCookie) {
-    if (cookiesPolicyCookie.settings) {
-        var suppressDynamicHeaderCookie = GOVUK.cookie("suppress-dynamic-header");
-        if (suppressDynamicHeaderCookie === "yes") {
-            $(".header-content__dynamic-header").hide();
-        } else {
-            //$(".header-content__dynamic-header").show();
-            $(".js-dismiss-dynamic-header").click(function () {
-                $(".header-content__dynamic-header").hide();
-                GOVUK.cookie("suppress-dynamic-header", 'yes', { days: 7 });
-            });
-        }
-    }
-    else {
-        GOVUK.cookie("suppress-dynamic-header", null);
-        //$(".header-content__dynamic-header").show();
-        $(".js-dismiss-dynamic-header").click(function () {
-            $(".header-content__dynamic-header").hide();
-        });
+        $(".govuk-cookie-banner").attr("hidden", true);
     }
 }
 

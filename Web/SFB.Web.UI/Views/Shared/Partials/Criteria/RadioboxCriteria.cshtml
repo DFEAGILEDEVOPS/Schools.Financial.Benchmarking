@@ -4,55 +4,57 @@
     var activated = Model.Options.Any(o => o.Selected);
 }
 
-<div class="question">
-    <div class="multiple-choice question">
-        <input id="checkbox-@Model.ElementName" type="checkbox" @Html.Raw(activated ? "checked" : "")>
-        <label for="checkbox-@Model.ElementName">@Model.Question <span class="visuallyhidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
+<div class="govuk-checkboxes question" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item question">
+        <input class="govuk-checkboxes__input" id="checkbox-@Model.ElementName" type="checkbox" @Html.Raw(activated ? "checked" : "") data-aria-controls="rbc">
+        <label class="govuk-label govuk-checkboxes__label" for="checkbox-@Model.ElementName">@Model.Question <span class="govuk-visually-hidden">The value for @Model.HomeSchoolName is @Model.HomeSchoolValue</span></label>
     </div>
-    <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
-        <div class="column-full">
-            <div class="benchmark-school-value">
-                @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
-                {
-                    if (!@Model.HomeSchoolName.IsEmpty())
+    <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="rbc">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-hint">
+                    @if (string.IsNullOrEmpty(Model.HomeSchoolValue))
                     {
-                        <span>No value was supplied for @Model.HomeSchoolName</span>
-                    }
-                }
-                else
-                {
-                    <span>The value for @Model.HomeSchoolName is <span class="bold-small">@Model.HomeSchoolValue</span></span>
-                }
-            </div>
-        </div>
-        <div>
-            <span class="error-message"></span>
-        </div>
-        <div class="column-full">
-            <div class="form-group">
-                <div class="column-full">
-                    <fieldset role="group" aria-label="@Model.Question">
-                        <legend class="visually-hidden">@Model.Question</legend>
-                        @for (var i = 0; i < Model.Options.Count; i++)
+                        if (!@Model.HomeSchoolName.IsEmpty())
                         {
-                            <div class="multiple-choice questionRadio">
-                                <input type="radio" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName@i" value="@Model.Options[i].Value" class="criteria-radio"
-                                       required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "") data-msg-required="Choose an option to continue the comparison">
-                                <label class="selection-button-radio" for="@Model.ElementName@i">@Model.Options[i].Name</label>
-                            </div>
-                            if (Model.Options[i].SubRangeOptions != null)
-                            {
-                                <div class="panel panel-border-narrow" style="display: @Html.Raw(activated ? "block": "none")">
-                                    @foreach (var subOption in Model.Options[i].SubRangeOptions.SubOptions)
-                                    {
-                                        @Html.Partial("Partials/Criteria/RangeCriteria", subOption)
-                                    }
-                                </div>
-                            }
+                            <span>No value was supplied for @Model.HomeSchoolName</span>
                         }
-                    </fieldset>
+                    }
+                    else
+                    {
+                        <span>The value for @Model.HomeSchoolName is <span class="govuk-!-font-size-19 govuk-!-font-weight-bold">@Model.HomeSchoolValue</span></span>
+                    }
                 </div>
-            </div>
+
+                <span class="govuk-error-message"></span>
+
+                <legend class="govuk-visually-hidden">@Model.Question</legend>
+
+                <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                    @for (var i = 0; i < Model.Options.Count; i++)
+                    {
+                        <div class="govuk-radios__item">
+                            <input type="radio" name="AdvancedCriteria.@Model.ElementName" id="@Model.ElementName@i" value="@Model.Options[i].Value"
+                                   class="govuk-radios__input criteria-radio"
+                                   required @Html.Raw(Model.Options.Any(o => o.Selected) ? "" : "disabled") @Html.Raw(Model.Options[i].Selected ? "checked" : "") 
+                                   data-msg-required="Choose an option to continue the comparison"
+                                   data-aria-controls="subs_@Model.ElementName">
+                            <label class="govuk-label govuk-radios__label" for="@Model.ElementName@i">@Model.Options[i].Name</label>
+                        </div>
+
+                        if (Model.Options[i].SubRangeOptions != null)
+                        {
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="subs_@Model.ElementName">
+                                @foreach (var subOption in Model.Options[i].SubRangeOptions.SubOptions)
+                                {
+                                    @Html.Partial("Partials/Criteria/RangeCriteria", subOption)
+                                }
+                            </div>
+                        }
+                    }
+                </div>
+            </fieldset>
         </div>
     </div>
 </div>
+

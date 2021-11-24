@@ -1,75 +1,75 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
 @model SFB.Web.UI.Models.BenchmarkChartListViewModel
 
-<table id="criteriaTable">
-    <thead>
-    <tr>
-        <th scope="col">Characteristic</th>
-        <th class="nowrap" scope="col" >Default school value</th>
-        <th class="nowrap" scope="col" >Comparison criteria</th>
+<table id="criteriaTable" class="govuk-table >
+    <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header">Characteristic</th>
+        <th class="govuk-table__header nowrap" scope="col" >Default school value</th>
+        <th class="govuk-table__header nowrap" scope="col" >Comparison criteria</th>
     </tr>
     </thead>
-    <tbody>
-        <tr>
-            <td>Finance type</td>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Finance type</td>
             @if (Model.BenchmarkSchoolData.EstabType == EstablishmentType.Academies)
             {
-                <td>Academy</td>
+                <td class="govuk-table__cell">Academy</td>
             }
             else
             {
-                <td>Maintained</td>
+                <td class="govuk-table__cell">Maintained</td>
             }
-            <td>@Model.SearchedEstablishmentType</td>
+            <td class="govuk-table__cell">@Model.SearchedEstablishmentType</td>
         </tr>
-        <tr>
-            <td>Number of pupils</td>
-            <td>@Model.BenchmarkSchoolData.PupilCount</td>
-            <td>@Math.Ceiling((decimal)Model.AdvancedCriteria.MinNoPupil) - @Math.Floor((decimal)Model.AdvancedCriteria.MaxNoPupil)</td>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Number of pupils</td>
+            <td class="govuk-table__cell">@Model.BenchmarkSchoolData.PupilCount</td>
+            <td class="govuk-table__cell">@Math.Ceiling((decimal)Model.AdvancedCriteria.MinNoPupil) - @Math.Floor((decimal)Model.AdvancedCriteria.MaxNoPupil)</td>
         </tr>
-        <tr>
-            <td>School phase</td>
-            <td>@Model.BenchmarkSchoolData.SchoolOverallPhase</td>
-            <td>@Model.AdvancedCriteria.SchoolOverallPhase.FirstOrDefault()</td>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell">School phase</td>
+            <td class="govuk-table__cell">@Model.BenchmarkSchoolData.SchoolOverallPhase</td>
+            <td class="govuk-table__cell">@Model.AdvancedCriteria.SchoolOverallPhase.FirstOrDefault()</td>
         </tr>
-        <tr>
-            <td>Urban / rural location</td>
-            <td>@Model.BenchmarkSchoolData.UrbanRural</td>
-            <td>@string.Join(", ", Model.AdvancedCriteria.UrbanRural.ToArray())</td>
-        </tr>
-
-        <tr>
-            <td>Percentage of pupils eligible for free school meals</td>
-            <td>@decimal.Round(Model.BenchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-            <td>@decimal.Round(Model.AdvancedCriteria.MinPerFSM.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPerFSM.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Urban / rural location</td>
+            <td class="govuk-table__cell">@Model.BenchmarkSchoolData.UrbanRural</td>
+            <td class="govuk-table__cell">@string.Join(", ", Model.AdvancedCriteria.UrbanRural.ToArray())</td>
         </tr>
 
-
-        <tr>
-            <td>Pupils with special educational needs who have statements or education and health care plans</td>
-            <td>@decimal.Round(Model.BenchmarkSchoolData.PercentageOfPupilsWithSen.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-            <td>@decimal.Round(Model.AdvancedCriteria.MinPerSEN.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPerSEN.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Percentage of pupils eligible for free school meals</td>
+            <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.PercentageOfEligibleFreeSchoolMeals.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+            <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinPerFSM.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPerFSM.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
         </tr>
 
 
-        <tr>
-            <td>Pupils with English as an additional language</td>
-            <td>@decimal.Round(Model.BenchmarkSchoolData.PercentageOfPupilsWithEal.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
-            <td>@decimal.Round(Model.AdvancedCriteria.MinPerEAL.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPerEAL.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Pupils with special educational needs who have statements or education and health care plans</td>
+            <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.PercentageOfPupilsWithSen.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+            <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinPerSEN.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPerSEN.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
         </tr>
 
-        <tr>
-            <td>Grant funding per pupil</td>
+
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Pupils with English as an additional language</td>
+            <td class="govuk-table__cell">@decimal.Round(Model.BenchmarkSchoolData.PercentageOfPupilsWithEal.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+            <td class="govuk-table__cell">@decimal.Round(Model.AdvancedCriteria.MinPerEAL.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)% - @decimal.Round(Model.AdvancedCriteria.MaxPerEAL.GetValueOrDefault(), 2, MidpointRounding.AwayFromZero)%</td>
+        </tr>
+
+        <tr class="govuk-table__row">
+            <td class="govuk-table__cell">Grant funding per pupil</td>
             <td >@Model.BenchmarkSchoolData.PerPupilGrantFunding.GetValueOrDefault().ToString("C")</td>
             <td >@Model.AdvancedCriteria.MinPerPupilGrantFunding.GetValueOrDefault().ToString("C") - @Model.AdvancedCriteria.MaxPerPupilGrantFunding.GetValueOrDefault().ToString("C")</td>
         </tr>
 
         @if (Model.AdvancedCriteria.LondonWeighting != null)
         {
-            <tr>
-                <td>London Weighting</td>
-                <td>@Model.BenchmarkSchoolData.LondonWeighting</td>
-                <td>@string.Join(", ", Model.AdvancedCriteria.LondonWeighting.ToArray())</td>
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">London Weighting</td>
+                <td class="govuk-table__cell">@Model.BenchmarkSchoolData.LondonWeighting</td>
+                <td class="govuk-table__cell">@string.Join(", ", Model.AdvancedCriteria.LondonWeighting.ToArray())</td>
             </tr>
         }
     </tbody>
