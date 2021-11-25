@@ -219,8 +219,8 @@
     <Reference Include="SFB.Web.ApplicationCore, Version=1.0.327.63121, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFB.Web.ApplicationCore.1.0.327.63121\lib\net472\SFB.Web.ApplicationCore.dll</HintPath>
     </Reference>
-    <Reference Include="SFB.Web.Infrastructure, Version=1.0.327.63123, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.327.63123\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
+    <Reference Include="SFB.Web.Infrastructure, Version=1.0.329.63204, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFB.Web.Infrastructure.1.0.329.63204\lib\net472\SFB.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.0.601\lib\net472\StackExchange.Redis.dll</HintPath>
