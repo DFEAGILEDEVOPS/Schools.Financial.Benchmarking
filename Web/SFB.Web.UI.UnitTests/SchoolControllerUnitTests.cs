@@ -74,7 +74,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
-            var mockActiveUrnsService = new Mock<IActiveUrnsService>();
+            var mockActiveUrnsService = new Mock<IActiveEstablishmentsService>();
 
             var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
             var fakeSVM = new SchoolViewModel(fakeEdubaseObject);
@@ -123,7 +123,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
-            var mockActiveUrnsService = new Mock<IActiveUrnsService>();
+            var mockActiveUrnsService = new Mock<IActiveEstablishmentsService>();
 
             var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
             var fakeSVM = new SchoolViewModel(fakeEdubaseObject);
@@ -181,7 +181,7 @@ namespace SFB.Web.UI.UnitTests
 
             var mockLaSearchService = new Mock<ILocalAuthoritiesService>();
 
-            var mockActiveUrnsService = new Mock<IActiveUrnsService>();
+            var mockActiveUrnsService = new Mock<IActiveEstablishmentsService>();
 
             var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
 

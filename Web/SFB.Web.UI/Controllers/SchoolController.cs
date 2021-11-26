@@ -26,20 +26,20 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly ISchoolBenchmarkListService _benchmarkBasketService;
-        private readonly IActiveUrnsService _activeUrnsService;
+        private readonly IActiveEstablishmentsService _activeEstabService;
         private readonly ISchoolVMBuilder _schoolVMBuilder;
 
         public SchoolController(IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
             ISchoolBenchmarkListService benchmarkBasketService,
-            IActiveUrnsService activeUrnsService, ISchoolVMBuilder schoolVMBuilder)
+            IActiveEstablishmentsService activeEstabService, ISchoolVMBuilder schoolVMBuilder)
         {
             _financialDataService = financialDataService;
             _fcService = fcService;
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketService = benchmarkBasketService;
-            _activeUrnsService = activeUrnsService;
+            _activeEstabService = activeEstabService;
             _schoolVMBuilder = schoolVMBuilder;
         }
 
@@ -129,7 +129,7 @@ namespace SFB.Web.UI.Controllers
         {
             try
             {
-                var activeUrns = await _activeUrnsService.GetAllActiveUrnsAsync();
+                var activeUrns = await _activeEstabService.GetAllActiveUrnsAsync();
                 var found = activeUrns.Contains(urn);
                 return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);
             }

@@ -86,7 +86,7 @@ namespace SFB.Web.UI
             builder.RegisterType<TrustHistoryService>().As<ITrustHistoryService>().SingleInstance();
             builder.RegisterType<RedisCachedBicComparisonResultCachingService>().As<IBicComparisonResultCachingService>().SingleInstance();
             //builder.RegisterInstance(new RedDogSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
-            builder.Register(c => new RedisCachedActiveUrnsService(c.Resolve<IContextDataService>(), ConfigurationManager.AppSettings["RedisConnectionString"])).As<IActiveUrnsService>().SingleInstance();
+            builder.Register(c => new RedisCachedActiveEstablishmentIdsService(c.Resolve<IContextDataService>(), c.Resolve<IFinancialDataService>(), ConfigurationManager.AppSettings["RedisConnectionString"])).As<IActiveEstablishmentsService>().SingleInstance();
             builder.RegisterInstance(new AzureSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
             builder.RegisterInstance(new AzureTrustSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
             builder.RegisterInstance(new AspNetLogManager(ConfigurationManager.AppSettings["EnableAITelemetry"])).As<ILogManager>();
