@@ -916,6 +916,7 @@
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Contact\ContactUsConfirmation.cshtml" />
     <Content Include="Views\GovukFrontendLayout\GovukTemplate.cshtml" />
+    <Content Include="Views\School\Index.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

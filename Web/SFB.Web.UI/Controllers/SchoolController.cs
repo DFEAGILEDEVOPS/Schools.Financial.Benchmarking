@@ -43,9 +43,48 @@ namespace SFB.Web.UI.Controllers
             _schoolVMBuilder = schoolVMBuilder;
         }
 
-        #if !DEBUG
-        [OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
-        #endif
+        public async Task<ActionResult> Index(long urn,
+            UnitType unit = UnitType.AbsoluteMoney,
+            CentralFinancingType financing = CentralFinancingType.Include,
+            TabType tab = TabType.Expenditure,
+            ChartFormat format = ChartFormat.Charts)
+        {
+            //if (FeatureManager.IsDisabled(Features.RevisedSchoolPage))
+            //{
+            //    return Redirect($"/School/Detail?urn={urn}");
+            //}
+
+            OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
+
+            await _schoolVMBuilder.BuildCoreAsync(urn);
+            await _schoolVMBuilder.AddHistoricalChartsAsync(tab, DetectDefaultChartGroupFromTabType(tab), financing, unit);
+            _schoolVMBuilder.AssignLaName();
+            var schoolVM = _schoolVMBuilder.GetResult();
+
+            if (schoolVM.IsFederation)
+            {
+                return Redirect("/federation?fuid=" + schoolVM.Id);
+            }
+
+            if (schoolVM.ContextData == null)
+            {
+                return View("EmptyResult", new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), SearchTypes.SEARCH_BY_NAME_ID));
+            }
+
+            ViewBag.Tab = tab;
+            ViewBag.ChartGroup = schoolVM.HistoricalCharts.First().ChartGroup;
+            ViewBag.UnitType = schoolVM.HistoricalCharts.First().ShowValue;
+            ViewBag.Financing = financing;
+            ViewBag.IsSATinLatestFinance = schoolVM.IsSATinLatestFinance;
+            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
+            ViewBag.ChartFormat = format;
+
+            return View("Index", schoolVM);
+        }
+
+        //#if !DEBUG
+        //[OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
+        //#endif
         public async Task<ActionResult> Detail( 
             long urn, 
             UnitType unit = UnitType.AbsoluteMoney, 
@@ -53,6 +92,11 @@ namespace SFB.Web.UI.Controllers
             TabType tab = TabType.Expenditure, 
             ChartFormat format = ChartFormat.Charts)
         {
+            if (FeatureManager.IsEnabled(Features.RevisedSchoolPage))
+            {
+                return Redirect($"/School?urn={urn}");
+            }
+
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 
             await _schoolVMBuilder.BuildCoreAsync(urn);
