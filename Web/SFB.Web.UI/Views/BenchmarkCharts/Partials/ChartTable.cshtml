@@ -30,7 +30,7 @@
                     @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
                             </a>
                             @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
@@ -48,7 +48,7 @@
                     else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
                             </a>
                             <span class="exc-icon">
@@ -63,7 +63,7 @@
                     else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete workforce data</span>
                             </a>
                         </td>
@@ -71,7 +71,7 @@
                     else
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 @schoolBenchmarkData.School
                             </a>
                         </td>
@@ -120,7 +120,7 @@
                     @if (@ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
                         <td class="govuk-table__cell">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
                             </a>
                             @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
@@ -138,7 +138,7 @@
                     else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                     {
                         <td class="govuk-table__cell">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
                             </a>
                             <span class="exc-icon">
@@ -153,7 +153,7 @@
                     else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
                     {
                         <td class="govuk-table__cell">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete workforce data</span>
                             </a>
                         </td>
@@ -161,7 +161,7 @@
                     else
                     {
                         <td class="govuk-table__cell">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 @schoolBenchmarkData.School
                             </a>
                         </td>
@@ -317,7 +317,7 @@
                     @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
                             </a>
                             @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
@@ -335,7 +335,7 @@
                     else if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
                             </a>
                             <span class="exc-icon">
@@ -350,7 +350,7 @@
                     else if (ViewBag.ChartGroup == ChartGroupType.Workforce && Model.IncompleteWorkforceDataIndex.Contains(i))
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete workforce data</span>
                             </a>
                         </td>
@@ -358,7 +358,7 @@
                     else
                     {
                         <td class="govuk-table__cell school-column" data-header="School name">
-                            <a class="govuk-link" href="/school/detail?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
                                 @schoolBenchmarkData.School
                             </a>
                         </td>

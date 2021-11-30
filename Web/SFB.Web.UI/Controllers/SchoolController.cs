@@ -49,9 +49,10 @@ namespace SFB.Web.UI.Controllers
             TabType tab = TabType.Expenditure,
             ChartFormat format = ChartFormat.Charts)
         {
+            //TODO: Uncomment for production
             //if (FeatureManager.IsDisabled(Features.RevisedSchoolPage))
             //{
-            //    return Redirect($"/School/Detail?urn={urn}");
+            //    return Redirect($"/school?urn={urn}");
             //}
 
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
@@ -92,10 +93,11 @@ namespace SFB.Web.UI.Controllers
             TabType tab = TabType.Expenditure, 
             ChartFormat format = ChartFormat.Charts)
         {
-            if (FeatureManager.IsEnabled(Features.RevisedSchoolPage))
-            {
-                return Redirect($"/School?urn={urn}");
-            }
+            //TODO: Uncomment for production
+            //if (FeatureManager.IsEnabled(Features.RevisedSchoolPage))
+            //{
+            //    return Redirect($"/School?urn={urn}");
+            //}
 
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 
