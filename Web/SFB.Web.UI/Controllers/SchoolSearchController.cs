@@ -127,7 +127,7 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, selectedLocalAuthorityId == string.Empty ? laCodeName : selectedLocalAuthorityId, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, String.IsNullOrEmpty(selectedLocalAuthorityId) ? laCodeName : selectedLocalAuthorityId, radius, openOnly, orderby, page);
             }
             var vm = GetSearchedSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
 
