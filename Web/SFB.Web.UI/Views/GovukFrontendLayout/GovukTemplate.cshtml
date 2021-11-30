@@ -1,4 +1,5 @@
-﻿@using SFB.Web.UI.Controllers
+﻿@using SFB.Web.UI.Helpers
+@using SFB.Web.UI.Controllers
 @{
     ViewBag.assetsPath = "/public/govuk_template/assets";
 
@@ -283,6 +284,9 @@
                 <input type="hidden" id="googleAnalyticsId" value="@System.Configuration.ConfigurationManager.AppSettings["GoogleAnalyticsId"]" />
                 <input type="hidden" id="cookieDomain" value="@System.Configuration.ConfigurationManager.AppSettings["cookieDomain"]" />
                 <input type="hidden" id="SfbApiUrl" value="@System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]" />
+                @*Features*@
+                <input type="hidden" id="@Features.RevisedSchoolPage" value="@FeatureManager.IsEnabled(Features.RevisedSchoolPage).ToString()" />
+                @*Features*@
             </main>
             @RenderSection("Aside", required: false)
         </div>
