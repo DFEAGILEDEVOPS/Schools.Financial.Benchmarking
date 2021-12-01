@@ -49,11 +49,10 @@ namespace SFB.Web.UI.Controllers
             TabType tab = TabType.Expenditure,
             ChartFormat format = ChartFormat.Charts)
         {
-            //TODO: Uncomment for production
-            //if (FeatureManager.IsDisabled(Features.RevisedSchoolPage))
-            //{
-            //    return Redirect($"/school?urn={urn}");
-            //}
+            if (FeatureManager.IsDisabled(Features.RevisedSchoolPage))
+            {
+                return Redirect($"/school/detail?urn={urn}");
+            }
 
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 

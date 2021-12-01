@@ -44,6 +44,10 @@ namespace SFB.Web.UI.Models
         public EdubaseDataObject ContextData { get; set; }
 
         public bool HasLatestYearFinancialData => LatestYearFinancialData?.FinancialDataObjectModel != null;
+        
+        public bool HasSomeHistoricalFinancialData => HistoricalFinancialDataModels.Any(f => f.FinancialDataObjectModel != null);
+
+        public bool HasSomeHistoricalWorkforceData => HistoricalFinancialDataModels.Any(f => f.FinancialDataObjectModel != null && f.FinancialDataObjectModel.WorkforcePresent);
 
         public bool IsReturnsComplete => LatestYearFinancialData.IsReturnsComplete;
 

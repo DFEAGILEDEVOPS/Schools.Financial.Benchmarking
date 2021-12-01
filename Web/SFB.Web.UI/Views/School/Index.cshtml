@@ -250,16 +250,22 @@
                         Details
                     </a>
                 </li>
-                <li class="govuk-tabs__list-item">
-                    <a class="govuk-tabs__tab" href="#finance">
-                        Finance
-                    </a>
-                </li>
-                <li class="govuk-tabs__list-item">
-                    <a class="govuk-tabs__tab" href="#workforce">
-                        Workforce
-                    </a>
-                </li>
+                @if (Model.HasSomeHistoricalFinancialData)
+                {
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#finance">
+                            Finance
+                        </a>
+                    </li>
+                }
+                @if (Model.HasSomeHistoricalWorkforceData)
+                {
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#workforce">
+                            Workforce
+                        </a>
+                    </li>
+                }
             </ul>
             @if (Model.HasLatestYearFinancialData && !Model.Is16Plus)
             {
@@ -270,14 +276,19 @@
             <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="details">
                 Details content
             </div>
-            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="finance">
-                Finance content
-            </div>
-            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="workforce">
-                Workforce content
-            </div>
+            @if (Model.HasSomeHistoricalFinancialData)
+            {
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="finance">
+                    Finance content
+                </div>
+            }
+            @if (Model.HasSomeHistoricalWorkforceData)
+            {
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="workforce">
+                    Workforce content
+                </div>
+            }
         </div>
-        
     </div>
 </div> <!--container grid-row -->
 
