@@ -189,6 +189,7 @@ namespace SFB.Web.UI.Models
         public override float TotalPupils => ContextData.NumberOfPupils.GetValueOrDefault();
 
         public string IsPost16 => ContextData.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
+        public bool Is16Plus => ContextData.OfficialSixthForm == "Has a sixth form";
 
         public string HasNursery => ContextData.NurseryProvision == "Has Nursery Classes" ? "Yes" : "No";
 

@@ -32,88 +32,91 @@
     @Html.Partial("Partials/BackToHomeLink")
 }
 
-@if (Model.IsUnderReview)
-{
-    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
-        <div class="combined-warnings" style="width:90%">
-            <div class="govuk-warning-text">
-                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                <strong class="govuk-warning-text__text">
-                    <span class="govuk-warning-text__assistive">Warning</span>
-                    @ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]
-                </strong>
+
+<div id="warnings">
+    @if (Model.IsUnderReview)
+    {
+        <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+            <div class="combined-warnings" style="width:90%">
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        @ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]
+                    </strong>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
 
-@if (Model.IsPartOfFederation)
-{
-    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
-        <div class="combined-warnings">
-            <div class="govuk-warning-text">
-                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                <strong class="govuk-warning-text__text">
-                    <span class="govuk-warning-text__assistive">Warning</span>
-                    This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.
-                </strong>
+    @if (Model.IsPartOfFederation)
+    {
+        <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+            <div class="combined-warnings">
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.
+                    </strong>
+                </div>
             </div>
         </div>
-    </div>
-}
-else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
-{
-    <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
-        <div class="combined-warnings">
-            @if (!Model.IsReturnsComplete)
-            {
-                <div class="govuk-warning-text">
-                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                    <strong class="govuk-warning-text__text">
-                        <span class="govuk-warning-text__assistive">Warning</span>
-                        This school doesn't have a complete set of financial data for this period
-                    </strong>
-                </div>
-            }
+    }
+    else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
+    {
+        <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+            <div class="combined-warnings">
+                @if (!Model.IsReturnsComplete)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            This school doesn't have a complete set of financial data for this period
+                        </strong>
+                    </div>
+                }
 
-            @if (!Model.WorkforceDataPresent)
-            {
-                <div class="govuk-warning-text">
-                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                    <strong class="govuk-warning-text__text">
-                        <span class="govuk-warning-text__assistive">Warning</span>
-                        This school doesn't have a complete set of workforce data for this period
-                    </strong>
-                </div>
-            }
+                @if (!Model.WorkforceDataPresent)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            This school doesn't have a complete set of workforce data for this period
+                        </strong>
+                    </div>
+                }
 
-            @if (Model.HasNoTeacherData)
-            {
-                <div class="govuk-warning-text">
-                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                    <strong class="govuk-warning-text__text">
-                        <span class="govuk-warning-text__assistive">Warning</span>
-                        We can’t show charts with per teacher values because they weren't supplied within these finance returns
-                    </strong>
-                </div>
-            }
+                @if (Model.HasNoTeacherData)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                        </strong>
+                    </div>
+                }
 
-            @if (Model.HasNoPupilData)
-            {
-                <div class="govuk-warning-text">
-                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                    <strong class="govuk-warning-text__text">
-                        <span class="govuk-warning-text__assistive">Warning</span>
-                        We can’t show charts with per pupil values because they weren't supplied within these finance returns
-                    </strong>
-                </div>
-            }
+                @if (Model.HasNoPupilData)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                        </strong>
+                    </div>
+                }
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
 
-<div class="govuk-grid-row">
-    <div class=" govuk-grid-column-full">
+<div id="container" class="govuk-grid-row">
+    <div id="banners-section" class="govuk-grid-column-full">
         @if (!Model.IsReturnsDNS)
         {
             <div class="blue-banner">
@@ -129,7 +132,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     </div>
 
 
-                    <a href="start-benchmarking?urn=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                    <a href="school/start-benchmarking?urn=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
                         Start a comparison
                         <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
                             <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
@@ -152,7 +155,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
                     }
                     else
                     {
-                        <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
+                        <p class="govuk-body mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</p>
 
                         <a href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
                             Go to the self-assessment dashboard
@@ -166,7 +169,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         }
     </div>
 
-    <div class=" govuk-grid-column-full mt-1 hide-in-print ">
+    <div id="buttons-section" class="govuk-grid-column-full govuk-!-margin-top-1 hide-in-print ">
         @if (!Model.IsPartOfFederation)
         {
             if (Model.IsReturnsDNS)
@@ -201,7 +204,8 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             </div>
         </div>
     </div>
-    <div class="govuk-grid-column-full govuk-!-margin-top-6">
+
+    <div id="sen-chars-section" class="govuk-grid-column-full govuk-!-margin-top-6">
         @if (Model.Phase == "Special" && Model.SenCharacteristics.Any(c => c.Value != null))
         {
             <details class="govuk-details mb-1" data-module="govuk-details">
@@ -229,9 +233,54 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             </details>
         }
     </div>
-</div>
 
-<a href="#pagetop" class="govuk-link page-top hide-in-print">Back to top</a>
+    <div id="tabs-section" class="govuk-grid-column-full govuk-!-margin-top-6">
+        <div class="govuk-tabs" data-module="govuk-tabs">
+            <ul class="govuk-tabs__list">
+                @if (Model.HasLatestYearFinancialData && !Model.Is16Plus)
+                {
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+                        <a class="govuk-tabs__tab" href="#dashboard">
+                            Dashboard
+                        </a>
+                    </li>
+                }
+                <li class="govuk-tabs__list-item">
+                    <a class="govuk-tabs__tab" href="#details">
+                        Details
+                    </a>
+                </li>
+                <li class="govuk-tabs__list-item">
+                    <a class="govuk-tabs__tab" href="#finance">
+                        Finance
+                    </a>
+                </li>
+                <li class="govuk-tabs__list-item">
+                    <a class="govuk-tabs__tab" href="#workforce">
+                        Workforce
+                    </a>
+                </li>
+            </ul>
+            @if (Model.HasLatestYearFinancialData && !Model.Is16Plus)
+            {
+                <div class="govuk-tabs__panel" id="dashboard">
+                    Dashboard content
+                </div>
+            }
+            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="details">
+                Details content
+            </div>
+            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="finance">
+                Finance content
+            </div>
+            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="workforce">
+                Workforce content
+            </div>
+        </div>
+        
+    </div>
+</div> <!--container grid-row -->
+
 
 
 @helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
@@ -276,7 +325,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-        DfE.Views.SchoolDetailsViewModel = new SchoolDetailsViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+        DfE.Views.SchoolDetailsViewModel = new SchoolViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
     </script>
 }
 
