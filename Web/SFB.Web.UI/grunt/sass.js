@@ -1,3 +1,4 @@
+const sass = require('node-sass');
 module.exports = function () {
   return {
     'generate-dev': {
@@ -7,7 +8,8 @@ module.exports = function () {
       options: {
         outputStyle: 'compressed',
         imagePath: '../images',
-        sourceMap: true
+        sourceMap: true,
+        implementation: sass
       }
      }
   };

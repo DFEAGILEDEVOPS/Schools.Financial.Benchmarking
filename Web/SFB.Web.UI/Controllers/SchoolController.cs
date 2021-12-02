@@ -26,26 +26,65 @@ namespace SFB.Web.UI.Controllers
         private readonly IFinancialCalculationsService _fcService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly ISchoolBenchmarkListService _benchmarkBasketService;
-        private readonly IActiveUrnsService _activeUrnsService;
+        private readonly IActiveEstablishmentsService _activeEstabService;
         private readonly ISchoolVMBuilder _schoolVMBuilder;
 
         public SchoolController(IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
             ISchoolBenchmarkListService benchmarkBasketService,
-            IActiveUrnsService activeUrnsService, ISchoolVMBuilder schoolVMBuilder)
+            IActiveEstablishmentsService activeEstabService, ISchoolVMBuilder schoolVMBuilder)
         {
             _financialDataService = financialDataService;
             _fcService = fcService;
             _contextDataService = contextDataService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketService = benchmarkBasketService;
-            _activeUrnsService = activeUrnsService;
+            _activeEstabService = activeEstabService;
             _schoolVMBuilder = schoolVMBuilder;
         }
 
-        #if !DEBUG
-        [OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
-        #endif
+        public async Task<ActionResult> Index(long urn,
+            UnitType unit = UnitType.AbsoluteMoney,
+            CentralFinancingType financing = CentralFinancingType.Include,
+            TabType tab = TabType.Expenditure,
+            ChartFormat format = ChartFormat.Charts)
+        {
+            if (FeatureManager.IsDisabled(Features.RevisedSchoolPage))
+            {
+                return Redirect($"/school/detail?urn={urn}");
+            }
+
+            OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
+
+            await _schoolVMBuilder.BuildCoreAsync(urn);
+            await _schoolVMBuilder.AddHistoricalChartsAsync(tab, DetectDefaultChartGroupFromTabType(tab), financing, unit);
+            _schoolVMBuilder.AssignLaName();
+            var schoolVM = _schoolVMBuilder.GetResult();
+
+            if (schoolVM.IsFederation)
+            {
+                return Redirect("/federation?fuid=" + schoolVM.Id);
+            }
+
+            if (schoolVM.ContextData == null)
+            {
+                return View("EmptyResult", new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), SearchTypes.SEARCH_BY_NAME_ID));
+            }
+
+            ViewBag.Tab = tab;
+            ViewBag.ChartGroup = schoolVM.HistoricalCharts.First().ChartGroup;
+            ViewBag.UnitType = schoolVM.HistoricalCharts.First().ShowValue;
+            ViewBag.Financing = financing;
+            ViewBag.IsSATinLatestFinance = schoolVM.IsSATinLatestFinance;
+            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
+            ViewBag.ChartFormat = format;
+
+            return View("Index", schoolVM);
+        }
+
+        //#if !DEBUG
+        //[OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
+        //#endif
         public async Task<ActionResult> Detail( 
             long urn, 
             UnitType unit = UnitType.AbsoluteMoney, 
@@ -53,6 +92,12 @@ namespace SFB.Web.UI.Controllers
             TabType tab = TabType.Expenditure, 
             ChartFormat format = ChartFormat.Charts)
         {
+            //TODO: Uncomment for production
+            //if (FeatureManager.IsEnabled(Features.RevisedSchoolPage))
+            //{
+            //    return Redirect($"/School?urn={urn}");
+            //}
+
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 
             await _schoolVMBuilder.BuildCoreAsync(urn);
@@ -129,7 +174,7 @@ namespace SFB.Web.UI.Controllers
         {
             try
             {
-                var activeUrns = await _activeUrnsService.GetAllActiveUrnsAsync();
+                var activeUrns = await _activeEstabService.GetAllActiveUrnsAsync();
                 var found = activeUrns.Contains(urn);
                 return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);
             }

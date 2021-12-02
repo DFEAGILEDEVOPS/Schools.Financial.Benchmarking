@@ -153,7 +153,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             }
             else
             {
-                <div class="mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</div>
+                <p class="govuk-body mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</p>
 
                 <a href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
                     Go to the self-assessment dashboard

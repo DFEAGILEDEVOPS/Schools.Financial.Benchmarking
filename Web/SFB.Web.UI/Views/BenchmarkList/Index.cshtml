@@ -50,7 +50,7 @@
                     @if (!school.IsReturnsComplete)
                     {
                         <div class="name highlight-warning">
-                            <a href="/school/detail?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"> (has incomplete data)</span></a>
+                            <a href="/school?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"> (has incomplete data)</span></a>
                         </div>
                         <span class="help-icon inline-block hide-in-print">
                             <span class="icon dark-blue">
@@ -65,13 +65,13 @@
                         if (school.Urn != Model.HomeSchoolUrn)
                         {
                             <div class="name">
-                                <a href="/school/detail?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"></span></a>
+                                <a href="/school?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"></span></a>
                             </div>
                         }
                         else
                         {
                             <div class="name highlight">
-                                <a href="/school/detail?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"> (default school)</span></a>
+                                <a href="/school?urn=@school.Urn" class="govuk-link govuk-!-font-size-19 govuk-!-font-weight-bold">@school.Name<span class="govuk-visually-hidden"> (default school)</span></a>
                             </div>
                         }
                     }

@@ -1,0 +1,343 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Helpers;
+@using System.Configuration;
+@model SFB.Web.UI.Models.SchoolViewModel
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = Model.Name;
+    ViewBag.pageClass = "school-detail"; 
+}
+
+@section InsideHead{
+    <link href="~/node_modules/c3/c3.css" rel="stylesheet" type="text/css">
+    <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+
+}
+
+@section BMListBannerContent
+{
+    <div id="benchmarkBasket"></div>
+}
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+
+<div id="warnings">
+    @if (Model.IsUnderReview)
+    {
+        <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+            <div class="combined-warnings" style="width:90%">
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        @ConfigurationManager.AppSettings["UnderReviewMessageForSchools"]
+                    </strong>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.IsPartOfFederation)
+    {
+        <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+            <div class="combined-warnings">
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        This school's finance data is part of a federated budget, the combined federation finance can be seen on its federation page.
+                    </strong>
+                </div>
+            </div>
+        </div>
+    }
+    else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoTeacherData || Model.HasNoPupilData)
+    {
+        <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+            <div class="combined-warnings">
+                @if (!Model.IsReturnsComplete)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            This school doesn't have a complete set of financial data for this period
+                        </strong>
+                    </div>
+                }
+
+                @if (!Model.WorkforceDataPresent)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            This school doesn't have a complete set of workforce data for this period
+                        </strong>
+                    </div>
+                }
+
+                @if (Model.HasNoTeacherData)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            We can’t show charts with per teacher values because they weren't supplied within these finance returns
+                        </strong>
+                    </div>
+                }
+
+                @if (Model.HasNoPupilData)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            We can’t show charts with per pupil values because they weren't supplied within these finance returns
+                        </strong>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<div id="container" class="govuk-grid-row">
+    <div id="banners-section" class="govuk-grid-column-full">
+        @if (!Model.IsReturnsDNS)
+        {
+            <div class="blue-banner">
+                <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
+                @if (Model.IsPartOfFederation)
+                {
+                    <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                }
+                else
+                {
+                    <div class="hide-in-print">
+                        <p class="govuk-body">There are now several ways for you to compare this school against others.</p>
+                    </div>
+
+
+                    <a href="school/start-benchmarking?urn=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                        Start a comparison
+                        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                        </svg>
+                    </a>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="blue-banner">
+                <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
+
+                @if (Model.EstablishmentStatus == "Open" && Model.OverallPhaseNonTertiary)
+                {
+                    if (Model.IsPartOfFederation)
+                    {
+                        <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                    }
+                    else
+                    {
+                        <p class="govuk-body mb-1">This school has no data for the last year of submission, you can only create a self-assessment dashboard.</p>
+
+                        <a href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/edit-data/@Model.Id/add-new" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                            Go to the self-assessment dashboard
+                            <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                                <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                            </svg>
+                        </a>
+                    }
+                }
+            </div>
+        }
+    </div>
+
+    <div id="buttons-section" class="govuk-grid-column-full govuk-!-margin-top-1 hide-in-print ">
+        @if (!Model.IsPartOfFederation)
+        {
+            if (Model.IsReturnsDNS)
+            {
+                <div class="govuk-grid-column-one-third no-padding returns-incomplete addto">
+                    <div class="add-remove" id="benchmarkControlsPlaceHolder"></div>
+                </div>
+            }
+            else
+            {
+                <div class="govuk-grid-column-one-third no-padding returns-complete addto">
+                    <div class="add-remove" id="benchmarkControlsPlaceHolder"></div>
+                </div>
+            }
+        }
+        <div class="govuk-grid-column-one-third no-padding">
+            <div class="download">
+                <button class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black sfb_gtm_csv_school" onclick="DfE.Views.SchoolDetailsViewModel.downloadData('@Model.Id')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data for this school<span class="govuk-visually-hidden"> (CSV)</span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-third no-padding">
+            <div class="print">
+                <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.SchoolDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
+                    Print page
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="sen-chars-section" class="govuk-grid-column-full govuk-!-margin-top-6">
+        @if (Model.Phase == "Special" && Model.SenCharacteristics.Any(c => c.Value != null))
+        {
+            <details class="govuk-details mb-1" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="summary govuk-!-font-size-16">This school's SEN characteristics</span>
+                </summary>
+                <div class="govuk-details__text">
+                    <table class="govuk-table sen-table">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">SEN characteristic</th>
+                            <th scope="col" class="govuk-table__header col-right">% of pupils</th>
+                        </tr>
+                        @foreach (var ch in Model.SenCharacteristics.OrderByDescending(c => c.Value))
+                        {
+                            if (ch.Value.GetValueOrDefault() > 0)
+                            {
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell"><span>@ch.Definition</span></td>
+                                    <td class="govuk-table__cell col-right"><span>@ch.Value.GetValueOrDefault().ToString("F2")%</span></td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+            </details>
+        }
+    </div>
+
+    <div id="tabs-section" class="govuk-grid-column-full govuk-!-margin-top-6">
+        <div class="govuk-tabs" data-module="govuk-tabs">
+            <ul class="govuk-tabs__list">
+                @if (Model.HasLatestYearFinancialData && !Model.Is16Plus)
+                {
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+                        <a class="govuk-tabs__tab" href="#dashboard">
+                            Dashboard
+                        </a>
+                    </li>
+                }
+                <li class="govuk-tabs__list-item">
+                    <a class="govuk-tabs__tab" href="#details">
+                        Details
+                    </a>
+                </li>
+                @if (Model.HasSomeHistoricalFinancialData)
+                {
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#finance">
+                            Finance
+                        </a>
+                    </li>
+                }
+                @if (Model.HasSomeHistoricalWorkforceData)
+                {
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#workforce">
+                            Workforce
+                        </a>
+                    </li>
+                }
+            </ul>
+            @if (Model.HasLatestYearFinancialData && !Model.Is16Plus)
+            {
+                <div class="govuk-tabs__panel" id="dashboard">
+                    Dashboard content
+                </div>
+            }
+            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="details">
+                Details content
+            </div>
+            @if (Model.HasSomeHistoricalFinancialData)
+            {
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="finance">
+                    Finance content
+                </div>
+            }
+            @if (Model.HasSomeHistoricalWorkforceData)
+            {
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="workforce">
+                    Workforce content
+                </div>
+            }
+        </div>
+    </div>
+</div> <!--container grid-row -->
+
+
+
+@helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
+{
+    if (args != null)
+    {
+        if (args.Any(string.IsNullOrEmpty))
+        {
+            return;
+        }
+
+        var formatted = string.Format(formatString, args);
+        @SchoolDetailField(name, formatted)
+    }
+}
+
+@helper SchoolDetailField(string name, string value)
+{
+    if (!string.IsNullOrEmpty(value))
+    {
+        var htmlValue = new MvcHtmlString(value);
+        var htmlName = new MvcHtmlString(name);
+
+        <dt class="metadata-school-detail__dt govuk-body-s">@htmlName</dt>
+        <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@htmlValue</dd>
+    }
+}
+
+@helper DataSourcesField()
+{
+    <dt class="metadata-school-detail__dt govuk-body-s">Data from other <br>services:</dt>
+    <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
+        <a rel="external noopener noreferrer" class="govuk-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+        <span class="seperator spt_link_js" aria-hidden="true">&nbsp; | &nbsp;</span>
+        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+    </dd>
+}
+
+@section ViewScripts {
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+
+    <script>
+        DfE.Views.SchoolDetailsViewModel = new SchoolViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+    </script>
+}
+
+<iframe id="download_iframe" style="display:none;" title="download"></iframe>

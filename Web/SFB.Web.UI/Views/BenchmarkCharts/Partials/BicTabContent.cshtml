@@ -23,7 +23,7 @@
                         <tr class="govuk-table__row">
                             <th scope="row" class="govuk-table__header col-header">School name</th>
                             <td class="govuk-table__cell" aria-label="@bicSchool.Name @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " index school" : "" )">
-                                <a href="/school/detail?Urn=@bicSchool.Id" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " highlight" : "" )"><span>@bicSchool.Name</span></a>
+                                <a href="/school?Urn=@bicSchool.Id" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == bicSchool.Name ? " highlight" : "" )"><span>@bicSchool.Name</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -123,7 +123,7 @@
                     {
                         <tr class="govuk-table__row">
                             <td scope="col" class="govuk-table__cell school-column" aria-label="@biSchool.Name @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == biSchool.Name ? "index school" : "")">
-                                <a href="/school/detail?Urn=@biSchool.Id" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == biSchool.Name ? "highlight" : "")"><span>@biSchool.Name</span></a>
+                                <a href="/school?Urn=@biSchool.Id" class="govuk-link @Html.Raw(Model.SchoolComparisonList.HomeSchoolName == biSchool.Name ? "highlight" : "")"><span>@biSchool.Name</span></a>
                             </td>
                             <td class="govuk-table__cell" scope="col" aria-label="@biSchool.LaName local authority">@biSchool.LaName</td>
                             <td class="govuk-table__cell govuk-table__cell--numeric" scope="col" aria-label="@biSchool.TotalPupils pupils">@biSchool.TotalPupils</td>

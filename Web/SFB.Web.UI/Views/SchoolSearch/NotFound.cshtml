@@ -48,7 +48,7 @@
                     @foreach (var sugg in Model.Suggestions.Matches)
                     {
                         <li>
-                            <a class="govuk-link" href="/school/detail?urn=@sugg.Id">@sugg.Text</a>
+                            <a class="govuk-link" href="/school?urn=@sugg.Id">@sugg.Text</a>
                         </li>
                     }
 

@@ -127,7 +127,7 @@ namespace SFB.Web.UI.Controllers
             }
             else
             {
-                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, selectedLocalAuthorityId == string.Empty ? laCodeName : selectedLocalAuthorityId, radius, openOnly, orderby, page);
+                searchResponse = await GetSearchResultsAsync(nameId, searchType, locationorpostcode, locationCoordinates, String.IsNullOrEmpty(selectedLocalAuthorityId) ? laCodeName : selectedLocalAuthorityId, radius, openOnly, orderby, page);
             }
             var vm = GetSearchedSchoolViewModelList(searchResponse, schoolComparisonList, orderby, page, searchType, nameId, locationorpostcode, laCodeName);
 
@@ -294,7 +294,7 @@ namespace SFB.Web.UI.Controllers
                         }
                         else if (searchResp.Count == 1)
                         {
-                            return RedirectToAction("Detail", "School", new { urn = (searchResp as List<EdubaseDataObject>).First().URN });
+                            return RedirectToAction("Index", "School", new { urn = (searchResp as List<EdubaseDataObject>).First().URN });
                         }
                         else
                         {
@@ -305,7 +305,7 @@ namespace SFB.Web.UI.Controllers
                     else
                     {
                         searchResp = await _contextDataService.GetSchoolDataObjectByUrnAsync(long.Parse(nameId));
-                        return RedirectToAction("Detail", "School", new { urn = searchResp.URN });
+                        return RedirectToAction("Index", "School", new { urn = searchResp.URN });
                     }
                 }
                 catch (Exception)
@@ -324,7 +324,7 @@ namespace SFB.Web.UI.Controllers
             var schoolComparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             if ((referrer == "home/index") && string.IsNullOrEmpty(_valService.ValidateSchoolIdParameter(suggestionUrn)))
             {
-                return RedirectToAction("Detail", "School", new { urn = suggestionUrn });
+                return RedirectToAction("Index", "School", new { urn = suggestionUrn });
             }
 
             var errorMessage = _valService.ValidateNameParameter(nameId);

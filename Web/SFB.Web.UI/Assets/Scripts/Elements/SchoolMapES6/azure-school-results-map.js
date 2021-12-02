@@ -100,7 +100,7 @@
                 var info = data[i];
 
                 var html = `<div class="infowindow-school-summary">                    
-                        <a class="govuk-link" href ="/school/detail?urn=${info.Id}">${info.Name}</a>
+                        <a class="govuk-link" href ="/school?urn=${info.Id}">${info.Name}</a>
                         <p>${info.Address}</p>
                         <p>${info.EducationPhases}</p>
                         <p>${info.NFType}</p>
@@ -209,7 +209,7 @@
                 latLangs.push([data[i].Latitude, data[i].Longitude]);
                 var info = data[i];
                 var html = `<div class="infowindow-school-summary">                    
-                        <a class="govuk-link" href ="/school/detail?urn=${info.Id}">${info.Name}</a>
+                        <a class="govuk-link" href ="/school?urn=${info.Id}">${info.Name}</a>
                         <p>${info.Address}</p>
                         <p>${info.OverallPhase}</p>
                         <p>${info.NFType}</p>`;

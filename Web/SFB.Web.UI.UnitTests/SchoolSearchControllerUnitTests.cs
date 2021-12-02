@@ -303,7 +303,7 @@ namespace SFB.Web.UI.UnitTests
             var result = await controller.Search("", SearchTypes.SEARCH_BY_NAME_ID, "123456", null, null, null, null, false, null, 0);
 
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("123456", (result as RedirectToRouteResult).RouteValues["urn"]);
         }
 
@@ -347,7 +347,7 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual(123456, (result as RedirectToRouteResult).RouteValues["urn"]);
         }
 
@@ -372,7 +372,7 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("1234567", (result as RedirectToRouteResult).RouteValues["urn"].ToString());
         }
 
@@ -501,7 +501,7 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("1234567", (result as RedirectToRouteResult).RouteValues["urn"].ToString());
         }
 
@@ -526,7 +526,7 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("School", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("1234567", (result as RedirectToRouteResult).RouteValues["urn"].ToString());
         }
 

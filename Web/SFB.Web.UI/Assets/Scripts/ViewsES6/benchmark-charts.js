@@ -353,7 +353,7 @@ class BenchmarkChartsViewModel {
                 } else {
                     $(this).on('click', () => {
                         dataLayer.push({ 'event': 'bmc_school_link_click' });
-                        window.open("/school/detail?urn=" + urn, '_self');
+                        window.open("/school?urn=" + urn, '_self');
                     });
                 }
 
