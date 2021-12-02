@@ -355,8 +355,7 @@
         }
     }
 
-    .fed-link {
-        font-weight: bold;
+    .fed-link, .mat-link {        
         color: govuk-colour("white");
 
         &:active, &:hover {
