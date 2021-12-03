@@ -933,6 +933,7 @@
     <Content Include="Views\TrustComparison\SelectType.cshtml" />
     <Content Include="Views\TrustComparison\Manual.cshtml" />
     <Content Include="Views\TrustComparison\Advanced.cshtml" />
+    <Content Include="Views\Trust\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />

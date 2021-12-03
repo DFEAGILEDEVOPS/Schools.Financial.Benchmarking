@@ -42,27 +42,7 @@ class TrustDetailsViewModel {
         }
         window.print();
     }
-
-    tabChange(code, companyNo, name, tab) {
-        let queryString = "?code=" +
-            code +
-            "&companyNo=" +
-            companyNo +
-            "&name=" +
-            name +
-            "&tab=" +
-            tab +
-            "&unit=" +
-            $("select#ShowValue option:selected")[0].value +
-            "&financing=" +
-            $("select#Financing option:selected")[0].value +
-            "&format=" +
-            sessionStorage.chartFormat +
-            '#financialSummary';
-
-        window.location = queryString;
-    }
-        
+           
     toggleChartsTables(mode) {
         let $charts = $('.chart-wrapper');
         let $tables = $('.chart-table-wrapper');

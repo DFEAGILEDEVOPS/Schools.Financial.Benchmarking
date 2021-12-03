@@ -1,0 +1,167 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.ApplicationCore.Helpers.Enums
+@using System.Configuration;
+@model SFB.Web.UI.Models.TrustViewModel
+
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.pageClass = "sponsor-detail";
+}
+
+@section InsideHead{
+    <link href="~/node_modules/c3/c3.css" rel="stylesheet" type="text/css">
+    <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+}
+
+@section BMListBannerContent
+{
+    @Html.Partial("Partials/BenchmarkListBanner")
+}
+
+@section BackButtonContent{
+
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<div id="warnings">
+    @if (Model.IsUnderReview)
+    {
+        <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+            <div class="combined-warnings">
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        @ConfigurationManager.AppSettings["UnderReviewMessageForTrusts"]
+                    </strong>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.IsReturnsDNS || Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData) || Model.IsReturnsPlaceholder)
+    {
+        <div class="govuk-inset-text app-govuk-inset-text--orange mt-1">
+            <div class="combined-warnings">
+                @if (Model.IsReturnsDNS)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            This trust has not submitted any data
+                        </strong>
+                    </div>
+                }
+                else
+                {
+                    if (Model.AcademiesInFinanceList.Any(m => m.HasIncompleteFinancialData))
+                    {
+                        <div class="govuk-warning-text">
+                            <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                            <strong class="govuk-warning-text__text">
+                                <span class="govuk-warning-text__assistive">Warning</span>
+                                Some of this trust's schools have data from a period less than 12 months
+                            </strong>
+                        </div>
+                    }
+
+                }
+
+                @if (Model.IsReturnsPlaceholder)
+                {
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            This trust did not submit finance for the most recent year
+                        </strong>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<div id="container" class="govuk-grid-row">
+    <div id="banners-section" class="govuk-grid-column-full">
+        <div class="blue-banner">
+            <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
+
+            @if (!Model.IsReturnsDNS)
+            {
+                <p class="govuk-body hide-in-print">There are several ways for you to compare this trust against others.</p>
+
+                <a href="/TrustComparison/SelectType?companyNo=@Model.CompanyNo&matName=@Model.Name" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                    Start a comparison
+                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                    </svg>
+                </a>
+            }
+
+        </div>
+    </div>
+
+    <div id="buttons-section" class="govuk-grid-column-full govuk-!-margin-top-1 hide-in-print ">
+        <div class="govuk-grid-column-one-third no-padding">
+            <div class="download">
+                <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.TrustDetailsViewModel.downloadData(@Model.CompanyNo,'@Model.Name')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <img class="icon" alt="" src="~/public/assets/images/icons/download.svg" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data for this trust<span class="govuk-visually-hidden"> (CSV)</span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-third no-padding">
+            <div class="print">
+                <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold" onclick="DfE.Views.TrustDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tabs-section" class="govuk-grid-column-full govuk-!-margin-top-6">
+        <div class="govuk-tabs" data-module="govuk-tabs">
+            <ul class="govuk-tabs__list">
+                <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+                    <a class="govuk-tabs__tab" href="#details">
+                        Details
+                    </a>
+                </li>
+                @if (Model.HasSomeHistoricalFinancialData)
+                {
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#finance">
+                            Finance
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="govuk-tabs__panel" id="details">
+                Details content
+            </div>
+            @if (Model.HasSomeHistoricalFinancialData)
+            {
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="finance">
+                    Finance content
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section ViewScripts {
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+
+    <script>
+         DfE.Views.TrustDetailsViewModel = new TrustDetailsViewModel('@ViewBag.ChartFormat');
+    </script>
+}
+
+<iframe id="download_iframe" style="display:none;" title="download"></iframe>

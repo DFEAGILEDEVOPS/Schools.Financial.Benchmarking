@@ -108,7 +108,7 @@
 
                 if (info.CompanyNumber !== "0") {
                     html += `<div class="mt-1" style="font-style: italic">Part of the </div>
-                    <div class="mb-1"><a class="govuk-link" href="/trust/index?companyNo=${info.CompanyNumber}">${info.SponsorName}</a></div>`;
+                    <div class="mb-1"><a class="govuk-link" href="/trust/detail?companyNo=${info.CompanyNumber}">${info.SponsorName}</a></div>`;
                 }  
 
                 if ($("#SearchMethod").val() === "Manual") {

@@ -349,7 +349,7 @@ class BenchmarkChartsViewModel {
                 let type = $("#Type").val();
 
                 if (type === "MAT") {
-                    $(this).on('click', () => window.open("/trust/index?companyNo=" + urn, '_self'));
+                    $(this).on('click', () => window.open("/trust/detail?companyNo=" + urn, '_self'));
                 } else {
                     $(this).on('click', () => {
                         dataLayer.push({ 'event': 'bmc_school_link_click' });
