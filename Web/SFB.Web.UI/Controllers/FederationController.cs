@@ -64,6 +64,30 @@ namespace SFB.Web.UI.Controllers
             return View(vm);
         }
 
+        public async Task<ActionResult> Detail(long fuid,
+            UnitType unit = UnitType.AbsoluteMoney,
+            TabType tab = TabType.Expenditure,
+            ChartFormat format = ChartFormat.Charts)
+        {
+            if (FeatureManager.IsDisabled(Features.RevisedSchoolPage))
+            {
+                return Redirect($"/federation?fuid={fuid}");
+            }
+
+            OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
+            var chartGroup = DetectDefaultChartGroupFromTabType(tab);
+
+            var vm = await BuildFederationViewModelAsync(fuid, tab, chartGroup, unit);
+
+            ViewBag.Tab = tab;
+            ViewBag.ChartGroup = chartGroup;
+            ViewBag.UnitType = unit;
+            ViewBag.ChartFormat = format;
+            ViewBag.EstablishmentType = EstablishmentType.Federation;
+
+            return View("Detail", vm);
+        }
+
         public async Task<PartialViewResult> GetCharts(
             long fuid,
             TabType revGroup,

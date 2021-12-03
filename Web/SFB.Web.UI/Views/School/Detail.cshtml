@@ -121,7 +121,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
             <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
             @if (Model.IsPartOfFederation)
             {
-                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation/detail?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
             }
             else
             {
@@ -149,7 +149,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
         {
             if (Model.IsPartOfFederation)
             {
-                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
+                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation/detail?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
             }
             else
             {
@@ -286,7 +286,7 @@ else if (!Model.IsReturnsComplete || !Model.WorkforceDataPresent || Model.HasNoT
 
                 @if (Model.IsPartOfFederation)
                 {
-                    @SchoolDetailFieldFormatted("Belongs to:", "<a class=\"govuk-link\" href=\"/federation?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.FederationName)
+                    @SchoolDetailFieldFormatted("Belongs to:", "<a class=\"govuk-link\" href=\"/federation/detail?fuid={0}\">{1}</a>", Server.UrlEncode(Model.FederationsCode?.ToString()), Model.FederationName)
                 }
 
                 @if (Model.EstablishmentStatus == "Closed")
