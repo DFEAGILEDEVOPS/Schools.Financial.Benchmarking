@@ -1,1 +1,211 @@
-﻿Detail
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+@model SFB.Web.UI.Models.FederationViewModel
+@{
+    ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
+    ViewBag.Title = Model.Name;
+    ViewBag.pageClass = "federation-detail";
+}
+
+@section InsideHead{
+    <link href="~/node_modules/c3/c3.css" rel="stylesheet" type="text/css">
+    <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+}
+
+@section BMListBannerContent
+{
+    <div id="benchmarkBasket"></div>
+}
+
+
+@section BackButtonContent{
+    @Html.Partial("Partials/BackToHomeLink")
+}
+
+<div id="container" class="govuk-grid-row">
+    <div id="banners-section" class="govuk-grid-column-full">
+        @if (!Model.IsReturnsDNS)
+        {
+            <div class="blue-banner">
+                <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
+
+                <p class="govuk-body hide-in-print">There are now several ways for you to compare this federation against schools and federations.</p>
+
+                <a href="federation/start-benchmarking?fuid=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                    Start a comparison
+                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                    </svg>
+                </a>
+
+            </div>
+        }
+        else
+        {
+            <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
+        }
+    </div>
+
+    <div id="buttons-section" class="govuk-grid-column-full govuk-!-margin-top-1 hide-in-print">
+        <div class="govuk-grid-column-one-third no-padding">
+            <div class="add-remove">
+                <button @DisplayStyle(!Model.IsInComparisonList) class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Add')")">
+                    <img class="icon" src="~/public/assets/images/icons/add_to_set.svg" alt="" />
+                    <div class="inline">
+                        <span> Add to benchmark set</span>
+                    </div>
+                </button>
+                <button @DisplayStyle(Model.IsInComparisonList) class="pl-0 link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black add-remove-js" onclick="@($"DfE.Views.HistoricalCharts.updateBenchmarkBasket({Request.QueryString["fuid"]},'Remove')")">
+                    <img class="icon" src="~/public/assets/images/icons/remove_from_set.svg" alt="" />
+                    <div class="inline">
+                        <span> Remove from benchmark set</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-third no-padding">
+            <div class="download">
+                <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black sfb_gtm_csv_school" onclick="DfE.Views.FederationDetailsViewModel.downloadData('@Model.UID')" aria-label="Download data for @Model.Name in Excel spreadsheet. Opens in a new window">
+                    <img class="icon" alt="Opens in a new window" src="~/public/assets/images/icons/download.svg" />
+                    <div id="DownloadLinkTextWrapper" class="inline">
+                        <span id="DownloadLinkText"> Download data for this federation<span class="govuk-visually-hidden"> (CSV)</span></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-third no-padding">
+            <div class="print">
+                <button class="link-button no-underline govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.FederationDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                    <img class="icon" alt="" src="~/public/assets/images/icons/print.svg" />
+                    Print page
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="tabs-section" class="govuk-grid-column-full govuk-!-margin-top-6">
+        <div class="govuk-tabs" data-module="govuk-tabs">
+            <ul class="govuk-tabs__list">
+                @if (Model.HasLatestYearFinancialData)
+                {
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+                        <a class="govuk-tabs__tab" href="#dashboard">
+                            Dashboard
+                        </a>
+                    </li>
+                }
+                <li class="govuk-tabs__list-item">
+                    <a class="govuk-tabs__tab" href="#details">
+                        Details
+                    </a>
+                </li>
+                @if (Model.HasSomeHistoricalFinancialData)
+                {
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#finance">
+                            Finance
+                        </a>
+                    </li>
+                }
+                @if (Model.HasSomeHistoricalWorkforceData)
+                {
+                    <li class="govuk-tabs__list-item">
+                        <a class="govuk-tabs__tab" href="#workforce">
+                            Workforce
+                        </a>
+                    </li>
+                }
+            </ul>
+            @if (Model.HasLatestYearFinancialData)
+            {
+                <div class="govuk-tabs__panel" id="dashboard">
+                    Dashboard content
+                </div>
+            }
+            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="details">
+                Details content
+            </div>
+            @if (Model.HasSomeHistoricalFinancialData)
+            {
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="finance">
+                    Finance content
+                </div>
+            }
+            @if (Model.HasSomeHistoricalWorkforceData)
+            {
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="workforce">
+                    Workforce content
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<iframe id="download_iframe" style="display:none;"></iframe>
+
+@helper SchoolDetailFieldFormatted(string name, string formatString, params string[] args)
+{
+    if (args != null)
+    {
+        if (args.Any(string.IsNullOrEmpty))
+        {
+            return;
+        }
+
+        var formatted = string.Format(formatString, args);
+        @SchoolDetailField(name, formatted)
+    }
+}
+
+@helper SchoolDetailField(string name, string value)
+{
+    if (!string.IsNullOrEmpty(value))
+    {
+        var htmlValue = new MvcHtmlString(value);
+
+        <dt class="metadata-school-detail__dt govuk-body-s">@name</dt>
+        <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">@htmlValue</dd>
+    }
+}
+
+@helper DataSourcesField()
+{
+    <dt class="metadata-school-detail__dt govuk-body-s">Data from other <br>services:</dt>
+    <dd class="metadata-school-detail__dd govuk-body-s govuk-!-font-weight-bold bold">
+        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@Model.UID">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+    </dd>
+}
+
+@section ViewScripts {
+    <script src="~/node_modules/d3/d3.min.js"></script>
+    <script src="~/node_modules/c3/c3.min.js"></script>
+    <script src="~/node_modules/lodash/lodash.min.js"></script>
+
+    <script>
+        DfE.Views.FederationDetailsViewModel = new FederationViewModel('@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+    </script>
+}
+
+@helper DisplayStyle(bool display)
+{
+    if (display)
+    {
+        @Html.Raw("style=\"display: inline-block\"");
+    }
+    else
+    {
+        @Html.Raw("style=\"display: none\"");
+    }
+}
