@@ -39,7 +39,7 @@
                             if (school.Urn.StartsWith("MAT"))
                             {
                                 var name = school.School.Substring(0, school.School.LastIndexOf("#"));
-                                <a target="_self" href="/trust/index?companyNo=@school.Urn&name=@name" class="govuk-link @style">@name</a>
+                                <a target="_self" href="/trust/detail?companyNo=@school.Urn&name=@name" class="govuk-link @style">@name</a>
                             }
                             else
                             {

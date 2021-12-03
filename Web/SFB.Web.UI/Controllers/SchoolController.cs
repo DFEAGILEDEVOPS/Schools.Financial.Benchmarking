@@ -63,7 +63,7 @@ namespace SFB.Web.UI.Controllers
 
             if (schoolVM.IsFederation)
             {
-                return Redirect("/federation?fuid=" + schoolVM.Id);
+                return Redirect("/federation/detail?fuid=" + schoolVM.Id);
             }
 
             if (schoolVM.ContextData == null)
@@ -107,7 +107,7 @@ namespace SFB.Web.UI.Controllers
 
             if (schoolVM.IsFederation)
             {
-                return Redirect("/federation?fuid="+schoolVM.Id);
+                return Redirect("/federation/detail?fuid="+schoolVM.Id);
             }
 
             if (schoolVM.ContextData == null)

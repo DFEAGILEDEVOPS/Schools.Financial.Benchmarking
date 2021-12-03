@@ -335,7 +335,7 @@ namespace SFB.Web.UI.Controllers
                     return ErrorView(SearchTypes.SEARCH_BY_TRUST_NAME_ID, referrer, SearchErrorMessages.NO_TRUST_NAME_RESULTS);
                 }
 
-                return RedirectToAction("Index", "Trust", new { companyNo = trustNameId });
+                return RedirectToAction("Detail", "Trust", new { companyNo = trustNameId });
             }
             else
             {
@@ -347,7 +347,7 @@ namespace SFB.Web.UI.Controllers
         {
             if (string.IsNullOrEmpty(_valService.ValidateCompanyNoParameter(suggestionId)))
             {
-                return RedirectToAction("Index", "Trust", new { companyNo = suggestionId });
+                return RedirectToAction("Detail", "Trust", new { companyNo = suggestionId });
             }
 
             var errorMessage = _valService.ValidateTrustNameParameter(trustName);

@@ -128,7 +128,7 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("6182612", (result as RedirectToRouteResult).RouteValues["companyNo"].ToString());
         }
 
@@ -144,7 +144,7 @@ namespace SFB.Web.UI.UnitTests
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Trust", (result as RedirectToRouteResult).RouteValues["controller"]);
-            Assert.AreEqual("Index", (result as RedirectToRouteResult).RouteValues["action"]);
+            Assert.AreEqual("Detail", (result as RedirectToRouteResult).RouteValues["action"]);
             Assert.AreEqual("5112090", (result as RedirectToRouteResult).RouteValues["companyNo"].ToString());
         }
 

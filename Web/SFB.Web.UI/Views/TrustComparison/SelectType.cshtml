@@ -9,7 +9,7 @@
 }
 
 @section BackButtonContent{
-    <a class="govuk-back-link hide-in-print" href="/trust/index?companyNo=@Model.CompanyNo">Back</a>
+    <a class="govuk-back-link hide-in-print" href="/trust/detail?companyNo=@Model.CompanyNo">Back</a>
 }
 
 @if (Model.HasError())
@@ -33,7 +33,7 @@
     <div class=" govuk-grid-column-full">
         <span class="govuk-body-s govuk-!-font-size-16">Comparing to</span>
         <div class="highlight">
-            <a class="govuk-link" href="/trust/index?companyNo=@Model.CompanyNo"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.Name</span></a>
+            <a class="govuk-link" href="/trust/detail?companyNo=@Model.CompanyNo"><span class="govuk-!-font-size-16 govuk-!-font-weight-bold">@Model.Name</span></a>
         </div>
     </div>
 </div>

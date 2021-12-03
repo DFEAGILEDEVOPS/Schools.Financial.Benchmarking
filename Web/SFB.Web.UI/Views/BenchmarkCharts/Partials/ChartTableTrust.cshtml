@@ -21,7 +21,7 @@
             @if (ViewBag.HomeSchoolId.ToString() == schoolBenchmarkData.Urn)
             {
             <td class="govuk-table__cell school-column" data-header="Trust name">
-                <a class="govuk-link" href="/trust/index?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                <a class="govuk-link" href="/trust/detail?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
                     <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
                 </a>
                 @if (Model.IncompleteFinanceDataIndex.Contains(i))
@@ -39,7 +39,7 @@
             else if (Model.IncompleteFinanceDataIndex.Contains(i))
             {
                 <td class="govuk-table__cell school-column" data-header="Trust name">
-                    <a class="govuk-link" href="/trust/index?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                    <a class="govuk-link" href="/trust/detail?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
                         <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
                     </a>
                     <span class="help-icon">
@@ -54,7 +54,7 @@
             else
             {
                 <td class="govuk-table__cell school-column" data-header="Trust name">
-                    <a class="govuk-link" href="/trust/index?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
+                    <a class="govuk-link" href="/trust/detail?companyNo=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page">
                         @schoolBenchmarkData.School
                     </a>
                 </td>

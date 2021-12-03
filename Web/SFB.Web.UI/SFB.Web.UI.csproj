@@ -540,9 +540,11 @@
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-map.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-results-map.js" />
+    <Content Include="Assets\Scripts\ViewsES6\federation.js" />
     <Content Include="Assets\Scripts\ViewsES6\school.js" />
     <Content Include="Assets\Scripts\ViewsES6\trust-compare-advanced.js" />
     <Content Include="Assets\Scripts\ViewsES6\federation-details.js" />
+    <Content Include="Assets\Scripts\ViewsES6\trust.js" />
     <Content Include="Assets\Scripts\Views\federation-details.js" />
     <Content Include="Assets\Scripts\Views\trust-compare-advanced.js" />
     <Content Include="Assets\Scripts\Views\trust-compare-manual.js" />
@@ -918,6 +920,7 @@
     <Content Include="Views\Contact\ContactUsConfirmation.cshtml" />
     <Content Include="Views\GovukFrontendLayout\GovukTemplate.cshtml" />
     <Content Include="Views\School\Index.cshtml" />
+    <Content Include="Views\Federation\Detail.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
@@ -933,6 +936,7 @@
     <Content Include="Views\TrustComparison\SelectType.cshtml" />
     <Content Include="Views\TrustComparison\Manual.cshtml" />
     <Content Include="Views\TrustComparison\Advanced.cshtml" />
+    <Content Include="Views\Trust\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />

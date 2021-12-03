@@ -1,13 +1,21 @@
 ﻿"use strict";
 
-class TrustDetailsViewModel {
-    constructor(chartFormat) {
+class FederationViewModel {
+    constructor(chartFormat, unitType, mapApiKey) {
+        this.initControls(chartFormat, unitType);
+        this.initMaps(mapApiKey);
+    }
+
+    initControls(chartFormat, unitType) {
+        $.get("/school/GetBenchmarkBasket",
+            (data) => {
+                $("#benchmarkBasket").replaceWith(data);
+            });
 
         sessionStorage.chartFormat = chartFormat;
 
         DfE.Views.HistoricalCharts = new HistoricalCharts();
-        DfE.Views.HistoricalCharts.generateCharts();
-        DfE.Views.HistoricalCharts.setActiveTab();
+        DfE.Views.HistoricalCharts.generateCharts(unitType);
 
         GOVUK.Modal.Load();
 
@@ -21,11 +29,40 @@ class TrustDetailsViewModel {
         });
     }
 
-    downloadData(companyNo, name) {
+    initMaps(mapApiKey) {
+        let location = { lat: 52.636, lng: -1.139 }; // no location specified, so use central England.                                    
+
+        var options = {
+            elementId: "SchoolLocationMap",
+            primaryMarker: {
+                geometry: {
+                    location: {
+                        lat: location.lat,
+                        lng: location.lng
+                    }
+                }
+            },
+            mapApiKey: mapApiKey,
+            fullScreen: true
+        };
+
+        this.map = new GOVUK.AzureSchoolLocationsMap(options);
+        let fuid = DfE.Util.QueryString.get('fuid');
+
+        $.ajax({
+            url: `/federation/getmapdata?fuid=${fuid}`
+        }).done((response) => {            
+            this.map.renderFederatonSchoolPinsForAzureMap(response);
+        }).error(function (error) {
+            console.log("Error loading map pins: " + error);
+        });
+    }
+
+    downloadData(fuid) {
         $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText' role='alert' aria-live='assertive'> Downloading<span aria-hidden='true'>...</span></span>");
-        document.getElementById('download_iframe').src = `/trust/download?companyNo=${companyNo}&name=${name}`;
+        document.getElementById('download_iframe').src = `/federation/download?fuid=${fuid}`;
         setTimeout(() => {
-            $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText'> Download data for this trust<span class='visually-hidden'> (CSV)</span></span>");
+            $("#DownloadLinkTextWrapper").html("<span id='DownloadLinkText'> Download data for this federation<span class='visually-hidden'> (CSV)</span></span>");
         }, 2000)
     }
 
@@ -41,26 +78,6 @@ class TrustDetailsViewModel {
             }
         }
         window.print();
-    }
-
-    tabChange(code, companyNo, name, tab) {
-        let queryString = "?code=" +
-            code +
-            "&companyNo=" +
-            companyNo +
-            "&name=" +
-            name +
-            "&tab=" +
-            tab +
-            "&unit=" +
-            $("select#ShowValue option:selected")[0].value +
-            "&financing=" +
-            $("select#Financing option:selected")[0].value +
-            "&format=" +
-            sessionStorage.chartFormat +
-            '#financialSummary';
-
-        window.location = queryString;
     }
 
     toggleChartsTables(mode) {
