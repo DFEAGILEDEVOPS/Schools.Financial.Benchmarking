@@ -117,7 +117,7 @@
         </div>
         <div class="govuk-grid-column-one-third no-padding">
             <div class="print">
-                <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold" onclick="DfE.Views.TrustDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
+                <button class="no-underline link-button govuk-!-font-size-16 govuk-!-font-weight-bold black" onclick="DfE.Views.TrustDetailsViewModel.printPage()" aria-label="Print page for @Model.Name">
                     <img class="icon" alt="" src="/public/assets/images/icons/print.svg"><span>Print page</span>
                 </button>
             </div>
@@ -160,7 +160,7 @@
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-         DfE.Views.TrustDetailsViewModel = new TrustDetailsViewModel('@ViewBag.ChartFormat');
+        DfE.Views.TrustDetailsViewModel = new TrustViewModel('@ViewBag.ChartFormat');
     </script>
 }
 
