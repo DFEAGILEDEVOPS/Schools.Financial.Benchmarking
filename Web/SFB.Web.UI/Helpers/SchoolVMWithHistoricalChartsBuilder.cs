@@ -104,7 +104,7 @@ namespace SFB.Web.UI.Helpers
                     resultDataObject = null;
                 }
 
-                models.Add(new FinancialDataModel(urn.ToString(), term, resultDataObject, estabType));
+                models.Add(new FinancialDataModel(urn.ToString(), term, resultDataObject, estabType)); 
             }
 
             return models;

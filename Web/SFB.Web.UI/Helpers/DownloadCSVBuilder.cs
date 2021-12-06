@@ -34,17 +34,16 @@ namespace SFB.Web.UI.Helpers
             csv.AppendLine(header.ToString().TrimEnd(','));
 
             for (int i = 0; i < ChartHistory.YEARS_OF_HISTORY; i++)
-            {
-                var term = SchoolFormatHelpers.FinancialTermFormatAcademies(latestYear - i);
-                var termFormatted = FormatTerm(term, estabVM.EstablishmentType);
+            {                
+                var termFormatted = FormatTerm(latestYear-i, estabVM.EstablishmentType);
                 var valuesLine = new StringBuilder();
-                var data = estabVM.HistoricalCharts.First().HistoricalData.Find(d => d.Year == term);
+                var data = estabVM.HistoricalCharts.First().HistoricalData.Find(d => d.Year == termFormatted);
                 if (data?.Amount != null)
                 {
                     valuesLine.Append($"\"{estabVM.Name}\",{termFormatted},{data.PupilCount},{data.TeacherCount},");
                     foreach (var chart in estabVM.HistoricalCharts)
                     {
-                        valuesLine.Append(chart.HistoricalData.First(d => d.Year == term).Amount);
+                        valuesLine.Append(chart.HistoricalData.First(d => d.Year == termFormatted).Amount);
                         valuesLine.Append(",");
                     }
 
@@ -214,6 +213,11 @@ namespace SFB.Web.UI.Helpers
 
                 csv.AppendLine(valuesLine.ToString().TrimEnd(','));
             }
+        }
+
+        private string FormatTerm(int latestYear, EstablishmentType estabType)
+        {
+            return estabType == EstablishmentType.Academies || estabType == EstablishmentType.MAT ? $"{latestYear-1}/{latestYear}" : $"{latestYear - 1}-{latestYear}";
         }
 
         private string FormatTerm(string term, EstablishmentType estabType)
