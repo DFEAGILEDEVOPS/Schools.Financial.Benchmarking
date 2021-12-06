@@ -281,7 +281,7 @@
                 </div>
             }
             <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="details">
-                Details content
+                @Html.Partial("Partials/DetailsTab", Model)
             </div>
             @if (Model.HasSomeHistoricalFinancialData)
             {

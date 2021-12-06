@@ -1,0 +1,87 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Helpers;
+@using System.Configuration;
+@model SFB.Web.UI.Models.SchoolViewModel
+<table class="govuk-table">
+    <caption class="govuk-table__caption govuk-table__caption--m hidden">School details</caption>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Address:</th>
+            <td class="govuk-table__cell">
+                <a class="govuk-link sfb_gtm_address" rel="external noopener noreferrer" target="_blank" href="https://www.google.co.uk/maps?q=@Model.Name,@Model.Address">@Model.Address<span class="govuk-visually-hidden">GoogleMaps link opens in a new window</span></a>
+            </td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Telephone number:</th>
+            <td class="govuk-table__cell"><a class="govuk-link sfb_gtm_tel" href="tel: @Model.PhoneNumber" aria-label="Call telephone number @Model.PhoneNumber">@Model.PhoneNumber</a></td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Local authority:</th>
+            <td class="govuk-table__cell"><a class="govuk-link" href="/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename=@HttpUtility.UrlEncode(Model.La.ToString())&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name" aria-label="View schools in @Model.LaName">@Model.LaName</a></td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">School type:</th>
+            <td class="govuk-table__cell">@Model.Type</td>
+        </tr>
+        @if (Model.OverallPhase != Model.Phase)
+        {
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">School overall phase:</th>
+                <td class="govuk-table__cell">@Model.OverallPhase</td>
+            </tr>
+        }
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">School phase:</th>
+            <td class="govuk-table__cell">@Model.Phase</td>
+        </tr>
+        @if (Model.OverallPhase == "Pupil referral unit" || Model.OverallPhase == "Alternative provision")
+        {
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    Number of pupils:
+                    <span class="help-icon hide-in-print js-show-value-help">
+                        <span class="icon dark-blue">
+                            <a href="#" class="js-modal" role="button" data-modal-title="Number of pupils" data-modal-text="@HelpTooltipText.NumberOfPupils" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                <span class="govuk-visually-hidden">Open more info text for Number of pupils - opens a popup</span>
+                            </a>
+                        </span>
+                    </span>
+                </th>
+                <td class="govuk-table__cell">@Model.TotalPupilsForPhase.ToString()</td>
+            </tr>
+        }
+        else
+        {
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Number of pupils:</th>
+                <td class="govuk-table__cell">@Model.TotalPupils.ToString()</td>
+            </tr>
+        }
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header"><abbr title="Unique reference number" aria-label="Unique reference number">URN</abbr>:</th>
+            <td class="govuk-table__cell">@Model.Id</td>
+        </tr>
+        @if (Model.OfstedRating == "0")
+        {
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Ofsted rating:</th>
+                <td class="govuk-table__cell">@Model.OfstedRatingText</td>
+            </tr>
+        }
+        else
+        {
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Ofsted rating:</th>
+                <td class="govuk-table__cell">
+                    <span class="rating rating-@Model.OfstedRating"> @Model.OfstedRating </span><span class="rating-text"> @Model.OfstedRatingText </span>
+                    <span class="ofsted-divider" aria-hidden="true"> | </span>
+                    <a target="_blank" rel="external noopener noreferrer\" class="govuk-link" href="https://reports.ofsted.gov.uk/inspection-reports/find-inspection-report/provider/ELS/@Model.Id.ToString()"> Ofsted report<span class="govuk-visually-hidden">Opens in a new window</span></a>
+                    <span class="ofsted-divider" aria-hidden="true"> | </span>
+                    <span> Inspected @Model.OfstedInspectionDate</span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
