@@ -276,22 +276,22 @@
             </ul>
             @if (Model.HasLatestYearFinancialData && !Model.Is16Plus)
             {
-                <div class="govuk-tabs__panel" id="dashboard">
+                <div class="govuk-tabs__panel app-tabs__panel--no-border" id="dashboard">
                     Dashboard content
                 </div>
             }
-            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="details">
+            <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="details">
                 @Html.Partial("Partials/DetailsTab", Model)
             </div>
             @if (Model.HasSomeHistoricalFinancialData)
             {
-                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="finance">
+                <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="finance">
                     Finance content
                 </div>
             }
             @if (Model.HasSomeHistoricalWorkforceData)
             {
-                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="workforce">
+                <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="workforce">
                     Workforce content
                 </div>
             }
