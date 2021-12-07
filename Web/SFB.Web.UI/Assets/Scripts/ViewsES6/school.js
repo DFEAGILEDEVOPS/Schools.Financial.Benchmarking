@@ -2,7 +2,7 @@
 
     constructor(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType, mapApiKey) {
         this.initControls(modelId, chartFormat, unitType);
-        //this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey);
+        this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey);
     }
 
     initControls(modelId, chartFormat, unitType) {
@@ -34,6 +34,10 @@
         DfE.Views.HistoricalCharts = new HistoricalCharts();
         DfE.Views.HistoricalCharts.generateCharts(unitType);
         //DfE.Views.HistoricalCharts.setActiveTab();
+
+        if ($(window).width() <= 640) {
+            $('#school-website').text('website');
+        }
     }
 
     initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey) {
@@ -69,10 +73,10 @@
                 this.mapLoaded = true;
             }
 
-            let tab = DfE.Util.QueryString.get('tab');
-            if (tab) {
-                $("a:contains('" + tab + "')").focus();
-            }
+            //let tab = DfE.Util.QueryString.get('tab');
+            //if (tab) {
+            //    $("a:contains('" + tab + "')").focus();
+            //}
         }, 500);
     }
 

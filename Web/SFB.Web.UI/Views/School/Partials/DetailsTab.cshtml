@@ -124,7 +124,9 @@
         {
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">School website:</th>
-                <td class="govuk-table__cell"><a rel="external noopener noreferrer" class="govuk-link sfb_gtm_website" target="_blank" href="@Model.SchoolWebSite">@Model.SchoolWebSite<span class="govuk-visually-hidden">Opens in a new window</span></a></td>
+                <td class="govuk-table__cell"><a rel="external noopener noreferrer" class="govuk-link sfb_gtm_website" target="_blank" href="@Model.SchoolWebSite">
+                                                  <span id="school-website">@Model.SchoolWebSite</span><span class="govuk-visually-hidden">Opens in a new window</span></a>
+                </td>
             </tr>
         }
         @if (Model.IsPartOfFederation)
@@ -206,6 +208,20 @@
     </tbody>
 </table>
 
-<div style="display: inline-block" class="govuk-!-margin-bottom-1">
+
+<details class="govuk-details" data-module="govuk-details" open>
+    <summary class="govuk-details__summary map hide-in-print">
+        <span class="summary govuk-!-font-size-16">Show map</span>
+    </summary>
+    <div class="govuk-details__text map govuk-!-margin-top-4">
+        <a href="#post-map-content" class="govuk-link govuk-visually-hidden-focusable hide-in-print">Skip the map</a>
+        <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
+    </div>
+</details>
+
+
+<div id="post-map-content"></div>
+
+<div style="display: inline-block" class="govuk-!-margin-bottom-1 govuk-!-margin-top-2">
     <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="govuk-link hide-in-print">Is there anything wrong with this page?</a>
 </div>
