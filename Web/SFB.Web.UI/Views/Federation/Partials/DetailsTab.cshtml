@@ -1,0 +1,87 @@
+﻿@model SFB.Web.UI.Models.FederationViewModel
+
+<div class="govuk-!-margin-top-3">
+    <p class="govuk-body govuk-!-font-size-19">This federation is a combination of <span class="govuk-!-font-weight-bold">@Model.SchoolsInFederation.Count</span> school’s finance and workforce data and can be compared against other schools and federations. You can still compare the individual schools unless they did not submit financial data due to federated budgets.</p>
+    <div class="govuk-accordion app-accordion--no-open-all" data-module="govuk-accordion" id="schools-in-federation-accordion">
+        <div class="govuk-accordion__section ">
+            <div class="govuk-accordion__section-header">
+                <h2 class="govuk-accordion__section-heading">
+                    <span class="govuk-accordion__section-button" id="accordion-fed-heading">
+                        Schools in this federation
+                    </span>
+                </h2>
+            </div>
+            <div id="accordion-fed-content" class="govuk-accordion__section-content" aria-labelledby="accordion-fed-heading">
+                <div class="resultListPanel">
+                    <ul class="govuk-list govuk-list--bullet resultListPanel__ul">
+                        @foreach (var school in Model.SchoolsInFederation)
+                        {
+                            <li>
+                                <a class="govuk-link" href="/school?urn=@school.URN">@school.EstablishmentName</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="govuk-table" id="details-table">
+    <caption class="govuk-table__caption govuk-table__caption--m hidden">School details</caption>
+    <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Local authority:</th>
+            <td class="govuk-table__cell"><a class="govuk-link" href="/SchoolSearch/Search?nameId=&suggestionUrn=&trustnameid=&trustsuggestionUrn=&locationorpostcode=&LocationCoordinates=&openOnly=true&lacodename=@HttpUtility.UrlEncode(Model.La.ToString())&SelectedLocalAuthorityId=&searchtype=search-by-la-code-name" aria-label="View schools in @Model.LaName">@Model.LaName</a></td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">School type:</th>
+            <td class="govuk-table__cell">@Model.Type</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">School overall phase:</th>
+            <td class="govuk-table__cell">@Model.OverallPhase</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Number of pupils:</th>
+            <td class="govuk-table__cell">@Model.TotalPupils.ToString()</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Age range of pupils:</th>
+            <td class="govuk-table__cell">@Model.AgeRange</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Has sixth form:</th>
+            <td class="govuk-table__cell">@Model.Has6Form</td>
+        </tr>
+        <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Has nursery:</th>
+            <td class="govuk-table__cell">@Model.HasNursery</td>
+        </tr>
+         <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Data from other services:</th>
+            <td class="govuk-table__cell">
+                <a rel="external noopener noreferrer" class="govuk-link spt_link_js sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+                <br />
+                <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<details class="govuk-details" data-module="govuk-details" id="mapDetails" open>
+    <summary class="govuk-details__summary map hide-in-print">
+        <span class="summary govuk-!-font-size-16">Show map</span>
+    </summary>
+    <div class="govuk-details__text map govuk-!-margin-top-4">
+        <a href="#post-map-content" class="govuk-link govuk-visually-hidden-focusable hide-in-print">Skip the map</a>
+        <div id="SchoolLocationMap" class="mtl school-location-map" title="An Azure map of the school's location" aria-label="An Azure map of the school's location"></div>
+    </div>
+</details>
+
+
+<div id="post-map-content"></div>
+
+<div style="display: inline-block" class="govuk-!-margin-bottom-1 govuk-!-margin-top-2">
+    <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="govuk-link hide-in-print">Is there anything wrong with this page?</a>
+</div>

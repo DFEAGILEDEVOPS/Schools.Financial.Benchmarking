@@ -105,7 +105,7 @@
                         </a>
                     </li>
                 }
-                <li class="govuk-tabs__list-item">
+                <li class="govuk-tabs__list-item" id="detailsTab">
                     <a class="govuk-tabs__tab" href="#details">
                         Details
                     </a>
@@ -133,8 +133,8 @@
                     Dashboard content
                 </div>
             }
-            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="details">
-                Details content
+            <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="details">
+                 @Html.Partial("Partials/DetailsTab", Model)
             </div>
             @if (Model.HasSomeHistoricalFinancialData)
             {

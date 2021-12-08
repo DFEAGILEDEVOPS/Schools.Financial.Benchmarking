@@ -1,8 +1,16 @@
 ﻿class SchoolViewModel {
 
     constructor(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType, mapApiKey) {
+
         this.initControls(modelId, chartFormat, unitType);
-        this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey);
+
+        if ($(window).width() <= 640) {
+            $('details#mapDetails').removeAttr('open');
+        } else {
+            this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey);
+        }
+
+        $("#detailsTab, #mapDetails").on("click", () => this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey));        
     }
 
     initControls(modelId, chartFormat, unitType) {
@@ -41,42 +49,34 @@
     }
 
     initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey) {
-        let school = {
-            lat: modelLat,
-            lng: modelLng,
-            hasMap: modelHasCoordinates ? "true" : "false"
-        };
-
-        let options = {
-            elementId: "SchoolLocationMap",
-            hasMap: school.hasMap,
-            primaryMarker: {
-                geometry: {
-                    location: {
-                        lat: school.lat,
-                        lng: school.lng
-                    }
-                }
-            },
-            scrollWheel: false,
-            mapApiKey: mapApiKey,
-            fullScreen: true
-        };
-
         setTimeout(function () {
-            if ($(window).width() <= 640) {
-                $('details').removeAttr('open');
-            }
+            if ($("#SchoolLocationMap").is(":visible")) {
+                if (!this.mapLoaded) {
+                    let school = {
+                        lat: modelLat,
+                        lng: modelLng,
+                        hasMap: modelHasCoordinates ? "true" : "false"
+                    };
 
-            if (!this.mapLoaded) {
-                this.map = new GOVUK.AzureLocationMap(options);
-                this.mapLoaded = true;
+                    let options = {
+                        elementId: "SchoolLocationMap",
+                        hasMap: school.hasMap,
+                        primaryMarker: {
+                            geometry: {
+                                location: {
+                                    lat: school.lat,
+                                    lng: school.lng
+                                }
+                            }
+                        },
+                        scrollWheel: false,
+                        mapApiKey: mapApiKey,
+                        fullScreen: true
+                    };
+                    this.map = new GOVUK.AzureLocationMap(options);
+                    this.mapLoaded = true;
+                }
             }
-
-            //let tab = DfE.Util.QueryString.get('tab');
-            //if (tab) {
-            //    $("a:contains('" + tab + "')").focus();
-            //}
         }, 500);
     }
 
