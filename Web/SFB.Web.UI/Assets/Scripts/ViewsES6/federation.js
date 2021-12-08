@@ -3,7 +3,13 @@
 class FederationViewModel {
     constructor(chartFormat, unitType, mapApiKey) {
         this.initControls(chartFormat, unitType);
-        this.initMaps(mapApiKey);
+        if ($(window).width() <= 640) {
+            $('details#mapDetails').removeAttr('open');
+        } else {
+            this.initMaps(mapApiKey);
+        }
+
+        $("#detailsTab, #mapDetails").on("click", () => this.initMaps(mapApiKey));
     }
 
     initControls(chartFormat, unitType) {
@@ -30,32 +36,39 @@ class FederationViewModel {
     }
 
     initMaps(mapApiKey) {
-        let location = { lat: 52.636, lng: -1.139 }; // no location specified, so use central England.                                    
+        setTimeout(function () {
+            if ($("#SchoolLocationMap").is(":visible")) {
+                if (!this.mapLoaded) {
+                    let location = { lat: 52.636, lng: -1.139 }; // no location specified, so use central England.                                    
 
-        var options = {
-            elementId: "SchoolLocationMap",
-            primaryMarker: {
-                geometry: {
-                    location: {
-                        lat: location.lat,
-                        lng: location.lng
-                    }
+                    var options = {
+                        elementId: "SchoolLocationMap",
+                        primaryMarker: {
+                            geometry: {
+                                location: {
+                                    lat: location.lat,
+                                    lng: location.lng
+                                }
+                            }
+                        },
+                        mapApiKey: mapApiKey,
+                        fullScreen: true
+                    };
+
+                    this.map = new GOVUK.AzureSchoolLocationsMap(options);
+                    let fuid = DfE.Util.QueryString.get('fuid');
+
+                    $.ajax({
+                        url: `/federation/getmapdata?fuid=${fuid}`
+                    }).done((response) => {
+                        this.map.renderFederatonSchoolPinsForAzureMap(response);
+                        this.mapLoaded = true;
+                    }).error(function (error) {
+                        console.log("Error loading map pins: " + error);
+                    });
                 }
-            },
-            mapApiKey: mapApiKey,
-            fullScreen: true
-        };
-
-        this.map = new GOVUK.AzureSchoolLocationsMap(options);
-        let fuid = DfE.Util.QueryString.get('fuid');
-
-        $.ajax({
-            url: `/federation/getmapdata?fuid=${fuid}`
-        }).done((response) => {            
-            this.map.renderFederatonSchoolPinsForAzureMap(response);
-        }).error(function (error) {
-            console.log("Error loading map pins: " + error);
-        });
+            }
+        }, 500);
     }
 
     downloadData(fuid) {

@@ -420,7 +420,6 @@
     <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\FederationController.cs" />
-    <Compile Include="Controllers\GovukFrontendTestController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
@@ -922,6 +921,7 @@
     <Content Include="Views\School\Index.cshtml" />
     <Content Include="Views\Federation\Detail.cshtml" />
     <Content Include="Views\School\Partials\DetailsTab.cshtml" />
+    <Content Include="Views\Federation\Partials\DetailsTab.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />

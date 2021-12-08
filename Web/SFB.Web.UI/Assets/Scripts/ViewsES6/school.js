@@ -5,7 +5,7 @@
         this.initControls(modelId, chartFormat, unitType);
 
         if ($(window).width() <= 640) {
-            $('details').removeAttr('open');
+            $('details#mapDetails').removeAttr('open');
         } else {
             this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey);
         }
