@@ -49,7 +49,7 @@ namespace SFB.Web.UI.Controllers
             //TODO: Uncomment for production
             //if (FeatureManager.IsEnabled(Features.RevisedSchoolPage))
             //{
-            //    return Redirect($"/Trust/detail?urn={urn}");
+            //    return Redirect($"/trust/detail?companyNo={companyNo}&uid={uid}");
             //}
 
             if (companyNo == null && uid.HasValue)
