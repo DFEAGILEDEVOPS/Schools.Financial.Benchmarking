@@ -210,6 +210,42 @@
         padding: 0;
     }
 
+    .school-location-map {
+        width: 100%;
+        height: 300px;
+    }
+
+    summary.map {
+        @include govuk-media-query($from: tablet) {
+            display: none;
+        }
+    }
+
+    .infowindow-school-summary {
+        padding: 5px;
+
+        a {
+            font-weight: bold;
+            font-size: 15px;
+            color: #1D70B8;
+        }
+
+        p {
+            margin: 0 0 1px 0;
+            font-size: 13px;
+        }
+
+        p.lastinsp {
+            color: #777;
+            font-size: 11.5px;
+        }
+
+        p.rating-text {
+            font-size: 12px;
+            white-space: nowrap;
+        }
+    }
+
     .summary-year {
         margin-top: 5px;
     }

@@ -9,6 +9,16 @@
 @section InsideHead{
     <link href="~/node_modules/c3/c3.css" rel="stylesheet" type="text/css">
     <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 }
 
 @section BMListBannerContent
@@ -157,7 +167,7 @@
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-        DfE.Views.TrustDetailsViewModel = new TrustViewModel('@ViewBag.ChartFormat');
+        DfE.Views.TrustDetailsViewModel = new TrustViewModel('@ViewBag.ChartFormat', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
     </script>
 }
 

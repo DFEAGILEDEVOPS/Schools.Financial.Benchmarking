@@ -104,7 +104,7 @@
                         <p>${info.Address}</p>
                         <p>${info.EducationPhases}</p>
                         <p>${info.NFType}</p>
-                        <div id ="${info.Id}" data-urn="${info.Id}">`;
+                        <div id="${info.Id}" data-urn="${info.Id}" class="add">`;
 
                 if (info.CompanyNumber !== "0") {
                     html += `<div class="mt-1" style="font-style: italic">Part of the </div>
@@ -135,7 +135,7 @@
                     ev.target.options.icon.options.iconUrl = "/public/assets/images/icons/icon-location-pink.png";
                     ev.target.refreshIconOptions();
 
-                    var urn = $(ev.target.getPopup().getContent()).find('.add').parent().data('urn');
+                    var urn = $(ev.target.getPopup().getContent()).find('.add').data('urn');
                     if ($("#SearchMethod").val() === "Manual") {
                         if (DfE.Util.ComparisonList.isInManualList(urn.toString())) {
                             $('.infowindow-school-summary').find('.add').hide();
