@@ -938,6 +938,7 @@
     <Content Include="Views\TrustComparison\Manual.cshtml" />
     <Content Include="Views\TrustComparison\Advanced.cshtml" />
     <Content Include="Views\Trust\Detail.cshtml" />
+    <Content Include="Views\Trust\Partials\DetailsTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />

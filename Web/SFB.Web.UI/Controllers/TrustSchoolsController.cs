@@ -34,6 +34,7 @@ namespace SFB.Web.UI.Controllers
 
             ViewBag.CompanyNo = companyNo;
             ViewBag.MatName = matName;
+            ViewBag.SearchMethod = "School";
 
             return View("SearchResults", GetSchoolViewModelList(searchResults, orderBy, page));
         }

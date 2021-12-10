@@ -3,6 +3,7 @@
 class FederationViewModel {
     constructor(chartFormat, unitType, mapApiKey) {
         this.initControls(chartFormat, unitType);
+
         if ($(window).width() <= 640) {
             $('details#mapDetails').removeAttr('open');
         } else {
@@ -25,14 +26,6 @@ class FederationViewModel {
 
         GOVUK.Modal.Load();
 
-        $(document).ready(function () {
-            setTimeout(function () {
-                var tab = DfE.Util.QueryString.get('tab');
-                if (tab) {
-                    $("a:contains('" + tab + "')").focus();
-                }
-            }, 500);
-        });
     }
 
     initMaps(mapApiKey) {

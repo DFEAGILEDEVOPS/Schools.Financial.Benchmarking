@@ -1,7 +1,4 @@
-﻿@using SFB.Web.UI.Helpers.Constants
-@using SFB.Web.UI.Helpers.Enums
-@using SFB.Web.ApplicationCore.Helpers.Enums
-@using System.Configuration;
+﻿@using System.Configuration;
 @model SFB.Web.UI.Models.TrustViewModel
 
 @{
@@ -12,6 +9,16 @@
 @section InsideHead{
     <link href="~/node_modules/c3/c3.css" rel="stylesheet" type="text/css">
     <link href="~/public/assets/print/school-print.css" media="print" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="~/node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="~/node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
+    <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+    <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 }
 
 @section BMListBannerContent
@@ -141,12 +148,12 @@
                     </li>
                 }
             </ul>
-            <div class="govuk-tabs__panel" id="details">
-                Details content
+            <div class="govuk-tabs__panel app-tabs__panel--no-border" id="details">
+                @Html.Partial("Partials/DetailsTab", Model)
             </div>
             @if (Model.HasSomeHistoricalFinancialData)
             {
-                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="finance">
+                <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="finance">
                     Finance content
                 </div>
             }
@@ -160,7 +167,7 @@
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-        DfE.Views.TrustDetailsViewModel = new TrustViewModel('@ViewBag.ChartFormat');
+        DfE.Views.TrustDetailsViewModel = new TrustViewModel('@ViewBag.ChartFormat', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
     </script>
 }
 

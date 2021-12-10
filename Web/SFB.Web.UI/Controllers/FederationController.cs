@@ -50,6 +50,12 @@ namespace SFB.Web.UI.Controllers
             TabType tab = TabType.Expenditure,
             ChartFormat format = ChartFormat.Charts)
         {
+            //TODO: Uncomment for production
+            //if (FeatureManager.IsEnabled(Features.RevisedSchoolPage))
+            //{
+            //    return Redirect($"/federation/detail?fuid={fuid}");
+            //}
+
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
             var chartGroup = DetectDefaultChartGroupFromTabType(tab);
 

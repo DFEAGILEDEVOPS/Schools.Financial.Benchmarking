@@ -1,7 +1,7 @@
 ﻿"use strict";
 
 class TrustViewModel {
-    constructor(chartFormat) {
+    constructor(chartFormat, mapApiKey) {
 
         sessionStorage.chartFormat = chartFormat;
 
@@ -10,14 +10,13 @@ class TrustViewModel {
 
         GOVUK.Modal.Load();
 
-        $(document).ready(function () {
-            setTimeout(function () {
-                var tab = DfE.Util.QueryString.get('tab');
-                if (tab) {
-                    $("a:contains('" + tab + "')").focus();
-                }
-            }, 500);
-        });
+        if ($(window).width() <= 640) {
+            $('details#mapDetails').removeAttr('open');
+        } else {
+            this.initMaps(mapApiKey);
+        }
+
+        $("#detailsTab, #mapDetails").on("click", () => this.initMaps(mapApiKey));
     }
 
     downloadData(companyNo, name) {
@@ -71,5 +70,41 @@ class TrustViewModel {
             $viewMoreLabels.text("View more tables");
             sessionStorage.chartFormat = 'Tables';
         }
+    }
+
+    initMaps(mapApiKey) {
+        setTimeout(function () {
+            if ($("#SchoolLocationMap").is(":visible")) {
+                if (!this.mapLoaded) {
+                    let location = { lat: 52.636, lng: -1.139 }; // no location specified, so use central England.                                    
+
+                    var options = {
+                        elementId: "SchoolLocationMap",
+                        primaryMarker: {
+                            geometry: {
+                                location: {
+                                    lat: location.lat,
+                                    lng: location.lng
+                                }
+                            }
+                        },
+                        mapApiKey: mapApiKey,
+                        fullScreen: true
+                    };
+
+                    this.map = new GOVUK.AzureSchoolLocationsMap(options);
+                    let uid = $("input#uid").val();
+                    let companyNo = DfE.Util.QueryString.get('companyNo');
+                    $.ajax({
+                        url: `/SchoolSearch/search-json?companyno=${companyNo}&uid=${uid}`
+                    }).done((response) => {
+                        this.map.renderFederatonSchoolPinsForAzureMap(response);
+                        this.mapLoaded = true;
+                    }).error(function (error) {
+                        console.log("Error loading map pins: " + error);
+                    });
+                }
+            }
+        }, 500);
     }
 }
