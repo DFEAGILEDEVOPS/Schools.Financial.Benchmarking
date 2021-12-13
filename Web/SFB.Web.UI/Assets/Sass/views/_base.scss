@@ -500,6 +500,13 @@
     @include govuk-media-query($until: tablet) {
         padding-left: 0;
     }
+
+    &:focus:not(:active):not(:hover) {
+        border-color: $govuk-focus-colour;
+        color: $govuk-focus-text-colour;
+        background-color: $govuk-focus-colour;
+        box-shadow: 0 2px 0 $govuk-focus-text-colour;
+    }
 }
 
     .a-button {
