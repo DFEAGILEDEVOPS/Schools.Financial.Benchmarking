@@ -47,7 +47,13 @@
     font-weight: bold;
 
     &:focus {
-        outline: 3px solid #ffdd00;
+        outline: 3px solid $govuk-focus-colour;
         outline-offset: 0;
+    }
+}
+
+@mixin map-focus {
+    &:focus {
+        border: 3px solid $govuk-focus-colour;
     }
 }
