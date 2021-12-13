@@ -566,7 +566,6 @@
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
     <Content Include="public\assets\images\progress.svg" />
-    <Content Include="public\assets\stylesheets\main.css" />
     <Content Include="robots.txt" />
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
@@ -941,6 +940,7 @@
     <Content Include="Views\Trust\Partials\DetailsTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\assets\stylesheets\" />
     <Folder Include="Views\EmComparison\" />
   </ItemGroup>
   <ItemGroup>
