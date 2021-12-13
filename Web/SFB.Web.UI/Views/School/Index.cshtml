@@ -119,35 +119,35 @@
     <div id="banners-section" class="govuk-grid-column-full">
         @if (!Model.IsReturnsDNS)
         {
-        <div class="blue-banner">
-            <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
-            @if (Model.IsPartOfFederation)
-            {
-                <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation/detail?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
-            }
-            else
-            {
-                <div class="hide-in-print">
-                    <p class="govuk-body">There are now several ways for you to compare this school against others.</p>
-                </div>
-
-
-                <a href="school/start-benchmarking?urn=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
-                    Start a comparison
-                    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-                        <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-                    </svg>
-                </a>
-
-                if (Model.IsMATinLatestFinance) 
+            <div class="blue-banner">
+                <h1 class="govuk-heading-xl page-heading">@Model.Name</h1>
+                @if (Model.IsPartOfFederation)
                 {
-                    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">                    
-                    <p class="govuk-body">
-                        View this school’s trust <a href="/trust/detail?companyNo=@Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString())" class="govuk-link mat-link" aria-label="Link to trust page">@Model.TrustNameInLatestFinance</a> which can be compared against other trusts.                                                
-                    </p>
+                    <p class="govuk-body">View this school’s federation <a class="govuk-link fed-link" href="/federation/detail?fuid=@Model.FederationsCode">@Model.FederationName</a> which can be compared against other schools and federations. </p>
                 }
-            }
-        </div>
+                else
+                {
+                    <div class="hide-in-print">
+                        <p class="govuk-body">There are now several ways for you to compare this school against others.</p>
+                    </div>
+
+
+                    <a href="school/start-benchmarking?urn=@Model.Id" role="button" draggable="false" class="govuk-button govuk-button--start app-button--start-blue govuk-!-margin-bottom-0 hide-in-print" data-module="govuk-button">
+                        Start a comparison
+                        <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+                            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+                        </svg>
+                    </a>
+
+                    if (Model.IsMATinLatestFinance)
+                    {
+                        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+                        <p class="govuk-body">
+                            View this school’s trust <a href="/trust/detail?companyNo=@Server.UrlEncode(Model.CompanyNoInLatestFinance.ToString())" class="govuk-link mat-link" aria-label="Link to trust page">@Model.TrustNameInLatestFinance</a> which can be compared against other trusts.
+                        </p>
+                    }
+                }
+            </div>
         }
         else
         {
@@ -286,7 +286,7 @@
             @if (Model.HasSomeHistoricalFinancialData)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="finance">
-                    Finance content
+                    @Html.Partial("Partials/FinanceTab", Model)
                 </div>
             }
             @if (Model.HasSomeHistoricalWorkforceData)
@@ -295,6 +295,9 @@
                     Workforce content
                 </div>
             }
+        </div>
+        <div style="display: inline-block" class="govuk-!-margin-bottom-1 govuk-!-margin-top-2">
+            <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="govuk-link hide-in-print">Is there anything wrong with this page?</a>
         </div>
     </div>
 </div> <!--container grid-row -->

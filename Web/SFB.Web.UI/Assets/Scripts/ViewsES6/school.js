@@ -102,25 +102,21 @@
         window.print();
     }
 
-    //tabChange(urn, tab) {
-    //    let queryString = `?urn=${urn}&tab=${tab}`;
+    tabChange(urn, tab) {
+        let queryString = `?urn=${urn}&tab=${tab}`;
 
-    //    if (DfE.Util.QueryString.get('tab') !== "Workforce") {
-    //        queryString += `&unit=${$("select#ShowValue option:selected")[0].value}`;
-    //    }
+        if ($("select#Financing option:selected").length > 0) {
+            queryString += `&financing=${$("select#Financing option:selected")[0].value}`;
+        }
 
-    //    if ($("select#Financing option:selected").length > 0) {
-    //        queryString += `&financing=${$("select#Financing option:selected")[0].value}`;
-    //    }
+        if (sessionStorage.chartFormat) {
+            queryString += `&format=${sessionStorage.chartFormat}`;
+        }
 
-    //    if (sessionStorage.chartFormat) {
-    //        queryString += `&format=${sessionStorage.chartFormat}`;
-    //    }
+        queryString += '#finance';
 
-    //    queryString += '#financialSummary';
-
-    //    window.location = queryString;
-    //}
+        window.location = queryString;
+    }
 
     toggleChartsTables(mode) {
         let $charts = $('.chart-wrapper');

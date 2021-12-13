@@ -921,6 +921,7 @@
     <Content Include="Views\Federation\Detail.cshtml" />
     <Content Include="Views\School\Partials\DetailsTab.cshtml" />
     <Content Include="Views\Federation\Partials\DetailsTab.cshtml" />
+    <Content Include="Views\School\Partials\FinanceTab.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
