@@ -255,7 +255,9 @@ class HistoricalCharts {
                 this.updateTotals();
                 this.updateTrustWarnings();                
                 window.GOVUKFrontend.initAll();//TODO: use option.scope here as parameter
-                this.setActiveTab();
+                if (!DfE.Util.Features.enabled("RevisedSchoolPage")) {
+                    this.setActiveTab();
+                }
             }
         });
     }

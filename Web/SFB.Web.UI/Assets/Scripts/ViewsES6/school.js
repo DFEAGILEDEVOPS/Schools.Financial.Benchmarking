@@ -105,6 +105,8 @@
     tabChange(urn, tab) {
         let queryString = `?urn=${urn}&tab=${tab}`;
 
+        queryString += `&unit=${$("select#ShowValue option:selected")[0].value}`;
+
         if ($("select#Financing option:selected").length > 0) {
             queryString += `&financing=${$("select#Financing option:selected")[0].value}`;
         }
