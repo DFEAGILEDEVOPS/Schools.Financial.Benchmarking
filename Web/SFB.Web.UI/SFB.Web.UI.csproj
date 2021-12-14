@@ -922,6 +922,7 @@
     <Content Include="Views\School\Partials\DetailsTab.cshtml" />
     <Content Include="Views\Federation\Partials\DetailsTab.cshtml" />
     <Content Include="Views\School\Partials\FinanceTab.cshtml" />
+    <Content Include="public\assets\stylesheets\main.css.map" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
@@ -941,7 +942,6 @@
     <Content Include="Views\Trust\Partials\DetailsTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="public\assets\stylesheets\" />
     <Folder Include="Views\EmComparison\" />
   </ItemGroup>
   <ItemGroup>
