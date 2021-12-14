@@ -566,6 +566,7 @@
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
     <Content Include="public\assets\images\progress.svg" />
+    <Content Include="public\assets\stylesheets\main.css" />
     <Content Include="robots.txt" />
     <Content Include="z_App_Offline.htm" />
     <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
@@ -922,6 +923,7 @@
     <Content Include="Views\School\Partials\DetailsTab.cshtml" />
     <Content Include="Views\Federation\Partials\DetailsTab.cshtml" />
     <Content Include="Views\School\Partials\FinanceTab.cshtml" />
+    <Content Include="public\assets\stylesheets\main.css.map" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\ChartGroups.cshtml" />
