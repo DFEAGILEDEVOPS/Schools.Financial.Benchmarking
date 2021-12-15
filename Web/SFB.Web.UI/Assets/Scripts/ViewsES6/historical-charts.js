@@ -253,8 +253,8 @@ class HistoricalCharts {
                 $(".historical-charts-list").html(data);
                 this.generateCharts(unitParameter);
                 this.updateTotals();
-                this.updateTrustWarnings();                
-                window.GOVUKFrontend.initAll();//TODO: use option.scope here as parameter
+                this.updateTrustWarnings();
+                GOVUKFrontend.initAll({ scope: $(".historical-charts-list")[0]});
                 if (!DfE.Util.Features.enabled("RevisedSchoolPage")) {
                     this.setActiveTab();
                 }
