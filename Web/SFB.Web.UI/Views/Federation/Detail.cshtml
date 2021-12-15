@@ -134,12 +134,12 @@
                 </div>
             }
             <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="details">
-                 @Html.Partial("Partials/DetailsTab", Model)
+                @Html.Partial("Partials/DetailsTab", Model)
             </div>
             @if (Model.HasSomeHistoricalFinancialData)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="finance">
-                    Finance content
+                    @Html.Partial("Partials/FinanceTab", Model)
                 </div>
             }
             @if (Model.HasSomeHistoricalWorkforceData)
@@ -149,8 +149,10 @@
                 </div>
             }
         </div>
+        <div style="display: inline-block" class="govuk-!-margin-bottom-1 govuk-!-margin-top-2">
+            <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="govuk-link hide-in-print">Is there anything wrong with this page?</a>
+        </div>
     </div>
-
 </div>
 
 <iframe id="download_iframe" style="display:none;" title="download"></iframe>

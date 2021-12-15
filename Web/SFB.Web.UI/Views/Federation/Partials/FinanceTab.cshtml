@@ -1,0 +1,72 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.FederationViewModel
+
+<nav class="app-navigation govuk-clearfix">
+    <ul class="app-navigation__list app-width-container">
+        <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Expenditure ? "app-navigation__list-item--current" : "")" id="ExpenditureTab">
+            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+               onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
+               href="#appTabPanel">@TabNames.EXPENDITURE</a>
+        </li>
+        <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Income ? "app-navigation__list-item--current" : "")" id="IncomeTab">
+            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+               onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
+               href="#appTabPanel">@TabNames.INCOME</a>
+        </li>
+        <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Balance ? "app-navigation__list-item--current" : "")" id="BalanceTab">
+            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+               onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
+               href="#appTabPanel">@TabNames.BALANCE</a>
+        </li>
+    </ul>
+</nav>
+
+<div id="appTabPanel" class="app-tabs__panel">
+    <div class="sticky-div sticky-chart-controls">
+        <div id="controls">
+            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-controls">
+                <div class="govuk-accordion__section ">
+                    <div class="govuk-accordion__section-header mobile-only">
+                        <h2 class="govuk-accordion__section-heading">
+                            <span class="govuk-accordion__section-button" id="accordion-controls-heading-1">
+                                Filters
+                            </span>
+                        </h2>
+                    </div>
+                    <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-controls-heading-1">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
+                            <div class="govuk-grid-row">
+                                <div class="govuk-grid-column-full">
+                                    @Html.Partial("Partials/ChartGroups", Model.ChartGroups)
+                                    @Html.Partial("Partials/ValueSelect", Model)
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="charts-section">
+        <div class="govuk-grid-row">
+            <div>
+                <div class=" govuk-grid-column-full govuk-!-font-size-16 chartTable hide-in-print">
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.FederationDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
+                </div>
+                <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.HistoricalCharts.resetGrouping()">
+                        <span><</span>
+                        <span class="govuk-link">All <span class="js-parent-group">expenditure</span> charts</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="historical-charts-list">
+            @Html.Partial("Partials/Chart", Model)
+        </div>
+    </div>
+</div>

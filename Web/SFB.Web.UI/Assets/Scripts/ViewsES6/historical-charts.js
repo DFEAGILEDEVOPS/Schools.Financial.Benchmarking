@@ -174,7 +174,9 @@ class HistoricalCharts {
     selectGrouping(grouping, parentGrouping) {
         $("#ChartGroup").val(grouping);
         $("#ChartGroup").change();
-        $("#financialSummary")[0].scrollIntoView();
+        if ($("#financialSummary")[0]) {
+            $("#financialSummary")[0].scrollIntoView();
+        }
         $("#ChartGroup").focus();
         $(".back-to-main-chart-group-button .js-parent-group").text(parentGrouping);
         $(".back-to-main-chart-group-button").show();
