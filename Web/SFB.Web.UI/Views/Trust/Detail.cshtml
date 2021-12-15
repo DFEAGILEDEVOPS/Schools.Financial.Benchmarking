@@ -154,9 +154,12 @@
             @if (Model.HasSomeHistoricalFinancialData)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="finance">
-                    Finance content
+                    @Html.Partial("Partials/FinanceTab", Model)
                 </div>
             }
+        </div>
+        <div style="display: inline-block" class="govuk-!-margin-bottom-1 govuk-!-margin-top-2">
+            <a href="~/Help/DataQueries" class="govuk-link hide-in-print">Is there anything wrong with this page?</a>
         </div>
     </div>
 </div>

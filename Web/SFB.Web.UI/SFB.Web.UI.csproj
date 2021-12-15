@@ -943,6 +943,7 @@
     <Content Include="Views\TrustComparison\Advanced.cshtml" />
     <Content Include="Views\Trust\Detail.cshtml" />
     <Content Include="Views\Trust\Partials\DetailsTab.cshtml" />
+    <Content Include="Views\Trust\Partials\FinanceTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="public\assets\stylesheets\" />
