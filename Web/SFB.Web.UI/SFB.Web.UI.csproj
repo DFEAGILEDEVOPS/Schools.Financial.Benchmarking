@@ -545,8 +545,11 @@
     <Content Include="Assets\Scripts\ViewsES6\federation-details.js" />
     <Content Include="Assets\Scripts\ViewsES6\trust.js" />
     <Content Include="Assets\Scripts\Views\federation-details.js" />
+    <Content Include="Assets\Scripts\Views\federation.js" />
+    <Content Include="Assets\Scripts\Views\school.js" />
     <Content Include="Assets\Scripts\Views\trust-compare-advanced.js" />
     <Content Include="Assets\Scripts\Views\trust-compare-manual.js" />
+    <Content Include="Assets\Scripts\Views\trust.js" />
     <Content Include="babel.config.js" />
     <Content Include="public\assets\images\chart.svg" />
     <Content Include="public\assets\images\checklist.svg" />
@@ -941,6 +944,7 @@
     <Content Include="Views\TrustComparison\Advanced.cshtml" />
     <Content Include="Views\Trust\Detail.cshtml" />
     <Content Include="Views\Trust\Partials\DetailsTab.cshtml" />
+    <Content Include="Views\Trust\Partials\FinanceTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\EmComparison\" />
