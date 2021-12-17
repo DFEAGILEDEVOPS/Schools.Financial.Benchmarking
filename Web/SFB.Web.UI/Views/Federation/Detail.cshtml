@@ -197,6 +197,8 @@
 
     <script>
         DfE.Views.FederationDetailsViewModel = new FederationViewModel('@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+        DfE.Views.WorkforceChartWrapperViewModel = new ChartWrapper();
+        DfE.Views.FinancialChartWrapperViewModel = new ChartWrapper();
     </script>
 }
 

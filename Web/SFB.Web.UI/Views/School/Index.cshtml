@@ -292,7 +292,7 @@
             @if (Model.HasSomeHistoricalWorkforceData)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="workforce">
-                    Workforce content
+                    @Html.Partial("Partials/WorkforceTab", Model)
                 </div>
             }
         </div>
@@ -347,6 +347,8 @@
 
     <script>
         DfE.Views.SchoolDetailsViewModel = new SchoolViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+        DfE.Views.WorkforceChartWrapperViewModel = new ChartWrapper();
+        DfE.Views.FinancialChartWrapperViewModel = new ChartWrapper();
     </script>
 }
 

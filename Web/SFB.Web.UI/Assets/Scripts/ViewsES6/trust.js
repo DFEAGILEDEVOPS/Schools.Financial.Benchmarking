@@ -127,4 +127,117 @@ class TrustViewModel {
             }
         }, 500);
     }
+
+    rebuildCharts() {
+        debugger;
+        let codeParameter = DfE.Util.QueryString.get('code');
+        let urnParameter = DfE.Util.QueryString.get('urn');
+        let companyNoParameter = DfE.Util.QueryString.get('companyNo');
+        let fuid = DfE.Util.QueryString.get('fuid');
+        let nameParameter = DfE.Util.QueryString.get('name');
+        let tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
+        let unitParameter = $("#ShowValue").val();
+        let chartGroupParameter = $("#ChartGroup").val();
+        let financingParameter = $("#Financing").val();
+        let formatParameter = sessionStorage.chartFormat;
+
+        let url = "/trust" +
+            "/getcharts?urn=" +
+            urnParameter +
+            "&code=" +
+            codeParameter +
+            "&companyNo=" +
+            companyNoParameter +
+            "&fuid=" +
+            fuid +
+            "&revgroup=" +
+            tabParameter +
+            "&chartGroup=" +
+            chartGroupParameter +
+            "&unit=" +
+            unitParameter +
+            "&name=" +
+            nameParameter +
+            "&format=" +
+            formatParameter;
+
+        if (financingParameter) {
+            url += "&financing=" + financingParameter;
+        }
+
+        $.ajax({
+            url: url,
+            datatype: 'json',
+            beforeSend: () => {
+                DfE.Util.LoadingMessage.display(".historical-charts-list", "Updating charts");
+            },
+            success: (data) => {
+                $(".historical-charts-list").html(data);
+                DfE.Views.HistoricalCharts.generateCharts(unitParameter);
+                //this.updateTotals();
+                this.updateTrustWarnings();
+                GOVUKFrontend.initAll({ scope: $(".historical-charts-list")[0] });
+            }
+        });
+    }
+
+    updateTrustWarnings() {
+        let isPlaceholder = $("#isPlaceholder").val();
+        if (isPlaceholder === "true") {
+            $("#placeholderWarning").show();
+        } else {
+            $("#placeholderWarning").hide();
+        }
+    }
+
+    //updateTotals() {
+    //    let expTotal = $("#expTotal").val();
+    //    let expTotalAbbr = $("#expTotalAbbr").val();
+    //    let incTotal = $("#incTotal").val();
+    //    let incTotalAbbr = $("#incTotalAbbr").val();
+    //    let balTotal = $("#balTotal").val();
+    //    let balTotalAbbr = $("#balTotalAbbr").val();
+
+    //    $(".exp-total").text(expTotal);
+    //    $("abbr.exp-total").attr("title", expTotalAbbr);
+    //    $(".inc-total").text(incTotal);
+    //    $("abbr.inc-total").attr("title", incTotalAbbr);
+    //    $(".bal-total").text(balTotal);
+    //    $("abbr.bal-total").attr("title", balTotalAbbr);
+    //    if (balTotalAbbr.includes("-")) {
+    //        $("abbr.bal-total").addClass("negative-balance");
+    //        $("span.bal-total").parent().addClass("negative-balance");
+    //    } else {
+    //        $("abbr.bal-total").removeClass("negative-balance");
+    //        $("span.bal-total").parent().removeClass("negative-balance");
+    //    }
+    //}
+
+    updateBenchmarkBasket(urn, withAction) {
+        if (withAction === "Add") {
+            if (DfE.Util.ComparisonList.count() === 30) {
+                DfE.Util.ComparisonList.renderFullListWarningModal();
+                return;
+            }
+        }
+
+        $.get("/school/UpdateBenchmarkBasket?urn=" + urn + "&withAction=" + withAction,
+            (data) => {
+                $("#benchmarkBasket").replaceWith(data);
+                switch (withAction) {
+                    case "UnsetDefault":
+                        $(".set-unset-default").toggle();
+                        break;
+                    case "SetDefault":
+                        $(".set-unset-default").toggle();
+                        $(".addto").hide();
+                        $(".removefrom").show();
+                        break;
+                    case "Add":
+                    case "Remove":
+                        $(".add-remove-js").toggle();
+                        break;
+                }
+            });
+    }
 }

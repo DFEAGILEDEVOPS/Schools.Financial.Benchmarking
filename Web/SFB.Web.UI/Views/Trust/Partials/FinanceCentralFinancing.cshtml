@@ -4,7 +4,7 @@
 <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-right-0">
     <div class="govuk-form-group">
         <label class="govuk-label" for="Financing">Trust finance</label>
-        <select name="Financing" id="Financing" class="govuk-select" onchange="DfE.Views.HistoricalCharts.rebuildCharts('trust')">
+        <select name="Financing" id="Financing" class="govuk-select" onchange="DfE.Views.TrustDetailsViewModel.rebuildCharts()">
             <option value="@MatFinancingType.TrustAndAcademies" @IsFinancingSelected(MatFinancingType.TrustAndAcademies)>@MATFinancing.TRUST_ACADEMIES</option>
             <option value="@MatFinancingType.TrustOnly" @IsFinancingSelected(MatFinancingType.TrustOnly)>@MATFinancing.TRUST_ONLY</option>
             <option value="@MatFinancingType.AcademiesOnly" @IsFinancingSelected(MatFinancingType.AcademiesOnly)>@MATFinancing.ACADEMIES_ONLY</option>

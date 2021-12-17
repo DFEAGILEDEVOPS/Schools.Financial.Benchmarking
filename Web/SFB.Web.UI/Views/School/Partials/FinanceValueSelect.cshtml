@@ -1,0 +1,51 @@
+﻿@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.EstablishmentViewModelBase
+
+<div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
+    <div class="govuk-form-group">
+        <label class="govuk-label govuk-!-display-inline-block" for="ShowValue">Show value</label>
+        @if (Model.Tab == TabType.Workforce)
+        {
+            <span class="help-icon inline-block hide-in-print">
+                <span class="icon dark-blue">
+                    <a href="#" class="js-modal" role="button" data-modal-title="Show value" data-modal-text="@HelpTooltipText.ShowValueHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                        <span class="govuk-visually-hidden">Open more info text for Show Value opens a popup</span>
+                    </a>
+                </span>
+            </span>
+        }
+        <select name="ShowValue" id="ShowValue" class="govuk-select" onchange="DfE.Views.SchoolDetailsViewModel.rebuildCharts()">
+            @if (Model.Tab == TabType.Workforce)
+            {
+                <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>
+                <option value="@UnitType.HeadcountPerFTE">@ChartShowValues.PERCENTAGE_FTE</option>
+                <option value="@UnitType.FTERatioToTotalFTE">@ChartShowValues.PERCENTAGE_WORKFORCE</option>
+                <option value="@UnitType.NoOfPupilsPerMeasure">@ChartShowValues.NO_PUPILS_PER_MEASURE</option>
+            }
+            else
+            {
+                <option value="@UnitType.AbsoluteMoney" @IsUnitTypeSelected(UnitType.AbsoluteMoney)>@ChartShowValues.ABSOLUTE</option>
+                if (!Model.HasNoPupilData)
+                {
+                    <option value="@UnitType.PerPupil" @IsUnitTypeSelected(UnitType.PerPupil)>@ChartShowValues.PER_PUPIL</option>
+                }
+                if (!Model.HasNoTeacherData)
+                {
+                    <option value="@UnitType.PerTeacher" @IsUnitTypeSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
+                }
+
+                <option value="@UnitType.PercentageOfTotalExpenditure" @IsUnitTypeSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>
+                <option value="@UnitType.PercentageOfTotalIncome" @IsUnitTypeSelected(UnitType.PercentageOfTotalIncome)>@ChartShowValues.PERCENTAGE_TOTAL_INCOME</option>
+            }
+        </select>
+    </div>
+</div>
+
+@helper IsUnitTypeSelected(UnitType option)
+{
+    if (option == Enum.Parse(typeof(UnitType), ViewBag.UnitType.ToString()))
+    {
+        <text>selected</text>
+    }
+}

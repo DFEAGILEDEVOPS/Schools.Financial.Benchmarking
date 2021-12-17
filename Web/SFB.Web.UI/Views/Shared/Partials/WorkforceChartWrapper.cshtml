@@ -1,0 +1,146 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers
+@using SFB.Web.UI.Helpers.Enums
+@using SFB.Web.UI.Models
+@model List<ChartViewModel>
+
+<div id="historical-charts-accordion">
+    <div class="govuk-accordion app-accordion--no-open-all app-accordion--no-border-bottom govuk-!-margin-bottom-0" data-module="govuk-accordion" id="accordion-chart">
+        @for (var index = 0; index < Model.Count; index++)
+        {
+            var historicalChart = Model[index];
+            ViewBag.FinancialYear = historicalChart.LastYear;
+
+            <div class="charts-section__chart-container index-@index no-padding" data-group="@historicalChart.ChartGroup">
+                @if (historicalChart.ChartType == ChartType.Total)
+                {
+
+                    if (historicalChart.DrillInto != null)
+                    {
+                        <div class="charts-section__chart-container__chart-header">
+                            <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
+                            <button class="charts-section__chart-container__chart-header__a charts-section__chart-container__chart-header__a--inline hide-in-print link-button no-padding" onclick="DfE.Views.WorkforceChartWrapperViewModel.selectGrouping('@historicalChart.DrillInto','@historicalChart.TabName.ToLower()')">
+                                @if (ViewBag.ChartFormat == ChartFormat.Charts)
+                                {
+                                    <span class="view-more">All @historicalChart.Name.Replace("total", "").ToLower() charts</span>
+                                }
+                                else
+                                {
+                                    <span class="view-more">View more tables</span>
+                                }
+                                <span class="govuk-visually-hidden"> for @historicalChart.Name</span>
+                            </button>
+                            @if (historicalChart.HelpTooltip != null)
+                            {
+                                <details class="govuk-details" data-module="govuk-details">
+                                    <summary class="govuk-details__summary hide-in-print">
+                                        <span class="summary govuk-!-font-size-16">More about @historicalChart.Name.ToLower()</span>
+                                    </summary>
+                                    <div class="govuk-details__text">
+                                        @Html.Raw(historicalChart.HelpTooltip)
+                                    </div>
+                                </details>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="charts-section__chart-container__chart-header">
+                            <h2 class="charts-section__chart-container__chart-header__h2 charts-section__chart-container__chart-header__h2--inline">@historicalChart.Name</h2>
+                            @if (historicalChart.HelpTooltip != null)
+                            {
+                                if (historicalChart.HelpTooltip != null)
+                                {
+                                    <details class="govuk-details" data-module="govuk-details">
+                                        <summary class="govuk-details__summary hide-in-print">
+                                            <span class="summary govuk-!-font-size-16">More about @historicalChart.Name.ToLower()</span>
+                                        </summary>
+                                        <div class="govuk-details__text">
+                                            @Html.Raw(historicalChart.HelpTooltip)
+                                        </div>
+                                    </details>
+                                }
+                            }
+                        </div>
+                    }
+
+                    @Html.Partial("Partials/HistoricalChart", historicalChart)
+                }
+                else
+                {
+                    <div class="govuk-accordion__section ">
+                        <div class="govuk-accordion__section-header">
+                            <h2 class="govuk-accordion__section-heading">
+                                <span class="govuk-accordion__section-button" id="accordion-chart-name-@historicalChart.Id">
+                                    @historicalChart.Name
+                                </span>
+                                @if (historicalChart.HelpTooltip != null)
+                                {
+                                    <span class="help-icon help-chart hide-in-print">
+                                        <span class="icon dark-blue">
+                                            <a href="#" class="js-modal" role="button" data-modal-title="@historicalChart.Name" data-modal-text="@historicalChart.HelpTooltip" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                <span class="govuk-visually-hidden">Open more info text for @historicalChart.Name opens a popup</span>
+                                            </a>
+                                        </span>
+                                    </span>
+                                }
+                            </h2>
+                        </div>
+                        <div id="accordion-chart-content-@historicalChart.Id" class="govuk-accordion__section-content" aria-labelledby="accordion-chart-name-@historicalChart.Id">
+                            @Html.Partial("Partials/HistoricalChart", historicalChart)
+                            @if (historicalChart.SubCharts != null)
+                            {
+                                for (var i = 0; i < historicalChart.SubCharts.Count; i++)
+                                {
+                                    ChartViewModel subChart = historicalChart.SubCharts[i];
+                                    <h2 class="charts-section__chart-container__chart-header__h2">@subChart.Name</h2>
+                                    @Html.Partial("Partials/HistoricalChart", subChart)
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@*<input type="hidden" id="expTotal" value="@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()" />
+    <input type="hidden" id="expTotalAbbr" value="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("C0")" />
+    <input type="hidden" id="incTotal" value="@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()" />
+    <input type="hidden" id="incTotalAbbr" value="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" />
+    <input type="hidden" id="balTotal" value="@Model.InYearBalance.GetValueOrDefault().FormatMoney()" />
+    <input type="hidden" id="balTotalAbbr" value="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" />
+    <input type="hidden" id="isPlaceholder" value="@Model.IsReturnsPlaceholder.ToString().ToLower()" />*@
+
+@*@if (Request.IsAjaxRequest() && (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge")))
+{
+    <script src="/public/scripts/termi/element.details.ajax.js"></script>
+}*@
+
+@helper FormatFinancialYear(string year, EstablishmentType schoolType)
+{@( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))@( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))@( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))@( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))}
+
+@helper ChartLabelForCentralFinance()
+{
+    if (ViewBag.EstablishmentType == EstablishmentType.MAT)
+    {
+        if (ViewBag.Financing != null)
+        {
+            var matFinance = (MatFinancingType)Enum.Parse(typeof(MatFinancingType), ViewBag.Financing.ToString());
+            <text>(@matFinance.GetDescription())</text>
+        }
+        else
+        {
+            if (ViewBag.ChartGroup != null && ViewBag.ChartGroup != ChartGroupType.Workforce)
+            {
+                if (ViewBag.EstablishmentType != EstablishmentType.Maintained && !ViewBag.IsSATinLatestFinance && ViewBag.Financing != null)
+                {
+                    var centralFinance = (CentralFinancingType)Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString());
+                    <text>(@centralFinance.GetDescription())</text>
+                }
+            }
+        }
+    }
+}
+

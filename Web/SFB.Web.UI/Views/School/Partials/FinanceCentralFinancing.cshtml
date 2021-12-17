@@ -1,0 +1,37 @@
+﻿@using SFB.Web.ApplicationCore.Helpers.Enums
+@using SFB.Web.UI.Helpers.Constants
+@using SFB.Web.UI.Helpers.Enums
+
+<div class="govuk-grid-column-one-third chart-filter govuk-!-padding-right-0 @IsWorkforceTab()">
+    <div class="govuk-form-group">
+        <label class="govuk-label govuk-!-display-inline-block" for="Financing">Trust finance</label>
+        <span class="help-icon hide-in-print help-trust-finance js-show-value-help">
+            <span class="icon dark-blue">
+                <a href="#" class="js-modal" role="button" data-modal-title="Trust finance" data-modal-text="@HelpTooltipText.TrustFinance" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                    <span class="govuk-visually-hidden">Open more info text for Trust finance opens a popup</span>
+                </a>
+            </span>
+        </span>
+        <select name="Financing" id="Financing" class="govuk-select" onchange="DfE.Views.SchoolDetailsViewModel.rebuildCharts()">
+            <option value="@CentralFinancingType.Include" @IsFinancingSelected(CentralFinancingType.Include)>@CentralFinancing.INCLUDE</option>
+            <option value="@CentralFinancingType.Exclude" @IsFinancingSelected(CentralFinancingType.Exclude)>@CentralFinancing.EXCLUDE</option>
+        </select>
+    </div>
+</div>
+
+
+@helper IsWorkforceTab()
+{
+    if (ViewBag.Tab == TabType.Workforce)
+    {
+        <text>hidden</text>
+    }
+}
+
+@helper IsFinancingSelected(CentralFinancingType option)
+{
+    if (option == Enum.Parse(typeof(CentralFinancingType), ViewBag.Financing.ToString()))
+    {
+        <text>selected</text>
+    }
+}

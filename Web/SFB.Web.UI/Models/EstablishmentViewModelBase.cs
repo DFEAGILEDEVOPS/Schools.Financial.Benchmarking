@@ -24,6 +24,21 @@ namespace SFB.Web.UI.Models
         public abstract EstablishmentType EstablishmentType { get; }
 
         public List<ChartViewModel> HistoricalCharts { get; set; }
+        public List<ChartViewModel> FinancialCharts
+        {
+            get
+            {
+                return this.HistoricalCharts.Where(h => h.TabType == TabType.Expenditure || h.TabType == TabType.Income || h.TabType == TabType.Balance).ToList();
+            }
+        }
+
+        public List<ChartViewModel> WorkforceCharts
+        {
+            get
+            {
+                return this.HistoricalCharts.Where(h => h.TabType == TabType.Workforce).ToList();
+            }
+        }
 
         public TabType Tab { get; set; }
 

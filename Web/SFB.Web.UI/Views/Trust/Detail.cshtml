@@ -171,6 +171,7 @@
 
     <script>
         DfE.Views.TrustDetailsViewModel = new TrustViewModel('@ViewBag.ChartFormat', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+        DfE.Views.FinancialChartWrapperViewModel = new ChartWrapper();
     </script>
 }
 

@@ -1447,3 +1447,9 @@ div.custom.tabs ul li {
         }
     }
 }
+
+#chart-filters-selections .govuk-accordion__section-content {
+    @include govuk-media-query($from: tablet) {
+        display: block;
+    }
+}
