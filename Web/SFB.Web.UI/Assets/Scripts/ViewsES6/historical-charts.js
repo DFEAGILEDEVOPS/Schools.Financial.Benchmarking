@@ -257,9 +257,7 @@ class HistoricalCharts {
                 this.updateTotals();
                 this.updateTrustWarnings();
                 GOVUKFrontend.initAll({ scope: $(".historical-charts-list")[0]});
-                if (!DfE.Util.Features.enabled("RevisedSchoolPage")) {
-                    this.setActiveTab();
-                }
+                this.setActiveTab();
             }
         });
     }
