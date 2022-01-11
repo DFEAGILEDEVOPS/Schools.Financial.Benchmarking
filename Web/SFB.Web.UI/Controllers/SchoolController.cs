@@ -57,7 +57,10 @@ namespace SFB.Web.UI.Controllers
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 
             await _schoolVMBuilder.BuildCoreAsync(urn);
+            _schoolVMBuilder.SetTab(tab);
             await _schoolVMBuilder.AddHistoricalChartsAsync(tab, DetectDefaultChartGroupFromTabType(tab), financing, unit);
+            await _schoolVMBuilder.AddHistoricalChartsAsync(TabType.Workforce, DetectDefaultChartGroupFromTabType(TabType.Workforce), CentralFinancingType.Include, UnitType.AbsoluteCount);
+            _schoolVMBuilder.SetChartGroups(tab);
             _schoolVMBuilder.AssignLaName();
             var schoolVM = _schoolVMBuilder.GetResult();
 
@@ -101,7 +104,9 @@ namespace SFB.Web.UI.Controllers
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 
             await _schoolVMBuilder.BuildCoreAsync(urn);
+            _schoolVMBuilder.SetTab(tab);
             await _schoolVMBuilder.AddHistoricalChartsAsync(tab, DetectDefaultChartGroupFromTabType(tab), financing, unit);
+            _schoolVMBuilder.SetChartGroups(tab);
             _schoolVMBuilder.AssignLaName();
             var schoolVM = _schoolVMBuilder.GetResult();
 
@@ -144,7 +149,9 @@ namespace SFB.Web.UI.Controllers
         ChartFormat format = ChartFormat.Charts)
         {
             await _schoolVMBuilder.BuildCoreAsync(urn);
+            _schoolVMBuilder.SetTab(revGroup);
             await _schoolVMBuilder.AddHistoricalChartsAsync(revGroup, chartGroup, financing, unit);
+            _schoolVMBuilder.SetChartGroups(revGroup);
             var schoolVM = _schoolVMBuilder.GetResult();
 
             ViewBag.ChartFormat = format;
@@ -159,7 +166,9 @@ namespace SFB.Web.UI.Controllers
         public async Task<ActionResult> Download(long urn)
         {
             await _schoolVMBuilder.BuildCoreAsync(urn);
+            _schoolVMBuilder.SetTab(TabType.AllIncludingSchoolPerf);
             await _schoolVMBuilder.AddHistoricalChartsAsync(TabType.AllIncludingSchoolPerf, ChartGroupType.All, CentralFinancingType.Include, UnitType.AbsoluteMoney);
+            _schoolVMBuilder.SetChartGroups(TabType.AllIncludingSchoolPerf);
             var schoolVM = _schoolVMBuilder.GetResult();
             
             var csv = _csvBuilder.BuildCSVContentHistorically(schoolVM, await _financialDataService.GetLatestDataYearPerEstabTypeAsync(schoolVM.EstablishmentType));

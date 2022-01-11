@@ -41,24 +41,35 @@ namespace SFB.Web.UI.Helpers
         public async Task BuildCoreAsync(long urn)
         {
             SchoolVM = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _schoolBenchmarkListService.GetSchoolBenchmarkList());
+            SchoolVM.LatestTerm = await LatestTermAsync(SchoolVM.EstablishmentType);
         }
 
         public async Task AddHistoricalChartsAsync(TabType tabType, ChartGroupType chartGroup, CentralFinancingType cFinance, UnitType unitType)
         {
-            SchoolVM.HistoricalCharts = _historicalChartBuilder.Build(tabType, chartGroup, SchoolVM.EstablishmentType, unitType);
-            SchoolVM.ChartGroups = _historicalChartBuilder.Build(tabType, SchoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
-            SchoolVM.LatestTerm = await LatestTermAsync(SchoolVM.EstablishmentType);
+            SchoolVM.HistoricalCharts.AddRange(_historicalChartBuilder.Build(tabType, chartGroup, SchoolVM.EstablishmentType, unitType));          
+            SchoolVM.HistoricalFinancialDataModels.AddRange(await this.GetFinancialDataHistoricallyAsync(SchoolVM.Id, SchoolVM.EstablishmentType, SchoolVM.Tab == TabType.Workforce ? CentralFinancingType.Exclude : cFinance));
+            _fcService.PopulateHistoricalChartsWithFinancialData(SchoolVM.HistoricalCharts, SchoolVM.HistoricalFinancialDataModels, SchoolVM.LatestTerm, tabType, unitType, SchoolVM.EstablishmentType);         
+        }
+
+        public void SetTab(TabType tabType)
+        {
             SchoolVM.Tab = tabType;
-            
-            SchoolVM.HistoricalFinancialDataModels = await this.GetFinancialDataHistoricallyAsync(SchoolVM.Id, SchoolVM.EstablishmentType, SchoolVM.Tab == TabType.Workforce ? CentralFinancingType.Exclude : cFinance);
-            
-            _fcService.PopulateHistoricalChartsWithFinancialData(SchoolVM.HistoricalCharts, SchoolVM.HistoricalFinancialDataModels, SchoolVM.LatestTerm, SchoolVM.Tab, unitType, SchoolVM.EstablishmentType);
-           
+        }
+
+        public void SetChartGroups(TabType tabType)
+        {
+            if (tabType == TabType.Workforce)
+            {
+                SchoolVM.ChartGroups = _historicalChartBuilder.Build(tabType, ChartGroupType.Workforce, SchoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
+            }
+            else
+            {
+                SchoolVM.ChartGroups = _historicalChartBuilder.Build(tabType, SchoolVM.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
+            }
         }
 
         public async Task AddLatestYearFinanceAsync()
         {
-            SchoolVM.LatestTerm = await LatestTermAsync(SchoolVM.EstablishmentType);
 
             SchoolVM.HistoricalFinancialDataModels = new List<FinancialDataModel> 
             {

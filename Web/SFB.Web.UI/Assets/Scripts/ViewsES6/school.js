@@ -1,8 +1,8 @@
 ﻿class SchoolViewModel {
 
-    constructor(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, unitType, mapApiKey) {
+    constructor(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, mapApiKey) {
 
-        this.initControls(modelId, chartFormat, unitType);
+        this.initControls(modelId, chartFormat);
 
         if ($(window).width() <= 640) {
             $('details#mapDetails').removeAttr('open');
@@ -13,7 +13,7 @@
         $("#detailsTab, #mapDetails").on("click", () => this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey));        
     }
 
-    initControls(modelId, chartFormat, unitType) {
+    initControls(modelId, chartFormat) {
         $.get("/school/GetBenchmarkBasket",
             (data) => {
                 $("#benchmarkBasket").replaceWith(data);
@@ -40,7 +40,8 @@
         sessionStorage.chartFormat = chartFormat;
 
         DfE.Views.HistoricalCharts = new HistoricalChartManager();
-        DfE.Views.HistoricalCharts.generateCharts(unitType);
+        DfE.Views.HistoricalCharts.generateFinanceCharts();
+        DfE.Views.HistoricalCharts.generateWorkforceCharts();
 
         if ($(window).width() <= 640) {
             $('#school-website').text('website');
@@ -102,7 +103,6 @@
     }
 
     tabChange(urn, tab) {
-        debugger;
         let queryString = `?urn=${urn}&tab=${tab}`;
 
         queryString += `&unit=${$("select#ShowValue option:selected")[0].value}`;
@@ -156,16 +156,19 @@
     }
 
     rebuildCharts() {
-        debugger;
         let codeParameter = DfE.Util.QueryString.get('code');
         let urnParameter = DfE.Util.QueryString.get('urn');
         let companyNoParameter = DfE.Util.QueryString.get('companyNo');
         let fuid = DfE.Util.QueryString.get('fuid');
         let nameParameter = DfE.Util.QueryString.get('name');
         let tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
-        let unitParameter = $("#ShowValue").val();
         let chartGroupParameter = $("#ChartGroup").val();
-        let financingParameter = $("#Financing").val();
+        if (DfE.Util.QueryString.getHashParameter() === "workforce") {
+            tabParameter = "workforce";
+            chartGroupParameter = "workforce";
+        }
+        let unitParameter = $(".show-value:visible").val();
+        let financingParameter = $("#Financing:visible").val() ?? null;
         let formatParameter = sessionStorage.chartFormat;
 
         let url = "/school" +            
@@ -196,13 +199,16 @@
             url: url,
             datatype: 'json',
             beforeSend: () => {
-                DfE.Util.LoadingMessage.display(".historical-charts-list", "Updating charts");
+                DfE.Util.LoadingMessage.display(".historical-charts-list:visible", "Updating charts");
             },
             success: (data) => {
-                $(".historical-charts-list").html(data);
-                DfE.Views.HistoricalCharts.generateCharts(unitParameter);
-                //this.updateTotals();
-                GOVUKFrontend.initAll({ scope: $(".historical-charts-list")[0] });
+                $(".historical-charts-list:visible").html(data);
+                if (tabParameter == "workforce") {
+                    DfE.Views.HistoricalCharts.generateWorkforceCharts();
+                } else {
+                    DfE.Views.HistoricalCharts.generateFinanceCharts();
+                }
+                GOVUKFrontend.initAll({ scope: $(".historical-charts-list:visible")[0] });
             }
         });
     }

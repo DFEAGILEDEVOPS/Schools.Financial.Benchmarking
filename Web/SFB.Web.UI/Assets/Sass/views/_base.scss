@@ -1453,3 +1453,9 @@ div.custom.tabs ul li {
         display: block;
     }
 }
+
+#accordion-finance-filters {
+    @include govuk-media-query($from: tablet) {
+        display: block;
+    }
+}

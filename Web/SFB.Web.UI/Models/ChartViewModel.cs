@@ -72,7 +72,7 @@ namespace SFB.Web.UI.Models
                 }
             }
         }
-        
+
         public UnitType ShowValue { get; set; }
 
         public string MoreInfo { get; set; }

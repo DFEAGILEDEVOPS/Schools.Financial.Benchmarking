@@ -1,34 +1,43 @@
 ﻿"use strict";
 
 class HistoricalChartManager {
-
-    generateCharts(unitParameter) {
-        $(".chart").each(
-            (i, el) => {
-                let yValues = JSON.parse($('#' + el.id).attr('data-chart'));
-                let minBy = _.minBy(yValues, (o) => o.amount );
-                let minimum = minBy ? minBy.amount : 0;
-                let maxBy = _.maxBy(yValues, o => o.amount);
-                let maximum = maxBy ? maxBy.amount : 0;
-                if (minimum === 0 && maximum === 0) {
-                    this.generateChart(el, null, 0, 0, 0, 0);
-                } else if (minimum === maximum) {
-                    let middle;
-                    if (minimum >= 0) {
-                        middle = this.roundedTickRange(0, maximum);
-                        this.generateChart(el, unitParameter, 0, middle, middle, middle * 2);
-                    } else {
-                        middle = this.roundedTickRange(minimum, 0);
-                        this.generateChart(el, unitParameter, -2 * middle, -1 * middle, -1 * middle, 0);
-                    }
-                } else {
-                    let range = this.roundedTickRange(minimum, maximum);
-                    let newMin = range * Math.floor(minimum / range);
-                    let newMax = range * Math.ceil(maximum / range);
-                    this.generateChart(el, unitParameter, newMin, newMin + range, newMin + range + range, newMax);
-                }
-            }
+    generateFinanceCharts() {
+        let unitParameter = $("#ShowValue.js-finance-showValue").val();
+        $(".finance-charts-list .chart").each(
+            (i, el) => this.generateCharts(el, unitParameter)
         );
+    }
+
+    generateWorkforceCharts() {
+        let unitParameter = $("#ShowValue.js-wf-showValue").val();
+        $(".workforce-charts-list .chart").each(
+            (i, el) => this.generateCharts(el, unitParameter)
+        );
+    }
+
+    generateCharts(el, unitParameter) {
+        let yValues = JSON.parse($('#' + el.id).attr('data-chart'));
+        let minBy = _.minBy(yValues, (o) => o.amount);
+        let minimum = minBy ? minBy.amount : 0;
+        let maxBy = _.maxBy(yValues, o => o.amount);
+        let maximum = maxBy ? maxBy.amount : 0;
+        if (minimum === 0 && maximum === 0) {
+            this.generateChart(el, null, 0, 0, 0, 0);
+        } else if (minimum === maximum) {
+            let middle;
+            if (minimum >= 0) {
+                middle = this.roundedTickRange(0, maximum);
+                this.generateChart(el, unitParameter, 0, middle, middle, middle * 2);
+            } else {
+                middle = this.roundedTickRange(minimum, 0);
+                this.generateChart(el, unitParameter, -2 * middle, -1 * middle, -1 * middle, 0);
+            }
+        } else {
+            let range = this.roundedTickRange(minimum, maximum);
+            let newMin = range * Math.floor(minimum / range);
+            let newMax = range * Math.ceil(maximum / range);
+            this.generateChart(el, unitParameter, newMin, newMin + range, newMin + range + range, newMax);
+        }
     }
 
     roundedTickRange(min, max) {

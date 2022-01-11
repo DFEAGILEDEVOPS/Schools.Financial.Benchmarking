@@ -1,8 +1,4 @@
-﻿@using SFB.Web.ApplicationCore.Helpers.Enums
-@using SFB.Web.UI.Helpers.Constants
-@using SFB.Web.UI.Helpers.Enums
-@using SFB.Web.UI.Helpers;
-@using System.Configuration;
+﻿@using System.Configuration;
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
@@ -346,7 +342,7 @@
     <script src="~/node_modules/lodash/lodash.min.js"></script>
 
     <script>
-        DfE.Views.SchoolDetailsViewModel = new SchoolViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
+        DfE.Views.SchoolDetailsViewModel = new SchoolViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
         DfE.Views.WorkforceChartWrapperViewModel = new ChartWrapper();
         DfE.Views.FinancialChartWrapperViewModel = new ChartWrapper();
     </script>

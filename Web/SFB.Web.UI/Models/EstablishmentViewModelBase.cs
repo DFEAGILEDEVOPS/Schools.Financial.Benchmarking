@@ -9,6 +9,12 @@ namespace SFB.Web.UI.Models
 {
     public abstract class EstablishmentViewModelBase : ViewModelBase
     {
+        public EstablishmentViewModelBase()
+        {
+            this.HistoricalCharts = new List<ChartViewModel>();
+            this.HistoricalFinancialDataModels = new List<FinancialDataModel>();
+        }
+
         public abstract string Name { get; set; }
 
         public abstract string Type { get; }

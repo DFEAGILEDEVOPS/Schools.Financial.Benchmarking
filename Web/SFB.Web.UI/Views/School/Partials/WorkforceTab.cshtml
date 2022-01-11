@@ -13,12 +13,29 @@
                         </span>
                     </h2>
                 </div>
-                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-controls-heading-1">
+                <div id="accordion-finance-filters" class="govuk-accordion__section-content" aria-labelledby="accordion-controls-heading-1">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
                         <div class="govuk-grid-row">
                             <div class="govuk-grid-column-full">
-                                @Html.Partial("Partials/ValueSelect", Model)
+                                <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-!-display-inline-block" for="ShowValue">Show value</label>
+                                        <span class="help-icon inline-block hide-in-print">
+                                            <span class="icon dark-blue">
+                                                <a href="#" class="js-modal" role="button" data-modal-title="Show value" data-modal-text="@HelpTooltipText.ShowValueHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                                    <span class="govuk-visually-hidden">Open more info text for Show Value opens a popup</span>
+                                                </a>
+                                            </span>
+                                        </span>
+                                        <select name="ShowValue" id="ShowValue" class="govuk-select show-value js-wf-showValue" onchange="DfE.Views.SchoolDetailsViewModel.rebuildCharts()">
+                                            <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>
+                                            <option value="@UnitType.HeadcountPerFTE">@ChartShowValues.PERCENTAGE_FTE</option>
+                                            <option value="@UnitType.FTERatioToTotalFTE">@ChartShowValues.PERCENTAGE_WORKFORCE</option>
+                                            <option value="@UnitType.NoOfPupilsPerMeasure">@ChartShowValues.NO_PUPILS_PER_MEASURE</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </fieldset>
@@ -37,7 +54,8 @@
             </div>
         </div>
     </div>
-    <div class="historical-charts-list">
+    <div class="historical-charts-list workforce-charts-list">
         @Html.Partial("Partials/WorkforceChartWrapper", Model.WorkforceCharts)
     </div>
 </div>
+

@@ -129,7 +129,6 @@ class TrustViewModel {
     }
 
     rebuildCharts() {
-        debugger;
         let codeParameter = DfE.Util.QueryString.get('code');
         let urnParameter = DfE.Util.QueryString.get('urn');
         let companyNoParameter = DfE.Util.QueryString.get('companyNo');
