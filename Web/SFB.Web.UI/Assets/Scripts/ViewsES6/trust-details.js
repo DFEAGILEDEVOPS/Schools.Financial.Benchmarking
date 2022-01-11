@@ -93,4 +93,65 @@ class TrustDetailsViewModel {
             sessionStorage.chartFormat = 'Tables';
         }
     }
+
+    rebuildCharts() {
+        let codeParameter = DfE.Util.QueryString.get('code');
+        let urnParameter = DfE.Util.QueryString.get('urn');
+        let companyNoParameter = DfE.Util.QueryString.get('companyNo');
+        let fuid = DfE.Util.QueryString.get('fuid');
+        let nameParameter = DfE.Util.QueryString.get('name');
+        let tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
+        let unitParameter = $("#ShowValue").val();
+        let chartGroupParameter = $("#ChartGroup").val();
+        let financingParameter = $("#Financing").val();
+        let formatParameter = sessionStorage.chartFormat;
+
+        let url = "/trust" +
+            "/getcharts?urn=" +
+            urnParameter +
+            "&code=" +
+            codeParameter +
+            "&companyNo=" +
+            companyNoParameter +
+            "&fuid=" +
+            fuid +
+            "&revgroup=" +
+            tabParameter +
+            "&chartGroup=" +
+            chartGroupParameter +
+            "&unit=" +
+            unitParameter +
+            "&name=" +
+            nameParameter +
+            "&format=" +
+            formatParameter;
+
+        if (financingParameter) {
+            url += "&financing=" + financingParameter;
+        }
+
+        $.ajax({
+            url: url,
+            datatype: 'json',
+            beforeSend: () => {
+                DfE.Util.LoadingMessage.display(".historical-charts-list", "Updating charts");
+            },
+            success: (data) => {
+                $(".historical-charts-list").html(data);
+                DfE.Views.HistoricalCharts.generateCharts(unitParameter);
+                //this.updateTotals();
+                this.updateTrustWarnings();
+                GOVUKFrontend.initAll({ scope: $(".historical-charts-list")[0] });
+            }
+        });
+    }
+
+    updateTrustWarnings() {
+        let isPlaceholder = $("#isPlaceholder").val();
+        if (isPlaceholder === "true") {
+            $("#placeholderWarning").show();
+        } else {
+            $("#placeholderWarning").hide();
+        }
+    }
 }
