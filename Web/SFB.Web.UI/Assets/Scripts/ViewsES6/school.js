@@ -155,7 +155,7 @@
         }
     }
 
-    rebuildCharts() {
+    rebuildFinanceCharts() {
         let codeParameter = DfE.Util.QueryString.get('code');
         let urnParameter = DfE.Util.QueryString.get('urn');
         let companyNoParameter = DfE.Util.QueryString.get('companyNo');
@@ -163,11 +163,7 @@
         let nameParameter = DfE.Util.QueryString.get('name');
         let tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
         let chartGroupParameter = $("#ChartGroup").val();
-        if (DfE.Util.QueryString.getHashParameter() === "workforce") {
-            tabParameter = "workforce";
-            chartGroupParameter = "workforce";
-        }
-        let unitParameter = $(".show-value:visible").val();
+        let unitParameter = $(".show-value.js-finance-showValue").val();
         let financingParameter = $("#Financing:visible").val() ?? null;
         let formatParameter = sessionStorage.chartFormat;
 
@@ -199,16 +195,62 @@
             url: url,
             datatype: 'json',
             beforeSend: () => {
-                DfE.Util.LoadingMessage.display(".historical-charts-list:visible", "Updating charts");
+                DfE.Util.LoadingMessage.display(".historical-charts-list.finance-charts-list", "Updating charts");
             },
             success: (data) => {
-                $(".historical-charts-list:visible").html(data);
-                if (tabParameter == "workforce") {
-                    DfE.Views.HistoricalCharts.generateWorkforceCharts();
-                } else {
-                    DfE.Views.HistoricalCharts.generateFinanceCharts();
-                }
-                GOVUKFrontend.initAll({ scope: $(".historical-charts-list:visible")[0] });
+                $(".historical-charts-list.finance-charts-list").html(data);
+                DfE.Views.HistoricalCharts.generateFinanceCharts();
+                GOVUKFrontend.initAll({ scope: $(".historical-charts-list.finance-charts-list")[0] });
+            }
+        });
+    }
+
+    rebuildWorkforceCharts() {
+        let codeParameter = DfE.Util.QueryString.get('code');
+        let urnParameter = DfE.Util.QueryString.get('urn');
+        let companyNoParameter = DfE.Util.QueryString.get('companyNo');
+        let fuid = DfE.Util.QueryString.get('fuid');
+        let nameParameter = DfE.Util.QueryString.get('name');
+        let tabParameter = "workforce";
+        let chartGroupParameter = "workforce";
+        let unitParameter = $(".show-value.js-wf-showValue").val();        
+        let financingParameter = $("#Financing:visible").val() ?? null;
+        let formatParameter = sessionStorage.chartFormat;
+
+        let url = "/school" +
+            "/getcharts?urn=" +
+            urnParameter +
+            "&code=" +
+            codeParameter +
+            "&companyNo=" +
+            companyNoParameter +
+            "&fuid=" +
+            fuid +
+            "&revgroup=" +
+            tabParameter +
+            "&chartGroup=" +
+            chartGroupParameter +
+            "&unit=" +
+            unitParameter +
+            "&name=" +
+            nameParameter +
+            "&format=" +
+            formatParameter;
+
+        if (financingParameter) {
+            url += "&financing=" + financingParameter;
+        }
+
+        $.ajax({
+            url: url,
+            datatype: 'json',
+            beforeSend: () => {
+                  DfE.Util.LoadingMessage.display(".historical-charts-list.workforce-charts-list", "Updating charts");
+            },
+            success: (data) => {
+                $(".historical-charts-list.workforce-charts-list").html(data);
+                DfE.Views.HistoricalCharts.generateWorkforceCharts();
+                GOVUKFrontend.initAll({ scope: $(".historical-charts-list.workforce-charts-list")[0] });
             }
         });
     }

@@ -5,7 +5,7 @@
     <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-left-0">
         <div class="govuk-form-group">
             <label class="govuk-label" for="ChartGroup">Show grouping</label>
-            <select name="ChartGroup" id="ChartGroup" class="govuk-select" onchange="DfE.Views.SchoolDetailsViewModel.rebuildCharts()">
+            <select name="ChartGroup" id="ChartGroup" class="govuk-select" onchange="DfE.Views.SchoolDetailsViewModel.rebuildFinanceCharts()">
                 @foreach (var item in Model)
                 {
                     if (ViewBag.ChartGroup == item.ChartGroup)

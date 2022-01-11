@@ -12,7 +12,7 @@
                 </a>
             </span>
         </span>
-        <select name="Financing" id="Financing" class="govuk-select" onchange="DfE.Views.SchoolDetailsViewModel.rebuildCharts()">
+        <select name="Financing" id="Financing" class="govuk-select" onchange="DfE.Views.SchoolDetailsViewModel.rebuildFinanceCharts()">
             <option value="@CentralFinancingType.Include" @IsFinancingSelected(CentralFinancingType.Include)>@CentralFinancing.INCLUDE</option>
             <option value="@CentralFinancingType.Exclude" @IsFinancingSelected(CentralFinancingType.Exclude)>@CentralFinancing.EXCLUDE</option>
         </select>

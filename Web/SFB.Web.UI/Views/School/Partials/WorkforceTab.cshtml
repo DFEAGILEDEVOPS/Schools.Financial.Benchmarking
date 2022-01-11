@@ -28,7 +28,7 @@
                                                 </a>
                                             </span>
                                         </span>
-                                        <select name="ShowValue" id="ShowValue" class="govuk-select show-value js-wf-showValue" onchange="DfE.Views.SchoolDetailsViewModel.rebuildCharts()">
+                                        <select name="ShowValue" id="ShowValue" class="govuk-select show-value js-wf-showValue" onchange="DfE.Views.SchoolDetailsViewModel.rebuildWorkforceCharts()">
                                             <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>
                                             <option value="@UnitType.HeadcountPerFTE">@ChartShowValues.PERCENTAGE_FTE</option>
                                             <option value="@UnitType.FTERatioToTotalFTE">@ChartShowValues.PERCENTAGE_WORKFORCE</option>
