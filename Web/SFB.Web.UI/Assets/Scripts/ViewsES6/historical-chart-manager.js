@@ -180,6 +180,34 @@ class HistoricalChartManager {
         });
     }
 
+    updateBenchmarkBasket(urn, withAction) {
+        if (withAction === "Add") {
+            if (DfE.Util.ComparisonList.count() === 30) {
+                DfE.Util.ComparisonList.renderFullListWarningModal();
+                return;
+            }
+        }
+
+        $.get("/school/UpdateBenchmarkBasket?urn=" + urn + "&withAction=" + withAction,
+            (data) => {
+                $("#benchmarkBasket").replaceWith(data);
+                switch (withAction) {
+                    case "UnsetDefault":
+                        $(".set-unset-default").toggle();
+                        break;
+                    case "SetDefault":
+                        $(".set-unset-default").toggle();
+                        $(".addto").hide();
+                        $(".removefrom").show();
+                        break;
+                    case "Add":
+                    case "Remove":
+                        $(".add-remove-js").toggle();
+                        break;
+                }
+            });
+    }
+
     //setActiveTab() {
     //    debugger;
     //    $(".govuk-tabs__list-item").removeClass("govuk-tabs__list-item--selected");

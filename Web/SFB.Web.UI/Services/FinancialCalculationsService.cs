@@ -25,7 +25,7 @@ namespace SFB.Web.UI.Services
             List<FinancialDataModel> SchoolFinancialDataModels, string term, TabType revgroup, UnitType unit,
             EstablishmentType estabType)
         {
-            foreach (var chart in historicalCharts.Where(c=>c.TabType == revgroup))
+            foreach (var chart in historicalCharts.Where(c=> revgroup == c.TabType || revgroup == TabType.AllIncludingSchoolPerf || revgroup == TabType.AllExcludingSchoolPerf))
             {
                 BuildChart(SchoolFinancialDataModels, term, revgroup, unit, estabType, chart);
                 if (chart.SubCharts != null)

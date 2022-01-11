@@ -60,7 +60,7 @@ namespace SFB.Web.UI.Models
 
         public List<FinancialDataModel> HistoricalFinancialDataModels { get; set; }
 
-        public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels?.Last();
+        public FinancialDataModel LatestYearFinancialData => HistoricalFinancialDataModels.Count > 0 ? HistoricalFinancialDataModels.Last() : null;
         
         public EdubaseDataObject ContextData { get; set; }
 
