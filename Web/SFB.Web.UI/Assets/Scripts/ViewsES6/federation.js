@@ -21,8 +21,9 @@ class FederationViewModel {
 
         sessionStorage.chartFormat = chartFormat;
 
-        DfE.Views.HistoricalCharts = new HistoricalCharts();
-        DfE.Views.HistoricalCharts.generateCharts(unitType);
+        DfE.Views.HistoricalCharts = new HistoricalChartManager();
+        DfE.Views.HistoricalCharts.generateFinanceCharts();
+        DfE.Views.HistoricalCharts.generateWorkforceCharts();
 
         GOVUK.Modal.Load();
 
@@ -135,16 +136,16 @@ class FederationViewModel {
         }
     }
 
-    rebuildCharts() {
+    rebuildFinanceCharts() {
         let codeParameter = DfE.Util.QueryString.get('code');
         let urnParameter = DfE.Util.QueryString.get('urn');
         let companyNoParameter = DfE.Util.QueryString.get('companyNo');
         let fuid = DfE.Util.QueryString.get('fuid');
         let nameParameter = DfE.Util.QueryString.get('name');
         let tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
-        let unitParameter = $("#ShowValue").val();
         let chartGroupParameter = $("#ChartGroup").val();
-        let financingParameter = $("#Financing").val();
+        let unitParameter = $(".show-value.js-finance-showValue").val();
+        let financingParameter = $("#Financing:visible").val() ?? null;
         let formatParameter = sessionStorage.chartFormat;
 
         let url = "/federation" +
@@ -175,13 +176,62 @@ class FederationViewModel {
             url: url,
             datatype: 'json',
             beforeSend: () => {
-                DfE.Util.LoadingMessage.display(".historical-charts-list", "Updating charts");
+                DfE.Util.LoadingMessage.display(".historical-charts-list.finance-charts-list", "Updating charts");
             },
             success: (data) => {
-                $(".historical-charts-list").html(data);
-                DfE.Views.HistoricalCharts.generateCharts(unitParameter);
-                //this.updateTotals();
-                GOVUKFrontend.initAll({ scope: $(".historical-charts-list")[0] });
+                $(".historical-charts-list.finance-charts-list").html(data);
+                DfE.Views.HistoricalCharts.generateFinanceCharts();
+                GOVUKFrontend.initAll({ scope: $(".historical-charts-list.finance-charts-list")[0] });
+            }
+        });
+    }
+
+    rebuildWorkforceCharts() {
+        let codeParameter = DfE.Util.QueryString.get('code');
+        let urnParameter = DfE.Util.QueryString.get('urn');
+        let companyNoParameter = DfE.Util.QueryString.get('companyNo');
+        let fuid = DfE.Util.QueryString.get('fuid');
+        let nameParameter = DfE.Util.QueryString.get('name');
+        let tabParameter = "workforce";
+        let chartGroupParameter = "workforce";
+        let unitParameter = $(".show-value.js-wf-showValue").val();
+        let financingParameter = $("#Financing:visible").val() ?? null;
+        let formatParameter = sessionStorage.chartFormat;
+
+        let url = "/federation" +
+            "/getcharts?urn=" +
+            urnParameter +
+            "&code=" +
+            codeParameter +
+            "&companyNo=" +
+            companyNoParameter +
+            "&fuid=" +
+            fuid +
+            "&revgroup=" +
+            tabParameter +
+            "&chartGroup=" +
+            chartGroupParameter +
+            "&unit=" +
+            unitParameter +
+            "&name=" +
+            nameParameter +
+            "&format=" +
+            formatParameter;
+
+        if (financingParameter) {
+            url += "&financing=" + financingParameter;
+        }
+
+        $.ajax({
+            url: url,
+            datatype: 'json',
+            beforeSend: () => {
+                DfE.Util.LoadingMessage.display(".historical-charts-list.workforce-charts-list", "Updating charts");
+            },
+            success: (data) => {
+                $(".historical-charts-list.workforce-charts-list").html(data);
+                DfE.Views.HistoricalCharts.generateWorkforceCharts();
+                GOVUKFrontend.initAll({ scope: $(".historical-charts-list.workforce-charts-list")[0] });
             }
         });
     }

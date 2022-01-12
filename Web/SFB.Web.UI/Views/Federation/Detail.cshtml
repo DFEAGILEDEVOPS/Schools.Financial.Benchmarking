@@ -145,7 +145,7 @@
             @if (Model.HasSomeHistoricalWorkforceData)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="workforce">
-                    Workforce content
+                    @Html.Partial("Partials/WorkforceTab", Model)
                 </div>
             }
         </div>

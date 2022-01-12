@@ -59,7 +59,7 @@ namespace SFB.Web.UI.Controllers
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
             var chartGroup = DetectDefaultChartGroupFromTabType(tab);
 
-            var vm = await BuildFederationViewModelAsync(fuid, tab, chartGroup, unit);
+            var vm = await BuildFullFederationViewModelAsync(fuid, tab, chartGroup, unit);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -83,7 +83,7 @@ namespace SFB.Web.UI.Controllers
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
             var chartGroup = DetectDefaultChartGroupFromTabType(tab);
 
-            var vm = await BuildFederationViewModelAsync(fuid, tab, chartGroup, unit);
+            var vm = await BuildFullFederationViewModelAsync(fuid, tab, chartGroup, unit);
 
             ViewBag.Tab = tab;
             ViewBag.ChartGroup = chartGroup;
@@ -101,7 +101,7 @@ namespace SFB.Web.UI.Controllers
             UnitType unit,
             ChartFormat format = ChartFormat.Charts)
         {
-            var vm = await BuildFederationViewModelAsync(fuid, revGroup, chartGroup, unit);
+            var vm = await BuildPartialFederationViewModelAsync(fuid, revGroup, chartGroup, unit);
 
             ViewBag.Tab = revGroup;
             ViewBag.ChartGroup = chartGroup;
@@ -130,7 +130,7 @@ namespace SFB.Web.UI.Controllers
         public async Task<ActionResult> Download(long fuid)
         {
 
-            var vm = await BuildFederationViewModelAsync(fuid, TabType.AllExcludingSchoolPerf, ChartGroupType.All, UnitType.AbsoluteMoney);
+            var vm = await BuildFullFederationViewModelAsync(fuid, TabType.AllExcludingSchoolPerf, ChartGroupType.All, UnitType.AbsoluteMoney);
 
             var csv = _csvBuilder.BuildCSVContentHistorically(vm, await _financialDataService.GetLatestDataYearPerEstabTypeAsync(EstablishmentType.Federation));
 
@@ -152,11 +152,33 @@ namespace SFB.Web.UI.Controllers
             return finance;
         }
 
-        private async Task<FederationViewModel> BuildFederationViewModelAsync(long fuid, TabType tab, ChartGroupType chartGroup, UnitType unitType)
+        private async Task<FederationViewModel> BuildFullFederationViewModelAsync(long fuid, TabType tab, ChartGroupType chartGroup, UnitType unitType)
         {
             var vm = new FederationViewModel(fuid, _benchmarkBasketService.GetSchoolBenchmarkList());
 
-            vm.HistoricalCharts = _historicalChartBuilder.Build(tab, chartGroup, vm.EstablishmentType, unitType);
+            vm.HistoricalCharts.AddRange(_historicalChartBuilder.Build(tab, chartGroup, vm.EstablishmentType, unitType));
+            vm.HistoricalCharts.AddRange(_historicalChartBuilder.Build(TabType.Workforce, DetectDefaultChartGroupFromTabType(TabType.Workforce), vm.EstablishmentType, UnitType.AbsoluteCount));
+            vm.ChartGroups = _historicalChartBuilder.Build(tab, vm.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
+            vm.LatestTerm = await LatestFederationTermAsync();
+            vm.Tab = tab;
+
+            vm.ContextData = await _contextDataService.GetSchoolDataObjectByUrnAsync(fuid);
+            vm.HistoricalFinancialDataModels = await GetFinancialDataHistoricallyAsync(fuid);
+            _fcService.PopulateHistoricalChartsWithFinancialData(vm.HistoricalCharts, vm.HistoricalFinancialDataModels, vm.LatestTerm, vm.Tab, unitType, vm.EstablishmentType);
+            _fcService.PopulateHistoricalChartsWithFinancialData(vm.HistoricalCharts, vm.HistoricalFinancialDataModels, vm.LatestTerm, TabType.Workforce, UnitType.AbsoluteCount, vm.EstablishmentType);
+
+            vm.SchoolsInFederation = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(vm.FederationMembersURNs.ToList());
+            
+            vm.LaName = _laService.GetLaName(vm.La.ToString());
+
+            return vm;
+        }
+
+        private async Task<FederationViewModel> BuildPartialFederationViewModelAsync(long fuid, TabType tab, ChartGroupType chartGroup, UnitType unitType)
+        {
+            var vm = new FederationViewModel(fuid, _benchmarkBasketService.GetSchoolBenchmarkList());
+
+            vm.HistoricalCharts.AddRange(_historicalChartBuilder.Build(tab, chartGroup, vm.EstablishmentType, unitType));
             vm.ChartGroups = _historicalChartBuilder.Build(tab, vm.EstablishmentType).DistinctBy(c => c.ChartGroup).ToList();
             vm.LatestTerm = await LatestFederationTermAsync();
             vm.Tab = tab;
@@ -166,7 +188,7 @@ namespace SFB.Web.UI.Controllers
             _fcService.PopulateHistoricalChartsWithFinancialData(vm.HistoricalCharts, vm.HistoricalFinancialDataModels, vm.LatestTerm, vm.Tab, unitType, vm.EstablishmentType);
 
             vm.SchoolsInFederation = await _contextDataService.GetMultipleSchoolDataObjectsByUrnsAsync(vm.FederationMembersURNs.ToList());
-            
+
             vm.LaName = _laService.GetLaName(vm.La.ToString());
 
             return vm;

@@ -15,29 +15,18 @@
                 </span>
             </span>
         }
-        <select name="ShowValue" id="ShowValue" class="govuk-select" onchange="DfE.Views.FederationDetailsViewModel.rebuildCharts()">
-            @if (Model.Tab == TabType.Workforce)
+        <select name="ShowValue" id="ShowValue" class="govuk-select show-value js-finance-showValue" onchange="DfE.Views.FederationDetailsViewModel.rebuildFinanceCharts()">
+            <option value="@UnitType.AbsoluteMoney" @IsUnitTypeSelected(UnitType.AbsoluteMoney)>@ChartShowValues.ABSOLUTE</option>
+            @if (!Model.HasNoPupilData)
             {
-                <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>
-                <option value="@UnitType.HeadcountPerFTE">@ChartShowValues.PERCENTAGE_FTE</option>
-                <option value="@UnitType.FTERatioToTotalFTE">@ChartShowValues.PERCENTAGE_WORKFORCE</option>
-                <option value="@UnitType.NoOfPupilsPerMeasure">@ChartShowValues.NO_PUPILS_PER_MEASURE</option>
+                <option value="@UnitType.PerPupil" @IsUnitTypeSelected(UnitType.PerPupil)>@ChartShowValues.PER_PUPIL</option>
             }
-            else
+            @if (!Model.HasNoTeacherData)
             {
-                <option value="@UnitType.AbsoluteMoney" @IsUnitTypeSelected(UnitType.AbsoluteMoney)>@ChartShowValues.ABSOLUTE</option>
-                if (!Model.HasNoPupilData)
-                {
-                    <option value="@UnitType.PerPupil" @IsUnitTypeSelected(UnitType.PerPupil)>@ChartShowValues.PER_PUPIL</option>
-                }
-                if (!Model.HasNoTeacherData)
-                {
-                    <option value="@UnitType.PerTeacher" @IsUnitTypeSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
-                }
-
-                <option value="@UnitType.PercentageOfTotalExpenditure" @IsUnitTypeSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>
-                <option value="@UnitType.PercentageOfTotalIncome" @IsUnitTypeSelected(UnitType.PercentageOfTotalIncome)>@ChartShowValues.PERCENTAGE_TOTAL_INCOME</option>
+                <option value="@UnitType.PerTeacher" @IsUnitTypeSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>
             }
+            <option value="@UnitType.PercentageOfTotalExpenditure" @IsUnitTypeSelected(UnitType.PercentageOfTotalExpenditure)>@ChartShowValues.PERCENTAGE_TOTAL_EXPENDITURE</option>
+            <option value="@UnitType.PercentageOfTotalIncome" @IsUnitTypeSelected(UnitType.PercentageOfTotalIncome)>@ChartShowValues.PERCENTAGE_TOTAL_INCOME</option>
         </select>
     </div>
 </div>
