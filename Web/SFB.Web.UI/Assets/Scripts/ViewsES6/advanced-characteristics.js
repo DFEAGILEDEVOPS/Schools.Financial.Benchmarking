@@ -197,6 +197,7 @@ class AdvancedCharacteristicsViewModel {
                     $panel.find("span.govuk-error-message").css("display", "none");
                 }
                 $panel.find("input[type='number']:disabled").val(null);
+                $panel.find("input[type='text']:disabled").val(null);
                 $panel.find("input[type='checkbox']:disabled").prop('checked', false);
                 $panel.find("input[type='radio']:disabled").prop('checked', false);
                 if ($(this.questionCheckBoxSelector + ":checked").length > 0) {
