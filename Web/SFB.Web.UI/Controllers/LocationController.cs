@@ -23,7 +23,7 @@ namespace SFB.Web.UI.Controllers
         {
             var suggestions = TempData["LocationResults"] as SuggestionQueryResult;
             var searchMethod = TempData["SearchMethod"] as string;
-            if(suggestions == null)
+            if(suggestions is null)
             {
                 suggestions = _locationSearchService.SuggestLocationName(locationOrPostcode);
             }

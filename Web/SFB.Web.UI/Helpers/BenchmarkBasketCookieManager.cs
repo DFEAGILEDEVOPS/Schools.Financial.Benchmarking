@@ -124,7 +124,7 @@ namespace SFB.Web.UI.Helpers
             switch (withAction)
             {
                 case CookieActions.SetDefault:
-                    if (cookie == null)
+                    if (cookie is null)
                     {
                         cookie = new HttpCookie(CookieNames.COMPARISON_LIST_MAT);
                         comparisonList = new TrustComparisonListModel(companyNo.GetValueOrDefault(), matName)

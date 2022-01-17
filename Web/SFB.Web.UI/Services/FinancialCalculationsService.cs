@@ -162,7 +162,7 @@ namespace SFB.Web.UI.Services
                         case UnitType.FTERatioToTotalFTE:                        
                         total = GetFinancialDataValueForChartField(SchoolTrustFinanceDataFieldNames.WORKFORCE_TOTAL, schoolData.FinancialDataObjectModel);                        
                         rawAmount = GetFinancialDataValueForChartField(chart.FieldName, schoolData.FinancialDataObjectModel);
-                            if (rawAmount == null)
+                            if (rawAmount is null)
                             {
                                 break;
                             }

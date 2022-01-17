@@ -363,6 +363,14 @@ namespace SFB.Web.UI.Controllers
         {
             ViewBag.ModelState = ModelState;
 
+            async Task<SchoolViewModel> InstantiateBenchmarkSchoolAsync(long id)
+            {
+                var bmSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(id), _schoolBenchmarkListService.GetSchoolBenchmarkList());
+                var schoolsLatestFinancialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(bmSchool.Id, bmSchool.EstablishmentType);
+                bmSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
+                return bmSchool;
+            }
+
             if (!ModelState.IsValid) {
                     return View("~/Views/BenchmarkCriteria/BestInClassCharacteristics.cshtml", 
                     new BestInClassCharacteristicsViewModel(await InstantiateBenchmarkSchoolAsync(urn), bicCriteria) {
@@ -381,7 +389,7 @@ namespace SFB.Web.UI.Controllers
                 comparisonResult = _bicComparisonResultCachingService.GetBicComparisonResultByUrn(urn);
             }
 
-            if (comparisonResult == null)
+            if (comparisonResult is null)
             {
                 comparisonResult = await _comparisonService.GenerateBenchmarkListWithBestInClassComparisonAsync(bicCriteria.EstablishmentType, benchmarkCriteria,
                                          bicCriteria, benchmarkSchool.LatestYearFinancialData);
@@ -543,7 +551,7 @@ namespace SFB.Web.UI.Controllers
         public async Task<ActionResult> GenerateFromAdvancedCriteria(BenchmarkCriteria criteria, EstablishmentType estType, int? lacode, long? urn, ComparisonArea areaType, 
             BenchmarkListOverwriteStrategy? overwriteStrategy, bool excludePartial = false)
         {
-            if(criteria == null)
+            if(criteria is null)
             {
                 criteria = new BenchmarkCriteria();
             }
@@ -1144,15 +1152,6 @@ namespace SFB.Web.UI.Controllers
 
             return chartGroup;
         }
-
-        private async Task<SchoolViewModel> InstantiateBenchmarkSchoolAsync(long urn)
-        {
-            var benchmarkSchool = new SchoolViewModel(await _contextDataService.GetSchoolDataObjectByUrnAsync(urn), _schoolBenchmarkListService.GetSchoolBenchmarkList());
-            var schoolsLatestFinancialDataModel = await _financialDataService.GetSchoolsLatestFinancialDataModelAsync(benchmarkSchool.Id, benchmarkSchool.EstablishmentType);
-            benchmarkSchool.HistoricalFinancialDataModels = new List<FinancialDataModel> { schoolsLatestFinancialDataModel };
-            return benchmarkSchool;
-        }
-
 
     }
 }

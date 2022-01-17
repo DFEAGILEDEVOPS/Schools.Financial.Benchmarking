@@ -55,9 +55,9 @@ namespace SFB.Web.UI.Helpers
         }
 
 
-        public static KeyValuePair<string, object> WithValue(this string key, object value)
+        public static (string, object) WithValue(this string key, object value)
         {
-            return new KeyValuePair<string, object>(key, value);
+            return (key, value);//Tuple
         }
 
         public static List<string> Tokens(this string s, params string[] knownTokens)
