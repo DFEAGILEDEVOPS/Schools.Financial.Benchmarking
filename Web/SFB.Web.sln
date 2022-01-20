@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29905.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFB.Web.UnitTests", "SFB.Web.UI.UnitTests\SFB.Web.UnitTests.csproj", "{00B36F4B-C766-42D4-ACF7-FD6EF13A98A9}"
 EndProject

@@ -17,6 +17,7 @@ using SFB.Web.Infrastructure.Caching;
 using SFB.Web.ApplicationCore.Services.LocalAuthorities;
 using SFB.Web.Infrastructure.Logging;
 using SFB.Web.Infrastructure.SearchEngine;
+using System.Web.Hosting;
 
 namespace SFB.Web.UI
 {
@@ -81,15 +82,16 @@ namespace SFB.Web.UI
             builder.RegisterType<BenchmarkCriteriaBuilderService>().As<IBenchmarkCriteriaBuilderService>();
             builder.RegisterType<DownloadCSVBuilder>().As<IDownloadCSVBuilder>();
             builder.RegisterType<NotifyEmailSendingService>().As<IEmailSendingService>();
-            builder.RegisterType<AspNetCachedLocalAuthoritiesService>().As<ILocalAuthoritiesService>();
-            builder.RegisterType<AspNetCachedActiveCollectionsService>().As<IActiveCollectionsService>().SingleInstance();
+            var laList = System.IO.File.ReadAllText(HostingEnvironment.MapPath("~/App_data/la.json"));
+            builder.RegisterInstance(new NetCoreCachedLocalAuthoritiesService(laList)).As<ILocalAuthoritiesService>();
+            builder.RegisterType<NetCoreCachedActiveCollectionsService>().As<IActiveCollectionsService>().SingleInstance();
             builder.RegisterType<TrustHistoryService>().As<ITrustHistoryService>().SingleInstance();
             builder.RegisterType<RedisCachedBicComparisonResultCachingService>().As<IBicComparisonResultCachingService>().SingleInstance();
             //builder.RegisterInstance(new RedDogSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
             builder.Register(c => new RedisCachedActiveEstablishmentIdsService(c.Resolve<IContextDataService>(), c.Resolve<IFinancialDataService>(), ConfigurationManager.AppSettings["RedisConnectionString"])).As<IActiveEstablishmentsService>().SingleInstance();
             builder.RegisterInstance(new AzureSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
             builder.RegisterInstance(new AzureTrustSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
-            builder.RegisterInstance(new AspNetLogManager(ConfigurationManager.AppSettings["EnableAITelemetry"])).As<ILogManager>();
+            builder.RegisterInstance(new NetCoreLogManager(ConfigurationManager.AppSettings["EnableAITelemetry"])).As<ILogManager>();
         }
     }
 }

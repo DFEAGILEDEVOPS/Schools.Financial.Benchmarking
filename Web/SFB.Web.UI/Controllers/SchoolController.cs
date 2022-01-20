@@ -176,22 +176,22 @@ namespace SFB.Web.UI.Controllers
             return File(Encoding.UTF8.GetBytes(csv), "text/plain", $"HistoricalData-{urn}.csv");
         }
 
-        [HttpHead]
-        [AllowAnonymous]
-        [OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]
-        public async Task<ActionResult> Status(long urn)
-        {
-            try
-            {
-                var activeUrns = await _activeEstabService.GetAllActiveUrnsAsync();
-                var found = activeUrns.Contains(urn);
-                return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);
-            }
-            catch
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
-            }
-        }
+        //[HttpHead]
+        //[AllowAnonymous]
+        //[OutputCache (Duration=28800, VaryByParam= "urn", Location = OutputCacheLocation.Server, NoStore=true)]
+        //public async Task<ActionResult> Status(long urn)
+        //{
+        //    try
+        //    {
+        //        var activeUrns = await _activeEstabService.GetAllActiveUrnsAsync();
+        //        var found = activeUrns.Contains(urn);
+        //        return found ? new HttpStatusCodeResult(HttpStatusCode.OK) : new HttpStatusCodeResult(HttpStatusCode.NoContent);
+        //    }
+        //    catch
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable);
+        //    }
+        //}
 
         public async Task<PartialViewResult> UpdateBenchmarkBasket(long? urn, CookieActions withAction)
         {          

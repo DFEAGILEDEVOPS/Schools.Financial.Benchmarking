@@ -191,7 +191,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Workforce);
+            _ = controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Workforce);
 
             mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
                 It.IsAny<TabType>(),
