@@ -284,6 +284,7 @@ namespace SFB.Web.UI.Helpers
                                     <li>supply teacher insurance</li>
                                     <li>agency supply teaching staff</li>
                                 </ul>",
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel()
@@ -359,7 +360,8 @@ namespace SFB.Web.UI.Helpers
                     FieldName = SchoolTrustFinanceDataFieldNames.EDUCATION_SUPPORT_STAFF,
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
-                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartSchoolType = ChartSchoolType.Both,                    
+                    Downloadable = true,
                     MoreInfo =
                         @"<p>This covers expenditure on the salaries of permanent support staff employed directly by the school. It takes account of allowances, maternity pay and the employer's contributions to national insurance and superannuation.</p>
 
@@ -386,8 +388,7 @@ namespace SFB.Web.UI.Helpers
 
                                 <ul>
                                 <li>education support staff not employed directly by the school</li>
-                                </ul>",
-                    Downloadable = true
+                                </ul>"
                 },
                 new ChartViewModel()
                 {
@@ -397,6 +398,7 @@ namespace SFB.Web.UI.Helpers
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Staff,
                     ChartSchoolType = ChartSchoolType.Both,
+                    Downloadable = true,
                     MoreInfo =
                         @"<p>This covers expenditure on salaries and wages of administrative and clerical staff employed directly by the school. It consists of gross pay, including allowances, maternity pay and the employer's contributions to national insurance and superannuation.</p>
 
@@ -419,8 +421,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>administrative and clerical staff not employed directly by the school</li>
                                 <li>administrative and clerical staff employed to manage and support the school's special facilities</li>
                                 <li>IT teachers, even where they have responsibility for managing IT systems within the school</li>
-                                </ul>",
-                    Downloadable = true
+                                </ul>"
                 },
                 new ChartViewModel()
                 {
@@ -437,6 +438,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>staff development and training</li>
                                 <li>staff-related insurance</li>
                                 </ul>",
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel()
@@ -559,6 +561,7 @@ namespace SFB.Web.UI.Helpers
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.Premises,
                     ChartSchoolType = ChartSchoolType.Both,
+                    Downloadable = true,
                     MoreInfo = @"
                                 <p>This covers expenditure on salaries and wages of premises staff employed directly by the school. It consists of gross pay including allowances, maternity pay and the employer's contributions to national insurance and superannuation.</p>
 
@@ -579,8 +582,7 @@ namespace SFB.Web.UI.Helpers
                                 <ul>
                                 <li>premises staff not employed directly by the school</li>
                                 <li>premises staff employed to manage and support the school's special facilities</li>
-                                </ul>",
-                    Downloadable = true
+                                </ul>"
                 },
                 new ChartViewModel()
                 {
@@ -618,6 +620,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>building maintenance and improvement</li>
                                 <li>grounds maintenance and improvement</li>
                                 </ul>",
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -822,6 +825,7 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.Occupation,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel()
@@ -954,6 +958,7 @@ namespace SFB.Web.UI.Helpers
                                 </ul>",
                     DealsForSchoolsMessage = DealsForSchoolsLinkText.EducationalSupplies,
                     DealsForSchoolsCategory = "category-books",
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -1051,6 +1056,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>legal and professional</li>
                                 <li>auditor costs</li>
                                 </ul>",
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -1183,6 +1189,7 @@ namespace SFB.Web.UI.Helpers
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.CostOfFinance,
                     ChartSchoolType = ChartSchoolType.Both,
+                    Downloadable = true,
                     MoreInfo = @"<p>This includes:</p>
 
                                 <ul>
@@ -1202,6 +1209,7 @@ namespace SFB.Web.UI.Helpers
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.CostOfFinance,
                     ChartSchoolType = ChartSchoolType.Both,
+                    Downloadable = true,
                     MoreInfo = @"<p>This includes:</p>
 
                         <ul>
@@ -1236,6 +1244,7 @@ namespace SFB.Web.UI.Helpers
                     FieldName = SchoolTrustFinanceDataFieldNames.COMM_FOCUSED_STAFF,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     ChartGroup = ChartGroupType.Community,
+                    Downloadable = true,
                     MoreInfo =
                         @"<p>This is expenditure on salaries and wages of staff employed directly by the school for community purposes. It consists of gross pay including allowances, maternity pay and the employer's contributions to national insurance and superannuation. </p>
 
@@ -1258,6 +1267,7 @@ namespace SFB.Web.UI.Helpers
                     FieldName = SchoolTrustFinanceDataFieldNames.COMM_FOCUSED_SCHOOL,
                     ChartSchoolType = ChartSchoolType.Maintained,
                     ChartGroup = ChartGroupType.Community,
+                    Downloadable = true,
                     MoreInfo = @"
                         <p>This includes:</p>
                         <ul>
@@ -1376,6 +1386,7 @@ namespace SFB.Web.UI.Helpers
                                     <li>government source (non-grant)</li>
                                 </ul>",
                     HelpTooltip = HelpTooltipText.DirectGrantsHelp,
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -1457,6 +1468,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>additional grant for schools</li>
                                 </ul>",
                     HelpTooltip = HelpTooltipText.CommunityGrantsHelp,
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel
@@ -1535,6 +1547,7 @@ namespace SFB.Web.UI.Helpers
                                 <li>funding for minority ethnic pupils</li>
                                 </ul>",
                     HelpTooltip = HelpTooltipText.TargetedGrantsHelp,
+                    Downloadable = true,
                     TableColumns = new List<DataTableColumnViewModel>
                     {
                         new DataTableColumnViewModel

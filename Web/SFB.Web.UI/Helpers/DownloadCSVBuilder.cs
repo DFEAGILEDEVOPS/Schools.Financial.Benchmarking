@@ -89,13 +89,16 @@ namespace SFB.Web.UI.Helpers
             {
                 header.Append(chart.Name);
                 header.Append(",");
+                if (chart.TableColumns != null) 
+                {
+                    foreach (var col in chart.TableColumns)
+                    {
+                        header.Append($"\"{col.Name}\"");
+                        header.Append(",");
+                    }
+                }
             }
 
-            foreach (var col in benchmarkCharts.Where(bc => bc.TableColumns != null).SelectMany(bc => bc.TableColumns))
-            {
-                header.Append(col.Name);
-                header.Append(",");
-            }
             csv.AppendLine(header.ToString().TrimEnd(','));
         }
 
@@ -115,13 +118,15 @@ namespace SFB.Web.UI.Helpers
                     var amount = chart.BenchmarkData.Find(d => d.Urn == comparisonList.HomeSchoolUrn).Amount;
                     valuesLine.Append(amount == null ? "N/A" : amount.ToString());
                     valuesLine.Append(",");
-                }
-
-                foreach (var col in benchmarkCharts.Where(bc => bc.TableColumns != null).SelectMany(bc => bc.TableColumns))
-                {
-                    var amount = col.BenchmarkData.Find(d => d.Urn == comparisonList.HomeSchoolUrn).Amount;
-                    valuesLine.Append(amount == null ? "N/A" : amount.ToString());
-                    valuesLine.Append(",");
+                    if (chart.TableColumns != null)
+                    {
+                        foreach (var col in chart.TableColumns)
+                        {
+                            var colAmount = col.BenchmarkData.Find(d => d.Urn == comparisonList.HomeSchoolUrn).Amount;
+                            valuesLine.Append(colAmount == null ? "N/A" : colAmount.ToString());
+                            valuesLine.Append(",");
+                        }
+                    }
                 }
 
                 csv.AppendLine(valuesLine.ToString().TrimEnd(','));
@@ -143,13 +148,15 @@ namespace SFB.Web.UI.Helpers
                     var amount = chart.BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustCompanyNo.ToString() ).Amount;
                     valuesLine.Append(amount == null ? "N/A" : amount.ToString());
                     valuesLine.Append(",");
-                }
-
-                foreach (var col in benchmarkCharts.Where(bc => bc.TableColumns != null).SelectMany(bc => bc.TableColumns))
-                {
-                    var amount = col.BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustCompanyNo.ToString()).Amount;
-                    valuesLine.Append(amount == null ? "N/A" : amount.ToString());
-                    valuesLine.Append(",");
+                    if (chart.TableColumns != null)
+                    {
+                        foreach (var col in chart.TableColumns)
+                        {
+                            var colAmount = col.BenchmarkData.Find(d => d.Urn == comparisonList.DefaultTrustCompanyNo.ToString()).Amount;
+                            valuesLine.Append(colAmount == null ? "N/A" : colAmount.ToString());
+                            valuesLine.Append(",");
+                        }
+                    }
                 }
 
                 csv.AppendLine(valuesLine.ToString().TrimEnd(','));
@@ -173,13 +180,15 @@ namespace SFB.Web.UI.Helpers
                     var amount = chart.BenchmarkData.Find(d => d.Urn == school.Urn).Amount;
                     valuesLine.Append(amount == null ? "N/A" : amount.ToString());
                     valuesLine.Append(",");
-                }
-
-                foreach (var col in benchmarkCharts.Where(bc => bc.TableColumns != null).SelectMany(bc => bc.TableColumns))
-                {
-                    var amount = col.BenchmarkData.Find(d => d.Urn == school.Urn).Amount;
-                    valuesLine.Append(amount == null ? "N/A" : amount.ToString());
-                    valuesLine.Append(",");
+                    if (chart.TableColumns != null)
+                    {
+                        foreach (var col in chart.TableColumns)
+                        {
+                            var colAmount = col.BenchmarkData.Find(d => d.Urn == school.Urn).Amount;
+                            valuesLine.Append(colAmount == null ? "N/A" : colAmount.ToString());
+                            valuesLine.Append(",");
+                        }
+                    }
                 }
 
                 csv.AppendLine(valuesLine.ToString().TrimEnd(','));
@@ -202,13 +211,15 @@ namespace SFB.Web.UI.Helpers
                     var amount = chart.BenchmarkData.Find(d => d.Urn == trust.CompanyNo.ToString()).Amount;
                     valuesLine.Append(amount == null ? "N/A" : amount.ToString());
                     valuesLine.Append(",");
-                }
-
-                foreach (var col in benchmarkCharts.Where(bc => bc.TableColumns != null).SelectMany(bc => bc.TableColumns))
-                {
-                    var amount = col.BenchmarkData.Find(d => d.Urn == trust.CompanyNo.ToString()).Amount;
-                    valuesLine.Append(amount == null ? "N/A" : amount.ToString());
-                    valuesLine.Append(",");
+                    if (chart.TableColumns != null)
+                    {
+                        foreach (var col in chart.TableColumns)
+                        {
+                            var colAmount = col.BenchmarkData.Find(d => d.Urn == trust.CompanyNo.ToString()).Amount;
+                            valuesLine.Append(colAmount == null ? "N/A" : colAmount.ToString());
+                            valuesLine.Append(",");
+                        }
+                    }
                 }
 
                 csv.AppendLine(valuesLine.ToString().TrimEnd(','));
