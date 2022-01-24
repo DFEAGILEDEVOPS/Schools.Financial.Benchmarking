@@ -584,7 +584,7 @@ namespace SFB.Web.UI.Models
 
         private List<SchoolCharacteristic> BuildSchoolCharacteristics(SchoolViewModel schoolVM)
         {
-            var latestSchoolData = schoolVM?.HistoricalFinancialDataModels?.Last();
+            var latestSchoolData = schoolVM?.HistoricalFinancialDataModels.Count > 0 ?  schoolVM?.HistoricalFinancialDataModels?.Last() : null;
             var list = new List<SchoolCharacteristic>();
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.NUMBER_OF_PUPILS, Value = latestSchoolData == null ? null : latestSchoolData?.PupilCount + " pupils" });
             list.Add(new SchoolCharacteristic() { Question = SchoolCharacteristicsQuestions.GENDER_OF_PUPILS, Value = latestSchoolData?.Gender });
