@@ -1,9 +1,11 @@
 ﻿@using System.Configuration;
+@using SFB.Web.ApplicationCore.Helpers.Enums
+
 @model SFB.Web.UI.Models.SchoolViewModel
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
     ViewBag.Title = Model.Name;
-    ViewBag.pageClass = "school-detail"; 
+    ViewBag.pageClass = "school-detail";
 }
 
 @section InsideHead{
@@ -244,7 +246,7 @@
                 {
                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
                         <a class="govuk-tabs__tab" href="#dashboard">
-                            Dashboard
+                            Dashboard @FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)
                         </a>
                     </li>
                 }
@@ -273,7 +275,7 @@
             @if (Model.HasLatestYearFinancialData && !Model.Is16Plus)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border" id="dashboard">
-                    Dashboard content
+                    @Html.Partial("Partials/DashboardTab", Model)
                 </div>
             }
             <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="details">
@@ -334,6 +336,11 @@
         <span class="seperator spt_link_js" aria-hidden="true">&nbsp; | &nbsp;</span>
         <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
     </dd>
+}
+
+@helper FormatFinancialYear(string year, EstablishmentType schoolType)
+{
+    @(schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))
 }
 
 @section ViewScripts {

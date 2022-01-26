@@ -113,10 +113,10 @@
     <input type="hidden" id="balTotalAbbr" value="@Model.InYearBalance.GetValueOrDefault().ToString("C0")" />
     <input type="hidden" id="isPlaceholder" value="@Model.IsReturnsPlaceholder.ToString().ToLower()" />
 
-    @if (Request.IsAjaxRequest() && (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge")))
+    @*@if (Request.IsAjaxRequest() && (Request.Browser.Browser.Contains("InternetExplorer") || Request.UserAgent.Contains("Edge")))
     {
         <script src="/public/scripts/termi/element.details.ajax.js"></script>
-    }
+    }*@
 
     @helper FormatFinancialYear(string year, EstablishmentType schoolType)
     {@( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))@( schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))    }

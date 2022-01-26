@@ -1,0 +1,8 @@
+@using SFB.Web.ApplicationCore.Helpers.Enums;
+
+@model SFB.Web.UI.Models.SchoolViewModel
+
+@if (Model.EstablishmentType == EstablishmentType.Academies)
+{
+    <p class="govuk-body-s govuk-!-margin-top-1">Data for academies in a MAT includes an apportioned share of <span class="govuk-!-font-weight-bold">MAT central finance</span> on a pro-rata basis using FTE pupil numbers.</p>
+}

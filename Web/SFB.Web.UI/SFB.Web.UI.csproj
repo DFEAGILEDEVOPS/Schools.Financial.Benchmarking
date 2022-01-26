@@ -942,6 +942,7 @@
     <Content Include="Views\Federation\Partials\FinanceValueSelect.cshtml" />
     <Content Include="Views\Federation\Partials\FinanceChartGroups.cshtml" />
     <Content Include="Views\Federation\Partials\WorkforceTab.cshtml" />
+    <Content Include="Views\School\Partials\DashboardTab.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\FinanceChartGroups.cshtml" />
