@@ -220,10 +220,10 @@
       <HintPath>..\packages\RestSharp.106.10.1\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.ApplicationCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.0.0\lib\netstandard2.0\SFB.Artifacts.ApplicationCore.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.ApplicationCore.1.0.26.64929\lib\netstandard2.0\SFB.Artifacts.ApplicationCore.dll</HintPath>
     </Reference>
     <Reference Include="SFB.Artifacts.Infrastructure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFB.Artifacts.Infrastructure.1.0.0\lib\netstandard2.0\SFB.Artifacts.Infrastructure.dll</HintPath>
+      <HintPath>..\packages\SFB.Artifacts.Infrastructure.1.0.26.64930\lib\netstandard2.0\SFB.Artifacts.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
       <HintPath>..\packages\StackExchange.Redis.2.0.601\lib\net472\StackExchange.Redis.dll</HintPath>
@@ -943,6 +943,7 @@
     <Content Include="Views\Federation\Partials\FinanceChartGroups.cshtml" />
     <Content Include="Views\Federation\Partials\WorkforceTab.cshtml" />
     <Content Include="Views\School\Partials\DashboardTab.cshtml" />
+    <Content Include="Views\School\Partials\TotalFiguresPanel.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\FinanceChartGroups.cshtml" />

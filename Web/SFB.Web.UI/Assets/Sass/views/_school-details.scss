@@ -367,4 +367,24 @@
             color: $govuk-text-colour;
         }
     }
+
+    .total-figures-panel {
+        background-color: govuk-colour("light-grey");
+        padding: 15px 25px 10px 25px;
+
+        @include govuk-media-query($until: tablet) {
+            padding: 15px 15px 10px 15px;
+        }
+    }
+
+    .call-out-box-wrapper {
+        padding: 0 5px;
+    }
+
+    .call-out-box {
+        background-color: govuk-colour("white");
+        padding: 1em;
+        text-align: center;
+        border: 1px solid $govuk-border-colour;
+    }
 }
