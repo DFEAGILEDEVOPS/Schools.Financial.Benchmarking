@@ -1,12 +1,14 @@
 ﻿@using SFB.Web.ApplicationCore.Helpers.Enums
 @using SFB.Web.UI.Helpers;
+@using SFB.Web.UI.Helpers.Constants
+
 @model SFB.Web.UI.Models.EstablishmentViewModelBase
 
 <div class="govuk-grid-row" id="financialSummary">
     <div class="govuk-grid-column-one-quarter call-out-box-wrapper">
         <div class="call-out-box">
             <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Expenditure</h2>
-            <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+            <span class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
                 @if (Model.TotalRevenueExpenditure >= 10000 || Model.TotalRevenueExpenditure <= -10000)
                 {
                     <abbr title="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueExpenditure.GetValueOrDefault().ToString("N0") pounds" class="exp-total summary">@Model.TotalRevenueExpenditure.GetValueOrDefault().FormatMoney()</abbr>
@@ -21,7 +23,7 @@
     <div class="govuk-grid-column-one-quarter call-out-box-wrapper">
         <div class="call-out-box">
             <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Income</h2>
-            <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+            <span class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
                 @if (Model.TotalRevenueIncome >= 10000 || Model.TotalRevenueIncome <= -10000)
                 {
                     <abbr title="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("C0")" aria-label="@Model.TotalRevenueIncome.GetValueOrDefault().ToString("N0") pounds" class="inc-total summary">@Model.TotalRevenueIncome.GetValueOrDefault().FormatMoney()</abbr>
@@ -36,7 +38,7 @@
     <div class="govuk-grid-column-one-quarter call-out-box-wrapper">
         <div class="call-out-box">
             <h2 class="govuk-heading-m govuk-!-margin-bottom-0">In-year balance</h2>
-            <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+            <span class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
                 @if (Model.InYearBalance < 0)
                 {
                     if (Model.InYearBalance <= -10000)
@@ -68,7 +70,7 @@
     <div class="govuk-grid-column-one-quarter call-out-box-wrapper">
         <div class="call-out-box">
             <h2 class="govuk-heading-m govuk-!-margin-bottom-0">Revenue reserve</h2>
-            <span class="govuk-heading-xl govuk-!-margin-top-2 govuk-!-margin-bottom-2">
+            <span class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-2">
                 @if (Model.RevenueReserve >= 10000 || Model.RevenueReserve <= -10000)
                 {
                     <abbr title="@Model.RevenueReserve.GetValueOrDefault().ToString("C0")" aria-label="@Model.RevenueReserve.GetValueOrDefault().ToString("N0") pounds" class="inc-total summary">@Model.RevenueReserve.GetValueOrDefault().FormatMoney()</abbr>
@@ -77,6 +79,13 @@
                 {
                     <span class="money inc-total">@Model.RevenueReserve.GetValueOrDefault().FormatMoney()</span>
                 }
+                <span class="help-icon hide-in-print" style="top: -5px">
+                    <span class="icon dark-blue">
+                        <a href="#" class="js-modal" role="button" data-modal-title="Revenue reserve" data-modal-text="@HelpTooltipText.RevenueReserveExplanation" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                            <span class="govuk-visually-hidden">Open more info text for Revenue Reserve opens a popup</span>
+                        </a>
+                    </span>
+                </span>
             </span>
         </div>
     </div>

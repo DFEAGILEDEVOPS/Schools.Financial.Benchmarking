@@ -178,6 +178,8 @@
             "<p>This method makes simple comparisons possible, but it is not necessarily indicative of how allocations are made by trusts in practice.</p>";
 
         public const string NumberOfPupils = "Pupil numbers for PRU, AP and GHS establishments include all single and dual registered pupils.";
+        public const string RevenueReserveExplanation = "<p>For multi-academy trusts the trust is the legal entity and all revenue reserves belong to the trust.We have estimated a value per academy in a MAT by apportioning the trust’s reserves on a pro-rata basis using the FTE number of pupils in each academy within that MAT.</p>" +
+            "<p>For local authority maintained schools and single academy trusts revenue reserves are associated to the individual school.</p>";
     }
 
     public class DealsForSchoolsLinkText
