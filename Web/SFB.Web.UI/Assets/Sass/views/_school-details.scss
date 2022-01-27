@@ -370,7 +370,7 @@
 
     .total-figures-panel {
         background-color: govuk-colour("light-grey");
-        padding: 15px 35px 10px 35px;
+        padding: 15px 35px 20px 35px;
 
         @include govuk-media-query($until: tablet) {
             padding: 15px 15px 10px 15px;
@@ -379,6 +379,10 @@
 
     .call-out-box-wrapper {
         padding: 0 5px;
+
+        @include govuk-media-query($until: tablet) {
+            padding: 15px 25px;
+        }
     }
 
     .call-out-box {
