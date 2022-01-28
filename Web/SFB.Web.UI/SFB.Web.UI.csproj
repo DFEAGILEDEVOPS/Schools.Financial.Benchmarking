@@ -540,6 +540,7 @@
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
+    <Content Include="Assets\Scripts\AngularJS\sadApp.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-map.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-results-map.js" />
     <Content Include="Assets\Scripts\ViewsES6\federation.js" />
@@ -945,6 +946,7 @@
     <Content Include="Views\School\Partials\DashboardTab.cshtml" />
     <Content Include="Views\School\Partials\TotalFiguresPanel.cshtml" />
     <Content Include="Views\School\Partials\NextStepsPanel.cshtml" />
+    <Content Include="Views\School\Partials\SadPanel.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\FinanceChartGroups.cshtml" />
@@ -981,6 +983,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

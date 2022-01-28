@@ -1,0 +1,56 @@
+﻿<h2 class="govuk-heading-m govuk-!-margin-top-2">This school’s spending rating against similar schools</h2>
+
+<div ng-if="!sad">Loading...</div>
+
+<div ng-cloak ng-if="sad">
+    <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary hide-in-print">
+            <span class="govuk-details__summary-text govuk-!-font-size-16">
+                View characteristics used
+            </span>
+        </summary>
+        <div class="govuk-details__text govuk-!-font-size-16 show-in-print" id="criteriaTables">
+            <table class="govuk-table govuk-!-font-size-16" id="criteriaTable" aria-describedby="criteriaText">
+                <caption id="criteriaText" class="govuk-!-margin-bottom-2" style="text-align: left">This benchmark was created using the following criteria.</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Characteristic</th>
+                        <th scope="col" class="govuk-table__header" ng-if="financeType != 'Federation'">Your school</th>
+                        <th scope="col" class="govuk-table__header" ng-if="financeType == 'Federation'">Your federation</th>
+                        <th scope="col" class="govuk-table__header">Comparison criteria</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell" ng-if="financeType != 'Federation'">School phase</td>
+                        <td class="govuk-table__cell" ng-if="financeType == 'Federation'">Phase</td>
+                        <td class="govuk-table__cell">{{ctrl.phase()}}</td>
+                        <td class="govuk-table__cell">{{ctrl.phase()}}</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">London weighting</td>
+                        <td class="govuk-table__cell" id="lw1">{{sad.londonWeighting === 'Neither' ? 'Not London' : 'London'}}</td>
+                        <td class="govuk-table__cell" id="lw2">{{sad.londonWeighting === 'Neither' ? 'Not London' : 'London'}}</td>
+                    </tr>
+                    <tr class="govuk-table__row" ng-if='sad.sadSizeLookup' id="size">
+                        <td class="govuk-table__cell">Number of pupils</td>
+                        <td class="govuk-table__cell">{{sad.numberOfPupilsLatestTerm}}</td>
+                        <td class="govuk-table__cell">
+                            <span ng-if='sad.sadSizeLookup.noPupilsMax != null'>
+                                Schools with {{sad.sadSizeLookup.noPupilsMin}} - {{sad.sadSizeLookup.noPupilsMax}} pupils
+                            </span>
+                            <span ng-if='sad.sadSizeLookup.noPupilsMax == null'>
+                                Schools with {{sad.sadSizeLookup.noPupilsMin}} or more pupils
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row" ng-if='sad.sadFSMLookup' id="fsm">
+                        <td class="govuk-table__cell">FSM</td>
+                        <td class="govuk-table__cell">{{sad.fsmLatestTerm | number : 1}}%</td>
+                        <td class="govuk-table__cell"><span>Schools with {{sad.sadFSMLookup.fsmMin | number : 1}} - {{sad.sadFSMLookup.fsmMax | number : 1}}% FSM</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </details>
+</div>

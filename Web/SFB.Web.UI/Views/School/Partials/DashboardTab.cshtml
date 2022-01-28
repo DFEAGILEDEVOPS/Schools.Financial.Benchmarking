@@ -7,13 +7,21 @@
     <p class="govuk-body-s govuk-!-margin-top-1">Data for academies in a MAT includes an apportioned share of <span class="govuk-!-font-weight-bold">MAT central finance</span> on a pro-rata basis using FTE pupil numbers.</p>
 }
 
-<div id="TotalFiguresPanel" class="total-figures-panel">
+<div id="TotalFiguresPanel" class="dashboard-panel">
     @Html.Partial("Partials/TotalFiguresPanel", Model)
+</div>
+
+<div id="SadPanel" class="dashboard-panel govuk-!-margin-top-3" ng-app="sadApp">
+    <div id="sadCtrl" ng-controller="SadPanelController as ctrl">
+     
+            @Html.Partial("Partials/SadPanel", Model)
+
+    </div>
 </div>
 
 <div class="govuk-!-margin-top-5">
     <h2 class="govuk-heading-l">Next Steps</h2>
-    <div id="NextStepsPanel" class="next-steps-panel govuk-!-padding-5">
+    <div id="NextStepsPanel" class="dashboard-panel govuk-!-padding-5">
         @Html.Partial("Partials/NextStepsPanel", Model)
     </div>
 </div>
