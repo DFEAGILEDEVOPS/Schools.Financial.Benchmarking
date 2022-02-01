@@ -394,8 +394,7 @@
         box-shadow: 1px 1px #CCCCCC;
         border-radius: 5px;
         position: relative;
-
-        &::after {
+        /*        &::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -408,6 +407,29 @@
             margin-left: -0.7em;
             margin-bottom: -0.7em;
             filter: drop-shadow(0 0.12rem 0.0625rem $govuk-border-colour);
+        }*/
+
+        @include govuk-media-query(tablet) {
+            height: 160px;
+        }
+
+        @include govuk-media-query($from: 1000px) {
+            height: auto;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 98%;
+            left: 48%;
+            height: 20px;
+            width: 20px;
+            background: #fff;
+            box-sizing: border-box;
+            transform: rotate( 45deg ) translate(-50%);
+            border-bottom: inherit;
+            border-right: inherit;
+            box-shadow: inherit;
         }
     }
 }
