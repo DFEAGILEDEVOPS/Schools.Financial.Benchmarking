@@ -1,26 +1,19 @@
 var app = angular.module('sadApp', [])
     .controller('SadPanelController',
         [
-            '$scope', '$http', '$q',
-            function ($scope, $http, $q) {
+            '$scope', '$http',
+            function ($scope, $http) {
                 var self = this;
                 $scope.sad = null;
+                var urn = DfE.Util.QueryString.get('urn');
+                var fuid = DfE.Util.QueryString.get('fuid');
+                var id = urn || fuid;
 
-                self.loadData = function (resolve) {
-
-                    $http.get('https://aa-t1dv-sfb.azurewebsites.net/api/selfassessment/125271').then(function (response) {
-                        $scope.sad = response.data;
-                        resolve();
+                self.loadData = function () {
+                    $http.get('https://aa-t1dv-sfb.azurewebsites.net/api/selfassessment/' + id).then(function (response) {
+                        $scope.sad = response.data;                        
                     });
-
                 };
-
-                //self.onSelectionChange = function () {
-                //    self.persist();
-                //    setTimeout(function () {
-                //        self.displayCustomReport();
-                //    }, 600);
-                //};
 
                 //self.totalSelectCount = function () {
                 //    var count = 0;
@@ -34,21 +27,14 @@ var app = angular.module('sadApp', [])
                 //    return count;
                 //};
 
-                $scope.dataLoaded = $q(function (resolve) {
-                    self.loadData(resolve);
-                });
-
-                $(document).ready(function () {
-                    //$scope.schoolChartData = JSON.parse(($('.chart.c3').first()).attr('data-chart'));
-                    //$scope.homeSchoolName = $('#HomeSchoolName').val();
-                });
-
                 self.phase = function () {
                     if ($scope.sad.hasSixthForm && $scope.sad.overallPhase == 'Secondary') {
                         return $scope.sad.overallPhase + ' with sixth form';
                         }
                     return $scope.sad.overallPhase;
                 }
+
+                self.loadData();
             }
         ]);
 
