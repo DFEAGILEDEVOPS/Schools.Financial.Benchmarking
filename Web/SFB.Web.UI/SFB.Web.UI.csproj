@@ -943,10 +943,10 @@
     <Content Include="Views\Federation\Partials\FinanceValueSelect.cshtml" />
     <Content Include="Views\Federation\Partials\FinanceChartGroups.cshtml" />
     <Content Include="Views\Federation\Partials\WorkforceTab.cshtml" />
-    <Content Include="Views\School\Partials\DashboardTab.cshtml" />
-    <Content Include="Views\School\Partials\TotalFiguresPanel.cshtml" />
-    <Content Include="Views\School\Partials\NextStepsPanel.cshtml" />
-    <Content Include="Views\School\Partials\SadPanel.cshtml" />
+    <Content Include="Views\Shared\Partials\DashboardTab.cshtml" />
+    <Content Include="Views\Shared\Partials\TotalFiguresPanel.cshtml" />
+    <Content Include="Views\Shared\Partials\NextStepsPanel.cshtml" />
+    <Content Include="Views\Shared\Partials\SadPanel.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\FinanceChartGroups.cshtml" />

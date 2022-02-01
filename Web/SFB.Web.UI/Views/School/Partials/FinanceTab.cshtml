@@ -55,7 +55,21 @@
         </div>
     </div>
     <div class="charts-section">
-            @Html.Partial("Partials/FinancialChartWrapper", Model.FinancialCharts)
+        <div class="govuk-grid-row">
+            <div>
+                <div class=" govuk-grid-column-full govuk-!-font-size-16 chartTable hide-in-print">
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "block" : "none")" class="view-charts-tables charts a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Charts')"><img class="icon icon-chart" src="~/public/assets/images/icons/graph.svg" alt="" /><span> View as charts</span></button>
+                    <button type="button" style="display: @Html.Raw(ViewBag.ChartFormat == ChartFormat.Tables ? "none" : "block")" class="view-charts-tables tables a-button" onclick="DfE.Views.SchoolDetailsViewModel.toggleChartsTables('Tables')"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
+                </div>
+                <div class=" govuk-grid-column-full govuk-!-font-size-16 hide-in-print">
+                    <button type="button" class="back-to-main-chart-group-button" onclick="DfE.Views.FinancialChartWrapperViewModel.resetGrouping()">
+                        <span><</span>
+                        <span class="govuk-link">All <span class="js-parent-group">expenditure</span> charts</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        @Html.Partial("Partials/FinancialChartWrapper", Model.FinancialCharts)
     </div>
 </div>
 

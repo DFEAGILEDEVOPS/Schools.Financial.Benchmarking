@@ -391,4 +391,47 @@
             white-space: nowrap;
         }
     }
+
+    .dashboard-panel {
+        background-color: govuk-colour("light-grey");
+        border: 1px solid #F3F2F1;
+        padding: 15px 35px 20px 35px;
+
+        @include govuk-media-query($until: tablet) {
+            padding: 15px 15px 10px 15px;
+        }
+    }
+
+    .call-out-box-wrapper {
+        padding: 0 5px;
+
+        @include govuk-media-query($until: tablet) {
+            padding: 15px 25px;
+        }
+    }
+
+    .call-out-box {
+        background-color: govuk-colour("white");
+        padding: 1em;
+        text-align: center;
+        border: 1px solid $govuk-border-colour;
+        box-shadow: 1px 1px #CCCCCC;
+        border-radius: 5px;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border: 0.7em solid transparent;
+            border-top-color: govuk-colour("white");
+            border-bottom: 0;
+            margin-left: -0.7em;
+            margin-bottom: -0.7em;
+            filter: drop-shadow(0 0.12rem 0.0625rem $govuk-border-colour);
+        }
+    }
 }

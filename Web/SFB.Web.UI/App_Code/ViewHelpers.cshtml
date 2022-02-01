@@ -301,3 +301,8 @@
             break;
     }
 }
+
+@helper FormatFinancialYear(string year, EstablishmentType schoolType)
+{
+    @(schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))
+}

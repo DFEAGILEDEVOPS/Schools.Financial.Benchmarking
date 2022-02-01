@@ -22,6 +22,8 @@
     <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
     <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
     <script src="~/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+    <script src="~/node_modules/angular/angular.min.js"></script>
 }
 
 @section BMListBannerContent
@@ -101,7 +103,7 @@
                 {
                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
                         <a class="govuk-tabs__tab" href="#dashboard">
-                            Dashboard
+                            Dashboard @ViewHelpers.FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)
                         </a>
                     </li>
                 }
@@ -130,7 +132,7 @@
             @if (Model.HasLatestYearFinancialData)
             {
                 <div class="govuk-tabs__panel app-tabs__panel--no-border" id="dashboard">
-                    Dashboard content
+                    @Html.Partial("Partials/DashboardTab", Model)
                 </div>
             }
             <div class="govuk-tabs__panel app-tabs__panel--no-border govuk-tabs__panel--hidden" id="details">
@@ -194,6 +196,7 @@
     <script src="~/node_modules/d3/d3.min.js"></script>
     <script src="~/node_modules/c3/c3.min.js"></script>
     <script src="~/node_modules/lodash/lodash.min.js"></script>
+    <script src="/Assets/Scripts/AngularJS/sadApp.js"></script>
 
     <script>
         DfE.Views.FederationDetailsViewModel = new FederationViewModel('@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');

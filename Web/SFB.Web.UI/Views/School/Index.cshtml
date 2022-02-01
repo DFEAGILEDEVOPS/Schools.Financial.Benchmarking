@@ -18,6 +18,7 @@
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="~/node_modules/leaflet/dist/leaflet.js"></script>
     <script src='~/node_modules/leaflet-fullscreen/dist/Leaflet.fullscreen.min.js'></script>
+
     <script src="~/node_modules/angular/angular.min.js"></script>
 
 }
@@ -247,7 +248,7 @@
                 {
                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
                         <a class="govuk-tabs__tab" href="#dashboard">
-                            Dashboard @FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)
+                            Dashboard @ViewHelpers.FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)
                         </a>
                     </li>
                 }
@@ -339,10 +340,6 @@
     </dd>
 }
 
-@helper FormatFinancialYear(string year, EstablishmentType schoolType)
-{
-    @(schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))
-}
 
 @section ViewScripts {
     <script src="~/node_modules/d3/d3.min.js"></script>
