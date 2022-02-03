@@ -53,4 +53,38 @@
             </table>
         </div>
     </details>
+    <div>
+        <h3>Teaching Staff</h3>
+        @*<p>percentage: {{teachingStaff.percentage}}%</p>
+        <p>all bands: {{teachingStaff.allBands}}%</p>
+        <p>band: {{teachingStaff.matchedBand}}%</p>*@
+        <table class="sad-rating-table">
+            <tbody>
+                <tr>
+                    <th scope="row" class="govuk-visually-hidden">% of expenditure</th>
+                    <td ng-repeat="band in teachingStaff.allBands">
+                        <div ng-class="band.isMatch ? 'sad-rating-table__rating--match call-out-box' : 'sad-rating-table__rating--no-match'">
+                            <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{teachingStaff.percentage}}%</div>
+                            <div class="sad-rating-table__rating__text">{{band.ratingText}}</div>
+                        </div>
+                        <div ng-if="band.ratingText === teachingStaff.matchedBand.ratingText" class="govuk-visually-hidden">-School is in this threshold</div>
+                        <div ng-if="band.ratingText !== teachingStaff.matchedBand.ratingText" class="govuk-visually-hidden">-School is not in this threshold</div>
+                    </td>
+                </tr>
+                <tr aria-hidden="true">
+                    <th scope="row" class="govuk-visually-hidden">Rating against thresholds colour</th>
+                    <td ng-repeat="band in teachingStaff.allBands" class="sad-rating-table__rating-box {{band.ratingColour}}"></td>
+                </tr>
+                <tr>
+                    <th scope="row" class="govuk-visually-hidden">Rating against thresholds</th>
+                    <td ng-repeat="band in teachingStaff.allBands" class="sad-rating-table__rating-text govuk-body-xs">
+                        {{(band.scoreLow * 100).toFixed(1)}}% - {{(band.scoreHigh * 100).toFixed(1)}}%
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="govuk-!-margin-top-6">
+        <span class="govuk-body-m">See more at this school's <a class="govuk-link" href="@System.Configuration.ConfigurationManager.AppSettings["SelfAssessmentUrl"]/{{id}}">self-assessment dashboard</a></span>
+    </div>
 </div>

@@ -1459,3 +1459,62 @@ div.custom.tabs ul li {
         display: block;
     }
 }
+
+.sad-rating-table {
+    width: 100%;
+    border-spacing: inherit;
+
+    .sad-rating-table__rating {
+        &--match {
+            text-align: center;
+            color: govuk-colour("black");
+
+            &.call-out-box {
+                padding: 10px 5px;
+                margin-bottom: 15px;
+            }
+        }
+
+        &--no-match {
+            color: govuk-colour("light-grey");
+        }
+
+        &__perc {
+            @include govuk-font(36, $weight: bold);
+        }
+
+        &__text {
+            @include govuk-font(14)
+        }
+    }
+
+    .sad-rating-table__rating-box {
+        height: 10px;
+
+        &.Light.green {
+            background-color: #7BC987;
+        }
+
+        &.Dark.green {
+            background-color: #006636;
+        }
+
+        &.Red {
+            background-color: #CA0600;
+        }
+
+        &.Amber {
+            background-color: #FFA029;
+        }
+
+        &.gray {
+            background-color: govuk-colour("light-grey");
+        }
+    }
+
+    .sad-rating-table__rating-text {
+        text-align: center;
+    }
+}
+
+
