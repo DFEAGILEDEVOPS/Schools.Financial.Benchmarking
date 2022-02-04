@@ -4,52 +4,61 @@ var app = angular.module('sadApp', [])
             '$scope', '$http',
             function ($scope, $http) {
                 var self = this;
+
                 $scope.sad = null;
-                var urn = DfE.Util.QueryString.get('urn');
-                var fuid = DfE.Util.QueryString.get('fuid');
-                $scope.id = urn || fuid;
+                $scope.id = DfE.Util.QueryString.get('urn') || DfE.Util.QueryString.get('fuid');
 
                 self.loadData = function () {
                     $http.get('https://aa-t1dv-sfb.azurewebsites.net/api/selfassessment/' + $scope.id).then(function (response) {
                         $scope.sad = response.data;
-                        $scope.teachingStaff = self.getTeachingStaff();
+                        $scope.assessmentAreas = [
+                            self.getAAbyName("Teaching staff"),
+                            self.getAAbyName("Supply staff"),
+                            self.getAAbyName("Education support staff"),
+                            self.getAAbyName("Administrative and clerical staff"),
+                            self.getAAbyName("Other staff costs"),
+                            self.getAAbyName("Premises costs"),
+                            self.getAAbyName("Educational supplies"),
+                            self.getAAbyName("Energy")
+
+                        ];
                     });
                 };
 
-                self.getTeachingStaff = function () {
-                    var ts = self.findAssessmentArea("Teaching staff");
-                    var percentage = ((ts.schoolDataLatestTerm / ts.totalForAreaTypeLatestTerm) * 100).toFixed(1);
+                self.getAAbyName = function (name) {
+                    var aa = findAssessmentArea(name);
+                    var percentage = ((aa.schoolDataLatestTerm / aa.totalForAreaTypeLatestTerm) * 100).toFixed(1);
                     return {
+                        name: aa.assessmentAreaName,
                         percentage: percentage,
-                        allBands: ts.allTresholds,
-                        matchedBand: self.findMatchingBand(ts.allTresholds, Number(percentage) / 100)
+                        allBands: aa.allTresholds,
+                        matchedBand: findMatchingBand(aa.allTresholds, Number(percentage) / 100)
                     };
+
+                    function findAssessmentArea(name) {
+                        var selection = $scope.sad.sadAssesmentAreas.find(
+                            function (aa) {
+                                return aa.assessmentAreaName === name;
+                            });
+                        return selection;
+                    }
+
+                    function findMatchingBand (allBands, value) {
+                        var selection = allBands.find(
+                            function (band) {
+                                return (band.scoreLow <= value) && (band.scoreHigh >= value);
+                            });
+
+                        selection.isMatch = true;
+                        return selection;
+                    }
                 }
 
-                self.phase = function () {
+                self.getPhase = function () {
                     if ($scope.sad.hasSixthForm && $scope.sad.overallPhase == 'Secondary') {
                         return $scope.sad.overallPhase + ' with sixth form';
                     }
                     return $scope.sad.overallPhase;
-                }
-
-                self.findAssessmentArea = function (name) {
-                    var selection = _.find($scope.sad.sadAssesmentAreas,
-                        function (aa) {
-                            return aa.assessmentAreaName === name;
-                        });
-
-                    return selection;
-                }
-
-                self.findMatchingBand = function (allBands, value) {
-                    var selection = _.find(allBands,
-                        function (band) {
-                            return (band.scoreLow <= value) && (band.scoreHigh >= value);
-                        });
-
-                    selection.isMatch = true;
-                    return selection;
                 }
 
                 //////

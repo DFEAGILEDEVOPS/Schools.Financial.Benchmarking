@@ -15,17 +15,17 @@
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header">Characteristic</th>
-                        <th scope="col" class="govuk-table__header" ng-if="financeType != 'Federation'">Your school</th>
-                        <th scope="col" class="govuk-table__header" ng-if="financeType == 'Federation'">Your federation</th>
+                        <th scope="col" class="govuk-table__header" ng-if="sad.financeType != 'Federation'">Your school</th>
+                        <th scope="col" class="govuk-table__header" ng-if="sad.financeType == 'Federation'">Your federation</th>
                         <th scope="col" class="govuk-table__header">Comparison criteria</th>
                     </tr>
                 </thead>
                 <tbody class="govuk-table__body">
                     <tr class="govuk-table__row">
-                        <td class="govuk-table__cell" ng-if="financeType != 'Federation'">School phase</td>
-                        <td class="govuk-table__cell" ng-if="financeType == 'Federation'">Phase</td>
-                        <td class="govuk-table__cell">{{ctrl.phase()}}</td>
-                        <td class="govuk-table__cell">{{ctrl.phase()}}</td>
+                        <td class="govuk-table__cell" ng-if="sad.financeType != 'Federation'">School phase</td>
+                        <td class="govuk-table__cell" ng-if="sad.financeType == 'Federation'">Phase</td>
+                        <td class="govuk-table__cell">{{ctrl.getPhase()}}</td>
+                        <td class="govuk-table__cell">{{ctrl.getPhase()}}</td>
                     </tr>
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">London weighting</td>
@@ -53,31 +53,31 @@
             </table>
         </div>
     </details>
-    <div>
-        <h3>Teaching Staff</h3>
-        @*<p>percentage: {{teachingStaff.percentage}}%</p>
-        <p>all bands: {{teachingStaff.allBands}}%</p>
-        <p>band: {{teachingStaff.matchedBand}}%</p>*@
+    <div ng-repeat="aa in assessmentAreas">
+        @*<p>percentage: {{aa.percentage}}%</p>
+        <p>all bands: {{aa.allBands}}%</p>
+        <p>band: {{aa.matchedBand}}%</p>*@
+        <h3>{{aa.name}}</h3>
         <table class="sad-rating-table">
             <tbody>
                 <tr>
                     <th scope="row" class="govuk-visually-hidden">% of expenditure</th>
-                    <td ng-repeat="band in teachingStaff.allBands">
+                    <td ng-repeat="band in aa.allBands">
                         <div ng-class="band.isMatch ? 'sad-rating-table__rating--match call-out-box' : 'sad-rating-table__rating--no-match'">
-                            <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{teachingStaff.percentage}}%</div>
+                            <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{aa.percentage}}%</div>
                             <div class="sad-rating-table__rating__text">{{band.ratingText}}</div>
                         </div>
-                        <div ng-if="band.ratingText === teachingStaff.matchedBand.ratingText" class="govuk-visually-hidden">-School is in this threshold</div>
-                        <div ng-if="band.ratingText !== teachingStaff.matchedBand.ratingText" class="govuk-visually-hidden">-School is not in this threshold</div>
+                        <div ng-if="band.ratingText === aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is in this threshold</div>
+                        <div ng-if="band.ratingText !== aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is not in this threshold</div>
                     </td>
                 </tr>
                 <tr aria-hidden="true">
                     <th scope="row" class="govuk-visually-hidden">Rating against thresholds colour</th>
-                    <td ng-repeat="band in teachingStaff.allBands" class="sad-rating-table__rating-box {{band.ratingColour}}"></td>
+                    <td ng-repeat="band in aa.allBands" class="sad-rating-table__rating-box {{band.ratingColour}}"></td>
                 </tr>
                 <tr>
                     <th scope="row" class="govuk-visually-hidden">Rating against thresholds</th>
-                    <td ng-repeat="band in teachingStaff.allBands" class="sad-rating-table__rating-text govuk-body-xs">
+                    <td ng-repeat="band in aa.allBands" class="sad-rating-table__rating-text govuk-body-xs">
                         {{(band.scoreLow * 100).toFixed(1)}}% - {{(band.scoreHigh * 100).toFixed(1)}}%
                     </td>
                 </tr>
