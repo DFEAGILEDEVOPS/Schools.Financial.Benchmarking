@@ -1409,6 +1409,12 @@ div.custom.tabs ul li {
     }
  }
 
+.app-navigation--gray-back {
+    border-color: govuk-colour("light-grey");
+    background-color: govuk-colour("light-grey");
+    border-bottom: 1px solid $govuk-border-colour;
+}
+
 .app-navigation__list {
     position: relative;
     //left: -15px;
@@ -1422,15 +1428,38 @@ div.custom.tabs ul li {
     box-sizing: border-box;
     display: block;
     position: relative;
-    height: 50px;
     padding: 0 15px;
     float: left;
     line-height: 50px;
 }
 
+.app-navigation__list-item--multiple-rows {
+    padding: 0px 6px;
+    line-height: 1em;
+    max-width: 13%;
+    white-space: unset;
+
+    @include govuk-media-query($until: desktop) {
+        @include govuk-font(14);
+        padding: 0;
+        line-height: 20px;
+    }
+
+    a {
+        height: 50px;
+        display: block;
+    }
+}
+
 .app-navigation__list-item--current {
     border-bottom: 4px solid #1d70b8;
     font-weight: 700;
+
+    a:focus {
+        background-color: unset;
+        box-shadow: unset;
+        color: $govuk-link-colour;
+    }
 }
 
 .sticky-chart-controls {

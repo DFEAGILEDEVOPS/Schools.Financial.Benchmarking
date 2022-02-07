@@ -409,13 +409,13 @@
             filter: drop-shadow(0 0.12rem 0.0625rem $govuk-border-colour);
         }*/
 
-        @include govuk-media-query(tablet) {
+/*        @include govuk-media-query(tablet) {
             height: 160px;
-        }
+        }*/
 
-        @include govuk-media-query($from: 1000px) {
+/*        @include govuk-media-query($from: 1000px) {
             height: auto;
-        }
+        }*/
 
         &::before {
             content: "";

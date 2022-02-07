@@ -8,17 +8,24 @@
         <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Expenditure ? "app-navigation__list-item--current" : "")" id="ExpenditureTab">
             <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
-               href="#appTabPanel">@TabNames.EXPENDITURE</a>
+               href="#appTabPanel"
+               role="tab" aria-controls="appTabPanel" aria-selected="@Html.Raw(ViewBag.Tab == TabType.Expenditure ? "true" : "false")"
+               >@TabNames.EXPENDITURE                
+            </a>
         </li>
         <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Income ? "app-navigation__list-item--current" : "")" id="IncomeTab">
             <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
-               href="#appTabPanel">@TabNames.INCOME</a>
+               href="#appTabPanel"
+               role="tab" aria-controls="appTabPanel" aria-selected="@Html.Raw(ViewBag.Tab == TabType.Income ? "true" : "false")"
+               >@TabNames.INCOME</a>
         </li>
         <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Balance ? "app-navigation__list-item--current" : "")" id="BalanceTab">
             <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
-               href="#appTabPanel">@TabNames.BALANCE</a>
+               href="#appTabPanel"
+               role="tab" aria-controls="appTabPanel" aria-selected="@Html.Raw(ViewBag.Tab == TabType.Balance ? "true" : "false")"
+               >@TabNames.BALANCE</a>
         </li>
     </ul>
 </nav>

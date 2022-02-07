@@ -5,31 +5,34 @@ var app = angular.module('sadApp', [])
             function ($scope, $http) {
                 var self = this;
 
-                $scope.sad = null;
                 $scope.id = DfE.Util.QueryString.get('urn') || DfE.Util.QueryString.get('fuid');
 
-                self.loadData = function () {
-                    $http.get('https://aa-t1dv-sfb.azurewebsites.net/api/selfassessment/' + $scope.id).then(function (response) {
-                        $scope.sad = response.data;
-                        $scope.assessmentAreas = [
-                            self.getAAbyName("Teaching staff"),
-                            self.getAAbyName("Supply staff"),
-                            self.getAAbyName("Education support staff"),
-                            self.getAAbyName("Administrative and clerical staff"),
-                            self.getAAbyName("Other staff costs"),
-                            self.getAAbyName("Premises costs"),
-                            self.getAAbyName("Educational supplies"),
-                            self.getAAbyName("Energy")
+                $scope.sad = null;
+                $http.get('https://aa-t1dv-sfb.azurewebsites.net/api/selfassessment/' + $scope.id).then(function (response) {
+                    $scope.sad = response.data;
+                    $scope.assessmentAreas = [
+                        self.getAAbyName("Teaching staff"),
+                        self.getAAbyName("Supply staff"),
+                        self.getAAbyName("Education support staff"),
+                        self.getAAbyName("Administrative and clerical staff"),
+                        self.getAAbyName("Other staff costs"),
+                        self.getAAbyName("Premises costs"),
+                        self.getAAbyName("Educational supplies"),
+                        self.getAAbyName("Energy")
 
-                        ];
-                    });
-                };
+                    ];
+                    self.setActiveTab("Teaching staff");
+                });
+
+                self.setActiveTab = function (tabName) {                    
+                    $scope.activeTab = tabName;
+                }
 
                 self.getAAbyName = function (name) {
                     var aa = findAssessmentArea(name);
                     var percentage = ((aa.schoolDataLatestTerm / aa.totalForAreaTypeLatestTerm) * 100).toFixed(1);
                     return {
-                        name: aa.assessmentAreaName,
+                        name: aa.assessmentAreaName.replace("Administrative", "Admin."),
                         percentage: percentage,
                         allBands: aa.allTresholds,
                         matchedBand: findMatchingBand(aa.allTresholds, Number(percentage) / 100)
@@ -61,8 +64,6 @@ var app = angular.module('sadApp', [])
                     return $scope.sad.overallPhase;
                 }
 
-                //////
-                self.loadData();
             }
         ]);
 
