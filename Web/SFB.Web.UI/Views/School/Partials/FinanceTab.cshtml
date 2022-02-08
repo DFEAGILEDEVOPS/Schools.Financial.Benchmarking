@@ -4,8 +4,8 @@
 @model SFB.Web.UI.Models.SchoolViewModel
 
 <nav class="app-navigation govuk-clearfix">
-    <ul class="app-navigation__list app-width-container">
-        <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Expenditure ? "app-navigation__list-item--current" : "")" id="ExpenditureTab">
+    <ul class="app-navigation__list app-width-container" role="tablist">
+        <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Expenditure ? "app-navigation__list-item--current" : "")" id="ExpenditureTab" role="presentation">
             <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
                onclick="DfE.Views.SchoolDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
                href="#appTabPanel"
@@ -32,17 +32,17 @@
 
 <div id="appTabPanel" class="app-tabs__panel">
     <div class="sticky-div sticky-chart-controls">
-        <div id="controls">
-            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-controls">
+        <div id="f-controls">
+            <div class="govuk-accordion" data-module="govuk-accordion" id="f-accordion-controls">
                 <div class="govuk-accordion__section ">
                     <div class="govuk-accordion__section-header mobile-only">
                         <h2 class="govuk-accordion__section-heading">
-                            <span class="govuk-accordion__section-button" id="accordion-controls-heading-1">
+                            <span class="govuk-accordion__section-button" id="accordion-controls-heading-2">
                                 Filters
                             </span>
                         </h2>
                     </div>
-                    <div id="accordion-finance-filters" class="govuk-accordion__section-content" aria-labelledby="accordion-controls-heading-1">
+                    <div id="accordion-finance-filters" class="govuk-accordion__section-content" aria-labelledby="accordion-controls-heading-2">
                         <fieldset class="govuk-fieldset">
                             <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
                             <div class="govuk-grid-row">

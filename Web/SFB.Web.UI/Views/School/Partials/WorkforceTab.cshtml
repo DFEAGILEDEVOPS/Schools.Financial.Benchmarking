@@ -3,8 +3,8 @@
 @using SFB.Web.UI.Helpers.Enums
 @model SFB.Web.UI.Models.SchoolViewModel
 <div class="sticky-div sticky-chart-controls">
-    <div id="controls" class="chart-filters-selections">
-        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-controls">
+    <div id="w-controls" class="chart-filters-selections">
+        <div class="govuk-accordion" data-module="govuk-accordion" id="w-accordion-controls">
             <div class="govuk-accordion__section ">
                 <div class="govuk-accordion__section-header mobile-only">
                     <h2 class="govuk-accordion__section-heading">
@@ -13,14 +13,14 @@
                         </span>
                     </h2>
                 </div>
-                <div id="accordion-finance-filters" class="govuk-accordion__section-content" aria-labelledby="accordion-controls-heading-1">
+                <div id="accordion-wf-filters" class="govuk-accordion__section-content" aria-labelledby="accordion-controls-heading-1">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-visually-hidden hide-in-print">Filters</legend>
                         <div class="govuk-grid-row">
                             <div class="govuk-grid-column-full">
                                 <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
                                     <div class="govuk-form-group">
-                                        <label class="govuk-label govuk-!-display-inline-block" for="ShowValue">Show value</label>
+                                        <label class="govuk-label govuk-!-display-inline-block" for="WShowValue">Show value</label>
                                         <span class="help-icon inline-block hide-in-print">
                                             <span class="icon dark-blue">
                                                 <a href="#" class="js-modal" role="button" data-modal-title="Show value" data-modal-text="@HelpTooltipText.ShowValueHelp" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
@@ -28,7 +28,7 @@
                                                 </a>
                                             </span>
                                         </span>
-                                        <select name="ShowValue" id="ShowValue" class="govuk-select show-value js-wf-showValue" onchange="DfE.Views.SchoolDetailsViewModel.rebuildWorkforceCharts()">
+                                        <select name="ShowValue" id="WShowValue" class="govuk-select show-value js-wf-showValue" onchange="DfE.Views.SchoolDetailsViewModel.rebuildWorkforceCharts()">
                                             <option value="@UnitType.AbsoluteCount" selected>@ChartShowValues.TOTAL</option>
                                             <option value="@UnitType.HeadcountPerFTE">@ChartShowValues.PERCENTAGE_FTE</option>
                                             <option value="@UnitType.FTERatioToTotalFTE">@ChartShowValues.PERCENTAGE_WORKFORCE</option>

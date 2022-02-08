@@ -675,7 +675,7 @@ class BenchmarkChartsViewModel {
     rebuildCharts() {
         let tabParameter = $("#tabSelection").val();
         let chartGroupParameter = $("#ChartGroup").val();
-        let unitParameter = $("#ShowValue").val();
+        let unitParameter = $("select[name='ShowValue']").val();
         let centralFinancing = $("#CentralFinancing").val();
         let trustCentralFinancing = $("#TrustCentralFinancing").val();
         let formatParameter = sessionStorage.chartFormat;
@@ -826,7 +826,7 @@ class BenchmarkChartsViewModel {
             $(".js-show-value-help").hide();
         }
         else {
-            let unitParameter = $("#ShowValue").val();
+            let unitParameter = $("select[name='ShowValue']").val();
             let financingParameter = $("#CentralFinancing").val();
             let trustFinancingParameter = $("#TrustCentralFinancing").val();
             unitParameter = unitParameter ? unitParameter : "AbsoluteMoney";
@@ -881,7 +881,7 @@ class BenchmarkChartsViewModel {
                     $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
                     $("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#comparisonSchoolsTabSection table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
 
-                    let unitParameter = $("#ShowValue").val();
+                    let unitParameter = $("select[name='ShowValue']").val();
                     this.refreshAddRemoveLinks();
                     $('.save-as-image').show();
                     if (tab === "Workforce") {

@@ -51,7 +51,7 @@ class TrustViewModel {
             "&tab=" +
             tab +
             "&unit=" +
-            $("select#ShowValue option:selected")[0].value +
+            $("select[name='ShowValue'] option:selected")[0].value +
             "&financing=" +
             $("select#Financing option:selected")[0].value +
             "&format=" +
@@ -135,7 +135,7 @@ class TrustViewModel {
         let fuid = DfE.Util.QueryString.get('fuid');
         let nameParameter = DfE.Util.QueryString.get('name');
         let tabParameter = DfE.Util.QueryString.get('tab') || "Expenditure";
-        let unitParameter = $("#ShowValue").val();
+        let unitParameter = $("select[name='ShowValue']").val();
         let chartGroupParameter = $("#ChartGroup").val();
         let financingParameter = $("#Financing").val();
         let formatParameter = sessionStorage.chartFormat;

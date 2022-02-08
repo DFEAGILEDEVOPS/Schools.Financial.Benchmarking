@@ -1446,8 +1446,11 @@ div.custom.tabs ul li {
     }
 
     a {
-        height: 50px;
+        height: 40px;
         display: block;
+        span{
+   /*         line-height: 40px;*/
+        }
     }
 }
 

@@ -2,14 +2,14 @@
 
 class HistoricalChartManager {
     generateFinanceCharts() {
-        let unitParameter = $("#ShowValue.js-finance-showValue").val();
+        let unitParameter = $("select[name='ShowValue'].js-finance-showValue").val();
         $(".finance-charts-list .chart").each(
             (i, el) => this.generateCharts(el, unitParameter)
         );
     }
 
     generateWorkforceCharts() {
-        let unitParameter = $("#ShowValue.js-wf-showValue").val();
+        let unitParameter = $("select[name='ShowValue'].js-wf-showValue").val();
         $(".workforce-charts-list .chart").each(
             (i, el) => this.generateCharts(el, unitParameter)
         );

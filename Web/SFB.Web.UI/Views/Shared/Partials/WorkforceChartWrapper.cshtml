@@ -4,8 +4,8 @@
 @using SFB.Web.UI.Models
 @model List<ChartViewModel>
 
-<div id="historical-charts-accordion">
-    <div class="govuk-accordion app-accordion--no-open-all app-accordion--no-border-bottom govuk-!-margin-bottom-0" data-module="govuk-accordion" id="accordion-chart">
+<div id="w-historical-charts-accordion">
+    <div class="govuk-accordion app-accordion--no-open-all app-accordion--no-border-bottom govuk-!-margin-bottom-0" data-module="govuk-accordion" id="w-accordion-chart">
         @for (var index = 0; index < Model.Count; index++)
         {
             var historicalChart = Model[index];

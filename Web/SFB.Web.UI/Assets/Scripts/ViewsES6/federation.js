@@ -32,7 +32,7 @@ class FederationViewModel {
     tabChange(urn, tab) {
         let queryString = `?fuid=${urn}&tab=${tab}`;
 
-        queryString += `&unit=${$("select#ShowValue option:selected")[0].value}`;
+        queryString += `&unit=${$("select[name='ShowValue'] option:selected")[0].value}`;
 
         if ($("select#Financing option:selected").length > 0) {
             queryString += `&financing=${$("select#Financing option:selected")[0].value}`;

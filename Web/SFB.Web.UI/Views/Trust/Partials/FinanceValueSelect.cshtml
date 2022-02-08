@@ -3,7 +3,7 @@
 
 <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
     <div class="govuk-form-group">
-        <label class="govuk-label govuk-!-display-inline-block" for="ShowValue">Show value</label>
+        <label class="govuk-label govuk-!-display-inline-block" for="FShowValue">Show value</label>
         @if (Model.Tab == TabType.Workforce)
         {
             <span class="help-icon inline-block hide-in-print">
@@ -14,7 +14,7 @@
                 </span>
             </span>
         }
-        <select name="ShowValue" id="ShowValue" class="govuk-select" onchange="DfE.Views.TrustDetailsViewModel.rebuildCharts()">
+        <select name="ShowValue" id="FShowValue" class="govuk-select" onchange="DfE.Views.TrustDetailsViewModel.rebuildCharts()">
             <option value="@UnitType.AbsoluteMoney" @IsSelected(UnitType.AbsoluteMoney)="selected">@ChartShowValues.ABSOLUTE</option>
             <option value="@UnitType.PerPupil" @IsSelected(UnitType.PerPupil)>@ChartShowValues.PER_PUPIL</option>
             <option value="@UnitType.PerTeacher" @IsSelected(UnitType.PerTeacher)>@ChartShowValues.PER_TEACHER</option>

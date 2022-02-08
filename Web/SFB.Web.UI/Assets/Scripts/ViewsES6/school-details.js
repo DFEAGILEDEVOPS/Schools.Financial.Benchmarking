@@ -102,7 +102,7 @@
         let queryString = `?urn=${urn}&tab=${tab}`;
 
         if (DfE.Util.QueryString.get('tab') !== "Workforce") {
-            queryString += `&unit=${$("select#ShowValue option:selected")[0].value}`;
+            queryString += `&unit=${$("select[name='ShowValue'] option:selected")[0].value}`;
         }
 
         if ($("select#Financing option:selected").length > 0) {

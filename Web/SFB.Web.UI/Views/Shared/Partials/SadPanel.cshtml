@@ -54,12 +54,12 @@
         </div>
     </details>
     <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="sadNav">
-        <ul class="app-navigation__list app-width-container">
-            <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === aa.name}" ng-repeat="aa in assessmentAreas">
+        <ul class="app-navigation__list app-width-container" role="tablist">
+            <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === aa.name}" ng-repeat="aa in assessmentAreas" role="presentation">
                 <a id="{{aa.name}}" role="tab" aria-controls="appTabPanelSad" aria-selected="{{activeTab === aa.name}}" 
                    class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"                   
                    ng-click="$event.preventDefault(); ctrl.setActiveTab(aa.name)"
-                   href="#appTabPanelSad">{{aa.name}}</a>
+                   href="#appTabPanelSad"><span class="test">{{aa.name}}</span></a>
             </li>
         </ul>
     </nav>
@@ -74,7 +74,7 @@
                     <tr>
                         <th scope="row" class="govuk-visually-hidden">% of expenditure</th>
                         <td ng-repeat="band in aa.allBands">
-                            <div ng-class="band.isMatch ? 'sad-rating-table__rating--match call-out-box' : 'sad-rating-table__rating--no-match'">
+                            <div ng-class="band.isMatch ? 'sad-rating-table__rating--match call-out-box call-out-box--dynamic-height' : 'sad-rating-table__rating--no-match'">
                                 <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{aa.percentage}}%</div>
                                 <div class="sad-rating-table__rating__text">{{band.ratingText}}</div>
                             </div>

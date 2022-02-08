@@ -4,7 +4,7 @@
 
 <div class="govuk-grid-column-one-third chart-filter govuk-!-padding-0">
     <div class="govuk-form-group">
-        <label class="govuk-label govuk-!-display-inline-block" for="ShowValue">Show value</label>
+        <label class="govuk-label govuk-!-display-inline-block" for="FShowValue">Show value</label>
         @if (Model.Tab == TabType.Workforce)
         {
             <span class="help-icon inline-block hide-in-print">
@@ -15,7 +15,7 @@
                 </span>
             </span>
         }
-        <select name="ShowValue" id="ShowValue" class="govuk-select show-value js-finance-showValue" onchange="DfE.Views.FederationDetailsViewModel.rebuildFinanceCharts()">
+        <select name="ShowValue" id="FShowValue" class="govuk-select show-value js-finance-showValue" onchange="DfE.Views.FederationDetailsViewModel.rebuildFinanceCharts()">
             <option value="@UnitType.AbsoluteMoney" @IsUnitTypeSelected(UnitType.AbsoluteMoney)>@ChartShowValues.ABSOLUTE</option>
             @if (!Model.HasNoPupilData)
             {
