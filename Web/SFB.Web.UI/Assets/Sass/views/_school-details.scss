@@ -420,7 +420,7 @@
         &::before {
             content: "";
             position: absolute;
-            top: 98%;
+            top: 97%;
             left: 48%;
             height: 20px;
             width: 20px;
@@ -430,10 +430,18 @@
             border-bottom: inherit;
             border-right: inherit;
             box-shadow: inherit;
+
+            @include govuk-media-query($from:640px, $until: 1024px) {
+                top: 99%;
+            }
+
+            @include govuk-media-query($from: 1024px) {
+                top: 98%;
+            }
         }
     }
 
-        .call-out-box--dynamic-height {
-            height: unset;
-        }
+    .call-out-box--dynamic-height {
+        height: unset;
+    }
 }

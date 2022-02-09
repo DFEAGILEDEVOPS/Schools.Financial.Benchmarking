@@ -65,6 +65,12 @@ var app = angular.module('sadApp', [])
                     return $scope.sad.overallPhase;
                 }
 
+                $(window).resize(function () {
+                    $scope.$apply(function () {
+                         $scope.isMobile = $(window).width() <= 640;
+                    });
+                });
+
             }
         ]);
 

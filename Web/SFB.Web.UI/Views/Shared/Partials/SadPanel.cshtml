@@ -1,6 +1,11 @@
 ﻿<h2 class="govuk-heading-m govuk-!-margin-top-2">This school’s spending rating against similar schools</h2>
 
-<div ng-if="!sad">Loading...</div>
+<div ng-if="!sad" id="sadLoading">
+    <span id="spinnerPlaceHolder" class="govuk-!-font-size-16" role="alert">
+        <img style="vertical-align:bottom; height: 25px" src="../public/assets/images/spinner.gif" alt="Loading dashboard..." />
+        <span class="govuk-body-s" style="margin-left: 10px; color: black">Loading...</span>
+    </span>
+</div>
 
 <div ng-cloak ng-if="sad">
     <details class="govuk-details" data-module="govuk-details">
