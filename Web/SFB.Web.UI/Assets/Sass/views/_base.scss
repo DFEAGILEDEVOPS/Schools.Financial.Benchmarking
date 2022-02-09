@@ -1495,6 +1495,9 @@ div.custom.tabs ul li {
 .sad-rating-table {
     width: 100%;
     border-spacing: inherit;
+    &--mobile{
+        border-spacing: 0 10px;
+    }
 
     .sad-rating-table__rating {
         &--match {
@@ -1523,6 +1526,10 @@ div.custom.tabs ul li {
     .sad-rating-table__rating-box {
         height: 10px;
 
+        &--mobile{
+            width: 65%;
+        }
+
         &.Light.green {
             background-color: #7BC987;
         }
@@ -1546,6 +1553,10 @@ div.custom.tabs ul li {
 
     .sad-rating-table__rating-text {
         text-align: center;
+        &--mobile{
+            text-align: left;
+            padding-left: 10px;
+        }
     }
 }
 

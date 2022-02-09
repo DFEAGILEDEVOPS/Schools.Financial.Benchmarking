@@ -5,6 +5,7 @@ var app = angular.module('sadApp', [])
             function ($scope, $http) {
                 var self = this;
 
+                $scope.isMobile = $(window).width() <= 640;
                 $scope.id = DfE.Util.QueryString.get('urn') || DfE.Util.QueryString.get('fuid');
 
                 $scope.sad = null;

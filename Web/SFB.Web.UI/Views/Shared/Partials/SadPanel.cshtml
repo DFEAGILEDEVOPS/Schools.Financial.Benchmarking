@@ -53,47 +53,91 @@
             </table>
         </div>
     </details>
-    <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="sadNav">
-        <ul class="app-navigation__list app-width-container" role="tablist">
-            <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === aa.name}" ng-repeat="aa in assessmentAreas" role="presentation">
-                <a id="{{aa.name}}" role="tab" aria-controls="appTabPanelSad" aria-selected="{{activeTab === aa.name}}" 
-                   class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"                   
-                   ng-click="$event.preventDefault(); ctrl.setActiveTab(aa.name)"
-                   href="#appTabPanelSad"><span class="test">{{aa.name}}</span></a>
-            </li>
-        </ul>
-    </nav>
-    <div id="appTabPanelSad">
-        <div ng-repeat="aa in assessmentAreas" ng-show="aa.name === activeTab">
-            @*<p>percentage: {{aa.percentage}}%</p>
-                <p>all bands: {{aa.allBands}}%</p>
-                <p>band: {{aa.matchedBand}}%</p>
-            <h3>{{aa.name}}</h3>*@
-            <table class="sad-rating-table">
-                <tbody>
-                    <tr>
-                        <th scope="row" class="govuk-visually-hidden">% of expenditure</th>
-                        <td ng-repeat="band in aa.allBands">
-                            <div ng-class="band.isMatch ? 'sad-rating-table__rating--match call-out-box call-out-box--dynamic-height' : 'sad-rating-table__rating--no-match'">
-                                <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{aa.percentage}}%</div>
-                                <div class="sad-rating-table__rating__text">{{band.ratingText}}</div>
-                            </div>
-                            <div ng-if="band.ratingText === aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is in this threshold</div>
-                            <div ng-if="band.ratingText !== aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is not in this threshold</div>
-                        </td>
-                    </tr>
-                    <tr aria-hidden="true">
-                        <th scope="row" class="govuk-visually-hidden">Rating against thresholds colour</th>
-                        <td ng-repeat="band in aa.allBands" class="sad-rating-table__rating-box {{band.ratingColour}}"></td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="govuk-visually-hidden">Rating against thresholds</th>
-                        <td ng-repeat="band in aa.allBands" class="sad-rating-table__rating-text govuk-body-xs">
-                            {{(band.scoreLow * 100).toFixed(1)}}% - {{(band.scoreHigh * 100).toFixed(1)}}%
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div ng-if="!isMobile">
+        <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="sadNav">
+            <ul class="app-navigation__list app-width-container" role="tablist">
+                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === aa.name}" ng-repeat="aa in assessmentAreas" role="presentation">
+                    <a id="{{aa.name}}" role="tab" aria-controls="appTabPanelSad" aria-selected="{{activeTab === aa.name}}"
+                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                       ng-click="$event.preventDefault(); ctrl.setActiveTab(aa.name)"
+                       href="#appTabPanelSad"><span class="test">{{aa.name}}</span></a>
+                </li>
+            </ul>
+        </nav>
+        <div id="appTabPanelSad">
+            <div ng-repeat="aa in assessmentAreas" ng-show="aa.name === activeTab">
+                @*<p>percentage: {{aa.percentage}}%</p>
+                    <p>all bands: {{aa.allBands}}%</p>
+                    <p>band: {{aa.matchedBand}}%</p>
+                <h3>{{aa.name}}</h3>*@
+                <table class="sad-rating-table">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="govuk-visually-hidden">Rating against thresholds</th>
+                            <td ng-repeat="band in aa.allBands">
+                                <div ng-class="band.isMatch ? 'sad-rating-table__rating--match call-out-box call-out-box--dynamic-height' : 'sad-rating-table__rating--no-match'">
+                                    <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{aa.percentage}}%</div>
+                                    <div class="sad-rating-table__rating__text">{{band.ratingText}}</div>
+                                </div>
+                                <div ng-if="band.ratingText === aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is in this threshold</div>
+                                <div ng-if="band.ratingText !== aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is not in this threshold</div>
+                            </td>
+                        </tr>
+                        <tr aria-hidden="true">
+                            <th scope="row" class="govuk-visually-hidden">Rating against thresholds colour</th>
+                            <td ng-repeat="band in aa.allBands" class="sad-rating-table__rating-box {{band.ratingColour}}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="govuk-visually-hidden">% of expenditure</th>
+                            <td ng-repeat="band in aa.allBands" class="sad-rating-table__rating-text govuk-body-xs">
+                                {{(band.scoreLow * 100).toFixed(1)}}% - {{(band.scoreHigh * 100).toFixed(1)}}%
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div ng-if="isMobile">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-full">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-visually-hidden">Assessment area filter</legend>
+                    <div>
+                        <label class="govuk-label govuk-visually-hidden" for="aaSelect">Assessment area</label>
+                        <select name="aaSelect" id="aaSelect" class="govuk-select" ng-model="activeTab" style="width: 100%">
+                            <option ng-repeat="aa in assessmentAreas" value="{{aa.name}}">{{aa.name}}</option>
+                        </select>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="appMobilePanelSad">
+            <div ng-repeat="aa in assessmentAreas" ng-show="aa.name === activeTab">
+                <table class="sad-rating-table sad-rating-table--mobile">
+                    <thead class="govuk-visually-hidden">
+                        <tr>
+                            <th scope="col">Rating against thresholds</th>
+                            <th scope="col">% of expenditure</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="band in aa.allBands" class="sad-rating-table__tr--mobile">
+                            <td class="sad-rating-table__rating-box sad-rating-table__rating-box--mobile" ng-class="band.isMatch ? '' : band.ratingColour">
+                                <div ng-class="band.isMatch ? 'sad-rating-table__rating--match call-out-box call-out-box--dynamic-height' : 'sad-rating-table__rating--no-match'">
+                                    <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{aa.percentage}}%</div>
+                                    <div class="sad-rating-table__rating__text" ng-class="!band.isMatch ? 'govuk-visually-hidden':''">{{band.ratingText}}</div>
+                                </div>
+                                <div ng-if="band.ratingText === aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is in this threshold</div>
+                                <div ng-if="band.ratingText !== aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is not in this threshold</div>
+                            </td>
+                            <td class="sad-rating-table__rating-text sad-rating-table__rating-text--mobile govuk-body-xs">
+                                <span ng-class="band.isMatch ? 'govuk-visually-hidden':''">{{(band.scoreLow * 100).toFixed(1)}}% - {{(band.scoreHigh * 100).toFixed(1)}}%</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="govuk-!-margin-top-6">
