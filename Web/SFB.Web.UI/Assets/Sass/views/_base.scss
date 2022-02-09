@@ -1525,9 +1525,14 @@ div.custom.tabs ul li {
 
     .sad-rating-table__rating-box {
         height: 10px;
+        &--strip{
+            height: 18px;
+            margin-top: 20px;
+        }
 
         &--mobile{
             width: 65%;
+            padding: 0;
         }
 
         &.Light.green {
@@ -1555,6 +1560,7 @@ div.custom.tabs ul li {
         text-align: center;
         &--mobile{
             text-align: left;
+            vertical-align: bottom;
             padding-left: 10px;
         }
     }

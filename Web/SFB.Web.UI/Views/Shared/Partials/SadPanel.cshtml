@@ -79,8 +79,8 @@
                                     <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{aa.percentage}}%</div>
                                     <div class="sad-rating-table__rating__text">{{band.ratingText}}</div>
                                 </div>
-                                <div ng-if="band.ratingText === aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is in this threshold</div>
-                                <div ng-if="band.ratingText !== aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is not in this threshold</div>
+                                <div ng-if="band.isMatch" class="govuk-visually-hidden">-School is in this threshold</div>
+                                <div ng-if="!band.isMatch" class="govuk-visually-hidden">-School is not in this threshold</div>
                             </td>
                         </tr>
                         <tr aria-hidden="true">
@@ -128,11 +128,12 @@
                                     <div class="sad-rating-table__rating__perc" ng-if="band.isMatch">{{aa.percentage}}%</div>
                                     <div class="sad-rating-table__rating__text" ng-class="!band.isMatch ? 'govuk-visually-hidden':''">{{band.ratingText}}</div>
                                 </div>
-                                <div ng-if="band.ratingText === aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is in this threshold</div>
-                                <div ng-if="band.ratingText !== aa.matchedBand.ratingText" class="govuk-visually-hidden">-School is not in this threshold</div>
+                                <div ng-if="band.isMatch" class="govuk-visually-hidden">-School is in this threshold</div>
+                                <div ng-if="!band.isMatch" class="govuk-visually-hidden">-School is not in this threshold</div>
+                                <div ng-if="band.isMatch" class="sad-rating-table__rating-box sad-rating-table__rating-box--strip" ng-class="band.ratingColour"></div>
                             </td>
                             <td class="sad-rating-table__rating-text sad-rating-table__rating-text--mobile govuk-body-xs">
-                                <span ng-class="band.isMatch ? 'govuk-visually-hidden':''">{{(band.scoreLow * 100).toFixed(1)}}% - {{(band.scoreHigh * 100).toFixed(1)}}%</span>
+                                <span>{{(band.scoreLow * 100).toFixed(1)}}% - {{(band.scoreHigh * 100).toFixed(1)}}%</span>
                             </td>
                         </tr>
                     </tbody>
