@@ -20,7 +20,7 @@
     "grunt-contrib-jshint": "^0.12.0",
     "grunt-contrib-uglify": "^0.11.1",
     "grunt-hologram": "0.0.7",
-    "node-sass": "6.0.1",
+    "node-sass": "7.0.0",
     "grunt-sass": "3.1.0",
     "load-grunt-config": "^3.0.2",
     "load-grunt-tasks": "^5.1.0"
