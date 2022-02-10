@@ -810,6 +810,25 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Chart", benchmarkCharts);
         }
 
+        public async Task<PartialViewResult> GetChart(string chartName, ChartGroupType chartGroup, ChartFormat format,
+            TabType revGroup = TabType.Expenditure, UnitType showValue = UnitType.PerPupil, 
+            CentralFinancingType centralFinancing = CentralFinancingType.Include, ComparisonType comparisonType = ComparisonType.Basic)
+        {
+            List<ChartViewModel> benchmarkCharts;
+            {
+                benchmarkCharts = await BuildSchoolBenchmarkChartAsync(revGroup, chartGroup, chartName, showValue, centralFinancing);
+                ViewBag.HomeSchoolId = _schoolBenchmarkListService.GetSchoolBenchmarkList().HomeSchoolUrn;
+            }
+
+            ViewBag.ChartFormat = format;
+            ViewBag.UnitType = showValue;
+            ViewBag.Financing = centralFinancing;
+            ViewBag.ChartGroup = chartGroup;
+            ViewBag.ComparisonType = comparisonType;
+
+            return PartialView("Partials/QCDashboardChart", benchmarkCharts);
+        }
+
         public async Task<ActionResult> Download(EstablishmentType type)
         {
             List<ChartViewModel> benchmarkCharts;
@@ -962,6 +981,19 @@ namespace SFB.Web.UI.Controllers
             var establishmentType = DetectEstablishmentType(comparisonList);
             var benchmarkCharts = _benchmarkChartBuilder.Build(revGroup, chartGroup, establishmentType);
             RemoveIrrelevantCharts(showValue.GetValueOrDefault(), benchmarkCharts);
+
+            var financialDataModels = await this.GetFinancialDataForSchoolsAsync(comparisonList.BenchmarkSchools, cFinancing);
+
+            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonList.HomeSchoolUrn, showValue);
+            return benchmarkCharts;
+        }
+
+        private async Task<List<ChartViewModel>> BuildSchoolBenchmarkChartAsync(TabType revGroup, ChartGroupType chartGroup, string chartName, UnitType? showValue, CentralFinancingType cFinancing)
+        {
+            var comparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
+            var establishmentType = DetectEstablishmentType(comparisonList);
+
+            var benchmarkCharts = _benchmarkChartBuilder.Build(revGroup, chartGroup, establishmentType).Where(bc => bc.Name == chartName).ToList();
 
             var financialDataModels = await this.GetFinancialDataForSchoolsAsync(comparisonList.BenchmarkSchools, cFinancing);
 

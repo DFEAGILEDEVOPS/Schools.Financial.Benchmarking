@@ -39,6 +39,8 @@
 
         sessionStorage.chartFormat = chartFormat;
 
+        this.buildQuickComparisonCharts();
+
         DfE.Views.HistoricalCharts = new HistoricalChartManager();
         DfE.Views.HistoricalCharts.generateFinanceCharts();
         DfE.Views.HistoricalCharts.generateWorkforceCharts();
@@ -46,6 +48,51 @@
         if ($(window).width() <= 640) {
             $('#school-website').text('website');
         }
+    }
+
+    buildQuickComparisonCharts() {        
+        let url = "/benchmarkcharts/getchart?";
+
+        let chartName = "Teaching staff";
+        if (chartName) {
+            url += "chartName=" + chartName;
+        }
+
+        let chartGroup = "Staff";//or Premises or SuppliesAndServices or Occupation
+        if (chartGroup) {
+            url += "&chartGroup=" + chartGroup;
+        }
+
+        //let type = "Maintained";//or Academies
+        //if (type) {
+        //    url += "&type=" + type;
+        //}
+
+        let formatParameter = "Charts";//or Tables
+        if (formatParameter) {
+            url += "&format=" + formatParameter;
+        }
+
+        $.ajax({
+            url: url,
+            datatype: 'json',
+            beforeSend: () => {
+                DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Loading charts");
+            },
+            success: (data) => {
+                $("#benchmarkChartsList").html(data);
+
+                //this.generateCharts(unitParameter);
+                DfE.Views.BenchmarkCharts = new BenchmarkChartManager();
+                DfE.Views.BenchmarkCharts.generateCharts();
+
+                //window.GOVUKFrontend.initAll({ scope: $("#benchmarkChartsList")[0] });
+
+                //$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                //$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+
+            }
+        });
     }
 
     initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey) {
@@ -254,29 +301,6 @@
             }
         });
     }
-
-    //updateTotals() {
-    //    let expTotal = $("#expTotal").val();
-    //    let expTotalAbbr = $("#expTotalAbbr").val();
-    //    let incTotal = $("#incTotal").val();
-    //    let incTotalAbbr = $("#incTotalAbbr").val();
-    //    let balTotal = $("#balTotal").val();
-    //    let balTotalAbbr = $("#balTotalAbbr").val();
-
-    //    $(".exp-total").text(expTotal);
-    //    $("abbr.exp-total").attr("title", expTotalAbbr);
-    //    $(".inc-total").text(incTotal);
-    //    $("abbr.inc-total").attr("title", incTotalAbbr);
-    //    $(".bal-total").text(balTotal);
-    //    $("abbr.bal-total").attr("title", balTotalAbbr);
-    //    if (balTotalAbbr.includes("-")) {
-    //        $("abbr.bal-total").addClass("negative-balance");
-    //        $("span.bal-total").parent().addClass("negative-balance");
-    //    } else {
-    //        $("abbr.bal-total").removeClass("negative-balance");
-    //        $("span.bal-total").parent().removeClass("negative-balance");
-    //    }
-    //}
 
     updateBenchmarkBasket(urn, withAction) {
         if (withAction === "Add") {

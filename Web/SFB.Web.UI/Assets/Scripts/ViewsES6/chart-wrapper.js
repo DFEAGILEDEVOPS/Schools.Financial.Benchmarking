@@ -16,27 +16,6 @@ class ChartWrapper {
     $(".back-to-main-chart-group-button").hide();
   }
 
-  //setActiveTab() {
-  //    debugger;
-  //    $(".govuk-tabs__list-item").removeClass("govuk-tabs__list-item--selected");
-  //    let tab = DfE.Util.QueryString.get('tab');
-  //    switch (tab) {
-  //        case "Expenditure":
-  //        default:
-  //            $("#ExpenditureTab").addClass("govuk-tabs__list-item--selected");
-  //            break;
-  //        case "Income":
-  //            $("#IncomeTab").addClass("govuk-tabs__list-item--selected");
-  //            break;
-  //        case "Balance":
-  //            $("#BalanceTab").addClass("govuk-tabs__list-item--selected");
-  //            break;
-  //        case "Workforce":
-  //            $("#WorkforceTab").addClass("govuk-tabs__list-item--selected");
-  //            break;
-  //    }
-  //}
-
   updateTrustWarnings() {
     let isPlaceholder = $("#isPlaceholder").val();
     if (isPlaceholder === "true") {

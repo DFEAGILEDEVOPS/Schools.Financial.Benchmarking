@@ -4,7 +4,7 @@
 @using SFB.Web.UI.Helpers.Enums
 @model List<SFB.Web.UI.Models.ChartViewModel>
 
-<div id="bm-charts-accordion" class="govuk-accordion app-accordion--no-open-all app-accordion--no-border-bottom govuk-!-margin-bottom-0" data-module="govuk-accordion">
+<div id="bm-charts-accordion" class="bm-charts-list govuk-accordion app-accordion--no-open-all app-accordion--no-border-bottom govuk-!-margin-bottom-0" data-module="govuk-accordion">
     @for (int i = 0; i < Model.Count; i++)
     {
         <div class="chart-container index-@i  govuk-grid-column-full no-padding" data-group="@Model[i].ChartGroup">
