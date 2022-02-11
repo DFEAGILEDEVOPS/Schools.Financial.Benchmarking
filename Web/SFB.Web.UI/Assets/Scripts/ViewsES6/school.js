@@ -1,6 +1,8 @@
 ﻿class SchoolViewModel {
 
     constructor(modelId, modelLat, modelLng, modelHasCoordinates, chartFormat, mapApiKey) {
+        DfE.Views.BenchmarkCharts = new BenchmarkChartManager();
+        DfE.Views.HistoricalCharts = new HistoricalChartManager();
 
         this.initControls(modelId, chartFormat);
 
@@ -10,7 +12,8 @@
             this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey);
         }
 
-        $("#detailsTab, #mapDetails").on("click", () => this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey));        
+        $("#detailsTab, #mapDetails").on("click", () => this.initMaps(modelLat, modelLng, modelHasCoordinates, mapApiKey));
+
     }
 
     initControls(modelId, chartFormat) {
@@ -39,34 +42,31 @@
 
         sessionStorage.chartFormat = chartFormat;
 
-        this.buildQuickComparisonCharts();
-
-        DfE.Views.HistoricalCharts = new HistoricalChartManager();
         DfE.Views.HistoricalCharts.generateFinanceCharts();
         DfE.Views.HistoricalCharts.generateWorkforceCharts();
+
+        this.renderQcChart("Total expenditure");
 
         if ($(window).width() <= 640) {
             $('#school-website').text('website');
         }
     }
 
-    buildQuickComparisonCharts() {        
-        let url = "/benchmarkcharts/getchart?";
+    changeQcTab(chartName, event, element) {
 
-        let chartName = "Teaching staff";
-        if (chartName) {
-            url += "chartName=" + chartName;
+        if (event) {
+            event.preventDefault();
         }
 
-        let chartGroup = "Staff";//or Premises or SuppliesAndServices or Occupation
-        if (chartGroup) {
-            url += "&chartGroup=" + chartGroup;
-        }
+        $("#QCPanel li.app-navigation__list-item").removeClass("app-navigation__list-item--current");
+        $(element).parent().addClass("app-navigation__list-item--current");
 
-        //let type = "Maintained";//or Academies
-        //if (type) {
-        //    url += "&type=" + type;
-        //}
+        this.renderQcChart(chartName);
+    }
+
+    renderQcChart(chartName) {
+
+        let url = "/benchmarkcharts/getchart?chartGroup=TotalExpenditure&chartName=" + encodeURI(chartName);
 
         let formatParameter = "Charts";//or Tables
         if (formatParameter) {
@@ -82,15 +82,11 @@
             success: (data) => {
                 $("#benchmarkChartsList").html(data);
 
-                //this.generateCharts(unitParameter);
-                DfE.Views.BenchmarkCharts = new BenchmarkChartManager();
                 DfE.Views.BenchmarkCharts.generateCharts();
 
                 //window.GOVUKFrontend.initAll({ scope: $("#benchmarkChartsList")[0] });
-
                 //$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
                 //$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
-
             }
         });
     }
