@@ -4,7 +4,6 @@ class BenchmarkChartManager {
 
     generateChart(el, showValue, min, mid, max, barCount) {
         let applyChartStyles = function (el) {
-
             let benchmarkSchoolIndex = $("input[name='benchmarkSchoolIndex']", $(el).closest('.chart-container'))[0].value;
 
             if (benchmarkSchoolIndex > -1) {
