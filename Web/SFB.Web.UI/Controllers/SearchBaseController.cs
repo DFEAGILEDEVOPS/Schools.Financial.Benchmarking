@@ -114,8 +114,16 @@ namespace SFB.Web.UI.Controllers
                 }
 
                 vm.SchoolComparisonList = schoolComparisonListModel;
-
-                var filters = _filterBuilder.ConstructSchoolSearchFilters(Request.QueryString, response.Facets);
+                                
+                _filterBuilder.AddSchoolLevelFilters(response.Facets, Request.QueryString);
+                _filterBuilder.AddSchoolTypeFilters(response.Facets, Request.QueryString);
+                _filterBuilder.AddOfstedRatingFilters(response.Facets, Request.QueryString);
+                _filterBuilder.AddReligiousCharacterFilters(response.Facets, Request.QueryString);
+                if (Request.QueryString?["searchType"] == SearchTypes.SEARCH_BY_LOCATION && Request.QueryString?["openOnly"] != "true")
+                {
+                    _filterBuilder.AddStatusFilters(response.Facets, Request.QueryString);
+                }
+                var filters = _filterBuilder.GetResult();
                 vm.Filters = filters;
                 vm.FilterSelectionState = DetermineSelectionState(filters);
 

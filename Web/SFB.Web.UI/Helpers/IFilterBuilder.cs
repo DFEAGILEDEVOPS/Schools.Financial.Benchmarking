@@ -4,7 +4,19 @@ namespace SFB.Web.UI.Helpers
 {
     public interface IFilterBuilder
     {
-        Filter[] ConstructSchoolSearchFilters(dynamic parameters, dynamic facets);
-        Filter[] ConstructTrustSchoolSearchFilters(dynamic parameters, dynamic facets);
+        void AddStatusFilters(dynamic facets, dynamic queryParams);
+
+        void AddReligiousCharacterFilters(dynamic facets, dynamic queryParams);
+
+        void AddSchoolLevelFilters(dynamic facets, dynamic queryParams);
+
+        void AddSchoolTypeFilters(dynamic facets, dynamic queryParams);
+
+        void AddGenderFilters(dynamic facets, dynamic queryParams);
+
+        void AddOfstedRatingFilters(dynamic facets, dynamic queryParams);
+
+        Filter[] GetResult();
+
     }
 }

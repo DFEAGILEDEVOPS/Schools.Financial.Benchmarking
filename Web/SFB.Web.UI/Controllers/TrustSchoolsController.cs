@@ -65,8 +65,11 @@ namespace SFB.Web.UI.Controllers
                 }
 
                 vm.SchoolComparisonList = _benchmarkBasketService.GetSchoolBenchmarkList();
-
-                var filters = _filterBuilder.ConstructTrustSchoolSearchFilters(Request.QueryString, response.Facets);
+                                
+                _filterBuilder.AddSchoolLevelFilters(response.Facets, Request.QueryString);
+                _filterBuilder.AddOfstedRatingFilters(response.Facets, Request.QueryString);
+                _filterBuilder.AddGenderFilters(response.Facets, Request.QueryString);
+                var filters = _filterBuilder.GetResult();
                 vm.Filters = filters;
                 vm.FilterSelectionState = DetermineSelectionState(filters);
 
