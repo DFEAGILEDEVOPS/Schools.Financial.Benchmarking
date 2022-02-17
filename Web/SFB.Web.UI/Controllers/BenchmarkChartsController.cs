@@ -301,6 +301,31 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
+        public async Task<JsonResult> GetSchoolListFromSimpleCriteria(long? urn, long? fuid, EstablishmentType estType, SimpleCriteria simpleCriteria, int basketSize = ComparisonListLimit.DEFAULT)
+        {
+            EstablishmentViewModelBase benchmarkSchool;
+            if (fuid.HasValue)
+            {
+                benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(fuid.GetValueOrDefault());    
+            }
+            else
+            {
+                benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn.GetValueOrDefault());
+            }
+
+            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
+            //_schoolBenchmarkListService.ClearSchoolBenchmarkList();
+            //_schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
+            //_schoolBenchmarkListService.TryAddSchoolToBenchmarkList((SchoolViewModel)benchmarkSchool);
+            //_schoolBenchmarkListService.SetSchoolAsDefault((SchoolViewModel)benchmarkSchool);
+
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
+
+            return Json(new { count = comparisonResult.BenchmarkSchools.Count, results = comparisonResult.BenchmarkSchools.Select(b => new { b.URN, b.UID }) }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
         public async Task<ActionResult> SpecialsComparison(long urn, bool? similarPupils)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
