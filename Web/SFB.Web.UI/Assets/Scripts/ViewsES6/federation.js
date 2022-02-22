@@ -2,6 +2,9 @@
 
 class FederationViewModel {
     constructor(chartFormat, unitType, mapApiKey) {
+        DfE.Views.BenchmarkCharts = new BenchmarkChartManager();
+        DfE.Views.HistoricalCharts = new HistoricalChartManager();
+
         this.initControls(chartFormat, unitType);
 
         if ($(window).width() <= 640) {
@@ -21,9 +24,10 @@ class FederationViewModel {
 
         sessionStorage.chartFormat = chartFormat;
 
-        DfE.Views.HistoricalCharts = new HistoricalChartManager();
         DfE.Views.HistoricalCharts.generateFinanceCharts();
         DfE.Views.HistoricalCharts.generateWorkforceCharts();
+
+        this.renderQcChart("Total expenditure");
 
         GOVUK.Modal.Load();
 
@@ -45,6 +49,45 @@ class FederationViewModel {
         queryString += '#finance';
 
         window.location = queryString;
+    }
+
+    changeQcTab(chartName, event, element) {
+
+        if (event) {
+            event.preventDefault();
+        }
+
+        $("#QCPanel li.app-navigation__list-item").removeClass("app-navigation__list-item--current");
+        $(element).parent().addClass("app-navigation__list-item--current");
+
+        this.renderQcChart(chartName);
+    }
+
+    renderQcChart(chartName) {
+
+        let url = "/benchmarkcharts/getchart?chartGroup=TotalExpenditure&chartName=" + encodeURI(chartName);
+
+        let formatParameter = "Charts";//or Tables
+        if (formatParameter) {
+            url += "&format=" + formatParameter;
+        }
+
+        $.ajax({
+            url: url,
+            datatype: 'json',
+            beforeSend: () => {
+                DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Loading charts");
+            },
+            success: (data) => {
+                $("#benchmarkChartsList").html(data);
+
+                DfE.Views.BenchmarkCharts.generateCharts();
+
+                //window.GOVUKFrontend.initAll({ scope: $("#benchmarkChartsList")[0] });
+                //$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
+                //$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-above-view").first().find("thead th").length - 1, 1]] });
+            }
+        });
     }
 
     initMaps(mapApiKey) {

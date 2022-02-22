@@ -1,4 +1,33 @@
 ﻿.federation-detail {
+    .c3-text {
+        fill: govuk-colour("black") !important;
+    }
+
+    table.bmc-rollover-table {
+        background-color: govuk-colour("white");
+
+        td, th {
+            @include govuk-font(16);
+            border: 1px solid govuk-colour("mid-grey", $legacy: "grey-2");
+            padding: 8px;
+
+            &.bold {
+                font-weight: bold;
+            }
+        }
+
+        th {
+            background-color: govuk-colour("light-grey", $legacy: "grey-3");
+            font-weight: bold;
+
+            &.highlighted {
+                background-color: govuk-colour("pink");
+                font-weight: bold;
+                color: white;
+            }
+        }
+    }
+
     .metadata-school-detail {
         overflow: hidden;
 

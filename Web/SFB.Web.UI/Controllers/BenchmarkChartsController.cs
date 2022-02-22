@@ -301,27 +301,14 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetSchoolListFromSimpleCriteria(long? urn, long? fuid, EstablishmentType estType, SimpleCriteria simpleCriteria, int basketSize = ComparisonListLimit.DEFAULT)
+        public async Task<JsonResult> GetSchoolListFromSimpleCriteria(long id)
         {
-            EstablishmentViewModelBase benchmarkSchool;
-            if (fuid.HasValue)
-            {
-                benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(fuid.GetValueOrDefault());    
-            }
-            else
-            {
-                benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn.GetValueOrDefault());
-            }
-
+            var simpleCriteria = new SimpleCriteria() { IncludeEal = true, IncludeFsm = true, IncludeSen = true };
+            var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(id);
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
-            //_schoolBenchmarkListService.ClearSchoolBenchmarkList();
-            //_schoolBenchmarkListService.AddSchoolsToBenchmarkList(comparisonResult);
-            //_schoolBenchmarkListService.TryAddSchoolToBenchmarkList((SchoolViewModel)benchmarkSchool);
-            //_schoolBenchmarkListService.SetSchoolAsDefault((SchoolViewModel)benchmarkSchool);
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.DEFAULT, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
 
-            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, estType, basketSize, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
-
-            return Json(new { count = comparisonResult.BenchmarkSchools.Count, results = comparisonResult.BenchmarkSchools.Select(b => new { b.URN, b.UID }) }, JsonRequestBehavior.AllowGet);
+            return Json(new { count = comparisonResult.BenchmarkSchools.Count, results = comparisonResult.BenchmarkSchools.Select(b => new { b.URN, b.UID }), criteria = comparisonResult.BenchmarkCriteria }, JsonRequestBehavior.AllowGet);
 
         }
 

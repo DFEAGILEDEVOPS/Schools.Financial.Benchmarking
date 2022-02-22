@@ -948,8 +948,9 @@
     <Content Include="Views\Shared\Partials\TotalFiguresPanel.cshtml" />
     <Content Include="Views\Shared\Partials\NextStepsPanel.cshtml" />
     <Content Include="Views\Shared\Partials\SadPanel.cshtml" />
-    <Content Include="Views\Shared\Partials\QuickComparisonPanel.cshtml" />
+    <Content Include="Views\School\Partials\QuickComparisonPanel.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\QCDashboardChart.cshtml" />
+    <Content Include="Views\Federation\Partials\QuickComparisonPanel.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\FinanceChartGroups.cshtml" />
