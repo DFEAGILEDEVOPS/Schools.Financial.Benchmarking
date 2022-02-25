@@ -540,7 +540,8 @@
     <Content Include="Assets\Sass\views\_manual-comparison.scss" />
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
-    <Content Include="Assets\Scripts\AngularJS\sadApp.js" />
+    <Content Include="Assets\Scripts\AngularJS\quickComparisonPanelController.js" />
+    <Content Include="Assets\Scripts\AngularJS\sadPanelController.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-map.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-results-map.js" />
     <Content Include="Assets\Scripts\ViewsES6\benchmark-chart-manager.js" />
@@ -578,7 +579,6 @@
     <Content Include="public\assets\stylesheets\main.css" />
     <Content Include="robots.txt" />
     <Content Include="z_App_Offline.htm" />
-    <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\app.js" />
     <Content Include="Assets\Scripts\Elements\Forms\live-search.js" />
     <Content Include="Assets\Scripts\Elements\Forms\option-select.js" />

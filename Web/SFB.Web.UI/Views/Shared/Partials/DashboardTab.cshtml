@@ -11,14 +11,18 @@
     @Html.Partial("Partials/TotalFiguresPanel", Model)
 </div>
 
-<div id="SadPanel" class="dashboard-panel govuk-!-margin-top-3" ng-app="sadApp">
-    <div id="sadCtrl" ng-controller="SadPanelController as ctrl">     
+<div ng-app="sfbApp">
+    <div id="SadPanel" class="dashboard-panel govuk-!-margin-top-3">
+        <div id="sadCtrl" ng-controller="SadPanelController as ctrl">
             @Html.Partial("Partials/SadPanel", Model)
+        </div>
     </div>
-</div>
 
-<div id="QCPanel" class="dashboard-panel govuk-!-margin-top-3">
-    @Html.Partial("Partials/QuickComparisonPanel", Model)
+    <div id="QCPanel" class="dashboard-panel govuk-!-margin-top-3">
+        <div id="quickCtrl" ng-controller="QuickComparisonPanelController as ctrl">
+            @Html.Partial("Partials/QuickComparisonPanel", Model)
+        </div>
+    </div>
 </div>
 
 <div class="govuk-!-margin-top-5">

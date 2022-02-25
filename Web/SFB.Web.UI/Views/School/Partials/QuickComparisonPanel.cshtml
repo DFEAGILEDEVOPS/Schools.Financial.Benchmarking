@@ -1,62 +1,64 @@
 ﻿@model SFB.Web.UI.Models.SchoolViewModel
-<h3 class="govuk-heading-m">
-    A quick comparison of this school’s expenditure against similar schools
-</h3>
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-        <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="qcNav">
-            <ul class="app-navigation__list app-width-container" role="tablist">
-                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print app-navigation__list-item--current" role="presentation">
-                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="true"
-                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Total expenditure', event, this)"
-                       href="#benchmarkChartsList"><span class="test">Total expenditure</span></a>
-                </li>
-                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
-                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
-                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Staff total', event, this)"
-                       href="#benchmarkChartsList"><span class="test">Staff</span></a>
-                </li>
-                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
-                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
-                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Premises total', event, this)"
-                       href="#benchmarkChartsList"><span class="test">Premises</span></a>
-                </li>
-                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
-                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
-                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Occupation total', event, this)"
-                       href="#benchmarkChartsList"><span class="test">Occupation</span></a>
-                </li>
-                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
-                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
-                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Supplies and services total', event, this)"
-                       href="#benchmarkChartsList"><span class="test">Supplies and services</span></a>
-                </li>
-                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
-                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
-                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Cost of finance total', event, this)"
-                       href="#benchmarkChartsList"><span class="test">Cost of finance</span></a>
-                </li>
-                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
-                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
-                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Community expenditure total', event, this)"
-                       href="#benchmarkChartsList"><span class="test">Community expenditure</span></a>
-                </li>
-                <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
-                    <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
-                       class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Special facilities total', event, this)"
-                       href="#benchmarkChartsList"><span class="test">Special facilities</span></a>
-                </li>
-            </ul>
-        </nav>
-        <div id="benchmarkChartsList"></div>
-        <div class="govuk-!-margin-top-4 govuk-!-display-inline-block govuk-body">See the <a class="govuk-link" href="/BenchmarkCharts/GenerateFromSimpleCriteria?Urn=@Model.Id&EstType=@Model.EstablishmentType&ComparisonType=Basic&SimpleCriteria.IncludeFsm=true&SimpleCriteria.IncludeSen=true&SimpleCriteria.IncludeEal=true">full version</a> of this quick comparison</div>
+<div ng-if="compList.count > 0">
+    <h3 class="govuk-heading-m">
+        A quick comparison of this school’s expenditure against similar schools
+    </h3>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="qcNav">
+                <ul class="app-navigation__list app-width-container" role="tablist">
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print app-navigation__list-item--current" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="true"
+                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                           onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Total expenditure', event, this)"
+                           href="#benchmarkChartsList"><span class="test">Total expenditure</span></a>
+                    </li>
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
+                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                           onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Staff total', event, this)"
+                           href="#benchmarkChartsList"><span class="test">Staff</span></a>
+                    </li>
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
+                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                           onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Premises total', event, this)"
+                           href="#benchmarkChartsList"><span class="test">Premises</span></a>
+                    </li>
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
+                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                           onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Occupation total', event, this)"
+                           href="#benchmarkChartsList"><span class="test">Occupation</span></a>
+                    </li>
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
+                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                           onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Supplies and services total', event, this)"
+                           href="#benchmarkChartsList"><span class="test">Supplies and services</span></a>
+                    </li>
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
+                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                           onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Cost of finance total', event, this)"
+                           href="#benchmarkChartsList"><span class="test">Cost of finance</span></a>
+                    </li>
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
+                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                           onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Community expenditure total', event, this)"
+                           href="#benchmarkChartsList"><span class="test">Community expenditure</span></a>
+                    </li>
+                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" role="presentation">
+                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="false"
+                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                           onclick="DfE.Views.SchoolDetailsViewModel.changeQcTab('Special facilities total', event, this)"
+                           href="#benchmarkChartsList"><span class="test">Special facilities</span></a>
+                    </li>
+                </ul>
+            </nav>
+            <div id="benchmarkChartsList"></div>
+            <div class="govuk-!-margin-top-4 govuk-!-display-inline-block govuk-body">See the <a class="govuk-link" href="/BenchmarkCharts/GenerateFromSimpleCriteria?Urn=@Model.Id&EstType=@Model.EstablishmentType&ComparisonType=Basic&SimpleCriteria.IncludeFsm=true&SimpleCriteria.IncludeSen=true&SimpleCriteria.IncludeEal=true">full version</a> of this quick comparison</div>
+        </div>
     </div>
 </div>
