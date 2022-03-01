@@ -541,6 +541,7 @@
     <Content Include="AppSettings.config" />
     <Content Include="Assets\Scripts\AngularJS\allChartSelections.json" />
     <Content Include="Assets\Scripts\AngularJS\quickComparisonPanelController.js" />
+    <Content Include="Assets\Scripts\AngularJS\reportApp.js" />
     <Content Include="Assets\Scripts\AngularJS\sadPanelController.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-map.js" />
     <Content Include="Assets\Scripts\Elements\SchoolMap\azure-school-results-map.js" />

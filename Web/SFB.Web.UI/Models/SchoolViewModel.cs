@@ -220,6 +220,8 @@ namespace SFB.Web.UI.Models
         public decimal? FSM => LatestYearFinancialData?.PercentageOfEligibleFreeSchoolMeals;
 
         public decimal? SEN => LatestYearFinancialData?.PercentageOfPupilsWithSen;
+        
+        public decimal? EAL => LatestYearFinancialData?.PercentageOfPupilsWithEal;
 
         public string UrbanRural => LatestYearFinancialData?.UrbanRural;
 

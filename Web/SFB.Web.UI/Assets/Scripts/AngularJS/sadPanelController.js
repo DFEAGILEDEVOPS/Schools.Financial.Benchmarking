@@ -1,12 +1,8 @@
-debugger;
-var app = angular.module('sfbApp', []);
-
 app.controller('SadPanelController',
         [
             '$scope', '$http',
             function ($scope, $http) {
                 var self = this;
-                debugger;
                 $scope.isMobile = $(window).width() <= 640;
                 $scope.id = DfE.Util.QueryString.get('urn') || DfE.Util.QueryString.get('fuid');
 
