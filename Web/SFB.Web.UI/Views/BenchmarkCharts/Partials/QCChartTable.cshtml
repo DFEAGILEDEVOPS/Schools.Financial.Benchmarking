@@ -1,0 +1,109 @@
+﻿@using SFB.Web.UI.Helpers.Enums
+@model SFB.Web.UI.Models.ChartViewModel
+
+<div class="desktop-tables">
+    <table class="govuk-table tablesorter data-table-js chart-table">
+        <caption class="govuk-visually-hidden">@Model.Name</caption>
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header school-column sortInitialOrder-asc" scope="col" data-header="School name">
+                    School name
+                </th>
+                <th class="govuk-table__header govuk-table__header--numeric sortInitialOrder-desc govuk-table__header--numeric app-govuk-table__header--rightest" scope="col" data-header="Amount">
+                    <span aria-label="@ViewHelpers.GetAmountHeaderAriaLabel(Model.BenchmarkData.First().Unit)">@ViewHelpers.GetAmountLabel(Model.BenchmarkData.First().Unit) (Per pupil)</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            @for (int i = 0; i < Model.BenchmarkData.Count; i++)
+            {
+
+                var schoolBenchmarkData = Model.BenchmarkData[i];
+
+                <tr class="govuk-table__row">
+                    @if (ViewBag.HomeSchoolId == schoolBenchmarkData.Urn)
+                    {
+                        <td class="govuk-table__cell school-column" data-header="School name">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                                <span class="table-highlight index-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> index school</span>
+                            </a>
+                            @if (ViewBag.ChartGroup != ChartGroupType.Workforce && Model.IncompleteFinanceDataIndex.Contains(i))
+                            {
+                                <span class="exc-icon">
+                                    <span class="icon dark-blue">
+                                        <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                            <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                        </a>
+                                    </span>
+                                </span>
+                            }
+                        </td>
+                    }
+                    else if (Model.IncompleteFinanceDataIndex.Contains(i))
+                    {
+                        <td class="govuk-table__cell school-column" data-header="School name">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                                <span class="table-highlight incompleteFinance-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete financial data</span>
+                            </a>
+                            <span class="exc-icon">
+                                <span class="icon dark-blue">
+                                    <a href="#" class="js-modal" role="button" data-modal-title="Incomplete financial data" data-modal-text="This school doesn't have a complete set of financial data for this period." data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
+                                        <span class="govuk-visually-hidden">Open more info text for incomplete financial data. Opens a popup</span>
+                                    </a>
+                                </span>
+                            </span>
+                        </td>
+                    }
+                    else if (Model.IncompleteWorkforceDataIndex.Contains(i))
+                    {
+                        <td class="govuk-table__cell school-column" data-header="School name">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                                <span class="table-highlight incompleteWorkforce-highlight">@schoolBenchmarkData.School</span><span class="govuk-visually-hidden"> has incomplete workforce data</span>
+                            </a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="govuk-table__cell school-column" data-header="School name">
+                            <a class="govuk-link" href="/school?urn=@schoolBenchmarkData.Urn" aria-label="Open @schoolBenchmarkData.School's details page" onclick="dataLayer.push({ 'event': 'bmc_school_link_click' });">
+                                @schoolBenchmarkData.School
+                            </a>
+                        </td>
+                    }
+
+                    <td class="govuk-table__cell govuk-table__cell--numeric" data-header="Amount">
+                        <span>
+                            @if (schoolBenchmarkData.Amount.HasValue)
+                            {
+                                switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
+                                {
+                                    case UnitType.PercentageOfTotalExpenditure:
+                                    case UnitType.PercentageOfTotalIncome:
+                                    case UnitType.PercentageTeachers:
+                                    case UnitType.FTERatioToTotalFTE:
+                                        @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                        break;
+                                    case UnitType.HeadcountPerFTE:
+                                    case UnitType.AbsoluteCount:
+                                    case UnitType.NoOfPupilsPerMeasure:
+                                        @schoolBenchmarkData.Amount.GetValueOrDefault()
+                                        break;
+                                    default:
+                                        @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                                        break;
+                                }
+                                <span aria-label="@ViewHelpers.GetAmountCellAriaLabel(schoolBenchmarkData.Unit, Model.Name)"></span>
+                            }
+                            else
+                            {
+                                <text>Not applicable</text>
+                            }
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="post-table-@Model.Name.Replace(" ","")"></div>

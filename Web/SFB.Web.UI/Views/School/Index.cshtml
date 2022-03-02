@@ -347,14 +347,16 @@
     <script src="~/node_modules/c3/c3.min.js"></script>
     <script src="~/node_modules/lodash/lodash.min.js"></script>
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/saveSvgAsPngCombined.min.js"></script>
+    <script src="~/public/scripts/jquery-tablesorter/jquery.tablesorter.min.js"></script>
 
     <script>
-            var app = angular.module('sfbApp', []);
+        var app = angular.module('sfbApp', []);
     </script>
     <script src="~/Assets/Scripts/AngularJS/sadPanelController.js"></script>
     <script src="~/Assets/Scripts/AngularJS/quickComparisonPanelController.js"></script>
 
-    <script>    
+    <script>
+
         DfE.Views.SchoolDetailsViewModel = new SchoolViewModel(@Model.Id, @Model.Lat, @Model.Lng, '@Model.HasCoordinates', '@ViewBag.ChartFormat', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
         DfE.Views.WorkforceChartWrapperViewModel = new ChartWrapper();
         DfE.Views.FinancialChartWrapperViewModel = new ChartWrapper();

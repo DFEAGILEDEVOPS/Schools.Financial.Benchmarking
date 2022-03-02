@@ -952,6 +952,7 @@
     <Content Include="Views\School\Partials\QuickComparisonPanel.cshtml" />
     <Content Include="Views\BenchmarkCharts\Partials\QCDashboardChart.cshtml" />
     <Content Include="Views\Federation\Partials\QuickComparisonPanel.cshtml" />
+    <Content Include="Views\BenchmarkCharts\Partials\QCChartTable.cshtml" />
     <None Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Trust\Index.cshtml" />
     <Content Include="Views\Trust\Partials\FinanceChartGroups.cshtml" />

@@ -822,23 +822,28 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Chart", benchmarkCharts);
         }
 
-        public async Task<PartialViewResult> GetChart(string chartName, ChartGroupType chartGroup, ChartFormat format,
+        public async Task<PartialViewResult> GetQCChart(string chartName, ChartGroupType chartGroup, ChartFormat format,
             TabType revGroup = TabType.Expenditure, UnitType showValue = UnitType.PerPupil, 
             CentralFinancingType centralFinancing = CentralFinancingType.Include, ComparisonType comparisonType = ComparisonType.Basic)
         {
-            List<ChartViewModel> benchmarkCharts;
-            {
-                benchmarkCharts = await BuildSchoolBenchmarkChartAsync(revGroup, chartGroup, chartName, showValue, centralFinancing);
-                ViewBag.HomeSchoolId = _schoolBenchmarkListService.GetSchoolBenchmarkList().HomeSchoolUrn;
-            }
-
+                       
+            var benchmarkChart = (await BuildSchoolBenchmarkChartAsync(revGroup, chartGroup, chartName, showValue, centralFinancing)).FirstOrDefault();
+            
+            ViewBag.HomeSchoolId = _schoolBenchmarkListService.GetSchoolBenchmarkList().HomeSchoolUrn;
             ViewBag.ChartFormat = format;
             ViewBag.UnitType = showValue;
             ViewBag.Financing = centralFinancing;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.ComparisonType = comparisonType;
 
-            return PartialView("Partials/QCDashboardChart", benchmarkCharts);
+            if (format == ChartFormat.Charts)
+            {
+                return PartialView("Partials/QCDashboardChart", benchmarkChart);
+            }
+            else
+            {
+                return PartialView("Partials/QCChartTable", benchmarkChart);
+            }
         }
 
         public async Task<ActionResult> Download(EstablishmentType type)

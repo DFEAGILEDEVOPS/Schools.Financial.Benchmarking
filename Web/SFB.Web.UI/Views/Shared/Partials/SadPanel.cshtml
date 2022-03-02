@@ -64,7 +64,7 @@
                 <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === aa.name}" ng-repeat="aa in assessmentAreas" role="presentation">
                     <a id="{{aa.name}}" role="tab" aria-controls="appTabPanelSad" aria-selected="{{activeTab === aa.name}}"
                        class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                       ng-click="$event.preventDefault(); ctrl.setActiveTab(aa.name)"
+                       ng-click="ctrl.setActiveTab(aa.name, $event)"
                        href="#appTabPanelSad"><span class="test">{{aa.name}}</span></a>
                 </li>
             </ul>

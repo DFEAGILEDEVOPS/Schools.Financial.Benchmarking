@@ -23,7 +23,11 @@ app.controller('SadPanelController',
                     self.setActiveTab("Teaching staff");
                 });
 
-                self.setActiveTab = function (tabName) {                    
+                self.setActiveTab = function (tabName, event) {
+                    if (event) {
+                        event.preventDefault();
+                    }
+
                     $scope.activeTab = tabName;
                 }
 
