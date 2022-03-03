@@ -7,8 +7,8 @@ app.controller('QuickComparisonPanelController',
                 $scope.isMobile = $(window).width() <= 640;
                 $scope.id = DfE.Util.QueryString.get('urn') || DfE.Util.QueryString.get('fuid');
 
-                self.format = "Charts";
-                self.activeTab = "Total expenditure";
+                $scope.format = "Charts";
+                $scope.activeTab = "Total expenditure";
 
                 $scope.compList = null;
                 $http.get('BenchmarkCharts/GetSchoolListFromSimpleCriteria?id=' + $scope.id).then(function (response) {
@@ -22,17 +22,22 @@ app.controller('QuickComparisonPanelController',
                         event.preventDefault();
                     }
 
-                    self.activeTab = chartName;
+                    $scope.activeTab = chartName;
 
                     this.renderQcChart();
                 }
 
+                self.switchTo = function (tableOrChart) {
+                    $scope.format = tableOrChart;
+                    self.renderQcChart();
+                }
+
                 self.renderQcChart = function() {
 
-                    let url = "/benchmarkcharts/getQCChart?chartGroup=TotalExpenditure&chartName=" + encodeURI(self.activeTab);
+                    let url = "/benchmarkcharts/getQCChart?chartGroup=TotalExpenditure&chartName=" + encodeURI($scope.activeTab);
 
-                    if (self.format) {
-                        url += "&format=" + self.format;
+                    if ($scope.format) {
+                        url += "&format=" + $scope.format;
                     }
 
                     $.ajax({

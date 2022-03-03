@@ -343,6 +343,10 @@
 
     .view-charts-tables {
         margin-bottom: 0;
+
+        &--qc {
+            margin-bottom: 1em;
+        }
     }
 
     div.custom.tabs ul {
@@ -473,5 +477,13 @@
 
     .call-out-box--dynamic-height {
         height: unset;
+    }
+
+    .dashboard-panel thead tr .tablesorter-headerDesc {
+        background-image: url(/public/assets/images/asc-g.gif);
+    }
+
+    .dashboard-panel thead tr .tablesorter-headerAsc {
+        background-image: url(/public/assets/images/desc-g.gif);
     }
 }

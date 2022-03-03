@@ -353,6 +353,10 @@
 
     .view-charts-tables {
         margin-bottom: 0;
+
+        &--qc {
+            margin-bottom: 1em;
+        }
     }
 
     div.custom.tabs ul {
