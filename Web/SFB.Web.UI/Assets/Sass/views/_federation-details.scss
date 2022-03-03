@@ -28,6 +28,26 @@
         }
     }
 
+    .table-highlight {
+        display: inline;
+        color: white;
+        padding: 6px 8px 6px 8px;
+        line-height: 1.8em;
+        font-weight: bold;
+
+        @include govuk-media-query($until: tablet) {
+            padding: 4px 6px;
+        }
+
+        &.index-highlight {
+            background-color: govuk-colour("pink");
+        }
+
+        &.incompleteFinance-highlight, &.incompleteWorkforce-highlight {
+            background-color: govuk-colour("orange");
+        }
+    }
+
     .metadata-school-detail {
         overflow: hidden;
 

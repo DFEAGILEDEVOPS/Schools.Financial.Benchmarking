@@ -43,6 +43,8 @@ app.controller('QuickComparisonPanelController',
                     $.ajax({
                         url: url,
                         datatype: 'json',
+                        method: 'post',
+                        data: { "schools": $scope.compList.schools },
                         beforeSend: () => {
                             DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Loading charts");
                         },
@@ -51,8 +53,6 @@ app.controller('QuickComparisonPanelController',
 
                             DfE.Views.BenchmarkCharts.generateCharts();
 
-                            //window.GOVUKFrontend.initAll({ scope: $("#benchmarkChartsList")[0] });
-                            //$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js.chart-table--mobile-only-view").first().find("thead th").length - 1, 1]] });
                             $("#benchmarkChartsList table.data-table-js").tablesorter({ sortList: [[$("#benchmarkChartsList table.data-table-js").first().find("thead th").length - 1, 1]] });
                         }
                     });
