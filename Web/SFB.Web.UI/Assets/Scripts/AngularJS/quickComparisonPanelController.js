@@ -11,7 +11,7 @@ app.controller('QuickComparisonPanelController',
                 $scope.activeTab = "Total expenditure";
 
                 $scope.compList = null;
-                $http.get('BenchmarkCharts/GetSchoolListFromSimpleCriteria?id=' + $scope.id).then(function (response) {
+                $http.get('/benchmarkCharts/GetSchoolListFromSimpleCriteria?id=' + $scope.id).then(function (response) {
                     $scope.compList = response.data;
                     self.renderQcChart();
                 });
@@ -34,7 +34,7 @@ app.controller('QuickComparisonPanelController',
 
                 self.renderQcChart = function() {
 
-                    let url = "/benchmarkcharts/getQCChart?chartGroup=TotalExpenditure&chartName=" + encodeURI($scope.activeTab);
+                    let url = "/benchmarkcharts/getQCChart?id=" + $scope.id + "&chartGroup=TotalExpenditure&chartName=" + encodeURI($scope.activeTab);
 
                     if ($scope.format) {
                         url += "&format=" + $scope.format;

@@ -80,6 +80,12 @@ namespace SFB.Web.UI.Models
 
         private decimal? HighestAge => ContextData?.StatutoryHighAge;
 
+        public decimal? FSM => LatestYearFinancialData?.PercentageOfEligibleFreeSchoolMeals;
+
+        public decimal? SEN => LatestYearFinancialData?.PercentageOfPupilsWithSen;
+
+        public decimal? EAL => LatestYearFinancialData?.PercentageOfPupilsWithEal;
+
         public bool IsInComparisonList
         {
             get

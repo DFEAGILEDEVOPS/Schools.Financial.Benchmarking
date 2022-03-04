@@ -302,24 +302,6 @@ namespace SFB.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> GetSchoolListFromSimpleCriteria(long id)
-        {
-            var simpleCriteria = new SimpleCriteria() { IncludeEal = true, IncludeFsm = true, IncludeSen = true };
-            var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(id);
-            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
-            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.DEFAULT, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
-
-            return Json(new
-            {
-                count = comparisonResult.BenchmarkSchools.Count,
-                schools = comparisonResult.BenchmarkSchools.Select(s => new { s.URN, s.SchoolName, s.FederationName, s.Type, s.FinanceType }),
-                criteria = comparisonResult.BenchmarkCriteria
-            }
-            , JsonRequestBehavior.AllowGet);
-
-        }
-
-        [HttpGet]
         public async Task<ActionResult> SpecialsComparison(long urn, bool? similarPupils)
         {
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(urn);
@@ -785,8 +767,27 @@ namespace SFB.Web.UI.Controllers
             return PartialView("Partials/Chart", benchmarkCharts);
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetSchoolListFromSimpleCriteria(long id)
+        {
+            var simpleCriteria = new SimpleCriteria() { IncludeEal = true, IncludeFsm = true, IncludeSen = true };
+            var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(id);
+            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
+            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.DEFAULT, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
+
+            return Json(new
+            {
+                count = comparisonResult.BenchmarkSchools.Count,
+                schools = comparisonResult.BenchmarkSchools.Select(s => new { s.URN, s.SchoolName, s.FederationName, s.Type, s.FinanceType }),
+                criteria = comparisonResult.BenchmarkCriteria
+            }
+            , JsonRequestBehavior.AllowGet);
+
+        }
+
         [HttpPost]
         public async Task<PartialViewResult> GetQCChart(
+            int id,
             string chartName, 
             ChartGroupType chartGroup, 
             ChartFormat format,
@@ -794,9 +795,9 @@ namespace SFB.Web.UI.Controllers
         {
             var comparisonList = _schoolBenchmarkListService.GetSchoolBenchmarkList();
             comparisonList.BenchmarkSchools = schools.Select(school => new BenchmarkSchoolModel(school)).ToList();
-            var benchmarkChart = (await BuildSchoolBenchmarkChartAsync(comparisonList, TabType.Expenditure, chartGroup, chartName, UnitType.PerPupil, CentralFinancingType.Include)).FirstOrDefault();
+            var benchmarkChart = (await BuildSchoolBenchmarkChartAsync(id, comparisonList, TabType.Expenditure, chartGroup, chartName, UnitType.PerPupil, CentralFinancingType.Include)).FirstOrDefault();
             
-            ViewBag.HomeSchoolId = comparisonList.HomeSchoolUrn;
+            ViewBag.HomeSchoolId = id.ToString();
             ViewBag.ChartFormat = format;
             ViewBag.UnitType = UnitType.PerPupil;
             ViewBag.Financing = CentralFinancingType.Include;
@@ -983,10 +984,11 @@ namespace SFB.Web.UI.Controllers
             var financialDataModels = await this.GetFinancialDataForSchoolsAsync(comparisonList.BenchmarkSchools, cFinancing);
 
             _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonList.HomeSchoolUrn, showValue);
+            
             return benchmarkCharts;
         }
 
-        private async Task<List<ChartViewModel>> BuildSchoolBenchmarkChartAsync(SchoolComparisonListModel comparisonList, TabType revGroup, ChartGroupType chartGroup, string chartName, UnitType? showValue, CentralFinancingType cFinancing)
+        private async Task<List<ChartViewModel>> BuildSchoolBenchmarkChartAsync(int comparisonSchoolId, SchoolComparisonListModel comparisonList, TabType revGroup, ChartGroupType chartGroup, string chartName, UnitType? showValue, CentralFinancingType cFinancing)
         {
             var establishmentType = DetectEstablishmentType(comparisonList);
 
@@ -994,7 +996,7 @@ namespace SFB.Web.UI.Controllers
 
             var financialDataModels = await this.GetFinancialDataForSchoolsAsync(comparisonList.BenchmarkSchools, cFinancing);
 
-            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonList.HomeSchoolUrn, showValue);
+            _fcService.PopulateBenchmarkChartsWithFinancialData(benchmarkCharts, financialDataModels, comparisonList.BenchmarkSchools, comparisonSchoolId.ToString(), showValue);
             return benchmarkCharts;
         }
 

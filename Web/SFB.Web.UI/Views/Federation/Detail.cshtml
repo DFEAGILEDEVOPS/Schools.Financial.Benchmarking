@@ -155,6 +155,7 @@
             <a href="~/Help/DataQueries?urn=@Model.Id&schoolName=@Model.Name" class="govuk-link hide-in-print">Is there anything wrong with this page?</a>
         </div>
     </div>
+    <input type="hidden" id="HomeSchoolURN" name="HomeSchoolURN" value="@Html.Raw(Model.Id)" />
 </div>
 
 <iframe id="download_iframe" style="display:none;" title="download"></iframe>
@@ -197,7 +198,13 @@
     <script src="~/node_modules/c3/c3.min.js"></script>
     <script src="~/node_modules/lodash/lodash.min.js"></script>
     <script src="~/public/scripts/saveSvgAsPng-gh-pages/saveSvgAsPngCombined.min.js"></script>
-    <script src="/Assets/Scripts/AngularJS/sadApp.js"></script>
+    <script src="~/public/scripts/jquery-tablesorter/jquery.tablesorter.min.js"></script>
+
+    <script>
+        var app = angular.module('sfbApp', []);
+    </script>
+    <script src="~/Assets/Scripts/AngularJS/sadPanelController.js"></script>
+    <script src="~/Assets/Scripts/AngularJS/quickComparisonPanelController.js"></script>
 
     <script>
         DfE.Views.FederationDetailsViewModel = new FederationViewModel('@ViewBag.ChartFormat', '@ViewBag.UnitType', '@(System.Configuration.ConfigurationManager.AppSettings["AzureMapsAPIKey"])');
