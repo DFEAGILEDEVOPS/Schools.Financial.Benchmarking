@@ -180,6 +180,12 @@
         public const string NumberOfPupils = "Pupil numbers for PRU, AP and GHS establishments include all single and dual registered pupils.";
         public const string RevenueReserveExplanation = "<p>For multi-academy trusts the trust is the legal entity and all revenue reserves belong to the trust.We have estimated a value per academy in a MAT by apportioning the trust’s reserves on a pro-rata basis using the FTE number of pupils in each academy within that MAT.</p>" +
             "<p>For local authority maintained schools and single academy trusts revenue reserves are associated to the individual school.</p>";
+        public const string QuickComparisonGlossary =   "<p class='govuk-!-margin-top-6'><h3 class='govuk-heading-s'>Staff</h3>This includes teaching staff, supply staff, education support staff, administrative and clerical staff, and other staff costs.</p>" +
+                                                        "<p><h3 class='govuk-heading-s'>Premises</h3>This includes premises staff, cleaning and caretaking, maintenance and improvement, and PFI charges.</p>" +
+                                                        "<p><h3 class='govuk-heading-s'>Occupation</h3>These are costs associated with occupying the school building. They include energy, water, sewerage, rates, insurance, and catering.</p>" +
+                                                        "<p><h3 class='govuk-heading-s'>Supplies and services</h3>This includes administrative supplies, education supples, and bought-in professional services.</p>" +
+                                                        "<p><h3 class='govuk-heading-s'>Cost of finance</h3>This includes loan interest and direct revenue financing.</p>" +
+                                                        "<p><h3 class='govuk-heading-s'>Special facilities</h3>This includes swimming pools, sports centres, boarding provision, rural units, inter-site travel, before and after school clubs, home to school transport, donation to charity, community education.</p>";
     }
 
     public class DealsForSchoolsLinkText
