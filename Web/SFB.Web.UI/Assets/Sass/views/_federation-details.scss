@@ -28,6 +28,25 @@
         }
     }
 
+    .qc-glossary {
+        clear: both;
+        margin-bottom: 15px;
+
+        @include govuk-media-query($from: tablet) {
+            float: right;
+            margin-bottom: auto;
+        }
+    }
+
+    .qc-tables {
+        margin-top: 10px;
+
+        @include govuk-media-query($from: tablet) {
+            margin-top: auto;
+        }
+    }
+
+
     .table-highlight {
         display: inline;
         color: white;

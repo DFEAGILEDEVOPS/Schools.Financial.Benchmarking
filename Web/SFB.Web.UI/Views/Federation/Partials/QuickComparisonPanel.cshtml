@@ -76,11 +76,11 @@
         <button type="button" ng-hide="format=='Tables'" ng-click="ctrl.switchTo('Tables')" class="view-charts-tables view-charts-tables--qc tables a-button"><img class="icon icon-table" src="~/public/assets/images/icons/table.svg" alt="" /><span> View as tables<span class="govuk-visually-hidden"> - Recommended option for screen readers</span></span></button>
     </div>
 
-    <div style="float:right; clear: both">
+    <div class="qc-glossary">
         <span class="help-icon hide-in-print">
             <span class="icon dark-blue">
                 <a href="#" class="js-modal" role="button" data-modal-title="Quick comparison glossary" data-modal-text="@HelpTooltipText.QuickComparisonGlossary" data-modal-close-text="Close" data-modal-close-title="Close" data-help-text-key="">
-                    <span class="govuk-visually-hidden">Open more info text for Revenue Reserve opens a popup</span>
+                    <span class="govuk-visually-hidden">Open more info text for Quick comparison glossary opens a popup</span>
                 </a>
             </span>
         </span>
@@ -88,7 +88,7 @@
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="qcNav">
+            <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="qcNav" ng-if="!isMobile">
                 <ul class="app-navigation__list app-width-container" role="tablist">
                     <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Total expenditure'}" role="presentation">
                         <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Total expenditure'}}"
@@ -140,7 +140,22 @@
                     </li>
                 </ul>
             </nav>
-
+            <fieldset class="govuk-fieldset govuk-!-margin-bottom-1" ng-if="isMobile">
+                <legend class="govuk-visually-hidden">Chart group filter</legend>
+                <div>
+                    <label class="govuk-label govuk-visually-hidden" for="aaSelect">Chart group</label>
+                    <select name="cgSelect" id="cgSelect" class="govuk-select" ng-model="activeTab" style="width: 100%" ng-change="ctrl.changeQcTab(activeTab, $event)">
+                        <option value="Total expenditure">Total expenditure</option>
+                        <option value="Staff total">Staff</option>
+                        <option value="Premises total">Premises</option>
+                        <option value="Occupation total">Occupation</option>
+                        <option value="Supplies and services total">Supplies and services</option>
+                        <option value="Cost of finance total">Cost of finance</option>
+                        <option value="Community expenditure total">Community expenditure</option>
+                        <option value="Special facilities total">Special facilities</option>
+                    </select>
+                </div>
+            </fieldset>
             <div id="benchmarkChartsList"></div>
             <div class="govuk-!-margin-top-4 govuk-!-display-inline-block govuk-body">See the <a class="govuk-link" href="/BenchmarkCharts/GenerateFromSimpleCriteria?Fuid=@Model.Id&EstType=@Model.EstablishmentType&ComparisonType=Basic&SimpleCriteria.IncludeFsm=true&SimpleCriteria.IncludeSen=true&SimpleCriteria.IncludeEal=true">full version</a> of this quick comparison</div>
         </div>
