@@ -59,7 +59,7 @@
         </div>
     </details>
     <div ng-if="!isMobile">
-        <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="sadNav">
+        <nav class="app-navigation app-navigation--gray-back govuk-clearfix govuk-!-margin-bottom-6" id="sadNav" aria-label="Self assessment area navigation">
             <ul class="app-navigation__list app-width-container" role="tablist">
                 <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === aa.name}" ng-repeat="aa in assessmentAreas" role="presentation">
                     <a id="{{aa.name}}" role="tab" aria-controls="appTabPanelSad" aria-selected="{{activeTab === aa.name}}"

@@ -30,6 +30,8 @@ app.controller('QuickComparisonPanelController',
                 self.switchTo = function (tableOrChart) {
                     $scope.format = tableOrChart;
                     self.renderQcChart();
+                    
+                    $("#xxx").focus();
                 }
 
                 self.renderQcChart = function() {
@@ -46,7 +48,7 @@ app.controller('QuickComparisonPanelController',
                         method: 'post',
                         data: { "schools": $scope.compList.schools },
                         beforeSend: () => {
-                            DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Loading charts");
+                            DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Loading quick comparison charts");
                         },
                         success: (data) => {
                             $("#benchmarkChartsList").html(data);
