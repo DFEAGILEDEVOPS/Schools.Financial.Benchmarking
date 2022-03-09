@@ -55,7 +55,7 @@
                         {
                             if (amount.HasValue)
                             {
-                                <td class="govuk-table__cell govuk-table__cell--numeric">@amount.GetValueOrDefault().ToString("F1")%</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric">@ViewHelpers.DisplayPercentageValueInDp(amount.GetValueOrDefault())</td>
                             }
                             else
                             {

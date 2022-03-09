@@ -24,16 +24,16 @@
                 <td class="govuk-table__cell">
                     @if (schoolHistoricalData.Amount.HasValue)
                     {
-                        switch ((UnitType) Enum.Parse(typeof(UnitType), schoolHistoricalData.Unit))
+                        switch ((UnitType)Enum.Parse(typeof(UnitType), schoolHistoricalData.Unit))
                         {
                             case UnitType.PercentageOfTotalExpenditure:
                             case UnitType.PercentageOfTotalIncome:
                             case UnitType.FTERatioToTotalFTE:
-                                @schoolHistoricalData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                @ViewHelpers.DisplayPercentageValueInDp(schoolHistoricalData.Amount.GetValueOrDefault())
                                 break;
-                            case UnitType.HeadcountPerFTE:
-                            case UnitType.AbsoluteCount:
-                            case UnitType.NoOfPupilsPerMeasure:
+                                    case UnitType.HeadcountPerFTE:
+                                    case UnitType.AbsoluteCount:
+                                    case UnitType.NoOfPupilsPerMeasure:
                                 @schoolHistoricalData.Amount.GetValueOrDefault()
                                 break;
                             default:

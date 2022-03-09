@@ -118,8 +118,12 @@
         chartPercentageFormat: function(amount) {
             if (amount === null)
                 return "Not applicable";
-            else
-                return parseFloat(amount.toFixed(1)).toString() + '%';
+            else {
+                if (amount > 0 && amount < 2)
+                    return parseFloat(amount.toFixed(2)).toString() + '%';
+                else
+                    return parseFloat(amount.toFixed(1)).toString() + '%';
+            }
         },
 
         chartDecimalFormat: function(amount) {

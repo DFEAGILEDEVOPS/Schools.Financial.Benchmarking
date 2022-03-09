@@ -76,33 +76,33 @@
                             </a>
                         </td>
                     }
-                    <td class="govuk-table__cell" data-header="Amount">
-                        @if (schoolBenchmarkData.Amount.HasValue)
+                <td class="govuk-table__cell" data-header="Amount">
+                    @if (schoolBenchmarkData.Amount.HasValue)
+                    {
+                        switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
                         {
-                            switch ((UnitType)Enum.Parse(typeof(UnitType), schoolBenchmarkData.Unit))
-                            {
-                                case UnitType.PercentageOfTotalExpenditure:
-                                case UnitType.PercentageOfTotalIncome:
-                                case UnitType.PercentageTeachers:
-                                case UnitType.FTERatioToTotalFTE:
-                                    @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
-                                    break;
-                                case UnitType.HeadcountPerFTE:
-                                case UnitType.AbsoluteCount:
-                                case UnitType.NoOfPupilsPerMeasure:
-                                    @schoolBenchmarkData.Amount.GetValueOrDefault()
-                                    break;
-                                default:
-                                    @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
-                                    break;
-                            }
-                            <span aria-label="@ViewHelpers.GetAmountCellAriaLabel(schoolBenchmarkData.Unit, Model.Name)"></span>
+                            case UnitType.PercentageOfTotalExpenditure:
+                            case UnitType.PercentageOfTotalIncome:
+                            case UnitType.PercentageTeachers:
+                            case UnitType.FTERatioToTotalFTE:
+                                @ViewHelpers.DisplayPercentageValueInDp(schoolBenchmarkData.Amount.GetValueOrDefault())
+                                break;
+                            case UnitType.HeadcountPerFTE:
+                            case UnitType.AbsoluteCount:
+                            case UnitType.NoOfPupilsPerMeasure:
+                                @schoolBenchmarkData.Amount.GetValueOrDefault()
+                                break;
+                            default:
+                                @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("C0")
+                                break;
                         }
-                        else
-                        {
-                            <text>Not applicable</text>
-                        }
-                    </td>
+                        <span aria-label="@ViewHelpers.GetAmountCellAriaLabel(schoolBenchmarkData.Unit, Model.Name)"></span>
+                    }
+                    else
+                    {
+                        <text>Not applicable</text>
+                    }
+                </td>
                 </tr>
             }
         </tbody>
@@ -238,7 +238,7 @@
                                 case UnitType.PercentageOfTotalIncome:
                                 case UnitType.PercentageTeachers:
                                 case UnitType.FTERatioToTotalFTE:
-                                    @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                    @ViewHelpers.DisplayPercentageValueInDp(schoolBenchmarkData.Amount.GetValueOrDefault())
                                     break;
                                 case UnitType.HeadcountPerFTE:
                                 case UnitType.AbsoluteCount:
@@ -396,7 +396,7 @@
                                     case UnitType.PercentageOfTotalIncome:
                                     case UnitType.PercentageTeachers:
                                     case UnitType.FTERatioToTotalFTE:
-                                        @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                        @ViewHelpers.DisplayPercentageValueInDp(schoolBenchmarkData.Amount.GetValueOrDefault())
                                         break;
                                     case UnitType.HeadcountPerFTE:
                                     case UnitType.AbsoluteCount:

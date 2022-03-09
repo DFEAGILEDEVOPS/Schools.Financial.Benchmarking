@@ -306,3 +306,16 @@
 {
     @(schoolType == EstablishmentType.Academies ? year : year.Replace('/', '-'))
 }
+
+@helper DisplayPercentageValueInDp(decimal amount)
+{
+    if (amount > 0 && amount < 2)
+    {
+        @(amount.ToString("F2")+"%")
+    }
+    else
+    {
+        @(amount.ToString("F1")+"%")
+    }
+
+}

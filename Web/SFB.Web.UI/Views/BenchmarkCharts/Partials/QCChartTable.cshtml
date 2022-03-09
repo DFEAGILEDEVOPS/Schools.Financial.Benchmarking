@@ -81,7 +81,7 @@
                                     case UnitType.PercentageOfTotalIncome:
                                     case UnitType.PercentageTeachers:
                                     case UnitType.FTERatioToTotalFTE:
-                                        @schoolBenchmarkData.Amount.GetValueOrDefault().ToString("F1")<text>%</text>
+                                        @ViewHelpers.DisplayPercentageValueInDp(schoolBenchmarkData.Amount.GetValueOrDefault())
                                         break;
                                     case UnitType.HeadcountPerFTE:
                                     case UnitType.AbsoluteCount:
