@@ -3,3 +3,6 @@ Disallow: /school/
 Disallow: /BenchmarkCharts/
 Disallow: /benchmarklist/
 Disallow: /cookies/
+Disallow: /Help/
+Disallow: /self-assessment/
+Disallow: /efficiency-metric/
