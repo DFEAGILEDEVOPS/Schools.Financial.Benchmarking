@@ -774,6 +774,12 @@ namespace SFB.Web.UI.Controllers
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(id);
             var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
             var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.DEFAULT, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
+            
+            //For cases where school names are the same
+            foreach (var school in comparisonResult.BenchmarkSchools.Where(s1 => comparisonResult.BenchmarkSchools.Any(s2 => s2.SchoolName == s1.SchoolName && s2.URN != s1.URN)))
+            {
+                school.SchoolName += " ";
+            }
 
             return Json(new
             {
