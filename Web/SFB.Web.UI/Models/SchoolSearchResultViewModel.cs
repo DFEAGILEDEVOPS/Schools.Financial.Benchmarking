@@ -101,7 +101,7 @@ namespace SFB.Web.UI.Models
 
         public float TotalPupils => ContextDataModel.NumberOfPupils == null ? 0 : float.Parse(ContextDataModel.NumberOfPupils);
 
-        public string IsPost16 => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
+        public string HasSixthForm => ContextDataModel.OfficialSixthForm == "Has a sixth form" ? "Yes" : "No";
 
         public string HasNursery => ContextDataModel.NurseryProvisionName == "Has Nursery Classes" ? "Yes" : "No";
 
