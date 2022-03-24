@@ -47,10 +47,10 @@ app.controller('QuickComparisonPanelController',
                         datatype: 'json',
                         method: 'post',
                         data: { "schools": $scope.compList.schools },
-                        beforeSend: () => {
+                        beforeSend: function() {
                             DfE.Util.LoadingMessage.display("#benchmarkChartsList", "Loading quick comparison charts");
                         },
-                        success: (data) => {
+                        success: function(data) {
                             $("#benchmarkChartsList").html(data);
 
                             DfE.Views.BenchmarkCharts.generateCharts();
