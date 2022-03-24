@@ -130,12 +130,15 @@
                            ng-click="ctrl.changeQcTab('Cost of finance total', $event)"
                            href="#benchmarkChartsList"><span class="test">Cost of finance</span></a>
                     </li>
-                    <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Community expenditure total'}" role="presentation">
-                        <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Community expenditure total'}}"
-                           class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
-                           ng-click="ctrl.changeQcTab('Community expenditure total', $event)"
-                           href="#benchmarkChartsList"><span class="test">Community expenditure</span></a>
-                    </li>
+                    @if (Model.EstablishmentType == EstablishmentType.Maintained)
+                    {
+                        <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Community expenditure total'}" role="presentation">
+                            <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Community expenditure total'}}"
+                               class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+                               ng-click="ctrl.changeQcTab('Community expenditure total', $event)"
+                               href="#benchmarkChartsList"><span class="test">Community expenditure</span></a>
+                        </li>
+                    }
                     <li class="app-navigation__list-item app-navigation__list-item--multiple-rows hide-in-print" ng-class="{'app-navigation__list-item--current' : activeTab === 'Special facilities total'}" role="presentation">
                         <a role="tab" aria-controls="benchmarkChartsList" aria-selected="{{activeTab === 'Special facilities total'}}"
                            class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
