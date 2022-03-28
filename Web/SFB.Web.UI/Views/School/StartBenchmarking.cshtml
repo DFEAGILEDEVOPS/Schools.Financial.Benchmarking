@@ -73,7 +73,7 @@
     <script>
             $.ajax({
                 type: 'HEAD',
-                url: `https://${$("#SfbApiUrl").val()}/api/efficiencymetric/${@Model.Id}`,
+                url: 'https://' + $("#SfbApiUrl").val() + '/api/efficiencymetric/@Model.Id',
                 success: function () {
                     $("#efficiencyMetricLink").show();   
                     if ($("#progressColumn li:visible").length == 0) {
