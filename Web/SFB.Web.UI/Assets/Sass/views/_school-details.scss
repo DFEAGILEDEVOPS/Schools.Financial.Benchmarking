@@ -466,6 +466,11 @@
         box-shadow: 1px 1px #CCCCCC;
         border-radius: 5px;
         position: relative;
+
+        @include govuk-media-query($from:640px, $until: 1000px) {
+            display: flex;
+            align-items: center;
+        }
         /*        &::after {
             content: '';
             position: absolute;
