@@ -7,7 +7,7 @@ app.controller('SadPanelController',
                 $scope.id = DfE.Util.QueryString.get('urn') || DfE.Util.QueryString.get('fuid');
 
                 $scope.sad = null;
-                $http.get('https://aa-t1dv-sfb.azurewebsites.net/api/selfassessment/' + $scope.id).then(function (response) {
+                $http.get('https://' + $("#SfbApiUrl").val() +'/api/selfassessment/' + $scope.id).then(function (response) {
                     $scope.sad = response.data;
                     $scope.assessmentAreas = [
                         self.getAAbyName("Teaching staff"),
