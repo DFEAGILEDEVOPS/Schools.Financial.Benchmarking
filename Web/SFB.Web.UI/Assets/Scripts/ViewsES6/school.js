@@ -169,7 +169,9 @@
         let financingParameter = $("#Financing:visible").val() ?? null;
         let formatParameter = sessionStorage.chartFormat;
 
-        let url = "/school" +            
+        dataLayer.push({ 'event': 'rebuild_financial_charts', 'chartGroup': chartGroupParameter, 'unit': unitParameter, 'financing': financingParameter });
+
+        let url = "/school" +
             "/getcharts?urn=" +
             urnParameter +
             "&code=" +
