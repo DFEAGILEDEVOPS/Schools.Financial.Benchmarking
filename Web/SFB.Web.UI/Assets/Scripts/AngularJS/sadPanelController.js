@@ -38,7 +38,7 @@ app.controller('SadPanelController',
                         name: aa.assessmentAreaName.replace("Administrative", "Admin."),
                         percentage: percentage,
                         allBands: aa.allTresholds,
-                        matchedBand: findMatchingBand(aa.allTresholds, Number(percentage) / 100)
+                        matchedBand: findMatchingBand(aa.allTresholds, (Number(percentage) / 100).toFixed(3))
                     };
 
                     function findAssessmentArea(name) {
