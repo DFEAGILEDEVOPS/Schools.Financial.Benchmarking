@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using SFB.Web.ApplicationCore.Helpers.Constants;
 using SFB.Web.ApplicationCore.Services;
+using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -67,13 +68,26 @@ namespace SFB.Web.UI.Controllers
             if (ModelState.IsValid)
             {
                 var placeholders = new Dictionary<string, dynamic>{
-                    { "Name", getInvolved.Name },
+                    { "Name", FormFieldSanitizer.SanitizeFormField(getInvolved.Name) },
                     { "Email", getInvolved.Email },
                 };
 
                 try
                 {
                     await _emailSender.SendGetInvolvedEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
+                }
+                catch (HttpRequestValidationException exc)
+                {
+                    var enableAITelemetry = WebConfigurationManager.AppSettings["EnableAITelemetry"];
+
+                    if (enableAITelemetry != null && bool.Parse(enableAITelemetry))
+                    {
+                        var ai = new TelemetryClient();
+                        ai.TrackException(exc);
+                        ai.TrackTrace($"Get involved email rejected due to SQL injection attack!");
+                        ai.TrackTrace($"Contact us email sending failed for: {getInvolved.Name} - ({getInvolved.Email})");
+                    }
+                    throw exc;
                 }
                 catch (Exception exception)
                 {
@@ -110,10 +124,10 @@ namespace SFB.Web.UI.Controllers
 
                 var placeholders = new Dictionary<string, dynamic>{
                     { "EmailReference ", emailReference },
-                    { "Name", dataQuery.Name },
+                    { "Name", FormFieldSanitizer.SanitizeFormField(dataQuery.Name) },
                     { "Email", dataQuery.Email },
-                    { "SchoolTrustName", dataQuery.SchoolTrustName },
-                    { "SchoolTrustReferenceNumber", dataQuery.SchoolTrustReferenceNumber },
+                    { "SchoolTrustName", FormFieldSanitizer.SanitizeFormField(dataQuery.SchoolTrustName) },
+                    { "SchoolTrustReferenceNumber", FormFieldSanitizer.SanitizeFormField(dataQuery.SchoolTrustReferenceNumber) },
                     { "DataQuery", dataQuery.DataQuery }
                 };
 
@@ -121,6 +135,19 @@ namespace SFB.Web.UI.Controllers
                 {
                     await _emailSender.SendDataQueryUserEmailAsync(dataQuery.Email, placeholders);
                     await _emailSender.SendDataQueryDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
+                }
+                catch (HttpRequestValidationException exc)
+                {
+                    var enableAITelemetry = WebConfigurationManager.AppSettings["EnableAITelemetry"];
+
+                    if (enableAITelemetry != null && bool.Parse(enableAITelemetry))
+                    {
+                        var ai = new TelemetryClient();
+                        ai.TrackException(exc);
+                        ai.TrackTrace($"Data query email rejected due to SQL injection attack!");
+                        ai.TrackTrace($"Data query email sending failed for: {dataQuery.Name} - ({dataQuery.Email}) ({dataQuery.SchoolTrustName}) ({dataQuery.SchoolTrustReferenceNumber})");
+                    }
+                    throw exc;
                 }
                 catch (Exception exception)
                 {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.ApplicationInsights;
 using SFB.Web.ApplicationCore.Services;
+using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -43,9 +44,9 @@ namespace SFB.Web.UI.Controllers
 
                     var placeholders = new Dictionary<string, dynamic>{
                         { "EmailReference ", emailReference },
-                        { "Name", SanitizeFormField(contactUs.Name) },
-                        { "Email", SanitizeFormField(contactUs.Email) },
-                        { "SchoolTrustName", SanitizeFormField(contactUs.SchoolTrustName) ?? "N/A" },
+                        { "Name", FormFieldSanitizer.SanitizeFormField(contactUs.Name) },
+                        { "Email", FormFieldSanitizer.SanitizeFormField(contactUs.Email) },
+                        { "SchoolTrustName", FormFieldSanitizer.SanitizeFormField(contactUs.SchoolTrustName) ?? "N/A" },
                         { "Message", contactUs.Message }
                     };
 
@@ -87,15 +88,7 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
-        private string SanitizeFormField(string text)
-        {
-            if (text.Contains("=") || text.Contains(";"))
-            {
-                throw new HttpRequestValidationException("Possible SQL injection attack!");
-            }
 
-            return text;
-        }
         private string GenerateEmailReference(ContactUsViewModel model)
         {
             return $"{model.Name.Substring(0, 3).ToUpper()}{DateTime.UtcNow.Minute}{DateTime.UtcNow.Second}{DateTime.UtcNow.Millisecond}";
