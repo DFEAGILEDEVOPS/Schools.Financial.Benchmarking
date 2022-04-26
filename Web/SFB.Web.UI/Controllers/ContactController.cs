@@ -38,18 +38,32 @@ namespace SFB.Web.UI.Controllers
                 var emailReference = GenerateEmailReference(contactUs);
                 ViewBag.EmailReference = emailReference;
 
-                var placeholders = new Dictionary<string, dynamic>{
-                    { "EmailReference ", emailReference },
-                    { "Name", contactUs.Name },
-                    { "Email", contactUs.Email },
-                    { "SchoolTrustName", contactUs.SchoolTrustName ?? "N/A" },
-                    { "Message", contactUs.Message }
-                };
-
                 try
                 {
+
+                    var placeholders = new Dictionary<string, dynamic>{
+                        { "EmailReference ", emailReference },
+                        { "Name", SanitizeFormField(contactUs.Name) },
+                        { "Email", SanitizeFormField(contactUs.Email) },
+                        { "SchoolTrustName", SanitizeFormField(contactUs.SchoolTrustName) ?? "N/A" },
+                        { "Message", contactUs.Message }
+                    };
+
                     await _emailSender.SendContactUsUserEmailAsync(contactUs.Email, placeholders);
                     await _emailSender.SendContactUsDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
+                }
+                catch(HttpRequestValidationException exc)
+                {
+                    var enableAITelemetry = WebConfigurationManager.AppSettings["EnableAITelemetry"];
+
+                    if (enableAITelemetry != null && bool.Parse(enableAITelemetry))
+                    {
+                        var ai = new TelemetryClient();
+                        ai.TrackException(exc);
+                        ai.TrackTrace($"Contact us email rejected due to SQL injection attack!");
+                        ai.TrackTrace($"Contact us email sending failed for: {contactUs.Name} - ({contactUs.SchoolTrustName}) ({contactUs.Email}) - ref: {emailReference}");
+                    }
+                    throw exc;
                 }
                 catch (Exception exception)
                 {
@@ -73,6 +87,15 @@ namespace SFB.Web.UI.Controllers
             }
         }
 
+        private string SanitizeFormField(string text)
+        {
+            if (text.Contains("=") || text.Contains(";"))
+            {
+                throw new HttpRequestValidationException("Possible SQL injection attack!");
+            }
+
+            return text;
+        }
         private string GenerateEmailReference(ContactUsViewModel model)
         {
             return $"{model.Name.Substring(0, 3).ToUpper()}{DateTime.UtcNow.Minute}{DateTime.UtcNow.Second}{DateTime.UtcNow.Millisecond}";
