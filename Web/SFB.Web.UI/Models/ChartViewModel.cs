@@ -34,7 +34,11 @@ namespace SFB.Web.UI.Models
                     case ChartGroupType.SuppliesAndServices:
                         return ChartGroupNames.SUPPLIES_AND_SERVICES;
                     case ChartGroupType.CostOfFinance:
-                        return ChartGroupNames.COST_OF_FINANCE;
+                        return ChartGroupNames.COST_OF_FINANCE;                    
+                    case ChartGroupType.InterestCharges:
+                        return ChartGroupNames.INTEREST_CHARGES;
+                    case ChartGroupType.DirectRevenueFinancing:
+                        return ChartGroupNames.DIRECT_REVENUE;
                     case ChartGroupType.Community:
                         return ChartGroupNames.COMMUNITY;
                     case ChartGroupType.Other:

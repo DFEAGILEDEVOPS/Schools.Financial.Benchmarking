@@ -66,6 +66,8 @@
         public const string OCCUPATION = "Occupation";
         public const string SUPPLIES_AND_SERVICES = "Supplies and services";
         public const string COST_OF_FINANCE = "Cost of finance";
+        public const string INTEREST_CHARGES = "Interest charges for loans and banking";
+        public const string DIRECT_REVENUE = "Direct revenue financing";
         public const string COMMUNITY = "Community";
         public const string OTHER = "Other";
         public const string SPECIAL_FACILITIES = "Special facilities";

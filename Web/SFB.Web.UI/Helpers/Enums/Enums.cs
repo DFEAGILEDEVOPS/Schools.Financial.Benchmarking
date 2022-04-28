@@ -96,7 +96,9 @@ namespace SFB.Web.UI.Helpers.Enums
         All,
         SP,
         Workforce,
-        Custom
+        Custom,
+        InterestCharges,
+        DirectRevenueFinancing
     }
 
     public enum ChartSubGroupType

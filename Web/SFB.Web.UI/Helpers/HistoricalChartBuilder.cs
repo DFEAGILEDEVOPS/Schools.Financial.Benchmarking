@@ -188,6 +188,18 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.SuppliesAndServices,
                 },
+                
+                new ChartViewModel()
+                {
+                    Id = 51001,
+                    Name = "Interest loans and banking",
+                    FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_LOANS_BANKING,
+                    TabType = TabType.Expenditure,
+                    ChartGroup = ChartGroupType.TotalExpenditure,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"",
+                    ChartType = ChartType.Total
+                },
 
                 new ChartViewModel()
                 {
@@ -1383,6 +1395,19 @@ namespace SFB.Web.UI.Helpers
                     ChartSchoolType = ChartSchoolType.Both,
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.SelfGenerated,
+                    MoreInfo = @""
+                },
+
+                new ChartViewModel()
+                {
+                    Id = 51002,
+                    Name = "Direct revenue financing (capital reserves transfers)",
+                    FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE_FINANCING,
+                    TabType = TabType.Income,
+                    ChartGroup = ChartGroupType.TotalIncome,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.Total,
+                    //DrillInto = ChartGroupType.DirectRevenueFinancing,
                     MoreInfo = @""
                 },
 
