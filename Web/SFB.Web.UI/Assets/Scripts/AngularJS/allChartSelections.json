@@ -653,6 +653,33 @@
       ]
     },
     {
+      "GroupName": "Interest charges for loans and banking",
+      "Charts": [
+        {
+          "Id": 51001,
+          "Name": "Interest charges for loans and banking",
+          "PerPupilAvailable": true,
+          "PerPupilSelected": false,
+          "PerTeacherAvailable": true,
+          "PerTeacherSelected": false,
+          "PercentageIncomeAvailable": true,
+          "PercentageIncomeSelected": false,
+          "PercentageExpenditureAvailable": true,
+          "PercentageExpenditureSelected": false,
+          "AbsoluteMoneyAvailable": true,
+          "AbsoluteMoneySelected": false,
+          "AbsoluteCountAvailable": false,
+          "AbsoluteCountSelected": false,
+          "HeadCountPerFTEAvailable": false,
+          "HeadCountPerFTESelected": false,
+          "PercentageOfWorkforceAvailable": false,
+          "PercentageOfWorkforceSelected": false,
+          "NumberOfPupilsPerMeasureAvailable": false,
+          "NumberOfPupilsPerMeasureSelected": false
+        }
+      ]
+    },
+    {
       "GroupName": "Community",
       "Charts": [
         {
@@ -1047,6 +1074,33 @@
         {
           "Id": 47,
           "Name": "Other self-generated income",
+          "PerPupilAvailable": true,
+          "PerPupilSelected": false,
+          "PerTeacherAvailable": true,
+          "PerTeacherSelected": false,
+          "PercentageIncomeAvailable": true,
+          "PercentageIncomeSelected": false,
+          "PercentageExpenditureAvailable": true,
+          "PercentageExpenditureSelected": false,
+          "AbsoluteMoneyAvailable": true,
+          "AbsoluteMoneySelected": false,
+          "AbsoluteCountAvailable": false,
+          "AbsoluteCountSelected": false,
+          "HeadCountPerFTEAvailable": false,
+          "HeadCountPerFTESelected": false,
+          "PercentageOfWorkforceAvailable": false,
+          "PercentageOfWorkforceSelected": false,
+          "NumberOfPupilsPerMeasureAvailable": false,
+          "NumberOfPupilsPerMeasureSelected": false
+        }
+      ]
+    },
+    {
+      "GroupName": "Direct revenue financing",
+      "Charts": [
+        {
+          "Id": 51002,
+          "Name": "Direct revenue financing (capital reserves transfers)",
           "PerPupilAvailable": true,
           "PerPupilSelected": false,
           "PerTeacherAvailable": true,

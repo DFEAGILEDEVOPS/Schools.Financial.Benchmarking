@@ -192,7 +192,14 @@ namespace SFB.Web.UI.Helpers
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     DrillInto = ChartGroupType.InterestCharges,
-                    MoreInfo = @"",
+                    MoreInfo = @"<p>This includes:</p>
+                        <ul>
+                        <li>interest paid on overdrafts and other liabilities</li>
+                        </ul>
+                        <p>It excludes: </p>
+                        <ul>
+                        <li>interest received</li>
+                        </ul>",
                     ChartType = ChartType.Total,
                 },
 
@@ -1356,9 +1363,18 @@ namespace SFB.Web.UI.Helpers
                     TabType = TabType.Income,
                     ChartGroup = ChartGroupType.TotalIncome,
                     ChartSchoolType = ChartSchoolType.Both,
-                    //DrillInto = ChartGroupType.DirectRevenueFinancing,
+                    DrillInto = ChartGroupType.DirectRevenueFinancing,
                     ChartType = ChartType.Total,
-                    MoreInfo = @""
+                    MoreInfo = @"<p>This includes:</p>
+                        <ul>
+                        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11</li>
+                        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
+                        <li>any repayment of principal on a capital loan from the local authority</li>
+                        </ul>
+                        <p>It excludes: </p>
+                        <ul>
+                        <li>funds specifically provided for capital purposes</li>
+                        </ul>"
                 },
 
                 //In-Year Balance
@@ -1890,6 +1906,27 @@ namespace SFB.Web.UI.Helpers
                                 </ul>
                                 ",
                     Downloadable = true
+                },
+
+                //Direct revenue financing 
+                new ChartViewModel()
+                {
+                    Id = 51002,
+                    Name = "Direct revenue financing (capital reserves transfers)",
+                    FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE_FINANCING,
+                    TabType = TabType.Income,
+                    ChartGroup = ChartGroupType.DirectRevenueFinancing,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This includes:</p>
+                        <ul>
+                        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11</li>
+                        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
+                        <li>any repayment of principal on a capital loan from the local authority</li>
+                        </ul>
+                        <p>It excludes: </p>
+                        <ul>
+                        <li>funds specifically provided for capital purposes</li>
+                        </ul>"
                 },
 
                 //Workforce
