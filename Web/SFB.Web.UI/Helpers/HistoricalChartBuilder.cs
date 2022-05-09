@@ -192,7 +192,7 @@ namespace SFB.Web.UI.Helpers
                 new ChartViewModel()
                 {
                     Id = 51001,
-                    Name = "Interest loans and banking",
+                    Name = "Interest charges for loans and banking",
                     FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_LOANS_BANKING,
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
