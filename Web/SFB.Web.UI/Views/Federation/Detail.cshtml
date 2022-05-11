@@ -102,20 +102,20 @@
                 @if (Model.HasLatestYearFinancialData)
                 {
                     <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-                        <a class="govuk-tabs__tab" href="#dashboard">
+                        <a class="govuk-tabs__tab sfb_gtm_panel_tab_dashboard" href="#dashboard">
                             Dashboard @ViewHelpers.FormatFinancialYear(Model.LatestTerm, Model.EstablishmentType)
                         </a>
                     </li>
                 }
                 <li class="govuk-tabs__list-item" id="detailsTab">
-                    <a class="govuk-tabs__tab" href="#details">
+                    <a class="govuk-tabs__tab sfb_gtm_panel_tab_details" href="#details">
                         Details
                     </a>
                 </li>
                 @if (Model.HasSomeHistoricalFinancialData)
                 {
                     <li class="govuk-tabs__list-item">
-                        <a class="govuk-tabs__tab" href="#finance">
+                        <a class="govuk-tabs__tab sfb_gtm_panel_tab_finance" href="#finance">
                             Finance
                         </a>
                     </li>
@@ -123,7 +123,7 @@
                 @if (Model.HasSomeHistoricalWorkforceData)
                 {
                     <li class="govuk-tabs__list-item">
-                        <a class="govuk-tabs__tab" href="#workforce">
+                        <a class="govuk-tabs__tab sfb_gtm_panel_tab_workforce" href="#workforce">
                             Workforce
                         </a>
                     </li>

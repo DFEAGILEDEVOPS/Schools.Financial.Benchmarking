@@ -1495,7 +1495,8 @@ div.custom.tabs ul li {
 .sad-rating-table {
     width: 100%;
     border-spacing: inherit;
-    &--mobile{
+
+    &--mobile {
         border-spacing: 0 10px;
     }
 
@@ -1507,6 +1508,16 @@ div.custom.tabs ul li {
             &.call-out-box {
                 padding: 10px 5px;
                 margin-bottom: 15px;
+                margin-left: auto;
+                margin-right: auto;
+
+                @include govuk-media-query($from: tablet) {
+                    max-width: 93px;
+                }
+
+                @include govuk-media-query($from: desktop) {
+                    max-width: 140px;
+                }
             }
         }
 
@@ -1525,12 +1536,13 @@ div.custom.tabs ul li {
 
     .sad-rating-table__rating-box {
         height: 10px;
-        &--strip{
+
+        &--strip {
             height: 18px;
             margin-top: 20px;
         }
 
-        &--mobile{
+        &--mobile {
             width: 65%;
             padding: 0;
         }
@@ -1558,7 +1570,8 @@ div.custom.tabs ul li {
 
     .sad-rating-table__rating-text {
         text-align: center;
-        &--mobile{
+
+        &--mobile {
             text-align: left;
             vertical-align: bottom;
             padding-left: 10px;

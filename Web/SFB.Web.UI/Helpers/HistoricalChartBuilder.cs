@@ -188,6 +188,25 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.SuppliesAndServices,
                 },
+                
+                new ChartViewModel()
+                {
+                    Id = 51001,
+                    Name = "Interest charges for loans and banking",
+                    FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_LOANS_BANKING,
+                    TabType = TabType.Expenditure, 
+                    ChartGroup = ChartGroupType.TotalExpenditure,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This includes:</p>
+                        <ul>
+                        <li>interest paid on overdrafts and other liabilities</li>
+                        </ul>
+                        <p>It excludes: </p>
+                        <ul>
+                        <li>interest received</li>
+                        </ul>",
+                    ChartType = ChartType.Total
+                },
 
                 new ChartViewModel()
                 {
@@ -1384,6 +1403,27 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                     DrillInto = ChartGroupType.SelfGenerated,
                     MoreInfo = @""
+                },
+
+                new ChartViewModel()
+                {
+                    Id = 51002,
+                    Name = "Direct revenue financing (capital reserves transfers)",
+                    FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE_FINANCING,
+                    TabType = TabType.Income,
+                    ChartGroup = ChartGroupType.TotalIncome,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    ChartType = ChartType.Total,
+                    MoreInfo = @"<p>This includes:</p>
+                        <ul>
+                        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11</li>
+                        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
+                        <li>any repayment of principal on a capital loan from the local authority</li>
+                        </ul>
+                        <p>It excludes: </p>
+                        <ul>
+                        <li>funds specifically provided for capital purposes</li>
+                        </ul>"
                 },
 
                 //In-Year Balance

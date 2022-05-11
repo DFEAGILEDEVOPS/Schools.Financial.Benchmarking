@@ -150,6 +150,8 @@ class FederationViewModel {
         let financingParameter = $("#Financing:visible").val() ?? null;
         let formatParameter = sessionStorage.chartFormat;
 
+        dataLayer.push({ 'event': 'rebuild_financial_charts', 'chartGroup': chartGroupParameter, 'unit': unitParameter, 'financing': financingParameter });
+
         let url = "/federation" +
             "/getcharts?urn=" +
             urnParameter +

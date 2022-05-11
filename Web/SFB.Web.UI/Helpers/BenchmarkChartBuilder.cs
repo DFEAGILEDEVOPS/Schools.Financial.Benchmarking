@@ -170,17 +170,37 @@ namespace SFB.Web.UI.Helpers
                     ChartType = ChartType.Total,
                 },
 
+                //new ChartViewModel()
+                //{
+                //    Id = 27,
+                //    Name = "Cost of finance total",
+                //    FieldName = SchoolTrustFinanceDataFieldNames.COST_OF_FINANCE,
+                //    TabType = TabType.Expenditure,
+                //    ChartGroup = ChartGroupType.TotalExpenditure,
+                //    ChartSchoolType = ChartSchoolType.Both,
+                //    DrillInto = ChartGroupType.CostOfFinance,
+                //    MoreInfo = @"",
+                //    ChartType = ChartType.Total
+                //},
+
                 new ChartViewModel()
                 {
-                    Id = 27,
-                    Name = "Cost of finance total",
-                    FieldName = SchoolTrustFinanceDataFieldNames.COST_OF_FINANCE,
+                    Id = 51001,
+                    Name = "Interest charges for loans and banking",
+                    FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_LOANS_BANKING,
                     TabType = TabType.Expenditure,
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
-                    DrillInto = ChartGroupType.CostOfFinance,
-                    MoreInfo = @"",
-                    ChartType = ChartType.Total
+                    DrillInto = ChartGroupType.InterestCharges,
+                    MoreInfo = @"<p>This includes:</p>
+                        <ul>
+                        <li>interest paid on overdrafts and other liabilities</li>
+                        </ul>
+                        <p>It excludes: </p>
+                        <ul>
+                        <li>interest received</li>
+                        </ul>",
+                    ChartType = ChartType.Total,
                 },
 
                 new ChartViewModel()
@@ -1170,59 +1190,72 @@ namespace SFB.Web.UI.Helpers
                 },
 
                 //Cost of Finance
+                //new ChartViewModel()
+                //{
+                //    Id = 27,
+                //    Name = "Cost of finance total",
+                //    FieldName = SchoolTrustFinanceDataFieldNames.COST_OF_FINANCE,
+                //    TabType = TabType.Expenditure,
+                //    ChartGroup = ChartGroupType.CostOfFinance,
+                //    ChartSchoolType = ChartSchoolType.Both,
+                //    MoreInfo = @"",
+                //    ChartType = ChartType.Total,
+                //},
+                //new ChartViewModel
+                //{
+                //    Id = 28,
+                //    Name = "Loan interest",
+                //    FieldName = "Interest charges for Loan and Bank",
+                //    TabType = TabType.Expenditure,
+                //    ChartGroup = ChartGroupType.CostOfFinance,
+                //    ChartSchoolType = ChartSchoolType.Both,
+                //    Downloadable = true,
+                //    MoreInfo = @"<p>This includes:</p>
+
+                //                <ul>
+                //                <li>interest paid on overdrafts and other liabilities</li>
+                //                </ul>
+
+                //                <p>It excludes:</p>
+                //                <ul>
+                //                <li>interest received</li>
+                //                </ul>"
+                //},
+                //new ChartViewModel
+                //{
+                //    Id = 29,
+                //    Name = "Direct revenue financing (revenue contributions to capital)",
+                //    FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE,
+                //    TabType = TabType.Expenditure,
+                //    ChartGroup = ChartGroupType.CostOfFinance,
+                //    ChartSchoolType = ChartSchoolType.Both,
+                //    Downloadable = true,
+                //    MoreInfo = @"<p>This includes:</p>
+
+                //        <ul>
+                //        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11 </li>
+                //        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
+                //        <li>any repayment of principal on a capital loan from the local authority</li>
+                //        </ul>
+
+                //        <p>It excludes: </p>
+
+                //        <ul>
+                //        <li>funds specifically provided for capital purposes</li>
+                //        </ul>"
+                //},
+
+                //Interest charges for loans and banking
                 new ChartViewModel()
                 {
-                    Id = 27,
-                    Name = "Cost of finance total",
-                    FieldName = SchoolTrustFinanceDataFieldNames.COST_OF_FINANCE,
+                    Id = 51001,
+                    Name = "Interest charges for loans and banking",
+                    FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_LOANS_BANKING,
                     TabType = TabType.Expenditure,
-                    ChartGroup = ChartGroupType.CostOfFinance,
+                    ChartGroup = ChartGroupType.InterestCharges,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"",
                     ChartType = ChartType.Total,
-                },
-                new ChartViewModel
-                {
-                    Id = 28,
-                    Name = "Loan interest",
-                    FieldName = "Interest charges for Loan and Bank",
-                    TabType = TabType.Expenditure,
-                    ChartGroup = ChartGroupType.CostOfFinance,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    Downloadable = true,
-                    MoreInfo = @"<p>This includes:</p>
-
-                                <ul>
-                                <li>interest paid on overdrafts and other liabilities</li>
-                                </ul>
-
-                                <p>It excludes:</p>
-                                <ul>
-                                <li>interest received</li>
-                                </ul>"
-                },
-                new ChartViewModel
-                {
-                    Id = 29,
-                    Name = "Direct revenue financing (revenue contributions to capital)",
-                    FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE,
-                    TabType = TabType.Expenditure,
-                    ChartGroup = ChartGroupType.CostOfFinance,
-                    ChartSchoolType = ChartSchoolType.Both,
-                    Downloadable = true,
-                    MoreInfo = @"<p>This includes:</p>
-
-                        <ul>
-                        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11 </li>
-                        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
-                        <li>any repayment of principal on a capital loan from the local authority</li>
-                        </ul>
-
-                        <p>It excludes: </p>
-
-                        <ul>
-                        <li>funds specifically provided for capital purposes</li>
-                        </ul>"
                 },
 
                 //Community
@@ -1320,6 +1353,28 @@ namespace SFB.Web.UI.Helpers
                     DrillInto = ChartGroupType.SelfGenerated,
                     ChartType = ChartType.Total,
                     MoreInfo = @""
+                },
+
+                new ChartViewModel()
+                {
+                    Id = 51002,
+                    Name = "Direct revenue financing (capital reserves transfers)",
+                    FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE_FINANCING,
+                    TabType = TabType.Income,
+                    ChartGroup = ChartGroupType.TotalIncome,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    DrillInto = ChartGroupType.DirectRevenueFinancing,
+                    ChartType = ChartType.Total,
+                    MoreInfo = @"<p>This includes:</p>
+                        <ul>
+                        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11</li>
+                        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
+                        <li>any repayment of principal on a capital loan from the local authority</li>
+                        </ul>
+                        <p>It excludes: </p>
+                        <ul>
+                        <li>funds specifically provided for capital purposes</li>
+                        </ul>"
                 },
 
                 //In-Year Balance
@@ -1851,6 +1906,27 @@ namespace SFB.Web.UI.Helpers
                                 </ul>
                                 ",
                     Downloadable = true
+                },
+
+                //Direct revenue financing 
+                new ChartViewModel()
+                {
+                    Id = 51002,
+                    Name = "Direct revenue financing (capital reserves transfers)",
+                    FieldName = SchoolTrustFinanceDataFieldNames.DIRECT_REVENUE_FINANCING,
+                    TabType = TabType.Income,
+                    ChartGroup = ChartGroupType.DirectRevenueFinancing,
+                    ChartSchoolType = ChartSchoolType.Both,
+                    MoreInfo = @"<p>This includes:</p>
+                        <ul>
+                        <li>all amounts transferred to CI04 to be accumulated to fund capital works. This may include receipts from insurance claims for capital losses received into income under I11</li>
+                        <li>any amount transferred to a local authority reserve to part fund a capital scheme which is being delivered by the local authority</li>
+                        <li>any repayment of principal on a capital loan from the local authority</li>
+                        </ul>
+                        <p>It excludes: </p>
+                        <ul>
+                        <li>funds specifically provided for capital purposes</li>
+                        </ul>"
                 },
 
                 //Workforce

@@ -1,5 +1,6 @@
 ﻿using Microsoft.ApplicationInsights;
 using SFB.Web.ApplicationCore.Services;
+using SFB.Web.UI.Helpers;
 using SFB.Web.UI.Models;
 using System;
 using System.Collections.Generic;
@@ -38,18 +39,32 @@ namespace SFB.Web.UI.Controllers
                 var emailReference = GenerateEmailReference(contactUs);
                 ViewBag.EmailReference = emailReference;
 
-                var placeholders = new Dictionary<string, dynamic>{
-                    { "EmailReference ", emailReference },
-                    { "Name", contactUs.Name },
-                    { "Email", contactUs.Email },
-                    { "SchoolTrustName", contactUs.SchoolTrustName ?? "N/A" },
-                    { "Message", contactUs.Message }
-                };
-
                 try
                 {
+
+                    var placeholders = new Dictionary<string, dynamic>{
+                        { "EmailReference ", emailReference },
+                        { "Name", FormFieldSanitizer.SanitizeFormField(contactUs.Name) },
+                        { "Email", FormFieldSanitizer.SanitizeFormField(contactUs.Email) },
+                        { "SchoolTrustName", FormFieldSanitizer.SanitizeFormField(contactUs.SchoolTrustName) ?? "N/A" },
+                        { "Message", contactUs.Message }
+                    };
+
                     await _emailSender.SendContactUsUserEmailAsync(contactUs.Email, placeholders);
                     await _emailSender.SendContactUsDfEEmailAsync(ConfigurationManager.AppSettings["SRMEmailAddress"], placeholders);
+                }
+                catch(HttpRequestValidationException exc)
+                {
+                    var enableAITelemetry = WebConfigurationManager.AppSettings["EnableAITelemetry"];
+
+                    if (enableAITelemetry != null && bool.Parse(enableAITelemetry))
+                    {
+                        var ai = new TelemetryClient();
+                        ai.TrackException(exc);
+                        ai.TrackTrace($"Contact us email rejected due to SQL injection attack!");
+                        ai.TrackTrace($"Contact us email sending failed for: {contactUs.Name} - ({contactUs.SchoolTrustName}) ({contactUs.Email}) - ref: {emailReference}");
+                    }
+                    throw exc;
                 }
                 catch (Exception exception)
                 {
@@ -72,6 +87,7 @@ namespace SFB.Web.UI.Controllers
                 return View("index", contactUs);
             }
         }
+
 
         private string GenerateEmailReference(ContactUsViewModel model)
         {

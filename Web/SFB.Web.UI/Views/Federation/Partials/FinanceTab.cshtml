@@ -6,17 +6,17 @@
 <nav class="app-navigation govuk-clearfix">
     <ul class="app-navigation__list app-width-container">
         <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Expenditure ? "app-navigation__list-item--current" : "")" id="ExpenditureTab">
-            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link sfb_gtm_panel_tab_finance_exp"
                onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Expenditure')"
                href="#appTabPanel">@TabNames.EXPENDITURE</a>
         </li>
         <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Income ? "app-navigation__list-item--current" : "")" id="IncomeTab">
-            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link sfb_gtm_panel_tab_finance_inc"
                onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Income')"
                href="#appTabPanel">@TabNames.INCOME</a>
         </li>
         <li class="app-navigation__list-item hide-in-print @Html.Raw(ViewBag.Tab == TabType.Balance ? "app-navigation__list-item--current" : "")" id="BalanceTab">
-            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link"
+            <a class="govuk-link govuk-link--no-visited-state govuk-link--no-underline app-navigation__link sfb_gtm_panel_tab_finance_bal"
                onclick="DfE.Views.FederationDetailsViewModel.tabChange(@Model.Id,'@TabType.Balance')"
                href="#appTabPanel">@TabNames.BALANCE</a>
         </li>

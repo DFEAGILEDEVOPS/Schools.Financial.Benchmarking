@@ -770,11 +770,29 @@ namespace SFB.Web.UI.Controllers
         [HttpGet]
         public async Task<JsonResult> GetSchoolListFromSimpleCriteria(long id)
         {
-            var simpleCriteria = new SimpleCriteria() { IncludeEal = true, IncludeFsm = true, IncludeSen = true };
             var benchmarkSchool = await InstantiateBenchmarkSchoolOrFedAsync(id);
-            var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
-            var comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.DEFAULT, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
-            
+
+            ComparisonResult comparisonResult;
+            if (benchmarkSchool is SchoolViewModel && (benchmarkSchool as SchoolViewModel).OverallPhase == "Special")
+            {
+                var specialCriteria = new SpecialCriteria();
+                specialCriteria.TopSenCriteria = new List<SenCriterion>();
+                for (int i = 0; i < (benchmarkSchool as SchoolViewModel).TopSenCharacteristics.Count; i++)
+                {
+                    var senCriterion = new SenCriterion(i, (benchmarkSchool as SchoolViewModel).TopSenCharacteristics[i].Definition, (benchmarkSchool as SchoolViewModel).TopSenCharacteristics[i].DataName, (benchmarkSchool as SchoolViewModel).TopSenCharacteristics[i].Value);
+                    specialCriteria.TopSenCriteria.Add(senCriterion);
+                }
+
+                var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSpecialComparisonCriteria(benchmarkSchool.LatestYearFinancialData, specialCriteria);
+
+                comparisonResult = await _comparisonService.GenerateBenchmarkListWithSpecialComparisonAsync(benchmarkCriteria, specialCriteria, benchmarkSchool.LatestYearFinancialData);
+            }
+            else
+            {
+                var simpleCriteria = new SimpleCriteria() { IncludeEal = true, IncludeFsm = true, IncludeSen = true };
+                var benchmarkCriteria = _benchmarkCriteriaBuilderService.BuildFromSimpleComparisonCriteria(benchmarkSchool.LatestYearFinancialData, simpleCriteria);
+                comparisonResult = await _comparisonService.GenerateBenchmarkListWithSimpleComparisonAsync(benchmarkCriteria, benchmarkSchool.EstablishmentType, ComparisonListLimit.DEFAULT, simpleCriteria, benchmarkSchool.LatestYearFinancialData, false);
+            }
             //For cases where school names are the same
             foreach (var school in comparisonResult.BenchmarkSchools.Where(s1 => comparisonResult.BenchmarkSchools.Any(s2 => s2.SchoolName == s1.SchoolName && s2.URN != s1.URN)))
             {
@@ -788,7 +806,6 @@ namespace SFB.Web.UI.Controllers
                 criteria = comparisonResult.BenchmarkCriteria
             }
             , JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpPost]
@@ -809,6 +826,7 @@ namespace SFB.Web.UI.Controllers
             ViewBag.Financing = CentralFinancingType.Include;
             ViewBag.ChartGroup = chartGroup;
             ViewBag.ComparisonType = ComparisonType.Basic;
+            ViewBag.EstablishmentType = Enum.Parse(typeof(EstablishmentType), schools.First()?.FinanceType);
 
             if (format == ChartFormat.Charts)
             {
