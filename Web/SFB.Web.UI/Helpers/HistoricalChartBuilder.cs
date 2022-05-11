@@ -194,7 +194,7 @@ namespace SFB.Web.UI.Helpers
                     Id = 51001,
                     Name = "Interest charges for loans and banking",
                     FieldName = SchoolTrustFinanceDataFieldNames.INTEREST_LOANS_BANKING,
-                    TabType = TabType.Expenditure,
+                    TabType = TabType.Expenditure, 
                     ChartGroup = ChartGroupType.TotalExpenditure,
                     ChartSchoolType = ChartSchoolType.Both,
                     MoreInfo = @"<p>This includes:</p>
