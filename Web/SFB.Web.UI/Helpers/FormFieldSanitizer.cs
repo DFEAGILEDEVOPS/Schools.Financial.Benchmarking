@@ -6,7 +6,7 @@ namespace SFB.Web.UI.Helpers
     {
         public static string SanitizeFormField(string text)
         {
-            if (text.Contains("=") || text.Contains(";"))
+            if ((text != null) &&  (text.Contains("=") || text.Contains(";")))
             {
                 throw new HttpRequestValidationException("Possible SQL injection attack!");
             }
