@@ -1,6 +1,6 @@
 @using SFB.Web.ApplicationCore.Helpers.Enums;
 
-@model SFB.Web.UI.Models.EstablishmentViewModelBase
+@model SFB.Web.UI.Models.SchoolViewModel
 
 @if (Model.EstablishmentType == EstablishmentType.Academies)
 {
@@ -10,7 +10,8 @@
 <div id="TotalFiguresPanel" class="dashboard-panel">
     @Html.Partial("Partials/TotalFiguresPanel", Model)
 </div>
-
+@if (!Model.IsPartOfFederation)
+    {
 <div ng-app="sfbApp">
     <div id="SadPanel" class="dashboard-panel govuk-!-margin-top-3">
         <div id="sadCtrl" ng-controller="SadPanelController as ctrl">
@@ -24,6 +25,7 @@
         </div>
     </div>
 </div>
+}
 
 <div class="govuk-!-margin-top-5">
     <h2 class="govuk-heading-l govuk-!-margin-bottom-2">Next Steps</h2>
