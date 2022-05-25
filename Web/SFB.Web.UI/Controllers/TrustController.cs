@@ -30,28 +30,28 @@ namespace SFB.Web.UI.Controllers
         private readonly ITrustHistoryService _trustHistoryService;
         private readonly IDownloadCSVBuilder _csvBuilder;
         private readonly ISchoolBenchmarkListService _benchmarkBasketService;
+        private readonly IGiasLookupService _giasLookupService;
+        private readonly ICscpLookupService _cscpLookupService;
 
         public TrustController(IHistoricalChartBuilder historicalChartBuilder, IFinancialDataService financialDataService, 
-            IFinancialCalculationsService fcService, IContextDataService contexDataService, IDownloadCSVBuilder csvBuilder,
-            ISchoolBenchmarkListService benchmarkBasketService, ITrustHistoryService trustHistoryService)
+            IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder,
+            ISchoolBenchmarkListService benchmarkBasketService, ITrustHistoryService trustHistoryService,
+            IGiasLookupService giasLookupService,
+            ICscpLookupService cscpLookupService)
         {
             _historicalChartBuilder = historicalChartBuilder;
             _financialDataService = financialDataService;
-            _contexDataService = contexDataService;
+            _contexDataService = contextDataService;
             _fcService = fcService;
             _csvBuilder = csvBuilder;
             _benchmarkBasketService = benchmarkBasketService;
             _trustHistoryService = trustHistoryService;
+            _giasLookupService = giasLookupService;
+            _cscpLookupService = cscpLookupService;
         }
 
         public async Task<ActionResult> Index(int? companyNo, int? uid = null, UnitType unit = UnitType.AbsoluteMoney, TabType tab = TabType.Expenditure, MatFinancingType financing = MatFinancingType.TrustAndAcademies, ChartFormat format = ChartFormat.Charts)
         {
-            //TODO: Uncomment for production
-            //if (FeatureManager.IsEnabled(Features.RevisedSchoolPage))
-            //{
-            //    return Redirect($"/trust/detail?companyNo={companyNo}&uid={uid}");
-            //}
-
             if (companyNo == null && uid.HasValue)
             {
                 var trustFinance = await _financialDataService.GetTrustFinancialDataObjectByUidAsync(uid.GetValueOrDefault(), await LatestMATTermAsync());
@@ -157,6 +157,12 @@ namespace SFB.Web.UI.Controllers
             }
 
             var trustVM = await BuildFullTrustVMAsync(companyNo.GetValueOrDefault(), tab, chartGroup, financing);
+            var hasGiasUrl = await _giasLookupService.GiasHasPage(trustVM.UID.GetValueOrDefault(), true);
+            var hasCscpUrl = await _cscpLookupService.CscpHasPage(trustVM.UID.GetValueOrDefault(), true);
+           
+
+            trustVM.HasCscpUrl = hasCscpUrl;
+            trustVM.HasGiasUrl = hasGiasUrl;
 
             if (!trustVM.HasLatestYearFinancialData)
             {
@@ -242,7 +248,7 @@ namespace SFB.Web.UI.Controllers
         private async Task<TrustViewModel> BuildFullTrustVMAsync(int companyNo, TabType tab, ChartGroupType chartGroup, MatFinancingType matFinancing)
         {
             var trustVM = await BuildFinancialTrustVMAsync(companyNo, tab, chartGroup, matFinancing);
-
+            
             trustVM.AcademiesInContextList = (await _contexDataService.GetAcademiesByUidAsync(trustVM.UID.GetValueOrDefault())).OrderBy(a => a.EstablishmentName).ToList();
 
             if (trustVM.UID != null)

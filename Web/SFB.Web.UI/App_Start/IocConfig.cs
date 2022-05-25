@@ -1,4 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Web.Mvc;
 using Autofac;
@@ -22,6 +25,7 @@ using System.Web.Hosting;
 namespace SFB.Web.UI
 {
     public static class IocConfig
+    
     {
         public static void Register() 
         {
@@ -92,6 +96,33 @@ namespace SFB.Web.UI
             builder.RegisterInstance(new AzureSchoolSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndex"])).As<ISchoolSearchService>();            
             builder.RegisterInstance(new AzureTrustSearchService(ConfigurationManager.AppSettings["SearchInstance"], ConfigurationManager.AppSettings["SearchKey"], ConfigurationManager.AppSettings["SearchIndexTrust"])).As<ITrustSearchService>();
             builder.RegisterInstance(new NetCoreLogManager(ConfigurationManager.AppSettings["EnableAITelemetry"])).As<ILogManager>();
+
+            builder.RegisterInstance(CreateCscpClient()).SingleInstance().Named<HttpClient>("CscpClient");
+            builder.Register(c => new CscpLookupService(c.ResolveNamed<HttpClient>("CscpClient"))).As<ICscpLookupService>();
+            builder.RegisterInstance(CreateGiasClient()).SingleInstance().Named<HttpClient>("GiasClient");
+            builder.Register(c => new GiasLookupService(c.ResolveNamed<HttpClient>("GiasClient"))).As<IGiasLookupService>();
+        }
+        
+        public static HttpClient CreateCscpClient()
+        {
+            var client = new HttpClient(new HttpClientHandler { UseCookies = false })
+            {
+                BaseAddress = new Uri(ConfigurationManager.AppSettings["SptApiUrl"]),
+                Timeout = TimeSpan.FromSeconds(10),
+            };
+              
+            return client;
+        }
+        
+        public static HttpClient CreateGiasClient()
+        {
+            var client = new HttpClient(new HttpClientHandler { UseCookies = false })
+            {
+                BaseAddress = new Uri(ConfigurationManager.AppSettings["GiasApiUrl"]),
+                Timeout = TimeSpan.FromSeconds(10),
+            };
+            
+            return client;
         }
     }
 }

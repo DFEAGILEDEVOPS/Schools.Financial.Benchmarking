@@ -168,14 +168,23 @@
         </dd>
     </dl>
     <hr class="govuk-section-break govuk-section-break--visible" style="clear: left">
-    <dl class="metadata-school-detail__dl">
-        <dt class="metadata-school-detail__dt govuk-body">Data from other services:</dt>
-        <dd class="metadata-school-detail__dd govuk-body">
-            <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
-            <br />
-            <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
-        </dd>
-    </dl>
+    @if (Model.HasCscpUrl || Model.HasGiasUrl)
+    {
+        <dl class="metadata-school-detail__dl">
+            <dt class="metadata-school-detail__dt govuk-body">Data from other services:</dt>
+            <dd class="metadata-school-detail__dd govuk-body">
+                @if (Model.HasCscpUrl)
+                {
+                    <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Find and compare schools in England link will open in a new page" href="https://www.compare-school-performance.service.gov.uk/multi-academy-trust/@(Model.UID)">Find and compare schools in England</a>
+                    <br/>
+                }
+                @if (Model.HasGiasUrl)
+                {
+                    <a class="govuk-link trust-ext-link" rel="external noopener noreferrer" target="_blank" title="Get information link will open in a new page" href="https://get-information-schools.service.gov.uk/Groups/Group/Details/@(Model.UID)">Get information about schools</a>
+                }
+            </dd>
+        </dl>
+    }
 </div>
 
 <details class="govuk-details" style="clear: left" data-module="govuk-details" id="mapDetails" open>
