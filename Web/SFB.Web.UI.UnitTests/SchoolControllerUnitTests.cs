@@ -76,9 +76,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockActiveUrnsService = new Mock<IActiveEstablishmentsService>();
 
-            var mockCscpLookupService = new Mock<CscpLookupService>();
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
 
-            var mockGiasLookupService = new Mock<GiasLookupService>();
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
 
             var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
             var fakeSVM = new SchoolViewModel(fakeEdubaseObject);
@@ -129,9 +129,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockActiveUrnsService = new Mock<IActiveEstablishmentsService>();
             
-            var mockCscpLookupService = new Mock<CscpLookupService>();
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
 
-            var mockGiasLookupService = new Mock<GiasLookupService>();
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
             
             var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
             var fakeSVM = new SchoolViewModel(fakeEdubaseObject);
@@ -193,9 +193,9 @@ namespace SFB.Web.UI.UnitTests
 
             var mockSchoolVMBuilder = new Mock<ISchoolVMBuilder>();
 
-            var mockCscpLookupService = new Mock<CscpLookupService>();
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
 
-            var mockGiasLookupService = new Mock<GiasLookupService>();
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
 
             var controller = new SchoolController(mockFinancialDataService.Object, financialCalculationsService.Object, 
                 mockEdubaseDataService.Object, mockDownloadCsvBuilder.Object, mockCookieManager.Object, mockActiveUrnsService.Object,

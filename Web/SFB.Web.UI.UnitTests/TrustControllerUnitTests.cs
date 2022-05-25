@@ -70,9 +70,9 @@ namespace SFB.Web.UI.UnitTests
                 .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
-            var mockCscpLookupService = new Mock<CscpLookupService>();
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
 
-            var mockGiasLookupService = new Mock<GiasLookupService>();
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
 
             var controller = new TrustController(mockHistoricalChartBuilder.Object, 
                 mockFinancialDataService.Object,
@@ -134,9 +134,9 @@ namespace SFB.Web.UI.UnitTests
                 .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
-            var mockCscpLookupService = new Mock<CscpLookupService>();
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
 
-            var mockGiasLookupService = new Mock<GiasLookupService>();
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
 
 
             var controller = new TrustController(mockHistoricalChartBuilder.Object,
@@ -203,9 +203,9 @@ namespace SFB.Web.UI.UnitTests
                 .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
-            var mockCscpLookupService = new Mock<CscpLookupService>();
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
 
-            var mockGiasLookupService = new Mock<GiasLookupService>();
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
 
             var controller = new TrustController(mockHistoricalChartBuilder.Object,
                 mockFinancialDataService.Object,
