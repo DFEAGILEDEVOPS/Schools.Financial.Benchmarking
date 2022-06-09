@@ -766,6 +766,11 @@
         color: #fff;
     }
 
+    &.unknown {
+        background-color: govuk-colour("white");
+        border: 2px solid govuk-colour("black");
+    }
+
     &.na {
         background-color: govuk-colour("light-grey", $legacy: "grey-3");
         min-height: 34px;
