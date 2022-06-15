@@ -30,16 +30,7 @@
                 });
         }
 
-        var sptUrl = `https://www.compare-school-performance.service.gov.uk/estab-details/${modelId}`;
-        $.ajax({
-            type: 'HEAD',
-            url: sptUrl,
-            success: function () { $(".spt_link_js").show(); },
-            error: function (xhr, e) {
-                $(".spt_link_js").hide();
-            }
-        });
-
+       
         sessionStorage.chartFormat = chartFormat;
 
         DfE.Views.HistoricalCharts.generateFinanceCharts();

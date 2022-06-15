@@ -28,11 +28,15 @@ namespace SFB.Web.UI.Controllers
         private readonly ISchoolBenchmarkListService _benchmarkBasketService;
         private readonly IActiveEstablishmentsService _activeEstabService;
         private readonly ISchoolVMBuilder _schoolVMBuilder;
+        private IGiasLookupService _giasLookupService;
+        private ICscpLookupService _cscpLookupService;
 
         public SchoolController(IFinancialDataService financialDataService, 
             IFinancialCalculationsService fcService, IContextDataService contextDataService, IDownloadCSVBuilder csvBuilder, 
             ISchoolBenchmarkListService benchmarkBasketService,
-            IActiveEstablishmentsService activeEstabService, ISchoolVMBuilder schoolVMBuilder)
+            IActiveEstablishmentsService activeEstabService, ISchoolVMBuilder schoolVMBuilder,
+            IGiasLookupService giasLookupService,
+            ICscpLookupService cscpLookupService)
         {
             _financialDataService = financialDataService;
             _fcService = fcService;
@@ -41,6 +45,8 @@ namespace SFB.Web.UI.Controllers
             _benchmarkBasketService = benchmarkBasketService;
             _activeEstabService = activeEstabService;
             _schoolVMBuilder = schoolVMBuilder;
+            _giasLookupService = giasLookupService;
+            _cscpLookupService = cscpLookupService;
         }
 
         public async Task<ActionResult> Index(long urn,
@@ -63,6 +69,12 @@ namespace SFB.Web.UI.Controllers
             _schoolVMBuilder.SetChartGroups(tab);
             _schoolVMBuilder.AssignLaName();
             var schoolVM = _schoolVMBuilder.GetResult();
+
+            var hasCscpUrl = await _cscpLookupService.CscpHasPage((int)urn, false);
+            var hasGiasUrl = await _giasLookupService.GiasHasPage((int)urn, false);
+            
+            schoolVM.HasCscpUrl = hasCscpUrl;
+            schoolVM.HasGiasUrl = hasGiasUrl;
 
             if (schoolVM.IsFederation)
             {

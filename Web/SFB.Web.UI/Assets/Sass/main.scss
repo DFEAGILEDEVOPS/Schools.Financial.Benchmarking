@@ -471,6 +471,11 @@ ul.list {
     background-color: #6f777b
 }
 
+.rating-unknown {
+    background-color: govuk-colour("white");
+    border: 2px solid govuk-colour("black");
+}
+
 .rating-date {
     font-size: x-small;
     color: gray

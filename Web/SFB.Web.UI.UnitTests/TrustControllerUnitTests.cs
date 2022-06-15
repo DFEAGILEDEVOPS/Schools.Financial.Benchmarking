@@ -70,13 +70,19 @@ namespace SFB.Web.UI.UnitTests
                 .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
+
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
+
             var controller = new TrustController(mockHistoricalChartBuilder.Object, 
                 mockFinancialDataService.Object,
                 mockFCService.Object,
                 mockEdubaseDataService.Object, 
                 null,
                 mockCookieManager.Object,
-                mockTrustHistoryService.Object);
+                mockTrustHistoryService.Object,
+                mockGiasLookupService.Object,
+                mockCscpLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
@@ -128,13 +134,20 @@ namespace SFB.Web.UI.UnitTests
                 .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
+
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
+
+
             var controller = new TrustController(mockHistoricalChartBuilder.Object,
                 mockFinancialDataService.Object,
                 mockFCService.Object,
                 mockEdubaseDataService.Object,
                 null,
                 mockCookieManager.Object,
-                mockTrustHistoryService.Object);
+                mockTrustHistoryService.Object,
+                mockGiasLookupService.Object,
+                mockCscpLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
@@ -190,13 +203,19 @@ namespace SFB.Web.UI.UnitTests
                 .Setup(m => m.Build(It.IsAny<TabType>(), It.IsAny<EstablishmentType>()))
                 .Returns(new List<ChartViewModel>());
 
+            var mockCscpLookupService = new Mock<ICscpLookupService>();
+
+            var mockGiasLookupService = new Mock<IGiasLookupService>();
+
             var controller = new TrustController(mockHistoricalChartBuilder.Object,
                 mockFinancialDataService.Object,
                 mockFCService.Object,
                 mockEdubaseDataService.Object,
                 null,
                 mockCookieManager.Object,
-                mockTrustHistoryService.Object);
+                mockTrustHistoryService.Object, 
+                mockGiasLookupService.Object,
+                mockCscpLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(rc, controller);
 
