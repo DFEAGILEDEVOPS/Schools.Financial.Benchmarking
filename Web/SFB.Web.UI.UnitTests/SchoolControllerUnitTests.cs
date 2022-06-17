@@ -92,7 +92,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            await controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Income);
+            await controller.Index(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Income);
 
             mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
                 It.IsAny<TabType>(),
@@ -145,7 +145,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            await controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Balance);
+            await controller.Index(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Balance);
 
             mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
                 It.IsAny<TabType>(),
@@ -203,7 +203,7 @@ namespace SFB.Web.UI.UnitTests
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
-            _ = controller.Detail(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Workforce);
+            _ = controller.Index(123, UnitType.PerPupil, CentralFinancingType.Exclude, TabType.Workforce);
 
             mockSchoolVMBuilder.Verify(f => f.AddHistoricalChartsAsync(
                 It.IsAny<TabType>(),
