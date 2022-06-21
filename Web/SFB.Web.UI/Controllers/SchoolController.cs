@@ -99,7 +99,7 @@ namespace SFB.Web.UI.Controllers
         //#endif
         public ActionResult Detail(long urn)
         {
-            return RedirectToActionPermanent("Index", new { urn = urn })
+            return RedirectToActionPermanent("Index", new { urn = urn });
         }
 
         [Route("school/start-benchmarking")]
