@@ -55,10 +55,7 @@ namespace SFB.Web.UI.Controllers
             TabType tab = TabType.Expenditure,
             ChartFormat format = ChartFormat.Charts)
         {
-            if (FeatureManager.IsDisabled(Features.RevisedSchoolPage))
-            {
-                return Redirect($"/school/detail?urn={urn}");
-            }
+            
 
             OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
 
@@ -100,47 +97,11 @@ namespace SFB.Web.UI.Controllers
         //#if !DEBUG
         //[OutputCache (Duration=28800, VaryByParam= "urn;unit;financing;tab;format", Location = OutputCacheLocation.Server, NoStore=true)]
         //#endif
-        public async Task<ActionResult> Detail( 
-            long urn, 
-            UnitType unit = UnitType.AbsoluteMoney, 
-            CentralFinancingType financing = CentralFinancingType.Include, 
-            TabType tab = TabType.Expenditure, 
-            ChartFormat format = ChartFormat.Charts)
+        public ActionResult Detail(long urn)
         {
-            //TODO: Uncomment for production
-            //if (FeatureManager.IsEnabled(Features.RevisedSchoolPage))
-            //{
-            //    return Redirect($"/School?urn={urn}");
-            //}
 
-            OverwriteDefaultUnitTypeForSelectedTab(tab, ref unit);
+            return RedirectToActionPermanent("Index", new { urn = urn });
 
-            await _schoolVMBuilder.BuildCoreAsync(urn);
-            _schoolVMBuilder.SetTab(tab);
-            await _schoolVMBuilder.AddHistoricalChartsAsync(tab, DetectDefaultChartGroupFromTabType(tab), financing, unit);
-            _schoolVMBuilder.SetChartGroups(tab);
-            _schoolVMBuilder.AssignLaName();
-            var schoolVM = _schoolVMBuilder.GetResult();
-
-            if (schoolVM.IsFederation)
-            {
-                return Redirect("/federation/detail?fuid="+schoolVM.Id);
-            }
-
-            if (schoolVM.ContextData == null)
-            {
-                return View("EmptyResult", new SearchViewModel(_benchmarkBasketService.GetSchoolBenchmarkList(), SearchTypes.SEARCH_BY_NAME_ID));
-            }
-
-            ViewBag.Tab = tab;
-            ViewBag.ChartGroup = schoolVM.HistoricalCharts.First().ChartGroup;
-            ViewBag.UnitType = schoolVM.HistoricalCharts.First().ShowValue;
-            ViewBag.Financing = financing;
-            ViewBag.IsSATinLatestFinance = schoolVM.IsSATinLatestFinance;
-            ViewBag.EstablishmentType = schoolVM.EstablishmentType;
-            ViewBag.ChartFormat = format;
-
-            return View("Detail", schoolVM);
         }
 
         [Route("school/start-benchmarking")]
