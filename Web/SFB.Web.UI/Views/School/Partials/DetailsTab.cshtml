@@ -202,12 +202,12 @@
                 <td class="govuk-table__cell">
                     @if (Model.HasCscpUrl)
                     {
-                        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_spt" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+                        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_spt cscp-ext-link" target="_blank" href="https://www.compare-school-performance.service.gov.uk/school/@Model.Id">Find and compare schools in England<span class="govuk-visually-hidden"> Opens in a new window</span></a>
                         <br/>
                     }
                     @if (Model.HasGiasUrl)
                     {
-                        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
+                        <a rel="external noopener noreferrer" class="govuk-link sfb_gtm_more_info gias-ext-link" target="_blank" href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/@Model.Id">Get information about schools<span class="govuk-visually-hidden"> Opens in a new window</span></a>
                     }
 
                 </td>
