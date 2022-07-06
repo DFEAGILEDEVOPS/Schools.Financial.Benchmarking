@@ -607,7 +607,7 @@
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
     <Content Include="public\assets\images\progress.svg" />
-	<Content Include="\public\build\*" />
+	<Content Include="public\build\*" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
     <Content Include="webpack.config.js" />
