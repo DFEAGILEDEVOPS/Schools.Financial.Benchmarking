@@ -19,7 +19,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44301</IISExpressSSLPort>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -607,7 +607,7 @@
     <Content Include="public\assets\images\icons\table.svg" />
     <Content Include="public\assets\images\icons\warning.svg" />
     <Content Include="public\assets\images\progress.svg" />
-    <Content Include="public\assets\stylesheets\main.css" />
+	<Content Include="\public\build\*" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
     <Content Include="webpack.config.js" />
@@ -965,7 +965,6 @@
     <Content Include="Views\School\Partials\DetailsTab.cshtml" />
     <Content Include="Views\Federation\Partials\DetailsTab.cshtml" />
     <Content Include="Views\School\Partials\FinanceTab.cshtml" />
-    <Content Include="public\assets\stylesheets\main.css.map" />
     <Content Include="Views\Federation\Partials\FinanceTab.cshtml" />
     <Content Include="Views\School\Partials\WorkforceTab.cshtml" />
     <Content Include="Views\Shared\Partials\FinancialChartWrapper.cshtml" />
@@ -1004,7 +1003,7 @@
     <Content Include="Views\Trust\Partials\FinanceTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="public\govuk-frontend" />
+    <Folder Include="public\govuk-frontend\" />
     <Folder Include="Views\EmComparison\" />
   </ItemGroup>
   <ItemGroup>
