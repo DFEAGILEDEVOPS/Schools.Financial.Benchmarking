@@ -1,4 +1,5 @@
-﻿@model SFB.Web.UI.Models.SearchViewModel
+﻿@using SFB.Web.UI.Helpers
+@model SFB.Web.UI.Models.SearchViewModel
 
 @{
     ViewBag.ErrorPrefix = Model.HasError() ? "Error: " : "";
@@ -6,6 +7,7 @@
     ViewBag.pageDescription =
     "Compare your school's income and expenditure with other schools in England. View your school's financial data, see how similar schools manage their finances, and use the information to establish relationships with other schools.";
 
+    ViewBag.HasMigratedJs = true;
 }
 
 @section BMListBannerContent
@@ -108,11 +110,16 @@
 }
 
 @section ViewScripts {
-
-    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
-    <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script>
-    <script src="https://atlas.microsoft.com/sdk/js/atlas-service.min.js?api-version=1"></script>
     <script>
-        DfE.Views.SchoolsSearchViewModel = new SchoolsSearchViewModel(@Html.Raw(Model.Authorities), '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');
+        var localAuthorities = @Html.Raw(Model.Authorities);
     </script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("SearchForm.*.js"))"></script>
+    @* <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script> *@
+    @* <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script> *@
+    @* <script src="https://atlas.microsoft.com/sdk/js/atlas-service.min.js?api-version=1"></script> *@
+    @* <script> *@
+    @*     DfE.Views.SchoolsSearchViewModel = new SchoolsSearchViewModel(@Html.Raw(Model.Authorities), '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]'); *@
+    @* </script> *@
+    
+    
 }

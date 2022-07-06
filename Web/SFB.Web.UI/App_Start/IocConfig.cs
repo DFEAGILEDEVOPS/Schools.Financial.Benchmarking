@@ -101,6 +101,9 @@ namespace SFB.Web.UI
             builder.Register(c => new CscpLookupService(c.ResolveNamed<HttpClient>("CscpClient"))).As<ICscpLookupService>();
             builder.RegisterInstance(CreateGiasClient()).SingleInstance().Named<HttpClient>("GiasClient");
             builder.Register(c => new GiasLookupService(c.ResolveNamed<HttpClient>("GiasClient"))).As<IGiasLookupService>();
+            
+            builder.RegisterType<AzureMapsService>().As<IAzureMapsService>();
+            builder.RegisterType<PlacesLookupService>().As<IPlacesLookupService>();
         }
         
         public static HttpClient CreateCscpClient()

@@ -20,11 +20,11 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com atlas.microsoft.com ">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com atlas.microsoft.com https://api.postcodes.io">
     <meta http-equiv="Content-Security-Policy" content="object-src 'none'">
     <meta http-equiv="Content-Security-Policy" content="frame-src 'self'">
     <meta http-equiv="Content-Security-Policy" content="media-src 'none'">
-    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' www.google-analytics.com api.postcodes.io atlas.microsoft.com www.compare-school-performance.service.gov.uk @System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]">
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' www.google-analytics.com https://api.postcodes.io atlas.microsoft.com www.compare-school-performance.service.gov.uk @System.Configuration.ConfigurationManager.AppSettings["SfbApiUrl"]">
     <meta http-equiv="Content-Security-Policy" content="font-src 'self' data:">
     <meta http-equiv="Content-Security-Policy" content="manifest-src 'self'">
     <meta http-equiv="Content-Security-Policy" content="style-src 'self' 'unsafe-inline'">
@@ -58,21 +58,11 @@
             }
         })();
     </script>
-
-    <!--[if !IE 8]><!-->
-    @*<link href="/govuk-frontend/govuk/all.css" rel="stylesheet">*@
-    <!--<![endif]-->
-    <!--[if IE 8]>
-      <link href="/govuk-frontend/all-ie8.css" rel="stylesheet">
-    <![endif]-->
-    <!--[if lt IE 9]>
-      <script src="/html5-shiv/html5shiv.js"></script>
-    <![endif]-->
-
+    
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
 
-    <link href="/public/assets/stylesheets/main.css?v=@version" rel="stylesheet" type="text/css">
-
+    @* <link href="/public/assets/stylesheets/main.css?v=@version" rel="stylesheet" type="text/css"> *@
+    <link rel="stylesheet" type="text/css" href="@Html.Raw(Html.GetWebpackScriptUrl("corestyles.*.css"))"/>
     <style>
         .c3 svg {
             font: 14px sans-serif;
@@ -135,7 +125,7 @@
     </script>
 </head>
 
-<body class="govuk-template__body @(ViewBag.bodyClasses)" onbeforeunload="DfE.Util.clearDropdowns(event)">
+<body class="govuk-template__body @(ViewBag.bodyClasses)">
     <script>
         document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
     </script>
@@ -338,20 +328,33 @@
     </footer>
 
     <div id="global-app-error" class="app-error hidden"></div>
+  @if (ViewBag.HasMigratedJs == null)
+  {
+      <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+          <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
+      
+          <script src="/public/assets/scripts/application.js?v=@version"></script>
+          <script src="~/node_modules/govuk-frontend/govuk/all.js"></script>
+          <script>
+          window.GOVUKFrontend.initAll(); 
+      </script> 
+      @(RenderSection("ViewScripts", required: false))
 
-    <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="~/node_modules/@("@")babel/polyfill/dist/polyfill.min.js"></script>
+      <script>
+    $('.sticky-div').Stickyfill();
+</script>
+  }
+  else
+  {
+      <script src="@Html.Raw(Html.GetWebpackScriptUrl("main.*.js"))"></script>
+      @(RenderSection("ViewScripts", required: false))
+  }
 
-    <script src="/public/assets/scripts/application.js?v=@version"></script>
-    <script src="~/node_modules/govuk-frontend/govuk/all.js"></script>
-    <script>
-        window.GOVUKFrontend.initAll();
-    </script>
-    @(RenderSection("ViewScripts", required: false))
+    
 
-    <script>
-        $('.sticky-div').Stickyfill();
-    </script>
+
+
+
 </body>
 
 </html>

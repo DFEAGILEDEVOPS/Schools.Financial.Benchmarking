@@ -77,7 +77,7 @@ class FederationViewModel {
                     }).done((response) => {
                         this.map.renderFederatonSchoolPinsForAzureMap(response);
                         this.mapLoaded = true;
-                    }).error(function (error) {
+                    }).fail(function (error) {
                         console.log("Error loading map pins: " + error);
                     });
                 }

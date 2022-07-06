@@ -1,10 +1,12 @@
-﻿@model SFB.Web.UI.Models.SearchViewModel
+﻿@using SFB.Web.UI.Helpers
+@model SFB.Web.UI.Models.SearchViewModel
 
 @{
     ViewBag.Title = "How would you like to manually add schools?";
     ViewBag.pageClass = "manual-comparison-page";
     ViewBag.HomeSchoolId = Model.ComparisonList?.HomeSchoolUrn;
     ViewBag.HomeSchoolName = Model.ComparisonList?.HomeSchoolName;
+    ViewBag.HasMigratedJs = true;
 }
 
 @section BackButtonContent{
@@ -86,13 +88,14 @@
 </div>
 
 @section ViewScripts {
-
-    <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script>
-    <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script>
-    <script src="https://atlas.microsoft.com/sdk/js/atlas-service.min.js?api-version=1"></script>
-    <script>
-        DfE.Views.SchoolsSearchViewModel = new SchoolsSearchViewModel(@Html.Raw(Model.Authorities), '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]');
-    </script>
+    <script>var localAuthorities = @Html.Raw(Model.Authorities) </script>
+    <script src="@Html.Raw(Html.GetWebpackScriptUrl("addManually.*.js"))"></script>
+    @* <script src="~/node_modules/corejs-typeahead/dist/typeahead.bundle.min.js"></script> *@
+    @* <script src="https://atlas.microsoft.com/sdk/js/atlas.min.js?api-version=1"></script> *@
+    @* <script src="https://atlas.microsoft.com/sdk/js/atlas-service.min.js?api-version=1"></script> *@
+    @* <script> *@
+    @*     DfE.Views.SchoolsSearchViewModel = new SchoolsSearchViewModel(@Html.Raw(Model.Authorities), '@System.Web.Configuration.WebConfigurationManager.AppSettings["AzureMapsAPIKey"]'); *@
+    @* </script> *@
 
 
 }

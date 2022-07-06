@@ -1,6 +1,5 @@
 module.exports = {
   "compile-dev-assets": [
-    "compile-dev-css",
     "compile-dev-js"
   ],
   "compile-dev-js": [    
