@@ -608,8 +608,8 @@
     <Content Include="public\assets\images\icons\warning.svg" />
     <Content Include="public\assets\images\progress.svg" />
 	<Content Include="public\build\*" />
-	<Content Include="public\govuk-frontend\fonts\* />
-	<Content Include="public\govuk-frontend\images\* />
+	<Content Include="public\govuk-frontend\fonts\*" />
+	<Content Include="public\govuk-frontend\images\*" />
     <Content Include="robots.txt" />
     <Content Include="tsconfig.json" />
     <Content Include="webpack.config.js" />
