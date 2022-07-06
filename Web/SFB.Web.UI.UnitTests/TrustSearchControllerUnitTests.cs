@@ -35,6 +35,7 @@ namespace SFB.Web.UI.UnitTests
         private Mock<ISchoolSearchService> _mockSchoolSearchService;
         private Mock<ITrustSearchService> _mockTrustSearchService;
         private Mock<ISchoolBenchmarkListService> _mockCookieManager;
+        private Mock<IPlacesLookupService> _mockPlacesLookupService;
 
         [SetUp]
         public void Setup()
@@ -55,6 +56,7 @@ namespace SFB.Web.UI.UnitTests
             _mockSchoolSearchService = new Mock<ISchoolSearchService>();
             _mockTrustSearchService = new Mock<ITrustSearchService>();
             _mockCookieManager = new Mock<ISchoolBenchmarkListService>();
+            _mockPlacesLookupService = new Mock<IPlacesLookupService>();
         }
 
         //[Test]
@@ -97,7 +99,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns((string name, int skip, int take, string @orderby, NameValueCollection queryParams) => task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search("TestTrust", null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 1);
 
@@ -120,7 +122,7 @@ namespace SFB.Web.UI.UnitTests
             _mockTrustSearchService.Setup(m => m.SearchTrustByCompanyNoAsync("6182612", 0, 1, "", null)).Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -136,7 +138,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchActionRedirectsToTrustViewIfSuggestedCompanyNumberIsUsed()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object,_mockPlacesLookupService.Object);
 
             controller.ControllerContext = new ControllerContext(_rc, controller);
 
@@ -152,7 +154,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchByNameReturnsErrorPageForInvalidCompanyNo()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search("12345", null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
 
@@ -164,7 +166,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchByNameReturnsErrorPageForInvalidTrustName()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object,_mockPlacesLookupService.Object);
 
             var result = await controller.Search("te", null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
 
@@ -176,7 +178,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchByNameReturnsErrorPageForEmptyTrustName()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_NAME_ID, null, null, null, null, false, null, 0);
 
@@ -188,7 +190,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchByLocationReturnsErrorPageForEmptyLocation()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, null, null, null, null, false, null, 0);
 
@@ -200,7 +202,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchByLocationReturnsErrorPageForInvalidLocation()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "x", null, null, null, false, null, 0);
 
@@ -214,7 +216,7 @@ namespace SFB.Web.UI.UnitTests
             _mockLocationSearchService.Setup(m => m.SuggestLocationName("sw12")).Returns(new SuggestionQueryResult(new List<Disambiguation>()));
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", null, null, null, false, null, 0);
 
@@ -228,7 +230,7 @@ namespace SFB.Web.UI.UnitTests
             _mockLocationSearchService.Setup(m => m.SuggestLocationName("sw12")).Returns(new SuggestionQueryResult(new List<Disambiguation>() { new Disambiguation() { LatLon ="1,2", Text="test" } }));
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", null, null, null, false, null, 0);
 
@@ -251,7 +253,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, null, 0);
 
@@ -273,7 +275,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LOCATION, "sw12", "1,2", null, null, false, "AreaSchoolNumber", 0);
 
@@ -284,7 +286,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchByLaReturnsErrorPageForInvalidLaName()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "x", null, false, null, 0);
 
@@ -296,7 +298,7 @@ namespace SFB.Web.UI.UnitTests
         public async Task SearchByLaReturnsErrorPageForInvalidLaCode()
         {
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "1234", null, false, null, 0);
 
@@ -320,7 +322,7 @@ namespace SFB.Web.UI.UnitTests
             _mockLaSearchService.Setup(m => m.SearchExactMatch("Croydon")).Returns(new LaModel(){Id= "319", LaName= "Croydon" });
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "Croydon", null, false, null, 0);
 
@@ -344,7 +346,7 @@ namespace SFB.Web.UI.UnitTests
             _mockLaSearchService.Setup(m => m.SearchContains("test")).Returns(new List<LaModel>());
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "test", null, false, null, 0);
 
@@ -366,7 +368,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var response = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "000", null, false, null, 0);
 
@@ -390,7 +392,7 @@ namespace SFB.Web.UI.UnitTests
                 .Returns(task);
 
             var controller = new TrustSearchController(_mockLaService.Object, _mockLaSearchService.Object, _mockLocationSearchService.Object, _mockFilterBuilder.Object,
-                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object);
+                _valService, _mockContextDataService.Object, _mockTrustSearchService.Object, _mockSchoolSearchService.Object, _mockCookieManager.Object, _mockPlacesLookupService.Object);
 
             var result = await controller.Search(null, null, SearchTypes.SEARCH_BY_TRUST_LA_CODE_NAME, null, null, "123", null, false, "AreaSchoolNumber", 0);
 

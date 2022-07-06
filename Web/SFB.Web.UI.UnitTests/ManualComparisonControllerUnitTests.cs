@@ -32,8 +32,10 @@ namespace SFB.Web.UI.UnitTests
             var mockComparisonService = new Mock<IComparisonService>();
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
+            
+            var mockPlacesLookupService = new Mock<IPlacesLookupService>();
 
-            var controller = new ManualComparisonController(mockSchoolCookieManager.Object, mockLaService.Object, _mockEdubaseDataService.Object, null, null, null, null, null, mockManualCookieManager.Object);
+            var controller = new ManualComparisonController(mockSchoolCookieManager.Object, mockLaService.Object, _mockEdubaseDataService.Object, null, null, null, null, null, mockManualCookieManager.Object, mockPlacesLookupService.Object);
 
             var result = controller.WithoutBaseSchool();
 
@@ -68,8 +70,9 @@ namespace SFB.Web.UI.UnitTests
             var mockComparisonService = new Mock<IComparisonService>();
 
             var mockLaService = new Mock<ILocalAuthoritiesService>();
-
-            var controller = new ManualComparisonController(mockSchoolCookieManager.Object, mockLaService.Object, mockEdubaseDataService.Object, null, null, null, null, null, mockManualCookieManager.Object);
+            var mockPlacesLookupService = new Mock<IPlacesLookupService>();
+            
+            var controller = new ManualComparisonController(mockSchoolCookieManager.Object, mockLaService.Object, mockEdubaseDataService.Object, null, null, null, null, null, mockManualCookieManager.Object, mockPlacesLookupService.Object);
 
             var result = await controller.OverwriteStrategy();
 

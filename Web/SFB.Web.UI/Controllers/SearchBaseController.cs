@@ -19,13 +19,15 @@ namespace SFB.Web.UI.Controllers
         protected readonly ITrustSearchService _trustSearchService;
         protected readonly ISchoolBenchmarkListService _schoolBenchmarkListService;
         protected readonly IFilterBuilder _filterBuilder;
+        protected readonly IPlacesLookupService _placesLookupService;
 
-        public SearchBaseController(ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService, ISchoolBenchmarkListService benchmarkListService, IFilterBuilder filterBuilder)
+        public SearchBaseController(ISchoolSearchService schoolSearchService, ITrustSearchService trustSearchService, ISchoolBenchmarkListService benchmarkListService, IFilterBuilder filterBuilder, IPlacesLookupService placesLookupService)
         {
             _schoolSearchService = schoolSearchService;
             _trustSearchService = trustSearchService;
             _schoolBenchmarkListService = benchmarkListService;
             _filterBuilder = filterBuilder;
+            _placesLookupService = placesLookupService;
         }
 
         protected abstract Task<dynamic> GetSearchResultsAsync(string nameId, string searchType, string locationorpostcode, string locationCoordinates, string laCode, 
