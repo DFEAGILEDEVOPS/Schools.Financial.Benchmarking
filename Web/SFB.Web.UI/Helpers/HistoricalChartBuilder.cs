@@ -1306,7 +1306,8 @@ namespace SFB.Web.UI.Helpers
 
                         <ul>
                         <li>funds specifically provided for capital purposes</li>
-                        </ul>"
+                        </ul>
+<p><strong>Note:</strong> This is no longer treated as an expenditure item because money has not been spent. Moreover, the historical assumption that Schools and Academies would only move funds from their revenue to capital reserves is no longer true. We are increasingly seeing Trusts and Academies reporting that they have moved capital into their revenue accounts. This has created a misleading ‘negative expenditure’ in some instances which has impacted on the ‘total expenditure’ figure that we use for various functions across the site. Therefore we have taken the decision to move what was once an expenditure item to now be a finance movement that impacts Income. Movement to Capital reserves is treated as a deduction from the available Total income for that year, movement from Capital reserves to revenue is treated as an increase to the available income for that year.</p>"
                 },
 
                 //Community
